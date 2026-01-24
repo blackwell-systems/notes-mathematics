@@ -1650,7 +1650,222 @@ generated](./media/image51.png)
 
 ∀x ∈ A, g(f(x)) = x ∧ ∀y ∈ B, f(g(y)) = y.
 
-**In this case, g is called the inverse of f, written f\^−1**
+**In this case, g is called the inverse of f, written f^−1**
+
+**Important:** A function is invertible if and only if it is bijective (both injective and surjective).
+
+## Identity Function
+
+**Identity Function:** The identity function on a set **X**, denoted **id_X** or simply **id**, is a function that maps every element to itself.
+
+**Definition:** $id_X : X \rightarrow X$ defined by $id_X(x) = x$ for all $x \in X$
+
+**Properties:**
+- The identity function is bijective
+- For any function $f: A \rightarrow B$:
+  - $f \circ id_A = f$ (composing with identity on domain)
+  - $id_B \circ f = f$ (composing with identity on codomain)
+- The identity function is its own inverse: $id_X^{-1} = id_X$
+
+**Example:** For the set of real numbers $\mathbb{R}$, the identity function is $id(x) = x$. So $id(5) = 5$, $id(-3.7) = -3.7$, etc.
+
+## Inverse Functions
+
+**Inverse Function:** If a function **f: A → B** is bijective, then there exists a unique function **f^−1: B → A** called the inverse function, such that:
+
+- $f^{-1}(f(x)) = x$ for all $x \in A$
+- $f(f^{-1}(y)) = y$ for all $y \in B$
+
+**Finding an Inverse:**
+
+1. Start with $y = f(x)$
+2. Solve for $x$ in terms of $y$
+3. Swap variables: write $y = f^{-1}(x)$
+
+**Example:** Find the inverse of $f(x) = 2x + 3$
+
+1. Let $y = 2x + 3$
+2. Solve for $x$: $x = \frac{y - 3}{2}$
+3. Therefore: $f^{-1}(x) = \frac{x - 3}{2}$
+
+**Verification:**
+- $f^{-1}(f(x)) = f^{-1}(2x + 3) = \frac{(2x + 3) - 3}{2} = \frac{2x}{2} = x$ ✓
+- $f(f^{-1}(x)) = f\left(\frac{x - 3}{2}\right) = 2\left(\frac{x - 3}{2}\right) + 3 = x - 3 + 3 = x$ ✓
+
+**Properties of Inverse Functions:**
+
+- The graph of $f^{-1}$ is the reflection of the graph of $f$ across the line $y = x$
+- $(f^{-1})^{-1} = f$ (inverse of inverse is the original function)
+- If $f$ and $g$ are both invertible, then $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$ (reverse order)
+- Domain of $f^{-1}$ = Range of $f$
+- Range of $f^{-1}$ = Domain of $f$
+
+**When Does an Inverse Exist?**
+
+A function has an inverse if and only if it is bijective:
+- **Injective** (one-to-one): No two inputs map to the same output
+- **Surjective** (onto): Every element in the codomain is mapped to
+
+**Horizontal Line Test:** A function has an inverse if and only if every horizontal line intersects its graph at most once.
+
+## Composition of Functions
+
+**Function Composition:** The composition of two functions **f: A → B** and **g: B → C** is a new function **g ∘ f: A → C** defined by:
+
+$$(g \circ f)(x) = g(f(x))$$
+
+Read as "g composed with f" or "g of f of x".
+
+**Important:** The order matters! $g \circ f$ means "apply f first, then apply g to the result."
+
+**Example:**
+
+Let $f(x) = x^2$ and $g(x) = x + 3$
+
+- $(g \circ f)(x) = g(f(x)) = g(x^2) = x^2 + 3$
+- $(f \circ g)(x) = f(g(x)) = f(x + 3) = (x + 3)^2 = x^2 + 6x + 9$
+
+Notice: $g \circ f \neq f \circ g$ (composition is not commutative in general)
+
+**Properties of Composition:**
+
+1. **Associativity:** $(h \circ g) \circ f = h \circ (g \circ f)$
+   
+   You can compose in any grouping, as long as the order stays the same.
+
+2. **Identity:** For any function $f: A \rightarrow B$:
+   - $f \circ id_A = f$
+   - $id_B \circ f = f$
+
+3. **Inverses:** If $f$ and $g$ are invertible:
+   - $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$ (reverse the order)
+
+4. **Composition preserves properties:**
+   - If $f$ and $g$ are both injective, then $g \circ f$ is injective
+   - If $f$ and $g$ are both surjective, then $g \circ f$ is surjective
+   - If $f$ and $g$ are both bijective, then $g \circ f$ is bijective
+
+**Domain Compatibility:**
+
+For $g \circ f$ to be defined, the range of $f$ must be a subset of the domain of $g$.
+
+**Example with restricted domains:**
+
+Let $f: \mathbb{R} \rightarrow \mathbb{R}^+$ where $f(x) = x^2$ (positive reals only)
+
+Let $g: \mathbb{R}^+ \rightarrow \mathbb{R}$ where $g(x) = \ln(x)$ (natural log)
+
+Then $(g \circ f)(x) = g(f(x)) = g(x^2) = \ln(x^2) = 2\ln|x|$
+
+## Function Properties
+
+### Even and Odd Functions
+
+**Even Function:** A function $f$ is even if $f(-x) = f(x)$ for all $x$ in the domain.
+
+- Graph is symmetric about the y-axis
+- Examples: $f(x) = x^2$, $f(x) = \cos(x)$, $f(x) = |x|$
+
+**Odd Function:** A function $f$ is odd if $f(-x) = -f(x)$ for all $x$ in the domain.
+
+- Graph is symmetric about the origin (180° rotational symmetry)
+- Examples: $f(x) = x^3$, $f(x) = \sin(x)$, $f(x) = x$
+
+**Note:** Most functions are neither even nor odd.
+
+### Periodic Functions
+
+**Periodic Function:** A function $f$ is periodic if there exists a positive number $p$ such that:
+
+$$f(x + p) = f(x)$$
+
+for all $x$ in the domain. The smallest such positive number $p$ is called the **period**.
+
+**Examples:**
+- $\sin(x)$ has period $2\pi$
+- $\cos(x)$ has period $2\pi$
+- $\tan(x)$ has period $\pi$
+
+### Monotonic Functions
+
+**Increasing Function:** A function $f$ is increasing on an interval if:
+
+$$x_1 < x_2 \Rightarrow f(x_1) \leq f(x_2)$$
+
+**Strictly Increasing:** If $x_1 < x_2 \Rightarrow f(x_1) < f(x_2)$ (strict inequality)
+
+**Decreasing Function:** A function $f$ is decreasing on an interval if:
+
+$$x_1 < x_2 \Rightarrow f(x_1) \geq f(x_2)$$
+
+**Strictly Decreasing:** If $x_1 < x_2 \Rightarrow f(x_1) > f(x_2)$ (strict inequality)
+
+**Monotonic:** A function is monotonic if it is either increasing or decreasing on its entire domain.
+
+**Examples:**
+- $f(x) = x^2$ is decreasing on $(-\infty, 0]$ and increasing on $[0, \infty)$
+- $f(x) = e^x$ is strictly increasing on all of $\mathbb{R}$
+- $f(x) = -x$ is strictly decreasing on all of $\mathbb{R}$
+
+### Bounded Functions
+
+**Bounded Above:** A function $f$ is bounded above if there exists a real number $M$ such that:
+
+$$f(x) \leq M$$
+
+for all $x$ in the domain.
+
+**Bounded Below:** A function $f$ is bounded below if there exists a real number $m$ such that:
+
+$$f(x) \geq m$$
+
+for all $x$ in the domain.
+
+**Bounded:** A function is bounded if it is both bounded above and bounded below.
+
+**Examples:**
+- $f(x) = \sin(x)$ is bounded: $-1 \leq \sin(x) \leq 1$
+- $f(x) = x^2$ is bounded below by 0 but not bounded above
+- $f(x) = e^x$ is bounded below by 0 but not bounded above
+
+## Partial Functions
+
+**Partial Function:** A partial function from set **A** to set **B** is a function that is not necessarily defined for every element of **A**.
+
+Formally, a partial function $f: A \rightharpoonup B$ is a function $f: A' \rightarrow B$ where $A' \subseteq A$.
+
+The set $A'$ is called the **domain of definition**.
+
+**Examples:**
+- $f(x) = \frac{1}{x}$ is a partial function on $\mathbb{R}$ (undefined at $x = 0$)
+- $f(x) = \sqrt{x}$ is a partial function on $\mathbb{R}$ (undefined for $x < 0$ in real numbers)
+- $f(x) = \log(x)$ is a partial function on $\mathbb{R}$ (undefined for $x \leq 0$)
+
+**Total Function:** A function defined for every element in its domain. Most functions discussed in mathematics are total functions.
+
+## One-to-One Correspondence
+
+**One-to-One Correspondence:** Another term for a bijective function. It establishes a perfect pairing between two sets where:
+
+1. Every element in the domain maps to exactly one element in the codomain (function property)
+2. Every element in the codomain is mapped to by exactly one element in the domain (bijection)
+
+**Significance:**
+
+A one-to-one correspondence between sets **A** and **B** means that **A** and **B** have the same **cardinality** (size), written $|A| = |B|$.
+
+**Examples:**
+
+1. The function $f: \mathbb{Z} \rightarrow \mathbb{Z}$ defined by $f(x) = x + 1$ is a one-to-one correspondence from integers to integers.
+
+2. The function $f: [0, 1] \rightarrow [0, 2]$ defined by $f(x) = 2x$ is a one-to-one correspondence showing these intervals have the same cardinality.
+
+3. The function $f: \mathbb{N} \rightarrow \mathbb{Z}$ defined by:
+   $$f(n) = \begin{cases} n/2 & \text{if } n \text{ is even} \\ -(n+1)/2 & \text{if } n \text{ is odd} \end{cases}$$
+   
+   This creates a bijection: 0 → 0, 1 → -1, 2 → 1, 3 → -2, 4 → 2, ...
+   
+   This shows that the natural numbers and integers have the same cardinality (both are countably infinite).
 
 ## **Schröder--Bernstein (Cantor--Bernstein) Theorem**
 
