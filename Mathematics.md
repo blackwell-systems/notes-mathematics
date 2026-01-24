@@ -387,8 +387,7 @@ table having $2^{n}$ rows.
 If a formula has 3 variables, it will require a truth table with 8 rows.
 
 ![A screenshot of a math test Description automatically
-generated](./media/image1.png){width="6.372604986876641in"
-height="3.6268022747156605in"}
+generated](./media/image1.png)
 
 ## Compound Proposition / Statement
 
@@ -409,8 +408,7 @@ They determine the truth value of the compound proposition based on the
 truth values of the individual propositions
 
 ![A black background with white text Description automatically
-generated](./media/image2.png){width="2.9989424759405074in"
-height="2.314063867016623in"}
+generated](./media/image2.png)
 
 ### Unary Logical Connectives / Unary Operators
 
@@ -434,8 +432,7 @@ Symbolically, we express negation with: ¬
 Example: If 𝑃 is a proposition, ¬𝑃 denotes its **negation**.
 
 ![A screenshot of a computer Description automatically
-generated](./media/image3.png){width="6.5in"
-height="0.9777777777777777in"}
+generated](./media/image3.png)
 
 Properties of Negation:
 
@@ -470,11 +467,9 @@ The negation of one quantifier is the other quantifier (¬∀𝑥𝑃(𝑥) ≡
 Associativity refers to the ability to group operations in any order
 without changing the outcome.
 
-![](./media/image4.png){width="2.9379101049868765in"
-height="0.3125437445319335in"}
+![](./media/image4.png)
 
-![](./media/image5.png){width="3.6142694663167103in"
-height="0.37243000874890636in"}
+![](./media/image5.png)
 
 #### Commutative property / Commutativity
 
@@ -483,8 +478,7 @@ height="0.37243000874890636in"}
 In mathematics, a binary operation is commutative if changing the order
 of the operands does not change the result.
 
-![](./media/image6.png){width="2.8735870516185478in"
-height="0.2703805774278215in"}
+![](./media/image6.png)
 
 #### Distributive Property / Distributivity
 
@@ -510,8 +504,7 @@ true if both functional arguments have the same logical value, and false
 if they are different. The symbol for logical equivalence is **≡.**
 
 ![A screenshot of a computer Description automatically
-generated](./media/image7.png){width="4.671176727909011in"
-height="1.065987532808399in"}
+generated](./media/image7.png)
 
 **Logical equivalence tells you whether two statements are always true
 or always false together. If they are, they are logically equivalent.**
@@ -525,8 +518,7 @@ If both lights are on (𝑃 is true and 𝑄 is true), then 𝑃 ≡ 𝑄 is tru
 If both lights are off (𝑃 is false and 𝑄 is false), then 𝑃 ≡ 𝑄 is true.
 
 ![A red and white logo Description automatically
-generated](./media/image8.png){width="1.5604166666666666in"
-height="1.1736111111111112in"}
+generated](./media/image8.png)
 
 The Venn diagram of A EQ B (red part is true)
 
@@ -542,15 +534,12 @@ propositions, that produces a value of true if and only if both of its
 operands are true.
 
 ![A screenshot of a truth table Description automatically
-generated](./media/image9.png){width="1.7249726596675417in"
-height="1.928746719160105in"}
+generated](./media/image9.png)
 
 ![Venn diagram of Logical
-conjunction](./media/image10.png){width="1.5604166666666666in"
-height="1.1736111111111112in"} ![A red and black circle with black lines
+conjunction](./media/image10.png) ![A red and black circle with black lines
 Description automatically
-generated](./media/image11.png){width="1.5260115923009623in"
-height="1.5260115923009623in"}
+generated](./media/image11.png)
 
 #### Disjunction
 
@@ -563,12 +552,10 @@ In classical logic, disjunction is given a truth functional semantics
 according to which a formula 𝜙 ∨ 𝜓 is true unless both are false.
 
 ![A white and pink squares with black letters Description automatically
-generated](./media/image12.png){width="1.790452755905512in"
-height="1.7400174978127734in"}
+generated](./media/image12.png)
 
 ![A red circle with black lines Description automatically
-generated](./media/image13.png){width="2.295138888888889in"
-height="2.295138888888889in"}
+generated](./media/image13.png)
 
 #### Exclusive Disjunction / Exclusive OR
 
@@ -588,12 +575,10 @@ or the other\", and \"A or B, but not A and B\".
 Symbolically, XOR is expressed as: $\mathbf{\oplus ,\  ≢}$**, ...**
 
 ![A white background with black text Description automatically
-generated](./media/image14.png){width="6.5in"
-height="2.4243055555555557in"}
+generated](./media/image14.png)
 
 ![Venn diagram of Exclusive
-or](./media/image15.png){width="1.5604166666666666in"
-height="1.1736111111111112in"}
+or](./media/image15.png)
 
 #### Conditional Statement / Material Condition / Material Implication / Hypothetical Proposition
 
@@ -616,8 +601,7 @@ In a conditional formula A → B
 -   **B** is called the consequent of the **conditional**.
 
 ![A screenshot of a table Description automatically
-generated](./media/image16.png){width="1.8460837707786526in"
-height="1.813601268591426in"}
+generated](./media/image16.png)
 
 The logical cases where the antecedent A is false and A → B is true, are
 called \"vacuous truths\". Examples are \...
@@ -629,7 +613,7 @@ called \"vacuous truths\". Examples are \...
     Galilei, then Marie Curie has a sibling.\".
 
 ![A screenshot of a computer Description automatically
-generated](./media/image17.png){width="6.5in" height="1.875in"}
+generated](./media/image17.png)
 
 ##### Vacuous Truth
 
@@ -681,8 +665,7 @@ Conditional statement **P → Q**
 
 In formulas: the contrapositive of **P →** **Q** is **¬Q → ¬P**
 
-![](./media/image18.png){width="3.7924092300962378in"
-height="2.844306649168854in"}
+![](./media/image18.png)
 
 #### Logical Biconditional / Biconditional Statement
 
@@ -707,12 +690,10 @@ judgment, the antecedent is called the hypothesis (or the condition) and
 the consequent is called the thesis.
 
 ![A screenshot of a table Description automatically
-generated](./media/image19.png){width="3.0315463692038493in"
-height="2.0848720472440947in"}
+generated](./media/image19.png)
 
 ![A screenshot of a computer screen Description automatically
-generated](./media/image20.png){width="2.0727580927384075in"
-height="2.0334634733158357in"}
+generated](./media/image20.png)
 
 ### Connective Precedence
 
@@ -722,8 +703,7 @@ evaluated. In the absence of parentheses, the order of evaluation is
 determined by precedence rules.
 
 ![A table with text and arrows Description automatically generated with
-medium confidence](./media/image21.png){width="2.0108956692913385in"
-height="2.044978127734033in"}
+medium confidence](./media/image21.png)
 
 # Predicate Logic / first-order logic
 
@@ -801,16 +781,14 @@ for \"a is not an element of a set A\".
 **∅** or **{}** denotes the empty set, which contains no element.
 
 ![A white background with black text Description automatically
-generated](./media/image22.png){width="3.3458934820647417in"
-height="1.433109142607174in"}
+generated](./media/image22.png)
 
 **Set elements are unique.** An element is either in the set or not in
 the set. [It makes no sense to say that an element is in the set
 multiple times]{.mark}. It may be listed multiple times, but this is
 extraneous.
 
-![](./media/image23.png){width="2.506751968503937in"
-height="0.9354790026246719in"}
+![](./media/image23.png)
 
 **Sets are unordered.** They can be written in any order you wish, but
 conceptually, [order is meaningless and not included in the formal
@@ -829,8 +807,7 @@ B are 1,2 and the set {1,2}.
 Set membership is a binary relation denoted by the symbol: **∈**
 
 ![A white background with black text Description automatically
-generated](./media/image24.png){width="6.5in"
-height="1.398611111111111in"}
+generated](./media/image24.png)
 
 ## Roster Notation
 
@@ -838,8 +815,7 @@ Roster notation (also known as **enumeration notation**) involves
 explicitly listing out all the elements of the set within curly braces.
 
 ![A black background with white text Description automatically
-generated](./media/image25.png){width="6.5in"
-height="1.9423611111111112in"}
+generated](./media/image25.png)
 
 ## Set-Builder Notation
 
@@ -862,8 +838,7 @@ element of B.
 
 If A is not a subset of B, we write A ⊈ B.
 
-![](./media/image26.png){width="4.598778433945757in"
-height="0.3512959317585302in"}
+![](./media/image26.png)
 
 ## Proper Subset
 
@@ -874,8 +849,7 @@ something not in A.
 ∃x( x ∈ B ∧ x ∉ A)
 
 ![A yellow and green circle with black text Description automatically
-generated](./media/image27.png){width="5.750527121609799in"
-height="1.8664643482064742in"}
+generated](./media/image27.png)
 
 ## Set Equality
 
@@ -937,12 +911,10 @@ average, thus $\geq \lceil m/n\rceil$.
 **Cardinality:** Let A be a set. then the number of elements in the set
 A is called **cardinality** of the set A, and is denoted by **\|A\|**
 
-![](./media/image28.png){width="2.77707239720035in"
-height="0.2901421697287839in"}
+![](./media/image28.png)
 
 ![A black background with white text Description automatically
-generated](./media/image29.png){width="2.4054932195975502in"
-height="1.8637445319335084in"}
+generated](./media/image29.png)
 
 ### Finite vs. Infinite Sets
 
@@ -1010,8 +982,7 @@ element that is being considered in a given discussion or problem
 domain. All other sets in that context are subsets of the universal set.
 
 ![Universal Set: Definition, Symbol, Venn Diagram and
-Examples](./media/image30.png){width="3.2870734908136483in"
-height="1.9075142169728785in"}
+Examples](./media/image30.png)
 
 **Special Considerations:**
 
@@ -1038,8 +1009,7 @@ which are in both **A** and **B**.
 ∀x( x ∈ (A∪B) ↔ ( x ∈ A ∨ x ∈ B ))
 
 ![A red circle with black lines Description automatically
-generated](./media/image31.png){width="2.732963692038495in"
-height="2.683568460192476in"}
+generated](./media/image31.png)
 
 ### Set Intersection
 
@@ -1048,8 +1018,7 @@ height="2.683568460192476in"}
 ∀x( x∈ (A∩B) ↔ ( x ∈ A ∧ x ∈ B))
 
 ![A red and black circle with black lines Description automatically
-generated](./media/image32.png){width="3.239613954505687in"
-height="2.3637893700787402in"}
+generated](./media/image32.png)
 
 #### Set Difference / Relative Set Compliment
 
@@ -1062,8 +1031,7 @@ relative complement of** $\mathbf{A}$ **in** $\mathbf{B}$)
 ∀x( x ∈ (B∖A) ↔ ( x ∈ B ∧ x ∉ A) )
 
 ![A diagram of a circle Description automatically
-generated](./media/image33.png){width="3.5174496937882767in"
-height="3.432577646544182in"}
+generated](./media/image33.png)
 
 ### Set Compliment
 
@@ -1076,12 +1044,10 @@ elements from the domain of discourse which are NOT in A.
 
 ![A black and white math equation Description automatically generated
 with medium
-confidence](./media/image34.png){width="2.2295811461067365in"
-height="0.3145702099737533in"}
+confidence](./media/image34.png)
 
 ![A red circle with white circle in center Description automatically
-generated](./media/image35.png){width="3.2097386264216974in"
-height="2.347321741032371in"}
+generated](./media/image35.png)
 
 ## Ordered Pairs (Kuratowski's definition)
 
@@ -1129,8 +1095,7 @@ same argument still gives* $c = a$ *and* $d = a\ $*)*
 first element belongs to **A** and the second belongs to **B**.
 
 ![A black text on a white background Description automatically
-generated](./media/image36.png){width="2.6780489938757657in"
-height="0.393999343832021in"}
+generated](./media/image36.png)
 
 **The cardinality of \|A X B\| = \|A\|\|B\|**
 
@@ -1140,11 +1105,9 @@ is taken, the cells of the table contain ordered pairs of the form (row
 value, column value).\[4\]
 
 ![A diagram of a graph Description automatically
-generated](./media/image37.png){width="2.23003280839895in"
-height="2.1924475065616797in"}
+generated](./media/image37.png)
 
-![](./media/image38.png){width="4.502731846019247in"
-height="0.33722331583552057in"}
+![](./media/image38.png)
 
 # Prime Factorization
 
@@ -1177,8 +1140,7 @@ method, follow the below steps:
 
 ![A yellow circles with purple numbers and a yellow rectangle with
 purple circles Description automatically
-generated](./media/image39.png){width="3.5698304899387576in"
-height="1.1668175853018372in"}
+generated](./media/image39.png)
 
 # Partial Fraction Decomposition
 
@@ -1192,12 +1154,10 @@ equations.
 [Partial fraction decomposition is the inverse process of finding the
 lowest common denominator.]{.mark}
 
-![](./media/image40.png){width="5.427798556430446in"
-height="1.9339435695538059in"}
+![](./media/image40.png)
 
 ![A table of mathematical equations Description automatically
-generated](./media/image41.png){width="4.817334864391951in"
-height="3.3963232720909886in"}
+generated](./media/image41.png)
 
 So what if we have factors not falling into one of these 4 forms above?
 
@@ -1372,8 +1332,7 @@ looking for a diagonal connecting from top left corner to bottom right
 corner
 
 ![A diagram of a graph Description automatically
-generated](./media/image42.png){width="4.799899387576553in"
-height="2.527127077865267in"}
+generated](./media/image42.png)
 
 #### Symmetric Property
 
@@ -1492,8 +1451,7 @@ A function is formed by three sets, the **domain** **X,** the
 conditions.
 
 ![A group of black letters Description automatically
-generated](./media/image43.png){width="3.877329396325459in"
-height="1.0339545056867891in"}
+generated](./media/image43.png)
 
 **1. Domain of a Function:**
 
@@ -1531,8 +1489,7 @@ subset in question is the entire **domain**, then the **image** and the
 **A** under **f** is denoted as **f(A)**.
 
 ![A close up of text Description automatically
-generated](./media/image44.png){width="7.024145888013998in"
-height="0.9335498687664042in"}
+generated](./media/image44.png)
 
 ### Domain
 
@@ -1627,13 +1584,11 @@ domain maps to one and only one element in the codomain.
 
 *For every x~1~,x~2~ if f(x~1~) = f(x~2~), then x~1~ must equal x~2~*
 
-![](./media/image45.png){width="6.877759186351706in"
-height="0.7360586176727909in"}
+![](./media/image45.png)
 
 ![PPT - Discrete Mathematics: Functions PowerPoint Presentation, free
 download -
-ID:5251074](./media/image46.jpeg){width="3.7375885826771653in"
-height="2.8031911636045495in"}
+ID:5251074](./media/image46.jpeg)
 
 ### Surjection (onto)
 
@@ -1643,19 +1598,15 @@ to it's codomain.
 A surjective function is one whose codomain is equal to its range.
 
 ![A math equation with black text Description automatically
-generated](./media/image47.png){width="3.8034733158355207in"
-height="1.0977766841644794in"}
+generated](./media/image47.png)
 
-![](./media/image48.png){width="6.941247812773403in"
-height="0.7452941819772528in"}
+![](./media/image48.png)
 
 ![PPT - Discrete Mathematics: Functions PowerPoint Presentation, free
-download - ID:5251074](./media/image49.jpeg){width="4.018518153980753in"
-height="3.013888888888889in"}
+download - ID:5251074](./media/image49.jpeg)
 
 ![A screenshot of a math equation Description automatically
-generated](./media/image50.png){width="2.1412674978127733in"
-height="3.7978226159230095in"}
+generated](./media/image50.png)
 
 ### Bijection (injective and surjective)
 
@@ -1666,8 +1617,7 @@ domain---and **surjective** **(or *onto*)---**meaning that each element
 of the codomain is mapped to from at least one element of the domain. 
 
 ![A black background with white text Description automatically
-generated](./media/image51.png){width="5.550710848643919in"
-height="2.474691601049869in"}
+generated](./media/image51.png)
 
 ### Invertibility
 
@@ -1704,12 +1654,10 @@ because the square of a real number cannot be negative but has the two
 nonreal complex solutions **-1+3i** and **-1-3i**.
 
 ![A black background with yellow and blue text Description automatically
-generated](./media/image52.png){width="1.2611515748031497in"
-height="0.6549332895888014in"}
+generated](./media/image52.png)
 
 ![Venn Diagram of Complex
-Numbers](./media/image53.png){width="2.330994094488189in"
-height="2.1023436132983377in"}
+Numbers](./media/image53.png)
 
 ## Complex Plane
 
@@ -1724,8 +1672,7 @@ pair (*a*,*b*) would be graphed on the Cartesian coordinate plane.
 The real axis corresponds to the 𝑥-axis and the imaginary axis
 corresponds to the *y*-axis.
 
-![](./media/image54.png){width="3.170236220472441in"
-height="3.1787456255468065in"}
+![](./media/image54.png)
 
 Polar Form / Trigonometric form of Complex Number
 
@@ -1737,16 +1684,14 @@ The horizontal axis denotes the real axis, and the vertical axis denotes
 the imaginary.
 
 ![Polar form of complex
-numbers](./media/image55.png){width="2.8282206911636045in"
-height="2.0528772965879267in"}
+numbers](./media/image55.png)
 
 ## Imaginary Unit
 
 **Imaginary Unit:**
 
 ![PPT - Chapter 3 PowerPoint Presentation, free download -
-ID:1210953](./media/image56.jpeg){width="1.9093099300087488in"
-height="1.4317782152230971in"}
+ID:1210953](./media/image56.jpeg)
 
 # Linear Functions d=1
 
@@ -1761,8 +1706,7 @@ Linear functions have a maximum degree of 1.
 
 When graphed, a linear function will create a straight line.
 
-![](./media/image57.png){width="3.3436504811898513in"
-height="2.7890168416447945in"}
+![](./media/image57.png)
 
 ## Linear Equation Forms
 
@@ -1791,8 +1735,7 @@ The slope, or rate of change, of a function *m* can be calculated
 according to the following:
 
 ![A math equation with black text Description automatically
-generated](./media/image58.png){width="6.5in"
-height="1.0270833333333333in"}
+generated](./media/image58.png)
 
 ### Standard Form
 
@@ -1806,16 +1749,14 @@ solve a system of equations, we can easily align the variables using
 standard form.
 
 ![A math equation with black text Description automatically
-generated](./media/image59.png){width="3.8277832458442695in"
-height="1.0532830271216098in"}
+generated](./media/image59.png)
 
 ### Point-Slope Form
 
 **Point-Slope Form:**
 
 ![A math equation with black text Description automatically
-generated](./media/image60.png){width="2.5252034120734907in"
-height="0.9881233595800525in"}
+generated](./media/image60.png)
 
 ## Parallel Lines
 
@@ -1854,14 +1795,12 @@ direction)]{.mark} [and the second number ***j*** refers to the column
 number (i.e. the horizontal direction).]{.mark}
 
 ![A white paper with black text Description automatically
-generated](./media/image61.png){width="4.501009405074366in"
-height="3.714294619422572in"}
+generated](./media/image61.png)
 
 ## Matrix Addition
 
 ![A math problem with numbers and equations Description automatically
-generated](./media/image62.png){width="6.846433727034121in"
-height="1.63334208223972in"}
+generated](./media/image62.png)
 
 ## Matrix Multiplication
 
@@ -1879,8 +1818,7 @@ equations intersect.]{.underline}]{.mark}***
 
 ![A black screen with white text and black text Description
 automatically
-generated](./media/image63.png){width="4.872146762904637in"
-height="3.5281419510061243in"}
+generated](./media/image63.png)
 
 The double subscripting on the coefficients *a~ij~* of the unknowns
 gives their location in the system---the first subscript indicates the
@@ -1947,8 +1885,7 @@ vertex/axis of symmetry directly from the equation.
 $$f(x) = a(x - h)^{2} + k$$
 
 ![A graph of a function Description automatically
-generated](./media/image64.png){width="2.817275809273841in"
-height="2.428685476815398in"}
+generated](./media/image64.png)
 
 $$f(x) = x^{2}$$
 
@@ -1965,8 +1902,7 @@ the line that divides the graph into two perfect halves.
 $$x = \frac{- b}{2a}$$
 
 ![A graph of a function Description automatically
-generated](./media/image65.png){width="1.3190321522309711in"
-height="0.8631627296587927in"}
+generated](./media/image65.png)
 
 ### Methods for Solving Quadratic Equations
 
@@ -2004,8 +1940,7 @@ also zero.
 If ab = 0, then either a = 0 or b = 0
 
 ![A black background with white text Description automatically
-generated](./media/image66.png){width="4.137584208223972in"
-height="2.152338145231846in"}
+generated](./media/image66.png)
 
 [The zero product property can be used to solve polynomial equations of
 **[any degree]{.underline}** as long as the polynomial can be factored
@@ -2046,8 +1981,7 @@ another method of solving a quadratic equation is by using the square
 root property.
 
 ![A screenshot of a math problem Description automatically
-generated](./media/image67.png){width="3.9653838582677166in"
-height="1.3319619422572178in"}
+generated](./media/image67.png)
 
 ### Completing the Square
 
@@ -2068,8 +2002,7 @@ quadratic equations.
 
 ![A math equation with square and square symbols Description
 automatically generated with medium
-confidence](./media/image68.png){width="2.8713702974628172in"
-height="0.7533803587051618in"}
+confidence](./media/image68.png)
 
 **[All Quadratic equations can be solved using this method.]{.mark}**
 
@@ -2083,12 +2016,10 @@ complex numbers, and how many solutions of each type to expect.
 
 Discriminant:
 
-![](./media/image69.png){width="2.0599978127734033in"
-height="0.7303652668416448in"}
+![](./media/image69.png)
 
 ![A screenshot of a white box Description automatically
-generated](./media/image70.png){width="6.5in"
-height="1.7208333333333334in"}
+generated](./media/image70.png)
 
 ## Cubic Functions d=3
 
@@ -2105,8 +2036,7 @@ has either 1 or 3 real zeros. It cannot have 2 real
 zeros.]{.underline}]{.mark}***
 
 ![A graph of a function Description automatically
-generated](./media/image71.png){width="3.5734153543307086in"
-height="3.3858891076115487in"}
+generated](./media/image71.png)
 
 ### Domain / Range of Cubic Function
 
@@ -2137,8 +2067,7 @@ highest power the variable is raised to in the polynomial.
 The degree also dictates *[how many zeros a polynomial]{.underline} can
 have* and *[what the end behavior is]{.underline}*.
 
-![](./media/image72.png){width="3.974025590551181in"
-height="2.980518372703412in"}
+![](./media/image72.png)
 
 ## Turning Points
 
@@ -2152,8 +2081,7 @@ decreasing to increasing (falling to rising).
 points.]{.mark}
 
 ![A diagram of a graph Description automatically
-generated](./media/image73.png){width="3.375096237970254in"
-height="2.266233595800525in"}
+generated](./media/image73.png)
 
 Graph of f(x)= $x^{4} - x^{3} - 4x^{2} + 4x$
 
@@ -2169,8 +2097,7 @@ by its leading term.
 **Even power, positive leading coefficient:**
 
 ![A diagram of a graph Description automatically
-generated](./media/image74.png){width="2.8901235783027124in"
-height="2.245705380577428in"}
+generated](./media/image74.png)
 
 $$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -2179,8 +2106,7 @@ $$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarro
 **Even power, negative leading coefficient:**
 
 ![A diagram of a graph Description automatically
-generated](./media/image75.png){width="2.0997397200349956in"
-height="1.8864851268591427in"}
+generated](./media/image75.png)
 
 $$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \  - \infty}$$
 
@@ -2189,8 +2115,7 @@ $$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarro
 **Odd power, positive leading coefficient:**
 
 ![A graph of a function Description automatically
-generated](./media/image76.png){width="2.2673293963254593in"
-height="1.8364818460192476in"}
+generated](./media/image76.png)
 
 $$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -2199,8 +2124,7 @@ $$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarro
 **Odd power, negative leading coefficient:**
 
 ![A diagram of a graphing function Description automatically
-generated](./media/image77.png){width="1.8627220034995626in"
-height="1.5899004811898512in"}
+generated](./media/image77.png)
 
 $$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -2218,15 +2142,12 @@ graph behaves at the x-intercept.
 -   If the multiplicity of a zero is odd, the *[graph will cross the
     x-axis]{.underline}* at that zero.
 
-![](./media/image78.png){width="3.779141513560805in"
-height="2.866492782152231in"}
+![](./media/image78.png)
 
-![](./media/image79.png){width="3.2515332458442696in"
-height="1.8521391076115485in"}
+![](./media/image79.png)
 
 ![A graph of a function Description automatically
-generated](./media/image80.png){width="6.5in"
-height="4.128472222222222in"}
+generated](./media/image80.png)
 
 ## The Fundamental Theorem of Algebra
 
@@ -2236,8 +2157,7 @@ The Fundamental Theorem of Algebra tells us that every polynomial
 function with degree greater than 1 has at least one
 *[complex]{.underline}* zero.
 
-![](./media/image81.png){width="7.296418416447944in"
-height="0.6353182414698163in"}
+![](./media/image81.png)
 
 Every polynomial:
 $f(x) = \ a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1} + a_{0}$
@@ -2320,8 +2240,7 @@ wanting, being the evaluated value of the polynomial.
 
 **The Rational Roots Theorem**: If a polynomial function
 
-![](./media/image82.png){width="3.15625in"
-height="0.22916666666666666in"}
+![](./media/image82.png)
 
 written in descending order of the exponents, has integer coefficients,
 then any *[rational zero]{.underline}* must be of the form [± p/
@@ -2333,8 +2252,7 @@ Where [p]{.mark} and [q]{.mark} are integers and:
 
 -   [q]{.mark} is a factor of the leading coefficient a~n~
 
-![](./media/image83.png){width="3.8590244969378826in"
-height="0.44733377077865266in"}
+![](./media/image83.png)
 
 [The Rational Zero Theorem helps us to narrow down the number of
 possible rational zeros using the ratio of the factors of the constant
@@ -2343,8 +2261,7 @@ term and factors of the leading coefficient of the polynomial]{.mark}
 [Of course, not all zeros will be rational. The rational zeroes theorem
 will not help find irrational zeroes of a polynomial.]{.mark}
 
-![](./media/image84.png){width="3.601227034120735in"
-height="2.1910739282589677in"}
+![](./media/image84.png)
 
 ### How to use it
 
@@ -2359,16 +2276,13 @@ height="2.1910739282589677in"}
 -   Determine which possible zeros are actual zeros by evaluating each
     case of f($\frac{p}{q}$).
 
-![](./media/image85.png){width="4.199729877515311in"
-height="0.23421587926509185in"}
+![](./media/image85.png)
 
 ![A close up of words Description automatically
-generated](./media/image86.png){width="4.35509842519685in"
-height="0.5653258967629047in"}
+generated](./media/image86.png)
 
 ![A math problem with numbers Description automatically
-generated](./media/image87.png){width="6.5in"
-height="1.8840277777777779in"}
+generated](./media/image87.png)
 
 So what about the irrational roots of a polynomial? How do we find those
 when the rational roots theorem fails?
@@ -2380,8 +2294,7 @@ For polynomial of degree 2, you can use the quadratic formula.
 **Polynomial Long Division:**
 
 ![A math equations on a white background Description automatically
-generated](./media/image88.png){width="6.5in"
-height="1.0354166666666667in"}
+generated](./media/image88.png)
 
 Where:
 
@@ -2405,8 +2318,7 @@ dividend f(x). This is the only restriction.]{.mark}]{.underline}*
 *Algorithm: Divide, multiply, subtract, repeat as needed.*
 
 ![A math equations on a white background Description automatically
-generated](./media/image89.png){width="3.721097987751531in"
-height="2.2084076990376205in"}
+generated](./media/image89.png)
 
 Divisor: The quantity by which another quantity is divided
 
@@ -2449,8 +2361,7 @@ roots as well.
 The Binomial Expansion theorem allows you to calculate the expansion of
 any binomial for any degree n.
 
-![](./media/image90.png){width="4.668223972003499in"
-height="2.6304352580927386in"}
+![](./media/image90.png)
 
 # Rational Functions
 
@@ -2539,7 +2450,7 @@ proper rational function.
 **Finding x-intercepts:** Factor numerator and solve for x.
 
 ![A graph of a function Description automatically
-generated](./media/image91.png){width="6.5in" height="2.3625in"}
+generated](./media/image91.png)
 
 ## Finding y-intercept
 
@@ -2550,8 +2461,7 @@ corresponds to 𝑥 = 0.
 
 ![A screenshot of a black background with white text Description
 automatically
-generated](./media/image92.png){width="5.502858705161855in"
-height="4.03660542432196in"}
+generated](./media/image92.png)
 
 ## Vertical Asymptote
 
@@ -2560,8 +2470,7 @@ line x = a, where the graph tends toward a positive or negative infinity
 as the input value approaches to the line x =a from either the left or
 right side.
 
-![](./media/image93.png){width="3.508332239720035in"
-height="2.7109831583552055in"}
+![](./media/image93.png)
 
 Above, the line ***x = 2*** is the vertical asymptote. ***x = 2*** is
 undefined in ***f(x)***, producing division by zero / vertical
@@ -2583,8 +2492,7 @@ which result in division by zero / are undefined.]{.underline}]{.mark}
 **Set the denominator equal to zero and solve for x.**
 
 ![A screenshot of a math problem Description automatically
-generated](./media/image94.png){width="4.916435914260718in"
-height="3.0901060804899387in"}
+generated](./media/image94.png)
 
 ## Horizontal Asymptote
 
@@ -2610,8 +2518,7 @@ n,m respectively.
   denominator          
   -----------------------------------------------------------------------
 
-![](./media/image95.png){width="3.939019028871391in"
-height="1.902597331583552in"}
+![](./media/image95.png)
 
 ### Numerator \< Denominator (proper fraction)
 
@@ -2620,7 +2527,7 @@ Numerator \< Denominator
 Horizontal asymptote: y = 0
 
 ![A screenshot of a graph Description automatically
-generated](./media/image96.png){width="6.5in" height="2.75in"}
+generated](./media/image96.png)
 
 $$f(x)\  = \ \frac{x^{2} + 1}{x^{3}}$$
 
@@ -2634,16 +2541,14 @@ Numerator = Denominator
 Horizontal asymptote : y = 1/1
 
 ![A graph on a graph Description automatically
-generated](./media/image97.png){width="6.5in"
-height="2.5909722222222222in"}
+generated](./media/image97.png)
 
 ### Numerator \> Denominator (improper fraction)
 
 Numerator \> Denominator
 
 ![A graph with red lines and dots Description automatically
-generated](./media/image98.png){width="6.5in"
-height="2.2840277777777778in"}
+generated](./media/image98.png)
 
 Num\>Denom by 1
 
@@ -2652,8 +2557,7 @@ denominator by 1, the graph of the asymptote will be linear: **mx +
 b**)*
 
 ![A graph on a grid Description automatically
-generated](./media/image99.png){width="6.5in"
-height="2.910416666666667in"}
+generated](./media/image99.png)
 
 Num\>Denom by 2
 
@@ -2662,7 +2566,7 @@ denominator by 2, the graph of the asymptote will be quadratic:
 **x\^2**)*
 
 ![A graph on a graph Description automatically
-generated](./media/image100.png){width="6.5in" height="3.2375in"}
+generated](./media/image100.png)
 
 Num\>Denom by 3
 
@@ -2711,14 +2615,11 @@ numerator and the denominator.
 
 $$f(x) = \ \frac{x^{2} - 2}{x^{2} - 2x - 3} = \ \frac{(x + 1)(x - 1)}{(x + 1)(x - 3)}$$
 
-![](./media/image101.png){width="3.1392530621172354in"
-height="2.1773173665791776in"}
+![](./media/image101.png)
 
-![](./media/image102.png){width="5.321503718285214in"
-height="3.297729658792651in"}
+![](./media/image102.png)
 
-![](./media/image103.png){width="4.357142388451444in"
-height="3.50465769903762in"}
+![](./media/image103.png)
 
 # Exponential Functions
 
@@ -2749,12 +2650,10 @@ $\mathbf{(}0\mathbf{,\infty)}$ or all real numbers greater than 0
 
 ![A graph of function and equations Description automatically generated
 with medium
-confidence](./media/image104.png){width="5.906675415573053in"
-height="3.6531791338582678in"}
+confidence](./media/image104.png)
 
 ![A graph of a function Description automatically
-generated](./media/image105.png){width="6.5in"
-height="3.423611111111111in"}
+generated](./media/image105.png)
 
 ## x-intercepts
 
@@ -2797,8 +2696,7 @@ the opposite vertex is taken to be the **Apex.**
 **Area of Triangle: ½ bh**
 
 ![Area of Triangle - Definition, Formula & Examples \|
-ChiliMath](./media/image106.png){width="1.253436132983377in"
-height="2.09632217847769in"}
+ChiliMath](./media/image106.png)
 
 ### Angle Sum Property
 
@@ -2806,8 +2704,7 @@ height="2.09632217847769in"}
 triangle must equal 180.
 
 ![Angle Sum Property \| Theorem \| Proof \| Examples-
-Cuemath](./media/image107.png){width="3.220858486439195in"
-height="2.4803258967629045in"}
+Cuemath](./media/image107.png)
 
 ### Exterior Angles in a Triangle
 
@@ -2821,8 +2718,7 @@ height="2.4803258967629045in"}
     angles inside the triangle are NOT called exterior angles of a
     triangle.
 
-![](./media/image108.png){width="2.2254330708661416in"
-height="1.4369936570428696in"}
+![](./media/image108.png)
 
 ### Measure of an Exterior Angle of a Triangle
 
@@ -2845,8 +2741,7 @@ interior angles of the triangle.
 
 -   The exterior angles (taken one at a vertex) always total 360º
 
-![](./media/image109.png){width="2.5938101487314085in"
-height="1.6674496937882766in"}
+![](./media/image109.png)
 
 ### Triangle Inequality 
 
@@ -2854,8 +2749,7 @@ height="1.6674496937882766in"}
 
 The sum of any two sides must be greater than the third side.
 
-![](./media/image110.png){width="1.3593372703412074in"
-height="0.856765091863517in"}
+![](./media/image110.png)
 
 We cannot use the triangle inequality to find the exact lengths of the
 sides of a triangle, but when two sides are known, the triangle
@@ -2883,8 +2777,7 @@ side lengths when two sides are known.
 
 ![A triangle with colorful text on it Description automatically
 generated with medium
-confidence](./media/image111.png){width="4.077671697287839in"
-height="1.8597845581802275in"}
+confidence](./media/image111.png)
 
 ### Law of Sines
 
@@ -2942,8 +2835,7 @@ $$a^{2} + c^{2} - 2ac*\cos(b) = b^{2}$$
 $$a^{2} + b^{2} - 2ab*\cos(c) = c^{2}$$
 
 ![A black background with white text Description automatically
-generated](./media/image112.png){width="2.5421434820647417in"
-height="1.285090769903762in"}
+generated](./media/image112.png)
 
 **All of the writings above are specifically solved for a side.**
 
@@ -2983,8 +2875,7 @@ could be resized to become congruent.
 lengths.]{.underline}]{.mark}*
 
 ![A black background with white text Description automatically
-generated](./media/image113.png){width="3.6096773840769902in"
-height="2.071707130358705in"}
+generated](./media/image113.png)
 
 #### Proving Similar triangles
 
@@ -3005,8 +2896,7 @@ proportional to three sides of a different triangle then the triangles
 are similar.
 
 ![A diagram of triangles with dots and lines Description automatically
-generated](./media/image114.png){width="2.1562215660542434in"
-height="1.1765463692038496in"}
+generated](./media/image114.png)
 
 $$\frac{BC}{EF} = \frac{AC}{DF} = \frac{AB}{DE}$$
 
@@ -3016,8 +2906,7 @@ $$\frac{BC}{EF} = \frac{AC}{DF} = \frac{AB}{DE}$$
 contained between them are equivalent to the same two sides and included
 angle of a different triangle, then these 2 triangles are similar.
 
-![](./media/image115.png){width="2.438266622922135in"
-height="1.1736187664041995in"}
+![](./media/image115.png)
 
 ### Congruence
 
@@ -3025,15 +2914,13 @@ height="1.1736187664041995in"}
 size. Congruence is equality expressed geometrically. Congruent shapes
 may be made to sit together using transposition.
 
-![](./media/image116.png){width="5.509713473315836in"
-height="1.7719346019247595in"}
+![](./media/image116.png)
 
 *[[Congruent shapes have the same ANGLES AND the same
 SIDES.]{.underline}]{.mark}*
 
 ![A screenshot of a computer screen Description automatically
-generated](./media/image117.png){width="3.892642169728784in"
-height="2.9822790901137357in"}
+generated](./media/image117.png)
 
 #### Proving Congruence (not done)
 
@@ -3051,8 +2938,7 @@ If all the three sides of one triangle are equivalent to the
 corresponding three sides of the second triangle, then the two triangles
 are said to be congruent by SSS rule.
 
-![](./media/image118.png){width="2.3121391076115487in"
-height="1.1129101049868766in"}
+![](./media/image118.png)
 
 #### Side-Angle-Side Congruence
 
@@ -3063,8 +2949,7 @@ triangle are equivalent to the corresponding two sides and the angle
 between the sides of the second triangle, then the two triangles are
 said to be congruent by SAS rule.
 
-![](./media/image115.png){width="2.427746062992126in"
-height="1.1685553368328958in"}
+![](./media/image115.png)
 
 ### Types of Triangles
 
@@ -3095,23 +2980,20 @@ into three types which are:
 
 **Scalene:** Triangle has all side lengths *[different]{.underline}*.
 
-![](./media/image119.png){width="1.3251531058617674in"
-height="0.7047265966754156in"}
+![](./media/image119.png)
 
 ##### Isosceles
 
 **Isosceles:** Triangle with 2 sides having the same length.
 
-![](./media/image120.png){width="0.9349715660542433in"
-height="1.0443252405949257in"}
+![](./media/image120.png)
 
 ##### Equilateral
 
 **Equilateral:** Triangle with *[all sides having the same
 length.]{.underline}*
 
-![](./media/image121.png){width="1.0245395888013997in"
-height="0.8475054680664917in"}
+![](./media/image121.png)
 
 #### Types of Triangles: Based on Angles
 
@@ -3124,16 +3006,14 @@ interior angles which are:
 
 **Acute triangle:** Triangle with *all 3 interior angles less than 90°*.
 
-![](./media/image122.png){width="2.236528871391076in"
-height="1.0829505686789151in"}
+![](./media/image122.png)
 
 ##### Obtuse
 
 **Obtuse triangle:** Triangle which has *one interior angle greater than
 90°*.
 
-![](./media/image123.png){width="1.2553040244969378in"
-height="1.1587423447069116in"}
+![](./media/image123.png)
 
 ##### Right
 
@@ -3150,8 +3030,7 @@ height="1.1587423447069116in"}
 -   The remaining two sides are referred to as \"legs\", which may, or
     may not, be of equal length.
 
-![](./media/image124.png){width="1.5828226159230097in"
-height="1.2392202537182853in"}
+![](./media/image124.png)
 
 ###### Types of Right Triangles
 
@@ -3171,8 +3050,7 @@ There are 2 types of right triangles
     different.
 
 ![Scalene Triangles \| Measuring, Properties, Types,
-Examples,](./media/image125.png){width="1.9845100612423447in"
-height="1.0982655293088364in"}
+Examples,](./media/image125.png)
 
 Some scalene right triangles are known as 30-60-90 triangles.
 
@@ -3191,8 +3069,7 @@ Based on Side length: **Scalene**, **Isosceles**, **Equilateral**
 Based on Angles: **Right**, **Obtuse**, **Acute**.
 
 ![A screenshot of a black screen Description automatically
-generated](./media/image126.png){width="2.8556036745406823in"
-height="1.7087860892388451in"}
+generated](./media/image126.png)
 
 #### Oblique Triangle
 
@@ -3237,8 +3114,7 @@ angles are of equal length.
 triangles.]{.underline}]{.mark}*
 
 ![Mr. Escalante\'s Geometry
-Class](./media/image127.jpeg){width="1.8159514435695538in"
-height="1.7802012248468941in"}
+Class](./media/image127.jpeg)
 
 **Properties**
 
@@ -3253,8 +3129,7 @@ height="1.7802012248468941in"}
 **30-60-90:**
 
 ![30-60-90 Triangles \| Properties, Formula & Examples - Lesson \|
-Study.com](./media/image128.png){width="1.846626202974628in"
-height="1.9014709098862643in"}
+Study.com](./media/image128.png)
 
 **Properties**
 
@@ -3286,8 +3161,7 @@ General equation: (x-h)^2^ + (y-k)^2^ = r^2^
 ![A circle drawn in the first quadrant, with center labeled as the point
 h comma k. A line labeled r is drawn from the center out to a point on
 the circle labeled x comma
-y](./media/image129.png){width="3.549666447944007in"
-height="3.116444663167104in"}
+y](./media/image129.png)
 
 ### π Pi
 
@@ -3306,8 +3180,7 @@ C = π d
 
 C = 2 πr
 
-![](./media/image130.png){width="2.688147419072616in"
-height="2.012270341207349in"}
+![](./media/image130.png)
 
 ### Radius
 
@@ -3320,12 +3193,10 @@ Radius = d/2
 The length of the radius can also be calculated using the distance
 formula:
 
-![](./media/image131.png){width="2.1220603674540683in"
-height="0.32270997375328087in"}
+![](./media/image131.png)
 
 .![A blue circle with red line Description automatically
-generated](./media/image132.png){width="1.5981375765529309in"
-height="1.1963188976377952in"}
+generated](./media/image132.png)
 
 ### Diameter
 
@@ -3334,8 +3205,7 @@ the diameter.
 
 D = 2r
 
-![](./media/image133.png){width="2.75371062992126in"
-height="2.061349518810149in"}
+![](./media/image133.png)
 
 ### Sector
 
@@ -3344,8 +3214,7 @@ height="2.061349518810149in"}
 
 The area of the sector is: (1/2) \* r^2^θ
 
-![](./media/image134.png){width="2.5460126859142607in"
-height="1.9058727034120735in"}
+![](./media/image134.png)
 
 ### Arc
 
@@ -3358,8 +3227,7 @@ circle is an arc.
 
 Arc length is: rθ
 
-![](./media/image135.png){width="2.8282206911636045in"
-height="2.1171248906386704in"}
+![](./media/image135.png)
 
 **Area of a Circle:** Area is the total amount of space taken up by a
 flat, 2D shape. It is the measurement of a shape's size on a surface.
@@ -3367,8 +3235,7 @@ Therefore, the area of a circle is the measurement of the interior space
 occupied by a circle.
 
 ![Area of a Circle - Definition, Formula, Derivation with Solved
-Examples](./media/image136.png){width="4.960122484689414in"
-height="2.3221423884514434in"}
+Examples](./media/image136.png)
 
 ## Line
 
@@ -3440,8 +3307,7 @@ straightness on a cartesian coordinate plane.
 |           | ht="0.92791447944007in"} | at that point.               |
 +-----------+--------------------------+------------------------------+
 
-![](./media/image144.png){width="2.5102241907261593in"
-height="1.882668416447944in"}
+![](./media/image144.png)
 
 ## Angle
 
@@ -3450,8 +3316,7 @@ The endpoint is called the vertex of the angle, and the two rays are the
 sides of the angle.
 
 ![Illustration of Angle DEF, with vertex E and points D and
-F.](./media/image145.jpeg){width="2.8773009623797026in"
-height="1.4544039807524058in"}
+F.](./media/image145.jpeg)
 
 Angle creation is a dynamic process. We start with two rays lying on top
 of one another. We leave one fixed in place and rotate the other.
@@ -3460,8 +3325,7 @@ The fixed ray is the **initial side**, and the rotated ray is the
 **terminal side**. In order to identify the different sides, we indicate
 the rotation with a small arc and arrow close to the vertex.
 
-![](./media/image146.png){width="2.9931616360454942in"
-height="1.518092738407699in"}
+![](./media/image146.png)
 
 **Positive and Negative Angles:**
 
@@ -3472,14 +3336,12 @@ on the positive x axis and rotates counter-clockwise.
 the positive x axis and rotates clockwise.
 
 ![Positive and Negative Angles -- Definitions with
-Examples](./media/image147.jpeg){width="2.6518416447944007in"
-height="2.1914074803149606in"}
+Examples](./media/image147.jpeg)
 
 **Naming an angle:** Angles are named using 3 points.
 
 ![A diagram of a triangle Description automatically
-generated](./media/image148.png){width="1.623134295713036in"
-height="1.4162346894138234in"}
+generated](./media/image148.png)
 
 The **vertex** is always the center point in the name of the angle. It
 will be surrounded by the arm names.
@@ -3509,11 +3371,9 @@ required to be fixed in one place.
                          by multiples of 360.**
   -----------------------------------------------------------------------
 
-![](./media/image149.png){width="3.2147244094488188in"
-height="1.9401356080489938in"}![A diagram of angles and angles
+![](./media/image149.png)![A diagram of angles and angles
 Description automatically
-generated](./media/image150.png){width="2.4352307524059493in"
-height="1.9325743657042869in"}
+generated](./media/image150.png)
 
 ### Angle Relationships
 
@@ -3524,17 +3384,11 @@ height="1.9325743657042869in"}
 +==============+===================+===================================+
 | Adjacent     | ![]               | Two angles which share a common   |
 |              | (./media/image151 | vertex and side, but have no      |
-|              | .png){width="1.06 | common interior points.           |
-|              | 13495188101487in" |                                   |
-|              | height="0.667     |                                   |
-|              | 4464129483815in"} |                                   |
+|              | .png) |                                   |
 +--------------+-------------------+-----------------------------------+
 | Vertical     | ![]               | The angles opposite each other    |
 |              | (./media/image152 | when two lines cross. Angles 1    |
-|              | .png){width="0.81 | and 3 are vertically opposite     |
-|              | 93886701662292in" | angles and they are always        |
-|              | height="0.65      | equals. Same goes for angles 2    |
-|              | 6441382327209in"} | and 4.                            |
+|              | .png) | and 4.                            |
 |              |                   |                                   |
 |              |                   | ***[[Vertical angles are named    |
 |              |                   | such because they share a         |
@@ -3546,43 +3400,28 @@ height="1.9325743657042869in"}
 +--------------+-------------------+-----------------------------------+
 | C            | ![                | The angles in matching corners    |
 | orresponding | ](./media/image15 | when two lines are crossed by     |
-| Angles       | 3.png){width="0.7 | another line, called the          |
-|              | 83834208223972in" | transversal. One is internal and  |
-|              | height="1.187     | the other external. They are      |
-|              | 6279527559055in"} | equals if the two intersected     |
+| Angles       | 3.png) | equals if the two intersected     |
 |              |                   | lines by the transversal are      |
 |              |                   | parallel. 1 is external and 2 is  |
 |              |                   | internal.                         |
 +--------------+-------------------+-----------------------------------+
 | C            | ![]               | Two angles are called             |
 | omplementary | (./media/image154 | complementary when their sum is   |
-|              | .png){width="0.77 | 90º. In the figure, the and       |
-|              | 73961067366579in" | angles together form a right      |
-|              | height="0.741     | angle.                            |
-|              | 1176727909011in"} |                                   |
+|              | .png) |                                   |
 +--------------+-------------------+-----------------------------------+
 | S            | ![]               | Two angles are called             |
 | upplementary | (./media/image155 | supplementary when their sum is   |
-|              | .png){width="1.19 | 180º.                             |
-|              | 63188976377952in" |                                   |
-|              | height="0.478     |                                   |
-|              | 5279965004374in"} |                                   |
+|              | .png) |                                   |
 +--------------+-------------------+-----------------------------------+
 | Alternate    | ![]               | Angles that are on opposite sides |
 | Exterior     | (./media/image156 | of the transversal of two other   |
-|              | .png){width="0.84 | lines. Both are external. They    |
-|              | 04899387576553in" | are equals if the two intersected |
-|              | height="1.128     | lines by the transversal are      |
-|              | 1747594050744in"} | parallel. In the figure, angles 1 |
+|              | .png) | parallel. In the figure, angles 1 |
 |              |                   | and 4 are alternate exterior      |
 |              |                   | angles.                           |
 +--------------+-------------------+-----------------------------------+
 | Alternate    | ![]               | Angles that are on opposite sides |
 | Interior     | (./media/image157 | of the transversal of two other   |
-|              | .png){width="0.97 | lines. Both are internal. They    |
-|              | 42311898512686in" | are equals if the two intersected |
-|              | height="1.126     | lines by the transversal are      |
-|              | 2784339457568in"} | parallel. In the figure, angles 2 |
+|              | .png) | parallel. In the figure, angles 2 |
 |              |                   | and 3 are alternate interior      |
 |              |                   | angles.                           |
 +--------------+-------------------+-----------------------------------+
@@ -3599,8 +3438,7 @@ angle in which one full rotation is 360°.
 1° is equal to 1/360 of a circular rotation.
 
 ![A green circle with a blue and white circle Description automatically
-generated](./media/image158.png){width="2.245696631671041in"
-height="2.596758530183727in"}
+generated](./media/image158.png)
 
 ### Minute
 
@@ -3639,15 +3477,12 @@ segment or any other section of a curve, when its two rays pass through
 the endpoints of that arc, line segment or curve section.
 
 ![A diagram of a circle with text Description automatically
-generated](./media/image159.png){width="2.5281102362204724in"
-height="1.5825010936132984in"}
+generated](./media/image159.png)
 
-![](./media/image160.png){width="2.588956692913386in"
-height="2.588956692913386in"}
+![](./media/image160.png)
 
 ![Radian - Formula, Definition \| Radians and
-Degrees](./media/image161.png){width="2.8343558617672793in"
-height="2.8375218722659667in"}
+Degrees](./media/image161.png)
 
 ### Reference Angle
 
@@ -3660,8 +3495,7 @@ degrees).]{.mark}
 A reference angle is always positive irrespective of which side of the
 axis it is falling.
 
-![reference angle](./media/image162.png){width="2.4971095800524936in"
-height="2.8615168416447943in"}
+![reference angle](./media/image162.png)
 
 A reference angle is an angle falling within quadrant 1 which is
 equivalent by reflection to an angle in some other quadrant.
@@ -3710,15 +3544,13 @@ ratio of 2 sides of a right triangle as their range.
 Consider an angle in standard position, such that the point (x, y) on
 the terminal side of the angle is a point on a circle with radius 1:
 
-![](./media/image163.png){width="2.883436132983377in"
-height="2.883436132983377in"}
+![](./media/image163.png)
 
 This circle is called the unit circle. With r = 1, we can define the
 trigonometric functions in the unit circle:
 
 ![A math equations with numbers Description automatically generated with
-medium confidence](./media/image164.png){width="3.2504538495188102in"
-height="1.6460629921259842in"}
+medium confidence](./media/image164.png)
 
 ### Sine
 
@@ -3745,8 +3577,7 @@ $$A\ sin(Bx + C) + D$$
 **Amplitude:** The amplitude determines the height of the wave from the
 midline (vertical displacement) to the peak or trough.
 
-![](./media/image165.png){width="3.896104549431321in"
-height="2.6883114610673666in"}
+![](./media/image165.png)
 
 **Period / Wavelength:** The period is the length of one complete cycle
 of the wave.
@@ -3754,8 +3585,7 @@ of the wave.
 The period is given by : 2pi / \|B\|
 
 ![Period of the Sine Function - Formulas and Examples -
-Neurochispas](./media/image166.jpeg){width="5.573099300087489in"
-height="1.8116885389326334in"}
+Neurochispas](./media/image166.jpeg)
 
 **Phase Shift:** The phase shift determines the *[horizontal
 displacement of the wave]{.underline}*, along x-axis.
@@ -3770,12 +3600,10 @@ result in some horizontal displacement along the x-axis.
 along the y-axis.
 
 ![A graph of a function Description automatically
-generated](./media/image167.png){width="3.256143919510061in"
-height="1.5717158792650918in"}
+generated](./media/image167.png)
 
 ![A diagram of maths Description automatically
-generated](./media/image168.png){width="3.6473206474190727in"
-height="1.9528969816272965in"}
+generated](./media/image168.png)
 
 ### Cosine
 
@@ -3816,8 +3644,7 @@ The secant of angle t is equal to 1/cost = 1/x , x≠0.
 The cosecant of angle t is equal to 1/sin(t) = 1/y , y≠0.
 
 ![A diagram of a trigonometry Description automatically
-generated](./media/image169.png){width="3.8607622484689412in"
-height="3.2036909448818895in"}
+generated](./media/image169.png)
 
 [Key Elements of the Diagram:]{.underline}
 
@@ -3829,16 +3656,14 @@ $x^{2} + y^{2} = 1$
 segment that intersects the circle:
 
 ![A circle with a point in the center Description automatically
-generated](./media/image170.png){width="1.7552055993000875in"
-height="1.7330686789151357in"}
+generated](./media/image170.png)
 
 **sin θ:** Represented by the vertical line segment from the point on
 the circle down to the x-axis.
 
 It is the y-coordinate of the point on the unit circle
 
-![](./media/image171.png){width="1.5766874453193351in"
-height="1.704174321959755in"}
+![](./media/image171.png)
 
 **cos θ:** Represented by the horizontal line segment from the origin to
 the point directly below the intersection of the circle and the angle 𝜃.
@@ -3884,8 +3709,7 @@ $\frac{\mathbf{adj}}{\mathbf{opp}}$
 3.  ${1 + tan}^{2}\theta = \ \sec^{2}\theta$
 
 ![A white paper with black text Description automatically
-generated](./media/image172.png){width="7.029012467191601in"
-height="4.591386701662292in"}
+generated](./media/image172.png)
 
 ### Sum & Difference Identities
 
@@ -3968,61 +3792,52 @@ a cornerstone of trigonometry.]{.mark}
 1)  Divide circle by **30**°**.**
 
 ![Polar Grid In Degrees With Radius 1 \| ClipArt
-ETC](./media/image173.gif){width="3.1472386264216974in"
-height="3.020475721784777in"}
+ETC](./media/image173.gif)
 
 2)  Finish by dividing by **45**° **markers.** Notice how the **45**°
     interval markers divide the **central 30**° **segment** into 2 equal
     parts**.**
 
 ![Blank Unit Circle Chart Printable \| Fill in the Unit Circle
-Worksheet](./media/image174.png){width="4.533742344706912in"
-height="3.5029932195975504in"}
+Worksheet](./media/image174.png)
 
 3)  **Because** π **= 180**°**,** when we divide by **30**°**,** we
     produce **6 segments. Each segment will equal** π**/6.**
 
 The entire circle should be labeled by counting in π/6 intervals.
 
-![](./media/image175.png){width="5.405352143482065in"
-height="3.907975721784777in"}
+![](./media/image175.png)
 
 4)  **Because** π **= 180**, when we divide by **45 degrees,** we
     produce **4 segments. Each segment will equal** π**/4.**
 
 The entire circle should be labeled by counting up in π/4 intervals.
 
-![](./media/image176.png){width="3.582821522309711in"
-height="2.590317147856518in"}
+![](./media/image176.png)
 
 **After reducing to lowest terms, the following circle is produced:**
 
 ![A circular math graph with numbers and lines Description automatically
 generated with medium
-confidence](./media/image177.png){width="3.4339041994750654in"
-height="3.361817585301837in"}
+confidence](./media/image177.png)
 
 **Looking at the circle divided by** π**/3 can also be useful, because
 some segments will reduce to a multiple of 1/3^rd^.**
 
-![Output image](./media/image178.png){width="4.25153324584427in"
-height="3.9703674540682417in"}
+![Output image](./media/image178.png)
 
-![](./media/image179.png){width="3.6192443132108485in"
-height="3.6192443132108485in"}
+![](./media/image179.png)
 
 ![Graph of a quarter circle with angles of 0, 30, 45, 60, and 90 degrees
 inscribed. Equivalence of angles in radians shown. Points along circle
-are marked. ](./media/image180.jpeg){width="4.410880358705162in"
-height="3.9377471566054245in"}
+are marked. ](./media/image180.jpeg)
 
 ## Defining Sine and Cosine Functions
 
 ![Illustration of an angle t, with terminal side length equal to 1, and
 an arc created by angle with length t. The terminal side of the angle
 intersects the circle at the point (x,y), which is equivalent to (cos t,
-sin t). ](./media/image181.jpeg){width="2.926380139982502in"
-height="1.3586482939632545in"}
+sin t). ](./media/image181.jpeg)
 
 # Vector
 
@@ -4037,8 +3852,7 @@ length is the magnitude of the vector and with an arrow indicating the
 direction.
 
 ![A blue line on a black background Description automatically
-generated](./media/image182.png){width="2.292361111111111in"
-height="0.9152777777777777in"}
+generated](./media/image182.png)
 
 ## Writing Vectors
 
@@ -4080,8 +3894,7 @@ There are many advantages to converting vectors into position vectors:
 
 ![A math equation with black text Description automatically generated
 with medium
-confidence](./media/image183.png){width="3.2581922572178477in"
-height="1.1399617235345583in"}
+confidence](./media/image183.png)
 
 ## Unit Vector
 
