@@ -859,7 +859,7 @@ Read as "the set of all x such that P(x) is true"
 
 ## Empty Set
 
-The empty set, denoted as $\varnothing$ and sometimes $\{\}$, is a set
+The empty set, denoted as $\varnothing$ or `{}`, is a set
 with no members at all.
 
 Although the empty set has no members, it can be a member of other sets.
