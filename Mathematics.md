@@ -983,14 +983,14 @@ $\mid A \mid = \mid B \mid$
 
 **Size comparisons (all sets):**
 
--   $\mid A \mid \leq \mid B \mid$iff there exists an **injection**
+-   $\mid A \mid \leq \mid B \mid iff there exists an **injection**
     $A \rightarrow B$.
 
--   $\mid A \mid \geq \mid B \mid$iff there exists an **injection**
-    $B \rightarrow A$(equivalently, a surjection $A \rightarrow B$).
+-   $\mid A \mid \geq \mid B \mid iff there exists an **injection**
+    $B \rightarrow A$ (equivalently, a surjection $A \rightarrow B$).
 
 -   **Schröder--Bernstein:** injections both ways
-    $A \hookrightarrow B$and $B \hookrightarrow A$⇒ bijection
+    $A \hookrightarrow B$ and $B \hookrightarrow A$ ⇒ bijection
     $A \cong B$.
 
 #### Finite Set
