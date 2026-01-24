@@ -1,5 +1,28 @@
 # Propositional Logic / zeroth-order logic
 
+## Table of Contents
+
+- [Propositional Logic / zeroth-order logic](#propositional-logic--zeroth-order-logic)
+- [Predicate Logic / first-order logic](#predicate-logic--first-order-logic)
+- [Mathematical Notations](#mathematical-notations)
+- [Set Theory](#set-theory)
+- [Prime Factorization](#prime-factorization)
+- [Partial Fraction Decomposition](#partial-fraction-decomposition)
+- [Symbolic Methods vs. Numerical Methods](#symbolic-methods-vs-numerical-methods)
+- [Functions & Relations](#functions--relations)
+- [Complex Numbers](#complex-numbers)
+- [Linear Functions d=1](#linear-functions-d1)
+- [Matrices](#matrices)
+- [Systems of Linear Equations](#systems-of-linear-equations)
+- [Polynomial Functions](#polynomial-functions)
+- [Rational Functions](#rational-functions)
+- [Exponential Functions](#exponential-functions)
+- [Logarithms](#logarithms)
+- [Geometry & Trigonometry](#geometry--trigonometry)
+- [Vector](#vector)
+- [Permutation](#permutation)
+- [Combination](#combination)
+
 **Propositional Logic:** Propositional Logic, is a formal system in
 logic that deals with statements or propositions as whole, indivisible
 units. In this system, each proposition is considered atomic, meaning it
@@ -19,7 +42,7 @@ and higher-order logics. In this sense, propositional logic is the
 foundation of first-order logic and higher-order logic.
 
 The most thoroughly researched branch of propositional logic is
-[classical truth-functional propositional logic]{.underline}
+[classical truth-functional propositional logic
 
 ## Truth
 
@@ -53,7 +76,7 @@ In propositional and first order logic, we are only concerned with
 **Logical Truth:** Logical truth refers to a statement or proposition
 that is [true in all possible scenarios, purely based on its logical
 structure rather than any specific facts or content about the
-world]{.underline}. It is a foundational concept in formal logic,
+world. It is a foundational concept in formal logic,
 philosophy, and mathematics, where the focus is on the form of reasoning
 rather than empirical content.
 
@@ -76,7 +99,7 @@ regardless of any empirical facts.
 **Versus Necessary Truth:** *All logical truths are necessary truths*,
 but not all necessary truths are logical truths[. Necessary truths are
 true in all possible worlds, often because of the meanings of the
-concepts involved]{.underline}, such as \"All bachelors are unmarried.\"
+concepts involved, such as \"All bachelors are unmarried.\"
 **Logical truths, on the other hand, are true due to their logical
 form.**
 
@@ -91,9 +114,9 @@ specific definitions but rather to the logical structure.
 proposition that must be true in all possible worlds or under any
 conceivable circumstances. Unlike contingent truths, which are true only
 under certain conditions, necessary truths hold universally and cannot
-be false. [They are true by necessity, meaning their truth is not
+be false. They are true by necessity, meaning their truth is not
 dependent on specific facts or conditions in the world but on the nature
-of the concepts or relationships they describe.]{.underline}
+of the concepts or relationships they describe.
 
 **Necessary Truths encompass both analytic and synthetic truths.**
 
@@ -149,8 +172,8 @@ considered true in a trivial sense.
 
 **Distinction from Synthetic Truth:**
 
-[The real crux of the difference between these two types of truths lies
-in how we come to know them.]{.underline} With analytic truths, all you
+The real crux of the difference between these two types of truths lies
+in how we come to know them. With analytic truths, all you
 need is a good understanding of the concepts or definitions involved.
 You can figure them out just by thinking about the meanings of the
 words---no need to step outside and check the world.
@@ -245,8 +268,8 @@ necessarily true in every conceivable situation or possible world.
 truth value, which can either be true or false, but not both.
 
 Propositions in propositional logic respect the *[bi-variance
-principle]{.underline}* and the *[principle of the excluded
-middle]{.underline}*. This is why their truth value can assume only 2
+principle* and the *[principle of the excluded
+middle*. This is why their truth value can assume only 2
 values and why each proposition can be assigned only a single
 value---not both or neither.
 
@@ -292,9 +315,9 @@ Propositions or statements can either be:
     of a compound proposition depends on the truth values of its
     component propositions and the specific logical connectives used.
 
-**[Propositional logic is concerned with the *[form and structure of
-propositions]{.underline}* rather than their content or the actual truth
-of their components in the real world.]{.mark}**
+**Propositional logic is concerned with the *[form and structure of
+propositions* rather than their content or the actual truth
+of their components in the real world.**
 
 ### Validity
 
@@ -414,7 +437,7 @@ generated](./media/image2.png)
 
 **Unary Logical Connectives / Unary Operators:** A unary logical
 connective (or unary operator) is a logical operator that [operates on a
-single proposition (or statement)]{.underline} to produce a new
+single proposition (or statement) to produce a new
 proposition.
 
 In classical logic, the most common unary logical connective is
@@ -425,7 +448,7 @@ In classical logic, the most common unary logical connective is
 **Negation:** Negation is a fundamental unary logical connective that
 inverts the truth value of a proposition.
 
-In ordinary language, negation is referred to as *['NOT']{.underline}*.
+In ordinary language, negation is referred to as *['NOT'*.
 
 Symbolically, we express negation with: ¬
 
@@ -491,7 +514,7 @@ of the operands does not change the result.
 **Binary Logical Connectives / Binary Operators:** Binary logical
 connectives, also known as binary logical operators, are used to
 [combine two propositions (or statements) to form a compound
-proposition]{.underline}. The truth value of the resulting compound
+proposition. The truth value of the resulting compound
 proposition is determined by the truth values of the individual
 propositions and the specific binary connective used.
 
@@ -536,7 +559,7 @@ operands are true.
 ![A screenshot of a truth table Description automatically
 generated](./media/image9.png)
 
-![Venn diagram of Logical
+!Venn diagram of Logical
 conjunction](./media/image10.png) ![A red and black circle with black lines
 Description automatically
 generated](./media/image11.png)
@@ -565,10 +588,10 @@ Exclusive disjunction essentially means \'either one, but not both nor
 none\'. In other words, the statement is true if and only if one is true
 and the other is false.
 
-[It gains the name \"exclusive or\" because the meaning of \"or\" is
-ambiguous when both operands are true.]{.underline}
+It gains the name \"exclusive or\" because the meaning of \"or\" is
+ambiguous when both operands are true.
 
-*[**XOR** excludes that case]{.underline}*. Some informal ways of
+*[**XOR** excludes that case*. Some informal ways of
 describing **XOR** are \"one or the other but not both\", \"either one
 or the other\", and \"A or B, but not A and B\".
 
@@ -577,7 +600,7 @@ Symbolically, XOR is expressed as: $\mathbf{\oplus ,\  ≢}$**, ...**
 ![A white background with black text Description automatically
 generated](./media/image14.png)
 
-![Venn diagram of Exclusive
+!Venn diagram of Exclusive
 or](./media/image15.png)
 
 #### Conditional Statement / Material Condition / Material Implication / Hypothetical Proposition
@@ -624,10 +647,10 @@ generated](./media/image17.png)
 
 A vacuous truth is a conditional or universal statement (a universal
 statement that can be converted to a conditional statement) that is
-*[true because the antecedent cannot be satisfied]{.underline}*.
+*[true because the antecedent cannot be satisfied*.
 
 Examples common to everyday speech include conditional phrases used as
-*[idioms of improbability]{.underline}* like \"when hell freezes over
+*[idioms of improbability* like \"when hell freezes over
 \...\" and \"when pigs can fly \...\", indicating that not before the
 given (impossible) condition is met will the speaker accept some
 respective (typically false or absurd) proposition.
@@ -784,15 +807,15 @@ for \"a is not an element of a set A\".
 generated](./media/image22.png)
 
 **Set elements are unique.** An element is either in the set or not in
-the set. [It makes no sense to say that an element is in the set
-multiple times]{.mark}. It may be listed multiple times, but this is
+the set. It makes no sense to say that an element is in the set
+multiple times. It may be listed multiple times, but this is
 extraneous.
 
 ![](./media/image23.png)
 
 **Sets are unordered.** They can be written in any order you wish, but
 conceptually, [order is meaningless and not included in the formal
-definition of a set]{.mark}.
+definition of a set.
 
 ## Set Membership / Set Elements
 
@@ -981,7 +1004,7 @@ The universal set, often denoted by 𝑈, is the set that includes every
 element that is being considered in a given discussion or problem
 domain. All other sets in that context are subsets of the universal set.
 
-![Universal Set: Definition, Symbol, Venn Diagram and
+!Universal Set: Definition, Symbol, Venn Diagram and
 Examples](./media/image30.png)
 
 **Special Considerations:**
@@ -1114,9 +1137,9 @@ generated](./media/image37.png)
 **Prime Factorization:** Prime factorization is a process of factoring a
 **composite number** in terms of **prime numbers**.
 
-*[[Every composite number has a unique prime factorization---this is
+*Every composite number has a unique prime factorization---this is
 guaranteed by the Fundamental Theorem of
-Arithmetic.]{.mark}]{.underline}*
+Arithmetic.*
 
 Because every composite number has a unique prime factorization, there
 is only one way to reduce a composite number into a product of primes.
@@ -1151,8 +1174,8 @@ fractions, known as partial fractions. This technique is particularly
 useful for integrating rational functions and solving differential
 equations.
 
-[Partial fraction decomposition is the inverse process of finding the
-lowest common denominator.]{.mark}
+Partial fraction decomposition is the inverse process of finding the
+lowest common denominator.
 
 ![](./media/image40.png)
 
@@ -1161,10 +1184,10 @@ generated](./media/image41.png)
 
 So what if we have factors not falling into one of these 4 forms above?
 
-*[When dealing with higher-degree factors (such as cubic or higher), you
+*When dealing with higher-degree factors (such as cubic or higher), you
 can use polynomial long division or other algebraic techniques to reduce
 the problem to a form that can then be handled by the four
-cases.]{.mark}*
+cases.*
 
 # Symbolic Methods vs. Numerical Methods
 
@@ -1196,9 +1219,9 @@ Ex:
 **Complexity:** Symbolic solutions can be very complex, especially for
 higher-degree polynomials.
 
-**Limitations:** *[[General symbolic solutions are not available for
+**Limitations:** *General symbolic solutions are not available for
 polynomials of degree five or higher due to the **Abel-Ruffini
-theorem**.]{.underline}]{.mark}*
+theorem**.*
 
 ## Numerical Methods
 
@@ -1256,7 +1279,7 @@ how elements from the **domain** are associated with elements in the
 **codomain**.
 
 **Definition**: A relation **𝑅** from set **𝐴** to set **𝐵** is a
-[subset](#subset) of the [Cartesian
+[subset](#subset) of the Cartesian
 product](#ordered-pairs-kuratowskis-definition) **𝐴×𝐵**, which means
 
 **𝑅 ⊆ 𝐴×𝐵**
@@ -1276,7 +1299,7 @@ Key Concepts
 -   The **codomain** (or target set) is the set of all possible second
     elements (outputs) in the ordered pairs.
 
--   The **range** is the set of *[actual outputs]{.underline}* in the
+-   The **range** is the set of *[actual outputs* in the
     relation, which is a subset of the codomain.
 
 -   The **image** a relation, often used in the context of specific
@@ -1293,7 +1316,7 @@ Key Concepts
 relation).
 
 **Range**: The ***[actual outputs produced by the
-relation]{.underline}*** over its entire domain (a subset of the
+relation*** over its entire domain (a subset of the
 codomain).
 
 **Image**: The set of actual outputs for a specific subset of inputs
@@ -1456,7 +1479,7 @@ generated](./media/image43.png)
 **1. Domain of a Function:**
 
 The **domain** of a function **f : X → Y** is the set **X**. It includes
-[all the possible inputs]{.underline} that the function can accept.
+[all the possible inputs that the function can accept.
 
 **Example**: For the function **f(x) =** $\sqrt{\mathbf{x}}$, the domain
 is **X = { x ∈ R ∣ x ≥ 0 }**, because the square root function is only
@@ -1466,16 +1489,16 @@ defined for non-negative real numbers.
 
 The **codomain** of a function **f : X → Y**, which includes [all
 possible outputs that the function is allowed to produce according to
-its definition]{.underline}.
+its definition.
 
 The **codomain** is specified as part of the function\'s definition,
 [even if not all elements of the **codomain** are actually reached by
-the function.]{.mark}
+the function.
 
 **3. Range of a Function:**
 
 The range of a function **f : X → Y** is the [set of all actual
-outputs]{.underline} that the function produces when applied to every
+outputs that the function produces when applied to every
 element in its domain **X**.
 
 The range is therefore a subset of the codomain.
@@ -1507,7 +1530,7 @@ Dom(f) = { x ∣ ∃y f(x) = y}
 The **codomain** of a function **f : X → Y**
 
 includes [all possible outputs that the function is allowed to produce
-according to its definition]{.underline}
+according to its definition
 
 The **codomain** is specified as part of the function\'s definition,
 even if not all elements of the **codomain** are actually reached by the
@@ -1519,7 +1542,7 @@ Cod(f) = B ⟺ ∀x ∈ Dom(f) ,∃y ∈ B (f(x)=y)
 ### Range
 
 The range of a function **f : X → Y** is the [set of all actual
-outputs]{.underline} that the function produces when applied to every
+outputs that the function produces when applied to every
 element in its domain **X**. The range is therefore a subset of the
 codomain.
 
@@ -1545,8 +1568,8 @@ Explanation:
 The **image** of a function is similar to the **range** but often refers
 to the outputs corresponding to a specific subset of the domain.
 
-*[If the subset in question is the entire **domain**, then the **image**
-and the **range** are the same.]{.underline}*
+*If the subset in question is the entire **domain**, then the **image**
+and the **range** are the same.*
 
 For a particular subset **A ⊆ X**, the image of **A** under **f** is
 denoted as **f(A)**.
@@ -1656,7 +1679,7 @@ nonreal complex solutions **-1+3i** and **-1-3i**.
 ![A black background with yellow and blue text Description automatically
 generated](./media/image52.png)
 
-![Venn Diagram of Complex
+!Venn Diagram of Complex
 Numbers](./media/image53.png)
 
 ## Complex Plane
@@ -1683,7 +1706,7 @@ apart from rectangular form.
 The horizontal axis denotes the real axis, and the vertical axis denotes
 the imaginary.
 
-![Polar form of complex
+!Polar form of complex
 numbers](./media/image55.png)
 
 ## Imaginary Unit
@@ -1698,9 +1721,9 @@ ID:1210953](./media/image56.jpeg)
 **Linear Functions:** A linear function is a function that can be used
 to express a constant rate of change.
 
-*[[This constant rate of change is reflected in the function\'s slope,
+*This constant rate of change is reflected in the function\'s slope,
 which remains the same regardless of the interval over which it is
-measured.]{.underline}]{.mark}*
+measured.*
 
 Linear functions have a maximum degree of 1.
 
@@ -1785,14 +1808,14 @@ A square matrix is a ***m*** x ***m*** matrix for some ***m***, or a
 The ***i,j*** entry of a matrix means the number in row ***i*** and
 column ***j***.
 
-[It is important to get these in the correct order:]{.mark} Usually when
+It is important to get these in the correct order: Usually when
 you give **(x,y)** coordinates, **x** refers to the horizontal direction
 and **y** refers to the vertical direction.
 
 When we talk about the ***I,j*** entry of a matrix, however, the first
 number [***i*** refers to the row number (i.e. the vertical
-direction)]{.mark} [and the second number ***j*** refers to the column
-number (i.e. the horizontal direction).]{.mark}
+direction) [and the second number ***j*** refers to the column
+number (i.e. the horizontal direction).
 
 ![A white paper with black text Description automatically
 generated](./media/image61.png)
@@ -1810,11 +1833,11 @@ generated](./media/image62.png)
 collection of two or more linear equations involving the same set of
 variables.
 
-[The goal of solving a system of linear equations is to find the values
-of the variables that satisfy all the equations simultaneously.]{.mark}
+The goal of solving a system of linear equations is to find the values
+of the variables that satisfy all the equations simultaneously.
 
-***[[The solution to a system of linear equations is the point where all
-equations intersect.]{.underline}]{.mark}***
+***The solution to a system of linear equations is the point where all
+equations intersect.***
 
 ![A black screen with white text and black text Description
 automatically
@@ -1915,13 +1938,13 @@ generated](./media/image65.png)
 Solving a polynomial means finding all the values of the variable that
 make the polynomial equal to zero.
 
-[These values are called the \"**roots**\" or \"**zeros**\" of the
-polynomial.]{.mark}
+These values are called the \"**roots**\" or \"**zeros**\" of the
+polynomial.
 
 The roots/solutions/zeroes of a polynomial occur at the x-intercepts.
 
-[For polynomials of degree five or higher, exact algebraic solutions may
-not always be possible]{.mark} (***[Abel-Ruffini theorem]{.underline}***
+For polynomials of degree five or higher, exact algebraic solutions may
+not always be possible (***Abel-Ruffini theorem***
 states that there is no general solution in radicals for polynomials of
 degree five or higher). In such cases, numerical and graphical methods
 are often used.
@@ -1942,9 +1965,9 @@ If ab = 0, then either a = 0 or b = 0
 ![A black background with white text Description automatically
 generated](./media/image66.png)
 
-[The zero product property can be used to solve polynomial equations of
-**[any degree]{.underline}** as long as the polynomial can be factored
-into a product of simpler polynomials.]{.mark}
+The zero product property can be used to solve polynomial equations of
+**[any degree** as long as the polynomial can be factored
+into a product of simpler polynomials.
 
 ### Special Factoring Forms
 
@@ -1985,14 +2008,14 @@ generated](./media/image67.png)
 
 ### Completing the Square
 
-**Completing the Square: [Not all quadratic equations can be factored or
-can be solved *[in their original form]{.underline}* using the square
-root property.]{.mark}**
+**Completing the Square: Not all quadratic equations can be factored or
+can be solved *[in their original form* using the square
+root property.**
 
 In this case, it is necessary to transform the equation such that it is
 expressed as something that can be factored as a perfect square.
 
-**[All Quadratic equations can be solved using this method.]{.mark}**
+**All Quadratic equations can be solved using this method.**
 
 ### Quadratic Formula
 
@@ -2004,7 +2027,7 @@ quadratic equations.
 automatically generated with medium
 confidence](./media/image68.png)
 
-**[All Quadratic equations can be solved using this method.]{.mark}**
+**All Quadratic equations can be solved using this method.**
 
 #### Discriminant
 
@@ -2031,9 +2054,9 @@ A cubic function is a polynomial function of degree 3. So a cubic
 function may have a maximum of 3 roots. i.e., it may intersect the
 x-axis at a maximum of 3 points.
 
-***[[Since complex roots always occur in pairs, a cubic function always
+***Since complex roots always occur in pairs, a cubic function always
 has either 1 or 3 real zeros. It cannot have 2 real
-zeros.]{.underline}]{.mark}***
+zeros.***
 
 ![A graph of a function Description automatically
 generated](./media/image71.png)
@@ -2064,8 +2087,8 @@ and solve for y-value.
 **Polynomial Degree:** The degree of the polynomial is defined as the
 highest power the variable is raised to in the polynomial.
 
-The degree also dictates *[how many zeros a polynomial]{.underline} can
-have* and *[what the end behavior is]{.underline}*.
+The degree also dictates *[how many zeros a polynomial can
+have* and *[what the end behavior is*.
 
 ![](./media/image72.png)
 
@@ -2078,7 +2101,7 @@ graph changes from increasing to decreasing (rising to falling) or
 decreasing to increasing (falling to rising).
 
 [A polynomial of degree **n** will have at most **n−1** turning
-points.]{.mark}
+points.
 
 ![A diagram of a graph Description automatically
 generated](./media/image73.png)
@@ -2136,11 +2159,11 @@ $$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarro
 graph behaves at the x-intercept.
 
 -   If the multiplicity of a zero is even, the *[graph will touch the
-    x-axis]{.underline}* at that zero. *[(think about]{.underline}*
-    $x^{2}$*[)]{.underline}*
+    x-axis* at that zero. *[(think about*
+    $x^{2}$*[)*
 
 -   If the multiplicity of a zero is odd, the *[graph will cross the
-    x-axis]{.underline}* at that zero.
+    x-axis* at that zero.
 
 ![](./media/image78.png)
 
@@ -2155,7 +2178,7 @@ generated](./media/image80.png)
 
 The Fundamental Theorem of Algebra tells us that every polynomial
 function with degree greater than 1 has at least one
-*[complex]{.underline}* zero.
+*[complex* zero.
 
 ![](./media/image81.png)
 
@@ -2164,7 +2187,7 @@ $f(x) = \ a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1} + a_{0}$
 of degree n can be factored as
 
 $f(x) = m*\left( x - c_{1} \right)*\left( x - c_{2} \right)\ldots(x - c_{n})$
-*[(m multiplied by a series of linear factors...)]{.underline}*
+*[(m multiplied by a series of linear factors...)*
 
 Every polynomial of degree ***n*** has at most ***n*** roots. (However,
 these roots may be real or complex.)
@@ -2231,7 +2254,7 @@ remainder.**
 The point of the Remainder Theorem is that *[there is a simpler, quicker
 way to evaluate a polynomial p(x) at a given value of x, and this
 simpler way is to not evaluate p(x) at all, but to instead do the
-synthetic division at that same value of x.]{.underline}*
+synthetic division at that same value of x.*
 
 The last number in the synthetic-division result is the value you\'re
 wanting, being the evaluated value of the polynomial.
@@ -2243,23 +2266,23 @@ wanting, being the evaluated value of the polynomial.
 ![](./media/image82.png)
 
 written in descending order of the exponents, has integer coefficients,
-then any *[rational zero]{.underline}* must be of the form [± p/
-q,]{.mark}
+then any *[rational zero* must be of the form [± p/
+q,
 
-Where [p]{.mark} and [q]{.mark} are integers and:
+Where [p and [q are integers and:
 
--   [p]{.mark} is a factor of the constant term a~0~
+-   [p is a factor of the constant term a~0~
 
--   [q]{.mark} is a factor of the leading coefficient a~n~
+-   [q is a factor of the leading coefficient a~n~
 
 ![](./media/image83.png)
 
-[The Rational Zero Theorem helps us to narrow down the number of
+The Rational Zero Theorem helps us to narrow down the number of
 possible rational zeros using the ratio of the factors of the constant
-term and factors of the leading coefficient of the polynomial]{.mark}
+term and factors of the leading coefficient of the polynomial
 
-[Of course, not all zeros will be rational. The rational zeroes theorem
-will not help find irrational zeroes of a polynomial.]{.mark}
+Of course, not all zeros will be rational. The rational zeroes theorem
+will not help find irrational zeroes of a polynomial.
 
 ![](./media/image84.png)
 
@@ -2270,8 +2293,8 @@ will not help find irrational zeroes of a polynomial.]{.mark}
 
 -   Determine all possible values of $\frac{p}{q}\ $, where p is a
     factor of the constant term and q is a factor of the leading
-    coefficient. ***[Be sure to include both positive and negative
-    candidates.]{.underline}***
+    coefficient. ***Be sure to include both positive and negative
+    candidates.***
 
 -   Determine which possible zeros are actual zeros by evaluating each
     case of f($\frac{p}{q}$).
@@ -2311,9 +2334,9 @@ $$\frac{f(x)}{d(x)} = q(x) + \frac{r(x)}{d(x)}$$
 If r(x) is 0, then d(x) is a factor of f, so it divides evenly leaving
 no remainder.
 
-*[[Polynomial long division may always be performed---so long as the
+*Polynomial long division may always be performed---so long as the
 degree of the divisor is equal to or less than the degree of the
-dividend f(x). This is the only restriction.]{.mark}]{.underline}*
+dividend f(x). This is the only restriction.*
 
 *Algorithm: Divide, multiply, subtract, repeat as needed.*
 
@@ -2338,7 +2361,7 @@ Can you always use synthetic division for dividing polynomials?
 
 **Descartes Rule of Signs**: **Descartes\' Rule of Signs** is a theorem
 that provides a way to determine the possible number of positive and
-negative ***[real]{.underline}*** roots (zeros) of a polynomial
+negative ***[real*** roots (zeros) of a polynomial
 equation.
 
 It gives an upper bound on the number of positive and negative roots and
@@ -2375,8 +2398,8 @@ $$f(x) = \ \frac{a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1}{+ a}_{0}}
 **Domain:** The domain of a rational function is the set of all real
 numbers (or complex numbers) for which the function is defined.
 
-[Since a rational function is a ratio of two polynomials, it is defined
-everywhere except where the denominator is zero.]{.mark}
+Since a rational function is a ratio of two polynomials, it is defined
+everywhere except where the denominator is zero.
 
 Those locations where the denominator is zero are responsible for
 creating vertical asymptotes in the graph.
@@ -2482,8 +2505,8 @@ OR
 
 x → $a^{+}$ , f(x) → ± ∞
 
-[[The vertical asymptote is caused by having values in the denominator
-which result in division by zero / are undefined.]{.underline}]{.mark}
+The vertical asymptote is caused by having values in the denominator
+which result in division by zero / are undefined.
 
 ### Finding the vertical asymptote
 
@@ -2695,7 +2718,7 @@ the opposite vertex is taken to be the **Apex.**
 
 **Area of Triangle: ½ bh**
 
-![Area of Triangle - Definition, Formula & Examples \|
+!Area of Triangle - Definition, Formula & Examples \|
 ChiliMath](./media/image106.png)
 
 ### Angle Sum Property
@@ -2703,7 +2726,7 @@ ChiliMath](./media/image106.png)
 **Angle Sum Property:** The sum of the three interior angles of any
 triangle must equal 180.
 
-![Angle Sum Property \| Theorem \| Proof \| Examples-
+!Angle Sum Property \| Theorem \| Proof \| Examples-
 Cuemath](./media/image107.png)
 
 ### Exterior Angles in a Triangle
@@ -2792,8 +2815,8 @@ $$\frac{a}{sin\ A} = \frac{b}{sin\ B} = \frac{c}{sin\ C}$$
 The ratios between all angles and their opposite side lengths are
 directly proportional to each other.
 
-[The Sine Law is applicable to ALL TRIANGLES. Some sources will say it
-is used for oblique triangles only. This is not the case.]{.mark}
+The Sine Law is applicable to ALL TRIANGLES. Some sources will say it
+is used for oblique triangles only. This is not the case.
 
 ### Law of Cosines
 
@@ -2801,8 +2824,8 @@ is used for oblique triangles only. This is not the case.]{.mark}
 the lengths of the sides of any triangle to the cosine of one of its
 angles.
 
-*[[It generalizes the Pythagorean theorem for all types of triangles,
-including those without a right angle.]{.underline}]{.mark}*
+*It generalizes the Pythagorean theorem for all types of triangles,
+including those without a right angle.*
 
 **You can start thinking about using the cosine law when you have an
 oblique triangle, but you do not have the information necessary to apply
@@ -2861,8 +2884,8 @@ $$\frac{a}{sin\ A} = \frac{b}{sin\ B} = \frac{c}{sin\ C}$$
 
 ### Similarity
 
-**Similarity:** *[Similar shapes are the same shape, but they are a
-different size.]{.mark}*
+**Similarity:** *Similar shapes are the same shape, but they are a
+different size.*
 
 The corresponding sides are in the same ratio and the corresponding
 angles are the same. Similar triangles are not "equivalent" because
@@ -2871,8 +2894,8 @@ equivalence in geometry is expressed using congruence.
 Similar triangles are different only in scale, so similar triangles
 could be resized to become congruent.
 
-*[[Same angles, different---but proportional---side
-lengths.]{.underline}]{.mark}*
+*Same angles, different---but proportional---side
+lengths.*
 
 ![A black background with white text Description automatically
 generated](./media/image113.png)
@@ -2916,8 +2939,8 @@ may be made to sit together using transposition.
 
 ![](./media/image116.png)
 
-*[[Congruent shapes have the same ANGLES AND the same
-SIDES.]{.underline}]{.mark}*
+*Congruent shapes have the same ANGLES AND the same
+SIDES.*
 
 ![A screenshot of a computer screen Description automatically
 generated](./media/image117.png)
@@ -2978,7 +3001,7 @@ into three types which are:
 
 ##### Scalene
 
-**Scalene:** Triangle has all side lengths *[different]{.underline}*.
+**Scalene:** Triangle has all side lengths *[different*.
 
 ![](./media/image119.png)
 
@@ -2991,7 +3014,7 @@ into three types which are:
 ##### Equilateral
 
 **Equilateral:** Triangle with *[all sides having the same
-length.]{.underline}*
+length.*
 
 ![](./media/image121.png)
 
@@ -3049,7 +3072,7 @@ There are 2 types of right triangles
     three sides have different lengths, and the two non-right angles are
     different.
 
-![Scalene Triangles \| Measuring, Properties, Types,
+!Scalene Triangles \| Measuring, Properties, Types,
 Examples,](./media/image125.png)
 
 Some scalene right triangles are known as 30-60-90 triangles.
@@ -3078,10 +3101,10 @@ contain any right angles. Logically, we know that if a triangle is not a
 right triangle, then it must be either an Obtuse or Acute triangle.
 
 [**Oblique triangles** are triangles that are either Obtuse or
-Acute.]{.mark}
+Acute.
 
-[Relationships between oblique triangles can be understood using the law
-of sines and law of cosines.]{.mark}
+Relationships between oblique triangles can be understood using the law
+of sines and law of cosines.
 
 ### Special Triangles
 
@@ -3091,13 +3114,13 @@ for which simple formulas exist.
 
 Why are special triangles considered 'special' ?
 
-*[The fact that the sides of these special triangles are represented by
+*The fact that the sides of these special triangles are represented by
 integers or simple square roots, [rather than irrational
-numbers]{.underline}, is a significant reason why they are considered
-special.]{.mark}*
+numbers, is a significant reason why they are considered
+special.*
 
-***[The trigonometric ratios for most angles are irrational
-numbers.]{.mark}***
+***The trigonometric ratios for most angles are irrational
+numbers.***
 
 The angles 30°, 60°, 45° are "special" because we can easily find exact
 values for their trig ratios, and use those exact values to find exact
@@ -3110,10 +3133,10 @@ triangle where the two non-right angles are both 45 degrees. This makes
 the triangle ***isosceles***, as the two legs opposite the 45-degree
 angles are of equal length.
 
-*[[All 45-45-90 triangles are isosceles right
-triangles.]{.underline}]{.mark}*
+*All 45-45-90 triangles are isosceles right
+triangles.*
 
-![Mr. Escalante\'s Geometry
+!Mr. Escalante\'s Geometry
 Class](./media/image127.jpeg)
 
 **Properties**
@@ -3122,7 +3145,7 @@ Class](./media/image127.jpeg)
 
 -   If each leg is **x**, hypotenuse is **x**$\sqrt{\mathbf{2}}$
 
-[45-45-90 triangles can also be expressed as π/4 -- π/4 -- π/2]{.mark}
+[45-45-90 triangles can also be expressed as π/4 -- π/4 -- π/2
 
 #### 30-60-90 (Scalene right triangle)
 
@@ -3147,7 +3170,7 @@ Similarly, the smallest side would always be opposite to the smallest
 angle.
 
 [30-60-90 triangles can also be expressed in radians as π/6 -- π/3 --
-π/2]{.mark}
+π/2
 
 ## Circle
 
@@ -3234,7 +3257,7 @@ flat, 2D shape. It is the measurement of a shape's size on a surface.
 Therefore, the area of a circle is the measurement of the interior space
 occupied by a circle.
 
-![Area of a Circle - Definition, Formula, Derivation with Solved
+!Area of a Circle - Definition, Formula, Derivation with Solved
 Examples](./media/image136.png)
 
 ## Line
@@ -3269,7 +3292,7 @@ straightness on a cartesian coordinate plane.
 |           |                          | parallel to the y-axis and   |
 |           |                          | are perpendicular to the     |
 |           |                          | horizontal lines and the     |
-|           |                          | x-axis]{.underline}*         |
+|           |                          | x-axis*         |
 +-----------+--------------------------+------------------------------+
 | **Hor     | ![](./                   | A horizontal line is a       |
 | izontal** | media/image140.png){widt | straight line that goes from |
@@ -3283,11 +3306,11 @@ straightness on a cartesian coordinate plane.
 |           |                          | It means that the horizontal |
 |           |                          | lines are always parallel to |
 |           |                          | the horizon or the           |
-|           |                          | x-axis.]{.underline}*        |
+|           |                          | x-axis.*        |
 +-----------+--------------------------+------------------------------+
 | *         | ![](./                   | Secant line is a line that   |
 | *Secant** | media/image141.png){widt | intersects a                 |
-|           | h="1.2577548118985127in" | ***[curve]{.underline}*** at |
+|           | h="1.2577548118985127in" | ***[curve*** at |
 |           | height                   | a minimum of two distinct    |
 |           | ="0.9766097987751531in"} | points                       |
 +-----------+--------------------------+------------------------------+
@@ -3303,7 +3326,7 @@ straightness on a cartesian coordinate plane.
 | **        | ![](./                   | A tangent line is a line     |
 | Tangent** | media/image143.png){widt | that touches a curve at a    |
 |           | h="1.6569903762029747in" | single point ***[without     |
-|           | heig                     | crossing]{.underline}*** it  |
+|           | heig                     | crossing*** it  |
 |           | ht="0.92791447944007in"} | at that point.               |
 +-----------+--------------------------+------------------------------+
 
@@ -3315,7 +3338,7 @@ straightness on a cartesian coordinate plane.
 The endpoint is called the vertex of the angle, and the two rays are the
 sides of the angle.
 
-![Illustration of Angle DEF, with vertex E and points D and
+!Illustration of Angle DEF, with vertex E and points D and
 F.](./media/image145.jpeg)
 
 Angle creation is a dynamic process. We start with two rays lying on top
@@ -3335,7 +3358,7 @@ on the positive x axis and rotates counter-clockwise.
 **Negative Angle:** An angle is negative when its initial side begins on
 the positive x axis and rotates clockwise.
 
-![Positive and Negative Angles -- Definitions with
+!Positive and Negative Angles -- Definitions with
 Examples](./media/image147.jpeg)
 
 **Naming an angle:** Angles are named using 3 points.
@@ -3390,13 +3413,13 @@ generated](./media/image150.png)
 |              | (./media/image152 | when two lines cross. Angles 1    |
 |              | .png) | and 4.                            |
 |              |                   |                                   |
-|              |                   | ***[[Vertical angles are named    |
+|              |                   | ***Vertical angles are named    |
 |              |                   | such because they share a         |
-|              |                   | vertex.]{.underline}]{.mark}***   |
+|              |                   | vertex.***   |
 |              |                   |                                   |
-|              |                   | ***[[Vertical angles are formed   |
+|              |                   | ***Vertical angles are formed   |
 |              |                   | whenever lines intersect at a     |
-|              |                   | point.]{.underline}]{.mark}***    |
+|              |                   | point.***    |
 +--------------+-------------------+-----------------------------------+
 | C            | ![                | The angles in matching corners    |
 | orresponding | ](./media/image15 | when two lines are crossed by     |
@@ -3456,7 +3479,7 @@ symbol for second is ''.
 
 ### Radian
 
-**Radian:** One radian is defined as the *[angle]{.underline}*
+**Radian:** One radian is defined as the *[angle*
 **subtended** from the center of a circle which intercepts an arc equal
 in length to the radius of the circle.
 
@@ -3464,9 +3487,9 @@ Radian is a measurement of ANGLE.
 
 1 Radian is 1 "radius-worth" of angle.
 
-***[If you take a radius of 1 and "stretch it out" along the boundary of
+***If you take a radius of 1 and "stretch it out" along the boundary of
 the unit circle, this arc length subtends an angle equal to 1
-radius.]{.underline}***
+radius.***
 
 Radian is a UNITLESS MEASUREMENT. It is unitless because it is the
 result of dividing two distances having the same unit, so the units
@@ -3481,7 +3504,7 @@ generated](./media/image159.png)
 
 ![](./media/image160.png)
 
-![Radian - Formula, Definition \| Radians and
+!Radian - Formula, Definition \| Radians and
 Degrees](./media/image161.png)
 
 ### Reference Angle
@@ -3489,8 +3512,8 @@ Degrees](./media/image161.png)
 **Reference Angle:** The reference angle is the smallest possible angle
 made by the terminal side of the given angle with the x-axis.
 
-[It is always an acute angle (except when it is exactly 90
-degrees).]{.mark}
+It is always an acute angle (except when it is exactly 90
+degrees).
 
 A reference angle is always positive irrespective of which side of the
 axis it is falling.
@@ -3500,8 +3523,8 @@ axis it is falling.
 A reference angle is an angle falling within quadrant 1 which is
 equivalent by reflection to an angle in some other quadrant.
 
-[This concept is useful because it allows you to work with any angle by
-referring to their equivalent angle in the first quadrant.]{.mark}
+This concept is useful because it allows you to work with any angle by
+referring to their equivalent angle in the first quadrant.
 
 **Rules for Reference Angles in Each Quadrant**
 
@@ -3555,7 +3578,7 @@ medium confidence](./media/image164.png)
 ### Sine
 
 **Sine (sin):** The output is the *[y-coordinate of the corresponding
-point on the unit circle.]{.underline}*
+point on the unit circle.*
 
 The sine of an angle θ equals the **y-value** of the endpoint on the
 unit circle of an arc of length *t*.
@@ -3584,11 +3607,11 @@ of the wave.
 
 The period is given by : 2pi / \|B\|
 
-![Period of the Sine Function - Formulas and Examples -
+!Period of the Sine Function - Formulas and Examples -
 Neurochispas](./media/image166.jpeg)
 
 **Phase Shift:** The phase shift determines the *[horizontal
-displacement of the wave]{.underline}*, along x-axis.
+displacement of the wave*, along x-axis.
 
 The phase shift is given by -C/B
 
@@ -3608,7 +3631,7 @@ generated](./media/image168.png)
 ### Cosine
 
 **Cosine (cos):** The output is the *[x-coordinate of the corresponding
-point on the unit circle]{.underline}*.
+point on the unit circle*.
 
 The cosine function of an angle θ equals the **x-value** of the endpoint
 on the unit circle of an arc of length *t*.
@@ -3646,7 +3669,7 @@ The cosecant of angle t is equal to 1/sin(t) = 1/y , y≠0.
 ![A diagram of a trigonometry Description automatically
 generated](./media/image169.png)
 
-[Key Elements of the Diagram:]{.underline}
+Key Elements of the Diagram:
 
 **Unit Circle:** The circle shown is the unit circle, which has a radius
 of 1. Any point on the unit circle satisfies the equation:
@@ -3716,13 +3739,13 @@ generated](./media/image172.png)
 **Sum & Difference Identities:** The sum and difference identities allow
 you to express trigonometric functions of non-standard angles *[in terms
 of the trigonometric functions of standard angles (e.g., 0°, 30°, 45°,
-60°, 90°, etc.)]{.underline}*. These identities are particularly useful
+60°, 90°, etc.)*. These identities are particularly useful
 for angles that can be expressed as sums or differences of these
 standard angles.
 
-**[Some angles do not appear on the unit circle, but can be made by
+**Some angles do not appear on the unit circle, but can be made by
 adding or subtracting angles which are found in the unit
-circle.]{.mark}**
+circle.**
 
 ### Double Angle Formulas
 
@@ -3779,11 +3802,11 @@ y = r \* sin(θ)
 
 (x,y)=(cos(θ),sin(θ))
 
-[Therefore, for any angle 𝜃, the outputs of the sine and cosine
+Therefore, for any angle 𝜃, the outputs of the sine and cosine
 functions (sin(𝜃) and cos(θ)) represent the y and x coordinates,
 respectively, of a point on the unit circle. This fundamental
 relationship between the unit circle and the trigonometric functions is
-a cornerstone of trigonometry.]{.mark}
+a cornerstone of trigonometry.
 
 ### Drawing the Unit Circle
 
@@ -3791,14 +3814,14 @@ a cornerstone of trigonometry.]{.mark}
 
 1)  Divide circle by **30**°**.**
 
-![Polar Grid In Degrees With Radius 1 \| ClipArt
+!Polar Grid In Degrees With Radius 1 \| ClipArt
 ETC](./media/image173.gif)
 
 2)  Finish by dividing by **45**° **markers.** Notice how the **45**°
     interval markers divide the **central 30**° **segment** into 2 equal
     parts**.**
 
-![Blank Unit Circle Chart Printable \| Fill in the Unit Circle
+!Blank Unit Circle Chart Printable \| Fill in the Unit Circle
 Worksheet](./media/image174.png)
 
 3)  **Because** π **= 180**°**,** when we divide by **30**°**,** we
@@ -3824,17 +3847,17 @@ confidence](./media/image177.png)
 **Looking at the circle divided by** π**/3 can also be useful, because
 some segments will reduce to a multiple of 1/3^rd^.**
 
-![Output image](./media/image178.png)
+!Output image](./media/image178.png)
 
 ![](./media/image179.png)
 
-![Graph of a quarter circle with angles of 0, 30, 45, 60, and 90 degrees
+!Graph of a quarter circle with angles of 0, 30, 45, 60, and 90 degrees
 inscribed. Equivalence of angles in radians shown. Points along circle
 are marked. ](./media/image180.jpeg)
 
 ## Defining Sine and Cosine Functions
 
-![Illustration of an angle t, with terminal side length equal to 1, and
+!Illustration of an angle t, with terminal side length equal to 1, and
 an arc created by angle with length t. The terminal side of the angle
 intersects the circle at the point (x,y), which is equivalent to (cos t,
 sin t). ](./media/image181.jpeg)
@@ -3883,8 +3906,8 @@ The position vector is typically defined with respect to the origin of
 the coordinate system. The origin is the point where all the coordinates
 are zero.
 
-[The position vector will "point" from the origin of the coordinate
-system to the terminal point.]{.mark}
+The position vector will "point" from the origin of the coordinate
+system to the terminal point.
 
 There are many advantages to converting vectors into position vectors:
 
@@ -3903,9 +3926,9 @@ magnitude of 1.
 
 A vector can be scaled "off" the unit vector.
 
-[Because scalars only change the magnitude of a vector and not the
+Because scalars only change the magnitude of a vector and not the
 direction, the vector will still be oriented in the same direction after
-having been scaled.]{.mark}
+having been scaled.
 
 A unit vector is similar to a position vector, except it has the
 additional restriction that the magnitude must be 1.
