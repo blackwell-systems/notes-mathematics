@@ -890,7 +890,7 @@ generated](./media/image27.png)
 Two sets are **equal** iff they have the **same members**. Formally
 **(Axiom of Extensionality):**
 
-$$A = B\text{\:\,\:\,} \Longleftrightarrow \text{\:\,\:\,}\forall x\text{\:\,}(x \in A\text{\:\,} \Longleftrightarrow \text{\:\,}x \in B)
+$$A = B  \Longleftrightarrow  \forall x (x \in A  \Longleftrightarrow  x \in B)
 $$
 
 Equivalently (very handy in proofs):
@@ -956,11 +956,11 @@ generated](./media/image29.png)
 
 **Set equality (Extensionality):**
 
-$$A = B\text{\:\,} \Longleftrightarrow \text{\:\,}\forall x\text{ }(x \in A \leftrightarrow x \in B)$$
+$$A = B  \Longleftrightarrow  \forall x\text{ }(x \in A \leftrightarrow x \in B)$$
 
 **Subset:**
 
-$A \subseteq B\text{\:\,} \Longleftrightarrow \text{\:\,}\forall x\text{ }(x \in A \Rightarrow x \in B)$.
+$A \subseteq B  \Longleftrightarrow  \forall x\text{ }(x \in A \Rightarrow x \in B)$.
 
 **Proper subset**:
 
@@ -1251,7 +1251,7 @@ set $\mathbf{\{\{ a\},\{ a,b\}\}}.$
 
 We want a set-theoretic object ⟨a,b⟩ so that
 
-$$\langle a,b\rangle = \langle c,d\rangle\text{\:\,} \Longleftrightarrow \text{\:\,}a = c\text{ and }b = d.
+$$\langle a,b\rangle = \langle c,d\rangle  \Longleftrightarrow  a = c and b = d.
 $$
 
 The naive set $\{ a,b\}$fails (it ignores order: $\{ a,b\} = \{ b,a\}$).
