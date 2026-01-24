@@ -842,9 +842,20 @@ generated](./media/image25.png)
 
 ## Set-Builder Notation
 
-Set-builder notation describes the elements of a set by specifying a
+**Set-Builder Notation:** Set-builder notation describes the elements of a set by specifying a
 property or condition that the elements of the set satisfy, rather than
 listing them out.
+
+**General Form:** $\{x \mid P(x)\}$ or $\{x : P(x)\}$
+
+Read as "the set of all x such that P(x) is true"
+
+**Examples:**
+
+- $\{x \mid x > 0\}$ = the set of all positive numbers
+- $\{x \in \mathbb{Z} \mid x \text{ is even}\}$ = the set of all even integers
+- $\{x^2 \mid x \in \mathbb{N}\}$ = {0, 1, 4, 9, 16, 25, ...} (perfect squares)
+- $\{x \in \mathbb{R} \mid x^2 < 4\}$ = $(-2, 2)$ (interval notation)
 
 ## Empty Set
 
@@ -993,6 +1004,34 @@ $\mid S \mid = n$.
 
 #### Infinite Set
 
+**Definition:**
+
+A set $S$ is **infinite** if it is not finite. That is, there is no natural number $n$ such that $S$ can be bijected with $\{0, 1, \ldots, n-1\}$.
+
+Equivalently, a set is infinite if there exists a bijection between the set and a proper subset of itself.
+
+**Examples:**
+
+- $\mathbb{N}$ (natural numbers) is infinite
+- $\mathbb{Z}$ (integers) is infinite
+- $\mathbb{Q}$ (rational numbers) is infinite
+- $\mathbb{R}$ (real numbers) is infinite
+- $(0, 1)$ (open interval) is infinite
+
+**Countably Infinite:** An infinite set that can be put in one-to-one correspondence with the natural numbers $\mathbb{N}$.
+
+Examples: $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$
+
+**Uncountably Infinite:** An infinite set that cannot be put in one-to-one correspondence with the natural numbers.
+
+Example: $\mathbb{R}$ (proven by Cantor's diagonal argument)
+
+**Hierarchy of Infinities:**
+
+$$|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}| < |\mathbb{R}| < |\mathcal{P}(\mathbb{R})|$$
+
+Where $\mathcal{P}(X)$ denotes the power set of $X$.
+
 ## Universal Set
 
 The universal set is a fundamental concept in set theory, which refers
@@ -1027,18 +1066,22 @@ context or domain of discourse.**
 ### Set Union
 
 **Set Union:** The union of two sets A and B is the set of elements
-which are in both **A** and **B**.
+which are in **A** or **B** (or both).
 
 ∀x( x ∈ (A∪B) ↔ ( x ∈ A ∨ x ∈ B ))
+
+**Example:** If A = {1, 2, 3} and B = {3, 4, 5}, then A ∪ B = {1, 2, 3, 4, 5}
 
 ![A red circle with black lines Description automatically
 generated](./media/image31.png)
 
 ### Set Intersection
 
-**Set Intersection:**
+**Set Intersection:** The intersection of two sets A and B is the set of elements which are in both **A** and **B**.
 
 ∀x( x∈ (A∩B) ↔ ( x ∈ A ∧ x ∈ B))
+
+**Example:** If A = {1, 2, 3} and B = {3, 4, 5}, then A ∩ B = {3}
 
 ![A red and black circle with black lines Description automatically
 generated](./media/image32.png)
@@ -1071,6 +1114,131 @@ confidence](./media/image34.png)
 
 ![A red circle with white circle in center Description automatically
 generated](./media/image35.png)
+
+## Power Set
+
+**Power Set:** The power set of a set **A**, denoted $\mathcal{P}(A)$ or $2^A$, is the set of all subsets of **A**, including the empty set and **A** itself.
+
+**Definition:** $\mathcal{P}(A) = \{S \mid S \subseteq A\}$
+
+**Example 1:** If A = {1, 2}, then:
+
+$\mathcal{P}(A) = \{\varnothing, \{1\}, \{2\}, \{1, 2\}\}$
+
+**Example 2:** If A = {a, b, c}, then:
+
+$\mathcal{P}(A) = \{\varnothing, \{a\}, \{b\}, \{c\}, \{a,b\}, \{a,c\}, \{b,c\}, \{a,b,c\}\}$
+
+**Cardinality:** If $|A| = n$, then $|\mathcal{P}(A)| = 2^n$
+
+This is why the power set is sometimes written as $2^A$.
+
+**Examples:**
+- $|\mathcal{P}(\varnothing)| = 2^0 = 1$ (only the empty set itself)
+- $|\mathcal{P}(\{a\})| = 2^1 = 2$ (empty set and {a})
+- $|\mathcal{P}(\{a, b\})| = 2^2 = 4$
+- $|\mathcal{P}(\{a, b, c\})| = 2^3 = 8$
+
+## Disjoint Sets
+
+**Disjoint Sets:** Two sets **A** and **B** are disjoint if they have no elements in common.
+
+**Definition:** $A \cap B = \varnothing$
+
+**Example:** {1, 2, 3} and {4, 5, 6} are disjoint.
+
+**Pairwise Disjoint:** A collection of sets $\{A_1, A_2, \ldots, A_n\}$ is pairwise disjoint if every pair of distinct sets in the collection is disjoint.
+
+Formally: $\forall i, j : i \neq j \Rightarrow A_i \cap A_j = \varnothing$
+
+**Example:** {1, 2}, {3, 4}, {5, 6} are pairwise disjoint.
+
+## Partition of a Set
+
+**Partition:** A partition of a set **A** is a collection of non-empty, pairwise disjoint subsets of **A** whose union is **A**.
+
+**Definition:** A collection $\{A_1, A_2, \ldots, A_n\}$ is a partition of **A** if:
+
+1. Each $A_i$ is non-empty: $A_i \neq \varnothing$
+2. The sets are pairwise disjoint: $A_i \cap A_j = \varnothing$ for $i \neq j$
+3. Their union is **A**: $A_1 \cup A_2 \cup \cdots \cup A_n = A$
+
+**Example:** The sets {1, 2}, {3, 4}, {5, 6} form a partition of {1, 2, 3, 4, 5, 6}.
+
+**Connection to Equivalence Relations:**
+
+Every equivalence relation on a set **A** induces a partition of **A** (the equivalence classes), and every partition of **A** induces an equivalence relation on **A**.
+
+## Set Operation Properties
+
+### Commutative Laws
+
+$$A \cup B = B \cup A$$
+$$A \cap B = B \cap A$$
+
+### Associative Laws
+
+$$A \cup (B \cup C) = (A \cup B) \cup C$$
+$$A \cap (B \cap C) = (A \cap B) \cap C$$
+
+### Distributive Laws
+
+$$A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$$
+$$A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$$
+
+### Identity Laws
+
+$$A \cup \varnothing = A$$
+$$A \cap U = A$$
+
+Where $U$ is the universal set.
+
+### Complement Laws
+
+$$A \cup A' = U$$
+$$A \cap A' = \varnothing$$
+$$(A')' = A$$
+
+### De Morgan's Laws
+
+**De Morgan's Laws** relate complements to unions and intersections:
+
+$$(A \cup B)' = A' \cap B'$$
+
+The complement of a union is the intersection of the complements.
+
+$$(A \cap B)' = A' \cup B'$$
+
+The complement of an intersection is the union of the complements.
+
+**Generalized De Morgan's Laws:** For any collection of sets:
+
+$$\left(\bigcup_{i} A_i\right)' = \bigcap_{i} A_i'$$
+
+$$\left(\bigcap_{i} A_i\right)' = \bigcup_{i} A_i'$$
+
+**Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$ with universal set $U = \{1, 2, 3, 4, 5, 6\}$:
+
+- $A \cup B = \{1, 2, 3, 4, 5\}$
+- $(A \cup B)' = \{6\}$
+- $A' = \{4, 5, 6\}$
+- $B' = \{1, 2, 6\}$
+- $A' \cap B' = \{6\}$ ✓
+
+### Absorption Laws
+
+$$A \cup (A \cap B) = A$$
+$$A \cap (A \cup B) = A$$
+
+### Domination Laws
+
+$$A \cup U = U$$
+$$A \cap \varnothing = \varnothing$$
+
+### Idempotent Laws
+
+$$A \cup A = A$$
+$$A \cap A = A$$
 
 ## Ordered Pairs (Kuratowski's definition)
 
