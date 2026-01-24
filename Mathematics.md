@@ -1264,19 +1264,19 @@ The naive set $\{ a,b\}$fails (it ignores order: $\{ a,b\} = \{ b,a\}$).
 
 **Assume** $\mathbf{\{\{ a\},\{ a,b\}\} = \{\{ c\},\{ c,d\}\}}$
 
-Since $\{ a\}$is an element on the left, it must equal $\{ c\}$or
+Since $\{ a\}$ is an element on the left, it must equal $\{ c\}$ or
 $\{ c,d\}$
 
-In either case we get $a = c$(if $\{ a\} = \left\{ c \right\}$ then
+In either case we get $a = c$ (if $\{ a\} = \{ c \}$ then
 $a = c$
 
-if $\{ a\} = \{ c,d\}$then that set is a singleton, so $c = d = a$)
+if $\{ a\} = \{ c,d\}$ then that set is a singleton, so $c = d = a$)
 
 With $a = c$ now fixed, the other elements must match, so
 $\{ a,b\} = \{ c,d\} = \{ a,d\}$, hence $b = d$
 
-Thus equality of the sets forces $a = c$and $b = d$. Conversely, if
-$a = c$and $b = d$, the two sides are literally the same set
+Thus equality of the sets forces $a = c$ and $b = d$. Conversely, if
+$a = c$ and $b = d$, the two sides are literally the same set
 
 *(Edge case* $a = b$*: then* $\langle a,a\rangle = \{\{ a\}\}$*; the
 same argument still gives* $c = a$ *and* $d = a$*)*
