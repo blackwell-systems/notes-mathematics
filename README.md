@@ -82,3 +82,9 @@ View with any markdown renderer:
 - Markdown Preview Enhanced
 
 Images will render at natural sizes without fixed dimensions.
+
+## License
+
+This work is licensed under [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
+
+You are free to share and adapt this material for any purpose, provided you give appropriate credit and distribute contributions under the same license.
