@@ -595,7 +595,7 @@ ambiguous when both operands are true.
 describing **XOR** are \"one or the other but not both\", \"either one
 or the other\", and \"A or B, but not A and B\".
 
-Symbolically, XOR is expressed as: $\mathbf{\oplus ,\  ≢}$**, ...**
+Symbolically, XOR is expressed as: $\mathbf{\oplus , ≢}$**, ...**
 
 ![A white background with black text Description automatically
 generated](./media/image14.png)
@@ -848,7 +848,7 @@ listing them out.
 
 ## Empty Set
 
-The empty set, denoted as $\varnothing\ $ and sometimes $\{\}$, is a set
+The empty set, denoted as $\varnothing$ and sometimes $\{\}$, is a set
 with no members at all.
 
 Although the empty set has no members, it can be a member of other sets.
@@ -886,7 +886,7 @@ Equivalently (very handy in proofs):
 
 A = B ⟺ ( A ⊆ B) ∧ ( B ⊆ A )
 
-**How to prove sets** $\mathbf{A = B}\mathbf{\ }$**in practice:**
+**How to prove sets** $\mathbf{A = B}\mathbf{ }$**in practice:**
 
 1.  **Show** $A \subseteq B$**:** take an arbitrary $x \in A$, prove
     $x \in B$.
@@ -907,7 +907,7 @@ To show $A = B$: let $x$ be arbitrary
 
 ## Pigeonhole Principle (PHP)
 
-If $m\ $objects (pigeons) are placed into $n$ containers (holes) with
+If $m$objects (pigeons) are placed into $n$ containers (holes) with
 $m > n$, then at least one container holds **two or more** objects.
 
 **Proof (counting).**\
@@ -918,7 +918,7 @@ Contradiction. ∎
 
 **Theorem (Generalized PHP).**
 
-Placing $m\ $objects into $n\ $containers guarantees some container has
+Placing $m$objects into $n$containers guarantees some container has
 at least:
 
 $$\lceil\frac{m}{n}\rceil
@@ -1099,7 +1099,7 @@ The naive set $\{ a,b\}$fails (it ignores order: $\{ a,b\} = \{ b,a\}$).
 Since $\{ a\}$is an element on the left, it must equal $\{ c\}$or
 $\{ c,d\}$
 
-In either case we get $a = c\ $(if $\{ a\} = \left\{ c \right\}$ then
+In either case we get $a = c$(if $\{ a\} = \left\{ c \right\}$ then
 $a = c$
 
 if $\{ a\} = \{ c,d\}$then that set is a singleton, so $c = d = a$)
@@ -1111,7 +1111,7 @@ Thus equality of the sets forces $a = c$and $b = d$. Conversely, if
 $a = c$and $b = d$, the two sides are literally the same set
 
 *(Edge case* $a = b$*: then* $\langle a,a\rangle = \{\{ a\}\}$*; the
-same argument still gives* $c = a$ *and* $d = a\ $*)*
+same argument still gives* $c = a$ *and* $d = a$*)*
 
 **Cartesian Product:** The Cartesian product of two sets **A** and
 **B**, written **A X B**, is the set of all ordered pairs in which the
@@ -1659,8 +1659,8 @@ generated](./media/image51.png)
 If there are injections $f:A \rightarrow B$ and $g:B \rightarrow A$,
 then there exists a bijection $h:A \rightarrow B$
 
-(So $\mid A \mid \leq \mid B \mid \ $and
-$\mid B \mid \leq \mid A \mid \ $together imply
+(So $\mid A \mid \leq \mid B \mid $and
+$\mid B \mid \leq \mid A \mid $together imply
 $\mid A \mid = \mid B \mid$. No Choice needed.)
 
 # Complex Numbers
@@ -1672,7 +1672,7 @@ Complex numbers allow solutions to all polynomial equations, even those
 that have no solutions in real numbers.
 
 For example, the equation
-$\mathbf{(x + 1)}^{\mathbf{2}}\mathbf{= \  - 9}$ has no real solution,
+$\mathbf{(x + 1)}^{\mathbf{2}}\mathbf{=  - 9}$ has no real solution,
 because the square of a real number cannot be negative but has the two
 nonreal complex solutions **-1+3i** and **-1-3i**.
 
@@ -2122,36 +2122,36 @@ by its leading term.
 ![A diagram of a graph Description automatically
 generated](./media/image74.png)
 
-$$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+$$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
-$$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+$$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
 **Even power, negative leading coefficient:**
 
 ![A diagram of a graph Description automatically
 generated](./media/image75.png)
 
-$$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \  - \infty}$$
+$$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \  - \infty}$$
 
-$$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow - \infty}$$
+$$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow - \infty}$$
 
 **Odd power, positive leading coefficient:**
 
 ![A graph of a function Description automatically
 generated](./media/image76.png)
 
-$$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+$$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
-$$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow - \infty}$$
+$$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow - \infty}$$
 
 **Odd power, negative leading coefficient:**
 
 ![A diagram of a graphing function Description automatically
 generated](./media/image77.png)
 
-$$\mathbf{x \rightarrow \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+$$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
-$$\mathbf{x \rightarrow - \infty,\ f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+$$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
 ## Factor Multiplicity
 
@@ -2183,7 +2183,7 @@ function with degree greater than 1 has at least one
 ![](./media/image81.png)
 
 Every polynomial:
-$f(x) = \ a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1} + a_{0}$
+$f(x) =  a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1} + a_{0}$
 of degree n can be factored as
 
 $f(x) = m*\left( x - c_{1} \right)*\left( x - c_{2} \right)\ldots(x - c_{n})$
@@ -2197,7 +2197,7 @@ the above product. We could write $\mathbf{(x - c)}^{\mathbf{k}}$ as a
 factor of ***f.***
 
 If ***f(x)
-=***$\mathbf{\ }\mathbf{a}_{\mathbf{n}}\mathbf{x}^{\mathbf{n}}\mathbf{+}\mathbf{a}_{\mathbf{n - 1}}\mathbf{x}^{\mathbf{n - 1}}\mathbf{+ \ldots +}\mathbf{a}_{\mathbf{1}}\mathbf{x}^{\mathbf{1}}\mathbf{+}\mathbf{a}_{\mathbf{0}}$
+=***$\mathbf{ }\mathbf{a}_{\mathbf{n}}\mathbf{x}^{\mathbf{n}}\mathbf{+}\mathbf{a}_{\mathbf{n - 1}}\mathbf{x}^{\mathbf{n - 1}}\mathbf{+ \ldots +}\mathbf{a}_{\mathbf{1}}\mathbf{x}^{\mathbf{1}}\mathbf{+}\mathbf{a}_{\mathbf{0}}$
 has only real coefficients, and ***c = a+bi*** is a complex root of
 ***f***, then the complex conjugate ***c = a-bi*** is also a root of
 ***f***. (Complex roots containing the imaginary unit always appear in
@@ -2291,7 +2291,7 @@ will not help find irrational zeroes of a polynomial.
 -   Determine all factors of the constant term and all factors of the
     leading coefficient.
 
--   Determine all possible values of $\frac{p}{q}\ $, where p is a
+-   Determine all possible values of $\frac{p}{q}$, where p is a
     factor of the constant term and q is a factor of the leading
     coefficient. ***Be sure to include both positive and negative
     candidates.***
@@ -2389,9 +2389,9 @@ any binomial for any degree n.
 # Rational Functions
 
 **Rational Functions:** A rational function is an expression of the form
-$\frac{P(x)}{Q(x)}\ $, *p,q* are polynomials and q is not 0.
+$\frac{P(x)}{Q(x)}$, *p,q* are polynomials and q is not 0.
 
-$$f(x) = \ \frac{a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1}{+ a}_{0}}{b_{n}x^{n} + b_{n - 1}x^{n - 1} + \ldots + b_{1}x^{1}{+ b}_{0}}$$
+$$f(x) =  \frac{a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1}{+ a}_{0}}{b_{n}x^{n} + b_{n - 1}x^{n - 1} + \ldots + b_{1}x^{1}{+ b}_{0}}$$
 
 ## Domain
 
@@ -2525,7 +2525,7 @@ value increases/decreases without bound.
 
 How do you find the horizontal asymptote?
 
-$$f(x) = \ \frac{ax^{n} + \ldots + a}{bx^{m} + \ldots + b}$$
+$$f(x) =  \frac{ax^{n} + \ldots + a}{bx^{m} + \ldots + b}$$
 
 Where a,b are the leading co-efficient of the polynomials having degree
 n,m respectively.
@@ -2552,7 +2552,7 @@ Horizontal asymptote: y = 0
 ![A screenshot of a graph Description automatically
 generated](./media/image96.png)
 
-$$f(x)\  = \ \frac{x^{2} + 1}{x^{3}}$$
+$$f(x) = \ \frac{x^{2} + 1}{x^{3}}$$
 
 This is a proper fraction, where the denominator is greater than the
 numerator. This produces a horizontal asymptote at ***y = 0***.
@@ -2636,7 +2636,7 @@ Perform Polynomial Long Division
 Holes / Discontinuities occur when there is a common factor between the
 numerator and the denominator.
 
-$$f(x) = \ \frac{x^{2} - 2}{x^{2} - 2x - 3} = \ \frac{(x + 1)(x - 1)}{(x + 1)(x - 3)}$$
+$$f(x) =  \frac{x^{2} - 2}{x^{2} - 2x - 3} = \ \frac{(x + 1)(x - 1)}{(x + 1)(x - 3)}$$
 
 ![](./media/image101.png)
 
@@ -2810,7 +2810,7 @@ understand, because the trig functions only relate the angles and sides
 of RIGHT ANGLED triangles. To establish relationships on oblique /
 non-right-angled triangles, we must use the **Law of Sines**.
 
-$$\frac{a}{sin\ A} = \frac{b}{sin\ B} = \frac{c}{sin\ C}$$
+$$\frac{a}{sin A} = \frac{b}{sin\ B} = \frac{c}{sin\ C}$$
 
 The ratios between all angles and their opposite side lengths are
 directly proportional to each other.
@@ -2880,7 +2880,7 @@ oblique triangles when:
 
 -   **You have two sides and a non-included angle (SSA).**
 
-$$\frac{a}{sin\ A} = \frac{b}{sin\ B} = \frac{c}{sin\ C}$$
+$$\frac{a}{sin A} = \frac{b}{sin\ B} = \frac{c}{sin\ C}$$
 
 ### Similarity
 
@@ -3587,7 +3587,7 @@ unit circle of an arc of length *t*.
 
 **Graphing Sine:**
 
-$$A\ sin(Bx + C) + D$$
+$$A sin(Bx + C) + D$$
 
 **\|A\|** is the **amplitude**
 
@@ -3714,12 +3714,12 @@ It is the ratio of the cosine to the sine (cos 𝜃/sin 𝜃).
 
 **tan 𝜃 :** $\frac{\mathbf{opp}}{\mathbf{adj}}$ **= sinx/cosx**
 
-**cot 𝜃 :** $\frac{\mathbf{1}}{\mathbf{tan\ }\mathbf{\theta}}$ **=**
+**cot 𝜃 :** $\frac{\mathbf{1}}{\mathbf{tan }\mathbf{\theta}}$ **=**
 $\frac{\mathbf{adj}}{\mathbf{opp}}$
 
-**sec 𝜃 :** $\frac{\mathbf{1}}{\mathbf{cos\ }\mathbf{\theta}}$
+**sec 𝜃 :** $\frac{\mathbf{1}}{\mathbf{cos }\mathbf{\theta}}$
 
-**csc 𝜃 :** $\frac{\mathbf{1}}{\mathbf{sin\ }\mathbf{\theta}}$
+**csc 𝜃 :** $\frac{\mathbf{1}}{\mathbf{sin }\mathbf{\theta}}$
 
 ### Pythagorean Identities
 
@@ -3727,9 +3727,9 @@ $\frac{\mathbf{adj}}{\mathbf{opp}}$
 
 1.  $\sin^{2}\theta + \cos^{2}\theta = 1$
 
-2.  ${1 + cot}^{2}\theta = \ \csc^{2}\theta$
+2.  ${1 + cot}^{2}\theta =  \csc^{2}\theta$
 
-3.  ${1 + tan}^{2}\theta = \ \sec^{2}\theta$
+3.  ${1 + tan}^{2}\theta =  \sec^{2}\theta$
 
 ![A white paper with black text Description automatically
 generated](./media/image172.png)
@@ -3971,7 +3971,7 @@ specific order.
 
 **Permutation Formula**
 
-$$P(n,r) = \ \frac{n!}{(n - r)!}$$
+$$P(n,r) =  \frac{n!}{(n - r)!}$$
 
 **n:** The total number of items or elements in the set from which
 selections are made. It represents the size of the entire set.
@@ -3995,7 +3995,7 @@ selection itself and not ordering.
 
 **Combination Formula**
 
-$$C(n,r) = \binom{\mathbf{n}}{\mathbf{r}} = \ \frac{n!}{r!(n - r)!}$$
+$$C(n,r) = \binom{\mathbf{n}}{\mathbf{r}} =  \frac{n!}{r!(n - r)!}$$
 
 **n:** The total number of items or elements in the set from which
 selections are made. It represents the size of the entire set.
