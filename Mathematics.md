@@ -859,7 +859,7 @@ Read as "the set of all x such that P(x) is true"
 
 ## Empty Set
 
-The empty set, denoted as $\varnothing$ or $\{\}$, is a set
+The empty set, denoted as ∅ or {}, is a set
 with no members at all.
 
 Although the empty set has no members, it can be a member of other sets.
@@ -918,7 +918,7 @@ To show $A = B$: let $x$ be arbitrary
 
 ## Pigeonhole Principle (PHP)
 
-If $m$objects (pigeons) are placed into $n$ containers (holes) with
+If $m$ objects (pigeons) are placed into $n$ containers (holes) with
 $m > n$, then at least one container holds **two or more** objects.
 
 **Proof (counting).**\
@@ -929,7 +929,7 @@ Contradiction. ∎
 
 **Theorem (Generalized PHP).**
 
-Placing $m$objects into $n$containers guarantees some container has
+Placing $m$ objects into $n$ containers guarantees some container has
 at least:
 
 $$\lceil\frac{m}{n}\rceil
