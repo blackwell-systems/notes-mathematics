@@ -7719,125 +7719,119 @@ c**v** = c⟨v₁, v₂⟩ = ⟨cv₁, cv₂⟩
 
 ### Magnitude (Length)
 
-**Magnitude:** The length of vector $\vec{v} = \langle v_1, v_2 \rangle$:
+**Magnitude:** The length of vector **v** = ⟨v₁, v₂⟩:
 
-$$|\vec{v}| = \sqrt{v_1^2 + v_2^2}$$
+|**v**| = √(v₁² + v₂²)
 
-**3D:** For $\vec{v} = \langle v_1, v_2, v_3 \rangle$:
+**3D:** For **v** = ⟨v₁, v₂, v₃⟩:
 
-$$|\vec{v}| = \sqrt{v_1^2 + v_2^2 + v_3^2}$$
+|**v**| = √(v₁² + v₂² + v₃²)
 
 **Examples:**
 
-1. $|\langle 3, 4 \rangle| = \sqrt{9 + 16} = 5$
-2. $|\langle -2, 5 \rangle| = \sqrt{4 + 25} = \sqrt{29}$
-3. $|\langle 1, 2, 2 \rangle| = \sqrt{1 + 4 + 4} = 3$
+1. |⟨3, 4⟩| = √(9 + 16) = 5
+2. |⟨-2, 5⟩| = √(4 + 25) = √29
+3. |⟨1, 2, 2⟩| = √(1 + 4 + 4) = 3
 
 ### Unit Vector
 
 **Unit Vector:** A vector with magnitude 1.
 
-To find unit vector in direction of $\vec{v}$:
+To find unit vector in direction of **v**:
 
-$$\hat{v} = \frac{\vec{v}}{|\vec{v}|}$$
+**v̂** = **v** / |**v**|
 
-**Example:** Find unit vector for $\vec{v} = \langle 3, 4 \rangle$
+**Example:** Find unit vector for **v** = ⟨3, 4⟩
 
-$$|\vec{v}| = 5$$
+|**v**| = 5
 
-$$\hat{v} = \frac{1}{5}\langle 3, 4 \rangle = \langle \frac{3}{5}, \frac{4}{5} \rangle$$
+**v̂** = (1/5)⟨3, 4⟩ = ⟨3/5, 4/5⟩
 
-Check: $|\hat{v}| = \sqrt{(3/5)^2 + (4/5)^2} = \sqrt{9/25 + 16/25} = 1$ ✓
+Check: |**v̂**| = √((3/5)² + (4/5)²) = √(9/25 + 16/25) = 1 ✓
 
 ### Dot Product (Scalar Product)
 
-**Dot Product:** For $\vec{u} = \langle u_1, u_2 \rangle$ and $\vec{v} = \langle v_1, v_2 \rangle$:
+**Dot Product:** For **u** = ⟨u₁, u₂⟩ and **v** = ⟨v₁, v₂⟩:
 
-$$\vec{u} \cdot \vec{v} = u_1v_1 + u_2v_2$$
+**u** · **v** = u₁v₁ + u₂v₂
 
 **Result is a scalar, not a vector.**
 
 **Geometric Form:**
 
-$$\vec{u} \cdot \vec{v} = |\vec{u}||\vec{v}|\cos\theta$$
+**u** · **v** = |**u**||**v**|cos(θ)
 
-Where $\theta$ is the angle between the vectors.
+Where θ is the angle between the vectors.
 
-**Example 1:** $\langle 2, 3 \rangle \cdot \langle 4, -1 \rangle = 2(4) + 3(-1) = 8 - 3 = 5$
+**Example 1:** ⟨2, 3⟩ · ⟨4, -1⟩ = 2(4) + 3(-1) = 8 - 3 = 5
 
-**Example 2:** $\langle 1, 0 \rangle \cdot \langle 0, 1 \rangle = 0$ (perpendicular vectors)
+**Example 2:** ⟨1, 0⟩ · ⟨0, 1⟩ = 0 (perpendicular vectors)
 
 **Properties:**
-- **Commutative:** $\vec{u} \cdot \vec{v} = \vec{v} \cdot \vec{u}$
-- **Distributive:** $\vec{u} \cdot (\vec{v} + \vec{w}) = \vec{u} \cdot \vec{v} + \vec{u} \cdot \vec{w}$
-- $\vec{v} \cdot \vec{v} = |\vec{v}|^2$
+- **Commutative:** **u** · **v** = **v** · **u**
+- **Distributive:** **u** · (**v** + **w**) = **u** · **v** + **u** · **w**
+- **v** · **v** = |**v**|²
 
 **Finding Angle Between Vectors:**
 
-$$\cos\theta = \frac{\vec{u} \cdot \vec{v}}{|\vec{u}||\vec{v}|}$$
+cos(θ) = (**u** · **v**) / (|**u**||**v**|)
 
-**Example:** Find angle between $\vec{u} = \langle 1, 0 \rangle$ and $\vec{v} = \langle 1, 1 \rangle$
+**Example:** Find angle between **u** = ⟨1, 0⟩ and **v** = ⟨1, 1⟩
 
-$$\cos\theta = \frac{1}{\sqrt{1}\sqrt{2}} = \frac{1}{\sqrt{2}}$$
+cos(θ) = 1 / (√1 × √2) = 1/√2
 
-$$\theta = 45° = \frac{\pi}{4}$$
+θ = 45° = π/4
 
 **Orthogonality (Perpendicular Vectors):**
 
 Two vectors are **orthogonal** (perpendicular) if and only if:
 
-$$\vec{u} \cdot \vec{v} = 0$$
+**u** · **v** = 0
 
 ### Cross Product (Vector Product)
 
-**Cross Product:** For 3D vectors $\vec{u} = \langle u_1, u_2, u_3 \rangle$ and $\vec{v} = \langle v_1, v_2, v_3 \rangle$:
+**Cross Product:** For 3D vectors **u** = ⟨u₁, u₂, u₃⟩ and **v** = ⟨v₁, v₂, v₃⟩:
 
-$$\vec{u} \times \vec{v} = \langle u_2v_3 - u_3v_2, u_3v_1 - u_1v_3, u_1v_2 - u_2v_1 \rangle$$
+**u** × **v** = ⟨u₂v₃ - u₃v₂, u₃v₁ - u₁v₃, u₁v₂ - u₂v₁⟩
 
-**Result is a vector perpendicular to both $\vec{u}$ and $\vec{v}$.**
+**Result is a vector perpendicular to both u and v.**
 
-**Determinant Form:**
-
-$$\vec{u} \times \vec{v} = \begin{vmatrix}
-\vec{i} & \vec{j} & \vec{k} \\
-u_1 & u_2 & u_3 \\
-v_1 & v_2 & v_3
-\end{vmatrix}$$
+**Determinant Form:** Uses determinant with unit vectors **i**, **j**, **k** in first row
 
 **Magnitude:**
 
-$$|\vec{u} \times \vec{v}| = |\vec{u}||\vec{v}|\sin\theta$$
+|**u** × **v**| = |**u**||**v**|sin(θ)
 
-Where $\theta$ is the angle between vectors.
+Where θ is the angle between vectors.
 
-**Example:** $\langle 1, 0, 0 \rangle \times \langle 0, 1, 0 \rangle$
+**Example:** ⟨1, 0, 0⟩ × ⟨0, 1, 0⟩
 
-$$= \langle 0(0) - 0(1), 0(0) - 1(0), 1(1) - 0(0) \rangle = \langle 0, 0, 1 \rangle$$
+= ⟨0(0) - 0(1), 0(0) - 1(0), 1(1) - 0(0)⟩ = ⟨0, 0, 1⟩
 
 **Properties:**
-- **NOT commutative:** $\vec{u} \times \vec{v} = -(\vec{v} \times \vec{u})$ (anti-commutative)
-- **Distributive:** $\vec{u} \times (\vec{v} + \vec{w}) = \vec{u} \times \vec{v} + \vec{u} \times \vec{w}$
-- $\vec{v} \times \vec{v} = \vec{0}$ (parallel vectors have zero cross product)
+- **NOT commutative:** **u** × **v** = -(**v** × **u**) (anti-commutative)
+- **Distributive:** **u** × (**v** + **w**) = **u** × **v** + **u** × **w**
+- **v** × **v** = **0** (parallel vectors have zero cross product)
 - **Right-hand rule:** Direction given by right-hand rule
 
 **Applications:**
 - Finding normal vector to plane
-- Computing area of parallelogram: $|\vec{u} \times \vec{v}|$
+- Computing area of parallelogram: |**u** × **v**|
 - Torque in physics
 
 ### Projection
 
-**Vector Projection:** The projection of $\vec{u}$ onto $\vec{v}$ is:
+**Vector Projection:** The projection of **u** onto **v** is:
 
-$$\text{proj}_{\vec{v}}\vec{u} = \frac{\vec{u} \cdot \vec{v}}{|\vec{v}|^2}\vec{v}$$
+proj_**v**(**u**) = ((**u** · **v**) / |**v**|²) **v**
 
 **Scalar Projection (Component):**
 
-$$\text{comp}_{\vec{v}}\vec{u} = \frac{\vec{u} \cdot \vec{v}}{|\vec{v}|}$$
+comp_**v**(**u**) = (**u** · **v**) / |**v**|
 
-**Example:** Project $\vec{u} = \langle 3, 4 \rangle$ onto $\vec{v} = \langle 1, 0 \rangle$
+**Example:** Project **u** = ⟨3, 4⟩ onto **v** = ⟨1, 0⟩
 
-$$\text{proj}_{\vec{v}}\vec{u} = \frac{3(1) + 4(0)}{1^2 + 0^2}\langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$$
+proj_**v**(**u**) = (3(1) + 4(0)) / (1² + 0²) × ⟨1, 0⟩ = 3⟨1, 0⟩ = ⟨3, 0⟩
 
 # Permutation
 
