@@ -58,24 +58,14 @@ The most thoroughly researched branch of propositional logic is
 When studying logic and mathematics, it is important to understand what
 truth is and what forms of truth exist.
 
-In the study of philosophy, there are 6 distinct types of truth.
+In the study of philosophy, there are 6 distinct types of truth:
 
-**Logical Truth**: Always true due to logical structure; used in logic
-and math.
-
-**Empirical Truth**: True based on observation; used in science and
-daily life.
-
-**Necessary Truth**: True in all possible worlds due to inherent nature;
-used in philosophy and logic.
-
-**Analytic Truth:** True by definition; used in conceptual analysis.
-
-**Synthetic Truth:** True based on actual facts; used in empirical
-sciences.
-
-**Contingent Truth:** True under specific conditions; used in everyday
-reasoning and empirical studies.
+- **Logical Truth**: Always true due to logical structure; used in logic and math
+- **Empirical Truth**: True based on observation; used in science and daily life
+- **Necessary Truth**: True in all possible worlds due to inherent nature; used in philosophy and logic
+- **Analytic Truth:** True by definition; used in conceptual analysis
+- **Synthetic Truth:** True based on actual facts; used in empirical sciences
+- **Contingent Truth:** True under specific conditions; used in everyday reasoning and empirical studies
 
 In propositional and first order logic, we are only concerned with
 **logical truths** and **necessary truths**.
