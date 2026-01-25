@@ -7940,8 +7940,8 @@ graph LR
 ```
 
 This graph has:
-- $V = \{A, B, C, D\}$ (4 vertices)
-- $E = \{AB, BC, CD, DA, AC\}$ (5 edges)
+- V = {A, B, C, D} (4 vertices)
+- E = {AB, BC, CD, DA, AC} (5 edges)
 
 ### Vertex (Node)
 
@@ -7953,7 +7953,7 @@ This graph has:
 
 **Edge:** A connection between two vertices.
 
-**Notation:** An edge between vertices $u$ and $v$ is written as $(u,v)$ or $\{u,v\}$
+**Notation:** An edge between vertices u and v is written as (u,v) or {u,v}
 
 **Types:**
 - **Undirected edge:** Connection with no direction (e.g., friendship)
@@ -7983,7 +7983,7 @@ graph LR
 
 **Degree of a Vertex:** The number of edges connected to a vertex.
 
-**Notation:** $\deg(v)$ or $d(v)$
+**Notation:** deg(v) or d(v)
 
 **Example:**
 
@@ -7995,14 +7995,14 @@ graph LR
     B --- C
 ```
 
-- $\deg(A) = 3$ (connected to B, C, D)
-- $\deg(B) = 2$ (connected to A, C)
-- $\deg(C) = 2$ (connected to A, B)
-- $\deg(D) = 1$ (connected to A)
+- deg(A) = 3 (connected to B, C, D)
+- deg(B) = 2 (connected to A, C)
+- deg(C) = 2 (connected to A, B)
+- deg(D) = 1 (connected to A)
 
 **Handshaking Lemma:** The sum of all vertex degrees equals twice the number of edges.
 
-$$\sum_{v \in V} \deg(v) = 2|E|$$
+**Formula:** Sum of deg(v) for all v in V = 2|E|
 
 **Why:** Each edge contributes 1 to the degree of both its endpoints.
 
@@ -8019,16 +8019,16 @@ graph LR
     B --> D
 ```
 
-- $\deg^-(B) = 2$ (in-degree: A→B, C→B)
-- $\deg^+(B) = 1$ (out-degree: B→D)
+- deg⁻(B) = 2 (in-degree: A→B, C→B)
+- deg⁺(B) = 1 (out-degree: B→D)
 
 ## Special Types of Graphs
 
 ### Complete Graph
 
-**Complete Graph ($K_n$):** A graph where every pair of vertices is connected by an edge.
+**Complete Graph (Kₙ):** A graph where every pair of vertices is connected by an edge.
 
-**$K_3$ (Triangle):**
+**K₃ (Triangle):**
 
 ```mermaid
 graph LR
@@ -8037,7 +8037,7 @@ graph LR
     C --- A
 ```
 
-**$K_4$:**
+**K₄:**
 
 ```mermaid
 graph LR
@@ -8050,15 +8050,15 @@ graph LR
 ```
 
 **Properties:**
-- $K_n$ has $n$ vertices
-- $K_n$ has $\frac{n(n-1)}{2}$ edges
-- Every vertex has degree $n-1$
+- Kₙ has n vertices
+- Kₙ has n(n-1)/2 edges
+- Every vertex has degree n-1
 
 ### Cycle Graph
 
-**Cycle Graph ($C_n$):** A graph forming a single closed loop with $n$ vertices.
+**Cycle Graph (Cₙ):** A graph forming a single closed loop with n vertices.
 
-**$C_4$:**
+**C₄:**
 
 ```mermaid
 graph LR
@@ -8068,7 +8068,7 @@ graph LR
     D --- A
 ```
 
-**$C_5$:**
+**C₅:**
 
 ```mermaid
 graph LR
@@ -8080,15 +8080,15 @@ graph LR
 ```
 
 **Properties:**
-- $C_n$ has $n$ vertices and $n$ edges
+- Cₙ has n vertices and n edges
 - Every vertex has degree 2
 - Minimum cycle length is 3 (triangle)
 
 ### Path Graph
 
-**Path Graph ($P_n$):** A graph forming a single path with $n$ vertices.
+**Path Graph (Pₙ):** A graph forming a single path with n vertices.
 
-**$P_4$:**
+**P₄:**
 
 ```mermaid
 graph LR
@@ -8098,8 +8098,8 @@ graph LR
 ```
 
 **Properties:**
-- $P_n$ has $n$ vertices and $n-1$ edges
-- Two vertices have degree 1 (endpoints)
+- Pₙ has n vertices and n-1 edges
+- Two vertices has degree 1 (endpoints)
 - All other vertices have degree 2
 
 ### Bipartite Graph
@@ -8122,7 +8122,7 @@ graph LR
 - Set 2: {D, E}
 - No edges within the same set
 
-**Complete Bipartite Graph ($K_{m,n}$):** Every vertex in one set is connected to every vertex in the other set.
+**Complete Bipartite Graph (K_{m,n}):** Every vertex in one set is connected to every vertex in the other set.
 
 **Properties:**
 - Bipartite if and only if the graph contains no odd-length cycles
@@ -8144,7 +8144,7 @@ graph TD
 ```
 
 **Properties:**
-- A tree with $n$ vertices has exactly $n-1$ edges
+- A tree with n vertices has exactly n-1 edges
 - There is exactly one path between any two vertices
 - Removing any edge disconnects the graph
 - Adding any edge creates exactly one cycle
@@ -8186,7 +8186,7 @@ This forest has 2 trees (components).
 
 ### Adjacency Matrix
 
-**Adjacency Matrix:** A matrix where entry $A[i][j] = 1$ if there's an edge from vertex $i$ to vertex $j$, otherwise 0.
+**Adjacency Matrix:** A matrix where entry A[i][j] = 1 if there's an edge from vertex i to vertex j, otherwise 0.
 
 **Example:**
 
@@ -8207,8 +8207,8 @@ graph LR
 
 **Properties:**
 - Symmetric for undirected graphs
-- Space complexity: $O(V^2)$
-- Edge lookup: $O(1)$
+- Space complexity: O(V²)
+- Edge lookup: O(1)
 
 ### Adjacency List
 
@@ -8223,8 +8223,8 @@ graph LR
 ```
 
 **Properties:**
-- Space complexity: $O(V + E)$ (more efficient for sparse graphs)
-- Edge lookup: $O(\deg(v))$
+- Space complexity: O(V + E) (more efficient for sparse graphs)
+- Edge lookup: O(deg(v))
 
 ### Edge List
 
@@ -8237,7 +8237,7 @@ graph LR
 ```
 
 **Properties:**
-- Space complexity: $O(E)$
+- Space complexity: O(E)
 - Simple but inefficient for many operations
 
 ## Paths and Connectivity
@@ -8412,7 +8412,7 @@ graph LR
 ```
 
 **Properties:**
-- A graph with $n$ vertices has a spanning tree with $n-1$ edges
+- A graph with n vertices has a spanning tree with n-1 edges
 - A connected graph can have multiple spanning trees
 
 **Minimum Spanning Tree (MST):** A spanning tree with minimum total edge weight.
