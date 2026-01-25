@@ -7839,9 +7839,9 @@ proj_**v**(**u**) = (3(1) + 4(0)) / (1² + 0²) × ⟨1, 0⟩ = 3⟨1, 0⟩ = �
 
 **Permutation Formula (without repetition):**
 
-$$P(n,r) =  \frac{n!}{(n - r)!}$$
+P(n,r) = n! / (n - r)!
 
-Alternate notation: $_nP_r$ or $P_r^n$
+Alternate notation: ₙPᵣ or Pᵣⁿ
 
 **Where:**
 
@@ -7849,21 +7849,21 @@ Alternate notation: $_nP_r$ or $P_r^n$
 - **r:** The number of items to select and arrange
 - **(n-r)!:** The number of ways to arrange the remaining elements not chosen
 
-**Special case:** When selecting all n items: $P(n,n) = n!$
+**Special case:** When selecting all n items: P(n,n) = n!
 
 **Examples:**
 
 1. **How many ways can you arrange 3 books from a shelf of 5 books?**
    
-   $P(5,3) = \frac{5!}{(5-3)!} = \frac{5!}{2!} = \frac{120}{2} = 60$
+   P(5,3) = 5! / (5-3)! = 5! / 2! = 120 / 2 = 60
 
 2. **How many 4-digit PIN codes can be formed using digits 0-9 without repetition?**
    
-   $P(10,4) = \frac{10!}{6!} = 10 \times 9 \times 8 \times 7 = 5040$
+   P(10,4) = 10! / 6! = 10 × 9 × 8 × 7 = 5040
 
 3. **How many ways can 5 people be arranged in a line?**
    
-   $P(5,5) = 5! = 120$
+   P(5,5) = 5! = 120
 
 ## Permutations with Repetition
 
@@ -7871,7 +7871,7 @@ Alternate notation: $_nP_r$ or $P_r^n$
 
 **Formula:**
 
-$$n^r$$
+nʳ
 
 Where:
 - **n:** Number of choices for each position
@@ -7879,24 +7879,24 @@ Where:
 
 **Example:** How many 4-digit PIN codes can be formed using digits 0-9 **with repetition allowed**?
 
-$10^4 = 10000$ possible codes
+10⁴ = 10000 possible codes
 
 ## Permutations with Indistinguishable Objects
 
 **Formula:** When you have n objects where some are identical:
 
-$$\frac{n!}{n_1! \cdot n_2! \cdot \ldots \cdot n_k!}$$
+n! / (n₁! × n₂! × ... × nₖ!)
 
 Where:
 - **n:** Total number of objects
-- **$n_1, n_2, \ldots, n_k$:** Number of each type of identical object
+- **n₁, n₂, ..., nₖ:** Number of each type of identical object
 
 **Example:** How many distinct arrangements of the letters in "MISSISSIPPI"?
 
 - Total letters: 11
 - M: 1, I: 4, S: 4, P: 2
 
-$$\frac{11!}{1! \cdot 4! \cdot 4! \cdot 2!} = \frac{39916800}{1 \cdot 24 \cdot 24 \cdot 2} = 34650$$
+11! / (1! × 4! × 4! × 2!) = 39916800 / (1 × 24 × 24 × 2) = 34650
 
 # Combination
 
@@ -7904,9 +7904,9 @@ $$\frac{11!}{1! \cdot 4! \cdot 4! \cdot 2!} = \frac{39916800}{1 \cdot 24 \cdot 2
 
 **Combination Formula (without repetition):**
 
-$$C(n,r) = \binom{n}{r} =  \frac{n!}{r!(n - r)!}$$
+C(n,r) = (n choose r) = n! / (r!(n - r)!)
 
-Alternate notation: $_nC_r$ or $C_r^n$ or $\binom{n}{r}$ ("n choose r")
+Alternate notation: ₙCᵣ or Cᵣⁿ or (n choose r)
 
 **Where:**
 
@@ -7916,7 +7916,7 @@ Alternate notation: $_nC_r$ or $C_r^n$ or $\binom{n}{r}$ ("n choose r")
 
 **Relationship to Permutations:**
 
-$$C(n,r) = \frac{P(n,r)}{r!}$$
+C(n,r) = P(n,r) / r!
 
 Combinations are permutations divided by the number of ways to arrange r items, because order doesn't matter.
 
@@ -7924,29 +7924,29 @@ Combinations are permutations divided by the number of ways to arrange r items, 
 
 1. **How many ways can you choose 3 books from a shelf of 5 books?**
    
-   $C(5,3) = \frac{5!}{3! \cdot 2!} = \frac{120}{6 \cdot 2} = 10$
+   C(5,3) = 5! / (3! × 2!) = 120 / (6 × 2) = 10
 
 2. **A pizza shop offers 10 toppings. How many 3-topping pizzas can you make?**
    
-   $C(10,3) = \frac{10!}{3! \cdot 7!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = 120$
+   C(10,3) = 10! / (3! × 7!) = (10 × 9 × 8) / (3 × 2 × 1) = 120
 
 3. **A committee of 4 people must be formed from a group of 12. How many ways?**
    
-   $C(12,4) = \frac{12!}{4! \cdot 8!} = 495$
+   C(12,4) = 12! / (4! × 8!) = 495
 
 ## Properties of Combinations
 
 **Symmetry Property:**
 
-$$\binom{n}{r} = \binom{n}{n-r}$$
+(n choose r) = (n choose n-r)
 
 Choosing r items is the same as choosing which (n-r) items to leave out.
 
-**Example:** $\binom{5}{2} = \binom{5}{3} = 10$
+**Example:** (5 choose 2) = (5 choose 3) = 10
 
 **Pascal's Identity:**
 
-$$\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$$
+(n choose r) = (n-1 choose r-1) + (n-1 choose r)
 
 This forms Pascal's Triangle:
 
@@ -7963,13 +7963,13 @@ Each number is the sum of the two numbers above it.
 
 **Connection to Binomial Theorem:**
 
-$\binom{n}{r}$ represents the coefficient of $x^r$ in the expansion of $(1+x)^n$.
+(n choose r) represents the coefficient of xʳ in the expansion of (1+x)ⁿ.
 
 ## Combinations with Repetition
 
 **Formula:** When items can be selected more than once:
 
-$$C(n+r-1, r) = \binom{n+r-1}{r} = \frac{(n+r-1)!}{r!(n-1)!}$$
+C(n+r-1, r) = (n+r-1)! / (r!(n-1)!)
 
 Where:
 - **n:** Number of different types of items
@@ -7977,16 +7977,16 @@ Where:
 
 **Example:** How many ways can you select 3 donuts from 5 types if you can choose the same type multiple times?
 
-$$C(5+3-1, 3) = C(7,3) = \frac{7!}{3! \cdot 4!} = 35$$
+C(5+3-1, 3) = C(7,3) = 7! / (3! × 4!) = 35
 
 ## Permutation vs Combination Summary
 
 | Aspect | Permutation | Combination |
 |--------|-------------|-------------|
 | **Order matters?** | Yes | No |
-| **Formula** | $\frac{n!}{(n-r)!}$ | $\frac{n!}{r!(n-r)!}$ |
+| **Formula** | n!/(n-r)! | n!/(r!(n-r)!) |
 | **Example** | Arranging books | Selecting books |
-| **Relationship** | $C(n,r) = \frac{P(n,r)}{r!}$ | $P(n,r) = C(n,r) \cdot r!$ |
+| **Relationship** | C(n,r) = P(n,r)/r! | P(n,r) = C(n,r) × r! |
 
 **Key Question to Ask:** Does the order of selection matter?
 
