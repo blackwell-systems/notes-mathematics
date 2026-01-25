@@ -1672,20 +1672,43 @@ Thus ∅ ≠ {∅}
 
 ## Subset
 
-A is a subset of B, (denoted A ⊆ B ), if every element of A is also an
-element of B.
+**Subset:** A is a subset of B, (denoted A ⊆ B ), if every element of A is also an element of B.
+
+**Formal Definition:** A ⊆ B ⟺ ∀x (x ∈ A → x ∈ B)
 
 If A is not a subset of B, we write A ⊈ B.
+
+**Examples:**
+
+- {1, 2} ⊆ {1, 2, 3, 4} (every element of {1, 2} is in {1, 2, 3, 4})
+- {a, b} ⊆ {a, b, c}
+- ∅ ⊆ A for any set A (the empty set is a subset of every set)
+- A ⊆ A for any set A (every set is a subset of itself)
+- {1, 2, 3} ⊈ {1, 2} (3 is in the first set but not the second)
+
+**Key Property:** Every set is a subset of itself (reflexive property).
 
 ![](./media/image26.png)
 
 ## Proper Subset
 
-We can say that A is proper subset of B when there exists an element in
-B that does not exist in A. Everything in A is also in B, but B contains
-something not in A.
+**Proper Subset:** A is a proper subset of B (denoted A ⊂ B or A ⊊ B) when A is a subset of B, but A ≠ B. Everything in A is also in B, but B contains at least one element not in A.
 
-∃x( x ∈ B ∧ x ∉ A)
+**Formal Definition:** A ⊂ B ⟺ (A ⊆ B) ∧ (A ≠ B)
+
+Equivalently: A ⊂ B ⟺ (∀x (x ∈ A → x ∈ B)) ∧ (∃x (x ∈ B ∧ x ∉ A))
+
+**Examples:**
+
+- {1, 2} ⊂ {1, 2, 3} (every element of {1, 2} is in {1, 2, 3}, and 3 is in {1, 2, 3} but not in {1, 2})
+- {a} ⊂ {a, b, c}
+- ∅ ⊂ {1, 2, 3} (the empty set is a proper subset of any non-empty set)
+- {1, 2, 3} ⊄ {1, 2, 3} (a set is NOT a proper subset of itself, since A = A)
+- {1, 2, 3} ⊄ {1, 2} (not even a subset, since 3 ∉ {1, 2})
+
+**Key Difference from Subset:**
+- A ⊆ B allows A = B (subset includes equality)
+- A ⊂ B requires A ≠ B (proper subset excludes equality)
 
 ![A yellow and green circle with black text Description automatically
 generated](./media/image27.png)
@@ -1701,6 +1724,21 @@ $$
 Equivalently (very handy in proofs):
 
 A = B ⟺ ( A ⊆ B) ∧ ( B ⊆ A )
+
+**Examples:**
+
+- {1, 2, 3} = {3, 2, 1} (order doesn't matter)
+- {1, 2, 2, 3} = {1, 2, 3} (duplicates don't matter)
+- {a, b} = {b, a}
+- {1, 2, 3} ≠ {1, 2} (different elements)
+- {1, 2} ≠ {1, 2, 3} (one has an extra element)
+- ∅ = {} (two notations for the same empty set)
+
+**Key Properties:**
+- Sets with the same elements are equal, regardless of order
+- Repetition of elements doesn't affect equality
+- For equality, every element of A must be in B, and every element of B must be in A
+
 
 **How to prove sets** $\mathbf{A = B}\mathbf{ }$**in practice:**
 
@@ -1720,6 +1758,19 @@ To show $A = B$: let $x$ be arbitrary
 -   If $x \in B$, then ... hence $x \in A$
 
 > Therefore $A = B$
+
+
+**Example Proof:**
+
+Prove {x ∈ ℤ | x is even} = {2n | n ∈ ℤ}
+
+Let A = {x ∈ ℤ | x is even} and B = {2n | n ∈ ℤ}
+
+**Show A ⊆ B:** Let x ∈ A. Then x is even, so x = 2k for some k ∈ ℤ. Therefore x ∈ B.
+
+**Show B ⊆ A:** Let x ∈ B. Then x = 2n for some n ∈ ℤ. By definition, x is even, so x ∈ A.
+
+Therefore A = B.
 
 ## Pigeonhole Principle (PHP)
 
