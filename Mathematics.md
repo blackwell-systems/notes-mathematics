@@ -8116,6 +8116,110 @@ graph LR
 - Edge AB is incident to both A and B
 - Edge BC is incident to both B and C
 
+### Simple Graph, Multigraph, and Pseudograph
+
+**Simple Graph:** A graph with:
+- No loops (edges from a vertex to itself)
+- No multiple edges (at most one edge between any pair of vertices)
+
+Most graphs discussed in graph theory are simple graphs unless stated otherwise.
+
+**Loop (Self-loop):** An edge that connects a vertex to itself.
+
+**Example:**
+```mermaid
+graph LR
+    A --- A
+    A --- B
+```
+
+Vertex A has a loop.
+
+**Multiple Edges (Parallel Edges):** Two or more edges connecting the same pair of vertices.
+
+**Multigraph:** A graph that allows multiple edges between vertices but no loops.
+
+**Pseudograph:** A graph that allows both multiple edges and loops.
+
+**Example - Multigraph:**
+- Vertices: {City A, City B}
+- Edges: {Highway 1, Highway 2, Train Route} (three ways to travel between cities)
+
+### Order and Size
+
+**Order:** The number of vertices in a graph, denoted |V| or n.
+
+**Size:** The number of edges in a graph, denoted |E| or m.
+
+**Example:**
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- A
+```
+
+- Order = 3 (vertices: A, B, C)
+- Size = 3 (edges: AB, BC, CA)
+
+### Neighborhood
+
+**Neighborhood (Open Neighborhood):** The set of all vertices adjacent to a given vertex v, denoted N(v).
+
+**Closed Neighborhood:** The neighborhood of v plus v itself, denoted N[v] = N(v) ∪ {v}.
+
+**Example:**
+```mermaid
+graph LR
+    A --- B
+    A --- C
+    A --- D
+    B --- C
+```
+
+- N(A) = {B, C, D} (neighbors of A)
+- N(B) = {A, C}
+- N[A] = {A, B, C, D} (A and its neighbors)
+
+**Note:** deg(v) = |N(v)| (degree equals size of neighborhood)
+
+### Subgraph
+
+**Subgraph:** A graph H = (V', E') is a subgraph of G = (V, E) if:
+- V' ⊆ V (vertices of H are a subset of vertices of G)
+- E' ⊆ E (edges of H are a subset of edges of G)
+
+**Example:**
+
+Original graph G:
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+```
+
+Subgraph H (vertices {A, B, C}, edges {AB, BC}):
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C
+```
+
+**Induced Subgraph:** A subgraph that includes all edges from the original graph between the chosen vertices.
+
+**Example - Induced subgraph on {A, B, C}:**
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- A
+```
+
+Includes the CA edge because both C and A are in the vertex set.
+
 ### Isolated, Pendant, and Null Vertices
 
 **Isolated Vertex:** A vertex with degree 0 (no edges connected to it).
