@@ -2756,13 +2756,34 @@ Dividend: The quantity that is being divided.
 
 ## Synthetic Division
 
-**Synthetic Division:**
+**Synthetic Division:** Synthetic division is a shorthand method for dividing a polynomial by a linear factor of the form $(x - c)$.
 
-Can you always use synthetic division for dividing polynomials?
+**When to use synthetic division:**
 
--   No, if the degree of the denominator is not 1, then you cannot use
-    synthetic division. If the degree of the denominator is greater than
-    1, then you must use polynomial long division.
+- **Only when dividing by a linear factor** $(x - c)$ where $c$ is a constant
+- If the degree of the denominator is greater than 1, you must use polynomial long division
+
+**Algorithm:**
+
+1. Write the coefficients of the polynomial in descending order of degree
+2. If any terms are missing, use 0 as the coefficient
+3. Write the value of $c$ (from $x - c$) to the left
+4. Bring down the first coefficient
+5. Multiply by $c$, add to next coefficient, repeat
+6. The last number is the remainder; all others are coefficients of the quotient
+
+**Example:** Divide $2x^3 + 3x^2 - 5x + 4$ by $(x - 2)$
+
+```
+  2 |  2   3  -5   4
+    |      4  14  18
+    ----------------
+      2   7   9  22
+```
+
+**Result:** Quotient = $2x^2 + 7x + 9$, Remainder = $22$
+
+So: $\frac{2x^3 + 3x^2 - 5x + 4}{x - 2} = 2x^2 + 7x + 9 + \frac{22}{x - 2}$
 
 ## Descartes Rule of Signs
 
@@ -2788,10 +2809,44 @@ roots as well.
 
 ## Binomial Expansion Theorem
 
-The Binomial Expansion theorem allows you to calculate the expansion of
-any binomial for any degree n.
+**Binomial Expansion Theorem:** The Binomial Expansion theorem (also called the Binomial Theorem) allows you to calculate the expansion of any binomial raised to a positive integer power.
 
-![](./media/image90.png)
+**Formula:**
+
+$$(a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k$$
+
+Where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is the binomial coefficient ("n choose k").
+
+**Expanded form:**
+
+$$(a + b)^n = \binom{n}{0}a^n + \binom{n}{1}a^{n-1}b + \binom{n}{2}a^{n-2}b^2 + \cdots + \binom{n}{n-1}ab^{n-1} + \binom{n}{n}b^n$$
+
+**Examples:**
+
+$(a + b)^2 = a^2 + 2ab + b^2$
+
+$(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$
+
+$(a + b)^4 = a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4$
+
+**Pascal's Triangle:** The binomial coefficients form Pascal's Triangle:
+
+```
+       1
+      1 1
+     1 2 1
+    1 3 3 1
+   1 4 6 4 1
+```
+
+Each number is the sum of the two numbers above it.
+
+**Properties:**
+
+- The coefficients are symmetric: $\binom{n}{k} = \binom{n}{n-k}$
+- The sum of all coefficients: $(1 + 1)^n = 2^n = \sum_{k=0}^{n} \binom{n}{k}$
+- The powers of $a$ decrease from $n$ to $0$, while powers of $b$ increase from $0$ to $n$
+- There are always $n + 1$ terms in the expansion
 
 # Rational Functions
 
