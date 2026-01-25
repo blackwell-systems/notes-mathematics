@@ -8442,9 +8442,48 @@ graph LR
 
 Walk: A → B → C → A → B (vertices A and B repeated)
 
+### Trail
+
+**Trail:** A walk where no edge is repeated (but vertices can be repeated).
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- B
+```
+
+Trail: A → B → C → D → B (vertex B repeated, but all edges different)
+
+**Note:** Every path is a trail, but not every trail is a path.
+
+### Closed Trail (Circuit)
+
+**Closed Trail (Circuit):** A trail that starts and ends at the same vertex.
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+    A --- C
+```
+
+Circuit: A → B → C → A → D → A (starts and ends at A, no repeated edges)
+
+**Note:** The term "circuit" is used in graph theory for closed trails. In some texts, "cycle" and "circuit" are used interchangeably, but technically:
+- **Cycle:** Closed path (no repeated vertices except start/end)
+- **Circuit:** Closed trail (no repeated edges, but vertices can repeat)
+
 ### Cycle
 
-**Cycle:** A path that starts and ends at the same vertex (with at least 3 vertices in simple cycles).
+**Cycle:** A closed path where no vertices are repeated except the starting/ending vertex. Minimum length is 3 for simple cycles.
 
 **Example:**
 
