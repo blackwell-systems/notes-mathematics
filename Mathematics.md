@@ -7961,7 +7961,9 @@ This graph has:
 
 ### Directed vs Undirected Graphs
 
-**Undirected Graph:** Edges have no direction.
+**Undirected Graph:** A graph where edges have no direction. If there is an edge between u and v, you can traverse it in either direction.
+
+**Formal definition:** G = (V, E) where E is a set of unordered pairs {u, v}
 
 ```mermaid
 graph LR
@@ -7970,7 +7972,14 @@ graph LR
     C --- A
 ```
 
-**Directed Graph (Digraph):** Edges have direction.
+**Examples:**
+- Friendship networks (mutual relationships)
+- Road networks (two-way streets)
+- Physical connections (cables, pipes)
+
+**Directed Graph (Digraph):** A graph where edges have direction. An edge from u to v does not imply an edge from v to u.
+
+**Formal definition:** G = (V, E) where E is a set of ordered pairs (u, v)
 
 ```mermaid
 graph LR
@@ -7978,6 +7987,67 @@ graph LR
     B --> C
     C --> A
 ```
+
+**Examples:**
+- Social media follows (one-way relationships)
+- Web page links
+- Task dependencies
+- One-way streets
+
+### Adjacent and Incident
+
+**Adjacent Vertices:** Two vertices are adjacent if they are connected by an edge.
+
+**Example:**
+```mermaid
+graph LR
+    A --- B
+    B --- C
+```
+
+- A and B are adjacent
+- B and C are adjacent
+- A and C are NOT adjacent (no direct edge)
+
+**Adjacent Edges:** Two edges are adjacent if they share a common vertex.
+
+**Example:** In the graph above, edge AB and edge BC are adjacent (both connect to B)
+
+**Incident:** An edge is incident to a vertex if the vertex is one of the edge's endpoints.
+
+**Example:** In the graph above:
+- Edge AB is incident to both A and B
+- Edge BC is incident to both B and C
+
+### Isolated, Pendant, and Null Vertices
+
+**Isolated Vertex:** A vertex with degree 0 (no edges connected to it).
+
+**Example:**
+```mermaid
+graph LR
+    A --- B
+    
+    C
+```
+
+Vertex C is isolated (deg(C) = 0)
+
+**Pendant Vertex (Leaf):** A vertex with degree 1 (exactly one edge connected to it).
+
+**Example:**
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    B --- D
+```
+
+Vertices A, C, and D are pendant vertices (each has degree 1)
+
+**Null Graph:** A graph with no edges (all vertices are isolated).
+
+**Example:** A graph with vertices {A, B, C} but no edges
 
 ### Degree
 
