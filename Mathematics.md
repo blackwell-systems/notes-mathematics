@@ -28,6 +28,7 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 - [Vector](#vector)
 - [Permutation](#permutation)
 - [Combination](#combination)
+- [Graph Theory](#graph-theory)
 
 # Propositional Logic / zeroth-order logic
 
@@ -7906,3 +7907,589 @@ $$C(5+3-1, 3) = C(7,3) = \frac{7!}{3! \cdot 4!} = 35$$
 
 - **Yes** → Use Permutation
 - **No** → Use Combination
+
+# Graph Theory
+
+**Graph Theory:** The mathematical study of graphs, which are structures used to model pairwise relations between objects. Graphs consist of vertices (nodes) connected by edges (links).
+
+**Applications:**
+- Computer networks and routing
+- Social network analysis
+- Transportation and logistics
+- Circuit design
+- Molecular structures in chemistry
+- Scheduling and resource allocation
+
+## Basic Definitions
+
+### Graph
+
+**Graph:** A graph $G = (V, E)$ consists of:
+- $V$: A set of vertices (also called nodes)
+- $E$: A set of edges (also called links or arcs)
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+    A --- C
+```
+
+This graph has:
+- $V = \{A, B, C, D\}$ (4 vertices)
+- $E = \{AB, BC, CD, DA, AC\}$ (5 edges)
+
+### Vertex (Node)
+
+**Vertex:** A fundamental unit in a graph, representing an object or point.
+
+**Notation:** Usually labeled with letters (A, B, C) or numbers (1, 2, 3)
+
+### Edge (Link, Arc)
+
+**Edge:** A connection between two vertices.
+
+**Notation:** An edge between vertices $u$ and $v$ is written as $(u,v)$ or $\{u,v\}$
+
+**Types:**
+- **Undirected edge:** Connection with no direction (e.g., friendship)
+- **Directed edge (arc):** Connection with direction (e.g., following on social media)
+
+### Directed vs Undirected Graphs
+
+**Undirected Graph:** Edges have no direction.
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- A
+```
+
+**Directed Graph (Digraph):** Edges have direction.
+
+```mermaid
+graph LR
+    A --> B
+    B --> C
+    C --> A
+```
+
+### Degree
+
+**Degree of a Vertex:** The number of edges connected to a vertex.
+
+**Notation:** $\deg(v)$ or $d(v)$
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    A --- C
+    A --- D
+    B --- C
+```
+
+- $\deg(A) = 3$ (connected to B, C, D)
+- $\deg(B) = 2$ (connected to A, C)
+- $\deg(C) = 2$ (connected to A, B)
+- $\deg(D) = 1$ (connected to A)
+
+**Handshaking Lemma:** The sum of all vertex degrees equals twice the number of edges.
+
+$$\sum_{v \in V} \deg(v) = 2|E|$$
+
+**Why:** Each edge contributes 1 to the degree of both its endpoints.
+
+### In-degree and Out-degree (Directed Graphs)
+
+**In-degree:** Number of edges pointing into a vertex.
+
+**Out-degree:** Number of edges pointing out of a vertex.
+
+```mermaid
+graph LR
+    A --> B
+    C --> B
+    B --> D
+```
+
+- $\deg^-(B) = 2$ (in-degree: A→B, C→B)
+- $\deg^+(B) = 1$ (out-degree: B→D)
+
+## Special Types of Graphs
+
+### Complete Graph
+
+**Complete Graph ($K_n$):** A graph where every pair of vertices is connected by an edge.
+
+**$K_3$ (Triangle):**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- A
+```
+
+**$K_4$:**
+
+```mermaid
+graph LR
+    A --- B
+    A --- C
+    A --- D
+    B --- C
+    B --- D
+    C --- D
+```
+
+**Properties:**
+- $K_n$ has $n$ vertices
+- $K_n$ has $\frac{n(n-1)}{2}$ edges
+- Every vertex has degree $n-1$
+
+### Cycle Graph
+
+**Cycle Graph ($C_n$):** A graph forming a single closed loop with $n$ vertices.
+
+**$C_4$:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+```
+
+**$C_5$:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- E
+    E --- A
+```
+
+**Properties:**
+- $C_n$ has $n$ vertices and $n$ edges
+- Every vertex has degree 2
+- Minimum cycle length is 3 (triangle)
+
+### Path Graph
+
+**Path Graph ($P_n$):** A graph forming a single path with $n$ vertices.
+
+**$P_4$:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+```
+
+**Properties:**
+- $P_n$ has $n$ vertices and $n-1$ edges
+- Two vertices have degree 1 (endpoints)
+- All other vertices have degree 2
+
+### Bipartite Graph
+
+**Bipartite Graph:** A graph whose vertices can be divided into two disjoint sets such that every edge connects a vertex in one set to a vertex in the other set.
+
+**Example:**
+
+```mermaid
+graph LR
+    A1[A] --- B1[D]
+    A1 --- B2[E]
+    A2[B] --- B1
+    A2 --- B2
+    A3[C] --- B1
+    A3 --- B2
+```
+
+- Set 1: {A, B, C}
+- Set 2: {D, E}
+- No edges within the same set
+
+**Complete Bipartite Graph ($K_{m,n}$):** Every vertex in one set is connected to every vertex in the other set.
+
+**Properties:**
+- Bipartite if and only if the graph contains no odd-length cycles
+- Applications: Matching problems, scheduling
+
+### Tree
+
+**Tree:** A connected graph with no cycles.
+
+**Example:**
+
+```mermaid
+graph TD
+    A --- B
+    A --- C
+    B --- D
+    B --- E
+    C --- F
+```
+
+**Properties:**
+- A tree with $n$ vertices has exactly $n-1$ edges
+- There is exactly one path between any two vertices
+- Removing any edge disconnects the graph
+- Adding any edge creates exactly one cycle
+
+**Rooted Tree:** A tree with one vertex designated as the root.
+
+```mermaid
+graph TD
+    A[Root] --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+```
+
+**Terms:**
+- **Root:** The top vertex (A)
+- **Parent:** Vertex directly above (A is parent of B and C)
+- **Child:** Vertex directly below (B and C are children of A)
+- **Leaf:** Vertex with no children (D, E, F)
+- **Height:** Maximum distance from root to any leaf
+
+### Forest
+
+**Forest:** A graph consisting of multiple disconnected trees.
+
+```mermaid
+graph TD
+    A --- B
+    A --- C
+    
+    D --- E
+    E --- F
+```
+
+This forest has 2 trees (components).
+
+## Graph Representation
+
+### Adjacency Matrix
+
+**Adjacency Matrix:** A matrix where entry $A[i][j] = 1$ if there's an edge from vertex $i$ to vertex $j$, otherwise 0.
+
+**Example:**
+
+```mermaid
+graph LR
+    1 --- 2
+    1 --- 3
+    2 --- 3
+```
+
+**Adjacency Matrix:**
+
+|   | 1 | 2 | 3 |
+|---|---|---|---|
+| 1 | 0 | 1 | 1 |
+| 2 | 1 | 0 | 1 |
+| 3 | 1 | 1 | 0 |
+
+**Properties:**
+- Symmetric for undirected graphs
+- Space complexity: $O(V^2)$
+- Edge lookup: $O(1)$
+
+### Adjacency List
+
+**Adjacency List:** Each vertex stores a list of its adjacent vertices.
+
+**Example (same graph):**
+
+```
+1: [2, 3]
+2: [1, 3]
+3: [1, 2]
+```
+
+**Properties:**
+- Space complexity: $O(V + E)$ (more efficient for sparse graphs)
+- Edge lookup: $O(\deg(v))$
+
+### Edge List
+
+**Edge List:** A simple list of all edges.
+
+**Example:**
+
+```
+[(1,2), (1,3), (2,3)]
+```
+
+**Properties:**
+- Space complexity: $O(E)$
+- Simple but inefficient for many operations
+
+## Paths and Connectivity
+
+### Path
+
+**Path:** A sequence of vertices where each consecutive pair is connected by an edge, with no repeated vertices.
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- E
+```
+
+Path from A to E: A → B → C → D → E
+
+**Path Length:** The number of edges in the path (4 edges in the example above)
+
+### Walk
+
+**Walk:** Like a path, but vertices and edges can be repeated.
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- A
+```
+
+Walk: A → B → C → A → B (vertices A and B repeated)
+
+### Cycle
+
+**Cycle:** A path that starts and ends at the same vertex (with at least 3 vertices in simple cycles).
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+```
+
+Cycle: A → B → C → D → A
+
+### Connected Graph
+
+**Connected Graph:** A graph where there is a path between every pair of vertices.
+
+**Connected:**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+```
+
+**Disconnected:**
+
+```mermaid
+graph LR
+    A --- B
+    
+    C --- D
+```
+
+**Connected Components:** Maximal connected subgraphs.
+
+The disconnected graph above has 2 connected components: {A, B} and {C, D}.
+
+## Graph Algorithms
+
+### Depth-First Search (DFS)
+
+**DFS:** Explores as far as possible along each branch before backtracking.
+
+**Algorithm:**
+1. Start at a vertex
+2. Mark it as visited
+3. Recursively visit all unvisited neighbors
+4. Backtrack when no unvisited neighbors remain
+
+**Example:**
+
+```mermaid
+graph TD
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+```
+
+DFS starting from A: A → B → D → E → C → F
+
+**Applications:**
+- Finding connected components
+- Detecting cycles
+- Topological sorting
+- Solving mazes
+
+### Breadth-First Search (BFS)
+
+**BFS:** Explores all neighbors at the current depth before moving to the next level.
+
+**Algorithm:**
+1. Start at a vertex, add to queue
+2. While queue not empty:
+   - Dequeue a vertex
+   - Visit all unvisited neighbors
+   - Add neighbors to queue
+
+**Example (same graph):**
+
+BFS starting from A: A → B → C → D → E → F
+
+**Applications:**
+- Finding shortest path (unweighted graphs)
+- Level-order traversal
+- Testing bipartiteness
+
+### Shortest Path
+
+**Shortest Path Problem:** Find the path with minimum total edge weight between two vertices.
+
+**Dijkstra's Algorithm:** Finds shortest paths from a source vertex to all other vertices (non-negative weights only).
+
+**Example:**
+
+```mermaid
+graph LR
+    A -->|2| B
+    A -->|4| C
+    B -->|1| C
+    B -->|7| D
+    C -->|3| D
+```
+
+Shortest path from A to D: A → B → C → D (weight: 2+1+3 = 6)
+
+### Spanning Tree
+
+**Spanning Tree:** A subgraph that includes all vertices and is a tree (connected, no cycles).
+
+**Example:**
+
+Original graph:
+```mermaid
+graph LR
+    A --- B
+    A --- C
+    B --- C
+    B --- D
+    C --- D
+```
+
+One possible spanning tree:
+```mermaid
+graph LR
+    A --- B
+    A --- C
+    B --- D
+```
+
+**Properties:**
+- A graph with $n$ vertices has a spanning tree with $n-1$ edges
+- A connected graph can have multiple spanning trees
+
+**Minimum Spanning Tree (MST):** A spanning tree with minimum total edge weight.
+
+**Algorithms:**
+- **Kruskal's Algorithm:** Add edges in order of increasing weight, skip if creates cycle
+- **Prim's Algorithm:** Grow tree from starting vertex, always add minimum-weight edge
+
+## Special Properties
+
+### Eulerian Path and Circuit
+
+**Eulerian Path:** A path that visits every edge exactly once.
+
+**Eulerian Circuit:** An Eulerian path that starts and ends at the same vertex.
+
+**Example (Eulerian Circuit):**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+```
+
+Circuit: A → B → C → D → A (visits all 4 edges once)
+
+**Theorem (Euler):**
+- A connected graph has an **Eulerian circuit** if and only if every vertex has even degree
+- A connected graph has an **Eulerian path** if and only if exactly 0 or 2 vertices have odd degree
+
+### Hamiltonian Path and Circuit
+
+**Hamiltonian Path:** A path that visits every vertex exactly once.
+
+**Hamiltonian Circuit:** A Hamiltonian path that starts and ends at the same vertex.
+
+**Example (Hamiltonian Circuit):**
+
+```mermaid
+graph LR
+    A --- B
+    B --- C
+    C --- D
+    D --- A
+    A --- C
+```
+
+Circuit: A → B → C → D → A (visits all 4 vertices once)
+
+**Note:** No simple theorem exists for determining if a Hamiltonian path/circuit exists (NP-complete problem).
+
+### Graph Coloring
+
+**Graph Coloring:** Assign colors to vertices such that no two adjacent vertices have the same color.
+
+**Chromatic Number:** The minimum number of colors needed.
+
+**Example:**
+
+```mermaid
+graph LR
+    A --- B
+    A --- C
+    B --- C
+```
+
+This triangle needs 3 colors (chromatic number = 3):
+- A: Red
+- B: Blue  
+- C: Green
+
+**Applications:**
+- Scheduling (avoiding conflicts)
+- Register allocation in compilers
+- Map coloring
+- Sudoku solving
+
+**Four Color Theorem:** Any planar graph can be colored with at most 4 colors.
