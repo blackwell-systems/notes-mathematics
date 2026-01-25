@@ -2014,6 +2014,182 @@ these three classes.
     areas of mathematics and its applications, from abstract algebra and
     geometry to computer science and topology.
 
+### Equivalence Classes
+
+**Equivalence Class:** Given an equivalence relation **R** on a set **A** and an element **a ∈ A**, the equivalence class of **a** is the set of all elements in **A** that are related to **a** under **R**.
+
+**Notation:** $[a]_R$ or simply $[a]$
+
+**Definition:** $[a] = \{x \in A \mid (a,x) \in R\}$ or $[a] = \{x \in A \mid aRx\}$
+
+**Example 1 - Congruence modulo 3:**
+- Let **R** be "congruence modulo 3" on integers: $a R b$ if $3 \mid (a-b)$
+- $[0] = \{\ldots, -6, -3, 0, 3, 6, 9, \ldots\}$ (all multiples of 3)
+- $[1] = \{\ldots, -5, -2, 1, 4, 7, 10, \ldots\}$ (numbers with remainder 1)
+- $[2] = \{\ldots, -4, -1, 2, 5, 8, 11, \ldots\}$ (numbers with remainder 2)
+- Note: $[3] = [0]$, $[4] = [1]$, $[5] = [2]$ (classes repeat)
+
+**Example 2 - Same age relation:**
+- Let **R** be "has the same age" on a set of people
+- $[Alice] = \{\text{all people who are the same age as Alice}\}$
+- If Alice is 25, then $[Alice] = \{\text{all 25-year-olds}\}$
+
+**Properties of Equivalence Classes:**
+
+1. **Non-empty:** Every equivalence class contains at least one element (itself)
+   - $a \in [a]$ (by reflexivity)
+
+2. **Partition property:** Either $[a] = [b]$ or $[a] \cap [b] = \emptyset$
+   - Two equivalence classes are either identical or completely disjoint
+   - No element belongs to more than one equivalence class
+
+3. **Union equals the whole set:** $\bigcup_{a \in A} [a] = A$
+   - Every element belongs to some equivalence class
+
+4. **Representative element:** Any element of an equivalence class can serve as its representative
+   - If $b \in [a]$, then $[b] = [a]$
+
+### Quotient Set (Set of Equivalence Classes)
+
+**Quotient Set:** The set of all distinct equivalence classes under an equivalence relation **R** on set **A**.
+
+**Notation:** $A/R$ (read as "A modulo R" or "A mod R")
+
+**Definition:** $A/R = \{[a] \mid a \in A\}$
+
+**Example 1 - Integers modulo 3:**
+- $\mathbb{Z}/R = \{[0], [1], [2]\}$
+- Only three distinct equivalence classes
+
+**Example 2 - Rational numbers:**
+- Consider fractions: $(a,b) R (c,d)$ if $ad = bc$ (equivalent fractions)
+- $\mathbb{Z} \times \mathbb{Z}^* / R = \mathbb{Q}$ (the rational numbers)
+- $[(2,3)] = [(4,6)] = [(6,9)] = \ldots$ (all representations of 2/3)
+
+**Example 3 - Points on a circle:**
+- Let **R** be "has the same distance from origin" on $\mathbb{R}^2$
+- Each equivalence class is a circle
+- The quotient set represents all possible distances (all non-negative reals)
+
+### Composition of Relations
+
+**Composition of Relations:** Given relations $R \subseteq A \times B$ and $S \subseteq B \times C$, the composition $S \circ R$ is a relation from **A** to **C**.
+
+**Definition:** $(a,c) \in S \circ R$ if and only if there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$
+
+**Notation:** $S \circ R$ (read as "S composed with R" or "S after R")
+
+**Note:** Order matters - apply **R** first, then **S**
+
+**Example 1:**
+- Let $R = \{(1,2), (1,3), (2,4)\}$ on $A = \{1,2,3\}$ to $B = \{2,3,4\}$
+- Let $S = \{(2,5), (3,6), (4,5)\}$ on $B = \{2,3,4\}$ to $C = \{5,6\}$
+- $S \circ R$:
+  - $(1,2) \in R$ and $(2,5) \in S$ → $(1,5) \in S \circ R$
+  - $(1,3) \in R$ and $(3,6) \in S$ → $(1,6) \in S \circ R$
+  - $(2,4) \in R$ and $(4,5) \in S$ → $(2,5) \in S \circ R$
+- Result: $S \circ R = \{(1,5), (1,6), (2,5)\}$
+
+**Example 2 - Parent relation:**
+- Let **P** be "is a parent of"
+- $P \circ P$ means "is a grandparent of"
+- If $(a,b) \in P$ (a is parent of b) and $(b,c) \in P$ (b is parent of c), then $(a,c) \in P \circ P$ (a is grandparent of c)
+
+**Properties:**
+- Composition is **associative:** $(T \circ S) \circ R = T \circ (S \circ R)$
+- Composition is generally **not commutative:** $S \circ R \neq R \circ S$
+
+**Composition and Relation Properties:**
+- If **R** and **S** are both **transitive**, $S \circ R$ may not be transitive
+- If **R** is **reflexive**, then $R \circ R = R$ (only if R is also transitive)
+
+### Closure of Relations
+
+**Closure:** The closure of a relation **R** with respect to a property **P** is the smallest relation that:
+1. Contains **R** as a subset
+2. Has property **P**
+
+#### Reflexive Closure
+
+**Reflexive Closure:** The smallest reflexive relation containing **R**.
+
+**Notation:** $r(R)$
+
+**Definition:** $r(R) = R \cup \{(a,a) \mid a \in A\}$
+
+**Construction:** Add all pairs $(a,a)$ for every element in the set.
+
+**Example:**
+- Let $R = \{(1,2), (2,3)\}$ on $A = \{1,2,3\}$
+- $r(R) = \{(1,2), (2,3), (1,1), (2,2), (3,3)\}$
+
+#### Symmetric Closure
+
+**Symmetric Closure:** The smallest symmetric relation containing **R**.
+
+**Notation:** $s(R)$
+
+**Definition:** $s(R) = R \cup R^{-1}$ where $R^{-1} = \{(b,a) \mid (a,b) \in R\}$
+
+**Construction:** For every pair $(a,b)$ in **R**, add $(b,a)$ if not already present.
+
+**Example:**
+- Let $R = \{(1,2), (2,3), (3,3)\}$
+- $R^{-1} = \{(2,1), (3,2), (3,3)\}$
+- $s(R) = \{(1,2), (2,1), (2,3), (3,2), (3,3)\}$
+
+#### Transitive Closure
+
+**Transitive Closure:** The smallest transitive relation containing **R**.
+
+**Notation:** $t(R)$ or $R^+$
+
+**Definition:** $t(R) = R \cup R^2 \cup R^3 \cup \ldots$ where $R^n = R \circ R \circ \ldots \circ R$ (n times)
+
+**Construction:** Keep composing **R** with itself until no new pairs are added.
+
+**Example:**
+- Let $R = \{(1,2), (2,3), (3,4)\}$ on $A = \{1,2,3,4\}$
+- $R^2 = R \circ R = \{(1,3), (2,4)\}$
+- $R^3 = R^2 \circ R = \{(1,4)\}$
+- $R^4 = R^3 \circ R = \emptyset$ (no new pairs)
+- $t(R) = R \cup R^2 \cup R^3 = \{(1,2), (2,3), (3,4), (1,3), (2,4), (1,4)\}$
+
+**Interpretation:** If you can get from **a** to **b** in one or more steps, then $(a,b)$ is in the transitive closure.
+
+**Warshall's Algorithm:** Efficient method to compute transitive closure using matrices (not covered here).
+
+#### Reflexive-Transitive Closure
+
+**Reflexive-Transitive Closure:** The smallest relation that is both reflexive and transitive containing **R**.
+
+**Notation:** $R^*$
+
+**Definition:** $R^* = R^0 \cup R^1 \cup R^2 \cup \ldots$ where $R^0 = \{(a,a) \mid a \in A\}$
+
+**Construction:** Add reflexivity, then compute transitive closure (or vice versa).
+
+**Example:**
+- Let $R = \{(1,2), (2,3)\}$ on $A = \{1,2,3\}$
+- $R^* = \{(1,1), (2,2), (3,3), (1,2), (2,3), (1,3)\}$
+
+**Application:** Used in defining "reachability" in graphs, regular expressions, and formal languages.
+
+### Inverse Relations
+
+**Inverse Relation:** Given a relation $R \subseteq A \times B$, the inverse relation $R^{-1} \subseteq B \times A$ reverses the order of all pairs.
+
+**Definition:** $R^{-1} = \{(b,a) \mid (a,b) \in R\}$
+
+**Example:**
+- Let $R = \{(1,2), (1,3), (2,4)\}$
+- $R^{-1} = \{(2,1), (3,1), (4,2)\}$
+
+**Properties:**
+- $(R^{-1})^{-1} = R$
+- $(S \circ R)^{-1} = R^{-1} \circ S^{-1}$ (order reverses)
+- If **R** is symmetric, then $R = R^{-1}$
+
 ## Function
 
 **Function:** A function is a relation that uniquely associates each
