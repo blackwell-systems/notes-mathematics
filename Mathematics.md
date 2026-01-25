@@ -4583,42 +4583,160 @@ Scalars are often used to "scale" vectors by a constant factor.
 
 # Permutation
 
-**Permutation: Permutation** refers to an arrangement of elements in a
-specific order.
+**Permutation:** A permutation refers to an arrangement of elements in a specific order. The order matters in permutations.
 
-**Permutation Formula**
+**Permutation Formula (without repetition):**
 
 $$P(n,r) =  \frac{n!}{(n - r)!}$$
 
-**n:** The total number of items or elements in the set from which
-selections are made. It represents the size of the entire set.
+Alternate notation: $_nP_r$ or $P_r^n$
 
-**r:** The number of items or elements to be selected or arranged. It
-represents the size of the subset or the number of positions to fill.
+**Where:**
 
-**(n-r)!:** The number of ways to arrange the remaining *n -- r*
-elements not chosen.
+- **n:** The total number of items in the set
+- **r:** The number of items to select and arrange
+- **(n-r)!:** The number of ways to arrange the remaining elements not chosen
 
-## Permutations with Repetitions
+**Special case:** When selecting all n items: $P(n,n) = n!$
 
-**Permutations with Repetitions:**
+**Examples:**
+
+1. **How many ways can you arrange 3 books from a shelf of 5 books?**
+   
+   $P(5,3) = \frac{5!}{(5-3)!} = \frac{5!}{2!} = \frac{120}{2} = 60$
+
+2. **How many 4-digit PIN codes can be formed using digits 0-9 without repetition?**
+   
+   $P(10,4) = \frac{10!}{6!} = 10 \times 9 \times 8 \times 7 = 5040$
+
+3. **How many ways can 5 people be arranged in a line?**
+   
+   $P(5,5) = 5! = 120$
+
+## Permutations with Repetition
+
+**Permutations with Repetition:** When elements can be repeated, the formula changes.
+
+**Formula:**
+
+$$n^r$$
+
+Where:
+- **n:** Number of choices for each position
+- **r:** Number of positions to fill
+
+**Example:** How many 4-digit PIN codes can be formed using digits 0-9 **with repetition allowed**?
+
+$10^4 = 10000$ possible codes
+
+## Permutations with Indistinguishable Objects
+
+**Formula:** When you have n objects where some are identical:
+
+$$\frac{n!}{n_1! \cdot n_2! \cdot \ldots \cdot n_k!}$$
+
+Where:
+- **n:** Total number of objects
+- **$n_1, n_2, \ldots, n_k$:** Number of each type of identical object
+
+**Example:** How many distinct arrangements of the letters in "MISSISSIPPI"?
+
+- Total letters: 11
+- M: 1, I: 4, S: 4, P: 2
+
+$$\frac{11!}{1! \cdot 4! \cdot 4! \cdot 2!} = \frac{39916800}{1 \cdot 24 \cdot 24 \cdot 2} = 34650$$
 
 # Combination
 
-**Combination: Combination** refers to a selection of items from a
-larger set, where the order of selection does not matter. Unlike
-permutations, where order is important, combinations consider only the
-selection itself and not ordering.
+**Combination:** A combination refers to a selection of items from a larger set, where the **order does not matter**. Unlike permutations, where order is important, combinations consider only which items are selected, not the arrangement.
 
-**Combination Formula**
+**Combination Formula (without repetition):**
 
-$$C(n,r) = \binom{\mathbf{n}}{\mathbf{r}} =  \frac{n!}{r!(n - r)!}$$
+$$C(n,r) = \binom{n}{r} =  \frac{n!}{r!(n - r)!}$$
 
-**n:** The total number of items or elements in the set from which
-selections are made. It represents the size of the entire set.
+Alternate notation: $_nC_r$ or $C_r^n$ or $\binom{n}{r}$ ("n choose r")
 
-**r:** The number of items or elements to be selected or arranged. It
-represents the size of the subset or the number of positions to fill.
+**Where:**
 
-**(n-r)!:** The number of ways to arrange the remaining *n -- r*
-elements not chosen.
+- **n:** The total number of items in the set
+- **r:** The number of items to select
+- **r!:** Divides out the arrangements within the selection (since order doesn't matter)
+
+**Relationship to Permutations:**
+
+$$C(n,r) = \frac{P(n,r)}{r!}$$
+
+Combinations are permutations divided by the number of ways to arrange r items, because order doesn't matter.
+
+**Examples:**
+
+1. **How many ways can you choose 3 books from a shelf of 5 books?**
+   
+   $C(5,3) = \frac{5!}{3! \cdot 2!} = \frac{120}{6 \cdot 2} = 10$
+
+2. **A pizza shop offers 10 toppings. How many 3-topping pizzas can you make?**
+   
+   $C(10,3) = \frac{10!}{3! \cdot 7!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = 120$
+
+3. **A committee of 4 people must be formed from a group of 12. How many ways?**
+   
+   $C(12,4) = \frac{12!}{4! \cdot 8!} = 495$
+
+## Properties of Combinations
+
+**Symmetry Property:**
+
+$$\binom{n}{r} = \binom{n}{n-r}$$
+
+Choosing r items is the same as choosing which (n-r) items to leave out.
+
+**Example:** $\binom{5}{2} = \binom{5}{3} = 10$
+
+**Pascal's Identity:**
+
+$$\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$$
+
+This forms Pascal's Triangle:
+
+```
+         1
+       1   1
+     1   2   1
+   1   3   3   1
+ 1   4   6   4   1
+1  5  10  10  5  1
+```
+
+Each number is the sum of the two numbers above it.
+
+**Connection to Binomial Theorem:**
+
+$\binom{n}{r}$ represents the coefficient of $x^r$ in the expansion of $(1+x)^n$.
+
+## Combinations with Repetition
+
+**Formula:** When items can be selected more than once:
+
+$$C(n+r-1, r) = \binom{n+r-1}{r} = \frac{(n+r-1)!}{r!(n-1)!}$$
+
+Where:
+- **n:** Number of different types of items
+- **r:** Number of items to select (repetition allowed)
+
+**Example:** How many ways can you select 3 donuts from 5 types if you can choose the same type multiple times?
+
+$$C(5+3-1, 3) = C(7,3) = \frac{7!}{3! \cdot 4!} = 35$$
+
+## Permutation vs Combination Summary
+
+| Aspect | Permutation | Combination |
+|--------|-------------|-------------|
+| **Order matters?** | Yes | No |
+| **Formula** | $\frac{n!}{(n-r)!}$ | $\frac{n!}{r!(n-r)!}$ |
+| **Example** | Arranging books | Selecting books |
+| **Relationship** | $C(n,r) = \frac{P(n,r)}{r!}$ | $P(n,r) = C(n,r) \cdot r!$ |
+
+**Key Question to Ask:** Does the order of selection matter?
+
+- **Yes** → Use Permutation
+- **No** → Use Combination
