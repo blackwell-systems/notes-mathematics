@@ -7671,51 +7671,51 @@ Scalars are often used to "scale" vectors by a constant factor.
 
 **Vector Addition:** Add corresponding components.
 
-For vectors $\vec{u} = \langle u_1, u_2 \rangle$ and $\vec{v} = \langle v_1, v_2 \rangle$:
+For vectors **u** = ⟨u₁, u₂⟩ and **v** = ⟨v₁, v₂⟩:
 
-$$\vec{u} + \vec{v} = \langle u_1 + v_1, u_2 + v_2 \rangle$$
+**u** + **v** = ⟨u₁ + v₁, u₂ + v₂⟩
 
-**Geometric Interpretation:** Place tail of $\vec{v}$ at head of $\vec{u}$, or use parallelogram rule.
+**Geometric Interpretation:** Place tail of **v** at head of **u**, or use parallelogram rule.
 
-**Example 1:** $\langle 3, 4 \rangle + \langle 1, 2 \rangle = \langle 4, 6 \rangle$
+**Example 1:** ⟨3, 4⟩ + ⟨1, 2⟩ = ⟨4, 6⟩
 
-**Example 2:** $\langle -2, 5 \rangle + \langle 3, -1 \rangle = \langle 1, 4 \rangle$
+**Example 2:** ⟨-2, 5⟩ + ⟨3, -1⟩ = ⟨1, 4⟩
 
 **Properties:**
-- **Commutative:** $\vec{u} + \vec{v} = \vec{v} + \vec{u}$
-- **Associative:** $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$
-- **Identity:** $\vec{u} + \vec{0} = \vec{u}$
+- **Commutative:** **u** + **v** = **v** + **u**
+- **Associative:** (**u** + **v**) + **w** = **u** + (**v** + **w**)
+- **Identity:** **u** + **0** = **u**
 
 ### Vector Subtraction
 
 **Vector Subtraction:** Subtract corresponding components.
 
-$$\vec{u} - \vec{v} = \langle u_1 - v_1, u_2 - v_2 \rangle$$
+**u** - **v** = ⟨u₁ - v₁, u₂ - v₂⟩
 
-**Geometric Interpretation:** Vector from head of $\vec{v}$ to head of $\vec{u}$.
+**Geometric Interpretation:** Vector from head of **v** to head of **u**.
 
-**Example:** $\langle 5, 7 \rangle - \langle 2, 3 \rangle = \langle 3, 4 \rangle$
+**Example:** ⟨5, 7⟩ - ⟨2, 3⟩ = ⟨3, 4⟩
 
 ### Scalar Multiplication
 
 **Scalar Multiplication:** Multiply each component by the scalar.
 
-$$c\vec{v} = c\langle v_1, v_2 \rangle = \langle cv_1, cv_2 \rangle$$
+c**v** = c⟨v₁, v₂⟩ = ⟨cv₁, cv₂⟩
 
 **Effect:**
-- Changes magnitude by factor $|c|$
-- Reverses direction if $c < 0$
-- Does not change direction if $c > 0$
+- Changes magnitude by factor |c|
+- Reverses direction if c < 0
+- Does not change direction if c > 0
 
-**Example 1:** $3\langle 2, -1 \rangle = \langle 6, -3 \rangle$
+**Example 1:** 3⟨2, -1⟩ = ⟨6, -3⟩
 
-**Example 2:** $-2\langle 1, 4 \rangle = \langle -2, -8 \rangle$
+**Example 2:** -2⟨1, 4⟩ = ⟨-2, -8⟩
 
 **Properties:**
-- $c(\vec{u} + \vec{v}) = c\vec{u} + c\vec{v}$
-- $(c + d)\vec{v} = c\vec{v} + d\vec{v}$
-- $c(d\vec{v}) = (cd)\vec{v}$
-- $1\vec{v} = \vec{v}$
+- c(**u** + **v**) = c**u** + c**v**
+- (c + d)**v** = c**v** + d**v**
+- c(d**v**) = (cd)**v**
+- 1**v** = **v**
 
 ### Magnitude (Length)
 
