@@ -3456,18 +3456,56 @@ Perform Polynomial Long Division
 
 ## Hole / Discontinuity / Removable Discontinuity
 
-**Hole / Discontinuity / Removable Discontinuity:**
+**Hole / Removable Discontinuity:** A hole occurs in a rational function when there is a common factor between the numerator and the denominator that can be cancelled.
 
-Holes / Discontinuities occur when there is a common factor between the
-numerator and the denominator.
+At the point where this factor equals zero, the function is undefined, creating a "hole" in the graph.
 
-$$f(x) =  \frac{x^{2} - 2}{x^{2} - 2x - 3} = \ \frac{(x + 1)(x - 1)}{(x + 1)(x - 3)}$$
+**How to identify:**
 
-![](./media/image101.png)
+1. Factor both numerator and denominator completely
+2. Find common factors
+3. Cancel the common factors
+4. The values that make the cancelled factors zero are holes
 
-![](./media/image102.png)
+**Example 1:**
 
-![](./media/image103.png)
+$$f(x) =  \frac{x^{2} - 1}{x^{2} - 2x - 3} = \frac{(x + 1)(x - 1)}{(x + 1)(x - 3)}$$
+
+Factor and cancel:
+
+$$f(x) = \frac{x - 1}{x - 3} \text{ for } x \neq -1$$
+
+- **Hole at $x = -1$** (common factor $(x + 1)$ cancelled)
+- **Vertical asymptote at $x = 3$** (denominator zero after cancellation)
+
+**Finding the y-coordinate of the hole:**
+
+Substitute $x = -1$ into the simplified function:
+
+$$y = \frac{-1 - 1}{-1 - 3} = \frac{-2}{-4} = \frac{1}{2}$$
+
+Hole is at $(-1, \frac{1}{2})$
+
+**Example 2:**
+
+$$f(x) = \frac{x^2 - 4}{x - 2} = \frac{(x-2)(x+2)}{x-2}$$
+
+Simplified: $f(x) = x + 2$ for $x \neq 2$
+
+Hole at $(2, 4)$ since $f(2)$ would be $2 + 2 = 4$ if it were defined.
+
+**Hole vs Vertical Asymptote:**
+
+- **Hole:** Common factor cancels, function is undefined but has a finite limit
+- **Vertical Asymptote:** Denominator is zero after all cancellations, function approaches $\pm\infty$
+
+**Summary:**
+
+| Feature | Numerator at $x = a$ | Denominator at $x = a$ | Result |
+|---------|---------------------|------------------------|--------|
+| Hole | Zero | Zero (cancels) | Undefined, finite limit |
+| Vertical Asymptote | Non-zero | Zero | Undefined, $f(x) \to \pm\infty$ |
+| x-intercept | Zero | Non-zero | $f(a) = 0$ |
 
 # Exponential Functions
 
