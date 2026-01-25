@@ -10,6 +10,7 @@
 - [Partial Fraction Decomposition](#partial-fraction-decomposition)
 - [Symbolic Methods vs. Numerical Methods](#symbolic-methods-vs-numerical-methods)
 - [Functions & Relations](#functions--relations)
+- [Graphing Functions](#graphing-functions)
 - [Complex Numbers](#complex-numbers)
 - [Linear Functions d=1](#linear-functions-d1)
 - [Matrices](#matrices)
@@ -19,6 +20,7 @@
 - [Exponential Functions](#exponential-functions)
 - [Logarithms](#logarithms)
 - [Radical Functions](#radical-functions)
+- [Inequalities](#inequalities)
 - [Geometry & Trigonometry](#geometry--trigonometry)
 - [Vector](#vector)
 - [Permutation](#permutation)
@@ -2410,6 +2412,375 @@ $$u_a(x) = H(x - a) = \begin{cases}
 1 & \text{if } x \geq a
 \end{cases}$$
 
+# Graphing Functions
+
+**Graphing Functions:** Graphing is the visual representation of a function on a coordinate plane. The graph shows the relationship between input values (x) and output values (y), revealing important features like intercepts, asymptotes, extrema, and overall behavior.
+
+## The Coordinate Plane
+
+**Coordinate Plane (Cartesian Plane):** A two-dimensional plane formed by two perpendicular number lines:
+- **x-axis:** Horizontal axis (independent variable)
+- **y-axis:** Vertical axis (dependent variable)
+- **Origin:** The point (0, 0) where the axes intersect
+
+**Quadrants:** The plane is divided into four regions:
+- Quadrant I: x > 0, y > 0 (upper right)
+- Quadrant II: x < 0, y > 0 (upper left)
+- Quadrant III: x < 0, y < 0 (lower left)
+- Quadrant IV: x > 0, y < 0 (lower right)
+
+**Ordered Pair:** A point is written as (x, y) where x is the horizontal coordinate and y is the vertical coordinate.
+
+## Key Features to Identify
+
+When graphing any function, identify these key features:
+
+**1. Domain and Range**
+- Domain: All possible x-values (horizontal extent)
+- Range: All possible y-values (vertical extent)
+
+**2. Intercepts**
+- **x-intercept(s):** Points where the graph crosses the x-axis (set y = 0)
+- **y-intercept:** Point where the graph crosses the y-axis (set x = 0)
+
+**3. Asymptotes**
+- **Vertical asymptote:** Line x = a where function approaches ±∞
+- **Horizontal asymptote:** Line y = b that function approaches as x → ±∞
+- **Oblique/Slant asymptote:** Diagonal line that function approaches
+
+**4. Extrema**
+- **Maximum:** Highest point (locally or globally)
+- **Minimum:** Lowest point (locally or globally)
+- **Vertex:** The maximum or minimum of a parabola
+
+**5. Intervals of Increase/Decrease**
+- **Increasing:** Function values rise as x increases (left to right upward)
+- **Decreasing:** Function values fall as x increases (left to right downward)
+- **Constant:** Function values remain the same
+
+**6. Concavity**
+- **Concave up:** Graph curves upward (like ∪)
+- **Concave down:** Graph curves downward (like ∩)
+- **Inflection point:** Where concavity changes
+
+**7. Symmetry**
+- **Even function (y-axis symmetry):** f(-x) = f(x)
+- **Odd function (origin symmetry):** f(-x) = -f(x)
+
+**8. End Behavior**
+- Behavior as x → ∞
+- Behavior as x → -∞
+
+## Graphing Linear Functions
+
+**Linear Function:** f(x) = mx + b
+
+**Key Features:**
+- **Slope (m):** Rate of change, "rise over run"
+  - m > 0: Line rises (increasing)
+  - m < 0: Line falls (decreasing)
+  - m = 0: Horizontal line (constant)
+- **y-intercept (b):** Point (0, b)
+- **x-intercept:** Solve 0 = mx + b → x = -b/m
+
+**Graphing Steps:**
+1. Identify y-intercept (0, b) - plot this point
+2. Use slope m = rise/run to find a second point
+3. Draw a straight line through both points
+
+**Example:** Graph f(x) = 2x - 3
+
+- y-intercept: (0, -3)
+- Slope: m = 2 = 2/1 (rise 2, run 1)
+- From (0, -3), move up 2 and right 1 to get (1, -1)
+- x-intercept: 0 = 2x - 3 → x = 1.5, point (1.5, 0)
+- Draw line through points
+
+**Special Cases:**
+- **Vertical line:** x = a (undefined slope, not a function)
+- **Horizontal line:** y = b (slope = 0)
+
+## Graphing Quadratic Functions
+
+**Quadratic Function:** f(x) = ax² + bx + c
+
+**Key Features:**
+- **Parabola:** U-shaped curve
+- **Opens upward:** a > 0 (minimum at vertex)
+- **Opens downward:** a < 0 (maximum at vertex)
+- **Vertex:** Turning point at x = -b/(2a)
+  - Substitute x into f(x) to find y-coordinate
+- **Axis of symmetry:** Vertical line x = -b/(2a)
+- **y-intercept:** (0, c)
+- **x-intercept(s):** Solve ax² + bx + c = 0 (0, 1, or 2 solutions)
+
+**Vertex Form:** f(x) = a(x - h)² + k
+- Vertex: (h, k)
+- Makes graphing easier when in this form
+
+**Graphing Steps:**
+1. Find vertex: x = -b/(2a), then find y
+2. Determine direction (a > 0 up, a < 0 down)
+3. Find y-intercept: (0, c)
+4. Find x-intercepts (if they exist): factor or quadratic formula
+5. Plot vertex, intercepts, and use symmetry to find additional points
+6. Draw smooth parabola
+
+**Example:** Graph f(x) = x² - 4x + 3
+
+- Vertex: x = -(-4)/(2·1) = 2, y = 4 - 8 + 3 = -1, vertex (2, -1)
+- Opens upward (a = 1 > 0)
+- y-intercept: (0, 3)
+- x-intercepts: x² - 4x + 3 = 0 → (x-1)(x-3) = 0 → x = 1, 3
+- Points: (1, 0), (2, -1), (3, 0)
+- Symmetric points from vertex
+
+## Graphing Polynomial Functions
+
+**Polynomial Function:** f(x) = aₙxⁿ + ... + a₁x + a₀
+
+**Key Features:**
+- **Degree n:** Determines maximum number of turning points (n-1)
+- **End behavior:** Determined by leading term aₙxⁿ
+  - Even degree: Both ends go same direction
+  - Odd degree: Ends go opposite directions
+  - Positive leading coefficient: Right end goes up
+  - Negative leading coefficient: Right end goes down
+
+**Zeros/Roots:**
+- **x-intercepts:** Where f(x) = 0
+- **Multiplicity:** Affects graph behavior at zeros
+  - Odd multiplicity: Graph crosses x-axis
+  - Even multiplicity: Graph touches x-axis (bounces)
+
+**Graphing Steps:**
+1. Find all zeros (factor if possible)
+2. Determine end behavior from leading term
+3. Find y-intercept: f(0)
+4. Analyze multiplicity at each zero
+5. Plot zeros, y-intercept, and additional points as needed
+6. Connect with smooth curve following end behavior
+
+**Example:** Graph f(x) = (x + 2)(x - 1)²
+
+- Zeros: x = -2 (multiplicity 1, crosses), x = 1 (multiplicity 2, touches)
+- Degree 3 (odd), positive leading coefficient
+- End behavior: x → -∞, f(x) → -∞; x → ∞, f(x) → ∞
+- y-intercept: (0, 2·1 = 2)
+- At x = -2: crosses axis
+- At x = 1: touches axis (turns around)
+
+## Graphing Rational Functions
+
+**Rational Function:** f(x) = P(x)/Q(x)
+
+**Key Features:**
+- **Vertical asymptotes:** Where Q(x) = 0 (denominator zero)
+- **Holes:** Where both P(x) and Q(x) have common factor
+- **Horizontal asymptote:** Compare degrees of P and Q
+  - deg(P) < deg(Q): y = 0
+  - deg(P) = deg(Q): y = aₙ/bₙ (ratio of leading coefficients)
+  - deg(P) > deg(Q): No horizontal asymptote (may have oblique)
+- **Oblique asymptote:** If deg(P) = deg(Q) + 1, use polynomial division
+
+**Graphing Steps:**
+1. Factor numerator and denominator completely
+2. Identify and cancel common factors (these are holes)
+3. Find vertical asymptotes: remaining zeros of denominator
+4. Find horizontal/oblique asymptote based on degree
+5. Find x-intercepts: zeros of numerator (excluding holes)
+6. Find y-intercept: f(0) if defined
+7. Test points in each region between asymptotes
+8. Draw curve approaching asymptotes
+
+**Example:** Graph f(x) = (x - 2)/(x + 1)
+
+- No common factors, no holes
+- Vertical asymptote: x = -1
+- Horizontal asymptote: y = 1 (equal degrees, 1/1)
+- x-intercept: (2, 0)
+- y-intercept: (0, -2)
+- Test regions: x < -1, -1 < x < 2, x > 2
+- Curve approaches asymptotes but never touches
+
+## Graphing Exponential Functions
+
+**Exponential Function:** f(x) = a·bˣ + c
+
+**Key Features:**
+- **Growth:** b > 1 (increases exponentially)
+- **Decay:** 0 < b < 1 (decreases exponentially)
+- **Horizontal asymptote:** y = c
+- **y-intercept:** (0, a + c)
+- **No x-intercept** (unless vertically shifted to cross axis)
+- **Domain:** (-∞, ∞)
+- **Range:** (c, ∞) if a > 0, or (-∞, c) if a < 0
+
+**Graphing Steps:**
+1. Identify horizontal asymptote y = c
+2. Find y-intercept: f(0) = a + c
+3. Determine growth or decay
+4. Plot several points using convenient x-values
+5. Draw smooth curve approaching asymptote
+
+**Example:** Graph f(x) = 2ˣ - 1
+
+- Horizontal asymptote: y = -1
+- y-intercept: (0, 0)
+- Growth (b = 2 > 1)
+- Points: (-2, -0.75), (-1, -0.5), (0, 0), (1, 1), (2, 3)
+- Curve increases rapidly, approaches y = -1 as x → -∞
+
+## Graphing Logarithmic Functions
+
+**Logarithmic Function:** f(x) = a·logᵦ(x) + c
+
+**Key Features:**
+- **Vertical asymptote:** x = 0 (unless horizontally shifted)
+- **x-intercept:** Where logᵦ(x) = -c/a
+- **y-intercept:** None (undefined at x = 0)
+- **Domain:** (0, ∞) for parent function
+- **Range:** (-∞, ∞)
+- **Increasing:** if a > 0 and b > 1
+- **Decreasing:** if a < 0 and b > 1
+
+**Graphing Steps:**
+1. Identify vertical asymptote (usually x = 0)
+2. Find x-intercept
+3. Plot key point: (b, a) for parent function
+4. Plot several points with convenient x-values
+5. Draw smooth curve approaching asymptote
+
+**Example:** Graph f(x) = log₂(x)
+
+- Vertical asymptote: x = 0
+- x-intercept: (1, 0) since log₂(1) = 0
+- Key point: (2, 1) since log₂(2) = 1
+- Points: (0.5, -1), (1, 0), (2, 1), (4, 2), (8, 3)
+- Increases slowly, approaches x = 0 as x → 0⁺
+
+## Graphing Absolute Value Functions
+
+**Absolute Value Function:** f(x) = a|x - h| + k
+
+**Key Features:**
+- **Vertex:** (h, k)
+- **V-shape:** Sharp corner at vertex
+- **Opens upward:** a > 0 (minimum at vertex)
+- **Opens downward:** a < 0 (maximum at vertex)
+- **Slope:** ±a on each side of vertex
+- **Axis of symmetry:** x = h
+
+**Graphing Steps:**
+1. Identify vertex: (h, k)
+2. Determine direction: up if a > 0, down if a < 0
+3. Find x-intercepts: Solve a|x - h| + k = 0
+4. Find y-intercept: f(0)
+5. Use symmetry to plot points on both sides of vertex
+6. Connect with V-shape
+
+**Example:** Graph f(x) = |x - 2| - 1
+
+- Vertex: (2, -1)
+- Opens upward (a = 1)
+- Slope: ±1
+- x-intercepts: 0 = |x - 2| - 1 → |x - 2| = 1 → x = 1 or x = 3
+- y-intercept: (0, 1)
+- V-shape with vertex at (2, -1)
+
+## Graphing Piecewise Functions
+
+**Piecewise Function:** Different formulas for different intervals of x
+
+**Graphing Steps:**
+1. Identify each piece and its domain interval
+2. Graph each piece separately within its interval
+3. Check endpoints:
+   - Open circle: Point not included (< or >)
+   - Closed circle: Point included (≤ or ≥)
+4. Ensure no gaps or overlaps unless specified
+
+**Example:** Graph f(x) = {x + 1 if x < 0; x² if x ≥ 0}
+
+- For x < 0: Graph line y = x + 1, open circle at (0, 1)
+- For x ≥ 0: Graph parabola y = x², closed circle at (0, 0)
+- Discontinuity at x = 0 (jump discontinuity)
+
+## Graphing Radical Functions
+
+**Square Root Function:** f(x) = a√(x - h) + k
+
+**Key Features:**
+- **Starting point:** (h, k)
+- **Domain:** [h, ∞)
+- **Range:** [k, ∞) if a > 0
+- **Increasing:** Slowly, concave down if a > 0
+- **Shape:** Half-parabola on its side
+
+**Graphing Steps:**
+1. Find starting point: (h, k)
+2. Determine domain: x ≥ h
+3. Plot starting point
+4. Calculate several points for x > h
+5. Draw smooth curve starting at (h, k)
+
+**Example:** Graph f(x) = √(x + 1) - 2
+
+- Starting point: (-1, -2)
+- Domain: [-1, ∞)
+- Points: (-1, -2), (0, -1), (3, 0), (8, 1)
+- Increases slowly, concave down
+
+## Graphing Inequalities
+
+**Inequality on Number Line:**
+- **Open circle:** < or > (not included)
+- **Closed circle:** ≤ or ≥ (included)
+- **Shade:** Direction of solution
+
+**Inequality in Two Variables:**
+
+**Steps:**
+1. Graph the boundary line/curve
+   - Use dashed line for < or > (not included)
+   - Use solid line for ≤ or ≥ (included)
+2. Test a point not on the line (often (0, 0))
+3. Shade the region containing the test point if it satisfies the inequality
+4. Shade the opposite region if the test point doesn't satisfy
+
+**Example:** Graph y < 2x + 1
+
+- Graph y = 2x + 1 with dashed line
+- Test (0, 0): 0 < 1 ✓
+- Shade below the line
+
+**System of Inequalities:**
+- Graph all boundary lines
+- Shade each inequality
+- Solution region is where all shadings overlap
+
+## Common Transformations Summary
+
+Starting with parent function f(x):
+
+**Vertical Transformations:**
+- f(x) + k: Shift up k units
+- f(x) - k: Shift down k units
+- a·f(x): Vertical stretch by |a| (if |a| > 1) or compression (if |a| < 1)
+- -f(x): Reflect across x-axis
+
+**Horizontal Transformations:**
+- f(x - h): Shift right h units
+- f(x + h): Shift left h units
+- f(bx): Horizontal compression by b (if |b| > 1) or stretch (if |b| < 1)
+- f(-x): Reflect across y-axis
+
+**Combined:** f(x) = a·f(b(x - h)) + k
+1. Horizontal shift h
+2. Horizontal stretch/compression b
+3. Vertical stretch/compression a
+4. Vertical shift k
+
 # Complex Numbers
 
 **Complex Numbers:** A Complex Number is a combination of a Real Number
@@ -2768,13 +3139,391 @@ equation in which the coefficient occurs, and the second indicates which
 unknown it multiplies. Thus, *a*~12~ is in the first equation and
 multiplies *x*~2~.
 
-## Methods to solve systems of linear equations
+## Types of Solutions
 
-**Methods to solve systems of linear equations**
+A system of linear equations can have:
+
+**1. Exactly one solution (consistent and independent)**
+- Lines intersect at a single point
+- The system has a unique solution
+
+**2. Infinitely many solutions (consistent and dependent)**
+- Lines are coincident (same line)
+- All points on the line are solutions
+
+**3. No solution (inconsistent)**
+- Lines are parallel (never intersect)
+- No point satisfies all equations
+
+## Methods to Solve Systems of Linear Equations
+
+There are several methods to solve systems of linear equations:
+
+1. **Substitution Method** - Solve one equation for a variable, substitute into others
+2. **Elimination Method (Addition/Subtraction)** - Add or subtract equations to eliminate variables
+3. **Graphing Method** - Graph equations and find intersection point(s)
+4. **Matrix Method** - Use matrices and row operations
+5. **Cramer's Rule** - Use determinants (for square systems)
 
 ## Substitution Method
 
-**Substitution Method:**
+**Substitution Method:** Solve one equation for one variable in terms of the others, then substitute that expression into the remaining equations.
+
+**Steps:**
+
+1. Solve one equation for one variable
+2. Substitute that expression into the other equation(s)
+3. Solve the resulting equation
+4. Back-substitute to find remaining variables
+5. Check the solution in all original equations
+
+**Example 1:** Solve the system:
+
+$$\begin{cases}
+x + y = 5 \\
+2x - y = 1
+\end{cases}$$
+
+**Step 1:** Solve first equation for y:
+$$y = 5 - x$$
+
+**Step 2:** Substitute into second equation:
+$$2x - (5 - x) = 1$$
+
+**Step 3:** Solve for x:
+$$2x - 5 + x = 1$$
+$$3x = 6$$
+$$x = 2$$
+
+**Step 4:** Back-substitute into y = 5 - x:
+$$y = 5 - 2 = 3$$
+
+**Solution:** $(2, 3)$
+
+**Check:** 
+- $2 + 3 = 5$ ✓
+- $2(2) - 3 = 1$ ✓
+
+**Example 2:** Solve the system:
+
+$$\begin{cases}
+3x + 2y = 7 \\
+x - y = 1
+\end{cases}$$
+
+**Step 1:** Solve second equation for x:
+$$x = y + 1$$
+
+**Step 2:** Substitute into first equation:
+$$3(y + 1) + 2y = 7$$
+
+**Step 3:** Solve for y:
+$$3y + 3 + 2y = 7$$
+$$5y = 4$$
+$$y = \frac{4}{5}$$
+
+**Step 4:** Back-substitute:
+$$x = \frac{4}{5} + 1 = \frac{9}{5}$$
+
+**Solution:** $\left(\frac{9}{5}, \frac{4}{5}\right)$
+
+## Elimination Method
+
+**Elimination Method (Addition/Subtraction Method):** Multiply equations by constants to make coefficients of one variable opposites, then add equations to eliminate that variable.
+
+**Steps:**
+
+1. Align equations with variables in columns
+2. Multiply one or both equations by constants to make coefficients of one variable opposites
+3. Add equations to eliminate one variable
+4. Solve the resulting single-variable equation
+5. Back-substitute to find remaining variables
+6. Check the solution
+
+**Example 1:** Solve the system:
+
+$$\begin{cases}
+2x + 3y = 7 \\
+5x - 3y = 14
+\end{cases}$$
+
+**Step 1:** Notice y-coefficients are already opposites (3 and -3)
+
+**Step 2:** Add equations:
+$$\begin{align}
+2x + 3y &= 7 \\
+5x - 3y &= 14 \\
+\hline
+7x + 0y &= 21
+\end{align}$$
+
+**Step 3:** Solve for x:
+$$7x = 21$$
+$$x = 3$$
+
+**Step 4:** Substitute x = 3 into first equation:
+$$2(3) + 3y = 7$$
+$$6 + 3y = 7$$
+$$3y = 1$$
+$$y = \frac{1}{3}$$
+
+**Solution:** $\left(3, \frac{1}{3}\right)$
+
+**Example 2:** Solve the system:
+
+$$\begin{cases}
+3x + 4y = 10 \\
+2x + 5y = 9
+\end{cases}$$
+
+**Step 1:** Multiply first equation by 2 and second by -3 to eliminate x:
+
+$$\begin{align}
+6x + 8y &= 20 \\
+-6x - 15y &= -27
+\end{align}$$
+
+**Step 2:** Add equations:
+$$-7y = -7$$
+$$y = 1$$
+
+**Step 3:** Substitute y = 1 into first original equation:
+$$3x + 4(1) = 10$$
+$$3x = 6$$
+$$x = 2$$
+
+**Solution:** $(2, 1)$
+
+**Example 3:** Solve the system:
+
+$$\begin{cases}
+4x - 2y = 6 \\
+6x - 3y = 12
+\end{cases}$$
+
+**Step 1:** Multiply first equation by 3:
+$$12x - 6y = 18$$
+
+**Step 2:** Multiply second equation by -2:
+$$-12x + 6y = -24$$
+
+**Step 3:** Add equations:
+$$0 = -6$$
+
+This is a contradiction! The system is **inconsistent** (no solution).
+
+The lines are parallel.
+
+## Matrix Method (Augmented Matrix)
+
+**Matrix Method:** Represent the system as an augmented matrix and use row operations to solve.
+
+**Augmented Matrix:** Combines coefficient matrix with constant terms:
+
+For system:
+$$\begin{cases}
+a_1x + b_1y = c_1 \\
+a_2x + b_2y = c_2
+\end{cases}$$
+
+Augmented matrix:
+$$\left[\begin{array}{cc|c}
+a_1 & b_1 & c_1 \\
+a_2 & b_2 & c_2
+\end{array}\right]$$
+
+**Elementary Row Operations:**
+
+1. **Swap two rows** - $R_i \leftrightarrow R_j$
+2. **Multiply a row by a nonzero constant** - $kR_i \rightarrow R_i$
+3. **Add a multiple of one row to another** - $R_i + kR_j \rightarrow R_i$
+
+**Goal:** Transform to **row echelon form** or **reduced row echelon form**
+
+**Row Echelon Form:**
+- Leading entry (pivot) in each row is to the right of the pivot in the row above
+- All entries below a pivot are zero
+- Rows of all zeros are at the bottom
+
+**Reduced Row Echelon Form (RREF):**
+- All pivots are 1
+- Each pivot is the only nonzero entry in its column
+- Satisfies row echelon form conditions
+
+**Example:** Solve the system:
+
+$$\begin{cases}
+2x + y = 7 \\
+x - 3y = -8
+\end{cases}$$
+
+**Step 1:** Write augmented matrix:
+$$\left[\begin{array}{cc|c}
+2 & 1 & 7 \\
+1 & -3 & -8
+\end{array}\right]$$
+
+**Step 2:** Swap rows to get 1 in upper-left:
+$$R_1 \leftrightarrow R_2: \left[\begin{array}{cc|c}
+1 & -3 & -8 \\
+2 & 1 & 7
+\end{array}\right]$$
+
+**Step 3:** Eliminate below pivot:
+$$R_2 - 2R_1 \rightarrow R_2: \left[\begin{array}{cc|c}
+1 & -3 & -8 \\
+0 & 7 & 23
+\end{array}\right]$$
+
+**Step 4:** Make second pivot equal to 1:
+$$\frac{1}{7}R_2 \rightarrow R_2: \left[\begin{array}{cc|c}
+1 & -3 & -8 \\
+0 & 1 & \frac{23}{7}
+\end{array}\right]$$
+
+**Step 5:** Eliminate above second pivot (RREF):
+$$R_1 + 3R_2 \rightarrow R_1: \left[\begin{array}{cc|c}
+1 & 0 & \frac{13}{7} \\
+0 & 1 & \frac{23}{7}
+\end{array}\right]$$
+
+**Solution:** $x = \frac{13}{7}$, $y = \frac{23}{7}$
+
+## Gaussian Elimination
+
+**Gaussian Elimination:** A systematic matrix method using forward elimination followed by back-substitution.
+
+**Process:**
+
+**Phase 1: Forward Elimination** - Transform to row echelon form
+
+**Phase 2: Back-substitution** - Solve for variables starting from bottom row
+
+**Example:** Solve the 3×3 system:
+
+$$\begin{cases}
+x + 2y + z = 8 \\
+2x + 5y + 2z = 18 \\
+x + y + 3z = 11
+\end{cases}$$
+
+**Step 1:** Augmented matrix:
+$$\left[\begin{array}{ccc|c}
+1 & 2 & 1 & 8 \\
+2 & 5 & 2 & 18 \\
+1 & 1 & 3 & 11
+\end{array}\right]$$
+
+**Step 2:** Eliminate first column below pivot:
+
+$R_2 - 2R_1 \rightarrow R_2$:
+$$\left[\begin{array}{ccc|c}
+1 & 2 & 1 & 8 \\
+0 & 1 & 0 & 2 \\
+1 & 1 & 3 & 11
+\end{array}\right]$$
+
+$R_3 - R_1 \rightarrow R_3$:
+$$\left[\begin{array}{ccc|c}
+1 & 2 & 1 & 8 \\
+0 & 1 & 0 & 2 \\
+0 & -1 & 2 & 3
+\end{array}\right]$$
+
+**Step 3:** Eliminate second column below pivot:
+
+$R_3 + R_2 \rightarrow R_3$:
+$$\left[\begin{array}{ccc|c}
+1 & 2 & 1 & 8 \\
+0 & 1 & 0 & 2 \\
+0 & 0 & 2 & 5
+\end{array}\right]$$
+
+**Now in row echelon form**
+
+**Step 4: Back-substitution**
+
+From row 3: $2z = 5$ → $z = \frac{5}{2}$
+
+From row 2: $y = 2$
+
+From row 1: $x + 2(2) + \frac{5}{2} = 8$ → $x + 4 + 2.5 = 8$ → $x = 1.5$
+
+**Solution:** $\left(\frac{3}{2}, 2, \frac{5}{2}\right)$
+
+## Gauss-Jordan Elimination
+
+**Gauss-Jordan Elimination:** Extends Gaussian elimination to achieve reduced row echelon form, eliminating need for back-substitution.
+
+**Process:** Continue row operations until the matrix is in RREF (diagonal of 1's with zeros above and below).
+
+**Example:** Solve:
+
+$$\begin{cases}
+x + y = 3 \\
+2x - y = 0
+\end{cases}$$
+
+**Step 1:** Augmented matrix:
+$$\left[\begin{array}{cc|c}
+1 & 1 & 3 \\
+2 & -1 & 0
+\end{array}\right]$$
+
+**Step 2:** $R_2 - 2R_1 \rightarrow R_2$:
+$$\left[\begin{array}{cc|c}
+1 & 1 & 3 \\
+0 & -3 & -6
+\end{array}\right]$$
+
+**Step 3:** $-\frac{1}{3}R_2 \rightarrow R_2$:
+$$\left[\begin{array}{cc|c}
+1 & 1 & 3 \\
+0 & 1 & 2
+\end{array}\right]$$
+
+**Step 4:** $R_1 - R_2 \rightarrow R_1$ (eliminate above pivot):
+$$\left[\begin{array}{cc|c}
+1 & 0 & 1 \\
+0 & 1 & 2
+\end{array}\right]$$
+
+**Solution:** $x = 1$, $y = 2$ (read directly from RREF)
+
+## Special Cases
+
+**Infinitely Many Solutions:**
+
+If row operations produce a row of all zeros (like [0 0 | 0]), the system has infinitely many solutions.
+
+**Example:**
+$$\begin{cases}
+2x + 4y = 6 \\
+x + 2y = 3
+\end{cases}$$
+
+These are the same line (second equation is first ÷ 2). Solution: All points on line $x + 2y = 3$.
+
+**No Solution:**
+
+If row operations produce a contradiction (like [0 0 | k] where k ≠ 0), the system has no solution.
+
+**Example:**
+$$\begin{cases}
+x + y = 2 \\
+x + y = 5
+\end{cases}$$
+
+These are parallel lines. No solution.
+
+## Systems with More than Two Variables
+
+The same methods apply to systems with 3 or more variables:
+- Substitution becomes more tedious
+- Elimination and matrix methods scale better
+- Solutions are points in 3D space (for 3 variables) or higher dimensions
+
+**Example:** Already shown in Gaussian Elimination section above.
 
 # Polynomial Functions
 
@@ -4227,6 +4976,339 @@ $$x^{m/n} = \sqrt[n]{x^m} = (\sqrt[n]{x})^m$$
 - $16^{-1/2} = \frac{1}{\sqrt{16}} = \frac{1}{4}$
 
 **Properties:** All exponent rules apply to rational exponents.
+
+# Inequalities
+
+**Inequalities:** An inequality is a mathematical statement that compares two expressions using inequality symbols. Unlike equations, which state that two expressions are equal, inequalities show that one expression is greater than, less than, greater than or equal to, or less than or equal to another expression.
+
+**Inequality Symbols:**
+
+- $<$ : less than
+- $>$ : greater than
+- $\leq$ : less than or equal to
+- $\geq$ : greater than or equal to
+- $\neq$ : not equal to
+
+## Properties of Inequalities
+
+**Addition/Subtraction Property:**
+
+If $a < b$, then $a + c < b + c$ and $a - c < b - c$
+
+You can add or subtract the same value from both sides without changing the inequality direction.
+
+**Multiplication/Division by Positive Number:**
+
+If $a < b$ and $c > 0$, then $ac < bc$ and $\frac{a}{c} < \frac{b}{c}$
+
+**Multiplication/Division by Negative Number:**
+
+If $a < b$ and $c < 0$, then $ac > bc$ and $\frac{a}{c} > \frac{b}{c}$
+
+**Critical:** The inequality sign **reverses** when multiplying or dividing by a negative number.
+
+**Transitive Property:**
+
+If $a < b$ and $b < c$, then $a < c$
+
+## Linear Inequalities
+
+**Linear Inequality:** An inequality involving a linear expression (degree 1).
+
+**General Form:** $ax + b < c$ (or $>$, $\leq$, $\geq$)
+
+**Solving Steps:**
+
+1. Isolate the variable using addition/subtraction
+2. Divide/multiply by the coefficient
+3. Remember to flip the sign if dividing/multiplying by a negative number
+
+**Example 1:** Solve $3x - 5 > 7$
+
+$3x - 5 > 7$
+
+$3x > 12$
+
+$x > 4$
+
+**Solution:** $x \in (4, \infty)$
+
+**Example 2:** Solve $-2x + 3 \leq 11$
+
+$-2x + 3 \leq 11$
+
+$-2x \leq 8$
+
+$x \geq -4$ (sign flips when dividing by -2)
+
+**Solution:** $x \in [-4, \infty)$
+
+**Example 3:** Solve $5 - 2x < 3x + 15$
+
+$5 - 2x < 3x + 15$
+
+$-5x < 10$
+
+$x > -2$ (sign flips)
+
+**Solution:** $x \in (-2, \infty)$
+
+## Compound Inequalities
+
+**Compound Inequality:** Combines two inequalities using "and" or "or".
+
+**Conjunction (AND):** $a < x < b$ means $x > a$ AND $x < b$
+
+**Example:** Solve $-3 < 2x + 1 < 7$
+
+Split into two inequalities:
+
+$-3 < 2x + 1$ AND $2x + 1 < 7$
+
+$-4 < 2x$ AND $2x < 6$
+
+$-2 < x$ AND $x < 3$
+
+**Solution:** $x \in (-2, 3)$
+
+**Disjunction (OR):** $x < a$ OR $x > b$
+
+**Example:** Solve $x - 3 < -5$ OR $x + 2 > 8$
+
+$x < -2$ OR $x > 6$
+
+**Solution:** $x \in (-\infty, -2) \cup (6, \infty)$
+
+## Quadratic Inequalities
+
+**Quadratic Inequality:** An inequality involving a quadratic expression (degree 2).
+
+**General Form:** $ax^2 + bx + c < 0$ (or $>$, $\leq$, $\geq$)
+
+**Solving Method:**
+
+1. Move all terms to one side (set to 0 on the other side)
+2. Factor the quadratic (or use quadratic formula to find roots)
+3. Find the critical points (zeros)
+4. Test intervals between critical points
+5. Determine which intervals satisfy the inequality
+
+**Example 1:** Solve $x^2 - 5x + 6 < 0$
+
+Factor: $(x - 2)(x - 3) < 0$
+
+Critical points: $x = 2$ and $x = 3$
+
+Test intervals:
+- $x < 2$: Test $x = 0$: $(0-2)(0-3) = 6 > 0$ ✗
+- $2 < x < 3$: Test $x = 2.5$: $(0.5)(-0.5) = -0.25 < 0$ ✓
+- $x > 3$: Test $x = 4$: $(2)(1) = 2 > 0$ ✗
+
+**Solution:** $x \in (2, 3)$
+
+**Example 2:** Solve $x^2 + 2x - 8 \geq 0$
+
+Factor: $(x + 4)(x - 2) \geq 0$
+
+Critical points: $x = -4$ and $x = 2$
+
+Test intervals:
+- $x < -4$: Test $x = -5$: $(-1)(-7) = 7 > 0$ ✓
+- $-4 < x < 2$: Test $x = 0$: $(4)(-2) = -8 < 0$ ✗
+- $x > 2$: Test $x = 3$: $(7)(1) = 7 > 0$ ✓
+
+**Solution:** $x \in (-\infty, -4] \cup [2, \infty)$
+
+**Sign Chart Method:**
+
+Draw a number line with critical points and test the sign of each factor in each interval.
+
+```
+         -4          2
+    +  +  |  -  -  |  +  +
+    +  +  |  -  -  |  +  +
+    ─────────────────────
+(x+4)     -    +       +
+(x-2)     -    -       +
+Product   +    -       +
+```
+
+## Rational Inequalities
+
+**Rational Inequality:** An inequality involving a rational expression (fraction with polynomials).
+
+**General Form:** $\frac{P(x)}{Q(x)} < 0$ (or $>$, $\leq$, $\geq$)
+
+**Solving Method:**
+
+1. Move all terms to one side
+2. Find a common denominator if needed
+3. Factor numerator and denominator
+4. Find critical points (zeros of numerator and denominator)
+5. **Important:** Exclude values that make denominator zero
+6. Test intervals between critical points
+7. Use sign chart
+
+**Example 1:** Solve $\frac{x - 1}{x + 2} > 0$
+
+Critical points:
+- Numerator zero: $x = 1$
+- Denominator zero: $x = -2$ (excluded from solution)
+
+Test intervals:
+- $x < -2$: Test $x = -3$: $\frac{-4}{-1} = 4 > 0$ ✓
+- $-2 < x < 1$: Test $x = 0$: $\frac{-1}{2} = -0.5 < 0$ ✗
+- $x > 1$: Test $x = 2$: $\frac{1}{4} = 0.25 > 0$ ✓
+
+**Solution:** $x \in (-\infty, -2) \cup (1, \infty)$
+
+**Example 2:** Solve $\frac{x^2 - 4}{x - 3} \leq 0$
+
+Factor: $\frac{(x-2)(x+2)}{x-3} \leq 0$
+
+Critical points: $x = -2, 2$ (zeros), $x = 3$ (excluded)
+
+Test intervals:
+- $x < -2$: negative/negative = positive ✗
+- $-2 < x < 2$: positive/negative = negative ✓
+- $2 < x < 3$: positive/negative = negative ✓
+- $x > 3$: positive/positive = positive ✗
+
+**Solution:** $x \in [-2, 2] \cup (2, 3)$ which simplifies to $x \in [-2, 3)$
+
+**Note:** We include $x = -2$ and $x = 2$ (where numerator is zero) but exclude $x = 3$ (where denominator is zero).
+
+## Absolute Value Inequalities
+
+**Absolute Value Inequality:** An inequality involving absolute value.
+
+**Recall:** $|x|$ represents the distance from zero on the number line.
+
+### Type 1: $|x| < a$
+
+**Interpretation:** Distance from zero is less than $a$.
+
+**Solution:** $-a < x < a$
+
+**Example:** Solve $|x - 3| < 5$
+
+$-5 < x - 3 < 5$
+
+$-2 < x < 8$
+
+**Solution:** $x \in (-2, 8)$
+
+### Type 2: $|x| > a$
+
+**Interpretation:** Distance from zero is greater than $a$.
+
+**Solution:** $x < -a$ OR $x > a$
+
+**Example:** Solve $|2x + 1| \geq 7$
+
+$2x + 1 \leq -7$ OR $2x + 1 \geq 7$
+
+$2x \leq -8$ OR $2x \geq 6$
+
+$x \leq -4$ OR $x \geq 3$
+
+**Solution:** $x \in (-\infty, -4] \cup [3, \infty)$
+
+### Complex Absolute Value Inequalities
+
+**Example:** Solve $|x + 2| < 3x - 1$
+
+For absolute value inequalities with variable expressions, consider two cases:
+
+**Case 1:** $x + 2 \geq 0$ (expression inside is non-negative)
+
+Then $|x + 2| = x + 2$
+
+$x + 2 < 3x - 1$
+
+$3 < 2x$
+
+$x > 1.5$
+
+Combined with $x + 2 \geq 0$ → $x \geq -2$
+
+This case gives: $x > 1.5$
+
+**Case 2:** $x + 2 < 0$ (expression inside is negative)
+
+Then $|x + 2| = -(x + 2)$
+
+$-(x + 2) < 3x - 1$
+
+$-x - 2 < 3x - 1$
+
+$-1 < 4x$
+
+$x > -0.25$
+
+Combined with $x + 2 < 0$ → $x < -2$
+
+This case gives: no solution (contradiction)
+
+**Solution:** $x \in (1.5, \infty)$
+
+## Systems of Inequalities
+
+**System of Inequalities:** Multiple inequalities that must be satisfied simultaneously.
+
+**Solving Method:**
+
+1. Solve each inequality individually
+2. Find the intersection of all solutions (values that satisfy ALL inequalities)
+3. Graph the solution region (for two variables)
+
+**Example 1 (one variable):** Solve the system:
+
+$$\begin{cases}
+x + 3 > 1 \\
+2x - 5 \leq 7
+\end{cases}$$
+
+Solve each:
+- $x + 3 > 1$ → $x > -2$
+- $2x - 5 \leq 7$ → $2x \leq 12$ → $x \leq 6$
+
+**Solution:** $x \in (-2, 6]$
+
+**Example 2 (two variables):** Graph the solution region for:
+
+$$\begin{cases}
+y < 2x + 1 \\
+y \geq -x + 3
+\end{cases}$$
+
+Steps:
+1. Graph $y = 2x + 1$ (dashed line, shade below)
+2. Graph $y = -x + 3$ (solid line, shade above)
+3. Solution is the overlapping shaded region
+
+**Example 3 (three inequalities):** Solve:
+
+$$\begin{cases}
+x + y \leq 4 \\
+x - y < 2 \\
+x \geq 0, y \geq 0
+\end{cases}$$
+
+This defines a bounded region in the first quadrant. The solution is the polygon formed by the intersection of all constraints.
+
+## Interval Notation Summary
+
+| Inequality | Interval Notation | Meaning |
+|------------|-------------------|---------|
+| $x < a$ | $(-\infty, a)$ | Open at $a$ |
+| $x \leq a$ | $(-\infty, a]$ | Closed at $a$ |
+| $x > a$ | $(a, \infty)$ | Open at $a$ |
+| $x \geq a$ | $[a, \infty)$ | Closed at $a$ |
+| $a < x < b$ | $(a, b)$ | Open at both |
+| $a \leq x \leq b$ | $[a, b]$ | Closed at both |
+| $a \leq x < b$ | $[a, b)$ | Closed at $a$, open at $b$ |
+| $x < a$ OR $x > b$ | $(-\infty, a) \cup (b, \infty)$ | Union of two intervals |
 
 # Geometry & Trigonometry
 
