@@ -741,10 +741,10 @@ medium confidence](./media/image21.png)
 
 **Notation:** $P(x)$, $Q(x, y)$, $R(x, y, z)$, etc.
 
-**Example:**
-- $P(x)$: "$x$ is prime"
-- $Q(x, y)$: "$x$ is greater than $y$"
-- $R(x)$: "$x$ is an even number"
+**Examples:**
+- $P(x)$ means "x is prime"
+- $Q(x, y)$ means "x is greater than y"
+- $R(x)$ means "x is an even number"
 
 ## Domain of Discourse
 
