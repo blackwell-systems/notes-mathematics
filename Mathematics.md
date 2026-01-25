@@ -733,7 +733,183 @@ medium confidence](./media/image21.png)
 
 # Predicate Logic / first-order logic
 
-**Predicate Logic / first-order logic:**
+**Predicate Logic / first-order logic:** An extension of propositional logic that allows reasoning about objects, their properties, and relationships using variables and quantifiers.
+
+## Predicates
+
+**Predicate:** A function that takes one or more variables and returns a truth value (true or false).
+
+**Notation:** $P(x)$, $Q(x, y)$, $R(x, y, z)$, etc.
+
+**Example:**
+- $P(x)$: "$x$ is prime"
+- $Q(x, y)$: "$x$ is greater than $y$"
+- $R(x)$: "$x$ is an even number"
+
+## Domain of Discourse
+
+**Domain of Discourse (Universe):** The set of all possible values that variables can take.
+
+**Example:**
+- If domain is $\mathbb{N}$, then $x$ can be any natural number
+- If domain is $\mathbb{R}$, then $x$ can be any real number
+
+## Quantifiers
+
+### Universal Quantifier (∀)
+
+**Symbol:** $\forall$ (read as "for all" or "for every")
+
+**Meaning:** The statement is true for all elements in the domain.
+
+**Notation:** $\forall x P(x)$
+
+**Example 1:** $\forall x (x + 0 = x)$
+- Domain: $\mathbb{R}$
+- Meaning: "For all real numbers $x$, $x + 0 = x$"
+- Truth value: TRUE
+
+**Example 2:** $\forall x (x^2 \geq 0)$
+- Domain: $\mathbb{R}$
+- Meaning: "For all real numbers $x$, $x^2$ is non-negative"
+- Truth value: TRUE
+
+**Example 3:** $\forall x (x > 0)$
+- Domain: $\mathbb{R}$
+- Meaning: "For all real numbers $x$, $x$ is positive"
+- Truth value: FALSE (counterexample: $x = -1$)
+
+### Existential Quantifier (∃)
+
+**Symbol:** $\exists$ (read as "there exists" or "for some")
+
+**Meaning:** The statement is true for at least one element in the domain.
+
+**Notation:** $\exists x P(x)$
+
+**Example 1:** $\exists x (x^2 = 4)$
+- Domain: $\mathbb{R}$
+- Meaning: "There exists a real number $x$ such that $x^2 = 4$"
+- Truth value: TRUE (examples: $x = 2$ or $x = -2$)
+
+**Example 2:** $\exists x (x^2 = -1)$
+- Domain: $\mathbb{R}$
+- Meaning: "There exists a real number $x$ such that $x^2 = -1$"
+- Truth value: FALSE
+
+**Example 3:** $\exists x (x^2 = -1)$
+- Domain: $\mathbb{C}$
+- Meaning: "There exists a complex number $x$ such that $x^2 = -1$"
+- Truth value: TRUE (example: $x = i$)
+
+### Unique Existential Quantifier (∃!)
+
+**Symbol:** $\exists!$ (read as "there exists exactly one")
+
+**Meaning:** The statement is true for exactly one element in the domain.
+
+**Notation:** $\exists! x P(x)$
+
+**Example:** $\exists! x (x + 5 = 7)$
+- Domain: $\mathbb{R}$
+- Meaning: "There exists exactly one real number $x$ such that $x + 5 = 7$"
+- Truth value: TRUE (only $x = 2$)
+
+## Multiple Quantifiers
+
+### Order Matters
+
+**Example 1:** $\forall x \exists y (x < y)$
+- Domain: $\mathbb{R}$
+- Meaning: "For every real number $x$, there exists a real number $y$ such that $x < y$"
+- Truth value: TRUE (for any $x$, we can choose $y = x + 1$)
+
+**Example 2:** $\exists y \forall x (x < y)$
+- Domain: $\mathbb{R}$
+- Meaning: "There exists a real number $y$ such that for all real numbers $x$, $x < y$"
+- Truth value: FALSE (no single $y$ is greater than all real numbers)
+
+### Mixed Quantifiers
+
+**Example:** $\forall x \exists y (x + y = 0)$
+- Domain: $\mathbb{R}$
+- Meaning: "For every real number $x$, there exists a real number $y$ such that $x + y = 0$"
+- Truth value: TRUE (for any $x$, choose $y = -x$)
+
+## Negating Quantified Statements
+
+**Rules:**
+- $\neg(\forall x P(x)) \equiv \exists x \neg P(x)$
+- $\neg(\exists x P(x)) \equiv \forall x \neg P(x)$
+
+**Example 1:** Negate $\forall x (x > 0)$
+- Original: "All $x$ are positive"
+- Negation: $\exists x \neg(x > 0) \equiv \exists x (x \leq 0)$
+- Result: "There exists an $x$ that is not positive"
+
+**Example 2:** Negate $\exists x (x^2 = 2)$
+- Original: "There exists an $x$ such that $x^2 = 2$"
+- Negation: $\forall x \neg(x^2 = 2) \equiv \forall x (x^2 \neq 2)$
+- Result: "For all $x$, $x^2 \neq 2$"
+
+**Example 3:** Negate $\forall x \exists y (x < y)$
+- Apply negation rules from outside in:
+  - $\neg(\forall x \exists y (x < y))$
+  - $\exists x \neg(\exists y (x < y))$
+  - $\exists x \forall y \neg(x < y)$
+  - $\exists x \forall y (x \geq y)$
+- Result: "There exists an $x$ such that for all $y$, $x \geq y$"
+
+## Bound vs Free Variables
+
+**Bound Variable:** A variable that is controlled by a quantifier.
+
+**Free Variable:** A variable that is not controlled by a quantifier.
+
+**Example 1:** $\forall x (x + y = z)$
+- $x$ is bound (controlled by $\forall$)
+- $y$ and $z$ are free
+
+**Example 2:** $\exists x \forall y (x < y + z)$
+- $x$ and $y$ are bound
+- $z$ is free
+
+## Common Patterns
+
+### "For all... if..., then..."
+
+**Pattern:** $\forall x (P(x) \to Q(x))$
+
+**Example:** $\forall x (x > 0 \to x^2 > 0)$
+- Domain: $\mathbb{R}$
+- Meaning: "For all real numbers, if $x$ is positive, then $x^2$ is positive"
+
+### "There exists... such that... and..."
+
+**Pattern:** $\exists x (P(x) \land Q(x))$
+
+**Example:** $\exists x (x > 0 \land x^2 = 4)$
+- Domain: $\mathbb{R}$
+- Meaning: "There exists a positive real number whose square is 4"
+- Truth value: TRUE ($x = 2$)
+
+## Truth Tables for Quantified Statements
+
+When the domain is finite, quantified statements can be expanded:
+
+**Universal Quantifier:**
+- $\forall x P(x) \equiv P(a) \land P(b) \land P(c) \land \ldots$
+- TRUE only if $P$ is true for ALL elements
+
+**Existential Quantifier:**
+- $\exists x P(x) \equiv P(a) \lor P(b) \lor P(c) \lor \ldots$
+- TRUE if $P$ is true for AT LEAST ONE element
+
+**Example:** Domain = $\{1, 2, 3\}$, $P(x)$: "$x$ is even"
+
+$\forall x P(x) \equiv P(1) \land P(2) \land P(3) \equiv F \land T \land F \equiv F$
+
+$\exists x P(x) \equiv P(1) \lor P(2) \lor P(3) \equiv F \lor T \lor F \equiv T$
 
 # Mathematical Notations
 
