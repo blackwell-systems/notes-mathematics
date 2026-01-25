@@ -18,6 +18,7 @@
 - [Rational Functions](#rational-functions)
 - [Exponential Functions](#exponential-functions)
 - [Logarithms](#logarithms)
+- [Radical Functions](#radical-functions)
 - [Geometry & Trigonometry](#geometry--trigonometry)
 - [Vector](#vector)
 - [Permutation](#permutation)
