@@ -8056,6 +8056,38 @@ This graph has:
 - **Undirected edge:** Connection with no direction (e.g., friendship)
 - **Directed edge (arc):** Connection with direction (e.g., following on social media)
 
+### Weighted Graphs
+
+**Weighted Graph:** A graph where each edge has an associated numerical value called a **weight** (or cost, length, capacity).
+
+**Edge Weight:** A number assigned to an edge, often representing:
+- Distance (road networks)
+- Cost (financial networks)
+- Capacity (flow networks)
+- Time (travel time)
+- Strength (relationship strength)
+
+**Notation:** Weight of edge e is written as w(e) or w(u,v) for edge between u and v.
+
+**Example - Road network:**
+
+```mermaid
+graph LR
+    A -->|5 km| B
+    A -->|3 km| C
+    B -->|2 km| C
+    B -->|4 km| D
+    C -->|6 km| D
+```
+
+**Unweighted Graph:** A graph where all edges are considered to have equal weight (typically weight 1), or where weights are not relevant.
+
+**Applications:**
+- Finding shortest paths (navigation)
+- Minimum spanning trees (network design)
+- Maximum flow problems (logistics)
+- Network optimization
+
 ### Directed vs Undirected Graphs
 
 **Undirected Graph:** A graph where edges have no direction. If there is an edge between u and v, you can traverse it in either direction.
