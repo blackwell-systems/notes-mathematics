@@ -2312,11 +2312,8 @@ generated](./media/image65.png)
 
 ### Methods for Solving Quadratic Equations
 
-**Methods for Solving Quadratic Equations**
 
 #### What does it mean to "solve" a quadratic / polynomial?
-
-**What does it mean to "solve" a quadratic / polynomial?**
 
 Solving a polynomial means finding all the values of the variable that
 make the polynomial equal to zero.
