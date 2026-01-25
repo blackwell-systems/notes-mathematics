@@ -266,11 +266,7 @@ necessarily true in every conceivable situation or possible world.
 **Proposition: Propositions** are declarative statements that have a
 truth value, which can either be true or false, but not both.
 
-Propositions in propositional logic respect the *[bi-variance
-principle* and the *[principle of the excluded
-middle*. This is why their truth value can assume only 2
-values and why each proposition can be assigned only a single
-value---not both or neither.
+Propositions in propositional logic respect the **bi-valence principle** and the **principle of the excluded middle**. This is why their truth value can assume only 2 values and why each proposition can be assigned only a single value---not both or neither.
 
 Declarative statements make assertions or declare some fact about the
 state of affairs of something.
