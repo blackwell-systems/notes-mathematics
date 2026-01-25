@@ -1839,15 +1839,37 @@ $\mid A \mid = \mid B \mid$
 
 **Size comparisons (all sets):**
 
--   $\mid A \mid \leq \mid B \mid iff there exists an **injection**
-    $A \rightarrow B$.
+**Cardinality Ordering:**
 
--   $\mid A \mid \geq \mid B \mid iff there exists an **injection**
-    $B \rightarrow A$ (equivalently, a surjection $A \rightarrow B$).
+- $|A| \leq |B|$ iff there exists an **injection** $A \rightarrow B$
+  - Intuition: A is "no larger than" B if we can inject A into B without collisions
+  - Example: $|\{1, 2\}| \leq |\{a, b, c\}|$ (we can map 1→a, 2→b)
 
--   **Schröder--Bernstein:** injections both ways
-    $A \hookrightarrow B$ and $B \hookrightarrow A$ ⇒ bijection
-    $A \cong B$.
+- $|A| \geq |B|$ iff there exists an **injection** $B \rightarrow A$ (equivalently, a surjection $A \rightarrow B$)
+  - Intuition: A is "at least as large as" B
+  - Surjection equivalence: If we can map A onto B (covering all of B), then $|A| \geq |B|$
+
+- $|A| = |B|$ iff there exists a **bijection** $A \cong B$
+  - Intuition: A and B have the same size (one-to-one correspondence)
+  - Notation: $A \cong B$ or $|A| = |B|$
+
+**Schröder-Bernstein Theorem:**
+
+If injections exist both ways ($A \hookrightarrow B$ and $B \hookrightarrow A$), then a bijection exists ($A \cong B$).
+
+**Formal Statement:** If $|A| \leq |B|$ and $|B| \leq |A|$, then $|A| = |B|$.
+
+**Why It's Important:** This theorem allows proving two sets have the same cardinality without explicitly constructing a bijection. You only need to find injections in both directions.
+
+**Example:**
+
+Show that $[0, 1]$ and $[0, 2]$ have the same cardinality.
+
+- Injection $f: [0, 1] \rightarrow [0, 2]$ via $f(x) = 2x$ ✓
+- Injection $g: [0, 2] \rightarrow [0, 1]$ via $g(x) = x/2$ ✓
+- By Schröder-Bernstein, $|[0, 1]| = |[0, 2]|$
+
+(The explicit bijection is $f(x) = 2x$, but Schröder-Bernstein proves existence without requiring we find it.)
 
 #### Finite Set
 
