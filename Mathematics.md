@@ -7924,9 +7924,9 @@ $$C(5+3-1, 3) = C(7,3) = \frac{7!}{3! \cdot 4!} = 35$$
 
 ### Graph
 
-**Graph:** A graph $G = (V, E)$ consists of:
-- $V$: A set of vertices (also called nodes)
-- $E$: A set of edges (also called links or arcs)
+**Graph:** A graph G = (V, E) consists of:
+- V: A set of vertices (also called nodes)
+- E: A set of edges (also called links or arcs)
 
 **Example:**
 
