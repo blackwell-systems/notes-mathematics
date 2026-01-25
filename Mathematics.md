@@ -349,10 +349,60 @@ and require us to consider the specific conditions at hand.
 
 ## Truth Function
 
-**Truth Function**: In logic, a truth function is a function that
-accepts truth values as input and produces a truth value as output. They
-play a crucial role in propositional logic by defining how compound
-statements (or propositions) are constructed from atomic ones.
+**Truth Function**: In logic, a truth function is a function that accepts truth values as input and produces a truth value as output. They play a crucial role in propositional logic by defining how compound statements (or propositions) are constructed from atomic ones.
+
+**Formal Definition:** A truth function f is a function f: {T, F}ⁿ → {T, F}
+
+Where n is the number of input propositions (arity).
+
+**Examples:**
+
+**Unary Truth Function (n=1):**
+
+| P | ¬P |
+|---|-----|
+| T | F |
+| F | T |
+
+The negation function f(P) = ¬P maps:
+- f(T) = F
+- f(F) = T
+
+**Binary Truth Functions (n=2):**
+
+| P | Q | P∧Q | P∨Q | P→Q | P↔Q | P⊕Q |
+|---|---|-----|-----|-----|-----|-----|
+| T | T | T | T | T | T | F |
+| T | F | F | T | F | F | T |
+| F | T | F | T | T | F | T |
+| F | F | F | F | T | T | F |
+
+Each column defines a different binary truth function.
+
+**Total Number of Truth Functions:**
+
+For n inputs, there are 2^(2ⁿ) possible truth functions:
+- n=1: 2^(2¹) = 4 unary functions
+- n=2: 2^(2²) = 16 binary functions
+- n=3: 2^(2³) = 256 ternary functions
+
+**Common Binary Functions:**
+1. Conjunction (AND): T only when both inputs are T
+2. Disjunction (OR): F only when both inputs are F
+3. Implication: F only when antecedent is T and consequent is F
+4. Biconditional: T when both inputs have same truth value
+5. XOR: T when inputs have different truth values
+6. NAND: Opposite of AND
+7. NOR: Opposite of OR
+
+**Functionally Complete Sets:**
+
+A set of connectives is functionally complete if every truth function can be expressed using only those connectives:
+- {¬, ∧} is functionally complete
+- {¬, ∨} is functionally complete
+- {→, F} is functionally complete
+- {NAND} alone is functionally complete
+- {NOR} alone is functionally complete
 
 ## Logical / Propositional Constants
 
