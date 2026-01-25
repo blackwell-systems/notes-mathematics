@@ -1551,6 +1551,84 @@ also be in **R**.
 
 ∀a,b,c ∈ A ( ( R(a,b) ∧ R(b,c) ) → R(a,c) )
 
+#### Antisymmetric Property
+
+**Antisymmetric Property:** A relation **R** on a set **A** is **antisymmetric** if whenever both (a,b) and (b,a) are in R, then a must equal b.
+
+∀a,b ∈ A ( (R(a,b) ∧ R(b,a)) → a = b )
+
+**Example:** The "less than or equal to" relation (≤) on real numbers is antisymmetric:
+- If a ≤ b and b ≤ a, then a = b
+
+**Non-example:** The "divides" relation on positive integers is NOT antisymmetric:
+- 2 divides 4 and 4 does not divide 2 (so it's not even close to being antisymmetric in the traditional sense, but actually it IS antisymmetric because if a|b and b|a, then a=b for positive integers)
+
+#### Asymmetric Property
+
+**Asymmetric Property:** A relation **R** on a set **A** is **asymmetric** if whenever (a,b) is in R, then (b,a) cannot be in R.
+
+∀a,b ∈ A ( R(a,b) → ¬R(b,a) )
+
+**Example:** The "less than" relation (<) on real numbers is asymmetric:
+- If a < b, then b ≮ a (b is not less than a)
+
+**Note:** Asymmetric implies antisymmetric, but not vice versa.
+
+#### Irreflexive Property
+
+**Irreflexive Property:** A relation **R** on a set **A** is **irreflexive** if no element is related to itself.
+
+∀a ∈ A ( ¬R(a,a) )
+
+**Example:** The "less than" relation (<) on real numbers is irreflexive:
+- No number is less than itself
+
+**Note:** Irreflexive is NOT the same as "not reflexive." A relation can be neither reflexive nor irreflexive.
+
+### Partial Order
+
+**Partial Order:** A relation **R** on a set **A** is a **partial order** if it is:
+1. **Reflexive:** Every element is related to itself
+2. **Antisymmetric:** If a R b and b R a, then a = b
+3. **Transitive:** If a R b and b R c, then a R c
+
+Notation: Often written as ≤ or ⊑
+
+**Examples:**
+
+1. **Subset relation (⊆)** on sets:
+   - Every set is a subset of itself (reflexive)
+   - If A ⊆ B and B ⊆ A, then A = B (antisymmetric)
+   - If A ⊆ B and B ⊆ C, then A ⊆ C (transitive)
+
+2. **"Divides" relation (|)** on positive integers:
+   - Every number divides itself (reflexive)
+   - If a|b and b|a, then a = b (antisymmetric)
+   - If a|b and b|c, then a|c (transitive)
+
+3. **Less than or equal (≤)** on real numbers
+
+**Partially ordered set (poset):** A set **A** together with a partial order relation is called a poset, denoted (A, ≤).
+
+**Why "partial"?** Not every pair of elements needs to be comparable. For example, with subset relation, {1,2} and {3,4} are incomparable (neither is a subset of the other).
+
+### Total Order (Linear Order)
+
+**Total Order:** A partial order where **every pair** of elements is comparable.
+
+A relation **R** on **A** is a total order if it is:
+1. Reflexive
+2. Antisymmetric  
+3. Transitive
+4. **Total:** ∀a,b ∈ A ( R(a,b) ∨ R(b,a) )
+
+**Examples:**
+- ≤ on real numbers (you can always compare two numbers)
+- Alphabetical order on strings
+
+**Non-example:**
+- Subset relation (⊆) is NOT a total order because some sets are incomparable
+
 ### Equivalence Relation
 
 **Equivalence Relation:** An equivalence relation is a way to formally
@@ -1925,6 +2003,48 @@ Let $g: \mathbb{R}^+ \rightarrow \mathbb{R}$ where $g(x) = \ln(x)$ (natural log)
 
 Then $(g \circ f)(x) = g(f(x)) = g(x^2) = \ln(x^2) = 2\ln|x|$
 
+**More Composition Examples:**
+
+**Example 1: Composition with absolute value**
+
+Let $f(x) = x - 5$ and $g(x) = |x|$
+
+- $(g \circ f)(x) = g(f(x)) = |x - 5|$ (distance from 5)
+- $(f \circ g)(x) = f(g(x)) = |x| - 5$ (shift absolute value down 5)
+
+**Example 2: Showing non-commutativity**
+
+Let $f(x) = 2x$ and $g(x) = x + 1$
+
+- $(g \circ f)(x) = g(2x) = 2x + 1$
+- $(f \circ g)(x) = f(x + 1) = 2(x + 1) = 2x + 2$
+
+These are different functions!
+
+**Example 3: Triple composition**
+
+Let $f(x) = x + 1$, $g(x) = x^2$, $h(x) = \sqrt{x}$
+
+$(h \circ g \circ f)(x) = h(g(f(x))) = h(g(x + 1)) = h((x + 1)^2) = \sqrt{(x + 1)^2} = |x + 1|$
+
+**Example 4: Composition resulting in identity**
+
+Let $f(x) = x + 3$ and $g(x) = x - 3$
+
+$(g \circ f)(x) = g(x + 3) = (x + 3) - 3 = x = id(x)$
+
+This shows $g$ is the inverse of $f$.
+
+**Decomposing Functions:**
+
+Sometimes you need to express a complex function as a composition. This is useful for calculus (chain rule).
+
+**Example:** Express $h(x) = \sqrt{x^2 + 1}$ as a composition.
+
+Let $f(x) = x^2 + 1$ (inner function) and $g(x) = \sqrt{x}$ (outer function)
+
+Then $h(x) = (g \circ f)(x) = g(f(x)) = \sqrt{x^2 + 1}$
+
 ## Function Properties
 
 ### Even and Odd Functions
@@ -2045,6 +2165,249 @@ then there exists a bijection $h:A \rightarrow B$
 (So $\mid A \mid \leq \mid B \mid $and
 $\mid B \mid \leq \mid A \mid $together imply
 $\mid A \mid = \mid B \mid$. No Choice needed.)
+
+## Piecewise Functions
+
+**Piecewise Function:** A piecewise function is a function defined by multiple sub-functions, each applying to a different interval of the domain.
+
+**General Form:**
+
+$$f(x) = \begin{cases}
+f_1(x) & \text{if } x \in I_1 \\
+f_2(x) & \text{if } x \in I_2 \\
+\vdots & \vdots \\
+f_n(x) & \text{if } x \in I_n
+\end{cases}$$
+
+Where $I_1, I_2, \ldots, I_n$ are disjoint intervals that cover the domain.
+
+**Example 1: Absolute Value Function**
+
+$$|x| = \begin{cases}
+x & \text{if } x \geq 0 \\
+-x & \text{if } x < 0
+\end{cases}$$
+
+**Example 2: Tax Bracket System**
+
+$$\text{tax}(income) = \begin{cases}
+0.10 \cdot income & \text{if } income \leq 10000 \\
+1000 + 0.15(income - 10000) & \text{if } 10000 < income \leq 50000 \\
+7000 + 0.25(income - 50000) & \text{if } income > 50000
+\end{cases}$$
+
+**Example 3: Heaviside Step Function**
+
+$$H(x) = \begin{cases}
+0 & \text{if } x < 0 \\
+1 & \text{if } x \geq 0
+\end{cases}$$
+
+**Domain Considerations:**
+
+- Ensure every point in the domain is covered by exactly one piece
+- Watch for overlaps or gaps at boundary points
+- Specify whether boundaries use $<$ or $\leq$
+
+**Continuity:**
+
+A piecewise function is continuous at a boundary point $x = a$ if:
+
+$$\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = f(a)$$
+
+## Function Transformations
+
+**Function Transformations** describe how to shift, stretch, compress, or reflect the graph of a function.
+
+### Vertical Transformations
+
+**Vertical Shift:** $f(x) + k$
+
+- $k > 0$: Shift up by $k$ units
+- $k < 0$: Shift down by $|k|$ units
+
+**Example:** $f(x) = x^2$ becomes $f(x) = x^2 + 3$ (shift up 3 units)
+
+**Vertical Stretch/Compression:** $af(x)$
+
+- $|a| > 1$: Vertical stretch by factor $a$
+- $0 < |a| < 1$: Vertical compression by factor $a$
+- $a < 0$: Reflection across x-axis (plus stretch/compression)
+
+**Example:** $f(x) = x^2$ becomes $f(x) = 2x^2$ (stretch by factor 2)
+
+### Horizontal Transformations
+
+**Horizontal Shift:** $f(x - h)$
+
+- $h > 0$: Shift **right** by $h$ units
+- $h < 0$: Shift **left** by $|h|$ units
+
+**Example:** $f(x) = x^2$ becomes $f(x) = (x - 3)^2$ (shift right 3 units)
+
+**Note:** The direction is counterintuitive! $f(x - h)$ shifts RIGHT.
+
+**Horizontal Stretch/Compression:** $f(bx)$
+
+- $|b| > 1$: Horizontal **compression** by factor $b$
+- $0 < |b| < 1$: Horizontal **stretch** by factor $1/b$
+- $b < 0$: Reflection across y-axis (plus stretch/compression)
+
+**Example:** $f(x) = x^2$ becomes $f(x) = (2x)^2$ (compress by factor 1/2)
+
+### Reflections
+
+**Reflection across x-axis:** $-f(x)$
+
+**Reflection across y-axis:** $f(-x)$
+
+**Example:** $f(x) = \sqrt{x}$ becomes $f(-x) = \sqrt{-x}$ (reflection across y-axis, changes domain)
+
+### Combined Transformations
+
+**Order matters!** General form:
+
+$$g(x) = a \cdot f(b(x - h)) + k$$
+
+Apply in this order:
+1. Horizontal shift by $h$
+2. Horizontal stretch/compression by $b$
+3. Vertical stretch/compression by $a$
+4. Vertical shift by $k$
+
+**Example:** Transform $f(x) = x^2$ to $g(x) = -2(x - 3)^2 + 1$
+
+- Shift right 3: $(x - 3)^2$
+- Stretch vertically by 2: $2(x - 3)^2$
+- Reflect across x-axis: $-2(x - 3)^2$
+- Shift up 1: $-2(x - 3)^2 + 1$
+
+## Floor and Ceiling Functions
+
+### Floor Function
+
+**Floor Function:** $\lfloor x \rfloor$ (also called the **greatest integer function**)
+
+Returns the largest integer **less than or equal to** $x$.
+
+**Definition:**
+
+$$\lfloor x \rfloor = \max\{n \in \mathbb{Z} : n \leq x\}$$
+
+**Examples:**
+- $\lfloor 3.7 \rfloor = 3$
+- $\lfloor -2.3 \rfloor = -3$
+- $\lfloor 5 \rfloor = 5$
+- $\lfloor 0.1 \rfloor = 0$
+
+**Properties:**
+- $\lfloor x \rfloor \leq x < \lfloor x \rfloor + 1$
+- $\lfloor x + n \rfloor = \lfloor x \rfloor + n$ for any integer $n$
+- $\lfloor x \rfloor = x$ if and only if $x$ is an integer
+
+### Ceiling Function
+
+**Ceiling Function:** $\lceil x \rceil$ (also called the **least integer function**)
+
+Returns the smallest integer **greater than or equal to** $x$.
+
+**Definition:**
+
+$$\lceil x \rceil = \min\{n \in \mathbb{Z} : n \geq x\}$$
+
+**Examples:**
+- $\lceil 3.7 \rceil = 4$
+- $\lceil -2.3 \rceil = -2$
+- $\lceil 5 \rceil = 5$
+- $\lceil 0.1 \rceil = 1$
+
+**Properties:**
+- $\lceil x \rceil - 1 < x \leq \lceil x \rceil$
+- $\lceil x + n \rceil = \lceil x \rceil + n$ for any integer $n$
+- $\lceil x \rceil = x$ if and only if $x$ is an integer
+
+### Relationship Between Floor and Ceiling
+
+$$\lceil x \rceil = -\lfloor -x \rfloor$$
+
+$$\lfloor x \rfloor = -\lceil -x \rceil$$
+
+For non-integers: $\lceil x \rceil = \lfloor x \rfloor + 1$
+
+## Special Function Types
+
+### Constant Function
+
+**Constant Function:** A function that always returns the same value regardless of input.
+
+$$f(x) = c$$
+
+Where $c$ is a constant.
+
+**Properties:**
+- Domain: $\mathbb{R}$ (or any set)
+- Range: $\{c\}$ (single value)
+- Graph: Horizontal line at $y = c$
+- Derivative: $f'(x) = 0$
+
+**Example:** $f(x) = 5$ for all $x$
+
+### Absolute Value Function
+
+**Absolute Value Function:** Returns the magnitude (distance from zero) of a number.
+
+$$f(x) = |x| = \begin{cases}
+x & \text{if } x \geq 0 \\
+-x & \text{if } x < 0
+\end{cases}$$
+
+**Properties:**
+- Domain: $\mathbb{R}$
+- Range: $[0, \infty)$
+- Even function: $|-x| = |x|$
+- $|xy| = |x||y|$
+- Triangle inequality: $|x + y| \leq |x| + |y|$
+
+**Graph:** V-shaped, vertex at origin
+
+### Signum Function
+
+**Signum Function (Sign Function):** Returns the sign of a number.
+
+$$\text{sgn}(x) = \begin{cases}
+-1 & \text{if } x < 0 \\
+0 & \text{if } x = 0 \\
+1 & \text{if } x > 0
+\end{cases}$$
+
+**Properties:**
+- Domain: $\mathbb{R}$
+- Range: $\{-1, 0, 1\}$
+- Odd function: $\text{sgn}(-x) = -\text{sgn}(x)$
+
+**Relationship to absolute value:**
+
+$$x = \text{sgn}(x) \cdot |x|$$
+
+### Step Functions
+
+**Step Function:** A piecewise constant function with finitely many pieces.
+
+**Heaviside Step Function:**
+
+$$H(x) = \begin{cases}
+0 & \text{if } x < 0 \\
+1 & \text{if } x \geq 0
+\end{cases}$$
+
+Used in signal processing, differential equations, and control theory.
+
+**Unit Step Function (shifted):**
+
+$$u_a(x) = H(x - a) = \begin{cases}
+0 & \text{if } x < a \\
+1 & \text{if } x \geq a
+\end{cases}$$
 
 # Complex Numbers
 
