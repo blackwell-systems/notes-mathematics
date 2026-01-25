@@ -6046,6 +6046,199 @@ Fundamental Theorem of Algebra), knowing the maximum possible number of
 real roots also gives insight into the number of possible imaginary
 roots as well.
 
+## Newton's Method (Newton-Raphson Method)
+
+**Newton's Method:** A numerical technique for approximating roots of a function using calculus. Given a function $f(x)$ and its derivative $f'(x)$, Newton's method iteratively refines an initial guess $x_0$ to converge toward a root.
+
+**Formula:**
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+**Algorithm:**
+
+1. Choose an initial guess $x_0$ (close to the suspected root)
+2. Compute $x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}$
+3. Repeat: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$
+4. Stop when $|x_{n+1} - x_n| < \epsilon$ (desired accuracy) or $|f(x_{n+1})| < \epsilon$
+
+**Geometric Interpretation:**
+
+- At point $(x_n, f(x_n))$, draw the tangent line with slope $f'(x_n)$
+- The tangent line intersects the x-axis at $x_{n+1}$
+- This $x_{n+1}$ becomes the next approximation
+- Repeat until convergence
+
+**Example:** Find a root of $f(x) = x^3 - 2x - 5$ near $x = 2$
+
+**Step 1:** Compute derivative: $f'(x) = 3x^2 - 2$
+
+**Step 2:** Initial guess: $x_0 = 2$
+
+$f(2) = 2^3 - 2(2) - 5 = 8 - 4 - 5 = -1$
+
+$f'(2) = 3(2)^2 - 2 = 12 - 2 = 10$
+
+$x_1 = 2 - \frac{-1}{10} = 2 + 0.1 = 2.1$
+
+**Step 3:** Iterate:
+
+$f(2.1) = (2.1)^3 - 2(2.1) - 5 = 9.261 - 4.2 - 5 = 0.061$
+
+$f'(2.1) = 3(2.1)^2 - 2 = 13.23 - 2 = 11.23$
+
+$x_2 = 2.1 - \frac{0.061}{11.23} \approx 2.1 - 0.0054 \approx 2.0946$
+
+**Step 4:** Continue iterations:
+
+$x_3 \approx 2.09455$ (converged to 5 decimal places)
+
+**Verification:** $f(2.09455) \approx 0.00003$ ✓ (very close to zero)
+
+**Advantages:**
+
+- **Fast convergence:** Quadratic convergence rate (number of correct digits doubles each iteration)
+- **Widely applicable:** Works for polynomials and transcendental functions
+- **High precision:** Can achieve arbitrary accuracy
+
+**Limitations:**
+
+- **Requires derivative:** Must compute or approximate $f'(x)$
+- **Bad initial guess:** May diverge or converge to wrong root
+- **Horizontal tangents:** Fails when $f'(x_n) \approx 0$ (division by near-zero)
+- **Oscillation:** Can oscillate between values without converging
+- **Local minima/maxima:** May get trapped at critical points
+
+**When to use Newton's Method:**
+
+- Function is differentiable
+- Good initial guess is available (from graph or other method)
+- High precision is needed
+- Fast convergence is important
+
+**Example where it fails:** $f(x) = x^{1/3}$ with $x_0 = 1$
+
+The derivative $f'(x) = \frac{1}{3}x^{-2/3}$ blows up near $x = 0$, causing iterations to diverge.
+
+## Bisection Method
+
+**Bisection Method:** A simple, robust numerical method for finding roots of continuous functions. It works by repeatedly halving an interval that contains a root.
+
+**Prerequisites:**
+
+- Function $f(x)$ is continuous on interval $[a, b]$
+- $f(a)$ and $f(b)$ have opposite signs: $f(a) \cdot f(b) < 0$
+- By Intermediate Value Theorem, a root exists in $(a, b)$
+
+**Algorithm:**
+
+1. Start with interval $[a, b]$ where $f(a) \cdot f(b) < 0$
+2. Compute midpoint: $c = \frac{a + b}{2}$
+3. Evaluate $f(c)$:
+   - If $f(c) = 0$ (or $|f(c)| < \epsilon$), then $c$ is the root ✓
+   - If $f(a) \cdot f(c) < 0$, root is in $[a, c]$ → set $b = c$
+   - If $f(c) \cdot f(b) < 0$, root is in $[c, b]$ → set $a = c$
+4. Repeat until interval is sufficiently small: $|b - a| < \epsilon$
+
+**Example:** Find a root of $f(x) = x^3 - 2x - 5$ in $[2, 3]$
+
+**Step 1:** Verify opposite signs:
+
+$f(2) = 2^3 - 2(2) - 5 = 8 - 4 - 5 = -1$ (negative)
+
+$f(3) = 3^3 - 2(3) - 5 = 27 - 6 - 5 = 16$ (positive)
+
+Since $f(2) < 0$ and $f(3) > 0$, a root exists in $[2, 3]$ ✓
+
+**Iteration 1:**
+
+$c_1 = \frac{2 + 3}{2} = 2.5$
+
+$f(2.5) = (2.5)^3 - 2(2.5) - 5 = 15.625 - 5 - 5 = 5.625$ (positive)
+
+Since $f(2) < 0$ and $f(2.5) > 0$, root is in $[2, 2.5]$
+
+New interval: $[2, 2.5]$
+
+**Iteration 2:**
+
+$c_2 = \frac{2 + 2.5}{2} = 2.25$
+
+$f(2.25) = (2.25)^3 - 2(2.25) - 5 = 11.390625 - 4.5 - 5 = 1.890625$ (positive)
+
+Root is in $[2, 2.25]$
+
+**Iteration 3:**
+
+$c_3 = \frac{2 + 2.25}{2} = 2.125$
+
+$f(2.125) = (2.125)^3 - 2(2.125) - 5 \approx 9.595 - 4.25 - 5 = 0.345$ (positive)
+
+Root is in $[2, 2.125]$
+
+**Iteration 4:**
+
+$c_4 = \frac{2 + 2.125}{2} = 2.0625$
+
+$f(2.0625) \approx -0.351$ (negative)
+
+Root is in $[2.0625, 2.125]$
+
+**Iteration 5:**
+
+$c_5 = \frac{2.0625 + 2.125}{2} = 2.09375$
+
+$f(2.09375) \approx -0.008$ (close to zero!)
+
+**Result:** Root is approximately $x \approx 2.094$ (accurate to 3 decimal places after 5 iterations)
+
+**Convergence Rate:**
+
+After $n$ iterations, the error is at most $\frac{b - a}{2^n}$
+
+- Start: Interval width = $3 - 2 = 1$
+- After 5 iterations: Width $\approx \frac{1}{2^5} = \frac{1}{32} \approx 0.03125$
+- After 10 iterations: Width $\approx \frac{1}{1024} \approx 0.001$ (3 decimal places)
+- After 20 iterations: Width $\approx \frac{1}{1048576} \approx 0.000001$ (6 decimal places)
+
+**Advantages:**
+
+- **Always converges:** Guaranteed to find a root if initial conditions are met
+- **Simple:** Easy to understand and implement
+- **Robust:** No derivatives needed, no risk of divergence
+- **Predictable:** Error bound is known in advance
+
+**Limitations:**
+
+- **Slow convergence:** Linear convergence (constant factor reduction per iteration)
+- **Requires bracketing:** Must find $a, b$ with opposite signs first
+- **Only one root:** Finds only one root per interval
+- **Cannot find roots at extrema:** Fails when $f(x)$ touches x-axis tangentially (e.g., $f(x) = x^2$ at $x = 0$)
+
+**Comparison: Bisection vs Newton's Method:**
+
+| Aspect | Bisection | Newton's Method |
+|--------|-----------|------------------|
+| **Convergence rate** | Linear (slow) | Quadratic (fast) |
+| **Guarantees** | Always converges | May diverge |
+| **Requirements** | Two points with opposite signs | Derivative + good initial guess |
+| **Simplicity** | Very simple | More complex |
+| **Speed** | 10-20 iterations for 3-6 decimals | 3-5 iterations for 6+ decimals |
+| **Best use** | Rough approximation, guaranteed convergence | High precision, fast convergence |
+
+**Practical Strategy:**
+
+1. Use **Descartes' Rule of Signs** to count possible real roots
+2. Use **Rational Root Theorem** to test simple rational candidates
+3. Use **Bisection Method** to bracket roots and get rough approximations
+4. Switch to **Newton's Method** for fast, high-precision refinement
+
+**Example workflow:** $f(x) = x^3 - 2x - 5$
+
+1. Descartes: 1 positive root (sign change: + → − → −)
+2. Rational Root Test: Try ±1, ±5 (none work)
+3. Bisection on $[2, 3]$: Rough approximation $x \approx 2.094$
+4. Newton from $x_0 = 2.094$: Refine to $x \approx 2.0945514815$
+
 ## Binomial Expansion Theorem
 
 **Binomial Expansion Theorem:** The Binomial Expansion theorem (also called the Binomial Theorem) allows you to calculate the expansion of any binomial raised to a positive integer power.
