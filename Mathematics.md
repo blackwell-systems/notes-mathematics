@@ -2116,7 +2116,6 @@ When graphed, a linear function will create a straight line.
 
 ## Linear Equation Forms
 
-Linear Equation Forms
 
 ### Slope-Intercept Form
 
@@ -2140,12 +2139,17 @@ f(x) = mx + b
 The slope, or rate of change, of a function *m* can be calculated
 according to the following:
 
-![A math equation with black text Description automatically
-generated](./media/image58.png)
+$$m = \frac{y_2 - y_1}{x_2 - x_1} = \frac{\Delta y}{\Delta x}$$
+
+Where $(x_1, y_1)$ and $(x_2, y_2)$ are two distinct points on the line.
 
 ### Standard Form
 
 **Standard Form:**
+
+$$Ax + By = C$$
+
+Where $A$, $B$, $C$ are real numbers and $A$ and $B$ are not both zero.
 
 Why use standard form?
 
@@ -2154,15 +2158,39 @@ system of equations. For instance, when using the elimination method to
 solve a system of equations, we can easily align the variables using
 standard form.
 
-![A math equation with black text Description automatically
-generated](./media/image59.png)
-
 ### Point-Slope Form
 
 **Point-Slope Form:**
 
-![A math equation with black text Description automatically
-generated](./media/image60.png)
+$$y - y_1 = m(x - x_1)$$
+
+Where $(x_1, y_1)$ is a known point on the line and $m$ is the slope.
+
+### Domain and Range
+
+**Domain and Range of Linear Functions:**
+
+- **Domain:** $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers)
+- **Range:** $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers)
+
+A linear function (that is not constant) is defined for all real numbers and can output all real numbers.
+
+### Finding Intercepts
+
+**x-intercept (zero):**
+
+To find the x-intercept, set $f(x) = 0$ and solve for $x$:
+
+$$0 = mx + b$$
+$$x = -\frac{b}{m}$$ (provided $m \neq 0$)
+
+**y-intercept:**
+
+To find the y-intercept, set $x = 0$:
+
+$$f(0) = m(0) + b = b$$
+
+The y-intercept is simply the constant term $b$ in slope-intercept form.
 
 ## Parallel Lines
 
