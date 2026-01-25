@@ -828,9 +828,16 @@ medium confidence](./media/image21.png)
 **Contrapositive:**
 - P → Q ≡ ¬Q → ¬P
 
+**Conditional in terms of Conjunction:**
+- P → Q ≡ ¬(P ∧ ¬Q) (a conditional is equivalent to negating "P and not Q")
+
+**Conditional from Conjunction:**
+- ¬(P → Q) ≡ P ∧ ¬Q (negation of conditional gives conjunction)
+
 **Biconditional:**
 - P ↔ Q ≡ (P → Q) ∧ (Q → P)
 - P ↔ Q ≡ (P ∧ Q) ∨ (¬P ∧ ¬Q)
+- P ↔ Q ≡ ¬(P ⊕ Q) (biconditional is negation of XOR)
 
 **Example - Proving equivalence:**
 
@@ -1913,6 +1920,79 @@ confidence](./media/image34.png)
 ![A red circle with white circle in center Description automatically
 generated](./media/image35.png)
 
+### Symmetric Difference
+
+**Symmetric Difference:** The symmetric difference of sets A and B, denoted A △ B or A ⊕ B, is the set of elements in either A or B but not in both.
+
+**Definition:** A △ B = (A ∪ B) - (A ∩ B) = (A - B) ∪ (B - A)
+
+**Logical form:** ∀x( x ∈ (A △ B) ↔ (x ∈ A ⊕ x ∈ B))
+
+Where ⊕ is exclusive OR (XOR).
+
+**Example:** If A = {1, 2, 3} and B = {3, 4, 5}, then:
+- A △ B = {1, 2, 4, 5}
+
+**Properties:**
+- **Commutative:** A △ B = B △ A
+- **Associative:** (A △ B) △ C = A △ (B △ C)
+- **Identity:** A △ ∅ = A
+- **Self-inverse:** A △ A = ∅
+- **Distributive over intersection:** A ∩ (B △ C) = (A ∩ B) △ (A ∩ C)
+
+**Application:** XOR operation in computer science, symmetric encryption
+
+## Russell's Paradox
+
+**Russell's Paradox:** A fundamental paradox in naive set theory discovered by Bertrand Russell in 1901. It demonstrates that unrestricted set comprehension (forming sets from any property) leads to contradiction.
+
+**The Paradox:**
+
+Consider the set R defined as:
+
+R = {x | x is a set and x ∉ x}
+
+In words: "R is the set of all sets that do not contain themselves as members."
+
+**The Question:** Does R contain itself? Is R ∈ R?
+
+**Case 1:** Suppose R ∈ R (R contains itself)
+- By definition of R, if R ∈ R, then R must satisfy the condition "x ∉ x"
+- This means R ∉ R (R does not contain itself)
+- **Contradiction:** R both contains and doesn't contain itself
+
+**Case 2:** Suppose R ∉ R (R does not contain itself)
+- Then R satisfies the condition for membership in R (being a set that doesn't contain itself)
+- Therefore R ∈ R (R must be in R by definition)
+- **Contradiction:** R both doesn't contain and does contain itself
+
+**Either way, we get a contradiction.**
+
+**Why It Matters:**
+
+Russell's Paradox exposed a fatal flaw in naive set theory, which allowed forming sets from any property. The paradox shows that not every property defines a valid set.
+
+**Example - The Barber Paradox (Informal Version):**
+
+A barber in a village shaves all and only those men who do not shave themselves. Does the barber shave himself?
+
+- If he shaves himself, then he's someone who shaves himself, so he shouldn't shave himself
+- If he doesn't shave himself, then he's someone who doesn't shave himself, so he should shave himself
+
+**Modern Resolution:**
+
+Modern axiomatic set theories (like Zermelo-Fraenkel set theory) avoid Russell's Paradox by:
+
+1. **Restricting set formation:** Not every property defines a set
+2. **Axiom of Separation:** You can only form subsets of existing sets, not arbitrary collections
+3. **No universal set:** There is no "set of all sets"
+
+**Historical Impact:**
+
+- Led to the development of axiomatic set theory
+- Showed that mathematical foundations needed rigorous axiomatization
+- Influenced the formalist movement in mathematics
+
 ## Power Set
 
 **Power Set:** The power set of a set **A**, denoted $\mathcal{P}(A)$ or $2^A$, is the set of all subsets of **A**, including the empty set and **A** itself.
@@ -1966,6 +2046,200 @@ Formally: $\forall i, j : i \neq j \Rightarrow A_i \cap A_j = \varnothing$
 **Connection to Equivalence Relations:**
 
 Every equivalence relation on a set **A** induces a partition of **A** (the equivalence classes), and every partition of **A** induces an equivalence relation on **A**.
+
+## Countable vs Uncountable Sets
+
+**Countable Set:** A set is countable if its elements can be put in one-to-one correspondence with the natural numbers ℕ = {0, 1, 2, 3, ...}, or if it is finite.
+
+**Definition (Formal):** A set S is countable if there exists an injection f: S → ℕ, or equivalently, if there exists a surjection g: ℕ → S.
+
+**Two Types of Countable:**
+
+1. **Finite:** Sets with a specific number of elements (can be counted to completion)
+2. **Countably Infinite:** Infinite sets that can be put in one-to-one correspondence with ℕ
+
+**Examples of Countably Infinite Sets:**
+
+**Natural Numbers (ℕ):** {0, 1, 2, 3, ...}
+- Trivially countable (the definition uses ℕ itself)
+
+**Integers (ℤ):** {..., -2, -1, 0, 1, 2, ...}
+- Bijection: 0 → 0, 1 → -1, 2 → 1, 3 → -2, 4 → 2, ...
+- Pattern: f(2n) = n, f(2n+1) = -n-1
+
+**Even Numbers:** {0, 2, 4, 6, ...}
+- Bijection: n → 2n
+
+**Rational Numbers (ℚ):** All fractions p/q where p, q ∈ ℤ and q ≠ 0
+- Surprising but true! Can be listed using Cantor's diagonal enumeration
+- List all fractions in a grid and traverse diagonally, skipping duplicates
+
+**Algebraic Numbers:** Solutions to polynomial equations with integer coefficients
+- Countable because polynomials can be enumerated
+
+**Why ℚ is Countable (Cantor's Enumeration):**
+
+List all positive rationals in a grid:
+
+```
+1/1  1/2  1/3  1/4  1/5  ...
+2/1  2/2  2/3  2/4  2/5  ...
+3/1  3/2  3/3  3/4  3/5  ...
+4/1  4/2  4/3  4/4  4/5  ...
+...
+```
+
+Traverse diagonally: 1/1, 2/1, 1/2, 1/3, 2/2, 3/1, 4/1, 3/2, 2/3, 1/4, ...
+
+Skip duplicates (like 2/2 = 1/1), then include negatives. This creates a bijection ℕ → ℚ⁺, proving ℚ is countable.
+
+**Uncountable Set:** A set that is not countable. It cannot be put in one-to-one correspondence with ℕ.
+
+**Examples of Uncountable Sets:**
+
+**Real Numbers (ℝ):** All points on the number line
+- Proven uncountable by Cantor's diagonal argument (see below)
+- Even the interval (0, 1) is uncountable
+
+**Irrational Numbers:** ℝ - ℚ
+- Since ℝ is uncountable and ℚ is countable, the irrationals must be uncountable
+
+**Transcendental Numbers:** Real numbers that are not algebraic (like π, e)
+- Uncountable (most real numbers are transcendental)
+
+**Power Set of ℕ:** 𝒫(ℕ) = all subsets of ℕ
+- Uncountable by Cantor's theorem
+
+**Real Interval [0, 1]:** All real numbers between 0 and 1 inclusive
+- Same cardinality as all of ℝ (bijection exists)
+
+**Cantor's Diagonal Argument (Proof that ℝ is Uncountable):**
+
+**Theorem:** The real numbers in the interval (0, 1) are uncountable.
+
+**Proof (by contradiction):**
+
+1. Assume (0, 1) is countable
+2. Then we can list all real numbers in (0, 1) as r₁, r₂, r₃, ... in decimal form:
+
+```
+r₁ = 0.a₁₁ a₁₂ a₁₃ a₁₄ ...
+r₂ = 0.a₂₁ a₂₂ a₂₃ a₂₄ ...
+r₃ = 0.a₃₁ a₃₂ a₃₃ a₃₄ ...
+r₄ = 0.a₄₁ a₄₂ a₄₃ a₄₄ ...
+...
+```
+
+3. Construct a new number d = 0.d₁d₂d₃d₄... where:
+   - d₁ ≠ a₁₁ (differs from r₁ in the 1st decimal place)
+   - d₂ ≠ a₂₂ (differs from r₂ in the 2nd decimal place)
+   - d₃ ≠ a₃₃ (differs from r₃ in the 3rd decimal place)
+   - dₙ ≠ aₙₙ (differs from rₙ in the nth decimal place)
+
+4. The number d is in (0, 1) but differs from every rₙ in at least one decimal place
+5. Therefore d is not in our "complete" list
+6. **Contradiction:** Our list was supposed to contain all real numbers in (0, 1)
+7. Therefore (0, 1) cannot be countable
+
+**Hierarchy of Infinities:**
+
+Not all infinities are equal. There is a strict hierarchy:
+
+|ℕ| = |ℤ| = |ℚ| < |ℝ| < |𝒫(ℝ)| < |𝒫(𝒫(ℝ))| < ...
+
+Where:
+- |ℕ| is denoted ℵ₀ (aleph-null), the smallest infinite cardinality
+- |ℝ| is denoted 𝔠 (the cardinality of the continuum)
+- Each power set has strictly greater cardinality than the original set
+
+**Key Properties:**
+
+1. **Closure:** The union of countably many countable sets is countable
+2. **Cartesian Product:** ℕ × ℕ is countable (can be enumerated diagonally)
+3. **Subsets:** Any subset of a countable set is countable
+4. **Complements:** If A is countable and B is uncountable, then B - A is uncountable
+
+**Why This Matters:**
+
+- Shows there are different "sizes" of infinity
+- Establishes that most real numbers are transcendental (algebraic numbers are countable, reals are uncountable)
+- Foundational for measure theory, probability, and real analysis
+- Demonstrates limits of enumeration and computation
+
+## Cantor's Theorem
+
+**Cantor's Theorem:** For any set A, the power set 𝒫(A) has strictly greater cardinality than A itself.
+
+**Statement:** |A| < |𝒫(A)| for all sets A.
+
+**Why It's Fundamental:**
+
+Cantor's theorem proves there is no "largest" infinity. Starting from any infinite set, you can always construct a larger one by taking its power set:
+
+|ℕ| < |𝒫(ℕ)| < |𝒫(𝒫(ℕ))| < |𝒫(𝒫(𝒫(ℕ)))| < ...
+
+This creates an infinite hierarchy of infinities, each strictly larger than the previous.
+
+**Proof (by contradiction):**
+
+We'll prove no bijection f: A → 𝒫(A) can exist.
+
+**Step 1:** Assume f: A → 𝒫(A) is a bijection (onto and one-to-one)
+
+**Step 2:** Define the "diagonal" set D:
+
+D = {x ∈ A | x ∉ f(x)}
+
+In words: D contains all elements of A that are not members of their own image under f.
+
+**Step 3:** Since f is onto (surjective), D must be in the range of f. So there exists some d ∈ A such that f(d) = D.
+
+**Step 4:** Ask: Is d ∈ D?
+
+**Case 1:** Suppose d ∈ D
+- By definition of D, this means d ∉ f(d)
+- But f(d) = D
+- So d ∉ D
+- **Contradiction**
+
+**Case 2:** Suppose d ∉ D
+- Then d does not satisfy the condition for membership in D
+- So it's not true that d ∉ f(d)
+- Therefore d ∈ f(d)
+- But f(d) = D
+- So d ∈ D
+- **Contradiction**
+
+**Step 5:** Either way we get a contradiction. Therefore our assumption that f is a bijection must be false.
+
+**Conclusion:** No bijection A → 𝒫(A) exists, so |A| < |𝒫(A)|. ∎
+
+**Why the Diagonal Method Works:**
+
+The set D is constructed to "diagonalize" against f—for every element a ∈ A, D differs from f(a) on the membership of a itself. This ensures D cannot equal f(a) for any a.
+
+This is the same technique used in Cantor's diagonal argument for uncountability of ℝ.
+
+**Applications:**
+
+1. **Infinite Hierarchy:** Proves there are infinitely many sizes of infinity
+2. **Uncomputability:** Related to the halting problem (diagonalization shows some functions are uncomputable)
+3. **Foundations:** Shows naive set theory leads to Russell's paradox (the "set of all sets" would violate Cantor's theorem)
+
+**Example (Finite Case):**
+
+Let A = {1, 2}
+- |A| = 2
+- 𝒫(A) = {∅, {1}, {2}, {1,2}}
+- |𝒫(A)| = 4 = 2²
+
+Indeed, 2 < 4, confirming |A| < |𝒫(A)|.
+
+**General Formula (Finite Sets):**
+
+If |A| = n, then |𝒫(A)| = 2ⁿ.
+
+For infinite sets, this generalizes: if |A| = κ, then |𝒫(A)| = 2^κ (using cardinal exponentiation).
 
 ## Set Operation Properties
 
