@@ -1,4 +1,6 @@
-# Propositional Logic / zeroth-order logic
+# Mathematics Reference
+
+Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics.
 
 ## Table of Contents
 
@@ -25,6 +27,8 @@
 - [Vector](#vector)
 - [Permutation](#permutation)
 - [Combination](#combination)
+
+# Propositional Logic / zeroth-order logic
 
 **Propositional Logic:** Propositional Logic, is a formal system in
 logic that deals with statements or propositions as whole, indivisible
