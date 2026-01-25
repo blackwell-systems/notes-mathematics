@@ -2351,7 +2351,6 @@ into a product of simpler polynomials.
 
 ### Special Factoring Forms
 
-**Special Factoring Forms:**
 
   ---------------------------------------------------------------------------------
   Special Factoring     Expression                Factored Form
