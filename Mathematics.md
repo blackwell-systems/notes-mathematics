@@ -2387,44 +2387,66 @@ $$A \cap A = A$$
 
 ## Ordered Pairs (Kuratowski's definition)
 
-**Ordered pair:** Formally, an ordered pair with **first
-coordinate** *a*, and **second coordinate** *b*, usually denoted by
-**(*a*, *b*),** can be defined as the
-set $\mathbf{\{\{ a\},\{ a,b\}\}}.$
+**Ordered Pair:** An ordered pair with **first coordinate** *a* and **second coordinate** *b*, usually denoted by **(a, b)**, is a mathematical object where **order matters**.
 
-**What an ordered pair must satisfy**
+**Notation:** (a, b) or ⟨a, b⟩
 
-We want a set-theoretic object ⟨a,b⟩ so that
+**Key Property:** Two ordered pairs are equal if and only if their corresponding coordinates are equal:
 
-$$\langle a,b\rangle = \langle c,d\rangle  \Longleftrightarrow  a = c and b = d.
-$$
+$$(a, b) = (c, d) \Longleftrightarrow a = c \text{ and } b = d$$
 
-The naive set $\{ a,b\}$fails (it ignores order: $\{ a,b\} = \{ b,a\}$).
+**Why We Need a Formal Definition:**
 
-**Kuratowski's definition:**
+Unlike sets, where {a, b} = {b, a} (order doesn't matter), ordered pairs must distinguish (a, b) from (b, a).
 
-⟨a,b⟩:={{a},{a,b}} 
+The naive approach using sets fails:
+- {a, b} = {b, a}, so this doesn't capture order
+- We need a set-theoretic construction that preserves order
 
-**Why it works (key property)**
+**Kuratowski's Definition:**
 
-**Assume** $\mathbf{\{\{ a\},\{ a,b\}\} = \{\{ c\},\{ c,d\}\}}$
+The ordered pair (a, b) is formally defined as the set:
 
-Since $\{ a\}$ is an element on the left, it must equal $\{ c\}$ or
-$\{ c,d\}$
+$$(a, b) := \{\{a\}, \{a, b\}\}$$
 
-In either case we get $a = c$ (if $\{ a\} = \{ c \}$ then
-$a = c$
+**Why This Definition Works:**
 
-if $\{ a\} = \{ c,d\}$ then that set is a singleton, so $c = d = a$)
+This construction encodes the order by:
+1. First coordinate appears in a singleton: {a}
+2. Both coordinates appear together: {a, b}
+3. The singleton {a} uniquely identifies the first coordinate
 
-With $a = c$ now fixed, the other elements must match, so
-$\{ a,b\} = \{ c,d\} = \{ a,d\}$, hence $b = d$
 
-Thus equality of the sets forces $a = c$ and $b = d$. Conversely, if
-$a = c$ and $b = d$, the two sides are literally the same set
+**Proof That Kuratowski's Definition Works:**
 
-*(Edge case* $a = b$*: then* $\langle a,a\rangle = \{\{ a\}\}$*; the
-same argument still gives* $c = a$ *and* $d = a$*)*
+We need to prove: $\{\{a\}, \{a, b\}\} = \{\{c\}, \{c, d\}\} \Longleftrightarrow a = c \text{ and } b = d$
+
+**Forward direction (⇒):**
+
+Assume $\{\{a\}, \{a, b\}\} = \{\{c\}, \{c, d\}\}$
+
+Since sets are equal, their elements must match. The singleton {a} must equal either {c} or {c, d}.
+
+**Case 1:** If {a} = {c}, then a = c ✓
+
+Now the remaining elements must match: {a, b} = {c, d} = {a, d}, so b = d ✓
+
+**Case 2:** If {a} = {c, d}, then c = d (the set is a singleton), so c = d = a
+
+Then {a, b} must equal {c} = {a}, so b = a. Thus a = b = c = d ✓
+
+In both cases, we get a = c and b = d.
+
+**Backward direction (⇐):**
+
+If a = c and b = d, then $\{\{a\}, \{a, b\}\} = \{\{c\}, \{c, d\}\}$ by direct substitution ✓
+
+**Special Case (a = b):**
+
+When a = b, the ordered pair becomes:
+$$(a, a) = \{\{a\}, \{a, a\}\} = \{\{a\}, \{a\}\} = \{\{a\}\}$$
+
+The proof still works: if $\{\{a\}\} = \{\{c\}, \{c, d\}\}$, then {c} = {c, d}, so c = d = a.
 
 **Cartesian Product:** The Cartesian product of two sets **A** and
 **B**, written **A X B**, is the set of all ordered pairs in which the
