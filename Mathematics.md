@@ -2834,6 +2834,156 @@ numbers](./media/image55.png)
 ![PPT - Chapter 3 PowerPoint Presentation, free download -
 ID:1210953](./media/image56.jpeg)
 
+**Powers of i:**
+
+The powers of $i$ follow a cyclic pattern:
+
+- $i^1 = i$
+- $i^2 = -1$
+- $i^3 = i^2 \cdot i = -1 \cdot i = -i$
+- $i^4 = i^2 \cdot i^2 = (-1)(-1) = 1$
+- $i^5 = i^4 \cdot i = 1 \cdot i = i$ (cycle repeats)
+
+**General Formula:** To find $i^n$, divide $n$ by 4 and use the remainder:
+- Remainder 0: $i^n = 1$
+- Remainder 1: $i^n = i$
+- Remainder 2: $i^n = -1$
+- Remainder 3: $i^n = -i$
+
+**Example:** Find $i^{47}$
+
+$47 \div 4 = 11$ remainder $3$
+
+Therefore: $i^{47} = i^3 = -i$
+
+## Standard Form (Rectangular Form)
+
+**Standard Form:** A complex number in standard form is written as:
+
+$$z = a + bi$$
+
+Where:
+- $a$ = real part, denoted $\text{Re}(z)$
+- $b$ = imaginary part, denoted $\text{Im}(z)$
+- Both $a$ and $b$ are real numbers
+
+**Examples:**
+- $3 + 4i$ (real part: 3, imaginary part: 4)
+- $-2 + 5i$ (real part: -2, imaginary part: 5)
+- $7$ (real part: 7, imaginary part: 0, purely real)
+- $-3i$ (real part: 0, imaginary part: -3, purely imaginary)
+
+## Operations with Complex Numbers
+
+### Addition and Subtraction
+
+**Addition:** Add real parts and imaginary parts separately.
+
+$$(a + bi) + (c + di) = (a + c) + (b + d)i$$
+
+**Example 1:** $(3 + 4i) + (2 + 5i) = 5 + 9i$
+
+**Example 2:** $(-1 + 3i) + (4 - 2i) = 3 + i$
+
+**Subtraction:** Subtract real parts and imaginary parts separately.
+
+$$(a + bi) - (c + di) = (a - c) + (b - d)i$$
+
+**Example 1:** $(7 + 2i) - (3 + 5i) = 4 - 3i$
+
+**Example 2:** $(5 - 4i) - (-2 + 3i) = 7 - 7i$
+
+### Multiplication
+
+**Multiplication:** Use FOIL and remember $i^2 = -1$.
+
+$$(a + bi)(c + di) = ac + adi + bci + bdi^2 = (ac - bd) + (ad + bc)i$$
+
+**Example 1:** $(3 + 2i)(1 + 4i)$
+
+$$= 3 + 12i + 2i + 8i^2 = 3 + 14i - 8 = -5 + 14i$$
+
+**Example 2:** $(2 + 3i)(2 - 3i) = 4 - 9i^2 = 4 + 9 = 13$
+
+### Division
+
+**Division:** Multiply by conjugate of denominator.
+
+$$\frac{a + bi}{c + di} = \frac{a + bi}{c + di} \cdot \frac{c - di}{c - di}$$
+
+**Example:** $\frac{2 + 3i}{1 + 2i}$
+
+$$= \frac{(2 + 3i)(1 - 2i)}{(1 + 2i)(1 - 2i)} = \frac{8 - i}{5} = \frac{8}{5} - \frac{1}{5}i$$
+
+## Complex Conjugate
+
+**Complex Conjugate:** The conjugate of $z = a + bi$ is:
+
+$$\bar{z} = a - bi$$
+
+**Properties:**
+
+1. $z \cdot \bar{z} = a^2 + b^2$ (always real!)
+2. $z + \bar{z} = 2a$
+3. $z - \bar{z} = 2bi$
+
+**Use:** Eliminates $i$ from denominators in division.
+
+## Modulus (Absolute Value)
+
+**Modulus:** The modulus of $z = a + bi$ is:
+
+$$|z| = \sqrt{a^2 + b^2}$$
+
+Distance from origin in complex plane.
+
+**Examples:**
+
+1. $|3 + 4i| = \sqrt{9 + 16} = 5$
+2. $|-2 + 5i| = \sqrt{4 + 25} = \sqrt{29}$
+
+## Polar Form
+
+**Polar Form:** 
+
+$$z = r(\cos\theta + i\sin\theta) = re^{i\theta}$$
+
+Where:
+- $r = |z| = \sqrt{a^2 + b^2}$ (modulus)
+- $\theta = \arg(z) = \arctan(b/a)$ (argument, adjust for quadrant)
+
+**Converting:**
+
+**Rectangular to Polar:**
+1. $r = \sqrt{a^2 + b^2}$
+2. $\theta = \arctan(b/a)$ (check quadrant)
+
+**Polar to Rectangular:**
+1. $a = r\cos\theta$
+2. $b = r\sin\theta$
+
+## De Moivre's Theorem
+
+**De Moivre's Theorem:** For any integer $n$:
+
+$$[r(\cos\theta + i\sin\theta)]^n = r^n(\cos(n\theta) + i\sin(n\theta))$$
+
+**Example:** $(1 + i)^{10}$
+
+Convert: $r = \sqrt{2}$, $\theta = \pi/4$
+
+$$(1 + i)^{10} = (\sqrt{2})^{10}(\cos\frac{10\pi}{4} + i\sin\frac{10\pi}{4}) = 32i$$
+
+## nth Roots
+
+The $n$ distinct $n$th roots of $z = r(\cos\theta + i\sin\theta)$:
+
+$$z_k = \sqrt[n]{r}\left(\cos\frac{\theta + 2\pi k}{n} + i\sin\frac{\theta + 2\pi k}{n}\right)$$
+
+For $k = 0, 1, 2, \ldots, n-1$
+
+**Example:** Three cube roots of $8i$ are: $\sqrt{3} + i$, $-\sqrt{3} + i$, $-2i$
+
 # Linear Functions d=1
 
 **Linear Functions:** A linear function is a function that can be used
@@ -6612,11 +6762,177 @@ Scalars are often used to "scale" vectors by a constant factor.
 
 ## Vector Operations
 
-**Vector Operations**
-
 ### Vector Addition
 
-**Vector Addition**
+**Vector Addition:** Add corresponding components.
+
+For vectors $\vec{u} = \langle u_1, u_2 \rangle$ and $\vec{v} = \langle v_1, v_2 \rangle$:
+
+$$\vec{u} + \vec{v} = \langle u_1 + v_1, u_2 + v_2 \rangle$$
+
+**Geometric Interpretation:** Place tail of $\vec{v}$ at head of $\vec{u}$, or use parallelogram rule.
+
+**Example 1:** $\langle 3, 4 \rangle + \langle 1, 2 \rangle = \langle 4, 6 \rangle$
+
+**Example 2:** $\langle -2, 5 \rangle + \langle 3, -1 \rangle = \langle 1, 4 \rangle$
+
+**Properties:**
+- **Commutative:** $\vec{u} + \vec{v} = \vec{v} + \vec{u}$
+- **Associative:** $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$
+- **Identity:** $\vec{u} + \vec{0} = \vec{u}$
+
+### Vector Subtraction
+
+**Vector Subtraction:** Subtract corresponding components.
+
+$$\vec{u} - \vec{v} = \langle u_1 - v_1, u_2 - v_2 \rangle$$
+
+**Geometric Interpretation:** Vector from head of $\vec{v}$ to head of $\vec{u}$.
+
+**Example:** $\langle 5, 7 \rangle - \langle 2, 3 \rangle = \langle 3, 4 \rangle$
+
+### Scalar Multiplication
+
+**Scalar Multiplication:** Multiply each component by the scalar.
+
+$$c\vec{v} = c\langle v_1, v_2 \rangle = \langle cv_1, cv_2 \rangle$$
+
+**Effect:**
+- Changes magnitude by factor $|c|$
+- Reverses direction if $c < 0$
+- Does not change direction if $c > 0$
+
+**Example 1:** $3\langle 2, -1 \rangle = \langle 6, -3 \rangle$
+
+**Example 2:** $-2\langle 1, 4 \rangle = \langle -2, -8 \rangle$
+
+**Properties:**
+- $c(\vec{u} + \vec{v}) = c\vec{u} + c\vec{v}$
+- $(c + d)\vec{v} = c\vec{v} + d\vec{v}$
+- $c(d\vec{v}) = (cd)\vec{v}$
+- $1\vec{v} = \vec{v}$
+
+### Magnitude (Length)
+
+**Magnitude:** The length of vector $\vec{v} = \langle v_1, v_2 \rangle$:
+
+$$|\vec{v}| = \sqrt{v_1^2 + v_2^2}$$
+
+**3D:** For $\vec{v} = \langle v_1, v_2, v_3 \rangle$:
+
+$$|\vec{v}| = \sqrt{v_1^2 + v_2^2 + v_3^2}$$
+
+**Examples:**
+
+1. $|\langle 3, 4 \rangle| = \sqrt{9 + 16} = 5$
+2. $|\langle -2, 5 \rangle| = \sqrt{4 + 25} = \sqrt{29}$
+3. $|\langle 1, 2, 2 \rangle| = \sqrt{1 + 4 + 4} = 3$
+
+### Unit Vector
+
+**Unit Vector:** A vector with magnitude 1.
+
+To find unit vector in direction of $\vec{v}$:
+
+$$\hat{v} = \frac{\vec{v}}{|\vec{v}|}$$
+
+**Example:** Find unit vector for $\vec{v} = \langle 3, 4 \rangle$
+
+$$|\vec{v}| = 5$$
+
+$$\hat{v} = \frac{1}{5}\langle 3, 4 \rangle = \langle \frac{3}{5}, \frac{4}{5} \rangle$$
+
+Check: $|\hat{v}| = \sqrt{(3/5)^2 + (4/5)^2} = \sqrt{9/25 + 16/25} = 1$ ✓
+
+### Dot Product (Scalar Product)
+
+**Dot Product:** For $\vec{u} = \langle u_1, u_2 \rangle$ and $\vec{v} = \langle v_1, v_2 \rangle$:
+
+$$\vec{u} \cdot \vec{v} = u_1v_1 + u_2v_2$$
+
+**Result is a scalar, not a vector.**
+
+**Geometric Form:**
+
+$$\vec{u} \cdot \vec{v} = |\vec{u}||\vec{v}|\cos\theta$$
+
+Where $\theta$ is the angle between the vectors.
+
+**Example 1:** $\langle 2, 3 \rangle \cdot \langle 4, -1 \rangle = 2(4) + 3(-1) = 8 - 3 = 5$
+
+**Example 2:** $\langle 1, 0 \rangle \cdot \langle 0, 1 \rangle = 0$ (perpendicular vectors)
+
+**Properties:**
+- **Commutative:** $\vec{u} \cdot \vec{v} = \vec{v} \cdot \vec{u}$
+- **Distributive:** $\vec{u} \cdot (\vec{v} + \vec{w}) = \vec{u} \cdot \vec{v} + \vec{u} \cdot \vec{w}$
+- $\vec{v} \cdot \vec{v} = |\vec{v}|^2$
+
+**Finding Angle Between Vectors:**
+
+$$\cos\theta = \frac{\vec{u} \cdot \vec{v}}{|\vec{u}||\vec{v}|}$$
+
+**Example:** Find angle between $\vec{u} = \langle 1, 0 \rangle$ and $\vec{v} = \langle 1, 1 \rangle$
+
+$$\cos\theta = \frac{1}{\sqrt{1}\sqrt{2}} = \frac{1}{\sqrt{2}}$$
+
+$$\theta = 45° = \frac{\pi}{4}$$
+
+**Orthogonality (Perpendicular Vectors):**
+
+Two vectors are **orthogonal** (perpendicular) if and only if:
+
+$$\vec{u} \cdot \vec{v} = 0$$
+
+### Cross Product (Vector Product)
+
+**Cross Product:** For 3D vectors $\vec{u} = \langle u_1, u_2, u_3 \rangle$ and $\vec{v} = \langle v_1, v_2, v_3 \rangle$:
+
+$$\vec{u} \times \vec{v} = \langle u_2v_3 - u_3v_2, u_3v_1 - u_1v_3, u_1v_2 - u_2v_1 \rangle$$
+
+**Result is a vector perpendicular to both $\vec{u}$ and $\vec{v}$.**
+
+**Determinant Form:**
+
+$$\vec{u} \times \vec{v} = \begin{vmatrix}
+\vec{i} & \vec{j} & \vec{k} \\
+u_1 & u_2 & u_3 \\
+v_1 & v_2 & v_3
+\end{vmatrix}$$
+
+**Magnitude:**
+
+$$|\vec{u} \times \vec{v}| = |\vec{u}||\vec{v}|\sin\theta$$
+
+Where $\theta$ is the angle between vectors.
+
+**Example:** $\langle 1, 0, 0 \rangle \times \langle 0, 1, 0 \rangle$
+
+$$= \langle 0(0) - 0(1), 0(0) - 1(0), 1(1) - 0(0) \rangle = \langle 0, 0, 1 \rangle$$
+
+**Properties:**
+- **NOT commutative:** $\vec{u} \times \vec{v} = -(\vec{v} \times \vec{u})$ (anti-commutative)
+- **Distributive:** $\vec{u} \times (\vec{v} + \vec{w}) = \vec{u} \times \vec{v} + \vec{u} \times \vec{w}$
+- $\vec{v} \times \vec{v} = \vec{0}$ (parallel vectors have zero cross product)
+- **Right-hand rule:** Direction given by right-hand rule
+
+**Applications:**
+- Finding normal vector to plane
+- Computing area of parallelogram: $|\vec{u} \times \vec{v}|$
+- Torque in physics
+
+### Projection
+
+**Vector Projection:** The projection of $\vec{u}$ onto $\vec{v}$ is:
+
+$$\text{proj}_{\vec{v}}\vec{u} = \frac{\vec{u} \cdot \vec{v}}{|\vec{v}|^2}\vec{v}$$
+
+**Scalar Projection (Component):**
+
+$$\text{comp}_{\vec{v}}\vec{u} = \frac{\vec{u} \cdot \vec{v}}{|\vec{v}|}$$
+
+**Example:** Project $\vec{u} = \langle 3, 4 \rangle$ onto $\vec{v} = \langle 1, 0 \rangle$
+
+$$\text{proj}_{\vec{v}}\vec{u} = \frac{3(1) + 4(0)}{1^2 + 0^2}\langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$$
 
 # Permutation
 
