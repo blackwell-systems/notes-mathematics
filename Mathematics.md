@@ -911,6 +911,137 @@ $\forall x P(x) \equiv P(1) \land P(2) \land P(3) \equiv F \land T \land F \equi
 
 $\exists x P(x) \equiv P(1) \lor P(2) \lor P(3) \equiv F \lor T \lor F \equiv T$
 
+## Logical Equivalences for Quantifiers
+
+### Distribution Over Conjunctions and Disjunctions
+
+**Universal Quantifier with Conjunction:**
+$$\forall x (P(x) \land Q(x)) \equiv \forall x P(x) \land \forall x Q(x)$$
+
+**Example:** "All numbers are positive and even" is equivalent to "All numbers are positive AND all numbers are even"
+
+**Universal Quantifier with Disjunction (does NOT distribute):**
+$$\forall x (P(x) \lor Q(x)) \not\equiv \forall x P(x) \lor \forall x Q(x)$$
+
+**Counterexample:** 
+- Left side: $\forall x (x > 0 \lor x < 0)$ is FALSE (fails at $x = 0$)
+- Right side: $\forall x (x > 0) \lor \forall x (x < 0)$ is also FALSE
+
+But they're not equivalent to the relationship that DOES hold:
+$$\forall x P(x) \lor \forall x Q(x) \Rightarrow \forall x (P(x) \lor Q(x))$$
+(If all are P or all are Q, then each is at least one of them)
+
+**Existential Quantifier with Disjunction:**
+$$\exists x (P(x) \lor Q(x)) \equiv \exists x P(x) \lor \exists x Q(x)$$
+
+**Example:** "There exists a number that is positive or even" is equivalent to "There exists a positive number OR there exists an even number"
+
+**Existential Quantifier with Conjunction (does NOT distribute):**
+$$\exists x (P(x) \land Q(x)) \not\equiv \exists x P(x) \land \exists x Q(x)$$
+
+**Counterexample:**
+- Left side: $\exists x (x = 2 \land x = 3)$ is FALSE (no number is both 2 and 3)
+- Right side: $\exists x (x = 2) \land \exists x (x = 3)$ is TRUE (2 exists AND 3 exists)
+
+But the implication holds:
+$$\exists x (P(x) \land Q(x)) \Rightarrow \exists x P(x) \land \exists x Q(x)$$
+(If something is both P and Q, then something is P and something is Q)
+
+### Summary Table
+
+| Statement | Distributes? | Equivalence |
+|-----------|--------------|-------------|
+| $\forall x (P(x) \land Q(x))$ | Yes | $\equiv \forall x P(x) \land \forall x Q(x)$ |
+| $\forall x (P(x) \lor Q(x))$ | No | $\not\equiv \forall x P(x) \lor \forall x Q(x)$ |
+| $\exists x (P(x) \lor Q(x))$ | Yes | $\equiv \exists x P(x) \lor \exists x Q(x)$ |
+| $\exists x (P(x) \land Q(x))$ | No | $\not\equiv \exists x P(x) \land \exists x Q(x)$ |
+
+**Mnemonic:** Same quantifier and same connective distribute (∀∧ and ∃∨), opposites don't (∀∨ and ∃∧)
+
+### Quantifier Exchange Rules
+
+**With Negation:**
+$$\neg \forall x P(x) \equiv \exists x \neg P(x)$$
+$$\neg \exists x P(x) \equiv \forall x \neg P(x)$$
+
+**Example:** "Not everyone is happy" $\equiv$ "Someone is not happy"
+
+### Nested Quantifiers - Swapping Rules
+
+**Same Quantifiers (can swap):**
+$$\forall x \forall y P(x, y) \equiv \forall y \forall x P(x, y)$$
+$$\exists x \exists y P(x, y) \equiv \exists y \exists x P(x, y)$$
+
+**Example:** $\forall x \forall y (x + y = y + x)$ is the same as $\forall y \forall x (x + y = y + x)$
+
+**Different Quantifiers (order matters - cannot swap in general):**
+$$\forall x \exists y P(x, y) \not\equiv \exists y \forall x P(x, y)$$
+
+**Example:**
+- $\forall x \exists y (x < y)$ is TRUE (for each number, there's a bigger one)
+- $\exists y \forall x (x < y)$ is FALSE (no number is bigger than all numbers)
+
+### Vacuous Truth
+
+**Empty Domain:**
+- $\forall x P(x)$ is TRUE when domain is empty (vacuously true)
+- $\exists x P(x)$ is FALSE when domain is empty
+
+**Example:** "All unicorns are blue" is vacuously true (there are no unicorns)
+
+### Restricted Quantifiers
+
+**Restricted Universal Quantifier:**
+$$\forall x (D(x) \to P(x))$$
+"For all $x$ in domain $D$, $P(x)$ holds"
+
+**Example:** $\forall x (x \in \mathbb{N} \to x \geq 0)$
+"All natural numbers are non-negative"
+
+**Restricted Existential Quantifier:**
+$$\exists x (D(x) \land P(x))$$
+"There exists an $x$ in domain $D$ such that $P(x)$ holds"
+
+**Example:** $\exists x (x \in \mathbb{N} \land x^2 = 4)$
+"There exists a natural number whose square is 4"
+
+**Important:** Note the connective difference:
+- Universal uses implication ($\to$)
+- Existential uses conjunction ($\land$)
+
+**Why this matters:**
+- $\forall x (x \in \mathbb{N} \land x \geq 0)$ would be FALSE (not every number is a natural number)
+- $\exists x (x \in \mathbb{N} \to x \geq 0)$ would be TRUE but meaningless (true even if we pick $x = -5$)
+
+### Equivalences with Restricted Quantifiers
+
+**Negation of Restricted Universal:**
+$$\neg \forall x (D(x) \to P(x)) \equiv \exists x (D(x) \land \neg P(x))$$
+
+**Example:** "Not all natural numbers are even" $\equiv$ "Some natural number is not even"
+
+**Negation of Restricted Existential:**
+$$\neg \exists x (D(x) \land P(x)) \equiv \forall x (D(x) \to \neg P(x))$$
+
+**Example:** "There is no natural number that is negative" $\equiv$ "All natural numbers are non-negative"
+
+### Common Logical Equivalences
+
+**Quantifier Scope:**
+- If $x$ does not appear in $Q$:
+  - $\forall x (P(x) \land Q) \equiv (\forall x P(x)) \land Q$
+  - $\forall x (P(x) \lor Q) \equiv (\forall x P(x)) \lor Q$
+  - $\exists x (P(x) \land Q) \equiv (\exists x P(x)) \land Q$
+  - $\exists x (P(x) \lor Q) \equiv (\exists x P(x)) \lor Q$
+
+**Example:** $\forall x (P(x) \land \text{sun is hot}) \equiv (\forall x P(x)) \land \text{sun is hot}$
+
+**Quantifier over Implication:**
+- $\forall x (P \to Q(x)) \equiv P \to \forall x Q(x)$ (if $x$ not in $P$)
+- $\exists x (P \to Q(x)) \equiv P \to \exists x Q(x)$ (if $x$ not in $P$)
+- $\forall x (P(x) \to Q) \equiv (\exists x P(x)) \to Q$ (if $x$ not in $Q$)
+- $\exists x (P(x) \to Q) \equiv (\forall x P(x)) \to Q$ (if $x$ not in $Q$)
+
 # Mathematical Notations
 
 ## Equivalence Symbols
