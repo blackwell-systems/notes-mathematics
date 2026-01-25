@@ -2253,6 +2253,103 @@ Notation: Often written as ≤ or ⊑
 
 **Why "partial"?** Not every pair of elements needs to be comparable. For example, with subset relation, {1,2} and {3,4} are incomparable (neither is a subset of the other).
 
+### Hasse Diagrams
+
+**Hasse Diagram:** A visual representation of a finite partially ordered set (poset) that shows the ordering relationships between elements.
+
+**Construction Rules:**
+1. Place elements vertically - if a ≤ b, place b above a
+2. Draw a line from a to b if a < b and there is no c such that a < c < b (direct covering)
+3. Omit reflexive loops (implied by definition)
+4. Omit transitive edges (can be inferred)
+
+**Example 1 - Divisibility on {1, 2, 3, 4, 6, 12}:**
+
+```mermaid
+graph TB
+    12 --- 6
+    12 --- 4
+    6 --- 3
+    6 --- 2
+    4 --- 2
+    3 --- 1
+    2 --- 1
+```
+
+Reading the diagram:
+- 1 divides everything (bottom)
+- 12 is divisible by everything (top)
+- 2 divides 4 and 6 (connected below)
+- 3 divides 6 (connected below)
+- 4 and 3 are incomparable (no path between them)
+
+**Example 2 - Subset relation on P({a, b}) (power set of {a, b}):**
+
+```mermaid
+graph TB
+    AB["{a, b}"] --- A["{a}"]
+    AB --- B["{b}"]
+    A --- E["{}"]
+    B --- E
+```
+
+Reading the diagram:
+- {} (empty set) is at the bottom (subset of all)
+- {a, b} is at the top (contains all elements)
+- {a} and {b} are incomparable (neither is subset of the other)
+- Transitivity implied: {} ⊆ {a} ⊆ {a, b}
+
+**Example 3 - Divisibility on {1, 2, 3, 5, 6, 10, 15, 30}:**
+
+```mermaid
+graph TB
+    30 --- 15
+    30 --- 10
+    30 --- 6
+    15 --- 5
+    15 --- 3
+    10 --- 5
+    10 --- 2
+    6 --- 3
+    6 --- 2
+    5 --- 1
+    3 --- 1
+    2 --- 1
+```
+
+**Key Properties:**
+
+1. **Maximal Elements:** Elements with no elements above them
+   - In divisibility example: 12 is maximal
+   - In power set example: {a, b} is maximal
+
+2. **Minimal Elements:** Elements with no elements below them
+   - In divisibility example: 1 is minimal
+   - In power set example: {} is minimal
+
+3. **Greatest Element (Top):** Element greater than or equal to all others
+   - Exists if there's a single maximal element comparable to everything
+   - Example: {a, b} in power set
+
+4. **Least Element (Bottom):** Element less than or equal to all others
+   - Exists if there's a single minimal element comparable to everything
+   - Example: {} in power set, 1 in divisibility
+
+5. **Covering Relation:** In the diagram, a covers b (written a ⋗ b) if a > b and there is no c with a > c > b
+   - Hasse diagrams show only covering relations
+
+**Reading Hasse Diagrams:**
+
+- **Comparable:** Two elements are comparable if there's a path between them (going up or down)
+- **Incomparable:** Two elements are incomparable if there's no path between them
+- **To find a ≤ b:** Check if you can go upward from a to reach b
+
+**Applications:**
+- Visualizing partial orders
+- Finding maximal/minimal elements
+- Identifying chains (totally ordered subsets)
+- Analyzing lattice structures
+
 ### Total Order (Linear Order)
 
 **Total Order:** A partial order where **every pair** of elements is comparable.
