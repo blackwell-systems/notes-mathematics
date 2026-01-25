@@ -7649,14 +7649,13 @@ additional restriction that the magnitude must be 1.
 
 ## Magnitude
 
-**Magnitude:** The magnitude of a vector is depicted by two vertical
-bars surrounding the vector:
-
-\|\|a\|\|
+**Magnitude:** The magnitude of a vector is depicted by two vertical bars surrounding the vector: ||a|| or |a|
 
 **Vector magnitude** is calculated using the distance formula:
 
-$$\left| |a| \right| = \sqrt{x^{2} + y^{2}}$$
+||a|| = √(x² + y²)
+
+**For 3D vectors:** ||a|| = √(x² + y² + z²)
 
 ## Scalar
 
