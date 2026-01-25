@@ -2575,8 +2575,8 @@ The factor ***(x-c)*** for a root ***c*** could appear multiple times in
 the above product. We could write $\mathbf{(x - c)}^{\mathbf{k}}$ as a
 factor of ***f.***
 
-If ***f(x)
-=***$\mathbf{ }\mathbf{a}_{\mathbf{n}}\mathbf{x}^{\mathbf{n}}\mathbf{+}\mathbf{a}_{\mathbf{n - 1}}\mathbf{x}^{\mathbf{n - 1}}\mathbf{+ \ldots +}\mathbf{a}_{\mathbf{1}}\mathbf{x}^{\mathbf{1}}\mathbf{+}\mathbf{a}_{\mathbf{0}}$
+If $f(x)
+= a_n x^n + a_{n-1} x^{n-1} + \ldots + a_1 x + a_0$
 has only real coefficients, and ***c = a+bi*** is a complex root of
 ***f***, then the complex conjugate ***c = a-bi*** is also a root of
 ***f***. (Complex roots containing the imaginary unit always appear in
