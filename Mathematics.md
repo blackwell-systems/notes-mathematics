@@ -737,6 +737,452 @@ determined by precedence rules.
 ![A table with text and arrows Description automatically generated with
 medium confidence](./media/image21.png)
 
+## Logical Equivalences
+
+**Logical Equivalence:** Two propositions P and Q are logically equivalent if they have the same truth value in all possible cases.
+
+**Notation:** P ≡ Q or P ⟺ Q
+
+### Fundamental Laws
+
+**Identity Laws:**
+- P ∧ T ≡ P
+- P ∨ F ≡ P
+
+**Domination Laws:**
+- P ∨ T ≡ T
+- P ∧ F ≡ F
+
+**Idempotent Laws:**
+- P ∨ P ≡ P
+- P ∧ P ≡ P
+
+**Double Negation:**
+- ¬(¬P) ≡ P
+
+**Commutative Laws:**
+- P ∨ Q ≡ Q ∨ P
+- P ∧ Q ≡ Q ∧ P
+
+**Associative Laws:**
+- (P ∨ Q) ∨ R ≡ P ∨ (Q ∨ R)
+- (P ∧ Q) ∧ R ≡ P ∧ (Q ∧ R)
+
+**Distributive Laws:**
+- P ∨ (Q ∧ R) ≡ (P ∨ Q) ∧ (P ∨ R)
+- P ∧ (Q ∨ R) ≡ (P ∧ Q) ∨ (P ∧ R)
+
+**De Morgan's Laws:**
+- ¬(P ∧ Q) ≡ ¬P ∨ ¬Q
+- ¬(P ∨ Q) ≡ ¬P ∧ ¬Q
+
+**Absorption Laws:**
+- P ∨ (P ∧ Q) ≡ P
+- P ∧ (P ∨ Q) ≡ P
+
+**Negation Laws:**
+- P ∨ ¬P ≡ T (Law of excluded middle)
+- P ∧ ¬P ≡ F (Law of contradiction)
+
+### Conditional Equivalences
+
+**Conditional as Disjunction:**
+- P → Q ≡ ¬P ∨ Q
+
+**Contrapositive:**
+- P → Q ≡ ¬Q → ¬P
+
+**Biconditional:**
+- P ↔ Q ≡ (P → Q) ∧ (Q → P)
+- P ↔ Q ≡ (P ∧ Q) ∨ (¬P ∧ ¬Q)
+
+**Example - Proving equivalence:**
+
+Show that ¬(P → Q) ≡ P ∧ ¬Q
+
+```
+¬(P → Q) ≡ ¬(¬P ∨ Q)         (conditional as disjunction)
+         ≡ ¬(¬P) ∧ ¬Q        (De Morgan's law)
+         ≡ P ∧ ¬Q            (double negation)
+```
+
+## Tautologies, Contradictions, and Contingencies
+
+**Tautology:** A proposition that is always true, regardless of the truth values of its components.
+
+**Examples:**
+- P ∨ ¬P (law of excluded middle)
+- (P → Q) ∨ (Q → P)
+- P → P (self-implication)
+
+**Contradiction:** A proposition that is always false.
+
+**Examples:**
+- P ∧ ¬P (law of contradiction)
+- (P ∧ Q) ∧ ¬P
+- (P ↔ Q) ∧ (P ∧ ¬Q)
+
+**Contingency:** A proposition that is neither a tautology nor a contradiction (sometimes true, sometimes false).
+
+**Examples:**
+- P ∧ Q
+- P → Q
+- (P ∨ Q) ∧ R
+
+**Testing with Truth Tables:**
+
+To determine if a proposition is a tautology, contradiction, or contingency:
+1. Construct complete truth table
+2. Check final column:
+   - All T → Tautology
+   - All F → Contradiction
+   - Mixed → Contingency
+
+## Normal Forms
+
+### Disjunctive Normal Form (DNF)
+
+**Disjunctive Normal Form:** A proposition is in DNF if it is a disjunction (OR) of conjunctions (AND).
+
+**Form:** (P₁ ∧ P₂ ∧ ...) ∨ (Q₁ ∧ Q₂ ∧ ...) ∨ ...
+
+**Example:**
+- (P ∧ Q) ∨ (¬P ∧ R)
+- (P ∧ Q ∧ R) ∨ (P ∧ ¬Q ∧ ¬R) ∨ (¬P ∧ Q ∧ R)
+
+**Construction from Truth Table:**
+
+1. Find all rows where the formula is TRUE
+2. For each TRUE row, create a conjunction of all variables (negated if FALSE in that row)
+3. Take the disjunction of all these conjunctions
+
+**Example:** Convert truth table to DNF for formula F:
+
+| P | Q | F |
+|---|---|---|
+| T | T | T |
+| T | F | F |
+| F | T | T |
+| F | F | F |
+
+DNF:
+- Row 1: P ∧ Q
+- Row 3: ¬P ∧ Q
+- Result: F ≡ (P ∧ Q) ∨ (¬P ∧ Q)
+
+### Conjunctive Normal Form (CNF)
+
+**Conjunctive Normal Form:** A proposition is in CNF if it is a conjunction (AND) of disjunctions (OR).
+
+**Form:** (P₁ ∨ P₂ ∨ ...) ∧ (Q₁ ∨ Q₂ ∨ ...) ∧ ...
+
+**Example:**
+- (P ∨ Q) ∧ (¬P ∨ R)
+- (P ∨ Q ∨ R) ∧ (P ∨ ¬Q ∨ ¬R) ∧ (¬P ∨ Q ∨ R)
+
+**Construction from Truth Table:**
+
+1. Find all rows where the formula is FALSE
+2. For each FALSE row, create a disjunction of all variables (negated if TRUE in that row)
+3. Take the conjunction of all these disjunctions
+
+**Example:** Convert same truth table to CNF:
+
+| P | Q | F |
+|---|---|---|
+| T | T | T |
+| T | F | F |
+| F | T | T |
+| F | F | F |
+
+CNF:
+- Row 2: ¬P ∨ Q (negate: P and ¬Q, so we need ¬P ∨ Q)
+- Row 4: P ∨ Q (negate: ¬P and ¬Q, so we need P ∨ Q)
+- Result: F ≡ (¬P ∨ Q) ∧ (P ∨ Q)
+
+**Relationship:** Every proposition can be expressed in both DNF and CNF (though they may look different).
+
+## Logical Arguments
+
+**Logical Argument:** A set of propositions consisting of premises and a conclusion.
+
+**Structure:**
+```
+Premise 1
+Premise 2
+...
+Premise n
+―――――――――
+Conclusion
+```
+
+**Notation:** P₁, P₂, ..., Pₙ ⊢ Q (premises entail conclusion)
+
+### Validity vs Soundness
+
+**Valid Argument:** An argument where IF all premises are true, THEN the conclusion must be true.
+
+**Validity concerns the logical structure, not whether premises are actually true.**
+
+**Example - Valid argument:**
+```
+Premise 1: All humans are mortal
+Premise 2: Socrates is a human
+―――――――――――――――――――――――――――――
+Conclusion: Socrates is mortal
+```
+
+**Example - Invalid argument:**
+```
+Premise 1: All dogs are animals
+Premise 2: All cats are animals
+―――――――――――――――――――――――――
+Conclusion: All dogs are cats
+```
+
+**Sound Argument:** An argument that is:
+1. Valid (correct logical structure)
+2. All premises are actually true
+
+**Example - Sound argument:** (same as valid example above, since premises are true)
+
+**Example - Valid but unsound:**
+```
+Premise 1: All birds can fly
+Premise 2: Penguins are birds
+―――――――――――――――――――――――――
+Conclusion: Penguins can fly
+```
+
+Valid structure, but Premise 1 is false (penguins, ostriches cannot fly).
+
+**Testing Validity:**
+
+An argument is valid if and only if: (P₁ ∧ P₂ ∧ ... ∧ Pₙ) → Q is a tautology
+
+## Rules of Inference
+
+**Rules of Inference:** Valid argument forms that allow us to derive conclusions from premises.
+
+### Modus Ponens (Affirming the Antecedent)
+
+**Form:**
+```
+P → Q
+P
+―――――
+Q
+```
+
+**Example:**
+```
+If it rains, the ground is wet
+It is raining
+―――――――――――――――――――――――――
+The ground is wet
+```
+
+### Modus Tollens (Denying the Consequent)
+
+**Form:**
+```
+P → Q
+¬Q
+―――――
+¬P
+```
+
+**Example:**
+```
+If it rains, the ground is wet
+The ground is not wet
+―――――――――――――――――――――――――
+It is not raining
+```
+
+### Hypothetical Syllogism (Chain Rule)
+
+**Form:**
+```
+P → Q
+Q → R
+―――――
+P → R
+```
+
+**Example:**
+```
+If I study, I pass the exam
+If I pass the exam, I graduate
+―――――――――――――――――――――――――――
+If I study, I graduate
+```
+
+### Disjunctive Syllogism
+
+**Form:**
+```
+P ∨ Q
+¬P
+―――――
+Q
+```
+
+**Example:**
+```
+Either it's raining or it's sunny
+It's not raining
+―――――――――――――――――――――――――
+It's sunny
+```
+
+### Addition
+
+**Form:**
+```
+P
+―――――
+P ∨ Q
+```
+
+**Example:**
+```
+It's raining
+―――――――――――――――――――
+It's raining or it's sunny
+```
+
+### Simplification
+
+**Form:**
+```
+P ∧ Q
+―――――
+P
+```
+
+**Example:**
+```
+It's raining and it's cold
+―――――――――――――――――――――――
+It's raining
+```
+
+### Conjunction
+
+**Form:**
+```
+P
+Q
+―――――
+P ∧ Q
+```
+
+**Example:**
+```
+It's raining
+It's cold
+―――――――――――
+It's raining and it's cold
+```
+
+### Resolution
+
+**Form:**
+```
+P ∨ Q
+¬P ∨ R
+――――――
+Q ∨ R
+```
+
+**Example:**
+```
+P ∨ Q: Either I study or I fail
+¬P ∨ R: Either I don't study or I'm stressed
+―――――――――――――――――――――――――――――――――――――
+Q ∨ R: Either I fail or I'm stressed
+```
+
+### Constructive Dilemma
+
+**Form:**
+```
+P → Q
+R → S
+P ∨ R
+―――――
+Q ∨ S
+```
+
+**Example:**
+```
+If it rains, I take an umbrella
+If it snows, I wear a coat
+It's raining or snowing
+―――――――――――――――――――――――――
+I take an umbrella or wear a coat
+```
+
+### Destructive Dilemma
+
+**Form:**
+```
+P → Q
+R → S
+¬Q ∨ ¬S
+――――――
+¬P ∨ ¬R
+```
+
+## Fallacies (Invalid Arguments)
+
+**Fallacy:** An invalid argument form that appears to be valid.
+
+### Affirming the Consequent (Invalid)
+
+**Form:**
+```
+P → Q
+Q
+―――――
+P
+```
+
+**Why invalid:** Q could be true for other reasons.
+
+**Example:**
+```
+If it rains, the ground is wet
+The ground is wet
+―――――――――――――――――――――――
+It's raining
+```
+
+Invalid: Ground could be wet from sprinklers.
+
+### Denying the Antecedent (Invalid)
+
+**Form:**
+```
+P → Q
+¬P
+―――――
+¬Q
+```
+
+**Why invalid:** Q could still be true even if P is false.
+
+**Example:**
+```
+If it rains, the ground is wet
+It's not raining
+―――――――――――――――――――――――
+The ground is not wet
+```
+
+Invalid: Ground could be wet from other sources.
+
 # Predicate Logic / first-order logic
 
 **Predicate Logic / first-order logic:** An extension of propositional logic that allows reasoning about objects, their properties, and relationships using variables and quantifiers.
