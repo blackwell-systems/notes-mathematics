@@ -7596,20 +7596,15 @@ generated](./media/image182.png)
 
 **Writing Vectors:**
 
--   Lower case, boldfaced type, with or without an arrow on top such as
-    **v**, **u**, **w**, $\overrightarrow{\mathbf{v}}$,
-    $\overrightarrow{\mathbf{u}}$**,** $\overrightarrow{\mathbf{w}}$
+-   **Boldface notation:** **v**, **u**, **w**
 
--   If starting at the point A, a vector moves toward point B, we can
-    write $\overrightarrow{\mathbf{AB}}$ to represent the vector.
+-   **Arrow notation:** →v (v with arrow on top), →u, →w
 
--   Given an initial point **(0,0)** and terminal point **(a,b)**, a
-    vector may be represented as **\<a,b\>**
+-   **Directional notation:** If starting at point A and moving toward point B, we write →AB to represent the vector
 
-    -   The symbol **⟨a,b⟩** has special significance. It is called the
-        standard position. A vector located in the standard position
-        will have an initial point **(0,0)** and terminal point
-        **(a,b).**
+-   **Component notation:** Given an initial point (0,0) and terminal point (a,b), a vector may be represented as **⟨a,b⟩** or **<a,b>**
+
+    -   The symbol **⟨a,b⟩** has special significance. It is called the **standard position**. A vector in standard position has initial point **(0,0)** and terminal point **(a,b)**
 
 ## Position Vector
 
