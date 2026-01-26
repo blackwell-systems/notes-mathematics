@@ -10027,6 +10027,29 @@ graph TD
 
 **Importance:** Balanced trees guarantee $O(\log n)$ height, enabling efficient operations.
 
+**Connecting the concepts:**
+
+These binary tree types answer different questions:
+
+- **Full binary tree:** "Does every node have 0 or 2 children?" (No half-empty nodes)
+- **Complete binary tree:** "Are levels filled left-to-right with no gaps?" (Enables array representation)
+- **Perfect binary tree:** "Are all leaves at the same depth?" (Maximal nodes for the height)
+- **Balanced binary tree:** "Is the height difference between subtrees bounded?" (Ensures logarithmic operations)
+
+**Why these matter:**
+
+A **perfect binary tree** is the ideal case - maximally balanced and efficient. But maintaining this after insertions/deletions is impractical (would require constant restructuring).
+
+A **complete binary tree** is the compromise used by heaps - it maintains good balance while allowing O(log n) insertion by always adding to the leftmost available position.
+
+A **balanced binary tree** (like AVL) focuses on height difference, not complete filling. This is more flexible than "complete" and still guarantees O(log n) operations.
+
+**Common confusion:** A perfect tree is always complete, and complete is always balanced, but not vice versa. These are progressively weaker conditions:
+
+Perfect ⊂ Complete ⊂ Balanced
+
+**Practical implication:** When you implement a heap, you care about "complete" (for the array representation). When you implement a BST, you care about "balanced" (for search efficiency). These serve different purposes.
+
 #### Tree Traversals
 
 **Tree Traversal:** A systematic way to visit every node in a tree exactly once.
@@ -10076,9 +10099,32 @@ Preorder: 1, 2, 4, 5, 3, 6, 7
 
 Inorder: 4, 2, 5, 1, 6, 3, 7
 
+**Why this matters for BSTs:** Inorder traversal of a BST always produces values in sorted order. This is not a coincidence - it's a fundamental consequence of the BST property.
+
+**Intuition:** Think about the BST property: everything in the left subtree is smaller, everything in the right subtree is larger. Inorder visits left first (all smaller values), then the root, then right (all larger values). This naturally produces ascending order.
+
+**Example on BST:**
+```mermaid
+graph TD
+    A[50] --> B[30]
+    A --> C[70]
+    B --> D[20]
+    B --> E[40]
+```
+
+Inorder: 20, 30, 40, 50, 70 (sorted!)
+
+This property makes inorder traversal the standard way to:
+- Print BST contents in sorted order
+- Check if a binary tree is a valid BST (values should be in ascending order)
+- Convert BST to sorted array
+
+**Connecting concepts:** If you build a BST from sorted data using standard insertion, you get a degenerate tree (linked list). But if you use the middle element as root recursively, you build a balanced tree. This is essentially "reverse inorder" - using sorted order to build the tree structure.
+
 **Uses:**
 - **Binary Search Trees:** Produces sorted order
 - Getting infix expression of an expression tree
+- Range queries in BST (visit only nodes in range)
 
 **3. Postorder Traversal (Left → Right → Root)**
 
@@ -10205,13 +10251,39 @@ Path: 50 → 30 → 40 → right child becomes 45
 
 **3. Deletion:** Remove a value while maintaining BST property
 
+Deletion is the most complex BST operation because we must maintain the BST property after removing a node. The strategy depends on how many children the node has.
+
 **Cases:**
-1. **Leaf node:** Simply remove it
-2. **One child:** Replace node with its child
-3. **Two children:** Replace with inorder successor (smallest in right subtree) or inorder predecessor (largest in left subtree)
+
+**Case 1: Leaf node (no children)**
+Simply remove it. This cannot violate the BST property since no other nodes depend on it.
+
+**Case 2: One child**
+Replace the node with its child. Why this works: If the node we're deleting is in the correct position relative to its parent, and its subtree is valid, then promoting its child maintains the BST property. The child "inherits" its parent's position.
+
+**Case 3: Two children (most complex)**
+We cannot simply remove the node because we'd lose two subtrees. The solution is to replace the node's value with either:
+- **Inorder successor:** The smallest value in the right subtree (leftmost node of right child)
+- **Inorder predecessor:** The largest value in the left subtree (rightmost node of left child)
+
+**Why this works:** The inorder successor is guaranteed to be larger than all values in the left subtree (since it comes from the right subtree) and smaller than all other values in the right subtree (since it's the minimum). This preserves the BST property.
 
 **Example:** Delete 30 (has two children)
 
+Original tree with 30:
+```mermaid
+graph TD
+    A[50] --> B[30]
+    A --> C[70]
+    B --> D[20]
+    B --> E[40]
+    C --> F[60]
+    C --> G[80]
+```
+
+We find the inorder successor of 30, which is 40 (smallest in right subtree). Replace 30's value with 40, then delete the original 40 node (which has no children, so Case 1 applies).
+
+After deletion:
 ```mermaid
 graph TD
     A[50] --> B[40]
@@ -10221,15 +10293,22 @@ graph TD
     C --> G[80]
 ```
 
-30 replaced by its inorder successor (40), 40's original position becomes empty (or 45 moves up if we had inserted it).
+**Critical insight:** We've transformed the complex "two children" case into a simpler case (leaf or one child) by finding a replacement value from the tree itself.
+
+**Common pitfall:** Forgetting to handle the deletion of the inorder successor/predecessor. You must remove it from its original position after copying its value.
+
+**Why not just remove and reconnect?** If we tried to remove 30 and promote one child, we'd lose the other subtree. Using the inorder successor lets us preserve both subtrees while maintaining BST order.
 
 **BST Advantages:**
-- Efficient search, insertion, deletion (O(log n) average)
-- Maintains sorted order
-- Dynamic (unlike sorted arrays)
+- Efficient search, insertion, deletion (O(log n) average) - all operations follow a single path from root
+- Maintains sorted order naturally (inorder traversal)
+- Dynamic size (unlike sorted arrays which require resizing)
+- No wasted space (unlike hash tables with empty buckets)
 
 **BST Disadvantages:**
-- Can become unbalanced (O(n) worst case)
+- Can become unbalanced, degrading to O(n) for all operations
+- No guarantees on height without self-balancing
+- Worst case occurs with sorted input (creates a linked list)
 - Solution: Self-balancing trees (AVL, Red-Black)
 
 #### Balanced Trees (AVL Trees)
@@ -10258,41 +10337,67 @@ Balance factors:
 
 **Rotations:** Operations to rebalance tree after insertion/deletion
 
-**Single Right Rotation (LL Case):**
+When a node becomes unbalanced (balance factor > 1 or < -1), we perform rotations to restore balance. Rotations are local restructuring operations that maintain the BST property while reducing height.
+
+**Intuition behind rotations:** Imagine a tree leaning too far to one side (like the Tower of Pisa). A rotation "straightens" the tree by promoting a lower node to become the new root of that subtree. The BST property is preserved because we carefully rearrange connections.
+
+**Single Right Rotation (LL Case - "Left-Left" imbalance):**
+
+The tree is "heavy" on the left side, and specifically the left-left path.
 
 Before (unbalanced):
 ```
-    30
-   /
-  20
- /
+    30          Balance factors:
+   /            30: +2 (left heavy)
+  20            20: +1 (left heavy)
+ /              10: 0
 10
 ```
 
-After rotation:
+After rotation (rotate right around 30):
 ```
-  20
- /  \
-10  30
+  20            Balance factors:
+ /  \           20: 0 (balanced!)
+10  30          10: 0, 30: 0
 ```
 
-**Single Left Rotation (RR Case):**
+**What happened:**
+1. 20 becomes the new root
+2. 30 becomes 20's right child (was 20's parent)
+3. If 20 had a right child, it would become 30's left child (preserving BST order: values between 20 and 30)
+
+**Why this works:** Before rotation: 10 < 20 < 30. After rotation: 10 is left of 20, 30 is right of 20. BST property maintained, but height reduced from 3 to 2.
+
+**Single Left Rotation (RR Case - "Right-Right" imbalance):**
+
+Mirror image of right rotation. Tree is heavy on right side.
 
 Before (unbalanced):
 ```
-10
-  \
-  20
-    \
+10              Balance factors:
+  \             10: -2 (right heavy)
+  20            20: -1 (right heavy)
+    \           30: 0
     30
 ```
 
-After rotation:
+After rotation (rotate left around 10):
 ```
-  20
- /  \
-10  30
+  20            Balance factors:
+ /  \           20: 0 (balanced!)
+10  30          10: 0, 30: 0
 ```
+
+**Edge case to remember:** If the middle node (20) had a left child in the RR case, it becomes the right child of 10 after rotation. This is where beginners often make mistakes - forgetting to reattach the subtree.
+
+**When to use which rotation:**
+
+- **LL case (left-left):** New node inserted in left subtree of left child → Right rotation
+- **RR case (right-right):** New node inserted in right subtree of right child → Left rotation
+- **LR case (left-right):** New node inserted in right subtree of left child → Left rotation then right rotation
+- **RL case (right-left):** New node inserted in left subtree of right child → Right rotation then left rotation
+
+**The LR and RL cases require two rotations** because a single rotation would not fix the imbalance - you need to first "straighten" the zig-zag pattern into a straight line, then perform the main rotation.
 
 **AVL Tree Properties:**
 - Height always O(log n)
@@ -10339,10 +10444,36 @@ graph TD
 Every parent is less than or equal to its children.
 
 **Heap Properties:**
-- **Shape property:** Must be a complete binary tree
+- **Shape property:** Must be a complete binary tree (filled level-by-level, left-to-right)
 - **Heap property:** Parent-child ordering (max or min)
 - **NOT a BST:** Left/right children have no ordering constraint
 - **Height:** Always O(log n) (complete tree)
+
+**Critical distinction between Heaps and BSTs:**
+
+Many beginners confuse heaps and BSTs because both involve comparing parent and child values. The key difference:
+
+- **BST:** Left < Parent < Right (horizontal ordering between siblings)
+- **Heap:** Parent ≥ Children (vertical ordering, no sibling relationship)
+
+In a BST, the left child must be smaller than the right child (via the parent). In a heap, there's no relationship between left and right children - only between parent and children.
+
+**Example showing the difference:**
+
+This is a **valid max heap** but **NOT a BST**:
+```
+       90
+      /  \
+    60    80
+```
+
+60 and 80 have no required ordering in a heap. But in a BST, if 60 is the left child, the right child must be > 90.
+
+**Why heaps use complete trees:**
+
+The complete tree property is not arbitrary - it enables the crucial array representation. If we allowed gaps in the tree, the parent/child index formulas (2i+1, 2i+2) would break down. The complete tree property guarantees every level is filled before moving to the next, which maps perfectly to sequential array indices.
+
+**Conceptual model:** Think of a heap as a "priority line" where everyone has a number, and parents always have higher priority than their children. You don't care about left vs right, only about the vertical hierarchy.
 
 **Array Representation:**
 
@@ -10396,7 +10527,7 @@ Create heap from unsorted array.
 - **Median Maintenance:** Using two heaps
 - **Top K problems:** Find K largest/smallest elements
 
-**Heap vs BST:**
+**Heap vs BST: When to use which?**
 
 | Feature | Heap | BST |
 |---------|------|-----|
@@ -10406,6 +10537,26 @@ Create heap from unsorted array.
 | Search arbitrary | O(n) | O(log n) avg |
 | Sorted traversal | Not possible | Inorder gives sorted |
 | Use case | Priority queue | Sorted data, range queries |
+
+**Choosing between heap and BST:**
+
+**Use a heap when:**
+- You only care about the min/max element (not arbitrary search)
+- You need efficient priority queue operations
+- You're implementing Dijkstra's algorithm, Prim's algorithm, or similar
+- You want O(1) access to the extreme element
+
+**Use a BST when:**
+- You need to search for arbitrary elements
+- You want to maintain sorted order
+- You need range queries (find all elements between x and y)
+- You need to find predecessor/successor of an element
+
+**Common misconception:** "Heaps are faster than BSTs because they give O(1) min/max." This is only true if you exclusively need min/max. If you ever need to search for an arbitrary element, a heap requires O(n) time by checking every element, while a balanced BST does it in O(log n).
+
+**Memory layout matters:** Heaps use an array representation, which is cache-friendly (sequential memory access). BSTs use pointers, which scatter nodes across memory. For small datasets where everything fits in cache, this difference is negligible, but for large datasets, heap operations can be faster in practice even when the big-O complexity is the same.
+
+**Edge case with heaps:** Extracting the max from a max heap is O(log n), but what if you want both min and max efficiently? You'd need two heaps (one max, one min) and need to keep them synchronized. This is a common technique for finding the median of a stream of numbers.
 
 #### Tries (Prefix Trees)
 
@@ -10475,12 +10626,29 @@ PrefixSearch("ca"):
 - Space-intensive (many pointers)
 - Not cache-friendly (pointer chasing)
 
+**Why tries beat hash tables for prefix search:**
+
+A hash table can tell you "is 'cat' in the dictionary" in O(1) time. But ask "what words start with 'ca'?" and the hash table must check every single word - O(n) time.
+
+A trie can answer "what words start with 'ca'?" by:
+1. Navigate to the 'ca' node - O(2) time
+2. Collect all words in that subtree - O(k) where k is the number of matches
+
+This is fundamentally why autocomplete uses tries, not hash tables.
+
+**Common pitfall:** Each trie node typically has an array or hash map of children (one per possible character). For English, that's 26 pointers per node. If most are null, you're wasting space. This is why compressed tries (radix trees) exist.
+
+**Space-time tradeoff:** You can reduce space by using a hash map instead of an array for children at each node. This reduces space from O(ALPHABET_SIZE × N) to O(actual branches), but increases lookup time slightly due to hash operations.
+
+**Edge case:** What if you want to store not just words, but their frequencies or other metadata? Each node can store additional data. For autocomplete, you might store the frequency of each word to rank suggestions.
+
 **Trie Applications:**
-- Autocomplete systems
-- Spell checkers
-- IP routing tables (longest prefix matching)
-- Dictionary implementations
-- DNA sequence analysis
+- Autocomplete systems (type-ahead search)
+- Spell checkers (find words within edit distance)
+- IP routing tables (longest prefix matching for network routes)
+- Dictionary implementations (space-efficient for shared prefixes)
+- DNA sequence analysis (finding repeated subsequences)
+- T9 predictive text (phone keypad to words mapping)
 
 **Space Optimization:**
 
