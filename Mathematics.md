@@ -9924,8 +9924,579 @@ graph TD
 - **Root:** The top vertex (A)
 - **Parent:** Vertex directly above (A is parent of B and C)
 - **Child:** Vertex directly below (B and C are children of A)
-- **Leaf:** Vertex with no children (D, E, F)
-- **Height:** Maximum distance from root to any leaf
+- **Sibling:** Vertices with the same parent (B and C are siblings)
+- **Ancestor:** Any vertex on the path from a vertex to the root
+- **Descendant:** Any vertex in the subtree rooted at a vertex
+- **Leaf (External Node):** Vertex with no children (D, E, F)
+- **Internal Node:** Vertex with at least one child (A, B, C)
+- **Depth:** Distance from root to a vertex (depth of B = 1, depth of D = 2)
+- **Height of node:** Maximum distance from that node to any leaf
+- **Height of tree:** Maximum distance from root to any leaf (height = 2 in example)
+- **Level:** All vertices at the same depth (level 0: {A}, level 1: {B, C}, level 2: {D, E, F})
+- **Subtree:** A tree consisting of a vertex and all its descendants
+
+**Properties of Rooted Trees:**
+- Every vertex except the root has exactly one parent
+- The root has no parent
+- There is exactly one path from the root to any vertex
+
+#### Ordered Trees
+
+**Ordered Tree:** A rooted tree where the children of each vertex are ordered (e.g., left-to-right).
+
+**Significance:** The order of children matters for traversal algorithms and data structure implementations.
+
+**Example:**
+
+```mermaid
+graph TD
+    A[Root] --> B[First child]
+    A --> C[Second child]
+    B --> D
+    B --> E
+```
+
+In an ordered tree, B is specifically the "first child" of A, and C is the "second child". Swapping them creates a different ordered tree.
+
+#### Binary Trees
+
+**Binary Tree:** An ordered tree where each vertex has at most 2 children, designated as **left child** and **right child**.
+
+**Example:**
+
+```mermaid
+graph TD
+    A[10] --> B[5]
+    A --> C[15]
+    B --> D[3]
+    B --> E[7]
+    C --> F[12]
+    C --> G[20]
+```
+
+**Key Properties:**
+- Each node has 0, 1, or 2 children
+- Children are distinguished as left vs right (order matters)
+- Maximum nodes at level k: $2^k$
+- Maximum nodes in tree of height h: $2^{h+1} - 1$
+
+**Types of Binary Trees:**
+
+**Full Binary Tree:** Every node has either 0 or 2 children (no nodes with exactly 1 child).
+
+```mermaid
+graph TD
+    A[10] --> B[5]
+    A --> C[15]
+    B --> D[3]
+    B --> E[7]
+```
+
+**Complete Binary Tree:** All levels are fully filled except possibly the last level, which is filled left-to-right.
+
+```mermaid
+graph TD
+    A[10] --> B[5]
+    A --> C[15]
+    B --> D[3]
+    B --> E[7]
+    C --> F[12]
+```
+
+Level 2 is not full, but all nodes are as far left as possible.
+
+**Perfect Binary Tree:** All internal nodes have exactly 2 children, and all leaves are at the same level.
+
+```mermaid
+graph TD
+    A[10] --> B[5]
+    A --> C[15]
+    B --> D[3]
+    B --> E[7]
+    C --> F[12]
+    C --> G[20]
+```
+
+**Properties of Perfect Binary Tree:**
+- All levels completely filled
+- Number of nodes: $2^{h+1} - 1$ where h is height
+- Number of leaves: $2^h$
+- Number of internal nodes: $2^h - 1$
+
+**Balanced Binary Tree:** A tree where the height difference between left and right subtrees of any node is at most 1.
+
+**Importance:** Balanced trees guarantee $O(\log n)$ height, enabling efficient operations.
+
+#### Tree Traversals
+
+**Tree Traversal:** A systematic way to visit every node in a tree exactly once.
+
+**Why traversals matter:**
+- Searching for values
+- Copying trees
+- Evaluating expressions
+- Serializing/deserializing trees
+
+**Main Traversal Methods for Binary Trees:**
+
+**1. Preorder Traversal (Root → Left → Right)**
+
+**Process:**
+1. Visit root
+2. Recursively traverse left subtree
+3. Recursively traverse right subtree
+
+**Example:**
+
+```mermaid
+graph TD
+    A[1] --> B[2]
+    A --> C[3]
+    B --> D[4]
+    B --> E[5]
+    C --> F[6]
+    C --> G[7]
+```
+
+Preorder: 1, 2, 4, 5, 3, 6, 7
+
+**Uses:**
+- Creating a copy of the tree
+- Getting prefix expression of an expression tree
+- Tree serialization
+
+**2. Inorder Traversal (Left → Root → Right)**
+
+**Process:**
+1. Recursively traverse left subtree
+2. Visit root
+3. Recursively traverse right subtree
+
+**Example (same tree):**
+
+Inorder: 4, 2, 5, 1, 6, 3, 7
+
+**Uses:**
+- **Binary Search Trees:** Produces sorted order
+- Getting infix expression of an expression tree
+
+**3. Postorder Traversal (Left → Right → Root)**
+
+**Process:**
+1. Recursively traverse left subtree
+2. Recursively traverse right subtree
+3. Visit root
+
+**Example (same tree):**
+
+Postorder: 4, 5, 2, 6, 7, 3, 1
+
+**Uses:**
+- Deleting a tree (delete children before parent)
+- Getting postfix expression of an expression tree
+- Evaluating expression trees
+
+**4. Level-Order Traversal (Breadth-First)**
+
+**Process:**
+Visit nodes level by level, left to right at each level.
+
+**Example (same tree):**
+
+Level-order: 1, 2, 3, 4, 5, 6, 7
+
+**Algorithm:** Use a queue
+1. Enqueue root
+2. While queue not empty:
+   - Dequeue node, visit it
+   - Enqueue its children (left, then right)
+
+**Uses:**
+- Finding shortest path to a node
+- Level-wise processing
+- Serialization for complete trees
+
+**Traversal Comparison:**
+
+| Traversal | Order | Output (example) | Common Use |
+|-----------|-------|------------------|------------|
+| Preorder | Root, Left, Right | 1,2,4,5,3,6,7 | Copy tree, prefix notation |
+| Inorder | Left, Root, Right | 4,2,5,1,6,3,7 | BST sorted output |
+| Postorder | Left, Right, Root | 4,5,2,6,7,3,1 | Delete tree, postfix notation |
+| Level-order | Level by level | 1,2,3,4,5,6,7 | Shortest path, level processing |
+
+#### Binary Search Trees (BST)
+
+**Binary Search Tree:** A binary tree with the **BST property**:
+- For every node N:
+  - All values in left subtree < N's value
+  - All values in right subtree > N's value
+
+**Example:**
+
+```mermaid
+graph TD
+    A[50] --> B[30]
+    A --> C[70]
+    B --> D[20]
+    B --> E[40]
+    C --> F[60]
+    C --> G[80]
+```
+
+**Verification:** 
+- 50: Left subtree {20,30,40} all < 50, right subtree {60,70,80} all > 50 ✓
+- 30: Left {20} < 30 < Right {40} ✓
+- 70: Left {60} < 70 < Right {80} ✓
+
+**Key Property:** Inorder traversal of a BST produces values in sorted order.
+
+Inorder: 20, 30, 40, 50, 60, 70, 80 (sorted!)
+
+**BST Operations:**
+
+**1. Search:** Find if a value exists
+
+**Algorithm:**
+```
+Search(node, value):
+    if node is null:
+        return false
+    if node.value == value:
+        return true
+    if value < node.value:
+        return Search(node.left, value)
+    else:
+        return Search(node.right, value)
+```
+
+**Time Complexity:** 
+- Best/Average: O(log n) for balanced tree
+- Worst: O(n) for skewed tree
+
+**2. Insertion:** Add a new value while maintaining BST property
+
+**Algorithm:**
+```
+Insert(node, value):
+    if node is null:
+        return new Node(value)
+    if value < node.value:
+        node.left = Insert(node.left, value)
+    else:
+        node.right = Insert(node.right, value)
+    return node
+```
+
+**Example:** Insert 45 into the tree above
+
+```mermaid
+graph TD
+    A[50] --> B[30]
+    A --> C[70]
+    B --> D[20]
+    B --> E[40]
+    E --> H[45]
+    C --> F[60]
+    C --> G[80]
+```
+
+Path: 50 → 30 → 40 → right child becomes 45
+
+**3. Deletion:** Remove a value while maintaining BST property
+
+**Cases:**
+1. **Leaf node:** Simply remove it
+2. **One child:** Replace node with its child
+3. **Two children:** Replace with inorder successor (smallest in right subtree) or inorder predecessor (largest in left subtree)
+
+**Example:** Delete 30 (has two children)
+
+```mermaid
+graph TD
+    A[50] --> B[40]
+    A --> C[70]
+    B --> D[20]
+    C --> F[60]
+    C --> G[80]
+```
+
+30 replaced by its inorder successor (40), 40's original position becomes empty (or 45 moves up if we had inserted it).
+
+**BST Advantages:**
+- Efficient search, insertion, deletion (O(log n) average)
+- Maintains sorted order
+- Dynamic (unlike sorted arrays)
+
+**BST Disadvantages:**
+- Can become unbalanced (O(n) worst case)
+- Solution: Self-balancing trees (AVL, Red-Black)
+
+#### Balanced Trees (AVL Trees)
+
+**AVL Tree:** A self-balancing binary search tree where the height difference (balance factor) between left and right subtrees is at most 1 for every node.
+
+**Balance Factor:** height(left subtree) - height(right subtree)
+
+**Valid balance factors:** -1, 0, +1
+
+**Example (Balanced):**
+
+```mermaid
+graph TD
+    A[50] --> B[30]
+    A --> C[70]
+    B --> D[20]
+    B --> E[40]
+    C --> G[80]
+```
+
+Balance factors:
+- Node 50: height(left=2) - height(right=1) = 1 ✓
+- Node 30: height(left=1) - height(right=1) = 0 ✓
+- Node 70: height(left=0) - height(right=1) = -1 ✓
+
+**Rotations:** Operations to rebalance tree after insertion/deletion
+
+**Single Right Rotation (LL Case):**
+
+Before (unbalanced):
+```
+    30
+   /
+  20
+ /
+10
+```
+
+After rotation:
+```
+  20
+ /  \
+10  30
+```
+
+**Single Left Rotation (RR Case):**
+
+Before (unbalanced):
+```
+10
+  \
+  20
+    \
+    30
+```
+
+After rotation:
+```
+  20
+ /  \
+10  30
+```
+
+**AVL Tree Properties:**
+- Height always O(log n)
+- Guaranteed O(log n) search, insert, delete
+- More rotations than Red-Black trees (stricter balance)
+
+**Use Cases:**
+- Databases (when frequent lookups, infrequent updates)
+- In-memory indexes
+- When predictable performance is critical
+
+#### Heaps
+
+**Heap:** A complete binary tree with the **heap property**:
+- **Max Heap:** Parent ≥ children (root is maximum)
+- **Min Heap:** Parent ≤ children (root is minimum)
+
+**Max Heap Example:**
+
+```mermaid
+graph TD
+    A[90] --> B[60]
+    A --> C[80]
+    B --> D[30]
+    B --> E[50]
+    C --> F[70]
+    C --> G[40]
+```
+
+Every parent is greater than or equal to its children.
+
+**Min Heap Example:**
+
+```mermaid
+graph TD
+    A[10] --> B[20]
+    A --> C[15]
+    B --> D[30]
+    B --> E[40]
+    C --> F[25]
+    C --> G[50]
+```
+
+Every parent is less than or equal to its children.
+
+**Heap Properties:**
+- **Shape property:** Must be a complete binary tree
+- **Heap property:** Parent-child ordering (max or min)
+- **NOT a BST:** Left/right children have no ordering constraint
+- **Height:** Always O(log n) (complete tree)
+
+**Array Representation:**
+
+Heaps are typically stored in arrays for efficiency.
+
+For node at index i:
+- Parent: ⌊(i-1)/2⌋
+- Left child: 2i + 1
+- Right child: 2i + 2
+
+**Example (max heap):**
+
+```
+Array: [90, 60, 80, 30, 50, 70, 40]
+Index:   0   1   2   3   4   5   6
+
+Tree structure:
+       90
+      /  \
+    60    80
+   / \   / \
+  30 50 70 40
+```
+
+**Heap Operations:**
+
+**1. Insert (Heapify Up):**
+1. Add element at end (maintain complete tree)
+2. Compare with parent, swap if violates heap property
+3. Repeat until heap property restored
+
+**Time:** O(log n)
+
+**2. Extract Max/Min (Heapify Down):**
+1. Remove root (max/min element)
+2. Move last element to root
+3. Compare with children, swap with larger (max heap) or smaller (min heap) child
+4. Repeat until heap property restored
+
+**Time:** O(log n)
+
+**3. Build Heap:**
+Create heap from unsorted array.
+
+**Time:** O(n) - surprisingly linear!
+
+**Heap Applications:**
+- **Priority Queues:** Efficient max/min access
+- **Heap Sort:** O(n log n) sorting algorithm
+- **Graph Algorithms:** Dijkstra's shortest path, Prim's MST
+- **Median Maintenance:** Using two heaps
+- **Top K problems:** Find K largest/smallest elements
+
+**Heap vs BST:**
+
+| Feature | Heap | BST |
+|---------|------|-----|
+| Find min/max | O(1) | O(log n) or O(n) |
+| Insert | O(log n) | O(log n) avg |
+| Delete | O(log n) | O(log n) avg |
+| Search arbitrary | O(n) | O(log n) avg |
+| Sorted traversal | Not possible | Inorder gives sorted |
+| Use case | Priority queue | Sorted data, range queries |
+
+#### Tries (Prefix Trees)
+
+**Trie:** A tree structure for storing strings where each path from root to leaf represents a word, and each node represents a character.
+
+**Example (words: "cat", "car", "dog", "dodge"):**
+
+```mermaid
+graph TD
+    Root --> C
+    Root --> D
+    C --> CA[a]
+    CA --> CAT[t*]
+    CA --> CAR[r*]
+    D --> DO[o]
+    DO --> DOG[g*]
+    DOG --> DODGE[e*]
+```
+
+Nodes marked with * indicate end of word.
+
+**Trie Properties:**
+- Root represents empty string
+- Each edge labeled with a character
+- Path from root to node represents a prefix
+- Special marker indicates complete word
+
+**Trie Operations:**
+
+**1. Insert:** Add a word
+
+```
+Insert("cat"):
+    Start at root
+    Follow/create edges: c → a → t
+    Mark 't' as word end
+```
+
+**Time:** O(m) where m is word length
+
+**2. Search:** Check if word exists
+
+```
+Search("cat"):
+    Start at root
+    Follow edges: c → a → t
+    Check if 't' is marked as word end
+```
+
+**Time:** O(m)
+
+**3. Prefix Search:** Find all words with given prefix
+
+```
+PrefixSearch("ca"):
+    Navigate to node 'a' (following c → a)
+    Collect all words in subtree: ["cat", "car"]
+```
+
+**Trie Advantages:**
+- Faster than hash table for prefix queries
+- No hash collisions
+- Can list all words with common prefix
+- Lexicographic ordering
+
+**Trie Disadvantages:**
+- Space-intensive (many pointers)
+- Not cache-friendly (pointer chasing)
+
+**Trie Applications:**
+- Autocomplete systems
+- Spell checkers
+- IP routing tables (longest prefix matching)
+- Dictionary implementations
+- DNA sequence analysis
+
+**Space Optimization:**
+
+**Compressed Trie (Radix Tree):** Merge chains of single-child nodes.
+
+Before:
+```
+c → a → t → s
+```
+
+After (compressed):
+```
+cats
+```
+
+Saves space when many words share long prefixes.
 
 ### Forest
 
