@@ -1226,6 +1226,346 @@ The ground is not wet
 
 Invalid: Ground could be wet from other sources.
 
+## Proof Techniques
+
+Mathematical proofs are the foundation of rigorous reasoning in mathematics. A proof is a logical argument that establishes the truth of a statement beyond doubt, using previously established facts, definitions, and logical rules.
+
+**Why proofs matter:** In mathematics, we don't just want to believe something is true—we need to know WHY it's true and be certain it's always true. Proofs provide this certainty and reveal the underlying structure of mathematical relationships.
+
+### What is a Proof?
+
+**Proof:** A finite sequence of logical statements, each following from previous statements or known facts, that establishes the truth of a mathematical statement.
+
+**Key components:**
+- **Given/Assumptions:** What we know to be true at the start
+- **Goal/Conclusion:** What we want to prove
+- **Logical steps:** Each statement follows from previous ones using valid inference rules
+- **Justification:** Each step is justified by a definition, axiom, theorem, or logical rule
+
+**What makes a proof valid:**
+1. Every step follows logically from previous steps
+2. All assumptions are clearly stated
+3. No logical gaps or unjustified leaps
+4. The conclusion is clearly reached
+
+### Direct Proof
+
+**Direct Proof:** Assume the hypothesis P is true, then use definitions, axioms, and previously proven theorems to logically derive the conclusion Q.
+
+**Structure:**
+1. Assume P (the hypothesis)
+2. Apply definitions to unpack what P means
+3. Use logical steps, algebra, known facts
+4. Arrive at Q (the conclusion)
+
+**When to use:** When there's a clear path from hypothesis to conclusion. Most straightforward when P and Q have natural definitions you can work with.
+
+**Template:**
+```
+Theorem: If P, then Q.
+Proof: Assume P.
+[Apply definition of P]
+[Logical step 1]
+[Logical step 2]
+...
+Therefore Q. ∎
+```
+
+**Example: Prove that if n is even, then n² is even.**
+
+Proof:
+- Assume n is even (hypothesis)
+- By definition of even, n = 2k for some integer k
+- Then n² = (2k)² = 4k² = 2(2k²)
+- Since 2k² is an integer, n² has the form 2m where m = 2k²
+- By definition of even, n² is even (conclusion) ∎
+
+**Why this works:** We unpacked the definition of "even" (n = 2k), performed algebra, and showed the result matches the definition of "even" again.
+
+**Common pitfall:** Students often skip the "by definition" steps and jump to conclusions. Always explicitly state when you're using a definition.
+
+### Proof by Contrapositive
+
+**Contrapositive:** To prove P → Q, instead prove ¬Q → ¬P (the contrapositive).
+
+**Why this works:** P → Q and ¬Q → ¬P are logically equivalent. If one is true, the other must be true.
+
+**When to use:** When the contrapositive is easier to prove than the direct statement. This often happens when:
+- Q involves a negative statement ("not divisible", "irrational", "no solution")
+- It's easier to reason about what makes Q false than what makes P true
+
+**Template:**
+```
+Theorem: If P, then Q.
+Proof: We prove the contrapositive: If ¬Q, then ¬P.
+Assume ¬Q.
+[Logical steps]
+Therefore ¬P. ∎
+```
+
+**Example: Prove that if n² is even, then n is even.**
+
+Direct proof is tricky here. Let's use contrapositive:
+
+Prove instead: If n is not even (i.e., n is odd), then n² is not even (i.e., n² is odd).
+
+Proof:
+- Assume n is odd
+- By definition, n = 2k + 1 for some integer k
+- Then n² = (2k + 1)² = 4k² + 4k + 1 = 2(2k² + 2k) + 1
+- Since 2k² + 2k is an integer, n² has the form 2m + 1
+- By definition, n² is odd ∎
+
+**Why contrapositive helps:** It's much easier to work with "n is odd" (clear definition: n = 2k + 1) than to work with "n² is even" in the forward direction.
+
+### Proof by Contradiction
+
+**Contradiction:** Assume the opposite of what you want to prove, then show this leads to a logical impossibility (contradiction).
+
+**Structure:**
+1. Assume ¬(statement to prove)
+2. Use logical steps to derive a contradiction
+3. Since the assumption led to impossibility, the assumption must be false
+4. Therefore, the original statement is true
+
+**When to use:** When direct proof and contrapositive are unclear. Especially useful for:
+- Existence proofs ("there exists no...")
+- Proving something is impossible
+- Proving irrationality, infinitude, uniqueness
+
+**Template:**
+```
+Theorem: Statement S.
+Proof: Assume for contradiction that ¬S.
+[Logical steps]
+This contradicts [known fact].
+Therefore our assumption was wrong, so S is true. ∎
+```
+
+**Example: Prove that √2 is irrational.**
+
+Proof by contradiction:
+- Assume √2 is rational (negation of what we want to prove)
+- Then √2 = a/b where a, b are integers with no common factors (reduced form)
+- Squaring: 2 = a²/b², so a² = 2b²
+- This means a² is even, so a is even (by previous theorem)
+- Write a = 2k for some integer k
+- Then (2k)² = 2b², so 4k² = 2b², so b² = 2k²
+- This means b² is even, so b is even
+- But if both a and b are even, they have a common factor of 2
+- This contradicts our assumption that a/b is in reduced form
+- Therefore √2 cannot be rational, so √2 is irrational ∎
+
+**Why contradiction works:** We showed the assumption "√2 is rational" inevitably leads to a false statement, so the assumption itself must be false.
+
+**Common pitfall:** Make sure you actually reach a contradiction (two opposing statements), not just something that "seems weird."
+
+### Proof by Cases
+
+**Proof by Cases:** Break the problem into exhaustive cases, prove the statement for each case separately.
+
+**When to use:** When the domain naturally splits into distinct categories, and it's easier to handle each category separately.
+
+**Structure:**
+1. Identify exhaustive cases (they must cover all possibilities)
+2. Prove the statement for Case 1
+3. Prove the statement for Case 2
+4. ... (continue for all cases)
+5. Since all cases are covered, the statement is true
+
+**Template:**
+```
+Theorem: Statement S for all x in domain D.
+Proof: We consider cases.
+Case 1: [condition]. [Proof for case 1]
+Case 2: [condition]. [Proof for case 2]
+...
+Since all cases cover D, S is true. ∎
+```
+
+**Example: Prove that n² - n is even for all integers n.**
+
+Proof by cases:
+- Case 1: n is even. Then n = 2k, so n² - n = (2k)² - 2k = 4k² - 2k = 2(2k² - k). Since 2k² - k is an integer, n² - n is even.
+- Case 2: n is odd. Then n = 2k + 1, so n² - n = (2k+1)² - (2k+1) = 4k² + 4k + 1 - 2k - 1 = 4k² + 2k = 2(2k² + k). Since 2k² + k is an integer, n² - n is even.
+- Since every integer is either even or odd, we've covered all cases. Therefore n² - n is even for all integers n. ∎
+
+**Why cases work:** We've covered all possibilities (even and odd are exhaustive for integers) and proved the statement for each.
+
+### Mathematical Induction
+
+**Mathematical Induction:** A proof technique for statements about natural numbers (or any well-ordered set).
+
+**Principle:** If you can prove:
+1. **Base case:** P(1) is true (or P(0), depending on starting point)
+2. **Inductive step:** For any k, if P(k) is true, then P(k+1) is true
+
+Then P(n) is true for all n ≥ 1.
+
+**Why induction works - The Domino Analogy:**
+
+Imagine an infinite line of dominos:
+- Base case: You knock over the first domino
+- Inductive step: You prove that if domino k falls, it knocks over domino k+1
+- Conclusion: All dominos will fall
+
+The inductive step shows a domino "chain reaction" - each step follows from the previous.
+
+**Structure:**
+1. State what you're proving (P(n) for all n ≥ n₀)
+2. **Base case:** Prove P(n₀)
+3. **Inductive hypothesis:** Assume P(k) is true for arbitrary k ≥ n₀
+4. **Inductive step:** Prove P(k+1) using the assumption P(k)
+5. **Conclusion:** By induction, P(n) is true for all n ≥ n₀
+
+**Template:**
+```
+Theorem: P(n) for all n ≥ 1.
+Proof by induction:
+
+Base case: [Verify P(1)]
+
+Inductive step: Assume P(k) for some k ≥ 1 (inductive hypothesis).
+We must prove P(k+1).
+[Use P(k) to derive P(k+1)]
+
+By mathematical induction, P(n) is true for all n ≥ 1. ∎
+```
+
+**Example: Prove that 1 + 2 + 3 + ... + n = n(n+1)/2 for all n ≥ 1.**
+
+Proof by induction:
+
+Base case (n = 1): Left side = 1. Right side = 1(1+1)/2 = 1. Equal. ✓
+
+Inductive step: Assume 1 + 2 + ... + k = k(k+1)/2 for some k ≥ 1.
+
+We must prove: 1 + 2 + ... + k + (k+1) = (k+1)(k+2)/2
+
+Starting from the left side:
+1 + 2 + ... + k + (k+1)
+= [1 + 2 + ... + k] + (k+1)
+= k(k+1)/2 + (k+1)    [by inductive hypothesis - THIS IS CRUCIAL]
+= k(k+1)/2 + 2(k+1)/2
+= [k(k+1) + 2(k+1)]/2
+= [(k+1)(k + 2)]/2
+= (k+1)(k+2)/2 ✓
+
+This is exactly what we wanted to show.
+
+By mathematical induction, the formula holds for all n ≥ 1. ∎
+
+**Why induction works here:** We proved it's true for n=1, then showed "if true for k, then true for k+1." This creates an infinite chain: true for 1 → true for 2 → true for 3 → ...
+
+**Critical insight:** The inductive step MUST use the inductive hypothesis (the assumption that P(k) is true). If your proof doesn't use P(k), you're not doing induction—you're just proving P(k+1) directly.
+
+**Common pitfall #1:** Forgetting to use the inductive hypothesis. You must explicitly invoke "by inductive hypothesis, P(k) is true" in your proof.
+
+**Common pitfall #2:** Proving the base case but skipping the inductive step, or vice versa. Both are required.
+
+**Common pitfall #3:** Assuming what you want to prove. The inductive hypothesis assumes P(k), not P(k+1). You must derive P(k+1) from P(k).
+
+### Strong Induction
+
+**Strong Induction:** A variant where the inductive step assumes P(j) is true for ALL j ≤ k (not just j = k).
+
+**When to use:** When proving P(k+1) requires knowing P is true for multiple previous values, not just P(k).
+
+**Structure:**
+1. **Base case(s):** Prove P(1), possibly P(2), P(3), etc. as needed
+2. **Inductive hypothesis:** Assume P(j) is true for all j with 1 ≤ j ≤ k
+3. **Inductive step:** Prove P(k+1) using any or all of P(1), P(2), ..., P(k)
+4. **Conclusion:** By strong induction, P(n) holds for all n ≥ 1
+
+**Example: Prove every integer n ≥ 2 can be written as a product of primes.**
+
+Proof by strong induction:
+
+Base case (n = 2): 2 is prime, so it's a product of primes (itself). ✓
+
+Inductive hypothesis: Assume for all integers j with 2 ≤ j ≤ k, j can be written as a product of primes.
+
+Inductive step: Consider k+1.
+- Case 1: k+1 is prime. Then k+1 is a product of primes (itself).
+- Case 2: k+1 is composite. Then k+1 = ab where 2 ≤ a, b ≤ k.
+  By inductive hypothesis, both a and b are products of primes.
+  Therefore k+1 = ab is a product of primes. ✓
+
+By strong induction, every integer n ≥ 2 is a product of primes. ∎
+
+**Why strong induction was needed:** When k+1 is composite, we need to use the fact that the statement holds for BOTH a and b (which could be any values ≤ k), not just for k itself.
+
+### Proof Strategy: Choosing the Right Technique
+
+**Decision tree for choosing proof technique:**
+
+1. **Is it about all natural numbers or a recursive structure?**
+   → Try induction (regular or strong)
+
+2. **Does the conclusion involve "not" or negation?**
+   → Try contrapositive
+
+3. **Is the statement about non-existence or impossibility?**
+   → Try contradiction
+
+4. **Does the domain naturally split into categories?**
+   → Try proof by cases
+
+5. **Is there a direct path from hypothesis to conclusion?**
+   → Try direct proof
+
+**General advice:**
+- Start with direct proof if the path seems clear
+- If you get stuck, try contrapositive (often easier with negations)
+- Contradiction is powerful but can be messy—save it for when others fail
+- Induction is specifically for statements parameterized by n ∈ ℕ
+
+### Common Proof Patterns
+
+**Pattern 1: Proving Set Equality (A = B)**
+
+Prove A ⊆ B and B ⊆ A:
+1. Let x ∈ A. [Show x ∈ B]
+2. Let x ∈ B. [Show x ∈ A]
+
+**Pattern 2: Proving Divisibility**
+
+To prove a | b (a divides b):
+- Show b = ka for some integer k
+
+**Pattern 3: Proving Uniqueness**
+
+To prove "there exists a unique x such that P(x)":
+1. Existence: Show at least one x exists with P(x)
+2. Uniqueness: Assume x₁ and x₂ both satisfy P, show x₁ = x₂
+
+**Pattern 4: Proving Biconditionals (P ↔ Q)**
+
+Prove both directions:
+1. P → Q (forward direction)
+2. Q → P (backward direction)
+
+### Tips for Writing Proofs
+
+**Do:**
+- State definitions explicitly ("By definition of even...")
+- Show all steps, don't skip
+- Use "Let", "Assume", "Suppose" to introduce variables
+- End with ∎ or QED to signal completion
+- State which technique you're using ("Proof by contrapositive:", "Proof by induction:")
+
+**Don't:**
+- Use vague language ("clearly", "obviously") - prove it instead
+- Work backwards from conclusion (except in scratch work)
+- Assume what you're trying to prove
+- Skip justifications ("by magic", "it's clear that")
+
+**Scratch work vs. Final proof:**
+- Scratch work: Explore, make mistakes, work backwards, try different approaches
+- Final proof: Clean, forward-moving, every step justified
+
+Remember: A proof should convince a skeptical reader. If there's a gap in logic, the proof is incomplete.
+
 # Predicate Logic / first-order logic
 
 **Predicate Logic / first-order logic:** An extension of propositional logic that allows reasoning about objects, their properties, and relationships using variables and quantifiers.
@@ -9482,6 +9822,10 @@ C(5+3-1, 3) = C(7,3) = 7! / (3! × 4!) = 35
 - V: A set of vertices (also called nodes)
 - E: A set of edges (also called links or arcs)
 
+**What graphs model:** Graphs represent relationships between objects. The objects are vertices, and the relationships are edges connecting them.
+
+**Why graphs matter:** Unlike trees (which model hierarchy) or arrays (which model sequences), graphs model arbitrary pairwise relationships. This makes them the most flexible data structure for representing networks, dependencies, maps, social connections, and state transitions.
+
 **Example:**
 
 ```mermaid
@@ -9496,6 +9840,8 @@ graph LR
 This graph has:
 - V = {A, B, C, D} (4 vertices)
 - E = {AB, BC, CD, DA, AC} (5 edges)
+
+**Key insight:** A graph is just a formal way to say "here are some things (vertices) and here are which pairs are related (edges)." Everything else in graph theory flows from this simple idea.
 
 ### Vertex (Node)
 
@@ -9762,9 +10108,15 @@ graph LR
 
 **Handshaking Lemma:** The sum of all vertex degrees equals twice the number of edges.
 
-**Formula:** Sum of deg(v) for all v in V = 2|E|
+**Formula:** Σ deg(v) for all v ∈ V = 2|E|
 
-**Why:** Each edge contributes 1 to the degree of both its endpoints.
+**Why this works:** Imagine counting edges by looking at each vertex and tallying how many edges touch it. When you do this, you count every edge exactly twice—once from each of its two endpoints. So the total count is 2|E|.
+
+**Intuition:** Think of a handshake between two people. If you ask everyone "how many times did you shake hands?" and sum the answers, you get twice the number of handshakes (because each handshake involves two people).
+
+**Important corollary:** The sum of all degrees is always even. This means you cannot have a graph where every vertex has odd degree and the total number of vertices is odd.
+
+**Common pitfall:** Students sometimes forget that loops (edges from a vertex to itself) count twice toward that vertex's degree, because a loop touches the same vertex at both endpoints.
 
 ### In-degree and Out-degree (Directed Graphs)
 
@@ -9813,6 +10165,14 @@ graph LR
 - Kₙ has n vertices
 - Kₙ has n(n-1)/2 edges
 - Every vertex has degree n-1
+
+**Why n(n-1)/2 edges?** Each of the n vertices must connect to (n-1) other vertices. That gives n(n-1) total, but we've counted each edge twice (once from each endpoint), so we divide by 2.
+
+**Intuition:** If you have n people and everyone shakes hands with everyone else exactly once, how many handshakes occur? Each person shakes n-1 hands, giving n(n-1) handshakes from the perspective of all people, but each handshake involves two people, so the actual count is n(n-1)/2.
+
+**Memory aid:** This is the same formula as "n choose 2" = C(n, 2), because we're choosing 2 vertices from n vertices to connect with an edge.
+
+**Why every vertex has degree n-1?** In a complete graph, each vertex is connected to every other vertex. Since there are n vertices total and we exclude the vertex itself, each vertex connects to n-1 others.
 
 ### Cycle Graph
 
