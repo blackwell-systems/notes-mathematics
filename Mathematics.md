@@ -51,7 +51,7 @@ and higher-order logics. In this sense, propositional logic is the
 foundation of first-order logic and higher-order logic.
 
 The most thoroughly researched branch of propositional logic is
-[classical truth-functional propositional logic
+classical truth-functional propositional logic
 
 ## Truth
 
@@ -73,7 +73,7 @@ In propositional and first order logic, we are only concerned with
 ### Logical Truth
 
 **Logical Truth:** Logical truth refers to a statement or proposition
-that is [true in all possible scenarios, purely based on its logical
+that is true in all possible scenarios, purely based on its logical
 structure rather than any specific facts or content about the
 world. It is a foundational concept in formal logic,
 philosophy, and mathematics, where the focus is on the form of reasoning
@@ -96,7 +96,7 @@ world, logical truths are independent of the actual world. They are true
 regardless of any empirical facts.
 
 **Versus Necessary Truth:** *All logical truths are necessary truths*,
-but not all necessary truths are logical truths[. Necessary truths are
+but not all necessary truths are logical truths. Necessary truths are
 true in all possible worlds, often because of the meanings of the
 concepts involved, such as \"All bachelors are unmarried.\"
 **Logical truths, on the other hand, are true due to their logical
@@ -310,7 +310,7 @@ Propositions or statements can either be:
     of a compound proposition depends on the truth values of its
     component propositions and the specific logical connectives used.
 
-**Propositional logic is concerned with the *[form and structure of
+**Propositional logic is concerned with the *form and structure of
 propositions* rather than their content or the actual truth
 of their components in the real world.**
 
@@ -481,7 +481,7 @@ generated](./media/image2.png)
 ### Unary Logical Connectives / Unary Operators
 
 **Unary Logical Connectives / Unary Operators:** A unary logical
-connective (or unary operator) is a logical operator that [operates on a
+connective (or unary operator) is a logical operator that operates on a
 single proposition (or statement) to produce a new
 proposition.
 
@@ -493,7 +493,7 @@ In classical logic, the most common unary logical connective is
 **Negation:** Negation is a fundamental unary logical connective that
 inverts the truth value of a proposition.
 
-In ordinary language, negation is referred to as *['NOT'*.
+In ordinary language, negation is referred to as *'NOT'*.
 
 Symbolically, we express negation with: ¬
 
@@ -558,7 +558,7 @@ of the operands does not change the result.
 
 **Binary Logical Connectives / Binary Operators:** Binary logical
 connectives, also known as binary logical operators, are used to
-[combine two propositions (or statements) to form a compound
+combine two propositions (or statements) to form a compound
 proposition. The truth value of the resulting compound
 proposition is determined by the truth values of the individual
 propositions and the specific binary connective used.
@@ -636,7 +636,7 @@ and the other is false.
 It gains the name \"exclusive or\" because the meaning of \"or\" is
 ambiguous when both operands are true.
 
-*[**XOR** excludes that case*. Some informal ways of
+***XOR** excludes that case*. Some informal ways of
 describing **XOR** are \"one or the other but not both\", \"either one
 or the other\", and \"A or B, but not A and B\".
 
@@ -692,10 +692,10 @@ generated](./media/image17.png)
 
 A vacuous truth is a conditional or universal statement (a universal
 statement that can be converted to a conditional statement) that is
-*[true because the antecedent cannot be satisfied*.
+*true because the antecedent cannot be satisfied*.
 
 Examples common to everyday speech include conditional phrases used as
-*[idioms of improbability* like \"when hell freezes over
+*idioms of improbability* like \"when hell freezes over
 \...\" and \"when pigs can fly \...\", indicating that not before the
 given (impossible) condition is met will the speaker accept some
 respective (typically false or absurd) proposition.
@@ -1959,7 +1959,7 @@ extraneous.
 ![](./media/image23.png)
 
 **Sets are unordered.** They can be written in any order you wish, but
-conceptually, [order is meaningless and not included in the formal
+conceptually, order is meaningless and not included in the formal
 definition of a set.
 
 ## Set Membership / Set Elements
@@ -3299,7 +3299,7 @@ Key Concepts
 -   The **codomain** (or target set) is the set of all possible second
     elements (outputs) in the ordered pairs.
 
--   The **range** is the set of *[actual outputs* in the
+-   The **range** is the set of *actual outputs* in the
     relation, which is a subset of the codomain.
 
 -   The **image** a relation, often used in the context of specific
@@ -3315,7 +3315,7 @@ Key Concepts
 **Codomain**: All possible outputs (as defined for the function or
 relation).
 
-**Range**: The ***[actual outputs produced by the
+**Range**: The ***actual outputs produced by the
 relation*** over its entire domain (a subset of the
 codomain).
 
@@ -3830,7 +3830,7 @@ generated](./media/image43.png)
 **1. Domain of a Function:**
 
 The **domain** of a function **f : X → Y** is the set **X**. It includes
-[all the possible inputs that the function can accept.
+all the possible inputs that the function can accept.
 
 **Example**: For the function **f(x) =** $\sqrt{\mathbf{x}}$, the domain
 is **X = { x ∈ R ∣ x ≥ 0 }**, because the square root function is only
@@ -3838,17 +3838,17 @@ defined for non-negative real numbers.
 
 **2. Codomain of a Function:**
 
-The **codomain** of a function **f : X → Y**, which includes [all
+The **codomain** of a function **f : X → Y**, which includes all
 possible outputs that the function is allowed to produce according to
 its definition.
 
 The **codomain** is specified as part of the function\'s definition,
-[even if not all elements of the **codomain** are actually reached by
+even if not all elements of the **codomain** are actually reached by
 the function.
 
 **3. Range of a Function:**
 
-The range of a function **f : X → Y** is the [set of all actual
+The range of a function **f : X → Y** is the set of all actual
 outputs that the function produces when applied to every
 element in its domain **X**.
 
@@ -3880,7 +3880,7 @@ Dom(f) = { x ∣ ∃y f(x) = y}
 
 The **codomain** of a function **f : X → Y**
 
-includes [all possible outputs that the function is allowed to produce
+includes all possible outputs that the function is allowed to produce
 according to its definition
 
 The **codomain** is specified as part of the function\'s definition,
@@ -3892,7 +3892,7 @@ Cod(f) = B ⟺ ∀x ∈ Dom(f) ,∃y ∈ B (f(x)=y)
 
 ### Range
 
-The range of a function **f : X → Y** is the [set of all actual
+The range of a function **f : X → Y** is the set of all actual
 outputs that the function produces when applied to every
 element in its domain **X**. The range is therefore a subset of the
 codomain.
@@ -5211,8 +5211,8 @@ you give **(x,y)** coordinates, **x** refers to the horizontal direction
 and **y** refers to the vertical direction.
 
 When we talk about the ***I,j*** entry of a matrix, however, the first
-number [***i*** refers to the row number (i.e. the vertical
-direction) [and the second number ***j*** refers to the column
+number ***i*** refers to the row number (i.e. the vertical
+direction) and the second number ***j*** refers to the column
 number (i.e. the horizontal direction).
 
 **Matrix Notation:**
@@ -5883,7 +5883,7 @@ If ab = 0, then either a = 0 or b = 0
 generated](./media/image66.png)
 
 The zero product property can be used to solve polynomial equations of
-**[any degree** as long as the polynomial can be factored
+**any degree** as long as the polynomial can be factored
 into a product of simpler polynomials.
 
 ### Special Factoring Forms
@@ -5995,7 +5995,7 @@ generated](./media/image67.png)
 ### Completing the Square
 
 **Completing the Square: Not all quadratic equations can be factored or
-can be solved *[in their original form* using the square
+can be solved *in their original form* using the square
 root property.**
 
 In this case, it is necessary to transform the equation such that it is
@@ -6073,8 +6073,8 @@ and solve for y-value.
 **Polynomial Degree:** The degree of the polynomial is defined as the
 highest power the variable is raised to in the polynomial.
 
-The degree also dictates *[how many zeros a polynomial can
-have* and *[what the end behavior is*.
+The degree also dictates *how many zeros a polynomial can
+have* and *what the end behavior is*.
 
 ![](./media/image72.png)
 
@@ -6086,7 +6086,7 @@ Understanding the Relationship between Degree and Turning Points
 graph changes from increasing to decreasing (rising to falling) or
 decreasing to increasing (falling to rising).
 
-[A polynomial of degree **n** will have at most **n−1** turning
+A polynomial of degree **n** will have at most **n−1** turning
 points.
 
 ![A diagram of a graph Description automatically
@@ -6144,11 +6144,11 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 **Factor Multiplicity:** The multiplicity of a factor determines how the
 graph behaves at the x-intercept.
 
--   If the multiplicity of a zero is even, the *[graph will touch the
-    x-axis* at that zero. *[(think about*
-    $x^{2}$*[)*
+-   If the multiplicity of a zero is even, the *graph will touch the
+    x-axis* at that zero. *(think about*
+    $x^{2}$*)*
 
--   If the multiplicity of a zero is odd, the *[graph will cross the
+-   If the multiplicity of a zero is odd, the *graph will cross the
     x-axis* at that zero.
 
 ![](./media/image78.png)
@@ -6164,7 +6164,7 @@ generated](./media/image80.png)
 
 The Fundamental Theorem of Algebra tells us that every polynomial
 function with degree greater than 1 has at least one
-*[complex* zero.
+*complex* zero.
 
 ![](./media/image81.png)
 
@@ -6173,7 +6173,7 @@ $f(x) =  a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1} + a_{0}$
 of degree n can be factored as
 
 $f(x) = m*\left( x - c_{1} \right)*\left( x - c_{2} \right)\ldots(x - c_{n})$
-*[(m multiplied by a series of linear factors...)*
+*(m multiplied by a series of linear factors...)*
 
 Every polynomial of degree ***n*** has at most ***n*** roots. (However,
 these roots may be real or complex.)
@@ -6237,7 +6237,7 @@ remainder.**
 
 **What is the point of the Remainder Theorem?**
 
-The point of the Remainder Theorem is that *[there is a simpler, quicker
+The point of the Remainder Theorem is that *there is a simpler, quicker
 way to evaluate a polynomial p(x) at a given value of x, and this
 simpler way is to not evaluate p(x) at all, but to instead do the
 synthetic division at that same value of x.*
@@ -6252,14 +6252,14 @@ wanting, being the evaluated value of the polynomial.
 ![](./media/image82.png)
 
 written in descending order of the exponents, has integer coefficients,
-then any *[rational zero* must be of the form [± p/
+then any *rational zero* must be of the form ± p/
 q,
 
-Where [p and [q are integers and:
+Where p and q are integers and:
 
--   [p is a factor of the constant term a~0~
+-   p is a factor of the constant term a~0~
 
--   [q is a factor of the leading coefficient a~n~
+-   q is a factor of the leading coefficient a~n~
 
 ![](./media/image83.png)
 
@@ -6368,7 +6368,7 @@ So: $\frac{2x^3 + 3x^2 - 5x + 4}{x - 2} = 2x^2 + 7x + 9 + \frac{22}{x - 2}$
 
 **Descartes Rule of Signs**: **Descartes\' Rule of Signs** is a theorem
 that provides a way to determine the possible number of positive and
-negative ***[real*** roots (zeros) of a polynomial
+negative ***real*** roots (zeros) of a polynomial
 equation.
 
 It gives an upper bound on the number of positive and negative roots and
@@ -8525,7 +8525,7 @@ into three types which are:
 
 ##### Scalene
 
-**Scalene:** Triangle has all side lengths *[different*.
+**Scalene:** Triangle has all side lengths *different*.
 
 ![](./media/image119.png)
 
@@ -8537,7 +8537,7 @@ into three types which are:
 
 ##### Equilateral
 
-**Equilateral:** Triangle with *[all sides having the same
+**Equilateral:** Triangle with *all sides having the same
 length.*
 
 ![](./media/image121.png)
@@ -8624,7 +8624,7 @@ generated](./media/image126.png)
 contain any right angles. Logically, we know that if a triangle is not a
 right triangle, then it must be either an Obtuse or Acute triangle.
 
-[**Oblique triangles** are triangles that are either Obtuse or
+**Oblique triangles** are triangles that are either Obtuse or
 Acute.
 
 Relationships between oblique triangles can be understood using the law
@@ -8639,7 +8639,7 @@ for which simple formulas exist.
 Why are special triangles considered 'special' ?
 
 *The fact that the sides of these special triangles are represented by
-integers or simple square roots, [rather than irrational
+integers or simple square roots, rather than irrational
 numbers, is a significant reason why they are considered
 special.*
 
@@ -8669,7 +8669,7 @@ Class](./media/image127.jpeg)
 
 -   If each leg is **x**, hypotenuse is **x**$\sqrt{\mathbf{2}}$
 
-[45-45-90 triangles can also be expressed as π/4 -- π/4 -- π/2
+45-45-90 triangles can also be expressed as π/4 -- π/4 -- π/2
 
 #### 30-60-90 (Scalene right triangle)
 
@@ -8693,7 +8693,7 @@ The largest side will always be opposite to the largest angle.
 Similarly, the smallest side would always be opposite to the smallest
 angle.
 
-[30-60-90 triangles can also be expressed in radians as π/6 -- π/3 --
+30-60-90 triangles can also be expressed in radians as π/6 -- π/3 --
 π/2
 
 ## Circle
@@ -8812,7 +8812,7 @@ straightness on a cartesian coordinate plane.
 |           | ="0.30611001749781275in" | surface or another line that |
 |           | height                   | is considered as the base.   |
 |           | ="0.6805041557305337in"} | In coordinate geometry, the  |
-|           |                          | *[vertical lines are         |
+|           |                          | *vertical lines are         |
 |           |                          | parallel to the y-axis and   |
 |           |                          | are perpendicular to the     |
 |           |                          | horizontal lines and the     |
@@ -8826,7 +8826,7 @@ straightness on a cartesian coordinate plane.
 |           |                          | be horizontal if two points  |
 |           |                          | on the line have the same Y- |
 |           |                          | coordinate points. It comes  |
-|           |                          | from the term "horizon*[".   |
+|           |                          | from the term "horizon*".   |
 |           |                          | It means that the horizontal |
 |           |                          | lines are always parallel to |
 |           |                          | the horizon or the           |
@@ -8834,7 +8834,7 @@ straightness on a cartesian coordinate plane.
 +-----------+--------------------------+------------------------------+
 | *         | ![](./                   | Secant line is a line that   |
 | *Secant** | media/image141.png){widt | intersects a                 |
-|           | h="1.2577548118985127in" | ***[curve*** at |
+|           | h="1.2577548118985127in" | ***curve*** at |
 |           | height                   | a minimum of two distinct    |
 |           | ="0.9766097987751531in"} | points                       |
 +-----------+--------------------------+------------------------------+
@@ -8849,7 +8849,7 @@ straightness on a cartesian coordinate plane.
 +-----------+--------------------------+------------------------------+
 | **        | ![](./                   | A tangent line is a line     |
 | Tangent** | media/image143.png){widt | that touches a curve at a    |
-|           | h="1.6569903762029747in" | single point ***[without     |
+|           | h="1.6569903762029747in" | single point ***without     |
 |           | heig                     | crossing*** it  |
 |           | ht="0.92791447944007in"} | at that point.               |
 +-----------+--------------------------+------------------------------+
@@ -9003,7 +9003,7 @@ symbol for second is ''.
 
 ### Radian
 
-**Radian:** One radian is defined as the *[angle*
+**Radian:** One radian is defined as the *angle*
 **subtended** from the center of a circle which intercepts an arc equal
 in length to the radius of the circle.
 
@@ -9101,7 +9101,7 @@ medium confidence](./media/image164.png)
 
 ### Sine
 
-**Sine (sin):** The output is the *[y-coordinate of the corresponding
+**Sine (sin):** The output is the *y-coordinate of the corresponding
 point on the unit circle.*
 
 The sine of an angle θ equals the **y-value** of the endpoint on the
@@ -9134,7 +9134,7 @@ The period is given by : 2pi / \|B\|
 !Period of the Sine Function - Formulas and Examples -
 Neurochispas](./media/image166.jpeg)
 
-**Phase Shift:** The phase shift determines the *[horizontal
+**Phase Shift:** The phase shift determines the *horizontal
 displacement of the wave*, along x-axis.
 
 The phase shift is given by -C/B
@@ -9154,7 +9154,7 @@ generated](./media/image168.png)
 
 ### Cosine
 
-**Cosine (cos):** The output is the *[x-coordinate of the corresponding
+**Cosine (cos):** The output is the *x-coordinate of the corresponding
 point on the unit circle*.
 
 The cosine function of an angle θ equals the **x-value** of the endpoint
@@ -9261,7 +9261,7 @@ generated](./media/image172.png)
 ### Sum & Difference Identities
 
 **Sum & Difference Identities:** The sum and difference identities allow
-you to express trigonometric functions of non-standard angles *[in terms
+you to express trigonometric functions of non-standard angles *in terms
 of the trigonometric functions of standard angles (e.g., 0°, 30°, 45°,
 60°, 90°, etc.)*. These identities are particularly useful
 for angles that can be expressed as sums or differences of these
