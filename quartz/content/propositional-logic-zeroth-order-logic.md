@@ -70,7 +70,7 @@ regardless of any empirical facts.
 **Versus Necessary Truth:** *All logical truths are necessary truths*,
 but not all necessary truths are logical truths. Necessary truths are
 true in all possible worlds, often because of the meanings of the
-concepts involved, such as \"All bachelors are unmarried.\"
+concepts involved, such as "All bachelors are unmarried."
 **Logical truths, on the other hand, are true due to their logical
 form.**
 
@@ -102,9 +102,9 @@ is) truths. **These two categories are often considered exhaustive.**
 These are truths that are true by definition. Their necessity comes from
 the meanings of the terms involved.
 
-Example: \"All bachelors are unmarried.\"
+Example: "All bachelors are unmarried."
 
-Explanation: This is necessarily true because \"bachelor\" is defined as
+Explanation: This is necessarily true because "bachelor" is defined as
 an unmarried man. The truth of the statement is self-evident once you
 understand the terms.
 
@@ -116,7 +116,7 @@ These are truths that are necessarily true but not by virtue of the
 meanings of words alone. They often involve empirical or metaphysical
 facts.
 
-Example: \"Water is H2O.\"
+Example: "Water is H2O."
 
 Explanation: This is a necessary truth because, in any possible world
 where water exists, it must be composed of H2O. However, this truth is
@@ -147,7 +147,7 @@ The real crux of the difference between these two types of truths lies
 in how we come to know them. With analytic truths, all you
 need is a good understanding of the concepts or definitions involved.
 You can figure them out just by thinking about the meanings of the
-words---no need to step outside and check the world.
+words; no need to step outside and check the world.
 
 But synthetic truths are more tied to reality. They aren't true just
 because of the way we define words; they're true because that's the way
@@ -193,7 +193,7 @@ necessarily true in every conceivable situation or possible world.
         affairs in the world. They rely on actual facts, events, or
         conditions that could have been different.
 
-    -   Example: \"The Eiffel Tower is in Paris\" is a contingent truth.
+    -   Example: "The Eiffel Tower is in Paris" is a contingent truth.
         It is true in the actual world because the Eiffel Tower is
         indeed located in Paris, but it could have been built in a
         different city, making the statement false in that scenario.
@@ -203,7 +203,7 @@ necessarily true in every conceivable situation or possible world.
     -   Unlike necessary truths, which are true in all possible worlds,
         contingent truths could be false in some possible worlds.
 
-    -   Example: \"Water boils at 100°C at sea level\" is a contingent
+    -   Example: "Water boils at 100°C at sea level" is a contingent
         truth that depends on the specific physical conditions, such as
         atmospheric pressure. If these conditions were different, the
         boiling point of water would also be different.
@@ -211,12 +211,12 @@ necessarily true in every conceivable situation or possible world.
 3.  **Contrast with Necessary Truth:**
 
     -   Necessary truths are true in all possible worlds, by virtue of
-        logic or the nature of the concepts involved (e.g., \"2 + 2 =
-        4\").
+        logic or the nature of the concepts involved (e.g., "2 + 2 =
+        4").
 
     -   Contingent truths, on the other hand, are true in the actual
         world but could be false in other possible worlds. For example,
-        \"Humans exist\" is a contingent truth because, while humans do
+        "Humans exist" is a contingent truth because, while humans do
         exist in the actual world, it is conceivable that humans might
         not have evolved, making the statement false in some other
         possible world.
@@ -228,9 +228,9 @@ necessarily true in every conceivable situation or possible world.
         by examining the world around us, rather than through pure
         reasoning or logical deduction.
 
-    -   Example: \"The sky is blue\" is an empirical contingent truth.
+    -   Example: "The sky is blue" is an empirical contingent truth.
         It is true under normal daylight conditions due to the way the
-        Earth\'s atmosphere scatters light, but it would not be true at
+        Earth's atmosphere scatters light, but it would not be true at
         night or on a cloudy day.
 
 ## Proposition
@@ -238,20 +238,20 @@ necessarily true in every conceivable situation or possible world.
 **Proposition: Propositions** are declarative statements that have a
 truth value, which can either be true or false, but not both.
 
-Propositions in propositional logic respect the **bi-valence principle** and the **principle of the excluded middle**. This is why their truth value can assume only 2 values and why each proposition can be assigned only a single value---not both or neither.
+Propositions in propositional logic respect the **bi-valence principle** and the **principle of the excluded middle**. This is why their truth value can assume only 2 values and why each proposition can be assigned only a single value (not both or neither).
 
 Declarative statements make assertions or declare some fact about the
 state of affairs of something.
 
 Examples:
 
--   \"The sky is blue.\"
+-   "The sky is blue."
 
--   \"She is a doctor.\"
+-   "She is a doctor."
 
--   \"Paris is the capital of France.\"
+-   "Paris is the capital of France."
 
--   \"The meeting starts at 10 AM.\"
+-   "The meeting starts at 10 AM."
 
 Propositions are the fundamental units of reasoning and logical
 analysis.
@@ -260,13 +260,13 @@ They assert facts about the world that could either be true or false.
 
 Propositions can be represented symbolically using letters:
 
--   \"The sky is blue.\" : **B**
+-   "The sky is blue." : **B**
 
--   \"She is a doctor.\" : **D**
+-   "She is a doctor." : **D**
 
--   \"Paris is the capital of France.\" : **F**
+-   "Paris is the capital of France." : **F**
 
--   \"The meeting starts at 10 AM.\" : **M**
+-   "The meeting starts at 10 AM." : **M**
 
 Propositions are sometimes called statements.
 
@@ -289,7 +289,7 @@ of their components in the real world.**
 ### Validity
 
 **Validity:** When we talk about a single proposition being valid, we
-usually mean that it is a **tautology**---a statement that is true in
+usually mean that it is a **tautology**, a statement that is true in
 all possible circumstances. This means the proposition cannot be false,
 regardless of the truth values of any variables it might contain**.**
 
@@ -426,8 +426,7 @@ table having $2^{n}$ rows.
 
 If a formula has 3 variables, it will require a truth table with 8 rows.
 
-![A screenshot of a math test Description automatically
-generated](./media/image1.png)
+![](./media/image1.png)
 
 ## Compound Proposition / Statement
 
@@ -447,8 +446,7 @@ statements) to form compound propositions.
 They determine the truth value of the compound proposition based on the
 truth values of the individual propositions
 
-![A black background with white text Description automatically
-generated](./media/image2.png)
+![](./media/image2.png)
 
 ### Unary Logical Connectives / Unary Operators
 
@@ -471,8 +469,7 @@ Symbolically, we express negation with: ¬
 
 Example: If 𝑃 is a proposition, ¬𝑃 denotes its **negation**.
 
-![A screenshot of a computer Description automatically
-generated](./media/image3.png)
+![](./media/image3.png)
 
 Properties of Negation:
 
@@ -482,7 +479,7 @@ logically equivalent to 𝑃.
 
 Expressed in symbolic terms: ¬¬𝑃 ≡ 𝑃
 
-**Distributivity:** De Morgan\'s laws provide a way of distributing
+**Distributivity:** De Morgan's laws provide a way of distributing
 negation over conjunction and disjunction.
 
 **¬(𝑃 ∧ 𝑄) ≡ (¬𝑃 ∨ ¬𝑄)**
@@ -492,8 +489,8 @@ negation over conjunction and disjunction.
 **Negation of Quantifiers:** In first-order logic, there are two
 quantifiers, one is the universal quantifier
 
-**∀** (means \"for all\") and the other is the existential quantifier
-**∃** (means \"there exists\").
+**∀** (means "for all") and the other is the existential quantifier
+**∃** (means "there exists").
 
 The negation of one quantifier is the other quantifier (¬∀𝑥𝑃(𝑥) ≡
 ∃𝑥¬𝑃(𝑥) and ¬∃𝑥𝑃(𝑥) ≡ ∀𝑥¬𝑃(𝑥)).
@@ -507,58 +504,20 @@ The negation of one quantifier is the other quantifier (¬∀𝑥𝑃(𝑥) ≡
 Associativity refers to the ability to group operations in any order
 without changing the outcome.
 
-![](./media/image4.png)
-
-![](./media/image5.png)
-
-#### Commutative property / Commutativity
-
-**Commutative property / Commutativity:**
-
-In mathematics, a binary operation is commutative if changing the order
-of the operands does not change the result.
-
-![](./media/image6.png)
-
-#### Distributive Property / Distributivity
-
-**Distributive Property:**
-
-**∀a∀b∀c( a × (b+c) = (a×b) + (a×c) )**
-
-### Binary Logical Connectives / Binary Operators
-
-**Binary Logical Connectives / Binary Operators:** Binary logical
-connectives, also known as binary logical operators, are used to
-combine two propositions (or statements) to form a compound
-proposition. The truth value of the resulting compound
-proposition is determined by the truth values of the individual
-propositions and the specific binary connective used.
-
-#### Logical Equivalence
-
-**Logical Equivalence** Logical equality is a logical operator that
-corresponds to equality in Boolean algebra and to the **logical
-biconditional** in propositional calculus. It gives the functional value
-true if both functional arguments have the same logical value, and false
-if they are different. The symbol for logical equivalence is **≡.**
-
-![A screenshot of a computer Description automatically
-generated](./media/image7.png)
+![](./media/image7.png)
 
 **Logical equivalence tells you whether two statements are always true
 or always false together. If they are, they are logically equivalent.**
 
--   **Proposition 𝑃: \"Light A is on.\"**
+-   **Proposition 𝑃: "Light A is on."**
 
--   **Proposition 𝑄: \"Light B is on.\"**
+-   **Proposition 𝑄: "Light B is on."**
 
 If both lights are on (𝑃 is true and 𝑄 is true), then 𝑃 ≡ 𝑄 is true.
 
 If both lights are off (𝑃 is false and 𝑄 is false), then 𝑃 ≡ 𝑄 is true.
 
-![A red and white logo Description automatically
-generated](./media/image8.png)
+![](./media/image8.png)
 
 The Venn diagram of A EQ B (red part is true)
 
@@ -573,49 +532,43 @@ A logical conjunction is a binary operation, typically the values of two
 propositions, that produces a value of true if and only if both of its
 operands are true.
 
-![A screenshot of a truth table Description automatically
-generated](./media/image9.png)
+![](./media/image9.png)
 
 !Venn diagram of Logical
-conjunction](./media/image10.png) ![A red and black circle with black lines
-Description automatically
-generated](./media/image11.png)
+conjunction](./media/image10.png) ![](./media/image11.png)
 
 #### Disjunction
 
 **Disjunction:** In logic, disjunction, also known as **logical
 disjunction** or **logical or** or **logical addition** or **inclusive
 disjunction**, is a logical connective typically notated as ∨ and read
-aloud as \"or\".
+aloud as "or".
 
 In classical logic, disjunction is given a truth functional semantics
 according to which a formula 𝜙 ∨ 𝜓 is true unless both are false.
 
-![A white and pink squares with black letters Description automatically
-generated](./media/image12.png)
+![](./media/image12.png)
 
-![A red circle with black lines Description automatically
-generated](./media/image13.png)
+![](./media/image13.png)
 
 #### Exclusive Disjunction / Exclusive OR
 
 **Exclusive OR:**
 
-Exclusive disjunction essentially means \'either one, but not both nor
-none\'. In other words, the statement is true if and only if one is true
+Exclusive disjunction essentially means 'either one, but not both nor
+none'. In other words, the statement is true if and only if one is true
 and the other is false.
 
-It gains the name \"exclusive or\" because the meaning of \"or\" is
+It gains the name "exclusive or" because the meaning of "or" is
 ambiguous when both operands are true.
 
 ***XOR** excludes that case*. Some informal ways of
-describing **XOR** are \"one or the other but not both\", \"either one
-or the other\", and \"A or B, but not A and B\".
+describing **XOR** are "one or the other but not both", "either one
+or the other", and "A or B, but not A and B".
 
 Symbolically, XOR is expressed as: $\mathbf{\oplus , ≢}$**, ...**
 
-![A white background with black text Description automatically
-generated](./media/image14.png)
+![](./media/image14.png)
 
 !Venn diagram of Exclusive
 or](./media/image15.png)
@@ -626,7 +579,7 @@ or](./media/image15.png)
 
 A conditional statement, also known as an implication, is a fundamental
 concept in logic that expresses a relationship between two propositions.
-It is often written in the form \"if 𝑃, then 𝑄\" and is denoted by the
+It is often written in the form "if 𝑃, then 𝑄" and is denoted by the
 symbol →
 
 The term material implication / material condition is particularly
@@ -640,35 +593,33 @@ In a conditional formula A → B
 
 -   **B** is called the consequent of the **conditional**.
 
-![A screenshot of a table Description automatically
-generated](./media/image16.png)
+![](./media/image16.png)
 
 The logical cases where the antecedent A is false and A → B is true, are
-called \"vacuous truths\". Examples are \...
+called "vacuous truths". Examples are ...
 
--   \... with **B** false: \"If Marie Curie is a sister of Galileo
-    Galilei, then Galileo Galilei is a brother of Marie Curie\",
+-   ... with **B** false: "If Marie Curie is a sister of Galileo
+    Galilei, then Galileo Galilei is a brother of Marie Curie",
 
--   \... with **B** true: \"If Marie Curie is a sister of Galileo
-    Galilei, then Marie Curie has a sibling.\".
+-   ... with **B** true: "If Marie Curie is a sister of Galileo
+    Galilei, then Marie Curie has a sibling.".
 
-![A screenshot of a computer Description automatically
-generated](./media/image17.png)
+![](./media/image17.png)
 
 ##### Vacuous Truth
 
 **Vacuous Truth:** Vacuous truth refers to a conditional statement
 (implication) that is considered true solely because its antecedent (the
-\"if\" part) is false, regardless of the truth value of the consequent
-(the \"then\" part).
+"if" part) is false, regardless of the truth value of the consequent
+(the "then" part).
 
 A vacuous truth is a conditional or universal statement (a universal
 statement that can be converted to a conditional statement) that is
 *true because the antecedent cannot be satisfied*.
 
 Examples common to everyday speech include conditional phrases used as
-*idioms of improbability* like \"when hell freezes over
-\...\" and \"when pigs can fly \...\", indicating that not before the
+*idioms of improbability* like "when hell freezes over
+..." and "when pigs can fly ...", indicating that not before the
 given (impossible) condition is met will the speaker accept some
 respective (typically false or absurd) proposition.
 
@@ -683,11 +634,11 @@ to the sentence **¬P → ¬Q**
 For example, substituting propositions in natural language for logical
 variables, the inverse of the following conditional proposition
 
-\"If it\'s raining, then Sam will meet Jack at the movies.\"
+"If it's raining, then Sam will meet Jack at the movies."
 
 would be
 
-\"If it\'s not raining, then Sam will not meet Jack at the movies.\"
+"If it's not raining, then Sam will not meet Jack at the movies."
 
 ##### Converse
 
@@ -705,35 +656,9 @@ Conditional statement **P → Q**
 
 In formulas: the contrapositive of **P →** **Q** is **¬Q → ¬P**
 
-![](./media/image18.png)
+![](./media/image19.png)
 
-#### Logical Biconditional / Biconditional Statement
-
-**Logical Biconditional / Biconditional Statement:** The biconditional,
-also known as the equivalence operator, is a logical connective that
-combines two propositions and states that both **propositions** have the
-same truth value.
-
-In other words, 𝑃 ↔ 𝑄 is true if both 𝑃 and 𝑄 are either true or false.
-
-In the propositional interpretation, 𝑃 ↔ 𝑄 means that P implies Q and Q
-implies P; in other words, the propositions are logically equivalent, in
-the sense that both are either jointly true or jointly false.
-
-Again, this does not mean that they need to have the same meaning, as P
-could be \"the triangle ABC has two equal sides\" and Q could be \"the
-triangle ABC has two equal angles\". In general, the antecedent is the
-premise, or the cause, and the consequent is the consequence.
-
-When an implication is translated by a hypothetical (or conditional)
-judgment, the antecedent is called the hypothesis (or the condition) and
-the consequent is called the thesis.
-
-![A screenshot of a table Description automatically
-generated](./media/image19.png)
-
-![A screenshot of a computer screen Description automatically
-generated](./media/image20.png)
+![](./media/image20.png)
 
 ### Connective Precedence
 
@@ -742,8 +667,7 @@ expressions to indicate the order in which the operators are to be
 evaluated. In the absence of parentheses, the order of evaluation is
 determined by precedence rules.
 
-![A table with text and arrows Description automatically generated with
-medium confidence](./media/image21.png)
+![](./media/image21.png)
 
 ## Logical Equivalences
 

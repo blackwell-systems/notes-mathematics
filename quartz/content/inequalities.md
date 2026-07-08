@@ -104,7 +104,7 @@ $x < -2$ OR $x > 6$
 
 ## Quadratic Inequalities
 
-**Quadratic Inequality:** An inequality involving a quadratic expression (degree 2).
+**Quadratic Inequality:** An inequality involving a quadratic expression (degree 2). Solving quadratic inequalities requires finding the zeros first. See [Polynomial Functions](./polynomial-functions) for factoring and the quadratic formula.
 
 **General Form:** $ax^2 + bx + c < 0$ (or $>$, $\leq$, $\geq$)
 
@@ -156,9 +156,58 @@ Draw a number line with critical points and test the sign of each factor in each
 Product   +    -       +
 ```
 
+## Polynomial Inequalities of Higher Degree
+
+The sign chart method used for quadratic inequalities extends naturally to polynomials of any degree. The key idea is the same: factor completely, find the zeros, and test the sign of the product in each interval.
+
+**Example:** Solve $x^3 - 4x > 0$
+
+**Step 1: Factor completely**
+
+$$x^3 - 4x = x(x^2 - 4) = x(x - 2)(x + 2)$$
+
+**Step 2: Find critical points (zeros)**
+
+Setting each factor to zero: $x = 0$, $x = 2$, $x = -2$
+
+**Step 3: Set up sign chart**
+
+The three zeros divide the number line into four intervals:
+
+```
+        -2          0          2
+   ------|-----------|-----------|---------
+     I       II          III        IV
+```
+
+**Step 4: Test each interval**
+
+| Interval | Test Point | Sign of $x$ | Sign of $(x-2)$ | Sign of $(x+2)$ | Product |
+|----------|------------|-------------|-----------------|-----------------|---------|
+| I: $x < -2$ | $x = -3$ | $-$ | $-$ | $-$ | $-$ |
+| II: $-2 < x < 0$ | $x = -1$ | $-$ | $-$ | $+$ | $+$ |
+| III: $0 < x < 2$ | $x = 1$ | $+$ | $-$ | $+$ | $-$ |
+| IV: $x > 2$ | $x = 3$ | $+$ | $+$ | $+$ | $+$ |
+
+**Step 5: Select intervals where the product is positive (since we want $> 0$)**
+
+The product is positive in intervals II and IV. Since the inequality is strict ($>$, not $\geq$), we exclude the endpoints.
+
+**Solution:** $x \in (-2, 0) \cup (2, \infty)$
+
+**General procedure for polynomial inequalities:**
+
+1. Move all terms to one side so the other side is 0
+2. Factor the polynomial completely
+3. Find all real zeros (critical points)
+4. Build a sign chart with one row per factor
+5. Determine the sign of the product in each interval
+6. Select the intervals that satisfy the inequality
+7. Include or exclude endpoints based on whether the inequality is strict ($<$, $>$) or non-strict ($\leq$, $\geq$)
+
 ## Rational Inequalities
 
-**Rational Inequality:** An inequality involving a rational expression (fraction with polynomials).
+**Rational Inequality:** An inequality involving a rational expression (fraction with polynomials). Rational inequalities combine the techniques from [Rational Functions](./rational-functions) (finding asymptotes and zeros) with sign analysis.
 
 **General Form:** $\frac{P(x)}{Q(x)} < 0$ (or $>$, $\leq$, $\geq$)
 

@@ -20,6 +20,8 @@ This is the simplest nontrivial rational function: the constant polynomial $1$ d
 
 With that intuition, here is the general definition.
 
+A rational function is built from [polynomial functions](./polynomial-functions). Understanding polynomial behavior (roots, degree, leading term) is essential for analyzing rational functions.
+
 ## Formal Definition
 
 **Rational Functions:** A rational function is an expression of the form
@@ -64,7 +66,7 @@ rational function:
     positive or negative infinity. They indicate y-values that the
     function approaches but does not necessarily reach.
 
--   Analyze the Function\'s Behavior: Consider the function\'s behavior
+-   Analyze the Function's Behavior: Consider the function's behavior
     around asymptotes, zeros of the numerator (where the function
     crosses the x-axis), and any other critical points (such as turning
     points) identified through calculus techniques like finding
@@ -106,8 +108,7 @@ proper rational function.
 
 **Finding x-intercepts:** Factor numerator and solve for x.
 
-![A graph of a function Description automatically
-generated](./media/image91.png)
+![](./media/image91.png)
 
 ## Finding y-intercept
 
@@ -116,40 +117,7 @@ you need to evaluate the function at *𝑥 = 0*. The y-intercept is the
 point where the graph of the function crosses the y-axis, which
 corresponds to 𝑥 = 0.
 
-![A screenshot of a black background with white text Description
-automatically
-generated](./media/image92.png)
-
-## Vertical Asymptote
-
-**Vertical Asymptote:** A vertical asymptote of a graph is a vertical
-line x = a, where the graph tends toward a positive or negative infinity
-as the input value approaches to the line x =a from either the left or
-right side.
-
-![](./media/image93.png)
-
-Above, the line ***x = 2*** is the vertical asymptote. ***x = 2*** is
-undefined in ***f(x)***, producing division by zero / vertical
-asymptote.
-
-x → $a^{-}$ , f(x) → ± ∞
-
-OR
-
-x → $a^{+}$ , f(x) → ± ∞
-
-The vertical asymptote is caused by having values in the denominator
-which result in division by zero / are undefined.
-
-### Finding the vertical asymptote
-
-**Finding the vertical asymptote:**
-
-**Set the denominator equal to zero and solve for x.**
-
-![A screenshot of a math problem Description automatically
-generated](./media/image94.png)
+![](./media/image94.png)
 
 ## Horizontal Asymptote
 
@@ -175,16 +143,7 @@ n,m respectively.
   denominator          
   -----------------------------------------------------------------------
 
-![](./media/image95.png)
-
-### Numerator \< Denominator (proper fraction)
-
-Numerator \< Denominator
-
-Horizontal asymptote: y = 0
-
-![A screenshot of a graph Description automatically
-generated](./media/image96.png)
+![](./media/image96.png)
 
 $$f(x) = \ \frac{x^{2} + 1}{x^{3}}$$
 
@@ -197,15 +156,13 @@ Numerator = Denominator
 
 Horizontal asymptote : y = 1/1
 
-![A graph on a graph Description automatically
-generated](./media/image97.png)
+![](./media/image97.png)
 
 ### Numerator \> Denominator (improper fraction)
 
 Numerator \> Denominator
 
-![A graph with red lines and dots Description automatically
-generated](./media/image98.png)
+![](./media/image98.png)
 
 Num\>Denom by 1
 
@@ -213,8 +170,7 @@ Num\>Denom by 1
 denominator by 1, the graph of the asymptote will be linear: **mx +
 b**)*
 
-![A graph on a grid Description automatically
-generated](./media/image99.png)
+![](./media/image99.png)
 
 Num\>Denom by 2
 
@@ -222,8 +178,7 @@ Num\>Denom by 2
 denominator by 2, the graph of the asymptote will be quadratic:
 **x\^2**)*
 
-![A graph on a graph Description automatically
-generated](./media/image100.png)
+![](./media/image100.png)
 
 Num\>Denom by 3
 
@@ -259,7 +214,7 @@ Perform Polynomial Long Division
     quotient.
 
 -   The quotient represents the asymptote. If the quotient is linear, it
-    will be an oblique/linear asymptote; if it\'s of higher degree, it
+    will be an oblique/linear asymptote; if it's of higher degree, it
     will be a polynomial asymptote resembling the equation of the
     polynomial retrieved by long division.
 
@@ -385,6 +340,8 @@ As x → ±∞, the remainder term $\frac{3}{x-2} \to 0$, so the function approa
 ## End Behavior
 
 **End Behavior:** Describes what happens to f(x) as x approaches positive infinity (x → +∞) or negative infinity (x → -∞).
+
+For a rigorous treatment of limits and end behavior, see [Calculus](./calculus).
 
 **Three Cases:**
 
@@ -740,4 +697,52 @@ Key graphing points:
 - ✓ Function approaches vertical asymptote from correct directions
 - ✓ Function approaches slant asymptote as x → ±∞
 - ✓ Sign analysis matches graphed regions
+
+## Applications of Rational Functions
+
+Rational functions appear naturally in many applied settings. Two common applications are average cost analysis and concentration/dilution problems.
+
+### Average Cost
+
+When a business has a total cost function $C(x)$ for producing $x$ items, the **average cost per item** is:
+
+$$\bar{C}(x) = \frac{C(x)}{x}$$
+
+This is a rational function of $x$.
+
+**Example:** Suppose the total cost of producing $x$ units is $C(x) = 5000 + 20x$, where \$5000 represents fixed costs (rent, equipment) and \$20 is the variable cost per unit.
+
+The average cost per unit is:
+
+$$\bar{C}(x) = \frac{5000 + 20x}{x} = \frac{5000}{x} + 20$$
+
+**Analysis:**
+- When $x = 10$: $\bar{C}(10) = 500 + 20 = \$520$ per unit
+- When $x = 100$: $\bar{C}(100) = 50 + 20 = \$70$ per unit
+- When $x = 1000$: $\bar{C}(1000) = 5 + 20 = \$25$ per unit
+
+As $x \to \infty$, the term $\frac{5000}{x} \to 0$, so $\bar{C}(x) \to 20$. The average cost approaches \$20 (the variable cost per unit) but never reaches it. This is the horizontal asymptote $y = 20$.
+
+**Interpretation:** The fixed costs are spread over more and more units, so each unit bears a smaller share. This is the mathematical basis of "economies of scale."
+
+### Concentration and Dilution
+
+Mixing problems often produce rational functions. When a substance is added to or diluted in a solution, the concentration is typically a ratio of amount of substance to total volume, both of which may be changing.
+
+**Example:** A tank contains 10 liters of water with 3 kg of salt dissolved in it. You begin adding pure water at a rate that increases the volume. After adding $x$ liters of pure water, the concentration of salt (in kg per liter) is:
+
+$$C(x) = \frac{3}{10 + x}$$
+
+**Analysis:**
+- Initial concentration ($x = 0$): $C(0) = \frac{3}{10} = 0.3$ kg/L
+- After adding 5 liters ($x = 5$): $C(5) = \frac{3}{15} = 0.2$ kg/L
+- After adding 20 liters ($x = 20$): $C(20) = \frac{3}{30} = 0.1$ kg/L
+
+As $x \to \infty$, $C(x) \to 0$. The horizontal asymptote is $y = 0$: with enough dilution, the concentration approaches zero but never quite reaches it. There is also a vertical asymptote at $x = -10$, which lies outside the physical domain ($x \geq 0$) but is part of the mathematical structure.
+
+**Example 2:** A chemist has 50 mL of a 30% acid solution and adds $x$ mL of pure acid. The concentration of the resulting solution is:
+
+$$C(x) = \frac{0.30(50) + x}{50 + x} = \frac{15 + x}{50 + x}$$
+
+As $x \to \infty$, $C(x) \to 1$ (100% acid). The horizontal asymptote $y = 1$ makes physical sense: adding more and more pure acid makes the solution approach pure acid.
 

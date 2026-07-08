@@ -44,8 +44,8 @@ equations intersect.***
 automatically
 generated](./media/image63.png)
 
-The double subscripting on the coefficients *a~ij~* of the unknowns
-gives their location in the system---the first subscript indicates the
+The double subscripting on the coefficients $a_{ij}$ of the unknowns
+gives their location in the system; the first subscript indicates the
 equation in which the coefficient occurs, and the second indicates which
 unknown it multiplies. Thus, *a*~12~ is in the first equation and
 multiplies *x*~2~.

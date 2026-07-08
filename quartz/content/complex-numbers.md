@@ -6,6 +6,8 @@ title: "Complex Numbers"
 
 Try solving this equation: $x^2 = -1$. You need a number that, when multiplied by itself, gives $-1$. But any positive number squared is positive, and any negative number squared is also positive, and $0^2 = 0$. No real number works. The equation has no solution among the real numbers.
 
+Complex numbers extend the real numbers to ensure every [polynomial](./polynomial-functions) has roots, as guaranteed by the Fundamental Theorem of Algebra.
+
 ### What If We Invented a Solution?
 
 Mathematicians faced this problem for centuries. Their breakthrough was to simply **define** a new number, called $i$, with the property that $i^2 = -1$. This is not a number you can find on the ordinary number line; it is an extension of the number system, created to fill a gap.
@@ -37,8 +39,7 @@ $\mathbf{(x + 1)}^{\mathbf{2}}\mathbf{=  - 9}$ has no real solution,
 because the square of a real number cannot be negative but has the two
 nonreal complex solutions **-1+3i** and **-1-3i**.
 
-![A black background with yellow and blue text Description automatically
-generated](./media/image52.png)
+![](./media/image52.png)
 
 !Venn Diagram of Complex
 Numbers](./media/image53.png)
@@ -205,7 +206,79 @@ Where:
 1. $a = r\cos\theta$
 2. $b = r\sin\theta$
 
+## Euler's Formula
+
+**Euler's Formula:** For any real number $\theta$:
+
+$$e^{i\theta} = \cos\theta + i\sin\theta$$
+
+This single equation connects three seemingly unrelated areas of mathematics: exponential functions, trigonometry, and complex numbers. It says that raising $e$ to an imaginary power produces a point on the unit circle in the complex plane, with the angle $\theta$ measured in radians from the positive real axis.
+
+**Why it works:** The key insight comes from Taylor series. The Taylor series for $e^x$, $\sin x$, and $\cos x$ are:
+
+$$e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots$$
+
+$$\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots$$
+
+$$\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots$$
+
+Substituting $ix$ into the series for $e^x$ and using the fact that $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, the real terms collect into $\cos x$ and the imaginary terms collect into $i\sin x$.
+
+### Euler's Identity
+
+Setting $\theta = \pi$ in Euler's formula gives:
+
+$$e^{i\pi} + 1 = 0$$
+
+This is often called "the most beautiful equation in mathematics" because it ties together five fundamental constants: $e$ (the base of natural logarithms), $i$ (the imaginary unit), $\pi$ (the ratio of a circle's circumference to its diameter), $1$ (the multiplicative identity), and $0$ (the additive identity).
+
+### Polar Form Using Euler's Formula
+
+With Euler's formula, the polar form of a complex number becomes especially compact:
+
+$$z = r(\cos\theta + i\sin\theta) = re^{i\theta}$$
+
+This exponential notation makes multiplication, division, and exponentiation of complex numbers straightforward, as the next section shows.
+
+## Multiplication and Division in Polar Form
+
+Polar form transforms multiplication and division of complex numbers into simple operations on moduli and angles.
+
+### Multiplication
+
+To multiply two complex numbers in polar form, multiply their moduli and add their angles:
+
+$$r_1 e^{i\theta_1} \cdot r_2 e^{i\theta_2} = r_1 r_2 \, e^{i(\theta_1 + \theta_2)}$$
+
+In trigonometric notation:
+
+$$[r_1(\cos\theta_1 + i\sin\theta_1)] \cdot [r_2(\cos\theta_2 + i\sin\theta_2)] = r_1 r_2 [\cos(\theta_1 + \theta_2) + i\sin(\theta_1 + \theta_2)]$$
+
+**Example:** Multiply $z_1 = 3e^{i\pi/6}$ and $z_2 = 2e^{i\pi/3}$
+
+$$z_1 \cdot z_2 = 3 \cdot 2 \, e^{i(\pi/6 + \pi/3)} = 6e^{i\pi/2}$$
+
+Converting back to rectangular form: $6(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}) = 6(0 + i) = 6i$
+
+**Geometric interpretation:** Multiplying by $z_2 = 2e^{i\pi/3}$ scales the distance from the origin by 2 and rotates the point by $\pi/3$ radians (60 degrees) counterclockwise.
+
+### Division
+
+To divide two complex numbers in polar form, divide their moduli and subtract their angles:
+
+$$\frac{r_1 e^{i\theta_1}}{r_2 e^{i\theta_2}} = \frac{r_1}{r_2} e^{i(\theta_1 - \theta_2)}$$
+
+**Example:** Divide $z_1 = 4e^{i\cdot 5\pi/6}$ by $z_2 = 2e^{i\pi/3}$
+
+$$\frac{z_1}{z_2} = \frac{4}{2} e^{i(5\pi/6 - \pi/3)} = 2e^{i\pi/2}$$
+
+Converting back: $2(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}) = 2i$
+
+**Geometric interpretation:** Dividing by $z_2 = 2e^{i\pi/3}$ scales the distance from the origin by $\frac{1}{2}$ and rotates the point by $\pi/3$ radians clockwise.
+
 ## De Moivre's Theorem
+
+Polar form uses concepts from [Geometry & Trigonometry](./geometry-trigonometry): the angle $\theta$ and the modulus $r$.
 
 **De Moivre's Theorem:** For any integer $n$:
 
@@ -226,4 +299,42 @@ $$z_k = \sqrt[n]{r}\left(\cos\frac{\theta + 2\pi k}{n} + i\sin\frac{\theta + 2\p
 For $k = 0, 1, 2, \ldots, n-1$
 
 **Example:** Three cube roots of $8i$ are: $\sqrt{3} + i$, $-\sqrt{3} + i$, $-2i$
+
+## Complex Zeros of Polynomials
+
+Complex numbers complete the picture of polynomial factoring. Over the real numbers, some polynomials cannot be factored completely (for example, $x^2 + 1$ has no real roots). Over the complex numbers, every polynomial factors into linear terms.
+
+### Conjugate Pairs Theorem
+
+**Conjugate Pairs Theorem:** If a polynomial has **real coefficients** and $a + bi$ (with $b \neq 0$) is a root, then its conjugate $a - bi$ is also a root.
+
+This happens because complex conjugation "passes through" real coefficients. If you substitute $a + bi$ into a polynomial with real coefficients and get zero, then substituting $a - bi$ also gives zero; the conjugation distributes over addition and multiplication, and real coefficients are unchanged by conjugation.
+
+**Consequence:** Nonreal complex roots of real-coefficient polynomials always come in pairs. This means a polynomial of odd degree with real coefficients must have at least one real root (since complex roots pair up, at least one root is left over).
+
+### Factoring Completely over $\mathbb{C}$
+
+The Fundamental Theorem of Algebra (see [Polynomial Functions](./polynomial-functions)) guarantees that every polynomial of degree $n$ has exactly $n$ roots in $\mathbb{C}$, counting multiplicity. This means every polynomial can be written as a product of linear factors over the complex numbers:
+
+$$p(x) = a_n(x - r_1)(x - r_2) \cdots (x - r_n)$$
+
+where $r_1, r_2, \ldots, r_n$ are the (possibly repeated, possibly complex) roots.
+
+**Example:** Factor $p(x) = x^4 - 1$ completely over $\mathbb{C}$.
+
+Over $\mathbb{R}$, we get: $x^4 - 1 = (x^2 - 1)(x^2 + 1) = (x-1)(x+1)(x^2+1)$
+
+The factor $x^2 + 1$ has no real roots, but over $\mathbb{C}$ its roots are $i$ and $-i$:
+
+$$x^4 - 1 = (x - 1)(x + 1)(x - i)(x + i)$$
+
+**Example:** Find all zeros of $p(x) = x^3 - x^2 + x - 1$.
+
+Factor by grouping: $x^2(x - 1) + 1(x - 1) = (x-1)(x^2 + 1)$
+
+The real root is $x = 1$. The factor $x^2 + 1 = 0$ gives $x = \pm i$.
+
+All zeros: $1, i, -i$. Note that $i$ and $-i$ form a conjugate pair.
+
+Complete factorization: $p(x) = (x - 1)(x - i)(x + i)$
 

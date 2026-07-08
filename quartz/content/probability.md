@@ -341,6 +341,103 @@ $$
 
 **Example:** If the probability of finding a bug in a code review is 0.3, the expected number of reviews until finding a bug is $1/0.3 \approx 3.33$ reviews.
 
+**Memoryless property:** The geometric distribution is the only discrete distribution with the memoryless property:
+
+$$
+P(X > s + t \mid X > s) = P(X > t)
+$$
+
+This means that if you have already failed $s$ times, the probability of needing more than $t$ additional trials is the same as if you were starting fresh. The number of failures so far is irrelevant. This is the discrete analog of the exponential distribution's memoryless property (see below).
+
+### Negative Binomial Distribution
+
+**Negative binomial distribution:** The number of trials needed to achieve the $r$th success, where each trial independently succeeds with probability $p$.
+
+$$
+P(X = k) = \binom{k-1}{r-1} p^r (1-p)^{k-r}, \quad k = r, r+1, r+2, \ldots
+$$
+
+The $\binom{k-1}{r-1}$ factor counts the number of ways to arrange $r - 1$ successes among the first $k - 1$ trials (the $k$th trial must be a success, giving the $r$th success).
+
+- $E[X] = r/p$
+- $\text{Var}(X) = r(1-p)/p^2$
+
+The geometric distribution is the special case $r = 1$: waiting for the first success.
+
+**Worked example:** A basketball player makes free throws with probability $p = 0.8$. What is the probability that her 5th made free throw occurs on her 7th attempt?
+
+Here $r = 5$, $p = 0.8$, $k = 7$:
+
+$$
+P(X = 7) = \binom{6}{4} (0.8)^5 (0.2)^2 = 15 \cdot 0.32768 \cdot 0.04 \approx 0.1966
+$$
+
+The expected number of attempts to make 5 free throws is $E[X] = 5/0.8 = 6.25$.
+
+### Hypergeometric Distribution
+
+**Hypergeometric distribution:** Models the number of successes when sampling without replacement from a finite population. Use this instead of the binomial when the population is small and sampling without replacement matters.
+
+**Setup:** A population of $N$ items contains $K$ successes and $N - K$ failures. You draw $n$ items without replacement. Let $X$ be the number of successes drawn.
+
+$$
+P(X = k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}
+$$
+
+where $\max(0, n - N + K) \leq k \leq \min(n, K)$.
+
+- $E[X] = n \cdot K/N$
+- $\text{Var}(X) = n \cdot \frac{K}{N} \cdot \frac{N-K}{N} \cdot \frac{N-n}{N-1}$
+
+The factor $\frac{N-n}{N-1}$ is called the **finite population correction**. As $N \to \infty$ (population becomes very large relative to the sample), this factor approaches 1 and the hypergeometric distribution approaches the binomial with $p = K/N$.
+
+**Worked example (quality control):** A shipment contains 100 items, of which 10 are defective. An inspector randomly selects 5 items. What is the probability that exactly 2 are defective?
+
+Here $N = 100$, $K = 10$, $n = 5$, $k = 2$:
+
+$$
+P(X = 2) = \frac{\binom{10}{2}\binom{90}{3}}{\binom{100}{5}} = \frac{45 \cdot 117480}{75287520} \approx 0.0702
+$$
+
+**Worked example (drawing cards):** From a standard 52-card deck, you draw 5 cards. What is the probability of getting exactly 2 hearts?
+
+Here $N = 52$, $K = 13$ (hearts), $n = 5$, $k = 2$:
+
+$$
+P(X = 2) = \frac{\binom{13}{2}\binom{39}{3}}{\binom{52}{5}} = \frac{78 \cdot 9139}{2598960} \approx 0.2743
+$$
+
+### Discrete Uniform Distribution
+
+**Discrete uniform distribution:** Each of $n$ equally likely outcomes has the same probability. This is the simplest discrete distribution.
+
+$$
+P(X = k) = \frac{1}{n}, \quad k = 1, 2, \ldots, n
+$$
+
+- $E[X] = \frac{n+1}{2}$
+- $\text{Var}(X) = \frac{n^2 - 1}{12}$
+
+**Example (fair die):** A fair six-sided die follows a discrete uniform distribution with $n = 6$. Each face has probability $1/6$. The expected value is $(6+1)/2 = 3.5$ and the variance is $(36 - 1)/12 = 35/12 \approx 2.917$.
+
+### Poisson Approximation to the Binomial
+
+When $n$ is large and $p$ is small, the binomial distribution $\text{Binomial}(n, p)$ is well approximated by the Poisson distribution with $\lambda = np$:
+
+$$
+\binom{n}{k} p^k (1-p)^{n-k} \approx \frac{(np)^k e^{-np}}{k!}
+$$
+
+**Rule of thumb:** The approximation works well when $n \geq 20$ and $p \leq 0.05$, or more generally when $n \geq 100$ and $np \leq 10$.
+
+**Example:** In a batch of 1000 items, each has a 0.002 probability of being defective. What is the probability of finding exactly 3 defective items?
+
+Using the Poisson approximation with $\lambda = np = 1000 \cdot 0.002 = 2$:
+
+$$
+P(X = 3) \approx \frac{2^3 e^{-2}}{3!} = \frac{8 \cdot 0.1353}{6} \approx 0.1804
+$$
+
 ## Common Continuous Distributions
 
 ### Uniform Distribution
@@ -368,6 +465,14 @@ $$
 - $\text{Var}(X) = 1/\lambda^2$
 
 **Memoryless property:** $P(X > s + t \mid X > s) = P(X > t)$. The probability of waiting an additional time $t$ does not depend on how long you have already waited. This is unique to the exponential distribution among continuous distributions.
+
+**CDF:** The cumulative distribution function of the exponential distribution has a simple closed form:
+
+$$
+F(x) = 1 - e^{-\lambda x}, \quad x \geq 0
+$$
+
+This is useful for computing probabilities directly. For example, the probability that you wait at most $t$ time units is $P(X \leq t) = 1 - e^{-\lambda t}$.
 
 ### Normal (Gaussian) Distribution
 
@@ -426,6 +531,70 @@ Three reasons the Gaussian is ubiquitous:
 
 **Where it shows up in ML:** Gaussian noise assumptions in linear regression, Gaussian processes, variational autoencoders, the reparameterization trick, weight initialization, and batch normalization.
 
+### Gamma Distribution
+
+**Gamma distribution:** A flexible family of distributions for modeling positive-valued continuous random variables, particularly waiting times and durations.
+
+The PDF is:
+
+$$
+f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}, \quad x > 0
+$$
+
+where $\alpha > 0$ is the **shape** parameter, $\beta > 0$ is the **rate** parameter, and $\Gamma(\alpha)$ is the gamma function (a generalization of the factorial: $\Gamma(n) = (n-1)!$ for positive integers).
+
+- $E[X] = \alpha / \beta$
+- $\text{Var}(X) = \alpha / \beta^2$
+
+**Special case:** When $\alpha = 1$, the gamma distribution reduces to the exponential distribution with rate $\beta$. So $\text{Gamma}(1, \lambda) = \text{Exponential}(\lambda)$.
+
+**Sum property:** If $X_1, X_2, \ldots, X_n$ are independent $\text{Exponential}(\beta)$ random variables, then their sum follows a $\text{Gamma}(n, \beta)$ distribution. This makes intuitive sense: if each $X_i$ is the waiting time between events in a Poisson process, then $\sum X_i$ is the total waiting time until the $n$th event.
+
+**Where it shows up:** In Bayesian statistics, the gamma distribution is the conjugate prior for the rate parameter of a Poisson distribution. It also appears in modeling insurance claims, rainfall amounts, and network packet inter-arrival times.
+
+### Beta Distribution
+
+**Beta distribution:** A distribution on the interval $[0, 1]$, making it natural for modeling probabilities, proportions, and rates.
+
+The PDF is:
+
+$$
+f(x) = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)}, \quad 0 \leq x \leq 1
+$$
+
+where $B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta function (a normalizing constant), and $\alpha > 0$, $\beta > 0$ are shape parameters.
+
+- $E[X] = \frac{\alpha}{\alpha + \beta}$
+- $\text{Var}(X) = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
+
+The shape parameters control the distribution's behavior:
+
+- $\alpha = \beta = 1$: the beta distribution reduces to $\text{Uniform}(0, 1)$
+- $\alpha = \beta > 1$: symmetric and bell-shaped, centered at $1/2$
+- $\alpha > \beta$: skewed toward 1
+- $\alpha < \beta$: skewed toward 0
+
+**Where it shows up:** In Bayesian statistics, the beta distribution is the conjugate prior for the probability parameter of a Bernoulli or binomial distribution. If your prior on a coin's bias is $\text{Beta}(\alpha, \beta)$ and you observe $h$ heads and $t$ tails, the posterior is $\text{Beta}(\alpha + h, \beta + t)$. This makes Bayesian updating with binary data extremely clean.
+
+### Chi-Squared Distribution
+
+**Chi-squared distribution:** If $Z_1, Z_2, \ldots, Z_k$ are independent standard normal random variables ($Z_i \sim N(0,1)$), then the sum of their squares follows a chi-squared distribution with $k$ degrees of freedom:
+
+$$
+X = \sum_{i=1}^{k} Z_i^2 \sim \chi^2_k
+$$
+
+- $E[X] = k$
+- $\text{Var}(X) = 2k$
+
+The chi-squared distribution is a special case of the gamma distribution: $\chi^2_k = \text{Gamma}(k/2, 1/2)$.
+
+**Where it shows up:** The chi-squared distribution is central to hypothesis testing in statistics:
+
+- **Goodness-of-fit tests:** Testing whether observed frequencies match expected frequencies (Pearson's chi-squared test)
+- **Independence tests:** Testing whether two categorical variables are independent (chi-squared test of independence)
+- **Confidence intervals for variance:** When sampling from a normal population, the sample variance scaled appropriately follows a chi-squared distribution
+
 ## Joint Distributions, Covariance, and Correlation
 
 ### Joint Distributions
@@ -447,6 +616,64 @@ $$
 
 The marginal distribution of $Y$: $P(Y = \text{fail}) = 0.20 + 0.05 = 0.25$ and $P(Y = \text{pass}) = 0.10 + 0.65 = 0.75$. You get the marginal by summing across the row.
 
+### Conditional Distributions
+
+**Conditional distribution:** The distribution of one random variable given a specific value of another.
+
+For discrete random variables:
+
+$$
+P(Y = y \mid X = x) = \frac{P(X = x, Y = y)}{P(X = x)}
+$$
+
+For continuous random variables:
+
+$$
+f_{Y|X}(y \mid x) = \frac{f_{X,Y}(x, y)}{f_X(x)}
+$$
+
+**Worked example:** Using the study hours / exam result table above, what is the probability of passing given high study hours?
+
+$$
+P(Y = \text{pass} \mid X = \text{high}) = \frac{P(X = \text{high}, Y = \text{pass})}{P(X = \text{high})} = \frac{0.65}{0.05 + 0.65} = \frac{0.65}{0.70} \approx 0.929
+$$
+
+Compare this to the probability of passing given low study hours:
+
+$$
+P(Y = \text{pass} \mid X = \text{low}) = \frac{0.10}{0.20 + 0.10} = \frac{0.10}{0.30} \approx 0.333
+$$
+
+The conditional distribution quantifies how the probability of passing changes depending on study effort.
+
+### Independence of Random Variables
+
+**Independent random variables:** $X$ and $Y$ are independent if and only if their joint distribution factors into the product of their marginals:
+
+$$
+f_{X,Y}(x, y) = f_X(x) \cdot f_Y(y) \quad \text{for all } x, y
+$$
+
+For discrete variables, this means $P(X = x, Y = y) = P(X = x) \cdot P(Y = y)$ for every pair $(x, y)$.
+
+**Checking independence with a table:** To check whether $X$ and $Y$ are independent in the study/exam table, verify that each cell equals the product of its row and column marginals. For example, $P(X = \text{low}) = 0.30$ and $P(Y = \text{fail}) = 0.25$, so independence would require $P(X = \text{low}, Y = \text{fail}) = 0.30 \times 0.25 = 0.075$. The actual value is 0.20, so $X$ and $Y$ are not independent. Study hours and exam outcome are related.
+
+### Law of Total Expectation
+
+**Law of total expectation (tower property):** For any two random variables $X$ and $Y$:
+
+$$
+E[Y] = E[E[Y \mid X]]
+$$
+
+**Intuition:** You can compute the overall average of $Y$ by first computing the conditional average of $Y$ for each value of $X$, and then averaging those conditional averages, weighted by how likely each value of $X$ is.
+
+**Example:** Suppose that the number of customers entering a store in a day is $X \sim \text{Poisson}(100)$, and each customer independently spends an amount $Y_i$ with $E[Y_i] = 50$ dollars. The total revenue is $T = \sum_{i=1}^{X} Y_i$. By the law of total expectation:
+
+$$
+E[T] = E[E[T \mid X]] = E[X \cdot 50] = 50 \cdot E[X] = 50 \cdot 100 = 5000
+$$
+
 ### Covariance
 
 **Covariance:** Measures how two random variables move together:
@@ -460,6 +687,30 @@ $$
 - $\text{Cov}(X, Y) = 0$: no linear relationship (but there could still be a nonlinear one)
 
 If $X$ and $Y$ are independent, then $\text{Cov}(X, Y) = 0$. The converse is not always true: zero covariance does not guarantee independence.
+
+**Bilinearity of covariance:** Covariance is linear in each argument:
+
+$$
+\text{Cov}(aX + bY, Z) = a\,\text{Cov}(X, Z) + b\,\text{Cov}(Y, Z)
+$$
+
+This property is extremely useful for computing the variance of linear combinations. For example, $\text{Cov}(X, X) = \text{Var}(X)$, and $\text{Cov}(X + Y, X + Y)$ expands to $\text{Var}(X) + 2\text{Cov}(X,Y) + \text{Var}(Y)$.
+
+### Variance of Sums (General Case)
+
+For any two random variables $X$ and $Y$ (not necessarily independent):
+
+$$
+\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\,\text{Cov}(X, Y)
+$$
+
+This reduces to $\text{Var}(X) + \text{Var}(Y)$ only when $X$ and $Y$ are uncorrelated (i.e., $\text{Cov}(X, Y) = 0$). Independence implies uncorrelatedness, but not the reverse.
+
+More generally, for $n$ random variables:
+
+$$
+\text{Var}\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \text{Var}(X_i) + 2\sum_{i < j} \text{Cov}(X_i, X_j)
+$$
 
 ### Correlation
 
@@ -475,6 +726,30 @@ $$
 
 **Where it shows up in ML:** Feature correlation matters for multicollinearity in regression. The covariance matrix is central to PCA (principal component analysis), which finds the directions of maximum variance in data.
 
+### Multivariate Normal Distribution
+
+The **multivariate normal distribution** generalizes the normal distribution to vectors of random variables. A random vector $\mathbf{X} = (X_1, X_2, \ldots, X_k)^T$ follows a multivariate normal distribution, written $\mathbf{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$, where:
+
+- $\boldsymbol{\mu}$ is the **mean vector**: $\boldsymbol{\mu} = (E[X_1], E[X_2], \ldots, E[X_k])^T$
+- $\boldsymbol{\Sigma}$ is the **covariance matrix**: $\Sigma_{ij} = \text{Cov}(X_i, X_j)$
+
+The PDF in $k$ dimensions is:
+
+$$
+f(\mathbf{x}) = \frac{1}{(2\pi)^{k/2} |\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\right)
+$$
+
+**In two dimensions:** The contours of constant density are ellipses. The axes of the ellipses are determined by the eigenvectors of $\boldsymbol{\Sigma}$, and their lengths are proportional to the square roots of the eigenvalues. When the covariance is zero, the ellipses align with the coordinate axes; nonzero covariance tilts them.
+
+**Key properties:**
+
+1. **Marginals are normal.** Every subset of the variables has a (multivariate) normal distribution. In particular, each $X_i$ is univariate normal.
+2. **Conditionals are normal.** The conditional distribution of some variables given others is also (multivariate) normal.
+3. **Linear combinations are normal.** Any linear combination $a_1 X_1 + a_2 X_2 + \cdots + a_k X_k$ is univariate normal.
+4. **Uncorrelated implies independent.** For the multivariate normal (and only for the multivariate normal), zero covariance between components implies independence. This is not true for general distributions.
+
+**Where it shows up in ML:** The multivariate normal is pervasive in machine learning. Gaussian processes define distributions over functions using multivariate normals. Variational autoencoders use the reparameterization trick with multivariate normal latent variables. Multivariate regression assumes normally distributed errors. PCA is closely connected to the eigendecomposition of the covariance matrix, which characterizes the multivariate normal. Gaussian mixture models use weighted sums of multivariate normals to model complex data distributions.
+
 ## Law of Large Numbers
 
 **Law of large numbers (LLN):** As the number of independent trials increases, the sample average converges to the expected value.
@@ -488,6 +763,44 @@ $$
 **Intuition:** Flip a coin 10 times and you might get 70% heads. Flip it 10,000 times and you will get very close to 50% heads. The more data you collect, the more the average stabilizes around the true mean.
 
 **Where it shows up:** This is why more training data generally leads to better ML models. It is the theoretical justification for using sample statistics to estimate population parameters.
+
+## Probability Inequalities
+
+Probability inequalities give bounds on probabilities when you do not know the exact distribution. They are weaker than exact calculations but apply to broad classes of distributions.
+
+### Markov's Inequality
+
+**Markov's inequality:** For any non-negative random variable $X$ and any $a > 0$:
+
+$$
+P(X \geq a) \leq \frac{E[X]}{a}
+$$
+
+This is the weakest major inequality but also the most general: it requires only that $X \geq 0$ and that $E[X]$ exists.
+
+**Example:** If the average time to complete a task is 2 hours, then the probability it takes more than 10 hours is at most $2/10 = 0.2$, or 20%. This bound may be loose, but it holds for any non-negative distribution with that mean.
+
+**Proof sketch:** Since $X \geq 0$, we have $E[X] = \int_0^\infty x f(x)\,dx \geq \int_a^\infty x f(x)\,dx \geq a \int_a^\infty f(x)\,dx = a \cdot P(X \geq a)$.
+
+### Chebyshev's Inequality
+
+**Chebyshev's inequality:** For any random variable $X$ with mean $\mu$ and finite variance $\sigma^2$, and for any $k > 0$:
+
+$$
+P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+$$
+
+This gives an upper bound on how much probability can lie far from the mean, for any distribution whatsoever.
+
+**Worked example:** Regardless of the distribution shape:
+
+- At least $1 - 1/2^2 = 75\%$ of values lie within 2 standard deviations of the mean
+- At least $1 - 1/3^2 \approx 89\%$ of values lie within 3 standard deviations of the mean
+- At least $1 - 1/4^2 = 93.75\%$ of values lie within 4 standard deviations of the mean
+
+**Comparison with the 68-95-99.7 rule:** For the normal distribution specifically, 95% of values lie within 2 standard deviations and 99.7% within 3. Chebyshev guarantees only 75% and 89% respectively. The gap shows that Chebyshev is conservative: it must account for worst-case distributions (like heavy-tailed ones), while the 68-95-99.7 rule is exact for the normal.
+
+**Where it shows up:** Chebyshev's inequality is used to prove the (weak) law of large numbers. It also provides distribution-free confidence intervals when you know only the mean and variance.
 
 ## Central Limit Theorem
 

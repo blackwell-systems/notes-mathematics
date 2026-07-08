@@ -76,8 +76,7 @@ vertex/axis of symmetry directly from the equation.
 
 $$f(x) = a(x - h)^{2} + k$$
 
-![A graph of a function Description automatically
-generated](./media/image64.png)
+![](./media/image64.png)
 
 $$f(x) = x^{2}$$
 
@@ -93,8 +92,7 @@ the line that divides the graph into two perfect halves.
 
 $$x = \frac{- b}{2a}$$
 
-![A graph of a function Description automatically
-generated](./media/image65.png)
+![](./media/image65.png)
 
 ### Methods for Solving Quadratic Equations
 
@@ -104,7 +102,7 @@ generated](./media/image65.png)
 Solving a polynomial means finding all the values of the variable that
 make the polynomial equal to zero.
 
-These values are called the \"**roots**\" or \"**zeros**\" of the
+These values are called the "**roots**" or "**zeros**" of the
 polynomial.
 
 The roots/solutions/zeroes of a polynomial occur at the x-intercepts.
@@ -128,8 +126,7 @@ also zero.
 
 If ab = 0, then either a = 0 or b = 0
 
-![A black background with white text Description automatically
-generated](./media/image66.png)
+![](./media/image66.png)
 
 The zero product property can be used to solve polynomial equations of
 **any degree** as long as the polynomial can be factored
@@ -137,6 +134,7 @@ into a product of simpler polynomials.
 
 ### Special Factoring Forms
 
+For factoring that involves dividing polynomials into simpler rational expressions, see [Partial Fraction Decomposition](./partial-fraction-decomposition).
 
 | Special Factoring Form | Expression | Factored Form |
 |---|---|---|
@@ -225,8 +223,7 @@ $$(2x - 3)(x^2 - 1) = (2x - 3)(x - 1)(x + 1)$$
 another method of solving a quadratic equation is by using the square
 root property.
 
-![A screenshot of a math problem Description automatically
-generated](./media/image67.png)
+![](./media/image67.png)
 
 ### Completing the Square
 
@@ -321,32 +318,77 @@ Vertex: $(2, -5)$
 - Used in optimization problems
 - Foundation for completing the square in higher dimensions (quadratic forms in linear algebra)
 
+The vertex form reveals the maximum or minimum of the parabola. For the general technique of finding maxima and minima of any function, see [Calculus](./calculus).
+
 ### Quadratic Formula
 
 **Quadratic Formula:** The fourth method of solving a quadratic equation
 is by using the quadratic formula, a formula that will solve all
 quadratic equations.
 
-![A math equation with square and square symbols Description
-automatically generated with medium
-confidence](./media/image68.png)
+![](./media/image70.png)
 
-**All Quadratic equations can be solved using this method.**
+### The Discriminant
 
-#### Discriminant
+The quadratic formula contains the expression $b^2 - 4ac$ under the square root. This expression, called the **discriminant**, determines the nature of the roots without requiring you to solve the entire equation.
 
-**Discriminant:** The quadratic formula not only generates the solutions
-to a quadratic equation, it tells us about the nature of the solutions.
+**Discriminant:** For a quadratic equation $ax^2 + bx + c = 0$, the discriminant is:
 
-The discriminant tells us whether the solutions are real numbers or
-complex numbers, and how many solutions of each type to expect.
+$$
+\Delta = b^2 - 4ac
+$$
 
-Discriminant:
+The discriminant tells you three things:
 
-![](./media/image69.png)
+- **$\Delta > 0$:** Two distinct real roots. The parabola crosses the x-axis at two points.
+- **$\Delta = 0$:** One repeated real root (a double root). The parabola touches the x-axis at exactly one point (its vertex).
+- **$\Delta < 0$:** Two complex conjugate roots. The parabola does not cross the x-axis at all.
 
-![A screenshot of a white box Description automatically
-generated](./media/image70.png)
+**Why this works:** The quadratic formula is $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$. When $\Delta > 0$, the square root is a real number, producing two different values via $\pm$. When $\Delta = 0$, the square root vanishes and both roots collapse to one value. When $\Delta < 0$, the square root of a negative number produces imaginary parts, yielding a complex conjugate pair.
+
+**Example 1 ($\Delta > 0$, two distinct real roots):** Solve $x^2 - 5x + 6 = 0$
+
+$$
+\Delta = (-5)^2 - 4(1)(6) = 25 - 24 = 1 > 0
+$$
+
+Two distinct real roots:
+
+$$
+x = \frac{5 \pm \sqrt{1}}{2} = \frac{5 \pm 1}{2}
+$$
+
+$$
+x = 3 \quad \text{or} \quad x = 2
+$$
+
+**Example 2 ($\Delta = 0$, one repeated real root):** Solve $x^2 - 6x + 9 = 0$
+
+$$
+\Delta = (-6)^2 - 4(1)(9) = 36 - 36 = 0
+$$
+
+One repeated root:
+
+$$
+x = \frac{6 \pm \sqrt{0}}{2} = \frac{6}{2} = 3
+$$
+
+The polynomial factors as $(x - 3)^2 = 0$, confirming the double root.
+
+**Example 3 ($\Delta < 0$, two complex conjugate roots):** Solve $x^2 + 2x + 5 = 0$
+
+$$
+\Delta = (2)^2 - 4(1)(5) = 4 - 20 = -16 < 0
+$$
+
+Two complex conjugate roots:
+
+$$
+x = \frac{-2 \pm \sqrt{-16}}{2} = \frac{-2 \pm 4i}{2} = -1 \pm 2i
+$$
+
+The roots are $-1 + 2i$ and $-1 - 2i$, a conjugate pair.
 
 ## Cubic Functions d=3
 
@@ -362,8 +404,7 @@ x-axis at a maximum of 3 points.
 has either 1 or 3 real zeros. It cannot have 2 real
 zeros.***
 
-![A graph of a function Description automatically
-generated](./media/image71.png)
+![](./media/image71.png)
 
 ### Domain / Range of Cubic Function
 
@@ -422,21 +463,7 @@ highest power the variable is raised to in the polynomial.
 The degree also dictates *how many zeros a polynomial can
 have* and *what the end behavior is*.
 
-![](./media/image72.png)
-
-## Turning Points
-
-Understanding the Relationship between Degree and Turning Points
-
-**Turning points:** A turning point is a point of the graph where the
-graph changes from increasing to decreasing (rising to falling) or
-decreasing to increasing (falling to rising).
-
-A polynomial of degree **n** will have at most **n−1** turning
-points.
-
-![A diagram of a graph Description automatically
-generated](./media/image73.png)
+![](./media/image73.png)
 
 Graph of f(x)= $x^{4} - x^{3} - 4x^{2} + 4x$
 
@@ -451,8 +478,7 @@ by its leading term.
 
 **Even power, positive leading coefficient:**
 
-![A diagram of a graph Description automatically
-generated](./media/image74.png)
+![](./media/image74.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -460,8 +486,7 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Even power, negative leading coefficient:**
 
-![A diagram of a graph Description automatically
-generated](./media/image75.png)
+![](./media/image75.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \  - \infty}$$
 
@@ -469,8 +494,7 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Odd power, positive leading coefficient:**
 
-![A graph of a function Description automatically
-generated](./media/image76.png)
+![](./media/image76.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -478,10 +502,9 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Odd power, negative leading coefficient:**
 
-![A diagram of a graphing function Description automatically
-generated](./media/image77.png)
+![](./media/image77.png)
 
-$$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+$$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ -\infty}$$
 
 $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -497,12 +520,7 @@ graph behaves at the x-intercept.
 -   If the multiplicity of a zero is odd, the *graph will cross the
     x-axis* at that zero.
 
-![](./media/image78.png)
-
-![](./media/image79.png)
-
-![A graph of a function Description automatically
-generated](./media/image80.png)
+![](./media/image80.png)
 
 ## The Fundamental Theorem of Algebra
 
@@ -512,132 +530,9 @@ The Fundamental Theorem of Algebra tells us that every polynomial
 function with degree greater than 1 has at least one
 *complex* zero.
 
-![](./media/image81.png)
+![](./media/image86.png)
 
-Every polynomial:
-$f(x) =  a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1} + a_{0}$
-of degree n can be factored as
-
-$f(x) = m*\left( x - c_{1} \right)*\left( x - c_{2} \right)\ldots(x - c_{n})$
-*(m multiplied by a series of linear factors...)*
-
-Every polynomial of degree ***n*** has at most ***n*** roots. (However,
-these roots may be real or complex.)
-
-The factor ***(x-c)*** for a root ***c*** could appear multiple times in
-the above product. We could write $\mathbf{(x - c)}^{\mathbf{k}}$ as a
-factor of ***f.***
-
-If $f(x)
-= a_n x^n + a_{n-1} x^{n-1} + \ldots + a_1 x + a_0$
-has only real coefficients, and ***c = a+bi*** is a complex root of
-***f***, then the complex conjugate ***c = a-bi*** is also a root of
-***f***. (Complex roots containing the imaginary unit always appear in
-pairs / conjugates)
-
-## Zero Product Property
-
-**Zero Product Property:** The Zero Product Property is used for solving
-polynomial equations that can be factored. Once a polynomial equation is
-factored into a product of binomials, each binomial is set to zero to
-find the solutions.
-
-The zero product property states that if two or more factors are
-multiplied and the product is zero, then a least one of those factors is
-also zero.
-
-If ab = 0, then either a = 0 or b = 0
-
-## The Remainder Theorem
-
-**The Remainder Theorem:**
-
-**p(x)/(x-a) = q(x) + r(x)**
-
-**p(x) = (x-a)·q(x) + r(x),**
-
-**Dividend = (Divisor × Quotient) + Remainder**
-
-**p(x) = (x-a)·q(x) + r**
-
-**Observe what happens when we have x equal to a:**
-
-**p(a) = (a-a)·q(a) + r**
-
-**p(a) = (0)·q(a) + r**
-
-**p(a) = r**
-
-**Therefore, when p(x) is evaluated at a, p(a) will give the
-remainder.**
-
-**If p(a) = 0, a is a root / solution to the equation.**
-
-**p(x): polynomial**
-
-**(x-a): linear factor**
-
-**q(x): quotient at x**
-
-**r(x): Remainder at x**
-
-**What is the point of the Remainder Theorem?**
-
-The point of the Remainder Theorem is that *there is a simpler, quicker
-way to evaluate a polynomial p(x) at a given value of x, and this
-simpler way is to not evaluate p(x) at all, but to instead do the
-synthetic division at that same value of x.*
-
-The last number in the synthetic-division result is the value you\'re
-wanting, being the evaluated value of the polynomial.
-
-## The Rational Roots Theorem
-
-**The Rational Roots Theorem**: If a polynomial function
-
-![](./media/image82.png)
-
-written in descending order of the exponents, has integer coefficients,
-then any *rational zero* must be of the form ± p/
-q,
-
-Where p and q are integers and:
-
--   p is a factor of the constant term a~0~
-
--   q is a factor of the leading coefficient a~n~
-
-![](./media/image83.png)
-
-The Rational Zero Theorem helps us to narrow down the number of
-possible rational zeros using the ratio of the factors of the constant
-term and factors of the leading coefficient of the polynomial
-
-Of course, not all zeros will be rational. The rational zeroes theorem
-will not help find irrational zeroes of a polynomial.
-
-![](./media/image84.png)
-
-### How to use it
-
--   Determine all factors of the constant term and all factors of the
-    leading coefficient.
-
--   Determine all possible values of $\frac{p}{q}$, where p is a
-    factor of the constant term and q is a factor of the leading
-    coefficient. ***Be sure to include both positive and negative
-    candidates.***
-
--   Determine which possible zeros are actual zeros by evaluating each
-    case of f($\frac{p}{q}$).
-
-![](./media/image85.png)
-
-![A close up of words Description automatically
-generated](./media/image86.png)
-
-![A math problem with numbers Description automatically
-generated](./media/image87.png)
+![](./media/image87.png)
 
 So what about the irrational roots of a polynomial? How do we find those
 when the rational roots theorem fails?
@@ -648,8 +543,7 @@ For polynomial of degree 2, you can use the quadratic formula.
 
 **Polynomial Long Division:**
 
-![A math equations on a white background Description automatically
-generated](./media/image88.png)
+![](./media/image88.png)
 
 Where:
 
@@ -672,8 +566,7 @@ dividend f(x). This is the only restriction.*
 
 *Algorithm: Divide, multiply, subtract, repeat as needed.*
 
-![A math equations on a white background Description automatically
-generated](./media/image89.png)
+![](./media/image89.png)
 
 Divisor: The quantity by which another quantity is divided
 
@@ -710,9 +603,241 @@ Dividend: The quantity that is being divided.
 
 So: $\frac{2x^3 + 3x^2 - 5x + 4}{x - 2} = 2x^2 + 7x + 9 + \frac{22}{x - 2}$
 
+## Remainder Theorem
+
+When you divide a polynomial $f(x)$ by a linear factor $(x - c)$, you get a quotient $q(x)$ and a remainder $r$:
+
+$$
+f(x) = (x - c) \cdot q(x) + r
+$$
+
+**Remainder Theorem:** When a polynomial $f(x)$ is divided by $(x - c)$, the remainder is $f(c)$.
+
+**Why it works:** Substituting $x = c$ into the equation above gives $f(c) = (c - c) \cdot q(c) + r = 0 + r = r$. The divisor vanishes, leaving only the remainder.
+
+**Why it matters:** The Remainder Theorem lets you evaluate a polynomial at any point by performing synthetic division instead of direct substitution. For high-degree polynomials with large or fractional inputs, synthetic division can be more systematic and less error-prone than computing each power separately.
+
+**Example:** Find the remainder when $f(x) = 2x^3 - 5x^2 + 3x - 7$ is divided by $(x - 3)$
+
+By the Remainder Theorem, the remainder is $f(3)$:
+
+$$
+f(3) = 2(3)^3 - 5(3)^2 + 3(3) - 7 = 54 - 45 + 9 - 7 = 11
+$$
+
+**Verification via synthetic division:**
+
+```
+  3 |  2  -5   3  -7
+    |      6   3  18
+    ----------------
+      2   1   6  11
+```
+
+The remainder is 11, confirming $f(3) = 11$.
+
+## Factor Theorem
+
+The Factor Theorem is a direct consequence of the Remainder Theorem.
+
+**Factor Theorem:** $(x - c)$ is a factor of $f(x)$ if and only if $f(c) = 0$.
+
+**Why it follows from the Remainder Theorem:** If the remainder when dividing $f(x)$ by $(x - c)$ is $f(c)$, then the remainder is zero precisely when $f(c) = 0$. A zero remainder means $(x - c)$ divides $f(x)$ evenly, so $(x - c)$ is a factor.
+
+**Connection to roots:** The Factor Theorem establishes the link between factors and zeros. Finding a root $c$ is the same as finding a factor $(x - c)$, and vice versa.
+
+**Example:** Verify that $(x - 2)$ is a factor of $f(x) = x^3 - 6x^2 + 11x - 6$, then find all remaining factors.
+
+**Step 1:** Check $f(2)$:
+
+$$
+f(2) = (2)^3 - 6(2)^2 + 11(2) - 6 = 8 - 24 + 22 - 6 = 0
+$$
+
+Since $f(2) = 0$, the Factor Theorem confirms $(x - 2)$ is a factor.
+
+**Step 2:** Divide out $(x - 2)$ using synthetic division:
+
+```
+  2 |  1  -6  11  -6
+    |      2  -8   6
+    ----------------
+      1  -4   3   0
+```
+
+The quotient is $x^2 - 4x + 3$.
+
+**Step 3:** Factor the quotient:
+
+$$
+x^2 - 4x + 3 = (x - 1)(x - 3)
+$$
+
+**Result:** $x^3 - 6x^2 + 11x - 6 = (x - 1)(x - 2)(x - 3)$
+
+The zeros are $x = 1, 2, 3$.
+
+## Rational Root Theorem
+
+When a polynomial has integer coefficients, the Rational Root Theorem narrows the search for rational zeros to a finite list of candidates.
+
+**Rational Root Theorem:** If a polynomial $f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$ has integer coefficients and $\frac{p}{q}$ is a rational root (in lowest terms), then:
+
+- $p$ divides the constant term $a_0$
+- $q$ divides the leading coefficient $a_n$
+
+**Why it works:** If $\frac{p}{q}$ is a root, then substituting and multiplying through by $q^n$ yields an equation where $p$ must divide the term containing $a_0$ and $q$ must divide the term containing $a_n$.
+
+**How to use it:**
+
+1. List all factors of the constant term $a_0$ (these are the candidates for $p$)
+2. List all factors of the leading coefficient $a_n$ (these are the candidates for $q$)
+3. Form all possible fractions $\pm \frac{p}{q}$
+4. Test each candidate by substitution or synthetic division
+
+**Example:** Find all rational roots of $f(x) = 2x^3 - 3x^2 - 8x + 12$.
+
+**Step 1:** Identify the constant term and leading coefficient.
+
+- Constant term $a_0 = 12$, with factors: $\pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 12$
+- Leading coefficient $a_n = 2$, with factors: $\pm 1, \pm 2$
+
+**Step 2:** List all possible rational roots $\frac{p}{q}$:
+
+$$
+\pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 12, \pm \frac{1}{2}, \pm \frac{3}{2}
+$$
+
+**Step 3:** Test candidates.
+
+Test $x = 2$: $f(2) = 2(8) - 3(4) - 8(2) + 12 = 16 - 12 - 16 + 12 = 0$. Root found.
+
+**Step 4:** Divide out $(x - 2)$ via synthetic division:
+
+```
+  2 |  2  -3  -8  12
+    |      4   2 -12
+    ----------------
+      2   1  -6   0
+```
+
+Quotient: $2x^2 + x - 6$.
+
+**Step 5:** Factor the quotient:
+
+$$
+2x^2 + x - 6 = (2x - 3)(x + 2)
+$$
+
+Setting each factor to zero: $x = \frac{3}{2}$ and $x = -2$.
+
+**Result:** $f(x) = 2(x - 2)(x + 2)(x - \frac{3}{2}) = (x - 2)(x + 2)(2x - 3)$
+
+The rational roots are $x = 2, \, x = -2, \, x = \frac{3}{2}$.
+
+**Important note:** The Rational Root Theorem only finds rational roots. If a polynomial has irrational roots (like $\sqrt{2}$) or complex roots (like $3 + i$), this theorem will not find them. In those cases, use the quadratic formula (for degree 2 quotients), numerical methods, or the Conjugate Zeros Theorem.
+
+## Conjugate Zeros Theorem
+
+When a polynomial has real coefficients, its complex zeros always appear in matched pairs.
+
+**Conjugate Zeros Theorem:** If a polynomial $f(x)$ has real coefficients and $a + bi$ is a zero (where $b \neq 0$), then its conjugate $a - bi$ is also a zero.
+
+**Why it works:** If all coefficients are real, then complex values can only satisfy $f(x) = 0$ when their imaginary parts cancel out in pairs. More precisely, for real coefficients, $f(\overline{z}) = \overline{f(z)}$, so $f(z) = 0$ implies $f(\overline{z}) = 0$.
+
+**Consequences:**
+
+- Complex roots of real-coefficient polynomials always come in conjugate pairs
+- An odd-degree polynomial with real coefficients must have at least one real root (since complex roots pair off, at least one root is left unpaired and must be real)
+- If you know one complex root, you immediately know another
+
+**Example:** Given that $2 + i$ is a zero of $f(x) = x^3 - 7x^2 + 17x - 15$, find all zeros.
+
+**Step 1:** By the Conjugate Zeros Theorem, $2 - i$ is also a zero.
+
+**Step 2:** Form the quadratic factor from the conjugate pair. If $2 + i$ and $2 - i$ are roots, then:
+
+$$
+(x - (2 + i))(x - (2 - i)) = ((x - 2) - i)((x - 2) + i)
+$$
+
+This is a difference of squares pattern ($A - B)(A + B) = A^2 - B^2$):
+
+$$
+= (x - 2)^2 - (i)^2 = (x - 2)^2 + 1 = x^2 - 4x + 5
+$$
+
+**Step 3:** Divide $f(x)$ by $x^2 - 4x + 5$ using polynomial long division:
+
+$$
+\frac{x^3 - 7x^2 + 17x - 15}{x^2 - 4x + 5} = x - 3
+$$
+
+**Step 4:** Set the remaining factor to zero: $x - 3 = 0$, so $x = 3$.
+
+**Result:** The three zeros are $x = 2 + i, \, x = 2 - i, \, x = 3$.
+
+**Verification:** $f(x) = (x - 3)(x^2 - 4x + 5)$. Expanding:
+
+$$
+(x - 3)(x^2 - 4x + 5) = x^3 - 4x^2 + 5x - 3x^2 + 12x - 15 = x^3 - 7x^2 + 17x - 15
+$$
+
+This matches the original polynomial.
+
+## Writing Polynomials from Zeros
+
+The Factor Theorem works in reverse: if you know the zeros of a polynomial, you can construct the polynomial from them.
+
+**Principle:** If a polynomial of degree $n$ has zeros $r_1, r_2, \ldots, r_n$, then it can be written as:
+
+$$
+f(x) = a(x - r_1)(x - r_2) \cdots (x - r_n)
+$$
+
+where $a$ is a nonzero constant (the leading coefficient). The zeros alone determine the polynomial up to this constant factor, and one additional condition (such as a known function value) pins down $a$.
+
+**Example:** Find a polynomial of degree 3 with zeros $-1, 2, 3$ and $f(0) = 12$.
+
+**Step 1:** Write the general form using the zeros:
+
+$$
+f(x) = a(x - (-1))(x - 2)(x - 3) = a(x + 1)(x - 2)(x - 3)
+$$
+
+**Step 2:** Use the condition $f(0) = 12$ to find $a$:
+
+$$
+f(0) = a(0 + 1)(0 - 2)(0 - 3) = a(1)(-2)(-3) = 6a
+$$
+
+$$
+6a = 12 \implies a = 2
+$$
+
+**Step 3:** Write the final polynomial:
+
+$$
+f(x) = 2(x + 1)(x - 2)(x - 3)
+$$
+
+**Step 4 (optional):** Expand to standard form:
+
+$$
+f(x) = 2(x + 1)(x^2 - 5x + 6) = 2(x^3 - 5x^2 + 6x + x^2 - 5x + 6)
+$$
+
+$$
+= 2(x^3 - 4x^2 + x + 6) = 2x^3 - 8x^2 + 2x + 12
+$$
+
+**Verification:** $f(0) = 12$, and the zeros are $x = -1, 2, 3$.
+
+**Note on complex zeros:** If the polynomial must have real coefficients and one of the zeros is complex, you must include the conjugate as well. For example, if the zeros are $1$ and $2 + 3i$, the polynomial of minimum degree also has $2 - 3i$ as a zero and has degree 3.
+
 ## Descartes Rule of Signs
 
-**Descartes Rule of Signs**: **Descartes\' Rule of Signs** is a theorem
+**Descartes Rule of Signs**: **Descartes' Rule of Signs** is a theorem
 that provides a way to determine the possible number of positive and
 negative ***real*** roots (zeros) of a polynomial
 equation.

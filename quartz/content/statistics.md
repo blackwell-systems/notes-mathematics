@@ -214,6 +214,30 @@ $$
 
 **Intuition:** The standard error tells you how much your sample mean would vary if you repeated the sampling. Larger samples give smaller standard errors, meaning more precise estimates. Notice the $\sqrt{n}$ in the denominator: to cut the standard error in half, you need four times as much data.
 
+### The t-Distribution
+
+When you estimate the standard error using the sample standard deviation $s$ instead of the (unknown) population standard deviation $\sigma$, the resulting standardized statistic does not follow a standard normal distribution. It follows a **t-distribution**, which was discovered by William Gosset (publishing under the pseudonym "Student") in 1908.
+
+**What it is:** The t-distribution looks like the standard normal distribution (bell-shaped, symmetric, centered at zero) but has **heavier tails**. This means extreme values are more probable under the t-distribution than under the normal. The heavier tails reflect the additional uncertainty introduced by estimating $\sigma$ with $s$.
+
+**Degrees of freedom ($\nu$):** The shape of the t-distribution is controlled by a single parameter called degrees of freedom, typically $\nu = n - 1$ for a one-sample problem. The degrees of freedom count how many independent pieces of information go into estimating the variability.
+
+- When $\nu$ is small (say 3 or 4), the t-distribution has noticeably heavier tails than the normal. Critical values are larger, so confidence intervals are wider and hypothesis tests are less likely to reject.
+- As $\nu$ increases, the t-distribution approaches the standard normal. By $\nu = 30$, the two are quite close. By $\nu = 120$, they are nearly indistinguishable.
+- At $\nu = \infty$, the t-distribution is exactly the standard normal.
+
+**Why it exists:** The Z-score $Z = \frac{\bar{x} - \mu}{\sigma/\sqrt{n}}$ follows a standard normal distribution. But when you replace $\sigma$ with $s$, the quantity $t = \frac{\bar{x} - \mu}{s/\sqrt{n}}$ does not follow a standard normal. The denominator $s/\sqrt{n}$ is itself a random variable (it changes from sample to sample), which introduces extra variability. The t-distribution accounts for this. With small samples, $s$ can be a poor estimate of $\sigma$, so the t-distribution's heavier tails provide wider intervals that reflect this uncertainty.
+
+**When to use t vs. z:**
+
+| Situation | Distribution | In practice |
+|---|---|---|
+| $\sigma$ known | Standard normal ($z$) | Almost never happens |
+| $\sigma$ unknown, large $n$ | Either (they are nearly the same) | Use $t$ to be safe |
+| $\sigma$ unknown, small $n$ | Must use $t$ | Common situation |
+
+**Practical rule:** Use the t-distribution whenever $\sigma$ is unknown, regardless of sample size. There is no cost to using $t$ when $n$ is large (it gives essentially the same answer as $z$), and it is necessary when $n$ is small.
+
 ## Point Estimation and Interval Estimation
 
 ### Point Estimation
@@ -242,13 +266,90 @@ where $z^*$ is the critical value from the standard normal distribution (1.96 fo
 
 **Common misinterpretation:** A 95% CI does NOT mean "there is a 95% probability the true mean is in this interval." The true mean is either in the interval or it is not. The 95% refers to the long-run success rate of the procedure.
 
-**Example:** A sample of 100 exam scores has $\bar{x} = 72$ and $s = 15$. Construct a 95% confidence interval for the population mean.
+**Example (large sample, z-interval):** A sample of 100 exam scores has $\bar{x} = 72$ and $s = 15$. Construct a 95% confidence interval for the population mean.
 
 $$
 72 \pm 1.96 \cdot \frac{15}{\sqrt{100}} = 72 \pm 1.96 \cdot 1.5 = 72 \pm 2.94
 $$
 
 The 95% CI is $(69.06, 74.94)$.
+
+### t-Intervals
+
+When the sample size is small and $\sigma$ is unknown (the typical situation), use the t-distribution instead of the z-distribution. The formula replaces $z^*$ with $t^*$:
+
+$$
+\bar{x} \pm t^* \cdot \frac{s}{\sqrt{n}}
+$$
+
+where $t^*$ is the critical value from the t-distribution with $\nu = n - 1$ degrees of freedom at the desired confidence level.
+
+**How to find $t^*$:** Look up the value in a t-table using the row for $\nu = n - 1$ degrees of freedom and the column for the desired confidence level. For example, with $\nu = 14$ and 95% confidence, $t^* = 2.145$. Statistical software computes this directly.
+
+Common $t^*$ values (95% confidence):
+
+| df ($\nu$) | $t^*$ |
+|---|---|
+| 5 | 2.571 |
+| 10 | 2.228 |
+| 14 | 2.145 |
+| 20 | 2.086 |
+| 30 | 2.042 |
+| $\infty$ | 1.960 |
+
+Notice how $t^*$ decreases toward 1.960 (the z-value) as degrees of freedom increase.
+
+**Worked example:** A sample of $n = 15$ light bulbs has a mean lifetime of $\bar{x} = 68$ hours and a sample standard deviation of $s = 12$ hours. Construct a 95% confidence interval for the population mean lifetime.
+
+Step 1: Degrees of freedom: $\nu = 15 - 1 = 14$.
+
+Step 2: Find $t^*$ for 95% confidence with 14 df: $t^* = 2.145$.
+
+Step 3: Compute the margin of error:
+
+$$
+t^* \cdot \frac{s}{\sqrt{n}} = 2.145 \cdot \frac{12}{\sqrt{15}} = 2.145 \cdot 3.098 = 6.645
+$$
+
+Step 4: Construct the interval:
+
+$$
+68 \pm 6.645 = (61.355, 74.645)
+$$
+
+We are 95% confident that the population mean lifetime is between 61.4 and 74.6 hours. Notice this interval is wider than what a z-interval would give ($68 \pm 1.96 \cdot 3.098 = 68 \pm 6.07$), reflecting the extra uncertainty from using $s$ instead of $\sigma$ with a small sample.
+
+### Confidence Interval for a Proportion
+
+When estimating a population proportion $p$ (e.g., the fraction of voters who support a candidate), the point estimate is the sample proportion $\hat{p} = x/n$, where $x$ is the number of successes in $n$ trials.
+
+The standard error of $\hat{p}$ is:
+
+$$
+SE(\hat{p}) = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+$$
+
+The confidence interval uses the normal approximation (valid when $n\hat{p} \geq 10$ and $n(1-\hat{p}) \geq 10$):
+
+$$
+\hat{p} \pm z^* \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+$$
+
+**Worked example:** In a survey of 400 customers, 260 say they are satisfied with a product. Construct a 95% CI for the true proportion of satisfied customers.
+
+$\hat{p} = 260/400 = 0.65$
+
+Check conditions: $n\hat{p} = 260 \geq 10$ and $n(1-\hat{p}) = 140 \geq 10$. Both satisfied.
+
+$$
+SE = \sqrt{\frac{0.65 \times 0.35}{400}} = \sqrt{\frac{0.2275}{400}} = \sqrt{0.000569} = 0.0239
+$$
+
+$$
+0.65 \pm 1.96 \times 0.0239 = 0.65 \pm 0.047
+$$
+
+The 95% CI is $(0.603, 0.697)$. We are 95% confident that the true proportion of satisfied customers is between 60.3% and 69.7%.
 
 **Where it shows up in ML:** Confidence intervals for model performance metrics (accuracy, AUC) help you determine whether one model is genuinely better than another, or if the difference is within sampling noise.
 
@@ -390,7 +491,391 @@ Since $0.046 < 0.05$, we reject $H_0$. The data provides statistically significa
 
 **Important caveat:** Statistical significance does not mean practical significance. With a large enough sample, you can detect arbitrarily tiny effects that are meaningless in practice. Always consider effect size alongside p-values.
 
-**Where it shows up in ML:** A/B testing uses hypothesis testing to determine if a new feature improves a metric. Statistical tests help determine if one model is significantly better than another, or if the difference is just noise.
+### Effect Size
+
+**Effect size** measures the magnitude of a difference or relationship, independent of sample size. A p-value tells you whether an effect exists; the effect size tells you how big it is.
+
+**Why it matters:** With a large enough sample, even a trivially small difference becomes statistically significant. A study of 100,000 people might find that a drug lowers blood pressure by 0.1 mmHg with $p < 0.001$. Statistically significant, but clinically meaningless. Conversely, a small study might fail to detect a large, important effect simply because $n$ was too small. Effect size separates "real" from "important."
+
+**Cohen's d:** The most common effect size for comparing two group means. It expresses the difference in means in units of pooled standard deviation:
+
+$$
+d = \frac{\bar{x}_1 - \bar{x}_2}{s_p}
+$$
+
+where $s_p$ is the pooled standard deviation:
+
+$$
+s_p = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}}
+$$
+
+**Cohen's guidelines for interpreting $d$:**
+
+| $|d|$ | Interpretation |
+|---|---|
+| 0.2 | Small effect |
+| 0.5 | Medium effect |
+| 0.8 | Large effect |
+
+A Cohen's $d$ of 0.5 means the two group means differ by half a standard deviation. These benchmarks are rough guidelines, not rigid thresholds. In some fields, $d = 0.2$ is a meaningful effect; in others, $d = 0.8$ is routine.
+
+**$R^2$ as effect size in regression:** The coefficient of determination $R^2$ is itself an effect size: it tells you what proportion of the variance in the outcome is explained by the predictors. Cohen's guidelines: $R^2 = 0.02$ (small), $R^2 = 0.13$ (medium), $R^2 = 0.26$ (large).
+
+**Best practice:** Always report effect size alongside p-values. A complete result looks like: "Students who used the new method scored significantly higher ($t(28) = 2.45$, $p = 0.021$, $d = 0.91$)." The p-value says the difference is unlikely to be zero; the effect size says the difference is large.
+
+### Power Analysis
+
+**Statistical power** is the probability of correctly rejecting a false null hypothesis. In other words, if there really is an effect, power is the probability that your study will detect it.
+
+$$
+\text{Power} = 1 - \beta
+$$
+
+where $\beta$ is the probability of a Type II error (failing to detect a real effect).
+
+**Why power matters:** An underpowered study is nearly useless. If your power is only 0.20, there is an 80% chance you will miss a real effect. You invest time and resources, collect data, and conclude "no significant effect," when the effect was there all along but your study was too small to see it.
+
+**Four factors determine power (change any one, and power changes):**
+
+1. **Sample size ($n$):** Larger samples give more power. This is the factor researchers most often control.
+2. **Effect size:** Larger effects are easier to detect. A drug that cuts recovery time in half is easier to detect than one that cuts it by 5%.
+3. **Significance level ($\alpha$):** A more lenient $\alpha$ (e.g., 0.10 instead of 0.05) gives more power but also more false positives.
+4. **Variability ($\sigma$):** Less noisy data gives more power. You can sometimes reduce variability through better measurement or by using a within-subjects design.
+
+**Sample size determination:** Before collecting data, you can use a power analysis to determine how many subjects you need. You specify:
+
+- The desired power (typically 0.80 or 0.90)
+- The significance level (typically $\alpha = 0.05$)
+- The minimum effect size you want to detect
+
+For a one-sample t-test with $\alpha = 0.05$, power $= 0.80$, and Cohen's $d = 0.5$ (medium effect), the required sample size is approximately $n = 34$. This comes from solving:
+
+$$
+n \approx \left(\frac{z_{1-\alpha/2} + z_{1-\beta}}{d}\right)^2 = \left(\frac{1.96 + 0.84}{0.5}\right)^2 = \left(\frac{2.80}{0.5}\right)^2 = 31.4
+$$
+
+(The exact calculation uses the noncentral t-distribution and gives $n \approx 34$.)
+
+**Worked example:** A researcher wants to detect a mean difference of 5 points on a test where the standard deviation is 10 (so $d = 5/10 = 0.5$). Using $\alpha = 0.05$ and desired power of 0.80, the required sample size is approximately $n = 34$ per group for a two-sample test (about 64 total). If the researcher can only recruit 20 per group, the power drops to about 0.34, meaning there is only a 34% chance of detecting the effect even if it exists.
+
+### One-Sample t-Test
+
+**When to use:** You want to test whether a population mean equals a specific hypothesized value $\mu_0$, and the population standard deviation is unknown.
+
+**Test statistic:**
+
+$$
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}
+$$
+
+This follows a t-distribution with $\nu = n - 1$ degrees of freedom under $H_0$.
+
+**One-tailed vs. two-tailed tests:**
+
+- **Two-tailed** ($H_1: \mu \neq \mu_0$): Reject if $|t| > t^*_{\alpha/2}$. Use when you want to detect a difference in either direction.
+- **Left-tailed** ($H_1: \mu < \mu_0$): Reject if $t < -t^*_{\alpha}$. Use when you only care about detecting a decrease.
+- **Right-tailed** ($H_1: \mu > \mu_0$): Reject if $t > t^*_{\alpha}$. Use when you only care about detecting an increase.
+
+**Worked example:** A manufacturer claims that batteries last an average of 500 hours. A consumer group tests 20 batteries and finds $\bar{x} = 485$ hours with $s = 40$ hours. Test the claim at $\alpha = 0.05$.
+
+$H_0: \mu = 500$ (the claim is correct)
+
+$H_1: \mu < 500$ (the batteries last less than claimed; one-tailed)
+
+$$
+t = \frac{485 - 500}{40/\sqrt{20}} = \frac{-15}{8.944} = -1.677
+$$
+
+Degrees of freedom: $\nu = 19$. The critical value for a one-tailed test at $\alpha = 0.05$ with 19 df is $t^* = 1.729$.
+
+Since $|{-1.677}| = 1.677 < 1.729$, we fail to reject $H_0$. There is not enough evidence at the 5% level to conclude that the batteries last less than 500 hours.
+
+Note: the p-value is approximately 0.055, just above 0.05. This illustrates that the 0.05 threshold is a convention, not a law. The evidence against the claim is suggestive but not conclusive by the standard criterion.
+
+### Two-Sample t-Test
+
+**When to use:** You want to compare the means of two independent groups.
+
+**Setup:** Group 1 has $n_1$ observations with mean $\bar{x}_1$ and standard deviation $s_1$. Group 2 has $n_2$ observations with mean $\bar{x}_2$ and standard deviation $s_2$.
+
+$H_0: \mu_1 = \mu_2$ (no difference between groups)
+
+$H_1: \mu_1 \neq \mu_2$ (the groups differ)
+
+**Pooled t-test** (when you can assume equal variances $\sigma_1^2 = \sigma_2^2$):
+
+$$
+t = \frac{\bar{x}_1 - \bar{x}_2}{s_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
+$$
+
+where $s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}$ is the pooled standard deviation, with $\nu = n_1 + n_2 - 2$ degrees of freedom.
+
+**Welch's t-test** (when variances may be unequal; this is the safer default):
+
+$$
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+$$
+
+The degrees of freedom are approximated by the Welch-Satterthwaite formula:
+
+$$
+\nu \approx \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{(s_1^2/n_1)^2}{n_1-1} + \frac{(s_2^2/n_2)^2}{n_2-1}}
+$$
+
+**Worked example:** Do students who study with music score differently than those who study in silence?
+
+| | Music ($n_1 = 25$) | Silence ($n_2 = 25$) |
+|---|---|---|
+| Mean | $\bar{x}_1 = 74$ | $\bar{x}_2 = 79$ |
+| SD | $s_1 = 10$ | $s_2 = 12$ |
+
+Using Welch's t-test:
+
+$$
+t = \frac{74 - 79}{\sqrt{\frac{100}{25} + \frac{144}{25}}} = \frac{-5}{\sqrt{4 + 5.76}} = \frac{-5}{\sqrt{9.76}} = \frac{-5}{3.124} = -1.601
+$$
+
+The Welch-Satterthwaite degrees of freedom: $\nu \approx 46.4$, so we use $\nu = 46$.
+
+The critical value for a two-tailed test at $\alpha = 0.05$ with 46 df is approximately $t^* = 2.013$. Since $|{-1.601}| < 2.013$, we fail to reject $H_0$. There is not enough evidence to conclude that music affects test scores.
+
+Effect size: $d = \frac{74 - 79}{s_p} = \frac{-5}{11.05} \approx -0.45$, a small-to-medium effect. A larger sample might detect this difference.
+
+### Paired t-Test
+
+**When to use:** You have two measurements on the same subjects (before and after a treatment, left and right hand, two test versions taken by the same students). The key feature is that the observations are not independent; they come in natural pairs.
+
+**Procedure:** Compute the difference $d_i = x_{i,\text{after}} - x_{i,\text{before}}$ for each pair. Then perform a one-sample t-test on the differences, testing $H_0: \mu_d = 0$ (the treatment has no effect).
+
+$$
+t = \frac{\bar{d}}{s_d/\sqrt{n}}
+$$
+
+where $\bar{d}$ is the mean of the differences, $s_d$ is the standard deviation of the differences, and $n$ is the number of pairs.
+
+**Worked example:** A company tests whether a training program improves employee performance scores. Ten employees are tested before and after the program.
+
+| Employee | Before | After | Difference ($d_i$) |
+|---|---|---|---|
+| 1 | 78 | 84 | 6 |
+| 2 | 65 | 68 | 3 |
+| 3 | 90 | 93 | 3 |
+| 4 | 72 | 80 | 8 |
+| 5 | 55 | 62 | 7 |
+| 6 | 83 | 85 | 2 |
+| 7 | 60 | 67 | 7 |
+| 8 | 74 | 78 | 4 |
+| 9 | 69 | 75 | 6 |
+| 10 | 81 | 82 | 1 |
+
+$\bar{d} = (6+3+3+8+7+2+7+4+6+1)/10 = 4.7$
+
+$s_d = \sqrt{\frac{\sum(d_i - \bar{d})^2}{n-1}} = \sqrt{\frac{(1.3^2+1.7^2+1.7^2+3.3^2+2.3^2+2.7^2+2.3^2+0.7^2+1.3^2+3.7^2)}{9}}$
+
+$$
+= \sqrt{\frac{1.69+2.89+2.89+10.89+5.29+7.29+5.29+0.49+1.69+13.69}{9}} = \sqrt{\frac{52.10}{9}} = \sqrt{5.789} = 2.406
+$$
+
+$$
+t = \frac{4.7}{2.406/\sqrt{10}} = \frac{4.7}{0.761} = 6.175
+$$
+
+With $\nu = 9$ degrees of freedom, the critical value for a one-tailed test ($H_1: \mu_d > 0$) at $\alpha = 0.05$ is $t^* = 1.833$. Since $6.175 \gg 1.833$, we reject $H_0$. The training program significantly improved scores ($t(9) = 6.18$, $p < 0.001$, $d = 4.7/2.406 = 1.95$, a very large effect).
+
+### Chi-Squared Goodness-of-Fit Test
+
+**When to use:** You want to test whether observed frequency counts match a set of expected frequencies. This is used for categorical data, not means.
+
+**Test statistic:**
+
+$$
+\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}
+$$
+
+where $O_i$ is the observed count in category $i$, $E_i$ is the expected count, and $k$ is the number of categories. Under $H_0$, this follows a chi-squared distribution with $\nu = k - 1$ degrees of freedom.
+
+**Worked example:** You roll a die 120 times and want to test whether it is fair ($H_0$: each face has probability $1/6$).
+
+| Face | Observed ($O_i$) | Expected ($E_i = 120/6 = 20$) | $(O_i - E_i)^2/E_i$ |
+|---|---|---|---|
+| 1 | 25 | 20 | 1.25 |
+| 2 | 17 | 20 | 0.45 |
+| 3 | 15 | 20 | 1.25 |
+| 4 | 23 | 20 | 0.45 |
+| 5 | 24 | 20 | 0.80 |
+| 6 | 16 | 20 | 0.80 |
+
+$$
+\chi^2 = 1.25 + 0.45 + 1.25 + 0.45 + 0.80 + 0.80 = 5.00
+$$
+
+Degrees of freedom: $\nu = 6 - 1 = 5$. The critical value for $\alpha = 0.05$ with 5 df is $\chi^2_{0.05} = 11.07$.
+
+Since $5.00 < 11.07$, we fail to reject $H_0$. The data is consistent with a fair die.
+
+**Assumption:** Each expected count $E_i$ should be at least 5 for the chi-squared approximation to be reliable. If some expected counts are too small, combine categories.
+
+### Chi-Squared Test of Independence
+
+**When to use:** You have two categorical variables measured on the same subjects and want to test whether they are independent (unrelated) or associated.
+
+**Setup:** Arrange the data in a contingency table with $r$ rows and $c$ columns. The expected count for cell $(i, j)$ under independence is:
+
+$$
+E_{ij} = \frac{R_i \cdot C_j}{n}
+$$
+
+where $R_i$ is the row total, $C_j$ is the column total, and $n$ is the grand total.
+
+**Test statistic:**
+
+$$
+\chi^2 = \sum_{i=1}^r \sum_{j=1}^c \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+$$
+
+with $\nu = (r-1)(c-1)$ degrees of freedom.
+
+**Worked example:** Is there an association between exercise frequency and stress level?
+
+| | Low Stress | High Stress | Total |
+|---|---|---|---|
+| Exercises regularly | 40 | 10 | 50 |
+| Does not exercise | 20 | 30 | 50 |
+| Total | 60 | 40 | 100 |
+
+Expected counts under independence:
+
+$$
+E_{11} = \frac{50 \times 60}{100} = 30, \quad E_{12} = \frac{50 \times 40}{100} = 20
+$$
+
+$$
+E_{21} = \frac{50 \times 60}{100} = 30, \quad E_{22} = \frac{50 \times 40}{100} = 20
+$$
+
+$$
+\chi^2 = \frac{(40-30)^2}{30} + \frac{(10-20)^2}{20} + \frac{(20-30)^2}{30} + \frac{(30-20)^2}{20}
+$$
+
+$$
+= \frac{100}{30} + \frac{100}{20} + \frac{100}{30} + \frac{100}{20} = 3.33 + 5.00 + 3.33 + 5.00 = 16.67
+$$
+
+Degrees of freedom: $(2-1)(2-1) = 1$. The critical value at $\alpha = 0.05$ with 1 df is $\chi^2_{0.05} = 3.841$.
+
+Since $16.67 \gg 3.841$, we reject $H_0$. There is a statistically significant association between exercise and stress level. The data suggests that regular exercisers tend to report lower stress.
+
+**Where it shows up in ML:** A/B testing uses hypothesis testing to determine if a new feature improves a metric. Statistical tests help determine if one model is significantly better than another, or if the difference is just noise. Chi-squared tests are used in feature selection to test whether a categorical feature is associated with the target variable.
+
+## ANOVA (Analysis of Variance)
+
+**ANOVA** (Analysis of Variance) is a method for comparing the means of three or more groups simultaneously. It tests whether at least one group mean differs from the others.
+
+### Why Not Just Do Multiple t-Tests?
+
+If you have three groups (A, B, C), you might consider doing three pairwise t-tests: A vs. B, A vs. C, B vs. C. The problem is the **multiple comparisons problem**.
+
+Each test has a 5% chance of a Type I error ($\alpha = 0.05$). With three tests, the probability of at least one false positive is:
+
+$$
+1 - (1 - 0.05)^3 = 1 - 0.857 = 0.143
+$$
+
+That is a 14.3% chance of a false positive, not 5%. With 10 groups (45 pairwise comparisons), the probability rises to:
+
+$$
+1 - (0.95)^{45} \approx 0.90
+$$
+
+A 90% chance of at least one false positive. ANOVA solves this by performing a single test that controls the overall Type I error rate at $\alpha$.
+
+### One-Way ANOVA
+
+**Setup:** You have $k$ groups. Group $i$ has $n_i$ observations with mean $\bar{x}_i$. The grand mean (mean of all observations) is $\bar{x}$.
+
+$H_0: \mu_1 = \mu_2 = \cdots = \mu_k$ (all group means are equal)
+
+$H_1$: At least one group mean is different
+
+**The key insight:** ANOVA decomposes the total variability in the data into two parts:
+
+1. **Between-group variability (SSB):** How much the group means differ from the grand mean. If the groups truly have different means, this will be large.
+
+$$
+SSB = \sum_{i=1}^k n_i(\bar{x}_i - \bar{x})^2
+$$
+
+2. **Within-group variability (SSW):** How much individual observations vary within their own groups. This is the "background noise."
+
+$$
+SSW = \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \bar{x}_i)^2
+$$
+
+3. **Total variability:** $SST = SSB + SSW$
+
+$$
+SST = \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \bar{x})^2
+$$
+
+**Mean squares:** Divide each sum of squares by its degrees of freedom:
+
+$$
+MSB = \frac{SSB}{k - 1}, \quad MSW = \frac{SSW}{n - k}
+$$
+
+where $n = n_1 + n_2 + \cdots + n_k$ is the total number of observations.
+
+**F-statistic:**
+
+$$
+F = \frac{MSB}{MSW}
+$$
+
+Under $H_0$, this follows an F-distribution with $k - 1$ and $n - k$ degrees of freedom. Large values of $F$ indicate that the between-group variability is much larger than the within-group variability, which is evidence against equal means.
+
+**Worked example:** Three teaching methods are compared. Test scores:
+
+| Method A | Method B | Method C |
+|---|---|---|
+| 85 | 90 | 70 |
+| 78 | 88 | 75 |
+| 82 | 92 | 68 |
+| 80 | 85 | 72 |
+| 75 | 95 | 65 |
+
+Group means: $\bar{x}_A = 80$, $\bar{x}_B = 90$, $\bar{x}_C = 70$
+
+Grand mean: $\bar{x} = (80 + 90 + 70)/3 = 80$ (since groups are equal-sized, this is the mean of the group means)
+
+$SSB = 5(80-80)^2 + 5(90-80)^2 + 5(70-80)^2 = 0 + 500 + 500 = 1000$
+
+$SSW$: For each group, sum the squared deviations from the group mean.
+
+Method A: $(85-80)^2 + (78-80)^2 + (82-80)^2 + (80-80)^2 + (75-80)^2 = 25+4+4+0+25 = 58$
+
+Method B: $(90-90)^2 + (88-90)^2 + (92-90)^2 + (85-90)^2 + (95-90)^2 = 0+4+4+25+25 = 58$
+
+Method C: $(70-70)^2 + (75-70)^2 + (68-70)^2 + (72-70)^2 + (65-70)^2 = 0+25+4+4+25 = 58$
+
+$SSW = 58 + 58 + 58 = 174$
+
+| Source | SS | df | MS | F |
+|---|---|---|---|---|
+| Between | 1000 | $3-1=2$ | 500 | $500/14.5 = 34.48$ |
+| Within | 174 | $15-3=12$ | 14.5 | |
+| Total | 1174 | 14 | | |
+
+The critical value for $F(2, 12)$ at $\alpha = 0.05$ is approximately 3.89. Since $34.48 \gg 3.89$, we reject $H_0$. At least one teaching method produces significantly different scores ($F(2,12) = 34.48$, $p < 0.001$).
+
+### Post-Hoc Tests
+
+ANOVA tells you that at least one group is different, but not which one(s). Post-hoc (after the fact) tests make pairwise comparisons while controlling the overall Type I error rate.
+
+**Tukey's Honest Significant Difference (HSD):** Compares all pairs of group means. It uses a "studentized range" distribution to set the critical value so that the family-wise error rate stays at $\alpha$. This is the most common post-hoc test.
+
+**Bonferroni correction:** Divide $\alpha$ by the number of comparisons. With 3 groups (3 comparisons), use $\alpha/3 = 0.0167$ for each pairwise test. Simple but conservative (it has less power than Tukey's HSD).
+
+**In the example above:** A post-hoc test would reveal that Method B is significantly better than Method C ($90 - 70 = 20$ point difference), Method B is significantly better than Method A ($90 - 80 = 10$), and Method A is significantly better than Method C ($80 - 70 = 10$).
 
 ## Linear Regression
 
@@ -444,7 +929,134 @@ $$
 - $R^2 = 0$: the model explains no more variance than simply predicting the mean
 - $R^2$ can be negative for models that are worse than predicting the mean
 
-**Adjusted $R^2$:** Penalizes adding more features. Regular $R^2$ always increases when you add features (even useless ones). Adjusted $R^2$ accounts for the number of predictors and only increases if the new feature genuinely improves the model.
+**Adjusted $R^2$:** Penalizes adding more features. Regular $R^2$ always increases when you add features (even useless ones). Adjusted $R^2$ accounts for the number of predictors and only increases if the new feature genuinely improves the model:
+
+$$
+R^2_{adj} = 1 - \frac{(1 - R^2)(n - 1)}{n - p - 1}
+$$
+
+where $p$ is the number of predictors. When you add a useless predictor, $(1 - R^2)$ barely changes but the denominator shrinks, so $R^2_{adj}$ decreases. This makes adjusted $R^2$ a better criterion for model comparison when you have different numbers of predictors.
+
+### Multiple Linear Regression
+
+When there are multiple predictor variables, the model extends naturally:
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \epsilon
+$$
+
+In matrix form, this is $y = X\beta + \epsilon$, where $X$ is the $n \times (p+1)$ design matrix (with a column of ones for the intercept), $\beta$ is the $(p+1) \times 1$ parameter vector, and $y$ is the $n \times 1$ response vector.
+
+**The OLS solution** carries over from the simple case:
+
+$$
+\hat{\beta} = (X^TX)^{-1}X^Ty
+$$
+
+**Interpreting coefficients:** Each coefficient $\beta_j$ represents the expected change in $y$ for a one-unit increase in $x_j$, holding all other predictors constant. This "holding all else constant" interpretation is crucial and is what distinguishes multiple regression from running several simple regressions separately.
+
+**Worked example:** Suppose you model house price (in thousands) as a function of square footage ($x_1$) and number of bedrooms ($x_2$), and obtain $\hat{\beta}_0 = 50$, $\hat{\beta}_1 = 0.12$, $\hat{\beta}_2 = 15$. Then the predicted price is:
+
+$$
+\hat{y} = 50 + 0.12 x_1 + 15 x_2
+$$
+
+The coefficient $0.12$ means that each additional square foot adds \$120 to the predicted price, holding the number of bedrooms constant. The coefficient $15$ means each additional bedroom adds \$15,000, holding square footage constant.
+
+#### Inference on Coefficients
+
+Each estimated coefficient $\hat{\beta}_j$ has a standard error $SE(\hat{\beta}_j)$ that measures how precisely it is estimated. The standard errors come from the diagonal of the covariance matrix:
+
+$$
+\text{Cov}(\hat{\beta}) = \hat{\sigma}^2 (X^TX)^{-1}
+$$
+
+where $\hat{\sigma}^2 = \frac{RSS}{n - p - 1}$ is the estimated error variance (the residual mean square).
+
+**t-test for individual coefficients:** To test whether predictor $x_j$ contributes to the model (i.e., $H_0: \beta_j = 0$), compute:
+
+$$
+t = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)}
+$$
+
+This follows a t-distribution with $n - p - 1$ degrees of freedom. If the p-value is small (below $\alpha$), we reject $H_0$ and conclude that $x_j$ is a statistically significant predictor, given the other predictors in the model.
+
+**Confidence interval for $\beta_j$:**
+
+$$
+\hat{\beta}_j \pm t^*_{n-p-1} \cdot SE(\hat{\beta}_j)
+$$
+
+**F-test for overall significance:** Tests whether the model as a whole explains a significant amount of variance, i.e., $H_0: \beta_1 = \beta_2 = \cdots = \beta_p = 0$ (all predictors are useless). The test statistic is:
+
+$$
+F = \frac{(TSS - RSS)/p}{RSS/(n - p - 1)} = \frac{R^2/p}{(1 - R^2)/(n - p - 1)}
+$$
+
+This follows an F-distribution with $p$ and $n - p - 1$ degrees of freedom. A significant F-test means at least one predictor is useful; it does not tell you which one(s).
+
+### Regression Diagnostics
+
+The validity of regression inference depends on four key assumptions. When these assumptions are violated, the coefficient estimates may be biased, the standard errors may be wrong, and the p-values and confidence intervals may be unreliable.
+
+#### Assumptions of Linear Regression
+
+1. **Linearity:** The relationship between predictors and response is linear. If the true relationship is curved, a linear model will systematically miss the pattern.
+2. **Independence:** The errors $\epsilon_i$ are independent of each other. This is violated when data has a time or spatial component (autocorrelation).
+3. **Homoscedasticity (constant variance):** The variance of the errors is the same for all values of the predictors. If the spread of residuals increases with $\hat{y}$ (a "fan" or "megaphone" shape), this is violated (heteroscedasticity).
+4. **Normality of residuals:** The errors follow a normal distribution. This matters most for small samples and for the validity of t-tests and F-tests on the coefficients.
+
+#### Residual Plots
+
+Plot the residuals $e_i = y_i - \hat{y}_i$ against the fitted values $\hat{y}_i$. What you want to see is a random cloud of points centered at zero with no pattern.
+
+**What patterns indicate:**
+
+- **A curve (U-shape or inverted U):** The linearity assumption is violated. Consider adding polynomial terms or using a nonlinear model.
+- **A fan shape (wider spread on one side):** Heteroscedasticity. Consider a log transformation of $y$, or use weighted least squares.
+- **Clusters or streaks:** Possible grouping structure in the data. Consider adding a categorical predictor or using mixed models.
+
+#### Q-Q Plots for Normality
+
+A quantile-quantile (Q-Q) plot compares the quantiles of the residuals to the quantiles of a standard normal distribution. If residuals are normally distributed, the points fall along a straight diagonal line. Deviations from the line indicate non-normality: S-shaped curves suggest skewness, and heavy tails show up as points curving away at the ends.
+
+#### Leverage and Influential Points
+
+**Leverage:** A data point has high leverage if its predictor values are far from the center of the predictor space. High-leverage points have a large influence on the fitted regression line because they "pull" the line toward them. Leverage is measured by the diagonal elements $h_{ii}$ of the hat matrix $H = X(X^TX)^{-1}X^T$. A point with $h_{ii} > 2(p+1)/n$ is considered high-leverage.
+
+**Influential points:** A point is influential if removing it substantially changes the regression results. A point can have high leverage without being influential (if it falls right on the regression line) or can be influential without extreme leverage.
+
+**Cook's distance** combines leverage and residual size into a single measure of influence:
+
+$$
+D_i = \frac{e_i^2}{p \cdot MSE} \cdot \frac{h_{ii}}{(1 - h_{ii})^2}
+$$
+
+where $e_i$ is the residual and $MSE$ is the mean squared error. A common rule of thumb: $D_i > 1$ (or $D_i > 4/n$) indicates an influential observation that warrants investigation.
+
+#### Multicollinearity
+
+**Multicollinearity** occurs when two or more predictors are highly correlated with each other. It does not bias the coefficient estimates, but it inflates their standard errors, making it hard to determine which predictors are significant.
+
+**Variance Inflation Factor (VIF):** For predictor $x_j$, regress $x_j$ on all other predictors and compute $R_j^2$. Then:
+
+$$
+VIF_j = \frac{1}{1 - R_j^2}
+$$
+
+If $R_j^2 = 0$ (predictor $j$ is uncorrelated with the others), $VIF_j = 1$. If $R_j^2 = 0.9$ (90% of predictor $j$'s variance is explained by the others), $VIF_j = 10$. A common guideline: $VIF > 10$ signals a serious multicollinearity problem, and $VIF > 5$ warrants attention.
+
+**What to do about multicollinearity:** Remove one of the correlated predictors, combine them (e.g., use a composite score or principal component), or use regularization (ridge regression), which is specifically designed to handle correlated predictors.
+
+#### What to Do About Violations
+
+| Violation | Diagnostic | Remedies |
+|---|---|---|
+| Non-linearity | Residual plot shows curve | Add polynomial terms, use transformations ($\log$, $\sqrt{}$) |
+| Heteroscedasticity | Fan-shaped residual plot | Transform $y$ (log is common), weighted least squares |
+| Non-normality | Q-Q plot deviates from line | Transform $y$, use bootstrap CIs, or use robust methods |
+| Influential points | Cook's distance > 1 | Investigate the points; remove only with justification |
+| Multicollinearity | VIF > 10 | Remove or combine predictors, use ridge regression |
 
 ## Bias-Variance Tradeoff
 
@@ -531,6 +1143,50 @@ For classification problems, each fold maintains the same class proportions as t
 - **Performance reporting:** Giving a reliable estimate of how well a model generalizes
 
 The reason cross-validation matters so deeply: it is the practical answer to the bias-variance tradeoff. You cannot directly measure bias and variance on real data, but cross-validation lets you detect their effects by measuring generalization performance.
+
+## Bootstrapping
+
+**Bootstrapping** is a resampling technique that lets you estimate the sampling distribution of almost any statistic without relying on theoretical formulas or distributional assumptions.
+
+### The Core Idea
+
+When you have a sample of size $n$, you treat that sample as if it were the population. You then draw many new samples from it (with replacement), compute your statistic on each resampled dataset, and use the distribution of those computed statistics to make inferences.
+
+**Why "with replacement"?** Each bootstrap sample must be the same size as the original sample. If you sampled without replacement, you would just get the original dataset every time. With replacement, each bootstrap sample is a slightly different version of the original: some data points appear multiple times, others not at all. This variation is what generates the distribution.
+
+### The Procedure
+
+1. Start with your original sample of size $n$
+2. Draw a bootstrap sample: select $n$ observations from the original sample with replacement
+3. Compute the statistic of interest (mean, median, regression coefficient, etc.) on the bootstrap sample
+4. Repeat steps 2-3 a total of $B$ times (typically $B = 1{,}000$ to $10{,}000$)
+5. The collection of $B$ bootstrapped statistics approximates the sampling distribution
+
+### Bootstrap Confidence Intervals
+
+The simplest bootstrap confidence interval uses the percentiles of the bootstrapped distribution directly.
+
+**Percentile method:** For a 95% confidence interval, take the 2.5th and 97.5th percentiles of the $B$ bootstrapped statistics.
+
+**Worked example:** Suppose you have a sample of 12 delivery times (in minutes): 22, 25, 27, 28, 30, 31, 33, 35, 38, 40, 42, 55. The sample median is 32. You want a 95% CI for the population median.
+
+You draw $B = 10{,}000$ bootstrap samples (each of size 12, with replacement), compute the median of each, and sort the 10,000 medians. The 250th smallest value (2.5th percentile) is 28 and the 9,750th smallest value (97.5th percentile) is 40.
+
+The 95% bootstrap CI for the median is $(28, 40)$.
+
+### Why Bootstrapping Matters
+
+**No distributional assumptions:** For the mean, the CLT gives you a theoretical sampling distribution (normal). But what about the sampling distribution of the median? The trimmed mean? The ratio of two variances? For many statistics, there is no clean formula. Bootstrapping handles them all with the same procedure.
+
+**Nonparametric:** Bootstrapping does not assume the data came from any particular distribution. This makes it robust when the normality assumption is questionable.
+
+**Limitations:** Bootstrapping relies on the original sample being reasonably representative of the population. If your sample is small and unrepresentative, resampling from it will not fix the problem. Bootstrapping also struggles with statistics that are highly sensitive to rare extreme values, because those values may appear zero or multiple times across bootstrap samples.
+
+### Where It Shows Up in ML
+
+**Bootstrap aggregating (bagging):** Train multiple models on different bootstrap samples of the training data, then average their predictions. This reduces variance. Random forests extend bagging by also randomizing feature selection at each split.
+
+**Out-of-bag (OOB) estimation:** In each bootstrap sample, roughly 37% of the original data points are left out (they were never selected). These "out-of-bag" points can be used as a free validation set, giving a performance estimate without needing a separate test set.
 
 ## Summary: Connecting Statistics to ML
 

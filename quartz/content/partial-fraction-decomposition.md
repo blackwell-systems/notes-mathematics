@@ -4,6 +4,8 @@ title: "Partial Fraction Decomposition"
 
 **Partial Fraction Decomposition:** A method for rewriting a proper rational function (where the degree of the numerator is less than the degree of the denominator) as a sum of simpler fractions. This is the inverse process of finding a common denominator.
 
+This technique requires understanding [Rational Functions](./rational-functions) (what makes a fraction proper vs improper) and [Polynomial Functions](./polynomial-functions) (how to factor denominators). It is used in [Calculus](./calculus) to simplify integrals of rational functions.
+
 **Prerequisite:** The rational function must be **proper**. If it is improper (degree of numerator $\geq$ degree of denominator), first perform polynomial long division to extract the polynomial part, then decompose the remaining proper fraction.
 
 ## The Four Cases

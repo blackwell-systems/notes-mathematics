@@ -31,6 +31,7 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 - [Sequences & Series](./sequences-and-series)
 - [Systems of Equations](./systems-of-equations)
 - [Inequalities](./inequalities)
+- [Conic Sections](./conic-sections)
 - [Symbolic Methods vs. Numerical Methods](./symbolic-methods-vs-numerical-methods)
 
 ## Linear Algebra
@@ -62,11 +63,11 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 
 ## Optimization
 
-*Coming soon: gradient descent, convex optimization, Lagrange multipliers*
+- [Optimization](./optimization) (convexity, gradient descent, Adam, constrained optimization, regularization)
 
 ## Information Theory
 
-*Coming soon: entropy, KL divergence, cross-entropy, mutual information*
+- [Information Theory](./information-theory) (entropy, KL divergence, cross-entropy, mutual information)
 
 ## Discrete Mathematics
 

@@ -57,6 +57,68 @@ The overall limit $\lim_{x \to a} f(x)$ exists only if both one-sided limits exi
 
 **Example:** The function $f(x) = \frac{|x|}{x}$ equals $-1$ for negative $x$ and $+1$ for positive $x$. So $\lim_{x \to 0^-} f(x) = -1$ and $\lim_{x \to 0^+} f(x) = 1$. Since these differ, $\lim_{x \to 0} f(x)$ does not exist.
 
+### Infinite Limits (Vertical Asymptotes)
+
+Sometimes a function does not approach a finite number; instead it grows without bound. We write:
+
+$$
+\lim_{x \to a} f(x) = \infty \quad \text{or} \quad \lim_{x \to a} f(x) = -\infty
+$$
+
+Technically, these limits "do not exist" (infinity is not a real number), but writing $= \infty$ communicates that the function blows up in a specific direction.
+
+**Example:** $f(x) = \frac{1}{x^2}$ near $x = 0$:
+
+$$
+\lim_{x \to 0} \frac{1}{x^2} = \infty
+$$
+
+As $x$ gets close to 0 from either side, $x^2$ gets tiny and positive, so $1/x^2$ gets huge. The graph shoots upward. The line $x = 0$ is a **vertical asymptote**.
+
+**Example where the two sides disagree:** $f(x) = \frac{1}{x}$ near $x = 0$:
+
+$$
+\lim_{x \to 0^+} \frac{1}{x} = +\infty \quad \text{and} \quad \lim_{x \to 0^-} \frac{1}{x} = -\infty
+$$
+
+From the right, $x$ is small and positive, so $1/x$ is large and positive. From the left, $x$ is small and negative, so $1/x$ is large and negative. The function goes to $+\infty$ on one side and $-\infty$ on the other. This is why the graph of $1/x$ has two separate branches.
+
+### When a Limit Does Not Exist
+
+A limit fails to exist in three situations:
+
+**1. Left and right limits disagree** (jump discontinuity):
+
+$$
+\lim_{x \to 0} \frac{|x|}{x} \text{ does not exist because left limit} = -1 \neq 1 = \text{right limit}
+$$
+
+**2. Function blows up to infinity** (vertical asymptote):
+
+$$
+\lim_{x \to 0} \frac{1}{x} \text{ does not exist (goes to } +\infty \text{ from right, } -\infty \text{ from left)}
+$$
+
+**3. Function oscillates without settling** (oscillation):
+
+Consider $f(x) = \sin(1/x)$ near $x = 0$. As $x$ gets closer to 0, $1/x$ gets larger and the sine oscillates faster and faster between -1 and 1, never settling on any value. The limit does not exist because the function never approaches a single number.
+
+### Limit Laws
+
+If $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$ (both limits exist and are finite), then:
+
+| Law | Formula |
+|---|---|
+| **Sum** | $\lim_{x \to a} [f(x) + g(x)] = L + M$ |
+| **Difference** | $\lim_{x \to a} [f(x) - g(x)] = L - M$ |
+| **Constant multiple** | $\lim_{x \to a} [c \cdot f(x)] = c \cdot L$ |
+| **Product** | $\lim_{x \to a} [f(x) \cdot g(x)] = L \cdot M$ |
+| **Quotient** | $\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}$, provided $M \neq 0$ |
+| **Power** | $\lim_{x \to a} [f(x)]^n = L^n$ |
+| **Root** | $\lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}$, provided $L > 0$ for even $n$ |
+
+These laws formalize why direct substitution works for most functions: if a function is built from simpler pieces using addition, multiplication, etc., you can compute the limit of each piece separately and combine the results.
+
 ### Limits at Infinity
 
 What happens to a function as $x$ grows without bound? This connects to the [end behavior of rational functions](./rational-functions) you have already studied.
@@ -93,11 +155,89 @@ $$
 \lim_{x \to 0} \frac{\sqrt{x + 4} - 2}{x} = \lim_{x \to 0} \frac{(\sqrt{x+4} - 2)(\sqrt{x+4} + 2)}{x(\sqrt{x+4} + 2)} = \lim_{x \to 0} \frac{x + 4 - 4}{x(\sqrt{x+4} + 2)} = \lim_{x \to 0} \frac{1}{\sqrt{x+4} + 2} = \frac{1}{4}
 $$
 
+### Limits of Piecewise Functions
+
+For piecewise functions, evaluate the limit from each side using the piece that applies on that side.
+
+**Example:**
+
+$$
+f(x) = \begin{cases} x + 1 & \text{if } x < 2 \\ 5 & \text{if } x = 2 \\ x^2 & \text{if } x > 2 \end{cases}
+$$
+
+- $\lim_{x \to 2^-} f(x) = 2 + 1 = 3$ (use the $x + 1$ piece)
+- $\lim_{x \to 2^+} f(x) = 2^2 = 4$ (use the $x^2$ piece)
+- Since $3 \neq 4$, $\lim_{x \to 2} f(x)$ does not exist
+
+Note that $f(2) = 5$, but neither one-sided limit equals 5. The function value at a point and the limit at that point are independent concepts.
+
+### Important Trigonometric Limits
+
+Two limits involving trigonometric functions come up repeatedly in calculus. They are needed to derive the derivatives of sine and cosine.
+
+$$
+\lim_{x \to 0} \frac{\sin x}{x} = 1
+$$
+
+This says that for small angles (in radians), $\sin x \approx x$. You cannot prove this by plugging in ($\frac{\sin 0}{0} = \frac{0}{0}$). It requires a geometric argument using the unit circle, or the squeeze theorem (below).
+
+$$
+\lim_{x \to 0} \frac{1 - \cos x}{x} = 0
+$$
+
+This says that $\cos x \approx 1$ for small $x$ (the cosine curve is flat near $x = 0$).
+
+**Example:** Evaluate $\lim_{x \to 0} \frac{\sin(3x)}{x}$.
+
+Rewrite to match the known limit: $\frac{\sin(3x)}{x} = 3 \cdot \frac{\sin(3x)}{3x}$. As $x \to 0$, $3x \to 0$, so $\frac{\sin(3x)}{3x} \to 1$. The answer is $3 \cdot 1 = 3$.
+
+### The Squeeze Theorem
+
+**Squeeze Theorem (Sandwich Theorem):** If $g(x) \leq f(x) \leq h(x)$ for all $x$ near $a$ (except possibly at $a$ itself), and:
+
+$$
+\lim_{x \to a} g(x) = \lim_{x \to a} h(x) = L
+$$
+
+then $\lim_{x \to a} f(x) = L$ as well.
+
+The intuition: if $f$ is trapped between two functions that both approach $L$, then $f$ has no choice but to approach $L$ too.
+
+**Example:** Show that $\lim_{x \to 0} x^2 \sin(1/x) = 0$.
+
+We cannot compute this limit by direct substitution because $\sin(1/x)$ oscillates wildly near 0. But we know $-1 \leq \sin(1/x) \leq 1$, so:
+
+$$
+-x^2 \leq x^2 \sin(1/x) \leq x^2
+$$
+
+Both $-x^2$ and $x^2$ approach 0 as $x \to 0$. By the squeeze theorem, $x^2 \sin(1/x) \to 0$.
+
+This is noteworthy because $\sin(1/x)$ alone has no limit at 0 (it oscillates forever), but multiplying by $x^2$ "squeezes" the oscillation down to nothing.
+
 ### Indeterminate Forms
 
 When direct substitution gives $\frac{0}{0}$ or $\frac{\infty}{\infty}$, the result is called an **indeterminate form**. The limit might be any number (or might not exist). You need algebraic manipulation (or L'Hopital's rule, below) to find the actual limit.
 
-Other indeterminate forms include $0 \cdot \infty$, $\infty - \infty$, $0^0$, $1^\infty$, and $\infty^0$.
+The seven indeterminate forms:
+
+| Form | Example | Why it is indeterminate |
+|---|---|---|
+| $\frac{0}{0}$ | $\lim_{x \to 1} \frac{x^2-1}{x-1}$ | Could be any number (this one is 2) |
+| $\frac{\infty}{\infty}$ | $\lim_{x \to \infty} \frac{x^2}{e^x}$ | Depends on which grows faster (this one is 0) |
+| $0 \cdot \infty$ | $\lim_{x \to 0^+} x \ln x$ | Rewrite as $\frac{0}{0}$ or $\frac{\infty}{\infty}$ to evaluate |
+| $\infty - \infty$ | $\lim_{x \to \infty} (x - \sqrt{x^2+1})$ | Could be any number |
+| $0^0$ | $\lim_{x \to 0^+} x^x$ | This one is 1, but other $0^0$ forms can differ |
+| $1^\infty$ | $\lim_{x \to \infty} (1 + 1/x)^x$ | This one is $e$ |
+| $\infty^0$ | $\lim_{x \to \infty} x^{1/x}$ | This one is 1 |
+
+**Not indeterminate** (these always have the same answer):
+
+| Form | Result | Why |
+|---|---|---|
+| $\frac{k}{0}$ (where $k \neq 0$) | $\pm \infty$ or DNE | Nonzero divided by tiny = huge |
+| $0^{\infty}$ | $0$ | Tiny base raised to huge power = 0 |
+| $\infty \cdot \infty$ | $\infty$ | Both factors are huge |
 
 ### L'Hopital's Rule (Preview)
 
@@ -120,6 +260,51 @@ A function is **continuous** at a point $a$ if three things hold:
 In plain language: you can draw the graph through that point without lifting your pen. Polynomials, exponentials, and sine/cosine are continuous everywhere. Rational functions are continuous everywhere except where the denominator is zero.
 
 **Why continuity matters:** Most theorems in calculus require the function to be continuous. For optimization, continuity guarantees that a continuous function on a closed interval actually achieves its maximum and minimum values (the Extreme Value Theorem).
+
+### Types of Discontinuities
+
+When a function fails to be continuous at a point, the nature of the failure falls into one of four categories. Understanding these types clarifies what "not continuous" really means.
+
+**1. Removable discontinuity (hole):** The limit $\lim_{x \to a} f(x)$ exists, but $f(a)$ is either undefined or does not equal the limit. The graph has a "hole" at that point.
+
+**Example:** $f(x) = \frac{x^2 - 1}{x - 1}$. At $x = 1$, the function is undefined ($\frac{0}{0}$). But $\lim_{x \to 1} f(x) = \lim_{x \to 1} \frac{(x-1)(x+1)}{x-1} = \lim_{x \to 1} (x+1) = 2$. The limit exists; the function simply has a hole at $(1, 2)$.
+
+This is called "removable" because you can fix it by defining (or redefining) $f(1) = 2$. The resulting function would be continuous.
+
+**2. Jump discontinuity:** Both one-sided limits $\lim_{x \to a^-} f(x)$ and $\lim_{x \to a^+} f(x)$ exist, but they are not equal. The graph "jumps" from one value to another.
+
+**Example:** The floor function $\lfloor x \rfloor$ (which rounds down to the nearest integer) has jump discontinuities at every integer. At $x = 2$: $\lim_{x \to 2^-} \lfloor x \rfloor = 1$ and $\lim_{x \to 2^+} \lfloor x \rfloor = 2$. The function jumps from 1 to 2.
+
+The $\frac{|x|}{x}$ example from earlier is also a jump discontinuity at $x = 0$: the function jumps from $-1$ to $+1$.
+
+**3. Infinite discontinuity:** The function approaches $\pm\infty$ from at least one side. The graph has a vertical asymptote.
+
+**Example:** $f(x) = \frac{1}{x}$ at $x = 0$. As $x \to 0^+$, $f(x) \to +\infty$, and as $x \to 0^-$, $f(x) \to -\infty$. The function blows up rather than approaching a finite value.
+
+**4. Oscillating discontinuity:** The function oscillates too wildly to approach any value, finite or infinite. No limit exists.
+
+**Example:** $f(x) = \sin(1/x)$ at $x = 0$. As $x \to 0$, $1/x$ grows without bound, and $\sin(1/x)$ oscillates between $-1$ and $1$ infinitely many times. The function never settles on any value.
+
+**Which discontinuities can be "fixed"?** Only removable discontinuities can be repaired by redefining $f(a)$ to equal the limit. Jump, infinite, and oscillating discontinuities are inherent to the function's behavior and cannot be removed by changing the value at a single point.
+
+### Intermediate Value Theorem
+
+The **Intermediate Value Theorem (IVT)** formalizes an intuitive property of continuous functions: they cannot "skip over" values.
+
+**Statement:** If $f$ is continuous on the closed interval $[a,b]$ and $N$ is any number between $f(a)$ and $f(b)$, then there exists at least one $c \in (a,b)$ such that $f(c) = N$.
+
+**Intuition:** If you start below sea level and end up above sea level, and you walk continuously (no teleporting), then at some point you must be exactly at sea level. A continuous function that starts at one value and ends at another must hit every value in between.
+
+**Example:** Prove that $x^3 - x - 1 = 0$ has a solution between $x = 1$ and $x = 2$.
+
+Let $f(x) = x^3 - x - 1$. This is a polynomial, so it is continuous everywhere.
+
+- $f(1) = 1 - 1 - 1 = -1 < 0$
+- $f(2) = 8 - 2 - 1 = 5 > 0$
+
+Since $f$ is continuous on $[1,2]$, $f(1) < 0$, and $f(2) > 0$, the IVT guarantees there exists a $c \in (1,2)$ with $f(c) = 0$. That $c$ is a root of the equation.
+
+**Connection to computing:** The IVT is the theoretical foundation of the **bisection method** for finding roots numerically. The algorithm repeatedly cuts the interval in half, checking the sign of $f$ at the midpoint to determine which half contains the root. Each step halves the interval, guaranteeing convergence. This is one of the simplest and most reliable root-finding algorithms in numerical computing.
 
 ---
 
@@ -160,6 +345,40 @@ f'(x) = \lim_{h \to 0} \frac{(x+h)^2 - x^2}{h} = \lim_{h \to 0} \frac{x^2 + 2xh 
 $$
 
 So the derivative of $x^2$ is $2x$. At $x = 3$, the slope of the tangent line is $2(3) = 6$. This means that near $x = 3$, a tiny increase in $x$ produces about 6 times as much increase in $x^2$.
+
+### Differentiability
+
+A function is **differentiable** at $a$ if the derivative $f'(a)$ exists, meaning the limit in the definition above produces a finite value. Differentiability is a stronger condition than continuity.
+
+**Differentiable implies continuous:** If $f$ is differentiable at $a$, then $f$ is continuous at $a$. The converse is false: a function can be continuous at a point without being differentiable there.
+
+There are three ways a function can be continuous but NOT differentiable at a point:
+
+**1. Corner or cusp:** The function $f(x) = |x|$ is continuous at $x = 0$ (no break in the graph), but the graph has a sharp corner there. The slope from the left is $-1$ and the slope from the right is $+1$. Since these disagree, the derivative does not exist.
+
+**Worked example:** Show $f(x) = |x|$ is not differentiable at $x = 0$ using the limit definition.
+
+$$
+f'(0) = \lim_{h \to 0} \frac{|0 + h| - |0|}{h} = \lim_{h \to 0} \frac{|h|}{h}
+$$
+
+From the right ($h > 0$): $\frac{|h|}{h} = \frac{h}{h} = 1$.
+
+From the left ($h < 0$): $\frac{|h|}{h} = \frac{-h}{h} = -1$.
+
+The left-hand and right-hand limits disagree ($1 \neq -1$), so the limit does not exist and $f$ is not differentiable at $x = 0$.
+
+**2. Vertical tangent:** The function $f(x) = x^{1/3}$ (the cube root) is continuous at $x = 0$, but its tangent line there is vertical (infinite slope). Using the limit definition:
+
+$$
+f'(0) = \lim_{h \to 0} \frac{h^{1/3}}{h} = \lim_{h \to 0} \frac{1}{h^{2/3}} = \infty
+$$
+
+The limit is infinite, not a finite number, so the derivative does not exist.
+
+**3. Oscillation:** The function $f(x) = x\sin(1/x)$ (with $f(0) = 0$) is continuous at $x = 0$ (by the squeeze theorem, since $|x\sin(1/x)| \leq |x| \to 0$). However, the difference quotient $\frac{f(h) - f(0)}{h} = \sin(1/h)$ oscillates between $-1$ and $1$ as $h \to 0$, so the derivative does not exist.
+
+In machine learning, non-differentiable points arise with activation functions like ReLU ($f(x) = \max(0, x)$), which has a corner at $x = 0$. In practice, the derivative is defined to be 0 or 1 at the corner, and this works well because a single point does not affect training.
 
 ### Derivative Notation
 
@@ -333,6 +552,49 @@ $$
 
 Note the negative sign on cosine. The derivatives of sine and cosine cycle: $\sin \to \cos \to -\sin \to -\cos \to \sin \to \ldots$
 
+The remaining three trigonometric derivatives are:
+
+$$
+\frac{d}{dx}[\cot x] = -\csc^2 x \qquad \frac{d}{dx}[\sec x] = \sec x \tan x \qquad \frac{d}{dx}[\csc x] = -\csc x \cot x
+$$
+
+These can be derived using the quotient rule. For example, $\sec x = \frac{1}{\cos x}$, so by the quotient rule:
+
+$$
+\frac{d}{dx}[\sec x] = \frac{0 \cdot \cos x - 1 \cdot (-\sin x)}{\cos^2 x} = \frac{\sin x}{\cos^2 x} = \frac{1}{\cos x} \cdot \frac{\sin x}{\cos x} = \sec x \tan x
+$$
+
+**Complete table of trigonometric derivatives:**
+
+| Function | Derivative |
+|----------|-----------|
+| $\sin x$ | $\cos x$ |
+| $\cos x$ | $-\sin x$ |
+| $\tan x$ | $\sec^2 x$ |
+| $\cot x$ | $-\csc^2 x$ |
+| $\sec x$ | $\sec x \tan x$ |
+| $\csc x$ | $-\csc x \cot x$ |
+
+Notice a pattern: the "co-" functions (cosine, cotangent, cosecant) all have negative signs in their derivatives.
+
+### Derivatives of Inverse Trigonometric Functions
+
+The inverse trigonometric functions arise naturally when solving for angles, and their derivatives appear frequently as integration results.
+
+$$
+\frac{d}{dx}[\arcsin x] = \frac{1}{\sqrt{1-x^2}} \qquad \frac{d}{dx}[\arccos x] = -\frac{1}{\sqrt{1-x^2}} \qquad \frac{d}{dx}[\arctan x] = \frac{1}{1+x^2}
+$$
+
+The remaining three:
+
+$$
+\frac{d}{dx}[\text{arccot}\, x] = -\frac{1}{1+x^2} \qquad \frac{d}{dx}[\text{arcsec}\, x] = \frac{1}{|x|\sqrt{x^2-1}} \qquad \frac{d}{dx}[\text{arccsc}\, x] = -\frac{1}{|x|\sqrt{x^2-1}}
+$$
+
+These derivatives are derived using implicit differentiation. For example, if $y = \arcsin x$, then $\sin y = x$. Differentiating both sides: $\cos y \cdot y' = 1$, so $y' = \frac{1}{\cos y} = \frac{1}{\sqrt{1 - \sin^2 y}} = \frac{1}{\sqrt{1 - x^2}}$.
+
+**Why these matter for integration:** Knowing these derivatives in reverse means we can integrate certain expressions. For instance, $\int \frac{1}{1+x^2} \, dx = \arctan x + C$ and $\int \frac{1}{\sqrt{1-x^2}} \, dx = \arcsin x + C$. These integrals appear often enough to be listed in standard integral tables.
+
 ### Higher-Order Derivatives
 
 The derivative of the derivative is the **second derivative**, written $f''(x)$ or $\frac{d^2y}{dx^2}$.
@@ -353,6 +615,63 @@ Sometimes you cannot solve for $y$ explicitly. For example, $x^2 + y^2 = 25$ def
 $$
 2x + 2y \frac{dy}{dx} = 0 \implies \frac{dy}{dx} = -\frac{x}{y}
 $$
+
+### Logarithmic Differentiation
+
+Some functions are extremely difficult to differentiate using the standard rules. **Logarithmic differentiation** simplifies them by taking the natural logarithm of both sides before differentiating.
+
+**Technique:**
+1. Start with $y = f(x)$.
+2. Take $\ln$ of both sides: $\ln y = \ln f(x)$.
+3. Simplify the right side using logarithm properties.
+4. Differentiate both sides implicitly (the left side becomes $\frac{y'}{y}$).
+5. Solve for $y'$ and substitute back.
+
+**When to use it:**
+- Variables appear in both the base and the exponent (like $x^x$).
+- The function is a complicated product or quotient of many terms.
+
+**Worked example 1:** Find the derivative of $y = x^x$ (for $x > 0$).
+
+The power rule does not apply (the exponent is not constant). The exponential rule does not apply (the base is not constant). Take logarithms:
+
+$$
+\ln y = x \ln x
+$$
+
+Differentiate both sides with respect to $x$:
+
+$$
+\frac{y'}{y} = \ln x + x \cdot \frac{1}{x} = \ln x + 1
+$$
+
+Solve for $y'$:
+
+$$
+y' = y(\ln x + 1) = x^x(\ln x + 1)
+$$
+
+**Worked example 2:** Find the derivative of $y = \frac{x^2 \sqrt{x+1}}{(x-3)^4}$.
+
+Using the quotient and product rules directly would be messy. Instead, take logarithms:
+
+$$
+\ln y = 2\ln x + \frac{1}{2}\ln(x+1) - 4\ln(x-3)
+$$
+
+Differentiate:
+
+$$
+\frac{y'}{y} = \frac{2}{x} + \frac{1}{2(x+1)} - \frac{4}{x-3}
+$$
+
+Multiply both sides by $y$:
+
+$$
+y' = \frac{x^2\sqrt{x+1}}{(x-3)^4}\left[\frac{2}{x} + \frac{1}{2(x+1)} - \frac{4}{x-3}\right]
+$$
+
+This is much cleaner than applying the product and quotient rules directly to the original expression.
 
 ---
 
@@ -442,6 +761,168 @@ $$
 
 The actual value is $2.02485...$, so the approximation is quite good.
 
+### Curve Sketching
+
+Calculus gives us a systematic procedure for sketching the graph of a function by combining all the tools developed so far. Follow these steps:
+
+1. **Domain:** Determine where the function is defined. Look for division by zero, square roots of negatives, logarithms of non-positives.
+2. **Intercepts:** Find $x$-intercepts (set $f(x) = 0$) and the $y$-intercept (evaluate $f(0)$).
+3. **Symmetry:** Check if $f$ is even ($f(-x) = f(x)$, symmetric about the $y$-axis) or odd ($f(-x) = -f(x)$, symmetric about the origin).
+4. **Asymptotes:** Find vertical asymptotes (where the denominator is zero), horizontal asymptotes ($\lim_{x \to \pm\infty} f(x)$), and slant asymptotes if applicable.
+5. **First derivative analysis:** Compute $f'(x)$. Find critical points where $f' = 0$ or $f'$ is undefined. Determine where $f$ is increasing ($f' > 0$) and decreasing ($f' < 0$). Identify local maxima and minima.
+6. **Second derivative analysis:** Compute $f''(x)$. Find where $f'' = 0$. Determine concavity: concave up ($f'' > 0$) and concave down ($f'' < 0$). Identify inflection points.
+7. **Plot key points and sketch:** Combine all information to draw the graph.
+
+**Complete worked example:** Sketch $f(x) = \frac{x^2}{x^2 - 1}$.
+
+**Step 1, Domain:** The denominator $x^2 - 1 = (x-1)(x+1)$ is zero when $x = \pm 1$. So the domain is all real numbers except $x = -1$ and $x = 1$.
+
+**Step 2, Intercepts:** Setting $f(x) = 0$: $\frac{x^2}{x^2-1} = 0$ requires $x^2 = 0$, so $x = 0$. The only intercept is the origin $(0, 0)$.
+
+**Step 3, Symmetry:** $f(-x) = \frac{(-x)^2}{(-x)^2 - 1} = \frac{x^2}{x^2 - 1} = f(x)$. The function is even, so it is symmetric about the $y$-axis. We only need to analyze $x \geq 0$ and mirror.
+
+**Step 4, Asymptotes:**
+- Vertical: $x = 1$ and $x = -1$ (where the denominator is zero).
+- Horizontal: $\lim_{x \to \pm\infty} \frac{x^2}{x^2 - 1} = \lim_{x \to \pm\infty} \frac{1}{1 - 1/x^2} = 1$. So $y = 1$ is a horizontal asymptote.
+
+**Step 5, First derivative:**
+
+$$
+f'(x) = \frac{2x(x^2-1) - x^2(2x)}{(x^2-1)^2} = \frac{2x^3 - 2x - 2x^3}{(x^2-1)^2} = \frac{-2x}{(x^2-1)^2}
+$$
+
+Critical point: $f'(x) = 0$ when $x = 0$. The denominator $(x^2-1)^2$ is always positive (where defined), so the sign of $f'$ depends only on $-2x$:
+- For $x < 0$ (where defined): $f'(x) > 0$ (increasing)
+- For $x > 0$ (where defined): $f'(x) < 0$ (decreasing)
+
+So $x = 0$ is a local maximum with $f(0) = 0$.
+
+**Step 6, Second derivative:** By the quotient rule (omitting the algebra):
+
+$$
+f''(x) = \frac{2(3x^2 + 1)}{(x^2 - 1)^3}
+$$
+
+The numerator $2(3x^2 + 1)$ is always positive. The sign of $f''$ depends on $(x^2 - 1)^3$:
+- For $|x| < 1$: $x^2 - 1 < 0$, so $f'' < 0$ (concave down)
+- For $|x| > 1$: $x^2 - 1 > 0$, so $f'' > 0$ (concave up)
+
+No inflection points (the concavity changes at $x = \pm 1$, but the function is not defined there).
+
+**Step 7, Sketch:** The function passes through the origin with a local maximum of 0 there. It is concave down between the vertical asymptotes $x = -1$ and $x = 1$. Outside the asymptotes, it is concave up and approaches $y = 1$ from above. Near $x = 1^+$, $f(x) \to +\infty$. Near $x = 1^-$, $f(x) \to -\infty$ (the numerator is positive and the denominator is small and negative).
+
+### Differentials
+
+If $y = f(x)$, the **differential** $dy$ is defined as:
+
+$$
+dy = f'(x) \, dx
+$$
+
+Here $dx$ represents a small change in $x$, and $dy$ represents the corresponding approximate change in $y$, as predicted by the tangent line. The differential formalizes the idea behind linear approximation: the actual change $\Delta y = f(x + dx) - f(x)$ is approximately equal to $dy = f'(x) \, dx$ when $dx$ is small.
+
+**Example:** Estimate the change in area of a circle when the radius changes from 5 to 5.1.
+
+The area is $A = \pi r^2$, so $dA = 2\pi r \, dr$. With $r = 5$ and $dr = 0.1$:
+
+$$
+dA = 2\pi(5)(0.1) = \pi \approx 3.14
+$$
+
+The area increases by approximately $\pi$ square units. (The exact change is $\pi(5.1)^2 - \pi(5)^2 = \pi(26.01 - 25) = 1.01\pi \approx 3.17$, so the approximation is close.)
+
+Differentials provide the notation that makes substitution in integrals work naturally: writing $du = g'(x) \, dx$ in u-substitution is using differentials.
+
+### Mean Value Theorem
+
+The Mean Value Theorem (MVT) is one of the most important theoretical results in calculus. It says that under mild conditions, the instantaneous rate of change must equal the average rate of change at some point.
+
+**Rolle's Theorem (special case):** If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a) = f(b)$, then there exists at least one $c \in (a,b)$ with $f'(c) = 0$.
+
+The intuition: if a function starts and ends at the same height, it must have a horizontal tangent somewhere in between (it has to "turn around").
+
+**Mean Value Theorem:** If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there exists at least one $c \in (a,b)$ such that:
+
+$$
+f'(c) = \frac{f(b) - f(a)}{b - a}
+$$
+
+In words: at some point, the instantaneous rate of change equals the average rate of change over the interval.
+
+**Intuition:** If you drive 60 miles in 1 hour, your average speed is 60 mph. The MVT says that at some moment during the trip, your speedometer read exactly 60 mph. You might have gone faster or slower at other times, but at least once, you hit exactly the average.
+
+Rolle's Theorem is the special case where $f(a) = f(b)$, making the average rate of change zero.
+
+**Why the MVT matters:** It is the theoretical foundation for many calculus results:
+
+- If $f'(x) > 0$ on an interval, then $f$ is increasing. (Proof: for any $a < b$ in the interval, the MVT gives $f(b) - f(a) = f'(c)(b-a) > 0$, so $f(b) > f(a)$.)
+- If $f'(x) = 0$ everywhere on an interval, then $f$ is constant. (The MVT forces $f(b) - f(a) = 0$ for any $a, b$.)
+- Two antiderivatives of the same function differ by a constant. (Their difference has zero derivative, so by the above, it is constant.)
+
+### L'Hopital's Rule
+
+L'Hopital's Rule provides a powerful method for evaluating limits that give indeterminate forms. The preview in the Limits section introduced the idea; here is the full treatment.
+
+**Formal statement:** If $\lim_{x \to a} f(x) = 0$ and $\lim_{x \to a} g(x) = 0$ (the $\frac{0}{0}$ case), or if both limits are $\pm\infty$ (the $\frac{\infty}{\infty}$ case), and if $g'(x) \neq 0$ near $a$, then:
+
+$$
+\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
+$$
+
+provided the limit on the right exists (or is $\pm\infty$). The rule also applies when $a = \pm\infty$.
+
+The idea: replace the numerator and denominator with their derivatives, then evaluate the new limit. If the new limit is still indeterminate, apply the rule again.
+
+**Worked example 1 ($\frac{0}{0}$):** Evaluate $\lim_{x \to 0} \frac{\sin x}{x}$.
+
+Check: $\sin 0 = 0$ and $x \to 0$, so this is $\frac{0}{0}$. Apply L'Hopital's Rule:
+
+$$
+\lim_{x \to 0} \frac{\sin x}{x} = \lim_{x \to 0} \frac{\cos x}{1} = \cos 0 = 1
+$$
+
+This confirms the important trigonometric limit we stated earlier.
+
+**Worked example 2 ($\frac{\infty}{\infty}$, applied twice):** Evaluate $\lim_{x \to \infty} \frac{x^2}{e^x}$.
+
+Check: as $x \to \infty$, both $x^2 \to \infty$ and $e^x \to \infty$. This is $\frac{\infty}{\infty}$. Apply L'Hopital's Rule:
+
+$$
+\lim_{x \to \infty} \frac{x^2}{e^x} = \lim_{x \to \infty} \frac{2x}{e^x}
+$$
+
+Still $\frac{\infty}{\infty}$. Apply again:
+
+$$
+= \lim_{x \to \infty} \frac{2}{e^x} = 0
+$$
+
+This confirms that exponential growth dominates polynomial growth.
+
+**Worked example 3 ($0 \cdot \infty$ rewritten):** Evaluate $\lim_{x \to 0^+} x \ln x$.
+
+This is $0 \cdot (-\infty)$, which is indeterminate. Rewrite as a fraction:
+
+$$
+x \ln x = \frac{\ln x}{1/x}
+$$
+
+Now as $x \to 0^+$, $\ln x \to -\infty$ and $1/x \to \infty$. This is $\frac{-\infty}{\infty}$. Apply L'Hopital's Rule:
+
+$$
+\lim_{x \to 0^+} \frac{\ln x}{1/x} = \lim_{x \to 0^+} \frac{1/x}{-1/x^2} = \lim_{x \to 0^+} \frac{x^2}{-x} = \lim_{x \to 0^+} (-x) = 0
+$$
+
+So $\lim_{x \to 0^+} x \ln x = 0$. The function approaches zero, even though $\ln x$ goes to $-\infty$, because $x$ goes to zero fast enough to dominate.
+
+**When NOT to use L'Hopital's Rule:** The rule only applies to indeterminate forms $\frac{0}{0}$ or $\frac{\infty}{\infty}$. Applying it to a non-indeterminate form gives wrong answers. For example:
+
+$$
+\lim_{x \to 0} \frac{x + 1}{x + 2} = \frac{1}{2} \quad \text{(by direct substitution)}
+$$
+
+If you incorrectly apply L'Hopital's Rule here, you get $\frac{1}{1} = 1$, which is wrong. Always verify the indeterminate form before applying the rule.
+
 ---
 
 ## Integrals
@@ -497,6 +978,49 @@ In words: to compute a definite integral, find an antiderivative, plug in the up
 $$
 \int_0^3 x^2 \, dx = \frac{3^3}{3} - \frac{0^3}{3} = 9 - 0 = 9
 $$
+
+### Properties of Definite Integrals
+
+These properties follow from the definition and the Fundamental Theorem. They simplify computation and help build intuition about integrals.
+
+**Linearity:** Constants factor out, and integrals split over sums:
+
+$$
+\int_a^b [cf(x) + dg(x)] \, dx = c\int_a^b f(x) \, dx + d\int_a^b g(x) \, dx
+$$
+
+**Additivity over intervals:** You can split an integral at any intermediate point:
+
+$$
+\int_a^b f(x) \, dx + \int_b^c f(x) \, dx = \int_a^c f(x) \, dx
+$$
+
+**Reversal of limits:** Swapping the limits of integration negates the integral:
+
+$$
+\int_b^a f(x) \, dx = -\int_a^b f(x) \, dx
+$$
+
+**Zero-width interval:**
+
+$$
+\int_a^a f(x) \, dx = 0
+$$
+
+**Comparison property:** If $f(x) \geq g(x)$ for all $x$ in $[a,b]$, then:
+
+$$
+\int_a^b f(x) \, dx \geq \int_a^b g(x) \, dx
+$$
+
+A larger function has more area under its curve.
+
+**Symmetry properties** (for integrals centered at the origin):
+
+- If $f$ is an **even** function ($f(-x) = f(x)$): $\int_{-a}^{a} f(x) \, dx = 2\int_0^a f(x) \, dx$
+- If $f$ is an **odd** function ($f(-x) = -f(x)$): $\int_{-a}^{a} f(x) \, dx = 0$
+
+The odd function result is particularly useful: the positive and negative areas cancel exactly. For example, $\int_{-1}^{1} x^3 \, dx = 0$ without any computation, because $x^3$ is odd.
 
 ### Indefinite Integrals (Antiderivatives)
 
@@ -623,6 +1147,162 @@ $$
 This integral **diverges** (blows up).
 
 **Where it shows up:** Every probability density function must satisfy $\int_{-\infty}^{\infty} f(x) \, dx = 1$. This is an improper integral. The fact that it converges to 1 is what makes $f$ a valid probability distribution. When you study continuous probability distributions, you will constantly evaluate improper integrals.
+
+### Area Between Curves
+
+When you know how to find the area under a single curve, the next natural question is: what is the area between two curves?
+
+If $f(x) \geq g(x)$ on the interval $[a,b]$, then the area between the two curves is:
+
+$$
+A = \int_a^b [f(x) - g(x)] \, dx
+$$
+
+The idea is simple: the area between the curves equals the area under the top curve minus the area under the bottom curve.
+
+**Worked example:** Find the area between $y = x$ and $y = x^2$.
+
+First, find where the curves intersect: $x = x^2$ gives $x^2 - x = 0$, so $x(x - 1) = 0$, meaning $x = 0$ and $x = 1$.
+
+On $[0, 1]$, the line $y = x$ is above the parabola $y = x^2$ (check: at $x = 1/2$, $x = 0.5$ and $x^2 = 0.25$). So:
+
+$$
+A = \int_0^1 [x - x^2] \, dx = \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = \frac{1}{2} - \frac{1}{3} = \frac{1}{6}
+$$
+
+When finding area between curves, always identify the intersection points first (they become your limits of integration) and determine which function is on top.
+
+Sometimes it is simpler to integrate with respect to $y$ rather than $x$. This happens when the curves are more naturally expressed as functions of $y$, or when integrating with respect to $x$ would require splitting the region into multiple pieces. In that case, use $A = \int_c^d [x_{\text{right}}(y) - x_{\text{left}}(y)] \, dy$.
+
+### Average Value of a Function
+
+Given a function on an interval, what single constant value would give the same "total accumulation"? That is the average value.
+
+$$
+f_{\text{avg}} = \frac{1}{b-a}\int_a^b f(x) \, dx
+$$
+
+The intuition: $\int_a^b f(x) \, dx$ gives the area under the curve. Dividing by the width $(b - a)$ gives the height of a rectangle with the same area. That height is the average value.
+
+**Example:** Suppose the temperature over a 24-hour day is modeled by $T(t) = 20 + 5\sin(\pi t/12)$ degrees (where $t$ is in hours from midnight). Find the average temperature from $t = 0$ to $t = 24$.
+
+$$
+T_{\text{avg}} = \frac{1}{24}\int_0^{24} \left[20 + 5\sin\left(\frac{\pi t}{12}\right)\right] dt
+$$
+
+$$
+= \frac{1}{24}\left[20t - 5 \cdot \frac{12}{\pi}\cos\left(\frac{\pi t}{12}\right)\right]_0^{24}
+$$
+
+$$
+= \frac{1}{24}\left[\left(480 - \frac{60}{\pi}\cos(2\pi)\right) - \left(0 - \frac{60}{\pi}\cos(0)\right)\right]
+$$
+
+$$
+= \frac{1}{24}\left[480 - \frac{60}{\pi} + \frac{60}{\pi}\right] = \frac{480}{24} = 20
+$$
+
+The average temperature is 20 degrees. The sine term integrates to zero over a full period, so the average equals the constant term, which makes intuitive sense.
+
+### Numerical Integration
+
+In practice, many integrals have no elementary antiderivative. The function $e^{-x^2}$, for example, cannot be integrated symbolically (as noted in the Gaussian integral section). When exact antiderivatives are unavailable, we approximate the integral numerically.
+
+**Trapezoid Rule:** Instead of using rectangles (as in Riemann sums), use trapezoids. A trapezoid connecting two adjacent function values better captures the shape of the curve.
+
+Divide $[a,b]$ into $n$ equal subintervals of width $\Delta x = \frac{b-a}{n}$, with endpoints $x_0, x_1, \ldots, x_n$. The trapezoid rule gives:
+
+$$
+\int_a^b f(x) \, dx \approx \frac{\Delta x}{2}\left[f(x_0) + 2f(x_1) + 2f(x_2) + \cdots + 2f(x_{n-1}) + f(x_n)\right]
+$$
+
+The first and last terms get weight 1; all interior terms get weight 2. This comes from averaging the left-endpoint and right-endpoint Riemann sums.
+
+**Simpson's Rule:** Instead of connecting points with straight lines (trapezoids), connect every three consecutive points with a parabola. This generally gives a much better approximation for the same number of function evaluations.
+
+$$
+\int_a^b f(x) \, dx \approx \frac{\Delta x}{3}\left[f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) + \cdots + 4f(x_{n-1}) + f(x_n)\right]
+$$
+
+Simpson's rule requires an even number of subintervals ($n$ must be even). The coefficients alternate: $1, 4, 2, 4, 2, \ldots, 4, 1$.
+
+**Error bounds:** The trapezoid rule has error of order $O(h^2)$ where $h = \Delta x$. Doubling the number of points cuts the error by a factor of 4. Simpson's rule has error of order $O(h^4)$, so doubling the points cuts the error by a factor of 16. Simpson's rule is remarkably accurate for smooth functions.
+
+**Connection to computing:** This is exactly what numerical software (NumPy's `numpy.trapz`, SciPy's `scipy.integrate.quad`) does when computing integrals. The `quad` function uses adaptive versions of these methods, automatically choosing more points where the function changes rapidly.
+
+### Integration with Partial Fractions
+
+When integrating a rational function (a polynomial divided by a polynomial), decompose it using [Partial Fraction Decomposition](./partial-fraction-decomposition), then integrate each simpler fraction.
+
+**Example:** Evaluate $\int \frac{1}{x^2-1} \, dx$.
+
+Factor the denominator: $x^2 - 1 = (x-1)(x+1)$. Decompose:
+
+$$
+\frac{1}{x^2-1} = \frac{1}{(x-1)(x+1)} = \frac{1}{2}\left(\frac{1}{x-1} - \frac{1}{x+1}\right)
+$$
+
+Now integrate each term:
+
+$$
+\int \frac{1}{x^2-1} \, dx = \frac{1}{2}\ln|x-1| - \frac{1}{2}\ln|x+1| + C = \frac{1}{2}\ln\left|\frac{x-1}{x+1}\right| + C
+$$
+
+Partial fractions turn a difficult rational integral into a sum of simple logarithmic or arctangent integrals.
+
+### Taylor and Maclaurin Series
+
+A smooth function can be approximated by polynomials of increasing degree. The **Taylor series** provides the best polynomial approximation of any desired degree near a given point.
+
+**Motivation:** We already saw that linear approximation uses the tangent line to approximate a function near a point. But a straight line only captures the slope, not the curvature. A quadratic approximation (parabola) would capture the curvature too. A cubic would capture even more. The Taylor series takes this idea to its logical conclusion: use a polynomial of infinite degree for a perfect representation.
+
+**Taylor series of $f(x)$ centered at $a$:**
+
+$$
+f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots
+$$
+
+Each term uses the $n$th derivative of $f$ at $a$, divided by $n!$ (the factorial), multiplied by $(x - a)^n$. The factorials ensure the $n$th derivative of the Taylor polynomial matches the $n$th derivative of $f$ at the center $a$.
+
+A **Maclaurin series** is the special case where $a = 0$:
+
+$$
+f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n
+$$
+
+**Key Maclaurin series to know:**
+
+$$
+e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots = \sum_{n=0}^{\infty} \frac{x^n}{n!} \quad \text{(converges for all } x\text{)}
+$$
+
+$$
+\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!} \quad \text{(converges for all } x\text{)}
+$$
+
+$$
+\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!} \quad \text{(converges for all } x\text{)}
+$$
+
+$$
+\frac{1}{1-x} = 1 + x + x^2 + x^3 + \cdots = \sum_{n=0}^{\infty} x^n \quad \text{(converges for } |x| < 1\text{)}
+$$
+
+$$
+\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots = \sum_{n=1}^{\infty} \frac{(-1)^{n+1} x^n}{n} \quad \text{(converges for } |x| \leq 1\text{)}
+$$
+
+**Taylor polynomials as approximations:** In practice, we truncate the series at degree $n$ to get the $n$th-degree Taylor polynomial $T_n(x)$. The linear approximation $f(x) \approx f(a) + f'(a)(x-a)$ is the degree-1 Taylor polynomial. Higher degrees give more accuracy over a wider range.
+
+Notice the pattern: the first-degree Taylor polynomial is the tangent line. The second-degree polynomial adds a parabolic correction for curvature. Each additional term refines the approximation further.
+
+**Connection to ML:** Taylor expansion is used throughout optimization theory. The second-order Taylor expansion of a loss function $L(\theta)$ around the current parameters gives:
+
+$$
+L(\theta) \approx L(\theta_0) + \nabla L(\theta_0)^T (\theta - \theta_0) + \frac{1}{2}(\theta - \theta_0)^T H (\theta - \theta_0)
+$$
+
+where $H$ is the Hessian matrix (matrix of second derivatives). Minimizing this quadratic approximation gives Newton's method for optimization. Standard gradient descent uses only the first-order term; methods like Adam and L-BFGS incorporate second-order information for faster convergence.
 
 ---
 

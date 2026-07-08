@@ -26,7 +26,7 @@ Number theory is about understanding the patterns and structure hidden in the wh
 
 ## Greatest Common Divisor (GCD)
 
-**Greatest Common Divisor:** The largest positive integer that divides both **a** and **b**.
+**Greatest Common Divisor:** The largest positive integer that divides both **a** and **b**. The GCD is used in simplifying fractions and in [Prime Factorization](./prime-factorization).
 
 **Notation:** $\gcd(a, b)$ or $(a, b)$
 
@@ -83,7 +83,7 @@ $$\gcd(a, b) \times \text{lcm}(a, b) = a \times b$$
 
 ## Modular Arithmetic
 
-**Modular Arithmetic:** A system of arithmetic for integers where numbers "wrap around" after reaching a certain value (the modulus).
+**Modular Arithmetic:** A system of arithmetic for integers where numbers "wrap around" after reaching a certain value (the modulus). Modular arithmetic is the foundation of modern cryptography (RSA) and hash functions in computer science.
 
 **Intuition - Clock Arithmetic:**
 

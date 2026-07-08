@@ -86,6 +86,24 @@ $$
 
 The first row $[2, -1]$ comes from $2x - y$. The second row $[-1, 2]$ comes from $-x + 2y$.
 
+**But we can also read $A$ by columns.** Each column collects one variable's coefficient from every equation:
+
+- Column 1 = $\begin{bmatrix} 2 \\ -1 \end{bmatrix}$: the $x$ coefficient in equation 1 is 2; the $x$ coefficient in equation 2 is -1. This column is "what $x$ does in every equation."
+- Column 2 = $\begin{bmatrix} -1 \\ 2 \end{bmatrix}$: the $y$ coefficient in equation 1 is -1; the $y$ coefficient in equation 2 is 2. This column is "what $y$ does in every equation."
+
+To see this, mark the coefficients in the original equations:
+
+$$
+\begin{cases}
+\boxed{2}\,x + (-1)\,y = 0 \\
+\boxed{-1}\,x + (2)\,y = 3
+\end{cases}
+$$
+
+Read the boxed numbers top to bottom: $2, -1$. That is column 1. Now read the unboxed coefficients top to bottom: $-1, 2$. That is column 2.
+
+So **rows = equations** and **columns = variables**. This is the key to understanding the row picture vs column picture later on this page: the row picture looks at one equation at a time, while the column picture looks at one variable at a time.
+
 **Step 2: Collect the unknowns into a vector $x$:**
 
 $$

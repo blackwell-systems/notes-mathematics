@@ -13,7 +13,7 @@ There are 2 primary branches of set theory:
 -   **Naïve Set Theory**: Naive set theory is an informal approach to
     set theory that was developed in the late 19th century before the
     formalization of set theory by mathematicians such as Ernst
-    **Zermelo** and **Abraham Fraenkel**. The term \"naive\"
+    **Zermelo** and **Abraham Fraenkel**. The term "naive"
     distinguishes it from more rigorous, formalized versions of set
     theory, like **Zermelo-Fraenkel** set theory (ZF), which are used to
     avoid certain paradoxes that arise in naive set theory.
@@ -34,47 +34,26 @@ called elements of the set.
 Elements are normally written with lower case letters and sets are
 normally written with upper case letters.
 
-We write **a ∈ A** for \"a is an element of a set A\", and **a ∉ A**,
-for \"a is not an element of a set A\".
+We write **a ∈ A** for "a is an element of a set A", and **a ∉ A**,
+for "a is not an element of a set A".
 
 **∅** or **{}** denotes the empty set, which contains no element.
 
-![A white background with black text Description automatically
-generated](./media/image22.png)
+![](./media/image22.png)
 
 **Set elements are unique.** An element is either in the set or not in
 the set. It makes no sense to say that an element is in the set
 multiple times. It may be listed multiple times, but this is
 extraneous.
 
-![](./media/image23.png)
-
-**Sets are unordered.** They can be written in any order you wish, but
-conceptually, order is meaningless and not included in the formal
-definition of a set.
-
-## Set Membership / Set Elements
-
-**Set Membership / Set Elements:** An element of a set is a distinct
-object that belongs to the set.
-
-Writing A = {1,2,3,4} means that the elements of the set are 1,2,3,4.
-
-Sets can themselves be elements. B = {1,2,{1,2}}. The members of the set
-B are 1,2 and the set {1,2}.
-
-Set membership is a binary relation denoted by the symbol: **∈**
-
-![A white background with black text Description automatically
-generated](./media/image24.png)
+![](./media/image24.png)
 
 ## Roster Notation
 
 Roster notation (also known as **enumeration notation**) involves
 explicitly listing out all the elements of the set within curly braces.
 
-![A black background with white text Description automatically
-generated](./media/image25.png)
+![](./media/image25.png)
 
 ## Set-Builder Notation
 
@@ -119,30 +98,7 @@ If A is not a subset of B, we write A ⊈ B.
 
 **Key Property:** Every set is a subset of itself (reflexive property).
 
-![](./media/image26.png)
-
-## Proper Subset
-
-**Proper Subset:** A is a proper subset of B (denoted A ⊂ B or A ⊊ B) when A is a subset of B, but A ≠ B. Everything in A is also in B, but B contains at least one element not in A.
-
-**Formal Definition:** A ⊂ B ⟺ (A ⊆ B) ∧ (A ≠ B)
-
-Equivalently: A ⊂ B ⟺ (∀x (x ∈ A → x ∈ B)) ∧ (∃x (x ∈ B ∧ x ∉ A))
-
-**Examples:**
-
-- {1, 2} ⊂ {1, 2, 3} (every element of {1, 2} is in {1, 2, 3}, and 3 is in {1, 2, 3} but not in {1, 2})
-- {a} ⊂ {a, b, c}
-- ∅ ⊂ {1, 2, 3} (the empty set is a proper subset of any non-empty set)
-- {1, 2, 3} ⊄ {1, 2, 3} (a set is NOT a proper subset of itself, since A = A)
-- {1, 2, 3} ⊄ {1, 2} (not even a subset, since 3 ∉ {1, 2})
-
-**Key Difference from Subset:**
-- A ⊆ B allows A = B (subset includes equality)
-- A ⊂ B requires A ≠ B (proper subset excludes equality)
-
-![A yellow and green circle with black text Description automatically
-generated](./media/image27.png)
+![](./media/image27.png)
 
 ## Set Equality
 
@@ -234,10 +190,7 @@ average, thus $\geq \lceil m/n\rceil$.
 **Cardinality:** Let A be a set. then the number of elements in the set
 A is called **cardinality** of the set A, and is denoted by **\|A\|**
 
-![](./media/image28.png)
-
-![A black background with white text Description automatically
-generated](./media/image29.png)
+![](./media/image29.png)
 
 ### Finite vs. Infinite Sets
 
@@ -348,7 +301,7 @@ Where $\mathcal{P}(X)$ denotes the power set of $X$.
 The universal set is a fundamental concept in set theory, which refers
 to the set that contains all the objects or elements under consideration
 for a particular discussion or problem. In other words, the universal
-set is the \"superset\" of all the sets involved in a specific context.
+set is the "superset" of all the sets involved in a specific context.
 
 The universal set, often denoted by 𝑈, is the set that includes every
 element that is being considered in a given discussion or problem
@@ -361,9 +314,9 @@ Examples](./media/image30.png)
 
 The Concept of an **Absolute Universal Set**:
 
-In some discussions, the idea of an \"absolute\" universal
+In some discussions, the idea of an "absolute" universal
 set---containing all possible sets---leads to paradoxes, such as
-Russell\'s Paradox. To avoid these issues, most modern set theories,
+Russell's Paradox. To avoid these issues, most modern set theories,
 like Zermelo-Fraenkel set theory, do not include an absolute universal
 set.
 
@@ -383,8 +336,7 @@ which are in **A** or **B** (or both).
 
 **Example:** If A = {1, 2, 3} and B = {3, 4, 5}, then A ∪ B = {1, 2, 3, 4, 5}
 
-![A red circle with black lines Description automatically
-generated](./media/image31.png)
+![](./media/image31.png)
 
 ### Set Intersection
 
@@ -394,8 +346,7 @@ generated](./media/image31.png)
 
 **Example:** If A = {1, 2, 3} and B = {3, 4, 5}, then A ∩ B = {3}
 
-![A red and black circle with black lines Description automatically
-generated](./media/image32.png)
+![](./media/image32.png)
 
 #### Set Difference / Relative Set Compliment
 
@@ -407,8 +358,7 @@ relative complement of** $\mathbf{A}$ **in** $\mathbf{B}$)
 
 ∀x( x ∈ (B∖A) ↔ ( x ∈ B ∧ x ∉ A) )
 
-![A diagram of a circle Description automatically
-generated](./media/image33.png)
+![](./media/image33.png)
 
 ### Set Compliment
 
@@ -419,12 +369,7 @@ elements from the domain of discourse which are NOT in A.
 
 ∀x( x ∈ A′ ↔ ( x∈ U ∧ x ∉ A) )
 
-![A black and white math equation Description automatically generated
-with medium
-confidence](./media/image34.png)
-
-![A red circle with white circle in center Description automatically
-generated](./media/image35.png)
+![](./media/image35.png)
 
 ### Symmetric Difference
 
@@ -885,8 +830,7 @@ The proof still works: if $\{\{a\}\} = \{\{c\}, \{c, d\}\}$, then {c} = {c, d}, 
 **B**, written **A X B**, is the set of all ordered pairs in which the
 first element belongs to **A** and the second belongs to **B**.
 
-![A black text on a white background Description automatically
-generated](./media/image36.png)
+![](./media/image36.png)
 
 **The cardinality of \|A X B\| = \|A\|\|B\|**
 
@@ -895,8 +839,7 @@ and a set of columns. If the Cartesian product **rows** *×* **columns**
 is taken, the cells of the table contain ordered pairs of the form (row
 value, column value).\[4\]
 
-![A diagram of a graph Description automatically
-generated](./media/image37.png)
+![](./media/image37.png)
 
 ![](./media/image38.png)
 

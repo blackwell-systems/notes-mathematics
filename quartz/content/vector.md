@@ -24,8 +24,7 @@ Geometrically, we can picture a vector as a directed line segment, whose
 length is the magnitude of the vector and with an arrow indicating the
 direction.
 
-![A blue line on a black background Description automatically
-generated](./media/image182.png)
+![](./media/image182.png)
 
 ## Writing Vectors
 
@@ -60,9 +59,7 @@ There are many advantages to converting vectors into position vectors:
 
 **Calculate the Position Vector**
 
-![A math equation with black text Description automatically generated
-with medium
-confidence](./media/image183.png)
+![](./media/image183.png)
 
 ## Unit Vector
 

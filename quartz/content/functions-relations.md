@@ -112,8 +112,7 @@ The reflexive property of relations can be understood from a matrix by
 looking for a diagonal connecting from top left corner to bottom right
 corner
 
-![A diagram of a graph Description automatically
-generated](./media/image42.png)
+![](./media/image42.png)
 
 #### Symmetric Property
 
@@ -319,8 +318,8 @@ A relation **R** on **A** is a total order if it is:
 ### Equivalence Relation
 
 **Equivalence Relation:** An equivalence relation is a way to formally
-define when two elements of a set can be considered \"equivalent\" or
-\"similar\" in some sense, according to specific criteria.
+define when two elements of a set can be considered "equivalent" or
+"similar" in some sense, according to specific criteria.
 
 Equivalence relations are fundamental in mathematics because they allow
 us to group elements of a set into distinct classes of equivalent items,
@@ -363,7 +362,7 @@ with individual elements, we can work with entire classes, which
 simplifies many problems in mathematics.
 
 **Example:** Consider the set of all integers. The equivalence relation
-\"congruence modulo 3\" divides this set into three equivalence classes:
+"congruence modulo 3" divides this set into three equivalence classes:
 numbers that leave a remainder of 0, 1, or 2 when divided by 3. Instead
 of analyzing each integer separately, we can study the properties of
 these three classes.
@@ -565,6 +564,16 @@ these three classes.
 
 ## Function
 
+### Vertical Line Test
+
+**Vertical Line Test:** A graph in the coordinate plane represents a function if and only if every vertical line intersects the graph at most once.
+
+**Why this works:** A function assigns exactly one output to each input. A vertical line at $x = a$ passes through every point with that $x$-value. If the line crosses the graph at two or more points, then the input $a$ would map to multiple outputs, violating the definition of a function.
+
+**Examples:**
+- The graph of $y = x^2$ passes the vertical line test (each vertical line hits the parabola at most once), so it is a function.
+- The graph of $x^2 + y^2 = 1$ (a circle) fails the vertical line test. For instance, the vertical line $x = 0$ intersects the circle at both $(0, 1)$ and $(0, -1)$.
+
 **Function:** A function is a relation that uniquely associates each
 element of a set, called the **domain**, with exactly one element of
 another set, called the **codomain**.
@@ -582,8 +591,9 @@ A function is formed by three sets, the **domain** **X,** the
 **codomain** **Y**, and the **graph R** that satisfy the three following
 conditions.
 
-![A group of black letters Description automatically
-generated](./media/image43.png)
+![](./media/image43.png)
+
+Each function type has characteristic domain restrictions. See [Rational Functions](./rational-functions) (excluded zeros of denominator), [Radical Functions](./radical-functions) (non-negative under even roots), and [Logarithms](./logarithms) (positive arguments only).
 
 **1. Domain of a Function:**
 
@@ -600,7 +610,7 @@ The **codomain** of a function **f : X → Y**, which includes all
 possible outputs that the function is allowed to produce according to
 its definition.
 
-The **codomain** is specified as part of the function\'s definition,
+The **codomain** is specified as part of the function's definition,
 even if not all elements of the **codomain** are actually reached by
 the function.
 
@@ -620,8 +630,7 @@ subset in question is the entire **domain**, then the **image** and the
 **range** are the same. For a particular subset **A ⊆ X**, the image of
 **A** under **f** is denoted as **f(A)**.
 
-![A close up of text Description automatically
-generated](./media/image44.png)
+![](./media/image44.png)
 
 ### Domain
 
@@ -641,7 +650,7 @@ The **codomain** of a function **f : X → Y**
 includes all possible outputs that the function is allowed to produce
 according to its definition
 
-The **codomain** is specified as part of the function\'s definition,
+The **codomain** is specified as part of the function's definition,
 even if not all elements of the **codomain** are actually reached by the
 function. This contrasts with range, which represents the actually
 mapped values of the **codomain**.
@@ -712,33 +721,13 @@ map.
 **Injection:** A function is **injective** if every element in the
 domain maps to one and only one element in the codomain.
 
-∀x~1~​∀x~2~​( (f(x~1~​) = f(x~2~​) ) → ( x~1~​ = x~2~​) )
+$\forall x_1 \forall x_2 ( (f(x_1) = f(x_2)) \rightarrow (x_1 = x_2) )$
 
-*For every x~1~,x~2~ if f(x~1~) = f(x~2~), then x~1~ must equal x~2~*
+*For every $x_1$, $x_2$ if $f(x_1) = f(x_2)$, then $x_1$ must equal $x_2$*
 
-![](./media/image45.png)
+![](./media/image47.png)
 
-![PPT - Discrete Mathematics: Functions PowerPoint Presentation, free
-download -
-ID:5251074](./media/image46.jpeg)
-
-### Surjection (onto)
-
-**Surjection:** A surjective function is a function whose image is equal
-to it's codomain.
-
-A surjective function is one whose codomain is equal to its range.
-
-![A math equation with black text Description automatically
-generated](./media/image47.png)
-
-![](./media/image48.png)
-
-![PPT - Discrete Mathematics: Functions PowerPoint Presentation, free
-download - ID:5251074](./media/image49.jpeg)
-
-![A screenshot of a math equation Description automatically
-generated](./media/image50.png)
+![](./media/image50.png)
 
 ### Bijection (injective and surjective)
 
@@ -748,8 +737,7 @@ the codomain is mapped to from at most one element of the
 domain---and **surjective** **(or *onto*)---**meaning that each element
 of the codomain is mapped to from at least one element of the domain. 
 
-![A black background with white text Description automatically
-generated](./media/image51.png)
+![](./media/image51.png)
 
 ### Invertibility
 
@@ -779,6 +767,8 @@ generated](./media/image51.png)
 **Example:** For the set of real numbers $\mathbb{R}$, the identity function is $id(x) = x$. So $id(5) = 5$, $id(-3.7) = -3.7$, etc.
 
 ## Inverse Functions
+
+The exponential and logarithm are the most important pair of inverse functions. See [Exponential Functions](./exponential-functions) and [Logarithms](./logarithms).
 
 **Inverse Function:** If a function **f: A → B** is bijective, then there exists a unique function **f^−1: B → A** called the inverse function, such that:
 
@@ -818,6 +808,8 @@ A function has an inverse if and only if it is bijective:
 **Horizontal Line Test:** A function has an inverse if and only if every horizontal line intersects its graph at most once.
 
 ## Composition of Functions
+
+Function composition is the mathematical foundation of the chain rule in [Calculus](./calculus), which is in turn the basis of backpropagation in machine learning.
 
 **Function Composition:** The composition of two functions **f: A → B** and **g: B → C** is a new function **g ∘ f: A → C** defined by:
 
@@ -907,6 +899,57 @@ Sometimes you need to express a complex function as a composition. This is usefu
 Let $f(x) = x^2 + 1$ (inner function) and $g(x) = \sqrt{x}$ (outer function)
 
 Then $h(x) = (g \circ f)(x) = g(f(x)) = \sqrt{x^2 + 1}$
+
+## Arithmetic Operations on Functions
+
+Just as numbers can be added, subtracted, multiplied, and divided, so can functions. Given two functions $f$ and $g$, we define:
+
+**Sum:** $(f + g)(x) = f(x) + g(x)$
+
+**Difference:** $(f - g)(x) = f(x) - g(x)$
+
+**Product:** $(fg)(x) = f(x) \cdot g(x)$
+
+**Quotient:** $(f/g)(x) = \frac{f(x)}{g(x)}$, defined only where $g(x) \neq 0$
+
+The domain of each combined function is the intersection of the domains of $f$ and $g$, with the additional restriction for the quotient that $g(x) \neq 0$.
+
+**Example:** Let $f(x) = x^2 + 1$ and $g(x) = x - 3$
+
+- $(f + g)(x) = x^2 + 1 + x - 3 = x^2 + x - 2$
+- $(f - g)(x) = x^2 + 1 - (x - 3) = x^2 - x + 4$
+- $(fg)(x) = (x^2 + 1)(x - 3) = x^3 - 3x^2 + x - 3$
+- $(f/g)(x) = \frac{x^2 + 1}{x - 3}$, domain: all real numbers except $x = 3$
+
+## Difference Quotient
+
+**Difference Quotient:** For a function $f$, the difference quotient is:
+
+$$\frac{f(x + h) - f(x)}{h}$$
+
+This expression computes the **average rate of change** of $f$ between the input $x$ and the input $x + h$. Geometrically, it is the slope of the **secant line** through the points $(x, f(x))$ and $(x + h, f(x + h))$.
+
+The difference quotient is the precursor to the derivative in [Calculus](./calculus). Taking the limit as $h \to 0$ turns the average rate of change into the instantaneous rate of change.
+
+**Worked example:** Find the difference quotient for $f(x) = x^2$.
+
+$$\frac{f(x+h) - f(x)}{h} = \frac{(x+h)^2 - x^2}{h}$$
+
+Expand $(x+h)^2 = x^2 + 2xh + h^2$:
+
+$$= \frac{x^2 + 2xh + h^2 - x^2}{h} = \frac{2xh + h^2}{h} = \frac{h(2x + h)}{h} = 2x + h$$
+
+As $h \to 0$, the difference quotient approaches $2x$, which is the derivative of $x^2$.
+
+## Domain Restrictions by Function Type
+
+Different families of functions have characteristic domain restrictions:
+
+- **Polynomials:** Domain is all real numbers $\mathbb{R}$. Polynomials are defined everywhere.
+- **Rational functions:** Exclude values where the denominator equals zero. See [Rational Functions](./rational-functions).
+- **Radical functions with even index:** The expression under the radical (the radicand) must be $\geq 0$. For example, $\sqrt{x - 3}$ requires $x \geq 3$. See [Radical Functions](./radical-functions).
+- **Logarithmic functions:** The argument must be strictly positive ($> 0$). For example, $\ln(x + 2)$ requires $x > -2$. See [Logarithms](./logarithms).
+- **Combinations:** When functions are combined (through arithmetic operations or composition), apply all relevant restrictions. For instance, $f(x) = \frac{\sqrt{x}}{x - 4}$ requires $x \geq 0$ (from the square root) and $x \neq 4$ (from the denominator), so the domain is $[0, 4) \cup (4, \infty)$.
 
 ## Function Properties
 
