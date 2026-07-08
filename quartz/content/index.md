@@ -47,16 +47,18 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 
 ## Calculus
 
-*Coming soon: limits, derivatives, integrals, multivariable calculus, gradients*
+- [Calculus](./calculus) (limits, derivatives, chain rule, integrals, Fundamental Theorem)
+- [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients, gradient descent, convexity)
 
 ## Combinatorics & Probability
 
 - [Permutations](./permutation)
 - [Combinations](./combination)
+- [Probability](./probability) (axioms, Bayes' theorem, distributions, CLT)
 
 ## Statistics
 
-*Coming soon: descriptive statistics, distributions, estimation, regression*
+- [Statistics](./statistics) (estimation, hypothesis testing, regression, bias-variance tradeoff)
 
 ## Optimization
 

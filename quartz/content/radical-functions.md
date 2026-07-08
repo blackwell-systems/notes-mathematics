@@ -2,6 +2,30 @@
 title: "Radical Functions"
 ---
 
+## What Is a Radical?
+
+A **radical** (or **root**) is the inverse operation of raising a number to a power. If squaring a number means multiplying it by itself ($3^2 = 9$), then taking the square root reverses that process ($\sqrt{9} = 3$).
+
+### Why We Need Radicals
+
+Radicals arise naturally when we need to solve equations involving powers. For example, if you know that a square has an area of 5 square meters and you want to find the length of its side, you need to solve $x^2 = 5$. The answer is $x = \sqrt{5}$, a number that cannot be written as a simple fraction. Without the radical operation, we would have no way to express this value.
+
+More generally, the $n$-th root answers the question: "What number, raised to the $n$-th power, gives me this value?"
+
+$$\sqrt[n]{a} = b \quad \text{means} \quad b^n = a$$
+
+### Connection to Exponents
+
+**Radicals and fractional exponents are two notations for the same idea.** A square root can be written as a power of $\frac{1}{2}$, a cube root as a power of $\frac{1}{3}$, and so on:
+
+$$\sqrt{x} = x^{1/2}, \qquad \sqrt[3]{x} = x^{1/3}, \qquad \sqrt[n]{x} = x^{1/n}$$
+
+This connection to exponents is important because it lets us apply all the rules of exponents to simplify radical expressions.
+
+With these ideas in place, we can define radical functions precisely.
+
+## Definition
+
 **Radical Functions:** A radical function is a function that contains a variable under a radical symbol (root). The most common are square root and cube root functions.
 
 ## General Form

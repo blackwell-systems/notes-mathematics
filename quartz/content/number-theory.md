@@ -2,6 +2,8 @@
 title: "Number Theory"
 ---
 
+Number theory is about understanding the patterns and structure hidden in the whole numbers (0, 1, 2, 3, ...). At its core, it asks deceptively simple questions: Why can some numbers only be divided evenly by 1 and themselves? Is there a pattern to how prime numbers are distributed? These questions turn out to have deep consequences far beyond pure mathematics. Modern cryptography (RSA encryption), hash functions, and large parts of computer science rely directly on results from number theory.
+
 **Number Theory:** The branch of mathematics dealing with properties and relationships of integers.
 
 ## Divisibility

@@ -2,6 +2,30 @@
 title: "Complex Numbers"
 ---
 
+## The Problem: Some Equations Have No Real Solution
+
+Try solving this equation: $x^2 = -1$. You need a number that, when multiplied by itself, gives $-1$. But any positive number squared is positive, and any negative number squared is also positive, and $0^2 = 0$. No real number works. The equation has no solution among the real numbers.
+
+### What If We Invented a Solution?
+
+Mathematicians faced this problem for centuries. Their breakthrough was to simply **define** a new number, called $i$, with the property that $i^2 = -1$. This is not a number you can find on the ordinary number line; it is an extension of the number system, created to fill a gap.
+
+Once you have $i$, you can build more new numbers. For example, $2i$ is a number whose square is $-4$ (since $(2i)^2 = 4i^2 = 4 \cdot (-1) = -4$). Numbers like $i$, $2i$, $-3i$, and $\frac{1}{2}i$ are called **imaginary numbers**.
+
+### From Real to Imaginary to Complex
+
+- **Real numbers** are the familiar numbers on the number line: $1, -3, 0.5, \pi, \sqrt{2}$.
+- **Imaginary numbers** are real multiples of $i$: $2i, -7i, \frac{\sqrt{3}}{2}i$.
+- **Complex numbers** combine both: a real part plus an imaginary part, written as $a + bi$ where $a$ and $b$ are real numbers.
+
+Every real number is also a complex number (with $b = 0$), and every imaginary number is also a complex number (with $a = 0$).
+
+### Why Mathematicians Did This
+
+The primary motivation was the **Fundamental Theorem of Algebra**: every polynomial equation of degree $n$ has exactly $n$ roots (counting multiplicity) if we allow complex numbers. Without complex numbers, equations like $x^2 + 1 = 0$ have no roots at all. With complex numbers, every polynomial can be completely factored, and the theory of equations becomes clean and complete.
+
+## Definition
+
 **Complex Numbers:** A Complex Number is a combination of a Real Number
 and an Imaginary Number.
 

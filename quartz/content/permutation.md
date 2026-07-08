@@ -2,6 +2,39 @@
 title: "Permutation"
 ---
 
+## Why Permutations?
+
+Imagine you have 3 people (Alice, Bob, and Carol) and 3 chairs in a row. How many different ways can they sit down?
+
+- For the **first chair**, you can choose any of the 3 people.
+- For the **second chair**, only 2 people remain.
+- For the **third chair**, only 1 person is left.
+
+So the total number of seating arrangements is $3 \times 2 \times 1 = 6$.
+
+Here are all six arrangements:
+
+| Chair 1 | Chair 2 | Chair 3 |
+|---------|---------|---------|
+| Alice   | Bob     | Carol   |
+| Alice   | Carol   | Bob     |
+| Bob     | Alice   | Carol   |
+| Bob     | Carol   | Alice   |
+| Carol   | Alice   | Bob     |
+| Carol   | Bob     | Alice   |
+
+Notice that the **order matters**: Alice-Bob-Carol is a different arrangement from Carol-Bob-Alice, even though the same people are involved. This idea of counting ordered arrangements is exactly what a permutation captures.
+
+The product $3 \times 2 \times 1$ is written as $3!$ (read "3 factorial"). In general, $n!$ means multiplying all whole numbers from $n$ down to $1$:
+
+$$
+n! = n \times (n-1) \times (n-2) \times \cdots \times 2 \times 1
+$$
+
+By convention, $0! = 1$.
+
+With that foundation, here is the formal definition:
+
 **Permutation:** A permutation refers to an arrangement of elements in a specific order. The order matters in permutations.
 
 **Permutation Formula (without repetition):**

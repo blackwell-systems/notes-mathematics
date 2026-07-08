@@ -2,9 +2,36 @@
 title: "Logarithms"
 ---
 
-**Logarithm:** A logarithm is the inverse of an exponential function. It answers the question: "To what exponent must we raise the base to get a certain number?"
+## The Problem Logarithms Solve
+
+Consider a simple question: **2 to what power gives 8?** You can figure this out by trying: $2^1 = 2$, $2^2 = 4$, $2^3 = 8$. The answer is 3.
+
+Now consider a harder question: **10 to what power gives 500?** The answer is not a whole number, and trial-and-error will not find it easily. We need a name and a notation for this operation, and that is exactly what a **logarithm** provides.
+
+$$\log_{10}(500) \approx 2.699$$
+
+This tells us $10^{2.699} \approx 500$.
+
+### Why We Need Logarithms
+
+We already have notation for exponentiation: $b^n = x$ means "multiply $b$ by itself $n$ times to get $x$." But what if you know $b$ and $x$, and want to find $n$? That reverse question comes up constantly. How many years until an investment doubles? How many half-lives until a substance is 1% of its original amount? Logarithms answer these questions.
+
+### Connection to Exponentials
+
+A logarithm is the **inverse** of an exponential function. "Inverse" here means it undoes exponentiation, just as subtraction undoes addition or division undoes multiplication.
+
+Here is a concrete example showing both directions:
+
+$$2^3 = 8 \qquad \Longleftrightarrow \qquad \log_2(8) = 3$$
+
+The exponential asks: "2 raised to the 3rd power gives what?" (Answer: 8.)
+The logarithm asks: "2 raised to what power gives 8?" (Answer: 3.)
+
+With this motivation, here is the formal definition.
 
 ## Definition
+
+**Logarithm:** A logarithm is the inverse of an exponential function. It answers the question: "To what exponent must we raise the base to get a certain number?"
 
 Let $a \in \mathbb{R}$, $a > 0$, $a \neq 1$
 

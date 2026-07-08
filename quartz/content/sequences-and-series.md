@@ -2,6 +2,28 @@
 title: "Sequences & Series"
 ---
 
+## Why Sequences and Series?
+
+Numbers often follow patterns. Consider these examples:
+
+- $2, 4, 6, 8, 10, \ldots$ (each number is 2 more than the last)
+- $1, 2, 4, 8, 16, \ldots$ (each number is double the last)
+- $1, 1, 2, 3, 5, 8, \ldots$ (each number is the sum of the two before it)
+
+Recognizing and describing these patterns lets us predict future values, model growth and decay, and solve problems in finance, physics, and computer science.
+
+There are two natural questions we can ask about a list of numbers:
+
+1. **What are the individual terms?** This is a **sequence**: the ordered list itself. For example, the sequence $2, 4, 6, 8, \ldots$ tells us the value at each position.
+
+2. **What is the running total?** This is a **series**: the sum of the terms. For the same numbers, the series $2 + 4 + 6 + 8 = 20$ tells us the accumulated total of the first four terms.
+
+A concrete example: if you save \$100 in January, \$200 in February, \$300 in March, and \$400 in April, then the sequence of monthly savings is $100, 200, 300, 400$ and the series (total saved) is $100 + 200 + 300 + 400 = 1000$.
+
+Studying sequences helps us understand patterns. Studying series helps us compute totals. Together, they also let us reason about infinite processes, such as whether an infinite sum can have a finite value.
+
+## Definitions
+
 **Sequence:** An ordered list of numbers following a pattern or rule. Each number in the sequence is called a **term**. A sequence can be finite or infinite.
 
 **Notation:** A sequence is written as $\{a_n\}$ or $(a_1, a_2, a_3, \ldots)$, where $a_n$ is the **general term** (also called the **nth term formula**) that defines the value at position $n$.

@@ -2,6 +2,32 @@
 title: "Polynomial Functions"
 ---
 
+## What Is a Polynomial?
+
+A **polynomial** is a function built by adding together terms of the form "a constant times $x$ raised to a whole-number power." In plain language, polynomials are sums of power terms, and they are among the simplest and most well-behaved functions in all of mathematics.
+
+### Why Polynomials Matter
+
+Polynomials matter for two key reasons. First, they form a natural hierarchy of complexity: constants, then lines, then parabolas, then cubics, and so on. Each step up in degree adds one more bend to the graph. Second, a deep result in mathematics (the Taylor/Weierstrass theorems) shows that polynomials can approximate any smooth function to any desired accuracy. This means that understanding polynomials gives you a toolkit for understanding nearly everything else.
+
+### Building Up: From Simple to General
+
+The simplest polynomial is a **constant function**, like $f(x) = 5$. Its graph is a flat horizontal line, and its degree is 0.
+
+Add a term with $x$ and you get a **linear function**, like $f(x) = 3x + 1$. Its graph is a straight line, and its degree is 1.
+
+Add a term with $x^2$ and you get a **quadratic function**, like $f(x) = 2x^2 - x + 4$. Its graph is a parabola, and its degree is 2.
+
+The pattern continues: each additional power of $x$ increases the degree by one and allows the graph to change direction one more time. The general polynomial of degree $n$ looks like this:
+
+$$a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$$
+
+where $a_n, a_{n-1}, \ldots, a_0$ are constants called **coefficients**, and $a_n \neq 0$.
+
+With that foundation, here is the formal definition.
+
+## Formal Definition
+
 **Polynomial Functions:**
 
 $$a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{2}x^{2} + a_{1}x^{1} + a_{0}$$

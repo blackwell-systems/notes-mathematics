@@ -2,6 +2,26 @@
 title: "Rational Functions"
 ---
 
+## What Is a Rational Function?
+
+A **rational function** is what you get when you divide one polynomial by another. Just as a "rational number" is a ratio of two integers (like $\frac{3}{4}$), a rational function is a ratio of two polynomials.
+
+### Why Dividing Polynomials Creates Interesting Behavior
+
+When you divide two polynomials, something new happens that never occurs with polynomials alone: the denominator can equal zero. At those input values, the function is undefined, and the graph exhibits dramatic behavior. It may shoot off toward infinity (creating a **vertical asymptote**) or it may have a "missing point" (called a **hole**). As $x$ grows very large, the function may level off toward a horizontal line (a **horizontal asymptote**) or grow in a linear fashion (a **slant asymptote**).
+
+### A Concrete Example
+
+Consider the function:
+
+$$f(x) = \frac{1}{x}$$
+
+This is the simplest nontrivial rational function: the constant polynomial $1$ divided by the polynomial $x$. When $x = 0$, the function is undefined. As $x$ approaches $0$ from the right, $f(x)$ grows without bound. As $x$ becomes very large, $f(x)$ shrinks toward $0$. The graph has a vertical asymptote at $x = 0$ and a horizontal asymptote at $y = 0$.
+
+With that intuition, here is the general definition.
+
+## Formal Definition
+
 **Rational Functions:** A rational function is an expression of the form
 $\frac{P(x)}{Q(x)}$, *p,q* are polynomials and q is not 0.
 

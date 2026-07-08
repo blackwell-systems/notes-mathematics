@@ -2,6 +2,8 @@
 title: "Set Theory"
 ---
 
+Sets are the most fundamental building block in all of mathematics: a **set** is simply a collection of distinct objects. We need formal set theory because mathematics requires a precise language for talking about collections, membership, and relationships between groups of objects. Nearly everything else in math, including numbers, functions, sequences, and probability, is built on the concept of a set. Understanding sets first makes every other topic easier to reason about.
+
 **Set Theory:** Set theory is the branch of mathematical logic that
 studies Sets, which can be informally described as collections of
 objects.

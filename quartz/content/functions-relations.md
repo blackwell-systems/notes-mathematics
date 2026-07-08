@@ -2,6 +2,30 @@
 title: "Functions & Relations"
 ---
 
+## Why Study Functions?
+
+Much of mathematics, science, and everyday life involves understanding how one quantity depends on another. When you check the weather forecast, you are looking at a relationship between time and temperature. When you calculate how far you travel at a given speed, you are connecting distance to time. These input-output relationships are everywhere, and **functions** are the mathematical tool we use to describe them precisely.
+
+Before we define functions formally, we need a broader concept: the **relation**.
+
+**Relation (informal):** A relation is any rule or association that pairs elements from one set with elements of another. For example, "is the capital of" is a relation that pairs cities with countries (Ottawa with Canada, Tokyo with Japan).
+
+**Function (informal):** A function is a special kind of relation where each input is paired with exactly one output. If you input a specific time into a temperature function, you get back one temperature, not two or three.
+
+Consider a simple example: suppose you are driving at a constant 60 miles per hour. The distance you have traveled depends on the time you have been driving:
+
+| Time (hours) | Distance (miles) |
+|---|---|
+| 1 | 60 |
+| 2 | 120 |
+| 3 | 180 |
+
+Each input (time) produces exactly one output (distance), so this is a function. We could write it as $f(t) = 60t$.
+
+Not every relation is a function. For instance, the relation "is a student at" might pair one person with multiple schools (if they transferred). A function requires that each input maps to a single output.
+
+With this intuition in place, we can now state the formal definitions.
+
 ## Relation
 
 **Relation:** A **relation** is a set of ordered pairs, where each pair

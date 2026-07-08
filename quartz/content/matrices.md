@@ -2,6 +2,35 @@
 title: "Matrices"
 ---
 
+## Why Matrices?
+
+Whenever you organize numbers into a grid, you are already thinking in matrices. A spreadsheet of monthly sales figures for five products is a matrix with 12 columns (months) and 5 rows (products). A digital photo is a matrix of pixel values. Any time information has two natural indices (row and column, input and output, equation and variable), a matrix is the right container.
+
+The most important early use case is **systems of equations**. Suppose you need to solve:
+
+$$
+2x + 3y = 8
+$$
+
+$$
+5x - y = 1
+$$
+
+The coefficients on the left side form a $2 \times 2$ grid, and we can write the entire system compactly as $A\mathbf{x} = \mathbf{b}$:
+
+$$
+\begin{bmatrix} 2 & 3 \\ 5 & -1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+=
+\begin{bmatrix} 8 \\ 1 \end{bmatrix}
+$$
+
+For a system of 3 equations in 3 unknowns, there are 9 coefficients that naturally arrange into a $3 \times 3$ grid. Matrices give us a single symbol ($A$) to represent that entire grid, and matrix operations (addition, multiplication, inversion) let us manipulate and solve the system without rewriting every coefficient by hand.
+
+> **Scope note:** This page covers the mechanics of matrices: how to add, multiply, transpose, and invert them. For the deeper theory of what these operations mean geometrically (linear transformations, vector spaces, eigenvalues), see [Linear Algebra Foundations](./linear-algebra-foundations).
+
+---
+
 **Matrices:** A matrix is a rectangular array of numbers, symbols, or
 expressions arranged in rows and columns.
 

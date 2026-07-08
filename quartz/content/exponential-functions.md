@@ -2,6 +2,26 @@
 title: "Exponential Functions"
 ---
 
+## What Is Exponential Growth?
+
+**Exponential growth** describes a quantity that multiplies by a fixed factor in each time period, rather than increasing by a fixed amount. When something doubles every hour, or halves every year, or grows by 5% each month, that is exponential behavior.
+
+### Real-World Examples
+
+Exponential functions appear throughout science and everyday life:
+
+- **Population growth:** A bacteria colony that doubles every 20 minutes grows from 1,000 to over 1,000,000 in just a few hours.
+- **Radioactive decay:** A radioactive substance loses a fixed percentage of its atoms each year, so the amount remaining shrinks exponentially.
+- **Compound interest:** Money in a savings account grows exponentially because interest is earned on previously earned interest.
+
+### How Exponentials Differ from Polynomials
+
+In a polynomial like $x^3$, the base ($x$) varies while the exponent ($3$) is fixed. In an exponential function like $2^x$, the base ($2$) is fixed while the exponent ($x$) varies. This distinction is fundamental: polynomial growth is always eventually overtaken by exponential growth, no matter how large the polynomial's degree. A function that merely doubles ($2^x$) will eventually outpace $x^{100}$, $x^{1000}$, or any polynomial.
+
+With that context, here is the formal definition.
+
+## Definition
+
 **Exponential Functions:** An exponential function is a function where the variable appears in the exponent.
 
 ## General Form

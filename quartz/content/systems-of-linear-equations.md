@@ -2,6 +2,34 @@
 title: "Systems of Linear Equations"
 ---
 
+## The Problem
+
+You walk into a fruit stand. You buy 3 apples and 2 oranges and pay \$8. Your friend buys 1 apple and 4 oranges and pays \$9. What does each fruit cost?
+
+Let $a$ be the price of one apple and $o$ be the price of one orange. The two purchases give you two equations:
+
+$$
+3a + 2o = 8
+$$
+
+$$
+a + 4o = 9
+$$
+
+Neither equation alone is enough to pin down both prices; you need both equations working together. That pair of equations is a **system of linear equations**, and solving it means finding the values of $a$ and $o$ that make both equations true at the same time.
+
+### Geometric Intuition
+
+Each linear equation in two variables describes a **line** in the plane. A system of two equations therefore gives you two lines, and the solution is the point where those lines cross. Three things can happen:
+
+- **The lines cross at exactly one point:** there is one solution (one price for apples, one for oranges).
+- **The lines are actually the same line:** every point on that line is a solution, so there are infinitely many solutions.
+- **The lines are parallel and never meet:** no point satisfies both equations, so there is no solution.
+
+The same idea extends to three or more dimensions: three equations in three unknowns correspond to three planes, and the solution is where all three planes intersect.
+
+---
+
 **Systems of Linear Equations:** A system of linear equations is a
 collection of two or more linear equations involving the same set of
 variables.

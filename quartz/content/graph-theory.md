@@ -2,6 +2,32 @@
 title: "Graph Theory"
 ---
 
+## What Is a Graph?
+
+In everyday language, "graph" usually means a chart or a plot of a function (like a line on an x-y axis). In graph theory, a **graph** means something completely different: it is a collection of **dots** (called vertices or nodes) connected by **lines** (called edges or links). There are no axes, no coordinates, and no functions being plotted.
+
+**A concrete example:** Think of a road map. Each city is a dot, and each road connecting two cities is a line. The graph does not care about exact distances or geographic positions; it only records which cities are connected.
+
+```
+  Springfield --- Shelbyville
+       |               |
+   Capital City --- Ogdenville
+```
+
+This is a graph with 4 vertices (cities) and 4 edges (roads).
+
+**Why this abstraction is useful:** The same mathematical structure applies to many different real-world situations:
+
+- **Cities and roads** (transportation networks)
+- **People and friendships** (social networks)
+- **Web pages and hyperlinks** (the internet)
+- **Atoms and bonds** (molecular structures)
+- **Tasks and dependencies** (project scheduling)
+
+In each case, we have objects and pairwise relationships between them. By stripping away the specific context and studying the abstract structure, the same graph algorithms and theorems apply to all of these domains. A shortest-path algorithm that finds the fastest driving route can also find the fewest "degrees of separation" between two people in a social network.
+
+## Formal Definition
+
 **Graph Theory:** The mathematical study of graphs, which are structures used to model pairwise relations between objects. Graphs consist of vertices (nodes) connected by edges (links).
 
 **Applications:**

@@ -2,6 +2,8 @@
 title: "Propositional Logic / zeroth-order logic"
 ---
 
+Logic is the study of valid reasoning: given certain facts, what can you conclude? Propositional logic is the simplest form of formal logic. It works with statements (propositions) that are either true or false, and studies how to combine them using connectives like "and," "or," and "not." Propositional logic is the foundation of mathematical proofs, digital circuit design, programming constructs like if/else, and database queries.
+
 **Propositional Logic:** Propositional Logic, is a formal system in
 logic that deals with statements or propositions as whole, indivisible
 units. In this system, each proposition is considered atomic, meaning it

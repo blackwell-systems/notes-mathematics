@@ -2,6 +2,22 @@
 title: "Combination"
 ---
 
+## Why Combinations?
+
+Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to choose 3 of them to form a team. How many different teams are possible?
+
+At first, you might count ordered selections. Using [permutations](permutation.md), there are $P(5,3) = 5 \times 4 \times 3 = 60$ ways to pick 3 people in order. But a team is not an ordered arrangement. The team {Alice, Bob, Carol} is the same team as {Carol, Alice, Bob}; the order you list them does not matter.
+
+So how many times has each team been counted? Every group of 3 people can be arranged in $3! = 3 \times 2 \times 1 = 6$ different orders. That means each unique team appears 6 times in the 60 ordered selections.
+
+To get the number of distinct teams, divide out the duplicate orderings:
+
+$$
+\frac{60}{6} = 10
+$$
+
+There are 10 possible teams. The key insight is: **when order does not matter, divide the permutation count by $r!$** to remove the repeated arrangements within each selection.
+
 **Combination:** A combination refers to a selection of items from a larger set, where the **order does not matter**. Unlike permutations, where order is important, combinations consider only which items are selected, not the arrangement.
 
 **Combination Formula (without repetition):**

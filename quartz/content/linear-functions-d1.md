@@ -2,6 +2,26 @@
 title: "Linear Functions d=1"
 ---
 
+## Why Linear Functions?
+
+Linear functions are the simplest and most important type of function, and they show up everywhere. Any time a quantity changes at a steady, predictable rate, a linear function describes it.
+
+### What "Constant Rate of Change" Means
+
+Imagine you are driving on a highway at exactly 60 miles per hour. After 1 hour you have gone 60 miles, after 2 hours 120 miles, after 3 hours 180 miles. The distance increases by the same amount (60 miles) for every hour that passes. That steady increase is a **constant rate of change**.
+
+If you plotted your distance on a graph (time on the horizontal axis, distance on the vertical axis), you would see a perfectly straight line. The steepness of that line tells you your speed. A faster speed means a steeper line; a slower speed means a flatter line.
+
+### The Visual Intuition
+
+Every linear function, when graphed, produces a **straight line**. This is the defining visual feature. If a graph curves, bends, or changes direction, the function is not linear. Conversely, any function whose graph is a straight line can be written as a linear equation.
+
+### Why Start Here?
+
+Linear functions are the foundation for almost all of mathematics. Calculus uses them to approximate curves at every point (tangent lines). Statistics uses them to find trends in data (lines of best fit). Physics uses them whenever a quantity changes at a constant rate. Mastering linear functions makes every later topic easier.
+
+## Definition
+
 **Linear Functions:** A linear function is a function that can be used
 to express a constant rate of change.
 
