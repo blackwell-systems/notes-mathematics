@@ -122,6 +122,12 @@ For a twice-differentiable function, the Hessian test is the standard approach:
 
 ![Convex vs non-convex functions showing the difference between global and local minima](./media/convex-vs-nonconvex.png)
 
+**Interactive 3D visualizations** (drag to rotate, scroll to zoom):
+
+<iframe src="/static/interactive/loss-landscape-convex.html" width="100%" height="550" style="border:none;"></iframe>
+
+<iframe src="/static/interactive/loss-landscape-nonconvex.html" width="100%" height="550" style="border:none;"></iframe>
+
 ### Convex Optimization Problems
 
 A **convex optimization problem** is one where:

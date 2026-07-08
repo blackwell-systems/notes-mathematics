@@ -238,6 +238,8 @@ When you estimate the standard error using the sample standard deviation $s$ ins
 
 **Practical rule:** Use the t-distribution whenever $\sigma$ is unknown, regardless of sample size. There is no cost to using $t$ when $n$ is large (it gives essentially the same answer as $z$), and it is necessary when $n$ is small.
 
+![Standard normal vs. t-distributions with different degrees of freedom](./media/t-distribution-comparison.png)
+
 ## Point Estimation and Interval Estimation
 
 ### Point Estimation
@@ -353,6 +355,53 @@ The 95% CI is $(0.603, 0.697)$. We are 95% confident that the true proportion of
 
 **Where it shows up in ML:** Confidence intervals for model performance metrics (accuracy, AUC) help you determine whether one model is genuinely better than another, or if the difference is within sampling noise.
 
+### Prediction Intervals
+
+A **prediction interval (PI)** is a range that is likely to contain a single new observation from the population. This is fundamentally different from a confidence interval.
+
+**The key distinction:**
+
+- **Confidence interval:** Estimates where the population mean lies. It answers: "Where does the average fall?"
+- **Prediction interval:** Estimates where an individual new data point will fall. It answers: "Where will the next observation land?"
+
+**Why the prediction interval is always wider:** A confidence interval only accounts for uncertainty in estimating the mean. A prediction interval must account for two sources of uncertainty: (1) the estimation uncertainty (we do not know the true mean exactly) and (2) the individual variability (even if we knew the mean perfectly, individual observations scatter around it). Because individual observations are more variable than averages, prediction intervals are always wider than confidence intervals.
+
+**Formula for a prediction interval (one-sample):**
+
+$$
+\bar{x} \pm t^* \cdot s\sqrt{1 + \frac{1}{n}}
+$$
+
+Compare this to the confidence interval formula $\bar{x} \pm t^* \cdot s/\sqrt{n}$. The prediction interval has the extra "$1 +$" under the square root, which adds the individual observation variance $s^2$ to the estimation variance $s^2/n$.
+
+**Worked example:** A factory produces bolts with a sample mean length of $\bar{x} = 10.2$ cm ($s = 0.4$ cm, $n = 25$). Construct a 95% prediction interval for the length of the next bolt produced.
+
+Step 1: Degrees of freedom: $\nu = 25 - 1 = 24$, so $t^* = 2.064$.
+
+Step 2: Compute the margin of error:
+
+$$
+t^* \cdot s\sqrt{1 + \frac{1}{n}} = 2.064 \times 0.4 \times \sqrt{1 + \frac{1}{25}} = 0.826 \times \sqrt{1.04} = 0.826 \times 1.020 = 0.842
+$$
+
+Step 3: Construct the interval:
+
+$$
+10.2 \pm 0.842 = (9.358, 11.042)
+$$
+
+For comparison, the 95% confidence interval for the mean is:
+
+$$
+10.2 \pm 2.064 \times \frac{0.4}{\sqrt{25}} = 10.2 \pm 0.165 = (10.035, 10.365)
+$$
+
+The prediction interval $(9.36, 11.04)$ is much wider than the confidence interval $(10.04, 10.37)$, because predicting where a single bolt will fall is far less precise than estimating the average bolt length.
+
+![Confidence band vs. prediction band in regression](./media/ci-vs-pi.png)
+
+**Where it shows up:** In regression, the prediction interval around a regression line is always wider than the confidence band. The confidence band tells you where the true regression line might be; the prediction band tells you where new data points might fall. Any time you use a model to make predictions about individual cases (not averages), you should report prediction intervals.
+
 ## Maximum Likelihood Estimation (MLE)
 
 **Maximum Likelihood Estimation (MLE):** A method for estimating model parameters by finding the parameter values that make the observed data most probable.
@@ -423,6 +472,68 @@ The MLE for the mean is just the sample mean. The MLE for the variance uses $n$ 
 
 **Connection to optimization:** Finding the MLE requires solving an optimization problem (maximizing the log-likelihood). For simple distributions, you can solve analytically (as above). For complex models, you use gradient ascent.
 
+## Method of Moments Estimation
+
+**Method of Moments (MoM):** An estimation technique that works by setting sample moments equal to their theoretical (population) counterparts and solving for the unknown parameters.
+
+### The Idea
+
+Every distribution has moments that depend on its parameters. The first population moment is the mean $E[X]$, the second raw moment is $E[X^2]$, and so on. The method of moments replaces each population moment with the corresponding sample moment and solves the resulting equations.
+
+**First moment equation:**
+
+$$
+\bar{X} = E[X]
+$$
+
+**Second moment equation:**
+
+$$
+\frac{1}{n}\sum_{i=1}^n X_i^2 = E[X^2]
+$$
+
+If the distribution has $k$ unknown parameters, you set up $k$ moment equations (using the first $k$ moments) and solve the system.
+
+### Worked Example: Uniform Distribution on $[0, \theta]$
+
+Suppose you have data from a uniform distribution on $[0, \theta]$ and you want to estimate $\theta$.
+
+For a uniform distribution on $[0, \theta]$:
+
+$$
+E[X] = \frac{\theta}{2}
+$$
+
+Set the first sample moment equal to the first population moment:
+
+$$
+\bar{X} = \frac{\theta}{2}
+$$
+
+Solve for $\theta$:
+
+$$
+\hat{\theta}_{MoM} = 2\bar{X}
+$$
+
+**Numerical example:** You observe 5 data points: 1.2, 0.8, 1.5, 0.3, 1.1. The sample mean is $\bar{X} = (1.2 + 0.8 + 1.5 + 0.3 + 1.1)/5 = 0.98$. The method of moments estimate is $\hat{\theta}_{MoM} = 2(0.98) = 1.96$.
+
+Note that the largest observation is 1.5, and we are estimating $\theta = 1.96$, which is well above the data. This is reasonable: a uniform distribution on $[0, 1.96]$ would produce data in this range.
+
+For comparison, the MLE for this problem is $\hat{\theta}_{MLE} = \max(X_1, \ldots, X_n) = 1.5$, which is always less than or equal to the true $\theta$. The MLE is biased downward here, while MoM is unbiased.
+
+### MoM vs. MLE
+
+| | Method of Moments | MLE |
+|---|---|---|
+| Approach | Match sample moments to population moments | Maximize likelihood of observed data |
+| Computation | Usually simple algebra | May require numerical optimization |
+| Efficiency | Often less efficient (higher variance) | Achieves the lowest possible variance asymptotically |
+| Uniqueness | Solution may not be unique | Under regularity conditions, unique |
+| When to use | Quick estimates, starting points for iterative MLE, when likelihood is hard to compute | When you want the best possible estimate and can handle the computation |
+
+**In practice:** MoM estimates are often used as starting values for iterative MLE algorithms. They are quick to compute and usually in the right neighborhood, which helps the optimizer converge.
+
 ## MAP Estimation
 
 **Maximum a Posteriori (MAP) estimation:** Like MLE, but incorporates a prior belief about the parameters.
@@ -490,6 +601,31 @@ $$
 Since $0.046 < 0.05$, we reject $H_0$. The data provides statistically significant evidence that the coin is biased.
 
 **Important caveat:** Statistical significance does not mean practical significance. With a large enough sample, you can detect arbitrarily tiny effects that are meaningless in practice. Always consider effect size alongside p-values.
+
+### One-Tailed vs. Two-Tailed Tests
+
+The alternative hypothesis determines whether you perform a one-tailed or two-tailed test, and this choice affects both the rejection region and the p-value.
+
+**Two-tailed test:** $H_1: \mu \neq \mu_0$. You are looking for a difference in either direction. The rejection region is split between both tails of the distribution, with $\alpha/2$ in each tail. Use this when you have no prior reason to expect the effect to go in a particular direction.
+
+**One-tailed test (right-tailed):** $H_1: \mu > \mu_0$. You are specifically testing whether the parameter is larger than the hypothesized value. The entire rejection region ($\alpha$) is in the right tail.
+
+**One-tailed test (left-tailed):** $H_1: \mu < \mu_0$. You are specifically testing whether the parameter is smaller. The entire rejection region is in the left tail.
+
+![Rejection regions for two-tailed and one-tailed tests](./media/hypothesis-test-regions.png)
+
+**How p-values differ:** For the same test statistic, the one-tailed p-value is exactly half the two-tailed p-value. If a two-tailed test gives $p = 0.08$ (not significant at $\alpha = 0.05$), a one-tailed test in the correct direction gives $p = 0.04$ (significant). This is not a trick to get significance; it reflects a genuinely different question.
+
+**When to use which:**
+
+| Test type | When to use | Example |
+|---|---|---|
+| Two-tailed | No strong prior expectation of direction | "Does this drug change blood pressure?" |
+| One-tailed | Strong prior reason to test one direction only | "Does this drug lower blood pressure?" (based on its mechanism of action) |
+
+**The critical rule:** You must choose one-tailed vs. two-tailed before looking at the data. Choosing a one-tailed test after seeing which direction the data points is a form of p-hacking and inflates the false positive rate.
+
+**Power advantage of one-tailed tests:** Because the entire $\alpha$ is concentrated in one tail, one-tailed tests have more power to detect effects in the hypothesized direction. The tradeoff is that they have zero power to detect effects in the opposite direction. If you are wrong about the direction, a one-tailed test will never reject $H_0$ no matter how strong the effect.
 
 ### Effect Size
 
@@ -769,9 +905,47 @@ Since $16.67 \gg 3.841$, we reject $H_0$. There is a statistically significant a
 
 **Where it shows up in ML:** A/B testing uses hypothesis testing to determine if a new feature improves a metric. Statistical tests help determine if one model is significantly better than another, or if the difference is just noise. Chi-squared tests are used in feature selection to test whether a categorical feature is associated with the target variable.
 
+### Goodness-of-Fit Beyond Chi-Squared
+
+The chi-squared test checks whether observed counts match expected counts across categories. But sometimes you want to test whether continuous data follows a specific distribution (normal, exponential, uniform, etc.). Two tests handle this.
+
+#### Kolmogorov-Smirnov (KS) Test
+
+**What it does:** Compares the empirical cumulative distribution function (ECDF) of your data to the CDF of a theoretical distribution. The test statistic is the maximum vertical distance between the two CDFs:
+
+$$
+D = \max_x |F_n(x) - F_0(x)|
+$$
+
+where $F_n(x)$ is the empirical CDF (the proportion of data points $\leq x$) and $F_0(x)$ is the theoretical CDF.
+
+**When to use:** Testing whether data follows any specified continuous distribution (not just normal). The KS test is general-purpose.
+
+**Limitation:** The KS test is most sensitive to differences near the center of the distribution and less sensitive to differences in the tails. It also loses validity if you estimate the distribution parameters from the same data you are testing (use the Lilliefors variant in that case).
+
+#### Shapiro-Wilk Test
+
+**What it does:** Specifically tests whether data comes from a normal distribution. It is considered the most powerful normality test for small to moderate sample sizes ($n < 5000$).
+
+**When to use:** Before using any statistical method that assumes normality (t-tests, ANOVA, linear regression). If the Shapiro-Wilk test rejects normality, consider using nonparametric alternatives or transforming the data.
+
+**Interpretation:** $H_0$ is that the data is normally distributed. A small p-value (e.g., $p < 0.05$) means the data departs significantly from normality. A large p-value means the data is consistent with normality (but does not prove it).
+
+#### Which Test to Use
+
+| Test | Best for | Limitation |
+|---|---|---|
+| Chi-squared goodness-of-fit | Categorical data or binned counts | Requires choosing bins; loses information |
+| Kolmogorov-Smirnov | Testing against any continuous distribution | Less sensitive in tails; must specify distribution in advance |
+| Shapiro-Wilk | Testing normality specifically | Only tests normality; limited to moderate $n$ |
+
+**Practical workflow:** Before running a t-test or ANOVA, check normality with a Q-Q plot (visual) and the Shapiro-Wilk test (formal). If normality is violated, either transform the data or switch to a nonparametric test.
+
 ## ANOVA (Analysis of Variance)
 
 **ANOVA** (Analysis of Variance) is a method for comparing the means of three or more groups simultaneously. It tests whether at least one group mean differs from the others.
+
+![ANOVA concept: different means vs. same means with different spreads](./media/anova-concept.png)
 
 ### Why Not Just Do Multiple t-Tests?
 
@@ -878,6 +1052,126 @@ ANOVA tells you that at least one group is different, but not which one(s). Post
 **Bonferroni correction:** Divide $\alpha$ by the number of comparisons. With 3 groups (3 comparisons), use $\alpha/3 = 0.0167$ for each pairwise test. Simple but conservative (it has less power than Tukey's HSD).
 
 **In the example above:** A post-hoc test would reveal that Method B is significantly better than Method C ($90 - 70 = 20$ point difference), Method B is significantly better than Method A ($90 - 80 = 10$), and Method A is significantly better than Method C ($80 - 70 = 10$).
+
+### Multiple Testing Correction
+
+**The problem:** When you perform many hypothesis tests simultaneously, the probability of at least one false positive grows rapidly, even if every null hypothesis is true. If you run 20 independent tests at $\alpha = 0.05$, the expected number of false positives is $20 \times 0.05 = 1$. The probability of at least one false positive is:
+
+$$
+1 - (1 - 0.05)^{20} = 1 - 0.358 = 0.642
+$$
+
+That is a 64.2% chance of at least one spurious "discovery." This is the multiple comparisons problem, and it shows up whenever you test many hypotheses at once.
+
+#### Bonferroni Correction
+
+The simplest fix: divide your significance level by the number of tests.
+
+$$
+\alpha_{\text{adjusted}} = \frac{\alpha}{m}
+$$
+
+where $m$ is the number of tests. If you are running 20 tests at $\alpha = 0.05$, use $\alpha_{\text{adjusted}} = 0.05/20 = 0.0025$ for each individual test.
+
+**Why it works:** By the union bound, the probability of at least one false positive is at most $m \times \alpha_{\text{adjusted}} = m \times (\alpha/m) = \alpha$. This controls the **family-wise error rate (FWER)**: the probability of making even one Type I error across all tests.
+
+**The tradeoff:** Bonferroni is conservative. As $m$ grows, the adjusted threshold becomes very stringent, and you lose power to detect real effects. With 1000 tests, you need $p < 0.00005$ to declare significance, which means you will miss many genuine effects.
+
+#### False Discovery Rate (Benjamini-Hochberg)
+
+A less conservative alternative that controls the **false discovery rate (FDR)**: the expected proportion of false positives among all rejected hypotheses.
+
+**The procedure (Benjamini-Hochberg):**
+
+1. Compute p-values for all $m$ tests
+2. Sort the p-values from smallest to largest: $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}$
+3. Find the largest $k$ such that $p_{(k)} \leq \frac{k}{m} \cdot \alpha$
+4. Reject all hypotheses with $p_{(i)} \leq p_{(k)}$ (i.e., reject the $k$ smallest p-values)
+
+**Example:** You run $m = 5$ tests and get sorted p-values: 0.001, 0.013, 0.029, 0.052, 0.210. With $\alpha = 0.05$:
+
+| Rank ($k$) | $p_{(k)}$ | $\frac{k}{m} \cdot \alpha$ | $p_{(k)} \leq \frac{k}{m} \cdot \alpha$? |
+|---|---|---|---|
+| 1 | 0.001 | 0.010 | Yes |
+| 2 | 0.013 | 0.020 | Yes |
+| 3 | 0.029 | 0.030 | Yes |
+| 4 | 0.052 | 0.040 | No |
+| 5 | 0.210 | 0.050 | No |
+
+The largest $k$ where the condition holds is $k = 3$. Reject the first 3 hypotheses. With Bonferroni ($\alpha/5 = 0.01$), you would only reject the first one.
+
+#### Bonferroni vs. Benjamini-Hochberg
+
+| | Bonferroni | Benjamini-Hochberg |
+|---|---|---|
+| Controls | Family-wise error rate (FWER) | False discovery rate (FDR) |
+| Strictness | Very conservative | Less conservative |
+| Power | Lower (misses more real effects) | Higher (finds more real effects) |
+| Best for | High-stakes decisions (one false positive is costly) | Exploratory analysis (some false positives are tolerable) |
+
+**Where it shows up:** Genome-wide association studies test millions of genetic variants simultaneously. A/B testing platforms run many experiments at once. In mechanistic interpretability, testing whether each of hundreds of attention heads contributes to a task requires multiple testing correction. Benjamini-Hochberg is the standard in genomics and increasingly in ML research; Bonferroni is used when the cost of a false positive is very high.
+
+## Nonparametric Tests
+
+Standard tests like the t-test and ANOVA assume that data is normally distributed (or that samples are large enough for the CLT to apply). When these assumptions fail, **nonparametric tests** provide alternatives that make fewer assumptions about the underlying distribution. They work with ranks instead of raw values, which makes them robust to outliers and applicable to ordinal data.
+
+### When to Use Nonparametric Tests
+
+- The data is clearly non-normal (skewed, heavy-tailed, or multimodal) and the sample is too small for the CLT
+- The data is ordinal (ranked categories like "poor, fair, good, excellent")
+- There are extreme outliers that would distort parametric tests
+- The sample size is very small (e.g., $n < 15$) and you cannot verify normality
+
+**The tradeoff:** Nonparametric tests are more broadly applicable, but they have less statistical power than their parametric counterparts when the parametric assumptions actually hold. If your data is truly normal, a t-test will detect effects that a nonparametric test might miss.
+
+### Wilcoxon Signed-Rank Test
+
+**Nonparametric alternative to:** the paired t-test.
+
+**When to use:** You have paired observations (before/after, matched subjects) and you want to test whether the median difference is zero, without assuming the differences are normally distributed.
+
+**How it works:** Compute the differences $d_i$ for each pair. Ignore any zero differences. Rank the absolute values of the remaining differences from smallest to largest. Assign each rank the sign of its corresponding difference. Sum the positive ranks ($W^+$) and negative ranks ($W^-$) separately. Under $H_0$, positive and negative ranks should be roughly balanced. A very large or very small $W^+$ indicates a systematic shift.
+
+### Mann-Whitney U Test
+
+**Nonparametric alternative to:** the two-sample t-test.
+
+**When to use:** You want to compare two independent groups but cannot assume normality. Also called the Wilcoxon rank-sum test.
+
+**How it works:** Combine all observations from both groups and rank them from smallest to largest. Sum the ranks for each group separately. If the two groups come from the same distribution, their rank sums should be proportional to their sample sizes. A disproportionate rank sum indicates that one group tends to have larger values.
+
+**Interpretation:** The Mann-Whitney U test is often described as testing whether one group tends to produce larger values than the other. More precisely, it tests whether a randomly selected observation from Group 1 is equally likely to be larger or smaller than a randomly selected observation from Group 2.
+
+### Kruskal-Wallis Test
+
+**Nonparametric alternative to:** one-way ANOVA.
+
+**When to use:** You want to compare three or more independent groups but cannot assume normality.
+
+**How it works:** Rank all observations across all groups, then compare the mean ranks of each group. The test statistic is based on the variance of the group rank means. Like ANOVA, a significant result tells you that at least one group differs; it does not tell you which one(s). Follow up with pairwise Mann-Whitney tests (with multiple testing correction) to identify specific differences.
+
+### Spearman Rank Correlation
+
+**Nonparametric alternative to:** Pearson correlation.
+
+**When to use:** You want to measure the association between two variables but the relationship may not be linear, or the data contains outliers, or the variables are ordinal.
+
+**How it works:** Replace each variable's values with their ranks, then compute the Pearson correlation on the ranks. Spearman's $\rho$ (rho) measures the strength of any monotonic relationship (not just linear). If one variable consistently increases as the other increases (even if not linearly), Spearman's $\rho$ will be close to $\pm 1$.
+
+$$
+\rho_s = 1 - \frac{6\sum d_i^2}{n(n^2 - 1)}
+$$
+
+where $d_i$ is the difference between the ranks of paired observations, and $n$ is the number of pairs. This shortcut formula assumes no tied ranks.
+
+### Summary of Nonparametric Alternatives
+
+| Parametric test | Nonparametric alternative | Data type |
+|---|---|---|
+| Paired t-test | Wilcoxon signed-rank | Paired, continuous or ordinal |
+| Two-sample t-test | Mann-Whitney U | Two independent groups |
+| One-way ANOVA | Kruskal-Wallis | Three+ independent groups |
+| Pearson correlation | Spearman rank correlation | Two continuous or ordinal variables |
 
 ## Linear Regression
 
@@ -1011,6 +1305,8 @@ The validity of regression inference depends on four key assumptions. When these
 #### Residual Plots
 
 Plot the residuals $e_i = y_i - \hat{y}_i$ against the fitted values $\hat{y}_i$. What you want to see is a random cloud of points centered at zero with no pattern.
+
+![Residual plot patterns: good, non-linear, heteroscedastic, and outlier](./media/residual-plots.png)
 
 **What patterns indicate:**
 

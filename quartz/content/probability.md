@@ -271,6 +271,42 @@ The second form ($E[X^2] - (E[X])^2$) is usually easier to compute. It says: the
 - $\text{Var}(aX + b) = a^2 \text{Var}(X)$ (adding a constant does not change spread; scaling by $a$ scales variance by $a^2$)
 - $\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)$ (only if $X$ and $Y$ are independent)
 
+### Skewness and Kurtosis
+
+Variance (the second moment) measures spread, but it says nothing about the shape of a distribution. The third and fourth standardized moments capture two important shape properties: asymmetry and tail heaviness.
+
+**Skewness:** The third standardized moment measures how asymmetric a distribution is:
+
+$$
+\gamma_1 = E\left[\left(\frac{X - \mu}{\sigma}\right)^3\right]
+$$
+
+- **Positive skewness ($\gamma_1 > 0$):** The right tail is longer. The mean is pulled to the right of the median. Examples: income distributions, waiting times.
+- **Negative skewness ($\gamma_1 < 0$):** The left tail is longer. The mean is pulled to the left of the median. Examples: exam scores on an easy test (most students score high, a few score very low).
+- **Zero skewness ($\gamma_1 = 0$):** The distribution is symmetric about the mean. Examples: normal distribution, uniform distribution.
+
+![Skewness: left-skewed, symmetric, and right-skewed distributions](./media/skewness-examples.png)
+
+Why the cube? Squaring (as in variance) makes everything positive, so deviations above and below the mean cancel out. Cubing preserves the sign: values far above the mean contribute positive terms, values far below contribute negative terms. If the right tail is heavier, the positive terms dominate and skewness is positive.
+
+**Kurtosis:** The fourth standardized moment measures tail heaviness:
+
+$$
+\gamma_2 = E\left[\left(\frac{X - \mu}{\sigma}\right)^4\right]
+$$
+
+The normal distribution has kurtosis 3. To make comparisons easier, we often use **excess kurtosis:**
+
+$$
+\text{excess kurtosis} = \gamma_2 - 3
+$$
+
+- **Excess kurtosis > 0 (leptokurtic):** Heavier tails than the normal. More probability in extreme values. Examples: t-distribution, financial returns.
+- **Excess kurtosis = 0 (mesokurtic):** Same tail weight as the normal.
+- **Excess kurtosis < 0 (platykurtic):** Lighter tails than the normal. Fewer extreme values. Examples: uniform distribution.
+
+**Where it shows up:** Financial modeling relies heavily on kurtosis because stock returns have "fat tails" (high kurtosis), meaning extreme events (crashes, spikes) happen more often than a normal distribution predicts. Ignoring kurtosis leads to underestimating risk.
+
 ## Common Discrete Distributions
 
 ![Comparison of common probability distributions](./media/common-distributions.png)
@@ -439,6 +475,35 @@ Using the Poisson approximation with $\lambda = np = 1000 \cdot 0.002 = 2$:
 $$
 P(X = 3) \approx \frac{2^3 e^{-2}}{3!} = \frac{8 \cdot 0.1353}{6} \approx 0.1804
 $$
+
+### Poisson Process
+
+The Poisson and exponential distributions are not just two separate distributions; they describe the same random phenomenon from two different angles. The **Poisson process** is the unifying framework.
+
+**Definition:** A Poisson process with rate $\lambda > 0$ is a model for events occurring randomly and independently over time, with three properties:
+
+1. **Independent increments:** The number of events in non-overlapping time intervals are independent.
+2. **Stationary increments:** The probability distribution of the number of events in an interval depends only on the length of the interval, not on when it starts.
+3. **No simultaneous events:** The probability of two or more events occurring at exactly the same instant is zero.
+
+![Poisson process: random event arrivals on a timeline](./media/poisson-process.png)
+
+**The connection between Poisson and Exponential:**
+
+- **Number of events in time $t$:** If events follow a Poisson process with rate $\lambda$, the count of events in any interval of length $t$ follows $\text{Poisson}(\lambda t)$.
+- **Time between events:** The waiting time between consecutive events follows $\text{Exponential}(\lambda)$.
+
+These are two views of the same process. The Poisson distribution counts events; the exponential distribution measures the gaps between them.
+
+**Why the exponential is memoryless:** The memoryless property ($P(X > s + t \mid X > s) = P(X > t)$) follows directly from the independent increments property of the Poisson process. Since future events do not depend on past events, the time you have already waited is irrelevant.
+
+**Worked example:** Customers arrive at a coffee shop at an average rate of 10 per hour ($\lambda = 10$).
+
+- The number of customers in a 30-minute window follows $\text{Poisson}(10 \times 0.5) = \text{Poisson}(5)$.
+- The time between consecutive arrivals follows $\text{Exponential}(10)$, with a mean of $1/10$ hours = 6 minutes.
+- The probability of no customers in a 15-minute window: $P(X = 0) = e^{-10 \times 0.25} = e^{-2.5} \approx 0.082$.
+
+**Where it shows up:** Server request modeling, queueing theory, radioactive decay, insurance claim arrivals, and the theoretical foundation of continuous-time Markov chains.
 
 ## Common Continuous Distributions
 
@@ -676,6 +741,29 @@ $$
 E[T] = E[E[T \mid X]] = E[X \cdot 50] = 50 \cdot E[X] = 50 \cdot 100 = 5000
 $$
 
+### Law of Total Variance
+
+The law of total expectation decomposes the mean of $Y$ by conditioning on $X$. There is an analogous decomposition for variance:
+
+$$
+\text{Var}(Y) = E[\text{Var}(Y \mid X)] + \text{Var}(E[Y \mid X])
+$$
+
+**In words:** Total variance = average within-group variance + between-group variance.
+
+The first term, $E[\text{Var}(Y \mid X)]$, measures how much $Y$ varies within each group defined by $X$, averaged across groups. The second term, $\text{Var}(E[Y \mid X])$, measures how much the group means themselves vary.
+
+**Worked example (exam scores):** Suppose students are divided into classes. Let $Y$ be a student's exam score and $X$ be which class the student is in.
+
+- $\text{Var}(Y \mid X)$ is the variance of scores within a single class. Some classes have more spread than others.
+- $E[\text{Var}(Y \mid X)]$ is the average within-class variance, weighted by class size.
+- $E[Y \mid X]$ is the average score for class $X$. Different classes have different averages.
+- $\text{Var}(E[Y \mid X])$ is the variance of the class averages.
+
+The total variance in scores across all students comes from two sources: students within the same class performing differently (within-group), and different classes having different average performance (between-group).
+
+**Where it shows up:** This is exactly the decomposition used in **ANOVA** (Analysis of Variance), which tests whether group means differ significantly. It also appears in hierarchical Bayesian models, where variance is decomposed across levels of a hierarchy.
+
 ### Covariance
 
 **Covariance:** Measures how two random variables move together:
@@ -741,6 +829,10 @@ $$
 f(\mathbf{x}) = \frac{1}{(2\pi)^{k/2} |\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\right)
 $$
 
+![Bivariate normal distribution: 3D surface and contour plot](./media/joint-distribution-3d.png)
+
+<iframe src="/static/interactive/bivariate-normal.html" width="100%" height="550" style="border:none;"></iframe>
+
 **In two dimensions:** The contours of constant density are ellipses. The axes of the ellipses are determined by the eigenvectors of $\boldsymbol{\Sigma}$, and their lengths are proportional to the square roots of the eigenvalues. When the covariance is zero, the ellipses align with the coordinate axes; nonzero covariance tilts them.
 
 **Key properties:**
@@ -751,6 +843,133 @@ $$
 4. **Uncorrelated implies independent.** For the multivariate normal (and only for the multivariate normal), zero covariance between components implies independence. This is not true for general distributions.
 
 **Where it shows up in ML:** The multivariate normal is pervasive in machine learning. Gaussian processes define distributions over functions using multivariate normals. Variational autoencoders use the reparameterization trick with multivariate normal latent variables. Multivariate regression assumes normally distributed errors. PCA is closely connected to the eigendecomposition of the covariance matrix, which characterizes the multivariate normal. Gaussian mixture models use weighted sums of multivariate normals to model complex data distributions.
+
+## Transformations of Random Variables
+
+A fundamental problem in probability: if $X$ has a known distribution and $Y = g(X)$, what is the distribution of $Y$? This question arises constantly in practice, because we often apply functions to random quantities and need to know the resulting distribution.
+
+### Discrete Case
+
+For discrete random variables, the approach is direct. If $Y = g(X)$, then:
+
+$$
+P(Y = y) = \sum_{x:\, g(x) = y} P(X = x)
+$$
+
+Sum over all values of $X$ that map to $y$. If $g$ is one-to-one, each $y$ comes from exactly one $x$, and the sum has a single term.
+
+**Example:** Let $X$ be a fair die roll and $Y = X^2$. Then $P(Y = 1) = P(X = 1) = 1/6$, $P(Y = 4) = P(X = 2) = 1/6$, and so on. Since squaring is one-to-one on positive integers, each value of $Y$ comes from exactly one value of $X$.
+
+### Continuous Case: Change of Variables
+
+For continuous random variables, we need the **change of variables formula**. If $Y = g(X)$ where $g$ is a strictly monotonic (always increasing or always decreasing) differentiable function:
+
+$$
+f_Y(y) = f_X(g^{-1}(y)) \cdot \left|\frac{d}{dy}g^{-1}(y)\right|
+$$
+
+The absolute value of the derivative of the inverse function acts as a "stretching factor" that accounts for how the transformation compresses or expands intervals of probability.
+
+**Why the absolute derivative?** Probability must be preserved under transformation. If $g$ stretches a small interval by a factor of 3, the density must shrink by a factor of 3 to keep the total probability the same. The derivative of $g^{-1}$ measures exactly this stretching.
+
+### Worked Example: Uniform to Exponential
+
+Let $X \sim \text{Uniform}(0, 1)$ and $Y = -\ln(X)$. We will show that $Y \sim \text{Exponential}(1)$.
+
+![Transformation from Uniform(0,1) to Exponential(1) via Y = -ln(X)](./media/transformation-of-rv.png)
+
+**Step 1:** Find the inverse. If $y = -\ln(x)$, then $x = e^{-y}$, so $g^{-1}(y) = e^{-y}$.
+
+**Step 2:** Compute the derivative of the inverse: $\frac{d}{dy}e^{-y} = -e^{-y}$, so $\left|\frac{d}{dy}g^{-1}(y)\right| = e^{-y}$.
+
+**Step 3:** Apply the formula. Since $f_X(x) = 1$ for $0 < x < 1$:
+
+$$
+f_Y(y) = f_X(e^{-y}) \cdot e^{-y} = 1 \cdot e^{-y} = e^{-y}, \quad y > 0
+$$
+
+This is exactly the PDF of $\text{Exponential}(1)$.
+
+### Inverse Transform Sampling
+
+This result is not just a textbook exercise. It is the foundation of **inverse transform sampling**, a method for generating random samples from any distribution using only uniform random numbers.
+
+**The method:** To generate a sample from a distribution with CDF $F$:
+
+1. Generate $U \sim \text{Uniform}(0, 1)$
+2. Return $X = F^{-1}(U)$
+
+Then $X$ has the desired distribution. This works because applying the inverse CDF to a uniform random variable produces the target distribution (a direct application of the change of variables formula).
+
+**Why it matters:** Every random number generator on every computer starts with uniform random numbers. Inverse transform sampling (and its generalizations) is how those uniform samples get converted into samples from normal, exponential, gamma, and other distributions. It is also the theoretical basis for quantile functions in statistics.
+
+## Moment Generating Functions
+
+The expected value and variance capture the first two moments of a distribution. The **moment generating function (MGF)** packages all moments into a single function.
+
+### Definition
+
+For a random variable $X$, the moment generating function is:
+
+$$
+M_X(t) = E[e^{tX}]
+$$
+
+For discrete $X$: $M_X(t) = \sum_x e^{tx} P(X = x)$. For continuous $X$: $M_X(t) = \int_{-\infty}^{\infty} e^{tx} f(x)\,dx$.
+
+The MGF exists if this expectation is finite for $t$ in some open interval around 0. Not all distributions have MGFs (heavy-tailed distributions like the Cauchy do not), but when it exists, it is extremely powerful.
+
+### Why MGFs Matter
+
+**Extracting moments:** The $n$th moment of $X$ is the $n$th derivative of the MGF evaluated at $t = 0$:
+
+$$
+E[X^n] = M_X^{(n)}(0)
+$$
+
+This is why it is called the "moment generating function": differentiating it and plugging in $t = 0$ generates moments. The first derivative gives $E[X]$, the second gives $E[X^2]$ (from which you can compute the variance), and so on.
+
+**Uniqueness:** If two random variables have the same MGF (in a neighborhood of $t = 0$), they have the same distribution. This makes MGFs a tool for proving that two random variables have the same distribution without comparing their PDFs directly.
+
+### Example: MGF of Bernoulli($p$)
+
+If $X \sim \text{Bernoulli}(p)$, then $X$ takes values 0 and 1:
+
+$$
+M_X(t) = E[e^{tX}] = e^{t \cdot 0} \cdot (1-p) + e^{t \cdot 1} \cdot p = (1 - p) + pe^t
+$$
+
+**Checking:** $M_X'(t) = pe^t$, so $E[X] = M_X'(0) = p$. Correct.
+
+$M_X''(t) = pe^t$, so $E[X^2] = M_X''(0) = p$. Then $\text{Var}(X) = E[X^2] - (E[X])^2 = p - p^2 = p(1-p)$. Correct.
+
+### Example: MGF of Normal($\mu, \sigma^2$)
+
+If $X \sim N(\mu, \sigma^2)$:
+
+$$
+M_X(t) = \exp\left(\mu t + \frac{\sigma^2 t^2}{2}\right)
+$$
+
+This compact form makes it easy to work with sums of normal random variables (see the property below).
+
+### Key Property: MGFs and Sums
+
+If $X$ and $Y$ are **independent** random variables, the MGF of their sum is the product of their MGFs:
+
+$$
+M_{X+Y}(t) = M_X(t) \cdot M_Y(t)
+$$
+
+**Why this is useful:** To find the distribution of a sum of independent random variables, multiply their MGFs and identify the result. For example, the sum of two independent normals $N(\mu_1, \sigma_1^2)$ and $N(\mu_2, \sigma_2^2)$ has MGF:
+
+$$
+\exp\left(\mu_1 t + \frac{\sigma_1^2 t^2}{2}\right) \cdot \exp\left(\mu_2 t + \frac{\sigma_2^2 t^2}{2}\right) = \exp\left((\mu_1 + \mu_2)t + \frac{(\sigma_1^2 + \sigma_2^2)t^2}{2}\right)
+$$
+
+This is the MGF of $N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$, confirming that the sum of independent normals is normal.
+
+**Where MGFs show up:** The most important application is in proving the Central Limit Theorem. The proof shows that the MGF of the standardized sum converges to $e^{t^2/2}$ (the MGF of the standard normal), which by the uniqueness property implies convergence to the normal distribution.
 
 ## Law of Large Numbers
 
@@ -804,6 +1023,40 @@ This gives an upper bound on how much probability can lie far from the mean, for
 
 **Where it shows up:** Chebyshev's inequality is used to prove the (weak) law of large numbers. It also provides distribution-free confidence intervals when you know only the mean and variance.
 
+### Jensen's Inequality
+
+**Jensen's inequality** connects the expected value of a function to the function of an expected value. It depends on whether the function is convex or concave.
+
+**If $g$ is convex** (curves upward, like $x^2$, $e^x$, $|x|$):
+
+$$
+g(E[X]) \leq E[g(X)]
+$$
+
+**If $g$ is concave** (curves downward, like $\ln(x)$, $\sqrt{x}$):
+
+$$
+g(E[X]) \geq E[g(X)]
+$$
+
+**Intuition:** A convex function "amplifies" extreme values. Since $E[g(X)]$ accounts for the function applied to each value of $X$ (including extremes), it is larger than the function applied to the single average value $E[X]$.
+
+**Example (variance is non-negative):** Take $g(x) = x^2$, which is convex. Jensen's inequality gives $E[X^2] \geq (E[X])^2$. This means:
+
+$$
+\text{Var}(X) = E[X^2] - (E[X])^2 \geq 0
+$$
+
+Variance can never be negative, which follows directly from Jensen's inequality.
+
+**Example (log of expectation vs. expectation of log):** Since $\ln$ is concave, Jensen's inequality gives $\ln(E[X]) \geq E[\ln(X)]$ for $X > 0$. Equivalently, $E[\ln(X)] \leq \ln(E[X])$.
+
+**Where it shows up:**
+
+- **KL divergence is non-negative.** The proof that $D_{\text{KL}}(P \| Q) \geq 0$ uses Jensen's inequality applied to the concave function $\ln$.
+- **Evidence Lower Bound (ELBO).** In variational inference, Jensen's inequality is used to show that the ELBO is a lower bound on the log-evidence $\ln p(x)$. Maximizing the ELBO is tractable even when computing $\ln p(x)$ directly is not.
+- **Information theory.** Many fundamental inequalities in information theory (e.g., mutual information is non-negative) follow from Jensen's inequality.
+
 ## Central Limit Theorem
 
 **Central Limit Theorem (CLT):** The sum (or average) of many independent random variables is approximately normally distributed, regardless of the original distribution, as long as the sample size is large enough.
@@ -813,6 +1066,8 @@ Formally, if $X_1, X_2, \ldots, X_n$ are i.i.d. with mean $\mu$ and variance $\s
 $$
 \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \to N(0, 1) \quad \text{as } n \to \infty
 $$
+
+![Central Limit Theorem: sample means from a uniform distribution become normal](./media/clt-demonstration.png)
 
 **Intuition:** Take any distribution (uniform, exponential, Poisson, anything). Draw samples of size 30, compute each sample's average, and plot the distribution of those averages. It will look like a bell curve. This works even if the original distribution is heavily skewed.
 

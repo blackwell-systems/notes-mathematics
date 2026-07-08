@@ -740,6 +740,8 @@ Every linear transformation is a rotation, followed by a stretch, followed by an
 
 ![SVD decomposes a transformation into rotate, stretch, rotate: unit circle becomes an ellipse](./media/svd-geometry.png)
 
+<iframe src="/static/interactive/svd-sphere-to-ellipsoid.html" width="100%" height="550" style="border:none;"></iframe>
+
 ### Low-Rank Approximation
 
 The SVD reveals the "importance" of each component. The best rank-$k$ approximation to $A$ is:

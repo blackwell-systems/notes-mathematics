@@ -70,6 +70,8 @@ $$
 
 ![Partial derivatives as slopes of slices through a surface](./media/partial-derivatives-slicing.png)
 
+<iframe src="/static/interactive/partial-derivative-slice.html" width="100%" height="550" style="border:none;"></iframe>
+
 ### Geometric Interpretation
 
 If you slice the surface $z = f(x, y)$ with a plane that holds $y$ constant, you get a curve. The partial derivative $\frac{\partial f}{\partial x}$ is the slope of that curve. Similarly, slicing with $x$ constant and taking the slope gives $\frac{\partial f}{\partial y}$.
