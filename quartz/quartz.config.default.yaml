@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: null
   locale: en-US
-  baseUrl: localhost:8080
+  baseUrl: blackwell-systems.github.io/notes-mathematics
   ignorePatterns:
     - private
     - templates
