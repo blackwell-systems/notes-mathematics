@@ -40,10 +40,10 @@ how elements from the **domain** are associated with elements in the
 [subset](#subset) of the Cartesian
 product](#ordered-pairs-kuratowskis-definition) **𝐴×𝐵**, which means
 
-**𝑅 ⊆ 𝐴×𝐵**
+$R \subseteq A \times B$
 
-Each element of **𝑅** is an ordered pair **(𝑎,𝑏)** where **𝑎 ∈ 𝐴** and
-**𝑏 ∈ 𝐵**.
+Each element of $R$ is an ordered pair $(a,b)$ where $a \in A$ and
+$b \in B$.
 
 We may state that **x** bears relation **R** to **y** by writing **xRy**
 
@@ -103,7 +103,9 @@ codomain).
 if every element of A is related to itself. In other words, for all a in
 A, the pair **(a,a)** is in the relation R.
 
-∀a ∈ A(a ∈ A → R(a, a))
+$$
+\forall a \in A \, (a \in A \to R(a, a))
+$$
 
 The reflexive property of relations can be understood from a directed
 graph by looking for a loop on each element going back to itself.
@@ -122,10 +124,12 @@ A relation **R** on a set **A** is said to be **symmetric** if, whenever
 an element a is related to an element **b**, then **b** is also related
 to **a**.
 
-In other words, if **(a,b) ∈ R** and **(b,c) ∈ R**, then **(a,c)** must
-also be in **R**.
+In other words, if $(a,b) \in R$, then $(b,a)$ must
+also be in $R$.
 
-∀a,b ∈ A ( R(a,b) → R(b,a) )
+$$
+\forall a,b \in A \, ( R(a,b) \to R(b,a) )
+$$
 
 #### Transitive Property
 
@@ -135,16 +139,20 @@ A relation **R** on a set **A** is said to be **transitive** if,
 whenever an element **a** is related to an element **b** and **b** is
 related to an element **c**, then **a** must also be related to **c**.
 
-In other words, if **(a,b) ∈ R** and **(b,c) ∈ R** then **(a,c)** must
-also be in **R**.
+In other words, if $(a,b) \in R$ and $(b,c) \in R$ then $(a,c)$ must
+also be in $R$.
 
-∀a,b,c ∈ A ( ( R(a,b) ∧ R(b,c) ) → R(a,c) )
+$$
+\forall a,b,c \in A \, ( ( R(a,b) \wedge R(b,c) ) \to R(a,c) )
+$$
 
 #### Antisymmetric Property
 
 **Antisymmetric Property:** A relation **R** on a set **A** is **antisymmetric** if whenever both (a,b) and (b,a) are in R, then a must equal b.
 
-∀a,b ∈ A ( (R(a,b) ∧ R(b,a)) → a = b )
+$$
+\forall a,b \in A \, ( (R(a,b) \wedge R(b,a)) \to a = b )
+$$
 
 **Example:** The "less than or equal to" relation (≤) on real numbers is antisymmetric:
 - If a ≤ b and b ≤ a, then a = b
@@ -156,7 +164,9 @@ also be in **R**.
 
 **Asymmetric Property:** A relation **R** on a set **A** is **asymmetric** if whenever (a,b) is in R, then (b,a) cannot be in R.
 
-∀a,b ∈ A ( R(a,b) → ¬R(b,a) )
+$$
+\forall a,b \in A \, ( R(a,b) \to \neg R(b,a) )
+$$
 
 **Example:** The "less than" relation (<) on real numbers is asymmetric:
 - If a < b, then b ≮ a (b is not less than a)
@@ -167,7 +177,9 @@ also be in **R**.
 
 **Irreflexive Property:** A relation **R** on a set **A** is **irreflexive** if no element is related to itself.
 
-∀a ∈ A ( ¬R(a,a) )
+$$
+\forall a \in A \, ( \neg R(a,a) )
+$$
 
 **Example:** The "less than" relation (<) on real numbers is irreflexive:
 - No number is less than itself
@@ -185,10 +197,10 @@ Notation: Often written as ≤ or ⊑
 
 **Examples:**
 
-1. **Subset relation (⊆)** on sets:
+1. **Subset relation** ($\subseteq$) on sets:
    - Every set is a subset of itself (reflexive)
-   - If A ⊆ B and B ⊆ A, then A = B (antisymmetric)
-   - If A ⊆ B and B ⊆ C, then A ⊆ C (transitive)
+   - If $A \subseteq B$ and $B \subseteq A$, then $A = B$ (antisymmetric)
+   - If $A \subseteq B$ and $B \subseteq C$, then $A \subseteq C$ (transitive)
 
 2. **"Divides" relation (|)** on positive integers:
    - Every number divides itself (reflexive)
@@ -245,7 +257,7 @@ Reading the diagram:
 - {} (empty set) is at the bottom (subset of all)
 - {a, b} is at the top (contains all elements)
 - {a} and {b} are incomparable (neither is subset of the other)
-- Transitivity implied: {} ⊆ {a} ⊆ {a, b}
+- Transitivity implied: $\{\} \subseteq \{a\} \subseteq \{a, b\}$
 
 **Example 3 - Divisibility on {1, 2, 3, 5, 6, 10, 15, 30}:**
 
@@ -306,14 +318,14 @@ A relation **R** on **A** is a total order if it is:
 1. Reflexive
 2. Antisymmetric  
 3. Transitive
-4. **Total:** ∀a,b ∈ A ( R(a,b) ∨ R(b,a) )
+4. **Total:** $\forall a,b \in A \, ( R(a,b) \vee R(b,a) )$
 
 **Examples:**
 - ≤ on real numbers (you can always compare two numbers)
 - Alphabetical order on strings
 
 **Non-example:**
-- Subset relation (⊆) is NOT a total order because some sets are incomparable
+- Subset relation ($\subseteq$) is NOT a total order because some sets are incomparable
 
 ### Equivalence Relation
 
@@ -330,19 +342,25 @@ it satisfies the following three properties:
 
 1.  **Reflexivity:**
 
-∀a ∈ A : (a,a) ∈ R
+$$
+\forall a \in A : (a,a) \in R
+$$
 
 This means that every element is related to itself.
 
 2.  **Symmetry:**
 
-∀a,b ∈ A (R(a,b)→R(b,a))
+$$
+\forall a,b \in A \, (R(a,b) \to R(b,a))
+$$
 
 This means that if a is related to b, then b is also related to a.
 
 3.  **Transitivity:**
 
-∀a,b,c ∈ A (( R(a,b) ∧ R(b,c) ) → R(a,c))
+$$
+\forall a,b,c \in A \, (( R(a,b) \wedge R(b,c) ) \to R(a,c))
+$$
 
 This means that if a is related to b and b is related to c, then a is
 also related to c.
@@ -388,7 +406,7 @@ these three classes.
 
 ### Equivalence Classes
 
-**Equivalence Class:** Given an equivalence relation **R** on a set **A** and an element **a ∈ A**, the equivalence class of **a** is the set of all elements in **A** that are related to **a** under **R**.
+**Equivalence Class:** Given an equivalence relation **R** on a set **A** and an element $a \in A$, the equivalence class of **a** is the set of all elements in **A** that are related to **a** under **R**.
 
 **Notation:** $[a]_R$ or simply $[a]$
 
@@ -601,7 +619,7 @@ The **domain** of a function **f : X → Y** is the set **X**. It includes
 all the possible inputs that the function can accept.
 
 **Example**: For the function **f(x) =** $\sqrt{\mathbf{x}}$, the domain
-is **X = { x ∈ R ∣ x ≥ 0 }**, because the square root function is only
+is $X = \{ x \in \mathbb{R} \mid x \geq 0 \}$, because the square root function is only
 defined for non-negative real numbers.
 
 **2. Codomain of a Function:**
@@ -627,7 +645,7 @@ The range is therefore a subset of the codomain.
 The **image** of a function is similar to the **range** but often refers
 to the outputs corresponding to a specific subset of the domain. If the
 subset in question is the entire **domain**, then the **image** and the
-**range** are the same. For a particular subset **A ⊆ X**, the image of
+**range** are the same. For a particular subset $A \subseteq X$, the image of
 **A** under **f** is denoted as **f(A)**.
 
 ![](./media/image44.png)
@@ -639,9 +657,13 @@ possible inputs for the function. In terms of ordered pairs, the domain
 is the set of all possible first values (the input values) in those
 pairs.
 
-Dom(f) = A ⟺ ∀x(x ∈ A ↔ ∃y f(x)=y)
+$$
+\text{Dom}(f) = A \iff \forall x \, (x \in A \leftrightarrow \exists y \, f(x) = y)
+$$
 
-Dom(f) = { x ∣ ∃y f(x) = y}
+$$
+\text{Dom}(f) = \{ x \mid \exists y \, f(x) = y \}
+$$
 
 ### Codomain
 
@@ -655,7 +677,9 @@ even if not all elements of the **codomain** are actually reached by the
 function. This contrasts with range, which represents the actually
 mapped values of the **codomain**.
 
-Cod(f) = B ⟺ ∀x ∈ Dom(f) ,∃y ∈ B (f(x)=y)
+$$
+\text{Cod}(f) = B \iff \forall x \in \text{Dom}(f), \, \exists y \in B \, (f(x) = y)
+$$
 
 ### Range
 
@@ -664,15 +688,19 @@ outputs that the function produces when applied to every
 element in its domain **X**. The range is therefore a subset of the
 codomain.
 
-Range(f) = { y ∈ Cod(f) ∣ ∃x ∈ Dom(f), f(x) = y}
+$$
+\text{Range}(f) = \{ y \in \text{Cod}(f) \mid \exists x \in \text{Dom}(f), \, f(x) = y \}
+$$
 
-Range(f) = { f(x) ∣ x ∈ Dom(f) }
+$$
+\text{Range}(f) = \{ f(x) \mid x \in \text{Dom}(f) \}
+$$
 
 Explanation:
 
--   **∀y**: For all elements **y** in the codomain.
+-   $\forall y$: For all elements **y** in the codomain.
 
--   **y ∈ Range (f)↔ ∃x ( x ∈ X ∧ f(x)=y)**:
+-   $y \in \text{Range}(f) \leftrightarrow \exists x \, ( x \in X \wedge f(x) = y)$:
 
     -   This states that **y** is in the **range** of the function **f**
         iff. there exists an element **x** in the domain **X** such that
@@ -689,7 +717,7 @@ to the outputs corresponding to a specific subset of the domain.
 *If the subset in question is the entire **domain**, then the **image**
 and the **range** are the same.*
 
-For a particular subset **A ⊆ X**, the image of **A** under **f** is
+For a particular subset $A \subseteq X$, the image of **A** under **f** is
 denoted as **f(A)**.
 
 ### Preimage
@@ -704,7 +732,7 @@ In other words, for a function:
 **B** under **f** is the set of all elements in the domain **X** that
 **f** maps into **B**.
 
-$f^{- 1}(B)$= { x ∈ X ∣ f(x) ∈ B }
+$f^{-1}(B) = \{ x \in X \mid f(x) \in B \}$
 
 The **preimage** of a set **B** under a function **f** is the set of all
 elements in the domain **X** that map to elements in **B** in the
@@ -745,7 +773,7 @@ of the codomain is mapped to from at least one element of the domain. 
 
 **f is invertible if there exists a function g: B → A such that:**
 
-∀x ∈ A, g(f(x)) = x ∧ ∀y ∈ B, f(g(y)) = y.
+$\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
 
 **In this case, g is called the inverse of f, written f^−1**
 

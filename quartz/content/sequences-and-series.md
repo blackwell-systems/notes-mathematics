@@ -309,6 +309,8 @@ $$
 
 Each term is the sum of the two preceding terms. The Fibonacci sequence appears in nature (sunflower seed patterns, tree branching), computer science (algorithm analysis), and the ratio of consecutive terms approaches the golden ratio $\phi = \frac{1 + \sqrt{5}}{2} \approx 1.618$.
 
+![Fibonacci spiral formed by squares with side lengths 1, 1, 2, 3, 5, 8](./media/fibonacci-spiral.png)
+
 ## Recurrence Relations
 
 ### What Is a Recurrence Relation?
@@ -420,6 +422,8 @@ T_n = 2^n - 1
 $$
 
 **Verification:** $T_1 = 2^1 - 1 = 1$. $T_2 = 2^2 - 1 = 3$. $T_3 = 2^3 - 1 = 7$. Check: $T_3 = 2T_2 + 1 = 2(3) + 1 = 7$. $\checkmark$
+
+![Tower of Hanoi initial state with 4 disks on the source peg](./media/tower-of-hanoi.png)
 
 ### Solving Second-Order Linear Recurrences (Characteristic Equation Method)
 

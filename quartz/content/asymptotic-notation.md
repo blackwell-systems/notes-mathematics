@@ -93,6 +93,8 @@ $$
 | $O(n!)$ | Factorial | Brute-force permutation enumeration |
 | $O(n^n)$ | Super-exponential | (Rarely encountered in practice) |
 
+![Common growth rates plotted on a log scale: log n, sqrt(n), n, n log n, n squared, and 2 to the n](./media/growth-rates-comparison.png)
+
 To appreciate the difference: for $n = 1{,}000{,}000$, $\log_2 n \approx 20$. The gap between $O(n)$ and $O(n^2)$ is the gap between processing a million items and processing a trillion pairs. The gap between $O(n^2)$ and $O(2^n)$ is the gap between "slow" and "physically impossible."
 
 ## Rules for Determining Big-O

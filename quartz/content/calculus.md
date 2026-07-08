@@ -287,6 +287,8 @@ The $\frac{|x|}{x}$ example from earlier is also a jump discontinuity at $x = 0$
 
 **Which discontinuities can be "fixed"?** Only removable discontinuities can be repaired by redefining $f(a)$ to equal the limit. Jump, infinite, and oscillating discontinuities are inherent to the function's behavior and cannot be removed by changing the value at a single point.
 
+![Four types of continuity and discontinuity: continuous function, removable hole, jump, and infinite](./media/continuity-types.png)
+
 ### Intermediate Value Theorem
 
 The **Intermediate Value Theorem (IVT)** formalizes an intuitive property of continuous functions: they cannot "skip over" values.
@@ -853,6 +855,8 @@ In words: at some point, the instantaneous rate of change equals the average rat
 
 Rolle's Theorem is the special case where $f(a) = f(b)$, making the average rate of change zero.
 
+![Mean Value Theorem: a curve with secant line from a to b and parallel tangent line at point c](./media/mean-value-theorem.png)
+
 **Why the MVT matters:** It is the theoretical foundation for many calculus results:
 
 - If $f'(x) > 0$ on an interval, then $f$ is increasing. (Proof: for any $a < b$ in the interval, the MVT gives $f(b) - f(a) = f'(c)(b-a) > 0$, so $f(b) > f(a)$.)
@@ -1172,6 +1176,8 @@ $$
 
 When finding area between curves, always identify the intersection points first (they become your limits of integration) and determine which function is on top.
 
+![Area between two curves with the shaded region and integral formula](./media/area-between-curves.png)
+
 Sometimes it is simpler to integrate with respect to $y$ rather than $x$. This happens when the curves are more naturally expressed as functions of $y$, or when integrating with respect to $x$ would require splitting the region into multiple pieces. In that case, use $A = \int_c^d [x_{\text{right}}(y) - x_{\text{left}}(y)] \, dy$.
 
 ### Average Value of a Function
@@ -1295,6 +1301,8 @@ $$
 **Taylor polynomials as approximations:** In practice, we truncate the series at degree $n$ to get the $n$th-degree Taylor polynomial $T_n(x)$. The linear approximation $f(x) \approx f(a) + f'(a)(x-a)$ is the degree-1 Taylor polynomial. Higher degrees give more accuracy over a wider range.
 
 Notice the pattern: the first-degree Taylor polynomial is the tangent line. The second-degree polynomial adds a parabolic correction for curvature. Each additional term refines the approximation further.
+
+![Taylor polynomial approximations of sin(x) at degrees 1, 3, 5, and 7 showing improving accuracy](./media/taylor-approximation.png)
 
 **Connection to ML:** Taylor expansion is used throughout optimization theory. The second-order Taylor expansion of a loss function $L(\theta)$ around the current parameters gives:
 

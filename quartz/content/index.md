@@ -50,6 +50,7 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 
 - [Calculus](./calculus) (limits, derivatives, chain rule, integrals, Fundamental Theorem)
 - [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients, gradient descent, convexity)
+- [Differential Equations](./differential-equations) (ODEs, systems, stability, Laplace transforms, neural ODEs)
 
 ## Combinatorics & Probability
 
@@ -60,6 +61,7 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 ## Statistics
 
 - [Statistics](./statistics) (estimation, hypothesis testing, regression, bias-variance tradeoff)
+- [Bayesian Inference](./bayesian-inference) (priors, posteriors, MCMC, variational inference, model selection, SLT connection)
 
 ## Optimization
 
@@ -77,3 +79,4 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 ## Advanced Mathematics
 
 - [Real Analysis](./real-analysis) (sequences, series, metric spaces, uniform convergence, rigorous calculus)
+- [Measure Theory](./measure-theory) (sigma-algebras, Lebesgue integral, convergence theorems, $L^p$ spaces, measure-theoretic probability)

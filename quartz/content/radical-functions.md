@@ -26,6 +26,8 @@ With these ideas in place, we can define radical functions precisely.
 
 Radical functions are closely related to [polynomial functions](./polynomial-functions) because solving polynomial equations often produces radical solutions.
 
+![Comparing growth rates of square root, linear, and quadratic functions from 0 to 4](./media/radical-vs-polynomial.png)
+
 ## Simplifying Radical Expressions
 
 Before working with radical functions, we need to be comfortable simplifying radical expressions. The key insight is that radicals obey rules inherited from exponent laws, and these rules let us rewrite complicated radicals in simpler form.

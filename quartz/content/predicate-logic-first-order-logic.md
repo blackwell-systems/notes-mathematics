@@ -86,6 +86,8 @@ Propositional logic can only express complete statements like "it is raining" as
 - Meaning: "There exists exactly one real number $x$ such that $x + 5 = 7$"
 - Truth value: TRUE (only $x = 2$)
 
+![Universal vs existential quantifiers: for all checks every element, there exists checks at least one](./media/quantifier-scope.png)
+
 ## Multiple Quantifiers
 
 ### Order Matters

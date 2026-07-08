@@ -131,7 +131,11 @@ $$
 
 We add individual sizes, subtract pairwise intersections (overcounted), then add back the triple intersection (subtracted too many times).
 
-The pattern continues for more sets: add singles, subtract pairs, add triples, subtract quadruples, and so on. With alternating signs, the general formula for $n$ sets is:
+The pattern continues for more sets: add singles, subtract pairs, add triples, subtract quadruples, and so on.
+
+![Venn diagram of three overlapping sets A, B, C with the inclusion-exclusion formula](./media/inclusion-exclusion-venn.png)
+
+With alternating signs, the general formula for $n$ sets is:
 
 $$
 \left|\bigcup_{i=1}^{n} A_i\right| = \sum_{i} |A_i| - \sum_{i<j} |A_i \cap A_j| + \sum_{i<j<k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n+1}|A_1 \cap \cdots \cap A_n|
@@ -248,6 +252,8 @@ Here $n = 10$ and $k = 4$:
 $$
 \binom{10 + 4 - 1}{4 - 1} = \binom{13}{3} = \frac{13 \times 12 \times 11}{3 \times 2 \times 1} = 286
 $$
+
+![Stars and bars visualization: 10 stars divided by 3 bars into 4 groups showing distribution (3, 2, 4, 1)](./media/stars-and-bars.png)
 
 ### With Minimum Constraints
 

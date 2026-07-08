@@ -474,6 +474,8 @@ graph LR
 - Set 2: {D, E}
 - No edges within the same set
 
+![Bipartite graph with two vertex sets where edges only connect between sets](./media/bipartite-graph.png)
+
 **Complete Bipartite Graph ($K_{m,n}$):** Every vertex in one set is connected to every vertex in the other set.
 
 **Properties:**
@@ -1605,6 +1607,8 @@ Circuit: A → B → C → D → A (visits all 4 vertices once)
 
 **Note:** No simple theorem exists for determining if a Hamiltonian path/circuit exists (NP-complete problem).
 
+![Eulerian circuit traversing every edge once vs Hamiltonian path visiting every vertex once](./media/eulerian-hamiltonian.png)
+
 ### Graph Coloring
 
 **Graph Coloring:** Assign colors to vertices such that no two adjacent vertices have the same color.
@@ -1630,6 +1634,8 @@ This triangle needs 3 colors (chromatic number = 3):
 - Register allocation in compilers
 - Map coloring
 - Sudoku solving
+
+![Graph with 5 vertices colored using 3 colors such that no adjacent vertices share a color](./media/graph-coloring.png)
 
 **Four Color Theorem:** Any planar graph can be colored with at most 4 colors.
 
