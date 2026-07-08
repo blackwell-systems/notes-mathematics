@@ -613,3 +613,5 @@ At a critical point, each eigenvalue of the Hessian is independently positive or
 **Why SGD still works:** The noise in stochastic gradients provides random perturbations that push the optimizer away from saddle points. Momentum and adaptive methods also help. Gradient descent without noise can get stuck at saddle points, but SGD almost never does in practice.
 
 This is one reason why the non-convexity of deep learning loss functions is less problematic than theory might suggest: the critical points that gradient-based methods might get stuck at are mostly saddle points (which SGD escapes) rather than bad local minima.
+
+**Research connection:** In developmental interpretability, attention heads that fail to join co-specializing circuits undergo a "try-fail-collapse" sequence, eventually sinking to position-zero attention. This resembles escaping a saddle point into a degenerate basin. The collapse is permanent: once a head sinks, additional training does not recover it. This suggests the loss landscape around P0 sinks is a stable attractor, not a saddle.

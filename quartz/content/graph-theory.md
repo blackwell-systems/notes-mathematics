@@ -1452,6 +1452,8 @@ graph LR
 
 The disconnected graph above has 2 connected components: {A, B} and {C, D}.
 
+**Research connection:** Graph-theoretic concepts apply directly to neural network circuits. In developmental interpretability, co-specializing circuits (groups of attention heads that develop together across layers) are discovered through correlation analysis of developmental trajectories. Circuit membership is protective: heads that participate in connected circuits survive training, while isolated heads (not connected to any circuit) collapse into dormancy. This parallels the concept of connected components.
+
 ## Graph Algorithms
 
 ### Depth-First Search (DFS)

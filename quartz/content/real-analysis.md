@@ -213,6 +213,8 @@ $$
 
 which can be made smaller than any $\epsilon$ by choosing $n$ large enough.
 
+**Research connection:** Convergence behavior matters for understanding training dynamics. The "frustration gap" in BPE-trained models (the gap between a model's structural capacity and what the tokenizer allows) is measurable by step 5,000 and does not converge to zero across 35,000 additional steps. This is an empirical example of a sequence that converges to a nonzero limit, representing permanently wasted capacity.
+
 ### Limsup and Liminf
 
 Not every sequence converges, but every bounded sequence has a well-defined **limit superior** and **limit inferior**.
@@ -604,6 +606,8 @@ Singular learning theory (SLT) studies the geometry of the loss landscape in sta
 - **Measure theory** to define and manipulate the posterior distribution near singularities.
 
 The analytic foundations on this page (completeness, compactness, uniform convergence, rigorous integration) are the language in which these results are stated and proved.
+
+**Research connection:** Singular learning theory directly explains phenomena observed in developmental interpretability. The deterministic count of spacing heads across random seeds (183/384 in both runs) suggests the head allocation is determined by the geometry of the loss landscape (the RLCT), not by initialization. Phase transitions during training (when heads suddenly specialize or collapse) correspond to changes in the local learning coefficient. Circuit membership being developmentally protective (heads in circuits survive; isolated heads collapse into P0 sinks) may reflect the singularity structure near the true parameter set.
 
 ### The Big Picture
 

@@ -168,6 +168,8 @@ $$
 
 **Why this matters for ML:** Bayesian reasoning is the foundation of Bayesian inference, which powers methods like Bayesian neural networks, Gaussian processes, and spam filtering. The key insight is that prior probability matters. A model that ignores base rates will make bad predictions.
 
+**Research connection:** Conditional probability is the mathematical framework for understanding attention. An attention weight $\alpha_{ij}$ is the model's learned estimate of how relevant position $j$ is to position $i$, conditioned on the input sequence. When BPE merges destroy delimiter boundaries, the conditioning information changes: the model conditions on merged tokens instead of clean structural boundaries, producing fundamentally different attention distributions (14% vs 54% delimiter attention).
+
 ## Law of Total Probability
 
 **Law of total probability:** If events $B_1, B_2, \ldots, B_n$ form a partition of the sample space (they are mutually exclusive and exhaustive), then for any event $A$:

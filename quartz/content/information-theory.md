@@ -454,6 +454,8 @@ In words: processing cannot create information. Each step of processing can only
 
 The data processing inequality has a simple but profound consequence: **no deterministic or stochastic transformation can increase the information that $Y$ contains about $X$.** If you compute $Z = f(Y)$ for any function $f$, then $I(X; Z) \leq I(X; Y)$.
 
+**Research connection:** The data processing inequality ($I(X;Z) \leq I(X;Y)$ for $X \to Y \to Z$) has a direct consequence for tokenization. When BPE merges delimiter characters with adjacent content, structural boundary information is destroyed before the model sees it. No amount of subsequent processing (attention, feedforward layers) can recover the lost information. This is why the frustration gap is permanent: the information was destroyed at the tokenizer level, before the first attention head.
+
 ### Connection to ML: The Information Bottleneck
 
 In a neural network, data flows through successive layers:

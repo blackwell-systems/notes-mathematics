@@ -708,6 +708,8 @@ Where:
 - **Stability of dynamical systems:** Eigenvalues determine whether a system converges, diverges, or oscillates.
 - **Singular Value Decomposition (SVD):** Generalizes eigendecomposition to non-square matrices.
 
+**Research connection:** The eigenvalue spectrum of attention weight matrices reveals head specialization. In developmental interpretability research, tracking how eigenvalue distributions change across training checkpoints shows when heads differentiate into specialized roles (delimiter heads, spacing heads, induction heads) versus when they collapse into attention sinks.
+
 ## Singular Value Decomposition (SVD)
 
 **SVD:** Every $m \times n$ matrix $A$ (any shape, any rank) can be factored as:
