@@ -701,6 +701,10 @@ Where:
 
 ![Eigenvectors maintain their direction under transformation A, while regular vectors change direction](./media/eigenvectors.png)
 
+The interactive plot below shows a grid of points (blue) and the same grid after multiplication by the matrix $A = \begin{bmatrix} 3 & 1 \\ 1 & 2 \end{bmatrix}$ (red). The thick colored lines are the eigenvectors: directions along which the matrix only stretches, never rotates. The dotted unit circle transforms into an ellipse whose axes align with the eigenvectors.
+
+<iframe src="/static/interactive/eigenvalue-transform.html" width="100%" height="550" style="border:none;"></iframe>
+
 ### Why Eigenvalues Matter for ML
 
 - **Principal Component Analysis (PCA):** Find the eigenvectors of the covariance matrix. The eigenvectors with the largest eigenvalues are the directions of greatest variance in the data. Project onto those directions to reduce dimensionality.

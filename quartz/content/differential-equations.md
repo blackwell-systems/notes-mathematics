@@ -227,6 +227,10 @@ The figure shows the direction field for $y' = x - y$. At each point, the small 
 
 **Connection to ML:** Direction fields are vector fields. In gradient descent, the negative gradient $-\nabla L(\theta)$ defines a vector field on parameter space, and the training trajectory is a curve that follows this field. The "flow" of gradient descent is exactly the same concept.
 
+The interactive plot below shows the slope surface for $y' = x - y$ in 3D (the z-axis is the slope value at each point) with solution curves projected onto the floor of the plot. Rotate the view to see how the slope surface determines each solution's trajectory.
+
+<iframe src="/static/interactive/direction-field-interactive.html" width="100%" height="550" style="border:none;"></iframe>
+
 ### Euler's Method
 
 When a DE cannot be solved analytically, we approximate the solution numerically. **Euler's method** is the simplest approach: start at the initial point and take small steps, using the DE to compute the slope at each step.

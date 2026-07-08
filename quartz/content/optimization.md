@@ -345,6 +345,10 @@ The weight decay term $\lambda x_k$ is applied directly, not through the adaptiv
 | Adam | Yes | Yes | Robust default, fast early | Most deep learning tasks |
 | AdamW | Yes | Yes | Correct weight decay | Large language models, transformers |
 
+The following interactive visualization shows three optimizers navigating the Rosenbrock loss surface from the same starting point. Rotate the view to see how SGD wanders noisily, momentum builds speed but overshoots, and Adam adapts its step size per-parameter to converge fastest.
+
+<iframe src="/static/interactive/optimizer-comparison.html" width="100%" height="550" style="border:none;"></iframe>
+
 ## Learning Rate Schedules
 
 A fixed learning rate is rarely optimal. Early in training, a larger learning rate explores the loss landscape broadly. Late in training, a smaller learning rate fine-tunes toward the minimum. **Learning rate schedules** systematically adjust $\alpha$ during training.
