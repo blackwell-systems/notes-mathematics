@@ -129,6 +129,8 @@ $$\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 5 & 6 \\ 7 & 8 \e
 - **Distributive:** $A(B + C) = AB + AC$
 - **Identity:** $AI = IA = A$ (where $I$ is the identity matrix)
 
+![Matrix multiplication visual showing row times column to produce each entry](./media/matrix-multiplication.png)
+
 ## Identity Matrix
 
 **Identity Matrix:** A square matrix with 1's on the main diagonal and 0's elsewhere.

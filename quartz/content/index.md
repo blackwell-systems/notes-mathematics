@@ -71,4 +71,9 @@ Comprehensive mathematics reference covering logic, algebra, functions, geometry
 
 ## Discrete Mathematics
 
+- [Asymptotic Notation](./asymptotic-notation)
 - [Graph Theory](./graph-theory)
+
+## Advanced Mathematics
+
+- [Real Analysis](./real-analysis) (sequences, series, metric spaces, uniform convergence, rigorous calculus)

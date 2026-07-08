@@ -323,9 +323,9 @@ and require us to consider the specific conditions at hand.
 
 **Truth Function**: In logic, a truth function is a function that accepts truth values as input and produces a truth value as output. They play a crucial role in propositional logic by defining how compound statements (or propositions) are constructed from atomic ones.
 
-**Formal Definition:** A truth function f is a function f: {T, F}ⁿ → {T, F}
+**Formal Definition:** A truth function $f$ is a function $f: \{T, F\}^n \to \{T, F\}$
 
-Where n is the number of input propositions (arity).
+Where $n$ is the number of input propositions (arity).
 
 **Examples:**
 
@@ -336,9 +336,9 @@ Where n is the number of input propositions (arity).
 | T | F |
 | F | T |
 
-The negation function f(P) = ¬P maps:
-- f(T) = F
-- f(F) = T
+The negation function $f(P) = \neg P$ maps:
+- $f(T) = F$
+- $f(F) = T$
 
 **Binary Truth Functions (n=2):**
 
@@ -353,10 +353,10 @@ Each column defines a different binary truth function.
 
 **Total Number of Truth Functions:**
 
-For n inputs, there are 2^(2ⁿ) possible truth functions:
-- n=1: 2^(2¹) = 4 unary functions
-- n=2: 2^(2²) = 16 binary functions
-- n=3: 2^(2³) = 256 ternary functions
+For $n$ inputs, there are $2^{2^n}$ possible truth functions:
+- $n=1$: $2^{2^1} = 4$ unary functions
+- $n=2$: $2^{2^2} = 16$ binary functions
+- $n=3$: $2^{2^3} = 256$ ternary functions
 
 **Common Binary Functions:**
 1. Conjunction (AND): T only when both inputs are T
@@ -370,11 +370,11 @@ For n inputs, there are 2^(2ⁿ) possible truth functions:
 **Functionally Complete Sets:**
 
 A set of connectives is functionally complete if every truth function can be expressed using only those connectives:
-- {¬, ∧} is functionally complete
-- {¬, ∨} is functionally complete
-- {→, F} is functionally complete
-- {NAND} alone is functionally complete
-- {NOR} alone is functionally complete
+- $\{\neg, \wedge\}$ is functionally complete
+- $\{\neg, \vee\}$ is functionally complete
+- $\{\to, F\}$ is functionally complete
+- $\{\text{NAND}\}$ alone is functionally complete
+- $\{\text{NOR}\}$ alone is functionally complete
 
 ## Logical / Propositional Constants
 
@@ -393,7 +393,7 @@ It is denoted by symbols such as **⊥**(falsum/up-tack) or false.
 
 Example: The statement
 
-𝑃 ∧ ¬𝑃 (It is raining and it is not raining) is a contradiction because
+$P \wedge \neg P$ (It is raining and it is not raining) is a contradiction because
 it can never be true.
 
 ### Tautology
@@ -404,7 +404,7 @@ proposition that is always true. It is denoted by symbols such as
 
 Example: The statement
 
-𝑃 ∨ ¬𝑃 (It is raining or it is not raining) is a tautology because it is
+$P \vee \neg P$ (It is raining or it is not raining) is a tautology because it is
 always true.
 
 #### Proving that a proposition is a Tautology
@@ -477,14 +477,18 @@ Properties of Negation:
 negation, that is, the negation of the negation of a proposition 𝑃, is
 logically equivalent to 𝑃.
 
-Expressed in symbolic terms: ¬¬𝑃 ≡ 𝑃
+Expressed in symbolic terms: $\neg\neg P \equiv P$
 
 **Distributivity:** De Morgan's laws provide a way of distributing
 negation over conjunction and disjunction.
 
-**¬(𝑃 ∧ 𝑄) ≡ (¬𝑃 ∨ ¬𝑄)**
+$$
+\neg(P \wedge Q) \equiv (\neg P \vee \neg Q)
+$$
 
-**¬(𝑃 ∨ 𝑄) ≡ (¬𝑃 ∧ ¬𝑄)**
+$$
+\neg(P \vee Q) \equiv (\neg P \wedge \neg Q)
+$$
 
 **Negation of Quantifiers:** In first-order logic, there are two
 quantifiers, one is the universal quantifier
@@ -492,8 +496,7 @@ quantifiers, one is the universal quantifier
 **∀** (means "for all") and the other is the existential quantifier
 **∃** (means "there exists").
 
-The negation of one quantifier is the other quantifier (¬∀𝑥𝑃(𝑥) ≡
-∃𝑥¬𝑃(𝑥) and ¬∃𝑥𝑃(𝑥) ≡ ∀𝑥¬𝑃(𝑥)).
+The negation of one quantifier is the other quantifier ($\neg\forall x\, P(x) \equiv \exists x\, \neg P(x)$ and $\neg\exists x\, P(x) \equiv \forall x\, \neg P(x)$).
 
 ### Properties of Binary Operations
 
@@ -628,8 +631,8 @@ respective (typically false or absurd) proposition.
 **Inverse:** In logic, an inverse is a type of conditional sentence
 which is an immediate inference made from another conditional sentence.
 
-Given a conditional sentence of the form **P → Q**, the inverse refers
-to the sentence **¬P → ¬Q**
+Given a conditional sentence of the form $P \to Q$, the inverse refers
+to the sentence $\neg P \to \neg Q$
 
 For example, substituting propositions in natural language for logical
 variables, the inverse of the following conditional proposition
@@ -645,16 +648,16 @@ would be
 The converse of a categorical or implicational statement is the result
 of reversing its two constituent statements.
 
-For the implication **P → Q**, the converse is **Q → P**.
+For the implication $P \to Q$, the converse is $Q \to P$.
 
 ##### Contrapositive
 
 **T**he contrapositive of a statement has its antecedent and consequent
 inverted and flipped.
 
-Conditional statement **P → Q**
+Conditional statement $P \to Q$
 
-In formulas: the contrapositive of **P →** **Q** is **¬Q → ¬P**
+In formulas: the contrapositive of $P \to Q$ is $\neg Q \to \neg P$
 
 ![](./media/image19.png)
 
@@ -671,102 +674,108 @@ determined by precedence rules.
 
 ## Logical Equivalences
 
-**Logical Equivalence:** Two propositions P and Q are logically equivalent if they have the same truth value in all possible cases.
+**Logical Equivalence:** Two propositions $P$ and $Q$ are logically equivalent if they have the same truth value in all possible cases.
 
-**Notation:** P ≡ Q or P ⟺ Q
+**Notation:** $P \equiv Q$ or $P \iff Q$
 
 ### Fundamental Laws
 
 **Identity Laws:**
-- P ∧ T ≡ P
-- P ∨ F ≡ P
+- $P \wedge T \equiv P$
+- $P \vee F \equiv P$
 
 **Domination Laws:**
-- P ∨ T ≡ T
-- P ∧ F ≡ F
+- $P \vee T \equiv T$
+- $P \wedge F \equiv F$
 
 **Idempotent Laws:**
-- P ∨ P ≡ P
-- P ∧ P ≡ P
+- $P \vee P \equiv P$
+- $P \wedge P \equiv P$
 
 **Double Negation:**
-- ¬(¬P) ≡ P
+- $\neg(\neg P) \equiv P$
 
 **Commutative Laws:**
-- P ∨ Q ≡ Q ∨ P
-- P ∧ Q ≡ Q ∧ P
+- $P \vee Q \equiv Q \vee P$
+- $P \wedge Q \equiv Q \wedge P$
 
 **Associative Laws:**
-- (P ∨ Q) ∨ R ≡ P ∨ (Q ∨ R)
-- (P ∧ Q) ∧ R ≡ P ∧ (Q ∧ R)
+- $(P \vee Q) \vee R \equiv P \vee (Q \vee R)$
+- $(P \wedge Q) \wedge R \equiv P \wedge (Q \wedge R)$
 
 **Distributive Laws:**
-- P ∨ (Q ∧ R) ≡ (P ∨ Q) ∧ (P ∨ R)
-- P ∧ (Q ∨ R) ≡ (P ∧ Q) ∨ (P ∧ R)
+- $P \vee (Q \wedge R) \equiv (P \vee Q) \wedge (P \vee R)$
+- $P \wedge (Q \vee R) \equiv (P \wedge Q) \vee (P \wedge R)$
 
 **De Morgan's Laws:**
-- ¬(P ∧ Q) ≡ ¬P ∨ ¬Q
-- ¬(P ∨ Q) ≡ ¬P ∧ ¬Q
+- $\neg(P \wedge Q) \equiv \neg P \vee \neg Q$
+- $\neg(P \vee Q) \equiv \neg P \wedge \neg Q$
 
 **Absorption Laws:**
-- P ∨ (P ∧ Q) ≡ P
-- P ∧ (P ∨ Q) ≡ P
+- $P \vee (P \wedge Q) \equiv P$
+- $P \wedge (P \vee Q) \equiv P$
 
 **Negation Laws:**
-- P ∨ ¬P ≡ T (Law of excluded middle)
-- P ∧ ¬P ≡ F (Law of contradiction)
+- $P \vee \neg P \equiv T$ (Law of excluded middle)
+- $P \wedge \neg P \equiv F$ (Law of contradiction)
 
 ### Conditional Equivalences
 
 **Conditional as Disjunction:**
-- P → Q ≡ ¬P ∨ Q
+- $P \to Q \equiv \neg P \vee Q$
 
 **Contrapositive:**
-- P → Q ≡ ¬Q → ¬P
+- $P \to Q \equiv \neg Q \to \neg P$
 
 **Conditional in terms of Conjunction:**
-- P → Q ≡ ¬(P ∧ ¬Q) (a conditional is equivalent to negating "P and not Q")
+- $P \to Q \equiv \neg(P \wedge \neg Q)$ (a conditional is equivalent to negating "P and not Q")
 
 **Conditional from Conjunction:**
-- ¬(P → Q) ≡ P ∧ ¬Q (negation of conditional gives conjunction)
+- $\neg(P \to Q) \equiv P \wedge \neg Q$ (negation of conditional gives conjunction)
 
 **Biconditional:**
-- P ↔ Q ≡ (P → Q) ∧ (Q → P)
-- P ↔ Q ≡ (P ∧ Q) ∨ (¬P ∧ ¬Q)
-- P ↔ Q ≡ ¬(P ⊕ Q) (biconditional is negation of XOR)
+- $P \leftrightarrow Q \equiv (P \to Q) \wedge (Q \to P)$
+- $P \leftrightarrow Q \equiv (P \wedge Q) \vee (\neg P \wedge \neg Q)$
+- $P \leftrightarrow Q \equiv \neg(P \oplus Q)$ (biconditional is negation of XOR)
 
 **Example - Proving equivalence:**
 
-Show that ¬(P → Q) ≡ P ∧ ¬Q
+Show that $\neg(P \to Q) \equiv P \wedge \neg Q$
 
-```
-¬(P → Q) ≡ ¬(¬P ∨ Q)         (conditional as disjunction)
-         ≡ ¬(¬P) ∧ ¬Q        (De Morgan's law)
-         ≡ P ∧ ¬Q            (double negation)
-```
+$$
+\neg(P \to Q) \equiv \neg(\neg P \vee Q) \quad \text{(conditional as disjunction)}
+$$
+
+$$
+\equiv \neg(\neg P) \wedge \neg Q \quad \text{(De Morgan's law)}
+$$
+
+$$
+\equiv P \wedge \neg Q \quad \text{(double negation)}
+$$
 
 ## Tautologies, Contradictions, and Contingencies
 
 **Tautology:** A proposition that is always true, regardless of the truth values of its components.
 
 **Examples:**
-- P ∨ ¬P (law of excluded middle)
-- (P → Q) ∨ (Q → P)
-- P → P (self-implication)
+- $P \vee \neg P$ (law of excluded middle)
+- $(P \to Q) \vee (Q \to P)$
+- $P \to P$ (self-implication)
 
 **Contradiction:** A proposition that is always false.
 
 **Examples:**
-- P ∧ ¬P (law of contradiction)
-- (P ∧ Q) ∧ ¬P
-- (P ↔ Q) ∧ (P ∧ ¬Q)
+- $P \wedge \neg P$ (law of contradiction)
+- $(P \wedge Q) \wedge \neg P$
+- $(P \leftrightarrow Q) \wedge (P \wedge \neg Q)$
 
 **Contingency:** A proposition that is neither a tautology nor a contradiction (sometimes true, sometimes false).
 
 **Examples:**
-- P ∧ Q
-- P → Q
-- (P ∨ Q) ∧ R
+- $P \wedge Q$
+- $P \to Q$
+- $(P \vee Q) \wedge R$
 
 **Testing with Truth Tables:**
 
@@ -783,11 +792,11 @@ To determine if a proposition is a tautology, contradiction, or contingency:
 
 **Disjunctive Normal Form:** A proposition is in DNF if it is a disjunction (OR) of conjunctions (AND).
 
-**Form:** (P₁ ∧ P₂ ∧ ...) ∨ (Q₁ ∧ Q₂ ∧ ...) ∨ ...
+**Form:** $(P_1 \wedge P_2 \wedge \ldots) \vee (Q_1 \wedge Q_2 \wedge \ldots) \vee \ldots$
 
 **Example:**
-- (P ∧ Q) ∨ (¬P ∧ R)
-- (P ∧ Q ∧ R) ∨ (P ∧ ¬Q ∧ ¬R) ∨ (¬P ∧ Q ∧ R)
+- $(P \wedge Q) \vee (\neg P \wedge R)$
+- $(P \wedge Q \wedge R) \vee (P \wedge \neg Q \wedge \neg R) \vee (\neg P \wedge Q \wedge R)$
 
 **Construction from Truth Table:**
 
@@ -805,19 +814,19 @@ To determine if a proposition is a tautology, contradiction, or contingency:
 | F | F | F |
 
 DNF:
-- Row 1: P ∧ Q
-- Row 3: ¬P ∧ Q
-- Result: F ≡ (P ∧ Q) ∨ (¬P ∧ Q)
+- Row 1: $P \wedge Q$
+- Row 3: $\neg P \wedge Q$
+- Result: $F \equiv (P \wedge Q) \vee (\neg P \wedge Q)$
 
 ### Conjunctive Normal Form (CNF)
 
 **Conjunctive Normal Form:** A proposition is in CNF if it is a conjunction (AND) of disjunctions (OR).
 
-**Form:** (P₁ ∨ P₂ ∨ ...) ∧ (Q₁ ∨ Q₂ ∨ ...) ∧ ...
+**Form:** $(P_1 \vee P_2 \vee \ldots) \wedge (Q_1 \vee Q_2 \vee \ldots) \wedge \ldots$
 
 **Example:**
-- (P ∨ Q) ∧ (¬P ∨ R)
-- (P ∨ Q ∨ R) ∧ (P ∨ ¬Q ∨ ¬R) ∧ (¬P ∨ Q ∨ R)
+- $(P \vee Q) \wedge (\neg P \vee R)$
+- $(P \vee Q \vee R) \wedge (P \vee \neg Q \vee \neg R) \wedge (\neg P \vee Q \vee R)$
 
 **Construction from Truth Table:**
 
@@ -835,9 +844,9 @@ DNF:
 | F | F | F |
 
 CNF:
-- Row 2: ¬P ∨ Q (negate: P and ¬Q, so we need ¬P ∨ Q)
-- Row 4: P ∨ Q (negate: ¬P and ¬Q, so we need P ∨ Q)
-- Result: F ≡ (¬P ∨ Q) ∧ (P ∨ Q)
+- Row 2: $\neg P \vee Q$ (negate: $P$ and $\neg Q$, so we need $\neg P \vee Q$)
+- Row 4: $P \vee Q$ (negate: $\neg P$ and $\neg Q$, so we need $P \vee Q$)
+- Result: $F \equiv (\neg P \vee Q) \wedge (P \vee Q)$
 
 **Relationship:** Every proposition can be expressed in both DNF and CNF (though they may look different).
 
@@ -855,7 +864,7 @@ Premise n
 Conclusion
 ```
 
-**Notation:** P₁, P₂, ..., Pₙ ⊢ Q (premises entail conclusion)
+**Notation:** $P_1, P_2, \ldots, P_n \vdash Q$ (premises entail conclusion)
 
 ### Validity vs Soundness
 
@@ -897,7 +906,7 @@ Valid structure, but Premise 1 is false (penguins, ostriches cannot fly).
 
 **Testing Validity:**
 
-An argument is valid if and only if: (P₁ ∧ P₂ ∧ ... ∧ Pₙ) → Q is a tautology
+An argument is valid if and only if: $(P_1 \wedge P_2 \wedge \ldots \wedge P_n) \to Q$ is a tautology
 
 ## Rules of Inference
 

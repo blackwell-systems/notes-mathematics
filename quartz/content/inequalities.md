@@ -76,6 +76,8 @@ $x > -2$ (sign flips)
 
 **Solution:** $x \in (-2, \infty)$
 
+![Number line showing the solution set x in [-2, 5) with closed circle at -2 and open circle at 5](./media/inequality-number-line.png)
+
 ## Compound Inequalities
 
 **Compound Inequality:** Combines two inequalities using "and" or "or".
@@ -155,6 +157,8 @@ Draw a number line with critical points and test the sign of each factor in each
 (x-2)     -    -       +
 Product   +    -       +
 ```
+
+![Quadratic inequality showing y = x^2 - 4 with shaded regions where y > 0](./media/quadratic-inequality.png)
 
 ## Polynomial Inequalities of Higher Degree
 

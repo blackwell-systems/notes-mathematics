@@ -473,4 +473,6 @@ $$
 | Parabola | $e = 1$ | The boundary case between ellipse and hyperbola |
 | Hyperbola | $e > 1$ | Larger $e$ means wider opening |
 
+![Conic sections compared by eccentricity: circle, ellipse, parabola, and hyperbola](./media/eccentricity-comparison.png)
+
 > **Unifying perspective**: All conic sections can be defined as the locus of points where the ratio of distance-to-focus to distance-to-directrix equals the eccentricity $e$. The value of $e$ determines the shape: $e < 1$ gives an ellipse, $e = 1$ a parabola, and $e > 1$ a hyperbola.

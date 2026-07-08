@@ -120,6 +120,8 @@ For a twice-differentiable function, the Hessian test is the standard approach:
 - The cross-entropy loss $-\sum y_i \log p_i$ is convex in the logits (before softmax)
 - MSE loss for linear regression: $\|Xw - y\|^2$ is convex in $w$ (the Hessian is $2X^TX$, which is positive semidefinite)
 
+![Convex vs non-convex functions showing the difference between global and local minima](./media/convex-vs-nonconvex.png)
+
 ### Convex Optimization Problems
 
 A **convex optimization problem** is one where:

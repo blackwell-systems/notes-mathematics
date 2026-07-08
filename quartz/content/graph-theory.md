@@ -42,9 +42,9 @@ In each case, we have objects and pairwise relationships between them. By stripp
 
 ### Graph
 
-**Graph:** A graph G = (V, E) consists of:
-- V: A set of vertices (also called nodes)
-- E: A set of edges (also called links or arcs)
+**Graph:** A graph $G = (V, E)$ consists of:
+- $V$: A set of vertices (also called nodes)
+- $E$: A set of edges (also called links or arcs)
 
 **What graphs model:** Graphs represent relationships between objects. The objects are vertices, and the relationships are edges connecting them.
 
@@ -62,10 +62,12 @@ graph LR
 ```
 
 This graph has:
-- V = {A, B, C, D} (4 vertices)
-- E = {AB, BC, CD, DA, AC} (5 edges)
+- $V = \{A, B, C, D\}$ (4 vertices)
+- $E = \{AB, BC, CD, DA, AC\}$ (5 edges)
 
 **Key insight:** A graph is just a formal way to say "here are some things (vertices) and here are which pairs are related (edges)." Everything else in graph theory flows from this simple idea.
+
+![Simple graph with 6 vertices and 7 edges](./media/graph-example.png)
 
 ### Vertex (Node)
 
@@ -77,7 +79,7 @@ This graph has:
 
 **Edge:** A connection between two vertices.
 
-**Notation:** An edge between vertices u and v is written as (u,v) or {u,v}
+**Notation:** An edge between vertices $u$ and $v$ is written as $(u, v)$ or $\{u, v\}$
 
 **Types:**
 - **Undirected edge:** Connection with no direction (e.g., friendship)
@@ -94,7 +96,7 @@ This graph has:
 - Time (travel time)
 - Strength (relationship strength)
 
-**Notation:** Weight of edge e is written as w(e) or w(u,v) for edge between u and v.
+**Notation:** Weight of edge $e$ is written as $w(e)$ or $w(u, v)$ for edge between $u$ and $v$.
 
 **Example - Road network:**
 
@@ -117,9 +119,9 @@ graph LR
 
 ### Directed vs Undirected Graphs
 
-**Undirected Graph:** A graph where edges have no direction. If there is an edge between u and v, you can traverse it in either direction.
+**Undirected Graph:** A graph where edges have no direction. If there is an edge between $u$ and $v$, you can traverse it in either direction.
 
-**Formal definition:** G = (V, E) where E is a set of unordered pairs {u, v}
+**Formal definition:** $G = (V, E)$ where $E$ is a set of unordered pairs $\{u, v\}$
 
 ```mermaid
 graph LR
@@ -133,9 +135,9 @@ graph LR
 - Road networks (two-way streets)
 - Physical connections (cables, pipes)
 
-**Directed Graph (Digraph):** A graph where edges have direction. An edge from u to v does not imply an edge from v to u.
+**Directed Graph (Digraph):** A graph where edges have direction. An edge from $u$ to $v$ does not imply an edge from $v$ to $u$.
 
-**Formal definition:** G = (V, E) where E is a set of ordered pairs (u, v)
+**Formal definition:** $G = (V, E)$ where $E$ is a set of ordered pairs $(u, v)$
 
 ```mermaid
 graph LR
@@ -206,9 +208,9 @@ Vertex A has a loop.
 
 ### Order and Size
 
-**Order:** The number of vertices in a graph, denoted |V| or n.
+**Order:** The number of vertices in a graph, denoted $|V|$ or $n$.
 
-**Size:** The number of edges in a graph, denoted |E| or m.
+**Size:** The number of edges in a graph, denoted $|E|$ or $m$.
 
 **Example:**
 ```mermaid
@@ -223,9 +225,9 @@ graph LR
 
 ### Neighborhood
 
-**Neighborhood (Open Neighborhood):** The set of all vertices adjacent to a given vertex v, denoted N(v).
+**Neighborhood (Open Neighborhood):** The set of all vertices adjacent to a given vertex $v$, denoted $N(v)$.
 
-**Closed Neighborhood:** The neighborhood of v plus v itself, denoted N[v] = N(v) ∪ {v}.
+**Closed Neighborhood:** The neighborhood of $v$ plus $v$ itself, denoted $N[v] = N(v) \cup \{v\}$.
 
 **Example:**
 ```mermaid
@@ -236,17 +238,17 @@ graph LR
     B --- C
 ```
 
-- N(A) = {B, C, D} (neighbors of A)
-- N(B) = {A, C}
-- N[A] = {A, B, C, D} (A and its neighbors)
+- $N(A) = \{B, C, D\}$ (neighbors of A)
+- $N(B) = \{A, C\}$
+- $N[A] = \{A, B, C, D\}$ (A and its neighbors)
 
-**Note:** deg(v) = |N(v)| (degree equals size of neighborhood)
+**Note:** $\deg(v) = |N(v)|$ (degree equals size of neighborhood)
 
 ### Subgraph
 
-**Subgraph:** A graph H = (V', E') is a subgraph of G = (V, E) if:
-- V' ⊆ V (vertices of H are a subset of vertices of G)
-- E' ⊆ E (edges of H are a subset of edges of G)
+**Subgraph:** A graph $H = (V', E')$ is a subgraph of $G = (V, E)$ if:
+- $V' \subseteq V$ (vertices of $H$ are a subset of vertices of $G$)
+- $E' \subseteq E$ (edges of $H$ are a subset of edges of $G$)
 
 **Example:**
 
@@ -281,7 +283,7 @@ Includes the CA edge because both C and A are in the vertex set.
 
 ### Isolated, Pendant, and Null Vertices
 
-**Isolated Vertex:** A vertex with degree 0 (no edges connected to it).
+**Isolated Vertex:** A vertex with degree 0, i.e. $\deg(v) = 0$ (no edges connected to it).
 
 **Example:**
 ```mermaid
@@ -291,7 +293,7 @@ graph LR
     C
 ```
 
-Vertex C is isolated (deg(C) = 0)
+Vertex C is isolated ($\deg(C) = 0$)
 
 **Pendant Vertex (Leaf):** A vertex with degree 1 (exactly one edge connected to it).
 
@@ -313,7 +315,7 @@ Vertices A, C, and D are pendant vertices (each has degree 1)
 
 **Degree of a Vertex:** The number of edges connected to a vertex.
 
-**Notation:** deg(v) or d(v)
+**Notation:** $\deg(v)$ or $d(v)$
 
 **Example:**
 
@@ -325,16 +327,20 @@ graph LR
     B --- C
 ```
 
-- deg(A) = 3 (connected to B, C, D)
-- deg(B) = 2 (connected to A, C)
-- deg(C) = 2 (connected to A, B)
-- deg(D) = 1 (connected to A)
+- $\deg(A) = 3$ (connected to B, C, D)
+- $\deg(B) = 2$ (connected to A, C)
+- $\deg(C) = 2$ (connected to A, B)
+- $\deg(D) = 1$ (connected to A)
 
 **Handshaking Lemma:** The sum of all vertex degrees equals twice the number of edges.
 
-**Formula:** Σ deg(v) for all v ∈ V = 2|E|
+**Formula:**
 
-**Why this works:** Imagine counting edges by looking at each vertex and tallying how many edges touch it. When you do this, you count every edge exactly twice—once from each of its two endpoints. So the total count is 2|E|.
+$$
+\sum_{v \in V} \deg(v) = 2|E|
+$$
+
+**Why this works:** Imagine counting edges by looking at each vertex and tallying how many edges touch it. When you do this, you count every edge exactly twice, once from each of its two endpoints. So the total count is $2|E|$.
 
 **Intuition:** Think of a handshake between two people. If you ask everyone "how many times did you shake hands?" and sum the answers, you get twice the number of handshakes (because each handshake involves two people).
 
@@ -355,16 +361,16 @@ graph LR
     B --> D
 ```
 
-- deg⁻(B) = 2 (in-degree: A→B, C→B)
-- deg⁺(B) = 1 (out-degree: B→D)
+- $\deg^-(B) = 2$ (in-degree: A→B, C→B)
+- $\deg^+(B) = 1$ (out-degree: B→D)
 
 ## Special Types of Graphs
 
 ### Complete Graph
 
-**Complete Graph (Kₙ):** A graph where every pair of vertices is connected by an edge.
+**Complete Graph ($K_n$):** A graph where every pair of vertices is connected by an edge.
 
-**K₃ (Triangle):**
+**$K_3$ (Triangle):**
 
 ```mermaid
 graph LR
@@ -373,7 +379,7 @@ graph LR
     C --- A
 ```
 
-**K₄:**
+**$K_4$:**
 
 ```mermaid
 graph LR
@@ -386,23 +392,25 @@ graph LR
 ```
 
 **Properties:**
-- Kₙ has n vertices
-- Kₙ has n(n-1)/2 edges
-- Every vertex has degree n-1
+- $K_n$ has $n$ vertices
+- $K_n$ has $\frac{n(n-1)}{2}$ edges
+- Every vertex has degree $n-1$
 
-**Why n(n-1)/2 edges?** Each of the n vertices must connect to (n-1) other vertices. That gives n(n-1) total, but we've counted each edge twice (once from each endpoint), so we divide by 2.
+**Why $\frac{n(n-1)}{2}$ edges?** Each of the $n$ vertices must connect to $n-1$ other vertices. That gives $n(n-1)$ total, but we've counted each edge twice (once from each endpoint), so we divide by 2.
 
-**Intuition:** If you have n people and everyone shakes hands with everyone else exactly once, how many handshakes occur? Each person shakes n-1 hands, giving n(n-1) handshakes from the perspective of all people, but each handshake involves two people, so the actual count is n(n-1)/2.
+**Intuition:** If you have $n$ people and everyone shakes hands with everyone else exactly once, how many handshakes occur? Each person shakes $n-1$ hands, giving $n(n-1)$ handshakes from the perspective of all people, but each handshake involves two people, so the actual count is $\frac{n(n-1)}{2}$.
 
-**Memory aid:** This is the same formula as "n choose 2" = C(n, 2), because we're choosing 2 vertices from n vertices to connect with an edge.
+**Memory aid:** This is the same formula as "n choose 2" $= \binom{n}{2}$, because we're choosing 2 vertices from $n$ vertices to connect with an edge.
 
-**Why every vertex has degree n-1?** In a complete graph, each vertex is connected to every other vertex. Since there are n vertices total and we exclude the vertex itself, each vertex connects to n-1 others.
+![Complete graph K5 with 5 vertices all connected to each other](./media/complete-graph-k5.png)
+
+**Why every vertex has degree $n-1$?** In a complete graph, each vertex is connected to every other vertex. Since there are $n$ vertices total and we exclude the vertex itself, each vertex connects to $n-1$ others.
 
 ### Cycle Graph
 
-**Cycle Graph (Cₙ):** A graph forming a single closed loop with n vertices.
+**Cycle Graph ($C_n$):** A graph forming a single closed loop with $n$ vertices.
 
-**C₄:**
+**$C_4$:**
 
 ```mermaid
 graph LR
@@ -412,7 +420,7 @@ graph LR
     D --- A
 ```
 
-**C₅:**
+**$C_5$:**
 
 ```mermaid
 graph LR
@@ -424,15 +432,15 @@ graph LR
 ```
 
 **Properties:**
-- Cₙ has n vertices and n edges
+- $C_n$ has $n$ vertices and $n$ edges
 - Every vertex has degree 2
 - Minimum cycle length is 3 (triangle)
 
 ### Path Graph
 
-**Path Graph (Pₙ):** A graph forming a single path with n vertices.
+**Path Graph ($P_n$):** A graph forming a single path with $n$ vertices.
 
-**P₄:**
+**$P_4$:**
 
 ```mermaid
 graph LR
@@ -442,7 +450,7 @@ graph LR
 ```
 
 **Properties:**
-- Pₙ has n vertices and n-1 edges
+- $P_n$ has $n$ vertices and $n-1$ edges
 - Two vertices has degree 1 (endpoints)
 - All other vertices have degree 2
 
@@ -466,7 +474,7 @@ graph LR
 - Set 2: {D, E}
 - No edges within the same set
 
-**Complete Bipartite Graph (K_{m,n}):** Every vertex in one set is connected to every vertex in the other set.
+**Complete Bipartite Graph ($K_{m,n}$):** Every vertex in one set is connected to every vertex in the other set.
 
 **Properties:**
 - Bipartite if and only if the graph contains no odd-length cycles
@@ -475,6 +483,8 @@ graph LR
 ### Tree
 
 **Tree:** A connected graph with no cycles.
+
+![Tree with 7 vertices and 6 edges showing no cycles](./media/tree-example.png)
 
 **Example:**
 
@@ -488,7 +498,7 @@ graph TD
 ```
 
 **Properties:**
-- A tree with n vertices has exactly n-1 edges
+- A tree with $n$ vertices has exactly $n-1$ edges
 - There is exactly one path between any two vertices
 - Removing any edge disconnects the graph
 - Adding any edge creates exactly one cycle
@@ -561,8 +571,8 @@ graph TD
 **Key Properties:**
 - Each node has 0, 1, or 2 children
 - Children are distinguished as left vs right (order matters)
-- Maximum nodes at level k: $2^k$
-- Maximum nodes in tree of height h: $2^{h+1} - 1$
+- Maximum nodes at level $k$: $2^k$
+- Maximum nodes in tree of height $h$: $2^{h+1} - 1$
 
 **Types of Binary Trees:**
 
@@ -603,13 +613,14 @@ graph TD
 
 **Properties of Perfect Binary Tree:**
 - All levels completely filled
-- Number of nodes: $2^{h+1} - 1$ where h is height
+- Number of nodes: $2^{h+1} - 1$ where $h$ is height
 - Number of leaves: $2^h$
 - Number of internal nodes: $2^h - 1$
 
 **Balanced Binary Tree:** A tree where the height difference between left and right subtrees of any node is at most 1.
 
 **Importance:** Balanced trees guarantee $O(\log n)$ height, enabling efficient operations.
+
 
 **Connecting the concepts:**
 
@@ -624,13 +635,15 @@ These binary tree types answer different questions:
 
 A **perfect binary tree** is the ideal case - maximally balanced and efficient. But maintaining this after insertions/deletions is impractical (would require constant restructuring).
 
-A **complete binary tree** is the compromise used by heaps - it maintains good balance while allowing O(log n) insertion by always adding to the leftmost available position.
+A **complete binary tree** is the compromise used by heaps; it maintains good balance while allowing $O(\log n)$ insertion by always adding to the leftmost available position.
 
-A **balanced binary tree** (like AVL) focuses on height difference, not complete filling. This is more flexible than "complete" and still guarantees O(log n) operations.
+A **balanced binary tree** (like AVL) focuses on height difference, not complete filling. This is more flexible than "complete" and still guarantees $O(\log n)$ operations.
 
 **Common confusion:** A perfect tree is always complete, and complete is always balanced, but not vice versa. These are progressively weaker conditions:
 
-Perfect ⊂ Complete ⊂ Balanced
+$$
+\text{Perfect} \subset \text{Complete} \subset \text{Balanced}
+$$
 
 **Practical implication:** When you implement a heap, you care about "complete" (for the array representation). When you implement a BST, you care about "balanced" (for search efficiency). These serve different purposes.
 
@@ -801,8 +814,8 @@ Search(node, value):
 ```
 
 **Time Complexity:** 
-- Best/Average: O(log n) for balanced tree
-- Worst: O(n) for skewed tree
+- Best/Average: $O(\log n)$ for balanced tree
+- Worst: $O(n)$ for skewed tree
 
 **2. Insertion:** Add a new value while maintaining BST property
 
@@ -884,13 +897,13 @@ graph TD
 **Why not just remove and reconnect?** If we tried to remove 30 and promote one child, we'd lose the other subtree. Using the inorder successor lets us preserve both subtrees while maintaining BST order.
 
 **BST Advantages:**
-- Efficient search, insertion, deletion (O(log n) average) - all operations follow a single path from root
+- Efficient search, insertion, deletion ($O(\log n)$ average) - all operations follow a single path from root
 - Maintains sorted order naturally (inorder traversal)
 - Dynamic size (unlike sorted arrays which require resizing)
 - No wasted space (unlike hash tables with empty buckets)
 
 **BST Disadvantages:**
-- Can become unbalanced, degrading to O(n) for all operations
+- Can become unbalanced, degrading to $O(n)$ for all operations
 - No guarantees on height without self-balancing
 - Worst case occurs with sorted input (creates a linked list)
 - Solution: Self-balancing trees (AVL, Red-Black)
@@ -984,8 +997,8 @@ After rotation (rotate left around 10):
 **The LR and RL cases require two rotations** because a single rotation would not fix the imbalance - you need to first "straighten" the zig-zag pattern into a straight line, then perform the main rotation.
 
 **AVL Tree Properties:**
-- Height always O(log n)
-- Guaranteed O(log n) search, insert, delete
+- Height always $O(\log n)$
+- Guaranteed $O(\log n)$ search, insert, delete
 - More rotations than Red-Black trees (stricter balance)
 
 **Use Cases:**
@@ -1031,7 +1044,7 @@ Every parent is less than or equal to its children.
 - **Shape property:** Must be a complete binary tree (filled level-by-level, left-to-right)
 - **Heap property:** Parent-child ordering (max or min)
 - **NOT a BST:** Left/right children have no ordering constraint
-- **Height:** Always O(log n) (complete tree)
+- **Height:** Always $O(\log n)$ (complete tree)
 
 **Critical distinction between Heaps and BSTs:**
 
@@ -1063,10 +1076,10 @@ The complete tree property is not arbitrary - it enables the crucial array repre
 
 Heaps are typically stored in arrays for efficiency.
 
-For node at index i:
-- Parent: ⌊(i-1)/2⌋
-- Left child: 2i + 1
-- Right child: 2i + 2
+For node at index $i$:
+- Parent: $\lfloor (i-1)/2 \rfloor$
+- Left child: $2i + 1$
+- Right child: $2i + 2$
 
 **Example (max heap):**
 
@@ -1089,7 +1102,7 @@ Tree structure:
 2. Compare with parent, swap if violates heap property
 3. Repeat until heap property restored
 
-**Time:** O(log n)
+**Time:** $O(\log n)$
 
 **2. Extract Max/Min (Heapify Down):**
 1. Remove root (max/min element)
@@ -1097,16 +1110,16 @@ Tree structure:
 3. Compare with children, swap with larger (max heap) or smaller (min heap) child
 4. Repeat until heap property restored
 
-**Time:** O(log n)
+**Time:** $O(\log n)$
 
 **3. Build Heap:**
 Create heap from unsorted array.
 
-**Time:** O(n) - surprisingly linear!
+**Time:** $O(n)$ - surprisingly linear!
 
 **Heap Applications:**
 - **Priority Queues:** Efficient max/min access
-- **Heap Sort:** O(n log n) sorting algorithm
+- **Heap Sort:** $O(n \log n)$ sorting algorithm
 - **Graph Algorithms:** Dijkstra's shortest path, Prim's MST
 - **Median Maintenance:** Using two heaps
 - **Top K problems:** Find K largest/smallest elements
@@ -1115,10 +1128,10 @@ Create heap from unsorted array.
 
 | Feature | Heap | BST |
 |---------|------|-----|
-| Find min/max | O(1) | O(log n) or O(n) |
-| Insert | O(log n) | O(log n) avg |
-| Delete | O(log n) | O(log n) avg |
-| Search arbitrary | O(n) | O(log n) avg |
+| Find min/max | $O(1)$ | $O(\log n)$ or $O(n)$ |
+| Insert | $O(\log n)$ | $O(\log n)$ avg |
+| Delete | $O(\log n)$ | $O(\log n)$ avg |
+| Search arbitrary | $O(n)$ | $O(\log n)$ avg |
 | Sorted traversal | Not possible | Inorder gives sorted |
 | Use case | Priority queue | Sorted data, range queries |
 
@@ -1128,7 +1141,7 @@ Create heap from unsorted array.
 - You only care about the min/max element (not arbitrary search)
 - You need efficient priority queue operations
 - You're implementing Dijkstra's algorithm, Prim's algorithm, or similar
-- You want O(1) access to the extreme element
+- You want $O(1)$ access to the extreme element
 
 **Use a BST when:**
 - You need to search for arbitrary elements
@@ -1136,11 +1149,11 @@ Create heap from unsorted array.
 - You need range queries (find all elements between x and y)
 - You need to find predecessor/successor of an element
 
-**Common misconception:** "Heaps are faster than BSTs because they give O(1) min/max." This is only true if you exclusively need min/max. If you ever need to search for an arbitrary element, a heap requires O(n) time by checking every element, while a balanced BST does it in O(log n).
+**Common misconception:** "Heaps are faster than BSTs because they give $O(1)$ min/max." This is only true if you exclusively need min/max. If you ever need to search for an arbitrary element, a heap requires $O(n)$ time by checking every element, while a balanced BST does it in $O(\log n)$.
 
 **Memory layout matters:** Heaps use an array representation, which is cache-friendly (sequential memory access). BSTs use pointers, which scatter nodes across memory. For small datasets where everything fits in cache, this difference is negligible, but for large datasets, heap operations can be faster in practice even when the big-O complexity is the same.
 
-**Edge case with heaps:** Extracting the max from a max heap is O(log n), but what if you want both min and max efficiently? You'd need two heaps (one max, one min) and need to keep them synchronized. This is a common technique for finding the median of a stream of numbers.
+**Edge case with heaps:** Extracting the max from a max heap is $O(\log n)$, but what if you want both min and max efficiently? You'd need two heaps (one max, one min) and need to keep them synchronized. This is a common technique for finding the median of a stream of numbers.
 
 #### Tries (Prefix Trees)
 
@@ -1179,7 +1192,7 @@ Insert("cat"):
     Mark 't' as word end
 ```
 
-**Time:** O(m) where m is word length
+**Time:** $O(m)$ where m is word length
 
 **2. Search:** Check if word exists
 
@@ -1190,7 +1203,7 @@ Search("cat"):
     Check if 't' is marked as word end
 ```
 
-**Time:** O(m)
+**Time:** $O(m)$
 
 **3. Prefix Search:** Find all words with given prefix
 
@@ -1212,17 +1225,17 @@ PrefixSearch("ca"):
 
 **Why tries beat hash tables for prefix search:**
 
-A hash table can tell you "is 'cat' in the dictionary" in O(1) time. But ask "what words start with 'ca'?" and the hash table must check every single word - O(n) time.
+A hash table can tell you "is 'cat' in the dictionary" in $O(1)$ time. But ask "what words start with 'ca'?" and the hash table must check every single word - $O(n)$ time.
 
 A trie can answer "what words start with 'ca'?" by:
-1. Navigate to the 'ca' node - O(2) time
-2. Collect all words in that subtree - O(k) where k is the number of matches
+1. Navigate to the 'ca' node, $O(2)$ time
+2. Collect all words in that subtree, $O(k)$ where $k$ is the number of matches
 
 This is fundamentally why autocomplete uses tries, not hash tables.
 
 **Common pitfall:** Each trie node typically has an array or hash map of children (one per possible character). For English, that's 26 pointers per node. If most are null, you're wasting space. This is why compressed tries (radix trees) exist.
 
-**Space-time tradeoff:** You can reduce space by using a hash map instead of an array for children at each node. This reduces space from O(ALPHABET_SIZE × N) to O(actual branches), but increases lookup time slightly due to hash operations.
+**Space-time tradeoff:** You can reduce space by using a hash map instead of an array for children at each node. This reduces space from $O(\text{ALPHABET\_SIZE} \times N)$ to $O(\text{actual branches})$, but increases lookup time slightly due to hash operations.
 
 **Edge case:** What if you want to store not just words, but their frequencies or other metadata? Each node can store additional data. For autocomplete, you might store the frequency of each word to rank suggestions.
 
@@ -1269,7 +1282,7 @@ This forest has 2 trees (components).
 
 ### Adjacency Matrix
 
-**Adjacency Matrix:** A matrix where entry A[i][j] = 1 if there's an edge from vertex i to vertex j, otherwise 0.
+**Adjacency Matrix:** A matrix where entry $A[i][j] = 1$ if there's an edge from vertex $i$ to vertex $j$, otherwise $0$.
 
 **Example:**
 
@@ -1290,8 +1303,8 @@ graph LR
 
 **Properties:**
 - Symmetric for undirected graphs
-- Space complexity: O(V²)
-- Edge lookup: O(1)
+- Space complexity: $O(V^2)$
+- Edge lookup: $O(1)$
 
 ### Adjacency List
 
@@ -1306,8 +1319,8 @@ graph LR
 ```
 
 **Properties:**
-- Space complexity: O(V + E) (more efficient for sparse graphs)
-- Edge lookup: O(deg(v))
+- Space complexity: $O(V + E)$ (more efficient for sparse graphs)
+- Edge lookup: $O(\deg(v))$
 
 ### Edge List
 
@@ -1320,7 +1333,7 @@ graph LR
 ```
 
 **Properties:**
-- Space complexity: O(E)
+- Space complexity: $O(E)$
 - Simple but inefficient for many operations
 
 ## Paths and Connectivity
@@ -1485,6 +1498,8 @@ DFS starting from A: A → B → D → E → C → F
 
 BFS starting from A: A → B → C → D → E → F
 
+![BFS vs DFS traversal order comparison on the same graph](./media/bfs-vs-dfs.png)
+
 **Applications:**
 - Finding shortest path (unweighted graphs)
 - Level-order traversal
@@ -1534,7 +1549,7 @@ graph LR
 ```
 
 **Properties:**
-- A graph with n vertices has a spanning tree with n-1 edges
+- A graph with $n$ vertices has a spanning tree with $n-1$ edges
 - A connected graph can have multiple spanning trees
 
 **Minimum Spanning Tree (MST):** A spanning tree with minimum total edge weight.

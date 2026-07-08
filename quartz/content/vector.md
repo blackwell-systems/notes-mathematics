@@ -32,13 +32,13 @@ direction.
 
 -   **Boldface notation:** **v**, **u**, **w**
 
--   **Arrow notation:** →v (v with arrow on top), →u, →w
+-   **Arrow notation:** $\vec{v}$, $\vec{u}$, $\vec{w}$
 
--   **Directional notation:** If starting at point A and moving toward point B, we write →AB to represent the vector
+-   **Directional notation:** If starting at point $A$ and moving toward point $B$, we write $\vec{AB}$ to represent the vector
 
--   **Component notation:** Given an initial point (0,0) and terminal point (a,b), a vector may be represented as **⟨a,b⟩** or **<a,b>**
+-   **Component notation:** Given an initial point $(0,0)$ and terminal point $(a,b)$, a vector may be represented as $\langle a, b \rangle$
 
-    -   The symbol **⟨a,b⟩** has special significance. It is called the **standard position**. A vector in standard position has initial point **(0,0)** and terminal point **(a,b)**
+    -   The symbol $\langle a, b \rangle$ has special significance. It is called the **standard position**. A vector in standard position has initial point $(0,0)$ and terminal point $(a,b)$
 
 ## Position Vector
 
@@ -81,13 +81,19 @@ additional restriction that the magnitude must be 1.
 
 ## Magnitude
 
-**Magnitude:** The magnitude of a vector is depicted by two vertical bars surrounding the vector: ||a|| or |a|
+**Magnitude:** The magnitude of a vector is depicted by two vertical bars surrounding the vector: $\|\mathbf{a}\|$ or $|\mathbf{a}|$
 
 **Vector magnitude** is calculated using the distance formula:
 
-||a|| = √(x² + y²)
+$$
+\|\mathbf{a}\| = \sqrt{x^2 + y^2}
+$$
 
-**For 3D vectors:** ||a|| = √(x² + y² + z²)
+**For 3D vectors:**
+
+$$
+\|\mathbf{a}\| = \sqrt{x^2 + y^2 + z^2}
+$$
 
 ## Scalar
 
@@ -103,67 +109,77 @@ Scalars are often used to "scale" vectors by a constant factor.
 
 **Vector Addition:** Add corresponding components.
 
-For vectors **u** = ⟨u₁, u₂⟩ and **v** = ⟨v₁, v₂⟩:
+For vectors $\mathbf{u} = \langle u_1, u_2 \rangle$ and $\mathbf{v} = \langle v_1, v_2 \rangle$:
 
-**u** + **v** = ⟨u₁ + v₁, u₂ + v₂⟩
+$$
+\mathbf{u} + \mathbf{v} = \langle u_1 + v_1, u_2 + v_2 \rangle
+$$
 
 **Geometric Interpretation:** Place tail of **v** at head of **u**, or use parallelogram rule.
 
-**Example 1:** ⟨3, 4⟩ + ⟨1, 2⟩ = ⟨4, 6⟩
+**Example 1:** $\langle 3, 4 \rangle + \langle 1, 2 \rangle = \langle 4, 6 \rangle$
 
-**Example 2:** ⟨-2, 5⟩ + ⟨3, -1⟩ = ⟨1, 4⟩
+**Example 2:** $\langle -2, 5 \rangle + \langle 3, -1 \rangle = \langle 1, 4 \rangle$
 
 **Properties:**
-- **Commutative:** **u** + **v** = **v** + **u**
-- **Associative:** (**u** + **v**) + **w** = **u** + (**v** + **w**)
-- **Identity:** **u** + **0** = **u**
+- **Commutative:** $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$
+- **Associative:** $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$
+- **Identity:** $\mathbf{u} + \mathbf{0} = \mathbf{u}$
 
 ### Vector Subtraction
 
 **Vector Subtraction:** Subtract corresponding components.
 
-**u** - **v** = ⟨u₁ - v₁, u₂ - v₂⟩
+$$
+\mathbf{u} - \mathbf{v} = \langle u_1 - v_1, u_2 - v_2 \rangle
+$$
 
 **Geometric Interpretation:** Vector from head of **v** to head of **u**.
 
-**Example:** ⟨5, 7⟩ - ⟨2, 3⟩ = ⟨3, 4⟩
+**Example:** $\langle 5, 7 \rangle - \langle 2, 3 \rangle = \langle 3, 4 \rangle$
 
 ### Scalar Multiplication
 
 **Scalar Multiplication:** Multiply each component by the scalar.
 
-c**v** = c⟨v₁, v₂⟩ = ⟨cv₁, cv₂⟩
+$$
+c\mathbf{v} = c\langle v_1, v_2 \rangle = \langle cv_1, cv_2 \rangle
+$$
 
 **Effect:**
-- Changes magnitude by factor |c|
-- Reverses direction if c < 0
-- Does not change direction if c > 0
+- Changes magnitude by factor $|c|$
+- Reverses direction if $c < 0$
+- Does not change direction if $c > 0$
 
-**Example 1:** 3⟨2, -1⟩ = ⟨6, -3⟩
+**Example 1:** $3\langle 2, -1 \rangle = \langle 6, -3 \rangle$
 
-**Example 2:** -2⟨1, 4⟩ = ⟨-2, -8⟩
+**Example 2:** $-2\langle 1, 4 \rangle = \langle -2, -8 \rangle$
 
 **Properties:**
-- c(**u** + **v**) = c**u** + c**v**
-- (c + d)**v** = c**v** + d**v**
-- c(d**v**) = (cd)**v**
-- 1**v** = **v**
+- $c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}$
+- $(c + d)\mathbf{v} = c\mathbf{v} + d\mathbf{v}$
+- $c(d\mathbf{v}) = (cd)\mathbf{v}$
+- $1\mathbf{v} = \mathbf{v}$
 
 ### Magnitude (Length)
 
-**Magnitude:** The length of vector **v** = ⟨v₁, v₂⟩:
+**Magnitude:** The length of vector $\mathbf{v} = \langle v_1, v_2 \rangle$:
 
-|**v**| = √(v₁² + v₂²)
+$$
+|\mathbf{v}| = \sqrt{v_1^2 + v_2^2}
+$$
 
-**3D:** For **v** = ⟨v₁, v₂, v₃⟩:
+**3D:** For $\mathbf{v} = \langle v_1, v_2, v_3 \rangle$:
 
-|**v**| = √(v₁² + v₂² + v₃²)
+$$
+|\mathbf{v}| = \sqrt{v_1^2 + v_2^2 + v_3^2}
+$$
 
 **Examples:**
 
-1. |⟨3, 4⟩| = √(9 + 16) = 5
-2. |⟨-2, 5⟩| = √(4 + 25) = √29
-3. |⟨1, 2, 2⟩| = √(1 + 4 + 4) = 3
+1. $|\langle 3, 4 \rangle| = \sqrt{9 + 16} = 5$
+2. $|\langle -2, 5 \rangle| = \sqrt{4 + 25} = \sqrt{29}$
+3. $|\langle 1, 2, 2 \rangle| = \sqrt{1 + 4 + 4} = 3$
 
 ### Unit Vector
 
@@ -171,97 +187,114 @@ c**v** = c⟨v₁, v₂⟩ = ⟨cv₁, cv₂⟩
 
 To find unit vector in direction of **v**:
 
-**v̂** = **v** / |**v**|
+$$
+\hat{\mathbf{v}} = \frac{\mathbf{v}}{|\mathbf{v}|}
+$$
 
-**Example:** Find unit vector for **v** = ⟨3, 4⟩
+**Example:** Find unit vector for $\mathbf{v} = \langle 3, 4 \rangle$
 
-|**v**| = 5
+$|\mathbf{v}| = 5$
 
-**v̂** = (1/5)⟨3, 4⟩ = ⟨3/5, 4/5⟩
+$\hat{\mathbf{v}} = \frac{1}{5}\langle 3, 4 \rangle = \langle \frac{3}{5}, \frac{4}{5} \rangle$
 
-Check: |**v̂**| = √((3/5)² + (4/5)²) = √(9/25 + 16/25) = 1 ✓
+Check: $|\hat{\mathbf{v}}| = \sqrt{\left(\frac{3}{5}\right)^2 + \left(\frac{4}{5}\right)^2} = \sqrt{\frac{9}{25} + \frac{16}{25}} = 1$ ✓
 
 ### Dot Product (Scalar Product)
 
-**Dot Product:** For **u** = ⟨u₁, u₂⟩ and **v** = ⟨v₁, v₂⟩:
+**Dot Product:** For $\mathbf{u} = \langle u_1, u_2 \rangle$ and $\mathbf{v} = \langle v_1, v_2 \rangle$:
 
-**u** · **v** = u₁v₁ + u₂v₂
+$$
+\mathbf{u} \cdot \mathbf{v} = u_1 v_1 + u_2 v_2
+$$
 
 **Result is a scalar, not a vector.**
 
 **Geometric Form:**
 
-**u** · **v** = |**u**||**v**|cos(θ)
+$$
+\mathbf{u} \cdot \mathbf{v} = |\mathbf{u}||\mathbf{v}|\cos(\theta)
+$$
 
-Where θ is the angle between the vectors.
+Where $\theta$ is the angle between the vectors.
 
-**Example 1:** ⟨2, 3⟩ · ⟨4, -1⟩ = 2(4) + 3(-1) = 8 - 3 = 5
+**Example 1:** $\langle 2, 3 \rangle \cdot \langle 4, -1 \rangle = 2(4) + 3(-1) = 8 - 3 = 5$
 
-**Example 2:** ⟨1, 0⟩ · ⟨0, 1⟩ = 0 (perpendicular vectors)
+**Example 2:** $\langle 1, 0 \rangle \cdot \langle 0, 1 \rangle = 0$ (perpendicular vectors)
 
 **Properties:**
-- **Commutative:** **u** · **v** = **v** · **u**
-- **Distributive:** **u** · (**v** + **w**) = **u** · **v** + **u** · **w**
-- **v** · **v** = |**v**|²
+- **Commutative:** $\mathbf{u} \cdot \mathbf{v} = \mathbf{v} \cdot \mathbf{u}$
+- **Distributive:** $\mathbf{u} \cdot (\mathbf{v} + \mathbf{w}) = \mathbf{u} \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{w}$
+- $\mathbf{v} \cdot \mathbf{v} = |\mathbf{v}|^2$
 
 **Finding Angle Between Vectors:**
 
-cos(θ) = (**u** · **v**) / (|**u**||**v**|)
+$$
+\cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{|\mathbf{u}||\mathbf{v}|}
+$$
 
-**Example:** Find angle between **u** = ⟨1, 0⟩ and **v** = ⟨1, 1⟩
+**Example:** Find angle between $\mathbf{u} = \langle 1, 0 \rangle$ and $\mathbf{v} = \langle 1, 1 \rangle$
 
-cos(θ) = 1 / (√1 × √2) = 1/√2
+$\cos(\theta) = \frac{1}{\sqrt{1} \times \sqrt{2}} = \frac{1}{\sqrt{2}}$
 
-θ = 45° = π/4
+$\theta = 45° = \frac{\pi}{4}$
 
 **Orthogonality (Perpendicular Vectors):**
 
 Two vectors are **orthogonal** (perpendicular) if and only if:
 
-**u** · **v** = 0
+$$
+\mathbf{u} \cdot \mathbf{v} = 0
+$$
 
 ### Cross Product (Vector Product)
 
-**Cross Product:** For 3D vectors **u** = ⟨u₁, u₂, u₃⟩ and **v** = ⟨v₁, v₂, v₃⟩:
+**Cross Product:** For 3D vectors $\mathbf{u} = \langle u_1, u_2, u_3 \rangle$ and $\mathbf{v} = \langle v_1, v_2, v_3 \rangle$:
 
-**u** × **v** = ⟨u₂v₃ - u₃v₂, u₃v₁ - u₁v₃, u₁v₂ - u₂v₁⟩
+$$
+\mathbf{u} \times \mathbf{v} = \langle u_2 v_3 - u_3 v_2,\; u_3 v_1 - u_1 v_3,\; u_1 v_2 - u_2 v_1 \rangle
+$$
 
 **Result is a vector perpendicular to both u and v.**
 
-**Determinant Form:** Uses determinant with unit vectors **i**, **j**, **k** in first row
+**Determinant Form:** Uses determinant with unit vectors $\mathbf{i}$, $\mathbf{j}$, $\mathbf{k}$ in first row
 
 **Magnitude:**
 
-|**u** × **v**| = |**u**||**v**|sin(θ)
+$$
+|\mathbf{u} \times \mathbf{v}| = |\mathbf{u}||\mathbf{v}|\sin(\theta)
+$$
 
-Where θ is the angle between vectors.
+Where $\theta$ is the angle between vectors.
 
-**Example:** ⟨1, 0, 0⟩ × ⟨0, 1, 0⟩
+**Example:** $\langle 1, 0, 0 \rangle \times \langle 0, 1, 0 \rangle$
 
-= ⟨0(0) - 0(1), 0(0) - 1(0), 1(1) - 0(0)⟩ = ⟨0, 0, 1⟩
+$= \langle 0(0) - 0(1),\; 0(0) - 1(0),\; 1(1) - 0(0) \rangle = \langle 0, 0, 1 \rangle$
 
 **Properties:**
-- **NOT commutative:** **u** × **v** = -(**v** × **u**) (anti-commutative)
-- **Distributive:** **u** × (**v** + **w**) = **u** × **v** + **u** × **w**
-- **v** × **v** = **0** (parallel vectors have zero cross product)
+- **NOT commutative:** $\mathbf{u} \times \mathbf{v} = -(\mathbf{v} \times \mathbf{u})$ (anti-commutative)
+- **Distributive:** $\mathbf{u} \times (\mathbf{v} + \mathbf{w}) = \mathbf{u} \times \mathbf{v} + \mathbf{u} \times \mathbf{w}$
+- $\mathbf{v} \times \mathbf{v} = \mathbf{0}$ (parallel vectors have zero cross product)
 - **Right-hand rule:** Direction given by right-hand rule
 
 **Applications:**
 - Finding normal vector to plane
-- Computing area of parallelogram: |**u** × **v**|
+- Computing area of parallelogram: $|\mathbf{u} \times \mathbf{v}|$
 - Torque in physics
 
 ### Projection
 
 **Vector Projection:** The projection of **u** onto **v** is:
 
-proj_**v**(**u**) = ((**u** · **v**) / |**v**|²) **v**
+$$
+\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{\mathbf{u} \cdot \mathbf{v}}{|\mathbf{v}|^2} \mathbf{v}
+$$
 
 **Scalar Projection (Component):**
 
-comp_**v**(**u**) = (**u** · **v**) / |**v**|
+$$
+\text{comp}_{\mathbf{v}}(\mathbf{u}) = \frac{\mathbf{u} \cdot \mathbf{v}}{|\mathbf{v}|}
+$$
 
-**Example:** Project **u** = ⟨3, 4⟩ onto **v** = ⟨1, 0⟩
+**Example:** Project $\mathbf{u} = \langle 3, 4 \rangle$ onto $\mathbf{v} = \langle 1, 0 \rangle$
 
-proj_**v**(**u**) = (3(1) + 4(0)) / (1² + 0²) × ⟨1, 0⟩ = 3⟨1, 0⟩ = ⟨3, 0⟩
-
+$\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{3(1) + 4(0)}{1^2 + 0^2} \langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$

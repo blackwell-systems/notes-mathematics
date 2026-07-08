@@ -309,6 +309,251 @@ $$
 
 Each term is the sum of the two preceding terms. The Fibonacci sequence appears in nature (sunflower seed patterns, tree branching), computer science (algorithm analysis), and the ratio of consecutive terms approaches the golden ratio $\phi = \frac{1 + \sqrt{5}}{2} \approx 1.618$.
 
+## Recurrence Relations
+
+### What Is a Recurrence Relation?
+
+A **recurrence relation** is a formula that defines each term of a sequence using one or more previous terms, together with initial conditions that anchor the sequence.
+
+Compare two ways to describe the same sequence $1, 2, 4, 8, 16, \ldots$:
+
+- **Closed-form (explicit):** $a_n = 2^n$ for $n \geq 0$. You can compute any term directly.
+- **Recurrence:** $a_0 = 1$, $a_n = 2a_{n-1}$ for $n \geq 1$. To find $a_n$, you need $a_{n-1}$ first.
+
+Both are valid definitions, but they serve different purposes. Recurrence relations arise naturally when a process builds on its previous state: the number of moves in the Tower of Hanoi, the running time of a recursive algorithm, or the population of a species from one generation to the next. A closed-form solution, when we can find one, lets us compute any term instantly without iterating through all the predecessors.
+
+The central problem in this section is: **given a recurrence relation, find the closed-form solution.**
+
+### Linear Recurrence Relations
+
+A **linear recurrence relation** expresses $a_n$ as a linear combination of previous terms (possibly with an added function of $n$):
+
+$$
+a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_k a_{n-k} + f(n)
+$$
+
+where $c_1, c_2, \ldots, c_k$ are constants and $f(n)$ is some function of $n$.
+
+- If $f(n) = 0$, the recurrence is **homogeneous**.
+- If $f(n) \neq 0$, the recurrence is **non-homogeneous**.
+- The **order** is the number of previous terms used. First-order uses only $a_{n-1}$; second-order uses $a_{n-1}$ and $a_{n-2}$.
+
+**First-order examples:**
+
+- $a_n = r \cdot a_{n-1}$ (homogeneous): this is a geometric sequence.
+- $a_n = a_{n-1} + d$ (non-homogeneous with constant $f(n) = d$): this is an arithmetic sequence.
+- $a_n = r \cdot a_{n-1} + d$: arithmetic-geometric recurrence.
+
+**Second-order example:**
+
+- $a_n = c_1 a_{n-1} + c_2 a_{n-2}$: the Fibonacci sequence is the most famous case, with $c_1 = c_2 = 1$.
+
+### Solving First-Order Linear Recurrences
+
+#### Homogeneous Case: $a_n = r \cdot a_{n-1}$
+
+This is straightforward. Unwind the recurrence:
+
+$$
+a_n = r \cdot a_{n-1} = r \cdot r \cdot a_{n-2} = r^2 \cdot a_{n-3} = \cdots = r^n \cdot a_0
+$$
+
+**Solution:**
+
+$$
+a_n = a_0 \cdot r^n
+$$
+
+This is simply the geometric sequence formula.
+
+#### Non-Homogeneous Case: $a_n = r \cdot a_{n-1} + d$
+
+The strategy is to find the **general solution** as the sum of two parts:
+
+1. **Homogeneous solution** ($a_n^{(h)}$): the solution to $a_n = r \cdot a_{n-1}$, which is $A \cdot r^n$.
+2. **Particular solution** ($a_n^{(p)}$): any single solution to the full recurrence.
+
+For a constant $d$ with $r \neq 1$, guess a constant particular solution $a_n^{(p)} = C$. Substituting:
+
+$$
+C = rC + d \implies C(1 - r) = d \implies C = \frac{d}{1 - r}
+$$
+
+The **general solution** is:
+
+$$
+a_n = A \cdot r^n + \frac{d}{1 - r}
+$$
+
+Use the initial condition to find $A$.
+
+#### Worked Example: Tower of Hanoi
+
+The Tower of Hanoi puzzle asks: how many moves $T_n$ are needed to transfer $n$ disks from one peg to another, moving one disk at a time, never placing a larger disk on a smaller one?
+
+The recurrence is:
+
+$$
+T_n = 2T_{n-1} + 1, \quad T_1 = 1
+$$
+
+Why? To move $n$ disks, you first move the top $n-1$ disks to the spare peg ($T_{n-1}$ moves), move the largest disk ($1$ move), then move the $n-1$ disks onto the largest disk ($T_{n-1}$ moves).
+
+**Solving:** Here $r = 2$ and $d = 1$. The particular solution is:
+
+$$
+C = \frac{1}{1 - 2} = -1
+$$
+
+General solution: $T_n = A \cdot 2^n - 1$.
+
+Apply the initial condition $T_1 = 1$:
+
+$$
+1 = 2A - 1 \implies A = 1
+$$
+
+**Solution:**
+
+$$
+T_n = 2^n - 1
+$$
+
+**Verification:** $T_1 = 2^1 - 1 = 1$. $T_2 = 2^2 - 1 = 3$. $T_3 = 2^3 - 1 = 7$. Check: $T_3 = 2T_2 + 1 = 2(3) + 1 = 7$. $\checkmark$
+
+### Solving Second-Order Linear Recurrences (Characteristic Equation Method)
+
+Consider a homogeneous second-order linear recurrence:
+
+$$
+a_n = c_1 a_{n-1} + c_2 a_{n-2}
+$$
+
+with initial conditions $a_0$ and $a_1$ given.
+
+Rewrite as:
+
+$$
+a_n - c_1 a_{n-1} - c_2 a_{n-2} = 0
+$$
+
+**Key idea:** Guess that the solution has the form $a_n = r^n$ for some constant $r$. Substituting:
+
+$$
+r^n - c_1 r^{n-1} - c_2 r^{n-2} = 0
+$$
+
+Divide by $r^{n-2}$ (assuming $r \neq 0$):
+
+$$
+r^2 - c_1 r - c_2 = 0
+$$
+
+This is the **characteristic equation**. Its roots determine the form of the solution.
+
+#### Case 1: Two Distinct Roots $r_1 \neq r_2$
+
+The general solution is:
+
+$$
+a_n = A \cdot r_1^n + B \cdot r_2^n
+$$
+
+Use the two initial conditions to solve for $A$ and $B$.
+
+#### Case 2: Repeated Root $r_1 = r_2 = r$
+
+When the characteristic equation has a repeated root, a single exponential $A \cdot r^n$ is not enough (it gives only one free constant, but we need two to satisfy two initial conditions). The general solution is:
+
+$$
+a_n = (A + Bn) \cdot r^n
+$$
+
+The factor of $n$ provides the second independent solution.
+
+#### Worked Example: Fibonacci Sequence (Binet's Formula)
+
+The Fibonacci recurrence is:
+
+$$
+F_n = F_{n-1} + F_{n-2}, \quad F_0 = 0, \quad F_1 = 1
+$$
+
+**Step 1.** Write the characteristic equation:
+
+$$
+r^2 - r - 1 = 0
+$$
+
+**Step 2.** Solve using the quadratic formula:
+
+$$
+r = \frac{1 \pm \sqrt{5}}{2}
+$$
+
+The two roots are:
+
+$$
+r_1 = \frac{1 + \sqrt{5}}{2} = \phi \approx 1.618 \quad \text{(the golden ratio)}
+$$
+
+$$
+r_2 = \frac{1 - \sqrt{5}}{2} = \psi \approx -0.618
+$$
+
+**Step 3.** General solution:
+
+$$
+F_n = A \cdot \phi^n + B \cdot \psi^n
+$$
+
+**Step 4.** Apply initial conditions:
+
+From $F_0 = 0$: $A + B = 0$, so $B = -A$.
+
+From $F_1 = 1$: $A\phi + B\psi = 1$, so $A(\phi - \psi) = 1$.
+
+Since $\phi - \psi = \sqrt{5}$:
+
+$$
+A = \frac{1}{\sqrt{5}}, \quad B = -\frac{1}{\sqrt{5}}
+$$
+
+**Binet's Formula:**
+
+$$
+F_n = \frac{\phi^n - \psi^n}{\sqrt{5}} = \frac{1}{\sqrt{5}}\left[\left(\frac{1+\sqrt{5}}{2}\right)^n - \left(\frac{1-\sqrt{5}}{2}\right)^n\right]
+$$
+
+This is remarkable: an exact formula for the Fibonacci numbers using irrational numbers, yet it always produces an integer. Since $|\psi| < 1$, the term $\psi^n \to 0$ as $n$ grows, so for large $n$, $F_n \approx \frac{\phi^n}{\sqrt{5}}$. This confirms that Fibonacci numbers grow exponentially at the rate of the golden ratio.
+
+#### Worked Example: Repeated Root
+
+Solve $a_n = 4a_{n-1} - 4a_{n-2}$ with $a_0 = 1$ and $a_1 = 4$.
+
+**Characteristic equation:** $r^2 - 4r + 4 = 0$, which factors as $(r - 2)^2 = 0$.
+
+**Repeated root:** $r = 2$.
+
+**General solution:** $a_n = (A + Bn) \cdot 2^n$.
+
+**Apply initial conditions:**
+
+$a_0 = 1$: $(A + 0) \cdot 1 = 1$, so $A = 1$.
+
+$a_1 = 4$: $(1 + B) \cdot 2 = 4$, so $B = 1$.
+
+**Solution:** $a_n = (1 + n) \cdot 2^n$.
+
+**Verification:** $a_2 = 3 \cdot 4 = 12$. Check: $4a_1 - 4a_0 = 16 - 4 = 12$. $\checkmark$
+
+### Where Recurrence Relations Show Up
+
+- **Algorithm analysis:** The running time of recursive algorithms is naturally described by recurrences. Merge sort satisfies $T(n) = 2T(n/2) + n$, leading to $T(n) = O(n \log n)$. Binary search satisfies $T(n) = T(n/2) + 1$, giving $T(n) = O(\log n)$. See [Asymptotic Notation](./asymptotic-notation) for the notation used to describe these growth rates.
+- **Dynamical systems:** Discrete-time models of population growth, epidemics, and ecological competition use recurrence relations (difference equations).
+- **Finance:** Compound interest with regular deposits or payments leads to first-order linear recurrences. The balance $B_n = (1+r)B_{n-1} + D$ where $r$ is the interest rate and $D$ is the regular deposit.
+- **Combinatorics:** Many counting problems yield recurrences. The number of ways to tile a $2 \times n$ board with dominoes satisfies the Fibonacci recurrence.
+
 ## Mathematical Induction
 
 **Mathematical Induction:** A proof technique used to establish that a statement $P(n)$ is true for all natural numbers $n \geq 1$ (or for all integers from some starting point onward).

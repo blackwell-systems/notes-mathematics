@@ -403,6 +403,8 @@ The graph of $y = \log_a(x)$:
 - When $0 < a < 1$: function is decreasing
 - Larger bases grow more slowly
 
+![Logarithmic function family showing log base 2, natural log, and log base 10 on the same axes](./media/log-function-family.png)
+
 ### Graphing Logarithmic Functions with Transformations
 
 The parent function $y = \log_b(x)$ (for $b > 1$) has three key reference points that are easy to plot:
@@ -453,6 +455,8 @@ Transform the key points of $y = \log_3(x)$:
 | $(3, 1)$ | $(4, 1)$ | $(4, -2)$ | $(4, 2)$ |
 
 Plot these three points and draw the curve approaching the asymptote $x = 1$ from the right. The function decreases (because of the reflection) and passes through $(2, 4)$, meaning $y = 4$ when the argument of the log is 1.
+
+![Logarithmic transformations showing parent function and shifted version with new asymptote](./media/log-transformations.png)
 
 ## Applications
 

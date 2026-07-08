@@ -91,6 +91,8 @@ Think of a 12-hour clock. When it's 10 o'clock and you add 5 hours, you get 3 o'
 
 The clock "wraps around" after 12. In general, modular arithmetic wraps around after reaching the modulus **n**.
 
+![Modular arithmetic visualized as a clock face showing 17 mod 12 = 5](./media/modular-arithmetic-clock.png)
+
 **Why it matters:**
 - Cryptography (RSA encryption, digital signatures)
 - Hashing algorithms

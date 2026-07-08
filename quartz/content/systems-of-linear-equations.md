@@ -66,6 +66,8 @@ A system of linear equations can have:
 - Lines are parallel (never intersect)
 - No point satisfies all equations
 
+![Three types of solutions: intersecting lines (one solution), same line (infinite solutions), parallel lines (no solution)](./media/system-solution-types.png)
+
 ## Methods to Solve Systems of Linear Equations
 
 There are several methods to solve systems of linear equations:

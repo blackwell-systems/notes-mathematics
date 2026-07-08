@@ -557,6 +557,8 @@ Being able to move fluently between radical and exponent notation is essential. 
 
 Understanding the shape and behavior of radical function graphs builds on the parent functions defined earlier and connects to the broader topic of [graphing functions](./graphing-functions).
 
+![Radical function family showing square root, cube root, and fourth root functions with domain differences](./media/radical-function-family.png)
+
 ### Parent Function: $y = \sqrt{x}$
 
 The square root parent function starts at the origin and increases, but at a decreasing rate (the graph is concave down).

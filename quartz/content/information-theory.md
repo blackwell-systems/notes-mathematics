@@ -403,6 +403,8 @@ The last form is particularly revealing: mutual information is the KL divergence
 
 The relationships between entropy, conditional entropy, joint entropy, and mutual information can be visualized as a Venn diagram with two overlapping circles:
 
+![Entropy Venn diagram showing H(X), H(Y), H(X|Y), H(Y|X), I(X;Y), and H(X,Y)](./media/entropy-venn-diagram.png)
+
 - Left circle: $H(X)$ (total uncertainty in $X$)
 - Right circle: $H(Y)$ (total uncertainty in $Y$)
 - Overlap: $I(X; Y)$ (shared information)
