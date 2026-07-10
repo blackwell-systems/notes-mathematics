@@ -18,6 +18,8 @@ A useful distinction to keep in mind is between **object-level** symbols, which 
 
 ### Biconditional / Equivalence ( ⟺ , ↔ )
 
+**Type:** Both object-level and meta-level, depending on context (see below).
+
 **Meaning:** "if and only if" (iff). The two sides have the same truth value.
 
 Both meanings coexist:
@@ -39,7 +41,9 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 
 ### Definition ( := )
 
-**Meaning:** "is defined to be." The left side is introduced as a name for the right side, e.g. $(a, b) := \{\{a\}, \{a, b\}\}$.
+**Type:** Meta-level notation.
+
+**Meaning:** "is defined to be." The left side is introduced as a name for the right side, e.g. $(a, b) := \{\{a\}, \{a, b\}\}$. Also written $\stackrel{\text{def}}{=}$ or $\equiv$.
 
 ## Set-Theory Notation
 
@@ -48,7 +52,8 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | $\in$ | "is an element of": $a \in A$ means $a$ belongs to set $A$ |
 | $\notin$ | "is not an element of": $a \notin A$ |
 | $\subseteq$ | "is a subset of": every element of the left set is in the right set |
-| $\subset$ , $\subsetneq$ | "is a proper subset of": subset but not equal |
+| $\subsetneq$ | "is a proper subset of": subset but not equal |
+| $\subset$ | proper subset in these notes, but context-dependent: many authors use $\subset$ for *any* subset (what we write $\subseteq$). Check each source's convention |
 | $\cup$ | union: elements in either set (or both) |
 | $\cap$ | intersection: elements in both sets |
 | $\setminus$ | set difference: elements in the left set but not the right |
@@ -96,16 +101,52 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 |--------|---------|
 | $f: A \to B$ | $f$ is a function from domain $A$ to codomain $B$ |
 | $\mapsto$ | "maps to": describes where an element goes, e.g. $x \mapsto x^2$ |
-| $\hookrightarrow$ | an injection (one-to-one map) |
-| $\cong$ | isomorphism or bijection between two sets or structures |
+| $\circ$ | function composition: $(g \circ f)(x) = g(f(x))$ |
+| $f^{-1}$ | inverse function (or preimage of a set under $f$) |
+| $\hookrightarrow$ | an injection (one-to-one map), or an inclusion/embedding |
+| $\twoheadrightarrow$ | a surjection (onto map) |
+| $\cong$ | isomorphism (a structure-preserving bijection); also geometric congruence, e.g. $\triangle ABC \cong \triangle DEF$ |
+| $\sim$ , $\approx$ | equinumerous / similar; for cardinality of plain sets, $A \sim B$ (or $\lvert A \rvert = \lvert B \rvert$) means a bijection exists |
 
-## Operators and Constants
+## Analysis and Calculus
 
 | Symbol | Meaning |
 |--------|---------|
-| $\sum$ | summation: $\sum_{i=1}^{n} a_i = a_1 + a_2 + \cdots + a_n$ |
-| $\prod$ | product: $\prod_{i=1}^{n} a_i = a_1 \cdot a_2 \cdots a_n$ |
+| $\lim$ | limit, e.g. $\lim_{x \to a} f(x)$; one-sided limits $\lim_{x \to a^-}$, $\lim_{x \to a^+}$ |
+| $\to$ | "tends to" / "approaches" (as in $x \to a$ or $a_n \to L$); also the function-arrow and implication elsewhere |
+| $\frac{d}{dx}$ , $f'$ | derivative with respect to $x$ |
+| $\partial$ | partial derivative, e.g. $\frac{\partial f}{\partial x}$ |
+| $\nabla$ | gradient (vector of partial derivatives); also "del" for divergence/curl |
+| $\int$ , $\iint$ , $\oint$ | integral, double integral, contour integral |
+| $\sum$ , $\prod$ | summation and product over an index range |
+| $\lVert x \rVert$ | norm (length) of a vector; $\lvert x \rvert$ is absolute value or modulus |
+| $\approx$ | approximately equal |
+| $\propto$ | proportional to (e.g. posterior $\propto$ likelihood $\times$ prior) |
+| $\to$ , $\rightrightarrows$ | pointwise vs uniform convergence of functions |
+| $O$ , $\Theta$ , $\Omega$ , $o$ , $\omega$ | asymptotic growth rates (see [Asymptotic Notation](./asymptotic-notation)) |
 | $\infty$ | infinity (an unbounded quantity or limit, not a real number) |
+
+## Probability and Statistics
+
+| Symbol | Meaning |
+|--------|---------|
+| $\mathbb{P}(A)$ , $P(A)$ | probability of event $A$ |
+| $\mathbb{E}[X]$ | expected value (mean) of random variable $X$ |
+| $\operatorname{Var}(X)$ , $\operatorname{Cov}(X,Y)$ | variance and covariance |
+| $X \sim \mathcal{D}$ | "$X$ is distributed as" distribution $\mathcal{D}$, e.g. $X \sim \mathcal{N}(\mu, \sigma^2)$ |
+| $\mid$ | "given" (conditioning), e.g. $P(A \mid B)$; also "divides" in number theory, e.g. $a \mid b$ |
+| $\xrightarrow{d}$ , $\xrightarrow{p}$ | convergence in distribution and in probability |
+| $\hat{\theta}$ | an estimator or estimate of parameter $\theta$ |
+| $\binom{n}{k}$ | binomial coefficient ("$n$ choose $k$") |
+| $!$ | factorial: $n! = n \cdot (n-1) \cdots 2 \cdot 1$ |
+
+## Miscellaneous Symbols
+
+| Symbol | Meaning |
+|--------|---------|
 | $\lceil x \rceil$ | ceiling: the smallest integer $\geq x$ |
 | $\lfloor x \rfloor$ | floor: the largest integer $\leq x$ |
+| $\pm$ | plus-or-minus (both $+$ and $-$ cases), e.g. $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ |
+| $\cdot$ , $\times$ | multiplication (the $\times$ symbol also denotes the Cartesian product of sets) |
+| $\therefore$ , $\because$ | "therefore" and "because" |
 | $\blacksquare$ , $\square$ , QED | marks the end of a proof |
