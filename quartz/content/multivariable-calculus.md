@@ -38,7 +38,7 @@ Think of it this way: you are standing on a hilly surface. The partial derivativ
 
 ### The Limit Definition
 
-Just as the single-variable derivative is a limit of a difference quotient, the partial derivative is defined as a limit in which only one input is perturbed. For $f(x, y)$, the partial derivative with respect to $x$ is:
+Just as the single-variable derivative is a limit of a difference quotient, the partial derivative is defined as a limit in which only one input is perturbed. For $f(x, y)$, the partial derivative with respect to $x$, written $\frac{\partial f}{\partial x}$ (read "partial f by partial x"), is:
 
 $$
 \frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x + h, y) - f(x, y)}{h}
@@ -255,7 +255,7 @@ $$
 \iint_R f(x, y) \, dA
 $$
 
-Here $R$ is a region in the $xy$-plane, and $dA$ represents a tiny piece of area.
+The double sign $\iint_R$ (read "the double integral over R") signals that we integrate over a two-dimensional region: here $R$ is a region in the $xy$-plane, and $dA$ represents a tiny piece of area.
 
 ### Computing Double Integrals
 

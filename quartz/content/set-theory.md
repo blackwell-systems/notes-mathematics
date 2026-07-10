@@ -34,10 +34,9 @@ called elements of the set.
 Elements are normally written with lower case letters and sets are
 normally written with upper case letters.
 
-We write $a \in A$ for "a is an element of a set A", and $a \notin A$,
-for "a is not an element of a set A".
+We write $a \in A$ for "a is an element of a set A" (read "a is an element of A" or "a is in A"), and $a \notin A$ for "a is not an element of a set A" (read "a is not an element of A").
 
-$\emptyset$ or $\{\}$ denotes the empty set, which contains no element.
+$\emptyset$ or $\{\}$ (read "the empty set") denotes the empty set, which contains no element.
 
 ![](./media/image22.png)
 
@@ -82,7 +81,7 @@ Thus $\emptyset \neq \{\emptyset\}$
 
 ## Subset
 
-**Subset:** A is a subset of B, (denoted $A \subseteq B$), if every element of A is also an element of B.
+**Subset:** A is a subset of B, (denoted $A \subseteq B$, read "A is a subset of B"), if every element of A is also an element of B.
 
 **Formal Definition:** $A \subseteq B \iff \forall x\, (x \in A \to x \in B)$
 
@@ -229,7 +228,7 @@ average, thus $\geq \lceil m/n\rceil$.
 ## Cardinality
 
 **Cardinality:** Let A be a set. then the number of elements in the set
-A is called **cardinality** of the set A, and is denoted by **\|A\|**
+A is called **cardinality** of the set A, and is denoted by **\|A\|** (read "the cardinality of A" or "the size of A")
 
 ![](./media/image29.png)
 
@@ -252,6 +251,8 @@ $A \subseteq B  \Longleftrightarrow  \forall x\text{ }(x \in A \Rightarrow x \
 $$
 A \subsetneq B
 $$
+
+(read "A is a proper subset of B")
 
 **Functions and size (cardinality)**
 
@@ -371,7 +372,7 @@ context or domain of discourse.**
 
 ### Set Union
 
-**Set Union:** The union of two sets A and B is the set of elements
+**Set Union:** The union of two sets A and B, denoted $A \cup B$ (read "A union B"), is the set of elements
 which are in **A** or **B** (or both).
 
 $\forall x\, (x \in (A \cup B) \leftrightarrow (x \in A \lor x \in B))$
@@ -382,7 +383,7 @@ $\forall x\, (x \in (A \cup B) \leftrightarrow (x \in A \lor x \in B))$
 
 ### Set Intersection
 
-**Set Intersection:** The intersection of two sets A and B is the set of elements which are in both **A** and **B**.
+**Set Intersection:** The intersection of two sets A and B, denoted $A \cap B$ (read "A intersect B"), is the set of elements which are in both **A** and **B**.
 
 $\forall x\, (x \in (A \cap B) \leftrightarrow (x \in A \land x \in B))$
 
@@ -406,6 +407,8 @@ $\forall x\, (x \in A' \leftrightarrow (x \in U \land x \notin A))$
 **Symmetric Difference:** The symmetric difference of sets $A$ and $B$, denoted $A \triangle B$ or $A \oplus B$, is the set of elements in either $A$ or $B$ but not in both.
 
 **Definition:** $A \triangle B = (A \cup B) \setminus (A \cap B) = (A \setminus B) \cup (B \setminus A)$
+
+Here $\setminus$ is read "set minus" or "without", so $A \setminus B$ is read "A set minus B" or "A without B".
 
 **Logical form:** $\forall x\, (x \in (A \triangle B) \leftrightarrow (x \in A \oplus x \in B))$
 
@@ -519,7 +522,7 @@ Modern axiomatic set theories (like Zermelo-Fraenkel set theory) avoid Russell's
 
 ## Power Set
 
-**Power Set:** The power set of a set **A**, denoted $\mathcal{P}(A)$ or $2^A$, is the set of all subsets of **A**, including the empty set and **A** itself.
+**Power Set:** The power set of a set **A**, denoted $\mathcal{P}(A)$ (read "the power set of A") or $2^A$, is the set of all subsets of **A**, including the empty set and **A** itself.
 
 **Definition:** $\mathcal{P}(A) = \{S \mid S \subseteq A\}$
 
@@ -672,7 +675,7 @@ Not all infinities are equal. There is a strict hierarchy:
 $|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}| < |\mathbb{R}| < |\mathcal{P}(\mathbb{R})| < |\mathcal{P}(\mathcal{P}(\mathbb{R}))| < \cdots$
 
 Where:
-- $|\mathbb{N}|$ is denoted $\aleph_0$ (aleph-null), the smallest infinite cardinality
+- $|\mathbb{N}|$ is denoted $\aleph_0$ (read "aleph-null" or "aleph-naught"), the smallest infinite cardinality
 - $|\mathbb{R}|$ is denoted $\mathfrak{c}$ (the cardinality of the continuum)
 - Each power set has strictly greater cardinality than the original set
 
@@ -1010,7 +1013,7 @@ The proof still works: if $\{\{a\}\} = \{\{c\}, \{c, d\}\}$, then {c} = {c, d}, 
 
 ### Cartesian Product
 
-**Cartesian Product:** The Cartesian product of two sets $A$ and $B$, written $A \times B$, is the set of all ordered pairs where the first element belongs to $A$ and the second belongs to $B$.
+**Cartesian Product:** The Cartesian product of two sets $A$ and $B$, written $A \times B$ (read "A cross B"), is the set of all ordered pairs where the first element belongs to $A$ and the second belongs to $B$.
 
 $$
 A \times B = \{(a, b) : a \in A,\, b \in B\}

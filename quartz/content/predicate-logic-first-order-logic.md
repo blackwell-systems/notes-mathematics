@@ -39,7 +39,7 @@ A structure $\mathcal{M}$ consists of:
 
 Given a structure, every closed formula becomes either true or false in it. This is what grounds the "Truth value: TRUE/FALSE" claims throughout this page: each such claim is implicitly relative to a chosen domain (usually stated, e.g. $\mathbb{R}$ or $\mathbb{C}$) together with the standard interpretation of the symbols $+$, $<$, $=$, and so on. The same formula can be true in one structure and false in another. For instance, $\exists x\,(x^2 = -1)$ is false when the domain is $\mathbb{R}$ but true when the domain is $\mathbb{C}$, because changing the domain changes which objects are available to witness the existential.
 
-When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$ is a **model** of $\phi$, written $\mathcal{M} \vDash \phi$.
+When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$ is a **model** of $\phi$, written $\mathcal{M} \vDash \phi$ (read "$\mathcal{M}$ models $\phi$", or "$\mathcal{M}$ satisfies $\phi$").
 
 ## Predicates
 
@@ -124,6 +124,8 @@ When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$
 ![Universal vs existential quantifiers: for all checks every element, there exists checks at least one](./media/quantifier-scope.png)
 
 ## Multiple Quantifiers
+
+A full quantified formula is read left to right, symbol by symbol: $\forall x\, \exists y\, (x < y)$ reads "for all x, there exists a y such that x is less than y".
 
 ### Order Matters
 

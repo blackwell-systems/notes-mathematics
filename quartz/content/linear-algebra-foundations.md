@@ -45,11 +45,11 @@ Both views are explained in detail later on this page.
 
 ### Transpose: Flipping Between Them
 
-**The transpose,** written $A^T$ (or $x^T$), flips a column vector into a row vector and vice versa. If $x = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ is a column vector, then $x^T = \begin{bmatrix} 2 & 3 \end{bmatrix}$ is the same numbers written as a row vector.
+**The transpose,** written $A^T$ (or $x^T$) (read "A transpose"), flips a column vector into a row vector and vice versa. If $x = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ is a column vector, then $x^T = \begin{bmatrix} 2 & 3 \end{bmatrix}$ is the same numbers written as a row vector.
 
 For matrices, transpose flips rows and columns: row 1 becomes column 1, row 2 becomes column 2, etc.
 
-**The dot product** of two column vectors $u$ and $v$ is written $u^T v$: you transpose the first one into a row, then multiply. The result is a single number (a scalar):
+**The dot product** of two column vectors $u$ and $v$ is written $u^T v$ (read "u dot v," or "the inner product of u and v"): you transpose the first one into a row, then multiply. The result is a single number (a scalar):
 
 $$
 u^T v = \begin{bmatrix} u_1 & u_2 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = u_1 v_1 + u_2 v_2
@@ -57,7 +57,7 @@ $$
 
 ### The Default Convention
 
-**Convention in these notes and in most of linear algebra:** vectors are columns by default. When someone writes "let $v$ be a vector in $\mathbb{R}^n$," they mean a column vector with $n$ entries. If a row vector is needed, it will be written explicitly as $v^T$.
+**Convention in these notes and in most of linear algebra:** vectors are columns by default. When someone writes "let $v$ be a vector in $\mathbb{R}^n$" (read "vector v"), they mean a column vector with $n$ entries. If a row vector is needed, it will be written explicitly as $v^T$.
 
 ## From Systems of Equations to $Ax = b$
 
@@ -368,7 +368,7 @@ Every vector in $\mathbb{R}^2$ can be uniquely expressed as a combination: $\beg
 
 ### Dimension
 
-**Dimension:** The dimension of a vector space is the number of vectors in any basis.
+**Dimension:** The dimension of a vector space is the number of vectors in any basis. It is written $\dim(V)$ (read "the dimension of V").
 
 - $\dim(\mathbb{R}^n) = n$
 - A line through the origin in $\mathbb{R}^3$ has dimension 1
@@ -587,7 +587,7 @@ This is exactly the formula for linear regression.
 
 ## Determinants
 
-**Determinant:** The determinant of a square matrix is a scalar that encodes whether the matrix is invertible and how it scales volumes.
+**Determinant:** The determinant of a square matrix $A$, written $\det(A)$ (read "the determinant of A"), is a scalar that encodes whether the matrix is invertible and how it scales volumes.
 
 **For 2×2:**
 
@@ -626,7 +626,7 @@ $$
 Av = \lambda v
 $$
 
-The scalar $\lambda$ is the corresponding **eigenvalue**.
+The scalar $\lambda$ (read "lambda") is the corresponding **eigenvalue**.
 
 Most vectors change direction when multiplied by a matrix. Eigenvectors are special: they keep pointing in the same direction (or flip 180° if $\lambda < 0$). The matrix only stretches or shrinks them.
 

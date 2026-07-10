@@ -65,7 +65,7 @@ $$
 \lim_{x \to a} f(x) = \infty \quad \text{or} \quad \lim_{x \to a} f(x) = -\infty
 $$
 
-Technically, these limits "do not exist" (infinity is not a real number), but writing $= \infty$ communicates that the function blows up in a specific direction.
+Here $\infty$ (read "infinity") is the symbol for unbounded growth. Technically, these limits "do not exist" (infinity is not a real number), but writing $= \infty$ communicates that the function blows up in a specific direction.
 
 **Example:** $f(x) = \frac{1}{x^2}$ near $x = 0$:
 
@@ -332,7 +332,7 @@ This line connecting two points on the curve is called a **secant line**. Now im
 
 ### The Limit Definition of the Derivative
 
-The derivative of $f$ at the point $x$ is:
+The derivative of $f$ at the point $x$, written $f'(x)$ (read "f prime of x"), is:
 
 $$
 f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
@@ -965,7 +965,7 @@ $$
 \int_a^b f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i) \Delta x
 $$
 
-The symbol $\int$ is an elongated S (for "sum"). The $dx$ indicates what variable we are integrating with respect to. The numbers $a$ and $b$ are the **limits of integration** (lower and upper bounds).
+The whole expression $\int_a^b f(x) \, dx$ is read "the integral from a to b of f of x, d x," and $\sum_{i=1}^{n}$ (the summation sign, a capital Greek sigma) is read "the sum from i equals 1 to n." The symbol $\int$ is an elongated S (for "sum"). The $dx$ indicates what variable we are integrating with respect to. The numbers $a$ and $b$ are the **limits of integration** (lower and upper bounds).
 
 Geometrically, $\int_a^b f(x) \, dx$ is the signed area between the curve $y = f(x)$ and the $x$-axis. Area above the axis counts as positive; area below counts as negative.
 

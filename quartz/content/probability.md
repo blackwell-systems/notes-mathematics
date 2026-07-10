@@ -10,7 +10,7 @@ Probability is the mathematical framework for reasoning about uncertainty. It qu
 
 There are two major interpretations of what probability "means":
 
-**Frequentist interpretation:** Probability is the long-run frequency of an event. If you flip a fair coin infinitely many times, heads comes up 50% of the time, so $P(\text{heads}) = 0.5$. This interpretation only makes sense for repeatable experiments.
+**Frequentist interpretation:** Probability is the long-run frequency of an event. If you flip a fair coin infinitely many times, heads comes up 50% of the time, so $P(\text{heads}) = 0.5$ (read "the probability of heads"). This interpretation only makes sense for repeatable experiments.
 
 **Bayesian interpretation:** Probability is a degree of belief or confidence. You can say "there's a 70% chance it rains tomorrow" even though tomorrow only happens once. This interpretation is more flexible and is the foundation of Bayesian inference in ML.
 
@@ -46,7 +46,7 @@ This is where [combinatorics](./combination) connects directly: counting $|E|$ a
 
 **Example:** What is the probability of drawing 2 aces from a standard 52-card deck (drawing 2 cards)?
 
-- Total ways to draw 2 cards: $\binom{52}{2} = 1326$
+- Total ways to draw 2 cards: $\binom{52}{2} = 1326$ (read "52 choose 2")
 - Ways to draw 2 aces: $\binom{4}{2} = 6$
 - $P(\text{2 aces}) = \frac{6}{1326} = \frac{1}{221} \approx 0.0045$
 
@@ -64,11 +64,13 @@ $$
 P(A \cup B) = P(A) + P(B)
 $$
 
+Here $A \cup B$ (read "A union B," or "A or B") is the event that $A$ or $B$ occurs.
+
 From these axioms, you can derive everything else:
 
 - $P(\emptyset) = 0$ (the impossible event has probability 0)
 - $P(A^c) = 1 - P(A)$ (the complement rule; $A^c$ means "not $A$")
-- For any two events: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (inclusion-exclusion)
+- For any two events: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (inclusion-exclusion), where $A \cap B$ (read "A intersect B," or "A and B") is the event that both $A$ and $B$ occur
 
 The complement rule is especially useful. If it is hard to compute $P(A)$ directly, compute $P(A^c)$ and subtract from 1.
 
@@ -88,6 +90,8 @@ The complement rule is especially useful. If it is hard to compute $P(A)$ direct
 $$
 P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0
 $$
+
+Read $P(A|B)$ as "the probability of A given B" (the bar $|$ is read "given").
 
 The intuition: once you know $B$ happened, the sample space shrinks to just the outcomes in $B$. You then ask what fraction of those outcomes also belong to $A$.
 
@@ -232,6 +236,8 @@ The PDF must satisfy:
 
 **Expected value (mean):** The long-run average of a random variable, weighted by probabilities.
 
+It is written $E[X]$ (read "the expected value of X," or "the expectation of X").
+
 For discrete $X$:
 
 $$
@@ -262,7 +268,7 @@ You can never roll 3.5, but on average, that is what you get.
 
 ### Variance and Standard Deviation
 
-**Variance:** Measures how spread out a random variable's values are around the mean:
+**Variance:** Measures how spread out a random variable's values are around the mean. It is written $\text{Var}(X)$ (read "the variance of X"):
 
 $$
 \text{Var}(X) = E[(X - \mu)^2] = E[X^2] - (E[X])^2
@@ -562,7 +568,7 @@ $$
 - $E[X] = \mu$
 - $\text{Var}(X) = \sigma^2$
 
-Notation: $X \sim N(\mu, \sigma^2)$ means "$X$ follows a normal distribution with mean $\mu$ and variance $\sigma^2$."
+Notation: $X \sim N(\mu, \sigma^2)$ means "$X$ follows a normal distribution with mean $\mu$ and variance $\sigma^2$." The symbol $\sim$ is read "is distributed as" or "follows."
 
 ### The 68-95-99.7 Rule
 

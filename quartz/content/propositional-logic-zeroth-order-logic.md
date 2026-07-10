@@ -401,7 +401,7 @@ combined with.
 **Contradiction:** A contradiction (also known as a logical falsehood)
 is a proposition that is always false.
 
-It is denoted by symbols such as **⊥**(falsum/up-tack) or false.
+It is denoted by symbols such as **⊥**(falsum/up-tack) or false (read $\bot$ as "bottom" or "false").
 
 Example: The statement
 
@@ -412,7 +412,7 @@ it can never be true.
 
 **Tautology**: A tautology (also known as a logical truth) is a
 proposition that is always true. It is denoted by symbols such as
-**⊤(verum / down-tack**) or true.
+**⊤(verum / down-tack**) or true (read $\top$ as "top" or "true").
 
 Example: The statement
 
@@ -479,7 +479,7 @@ In ordinary language, negation is referred to as *'NOT'*.
 
 Symbolically, we express negation with: ¬
 
-Example: If 𝑃 is a proposition, ¬𝑃 denotes its **negation**.
+Example: If 𝑃 is a proposition, ¬𝑃 denotes its **negation** (read $\neg P$ as "not P").
 
 ![](./media/image3.png)
 
@@ -541,7 +541,7 @@ The Venn diagram of A EQ B (red part is true)
 **Conjunction**: In logic and mathematics ∧ is the truth-functional
 operator of conjunction or logical conjunction.
 
-This is also known as 'AND'
+This is also known as 'AND' (read $P \land Q$ as "P and Q").
 
 A logical conjunction is a binary operation, typically the values of two
 propositions, that produces a value of true if and only if both of its
@@ -580,7 +580,7 @@ ambiguous when both operands are true.
 describing **XOR** are "one or the other but not both", "either one
 or the other", and "A or B, but not A and B".
 
-Symbolically, XOR is expressed as: $\oplus$ (also written $\not\equiv$).
+Symbolically, XOR is expressed as: $\oplus$ (read $P \oplus Q$ as "P x-or Q" or "P exclusive-or Q"; also written $\not\equiv$).
 
 ![](./media/image14.png)
 
@@ -593,7 +593,7 @@ Symbolically, XOR is expressed as: $\oplus$ (also written $\not\equiv$).
 A conditional statement, also known as an implication, is a fundamental
 concept in logic that expresses a relationship between two propositions.
 It is often written in the form "if 𝑃, then 𝑄" and is denoted by the
-symbol →
+symbol → (read $P \to Q$ as "P implies Q" or "if P, then Q").
 
 The term material implication / material condition is particularly
 important because it differentiates the usage of the conditional
@@ -686,7 +686,7 @@ determined by precedence rules.
 
 **Logical Equivalence:** Two propositions $P$ and $Q$ are logically equivalent if they have the same truth value in all possible cases.
 
-**Notation:** $P \equiv Q$ or $P \iff Q$
+**Notation:** $P \equiv Q$ or $P \iff Q$ (read $P \iff Q$ as "P if and only if Q", often shortened to "P iff Q")
 
 ### Fundamental Laws
 
@@ -743,7 +743,7 @@ determined by precedence rules.
 **Conditional from Conjunction:**
 - $\neg(P \to Q) \equiv P \wedge \neg Q$ (negation of conditional gives conjunction)
 
-**Biconditional:**
+**Biconditional:** (read $P \leftrightarrow Q$ as "P if and only if Q", or "P iff Q")
 - $P \leftrightarrow Q \equiv (P \to Q) \wedge (Q \to P)$
 - $P \leftrightarrow Q \equiv (P \wedge Q) \vee (\neg P \wedge \neg Q)$
 - $P \leftrightarrow Q \equiv \neg(P \oplus Q)$ (biconditional is negation of XOR)
@@ -881,7 +881,7 @@ $$
 \Gamma \vDash \phi
 $$
 
-to mean that $\phi$ is a **semantic consequence** of the set of premises $\Gamma$: every valuation that makes all of $\Gamma$ true also makes $\phi$ true. This is a statement about *truth in all interpretations*. When $\Gamma$ is empty, $\vDash \phi$ says $\phi$ is true under every valuation, that is, $\phi$ is a tautology.
+to mean that $\phi$ is a **semantic consequence** of the set of premises $\Gamma$ (read $\Gamma \vDash \phi$ as "$\Gamma$ models $\phi$", or "$\Gamma$ entails $\phi$"): every valuation that makes all of $\Gamma$ true also makes $\phi$ true. This is a statement about *truth in all interpretations*. When $\Gamma$ is empty, $\vDash \phi$ says $\phi$ is true under every valuation, that is, $\phi$ is a tautology.
 
 **Syntactic derivability ( ⊢ ):** We write
 
@@ -889,7 +889,7 @@ $$
 \Gamma \vdash \phi
 $$
 
-to mean that $\phi$ can be **derived** from $\Gamma$ by a finite sequence of steps using the rules of inference (introduced below), without ever consulting truth values. This is a purely *syntactic*, symbol-pushing notion: it is about what can be written down according to the rules, not about what is true.
+to mean that $\phi$ can be **derived** from $\Gamma$ by a finite sequence of steps using the rules of inference (introduced below), without ever consulting truth values (read $\Gamma \vdash \phi$ as "$\Gamma$ proves $\phi$", or "$\Gamma$ derives $\phi$"). This is a purely *syntactic*, symbol-pushing notion: it is about what can be written down according to the rules, not about what is true.
 
 **How the two connect (soundness and completeness):** The turnstiles $\vDash$ and $\vdash$ come from opposite directions, one semantic and one syntactic, yet for propositional logic they pick out exactly the same pairs $(\Gamma, \phi)$. Two metatheorems make this precise:
 
