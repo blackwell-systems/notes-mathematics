@@ -146,9 +146,13 @@ When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$
 
 ## Negating Quantified Statements
 
-**Rules:**
+**Rules (De Morgan's laws for quantifiers):**
 - $\neg(\forall x P(x)) \equiv \exists x \neg P(x)$
 - $\neg(\exists x P(x)) \equiv \forall x \neg P(x)$
+
+To negate a quantified statement, flip each quantifier ($\forall \leftrightarrow \exists$) and push the negation inward onto the predicate. In words: "not everything satisfies $P$" means "something fails $P$", and "nothing satisfies $P$" means "everything fails $P$".
+
+These are the quantifier generalization of the propositional [De Morgan's laws](./propositional-logic-zeroth-order-logic) $\neg(P \land Q) \equiv \neg P \lor \neg Q$ and $\neg(P \lor Q) \equiv \neg P \land \neg Q$. Over a finite domain $\{a_1, \ldots, a_n\}$, $\forall x P(x)$ is a conjunction $P(a_1) \land \cdots \land P(a_n)$ and $\exists x P(x)$ is a disjunction $P(a_1) \lor \cdots \lor P(a_n)$, so negating a quantifier is exactly applying De Morgan to that (possibly infinite) conjunction or disjunction.
 
 **Example 1:** Negate $\forall x (x > 0)$
 - Original: "All $x$ are positive"
@@ -274,7 +278,7 @@ $$\exists x (P(x) \land Q(x)) \Rightarrow \exists x P(x) \land \exists x Q(x)$$
 
 ### Quantifier Exchange Rules
 
-**With Negation:**
+**With Negation (De Morgan's laws for quantifiers):**
 $$\neg \forall x P(x) \equiv \exists x \neg P(x)$$
 $$\neg \exists x P(x) \equiv \forall x \neg P(x)$$
 
