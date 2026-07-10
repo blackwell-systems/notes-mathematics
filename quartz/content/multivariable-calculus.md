@@ -36,6 +36,28 @@ With one variable, the derivative $f'(x)$ tells you the rate of change. With mul
 
 Think of it this way: you are standing on a hilly surface. The partial derivative with respect to $x$ tells you how steep the hill is if you walk due east (changing $x$, keeping $y$ fixed). The partial derivative with respect to $y$ tells you how steep the hill is if you walk due north (changing $y$, keeping $x$ fixed).
 
+### The Limit Definition
+
+Just as the single-variable derivative is a limit of a difference quotient, the partial derivative is defined as a limit in which only one input is perturbed. For $f(x, y)$, the partial derivative with respect to $x$ is:
+
+$$
+\frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x + h, y) - f(x, y)}{h}
+$$
+
+Notice that $y$ is held fixed on both sides: only the first argument moves by $h$. This is exactly the single-variable [limit definition of the derivative](./calculus) applied to the function of $x$ you get by freezing $y$. Symmetrically, the partial derivative with respect to $y$ perturbs only the second argument:
+
+$$
+\frac{\partial f}{\partial y} = \lim_{h \to 0} \frac{f(x, y + h) - f(x, y)}{h}
+$$
+
+For a function of $n$ variables $f(x_1, \ldots, x_n)$, the partial derivative with respect to $x_i$ adds $h$ to the $i$-th input alone and holds the rest fixed:
+
+$$
+\frac{\partial f}{\partial x_i} = \lim_{h \to 0} \frac{f(x_1, \ldots, x_i + h, \ldots, x_n) - f(x_1, \ldots, x_n)}{h}
+$$
+
+The computational shortcut below (treat the other variables as constants) is a direct consequence: freezing every variable except $x_i$ turns $f$ into an ordinary function of one variable, and this limit is its ordinary derivative.
+
 ### Notation and Computation
 
 The partial derivative of $f$ with respect to $x$ is written:
@@ -363,7 +385,7 @@ $$
 \begin{bmatrix} x_3 \\ y_3 \end{bmatrix} = \begin{bmatrix} 2.6 \\ 2.08 \end{bmatrix} - 0.1 \begin{bmatrix} 3.2 \\ 0.64 \end{bmatrix} = \begin{bmatrix} 2.28 \\ 2.016 \end{bmatrix}
 $$
 
-Each step moves closer to the minimum at $(1, 2)$. Notice that $y$ converges faster because the gradient is steeper in that direction initially, then flattens out.
+Each step moves closer to the minimum at $(1, 2)$. Notice that $y$ converges faster than $x$. The reason is the curvature, not the initial gradient size: the second derivative in the $y$-direction is $f_{yy} = 8$, four times larger than $f_{xx} = 2$ in the $x$-direction. Along $y$, each step multiplies the distance to the optimum by the contraction factor $|1 - \alpha f_{yy}| = |1 - 0.1 \cdot 8| = 0.2$, whereas along $x$ the factor is $|1 - \alpha f_{xx}| = |1 - 0.1 \cdot 2| = 0.8$. The larger second derivative (the larger Hessian eigenvalue) gives the smaller contraction factor and hence faster convergence. This mismatch between the two eigenvalues is exactly the conditioning issue that makes gradient descent slow on poorly scaled problems.
 
 ![Gradient descent path on contour plot moving toward the minimum](./media/gradient-descent-contour.png)
 
@@ -430,6 +452,50 @@ A twice-differentiable function is convex if and only if its Hessian matrix is *
 ### Why This Matters for ML
 
 Many classical ML models (linear regression, logistic regression, SVMs) have convex loss functions, so gradient descent is guaranteed to find the global optimum. Neural networks have non-convex loss functions, so gradient descent might get stuck in a local minimum or saddle point. Understanding convexity tells you when your optimization is trustworthy.
+
+## Lagrange Multipliers
+
+### Constrained Optimization
+
+So far we have minimized a function over its entire domain. Often, though, the inputs are not free: they must satisfy a **constraint**. You might minimize a cost subject to a fixed budget, or maximize an area subject to a fixed perimeter. The general problem is to optimize $f(\mathbf{x})$ subject to $g(\mathbf{x}) = c$, where $g(\mathbf{x}) = c$ describes a curve or surface (the **constraint set**) that the solution must lie on:
+
+$$
+\text{optimize } f(\mathbf{x}) \quad \text{subject to } g(\mathbf{x}) = c
+$$
+
+You cannot simply set $\nabla f = \mathbf{0}$, because the unconstrained minimum may not lie on the constraint set at all. Instead, you look for the best point among those the constraint allows.
+
+### The Parallel-Gradient Condition
+
+Here is the key geometric idea. The gradient $\nabla g$ is perpendicular to the constraint surface $g(\mathbf{x}) = c$ (it points in the direction that changes $g$ fastest, which is straight off the surface). At a constrained optimum, $\nabla f$ must also be perpendicular to the constraint surface. If it were not, part of $\nabla f$ would lie along the surface, and you could move along the surface (staying feasible) in a direction that increases or decreases $f$, so you would not yet be at an optimum.
+
+Two vectors that are both perpendicular to the same surface are parallel. Therefore, at a constrained optimum $\mathbf{x}^*$, there exists a scalar $\lambda$ (the **Lagrange multiplier**) such that the gradients are parallel:
+
+$$
+\nabla f(\mathbf{x}^*) = \lambda \nabla g(\mathbf{x}^*)
+$$
+
+Together with the constraint $g(\mathbf{x}^*) = c$, this gives a system of equations you solve for $\mathbf{x}^*$ and $\lambda$. Equivalently, form the **Lagrangian** $\mathcal{L}(\mathbf{x}, \lambda) = f(\mathbf{x}) - \lambda(g(\mathbf{x}) - c)$ and set all its partial derivatives (including the one with respect to $\lambda$, which recovers the constraint) to zero.
+
+### Worked Example
+
+**Problem:** Maximize $f(x, y) = xy$ subject to the constraint $x + y = 10$.
+
+Here $g(x, y) = x + y$ and $c = 10$. Compute the gradients:
+
+$$
+\nabla f = \begin{bmatrix} y \\ x \end{bmatrix}, \qquad \nabla g = \begin{bmatrix} 1 \\ 1 \end{bmatrix}
+$$
+
+The condition $\nabla f = \lambda \nabla g$ gives $y = \lambda$ and $x = \lambda$, so $x = y$. Substituting into the constraint $x + y = 10$ yields $2x = 10$, hence $x = y = 5$. The maximum product is $f(5, 5) = 25$.
+
+The multiplier $\lambda = 5$ has a meaning: it is the rate at which the optimal value would change if you loosened the constraint. Raising the budget from $10$ to $11$ would increase the maximum product by about $\lambda = 5$.
+
+### Connection to Machine Learning
+
+Constrained optimization is everywhere in ML. A **hard-margin support vector machine** maximizes the margin between two classes subject to the equality/inequality constraints that every training point sits on the correct side of the boundary. Introducing a Lagrange multiplier for each constraint turns the geometric margin problem into its **dual** form, which is what solvers actually optimize and which is what makes the "kernel trick" possible. More broadly, any equality-constrained objective (for example, requiring a probability vector to sum to $1$, or fixing the norm of a weight vector) is handled by adding $\lambda(g(\mathbf{x}) - c)$ to the loss.
+
+For inequality constraints ($g(\mathbf{x}) \leq c$), the multipliers must be non-negative and the condition generalizes to the **Karush-Kuhn-Tucker (KKT) conditions**, which the [optimization page](./optimization) treats in full, including the SVM dual.
 
 ---
 

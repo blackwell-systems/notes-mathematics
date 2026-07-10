@@ -218,8 +218,10 @@ f(n) = \Omega(g(n)) \iff \liminf_{n \to \infty} \frac{f(n)}{g(n)} > 0
 $$
 
 $$
-f(n) = \Theta(g(n)) \iff 0 < \lim_{n \to \infty} \frac{f(n)}{g(n)} < \infty \quad \text{(when the limit exists)}
+f(n) = \Theta(g(n)) \iff 0 < \liminf_{n \to \infty} \frac{f(n)}{g(n)} \leq \limsup_{n \to \infty} \frac{f(n)}{g(n)} < \infty
 $$
+
+The characterization for $\Theta$ uses $\liminf$ and $\limsup$ because $\Theta$ does not require the ratio $f/g$ to converge. For instance $f(n) = (2 + \sin n)\,n$ is $\Theta(n)$ even though $f(n)/n = 2 + \sin n$ oscillates in $[1, 3]$ and has no limit. As a convenient (one-directional) special case: **if** $\lim_{n \to \infty} f(n)/g(n)$ exists and lies in $(0, \infty)$, then $f = \Theta(g)$.
 
 This provides a quick test. For example:
 

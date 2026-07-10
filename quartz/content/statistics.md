@@ -444,6 +444,28 @@ When you estimate the standard error using the sample standard deviation $s$ ins
 - **Consistent:** As sample size grows, the estimator converges to the true value.
 - **Efficient:** Among unbiased estimators, it has the smallest variance.
 
+#### Fisher Information and the Cramér-Rao Bound
+
+The efficiency property raises a natural question: how small *can* the variance of an unbiased estimator be? The answer is governed by the **Fisher information**, which measures how much information a single observation carries about an unknown parameter.
+
+For a model with density $P(x \mid \theta)$, the Fisher information (from one observation) is the expected squared derivative of the log-likelihood with respect to the parameter (the derivative $\partial_\theta \log P(x \mid \theta)$ is called the *score*):
+
+$$
+I(\theta) = \mathbb{E}\!\left[\left(\frac{\partial}{\partial \theta} \log P(X \mid \theta)\right)^2\right] = -\,\mathbb{E}\!\left[\frac{\partial^2}{\partial \theta^2} \log P(X \mid \theta)\right]
+$$
+
+The two expressions are equal under mild regularity conditions. Intuitively, $I(\theta)$ is large when the log-likelihood is sharply peaked (the data pin down $\theta$ tightly) and small when it is flat (the data are nearly uninformative). For $n$ independent observations the information adds: the total is $n\,I(\theta)$.
+
+**The Cramér-Rao lower bound (CRLB):** For any unbiased estimator $\hat{\theta}$ of $\theta$ based on $n$ observations,
+
+$$
+\operatorname{Var}(\hat{\theta}) \geq \frac{1}{n\,I(\theta)}.
+$$
+
+No unbiased estimator can do better than $1/(n I(\theta))$; more information means a smaller achievable variance. This is the precise meaning of "efficient": an estimator is **efficient** when it attains the Cramér-Rao bound, i.e. its variance equals $1/(n I(\theta))$. An unbiased estimator that has the smallest possible variance among *all* unbiased estimators is called the **uniformly minimum-variance unbiased estimator (UMVUE)**; if it also meets the CRLB it is efficient in the finite-sample sense.
+
+**Finite-sample vs. asymptotic efficiency:** These two notions are worth separating. *Finite-sample efficiency* (the UMVUE / Cramér-Rao sense) asks whether an estimator attains the minimum variance for every fixed $n$. *Asymptotic efficiency* is a weaker, large-$n$ statement: it asks only that the variance approach the Cramér-Rao bound as $n \to \infty$. The MLE is generally *asymptotically* efficient (its variance approaches $1/(n I(\theta))$ for large $n$) even when it is biased or not the UMVUE at any finite sample size. This distinction is why, for small samples, a UMVUE can beat the MLE, while for large samples the MLE is essentially optimal.
+
 ### Confidence Intervals
 
 **Confidence interval (CI):** A range of values that is likely to contain the true population parameter. A 95% confidence interval means: if you repeated this process many times, about 95% of the intervals you construct would contain the true parameter.
@@ -658,7 +680,7 @@ $$
 \hat{\sigma}^2_{MLE} = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2
 $$
 
-The MLE for the mean is just the sample mean. The MLE for the variance uses $n$ (not $n-1$), which makes it slightly biased: it underestimates the true variance by a factor of $(n-1)/n$. This bias shrinks toward zero as $n$ grows, so MLE is still consistent (converges to the true value with enough data). This is a known limitation of MLE.
+The MLE for the mean is just the sample mean. The MLE for the variance uses $n$ (not $n-1$), which makes it slightly biased: it underestimates the true variance by a factor of $(n-1)/n$. This bias is negligible for large $n$ (for example, $(n-1)/n = 0.99$ when $n = 100$), but it is substantial for small $n$ (a 20% underestimate when $n = 5$). This bias shrinks toward zero as $n$ grows, so MLE is still consistent (converges to the true value with enough data). This is a known limitation of MLE.
 
 **Where it shows up in ML:** MLE is the foundation of many ML training procedures. Logistic regression finds parameters by maximizing the log-likelihood of the observed labels. Training a neural network with cross-entropy loss is equivalent to MLE. Minimizing cross-entropy loss = maximizing log-likelihood.
 
@@ -712,7 +734,7 @@ $$
 
 Note that the largest observation is 1.5, and we are estimating $\theta = 1.96$, which is well above the data. This is reasonable: a uniform distribution on $[0, 1.96]$ would produce data in this range.
 
-For comparison, the MLE for this problem is $\hat{\theta}_{MLE} = \max(X_1, \ldots, X_n) = 1.5$, which is always less than or equal to the true $\theta$. The MLE is biased downward here, while MoM is unbiased.
+For comparison, the MLE for this problem is $\hat{\theta}_{MLE} = \max(X_1, \ldots, X_n) = 1.5$, which is always less than or equal to the true $\theta$. The MLE is biased downward here, while $2\bar{X}$ is unbiased for $\theta$ in this specific uniform$[0, \theta]$ model (this is a property of this particular setup, not a general virtue of MoM; MoM estimators are frequently biased). One catch of the MoM estimate: because $2\bar{X}$ ignores the largest observation, it can fall below $\max(x_i)$, which is impossible for the true $\theta$ (every observation must lie in $[0, \theta]$). In that case the "estimate" is logically inconsistent with the data, whereas the MLE never is.
 
 ### MoM vs. MLE
 
@@ -806,7 +828,7 @@ The alternative hypothesis determines whether you perform a one-tailed or two-ta
 
 ![Rejection regions for two-tailed and one-tailed tests](./media/hypothesis-test-regions.png)
 
-**How p-values differ:** For the same test statistic, the one-tailed p-value is exactly half the two-tailed p-value. If a two-tailed test gives $p = 0.08$ (not significant at $\alpha = 0.05$), a one-tailed test in the correct direction gives $p = 0.04$ (significant). This is not a trick to get significance; it reflects a genuinely different question.
+**How p-values differ:** For the same test statistic, the one-tailed p-value is exactly half the two-tailed p-value, but only when the null distribution is symmetric and the observed effect falls in the hypothesized direction. If a two-tailed test gives $p = 0.08$ (not significant at $\alpha = 0.05$), a one-tailed test in the correct direction gives $p = 0.04$ (significant). If instead the effect points the wrong way (opposite the one-tailed alternative), the one-tailed p-value is $1 - \tfrac{1}{2}p_{\text{two}}$, which exceeds $0.5$. This is not a trick to get significance; it reflects a genuinely different question.
 
 **When to use which:**
 
@@ -847,7 +869,7 @@ $$
 
 A Cohen's $d$ of 0.5 means the two group means differ by half a standard deviation. These benchmarks are rough guidelines, not rigid thresholds. In some fields, $d = 0.2$ is a meaningful effect; in others, $d = 0.8$ is routine.
 
-**$R^2$ as effect size in regression:** The coefficient of determination $R^2$ is itself an effect size: it tells you what proportion of the variance in the outcome is explained by the predictors. Cohen's guidelines: $R^2 = 0.02$ (small), $R^2 = 0.13$ (medium), $R^2 = 0.26$ (large).
+**$R^2$ as effect size in regression:** The coefficient of determination $R^2$ is itself an effect size: it tells you what proportion of the variance in the outcome is explained by the predictors. Cohen's guidelines: $R^2 = 0.02$ (small), $R^2 = 0.13$ (medium), $R^2 = 0.26$ (large). These are the $R^2$ values corresponding to Cohen's benchmarks for $f^2 = R^2 / (1 - R^2)$, namely $f^2 = 0.02, 0.15, 0.35$; Cohen defined the thresholds on $f^2$ rather than on $R^2$ directly.
 
 **Best practice:** Always report effect size alongside p-values. A complete result looks like: "Students who used the new method scored significantly higher ($t(28) = 2.45$, $p = 0.021$, $d = 0.91$)." The p-value says the difference is unlikely to be zero; the effect size says the difference is large.
 
@@ -1243,7 +1265,7 @@ ANOVA tells you that at least one group is different, but not which one(s). Post
 
 **Bonferroni correction:** Divide $\alpha$ by the number of comparisons. With 3 groups (3 comparisons), use $\alpha/3 = 0.0167$ for each pairwise test. Simple but conservative (it has less power than Tukey's HSD).
 
-**In the example above:** A post-hoc test would reveal that Method B is significantly better than Method C ($90 - 70 = 20$ point difference), Method B is significantly better than Method A ($90 - 80 = 10$), and Method A is significantly better than Method C ($80 - 70 = 10$).
+**In the example above:** A Tukey HSD would test each of the three pairwise gaps against the studentized-range critical value (using $MSW = 14.5$ and $n = 5$ per group). The $20$-point B-C gap ($90 - 70$) is large relative to that threshold and would be clearly significant. The two $10$-point gaps (B vs. A at $90 - 80$, and A vs. C at $80 - 70$) are borderline: with this within-group spread they sit near the critical value, so whether they reach significance depends on the exact cutoff rather than being a foregone conclusion.
 
 ### Multiple Testing Correction
 
@@ -1550,11 +1572,13 @@ If $R_j^2 = 0$ (predictor $j$ is uncorrelated with the others), $VIF_j = 1$. If 
 
 ## Bias-Variance Tradeoff
 
-The **bias-variance tradeoff** is the central tension in machine learning. Every model's prediction error can be decomposed into three components:
+The **bias-variance tradeoff** is the central tension in machine learning. Fix an input $x$, and suppose the true relationship is $y = f(x) + \varepsilon$ where the noise $\varepsilon$ has mean $0$ and variance $\sigma^2$. Let $\hat{f}(x)$ be the model's prediction at $x$, treated as random because it depends on the training set drawn at random. Taking the expectation over both the random training set (which determines $\hat{f}$) and the noise in a fresh target $y$ at $x$, the expected squared prediction error decomposes into three components:
 
 $$
-E[(\hat{y} - y)^2] = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
+\mathbb{E}\!\left[(\hat{f}(x) - y)^2\right] = \underbrace{\left(\mathbb{E}[\hat{f}(x)] - f(x)\right)^2}_{\text{Bias}^2} + \underbrace{\operatorname{Var}(\hat{f}(x))}_{\text{Variance}} + \underbrace{\sigma^2}_{\text{Irreducible Error}}
 $$
+
+Here the irreducible error is exactly the noise variance $\sigma^2$: it is present in the fresh target $y$ regardless of the model, so no estimator can drive it below $\sigma^2$.
 
 ![Bias-variance tradeoff](./media/bias-variance-tradeoff.png)
 

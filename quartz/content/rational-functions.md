@@ -27,7 +27,9 @@ A rational function is built from [polynomial functions](./polynomial-functions)
 **Rational Functions:** A rational function is an expression of the form
 $\frac{P(x)}{Q(x)}$, *p,q* are polynomials and q is not 0.
 
-$$f(x) =  \frac{a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1}{+ a}_{0}}{b_{n}x^{n} + b_{n - 1}x^{n - 1} + \ldots + b_{1}x^{1}{+ b}_{0}}$$
+$$f(x) =  \frac{a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1}{+ a}_{0}}{b_{m}x^{m} + b_{m - 1}x^{m - 1} + \ldots + b_{1}x^{1}{+ b}_{0}}$$
+
+Here the numerator has degree $n$ and the denominator has degree $m$; these need not be equal.
 
 ## Domain
 
@@ -89,14 +91,14 @@ of 'proper' and 'improper.'
 
 $$\frac{x^{3} + 1}{x^{2}}$$
 
-*N\<D*
+*N\>D*
 
 -   A rational function is considered **proper** when the degree of the
     numerator is less than the degree of the denominator.
 
 $$\frac{x^{2} + 1}{x^{5}}$$
 
-*N\>D*
+*N\<D*
 
 **Handling Improper Rational Functions**
 
@@ -119,27 +121,38 @@ corresponds to 𝑥 = 0.
 
 ![](./media/image94.png)
 
-## Horizontal Asymptote
+## Horizontal, Slant, and Polynomial Asymptotes
 
 **Horizontal Asymptote:** A horizontal asymptote of a graph is a
 horizontal line y = b, where the graph approaches the line as the input
 value increases/decreases without bound.
 
+This section covers all three kinds of end-behavior asymptote at once,
+because which kind appears depends entirely on how the degree of the
+numerator compares to the degree of the denominator. A horizontal
+asymptote occurs only when the numerator's degree is less than or equal
+to the denominator's. **When deg(numerator) > deg(denominator) there is
+no horizontal asymptote.** In that case the end behavior is governed by
+the quotient of polynomial long division: if the degree exceeds the
+denominator by exactly 1, the asymptote is a slanted (oblique) line;
+if it exceeds by 2 or more, the asymptote is a higher-degree polynomial
+curve (curvilinear end behavior).
+
 How do you find the horizontal asymptote?
 
-$$f(x) =  \frac{ax^{n} + \ldots + a}{bx^{m} + \ldots + b}$$
+$$f(x) =  \frac{a_{n}x^{n} + \ldots + a_{0}}{b_{m}x^{m} + \ldots + b_{0}}$$
 
-Where a,b are the leading co-efficient of the polynomials having degree
-n,m respectively.
+Where $a_{n}$ and $b_{m}$ are the leading coefficients of the numerator
+and denominator polynomials, having degree $n$ and $m$ respectively.
 
   -----------------------------------------------------------------------
   numerator \<         Horizontal Asymptote is the x-axis
   denominator          
   -------------------- --------------------------------------------------
-  numerator =          Horizontal Asymptote is the line y = a/b
-  denominator          
+  numerator =          Horizontal Asymptote is the line y = (leading
+  denominator          coeff of numerator)/(leading coeff of denominator)
 
-  numerator \>         Slant / Oblique Asymptote
+  numerator \>         Slant / Oblique Asymptote (no horizontal asymptote)
   denominator          
   -----------------------------------------------------------------------
 
@@ -183,7 +196,7 @@ denominator by 2, the graph of the asymptote will be quadratic:
 Num\>Denom by 3
 
 *(Because the degree of the numerator exceeds the degree of the
-denominator by 3, the graph of the asymptote will be quadratic:
+denominator by 3, the graph of the asymptote will be cubic:
 **x\^***3*)*
 
 Use Polynomial Long Division to find the asymptote of a rational
@@ -351,10 +364,10 @@ For a rigorous treatment of limits and end behavior, see [Calculus](./calculus).
 
 As x → ±∞, the denominator grows much faster than the numerator:
 
-- As x → +∞: f(x) → 0⁺
-- As x → -∞: f(x) → 0⁺
+- As x → +∞: f(x) → 0⁺ (numerator and denominator both positive)
+- As x → -∞: f(x) → 0⁻ (numerator negative, denominator positive)
 
-**End behavior:** Approaches horizontal asymptote y = 0 from above.
+**End behavior:** Approaches horizontal asymptote y = 0, from above on the right and from below on the left.
 
 **General rule:** When deg(P) < deg(Q), horizontal asymptote is y = 0.
 

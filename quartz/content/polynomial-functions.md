@@ -36,10 +36,18 @@ This can be expressed more concisely by using summation notation:
 
 $$\sum_{k = 0}^{n}{a_{k}x^{k}}$$
 
--   The domain of a **polynomial** **function** is (−∞,∞)
+-   The domain of a **polynomial** **function** is $(-\infty, \infty)$
 
--   **Polynomials** may not have negative power indeterminants /
-    variables: $x^{- 2}$
+-   The exponents on the variable must be **non-negative integers**
+    ($0, 1, 2, \ldots$). This is exactly what distinguishes a polynomial
+    from a rational function (which allows negative-integer exponents,
+    e.g. $x^{-2} = \tfrac{1}{x^2}$) or a radical function (which allows
+    fractional exponents, e.g. $x^{1/2} = \sqrt{x}$). So **polynomials
+    may not have negative-power terms** such as $x^{-2}$.
+
+-   The coefficients are taken to be **real numbers**. This matters
+    later for the Conjugate Zeros Theorem, which relies on the
+    coefficients being real.
 
 -   The graphs of **polynomial** **functions** are smooth and continuous
     at all points.
@@ -527,8 +535,9 @@ graph behaves at the x-intercept.
 **The Fundamental Theorem of Algebra:**
 
 The Fundamental Theorem of Algebra tells us that every polynomial
-function with degree greater than 1 has at least one
-*complex* zero.
+function with degree $\geq 1$ (equivalently, every non-constant
+polynomial) has at least one *complex* zero. This includes degree-1
+polynomials, which always have a (possibly complex) root.
 
 ![](./media/image86.png)
 
@@ -547,8 +556,7 @@ For polynomial of degree 2, you can use the quadratic formula.
 
 Where:
 
--   **d(x)** is the divisor where the degree of d(x) must be less than
-    or equal the degree of f(x)
+-   **d(x)** is the divisor, which must be a nonzero polynomial
 
 -   **q(x)** is the quotient
 
@@ -560,9 +568,12 @@ $$\frac{f(x)}{d(x)} = q(x) + \frac{r(x)}{d(x)}$$
 If r(x) is 0, then d(x) is a factor of f, so it divides evenly leaving
 no remainder.
 
-*Polynomial long division may always be performed---so long as the
-degree of the divisor is equal to or less than the degree of the
-dividend f(x). This is the only restriction.*
+*Division by any nonzero polynomial is always defined: a nonzero divisor
+is the real requirement. If $\deg(d(x)) > \deg(f(x))$, the division still
+works out, but the quotient is simply $q(x) = 0$ with remainder $r(x) =
+f(x)$ (the dividend). The long-division algorithm produces additional
+quotient terms only while the divisor's degree does not exceed that of
+the current remainder.*
 
 *Algorithm: Divide, multiply, subtract, repeat as needed.*
 
@@ -852,6 +863,22 @@ polynomial.
 -   The number of negative real zeros is equal to the number of sign
     changes in f(-x), minus an even integer.
 
+**Worked example:** Consider $f(x) = x^3 - 2x - 5$ (the same cubic used
+in the Newton's Method and Bisection examples below). Write the
+coefficients in order of descending degree, filling in the missing
+$x^2$ term with a zero coefficient: $+1x^3 + 0x^2 - 2x - 5$. We ignore
+the zero coefficient and read the signs of the nonzero terms only:
+$+, -, -$. There is exactly one sign change (from $+$ to $-$ between the
+$x^3$ and $x$ terms). So the number of positive real zeros is $1$ minus
+an even integer; since it cannot be negative, there is **exactly one
+positive real root**.
+
+For the negative real zeros, evaluate $f(-x) = -x^3 + 2x - 5$, whose
+nonzero signs are $-, +, -$. That gives two sign changes, so the number
+of negative real roots is $2$ or $0$ (two minus an even integer). This
+cubic in fact has one positive real root and a pair of complex conjugate
+roots.
+
 Because we also know the maximum number of possible roots (By the
 Fundamental Theorem of Algebra), knowing the maximum possible number of
 real roots also gives insight into the number of possible imaginary
@@ -926,9 +953,20 @@ $x_3 \approx 2.09455$ (converged to 5 decimal places)
 - High precision is needed
 - Fast convergence is important
 
-**Example where it fails:** $f(x) = x^{1/3}$ with $x_0 = 1$
+**Example where it fails:** $f(x) = x^{1/3}$ (whose only root is $x = 0$) with $x_0 = 1$
 
-The derivative $f'(x) = \frac{1}{3}x^{-2/3}$ blows up near $x = 0$, causing iterations to diverge.
+The derivative is $f'(x) = \frac{1}{3}x^{-2/3}$. Substituting into the
+Newton iteration:
+
+$$x_{n+1} = x_n - \frac{x_n^{1/3}}{\frac{1}{3}x_n^{-2/3}} = x_n - 3x_n^{1/3}\cdot x_n^{2/3} = x_n - 3x_n = -2x_n$$
+
+So each step gives $x_{n+1} = -2x_n$. Starting from any nonzero $x_0$,
+the iterates are $x_0, -2x_0, 4x_0, -8x_0, \ldots$, doubling in
+magnitude and flipping sign every step. The method **diverges from any
+nonzero starting point**, not merely near $0$, even though the root
+$x = 0$ sits right there. This is a case where the shape of the function
+(a vertical tangent at the root) defeats Newton's method regardless of
+how good the initial guess looks.
 
 ## Bisection Method
 

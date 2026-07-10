@@ -1,90 +1,70 @@
 # Mathematics Notes
 
-Comprehensive mathematics reference covering topics from propositional logic through advanced calculus and geometry.
+A comprehensive mathematics reference covering logic and set theory through
+real analysis, measure theory, and algebraic geometry, built toward the
+foundations of machine learning research (up to singular learning theory).
 
-## Contents
+The notes are published as a [Quartz](https://quartz.jzhao.xyz/) site and
+deployed to GitHub Pages on every push to `main`.
 
-- **Propositional Logic** - Truth tables, logical connectives, tautologies
-- **Set Theory** - Sets, relations, functions, cardinality
-- **Number Theory** - Prime factorization, rational roots theorem
-- **Functions** - Linear, polynomial, rational, exponential, logarithmic
-- **Matrices & Systems** - Linear equations, matrix operations
-- **Geometry & Trigonometry** - Triangles, circles, unit circle, trig identities
-- **Vectors** - Vector operations, magnitude, direction
-- **Combinatorics** - Permutations and combinations
+## Content
+
+All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
+per topic (44 topic pages). The landing page and reading-order guide are in
+[`quartz/content/index.md`](./quartz/content/index.md).
+
+Broad areas covered:
+
+- **Logic & Proofs** — propositional and predicate logic, inference, proof techniques
+- **Set Theory** — operations, relations, cardinality, countability
+- **Algebra** — number theory, functions, polynomial/rational/exponential/log/radical functions, complex numbers, sequences and series, conic sections
+- **Linear Algebra** — vector spaces, four fundamental subspaces, eigenvalues, SVD, factorizations, matrix calculus
+- **Geometry & Trigonometry** — trig functions, identities, unit circle, coordinate geometry
+- **Calculus** — limits, derivatives, integrals, multivariable calculus, differential equations
+- **Probability & Statistics** — combinatorics, distributions, estimation, hypothesis testing, regression, Bayesian inference
+- **Optimization & Information Theory** — convexity, gradient descent variants, entropy, KL divergence
+- **Discrete Math** — asymptotic notation, graph theory
+- **Advanced** — real analysis, measure theory, algebraic geometry (with the connection to singular learning theory)
 
 ## File Structure
 
 ```
 notes-mathematics/
-├── Mathematics.md          # Main reference document
-├── media/                  # Images and diagrams (183 files)
-│   ├── image1.png
-│   ├── image2.png
-│   └── ...
-└── README.md              # This file
+├── quartz/                  # Quartz static-site generator
+│   ├── content/             # All notes (one Markdown file per topic)
+│   │   ├── index.md         # Landing page + reading-order guide
+│   │   ├── set-theory.md
+│   │   ├── ...
+│   │   └── media/           # Images and diagrams
+│   └── quartz.config.default.yaml  # Site configuration
+├── .github/workflows/       # GitHub Pages deploy workflow
+└── README.md                # This file
 ```
 
-## Source
-
-This document was originally converted from a Microsoft Word document (`Mathematics.docx`) using pandoc. Image dimension attributes have been removed to allow natural/responsive rendering in markdown viewers.
-
-## Adding New Images
-
-When adding images to `Mathematics.md`:
-
-### Recommended Approach
-
-Save images directly to the `media/` directory:
+## Local Development
 
 ```bash
-# Name sequentially
-media/image184.png
-media/image185.png
+cd quartz
+npm ci
+npx quartz plugin install
+npx quartz build --serve   # preview locally
 ```
 
-Reference in markdown without dimension attributes:
+## Adding Content
+
+Add or edit Markdown files in `quartz/content/`. Save images to
+`quartz/content/media/` and reference them relatively:
 
 ```markdown
-![Description of image](./media/image184.png)
+![Description of image](./media/my-diagram.png)
 ```
 
-### Using Markdown Editors
-
-Use editors with paste support:
-- **Obsidian** - Paste from clipboard, auto-saves to media folder
-- **Typora** - Direct image paste with auto-linking
-- **VS Code** - With markdown extensions
-
-### Avoid
-
-- Do not add dimension attributes like `{width="..." height="..."}`
-- Avoid re-converting through Word/pandoc when possible
-
-### If Converting from Word
-
-If you must use pandoc:
-
-```bash
-pandoc document.docx -t markdown -o output.md --extract-media=.
-
-# Strip dimension attributes immediately
-perl -0777 -i -pe 's/\{width="[^}]*"\}//gs' output.md
-```
-
-## Usage
-
-View with any markdown renderer:
-- GitHub
-- Obsidian
-- VS Code
-- Typora
-- Markdown Preview Enhanced
-
-Images will render at natural sizes without fixed dimensions.
+Avoid fixed dimension attributes like `{width="..." height="..."}` so images
+render responsively.
 
 ## License
 
 This work is licensed under [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
 
-You are free to share and adapt this material for any purpose, provided you give appropriate credit and distribute contributions under the same license.
+You are free to share and adapt this material for any purpose, provided you give
+appropriate credit and distribute contributions under the same license.

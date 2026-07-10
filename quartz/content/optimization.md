@@ -170,11 +170,13 @@ $$
 
 This is $O(1/k)$ convergence: to halve the error, you need roughly twice as many iterations.
 
-For **strongly convex** functions with parameter $m$, the convergence is **linear** (exponential):
+For **strongly convex** functions with parameter $m$, the convergence is **linear** (exponential). With the optimal constant step size $\alpha = 2/(L + m)$:
 
 $$
 f(x_k) - f(x^*) \leq \left(\frac{L - m}{L + m}\right)^{2k} (f(x_0) - f(x^*))
 $$
+
+The more conservative step $\alpha = 1/L$ still gives linear convergence, at the slower rate $(1 - m/L)^k = (1 - 1/\kappa)^k$.
 
 The ratio $\kappa = L/m$ is the **condition number** of the problem. When $\kappa$ is large (the function is "elongated" with very different curvatures in different directions), convergence is slow. When $\kappa \approx 1$, convergence is fast. See [condition numbers](./linear-algebra-computation) in linear algebra.
 
@@ -423,7 +425,7 @@ where $H(x_k) = \nabla^2 f(x_k)$ is the Hessian at $x_k$.
 
 **Disadvantages:**
 
-- Computing the Hessian is $O(n^2)$ in space and $O(n^2)$ per element
+- The Hessian has $O(n^2)$ entries to compute and takes $O(n^2)$ space to store
 - Inverting (or solving a linear system with) the Hessian is $O(n^3)$
 - For a neural network with $n = 10^8$ parameters, this is completely infeasible
 - May converge to a saddle point or maximum if the Hessian is not positive definite
@@ -597,7 +599,7 @@ Regularization has a Bayesian interpretation (see [Statistics](./statistics) for
 The starting point $x_0$ matters, especially for non-convex problems. In neural networks:
 
 - **Random initialization:** Draw weights from a distribution. If weights are too large, activations saturate and gradients vanish. If too small, signals shrink as they pass through layers.
-- **Xavier/Glorot initialization:** For layers with $n_{\text{in}}$ inputs and $n_{\text{out}}$ outputs, draw weights from $\mathcal{N}(0, 2/(n_{\text{in}} + n_{\text{out}}))$. Designed to keep variance roughly constant across layers.
+- **Xavier/Glorot initialization:** For layers with $n_{\text{in}}$ inputs and $n_{\text{out}}$ outputs, draw weights from $\mathcal{N}(0, 2/(n_{\text{in}} + n_{\text{out}}))$. The Glorot *uniform* variant instead draws from $\mathcal{U}(-\sqrt{6/(n_{\text{in}} + n_{\text{out}})}, \sqrt{6/(n_{\text{in}} + n_{\text{out}})})$, which has the same variance. Designed to keep variance roughly constant across layers.
 - **He initialization:** Draw from $\mathcal{N}(0, 2/n_{\text{in}})$. Designed for ReLU activations, which zero out half of the values (hence the factor of 2 instead of 1).
 
 ### Gradient Clipping

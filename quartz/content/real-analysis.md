@@ -40,9 +40,9 @@ You might think of the real numbers $\mathbb{R}$ as "all the decimals," but that
 
 Before stating completeness, we need the concept of bounds.
 
-**Definition.** Let $S \subseteq \mathbb{R}$ be nonempty. A number $M$ is an **upper bound** for $S$ if $x \le M$ for all $x \in S$. The **supremum** (or least upper bound) of $S$, written $\sup S$, is the smallest upper bound.
+**Definition.** Let $S \subseteq \mathbb{R}$ be nonempty. A number $M$ is an **upper bound** for $S$ if $x \le M$ for all $x \in S$. A set may have many upper bounds (if $M$ is one, so is any larger number). The **Completeness Axiom** below is what guarantees that a bounded-above set of reals has a *least* upper bound; once we know it exists, we call that least upper bound the **supremum** of $S$, written $\sup S$.
 
-Similarly, $m$ is a **lower bound** if $m \le x$ for all $x \in S$, and the **infimum** $\inf S$ is the greatest lower bound.
+Similarly, $m$ is a **lower bound** if $m \le x$ for all $x \in S$, and (again by completeness, applied to $-S$) the greatest lower bound exists and is called the **infimum** $\inf S$.
 
 **Example.** Let $S = \{1/n : n \in \mathbb{N}\} = \{1, 1/2, 1/3, 1/4, \ldots\}$. Then $\sup S = 1$ (it is in $S$) and $\inf S = 0$ (not in $S$, but no number greater than $0$ is a lower bound).
 
@@ -157,7 +157,7 @@ Once you have established that individual sequences converge, you can combine th
 1. $(a_n + b_n) \to a + b$
 2. $(c \cdot a_n) \to c \cdot a$ for any constant $c$
 3. $(a_n \cdot b_n) \to a \cdot b$
-4. $(a_n / b_n) \to a / b$, provided $b \neq 0$
+4. $(a_n / b_n) \to a / b$, provided $b \neq 0$ (and $b_n \neq 0$ for all $n$, which holds for all large $n$ since $b_n \to b \neq 0$)
 
 **Theorem (Squeeze Theorem).** If $a_n \le b_n \le c_n$ for all $n$, and $a_n \to L$ and $c_n \to L$, then $b_n \to L$.
 
@@ -208,12 +208,12 @@ By the Monotone Convergence Theorem, $(a_n)$ converges. In fact, $\lim a_n = e -
 Alternatively, we can verify the Cauchy criterion directly. For $m > n$:
 
 $$
-|a_m - a_n| = \sum_{k=n+1}^m \frac{1}{k!} \le \sum_{k=n+1}^m \frac{1}{2^{k-1}} < \frac{1}{2^{n-1}}
+|a_m - a_n| = \sum_{k=n+1}^m \frac{1}{k!} \le \sum_{k=n+1}^m \frac{1}{2^{k-1}} < \sum_{k=n+1}^{\infty} \frac{1}{2^{k-1}} = \frac{1}{2^{n-1}}
 $$
 
-which can be made smaller than any $\epsilon$ by choosing $n$ large enough.
+where the last equality is the geometric series $\sum_{k=n+1}^{\infty} 2^{-(k-1)} = 2^{-n} \cdot \frac{1}{1 - 1/2} = 2^{-(n-1)}$. This bound can be made smaller than any $\epsilon$ by choosing $n$ large enough.
 
-**Research connection:** Convergence behavior matters for understanding training dynamics. The "frustration gap" in BPE-trained models (the gap between a model's structural capacity and what the tokenizer allows) is measurable by step 5,000 and does not converge to zero across 35,000 additional steps. This is an empirical example of a sequence that converges to a nonzero limit, representing permanently wasted capacity.
+**Research connection (informal):** Convergence behavior offers a useful lens on training dynamics. In our experiments, a "frustration gap" in BPE-trained models (a gap between a model's structural capacity and what the tokenizer allows) appears to be measurable by around step 5,000 and does not visibly close over the next 35,000 steps. We read this as suggestive of a sequence that converges to a nonzero limit (permanently wasted capacity), though this is an empirical observation from specific runs, not a proven limit. This paragraph is an interpretive analogy, separate from the rigorous results above.
 
 ### Limsup and Liminf
 
@@ -452,7 +452,7 @@ $$
 \sup_{x \in [0,1)} |x^n - 0| = \sup_{x \in [0,1)} x^n = 1
 $$
 
-(the supremum approaches 1 as $x \to 1^-$). So the sup does not go to zero, and convergence is not uniform. This is why the limit function is discontinuous: pointwise convergence is not strong enough to preserve continuity.
+(for every fixed $n$ the supremum is $1$, approached as $x \to 1^-$ but never attained on $[0,1)$). So the sup does not go to zero, and convergence is not uniform. This is why the limit function is discontinuous: pointwise convergence is not strong enough to preserve continuity.
 
 ### Why Uniform Convergence Fixes Everything
 
@@ -607,7 +607,7 @@ Singular learning theory (SLT) studies the geometry of the loss landscape in sta
 
 The analytic foundations on this page (completeness, compactness, uniform convergence, rigorous integration) are the language in which these results are stated and proved.
 
-**Research connection:** Singular learning theory directly explains phenomena observed in developmental interpretability. The deterministic count of spacing heads across random seeds (183/384 in both runs) suggests the head allocation is determined by the geometry of the loss landscape (the RLCT), not by initialization. Phase transitions during training (when heads suddenly specialize or collapse) correspond to changes in the local learning coefficient. Circuit membership being developmentally protective (heads in circuits survive; isolated heads collapse into P0 sinks) may reflect the singularity structure near the true parameter set.
+**Research connection (interpretive):** Singular learning theory offers a candidate explanation for phenomena we have observed in developmental interpretability; the claims below are hypotheses consistent with SLT, not theorems it proves. In two of our runs we counted the same number of spacing heads (183/384 in both), which we read as *consistent with* head allocation being shaped by the geometry of the loss landscape (the RLCT) rather than by initialization, though two runs is far from proof and we have not established a causal mechanism. We hypothesize that phase transitions during training (when heads suddenly specialize or collapse) correspond to changes in the local learning coefficient, and that the apparent developmental protection of circuit membership (heads in circuits survive; isolated heads collapse into P0 sinks) may reflect the singularity structure near the true parameter set. These interpretive claims are separate from the rigorous analysis on this page.
 
 ### The Big Picture
 

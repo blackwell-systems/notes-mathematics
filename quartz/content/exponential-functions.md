@@ -150,6 +150,8 @@ Where $P$ = principal, $r$ = annual rate, $t$ = time in years. This is the conti
 
 Exponential functions accept any real number as input.
 
+Throughout, the base satisfies $b > 0$ and $b \neq 1$ (otherwise $b^x$ is not a well-defined exponential function).
+
 **Range (for $f(x) = a \cdot b^x + c$ with $a > 0$):**
 
 - If $c = 0$: Range is $(0, \infty)$
@@ -258,7 +260,7 @@ $f(x) = 2^x - 3$
 $$A = P\left(1 + \frac{r}{n}\right)^{nt}$$
 
 Where:
-- P = principal ($1000)
+- P = principal (\$1000)
 - r = annual rate (5% = 0.05)
 - n = compounds per year (12 for monthly)
 - t = years (10)

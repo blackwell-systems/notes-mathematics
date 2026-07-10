@@ -6,6 +6,41 @@ Propositional logic can only express complete statements like "it is raining" as
 
 **Predicate Logic / first-order logic:** An extension of propositional logic that allows reasoning about objects, their properties, and relationships using variables and quantifiers.
 
+## Terms and the FOL Alphabet
+
+Propositional logic has only one kind of building block, the atomic proposition. First-order logic needs to talk about *objects* and what is true of them, so its alphabet is richer. Before we can write a formula, we need a vocabulary of symbols and a way to name objects.
+
+**The symbols of a first-order language:**
+
+- **Individual constants** name specific objects in the domain. Written $a, b, c, \ldots$ or descriptive names like $0$, $\pi$, $\text{Socrates}$.
+- **Variables** stand for unspecified objects and can be quantified. Written $x, y, z, \ldots$
+- **Function symbols** take one or more objects and return an object. Each has a fixed **arity** (number of arguments). For example, a binary function symbol $+$ turns two objects into one, and a unary $\text{succ}$ (successor) turns one into another.
+- **Predicate (relation) symbols** take one or more objects and return a truth value. A unary predicate like $\text{Prime}(x)$ expresses a property; a binary predicate like $x < y$ expresses a relation. These are exactly the predicates introduced below.
+
+**Terms** are the expressions that name objects. They are built up by the following rules:
+
+1. Every individual constant is a term.
+2. Every variable is a term.
+3. If $f$ is an $n$-ary function symbol and $t_1, \ldots, t_n$ are terms, then $f(t_1, \ldots, t_n)$ is a term.
+
+So $x$, $0$, $\text{succ}(x)$, and $x + \text{succ}(0)$ are all terms. Terms never have a truth value on their own; they only name objects. A truth value appears only when a predicate is applied to terms, for example $\text{Prime}(x + \text{succ}(0))$. Applying a predicate to terms produces an **atomic formula**, and connectives and quantifiers combine atomic formulas into larger ones.
+
+## Structures and Interpretations (Models)
+
+A first-order formula by itself is just a string of symbols; it has no truth value until we say what the symbols *mean* and what objects exist. That information is packaged in a **structure** (also called an **interpretation** or a **model**).
+
+A structure $\mathcal{M}$ consists of:
+
+1. A non-empty **domain** (or universe) $D$: the set of objects the variables range over.
+2. An **interpretation** of each non-logical symbol:
+   - each individual constant is assigned a specific element of $D$,
+   - each $n$-ary function symbol is assigned an actual function $D^n \to D$,
+   - each $n$-ary predicate symbol is assigned an actual relation on $D$ (a subset of $D^n$).
+
+Given a structure, every closed formula becomes either true or false in it. This is what grounds the "Truth value: TRUE/FALSE" claims throughout this page: each such claim is implicitly relative to a chosen domain (usually stated, e.g. $\mathbb{R}$ or $\mathbb{C}$) together with the standard interpretation of the symbols $+$, $<$, $=$, and so on. The same formula can be true in one structure and false in another. For instance, $\exists x\,(x^2 = -1)$ is false when the domain is $\mathbb{R}$ but true when the domain is $\mathbb{C}$, because changing the domain changes which objects are available to witness the existential.
+
+When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$ is a **model** of $\phi$, written $\mathcal{M} \vDash \phi$.
+
 ## Predicates
 
 **Predicate:** A function that takes one or more variables and returns a truth value (true or false).
@@ -146,6 +181,12 @@ Propositional logic can only express complete statements like "it is raining" as
 **Example 2:** $\exists x \forall y (x < y + z)$
 - $x$ and $y$ are bound
 - $z$ is free
+
+**Scope of a quantifier:** The **scope** of a quantifier is the sub-formula it governs, that is, the formula immediately following the quantifier (delimited by parentheses). A variable occurrence is **bound** if it falls within the scope of a quantifier using that variable, and **free** otherwise. In $\forall x\,(P(x)) \land Q(x)$, the scope of $\forall x$ is only $P(x)$, so the $x$ in $P(x)$ is bound while the $x$ in $Q(x)$ lies outside the scope and is free. The same variable letter can therefore be bound in one place and free in another within the same formula.
+
+A formula with no free variables is called a **sentence** (or closed formula). Only sentences have a definite truth value in a structure; a formula with free variables is true or false only once we also assign domain elements to those free variables.
+
+**Capture-avoiding substitution ("free for"):** Substituting a term $t$ for a free variable $x$ in a formula, written $\phi[t/x]$, is subtle when $t$ itself contains variables. We say $t$ is **free for** $x$ in $\phi$ if no free variable of $t$ becomes bound (gets "captured") after the substitution. For example, substituting $y$ for $x$ in $\exists y\,(x < y)$ would produce $\exists y\,(y < y)$, silently capturing $y$ and changing the meaning. To substitute safely, first rename the bound $y$ to a fresh variable ($\exists w\,(x < w)$), then substitute to get $\exists w\,(y < w)$. Only capture-avoiding substitutions preserve meaning, which is why quantifier instantiation rules require the substituted term to be free for the variable.
 
 ## Common Patterns
 

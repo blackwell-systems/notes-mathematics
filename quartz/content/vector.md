@@ -24,7 +24,7 @@ Geometrically, we can picture a vector as a directed line segment, whose
 length is the magnitude of the vector and with an arrow indicating the
 direction.
 
-![](./media/image182.png)
+![A vector drawn as a directed line segment: an arrow from its initial point to its terminal point, where the length represents magnitude and the arrowhead indicates direction](./media/image182.png)
 
 ## Writing Vectors
 
@@ -53,13 +53,23 @@ are zero.
 The position vector will "point" from the origin of the coordinate
 system to the terminal point.
 
-There are many advantages to converting vectors into position vectors:
+There are several advantages to converting vectors into position vectors:
+
+- Because the tail is fixed at the origin, a position vector is uniquely determined by the coordinates of its head alone. There is no separate initial point to track.
+- This makes the algebra coordinate-wise: adding two position vectors adds their coordinates, and scaling one scales its coordinates.
+- It sets up a clean point-to-vector correspondence: every point $(a, b)$ in the plane matches exactly one position vector $\langle a, b \rangle$, so geometry (points) and algebra (vectors) become interchangeable.
 
 ### Calculate the Position Vector
 
-**Calculate the Position Vector**
+To find the position vector of a point, subtract the coordinates of the tail from the coordinates of the head. For a vector $\vec{AB}$ with initial point $A = (a_1, a_2)$ and terminal point $B = (b_1, b_2)$:
 
-![](./media/image183.png)
+$$
+\vec{AB} = \langle b_1 - a_1,\; b_2 - a_2 \rangle
+$$
+
+The result is the equivalent vector drawn from the origin, so its head lies at $(b_1 - a_1,\; b_2 - a_2)$. When the tail is already the origin, the head's coordinates are the position vector directly.
+
+![Diagram of a directed line segment from initial point A to terminal point B, with the equivalent position vector drawn from the origin to the point (b1 - a1, b2 - a2)](./media/image183.png)
 
 ## Unit Vector
 
@@ -77,7 +87,12 @@ additional restriction that the magnitude must be 1.
 
 ### Unit Vector vs Position Vector
 
-**Unit Vector vs Position Vector**
+Both a unit vector and a position vector can be pictured with their tail at the origin, so they are easy to confuse. The difference is what each one carries:
+
+- A **position vector** records both magnitude and direction. Its head sits at the actual coordinates of the point it represents, so its length can be anything.
+- A **unit vector** records direction only. It is normalized to length 1, discarding the magnitude.
+
+In short, a position vector answers "where is the point," while a unit vector answers "which way does it point." Dividing a position vector by its own magnitude produces the unit vector in the same direction.
 
 ## Magnitude
 
@@ -200,6 +215,8 @@ $\hat{\mathbf{v}} = \frac{1}{5}\langle 3, 4 \rangle = \langle \frac{3}{5}, \frac
 Check: $|\hat{\mathbf{v}}| = \sqrt{\left(\frac{3}{5}\right)^2 + \left(\frac{4}{5}\right)^2} = \sqrt{\frac{9}{25} + \frac{16}{25}} = 1$ ✓
 
 ### Dot Product (Scalar Product)
+
+**Meaning first:** The dot product measures how much two vectors align, since $\mathbf{a} \cdot \mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta$. It is positive when the vectors point in similar directions, zero when they are perpendicular, and negative when they point in opposing directions.
 
 **Dot Product:** For $\mathbf{u} = \langle u_1, u_2 \rangle$ and $\mathbf{v} = \langle v_1, v_2 \rangle$:
 

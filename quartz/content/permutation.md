@@ -39,31 +39,33 @@ With that foundation, here is the formal definition:
 
 **Permutation Formula (without repetition):**
 
-P(n,r) = n! / (n - r)!
+$$
+P(n,r) = \frac{n!}{(n-r)!}
+$$
 
-Alternate notation: ₙPᵣ or Pᵣⁿ
+Alternate notation: $_nP_r$ or $P_r^n$
 
 **Where:**
 
-- **n:** The total number of items in the set
-- **r:** The number of items to select and arrange
-- **(n-r)!:** The number of ways to arrange the remaining elements not chosen
+- **$n$:** The total number of items in the set
+- **$r$:** The number of items to select and arrange
+- **$(n-r)!$:** The factor divided out to cancel the arrangements of the $n-r$ unchosen elements, since only the $r$ selected positions should be counted
 
-**Special case:** When selecting all n items: P(n,n) = n!
+**Special case:** When selecting all $n$ items: $P(n,n) = n!$
 
 **Examples:**
 
 1. **How many ways can you arrange 3 books from a shelf of 5 books?**
-   
-   P(5,3) = 5! / (5-3)! = 5! / 2! = 120 / 2 = 60
+
+   $$P(5,3) = \frac{5!}{(5-3)!} = \frac{5!}{2!} = \frac{120}{2} = 60$$
 
 2. **How many 4-digit PIN codes can be formed using digits 0-9 without repetition?**
-   
-   P(10,4) = 10! / 6! = 10 × 9 × 8 × 7 = 5040
+
+   $$P(10,4) = \frac{10!}{6!} = 10 \times 9 \times 8 \times 7 = 5040$$
 
 3. **How many ways can 5 people be arranged in a line?**
-   
-   P(5,5) = 5! = 120
+
+   $$P(5,5) = 5! = 120$$
 
 ## Permutations with Repetition
 
@@ -71,30 +73,34 @@ Alternate notation: ₙPᵣ or Pᵣⁿ
 
 **Formula:**
 
-nʳ
+$$
+n^r
+$$
 
 Where:
-- **n:** Number of choices for each position
-- **r:** Number of positions to fill
+- **$n$:** Number of choices for each position
+- **$r$:** Number of positions to fill
 
 **Example:** How many 4-digit PIN codes can be formed using digits 0-9 **with repetition allowed**?
 
-10⁴ = 10000 possible codes
+$$10^4 = 10000 \text{ possible codes}$$
 
 ## Permutations with Indistinguishable Objects
 
-**Formula:** When you have n objects where some are identical:
+**Formula:** When you have $n$ objects where some are identical:
 
-n! / (n₁! × n₂! × ... × nₖ!)
+$$
+\frac{n!}{n_1! \, n_2! \cdots n_k!}
+$$
 
 Where:
-- **n:** Total number of objects
-- **n₁, n₂, ..., nₖ:** Number of each type of identical object
+- **$n$:** Total number of objects
+- **$n_1, n_2, \ldots, n_k$:** Number of each type of identical object
 
 **Example:** How many distinct arrangements of the letters in "MISSISSIPPI"?
 
 - Total letters: 11
 - M: 1, I: 4, S: 4, P: 2
 
-11! / (1! × 4! × 4! × 2!) = 39916800 / (1 × 24 × 24 × 2) = 34650
+$$\frac{11!}{1! \, 4! \, 4! \, 2!} = \frac{39916800}{1 \times 24 \times 24 \times 2} = 34650$$
 

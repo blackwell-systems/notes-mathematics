@@ -27,12 +27,14 @@ Ex:
 
 **Disadvantages:**
 
-**Complexity:** Symbolic solutions can be very complex, especially for
-higher-degree polynomials.
+-   **Complexity:** Symbolic solutions can be very complex, especially
+    for higher-degree polynomials.
 
-**Limitations:** *General symbolic solutions are not available for
-polynomials of degree five or higher due to the **Abel-Ruffini
-theorem**.*
+-   **Limitations:** By the **Abel-Ruffini theorem**, no general
+    solution *in radicals* exists for polynomials of degree five or
+    higher. (Specific quintics can still be solvable in radicals, and
+    non-radical methods such as elliptic or hypergeometric functions can
+    express the roots.)
 
 ## Numerical Methods
 
@@ -42,38 +44,32 @@ given as approximate numerical values.
 
 Ex:
 
--   **Newton's Method**
+-   **Newton's Method:** Starting from an initial guess, iterate
+    $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$, following the tangent line
+    to the function down to where it crosses the axis. It converges very
+    quickly (quadratically) near a simple root but requires the
+    derivative.
 
--   **Bisection Method**
+-   **Bisection Method:** Given an interval $[a, b]$ on which $f$ changes
+    sign, repeatedly halve the interval and keep the half where the sign
+    change persists. The Intermediate Value Theorem guarantees a root in
+    that half, so the method always converges (though slowly).
 
--   **Secant Method**
+-   **Secant Method:** Like Newton's method, but it approximates the
+    derivative with a finite difference between the two most recent
+    points, $x_{n+1} = x_n - f(x_n)\frac{x_n - x_{n-1}}{f(x_n) - f(x_{n-1})}$.
+    This avoids computing $f'$ at the cost of slightly slower
+    convergence.
 
-  -----------------------------------------------------------------------
-  Aspect            Symbolic Methods      Numerical Methods
-  ----------------- --------------------- -------------------------------
-  Nature of         Exact, closed-form    Approximate, iterative
-  Solution          solutions             solutions
+## Comparison
 
-  Precision         Exact (subject to     Approximate (with controllable
-                    algebraic             accuracy)
-                    manipulation)         
-
-  Applicability     Limited to certain    Broad applicability to various
-                    classes of problems   types of problems
-
-  Complexity        Can be complex,       Iterative, often simpler
-                    especially for higher algorithms
-                    degrees               
-
-  Convergence       Guaranteed for        Convergence depends on the
-                    solvable forms        method and problem
-
-  Insight           Provides deeper       Practical and efficient for
-                    mathematical          computational tasks
-                    understanding         
-
-  Example           **Quadratic formula,  **Newton's method, bisection
-  Techniques        factoring, Cardano's  method, secant method**
-                    method**              
-  -----------------------------------------------------------------------
+| Aspect | Symbolic Methods | Numerical Methods |
+| --- | --- | --- |
+| Nature of Solution | Exact, closed-form solutions | Approximate, iterative solutions |
+| Precision | Exact (subject to algebraic manipulation) | Approximate (with controllable accuracy) |
+| Applicability | Limited to certain classes of problems | Broad applicability to various types of problems |
+| Complexity | Can be complex, especially for higher degrees | Iterative, often simpler algorithms |
+| Convergence | Guaranteed for solvable forms | Convergence depends on the method and problem |
+| Insight | Provides deeper mathematical understanding | Practical and efficient for computational tasks |
+| Example Techniques | Quadratic formula, factoring, Cardano's method | Newton's method, bisection method, secant method |
 

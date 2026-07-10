@@ -169,11 +169,13 @@ $$
 
 Differential entropy can be negative (unlike discrete entropy), which makes it slightly less intuitive. However, differences in differential entropy are always meaningful.
 
-**Entropy of the normal distribution.** For a Gaussian $X \sim \mathcal{N}(\mu, \sigma^2)$:
+**Entropy of the normal distribution.** For a Gaussian $X \sim \mathcal{N}(\mu, \sigma^2)$, using the natural log (so the answer is in nats, matching the base of the definition above):
 
 $$
-h(X) = \frac{1}{2} \log_2(2\pi e \sigma^2)
+h(X) = \frac{1}{2} \ln(2\pi e \sigma^2)
 $$
+
+Using $\log_2$ instead gives the same expression measured in bits.
 
 This result has a remarkable consequence: **the normal distribution has the maximum entropy among all distributions with a given mean and variance.** In other words, if all you know about a distribution is its mean and variance, the Gaussian is the "least informative" assumption you can make. It adds no extra structure beyond what the constraints require.
 
@@ -238,6 +240,8 @@ Here $P$ is typically the "true" or "reference" distribution and $Q$ is an appro
 ### What It Measures
 
 KL divergence quantifies the **extra cost** (in bits or nats) of encoding data from distribution $P$ using a code optimized for distribution $Q$. If $Q$ perfectly matches $P$, there is no extra cost and $D_{\text{KL}} = 0$. The worse $Q$ approximates $P$, the higher the divergence.
+
+As with entropy, the base of the logarithm sets the unit: $\log_2$ gives the extra cost in bits, $\ln$ gives it in nats. The "extra bits" phrasing above assumes base 2.
 
 ### Properties
 
@@ -311,7 +315,7 @@ $$
 H(P, Q) = -\sum_{x} P(x) \log Q(x)
 $$
 
-Cross-entropy measures the average number of bits needed to encode data from $P$ when using a code optimized for $Q$.
+Cross-entropy measures the average number of bits needed to encode data from $P$ when using a code optimized for $Q$. Like entropy and KL divergence, it inherits the base of the logarithm: $\log_2$ yields bits, $\ln$ yields nats.
 
 ### Relationship to Entropy and KL Divergence
 
@@ -358,6 +362,8 @@ $$
 $$
 
 The loss is much higher for the confident wrong prediction, which is exactly the behavior we want: the loss function strongly penalizes confident mistakes.
+
+This example uses $\log_2$ so the loss reads in bits, but ML frameworks compute the loss in nats (natural log); the base only rescales the loss by a constant factor and does not change where the minimum lies.
 
 **Connection to the rest of the site:** Cross-entropy loss is discussed from the perspective of maximum likelihood estimation on the [Statistics](./statistics) page. The derivation here shows why MLE and cross-entropy minimization are the same thing: both minimize $D_{\text{KL}}(P_{\text{data}} \| Q_\theta)$.
 

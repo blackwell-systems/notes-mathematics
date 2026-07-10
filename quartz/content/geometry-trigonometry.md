@@ -130,6 +130,8 @@ The **reference angle** is the acute angle formed between the terminal side of a
 | III | $180° < \theta < 270°$ | $\alpha = \theta - 180°$ |
 | IV | $270° < \theta < 360°$ | $\alpha = 360° - \theta$ |
 
+The strict inequalities leave out the **quadrantal angles** ($0°$, $90°$, $180°$, $270°$), whose terminal sides lie on an axis rather than inside a quadrant. By convention their reference angles are taken to be $0°$ (for $0°$ and $180°$, whose terminal sides lie along the $x$-axis) or $90°$ (for $90°$ and $270°$, whose terminal sides lie along the $y$-axis).
+
 **Worked example.** Find the reference angle for $\theta = 230°$.
 
 Since $230°$ is in Quadrant III: $\alpha = 230° - 180° = 50°$.
@@ -657,6 +659,8 @@ $$
 | $\sec\theta = \frac{1}{\cos\theta}$ | Reciprocal of cosine | Undefined where $\cos\theta = 0$ |
 | $\cot\theta = \frac{\cos\theta}{\sin\theta}$ | Reciprocal of tangent | Undefined where $\sin\theta = 0$ |
 
+**A note on defining $\cot\theta$:** The primary definition is $\cot\theta = \frac{\cos\theta}{\sin\theta}$. The alternate form $\cot\theta = \frac{1}{\tan\theta}$ agrees with it everywhere except where $\tan\theta$ is undefined. For example, at $\theta = \frac{\pi}{2}$, $\tan\theta$ is undefined so $\frac{1}{\tan\theta}$ has no value, yet $\cot\frac{\pi}{2} = \frac{\cos(\pi/2)}{\sin(\pi/2)} = \frac{0}{1} = 0$. Always fall back to the quotient definition to resolve such points.
+
 ### Even/Odd Properties
 
 - $\cos(-\theta) = \cos\theta$ (cosine is **even**: symmetric about the $y$-axis)
@@ -948,7 +952,7 @@ $$
 \sin\left(\arccos\frac{3}{5}\right) = \sin\theta = \frac{4}{5}
 $$
 
-> **CS connection.** The $\text{atan2}(y, x)$ function, available in most programming languages, returns the angle whose tangent is $\frac{y}{x}$, correctly handling all four quadrants. It is essential for computing angles in 2D graphics, robotics, and navigation.
+> **CS connection.** The $\text{atan2}(y, x)$ function, available in most programming languages, returns the correct angle in $(-\pi, \pi]$ to the point $(x, y)$. It uses the **signs of both $x$ and $y$** to place the angle in the right quadrant, which plain $\arctan\frac{y}{x}$ cannot do: $\arctan$ only sees the ratio $\frac{y}{x}$ (so it collapses opposite quadrants together and returns values only in $(-\frac{\pi}{2}, \frac{\pi}{2})$). By reading both signs, $\text{atan2}$ covers all four quadrants unambiguously, which is why it is essential for computing angles in 2D graphics, robotics, and navigation.
 
 ## Solving Trigonometric Equations
 

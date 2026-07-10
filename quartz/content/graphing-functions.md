@@ -173,11 +173,12 @@ When graphing any function, identify these key features:
 **Key Features:**
 - **Vertical asymptotes:** Where $Q(x) = 0$ (denominator zero)
 - **Holes:** Where both $P(x)$ and $Q(x)$ have common factor
-- **Horizontal asymptote:** Compare degrees of $P$ and $Q$
-  - $\deg(P) < \deg(Q)$: $y = 0$
-  - $\deg(P) = \deg(Q)$: $y = \frac{a_n}{b_n}$ (ratio of leading coefficients)
-  - $\deg(P) > \deg(Q)$: No horizontal asymptote (may have oblique)
-- **Oblique asymptote:** If $\deg(P) = \deg(Q) + 1$, use polynomial division
+- **End behavior:** Compare degrees of $P$ and $Q$
+  - $\deg(P) < \deg(Q)$: horizontal asymptote $y = 0$
+  - $\deg(P) = \deg(Q)$: horizontal asymptote $y = \frac{a_n}{b_n}$ (ratio of leading coefficients)
+  - $\deg(P) = \deg(Q) + 1$: no horizontal asymptote; there is an **oblique (slant) asymptote** instead
+  - $\deg(P) > \deg(Q) + 1$: no horizontal or oblique asymptote (the end behavior is polynomial/curvilinear, following the quotient of the division)
+- **Oblique asymptote:** An oblique asymptote occurs only when the numerator degree exceeds the denominator degree by exactly $1$ (that is, $\deg(P) = \deg(Q) + 1$). Find it by polynomial division: the linear quotient is the asymptote.
 
 **Graphing Steps:**
 1. Factor numerator and denominator completely

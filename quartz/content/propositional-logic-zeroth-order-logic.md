@@ -30,17 +30,23 @@ classical truth-functional propositional logic
 When studying logic and mathematics, it is important to understand what
 truth is and what forms of truth exist.
 
-In the study of philosophy, there are 6 distinct types of truth:
+Philosophers describe truth using several classifications. It is tempting to list them as a flat catalog of "types," but the standard terms actually come in pairs, each drawing a different distinction along a separate **axis**. A single true statement is usually classified on more than one axis at once. The three classical axes are:
 
-- **Logical Truth**: Always true due to logical structure; used in logic and math
-- **Empirical Truth**: True based on observation; used in science and daily life
-- **Necessary Truth**: True in all possible worlds due to inherent nature; used in philosophy and logic
-- **Analytic Truth:** True by definition; used in conceptual analysis
-- **Synthetic Truth:** True based on actual facts; used in empirical sciences
-- **Contingent Truth:** True under specific conditions; used in everyday reasoning and empirical studies
+- **Modal axis (necessary vs. contingent):** Is the statement true in *all* possible worlds, or only in *some*?
+  - **Necessary Truth:** true in every possible world; it could not have been false (e.g. "$2 + 2 = 4$").
+  - **Contingent Truth:** true in the actual world but false in some other possible world; it could have been otherwise (e.g. "the Eiffel Tower is in Paris").
 
-In propositional and first order logic, we are only concerned with
-**logical truths** and **necessary truths**.
+- **Epistemic/semantic axis (analytic vs. synthetic):** Does the statement's truth follow from the meanings of its words alone, or does it also depend on how the world is?
+  - **Analytic Truth:** true purely by virtue of the meanings of the terms (e.g. "all bachelors are unmarried").
+  - **Synthetic Truth:** true partly because of how the world is, not by meaning alone (e.g. "the cat is on the mat").
+
+- **Source-of-knowledge axis (logical/a priori vs. empirical):** How do we come to know it?
+  - **Logical Truth:** true solely in virtue of logical form, knowable without observing the world (e.g. "$P \lor \neg P$").
+  - **Empirical Truth:** known through observation or experiment (e.g. "water boils at 100°C at sea level").
+
+Because these axes are separate, one statement can be labeled on each: "the Eiffel Tower is in Paris" is contingent, synthetic, and empirical, whereas "$2 + 2 = 4$" is necessary, and (on the traditional view) analytic and logical. The relationships between the axes are themselves philosophically contested (for example, whether every necessary truth is analytic), so these labels should be read as a map of distinctions rather than a settled hierarchy.
+
+In propositional and first-order logic we are concerned only with **logical truths** and **necessary truths**, since logic studies what follows from form alone, independent of contingent empirical facts.
 
 ### Logical Truth
 
@@ -157,7 +163,13 @@ experiments.
 
 ### Synthetic Truth
 
-**Synthetic Truth:**
+**Synthetic Truth:** A synthetic truth is a statement whose truth depends on how the world actually is, not on the meanings of its words alone. Where an analytic truth can be verified just by understanding the terms, a synthetic statement adds genuine information about reality, so confirming it requires looking beyond the definitions.
+
+Example: "The cat is on the mat." Understanding the words "cat," "on," and "mat" is not enough to tell whether the statement is true; you have to check the actual situation.
+
+**Contrast with analytic truth:** "All bachelors are unmarried" is analytic, since it is guaranteed by the definition of "bachelor" and needs no observation. "The cat is on the mat" is synthetic, since its truth is settled by the world rather than by meaning.
+
+**Relation to the other axes:** Most synthetic truths we meet are also contingent and empirical (they could have been otherwise, and we learn them by observation). But the two axes are independent: some philosophers hold that there are **synthetic necessary truths**, statements not true by definition yet true in every possible world. The standard example is "Water is H2O," discussed under Necessary Truth below. So "synthetic" tells you *why* a statement is true (it depends on the world, not on meaning), while "necessary" versus "contingent" tells you *whether it could have been false*; a statement can be synthetic on either side of that second question.
 
 ### Empirical Truth
 
@@ -537,8 +549,7 @@ operands are true.
 
 ![](./media/image9.png)
 
-!Venn diagram of Logical
-conjunction](./media/image10.png) ![](./media/image11.png)
+![Venn diagram of logical conjunction: only the overlapping region of A and B is shaded](./media/image10.png) ![Truth table for logical conjunction P AND Q](./media/image11.png)
 
 #### Disjunction
 
@@ -569,12 +580,11 @@ ambiguous when both operands are true.
 describing **XOR** are "one or the other but not both", "either one
 or the other", and "A or B, but not A and B".
 
-Symbolically, XOR is expressed as: $\mathbf{\oplus , ≢}$**, ...**
+Symbolically, XOR is expressed as: $\oplus$ (also written $\not\equiv$).
 
 ![](./media/image14.png)
 
-!Venn diagram of Exclusive
-or](./media/image15.png)
+![Venn diagram of exclusive or: the two non-overlapping regions of A and B are shaded, the overlap is not](./media/image15.png)
 
 #### Conditional Statement / Material Condition / Material Implication / Hypothetical Proposition
 
@@ -850,6 +860,44 @@ CNF:
 
 **Relationship:** Every proposition can be expressed in both DNF and CNF (though they may look different).
 
+## Syntax and Semantics
+
+So far we have written formulas and reasoned about when they are true. It is worth separating two questions that are easy to blur together: which strings even *count* as formulas (**syntax**), and what it *means* for a formula to be true (**semantics**). Keeping them apart is what lets us later state precisely how symbolic proof relates to truth.
+
+**Well-formed formula (wff):** A well-formed formula is a string that is grammatically legal in the language of propositional logic. The formation rules are:
+
+1. Every atomic proposition (a propositional variable such as $P$, $Q$, $R$) is a wff.
+2. If $\phi$ is a wff, then $\neg\phi$ is a wff.
+3. If $\phi$ and $\psi$ are wffs, then $(\phi \wedge \psi)$, $(\phi \vee \psi)$, $(\phi \to \psi)$, and $(\phi \leftrightarrow \psi)$ are wffs.
+4. Nothing else is a wff.
+
+So $(P \to (Q \vee \neg R))$ is a wff, while a string like $P \to \wedge Q$ is not. Syntax is purely about shape; it says nothing about truth.
+
+**Valuation (interpretation):** Semantics enters when we assign truth values. A **truth valuation** (or **interpretation**) is a function $v$ that assigns each atomic proposition a value in $\{T, F\}$. Given a valuation, the truth value of any compound wff is computed from its parts using the truth tables of the connectives. A truth table is just the display of a wff's value under every possible valuation.
+
+**Semantic entailment ( ⊨ ):** We write
+
+$$
+\Gamma \vDash \phi
+$$
+
+to mean that $\phi$ is a **semantic consequence** of the set of premises $\Gamma$: every valuation that makes all of $\Gamma$ true also makes $\phi$ true. This is a statement about *truth in all interpretations*. When $\Gamma$ is empty, $\vDash \phi$ says $\phi$ is true under every valuation, that is, $\phi$ is a tautology.
+
+**Syntactic derivability ( ⊢ ):** We write
+
+$$
+\Gamma \vdash \phi
+$$
+
+to mean that $\phi$ can be **derived** from $\Gamma$ by a finite sequence of steps using the rules of inference (introduced below), without ever consulting truth values. This is a purely *syntactic*, symbol-pushing notion: it is about what can be written down according to the rules, not about what is true.
+
+**How the two connect (soundness and completeness):** The turnstiles $\vDash$ and $\vdash$ come from opposite directions, one semantic and one syntactic, yet for propositional logic they pick out exactly the same pairs $(\Gamma, \phi)$. Two metatheorems make this precise:
+
+- **Soundness:** if $\Gamma \vdash \phi$, then $\Gamma \vDash \phi$. Anything we can *prove* is genuinely *true* in every model, so the rules never derive a falsehood.
+- **Completeness:** if $\Gamma \vDash \phi$, then $\Gamma \vdash \phi$. Anything that is *true* in every model can in fact be *proved*, so the rules are strong enough to capture all valid reasoning.
+
+Together they give $\Gamma \vdash \phi$ if and only if $\Gamma \vDash \phi$, which is why we can move freely between proving arguments and checking them with truth tables. The sections below use $\vdash$ for arguments and rules of inference; this equivalence is what justifies also testing those arguments semantically with truth tables.
+
 ## Logical Arguments
 
 **Logical Argument:** A set of propositions consisting of premises and a conclusion.
@@ -864,7 +912,7 @@ Premise n
 Conclusion
 ```
 
-**Notation:** $P_1, P_2, \ldots, P_n \vdash Q$ (premises entail conclusion)
+**Notation:** $P_1, P_2, \ldots, P_n \vdash Q$ (the conclusion $Q$ is derivable from the premises). By soundness and completeness (see Syntax and Semantics above), this holds exactly when $P_1, \ldots, P_n \vDash Q$, that is, when every valuation making all premises true also makes $Q$ true.
 
 ### Validity vs Soundness
 

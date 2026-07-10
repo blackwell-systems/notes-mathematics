@@ -98,11 +98,19 @@ The intuition: once you know $B$ happened, the sample space shrinks to just the 
 
 ### Independence
 
-**Independent events:** Two events $A$ and $B$ are independent if knowing one occurred gives no information about the other:
+**Independent events:** Two events $A$ and $B$ are independent if their joint probability factors into the product of their individual probabilities:
 
 $$
-P(A|B) = P(A) \quad \text{(equivalently, } P(A \cap B) = P(A) \cdot P(B)\text{)}
+P(A \cap B) = P(A) \cdot P(B)
 $$
+
+This is the fundamental definition, and it requires no positivity assumption. When $P(B) > 0$, dividing both sides by $P(B)$ gives the intuitive consequence
+
+$$
+P(A|B) = P(A),
+$$
+
+which says that knowing $B$ occurred gives no information about $A$.
 
 Coin flips are independent: knowing the first flip was heads tells you nothing about the second flip. Drawing cards without replacement is not independent: removing a card changes the remaining deck.
 
@@ -135,7 +143,7 @@ $$
 
 ### Worked Example: Medical Testing
 
-A disease affects 1% of the population. A test for the disease is 95% accurate: it correctly identifies 95% of sick people (sensitivity) and correctly identifies 90% of healthy people (specificity). If you test positive, what is the probability you actually have the disease?
+A disease affects 1% of the population. A test for the disease has 95% sensitivity (correctly flags 95% of sick people) and 90% specificity (correctly clears 90% of healthy people). If you test positive, what is the probability you actually have the disease?
 
 **Define events:**
 
@@ -167,8 +175,6 @@ $$
 **Result:** Even with a positive test, there is only about an 8.8% chance you have the disease. This is counter-intuitive but makes sense: the disease is rare (1%), so most positive tests come from the 99% of healthy people who occasionally test false-positive.
 
 **Why this matters for ML:** Bayesian reasoning is the foundation of Bayesian inference, which powers methods like Bayesian neural networks, Gaussian processes, and spam filtering. The key insight is that prior probability matters. A model that ignores base rates will make bad predictions.
-
-**Research connection:** Conditional probability is the mathematical framework for understanding attention. An attention weight $\alpha_{ij}$ is the model's learned estimate of how relevant position $j$ is to position $i$, conditioned on the input sequence. When BPE merges destroy delimiter boundaries, the conditioning information changes: the model conditions on merged tokens instead of clean structural boundaries, producing fundamentally different attention distributions (14% vs 54% delimiter attention).
 
 ## Law of Total Probability
 
@@ -399,6 +405,8 @@ The $\binom{k-1}{r-1}$ factor counts the number of ways to arrange $r - 1$ succe
 
 - $E[X] = r/p$
 - $\text{Var}(X) = r(1-p)/p^2$
+
+**A note on parameterization:** This page counts the total number of *trials* $X$ (which is at least $r$), giving $E[X] = r/p$. Some texts instead count only the number of *failures* before the $r$th success, a variable $Y = X - r$ with $E[Y] = r(1-p)/p$. Both conventions are correct; if you are cross-checking a formula against another source, confirm which quantity it is counting before concluding there is an error.
 
 The geometric distribution is the special case $r = 1$: waiting for the first success.
 
@@ -1061,11 +1069,13 @@ Variance can never be negative, which follows directly from Jensen's inequality.
 
 **Central Limit Theorem (CLT):** The sum (or average) of many independent random variables is approximately normally distributed, regardless of the original distribution, as long as the sample size is large enough.
 
-Formally, if $X_1, X_2, \ldots, X_n$ are i.i.d. with mean $\mu$ and variance $\sigma^2$, then:
+Formally, if $X_1, X_2, \ldots, X_n$ are i.i.d. with mean $\mu$ and finite variance $0 < \sigma^2 < \infty$, then:
 
 $$
-\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \to N(0, 1) \quad \text{as } n \to \infty
+\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text{as } n \to \infty
 $$
+
+where $\xrightarrow{d}$ denotes convergence in distribution. The finite-variance condition $0 < \sigma^2 < \infty$ is load-bearing: distributions with infinite variance, such as the Cauchy distribution, have no CLT.
 
 ![Central Limit Theorem: sample means from a uniform distribution become normal](./media/clt-demonstration.png)
 

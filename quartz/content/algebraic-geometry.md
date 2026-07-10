@@ -302,7 +302,7 @@ $$
 K(g(u)) = u_1^{2k_1} u_2^{2k_2} \cdots u_d^{2k_d}
 $$
 
-in the new coordinates $u = (u_1, \ldots, u_d)$, where $g$ is the blowup map and $k_1, \ldots, k_d$ are positive rational numbers called the **multiplicities**. The Jacobian of the blowup map introduces an additional factor:
+in the new coordinates $u = (u_1, \ldots, u_d)$, where $g$ is the blowup map and $k_1, \ldots, k_d$ are non-negative integers $k_j$ (some may be zero) called the **multiplicities**. (After a monomial resolution these exponents are integers; the ratios $(h_j + 1)/(2k_j)$ that follow are rational.) The Jacobian of the blowup map introduces an additional factor:
 
 $$
 |J_g(u)| = u_1^{h_1} u_2^{h_2} \cdots u_d^{h_d}
@@ -326,7 +326,7 @@ $$
 \lambda = \min_j \frac{h_j + 1}{2k_j}
 $$
 
-where the minimum is taken over all coordinate directions $j$ and over all possible resolutions. (The precise definition involves a minimum over all log resolutions of the pair $(K(w), \varphi(w) \, dw)$, but the formula above captures the essential idea.)
+where the minimum is taken over all coordinate directions $j$, across the charts covering the exceptional set of a single resolution. Crucially, the resulting value $\lambda$ is a **resolution invariant**: although the exponents $k_j$ and $h_j$ depend on which resolution you choose, the minimal ratio does not. This invariance is what makes $\lambda$ well-defined. (Equivalently and intrinsically, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z} \varphi(w) \, dw$, a definition that never refers to a resolution at all.)
 
 In simpler terms: after you resolve the singularity and write the integral in normal form, the integral's leading asymptotic behavior as $n \to \infty$ is controlled by the "worst" (smallest) exponent ratio. That smallest ratio is $\lambda$.
 
@@ -344,9 +344,11 @@ The RLCT is sometimes called the **learning coefficient** because it controls th
 
 ### The Key Insight for Deep Learning
 
-For neural networks, $\lambda$ can be dramatically smaller than $d/2$. A network with $d = 10{,}000$ parameters might have $\lambda = 50$, meaning it behaves like a model with only 100 effective parameters. This is **why neural networks generalize well despite being massively overparameterized**: the singularity structure of the parameter space makes the effective complexity far lower than the raw parameter count.
+For neural networks, $\lambda$ can be dramatically smaller than $d/2$. Illustratively, a network with $d = 10{,}000$ parameters might have $\lambda = 50$, so that it behaves like a model with only 100 effective parameters (this figure is schematic, not a measured value). SLT gives a principled reason why an overparameterized model **can** generalize despite its raw parameter count: the singularity structure of the parameter space can make the effective complexity $\lambda$ far below $d/2$.
 
-Classical model selection criteria like BIC assume $\lambda = d/2$ (no singularity). They would predict that a 10,000-parameter network should overfit terribly. SLT, by correctly accounting for the singularity structure, explains why it does not.
+A caveat on scope: these results are established for the Bayesian regime, under the realizability assumption (the true distribution lies in the model class, so $W_0$ is non-empty) and for specific choices of prior. They should be read as an explanation for why overparameterized models *can* generalize, not a blanket guarantee that any given trained network will.
+
+Classical model selection criteria like BIC assume $\lambda = d/2$ (no singularity). Under that assumption they would predict that a 10,000-parameter network should overfit terribly. SLT, by correctly accounting for the singularity structure, offers an explanation for why (in this regime) it need not.
 
 ## Watanabe's Main Theorem
 
@@ -363,7 +365,7 @@ where:
 - $n$ is the number of data points.
 - $L_n(w_0)$ is the training loss at the optimal parameters.
 - $\lambda$ is the RLCT, the effective model complexity.
-- $m$ is the **multiplicity**, the number of "independent directions" along which the singularity has the worst (smallest) exponent $\lambda$.
+- $m$ is the **multiplicity**: the order of the pole of the zeta function at $\lambda$, equal to the number of coordinate directions attaining the minimal ratio.
 - $O_p(1)$ denotes a term that is bounded in probability.
 
 ### Connection to Classical Theory
@@ -382,13 +384,19 @@ Watanabe also showed that two computable quantities approximate the free energy:
 
 **WAIC** (Widely Applicable Information Criterion): a corrected training loss that estimates the generalization error. Unlike AIC, it is valid even for singular models.
 
-**WBIC** (Widely Applicable Bayesian Information Criterion): defined as
+**WBIC** (Widely Applicable Bayesian Information Criterion): defined as the posterior expectation of the negative log-likelihood at inverse temperature $\beta = 1/\ln n$,
 
 $$
-\text{WBIC} = \frac{1}{n} \sum_{i=1}^n E_w\left[ \log p(x_i | w) \right]
+\text{WBIC} = E_w^{\beta}\left[ -\sum_{i=1}^n \log p(x_i | w) \right] = E_w^{\beta}\left[ n L_n(w) \right]
 $$
 
-where the expectation is over the posterior at inverse temperature $\beta = 1/\ln n$. Watanabe proved that WBIC $\approx \lambda \ln n$, providing a practical way to estimate the RLCT from data.
+where the expectation is over the tempered posterior $\propto \exp(-\beta n L_n(w)) \varphi(w)$. Watanabe proved that
+
+$$
+\text{WBIC} = n L_n(\hat{w}) + \lambda \ln n + o(\log n)
+$$
+
+so the $\lambda \ln n$ term is the leading correction beyond the loss term. This provides a practical way to estimate the RLCT from data.
 
 These connections are developed further in [Bayesian inference](./bayesian-inference).
 

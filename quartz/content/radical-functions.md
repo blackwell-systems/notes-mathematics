@@ -263,8 +263,10 @@ Where:
 - **n:** The index of the root (n = 2 for square root, n = 3 for cube root, etc.)
 - **a:** Vertical stretch/compression
 - **b:** Horizontal stretch/compression
-- **c:** Horizontal shift (affects domain)
+- **c:** Affects horizontal position (the actual shift is $-c/b$, since the radicand is zero when $x = -c/b$)
 - **d:** Vertical shift
+
+Note that $c$ is not the horizontal shift by itself. Factoring out $b$ gives $bx + c = b\left(x + \frac{c}{b}\right)$, so the graph shifts by $-c/b$. The equivalent form $f(x) = a\sqrt[n]{b(x - h)} + k$ used later makes this explicit, with $h = -c/b$ being the true horizontal shift.
 
 ## Square Root Function
 

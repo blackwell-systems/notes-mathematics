@@ -45,7 +45,7 @@ Both views are explained in detail later on this page.
 
 ### Transpose: Flipping Between Them
 
-**The transpose** $T$ flips a column vector into a row vector and vice versa. If $x = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ is a column vector, then $x^T = \begin{bmatrix} 2 & 3 \end{bmatrix}$ is the same numbers written as a row vector.
+**The transpose,** written $A^T$ (or $x^T$), flips a column vector into a row vector and vice versa. If $x = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ is a column vector, then $x^T = \begin{bmatrix} 2 & 3 \end{bmatrix}$ is the same numbers written as a row vector.
 
 For matrices, transpose flips rows and columns: row 1 becomes column 1, row 2 becomes column 2, etc.
 

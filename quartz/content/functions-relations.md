@@ -37,8 +37,7 @@ how elements from the **domain** are associated with elements in the
 **codomain**.
 
 **Definition**: A relation **𝑅** from set **𝐴** to set **𝐵** is a
-[subset](#subset) of the Cartesian
-product](#ordered-pairs-kuratowskis-definition) **𝐴×𝐵**, which means
+subset of the Cartesian product **𝐴×𝐵**, which means
 
 $R \subseteq A \times B$
 
@@ -157,8 +156,8 @@ $$
 **Example:** The "less than or equal to" relation (≤) on real numbers is antisymmetric:
 - If a ≤ b and b ≤ a, then a = b
 
-**Non-example:** The "divides" relation on positive integers is NOT antisymmetric:
-- 2 divides 4 and 4 does not divide 2 (so it's not even close to being antisymmetric in the traditional sense, but actually it IS antisymmetric because if a|b and b|a, then a=b for positive integers)
+**Non-example:** The relation "x and y have the same absolute value" on integers is NOT antisymmetric:
+- $(2,-2)$ and $(-2,2)$ both hold (since $|2| = |-2|$), but $2 \neq -2$
 
 #### Asymmetric Property
 
@@ -490,8 +489,8 @@ these three classes.
 - Composition is generally **not commutative:** $S \circ R \neq R \circ S$
 
 **Composition and Relation Properties:**
-- If **R** and **S** are both **transitive**, $S \circ R$ may not be transitive
-- If **R** is **reflexive**, then $R \circ R = R$ (only if R is also transitive)
+- If **R** and **S** are both **transitive**, $S \circ R$ may not be transitive. For example, let $R = \{(1,2),(3,4)\}$ and $S = \{(2,3),(4,5)\}$; both are transitive (no two pairs chain together). But $S \circ R = \{(1,3),(3,5)\}$, which contains $(1,3)$ and $(3,5)$ yet not $(1,5)$, so it is not transitive
+- If **R** is **reflexive** and **transitive**, then $R \circ R = R$
 
 ### Closure of Relations
 
@@ -738,8 +737,8 @@ The **preimage** of a set **B** under a function **f** is the set of all
 elements in the domain **X** that map to elements in **B** in the
 codomain **Y**.
 
-One should not be mislead by the notation into thinking of the preimage
-as having to do with an inverse of **f**. The preimage is define whether
+One should not be misled by the notation into thinking of the preimage
+as having to do with an inverse of **f**. The preimage is defined whether
 f has an inverse or not. **Note that however** if f does have an
 inverse, then the preimage is exactly the image of Y under the inverse
 map.

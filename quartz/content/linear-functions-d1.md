@@ -31,6 +31,8 @@ measured.*
 
 Linear functions have a maximum degree of 1.
 
+In the standard sense, a linear function has degree exactly 1 (a nonzero slope). A nonzero constant function (degree 0) is a boundary case: its graph is still a straight line, but it is sometimes excluded from the definition. The rest of this page assumes the non-constant case unless noted otherwise.
+
 When graphed, a linear function will create a straight line.
 
 ![](./media/image57.png)

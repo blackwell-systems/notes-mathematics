@@ -22,9 +22,9 @@ There are 10 possible teams. The key insight is: **when order does not matter, d
 
 **Combination Formula (without repetition):**
 
-C(n,r) = (n choose r) = n! / (r!(n - r)!)
+$$C(n,r) = \binom{n}{r} = \frac{n!}{r!\,(n-r)!}$$
 
-Alternate notation: ₙCᵣ or Cᵣⁿ or (n choose r)
+Alternate notation: $_nC_r$ or $C_r^n$ or $\binom{n}{r}$
 
 **Where:**
 
@@ -34,37 +34,37 @@ Alternate notation: ₙCᵣ or Cᵣⁿ or (n choose r)
 
 **Relationship to Permutations:**
 
-C(n,r) = P(n,r) / r!
+$$C(n,r) = \frac{P(n,r)}{r!}$$
 
 Combinations are permutations divided by the number of ways to arrange r items, because order doesn't matter.
 
 **Examples:**
 
 1. **How many ways can you choose 3 books from a shelf of 5 books?**
-   
-   C(5,3) = 5! / (3! × 2!) = 120 / (6 × 2) = 10
+
+   $$C(5,3) = \frac{5!}{3!\,2!} = \frac{120}{6 \times 2} = 10$$
 
 2. **A pizza shop offers 10 toppings. How many 3-topping pizzas can you make?**
-   
-   C(10,3) = 10! / (3! × 7!) = (10 × 9 × 8) / (3 × 2 × 1) = 120
+
+   $$C(10,3) = \frac{10!}{3!\,7!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = 120$$
 
 3. **A committee of 4 people must be formed from a group of 12. How many ways?**
-   
-   C(12,4) = 12! / (4! × 8!) = 495
+
+   $$C(12,4) = \frac{12!}{4!\,8!} = 495$$
 
 ## Properties of Combinations
 
 **Symmetry Property:**
 
-(n choose r) = (n choose n-r)
+$$\binom{n}{r} = \binom{n}{n-r}$$
 
 Choosing r items is the same as choosing which (n-r) items to leave out.
 
-**Example:** (5 choose 2) = (5 choose 3) = 10
+**Example:** $\binom{5}{2} = \binom{5}{3} = 10$
 
 **Pascal's Identity:**
 
-(n choose r) = (n-1 choose r-1) + (n-1 choose r)
+$$\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$$
 
 This forms Pascal's Triangle:
 
@@ -81,13 +81,13 @@ Each number is the sum of the two numbers above it.
 
 **Connection to Binomial Theorem:**
 
-(n choose r) represents the coefficient of xʳ in the expansion of (1+x)ⁿ.
+$\binom{n}{r}$ represents the coefficient of $x^r$ in the expansion of $(1+x)^n$.
 
 ## Combinations with Repetition
 
 **Formula:** When items can be selected more than once:
 
-C(n+r-1, r) = (n+r-1)! / (r!(n-1)!)
+$$C(n+r-1,\, r) = \binom{n+r-1}{r} = \frac{(n+r-1)!}{r!\,(n-1)!}$$
 
 Where:
 - **n:** Number of different types of items
@@ -95,16 +95,16 @@ Where:
 
 **Example:** How many ways can you select 3 donuts from 5 types if you can choose the same type multiple times?
 
-C(5+3-1, 3) = C(7,3) = 7! / (3! × 4!) = 35
+$$C(5+3-1,\, 3) = C(7,3) = \frac{7!}{3!\,4!} = 35$$
 
 ## Permutation vs Combination Summary
 
 | Aspect | Permutation | Combination |
 |--------|-------------|-------------|
 | **Order matters?** | Yes | No |
-| **Formula** | n!/(n-r)! | n!/(r!(n-r)!) |
+| **Formula** | $\frac{n!}{(n-r)!}$ | $\frac{n!}{r!\,(n-r)!}$ |
 | **Example** | Arranging books | Selecting books |
-| **Relationship** | C(n,r) = P(n,r)/r! | P(n,r) = C(n,r) × r! |
+| **Relationship** | $C(n,r) = \frac{P(n,r)}{r!}$ | $P(n,r) = C(n,r) \times r!$ |
 
 **Key Question to Ask:** Does the order of selection matter?
 

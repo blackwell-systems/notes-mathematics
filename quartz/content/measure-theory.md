@@ -38,7 +38,7 @@ This integral is over the parameter space, with respect to Lebesgue measure. Nea
 
 ### Which Sets Can We Measure?
 
-Before assigning sizes to sets, we need to decide which sets are eligible for measurement. You might think: just measure all subsets. But a famous result (related to the Banach-Tarski paradox) shows this is impossible. If you try to assign a consistent "length" to every subset of $\mathbb{R}$, you will run into contradictions. Some subsets are so pathological that no consistent size assignment exists.
+Before assigning sizes to sets, we need to decide which sets are eligible for measurement. You might think: just measure all subsets. But Vitali's construction shows this is impossible. Using the Axiom of Choice, one can build a subset of $\mathbb{R}$ (a Vitali set) that cannot be assigned a length consistent with translation invariance and countable additivity: if you try to assign a consistent "length" to every subset of $\mathbb{R}$, you will run into contradictions. Some subsets are so pathological that no consistent size assignment exists. (A related phenomenon in $\mathbb{R}^3$ is the Banach-Tarski paradox, where a solid ball is decomposed into finitely many non-measurable pieces and reassembled into two copies of itself.)
 
 The solution is to restrict attention to a well-behaved collection of sets. This collection is called a sigma-algebra.
 
@@ -136,7 +136,7 @@ for every interval, and extends to more complicated Borel sets. It is the unique
 
 **Probability measure:** A measure $P$ on $(\Omega, \mathcal{F})$ with $P(\Omega) = 1$. All of probability theory is measure theory with total mass 1. The axioms of probability (Kolmogorov's axioms) are exactly the axioms of a measure with $P(\Omega) = 1$.
 
-**Counting measure:** On any set $\Omega$, define $\mu(A) = |A|$ (the number of elements in $A$, with $\mu(A) = \infty$ if $A$ is infinite). This is the measure behind discrete probability: if $\Omega$ is finite and you use counting measure normalized by $|\Omega|$, you get the uniform distribution.
+**Counting measure:** On any set $\Omega$, define $\mu(A) = |A|$ (the number of elements in $A$, with $\mu(A) = \infty$ if $A$ is infinite). This is the measure behind discrete probability: if $\Omega$ is finite and you use counting measure normalized by $|\Omega|$, you get the uniform distribution. More generally, any discrete distribution is a weighted sum of Dirac measures $\sum_k p_k \delta_{x_k}$; the uniform case is the special case of equal weights (normalized counting measure).
 
 **Dirac measure:** Fix a point $x_0 \in \Omega$. Define $\delta_{x_0}(A) = 1$ if $x_0 \in A$ and $\delta_{x_0}(A) = 0$ if $x_0 \notin A$. This is "all the mass concentrated at $x_0$." It appears in ML when you have a point estimate rather than a distribution.
 
@@ -303,7 +303,7 @@ This is a one-sided inequality: the integral of the limit is at most the limit o
 
 ### Dominated Convergence Theorem (DCT)
 
-**Theorem.** Let $f_n$ be measurable functions with $f_n \to f$ pointwise. Suppose there exists an integrable function $g$ (meaning $\int g \, d\mu < \infty$) such that $|f_n(x)| \leq g(x)$ for all $n$ and all $x$. Then $f$ is integrable and:
+**Theorem.** Let $f_n$ be measurable functions with $f_n \to f$ pointwise. Suppose there exists an integrable function $g$ (a non-negative $g$ with $\int g \, d\mu < \infty$; equivalently $\int |g| \, d\mu < \infty$) such that $|f_n(x)| \leq g(x)$ for all $n$ and all $x$. Then $f$ is integrable and:
 
 $$
 \lim_{n \to \infty} \int f_n \, d\mu = \int f \, d\mu.
@@ -351,7 +351,7 @@ that induces the norm $\|f\|_2 = \sqrt{\langle f, f \rangle}$. Completeness of $
 
 ### Key Inequalities
 
-**Holder's inequality.** For $1 \leq p, q \leq \infty$ with $\frac{1}{p} + \frac{1}{q} = 1$:
+**Holder's inequality.** For $1 \leq p, q \leq \infty$ with $\frac{1}{p} + \frac{1}{q} = 1$ (using the convention $1/\infty = 0$, so the endpoint pair $(p, q) = (1, \infty)$ is included):
 
 $$
 \int |fg| \, d\mu \leq \|f\|_p \cdot \|g\|_q
@@ -467,13 +467,17 @@ When a sequence of random variables $X_n$ "approaches" a limit $X$, there are se
 
 **Convergence in distribution:** $X_n \xrightarrow{d} X$ means $P(X_n \leq a) \to P(X \leq a)$ at every continuity point $a$ of the limit CDF. This is the weakest mode.
 
-The implications among these modes:
+The implications among these modes are not a single chain. Both almost sure convergence and $L^p$ convergence independently imply convergence in probability, which in turn implies convergence in distribution:
 
 $$
-L^p \implies \text{a.s.} \implies \text{in probability} \implies \text{in distribution}
+\text{a.s.} \implies \text{in probability} \implies \text{in distribution}
 $$
 
-(The relationship between $L^p$ and a.s. convergence is more nuanced: neither implies the other in general, but both imply convergence in probability.)
+$$
+L^p \implies \text{in probability} \implies \text{in distribution}
+$$
+
+Almost sure and $L^p$ convergence are incomparable: neither implies the other in general. ($L^p$ does not imply a.s.: a "sliding block" sequence, where the indicator of a shrinking interval marches across $[0,1]$, converges to $0$ in $L^p$ but at no single point. Conversely, a.s. convergence does not imply $L^p$, because the mass may escape to infinity.)
 
 The law of large numbers gives convergence in probability (weak law) or almost surely (strong law). The central limit theorem gives convergence in distribution.
 

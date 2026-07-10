@@ -300,7 +300,7 @@ Check: $LU = \begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}\begin{bmatrix} 2 & 1 \
 
 ### QR Factorization
 
-**What it is:** Factor any $m \times n$ matrix $A$ (with $m \geq n$) into an orthogonal matrix $Q$ and an upper triangular matrix $R$:
+**What it is:** Factor any $m \times n$ matrix $A$ (with $m \geq n$) into a matrix $Q$ with orthonormal columns and an upper triangular matrix $R$:
 
 $$
 A = QR
@@ -308,6 +308,8 @@ $$
 
 - $Q$ is $m \times n$ with orthonormal columns ($Q^T Q = I$)
 - $R$ is $n \times n$ upper triangular
+
+This is the **reduced** (or thin) QR factorization. There is also a **full** QR factorization in which $Q$ is an $m \times m$ orthogonal matrix and $R$ is $m \times n$ (padded with rows of zeros below the top $n$ rows); the reduced form simply drops the extra columns of $Q$ and the zero rows of $R$.
 
 **Where it comes from:** Gram-Schmidt orthonormalization applied to the columns of $A$. The $Q$ columns are the orthonormalized columns of $A$, and $R$ records the coefficients.
 
@@ -574,7 +576,7 @@ $$
 \nabla_x (x^T A x) = 2Ax
 $$
 
-Setting this to zero gives $Ax = 0$, confirming that $x = 0$ is the critical point of the quadratic form.
+Setting this to zero gives $Ax = 0$. When $A$ is invertible (for example, positive definite), the only solution is $x = 0$, so that is the unique critical point of the quadratic form. If $A$ is singular (for example, only positive semidefinite), then $Ax = 0$ has nonzero solutions, and every vector in the null space of $A$ is also a critical point.
 
 **Squared norm:** $f(x) = \|x\|^2 = x^T x$
 

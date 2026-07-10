@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **41 topics** across 12 branches of mathematics, from basic algebra through singular learning theory.
+Currently covering **42 topics** across 12 branches of mathematics, from basic algebra through singular learning theory.
 
 ## How to Use These Notes
 

@@ -217,12 +217,14 @@ If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then:
 2. Square base repeatedly
 3. Multiply corresponding powers where binary digit is 1
 
+**Why it is efficient:** Square-and-multiply performs one squaring per bit of the exponent, so it uses $O(\log b)$ modular multiplications, versus $O(b)$ for the naive approach of multiplying by $a$ one factor at a time. This exponential speedup is what makes cryptosystems like RSA practical, since they raise numbers to exponents with hundreds of digits.
+
 ### Fermat's Little Theorem
 
 **Fermat's Little Theorem:** If **p** is prime and $\gcd(a, p) = 1$, then:
 $$a^{p-1} \equiv 1 \pmod{p}$$
 
-**Corollary:** $a^p \equiv a \pmod{p}$ for all integers a
+**Corollary:** $a^p \equiv a \pmod{p}$ for all integers a. Unlike the main theorem, this form needs no coprimality assumption: it holds even when $p \mid a$, since then both sides are $\equiv 0 \pmod{p}$.
 
 **Application - Computing modular inverses:**
 If p is prime and $\gcd(a, p) = 1$, then:
@@ -330,6 +332,6 @@ $$a^{\phi(n)} \equiv 1 \pmod{n}$$
 
 **Note:** Fermat's Little Theorem is a special case where n is prime (since $\phi(p) = p - 1$).
 
-**Application:** Computing modular inverses when n is not prime:
+**Application:** Computing modular inverses when n is not prime. Provided $\gcd(a, n) = 1$ (an inverse of $a$ modulo $n$ exists only when $a$ and $n$ are coprime):
 $$a^{-1} \equiv a^{\phi(n) - 1} \pmod{n}$$
 

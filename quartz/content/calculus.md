@@ -115,7 +115,7 @@ If $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$ (both limits exist an
 | **Product** | $\lim_{x \to a} [f(x) \cdot g(x)] = L \cdot M$ |
 | **Quotient** | $\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}$, provided $M \neq 0$ |
 | **Power** | $\lim_{x \to a} [f(x)]^n = L^n$ |
-| **Root** | $\lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}$, provided $L > 0$ for even $n$ |
+| **Root** | $\lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}$, provided $L \geq 0$ for even $n$ |
 
 These laws formalize why direct substitution works for most functions: if a function is built from simpler pieces using addition, multiplication, etc., you can compute the limit of each piece separately and combine the results.
 
@@ -236,7 +236,7 @@ The seven indeterminate forms:
 | Form | Result | Why |
 |---|---|---|
 | $\frac{k}{0}$ (where $k \neq 0$) | $\pm \infty$ or DNE | Nonzero divided by tiny = huge |
-| $0^{\infty}$ | $0$ | Tiny base raised to huge power = 0 |
+| $0^{+\infty}$ | $0$ | Base approaching $0$ from above ($0^+$) raised to $+\infty$ = 0 |
 | $\infty \cdot \infty$ | $\infty$ | Both factors are huge |
 
 ### L'Hopital's Rule (Preview)
@@ -354,9 +354,9 @@ A function is **differentiable** at $a$ if the derivative $f'(a)$ exists, meanin
 
 **Differentiable implies continuous:** If $f$ is differentiable at $a$, then $f$ is continuous at $a$. The converse is false: a function can be continuous at a point without being differentiable there.
 
-There are three ways a function can be continuous but NOT differentiable at a point:
+There are four ways a function can be continuous but NOT differentiable at a point:
 
-**1. Corner or cusp:** The function $f(x) = |x|$ is continuous at $x = 0$ (no break in the graph), but the graph has a sharp corner there. The slope from the left is $-1$ and the slope from the right is $+1$. Since these disagree, the derivative does not exist.
+**1. Corner:** The function $f(x) = |x|$ is continuous at $x = 0$ (no break in the graph), but the graph has a sharp corner there. The one-sided slopes are finite but disagree: the slope from the left is $-1$ and the slope from the right is $+1$. Since these disagree, the derivative does not exist.
 
 **Worked example:** Show $f(x) = |x|$ is not differentiable at $x = 0$ using the limit definition.
 
@@ -370,7 +370,15 @@ From the left ($h < 0$): $\frac{|h|}{h} = \frac{-h}{h} = -1$.
 
 The left-hand and right-hand limits disagree ($1 \neq -1$), so the limit does not exist and $f$ is not differentiable at $x = 0$.
 
-**2. Vertical tangent:** The function $f(x) = x^{1/3}$ (the cube root) is continuous at $x = 0$, but its tangent line there is vertical (infinite slope). Using the limit definition:
+**2. Cusp:** A cusp differs from a corner in that the one-sided slopes are not finite: they diverge to $+\infty$ and $-\infty$. The function $f(x) = x^{2/3}$ is continuous at $x = 0$, but its difference quotient blows up. Using the limit definition:
+
+$$
+f'(0) = \lim_{h \to 0} \frac{h^{2/3} - 0}{h} = \lim_{h \to 0} \frac{1}{h^{1/3}}
+$$
+
+From the right ($h > 0$) this tends to $+\infty$, and from the left ($h < 0$) it tends to $-\infty$. The two sides pull apart to opposite infinities, tracing the characteristic sharp point, so the derivative does not exist.
+
+**3. Vertical tangent:** The function $f(x) = x^{1/3}$ (the cube root) is continuous at $x = 0$, but its tangent line there is vertical (infinite slope). Using the limit definition:
 
 $$
 f'(0) = \lim_{h \to 0} \frac{h^{1/3}}{h} = \lim_{h \to 0} \frac{1}{h^{2/3}} = \infty
@@ -378,7 +386,7 @@ $$
 
 The limit is infinite, not a finite number, so the derivative does not exist.
 
-**3. Oscillation:** The function $f(x) = x\sin(1/x)$ (with $f(0) = 0$) is continuous at $x = 0$ (by the squeeze theorem, since $|x\sin(1/x)| \leq |x| \to 0$). However, the difference quotient $\frac{f(h) - f(0)}{h} = \sin(1/h)$ oscillates between $-1$ and $1$ as $h \to 0$, so the derivative does not exist.
+**4. Oscillation:** The function $f(x) = x\sin(1/x)$ (with $f(0) = 0$) is continuous at $x = 0$ (by the squeeze theorem, since $|x\sin(1/x)| \leq |x| \to 0$). However, the difference quotient $\frac{f(h) - f(0)}{h} = \sin(1/h)$ oscillates between $-1$ and $1$ as $h \to 0$, so the derivative does not exist.
 
 In machine learning, non-differentiable points arise with activation functions like ReLU ($f(x) = \max(0, x)$), which has a corner at $x = 0$. In practice, the derivative is defined to be 0 or 1 at the corner, and this works well because a single point does not affect training.
 

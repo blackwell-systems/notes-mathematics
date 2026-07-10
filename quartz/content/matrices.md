@@ -47,7 +47,7 @@ It is important to get these in the correct order: Usually when
 you give **(x,y)** coordinates, **x** refers to the horizontal direction
 and **y** refers to the vertical direction.
 
-When we talk about the ***I,j*** entry of a matrix, however, the first
+When we talk about the ***i,j*** entry of a matrix, however, the first
 number ***i*** refers to the row number (i.e. the vertical
 direction) and the second number ***j*** refers to the column
 number (i.e. the horizontal direction).
@@ -196,6 +196,12 @@ $$A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$$
 $$A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$$
 
 Where $ad - bc$ is the **determinant** of $A$.
+
+**General $n \times n$ method:** For larger matrices there is no such compact formula. Instead, form the augmented matrix $[A \mid I]$ and apply elementary row operations until the left block becomes the identity; the right block is then $A^{-1}$:
+
+$$[A \mid I] \longrightarrow [I \mid A^{-1}]$$
+
+This is Gauss-Jordan elimination applied to the identity alongside $A$ (see [Systems of Linear Equations](./systems-of-linear-equations)). If $A$ cannot be reduced to $I$ (a zero row appears on the left), then $A$ is singular and no inverse exists. Recall $A$ is invertible if and only if $\det(A) \neq 0$ (non-singular).
 
 **Example:**
 

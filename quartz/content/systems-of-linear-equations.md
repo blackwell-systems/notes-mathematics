@@ -40,9 +40,16 @@ of the variables that satisfy all the equations simultaneously.
 ***The solution to a system of linear equations is the point where all
 equations intersect.***
 
-![A black screen with white text and black text Description
-automatically
-generated](./media/image63.png)
+A general system of $m$ equations in $n$ unknowns is written:
+
+$$
+\begin{cases}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2 \\
+\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m
+\end{cases}
+$$
 
 The double subscripting on the coefficients $a_{ij}$ of the unknowns
 gives their location in the system; the first subscript indicates the
@@ -170,12 +177,12 @@ $$
 
 **Step 2:** Add equations:
 $$
-\begin{align}
-2x + 3y &= 7 \\
-5x - 3y &= 14 \\
+\begin{array}{rcr}
+2x + 3y &=& 7 \\
+5x - 3y &=& 14 \\
 \hline
-7x + 0y &= 21
-\end{align}
+7x + 0y &=& 21
+\end{array}
 $$
 
 **Step 3:** Solve for x:
@@ -202,10 +209,10 @@ $$
 **Step 1:** Multiply first equation by 2 and second by -3 to eliminate x:
 
 $$
-\begin{align}
+\begin{aligned}
 6x + 8y &= 20 \\
 -6x - 15y &= -27
-\end{align}
+\end{aligned}
 $$
 
 **Step 2:** Add equations:

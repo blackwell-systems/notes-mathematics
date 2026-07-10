@@ -8,6 +8,8 @@ For linear systems, see [Systems of Linear Equations](./systems-of-linear-equati
 
 ## Solving Methods for Two-Variable Systems
 
+The substitution and elimination methods below are the same techniques introduced in [Systems of Linear Equations](./systems-of-linear-equations), here applied to nonlinear systems. The mechanics carry over unchanged; the difference is that eliminating a variable can now leave a quadratic, quartic, or transcendental equation rather than a single linear one.
+
 ### Substitution Method
 
 **Substitution Method:** Solve one equation for one variable, then substitute that expression into the other equation.

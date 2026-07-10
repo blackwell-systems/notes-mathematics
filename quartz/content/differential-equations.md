@@ -251,7 +251,7 @@ $$
 |------|--------|--------|----------------------|----------------------------------|
 | 0 | 0 | 1 | 1 | 1.5 |
 | 1 | 0.5 | 1.5 | 1.5 | 2.25 |
-| 2 | 1.0 | 2.25 | | |
+| 2 | 1.0 | 2.25 | (stop: target $x = 1$ reached) | |
 
 Euler gives $y(1) \approx 2.25$. The exact solution is $y = e^x$, so $y(1) = e \approx 2.718$. The approximation is off because $h = 0.5$ is large; smaller $h$ improves accuracy.
 
@@ -477,7 +477,7 @@ $$
 y(x) = \begin{cases} 0 & x \leq 0 \\ \frac{x^2}{4} & x > 0 \end{cases}
 $$
 
-Check: for $x > 0$, $y' = x/2$ and $\sqrt{y} = \sqrt{x^2/4} = x/2$. So $y' = \sqrt{y}$. Both functions satisfy the DE and the initial condition $y(0) = 0$.
+Check: for $x > 0$, $y' = x/2$ and $\sqrt{|y|} = \sqrt{x^2/4} = x/2$ (here $y = x^2/4 \geq 0$, so $|y| = y$). So $y' = \sqrt{|y|}$. Both functions satisfy the DE and the initial condition $y(0) = 0$.
 
 Why does uniqueness fail? The function $f(x, y) = \sqrt{|y|}$ is not Lipschitz at $y = 0$: its derivative $\frac{1}{2\sqrt{|y|}}$ blows up as $y \to 0$. The Picard-Lindelof conditions are not met.
 

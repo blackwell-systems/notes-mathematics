@@ -337,13 +337,7 @@ Examples: $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$
 
 Example: $\mathbb{R}$ (proven by Cantor's diagonal argument)
 
-**Hierarchy of Infinities:**
-
-$$
-|\mathbb{N}| = |\mathbb{Z}| = |\mathbb{Q}| < |\mathbb{R}| < |\mathcal{P}(\mathbb{R})|
-$$
-
-Where $\mathcal{P}(X)$ denotes the power set of $X$.
+These sizes form a strict hierarchy, $|\mathbb{N}| < |\mathbb{R}| < |\mathcal{P}(\mathbb{R})| < \cdots$, developed in full under [Countable vs Uncountable Sets](#hierarchy-of-infinities) below.
 
 ## Universal Set
 
@@ -356,8 +350,7 @@ The universal set, often denoted by 𝑈, is the set that includes every
 element that is being considered in a given discussion or problem
 domain. All other sets in that context are subsets of the universal set.
 
-!Universal Set: Definition, Symbol, Venn Diagram and
-Examples](./media/image30.png)
+![Venn diagram of a universal set U as a rectangle containing all sets under consideration as subsets](./media/image30.png)
 
 **Special Considerations:**
 
@@ -622,7 +615,7 @@ List all positive rationals in a grid:
 
 Traverse diagonally: 1/1, 2/1, 1/2, 1/3, 2/2, 3/1, 4/1, 3/2, 2/3, 1/4, ...
 
-Skip duplicates (like 2/2 = 1/1), then include negatives. This creates a bijection $\mathbb{N} \to \mathbb{Q}^+$, proving $\mathbb{Q}$ is countable.
+Skipping duplicates (like 2/2 = 1/1) gives a bijection $\mathbb{N} \to \mathbb{Q}^+$ with the **positive** rationals, so $\mathbb{Q}^+$ is countable. To extend this to all of $\mathbb{Q}$, interleave $0$ and the negatives: list $0$ first, then alternate each positive rational with its negative ($q_1, -q_1, q_2, -q_2, \ldots$). This produces a bijection $\mathbb{N} \to \mathbb{Q}$, proving all of $\mathbb{Q}$ is countable.
 
 **Uncountable Set:** A set that is not countable. It cannot be put in one-to-one correspondence with $\mathbb{N}$.
 
@@ -672,7 +665,7 @@ r₄ = 0.a₄₁ a₄₂ a₄₃ a₄₄ ...
 6. **Contradiction:** Our list was supposed to contain all real numbers in (0, 1)
 7. Therefore (0, 1) cannot be countable
 
-**Hierarchy of Infinities:**
+### Hierarchy of Infinities
 
 Not all infinities are equal. There is a strict hierarchy:
 

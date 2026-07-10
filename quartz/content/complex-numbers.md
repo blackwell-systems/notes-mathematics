@@ -28,55 +28,41 @@ The primary motivation was the **Fundamental Theorem of Algebra**: every polynom
 
 ## Definition
 
-**Complex Numbers:** A Complex Number is a combination of a Real Number
-and an Imaginary Number.
+**Complex number:** A complex number is a combination of a real number and an imaginary number, written in the form $a + bi$ where $a$ and $b$ are real and $i^2 = -1$. The real number $a$ is the **real part** and the real number $b$ is the **imaginary part**.
 
-Complex numbers allow solutions to all polynomial equations, even those
-that have no solutions in real numbers.
+Complex numbers allow solutions to all polynomial equations, even those that have no solutions among the real numbers.
 
-For example, the equation
-$\mathbf{(x + 1)}^{\mathbf{2}}\mathbf{=  - 9}$ has no real solution,
-because the square of a real number cannot be negative but has the two
-nonreal complex solutions **-1+3i** and **-1-3i**.
+For example, the equation $(x + 1)^2 = -9$ has no real solution, because the square of a real number cannot be negative. Over the complex numbers it has the two nonreal solutions $-1 + 3i$ and $-1 - 3i$, since $(-1 + 3i + 1)^2 = (3i)^2 = 9i^2 = -9$.
 
-![](./media/image52.png)
+![Number line labeled with the real part a and imaginary part b of a complex number](./media/image52.png)
 
-!Venn Diagram of Complex
-Numbers](./media/image53.png)
+![Venn diagram showing complex numbers containing the real numbers and the imaginary numbers as subsets](./media/image53.png)
 
 ## Complex Plane
 
-**Complex Plane:**
+**Complex plane:** The complex plane is a two-dimensional plane used to visualize complex numbers geometrically. It has a horizontal **real axis** and a perpendicular vertical **imaginary axis**.
 
-In the complex plane, there is a real axis and a
-perpendicular, imaginary axis.
+A complex number $a + bi$ is plotted on this plane just as the ordered pair $(a, b)$ would be plotted on the Cartesian coordinate plane: the real part $a$ gives the horizontal coordinate, and the imaginary part $b$ gives the vertical coordinate. In this correspondence the real axis plays the role of the $x$-axis and the imaginary axis plays the role of the $y$-axis.
 
-The complex number 𝑎+𝑏𝑖 is graphed on this plane just as the ordered
-pair (*a*,*b*) would be graphed on the Cartesian coordinate plane.
+![Complex plane with a horizontal real axis and a vertical imaginary axis, showing the plotted point a plus b i](./media/image54.png)
 
-The real axis corresponds to the 𝑥-axis and the imaginary axis
-corresponds to the *y*-axis.
+### Polar (Trigonometric) Form
 
-![](./media/image54.png)
+**Polar form (trigonometric form):** The polar form is an alternative way to describe a complex number, using its distance from the origin and its angle rather than its real and imaginary parts. Instead of locating the point by horizontal and vertical coordinates, polar form locates it by the length $r$ of the segment from the origin to the point and the angle $\theta$ that segment makes with the positive real axis.
 
-Polar Form / Trigonometric form of Complex Number
-
-**Polar Form / Trigonometric form of Complex Numbers:** The polar form
-of a complex number is a different way to represent a complex number
-apart from rectangular form.
-
-The horizontal axis denotes the real axis, and the vertical axis denotes
-the imaginary.
-
-!Polar form of complex
-numbers](./media/image55.png)
+![Polar form of a complex number showing the modulus r as the distance from the origin and the argument theta as the angle from the positive real axis](./media/image55.png)
 
 ## Imaginary Unit
 
-**Imaginary Unit:**
+**Imaginary unit:** The imaginary unit $i$ is the number defined by the property
 
-![PPT - Chapter 3 PowerPoint Presentation, free download -
-ID:1210953](./media/image56.jpeg)
+$$i^2 = -1, \qquad \text{equivalently} \qquad i = \sqrt{-1}.$$
+
+No real number satisfies this equation, so $i$ is not a point on the ordinary number line; it is a new number introduced to extend the real number system. Defining $i$ this way is exactly what makes square roots of negative numbers possible: for any positive real $c$, we have $\sqrt{-c} = i\sqrt{c}$, because $(i\sqrt{c})^2 = i^2 c = -c$.
+
+For example, $\sqrt{-9} = i\sqrt{9} = 3i$, and $\sqrt{-5} = i\sqrt{5}$.
+
+![Definition of the imaginary unit i as the square root of negative one, with i squared equal to negative one](./media/image56.jpeg)
 
 **Powers of i:**
 
@@ -99,6 +85,14 @@ The powers of $i$ follow a cyclic pattern:
 $47 \div 4 = 11$ remainder $3$
 
 Therefore: $i^{47} = i^3 = -i$
+
+**Negative exponents:** The same cycle runs backwards. Since $i \cdot (-i) = -i^2 = 1$, the reciprocal of $i$ is
+
+$$i^{-1} = \frac{1}{i} = -i.$$
+
+To evaluate $i^n$ for a negative integer $n$, take the remainder of $n$ divided by $4$ but choose the non-negative remainder (in $\{0, 1, 2, 3\}$), which is the same as adding a multiple of $4$ to $n$ until the exponent is non-negative, then reading off the value above.
+
+**Example:** Find $i^{-9}$. Adding $12$ (a multiple of $4$) gives $i^{-9} = i^{-9 + 12} = i^{3} = -i$. Equivalently, $-9 = 4(-3) + 3$, so the non-negative remainder is $3$ and $i^{-9} = i^3 = -i$.
 
 ## Standard Form (Rectangular Form)
 
@@ -194,13 +188,22 @@ $$z = r(\cos\theta + i\sin\theta) = re^{i\theta}$$
 
 Where:
 - $r = |z| = \sqrt{a^2 + b^2}$ (modulus)
-- $\theta = \arg(z) = \arctan(b/a)$ (argument, adjust for quadrant)
+- $\theta = \arg(z)$ (argument, the angle from the positive real axis)
+
+**Finding the argument (quadrant adjustment):** The bare formula $\theta = \arctan(b/a)$ is not enough, because $\arctan$ always returns an angle in $(-\tfrac{\pi}{2}, \tfrac{\pi}{2})$, covering only quadrants I and IV (where $a > 0$). It cannot distinguish $a + bi$ from $-a - bi$, since both give the same ratio $b/a$, and it is undefined when $a = 0$. You must adjust based on the quadrant of the point $(a, b)$:
+
+- **Quadrant I or IV** ($a > 0$): $\theta = \arctan(b/a)$
+- **Quadrant II or III** ($a < 0$): $\theta = \arctan(b/a) + \pi$
+- **$a = 0$, $b > 0$** (positive imaginary axis): $\theta = \tfrac{\pi}{2}$
+- **$a = 0$, $b < 0$** (negative imaginary axis): $\theta = -\tfrac{\pi}{2}$
+
+Most calculators and programming languages package this rule as the two-argument function $\operatorname{atan2}(b, a)$, which returns the correct angle in $(-\pi, \pi]$ for every $(a, b) \neq (0, 0)$. Prefer $\operatorname{atan2}(b, a)$ over $\arctan(b/a)$ whenever it is available.
 
 **Converting:**
 
 **Rectangular to Polar:**
 1. $r = \sqrt{a^2 + b^2}$
-2. $\theta = \arctan(b/a)$ (check quadrant)
+2. $\theta = \operatorname{atan2}(b, a)$, or apply the quadrant-adjustment rule above
 
 **Polar to Rectangular:**
 1. $a = r\cos\theta$
@@ -298,7 +301,31 @@ $$z_k = \sqrt[n]{r}\left(\cos\frac{\theta + 2\pi k}{n} + i\sin\frac{\theta + 2\p
 
 For $k = 0, 1, 2, \ldots, n-1$
 
-**Example:** Three cube roots of $8i$ are: $\sqrt{3} + i$, $-\sqrt{3} + i$, $-2i$
+**Example:** Find the three cube roots of $8i$.
+
+**Step 1: Write $8i$ in polar form.** Here $a = 0$ and $b = 8$, so the modulus is $r = \sqrt{0^2 + 8^2} = 8$. The point lies on the positive imaginary axis, so the argument is $\theta = \tfrac{\pi}{2}$. Thus $8i = 8\left(\cos\tfrac{\pi}{2} + i\sin\tfrac{\pi}{2}\right)$.
+
+**Step 2: Apply the $n$th-root formula with $n = 3$.** Using
+
+$$z_k = \sqrt[3]{r}\left(\cos\frac{\theta + 2\pi k}{3} + i\sin\frac{\theta + 2\pi k}{3}\right),$$
+
+the modulus of each root is $\sqrt[3]{8} = 2$, and the angles are $\dfrac{\pi/2 + 2\pi k}{3}$ for $k = 0, 1, 2$.
+
+**Step 3: Evaluate each root.**
+
+For $k = 0$: the angle is $\dfrac{\pi/2}{3} = \dfrac{\pi}{6}$, so
+
+$$z_0 = 2\left(\cos\tfrac{\pi}{6} + i\sin\tfrac{\pi}{6}\right) = 2\left(\tfrac{\sqrt{3}}{2} + \tfrac{1}{2}i\right) = \sqrt{3} + i.$$
+
+For $k = 1$: the angle is $\dfrac{\pi/2 + 2\pi}{3} = \dfrac{5\pi}{6}$, so
+
+$$z_1 = 2\left(\cos\tfrac{5\pi}{6} + i\sin\tfrac{5\pi}{6}\right) = 2\left(-\tfrac{\sqrt{3}}{2} + \tfrac{1}{2}i\right) = -\sqrt{3} + i.$$
+
+For $k = 2$: the angle is $\dfrac{\pi/2 + 4\pi}{3} = \dfrac{3\pi}{2}$, so
+
+$$z_2 = 2\left(\cos\tfrac{3\pi}{2} + i\sin\tfrac{3\pi}{2}\right) = 2\left(0 - i\right) = -2i.$$
+
+The three cube roots of $8i$ are therefore $\sqrt{3} + i$, $-\sqrt{3} + i$, and $-2i$. Geometrically they are equally spaced around a circle of radius $2$, separated by $\tfrac{2\pi}{3}$ radians (120 degrees). You can check the first: $(\sqrt{3} + i)^3 = 8i$.
 
 ## Complex Zeros of Polynomials
 

@@ -113,7 +113,7 @@ $$
 
 The posterior mean is $\frac{\alpha + k}{\alpha + \beta + n} = \frac{9}{14} \approx 0.643$. Compare this to the MLE of $7/10 = 0.7$. The posterior mean is pulled toward the prior mean of $0.5$ (the prior "shrinks" the estimate). With more data, this shrinkage effect diminishes.
 
-**How the posterior evolves with data:** After 0 observations, your belief is $\text{Beta}(2, 2)$. After 1 head: $\text{Beta}(3, 2)$. After 1 head and 1 tail: $\text{Beta}(3, 3)$. After 7 heads and 3 tails: $\text{Beta}(9, 5)$. Each new observation updates the parameters incrementally. The prior parameters $\alpha$ and $\beta$ can be interpreted as "pseudo-counts": the prior is equivalent to having already seen $\alpha - 1$ heads and $\beta - 1$ tails before any data arrived.
+**How the posterior evolves with data:** After 0 observations, your belief is $\text{Beta}(2, 2)$. After 1 head: $\text{Beta}(3, 2)$. After 1 head and 1 tail: $\text{Beta}(3, 3)$. After 7 heads and 3 tails: $\text{Beta}(9, 5)$. Each new observation updates the parameters incrementally. The prior parameters $\alpha$ and $\beta$ can be interpreted as "pseudo-counts": consistent with the update rule above (each observed head adds 1 to $\alpha$), the prior acts like having already seen $\alpha$ pseudo-heads and $\beta$ pseudo-tails before any data arrived. This gives a prior mean of $\alpha / (\alpha + \beta)$ and a prior "sample size" of $\alpha + \beta$. (A different, mode-based convention instead reads the prior as $\alpha - 1$ heads and $\beta - 1$ tails, since the mode of $\text{Beta}(\alpha, \beta)$ is $(\alpha - 1)/(\alpha + \beta - 2)$; we use the mean-based $\alpha/\beta$ form here for consistency with the posterior update.)
 
 ### Empirical Bayes
 
@@ -165,7 +165,7 @@ $$
 
 This is a second-order Taylor expansion of the log-posterior around its mode. It works well when the posterior is approximately Gaussian (unimodal, symmetric).
 
-**Where Laplace approximation fails (the SLT connection):** The Hessian $\nabla^2 \log P(\theta | D)$ is the observed Fisher information. At a singularity, where the map from parameters to distributions is not one-to-one, the Hessian is degenerate (has zero eigenvalues). The Gaussian approximation becomes meaningless because the posterior is fundamentally non-Gaussian near singularities. This is exactly the situation that singular learning theory addresses.
+**Where Laplace approximation fails (the SLT connection):** The negative Hessian of the log-posterior, $-\nabla^2 \log P(\theta | D)$, is the observed Fisher information (for a posterior it includes the prior's curvature contribution alongside the likelihood's). At a singularity, where the map from parameters to distributions is not one-to-one, the Hessian is degenerate (has zero eigenvalues). The Gaussian approximation becomes meaningless because the posterior is fundamentally non-Gaussian near singularities. This is exactly the situation that singular learning theory addresses.
 
 ### Markov Chain Monte Carlo (MCMC)
 
@@ -380,10 +380,10 @@ The first term is a Bayesian measure of data fit. The second term is an effectiv
 **WBIC (Widely Applicable Bayesian Information Criterion):** Estimates the log marginal likelihood (and hence the RLCT $\lambda$) by evaluating the expected log-likelihood at an inverse temperature $\beta = 1/\log n$:
 
 $$
-\text{WBIC} = \mathbb{E}_{\theta \sim P_\beta(\theta | D)}\left[\sum_{i=1}^n \log P(x_i | \theta)\right]
+\text{WBIC} = \mathbb{E}_{\theta \sim P_\beta(\theta | D)}\left[-\sum_{i=1}^n \log P(x_i | \theta)\right]
 $$
 
-where $P_\beta(\theta | D) \propto P(D | \theta)^\beta P(\theta)$ is the tempered posterior. WBIC estimates $-\log P(D | M)$ and can be used to extract $\lambda$ from MCMC samples.
+where $P_\beta(\theta | D) \propto P(D | \theta)^\beta P(\theta)$ is the tempered posterior. This is the tempered-posterior expectation of the negative log-likelihood, so WBIC estimates $-\log P(D | M)$. Consistent with Watanabe's fundamental formula, $\text{WBIC} \approx n L_n + \lambda \log n$, so it can be used to extract $\lambda$ from MCMC samples.
 
 ## Bayesian Neural Networks
 
@@ -453,10 +453,10 @@ $$
 where $Z_n$ is the partition function (marginal likelihood):
 
 $$
-Z_n = \int P(D | w)^n \, \varphi(w) \, dw
+Z_n = \int P(D | w) \, \varphi(w) \, dw = \int \prod_{i=1}^n P(x_i | w) \, \varphi(w) \, dw
 $$
 
-Here $\varphi(w)$ is the prior density and $P(D | w)^n = \prod_{i=1}^n P(x_i | w)$ is the likelihood. The free energy $F_n$ is (up to sign) the log marginal likelihood, which is the central object of Bayesian model selection.
+Here $\varphi(w)$ is the prior density and $P(D | w) = \prod_{i=1}^n P(x_i | w)$ is the dataset likelihood (the product already runs over all $n$ observations, so no extra exponent is needed). The free energy $F_n$ is (up to sign) the log marginal likelihood, which is the central object of Bayesian model selection.
 
 ### Watanabe's Fundamental Formula
 

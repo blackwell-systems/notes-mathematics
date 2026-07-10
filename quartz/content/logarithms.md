@@ -496,13 +496,15 @@ $$M = \log_{10}\!\left(\frac{A}{A_0}\right)$$
 
 where $A$ is the measured amplitude and $A_0$ is a reference amplitude.
 
-**Example:** How many times more intense is a magnitude 7.0 earthquake than a magnitude 5.0 earthquake?
+**Example:** How many times larger is the seismic amplitude of a magnitude 7.0 earthquake than that of a magnitude 5.0 earthquake?
 
 The difference in magnitudes is $7.0 - 5.0 = 2.0$. Since the scale is logarithmic:
 
 $$\frac{A_7}{A_5} = 10^{7.0 - 5.0} = 10^2 = 100$$
 
-A magnitude 7 earthquake has 100 times the amplitude of a magnitude 5 earthquake.
+A magnitude 7 earthquake has 100 times the ground-motion amplitude of a magnitude 5 earthquake.
+
+**Amplitude versus energy:** Be careful to distinguish amplitude from the energy released. The seismograph amplitude grows by a factor of $10^{\Delta M}$, but the energy released grows faster, by a factor of $10^{1.5\,\Delta M}$. So for $\Delta M = 2.0$ the amplitude ratio is $10^2 = 100$, while the energy ratio is $10^{1.5 \times 2.0} = 10^3 = 1000$. A magnitude 7 quake shakes the ground 100 times as much as a magnitude 5, but releases about 1000 times as much energy.
 
 #### Decibel Scale
 
