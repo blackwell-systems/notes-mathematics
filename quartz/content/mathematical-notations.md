@@ -53,24 +53,26 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 
 ## Set-Theory Notation
 
+Hover a symbol to preview where it is defined and worked through on the [Set Theory](./set-theory) page.
+
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $\in$ | "is an element of" / "is in" | $a \in A$ means $a$ belongs to set $A$ |
-| $\notin$ | "is not an element of" / "is not in" | $a \notin A$ |
-| $\subseteq$ | "is a subset of" | every element of the left set is in the right set |
-| $\subsetneq$ | "is a proper subset of" | subset but not equal |
-| $\subset$ | "is a (proper) subset of" | proper subset in these notes, but context-dependent: many authors use $\subset$ for *any* subset (what we write $\subseteq$). Check each source's convention |
-| $\cup$ | "union" (or "cup") | elements in either set (or both) |
-| $\cap$ | "intersection" (or "cap") | elements in both sets |
-| $\setminus$ | "minus" / "set-minus" / "without" | set difference: elements in the left set but not the right |
-| $\triangle$ | "symmetric difference" | elements in exactly one of the two sets |
-| $A'$ , $A^c$ | "$A$ complement" / "$A$ prime" | complement: elements of the universe not in $A$ |
-| $\varnothing$ , $\emptyset$ , $\{\}$ | "the empty set" | the set with no elements |
-| $\mathcal{P}(A)$ , $2^A$ | "the power set of $A$" | the set of all subsets of $A$ |
-| $\times$ | "cross" | Cartesian product: the set of ordered pairs $(a, b)$ |
-| $\{x \mid P(x)\}$ | "the set of all $x$ such that $P$ of $x$" | set-builder: the set of all $x$ satisfying property $P$ |
-| $\lvert A \rvert$ | "the cardinality of $A$" / "the size of $A$" | the number of elements in $A$ |
-| $\bigcup_{i \in I}$ , $\bigcap_{i \in I}$ | "the union / intersection over $i$ in $I$" | union or intersection over an indexed family of sets |
+| [$\in$](./set-theory#set) | "is an element of" / "is in" | $a \in A$ means $a$ belongs to set $A$ |
+| [$\notin$](./set-theory#set) | "is not an element of" / "is not in" | $a \notin A$ |
+| [$\subseteq$](./set-theory#subset) | "is a subset of" | every element of the left set is in the right set |
+| [$\subsetneq$](./set-theory#subset) | "is a proper subset of" | subset but not equal |
+| [$\subset$](./set-theory#subset) | "is a (proper) subset of" | proper subset in these notes, but context-dependent: many authors use $\subset$ for *any* subset (what we write $\subseteq$). Check each source's convention |
+| [$\cup$](./set-theory#set-union) | "union" (or "cup") | elements in either set (or both) |
+| [$\cap$](./set-theory#set-intersection) | "intersection" (or "cap") | elements in both sets |
+| [$\setminus$](./set-theory#set-difference) | "minus" / "set-minus" / "without" | set difference: elements in the left set but not the right |
+| [$\triangle$](./set-theory#symmetric-difference) | "symmetric difference" | elements in exactly one of the two sets |
+| [$A'$](./set-theory#set-complement) , [$A^c$](./set-theory#set-complement) | "$A$ complement" / "$A$ prime" | complement: elements of the universe not in $A$ |
+| [$\varnothing$](./set-theory#empty-set) , [$\emptyset$](./set-theory#empty-set) , [$\{\}$](./set-theory#empty-set) | "the empty set" | the set with no elements |
+| [$\mathcal{P}(A)$](./set-theory#power-set) , [$2^A$](./set-theory#power-set) | "the power set of $A$" | the set of all subsets of $A$ |
+| [$\times$](./set-theory#cartesian-product) | "cross" | Cartesian product: the set of ordered pairs $(a, b)$ |
+| [$\{x \mid P(x)\}$](./set-theory#set-builder-notation) | "the set of all $x$ such that $P$ of $x$" | set-builder: the set of all $x$ satisfying property $P$ |
+| [$\lvert A \rvert$](./set-theory#cardinality) | "the cardinality of $A$" / "the size of $A$" | the number of elements in $A$ |
+| [$\bigcup_{i \in I}$](./set-theory#indexed-families-of-sets) , [$\bigcap_{i \in I}$](./set-theory#indexed-families-of-sets) | "the union / intersection over $i$ in $I$" | union or intersection over an indexed family of sets |
 
 ## Logic Notation
 

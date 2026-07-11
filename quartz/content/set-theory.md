@@ -244,7 +244,7 @@ $$
 
 **Subset:**
 
-$A \subseteq B  \Longleftrightarrow  \forall x\text{ }(x \in A \Rightarrow x \in B)$.
+$A \subseteq B  \Longleftrightarrow  \forall x\text{ }(x \in A \Rightarrow x \in B)$.
 
 **Proper subset**:
 
