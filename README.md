@@ -10,7 +10,7 @@ deployed to GitHub Pages on every push to `main`.
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (44 topic pages). The landing page and reading-order guide are in
+per topic (42 topic pages). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Broad areas covered:
