@@ -4,6 +4,8 @@ title: "Mathematical Notations"
 
 Mathematical writing relies on a compact symbolic vocabulary. This page collects the symbols used throughout these notes, grouped by area, with how to **read each one aloud** and a one-line meaning. Knowing the spoken form makes notation usable in speech and lectures and reinforces what each symbol means. The page also flags a few symbols whose meaning shifts with context, since those are a common source of confusion.
 
+Most symbols link to the section where they are defined and worked through; **hover a linked symbol to preview that section** without leaving this page.
+
 A useful distinction to keep in mind is between **object-level** symbols, which appear inside the formulas being studied (for example $\land$ inside $P \land Q$), and **meta-level** symbols, which we use to talk *about* formulas or objects (for example $\iff$ in "$A \subseteq B \iff \forall x\,(x \in A \to x \in B)$"). Some symbols, such as $\iff$, are used at both levels depending on context.
 
 ## Equivalence and Equality Symbols
@@ -53,8 +55,6 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 
 ## Set-Theory Notation
 
-Hover a symbol to preview where it is defined and worked through on the [Set Theory](./set-theory) page.
-
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
 | [$\in$](./set-theory#set) | "is an element of" / "is in" | $a \in A$ means $a$ belongs to set $A$ |
@@ -78,83 +78,83 @@ Hover a symbol to preview where it is defined and worked through on the [Set The
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $\neg$ | "not" | negation |
-| $\land$ | "and" | conjunction, true when both operands are true |
-| $\lor$ | "or" | disjunction, true when at least one operand is true |
-| $\oplus$ | "exclusive or" / "x-or" | XOR, true when exactly one operand is true |
-| $\to$ , $\Rightarrow$ | "implies" / "if ... then ..." | implication |
-| $\leftrightarrow$ , $\Leftrightarrow$ | "if and only if" / "iff" | biconditional |
-| $\forall$ | "for all" / "for every" | universal quantifier |
-| $\exists$ | "there exists" / "for some" | existential quantifier |
-| $\exists!$ | "there exists a unique" | there is exactly one |
-| $\vDash$ | "models" / "entails" / "satisfies" | semantic entailment |
-| $\vdash$ | "proves" / "derives" | syntactic derivability (provable via inference rules) |
-| $\top$ | "top" / "true" | verum: a constant that is always true |
-| $\bot$ | "bottom" / "false" | falsum: a constant that is always false |
-| $\therefore$ | "therefore" | introduces a conclusion |
+| [$\neg$](./propositional-logic-zeroth-order-logic#negation) | "not" | negation |
+| [$\land$](./propositional-logic-zeroth-order-logic#conjunction) | "and" | conjunction, true when both operands are true |
+| [$\lor$](./propositional-logic-zeroth-order-logic#disjunction) | "or" | disjunction, true when at least one operand is true |
+| [$\oplus$](./propositional-logic-zeroth-order-logic#exclusive-disjunction--exclusive-or) | "exclusive or" / "x-or" | XOR, true when exactly one operand is true |
+| [$\to$](./propositional-logic-zeroth-order-logic#conditional-statement--material-condition--material-implication--hypothetical-proposition) , $\Rightarrow$ | "implies" / "if ... then ..." | implication |
+| [$\leftrightarrow$](./propositional-logic-zeroth-order-logic#conditional-equivalences) , $\Leftrightarrow$ | "if and only if" / "iff" | biconditional |
+| [$\forall$](./predicate-logic-first-order-logic#universal-quantifier-) | "for all" / "for every" | universal quantifier |
+| [$\exists$](./predicate-logic-first-order-logic#existential-quantifier-) | "there exists" / "for some" | existential quantifier |
+| [$\exists!$](./predicate-logic-first-order-logic#unique-existential-quantifier-) | "there exists a unique" | there is exactly one |
+| [$\vDash$](./predicate-logic-first-order-logic#structures-and-interpretations-models) | "models" / "entails" / "satisfies" | semantic entailment |
+| [$\vdash$](./propositional-logic-zeroth-order-logic#syntax-and-semantics) | "proves" / "derives" | syntactic derivability (provable via inference rules) |
+| [$\top$](./propositional-logic-zeroth-order-logic#tautology) | "top" / "true" | verum: a constant that is always true |
+| [$\bot$](./propositional-logic-zeroth-order-logic#contradiction) | "bottom" / "false" | falsum: a constant that is always false |
+| [$\therefore$](./propositional-logic-zeroth-order-logic#rules-of-inference) | "therefore" | introduces a conclusion |
 
 ## Number Sets (Blackboard Bold)
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $\mathbb{N}$ | "the naturals" / "N" | natural numbers: $0, 1, 2, 3, \ldots$ (some authors start at $1$) |
-| $\mathbb{Z}$ | "the integers" / "Z" (from German *Zahlen*) | $\ldots, -2, -1, 0, 1, 2, \ldots$ |
-| $\mathbb{Q}$ | "the rationals" / "Q" (for *quotient*) | fractions $p/q$ with $p, q \in \mathbb{Z}$, $q \neq 0$ |
-| $\mathbb{R}$ | "the reals" / "R" | real numbers: all points on the number line |
-| $\mathbb{C}$ | "the complexes" / "C" | complex numbers: $a + bi$ with $a, b \in \mathbb{R}$ |
+| [$\mathbb{N}$](./set-theory#countable-vs-uncountable-sets) | "the naturals" / "N" | natural numbers: $0, 1, 2, 3, \ldots$ (some authors start at $1$) |
+| [$\mathbb{Z}$](./set-theory#countable-vs-uncountable-sets) | "the integers" / "Z" (from German *Zahlen*) | $\ldots, -2, -1, 0, 1, 2, \ldots$ |
+| [$\mathbb{Q}$](./set-theory#countable-vs-uncountable-sets) | "the rationals" / "Q" (for *quotient*) | fractions $p/q$ with $p, q \in \mathbb{Z}$, $q \neq 0$ |
+| [$\mathbb{R}$](./real-analysis#the-real-numbers) | "the reals" / "R" | real numbers: all points on the number line |
+| [$\mathbb{C}$](./complex-numbers#from-real-to-imaginary-to-complex) | "the complexes" / "C" | complex numbers: $a + bi$ with $a, b \in \mathbb{R}$ |
 
 ## Functions and Mappings
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $f: A \to B$ | "$f$ from $A$ to $B$" / "$f$ maps $A$ to $B$" | $f$ is a function from domain $A$ to codomain $B$ |
-| $\mapsto$ | "maps to" | describes where an element goes, e.g. $x \mapsto x^2$ |
-| $\circ$ | "composed with" / "after" / "ring" | function composition: $(g \circ f)(x) = g(f(x))$ |
-| $f^{-1}$ | "$f$ inverse" | inverse function (or preimage of a set under $f$) |
-| $\hookrightarrow$ | "injects into" / "embeds into" | an injection (one-to-one map), or an inclusion/embedding |
-| $\twoheadrightarrow$ | "surjects onto" | a surjection (onto map) |
-| $\cong$ | "is isomorphic to" / "is congruent to" | isomorphism (a structure-preserving bijection); also geometric congruence, e.g. $\triangle ABC \cong \triangle DEF$ |
-| $\sim$ , $\approx$ | "is similar to" / "is equinumerous with" | for cardinality of plain sets, $A \sim B$ (or $\lvert A \rvert = \lvert B \rvert$) means a bijection exists |
+| [$f: A \to B$](./functions-relations#function) | "$f$ from $A$ to $B$" / "$f$ maps $A$ to $B$" | $f$ is a function from domain $A$ to codomain $B$ |
+| [$\mapsto$](./functions-relations#function) | "maps to" | describes where an element goes, e.g. $x \mapsto x^2$ |
+| [$\circ$](./functions-relations#composition-of-functions) | "composed with" / "after" / "ring" | function composition: $(g \circ f)(x) = g(f(x))$ |
+| [$f^{-1}$](./functions-relations#inverse-functions) | "$f$ inverse" | inverse function (or preimage of a set under $f$) |
+| [$\hookrightarrow$](./functions-relations#injection-one-to-one) | "injects into" / "embeds into" | an injection (one-to-one map), or an inclusion/embedding |
+| [$\twoheadrightarrow$](./functions-relations#bijection-injective-and-surjective) | "surjects onto" | a surjection (onto map) |
+| [$\cong$](./functions-relations#bijection-injective-and-surjective) | "is isomorphic to" / "is congruent to" | isomorphism (a structure-preserving bijection); also geometric congruence, e.g. $\triangle ABC \cong \triangle DEF$ |
+| [$\sim$](./functions-relations#one-to-one-correspondence) , $\approx$ | "is similar to" / "is equinumerous with" | for cardinality of plain sets, $A \sim B$ (or $\lvert A \rvert = \lvert B \rvert$) means a bijection exists |
 
 ## Analysis and Calculus
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $\lim$ | "the limit of" / "limit as ... approaches ..." | limit, e.g. $\lim_{x \to a} f(x)$; one-sided limits $\lim_{x \to a^-}$, $\lim_{x \to a^+}$ |
-| $\to$ | "tends to" / "approaches" | as in $x \to a$ or $a_n \to L$; also the function-arrow and implication elsewhere |
-| $\frac{d}{dx}$ , $f'$ | "$d$ by $d x$" / "$f$ prime" | derivative with respect to $x$ |
-| $\partial$ | "partial" | partial derivative; $\frac{\partial f}{\partial x}$ read "partial $f$ by partial $x$" |
-| $\nabla$ | "del" / "nabla" | gradient (vector of partial derivatives); also divergence/curl |
-| $\int$ , $\iint$ , $\oint$ | "the integral of" / "double integral" / "contour integral" | $\int f\,dx$ read "the integral of $f$, $dx$" |
-| $\sum$ , $\prod$ | "the sum of" / "the product of" (Greek sigma, pi) | summation and product over an index range |
-| $\lVert x \rVert$ | "the norm of $x$" | norm (length) of a vector; $\lvert x \rvert$ ("the absolute value of $x$" / "mod $x$") is absolute value or modulus |
+| [$\lim$](./calculus#limits) | "the limit of" / "limit as ... approaches ..." | limit, e.g. $\lim_{x \to a} f(x)$; one-sided limits $\lim_{x \to a^-}$, $\lim_{x \to a^+}$ |
+| [$\to$](./calculus#limit-notation) | "tends to" / "approaches" | as in $x \to a$ or $a_n \to L$; also the function-arrow and implication elsewhere |
+| [$\frac{d}{dx}$](./calculus#the-limit-definition-of-the-derivative) , $f'$ | "$d$ by $d x$" / "$f$ prime" | derivative with respect to $x$ |
+| [$\partial$](./multivariable-calculus#partial-derivatives) | "partial" | partial derivative; $\frac{\partial f}{\partial x}$ read "partial $f$ by partial $x$" |
+| [$\nabla$](./multivariable-calculus#the-gradient-vector) | "del" / "nabla" | gradient (vector of partial derivatives); also divergence/curl |
+| [$\int$](./calculus#the-definite-integral) , $\iint$ , $\oint$ | "the integral of" / "double integral" / "contour integral" | $\int f\,dx$ read "the integral of $f$, $dx$" |
+| [$\sum$](./sequences-and-series#formal-definition-of-series-convergence) , $\prod$ | "the sum of" / "the product of" (Greek sigma, pi) | summation and product over an index range |
+| [$\lVert x \rVert$](./linear-algebra-computation#norms-measuring-size) | "the norm of $x$" | norm (length) of a vector; $\lvert x \rvert$ ("the absolute value of $x$" / "mod $x$") is absolute value or modulus |
 | $\approx$ | "is approximately equal to" | approximately equal |
-| $\propto$ | "is proportional to" | e.g. posterior $\propto$ likelihood $\times$ prior |
-| $\rightrightarrows$ | "converges uniformly to" | uniform convergence (versus $\to$ for pointwise convergence) |
-| $O$ , $\Theta$ , $\Omega$ , $o$ , $\omega$ | "big-O", "big-theta", "big-omega", "little-o", "little-omega" | asymptotic growth rates (see [Asymptotic Notation](./asymptotic-notation)) |
-| $\infty$ | "infinity" | an unbounded quantity or limit, not a real number |
+| [$\propto$](./bayesian-inference#posterior-computation) | "is proportional to" | e.g. posterior $\propto$ likelihood $\times$ prior |
+| [$\rightrightarrows$](./real-analysis#uniform-convergence-the-fix) | "converges uniformly to" | uniform convergence (versus $\to$ for pointwise convergence) |
+| [$O$](./asymptotic-notation#big-o-notation-upper-bound) , [$\Theta$](./asymptotic-notation#big-theta-notation-tight-bound) , [$\Omega$](./asymptotic-notation#big-omega-notation-lower-bound) , [$o$](./asymptotic-notation#little-o-and-little-omega) , $\omega$ | "big-O", "big-theta", "big-omega", "little-o", "little-omega" | asymptotic growth rates (see [Asymptotic Notation](./asymptotic-notation)) |
+| [$\infty$](./calculus#limits-at-infinity) | "infinity" | an unbounded quantity or limit, not a real number |
 
 ## Probability and Statistics
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $\mathbb{P}(A)$ , $P(A)$ | "the probability of $A$" | probability of event $A$ |
-| $\mathbb{E}[X]$ | "the expectation of $X$" / "$E$ of $X$" | expected value (mean) of random variable $X$ |
-| $\operatorname{Var}(X)$ , $\operatorname{Cov}(X,Y)$ | "the variance of $X$" / "the covariance of $X$ and $Y$" | variance and covariance |
-| $X \sim \mathcal{D}$ | "$X$ is distributed as $\mathcal{D}$" / "$X$ follows $\mathcal{D}$" | e.g. $X \sim \mathcal{N}(\mu, \sigma^2)$ |
-| $\mid$ | "given" (probability) / "divides" (number theory) | $P(A \mid B)$ is "probability of $A$ given $B$"; $a \mid b$ is "$a$ divides $b$" |
-| $\xrightarrow{d}$ , $\xrightarrow{p}$ | "converges in distribution / in probability to" | modes of convergence |
-| $\hat{\theta}$ | "theta hat" | an estimator or estimate of parameter $\theta$ |
-| $\binom{n}{k}$ | "$n$ choose $k$" | binomial coefficient |
-| $!$ | "factorial" | $n!$ ("$n$ factorial") $= n \cdot (n-1) \cdots 2 \cdot 1$ |
+| [$\mathbb{P}(A)$](./probability#axioms-of-probability-kolmogorov) , $P(A)$ | "the probability of $A$" | probability of event $A$ |
+| [$\mathbb{E}[X]$](./probability#expected-value) | "the expectation of $X$" / "$E$ of $X$" | expected value (mean) of random variable $X$ |
+| [$\operatorname{Var}(X)$](./probability#variance-and-standard-deviation) , [$\operatorname{Cov}(X,Y)$](./probability#covariance) | "the variance of $X$" / "the covariance of $X$ and $Y$" | variance and covariance |
+| [$X \sim \mathcal{D}$](./probability#normal-gaussian-distribution) | "$X$ is distributed as $\mathcal{D}$" / "$X$ follows $\mathcal{D}$" | e.g. $X \sim \mathcal{N}(\mu, \sigma^2)$ |
+| [$\mid$](./probability#conditional-probability) | "given" (probability) / "divides" (number theory) | $P(A \mid B)$ is "probability of $A$ given $B$"; $a \mid b$ is "$a$ divides $b$" |
+| [$\xrightarrow{d}$](./probability#central-limit-theorem) , $\xrightarrow{p}$ | "converges in distribution / in probability to" | modes of convergence |
+| [$\hat{\theta}$](./statistics#point-estimation) | "theta hat" | an estimator or estimate of parameter $\theta$ |
+| [$\binom{n}{k}$](./combination) | "$n$ choose $k$" | binomial coefficient |
+| [$!$](./permutation) | "factorial" | $n!$ ("$n$ factorial") $= n \cdot (n-1) \cdots 2 \cdot 1$ |
 
 ## Miscellaneous Symbols
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
-| $\lceil x \rceil$ | "the ceiling of $x$" | the smallest integer $\geq x$ |
-| $\lfloor x \rfloor$ | "the floor of $x$" | the largest integer $\leq x$ |
+| [$\lceil x \rceil$](./functions-relations#floor-and-ceiling-functions) | "the ceiling of $x$" | the smallest integer $\geq x$ |
+| [$\lfloor x \rfloor$](./functions-relations#floor-and-ceiling-functions) | "the floor of $x$" | the largest integer $\leq x$ |
 | $\pm$ | "plus or minus" | both the $+$ and $-$ cases, e.g. $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ |
 | $\cdot$ , $\times$ | "times" | multiplication (the $\times$ symbol also denotes the Cartesian product of sets) |
-| $\therefore$ , $\because$ | "therefore" / "because" | introduces a conclusion or a reason |
-| $\blacksquare$ , $\square$ , QED | "Q.E.D." / "end of proof" | marks the end of a proof |
+| [$\therefore$](./propositional-logic-zeroth-order-logic#rules-of-inference) , $\because$ | "therefore" / "because" | introduces a conclusion or a reason |
+| [$\blacksquare$](./propositional-logic-zeroth-order-logic#proof-techniques) , $\square$ , QED | "Q.E.D." / "end of proof" | marks the end of a proof |
