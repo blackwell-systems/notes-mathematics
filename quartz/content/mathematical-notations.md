@@ -73,6 +73,19 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | [$\{x \mid P(x)\}$](./set-theory#set-builder-notation) | "the set of all $x$ such that $P$ of $x$" | set-builder: the set of all $x$ satisfying property $P$ |
 | [$\lvert A \rvert$](./set-theory#cardinality) | "the cardinality of $A$" / "the size of $A$" | the number of elements in $A$ |
 | [$\bigcup_{i \in I}$](./set-theory#indexed-families-of-sets) , [$\bigcap_{i \in I}$](./set-theory#indexed-families-of-sets) | "the union / intersection over $i$ in $I$" | union or intersection over an indexed family of sets |
+| [$\supseteq$](./set-theory#subset) , [$\supset$](./set-theory#subset) | "is a superset of" / "is a proper superset of" | reverse of $\subseteq$ / $\subset$: the left set contains the right |
+| [$\ni$](./set-theory#set) | "contains" (as an element) | $A \ni a$ is $a \in A$ written the other way round |
+| [$\aleph_0$](./set-theory#hierarchy-of-infinities) | "aleph-null" / "aleph-naught" | the cardinality of $\mathbb{N}$, the smallest infinity (countable) |
+
+## Order and Relations
+
+| Symbol | Read aloud | Meaning |
+|--------|------------|---------|
+| [$<$](./inequalities#properties-of-inequalities) , [$>$](./inequalities#properties-of-inequalities) | "is less than" / "is greater than" | strict order |
+| [$\leq$](./inequalities#properties-of-inequalities) , [$\geq$](./inequalities#properties-of-inequalities) | "is less than or equal to" / "is greater than or equal to" | non-strict order |
+| $\neq$ | "is not equal to" | the two sides differ |
+| $\ll$ , $\gg$ | "is much less than" / "is much greater than" | informal order-of-magnitude comparison |
+| [$\prec$](./functions-relations#partial-order) , [$\succ$](./functions-relations#partial-order) | "precedes" / "succeeds" | a general (partial) order relation |
 
 ## Logic Notation
 
@@ -103,6 +116,46 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | [$\mathbb{R}$](./real-analysis#the-real-numbers) | "the reals" / "R" | real numbers: all points on the number line |
 | [$\mathbb{C}$](./complex-numbers#from-real-to-imaginary-to-complex) | "the complexes" / "C" | complex numbers: $a + bi$ with $a, b \in \mathbb{R}$ |
 
+## Greek Letters
+
+Greek letters are used constantly as variable names; often the hard part is just saying them. Common letters and their typical roles in these notes:
+
+| Letter | Read aloud | Common uses |
+|--------|------------|-------------|
+| $\alpha$ | "alpha" | significance level, learning rate, an angle |
+| $\beta$ | "beta" | regression coefficients, Type II error rate, momentum |
+| $\gamma$ , $\Gamma$ | "gamma" | discount factor, an angle; $\Gamma$ is the gamma function |
+| $\delta$ , $\Delta$ | "delta" | a small quantity; $\Delta$ a change or a discriminant |
+| $\epsilon$ , $\varepsilon$ | "epsilon" | an arbitrarily small positive number, an error term |
+| $\zeta$ | "zeta" (say "zay-ta") | the Riemann zeta function |
+| $\eta$ | "eta" (say "ay-ta") | a learning rate (step size) |
+| $\theta$ , $\Theta$ | "theta" | an angle or a model parameter; $\Theta$ is big-theta |
+| $\kappa$ | "kappa" | condition number, curvature |
+| $\lambda$ , $\Lambda$ | "lambda" | eigenvalue, regularization strength, a rate, the RLCT |
+| $\mu$ | "mu" (say "mew") | a mean, or a measure |
+| $\nu$ | "nu" (say "new") | degrees of freedom |
+| $\xi$ | "xi" (say "ksee" or "zai") | a dummy or random variable |
+| $\pi$ , $\Pi$ | "pi" | the constant $3.14159\ldots$; $\Pi$ is the product operator |
+| $\rho$ | "rho" (say "roe") | correlation, density, spectral radius |
+| $\sigma$ , $\Sigma$ | "sigma" | standard deviation; $\Sigma$ is the sum operator or a covariance matrix |
+| $\tau$ | "tau" (say "taw" or "tow") | a time constant, Kendall's tau |
+| $\phi$ , $\varphi$ , $\Phi$ | "phi" (say "fie" or "fee") | golden ratio, Euler's totient, an angle; $\Phi$ the normal CDF |
+| $\chi$ | "chi" (say "kai") | the chi-squared statistic $\chi^2$ |
+| $\psi$ | "psi" (say "sy" or "psy") | the digamma function, a wavefunction |
+| $\omega$ , $\Omega$ | "omega" | angular frequency, little-omega; $\Omega$ a sample space or big-omega |
+
+## Number Theory
+
+| Symbol | Read aloud | Meaning |
+|--------|------------|---------|
+| [$\mid$](./number-theory#divisibility) | "divides" | $a \mid b$ means $a$ divides $b$ (some integer $k$ has $b = ak$) |
+| [$\nmid$](./number-theory#divisibility) | "does not divide" | $a \nmid b$: no such integer exists |
+| [$\gcd(a,b)$](./number-theory#greatest-common-divisor-gcd) | "the gcd of $a$ and $b$" | greatest common divisor: largest integer dividing both |
+| [$\operatorname{lcm}(a,b)$](./number-theory#least-common-multiple-lcm) | "the lcm of $a$ and $b$" | least common multiple: smallest positive integer both divide |
+| [$a \bmod n$](./number-theory#modular-arithmetic) | "$a$ mod $n$" | the remainder when $a$ is divided by $n$ |
+| [$a \equiv b \pmod{n}$](./number-theory#congruence) | "$a$ is congruent to $b$ mod $n$" | $n$ divides $a - b$ |
+| [$\varphi(n)$](./number-theory#eulers-totient-function) | "phi of $n$" / "Euler's totient of $n$" | count of integers in $1, \ldots, n$ that are coprime to $n$ |
+
 ## Functions and Mappings
 
 | Symbol | Read aloud | Meaning |
@@ -115,6 +168,25 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | [$\twoheadrightarrow$](./functions-relations#bijection-injective-and-surjective) | "surjects onto" | a surjection (onto map) |
 | [$\cong$](./functions-relations#bijection-injective-and-surjective) | "is isomorphic to" / "is congruent to" | isomorphism (a structure-preserving bijection); also geometric congruence, e.g. $\triangle ABC \cong \triangle DEF$ |
 | [$\sim$](./functions-relations#one-to-one-correspondence) , $\approx$ | "is similar to" / "is equinumerous with" | for cardinality of plain sets, $A \sim B$ (or $\lvert A \rvert = \lvert B \rvert$) means a bijection exists |
+
+## Linear Algebra
+
+| Symbol | Read aloud | Meaning |
+|--------|------------|---------|
+| [$\mathbf{v}$](./linear-algebra-foundations#vector-space) , $\vec{v}$ | "vector v" | a vector (written bold, or with an arrow) |
+| [$A^{T}$](./linear-algebra-foundations#transpose-flipping-between-them) | "A transpose" | flips the rows and columns of $A$ |
+| [$A^{-1}$](./matrices) | "A inverse" | the matrix with $A A^{-1} = I$ (exists iff $\det A \neq 0$) |
+| [$\det(A)$](./linear-algebra-foundations#determinants) | "the determinant of A" | scalar measuring how $A$ scales volume; $0$ iff $A$ is singular |
+| [$\operatorname{rank}(A)$](./linear-algebra-foundations#rank) | "the rank of A" | number of linearly independent columns (or rows) |
+| $\operatorname{tr}(A)$ | "the trace of A" | sum of the diagonal entries (equals the sum of eigenvalues) |
+| [$u \cdot v$](./vector#dot-product-scalar-product) , $\langle u, v\rangle$ | "u dot v" / "the inner product of u and v" | $\sum_i u_i v_i$; measures alignment |
+| [$u \times v$](./vector#cross-product-vector-product) | "u cross v" | cross product: a vector perpendicular to both (in 3D) |
+| [$\hat{v}$](./vector#unit-vector) | "v hat" | the unit vector in the direction of $v$ |
+| [$\dim(V)$](./linear-algebra-foundations#dimension) | "the dimension of V" | number of vectors in a basis of $V$ |
+| [$\lambda$](./linear-algebra-foundations#eigenvalues-and-eigenvectors) | "lambda" | an eigenvalue: $A v = \lambda v$ for some nonzero $v$ |
+| $I$ , $I_n$ | "the identity matrix" | $1$s on the diagonal, $0$s elsewhere; $I v = v$ |
+| $\otimes$ | "tensor" / "Kronecker product" | $A \otimes B$, the tensor / Kronecker product |
+| $\oplus$ | "direct sum" | $U \oplus V$ of subspaces (distinct from XOR, which shares the symbol) |
 
 ## Analysis and Calculus
 
@@ -133,6 +205,11 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | [$\rightrightarrows$](./real-analysis#uniform-convergence-the-fix) | "converges uniformly to" | uniform convergence (versus $\to$ for pointwise convergence) |
 | [$O$](./asymptotic-notation#big-o-notation-upper-bound) , [$\Theta$](./asymptotic-notation#big-theta-notation-tight-bound) , [$\Omega$](./asymptotic-notation#big-omega-notation-lower-bound) , [$o$](./asymptotic-notation#little-o-and-little-omega) , $\omega$ | "big-O", "big-theta", "big-omega", "little-o", "little-omega" | asymptotic growth rates (see [Asymptotic Notation](./asymptotic-notation)) |
 | [$\infty$](./calculus#limits-at-infinity) | "infinity" | an unbounded quantity or limit, not a real number |
+| [$\sup$](./real-analysis#supremum-and-infimum) , [$\inf$](./real-analysis#supremum-and-infimum) | "the supremum / infimum of" (say "soop" / "inf") | least upper bound and greatest lower bound |
+| [$\max$](./real-analysis#supremum-and-infimum) , [$\min$](./real-analysis#supremum-and-infimum) | "the max / min of" | largest and smallest attained value |
+| [$\limsup$](./real-analysis#supremum-and-infimum) , [$\liminf$](./real-analysis#supremum-and-infimum) | "lim sup" / "lim inf" | limit superior and limit inferior |
+| [$\arg\max$](./optimization#convex-optimization-problems) , [$\arg\min$](./optimization#convex-optimization-problems) | "arg max" / "arg min" | the input at which a function attains its max / min |
+| [$\nabla^2$](./multivariable-calculus#the-hessian-matrix) | "del squared" / "nabla squared" | the Hessian $\nabla^2 f$ (matrix of second partials); also the Laplacian |
 
 ## Probability and Statistics
 
@@ -147,6 +224,20 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | [$\hat{\theta}$](./statistics#point-estimation) | "theta hat" | an estimator or estimate of parameter $\theta$ |
 | [$\binom{n}{k}$](./combination) | "$n$ choose $k$" | binomial coefficient |
 | [$!$](./permutation) | "factorial" | $n!$ ("$n$ factorial") $= n \cdot (n-1) \cdots 2 \cdot 1$ |
+| [$X \perp\!\!\!\perp Y$](./probability#independence) | "X is independent of Y" | independence of random variables |
+| $\mathbf{1}[\cdot]$ | "the indicator of" | $\mathbf{1}[A]$ is $1$ when $A$ holds, else $0$ |
+| [$\Gamma(z)$](./probability#gamma-distribution) | "gamma of z" | the gamma function; $\Gamma(n) = (n-1)!$ for positive integers |
+
+## Information Theory
+
+| Symbol | Read aloud | Meaning |
+|--------|------------|---------|
+| [$H(X)$](./information-theory#entropy) | "the entropy of X" | expected information content (uncertainty) of $X$ |
+| [$H(X, Y)$](./information-theory#joint-entropy) | "the joint entropy of X and Y" | uncertainty of the pair $(X, Y)$ |
+| [$H(X \mid Y)$](./information-theory#conditional-entropy) | "the conditional entropy of X given Y" | uncertainty remaining in $X$ once $Y$ is known |
+| [$D_{KL}(P \parallel Q)$](./information-theory#kl-divergence-relative-entropy) | "the KL divergence of P from Q" | how far $P$ is from $Q$; $\geq 0$, and $0$ iff $P = Q$ |
+| [$H(P, Q)$](./information-theory#cross-entropy) | "the cross-entropy of P and Q" | $H(P) + D_{KL}(P \parallel Q)$; the usual classification loss |
+| [$I(X; Y)$](./information-theory#mutual-information) | "the mutual information of X and Y" | information shared between $X$ and $Y$ |
 
 ## Miscellaneous Symbols
 
