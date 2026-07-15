@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set Operation Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --muted:#5b6672; --accent:#2563c9;
+    --line:#c9d2dc; --chip:#eef2f7; --chipOn:#2563c9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 18px 40px;}
+  h1{font-size:1.28rem;margin:0 0 2px;}
+  .cap{color:var(--muted);font-size:.92rem;margin:0 0 16px;}
+  .ops{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;}
+  .op{border:1px solid var(--line);background:#fff;color:var(--fg);
+    border-radius:7px;padding:6px 11px;font-size:.9rem;cursor:pointer;
+    font-family:inherit;}
+  .op:hover{border-color:var(--accent);}
+  .op.sel{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  canvas{background:#fff;border:1px solid var(--line);border-radius:8px;
+    display:block;touch-action:none;}
+  .panel{flex:1;min-width:260px;}
+  .def{font-size:1.02rem;margin:2px 0 14px;}
+  .def code{font-size:1rem;}
+  .toggle{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:.9rem;color:var(--muted);}
+  .subhead{font-weight:600;font-size:.86rem;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.03em;margin:14px 0 6px;}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px;}
+  .chip{width:34px;height:34px;border:1px solid var(--line);background:var(--chip);
+    color:var(--fg);border-radius:7px;font-size:.95rem;cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;user-select:none;}
+  .chip.on{background:var(--chipOn);color:#fff;border-color:var(--chipOn);}
+  .result{background:#eff4fc;border:1px solid #cfe0f6;border-radius:8px;
+    padding:12px 14px;margin-top:16px;}
+  .result .rline{font-size:1.08rem;}
+  .result .card{color:var(--muted);font-size:.9rem;margin-top:4px;}
+  .key{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:8px;}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;
+    vertical-align:-1px;margin-right:5px;border:1px solid var(--line);}
+  a.reset{font-size:.82rem;color:var(--accent);cursor:pointer;text-decoration:underline;}
+  input[type=checkbox]{accent-color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Set Operation Explorer</h1>
+  <p class="cap">Pick an operation: the Venn region where its membership condition holds lights up, and the same operation is computed live on a finite example.</p>
+
+  <div class="ops" id="ops"></div>
+
+  <div class="row">
+    <canvas id="cv" width="360" height="300" aria-label="Venn diagram"></canvas>
+    <div class="panel">
+      <label class="toggle"><input type="checkbox" id="three"> Show third set C (three-circle diagram)</label>
+      <div class="def" id="def"></div>
+      <div class="key">
+        <span><span class="sw" style="background:#2563c9;opacity:.55"></span>result region</span>
+        <span><span class="sw" style="background:#fff"></span>outside result</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Finite example &nbsp; U = {1, 2, 3, 4, 5, 6, 7, 8}</div>
+  <div>Set A (click to toggle membership):</div>
+  <div class="chips" id="chipsA"></div>
+  <div>Set B:</div>
+  <div class="chips" id="chipsB"></div>
+  <div id="cWrap" style="display:none">
+    <div>Set C:</div>
+    <div class="chips" id="chipsC"></div>
+  </div>
+  <a class="reset" id="reset">reset to A={1,2,3,4}, B={3,4,5,6}, C={2,4,6,8}</a>
+
+  <div class="result">
+    <div class="rline" id="res"></div>
+    <div class="card" id="crd"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const U = [1,2,3,4,5,6,7,8];
+const DEF_A = new Set([1,2,3,4]);
+const DEF_B = new Set([3,4,5,6]);
+const DEF_C = new Set([2,4,6,8]);
+let A = new Set(DEF_A), B = new Set(DEF_B), C = new Set(DEF_C);
+let three = false;
+let op = "union";
+
+// Each op: label, def string, predicate over booleans (a,b,c), whether it uses C.
+const OPS = [
+  {id:"A",     label:"A",        def:"A = { x : x \\u2208 A }", pred:(a,b,c)=>a},
+  {id:"B",     label:"B",        def:"B = { x : x \\u2208 B }", pred:(a,b,c)=>b},
+  {id:"union", label:"A \\u222a B",  def:"A \\u222a B = { x : x \\u2208 A or x \\u2208 B }", pred:(a,b,c)=>a||b},
+  {id:"inter", label:"A \\u2229 B",  def:"A \\u2229 B = { x : x \\u2208 A and x \\u2208 B }", pred:(a,b,c)=>a&&b},
+  {id:"diffAB",label:"A \\\\ B",     def:"A \\\\ B = { x : x \\u2208 A and x \\u2209 B }", pred:(a,b,c)=>a&&!b},
+  {id:"diffBA",label:"B \\\\ A",     def:"B \\\\ A = { x : x \\u2208 B and x \\u2209 A }", pred:(a,b,c)=>b&&!a},
+  {id:"symm",  label:"A \\u25b3 B",  def:"A \\u25b3 B = { x : x \\u2208 A xor x \\u2208 B }", pred:(a,b,c)=>a!==b},
+  {id:"compA", label:"A\\u1d9c",     def:"A\\u1d9c = { x \\u2208 U : x \\u2209 A }", pred:(a,b,c)=>!a},
+];
+
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+const W = cv.width, H = cv.height;
+
+// Circle geometry (device pixels).
+function circles(){
+  if(three){
+    return {
+      A:{x:135,y:120,r:78},
+      B:{x:225,y:120,r:78},
+      C:{x:180,y:198,r:78},
+    };
+  }
+  return {
+    A:{x:145,y:150,r:88},
+    B:{x:215,y:150,r:88},
+    C:null,
+  };
+}
+function inC(p,c){ if(!c)return false; const dx=p.x-c.x,dy=p.y-c.y; return dx*dx+dy*dy<=c.r*c.r; }
+
+function drawVenn(){
+  const pred = OPS.find(o=>o.id===op).pred;
+  const g = circles();
+  // Background (universal set rectangle).
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fff";
+  const M=10;
+  ctx.fillRect(M,M,W-2*M,H-2*M);
+
+  // Per-pixel shading of the result region.
+  const img = ctx.getImageData(0,0,W,H);
+  const d = img.data;
+  for(let y=M;y<H-M;y++){
+    for(let x=M;x<W-M;x++){
+      const p={x:x+0.5,y:y+0.5};
+      const a=inC(p,g.A), b=inC(p,g.B), c=inC(p,g.C);
+      if(pred(a,b,c)){
+        const i=(y*W+x)*4;
+        // blend accent over white
+        d[i]=Math.round(0.45*255+0.55*0x25);
+        d[i+1]=Math.round(0.45*255+0.55*0x63);
+        d[i+2]=Math.round(0.45*255+0.55*0xc9);
+      }
+    }
+  }
+  ctx.putImageData(img,0,0);
+
+  // Rectangle border for U.
+  ctx.strokeStyle="#9aa6b2";
+  ctx.lineWidth=1.5;
+  ctx.strokeRect(M,M,W-2*M,H-2*M);
+  ctx.fillStyle="#5b6672";
+  ctx.font="13px system-ui,sans-serif";
+  ctx.fillText("U", M+6, M+16);
+
+  // Circle outlines + labels.
+  ctx.strokeStyle="#1c2126";
+  ctx.lineWidth=1.6;
+  const lab=(c,t,dx,dy)=>{ if(!c)return;
+    ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,7);ctx.stroke();
+    ctx.fillStyle="#1c2126";ctx.font="600 15px system-ui,sans-serif";
+    ctx.fillText(t,c.x+dx,c.y+dy);};
+  lab(g.A,"A",-g.A.r+8,three?-24:0);
+  lab(g.B,"B",g.B.r-20,three?-24:0);
+  lab(g.C,"C",-6,g.C?g.C.r-10:0);
+}
+
+// ---- Finite set computation ----
+function computeResult(){
+  const o = OPS.find(x=>x.id===op);
+  const out=[];
+  for(const x of U){
+    const a=A.has(x), b=B.has(x), c=C.has(x);
+    if(o.pred(a,b,c)) out.push(x);
+  }
+  return out;
+}
+function setStr(arr){ return "{"+ (arr.length? " "+arr.join(", ")+" " : "") +"}"; }
+
+function render(){
+  const o = OPS.find(x=>x.id===op);
+  document.getElementById("def").innerHTML = "<code>"+esc(o.def)+"</code>";
+  const arr = computeResult();
+  const lhs = o.label.replace(/\\\\\\\\/g,"\\\\");
+  document.getElementById("res").innerHTML =
+    "<strong>"+esc(lhs)+"</strong> = "+esc(setStr(arr));
+  document.getElementById("crd").textContent =
+    "|"+plainLabel(o)+"| = "+arr.length+"     (from A="+setStr([...A].sort((p,q)=>p-q))
+    +", B="+setStr([...B].sort((p,q)=>p-q))
+    +(usesC(o)?", C="+setStr([...C].sort((p,q)=>p-q)):"")+")";
+  drawVenn();
+}
+function usesC(o){ return /C/.test(o.label); }
+function plainLabel(o){ return o.label; }
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+// ---- Build UI ----
+function buildOps(){
+  const wrap=document.getElementById("ops");
+  wrap.innerHTML="";
+  OPS.forEach(o=>{
+    const btn=document.createElement("button");
+    btn.className="op"+(o.id===op?" sel":"");
+    btn.textContent=o.label;
+    btn.onclick=()=>{op=o.id;buildOps();render();};
+    wrap.appendChild(btn);
+  });
+}
+function buildChips(id, set){
+  const wrap=document.getElementById(id);
+  wrap.innerHTML="";
+  U.forEach(x=>{
+    const c=document.createElement("button");
+    c.className="chip"+(set.has(x)?" on":"");
+    c.textContent=x;
+    c.onclick=()=>{ if(set.has(x))set.delete(x); else set.add(x);
+      c.classList.toggle("on"); render(); };
+    wrap.appendChild(c);
+  });
+}
+function buildAllChips(){
+  buildChips("chipsA",A);
+  buildChips("chipsB",B);
+  buildChips("chipsC",C);
+}
+
+document.getElementById("three").addEventListener("change",e=>{
+  three=e.target.checked;
+  document.getElementById("cWrap").style.display=three?"":"none";
+  render();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  A=new Set(DEF_A);B=new Set(DEF_B);C=new Set(DEF_C);
+  buildAllChips();render();
+});
+
+buildOps();
+buildAllChips();
+render();
+</script>
+</body>
+</html>

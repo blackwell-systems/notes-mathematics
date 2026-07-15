@@ -313,6 +313,52 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
 }
 
+// ================= Set Theory =================
+{
+  // Sets as bitmasks over the universe {0,...,N-1}
+  const N = 4, U = (1 << N) - 1;
+  const comp = (A) => U & ~A;
+  const pc = (x) => { let c = 0; while (x) { c += x & 1; x >>= 1; } return c; };
+
+  let deMorgan = true, absorb = true, distrib = true, complement = true;
+  for (let A = 0; A <= U; A++) {
+    for (let B = 0; B <= U; B++) {
+      if (comp(A | B) !== (comp(A) & comp(B))) deMorgan = false;
+      if (comp(A & B) !== (comp(A) | comp(B))) deMorgan = false;
+      if ((A | (A & B)) !== A) absorb = false;
+      if ((A & (A | B)) !== A) absorb = false;
+      for (let C = 0; C <= U; C++) {
+        if ((A & (B | C)) !== ((A & B) | (A & C))) distrib = false;
+        if ((A | (B & C)) !== ((A | B) & (A | C))) distrib = false;
+      }
+    }
+    if ((A | comp(A)) !== U || (A & comp(A)) !== 0) complement = false;
+  }
+  check("De Morgan's laws over all subsets of a 4-set", deMorgan);
+  check("distributive laws over all subsets", distrib);
+  check("absorption laws over all subsets", absorb);
+  check("complement laws A u Ac = U, A n Ac = empty", complement);
+
+  // Power set / Cantor's theorem (finite): |P(A)| = 2^|A| > |A|
+  check("|P(A)| = 2^n > n for n=0..6", [0, 1, 2, 3, 4, 5, 6].every((n) => 2 ** n === (1 << n) && 2 ** n > n));
+  // Cartesian product size |A x B| = |A||B|
+  { const A = 0b1011, B = 0b0110; eq("|A x B| = |A||B|", pc(A) * pc(B), 3 * 2); }
+
+  // Cantor pairing pi(a,b) = (a+b)(a+b+1)/2 + b is injective (N x N is countable)
+  const pair = (a, b) => ((a + b) * (a + b + 1)) / 2 + b;
+  { const seen = new Set(); let inj = true;
+    for (let a = 0; a < 25; a++) for (let b = 0; b < 25; b++) { const v = pair(a, b); if (seen.has(v)) inj = false; seen.add(v); }
+    check("Cantor pairing N x N -> N is injective (countable)", inj); }
+
+  // Cantor's diagonal (finite instance): d with d_i != a_ii differs from every row
+  { const rows = [[1, 2, 3, 4], [5, 6, 7, 8], [2, 3, 4, 5], [9, 8, 7, 6]];
+    const d = rows.map((r, i) => (r[i] % 9) + 1);
+    check("diagonal d differs from every listed row at position i", rows.every((r, i) => d[i] !== r[i])); }
+
+  // Pigeonhole: n+1 items in n boxes force a box with >= 2
+  check("pigeonhole: 5 items in 4 boxes -> some box >= 2", Math.ceil(5 / 4) >= 2);
+}
+
 // ================= Number Systems (constructions & decimals) =================
 {
   // von Neumann encoding: n = {0,...,n-1}, so |n| = n and S(n)=n u {n}

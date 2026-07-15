@@ -68,6 +68,12 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Set Theory pass** — converted all 13 scanned images (6 to clean matplotlib Venn/
+  Euler/universal-set diagrams, 7 to native markdown text/tables); added the ZFC axioms,
+  an Ordinals & Well-Ordering section (von Neumann ordinals, ω, well-ordering theorem =
+  AoC), cardinal arithmetic + the Continuum Hypothesis, and a Boolean-algebra-of-sets
+  summary table. Two widgets (set-operation Venn explorer, interactive Cantor diagonal),
+  plus Cantor-diagonal and infinity-hierarchy diagrams; +9 machine-checked assertions.
 - [x] **Number Systems deepening** — added a rigorous "How the Systems Are Actually
   Constructed" section (Peano axioms + von Neumann encoding, Z & Q as pair quotients, R via
   Dedekind cuts / Cauchy sequences, C as ordered pairs / R[x]/(x²+1)), deepened cardinality

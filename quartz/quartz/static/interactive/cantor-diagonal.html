@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cantor's diagonal argument</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --text:#1c2126; --blue:#2563c9;
+    --amber:#e08a00; --amber-bg:#fff4dd;
+    --green:#188a4a; --green-bg:#e6f6ec;
+    --line:#dbe1e8; --muted:#5c6773;
+  }
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px; line-height:1.5;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:24px 20px 40px;}
+  h1{font-size:1.35rem;margin:0 0 4px;}
+  .cap{color:var(--muted);font-size:.9rem;margin:0 0 18px;}
+  .controls{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:0 0 18px;}
+  button{
+    background:var(--blue);color:#fff;border:none;border-radius:6px;
+    padding:8px 14px;font-size:.9rem;cursor:pointer;font-family:inherit;
+  }
+  button:hover{background:#1e53ab;}
+  .field{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--muted);}
+  input[type=range]{accent-color:var(--blue);}
+  table{border-collapse:collapse;margin:6px 0 4px;font-variant-numeric:tabular-nums;}
+  th,td{padding:0;text-align:center;}
+  .lbl{padding:2px 10px 2px 0;text-align:right;color:var(--muted);
+    font-style:italic;white-space:nowrap;font-size:.92rem;}
+  .prefix{color:var(--muted);padding-right:1px;}
+  .cell{
+    display:inline-block;width:26px;line-height:28px;height:28px;
+    border:1px solid transparent;border-radius:5px;cursor:pointer;
+    font-size:1rem;user-select:none;margin:1px;
+  }
+  .cell:hover{border-color:var(--blue);background:#eef4ff;}
+  .diag{background:var(--amber-bg);color:var(--amber);font-weight:700;border-color:#f0d49a;}
+  .diffmark{outline:2px solid var(--amber);outline-offset:-2px;}
+  .xrow td{padding-top:8px;}
+  .xcell{
+    display:inline-block;width:26px;line-height:28px;height:28px;
+    color:var(--green);font-weight:700;background:var(--green-bg);
+    border:1px solid #bfe6cd;border-radius:5px;margin:1px;font-size:1rem;
+  }
+  .xlbl{color:var(--green);font-weight:700;font-style:normal;}
+  .diffcol{margin-left:14px;font-size:.85rem;color:var(--muted);white-space:nowrap;}
+  .diffcol b{color:var(--amber);}
+  .note{background:#f4f7fb;border-left:3px solid var(--blue);
+    padding:10px 14px;border-radius:0 6px 6px 0;margin:16px 0 0;font-size:.9rem;}
+  .concl{margin-top:14px;font-size:.92rem;}
+  .concl b{color:var(--blue);}
+  .hint{color:var(--muted);font-size:.82rem;margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Cantor's diagonal argument</h1>
+  <p class="cap">Any list of reals in [0,1] is incomplete: the diagonal always builds a number that is missing.</p>
+
+  <div class="controls">
+    <button id="shuffle">Regenerate list</button>
+    <div class="field">
+      <label for="nrange">Rows N</label>
+      <input type="range" id="nrange" min="6" max="12" value="8">
+      <span id="nval">8</span>
+    </div>
+  </div>
+
+  <div id="tableHost"></div>
+  <p class="hint">Click any digit to edit it (0-9). The diagonal is amber; the constructed number <b style="color:var(--green)">x</b> updates live.</p>
+
+  <div class="note">
+    <b>Construction rule.</b> For each row i, take its i-th (diagonal) digit d and set x's i-th digit to
+    d+1 if d&lt;5, else d&minus;1. This guarantees x's i-th digit &ne; r<sub>i</sub>'s i-th digit, and it
+    only ever produces digits 1&ndash;8, never 0 or 9 &mdash; so x has a single, unambiguous decimal form and we
+    sidestep the 0.4999&hellip; = 0.5000&hellip; representation subtlety.
+  </div>
+
+  <p class="concl" id="concl"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var host = document.getElementById("tableHost");
+  var nRange = document.getElementById("nrange");
+  var nVal = document.getElementById("nval");
+  var shuffleBtn = document.getElementById("shuffle");
+  var conclEl = document.getElementById("concl");
+
+  var N = 8;
+  var listIndex = 0;   // deterministic "shuffle" counter (NOT Math.random)
+  var rows = [];       // rows[i] = array of N digits (0-9)
+
+  // Deterministic pseudo-random digits via a simple LCG.
+  function lcg(seed){
+    var s = seed >>> 0;
+    return function(){ s = (1664525 * s + 1013904223) >>> 0; return s; };
+  }
+  function genRows(){
+    rows = [];
+    for(var i=0;i<N;i++){
+      var rnd = lcg(1000 + listIndex*97 + i*31);
+      var d = [];
+      for(var j=0;j<N;j++){ d.push(rnd() % 10); }
+      rows.push(d);
+    }
+  }
+
+  // x's i-th digit from the diagonal digit d: d+1 if d<5 else d-1. Always in 1..8.
+  function xDigit(d){ return d < 5 ? d + 1 : d - 1; }
+
+  function render(){
+    var i, j;
+    var html = '<table><tbody>';
+    for(i=0;i<N;i++){
+      html += '<tr><td class="lbl">r<sub>'+(i+1)+'</sub> = </td><td>';
+      html += '<span class="prefix">0.</span>';
+      for(j=0;j<N;j++){
+        var cls = 'cell' + (i===j ? ' diag' : '');
+        html += '<span class="'+cls+'" data-r="'+i+'" data-c="'+j+'">'+rows[i][j]+'</span>';
+      }
+      // per-row difference note
+      var dg = rows[i][i];
+      var xd = xDigit(dg);
+      html += '<td class="diffcol">pos '+(i+1)+': x&rsquo;s digit <b>'+xd+'</b> &ne; r<sub>'+(i+1)+'</sub>&rsquo;s <b>'+dg+'</b></td>';
+      html += '</td></tr>';
+    }
+    // constructed number x
+    html += '<tr class="xrow"><td class="lbl xlbl">x = </td><td>';
+    html += '<span class="prefix" style="color:var(--green)">0.</span>';
+    for(j=0;j<N;j++){
+      html += '<span class="xcell">'+xDigit(rows[j][j])+'</span>';
+    }
+    html += '</td></tr>';
+    html += '</tbody></table>';
+    host.innerHTML = html;
+
+    // wire up editable cells
+    var cells = host.querySelectorAll('.cell');
+    cells.forEach(function(el){
+      el.addEventListener('click', function(){
+        var r = +el.getAttribute('data-r');
+        var c = +el.getAttribute('data-c');
+        rows[r][c] = (rows[r][c] + 1) % 10; // cycle 0-9 on click
+        render();
+      });
+    });
+  }
+
+  function render_conclusion(){
+    conclEl.innerHTML =
+      'By construction, x differs from r<sub>i</sub> at position i for <b>every</b> i, '+
+      'so x differs from every number in the list &mdash; x is not on it, and the list is incomplete. '+
+      'Since this works for <b>ANY</b> list, the reals in [0,1] cannot be enumerated: they are '+
+      '<b>uncountable</b>.';
+  }
+
+  function rebuild(){ genRows(); render(); }
+
+  nRange.addEventListener('input', function(){
+    N = +nRange.value; nVal.textContent = N; rebuild();
+  });
+  shuffleBtn.addEventListener('click', function(){
+    listIndex++; rebuild();
+  });
+
+  render_conclusion();
+  rebuild();
+})();
+</script>
+</body>
+</html>

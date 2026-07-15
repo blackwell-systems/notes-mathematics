@@ -45,21 +45,21 @@ We write $a \in A$ for "a is an element of a set A" (read "a is an element of A"
 
 $\emptyset$ or $\{\}$ (read "the empty set") denotes the empty set, which contains no element.
 
-![Membership example: 1 is in set A, 0 is not in A](./media/image22.png)
+For example, if $A = \{1, 2, 3\}$, then $1 \in A$ but $0 \notin A$.
 
 **Set elements are unique.** An element is either in the set or not in
 the set. It makes no sense to say that an element is in the set
 multiple times. It may be listed multiple times, but this is
 extraneous.
 
-![Membership statements about sets A, B, C using element and not-element symbols](./media/image24.png)
+So $\{1, 1, 2\}$ and $\{1, 2\}$ denote the *same* set: repetition and order carry no information about membership.
 
 ## Roster Notation
 
 Roster notation (also known as **enumeration notation**) involves
 explicitly listing out all the elements of the set within curly braces.
 
-![Roster notation examples: set of vowels and first five natural numbers](./media/image25.png)
+For example, the set of vowels is $\{a, e, i, o, u\}$, and the first five natural numbers form $\{0, 1, 2, 3, 4\}$.
 
 ## Set-Builder Notation
 
@@ -104,7 +104,7 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 
 **Key Property:** Every set is a subset of itself (reflexive property).
 
-![Two Euler diagrams contrasting proper subset A of B with non-proper subset C of B](./media/image27.png)
+![Euler diagram: circle A drawn entirely inside a larger circle B, showing that every element of A is also in B, so A is a subset of B](./media/st-subset-euler.png)
 
 ## Set Equality
 
@@ -237,7 +237,7 @@ average, thus $\geq \lceil m/n\rceil$.
 **Cardinality:** Let A be a set. then the number of elements in the set
 A is called **cardinality** of the set A, and is denoted by **\|A\|** (read "the cardinality of A" or "the size of A")
 
-![Cardinality of the set containing the empty set equals one, distinguished from the empty set](./media/image29.png)
+For instance, $|\varnothing| = 0$, but $|\{\varnothing\}| = 1$: the set *containing* the empty set has one element (namely $\varnothing$), so it is not itself empty. This distinction matters, and underlies the von Neumann encoding of numbers.
 
 ### Finite vs. Infinite Sets
 
@@ -358,7 +358,7 @@ The universal set, often denoted by 𝑈, is the set that includes every
 element that is being considered in a given discussion or problem
 domain. All other sets in that context are subsets of the universal set.
 
-![Venn diagram of a universal set U as a rectangle containing all sets under consideration as subsets](./media/image30.png)
+![Rectangle labeled U, the universal set, containing circles A, B, and C as subsets, showing that all sets under discussion live inside U](./media/st-universal-set.png)
 
 **Special Considerations:**
 
@@ -375,7 +375,9 @@ context or domain of discourse.**
 
 ## Set Operations
 
-**Set Operations**
+Sets combine through a handful of operations, each defined by a membership condition. Explore them all below: pick an operation to light up its region of the Venn diagram, edit which elements lie in $A$ and $B$, and watch the resulting set (and its size) update live.
+
+<iframe src="/static/interactive/set-operation-explorer.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Set Union
 
@@ -386,7 +388,7 @@ $\forall x\, (x \in (A \cup B) \leftrightarrow (x \in A \lor x \in B))$
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then $A \cup B = \{1, 2, 3, 4, 5\}$
 
-![Venn diagram of union A union B with both circles shaded red](./media/image31.png)
+![Venn diagram of A union B: both circles fully shaded inside the universal-set rectangle](./media/st-venn-union.png)
 
 ### Set Intersection
 
@@ -396,7 +398,7 @@ $\forall x\, (x \in (A \cap B) \leftrightarrow (x \in A \land x \in B))$
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then $A \cap B = \{3\}$
 
-![Venn diagram of intersection A intersect B with overlap shaded red](./media/image32.png)
+![Venn diagram of A intersect B: only the central overlap lens shaded](./media/st-venn-intersection.png)
 
 ### Set Complement
 
@@ -407,7 +409,7 @@ elements from the domain of discourse which are NOT in A.
 
 $\forall x\, (x \in A' \leftrightarrow (x \in U \land x \notin A))$
 
-![Complement of set A: region outside circle A shaded red](./media/image35.png)
+![Venn diagram of the complement of A: the entire universal-set rectangle outside circle A is shaded, including the part of B outside A](./media/st-venn-complement.png)
 
 ### Symmetric Difference
 
@@ -423,6 +425,8 @@ Where $\oplus$ is exclusive OR (XOR).
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then:
 - $A \triangle B = \{1, 2, 4, 5\}$
+
+![Venn diagram of the symmetric difference A triangle B: both outer crescents shaded and the overlap left white](./media/st-venn-symmetric-difference.png)
 
 **Properties:**
 - **Commutative:** $A \triangle B = B \triangle A$
@@ -441,7 +445,7 @@ $$
 A \setminus B = \{x : x \in A \text{ and } x \notin B\}
 $$
 
-![Venn diagram of set difference with the part of B outside A shaded red](./media/image33.png)
+![Venn diagram of the set difference A minus B: only the part of A lying outside B is shaded](./media/st-venn-difference.png)
 
 The set difference is not the same as the complement unless $B$ is the universal set. In general, $A \setminus B$ only removes elements of $B$ from $A$, whereas the complement $A'$ (or $A^c$) removes all elements of $A$ from the entire universal set.
 
@@ -675,6 +679,12 @@ r₄ = 0.a₄₁ a₄₂ a₄₃ a₄₄ ...
 6. **Contradiction:** Our list was supposed to contain all real numbers in (0, 1)
 7. Therefore (0, 1) cannot be countable
 
+![Cantor's diagonal argument: a numbered list of reals with each number's diagonal digit highlighted, and a constructed number whose every digit differs from the diagonal, so it cannot appear anywhere in the list](./media/st-cantor-diagonal.png)
+
+The argument works against *any* proposed list, which is the crux: no enumeration can be complete. Try it yourself below. Edit the digits or regenerate the list; the constructed number always differs from row $i$ in position $i$, so it is never on the list.
+
+<iframe src="/static/interactive/cantor-diagonal.html" width="100%" height="620" style="border:none;"></iframe>
+
 ### Hierarchy of Infinities
 
 Not all infinities are equal. There is a strict hierarchy:
@@ -685,6 +695,8 @@ Where:
 - $|\mathbb{N}|$ is denoted $\aleph_0$ (read "aleph-null" or "aleph-naught"), the smallest infinite cardinality
 - $|\mathbb{R}|$ is denoted $\mathfrak{c}$ (the cardinality of the continuum)
 - Each power set has strictly greater cardinality than the original set
+
+![Tower of infinite cardinalities: aleph-null (countable N, Z, Q) at the bottom, then the continuum c = 2 to the aleph-null (uncountable R, C, power set of N), then 2 to the c (power set of R), each level strictly larger via the power-set operation](./media/st-infinity-hierarchy.png)
 
 **Key Properties:**
 
@@ -699,6 +711,18 @@ Where:
 - Establishes that most real numbers are transcendental (algebraic numbers are countable, reals are uncountable)
 - Foundational for measure theory, probability, and real analysis
 - Demonstrates limits of enumeration and computation
+
+### Cardinal Arithmetic and the Continuum Hypothesis
+
+Infinite cardinals can be added and multiplied, but the rules collapse in a way finite numbers never do. For the countable cardinal $\aleph_0$:
+
+- $\aleph_0 + \aleph_0 = \aleph_0$: two countable sets union to a countable set (interleave their enumerations).
+- $\aleph_0 \cdot \aleph_0 = \aleph_0$: the grid $\mathbb{N} \times \mathbb{N}$ is countable (enumerate it along diagonals).
+- More generally, for any infinite cardinal $\kappa$, $\kappa + \kappa = \kappa \cdot \kappa = \kappa$ (using the Axiom of Choice). Addition and multiplication of infinite cardinals are trivial: the larger one simply wins.
+
+**Exponentiation is the only operation that grows.** By Cantor's theorem, $2^{\aleph_0} = |\mathcal{P}(\mathbb{N})| = |\mathbb{R}| = \mathfrak{c}$, strictly bigger than $\aleph_0$. So the continuum $\mathfrak{c}$ is "two to the countable."
+
+This raises the question Cantor could not settle. Is there any cardinal *strictly between* $\aleph_0$ and $\mathfrak{c} = 2^{\aleph_0}$? Writing $\aleph_1$ for the smallest uncountable cardinal, the question is whether $\aleph_1 = \mathfrak{c}$. The **Continuum Hypothesis (CH)** asserts that it is: no set is larger than $\mathbb{N}$ and smaller than $\mathbb{R}$. Gödel (1940) showed CH cannot be *disproved* from ZFC, and Cohen (1963), inventing the method of *forcing*, showed it cannot be *proved* either. CH is **independent** of the standard axioms: the size of the continuum is genuinely undetermined by them. (The Generalized Continuum Hypothesis extends this to $2^{\aleph_\alpha} = \aleph_{\alpha+1}$ at every level.)
 
 ## Cantor's Theorem
 
@@ -775,6 +799,22 @@ If $|A| = n$, then $|\mathcal{P}(A)| = 2^n$.
 
 For infinite sets, this generalizes: if $|A| = \kappa$, then $|\mathcal{P}(A)| = 2^\kappa$ (using cardinal exponentiation).
 
+## The ZFC Axioms
+
+[Russell's paradox](#russells-paradox) shows that *naive* set theory, the assumption that any property whatsoever carves out a set, is inconsistent. The standard repair is **Zermelo–Fraenkel set theory (ZF)**: instead of letting every property form a set, a short list of axioms declares exactly which sets exist, carefully avoiding "the set of all sets." Adding the Axiom of Choice gives **ZFC**, the de facto foundation on which essentially all of modern mathematics is built. The axioms:
+
+1. **Extensionality.** Two sets are equal if and only if they have the same elements. A set is completely determined by its membership, nothing else.
+2. **Pairing.** For any $a$ and $b$, the set $\{a, b\}$ exists.
+3. **Union.** For any set of sets, the union of all of them exists.
+4. **Power Set.** For any set $A$, the [power set](#power-set) $\mathcal{P}(A)$ of all its subsets exists.
+5. **Infinity.** An infinite set exists: specifically, a set containing $\varnothing$ and closed under $x \mapsto x \cup \{x\}$, which yields the von Neumann natural numbers (see [Number Systems](./number-systems)).
+6. **Separation (Specification).** For any set $A$ and any property $\varphi$, the subset $\{x \in A : \varphi(x)\}$ exists. Crucially, you may only carve a subset out of a set *that already exists*. This is the precise fix for Russell's paradox: you cannot form $\{x : x \notin x\}$ from nothing, only $\{x \in A : x \notin x\}$ for a given $A$, and that turns out to be harmless.
+7. **Replacement.** The image of a set under a definable function is again a set. (This is what lets constructions run along the ordinals, below.)
+8. **Foundation (Regularity).** Every nonempty set has an $\in$-minimal element. Consequently no set is a member of itself, and there are no infinite descending chains $\cdots \in x_2 \in x_1 \in x_0$.
+9. **Choice.** From any collection of nonempty sets, one can simultaneously pick an element from each, developed in the next section.
+
+The linchpin is **Separation** replacing naive comprehension: sets are always carved *out of* sets that already exist, so the paradoxical "set of all sets that do not contain themselves" never gets off the ground.
+
 ## Axiom of Choice and Zorn's Lemma
 
 **Axiom of Choice (AC):** Given any collection of non-empty sets, there exists a function that selects exactly one element from each set. Formally, if $\{A_i\}_{i \in I}$ is a family of non-empty sets, then there exists a function $f: I \to \bigcup_{i \in I} A_i$ such that $f(i) \in A_i$ for every $i \in I$.
@@ -795,6 +835,20 @@ Zorn's Lemma is equivalent to the Axiom of Choice: assuming either one, you can 
 - Every vector space has a basis (requires AC/Zorn's Lemma for infinite-dimensional spaces)
 - Every ring with unity has a maximal ideal (Zorn's Lemma)
 - Tychonoff's theorem: any product of compact spaces is compact (equivalent to AC)
+
+## Ordinals and Well-Ordering
+
+A **well-ordered** set is a totally ordered set in which *every* nonempty subset has a least element. The naturals $\mathbb{N}$ are well-ordered (any nonempty set of naturals has a smallest member), but $\mathbb{Z}$ and $\mathbb{R}$ are not (there is no least integer, and no least positive real). Well-ordering is exactly the property that makes [induction](./propositional-logic-zeroth-order-logic) work, and it generalizes far beyond the finite.
+
+**Ordinals** are the canonical well-ordered sets, the "order types" that extend counting into the transfinite. Using the same **von Neumann encoding** as the [natural numbers](./number-systems), each ordinal *is* the set of all smaller ordinals:
+$$
+0 = \varnothing,\quad 1 = \{0\},\quad 2 = \{0,1\},\ \ldots,\quad \omega = \{0, 1, 2, \ldots\} = \mathbb{N},\quad \omega+1 = \omega \cup \{\omega\},\ \ldots
+$$
+Here $\omega$ (read "omega") is the first **infinite** ordinal, and counting continues past it: $\omega + 1, \omega + 2, \ldots, \omega \cdot 2, \ldots, \omega^2, \ldots, \omega^\omega, \ldots$ The finite ordinals are precisely $\mathbb{N}$, so the von Neumann naturals used elsewhere on the site are just the bottom of this tower.
+
+**Ordinals vs. cardinals.** Ordinals measure *order type* (position in a well-ordering); cardinals measure *size*. These come apart in the infinite: $\omega$, $\omega + 1$, and $\omega \cdot 2$ are all different ordinals but all have the same cardinality $\aleph_0$, because rearranging a countable set changes its order type without changing how many elements it has. The cardinals are the "initial" ordinals, those not in bijection with any smaller ordinal: $\aleph_0 = \omega$, and $\aleph_1$ is the first *uncountable* ordinal.
+
+**The Well-Ordering Theorem** states that *every* set can be well-ordered, even $\mathbb{R}$. This is not obvious (no one can exhibit a well-ordering of the reals), and in fact it is **equivalent to the Axiom of Choice** and to Zorn's Lemma: the three are interchangeable. Well-orderings license **transfinite induction and recursion**, the generalization of ordinary induction that runs along the ordinals and underpins constructions throughout set theory, logic, and analysis.
 
 ## Set Operation Properties
 
@@ -908,6 +962,22 @@ $$
 $$
 A \cap A = A
 $$
+
+### Summary of the Algebra of Sets
+
+These identities are the axioms of a **Boolean algebra** (the same structure behind [propositional logic](./propositional-logic-zeroth-order-logic), with $\cup, \cap, {}^c$ playing the roles of $\vee, \wedge, \neg$), collected here for reference. $U$ is the universal set and $\varnothing$ the empty set.
+
+| Law | Union form | Intersection form |
+|---|---|---|
+| Commutative | $A \cup B = B \cup A$ | $A \cap B = B \cap A$ |
+| Associative | $(A \cup B) \cup C = A \cup (B \cup C)$ | $(A \cap B) \cap C = A \cap (B \cap C)$ |
+| Distributive | $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ | $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ |
+| Identity | $A \cup \varnothing = A$ | $A \cap U = A$ |
+| Domination | $A \cup U = U$ | $A \cap \varnothing = \varnothing$ |
+| Idempotent | $A \cup A = A$ | $A \cap A = A$ |
+| Complement | $A \cup A^c = U$ | $A \cap A^c = \varnothing$ |
+| De Morgan | $(A \cup B)^c = A^c \cap B^c$ | $(A \cap B)^c = A^c \cup B^c$ |
+| Absorption | $A \cup (A \cap B) = A$ | $A \cap (A \cup B) = A$ |
 
 ## Indexed Families of Sets
 
@@ -1026,7 +1096,7 @@ $$
 A \times B = \{(a, b) : a \in A,\, b \in B\}
 $$
 
-![Cartesian product A cross B defined as the set of ordered pairs (a, b)](./media/image36.png)
+A single element of $A \times B$ is an ordered pair $(a, b)$, which records *which* element came from $A$ and *which* came from $B$, in that order.
 
 **Worked Example:**
 
@@ -1066,7 +1136,13 @@ and a set of columns. If the Cartesian product **rows** $\times$ **columns**
 is taken, the cells of the table contain ordered pairs of the form (row
 value, column value).
 
-![Grid of the Cartesian product of {x, y, z} and {1, 2, 3} as ordered-pair cells](./media/image37.png)
+For instance, $\{x, y, z\} \times \{1, 2, 3\}$ fills a $3 \times 3$ grid of ordered pairs:
 
-![Worked example of {1,2} cross {2,3} listing its four ordered pairs](./media/image38.png)
+| $\times$ | $1$ | $2$ | $3$ |
+|---|---|---|---|
+| $x$ | $(x,1)$ | $(x,2)$ | $(x,3)$ |
+| $y$ | $(y,1)$ | $(y,2)$ | $(y,3)$ |
+| $z$ | $(z,1)$ | $(z,2)$ | $(z,3)$ |
+
+As a final worked example, $\{1, 2\} \times \{2, 3\} = \{(1,2),\, (1,3),\, (2,2),\, (2,3)\}$, exactly $|\{1,2\}| \cdot |\{2,3\}| = 2 \cdot 2 = 4$ ordered pairs. (Note that $(2,2)$ is a legitimate pair even though its two entries are equal.)
 
