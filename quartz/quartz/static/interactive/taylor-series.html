@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taylor / Maclaurin Polynomial Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --text:#1c2126; --muted:#5b6672;
+    --fn:#2563c9; --poly:#c0392b; --grid:#e4e8ec; --axis:#aab3bd;
+    --panel:#f1f4f7; --border:#d7dde3;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 14px 26px;}
+  h1{font-size:1.18rem;margin:0 0 2px;}
+  .sub{color:var(--muted);font-size:.86rem;margin:0 0 14px;}
+  canvas{width:100%;height:auto;display:block;background:#fff;
+    border:1px solid var(--border);border-radius:8px;}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 10px;align-items:flex-end;}
+  .ctl{display:flex;flex-direction:column;gap:5px;}
+  .ctl label{font-size:.78rem;color:var(--muted);font-weight:600;letter-spacing:.02em;}
+  select{font-size:.92rem;padding:5px 8px;border:1px solid var(--border);border-radius:6px;
+    background:#fff;color:var(--text);}
+  .slider-ctl{flex:1;min-width:230px;}
+  input[type=range]{width:100%;accent-color:var(--poly);}
+  .nval{font-variant-numeric:tabular-nums;color:var(--poly);font-weight:700;}
+  .legend{display:flex;gap:18px;font-size:.82rem;margin:2px 0 10px;flex-wrap:wrap;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .swatch{width:22px;height:0;border-top:3px solid;border-radius:2px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:#111;display:inline-block;}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:11px 13px;font-size:.9rem;line-height:1.5;}
+  .formula{font-family:"Cambria Math","Times New Roman",Georgia,serif;font-size:1.02rem;
+    color:var(--poly);word-spacing:.02em;line-height:1.7;}
+  .readout{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:9px;font-size:.86rem;
+    color:var(--muted);font-variant-numeric:tabular-nums;}
+  .readout b{color:var(--text);}
+  .warn{color:var(--poly);font-weight:600;}
+  .caption{color:var(--muted);font-size:.82rem;margin-top:14px;font-style:italic;}
+  sub{font-size:.72em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Taylor / Maclaurin Polynomial Explorer</h1>
+  <p class="sub">Watch the degree-<em>N</em> polynomial hug the true curve near the center &mdash; and, for some functions, blow up outside the interval of convergence.</p>
+
+  <canvas id="cv" width="1480" height="860"></canvas>
+
+  <div class="legend">
+    <span><i class="swatch" style="border-color:var(--fn)"></i>true function f(x)</span>
+    <span><i class="swatch" style="border-color:var(--poly)"></i>Taylor polynomial T<sub>N</sub>(x)</span>
+    <span><i class="dot"></i>center a</span>
+  </div>
+
+  <div class="controls">
+    <div class="ctl">
+      <label for="fn">Function</label>
+      <select id="fn">
+        <option value="exp">e^x</option>
+        <option value="sin">sin(x)</option>
+        <option value="cos">cos(x)</option>
+        <option value="ln1p">ln(1 + x)</option>
+        <option value="geom">1 / (1 &minus; x)</option>
+      </select>
+    </div>
+    <div class="ctl slider-ctl">
+      <label for="deg">Degree N = <span id="degLbl" class="nval">4</span></label>
+      <input type="range" id="deg" min="0" max="15" step="1" value="4">
+    </div>
+  </div>
+
+  <div class="panel">
+    <div id="formula" class="formula"></div>
+    <div class="readout" id="readout"></div>
+  </div>
+
+  <p class="caption" id="caption"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // ---- factorial (memoized) ----
+  var factCache = [1];
+  function fact(n){
+    for(var i=factCache.length;i<=n;i++) factCache[i] = factCache[i-1]*i;
+    return factCache[n];
+  }
+
+  // ---- Function presets ----
+  // coeff(n) returns the Taylor coefficient c_n of the term c_n * (x-a)^n, center a=0.
+  // T_N(x) = sum_{n=0}^{N} c_n * x^n
+  var PRESETS = {
+    exp: {
+      name: "eˣ", a: 0,
+      xmin:-3.2, xmax:3.2, ymin:-2, ymax:12,
+      f: function(x){ return Math.exp(x); },
+      coeff: function(n){ return 1/fact(n); },       // x^n / n!
+      series: "∑ xⁿ/n!",
+      interval: null
+    },
+    sin: {
+      name: "sin(x)", a: 0,
+      xmin:-8, xmax:8, ymin:-2.6, ymax:2.6,
+      f: function(x){ return Math.sin(x); },
+      coeff: function(n){
+        if(n%2===0) return 0;                        // only odd powers
+        var k=(n-1)/2;
+        return Math.pow(-1,k)/fact(n);               // (-1)^k x^(2k+1)/(2k+1)!
+      },
+      series: "∑ (−1)ᵏ x²ᵏ⁺¹/(2k+1)!",
+      interval: null
+    },
+    cos: {
+      name: "cos(x)", a: 0,
+      xmin:-8, xmax:8, ymin:-2.6, ymax:2.6,
+      f: function(x){ return Math.cos(x); },
+      coeff: function(n){
+        if(n%2!==0) return 0;                         // only even powers
+        var k=n/2;
+        return Math.pow(-1,k)/fact(n);                // (-1)^k x^(2k)/(2k)!
+      },
+      series: "∑ (−1)ᵏ x²ᵏ/(2k)!",
+      interval: null
+    },
+    ln1p: {
+      name: "ln(1 + x)", a: 0,
+      xmin:-1.6, xmax:2.4, ymin:-3, ymax:1.6,
+      f: function(x){ return (x>-1) ? Math.log(1+x) : NaN; },
+      coeff: function(n){
+        if(n===0) return 0;
+        return Math.pow(-1,n+1)/n;                    // (-1)^(n+1) x^n / n
+      },
+      series: "∑ (−1)ⁿ⁺¹ xⁿ/n",
+      interval: {lo:-1, hi:1, loOpen:true, hiOpen:false, note:"−1 < x ≤ 1"}
+    },
+    geom: {
+      name: "1/(1 − x)", a: 0,
+      xmin:-2.6, xmax:2.6, ymin:-6, ymax:6,
+      f: function(x){ return (Math.abs(x-1)<1e-9) ? NaN : 1/(1-x); },
+      coeff: function(n){ return 1; },                 // sum x^n
+      series: "∑ xⁿ  (geometric)",
+      interval: {lo:-1, hi:1, loOpen:true, hiOpen:true, note:"|x| < 1"}
+    }
+  };
+
+  // Evaluate Taylor polynomial of degree N at x (Horner-style over stored coeffs)
+  function taylor(preset, N, x){
+    var s = 0, p = 1; // p = x^n
+    for(var n=0;n<=N;n++){
+      s += preset.coeff(n)*p;
+      p *= x;
+    }
+    return s;
+  }
+
+  // ---- state ----
+  var state = { key:"exp", N:4 };
+
+  // ---- rendering ----
+  function draw(){
+    var P = PRESETS[state.key], N = state.N;
+    var pad = {l:70, r:24, t:24, b:56};
+    var plotW = W - pad.l - pad.r, plotH = H - pad.t - pad.b;
+    var xmin=P.xmin, xmax=P.xmax, ymin=P.ymin, ymax=P.ymax;
+
+    function X(x){ return pad.l + (x-xmin)/(xmax-xmin)*plotW; }
+    function Y(y){ return pad.t + (ymax-y)/(ymax-ymin)*plotH; }
+
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0,0,W,H);
+
+    // grid
+    ctx.strokeStyle = getCSS("--grid"); ctx.lineWidth = 1;
+    ctx.fillStyle = getCSS("--muted"); ctx.font = "22px sans-serif";
+    ctx.textAlign="center"; ctx.textBaseline="top";
+    var xstep = niceStep((xmax-xmin)/10);
+    for(var gx=Math.ceil(xmin/xstep)*xstep; gx<=xmax+1e-9; gx+=xstep){
+      var px=X(gx);
+      ctx.beginPath(); ctx.moveTo(px,pad.t); ctx.lineTo(px,pad.t+plotH); ctx.stroke();
+      if(Math.abs(gx)>1e-9) ctx.fillText(fmt(gx), px, pad.t+plotH+6);
+    }
+    ctx.textAlign="right"; ctx.textBaseline="middle";
+    var ystep = niceStep((ymax-ymin)/8);
+    for(var gy=Math.ceil(ymin/ystep)*ystep; gy<=ymax+1e-9; gy+=ystep){
+      var py=Y(gy);
+      ctx.beginPath(); ctx.moveTo(pad.l,py); ctx.lineTo(pad.l+plotW,py); ctx.stroke();
+      if(Math.abs(gy)>1e-9) ctx.fillText(fmt(gy), pad.l-8, py);
+    }
+
+    // interval-of-convergence boundaries (dashed)
+    if(P.interval){
+      ctx.save();
+      ctx.strokeStyle = getCSS("--poly"); ctx.globalAlpha=0.55;
+      ctx.setLineDash([10,8]); ctx.lineWidth=2;
+      [P.interval.lo, P.interval.hi].forEach(function(bx){
+        if(bx>=xmin && bx<=xmax){
+          var px=X(bx);
+          ctx.beginPath(); ctx.moveTo(px,pad.t); ctx.lineTo(px,pad.t+plotH); ctx.stroke();
+        }
+      });
+      ctx.restore();
+    }
+
+    // axes
+    ctx.strokeStyle = getCSS("--axis"); ctx.lineWidth=2;
+    if(ymin<0 && ymax>0){ ctx.beginPath(); ctx.moveTo(pad.l,Y(0)); ctx.lineTo(pad.l+plotW,Y(0)); ctx.stroke(); }
+    if(xmin<0 && xmax>0){ ctx.beginPath(); ctx.moveTo(X(0),pad.t); ctx.lineTo(X(0),pad.t+plotH); ctx.stroke(); }
+
+    // clip to plot for curves
+    ctx.save();
+    ctx.beginPath(); ctx.rect(pad.l,pad.t,plotW,plotH); ctx.clip();
+
+    // true function (blue)
+    plotCurve(function(x){ return P.f(x); }, X, Y, xmin, xmax, getCSS("--fn"), 3.5, ymin, ymax);
+    // Taylor polynomial (red)
+    plotCurve(function(x){ return taylor(P,N,x); }, X, Y, xmin, xmax, getCSS("--poly"), 3.5, ymin, ymax);
+
+    ctx.restore();
+
+    // center dot at (a, f(a))
+    var a=P.a, fa=P.f(a);
+    ctx.fillStyle="#111"; ctx.strokeStyle="#fff"; ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.arc(X(a), Y(fa), 8, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+
+    // interval boundary labels
+    if(P.interval){
+      ctx.fillStyle=getCSS("--poly"); ctx.font="italic 21px serif";
+      ctx.textAlign="center"; ctx.textBaseline="bottom";
+      [P.interval.lo,P.interval.hi].forEach(function(bx){
+        if(bx>=xmin && bx<=xmax) ctx.fillText("x = "+fmt(bx), X(bx), pad.t+plotH-6);
+      });
+    }
+
+    updatePanel(P, N);
+  }
+
+  // plot a curve, breaking the path where the value is non-finite or leaps off-screen
+  function plotCurve(fn, X, Y, xmin, xmax, color, lw, ymin, ymax){
+    ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineJoin="round";
+    var steps=900, prevOK=false, prevY=0;
+    var span=(ymax-ymin);
+    ctx.beginPath();
+    for(var i=0;i<=steps;i++){
+      var x=xmin+(xmax-xmin)*i/steps;
+      var y=fn(x);
+      var ok = isFinite(y);
+      // break on huge jumps (asymptotes / divergence leaving frame)
+      if(ok && prevOK && Math.abs(y-prevY) > span*4){ ok=true; ctx.stroke(); ctx.beginPath(); prevOK=false; }
+      var cy = Y(Math.max(ymin-span, Math.min(ymax+span, y)));
+      if(ok){
+        if(prevOK) ctx.lineTo(X(x),cy); else ctx.moveTo(X(x),cy);
+        prevOK=true; prevY=y;
+      } else { prevOK=false; }
+    }
+    ctx.stroke();
+  }
+
+  // ---- formula / readout ----
+  function supNum(n){
+    var map={"-":"⁻","0":"⁰","1":"¹","2":"²","3":"³",
+      "4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};
+    return String(n).split("").map(function(c){return map[c]||c;}).join("");
+  }
+  function termStr(c, n){
+    if(c===0) return null;
+    var mag=Math.abs(c), sign = c<0?"−":"+";
+    var coefStr;
+    // render nice fractions for the common shapes
+    var inv=1/mag;
+    var body;
+    if(n===0) body = trimNum(mag);
+    else {
+      var xpart = (n===1)?"x":("x"+supNum(n));
+      // if coefficient is 1/k for integer k, show as x^n/k
+      if(Math.abs(inv-Math.round(inv))<1e-9 && Math.round(inv)!==1){
+        body = xpart+"/"+Math.round(inv);
+      } else if(Math.abs(mag-1)<1e-12){
+        body = xpart;
+      } else {
+        body = trimNum(mag)+xpart;
+      }
+    }
+    return {sign:sign, body:body};
+  }
+  function trimNum(v){
+    var s=v.toFixed(6).replace(/0+$/,"").replace(/\.$/,"");
+    return s;
+  }
+
+  function updatePanel(P, N){
+    // build polynomial string, showing up to first ~7 nonzero terms
+    var parts=[], shown=0, first=true, hidden=0;
+    for(var n=0;n<=N;n++){
+      var t=termStr(P.coeff(n), n);
+      if(!t) continue;
+      if(shown<7){
+        if(first){ parts.push((t.sign==="−"?"−":"") + t.body); }
+        else parts.push(" " + t.sign + " " + t.body);
+        first=false; shown++;
+      } else hidden++;
+    }
+    var body = parts.length? parts.join("") : "0";
+    if(hidden>0) body += " + … (" + hidden + " more)";
+    document.getElementById("formula").innerHTML =
+      "T<sub>"+N+"</sub>(x) = " + body;
+
+    // readout: sample point error
+    var sample = pickSample(P);
+    var exact = P.f(sample), approx = taylor(P,N,sample);
+    var errTxt;
+    if(isFinite(exact)){
+      var err=Math.abs(exact-approx);
+      errTxt = "|f−T<sub>N</sub>| = <b>"+ (err<1e-4?err.toExponential(2):err.toFixed(5)) +"</b> at x="+fmt(sample);
+    } else errTxt="(f undefined at sample)";
+
+    var ro = document.getElementById("readout");
+    var html =
+      "N = <b>"+N+"</b>" +
+      " &nbsp;|&nbsp; f(x) = <b>"+P.name+"</b> = "+P.series +
+      " &nbsp;|&nbsp; center a = <b>"+P.a+"</b>" +
+      " &nbsp;|&nbsp; "+errTxt;
+    if(P.interval){
+      var s=pickSample(P);
+      var inside = insideInterval(P, s);
+      html += "<br><span class='warn'>Interval of convergence: "+P.interval.note+
+        ". Outside it, raising N makes T<sub>N</sub> diverge, not converge.</span>";
+    }
+    ro.innerHTML = html;
+
+    // caption
+    document.getElementById("caption").textContent =
+      "The Taylor polynomial matches f best right at the center a=0 and, for the analytic-everywhere functions (e^x, sin, cos), improves everywhere as N grows; for ln(1+x) and 1/(1-x) it only converges inside a finite interval.";
+  }
+
+  function pickSample(P){
+    // a point inside the window, offset from center, and inside interval when relevant
+    if(P.interval) return (P.key==="geom")?0.5:0.5;
+    if(state.key==="exp") return 1;
+    return 2;
+  }
+  function insideInterval(P,x){
+    if(!P.interval) return true;
+    var iv=P.interval;
+    var okLo = iv.loOpen? x>iv.lo : x>=iv.lo;
+    var okHi = iv.hiOpen? x<iv.hi : x<=iv.hi;
+    return okLo && okHi;
+  }
+
+  // ---- helpers ----
+  function getCSS(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function niceStep(raw){
+    var pow=Math.pow(10,Math.floor(Math.log10(raw)));
+    var f=raw/pow;
+    var n = f<1.5?1 : f<3?2 : f<7?5 : 10;
+    return n*pow;
+  }
+  function fmt(v){
+    if(Math.abs(v)<1e-9) return "0";
+    var s=(Math.round(v*100)/100).toString();
+    return s;
+  }
+
+  // ---- events ----
+  var sel=document.getElementById("fn");
+  var deg=document.getElementById("deg");
+  var degLbl=document.getElementById("degLbl");
+  sel.addEventListener("change", function(){ state.key=sel.value; PRESETS[state.key].key=state.key; draw(); });
+  deg.addEventListener("input", function(){ state.N=+deg.value; degLbl.textContent=deg.value; draw(); });
+
+  // attach key back-reference for sample logic
+  Object.keys(PRESETS).forEach(function(k){ PRESETS[k].key=k; });
+
+  draw();
+})();
+</script>
+</body>
+</html>

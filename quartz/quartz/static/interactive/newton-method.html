@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newton's Method Visualizer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --ink:#1c2126; --muted:#5b6673;
+    --curve:#2563c9; --step:#c0392b; --axis:#c9d1da; --panel:#f1f4f8;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:14px;box-sizing:border-box;}
+  h1{font-size:18px;margin:0 0 2px;}
+  .rule{font-size:15px;background:var(--panel);border-radius:8px;padding:8px 12px;
+    margin:8px 0;display:inline-block;font-variant-numeric:tabular-nums;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:6px 0;}
+  label{font-size:13px;color:var(--muted);}
+  select,button{font-size:13px;font-family:inherit;padding:5px 10px;border-radius:6px;
+    border:1px solid #c9d1da;background:#fff;color:var(--ink);cursor:pointer;}
+  button:hover{background:#eef2f7;}
+  button.primary{background:#2563c9;color:#fff;border-color:#2563c9;}
+  button.primary:hover{background:#1e54ab;}
+  input[type=range]{width:220px;vertical-align:middle;}
+  canvas{width:100%;height:auto;display:block;border-radius:8px;
+    border:1px solid var(--axis);background:#fff;touch-action:none;}
+  .row{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+  .box{flex:1 1 220px;background:var(--panel);border-radius:8px;padding:10px 12px;box-sizing:border-box;}
+  .box h2{font-size:13px;margin:0 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  table{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;width:100%;}
+  th,td{text-align:right;padding:2px 6px;}
+  th{color:var(--muted);font-weight:600;border-bottom:1px solid #d5dde6;}
+  td.n{color:var(--muted);text-align:left;}
+  .status{font-size:14px;margin-top:8px;min-height:20px;}
+  .status.ok{color:#1e7a3d;} .status.bad{color:var(--step);} .status.info{color:var(--muted);}
+  .caption{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.4;}
+  code{background:#e9eef4;padding:1px 4px;border-radius:4px;}
+  .est{font-size:13px;color:var(--muted);margin-top:4px;}
+  .est b{color:var(--ink);font-variant-numeric:tabular-nums;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Newton's Method (Newton&ndash;Raphson) root finder</h1>
+  <div class="rule">Update rule:&nbsp; x<sub>n+1</sub> = x<sub>n</sub> &minus; f(x<sub>n</sub>) / f&prime;(x<sub>n</sub>)</div>
+
+  <div class="controls">
+    <label>Function:
+      <select id="fsel"></select>
+    </label>
+    <label>Start x<sub>0</sub>:
+      <input type="range" id="x0" min="-3" max="3" step="0.01" value="1">
+      <span id="x0val" style="font-variant-numeric:tabular-nums;color:var(--ink)">1.00</span>
+    </label>
+  </div>
+  <div class="controls">
+    <button class="primary" id="step">Step</button>
+    <button id="run">Run &raquo;</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <canvas id="cv" width="1520" height="720"></canvas>
+  <div class="status info" id="status">Drag the marker on the x-axis (or use the slider), then press Step.</div>
+
+  <div class="row">
+    <div class="box">
+      <h2>Iterates</h2>
+      <table id="tbl">
+        <thead><tr><th class="n">n</th><th>x<sub>n</sub></th><th>f(x<sub>n</sub>)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="box">
+      <h2>Convergence</h2>
+      <div class="est">Current estimate: <b id="cur">&mdash;</b></div>
+      <div class="est">|f(x<sub>n</sub>)|: <b id="resid">&mdash;</b></div>
+      <div class="est">Correct digits: <b id="digits">&mdash;</b></div>
+      <div class="est" id="qnote" style="margin-top:8px;line-height:1.4"></div>
+    </div>
+  </div>
+
+  <p class="caption">Newton's method fits a tangent line at the current point and jumps to where that line crosses the x-axis; near a simple root it converges quadratically (the number of correct digits roughly doubles each step), but a poorly chosen start can diverge or cycle forever, as with f(x)=x&sup3;&minus;2x+2 from x<sub>0</sub>=0.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ---- Presets: exact f and analytic f' ----
+  var PRESETS = [
+    { name:"f(x) = x² − 2   (root √2 ≈ 1.41421)",
+      f:function(x){return x*x-2;}, df:function(x){return 2*x;},
+      root:Math.SQRT2, xmin:-3, xmax:3, x0:1 },
+    { name:"f(x) = x³ − x − 2   (root ≈ 1.52138)",
+      f:function(x){return x*x*x-x-2;}, df:function(x){return 3*x*x-1;},
+      root:1.5213797068045676, xmin:-2, xmax:3, x0:1.2 },
+    { name:"f(x) = cos(x) − x   (root ≈ 0.73909)",
+      f:function(x){return Math.cos(x)-x;}, df:function(x){return -Math.sin(x)-1;},
+      root:0.7390851332151607, xmin:-2, xmax:3, x0:2 },
+    { name:"f(x) = x³ − 2x + 2   (CYCLES from x₀=0!)",
+      f:function(x){return x*x*x-2*x+2;}, df:function(x){return 3*x*x-2;},
+      root:-1.7692923542386314, xmin:-3, xmax:3, x0:0 }
+  ];
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height, DPR = 2; // canvas is 2x logical for crispness
+  var pad = {l:70, r:30, t:30, b:60};
+
+  var fsel = document.getElementById("fsel");
+  var x0slider = document.getElementById("x0");
+  var x0val = document.getElementById("x0val");
+  var statusEl = document.getElementById("status");
+  var tbody = document.querySelector("#tbl tbody");
+
+  PRESETS.forEach(function(p,i){
+    var o=document.createElement("option"); o.value=i; o.textContent=p.name; fsel.appendChild(o);
+  });
+
+  var state = {}; // {preset, xmin,xmax,ymin,ymax, iters:[], done, msg, cls}
+
+  function loadPreset(i){
+    var p = PRESETS[i];
+    state.pi = i;
+    state.p = p;
+    state.xmin = p.xmin; state.xmax = p.xmax;
+    x0slider.min = p.xmin; x0slider.max = p.xmax;
+    x0slider.value = p.x0;
+    computeY();
+    resetIters(p.x0);
+  }
+
+  function computeY(){
+    // sample f over the window to set a sensible y range
+    var lo=Infinity, hi=-Infinity, f=state.p.f;
+    for(var k=0;k<=400;k++){
+      var x = state.xmin + (state.xmax-state.xmin)*k/400;
+      var y = f(x);
+      if(isFinite(y)){ if(y<lo)lo=y; if(y>hi)hi=y; }
+    }
+    if(!isFinite(lo)||!isFinite(hi)||lo===hi){ lo=-2; hi=2; }
+    var m=(hi-lo)*0.12+0.001;
+    state.ymin = lo-m; state.ymax = hi+m;
+  }
+
+  function resetIters(x0){
+    state.iters = [x0];
+    state.done = false;
+    state.msg = "Press Step to draw the first tangent.";
+    state.cls = "info";
+    render();
+    updatePanels();
+  }
+
+  // ---- coordinate transforms ----
+  function X(x){ return pad.l + (x-state.xmin)/(state.xmax-state.xmin)*(W-pad.l-pad.r); }
+  function Y(y){ return pad.t + (state.ymax-y)/(state.ymax-state.ymin)*(H-pad.t-pad.b); }
+  function invX(px){ return state.xmin + (px-pad.l)/(W-pad.l-pad.r)*(state.xmax-state.xmin); }
+
+  function niceStep(range, target){
+    var raw = range/target, mag=Math.pow(10,Math.floor(Math.log10(raw)));
+    var n=raw/mag; var s = n<1.5?1:n<3?2:n<7?5:10;
+    return s*mag;
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    ctx.save();
+    // axes gridlines
+    ctx.strokeStyle="#eef2f6"; ctx.lineWidth=1;
+    ctx.fillStyle="#8a95a1"; ctx.font="20px system-ui,sans-serif";
+    var sx=niceStep(state.xmax-state.xmin,8);
+    ctx.textAlign="center"; ctx.textBaseline="top";
+    for(var gx=Math.ceil(state.xmin/sx)*sx; gx<=state.xmax+1e-9; gx+=sx){
+      var px=X(gx);
+      ctx.beginPath(); ctx.moveTo(px,pad.t); ctx.lineTo(px,H-pad.b); ctx.stroke();
+      if(Math.abs(gx)>1e-9) ctx.fillText(fmt(gx,2), px, H-pad.b+6);
+    }
+    var sy=niceStep(state.ymax-state.ymin,6);
+    ctx.textAlign="right"; ctx.textBaseline="middle";
+    for(var gy=Math.ceil(state.ymin/sy)*sy; gy<=state.ymax+1e-9; gy+=sy){
+      var py=Y(gy);
+      ctx.beginPath(); ctx.moveTo(pad.l,py); ctx.lineTo(W-pad.r,py); ctx.stroke();
+      ctx.fillText(fmt(gy,2), pad.l-8, py);
+    }
+    // main axes (x=0, y=0)
+    ctx.strokeStyle="#aab4bf"; ctx.lineWidth=2;
+    if(state.ymin<0&&state.ymax>0){ var y0=Y(0);
+      ctx.beginPath(); ctx.moveTo(pad.l,y0); ctx.lineTo(W-pad.r,y0); ctx.stroke(); }
+    if(state.xmin<0&&state.xmax>0){ var x0=X(0);
+      ctx.beginPath(); ctx.moveTo(x0,pad.t); ctx.lineTo(x0,H-pad.b); ctx.stroke(); }
+
+    // curve
+    ctx.strokeStyle="#2563c9"; ctx.lineWidth=3; ctx.beginPath();
+    var f=state.p.f, started=false;
+    for(var k=0;k<=800;k++){
+      var x=state.xmin+(state.xmax-state.xmin)*k/800, y=f(x), py=Y(y);
+      if(!isFinite(y)){ started=false; continue; }
+      if(py< -1000||py>H+1000){ started=false; continue; }
+      if(!started){ ctx.moveTo(X(x),py); started=true; } else ctx.lineTo(X(x),py);
+    }
+    ctx.stroke();
+
+    // tangent steps between consecutive iterates
+    var its=state.iters, y0line=Y(0);
+    for(var n=0;n<its.length-1;n++){
+      var xn=its[n], xn1=its[n+1], fxn=f(xn);
+      // tangent from (xn, f(xn)) down to (xn1, 0)
+      ctx.strokeStyle="#c0392b"; ctx.lineWidth=2; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(X(xn),Y(fxn)); ctx.lineTo(X(xn1),Y(0)); ctx.stroke();
+      // vertical drop from curve down to axis at xn (dashed) - shows f(xn)
+      ctx.strokeStyle="rgba(192,57,43,0.35)"; ctx.setLineDash([5,5]);
+      ctx.beginPath(); ctx.moveTo(X(xn),Y(fxn)); ctx.lineTo(X(xn),Y(0)); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    // mark iterates on axis + point on curve for latest
+    for(var m=0;m<its.length;m++){
+      var xm=its[m];
+      // on-axis tick
+      ctx.fillStyle = (m===its.length-1)?"#c0392b":"#7a8591";
+      ctx.beginPath(); ctx.arc(X(xm), Y(0), (m===its.length-1)?7:5, 0, 6.2832); ctx.fill();
+      ctx.fillStyle="#5b6673"; ctx.font="20px system-ui,sans-serif";
+      ctx.textAlign="center"; ctx.textBaseline="bottom";
+      ctx.fillText("x"+sub(m), X(xm), Y(0)-9);
+    }
+    // point on curve at current iterate
+    var last=its[its.length-1];
+    if(isFinite(f(last))){
+      ctx.fillStyle="#2563c9";
+      ctx.beginPath(); ctx.arc(X(last), Y(f(last)), 6, 0, 6.2832); ctx.fill();
+    }
+    // true root marker (if in view)
+    var r=state.p.root;
+    if(r>=state.xmin&&r<=state.xmax){
+      ctx.strokeStyle="#1e7a3d"; ctx.lineWidth=2; ctx.setLineDash([2,4]);
+      ctx.beginPath(); ctx.moveTo(X(r),pad.t); ctx.lineTo(X(r),H-pad.b); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+  }
+
+  var SUBS="₀₁₂₃₄₅₆₇₈₉";
+  function sub(n){ return (""+n).split("").map(function(d){return SUBS[+d];}).join(""); }
+  function fmt(v,d){ if(!isFinite(v)) return "∞"; return v.toFixed(d); }
+
+  // ---- Newton step ----
+  function doStep(){
+    if(state.done) return;
+    var its=state.iters, xn=its[its.length-1], f=state.p.f, df=state.p.df;
+    var fx=f(xn), dfx=df(xn);
+    if(!isFinite(fx)||Math.abs(dfx)<1e-12){
+      state.done=true; state.msg="Derivative ≈ 0: tangent is horizontal, no x-crossing. Stuck."; state.cls="bad";
+      render(); updatePanels(); return;
+    }
+    var xn1 = xn - fx/dfx;
+    if(!isFinite(xn1)||Math.abs(xn1)>1e6){
+      state.iters.push(xn1);
+      state.done=true; state.msg="Diverging: the iterates are blowing up (|x| → ∞)."; state.cls="bad";
+      render(); updatePanels(); return;
+    }
+    its.push(xn1);
+    // convergence check
+    if(Math.abs(f(xn1))<1e-12 || Math.abs(xn1-xn)<1e-13){
+      state.done=true;
+      state.msg="Converged to x ≈ "+xn1.toFixed(8)+"  (f ≈ 0).";
+      state.cls="ok";
+    } else {
+      // cycle detection: revisiting an earlier value
+      for(var j=0;j<its.length-2;j++){
+        if(Math.abs(its[j]-xn1)<1e-9 && Math.abs(its[j+1]-xn)<1e-9){
+          state.done=true;
+          state.msg="Cycling! The sequence repeats ("+its[j].toFixed(4)+" ↔ "+xn.toFixed(4)+") and never converges.";
+          state.cls="bad"; break;
+        }
+      }
+      if(!state.done){ state.msg="Step "+(its.length-1)+": x"+sub(its.length-1)+" = "+xn1.toFixed(6)+"."; state.cls="info"; }
+    }
+    render(); updatePanels();
+  }
+
+  var runTimer=null;
+  function doRun(){
+    if(runTimer){ clearInterval(runTimer); runTimer=null; return; }
+    var steps=0;
+    runTimer=setInterval(function(){
+      doStep(); steps++;
+      if(state.done||steps>=12){ clearInterval(runTimer); runTimer=null; }
+    }, 380);
+  }
+
+  function updatePanels(){
+    statusEl.textContent = state.msg;
+    statusEl.className = "status "+state.cls;
+    var f=state.p.f, its=state.iters;
+    // table
+    tbody.innerHTML="";
+    for(var i=0;i<its.length;i++){
+      var tr=document.createElement("tr");
+      var fx=f(its[i]);
+      tr.innerHTML="<td class='n'>"+i+"</td><td>"+num(its[i])+"</td><td>"+num(fx)+"</td>";
+      tbody.appendChild(tr);
+    }
+    // convergence box
+    var last=its[its.length-1], fl=f(last), root=state.p.root;
+    document.getElementById("cur").textContent = isFinite(last)?last.toFixed(8):"diverged";
+    document.getElementById("resid").textContent = isFinite(fl)?Math.abs(fl).toExponential(2):"∞";
+    var err=Math.abs(last-root);
+    var dig = (err>0 && isFinite(err)) ? Math.max(0, -Math.log10(err)) : 15;
+    document.getElementById("digits").textContent = isFinite(last)? (dig>=15?"15+":dig.toFixed(1)) : "—";
+    // quadratic note: compare digit gain across last two steps
+    var qn=document.getElementById("qnote");
+    if(its.length>=3 && !/(Cycl|Diverg|blow)/.test(state.msg)){
+      var e1=Math.abs(its[its.length-2]-root), e2=Math.abs(its[its.length-1]-root);
+      if(e1>1e-14 && e2>1e-14 && e2<e1){
+        var d1=-Math.log10(e1), d2=-Math.log10(e2);
+        qn.innerHTML="Correct digits went from ~"+d1.toFixed(1)+" to ~"+d2.toFixed(1)+
+          " in one step &mdash; roughly doubling, the signature of quadratic convergence.";
+      } else qn.innerHTML="";
+    } else if(/(Cycl|Diverg|blow|Stuck|horizontal)/.test(state.msg)){
+      qn.innerHTML="No quadratic convergence here: this start does not lead to a root.";
+    } else qn.innerHTML="";
+    x0val.textContent = parseFloat(x0slider.value).toFixed(2);
+  }
+  function num(v){ if(!isFinite(v)) return "&plusmn;∞"; var a=Math.abs(v);
+    return (a!==0&&(a<1e-4||a>=1e6))? v.toExponential(3): v.toFixed(6); }
+
+  // ---- events ----
+  fsel.addEventListener("change", function(){ if(runTimer){clearInterval(runTimer);runTimer=null;} loadPreset(+fsel.value); });
+  x0slider.addEventListener("input", function(){
+    if(runTimer){clearInterval(runTimer);runTimer=null;}
+    resetIters(parseFloat(x0slider.value));
+  });
+  document.getElementById("step").addEventListener("click", doStep);
+  document.getElementById("run").addEventListener("click", doRun);
+  document.getElementById("reset").addEventListener("click", function(){
+    if(runTimer){clearInterval(runTimer);runTimer=null;}
+    resetIters(parseFloat(x0slider.value));
+  });
+
+  // drag marker on x-axis
+  var dragging=false;
+  function canvasX(evt){
+    var r=cv.getBoundingClientRect();
+    var cx=(evt.touches?evt.touches[0].clientX:evt.clientX)-r.left;
+    return cx*(W/r.width);
+  }
+  function nearAxis(evt){
+    var r=cv.getBoundingClientRect();
+    var cy=((evt.touches?evt.touches[0].clientY:evt.clientY)-r.top)*(H/r.height);
+    return Math.abs(cy-Y(0))<60;
+  }
+  function setFromPixel(px){
+    var x=invX(px);
+    x=Math.max(state.xmin,Math.min(state.xmax,x));
+    x0slider.value=x;
+    if(runTimer){clearInterval(runTimer);runTimer=null;}
+    resetIters(x);
+  }
+  cv.addEventListener("mousedown", function(e){ if(nearAxis(e)){ dragging=true; setFromPixel(canvasX(e)); e.preventDefault(); }});
+  window.addEventListener("mousemove", function(e){ if(dragging) setFromPixel(canvasX(e)); });
+  window.addEventListener("mouseup", function(){ dragging=false; });
+  cv.addEventListener("touchstart", function(e){ if(nearAxis(e)){ dragging=true; setFromPixel(canvasX(e)); e.preventDefault(); }}, {passive:false});
+  cv.addEventListener("touchmove", function(e){ if(dragging){ setFromPixel(canvasX(e)); e.preventDefault(); }}, {passive:false});
+  cv.addEventListener("touchend", function(){ dragging=false; });
+
+  // init
+  loadPreset(0);
+})();
+</script>
+</body>
+</html>

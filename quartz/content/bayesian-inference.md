@@ -98,6 +98,10 @@ A prior is **conjugate** to a likelihood if the posterior has the same distribut
 
 Conjugate priors are computationally tractable, but they constrain the form of your prior belief. For complex models, conjugate priors rarely exist.
 
+Explore Beta-Binomial updating below: set a Beta prior, feed in coin-flip data, and watch the posterior form as the prior reshaped by the likelihood. With more data the posterior sharpens and its mean slides from the prior toward the observed frequency.
+
+<iframe src="/static/interactive/bayes-updating.html" width="100%" height="640" style="border:none;"></iframe>
+
 ### Worked Example: Beta-Binomial
 
 Suppose you want to estimate the probability $\theta$ that a coin lands heads. You start with a $\text{Beta}(2, 2)$ prior, which is symmetric and mildly concentrated around $\theta = 0.5$. The Beta distribution has PDF:

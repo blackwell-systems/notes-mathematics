@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KL Divergence Visualizer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --ink: #1c2126;
+    --muted: #5a6572;
+    --blue: #2563c9;
+    --orange: #d97706;
+    --line: #d8dee6;
+    --panel: #f1f4f8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 20px 18px 30px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .cap { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+  .legend { display: flex; gap: 18px; align-items: center; margin-bottom: 10px; font-size: 13px; }
+  .swatch { display: inline-block; width: 13px; height: 13px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+  .sw-p { background: var(--blue); }
+  .sw-q { background: var(--orange); }
+  canvas { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .distbox { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .distbox h2 { font-size: 14px; margin: 0 0 8px; }
+  .distbox.p h2 { color: var(--blue); }
+  .distbox.q h2 { color: var(--orange); }
+  .row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+  .row label { width: 20px; font-size: 12px; color: var(--muted); }
+  .row input[type=range] { flex: 1; }
+  .row .val { width: 44px; text-align: right; font-variant-numeric: tabular-nums; font-size: 12px; }
+  input[type=range].p { accent-color: var(--blue); }
+  input[type=range].q { accent-color: var(--orange); }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
+  button {
+    font: inherit; font-size: 13px; padding: 6px 11px; border: 1px solid var(--line);
+    background: #fff; border-radius: 7px; cursor: pointer; color: var(--ink);
+  }
+  button:hover { background: var(--panel); }
+  .basebtns button.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .results { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0; }
+  .kl { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; text-align: center; background: #fff; }
+  .kl .name { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .kl .num { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .kl.diff { border-color: #f0c56a; background: #fffaf0; }
+  .aux { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin: 8px 0; }
+  .aux code, .formula code { background: #fff; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); }
+  .aux .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; margin-top: 6px; }
+  .note { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+  .note b { color: var(--ink); }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
+  .basebtns { display: flex; gap: 6px; }
+  .asym { font-weight: 600; }
+  .asym.eq { color: #1a7f37; }
+  .asym.ne { color: #b3541e; }
+  .inf { color: #b3261e; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>KL divergence is not symmetric</h1>
+  <p class="cap">Edit the two distributions and watch how <code>D<sub>KL</sub>(P&nbsp;||&nbsp;Q)</code> and <code>D<sub>KL</sub>(Q&nbsp;||&nbsp;P)</code> usually give different answers.</p>
+
+  <div class="legend">
+    <span><span class="swatch sw-p"></span>P (blue)</span>
+    <span><span class="swatch sw-q"></span>Q (orange)</span>
+  </div>
+  <canvas id="chart" width="1440" height="600"></canvas>
+
+  <div class="toolbar">
+    <div class="presets">
+      <button data-preset="equal">P = Q (both 0)</button>
+      <button data-preset="ppeak">P peaked, Q flat</button>
+      <button data-preset="qpeak">Q peaked, P flat</button>
+    </div>
+    <div class="basebtns" id="basebtns">
+      <button data-base="2" class="active">bits (log&#8322;)</button>
+      <button data-base="e">nats (ln)</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="distbox p"><h2>P (raw weights &rarr; auto-normalized)</h2><div id="pRows"></div></div>
+    <div class="distbox q"><h2>Q (raw weights &rarr; auto-normalized)</h2><div id="qRows"></div></div>
+  </div>
+
+  <div class="results">
+    <div class="kl" id="klPQbox"><div class="name">D<sub>KL</sub>(P || Q)</div><div class="num" id="klPQ">0</div></div>
+    <div class="kl" id="klQPbox"><div class="name">D<sub>KL</sub>(Q || P)</div><div class="num" id="klQP">0</div></div>
+  </div>
+  <p class="note" style="text-align:center;margin-top:0;">Asymmetry: <span class="asym" id="asymMsg"></span></p>
+
+  <div class="aux">
+    <div>Decomposition: <code>D<sub>KL</sub>(P||Q) = H(P,Q) &minus; H(P)</code>&nbsp; (cross-entropy minus entropy)</div>
+    <div class="grid" id="auxGrid"></div>
+  </div>
+
+  <p class="note">
+    <b>Two key properties.</b> (1) <b>Non-negativity:</b> <code>D<sub>KL</sub> &ge; 0</code> always, and equals 0 <i>iff</i> P = Q.
+    (2) <b>Asymmetry:</b> in general <code>D<sub>KL</sub>(P||Q) &ne; D<sub>KL</sub>(Q||P)</code>, so KL is not a distance.
+    If some Q(x) = 0 while P(x) &gt; 0, that direction is <span class="inf">&infin;</span> (P puts mass where Q says it is impossible).
+  </p>
+</div>
+
+<script>
+(function () {
+  var K = 5;
+  var CATS = ["A", "B", "C", "D", "E"];
+  var pRaw = [3, 3, 2, 1, 1];
+  var qRaw = [5, 1, 1, 1, 1];
+  var base = 2; // 2 => bits, 'e' => nats
+
+  var chart = document.getElementById("chart");
+  var ctx = chart.getContext("2d");
+  var pRowsEl = document.getElementById("pRows");
+  var qRowsEl = document.getElementById("qRows");
+
+  function unit() { return base === 2 ? "bits" : "nats"; }
+  function logb(x) { return base === 2 ? Math.log2(x) : Math.log(x); }
+
+  function normalize(raw) {
+    var s = 0, i;
+    for (i = 0; i < raw.length; i++) s += raw[i];
+    var out = [];
+    for (i = 0; i < raw.length; i++) out.push(s > 0 ? raw[i] / s : 0);
+    return out;
+  }
+
+  // KL(A || B) = sum A log(A/B). Handles zeros per convention:
+  //   A=0        -> term 0 (0 log 0 = 0)
+  //   A>0, B=0   -> +Infinity
+  function kl(A, B) {
+    var s = 0;
+    for (var i = 0; i < A.length; i++) {
+      if (A[i] <= 0) continue;
+      if (B[i] <= 0) return Infinity;
+      s += A[i] * logb(A[i] / B[i]);
+    }
+    return s;
+  }
+  function entropy(A) {
+    var s = 0;
+    for (var i = 0; i < A.length; i++) if (A[i] > 0) s += A[i] * logb(A[i]);
+    return -s;
+  }
+  function crossEntropy(A, B) {
+    var s = 0;
+    for (var i = 0; i < A.length; i++) {
+      if (A[i] <= 0) continue;
+      if (B[i] <= 0) return Infinity;
+      s += A[i] * logb(B[i]);
+    }
+    return -s;
+  }
+
+  function fmt(x) {
+    if (x === Infinity) return "∞";
+    if (Math.abs(x) < 1e-12) x = 0;
+    return x.toFixed(3);
+  }
+
+  function buildRows(container, raw, cls) {
+    container.innerHTML = "";
+    for (var i = 0; i < K; i++) {
+      (function (idx) {
+        var row = document.createElement("div");
+        row.className = "row";
+        var lab = document.createElement("label");
+        lab.textContent = CATS[idx];
+        var input = document.createElement("input");
+        input.type = "range";
+        input.min = "0"; input.max = "100"; input.step = "1";
+        input.className = cls;
+        input.value = String(Math.round(raw[idx] * 20));
+        var val = document.createElement("span");
+        val.className = "val";
+        input.addEventListener("input", function () {
+          raw[idx] = parseFloat(input.value);
+          render();
+        });
+        row.appendChild(lab); row.appendChild(input); row.appendChild(val);
+        container.appendChild(row);
+        input._valSpan = val;
+      })(i);
+    }
+  }
+
+  function syncSliders() {
+    var pN = normalize(pRaw), qN = normalize(qRaw);
+    var pInputs = pRowsEl.querySelectorAll("input");
+    var qInputs = qRowsEl.querySelectorAll("input");
+    for (var i = 0; i < K; i++) {
+      pInputs[i].value = String(Math.round(pRaw[i]));
+      qInputs[i].value = String(Math.round(qRaw[i]));
+      pInputs[i]._valSpan.textContent = pN[i].toFixed(3);
+      qInputs[i]._valSpan.textContent = qN[i].toFixed(3);
+    }
+  }
+
+  function drawChart(P, Q) {
+    var W = chart.width, H = chart.height;
+    ctx.clearRect(0, 0, W, H);
+    var padL = 46, padR = 20, padT = 26, padB = 46;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxV = 0, i;
+    for (i = 0; i < K; i++) { maxV = Math.max(maxV, P[i], Q[i]); }
+    maxV = Math.max(maxV, 0.2);
+    var yTop = Math.min(1, Math.ceil(maxV * 5) / 5);
+
+    // axes / gridlines
+    ctx.strokeStyle = "#e3e8ee"; ctx.lineWidth = 1;
+    ctx.fillStyle = "#5a6572"; ctx.font = "20px system-ui, sans-serif";
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    var ticks = 4;
+    for (i = 0; i <= ticks; i++) {
+      var frac = i / ticks;
+      var y = padT + plotH * (1 - frac);
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+      ctx.fillText((frac * yTop).toFixed(2), padL - 8, y);
+    }
+
+    var group = plotW / K;
+    var barW = group * 0.34;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (i = 0; i < K; i++) {
+      var cx = padL + group * (i + 0.5);
+      var hp = plotH * (P[i] / yTop);
+      var hq = plotH * (Q[i] / yTop);
+      ctx.fillStyle = "#2563c9";
+      ctx.fillRect(cx - barW - 2, padT + plotH - hp, barW, hp);
+      ctx.fillStyle = "#d97706";
+      ctx.fillRect(cx + 2, padT + plotH - hq, barW, hq);
+      // value labels
+      ctx.fillStyle = "#2563c9"; ctx.font = "17px system-ui, sans-serif";
+      ctx.fillText(P[i].toFixed(2), cx - barW / 2 - 2, padT + plotH - hp - 20);
+      ctx.fillStyle = "#d97706";
+      ctx.fillText(Q[i].toFixed(2), cx + barW / 2 + 2, padT + plotH - hq - 20);
+      // category label
+      ctx.fillStyle = "#1c2126"; ctx.font = "22px system-ui, sans-serif";
+      ctx.fillText(CATS[i], cx, padT + plotH + 10);
+    }
+    ctx.strokeStyle = "#b9c2cc"; ctx.beginPath();
+    ctx.moveTo(padL, padT + plotH); ctx.lineTo(W - padR, padT + plotH); ctx.stroke();
+  }
+
+  function render() {
+    var P = normalize(pRaw), Q = normalize(qRaw);
+    syncSliders();
+    drawChart(P, Q);
+
+    var dPQ = kl(P, Q), dQP = kl(Q, P);
+    var u = " " + unit();
+    document.getElementById("klPQ").innerHTML = dPQ === Infinity ? "<span class='inf'>∞</span>" : fmt(dPQ) + u;
+    document.getElementById("klQP").innerHTML = dQP === Infinity ? "<span class='inf'>∞</span>" : fmt(dQP) + u;
+
+    // asymmetry highlight
+    var boxPQ = document.getElementById("klPQbox"), boxQP = document.getElementById("klQPbox");
+    var msg = document.getElementById("asymMsg");
+    var equalDist = true;
+    for (var i = 0; i < K; i++) if (Math.abs(P[i] - Q[i]) > 1e-9) equalDist = false;
+    if (equalDist) {
+      boxPQ.classList.remove("diff"); boxQP.classList.remove("diff");
+      msg.className = "asym eq";
+      msg.textContent = "P = Q, so both directions are exactly 0.";
+    } else {
+      var same = (dPQ === dQP) || (dPQ !== Infinity && dQP !== Infinity && Math.abs(dPQ - dQP) < 1e-9);
+      if (same) {
+        boxPQ.classList.remove("diff"); boxQP.classList.remove("diff");
+        msg.className = "asym eq";
+        msg.textContent = "the two directions happen to coincide here.";
+      } else {
+        boxPQ.classList.add("diff"); boxQP.classList.add("diff");
+        msg.className = "asym ne";
+        var a = dPQ === Infinity ? "∞" : fmt(dPQ);
+        var b = dQP === Infinity ? "∞" : fmt(dQP);
+        msg.innerHTML = "the directions differ (" + a + " vs " + b + u + "), so KL is not symmetric.";
+      }
+    }
+
+    // aux quantities
+    var HP = entropy(P), HQ = entropy(Q);
+    var HPQ = crossEntropy(P, Q), HQP = crossEntropy(Q, P);
+    var g = document.getElementById("auxGrid");
+    function cell(label, v) {
+      var vs = v === Infinity ? "<span class='inf'>∞</span>" : fmt(v) + u;
+      return "<div>" + label + " = <code>" + vs + "</code></div>";
+    }
+    g.innerHTML =
+      cell("H(P)", HP) + cell("H(Q)", HQ) +
+      cell("H(P,Q)", HPQ) + cell("H(Q,P)", HQP);
+  }
+
+  // presets
+  var presets = {
+    equal:  { p: [4, 3, 2, 2, 1], q: [4, 3, 2, 2, 1] },
+    ppeak:  { p: [8, 0.4, 0.4, 0.4, 0.4], q: [1, 1, 1, 1, 1] },
+    qpeak:  { p: [1, 1, 1, 1, 1], q: [8, 0.4, 0.4, 0.4, 0.4] }
+  };
+  document.querySelectorAll("[data-preset]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var pr = presets[btn.getAttribute("data-preset")];
+      pRaw = pr.p.slice(); qRaw = pr.q.slice();
+      buildRows(pRowsEl, pRaw, "p");
+      buildRows(qRowsEl, qRaw, "q");
+      render();
+    });
+  });
+
+  // base toggle
+  document.querySelectorAll("[data-base]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      base = btn.getAttribute("data-base") === "2" ? 2 : "e";
+      document.querySelectorAll("[data-base]").forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      render();
+    });
+  });
+
+  buildRows(pRowsEl, pRaw, "p");
+  buildRows(qRowsEl, qRaw, "q");
+  render();
+})();
+</script>
+</body>
+</html>

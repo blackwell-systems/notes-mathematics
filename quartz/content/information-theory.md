@@ -244,6 +244,10 @@ $$
 
 Here $P$ is typically the "true" or "reference" distribution and $Q$ is an approximation. The notation $D_{\text{KL}}(P \| Q)$ is read "the KL divergence from $P$ to $Q$" or "of $Q$ from $P$."
 
+Edit the two distributions below to see KL divergence, and in particular its **asymmetry**: $D_{\text{KL}}(P \| Q) \neq D_{\text{KL}}(Q \| P)$ in general, so KL is not a distance. Both directions are shown alongside the decomposition $D_{\text{KL}}(P\|Q) = H(P,Q) - H(P)$.
+
+<iframe src="/static/interactive/kl-divergence.html" width="100%" height="640" style="border:none;"></iframe>
+
 ### What It Measures
 
 KL divergence quantifies the **extra cost** (in bits or nats) of encoding data from distribution $P$ using a code optimized for distribution $Q$. If $Q$ perfectly matches $P$, there is no extra cost and $D_{\text{KL}} = 0$. The worse $Q$ approximates $P$, the higher the divergence.

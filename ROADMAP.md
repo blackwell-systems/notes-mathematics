@@ -17,27 +17,27 @@ Highest value — the SLT throughline is the site's purpose but has no interacti
   $\lambda=\tfrac{1}{2k}$ changes posterior concentration and the $\lambda\log n$ slope of
   $F_n$ vs $n$. Makes "effective dimension" tangible. (1D shows slope $=\lambda$ exactly;
   2D overlays the full Watanabe asymptote with the $-(m-1)\log\log n$ term.)
-- [ ] **Bayesian updating** — `bayesian-inference`. Beta-Binomial prior × likelihood →
+- [x] **Bayesian updating** — `bayesian-inference`. Beta-Binomial prior × likelihood →
   posterior with a data slider (live version of the static `bayesian-updating.png`).
-- [ ] **CLT sampler** — `probability` / `statistics`. Sample from a skewed distribution,
+- [x] **CLT sampler** — `probability` / `statistics`. Sample from a skewed distribution,
   watch the sample-mean distribution converge to normal.
 
 Classic "slider → convergence" widgets (same shape as the shipped Fourier decomposer):
 
-- [ ] **Taylor-series approximation** — `calculus` / `sequences-and-series`. Term-count
+- [x] **Taylor-series approximation** — `calculus` / `sequences-and-series`. Term-count
   slider; partial sums approaching $\sin x$, $e^x$, $\ln(1+x)$.
-- [ ] **Riemann sums → integral** — `calculus`. Rectangle-count slider with
+- [x] **Riemann sums → integral** — `calculus`. Rectangle-count slider with
   left/right/midpoint/trapezoid toggle.
-- [ ] **Newton's method** — `polynomial-functions`. Click a start point; watch iterates,
+- [x] **Newton's method** — `polynomial-functions`. Click a start point; watch iterates,
   convergence, and divergence/basin behavior.
 
 Solid additions:
 
-- [ ] **Vector playground** — `vector`. Drag two vectors: dot product, projection, angle,
+- [x] **Vector playground** — `vector`. Drag two vectors: dot product, projection, angle,
   cross-product magnitude as area.
 - [ ] **Conic eccentricity morph** — `conic-sections`. One slider: circle → ellipse →
   parabola → hyperbola.
-- [ ] **KL-divergence asymmetry** — `information-theory`. Drag two distributions; show
+- [x] **KL-divergence asymmetry** — `information-theory`. Drag two distributions; show
   $D_{KL}(P\Vert Q)\ne D_{KL}(Q\Vert P)$.
 
 ### Static diagrams
@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Remaining planned-widget batch** — built the last of the ranked interactive
+  candidates: Bayesian (Beta-Binomial) updating, KL-divergence asymmetry, Taylor-series
+  approximation (with interval-of-convergence failure), Newton's method (with a cycling
+  cautionary case), and a 2D vector playground. Every "Interactive widgets" checkbox above is
+  now done except the conic eccentricity morph. +18 machine-checked assertions (posterior
+  mean, KL asymmetry + cross-entropy decomposition, Taylor partial sums, Newton convergence
+  and cycling, vector projection/cross).
 - [x] **Geometry & Trigonometry interactive pass** — added a prerequisites callout and two
   widgets (triangle solver handling SSS/SAS/ASA/AAS and the ambiguous SSA 0/1/2-triangle case
   via law of sines/cosines with an area readout; a sinusoid explorer with A/B/C/D sliders

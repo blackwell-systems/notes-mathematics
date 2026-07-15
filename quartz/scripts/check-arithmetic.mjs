@@ -717,6 +717,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const A = d2r(30), a = 5, b = 8, sinB = (b * Math.sin(A)) / a; check("SSA A=30,a=5,b=8 is ambiguous (0<sinB<1)", sinB > 0 && sinB < 1 && approx(sinB, 0.8)); }
 }
 
+// ================= Bayesian updating, KL, Taylor, Newton, Vectors =================
+{
+  // Beta-Binomial posterior mean
+  const postMean = (a, b, k, n) => (a + k) / (a + b + n);
+  eq("Beta(2,2) + 7/10 heads -> posterior mean 9/14", postMean(2, 2, 7, 10), 9 / 14, 1e-12);
+  eq("posterior is Beta(9,5), mean 9/14", 9 / (9 + 5), 9 / 14, 1e-12);
+  eq("Laplace rule of succession (k+1)/(n+2)", postMean(1, 1, 7, 10), 8 / 12, 1e-12);
+
+  // KL divergence (bits), asymmetric
+  const KL = (P, Q) => P.reduce((s, p, i) => (p > 0 ? s + p * Math.log2(p / Q[i]) : s), 0);
+  const H = (P) => -P.reduce((s, p) => (p > 0 ? s + p * Math.log2(p) : s), 0);
+  const Hpq = (P, Q) => -P.reduce((s, p, i) => (p > 0 ? s + p * Math.log2(Q[i]) : s), 0);
+  const P = [0.5, 0.5], Q = [0.9, 0.1];
+  eq("D(P||Q), P=[.5,.5] Q=[.9,.1]", KL(P, Q), 0.7369, 1e-3);
+  eq("D(Q||P)", KL(Q, P), 0.5310, 1e-3);
+  check("KL is asymmetric", Math.abs(KL(P, Q) - KL(Q, P)) > 1e-6);
+  eq("D(P||P) = 0", KL(P, P), 0, 1e-12);
+  check("KL >= 0 (Gibbs)", KL([0.3, 0.7], [0.5, 0.5]) >= 0);
+  eq("D(P||Q) = H(P,Q) - H(P)", Hpq(P, Q) - H(P), KL(P, Q), 1e-9);
+
+  // Taylor / Maclaurin partial sums
+  { const fact = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; }; let s = 0; for (let n = 0; n <= 5; n++) s += 1 / fact(n); eq("e^x Maclaurin N=5 at x=1 ~ 2.71667", s, 2.716667, 1e-5); }
+  { let s = 0; for (let n = 0; n <= 40; n++) s += Math.pow(0.5, n); eq("geometric 1/(1-x) at x=0.5 -> 2", s, 2, 1e-9); }
+  eq("sin degree-3 Maclaurin at 1.2 = x - x^3/6 = 0.912", 1.2 - Math.pow(1.2, 3) / 6, 0.912, 1e-9);
+
+  // Newton's method: convergence and a cycling case
+  { const f = (x) => x ** 3 - x - 2, fp = (x) => 3 * x * x - 1; let x = 1.5; for (let i = 0; i < 20; i++) x = x - f(x) / fp(x); eq("Newton on x^3-x-2 -> 1.5214", x, 1.5213797, 1e-6); }
+  { const f = (x) => x ** 3 - 2 * x + 2, fp = (x) => 3 * x * x - 2; const seq = [0]; let x = 0; for (let i = 0; i < 3; i++) { x = x - f(x) / fp(x); seq.push(x); } check("Newton on x^3-2x+2 from 0 cycles 0,1,0,1", approx(seq[1], 1) && approx(seq[2], 0) && approx(seq[3], 1)); }
+
+  // Vectors: projection, angle, 2D cross (signed area)
+  const dot = (u, v) => u[0] * v[0] + u[1] * v[1], mg = (v) => Math.hypot(v[0], v[1]);
+  eq("scalar projection of (4,3) onto (1,0) = 4", dot([4, 3], [1, 0]) / mg([1, 0]), 4);
+  eq("angle between (3,0) and (0,2) = 90 deg", (Math.acos(dot([3, 0], [0, 2]) / (mg([3, 0]) * mg([0, 2]))) * 180) / Math.PI, 90, 1e-9);
+  eq("2D cross (3,0)x(0,2) = 6 (parallelogram area)", 3 * 2 - 0 * 0, 6);
+  eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

@@ -969,6 +969,10 @@ roots as well.
 
 **Newton's Method:** A numerical technique for approximating roots of a function using calculus. Given a function $f(x)$ and its derivative $f'(x)$, Newton's method iteratively refines an initial guess $x_0$ to converge toward a root.
 
+Step through it below: pick a function and starting point, and watch each tangent line slide the estimate toward a root (the number of correct digits roughly doubles per step). Try the cautionary preset that *cycles* forever to see that a bad start can fail to converge.
+
+<iframe src="/static/interactive/newton-method.html" width="100%" height="640" style="border:none;"></iframe>
+
 **Formula:**
 
 $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$

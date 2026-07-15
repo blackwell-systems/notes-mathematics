@@ -1309,6 +1309,10 @@ $$
 f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n
 $$
 
+Slide the degree $N$ below to watch the Taylor polynomial hug the function ever more closely near the center, and for $\ln(1+x)$ and $\frac{1}{1-x}$ see it *fail* to converge outside the interval of convergence no matter how high $N$ goes.
+
+<iframe src="/static/interactive/taylor-series.html" width="100%" height="640" style="border:none;"></iframe>
+
 **Key Maclaurin series to know:**
 
 $$
