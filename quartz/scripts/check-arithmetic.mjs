@@ -754,6 +754,27 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Measure Theory =================
+{
+  const integ = (f, a, b, n = 200000) => { let s = 0; const dx = (b - a) / n; for (let i = 0; i < n; i++) s += f(a + (i + 0.5) * dx) * dx; return s; };
+  // layer-cake: integral x^2 on [0,1] = integral measure{x^2 >= t} dt = integral (1 - sqrt t) dt = 1/3
+  eq("integral x^2 on [0,1] (Riemann) = 1/3", integ((x) => x * x, 0, 1), 1 / 3, 1e-6);
+  eq("layer-cake: integral_0^1 (1 - sqrt t) dt = 1/3", integ((t) => 1 - Math.sqrt(t), 0, 1), 1 / 3, 1e-6);
+  // escaping spike: integral f_n = 1 for every n, but pointwise limit is 0
+  check("escaping spike: integral f_n = n*(1/n) = 1 for all n", [1, 5, 50, 1000].every((n) => approx(n * (1 / n), 1)));
+  // Cantor set: total removed length = sum 2^{n-1}/3^n = 1, so the Cantor set has measure 0
+  { let removed = 0; for (let n = 1; n <= 60; n++) removed += Math.pow(2, n - 1) / Math.pow(3, n); eq("Cantor set measure 0 (removed length -> 1)", 1 - removed, 0, 1e-9); }
+  eq("nth Cantor approximation has measure (2/3)^n -> 0", Math.pow(2 / 3, 50), 0, 1e-6);
+  // Markov inequality: mu{f >= a} <= (1/a) integral f, f(x)=x on [0,1], a=0.5
+  check("Markov: mu{x>=0.5}=0.5 <= (1/0.5) integral x = 1", 0.5 <= (1 / 0.5) * integ((x) => x, 0, 1) + 1e-9);
+  // L^p norm of the constant 1 on [0,1] is 1 for all p
+  { const Lp = (f, p) => Math.pow(integ((x) => Math.pow(Math.abs(f(x)), p), 0, 1), 1 / p);
+    eq("||1||_2 on [0,1] = 1", Lp(() => 1, 2), 1, 1e-6); eq("||1||_4 on [0,1] = 1", Lp(() => 1, 4), 1, 1e-6); }
+  // Fubini: double integral of xy over unit square = 1/4 = (integral x)(integral y)
+  { let s = 0, n = 500, d = 1 / n; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) s += (i + 0.5) * d * ((j + 0.5) * d) * d * d; eq("Fubini: double integral xy = 1/4 = (1/2)(1/2)", s, 0.25, 1e-3); }
+  eq("Chebyshev bound var/k^2 (k=2, var=1) = 1/4", 1 / (2 * 2), 0.25);
+}
+
 // ================= Differential Equations =================
 {
   const ddt = (f, t, h = 1e-6) => (f(t + h) - f(t - h)) / (2 * h);

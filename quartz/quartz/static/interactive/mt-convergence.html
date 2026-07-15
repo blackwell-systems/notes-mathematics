@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convergence theorems: can we swap limit and integral?</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --muted:#5a6673;
+    --blue:#2563c9; --gray:#9aa4 b0; --panel:#f0f3f7; --line:#d9e0e8;
+    --good:#1a7f45; --bad:#c02a2a;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 26px;}
+  h1{font-size:19px;margin:0 0 4px;font-weight:650;letter-spacing:.2px;}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.4;}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+  .presets button{font:inherit;font-size:12.5px;padding:6px 11px;border:1px solid var(--line);
+    background:#fff;color:var(--fg);border-radius:7px;cursor:pointer;line-height:1.2;}
+  .presets button:hover{background:var(--panel);}
+  .presets button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  canvas{width:100%;display:block;background:#fff;border:1px solid var(--line);border-radius:8px;}
+  .ctrl{display:flex;align-items:center;gap:12px;margin:12px 0 4px;}
+  .ctrl label{font-size:13px;color:var(--muted);min-width:78px;}
+  .ctrl input[type=range]{flex:1;accent-color:var(--blue);}
+  .ctrl .nval{font-variant-numeric:tabular-nums;font-size:14px;min-width:52px;
+    text-align:right;font-weight:600;}
+  .formula{font-size:13.5px;color:var(--fg);margin:10px 0 6px;line-height:1.5;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px;}
+  .formula code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 5px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 6px;}
+  .cell{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+  .cell .k{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+  .cell .v{font-size:19px;font-weight:650;font-variant-numeric:tabular-nums;margin-top:2px;}
+  .verdict{border-radius:8px;padding:11px 13px;font-size:13.5px;line-height:1.5;margin:6px 0 4px;}
+  .verdict.good{background:#e7f5ec;border:1px solid #b7e0c6;color:#0f5a30;}
+  .verdict.bad{background:#fdeaea;border:1px solid #f0c2c2;color:#8a1c1c;}
+  .verdict b{font-weight:700;}
+  .caption{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.45;font-style:italic;}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin:8px 0 0;flex-wrap:wrap;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:20px;height:0;border-top:3px solid;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Can we swap the limit and the integral?</h1>
+  <p class="sub">For a sequence <code style="all:unset;font-style:italic">f<sub>n</sub></code>
+  converging pointwise to <em>f</em>, we ask whether
+  &int;f<sub>n</sub> &rarr; &int;f. Sometimes yes (Monotone / Dominated Convergence),
+  sometimes no (escaping mass).</p>
+
+  <div class="presets" id="presets"></div>
+
+  <canvas id="cv" width="1520" height="640"></canvas>
+
+  <div class="legend">
+    <span><i class="sw" style="border-color:#2563c9"></i> f<sub>n</sub>(x)</span>
+    <span><i class="sw" style="border-color:#9aa4b0;border-top-style:dashed"></i> pointwise limit f(x)</span>
+    <span><i class="sw" style="border-color:#c3d4f0;height:10px;border-top:none;background:#eaf1fb;width:16px;border:1px solid #c3d4f0"></i> area under f<sub>n</sub></span>
+  </div>
+
+  <div class="ctrl">
+    <label for="nslider">index&nbsp;n</label>
+    <input type="range" id="nslider" min="1" max="40" step="1" value="1">
+    <span class="nval" id="nval">n = 1</span>
+  </div>
+
+  <div class="formula" id="formula"></div>
+
+  <div class="grid">
+    <div class="cell"><div class="k">&int; f<sub>n</sub> &nbsp;(current n)</div><div class="v" id="intfn">—</div></div>
+    <div class="cell"><div class="k">&int; f &nbsp;(pointwise limit)</div><div class="v" id="intlim">—</div></div>
+  </div>
+
+  <div class="verdict" id="verdict"></div>
+  <p class="caption" id="caption"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const cv = document.getElementById("cv");
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+
+  // ---- numeric integration of f_n over the domain ----
+  function integrate(f, a, b, N){
+    // composite midpoint; robust for spikes if N large enough
+    N = N || 20000;
+    const h = (b - a) / N;
+    let s = 0;
+    for(let i=0;i<N;i++){ s += f(a + (i+0.5)*h); }
+    return s * h;
+  }
+
+  // ---- presets ----
+  // Each: domain [xa,xb], fn(x,n), flim(x) pointwise limit,
+  //       intFn(n) exact area, intLim exact area of limit,
+  //       swap (boolean whether int f_n -> int f), theorem text, caption, ymax.
+  const PRESETS = {
+    spike: {
+      label: "Escaping spike",
+      xa: 0, xb: 1,
+      fn: (x,n)=> (x >= 0 && x <= 1/n) ? n : 0,
+      flim: (x)=> 0,
+      intFn: (n)=> 1,          // n * (1/n) = 1
+      intLim: 0,
+      swap: false,
+      ymax: (n)=> Math.max(4, n*1.08),
+      formula: 'f<sub>n</sub>(x) = n on [0, 1/n], else 0, on [0,1]. '+
+               'Area = n &middot; (1/n) = <code>1</code> for every n, '+
+               'but for each fixed x&gt;0 we have f<sub>n</sub>(x)=0 once n &gt; 1/x, so f<sub>n</sub> &rarr; 0.',
+      verdict: (n, af, al)=> ({
+        ok:false,
+        html:'<b>Swap FAILS.</b> &int;f<sub>n</sub> = 1 for all n, but &int;(lim f<sub>n</sub>) = 0, '+
+             'so lim &int;f<sub>n</sub> = 1 &ne; 0 = &int; lim f<sub>n</sub>. '+
+             'The spike has fixed area 1 while its height &rarr;&infin; and width &rarr;0; '+
+             'the mass "escapes" upward. No integrable g dominates all f<sub>n</sub> '+
+             '(sup<sub>n</sub> f<sub>n</sub> = 1/x is not integrable near 0), so <b>DCT does not apply</b>. '+
+             'Fatou still holds: &int; liminf f<sub>n</sub> = 0 &le; 1 = liminf &int; f<sub>n</sub> (strict).'
+      }),
+      caption:'The classic counterexample: a tall thin spike carries area 1 forever, yet vanishes pointwise, so the integral of the limit undershoots.'
+    },
+
+    slide: {
+      label: "Escaping to infinity",
+      xa: 0, xb: 46,
+      fn: (x,n)=> (x >= n && x < n+1) ? 1 : 0,
+      flim: (x)=> 0,
+      intFn: (n)=> 1,          // unit bump, area 1
+      intLim: 0,
+      swap: false,
+      ymax: (n)=> 1.4,
+      formula: 'f<sub>n</sub>(x) = 1 on [n, n+1], else 0, on [0,&infin;). '+
+               'Area = <code>1</code> for every n, but for each fixed x the bump has moved past it once n &gt; x, so f<sub>n</sub> &rarr; 0.',
+      verdict: (n, af, al)=> ({
+        ok:false,
+        html:'<b>Swap FAILS.</b> A unit bump slides off to the right: &int;f<sub>n</sub> = 1 always, '+
+             'yet f<sub>n</sub> &rarr; 0 pointwise so &int; lim f<sub>n</sub> = 0. '+
+             'The mass escapes to infinity. Any dominating g would need g &ge; 1 on [n,n+1] for all n, '+
+             'i.e. g &ge; 1 on a set of infinite measure, hence &int;g = &infin;. '+
+             '<b>No integrable dominator</b> &rArr; DCT does not apply. Fatou: 0 &le; 1 (strict).'
+      }),
+      caption:'Same area-1 mass, but this time it slides off to infinity instead of shooting up, breaking the swap for the same reason.'
+    },
+
+    monotone: {
+      label: "Monotone increasing (MCT)",
+      xa: 0, xb: 6,
+      // f_n = min(sqrt(x), n*x)  -> increases in n up to sqrt(x); pick capped domain
+      fn: (x,n)=> Math.min(Math.sqrt(x), 1 - Math.exp(-n*x)) * 0 + (1 - Math.exp(-n*x)) * (x/(1+x)),
+      flim: (x)=> x/(1+x),
+      intFn: null,   // computed numerically
+      intLim: null,  // computed numerically
+      swap: true,
+      ymax: (n)=> 1.15,
+      formula: 'f<sub>n</sub>(x) = (1 &minus; e<sup>&minus;n x</sup>) &middot; x/(1+x), increasing in n to '+
+               'f(x) = x/(1+x). Since 0 &le; f<sub>1</sub> &le; f<sub>2</sub> &le; &hellip; &uarr; f, '+
+               'the <b>Monotone Convergence Theorem</b> guarantees &int;f<sub>n</sub> &uarr; &int;f.',
+      verdict: (n, af, al)=> ({
+        ok:true,
+        html:'<b>Swap HOLDS (MCT).</b> The sequence is non-negative and increasing, '+
+             '0 &le; f<sub>1</sub> &le; f<sub>2</sub> &le; &hellip;, converging up to f. '+
+             'The <b>Monotone Convergence Theorem</b> applies: &int;f<sub>n</sub> increases up to &int;f, '+
+             'so lim &int;f<sub>n</sub> = &int; lim f<sub>n</sub>. Currently &int;f<sub>n</sub> &asymp; '+af.toFixed(4)+
+             ' rising toward &int;f &asymp; '+al.toFixed(4)+'.'
+      }),
+      caption:'An increasing tower of non-negative functions: MCT lets the integral rise continuously to the integral of the limit.'
+    },
+
+    dominated: {
+      label: "Dominated (DCT)",
+      xa: 0, xb: 12,
+      fn: (x,n)=> Math.exp(-x) * Math.cos(x/n),
+      flim: (x)=> Math.exp(-x),           // cos(x/n) -> cos(0) = 1
+      intFn: null,
+      intLim: null,   // = 1  (int_0^inf e^-x = 1; on [0,12] ~ 0.999994)
+      swap: true,
+      ymax: (n)=> 1.15,
+      formula: 'f<sub>n</sub>(x) = e<sup>&minus;x</sup> cos(x/n) on [0,&infin;). '+
+               'Since cos(x/n) &rarr; 1, f<sub>n</sub> &rarr; e<sup>&minus;x</sup>. '+
+               'Every |f<sub>n</sub>(x)| &le; e<sup>&minus;x</sup>, an integrable dominator (&int;e<sup>&minus;x</sup> = 1), '+
+               'so the <b>Dominated Convergence Theorem</b> applies.',
+      verdict: (n, af, al)=> ({
+        ok:true,
+        html:'<b>Swap HOLDS (DCT).</b> Each |f<sub>n</sub>(x)| &le; e<sup>&minus;x</sup> = g(x), '+
+             'and g is integrable (&int;g = 1). The <b>Dominated Convergence Theorem</b> gives '+
+             'lim &int;f<sub>n</sub> = &int; lim f<sub>n</sub>. Currently &int;f<sub>n</sub> &asymp; '+af.toFixed(4)+
+             ' &rarr; &int;f &asymp; '+al.toFixed(4)+' as n grows.'
+      }),
+      caption:'A wiggling family pinned under the integrable envelope e^{-x}: DCT permits passing the limit inside the integral.'
+    }
+  };
+
+  let currentKey = "spike";
+  let n = 1;
+
+  // build preset buttons
+  const presetsEl = document.getElementById("presets");
+  const order = ["spike","slide","monotone","dominated"];
+  order.forEach(k=>{
+    const b = document.createElement("button");
+    b.textContent = PRESETS[k].label;
+    b.dataset.key = k;
+    b.addEventListener("click", ()=>{ currentKey = k; syncButtons(); render(); });
+    presetsEl.appendChild(b);
+  });
+  function syncButtons(){
+    [...presetsEl.children].forEach(b=>{
+      b.classList.toggle("active", b.dataset.key === currentKey);
+    });
+  }
+
+  const slider = document.getElementById("nslider");
+  const nval = document.getElementById("nval");
+  slider.addEventListener("input", ()=>{ n = +slider.value; render(); });
+
+  function render(){
+    const P = PRESETS[currentKey];
+    nval.textContent = "n = " + n;
+    document.getElementById("formula").innerHTML = P.formula;
+
+    // integrals
+    const N = (currentKey==="spike") ? 40000 : 12000;
+    const areaFn  = (P.intFn!==null) ? P.intFn(n)
+                    : integrate(x=>P.fn(x,n), P.xa, P.xb, N);
+    const areaLim = (P.intLim!==null) ? P.intLim
+                    : integrate(x=>P.flim(x), P.xa, P.xb, N);
+
+    document.getElementById("intfn").textContent  = fmt(areaFn);
+    document.getElementById("intlim").textContent = fmt(areaLim);
+
+    const v = P.verdict(n, areaFn, areaLim);
+    const vEl = document.getElementById("verdict");
+    vEl.className = "verdict " + (v.ok ? "good" : "bad");
+    vEl.innerHTML = v.html;
+    document.getElementById("caption").textContent = P.caption;
+
+    draw(P);
+  }
+  function fmt(v){
+    if(Math.abs(v - Math.round(v)) < 1e-9) return String(Math.round(v));
+    return v.toFixed(4);
+  }
+
+  // ---- plotting ----
+  function draw(P){
+    ctx.clearRect(0,0,W,H);
+    const padL=64, padR=24, padT=24, padB=52;
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const xa=P.xa, xb=P.xb;
+    const ymax = P.ymax(n);
+    const ymin = 0;
+
+    const X = x => padL + (x - xa)/(xb - xa) * plotW;
+    const Y = y => padT + (1 - (y - ymin)/(ymax - ymin)) * plotH;
+
+    // grid + axes
+    ctx.strokeStyle = "#eef2f6"; ctx.lineWidth=2;
+    const xticks = 6, yticks = 5;
+    ctx.font = "22px system-ui, sans-serif";
+    ctx.fillStyle = "#8894a2";
+    ctx.textAlign="center"; ctx.textBaseline="top";
+    for(let i=0;i<=xticks;i++){
+      const xv = xa + (xb-xa)*i/xticks;
+      const px = X(xv);
+      ctx.beginPath(); ctx.moveTo(px,padT); ctx.lineTo(px,padT+plotH); ctx.stroke();
+      ctx.fillText(trimNum(xv), px, padT+plotH+8);
+    }
+    ctx.textAlign="right"; ctx.textBaseline="middle";
+    for(let j=0;j<=yticks;j++){
+      const yv = ymin + (ymax-ymin)*j/yticks;
+      const py = Y(yv);
+      ctx.beginPath(); ctx.moveTo(padL,py); ctx.lineTo(padL+plotW,py); ctx.stroke();
+      ctx.fillText(trimNum(yv), padL-10, py);
+    }
+    // axis lines
+    ctx.strokeStyle="#c4ccd6"; ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.moveTo(padL,padT); ctx.lineTo(padL,padT+plotH);
+    ctx.lineTo(padL+plotW,padT+plotH); ctx.stroke();
+
+    // sample the domain
+    const S = 1600;
+    const xs = new Array(S+1);
+    for(let i=0;i<=S;i++) xs[i] = xa + (xb-xa)*i/S;
+
+    // shaded area under f_n
+    ctx.beginPath();
+    ctx.moveTo(X(xa), Y(0));
+    for(let i=0;i<=S;i++){
+      let yv = P.fn(xs[i], n);
+      if(yv>ymax) yv=ymax;
+      ctx.lineTo(X(xs[i]), Y(yv));
+    }
+    ctx.lineTo(X(xb), Y(0));
+    ctx.closePath();
+    ctx.fillStyle = "rgba(37,99,201,0.10)";
+    ctx.fill();
+
+    // dashed pointwise limit
+    ctx.setLineDash([9,7]);
+    ctx.strokeStyle = "#9aa4b0"; ctx.lineWidth=3;
+    ctx.beginPath();
+    let started=false;
+    for(let i=0;i<=S;i++){
+      let yv = P.flim(xs[i]);
+      if(yv>ymax) yv=ymax;
+      const px=X(xs[i]), py=Y(yv);
+      if(!started){ ctx.moveTo(px,py); started=true; } else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // f_n curve (handle jump discontinuities: don't connect across zero->spike edges)
+    ctx.strokeStyle = "#2563c9"; ctx.lineWidth=3.2;
+    ctx.lineJoin="round";
+    ctx.beginPath();
+    let prev=null;
+    for(let i=0;i<=S;i++){
+      let yv = P.fn(xs[i], n);
+      const clip = yv>ymax;
+      if(clip) yv=ymax;
+      const px=X(xs[i]), py=Y(yv);
+      if(prev===null){ ctx.moveTo(px,py); }
+      else {
+        // detect a big vertical jump -> draw vertical connector so step functions read cleanly
+        const dy = Math.abs(yv - prev.yv);
+        if(dy > (ymax-ymin)*0.02){
+          // vertical edge at this x
+          ctx.lineTo(prev.px, py===Y(0)?Y(prev.yv):py);
+          ctx.lineTo(px, py);
+        } else {
+          ctx.lineTo(px, py);
+        }
+      }
+      prev={px,py,yv};
+    }
+    ctx.stroke();
+
+    // axis labels
+    ctx.fillStyle="#5a6673";
+    ctx.font="23px system-ui, sans-serif";
+    ctx.textAlign="center"; ctx.textBaseline="bottom";
+    ctx.fillText("x", padL+plotW, padT+plotH+46);
+    ctx.save();
+    ctx.translate(20, padT+plotH/2); ctx.rotate(-Math.PI/2);
+    ctx.textBaseline="top";
+    ctx.fillText("f(x)", 0, 0);
+    ctx.restore();
+  }
+
+  function trimNum(v){
+    if(Math.abs(v-Math.round(v))<1e-9) return String(Math.round(v));
+    return v.toFixed(1);
+  }
+
+  // init
+  syncButtons();
+  render();
+})();
+</script>
+</body>
+</html>

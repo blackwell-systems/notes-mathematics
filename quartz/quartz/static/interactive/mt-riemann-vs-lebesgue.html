@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riemann vs Lebesgue integration</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --muted:#5b6570;
+    --curve:#2563c9;
+    --riemann:rgba(234,120,32,0.42); --riemann-line:#c95f18;
+    --lebesgue:rgba(38,160,90,0.40); --lebesgue-line:#188049;
+    --panel:#eef2f6; --border:#d5dde4;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 16px 28px;}
+  h1{font-size:1.18rem;margin:0 0 2px;}
+  .cap{color:var(--muted);font-size:.86rem;margin:0 0 14px;line-height:1.4;}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+    background:var(--panel);border:1px solid var(--border);border-radius:10px;
+    padding:10px 12px;margin-bottom:12px;}
+  .grp{display:flex;flex-direction:column;gap:3px;}
+  .grp>label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .seg button{border:0;background:#fff;color:var(--fg);padding:6px 11px;font-size:.82rem;cursor:pointer;}
+  .seg button.on{background:var(--curve);color:#fff;}
+  select{padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--fg);font-size:.82rem;}
+  .nrow{display:flex;align-items:center;gap:8px;}
+  input[type=range]{width:170px;accent-color:var(--curve);}
+  .nval{font-variant-numeric:tabular-nums;min-width:2.4em;font-size:.85rem;}
+  canvas{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:10px;background:#fff;}
+  .readout{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 11px;}
+  .card .k{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .card .v{font-size:1.12rem;font-variant-numeric:tabular-nums;margin-top:2px;}
+  .card.ri .v{color:var(--riemann-line);}
+  .card.le .v{color:var(--lebesgue-line);}
+  .card.ex .v{color:var(--curve);}
+  .note{background:#fff;border:1px solid var(--border);border-left:4px solid var(--curve);
+    border-radius:8px;padding:11px 13px;font-size:.88rem;line-height:1.5;}
+  .note h2{font-size:.95rem;margin:0 0 6px;}
+  .note code{background:var(--panel);padding:0 3px;border-radius:3px;font-size:.86em;}
+  .dbtn{margin-top:2px;}
+  .dbtn button{border:1px solid var(--border);background:#fff;color:var(--fg);
+    padding:6px 11px;border-radius:8px;font-size:.82rem;cursor:pointer;}
+  .dbtn button.on{background:#7a2ea8;color:#fff;border-color:#7a2ea8;}
+  .legend{display:flex;gap:16px;font-size:.78rem;color:var(--muted);margin:8px 0 0;flex-wrap:wrap;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .sw{width:13px;height:13px;border-radius:3px;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Riemann vs Lebesgue integration</h1>
+  <p class="cap">Riemann slices the <b>domain</b> into vertical strips; Lebesgue slices the <b>range</b> into horizontal layers and measures how much of the x-axis lies under each level. Both compute the same area from different directions.</p>
+
+  <div class="controls">
+    <div class="grp">
+      <label>Mode</label>
+      <div class="seg" id="modeSeg">
+        <button data-mode="riemann" class="on">Riemann (partition the domain)</button>
+        <button data-mode="lebesgue">Lebesgue (partition the range)</button>
+      </div>
+    </div>
+    <div class="grp">
+      <label>Function</label>
+      <select id="fsel">
+        <option value="bump">smooth bump on [0,2]</option>
+        <option value="sq">f(x) = x&#178; on [0,1]</option>
+        <option value="sin2">f(x) = sin&#178;(&#960;x) on [0,1]</option>
+        <option value="simple">simple (piecewise-constant) on [0,1]</option>
+      </select>
+    </div>
+    <div class="grp">
+      <label>Subdivisions n</label>
+      <div class="nrow">
+        <input type="range" id="nslider" min="2" max="80" value="8">
+        <span class="nval" id="nval">8</span>
+      </div>
+    </div>
+    <div class="grp">
+      <label>Pathological case</label>
+      <div class="dbtn"><button id="dbtn">Dirichlet function</button></div>
+    </div>
+  </div>
+
+  <canvas id="cv" width="760" height="380"></canvas>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--curve)"></i>f(x)</span>
+    <span><i class="sw" style="background:var(--riemann)"></i>Riemann strips (domain)</span>
+    <span><i class="sw" style="background:var(--lebesgue)"></i>Lebesgue layers (range)</span>
+    <span id="setleg" style="display:none"><i class="sw" style="background:#188049"></i>{x : f(x) &#8805; y} on the axis</span>
+  </div>
+
+  <div class="readout">
+    <div class="card ri"><div class="k">Riemann sum</div><div class="v" id="rout">&#8211;</div></div>
+    <div class="card le"><div class="k">Lebesgue sum (layer&#8209;cake)</div><div class="v" id="lout">&#8211;</div></div>
+    <div class="card ex"><div class="k">Exact integral</div><div class="v" id="eout">&#8211;</div></div>
+  </div>
+
+  <div class="note" id="note"></div>
+</div>
+
+<script>
+"use strict";
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+const W = cv.width, H = cv.height;
+// plot area
+const PL = 52, PR = 18, PT = 20, PB = 34;
+const plotW = W - PL - PR, plotH = H - PT - PB;
+
+// ---- function presets ----
+// each: f, domain [a,b], fmax, exact integral, label, description
+const PRESETS = {
+  bump: {
+    a:0, b:2, fmax:1,
+    // smooth bump peaking at x=1, height 1: sin^2(pi x /2) style windowed; use raised cosine
+    f:x=>0.5*(1-Math.cos(Math.PI*x)),        // rises 0->1->0 over [0,2]
+    exact:1.0,                                // ∫0^2 0.5(1-cos(pi x))dx = 0.5*(2 - 0) = 1
+    label:"smooth bump"
+  },
+  sq: {
+    a:0, b:1, fmax:1,
+    f:x=>x*x, exact:1/3, label:"x²"
+  },
+  sin2: {
+    a:0, b:1, fmax:1,
+    f:x=>{const s=Math.sin(Math.PI*x);return s*s;}, exact:0.5, label:"sin²(πx)"
+  },
+  simple: {
+    a:0, b:1, fmax:1,
+    // piecewise constant: 0.3 on [0,.25), 0.9 on [.25,.5), 0.5 on [.5,.75), 0.7 on [.75,1]
+    f:x=>{ if(x<0.25)return 0.3; if(x<0.5)return 0.9; if(x<0.75)return 0.5; return 0.7; },
+    exact:(0.3+0.9+0.5+0.7)*0.25, label:"simple function"
+  }
+};
+
+let state = { mode:"riemann", preset:"bump", n:8, dirichlet:false };
+
+// ---- coordinate transforms ----
+let A,B,FMAX;
+function refreshScale(){ const p=PRESETS[state.preset]; A=p.a;B=p.b;FMAX=p.fmax; }
+function sx(x){ return PL + (x-A)/(B-A)*plotW; }
+function sy(y){ return PT + plotH - (y/FMAX)*plotH; }
+
+// ---- numeric measure of superlevel set {x in [a,b] : f(x) >= t} ----
+// dense sampling over the domain; robust for continuous + piecewise presets.
+const MSAMP = 4000;
+function superlevelMeasure(f, t){
+  const dx=(B-A)/MSAMP; let m=0;
+  for(let i=0;i<MSAMP;i++){ const x=A+(i+0.5)*dx; if(f(x)>=t) m+=dx; }
+  return m;
+}
+// collect the intervals of the superlevel set (for drawing on the axis)
+function superlevelIntervals(f,t){
+  const dx=(B-A)/MSAMP; const segs=[]; let start=null;
+  for(let i=0;i<MSAMP;i++){ const x=A+i*dx; const inside=f(x+dx/2)>=t;
+    if(inside && start===null) start=x;
+    if(!inside && start!==null){ segs.push([start,x]); start=null; } }
+  if(start!==null) segs.push([start,B]);
+  return segs;
+}
+
+// ---- Riemann sum (midpoint) ----
+function riemannSum(f,n){ const dx=(B-A)/n; let s=0;
+  for(let i=0;i<n;i++){ s+=f(A+(i+0.5)*dx)*dx; } return s; }
+// ---- Lebesgue layer-cake sum: sum_k dy * measure{f>=t_k}, t_k midpoint of layer ----
+function lebesgueSum(f,n){ const dy=FMAX/n; let s=0;
+  for(let k=0;k<n;k++){ const t=(k+0.5)*dy; s+=superlevelMeasure(f,t)*dy; } return s; }
+
+// ---- drawing ----
+function drawAxes(){
+  ctx.strokeStyle="#c3ccd4"; ctx.lineWidth=1; ctx.fillStyle="#5b6570";
+  ctx.font="12px system-ui,sans-serif";
+  // axes
+  ctx.beginPath(); ctx.moveTo(PL,PT); ctx.lineTo(PL,PT+plotH); ctx.lineTo(PL+plotW,PT+plotH); ctx.stroke();
+  // x ticks
+  ctx.textAlign="center"; ctx.textBaseline="top";
+  const xticks=5;
+  for(let i=0;i<=xticks;i++){ const x=A+(B-A)*i/xticks; const px=sx(x);
+    ctx.strokeStyle="#e2e8ee"; ctx.beginPath(); ctx.moveTo(px,PT); ctx.lineTo(px,PT+plotH); ctx.stroke();
+    ctx.fillText(x.toFixed(2).replace(/\.00$/,""), px, PT+plotH+5); }
+  // y ticks
+  ctx.textAlign="right"; ctx.textBaseline="middle";
+  const yticks=4;
+  for(let i=0;i<=yticks;i++){ const y=FMAX*i/yticks; const py=sy(y);
+    ctx.strokeStyle="#eef2f6"; ctx.beginPath(); ctx.moveTo(PL,py); ctx.lineTo(PL+plotW,py); ctx.stroke();
+    ctx.fillStyle="#5b6570"; ctx.fillText(y.toFixed(2).replace(/\.00$/,""), PL-6, py); }
+  ctx.textAlign="left"; ctx.textBaseline="alphabetic";
+  ctx.fillStyle="#5b6570"; ctx.fillText("x", PL+plotW-4, PT+plotH+18);
+  ctx.fillText("y", PL-14, PT+8);
+}
+function drawCurve(f){
+  ctx.strokeStyle="#2563c9"; ctx.lineWidth=2.2; ctx.beginPath();
+  let first=true;
+  const N=600;
+  for(let i=0;i<=N;i++){ const x=A+(B-A)*i/N; const px=sx(x), py=sy(f(x));
+    if(first){ctx.moveTo(px,py);first=false;} else ctx.lineTo(px,py); }
+  ctx.stroke();
+}
+function drawRiemann(f,n){
+  const dx=(B-A)/n;
+  ctx.fillStyle="rgba(234,120,32,0.42)"; ctx.strokeStyle="#c95f18"; ctx.lineWidth=1;
+  for(let i=0;i<n;i++){ const xl=A+i*dx; const xm=xl+dx/2; const h=f(xm);
+    const px=sx(xl), pw=sx(xl+dx)-px, py=sy(h), ph=(PT+plotH)-py;
+    ctx.fillRect(px,py,pw,ph); ctx.strokeRect(px,py,pw,ph); }
+}
+function drawLebesgue(f,n){
+  const dy=FMAX/n;
+  // draw each horizontal layer slab spanning the superlevel set, plus its projection on the axis
+  for(let k=0;k<n;k++){
+    const t0=k*dy, t1=(k+1)*dy, tm=(k+0.5)*dy;
+    const segs=superlevelIntervals(f,tm);
+    // slab: from y=t0 to y=t1 over the measured set
+    ctx.fillStyle="rgba(38,160,90,0.40)"; ctx.strokeStyle="#188049"; ctx.lineWidth=0.8;
+    const yTop=sy(t1), yBot=sy(t0);
+    for(const [s,e] of segs){ const px=sx(s), pw=sx(e)-px;
+      ctx.fillRect(px,yTop,pw,yBot-yTop); ctx.strokeRect(px,yTop,pw,yBot-yTop); }
+  }
+  // highlight ONE representative superlevel set on the x-axis (top-most non-empty layer's neighbor)
+  const tm=(Math.floor(n/2)+0.5)*dy;
+  const segs=superlevelIntervals(f,tm);
+  const axisY=PT+plotH;
+  // dashed level line
+  ctx.strokeStyle="#188049"; ctx.setLineDash([5,4]); ctx.lineWidth=1.2;
+  ctx.beginPath(); ctx.moveTo(PL,sy(tm)); ctx.lineTo(PL+plotW,sy(tm)); ctx.stroke();
+  ctx.setLineDash([]);
+  // thick marks on axis
+  ctx.strokeStyle="#188049"; ctx.lineWidth=5;
+  for(const [s,e] of segs){ ctx.beginPath(); ctx.moveTo(sx(s),axisY+1.5); ctx.lineTo(sx(e),axisY+1.5); ctx.stroke(); }
+  ctx.fillStyle="#188049"; ctx.font="12px system-ui,sans-serif"; ctx.textAlign="left"; ctx.textBaseline="bottom";
+  ctx.fillText("y = "+tm.toFixed(2)+"   →   {x : f(x) ≥ y}  measure ≈ "+
+    superlevelMeasure(f,tm).toFixed(3), PL+4, sy(tm)-4);
+  ctx.textAlign="left"; ctx.textBaseline="alphabetic";
+}
+
+// ---- Dirichlet special drawing ----
+function drawDirichlet(){
+  ctx.fillStyle="#7a2ea8"; ctx.font="600 15px system-ui,sans-serif";
+  ctx.textAlign="center"; ctx.textBaseline="middle";
+  ctx.fillText("Dirichlet function  f(x) = 1 if x rational, 0 if x irrational", W/2, PT+34);
+  ctx.font="12px system-ui,sans-serif"; ctx.fillStyle="#5b6570";
+  ctx.fillText("(cannot be drawn: it jumps between 0 and 1 in every interval)", W/2, PT+56);
+
+  // Illustrate two levels y=0 and y=1 conceptually
+  const cx=W/2, ty=PT+110;
+  ctx.textAlign="left"; ctx.textBaseline="top"; ctx.font="13px system-ui,sans-serif"; ctx.fillStyle="#1c2126";
+  const lines=[
+    ["Riemann (partition the domain):", "#c95f18"],
+    ["   each strip contains both rationals and irrationals.", "#1c2126"],
+    ["   Sample a rational → height 1 → sum = 1.", "#1c2126"],
+    ["   Sample an irrational → height 0 → sum = 0.", "#1c2126"],
+    ["   Upper sum = 1, lower sum = 0 for every n. Never converges → not Riemann-integrable.", "#c95f18"],
+    ["", "#000"],
+    ["Lebesgue (partition the range):", "#188049"],
+    ["   ∫ f = 1·μ{f = 1} + 0·μ{f = 0} = 1·μ(rationals) + 0·μ(irrationals)", "#1c2126"],
+    ["            = 1·0 + 0·1 = 0    (the rationals are countable, hence measure zero).", "#188049"],
+    ["", "#000"],
+    ["The set {x : f(x) ≥ 1} is exactly the rationals — dense, but of measure 0.", "#5b6570"]
+  ];
+  let y=ty;
+  for(const [txt,col] of lines){ ctx.fillStyle=col; ctx.fillText(txt, 60, y); y+=21; }
+}
+
+// ---- main render ----
+function render(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,W,H);
+  document.getElementById("setleg").style.display = (state.mode==="lebesgue" && !state.dirichlet)?"inline-flex":"none";
+
+  if(state.dirichlet){
+    drawDirichlet();
+    document.getElementById("rout").textContent="ambiguous (0 or 1)";
+    document.getElementById("lout").textContent="0";
+    document.getElementById("eout").textContent="0 (Lebesgue)";
+    setNote(true);
+    return;
+  }
+  refreshScale();
+  const f=PRESETS[state.preset].f;
+  drawAxes();
+  if(state.mode==="riemann"){ drawRiemann(f,state.n); drawCurve(f); }
+  else { drawLebesgue(f,state.n); drawCurve(f); }
+
+  const rs=riemannSum(f,state.n), ls=lebesgueSum(f,state.n), ex=PRESETS[state.preset].exact;
+  document.getElementById("rout").textContent=rs.toFixed(5);
+  document.getElementById("lout").textContent=ls.toFixed(5);
+  document.getElementById("eout").textContent=ex.toFixed(5);
+  setNote(false);
+}
+
+function setNote(dir){
+  const el=document.getElementById("note");
+  if(dir){
+    el.innerHTML =
+      "<h2>Why Lebesgue succeeds where Riemann fails</h2>"+
+      "The Dirichlet function <code>f(x)=1</code> on rationals, <code>0</code> on irrationals is the classic example. "+
+      "Riemann integration slices the <b>domain</b>: every strip, however thin, straddles both rationals and irrationals, "+
+      "so the sample height can be 1 or 0. The upper sum stays 1 and the lower sum stays 0 for all n — they never meet, "+
+      "so the Riemann integral does not exist. "+
+      "Lebesgue integration slices the <b>range</b>: it asks “how big is the set where f = 1?”. "+
+      "That set is the rationals, which are countable and therefore have <b>measure zero</b>. "+
+      "So <code>∫ f = 1·μ(rationals) + 0·μ(irrationals) = 1·0 + 0·1 = 0</code>. "+
+      "By measuring sets instead of sampling points, Lebesgue tames functions that are too wild for Riemann.";
+  } else {
+    const m = state.mode==="riemann"
+      ? "You are partitioning the <b>domain</b>: <code>∑ f(x*)·Δx</code> sums the areas of vertical strips. As n grows the strips thin out and the sum tends to the exact integral."
+      : "You are partitioning the <b>range</b>: for each level y, measure the set <code>{x : f(x) ≥ y}</code> (shown on the axis) and weight it by the layer thickness Δy. The layer-cake formula <code>∫ f = ∫₀<sup>∞</sup> μ{f ≥ t} dt</code> gives the same area.";
+    el.innerHTML =
+      "<h2>Two ways to the same number</h2>"+m+
+      " The Riemann and Lebesgue readouts above are computed by these two different procedures and converge to the same exact value.";
+  }
+}
+
+// ---- events ----
+document.getElementById("modeSeg").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  state.mode=b.dataset.mode; state.dirichlet=false;
+  [...e.currentTarget.children].forEach(x=>x.classList.toggle("on",x===b));
+  document.getElementById("dbtn").classList.remove("on");
+  render();
+});
+document.getElementById("fsel").addEventListener("change",e=>{
+  state.preset=e.target.value; state.dirichlet=false;
+  document.getElementById("dbtn").classList.remove("on");
+  render();
+});
+document.getElementById("nslider").addEventListener("input",e=>{
+  state.n=+e.target.value; document.getElementById("nval").textContent=state.n;
+  if(state.dirichlet){ state.dirichlet=false; document.getElementById("dbtn").classList.remove("on"); }
+  render();
+});
+document.getElementById("dbtn").addEventListener("click",e=>{
+  state.dirichlet=!state.dirichlet;
+  e.target.classList.toggle("on",state.dirichlet);
+  render();
+});
+
+render();
+</script>
+</body>
+</html>

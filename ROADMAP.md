@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Measure Theory interactive pass** — the abstract SLT-feeder page had zero images and
+  zero widgets, so added the two canonical measure-theory visualizations: a Riemann-vs-Lebesgue
+  explorer (toggle domain-strip vs range-layer partitioning; both converge to the same integral;
+  Dirichlet preset shows only Lebesgue gives 0) and a convergence-theorems explorer (slide n;
+  the escaping spike keeps area 1 while the pointwise limit is 0, so the limit/integral swap
+  fails, contrasted with MCT and DCT presets where it holds). +10 machine-checked assertions
+  (layer-cake integral, escaping spike, Cantor-set measure 0, Markov, L^p norms, Fubini).
 - [x] **Differential Equations pass** — added the missing prerequisites callout and two
   canonical DE widgets: a phase-portrait explorer for 2D linear systems x'=Ax (vector field +
   RK4 trajectories, eigenvector invariant lines, fixed-point classification saddle/node/spiral/

@@ -29,6 +29,10 @@ For the Dirichlet function, this approach works immediately. The function takes 
 
 But to make "size of a set" rigorous, we need to answer two questions: *which* sets can we assign a size to, and *how* do we assign sizes consistently? This is exactly what sigma-algebras and measures do.
 
+Toggle between the two viewpoints below: Riemann chops the *domain* into vertical strips, while Lebesgue chops the *range* into horizontal layers, summing each height times the measure of the set that reaches it. For a continuous function both sums converge to the same integral; the preset for the Dirichlet function shows why only the Lebesgue view gives the "right" answer of $0$.
+
+<iframe src="/static/interactive/mt-riemann-vs-lebesgue.html" width="100%" height="660" style="border:none;"></iframe>
+
 ### Why This Matters Beyond Integration
 
 Measure theory is the foundation of modern probability. When we write $P(A)$ for the probability of an event $A$, what is $P$? It is a measure. When we write $E[X]$ for the expectation of a random variable, what is this? It is a Lebesgue integral. Without measure theory, probability theory for continuous random variables rests on shaky foundations.
@@ -285,6 +289,10 @@ $$
 $$
 
 This interchange is not always valid (you saw counterexamples in real analysis). The Riemann theory requires *uniform* convergence to swap limits and integrals, which is a very strong condition. The Lebesgue theory provides much weaker, more practical conditions.
+
+See exactly when the swap holds below. Slide $n$ and compare $\int f_n$ with $\int \lim f_n$: for the monotone and dominated presets they agree, but for the "escaping spike" $f_n = n\cdot\mathbf{1}_{[0,1/n]}$ the area stays $1$ while the pointwise limit is $0$, so $\int\lim f_n = 0 < 1 = \lim\int f_n$, the failure that Fatou's lemma bounds and that no integrable dominator can rescue.
+
+<iframe src="/static/interactive/mt-convergence.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Monotone Convergence Theorem (MCT)
 
