@@ -754,6 +754,30 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Information Theory =================
+{
+  const log2 = (x) => Math.log(x) / Math.LN2;
+  const H = (ps) => -ps.reduce((s, p) => (p > 0 ? s + p * log2(p) : s), 0);
+  eq("binary entropy H(0.5) = 1 bit", H([0.5, 0.5]), 1, 1e-12);
+  eq("H(deterministic) = 0", H([1, 0]), 0, 1e-12);
+  eq("H(0.11) ~ 0.5 bits", H([0.11, 0.89]), 0.5, 0.01);
+  eq("uniform entropy on 4 = log2(4) = 2 bits", H([0.25, 0.25, 0.25, 0.25]), 2, 1e-12);
+  eq("H([0.5,0.25,0.25]) = 1.5 bits", H([0.5, 0.25, 0.25]), 1.5, 1e-12);
+  eq("surprise -log2(1/8) = 3 bits", -log2(1 / 8), 3, 1e-12);
+  check("entropy maximized at uniform", H([0.25, 0.25, 0.25, 0.25]) >= H([0.7, 0.1, 0.1, 0.1]));
+  const MI = (joint) => {
+    const ny = joint[0].length;
+    const px = joint.map((row) => row.reduce((a, b) => a + b, 0));
+    const py = Array.from({ length: ny }, (_, j) => joint.reduce((a, row) => a + row[j], 0));
+    let Hxy = 0; for (const row of joint) for (const p of row) if (p > 0) Hxy -= p * log2(p);
+    return { Hx: H(px), Hy: H(py), Hxy, I: H(px) + H(py) - Hxy };
+  };
+  { const r = MI([[0.25, 0.25], [0.25, 0.25]]); eq("independent joint: I(X;Y) = 0", r.I, 0, 1e-12); eq("independent: H(X,Y) = H(X)+H(Y) = 2", r.Hxy, 2, 1e-12); }
+  { const r = MI([[0.5, 0], [0, 0.5]]); eq("perfectly dependent (diagonal): I = H(X) = 1", r.I, 1, 1e-12); eq("perfectly dependent: H(X,Y) = 1", r.Hxy, 1, 1e-12); }
+  { const r = MI([[0.3, 0.2], [0.1, 0.4]]); eq("chain rule: H(X) + H(Y|X) = H(X,Y)", r.Hx + (r.Hxy - r.Hx), r.Hxy, 1e-12); }
+  { const P = [0.5, 0.5], Q = [0.9, 0.1]; const Hpq = -P.reduce((s, p, i) => (p > 0 ? s + p * log2(Q[i]) : s), 0); check("cross-entropy H(P,Q) >= H(P) (Gibbs)", Hpq >= H(P) - 1e-12); }
+}
+
 // ================= Algebraic Geometry =================
 {
   // singular point of a plane curve: f = f_x = f_y = 0

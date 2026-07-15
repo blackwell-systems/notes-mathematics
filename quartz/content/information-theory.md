@@ -164,6 +164,10 @@ This function has a characteristic shape:
 
 The curve confirms the properties above: entropy is maximized at $p = 0.5$ (maximum uncertainty, where both outcomes are equally likely) and drops to zero at $p = 0$ and $p = 1$ (complete certainty).
 
+Explore entropy directly below: slide $p$ along the binary entropy curve, or switch to a multi-category distribution and drag the probabilities to watch entropy peak at the uniform distribution ($\log_2 n$ bits) and fall to $0$ at a point mass, alongside the per-outcome surprise $-\log_2 p$.
+
+<iframe src="/static/interactive/it-entropy-explorer.html" width="100%" height="640" style="border:none;"></iframe>
+
 ### Differential Entropy (Continuous Case)
 
 For a continuous random variable $X$ with probability density function $p(x)$, we replace the sum with an integral. This gives **differential entropy**:
@@ -393,6 +397,10 @@ It is the reduction in uncertainty about $X$ gained by observing $Y$. Equivalent
 $$
 I(X; Y) = H(Y) - H(Y|X)
 $$
+
+Edit a joint distribution below and watch all the pieces update: the marginals, $H(X)$, $H(Y)$, the joint entropy $H(X,Y)$, the conditional entropies, and $I(X;Y)$. The presets show $I = 0$ exactly when $X$ and $Y$ are independent, and $I = H(X)$ when $Y$ is fully determined by $X$.
+
+<iframe src="/static/interactive/it-mutual-information.html" width="100%" height="660" style="border:none;"></iframe>
 
 $$
 I(X; Y) = H(X) + H(Y) - H(X, Y)

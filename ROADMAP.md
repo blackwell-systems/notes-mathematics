@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Information Theory interactive pass** — the page already had the KL-divergence widget;
+  added an entropy explorer (binary entropy curve H(p) peaking at p=0.5, plus a multi-category
+  mode with per-outcome surprise, max at uniform / zero at a point mass) and a mutual-information
+  explorer (editable joint distribution -> marginals, H(X), H(Y), H(X,Y), conditional entropies,
+  and I(X;Y), which is 0 iff independent and H(X) when fully dependent). +13 machine-checked
+  assertions (binary/uniform entropy, surprise, MI for independent/dependent joints, the chain
+  rule, and the Gibbs cross-entropy bound).
 - [x] **Algebraic Geometry interactive pass** — the SLT-feeder page already had the RLCT
   free-energy explorer; added a plane-curve / singularity explorer: plot the zero set of a
   polynomial with marching squares and mark the singular points (f = f_x = f_y = 0), with a

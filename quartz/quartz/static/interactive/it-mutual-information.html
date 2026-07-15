@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mutual Information Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --accent:#2563c9; --muted:#66707a;
+    --line:#dce2e8; --cell:#eef2f6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+  h1{font-size:1.25rem;margin:0 0 4px}
+  p.lead{margin:0 0 16px;color:var(--muted);font-size:.9rem}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+  .row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  button{
+    font:inherit;font-size:.85rem;cursor:pointer;
+    background:#fff;color:var(--fg);border:1px solid var(--line);
+    border-radius:7px;padding:6px 11px;
+  }
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  button.primary:hover{color:#fff;filter:brightness(1.08)}
+  label.sz{font-size:.85rem;color:var(--muted);display:inline-flex;gap:6px;align-items:center}
+  select{font:inherit;font-size:.85rem;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:#fff}
+  table.joint{border-collapse:collapse;font-variant-numeric:tabular-nums}
+  table.joint th,table.joint td{border:1px solid var(--line);text-align:center;padding:0}
+  table.joint th{background:var(--cell);color:var(--muted);font-weight:600;font-size:.8rem;padding:5px 8px;min-width:52px}
+  table.joint td.cellwrap{position:relative}
+  table.joint input{
+    width:60px;border:none;background:transparent;text-align:center;
+    font:inherit;font-size:.85rem;padding:14px 2px;color:var(--fg);
+    font-variant-numeric:tabular-nums;position:relative;z-index:1;
+  }
+  table.joint input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:3px}
+  table.joint td.marg{background:#f6f8fb;color:var(--accent);font-weight:600;font-size:.8rem;padding:6px 8px}
+  table.joint th.corner{background:#fff;border:none}
+  .heat{position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:0}
+  .legend{font-size:.75rem;color:var(--muted);margin-top:6px}
+  .stats{font-variant-numeric:tabular-nums;font-size:.9rem;min-width:230px}
+  .stats dl{margin:0;display:grid;grid-template-columns:auto auto;gap:3px 14px}
+  .stats dt{color:var(--muted)}
+  .stats dd{margin:0;text-align:right;font-weight:600}
+  .stats dd.mi{color:var(--accent)}
+  .venn{margin-top:14px}
+  .bar{display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid var(--line);font-size:.72rem}
+  .bar div{display:flex;align-items:center;justify-content:center;color:#fff;white-space:nowrap;overflow:hidden}
+  .seg-hxy{background:#7c9cc9}
+  .seg-i{background:var(--accent)}
+  .seg-hyx{background:#9db4d4}
+  .bar-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:4px}
+  .indep{font-size:.85rem;margin-top:12px;padding:8px 10px;border-radius:7px}
+  .indep.yes{background:#e9f6ee;color:#1a6d3b;border:1px solid #bfe4cc}
+  .indep.no{background:#fdf0e8;color:#9a4a1a;border:1px solid #f2d3bd}
+  code{background:var(--cell);padding:1px 4px;border-radius:4px;font-size:.82em}
+  .cap{font-size:.82rem;color:var(--muted);margin-top:8px;font-style:italic}
+  .eq{font-size:.85rem;color:var(--muted);margin:2px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Mutual Information Explorer</h1>
+  <p class="lead">Edit the joint distribution p(x, y). The grid auto-normalizes to sum to 1; everything else is computed in bits (log base 2).</p>
+
+  <div class="panel">
+    <div class="controls">
+      <button class="primary" data-preset="independent">Independent</button>
+      <button data-preset="perfect">Perfectly dependent</button>
+      <button data-preset="partial">Partially dependent</button>
+      <label class="sz">Size
+        <select id="size">
+          <option value="2">2 &times; 2</option>
+          <option value="3" selected>3 &times; 3</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="row">
+      <div>
+        <table class="joint" id="grid"></table>
+        <div class="legend">Cells are p(x<sub>i</sub>, y<sub>j</sub>). Blue tint &propto; probability. Right/bottom edges show marginals p(x), p(y).</div>
+      </div>
+
+      <div class="stats">
+        <dl>
+          <dt>H(X)</dt><dd id="hx"></dd>
+          <dt>H(Y)</dt><dd id="hy"></dd>
+          <dt>H(X, Y)</dt><dd id="hxy"></dd>
+          <dt>H(Y | X)</dt><dd id="hyx"></dd>
+          <dt>H(X | Y)</dt><dd id="hxy2"></dd>
+          <dt>I(X; Y)</dt><dd class="mi" id="mi"></dd>
+        </dl>
+        <div class="venn">
+          <div class="bar" id="bar">
+            <div class="seg-hxy" id="segHXY"></div>
+            <div class="seg-i" id="segI"></div>
+            <div class="seg-hyx" id="segHYX"></div>
+          </div>
+          <div class="bar-labels"><span>H(X)</span><span>H(Y)</span></div>
+          <p class="eq">H(X, Y) = H(X | Y) + I(X; Y) + H(Y | X)</p>
+        </div>
+        <div class="indep" id="indep"></div>
+      </div>
+    </div>
+
+    <p class="cap" id="cap"></p>
+  </div>
+
+  <div class="panel">
+    <p class="eq" style="margin:0 0 4px;color:var(--fg)"><strong>Definitions (bits)</strong></p>
+    <p class="eq">H(X) = &minus;&sum;<sub>x</sub> p(x) log<sub>2</sub> p(x), &nbsp; H(X,Y) = &minus;&sum;<sub>x,y</sub> p(x,y) log<sub>2</sub> p(x,y), with the convention 0 log 0 = 0.</p>
+    <p class="eq">I(X; Y) = H(X) + H(Y) &minus; H(X, Y) = H(X) &minus; H(X | Y) &ge; 0, with equality <em>iff</em> p(x, y) = p(x) p(y) for all x, y (independence).</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var n = 3;                 // grid dimension
+  var P = [];                // raw (unnormalized) entries
+  var gridEl = document.getElementById("grid");
+
+  function log2(v){ return Math.log(v) / Math.LN2; }
+  function fmt(v){ return (Math.abs(v) < 5e-7 ? 0 : v).toFixed(4) + " bits"; }
+
+  // entropy term  -p log2 p  with 0 log 0 = 0
+  function ent(p){ return (p > 0) ? -p * log2(p) : 0; }
+
+  function presets(name, dim){
+    var m = [];
+    for (var i=0;i<dim;i++){ m.push([]); for(var j=0;j<dim;j++) m[i].push(0); }
+    if (name === "independent"){
+      // rank-1 product distribution -> guaranteed I = 0
+      var px = dim===2 ? [0.5,0.5] : [0.5,0.3,0.2];
+      var py = dim===2 ? [0.5,0.5] : [0.25,0.5,0.25];
+      for (var a=0;a<dim;a++) for(var b=0;b<dim;b++) m[a][b] = px[a]*py[b];
+    } else if (name === "perfect"){
+      // diagonal: Y = X
+      var w = dim===2 ? [0.5,0.5] : [0.4,0.35,0.25];
+      for (var d=0;d<dim;d++) m[d][d] = w[d];
+    } else { // partial
+      if (dim===2){ m=[[0.4,0.1],[0.1,0.4]]; }
+      else { m=[[0.25,0.08,0.02],[0.05,0.20,0.05],[0.02,0.08,0.20]]; }
+    }
+    return m;
+  }
+
+  function setPreset(name){
+    P = presets(name, n);
+    buildGrid();
+    render();
+  }
+
+  function buildGrid(){
+    var html = "";
+    // header row: corner + Y labels
+    html += "<tr><th class='corner'></th>";
+    for (var j=0;j<n;j++) html += "<th>y<sub>"+(j+1)+"</sub></th>";
+    html += "<th>p(x)</th></tr>";
+    for (var i=0;i<n;i++){
+      html += "<tr><th>x<sub>"+(i+1)+"</sub></th>";
+      for (var j2=0;j2<n;j2++){
+        html += "<td class='cellwrap'><div class='heat' id='h"+i+"_"+j2+"'></div>"
+              + "<input type='number' step='0.05' min='0' data-i='"+i+"' data-j='"+j2+"'></td>";
+      }
+      html += "<td class='marg' id='mx"+i+"'></td></tr>";
+    }
+    // bottom marginals for Y
+    html += "<tr><th>p(y)</th>";
+    for (var j3=0;j3<n;j3++) html += "<td class='marg' id='my"+j3+"'></td>";
+    html += "<td class='marg' id='msum'></td></tr>";
+    gridEl.innerHTML = html;
+
+    var inputs = gridEl.querySelectorAll("input");
+    for (var k=0;k<inputs.length;k++){
+      inputs[k].addEventListener("input", onEdit);
+      inputs[k].addEventListener("blur", function(){ render(); });
+    }
+  }
+
+  function onEdit(e){
+    var i = +e.target.dataset.i, j = +e.target.dataset.j;
+    var v = parseFloat(e.target.value);
+    P[i][j] = (isFinite(v) && v >= 0) ? v : 0;
+    render(true); // keep raw values in inputs while typing
+  }
+
+  function render(typing){
+    // normalize
+    var total = 0, i, j;
+    for (i=0;i<n;i++) for(j=0;j<n;j++) total += P[i][j];
+    var Q = []; // normalized joint
+    for (i=0;i<n;i++){ Q.push([]); for(j=0;j<n;j++) Q[i].push(total>0 ? P[i][j]/total : 0); }
+
+    // marginals
+    var px = new Array(n).fill(0), py = new Array(n).fill(0);
+    for (i=0;i<n;i++) for(j=0;j<n;j++){ px[i]+=Q[i][j]; py[j]+=Q[i][j]; }
+
+    // fill inputs (show normalized when not actively typing)
+    var inputs = gridEl.querySelectorAll("input");
+    var maxv = 0;
+    for (i=0;i<n;i++) for(j=0;j<n;j++) if (Q[i][j] > maxv) maxv = Q[i][j];
+    for (var k=0;k<inputs.length;k++){
+      var a=+inputs[k].dataset.i, b=+inputs[k].dataset.j;
+      if (!typing || document.activeElement !== inputs[k]){
+        inputs[k].value = Q[a][b].toFixed(3);
+      }
+      // heat tint
+      var t = maxv>0 ? Q[a][b]/maxv : 0;
+      var heat = document.getElementById("h"+a+"_"+b);
+      heat.style.background = "rgba(37,99,201," + (0.06 + 0.72*t).toFixed(3) + ")";
+    }
+
+    for (i=0;i<n;i++) document.getElementById("mx"+i).textContent = px[i].toFixed(3);
+    for (j=0;j<n;j++) document.getElementById("my"+j).textContent = py[j].toFixed(3);
+    document.getElementById("msum").textContent = "1.000";
+
+    // entropies
+    var HX=0, HY=0, HXY=0;
+    for (i=0;i<n;i++) HX += ent(px[i]);
+    for (j=0;j<n;j++) HY += ent(py[j]);
+    for (i=0;i<n;i++) for(j=0;j<n;j++) HXY += ent(Q[i][j]);
+    var HYgivenX = HXY - HX;
+    var HXgivenY = HXY - HY;
+    var I = HX + HY - HXY;
+    if (I < 0 && I > -1e-9) I = 0; // clamp float noise
+
+    document.getElementById("hx").textContent   = fmt(HX);
+    document.getElementById("hy").textContent   = fmt(HY);
+    document.getElementById("hxy").textContent  = fmt(HXY);
+    document.getElementById("hyx").textContent  = fmt(HYgivenX);
+    document.getElementById("hxy2").textContent = fmt(HXgivenY);
+    document.getElementById("mi").textContent   = fmt(I);
+
+    // venn bar: total width = H(X,Y) = H(X|Y) + I + H(Y|X)
+    var tot = HXY > 1e-9 ? HXY : 1;
+    document.getElementById("segHXY").style.width = (100*HXgivenY/tot)+"%";
+    document.getElementById("segI").style.width   = (100*I/tot)+"%";
+    document.getElementById("segHYX").style.width = (100*HYgivenX/tot)+"%";
+    document.getElementById("segHXY").textContent = HXgivenY>0.12*tot ? "H(X|Y)" : "";
+    document.getElementById("segI").textContent   = I>0.12*tot ? "I" : "";
+    document.getElementById("segHYX").textContent = HYgivenX>0.12*tot ? "H(Y|X)" : "";
+
+    // independence check
+    var indepMax = 0;
+    for (i=0;i<n;i++) for(j=0;j<n;j++){
+      var d = Math.abs(Q[i][j] - px[i]*py[j]);
+      if (d > indepMax) indepMax = d;
+    }
+    var isIndep = indepMax < 1e-6;
+    var el = document.getElementById("indep");
+    if (isIndep){
+      el.className = "indep yes";
+      el.innerHTML = "<strong>Independent:</strong> p(x,y) = p(x)p(y) everywhere, so I(X;Y) = 0.";
+    } else {
+      el.className = "indep no";
+      el.innerHTML = "<strong>Dependent:</strong> p(x,y) &ne; p(x)p(y) (max gap " + indepMax.toFixed(3) + "), so I(X;Y) = " + I.toFixed(4) + " > 0.";
+    }
+
+    document.getElementById("cap").textContent =
+      "Mutual information is the shared area of the entropy Venn diagram: the bits X and Y reveal about each other, zero exactly when they are independent.";
+  }
+
+  // wiring
+  document.getElementById("size").addEventListener("change", function(e){
+    n = +e.target.value;
+    setPreset("partial");
+  });
+  var btns = document.querySelectorAll("button[data-preset]");
+  for (var b=0;b<btns.length;b++){
+    btns[b].addEventListener("click", function(e){
+      setPreset(e.target.dataset.preset);
+    });
+  }
+
+  setPreset("partial");
+})();
+</script>
+</body>
+</html>

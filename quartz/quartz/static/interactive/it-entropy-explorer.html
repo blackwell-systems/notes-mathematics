@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entropy Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --fg: #1c2126;
+    --blue: #2563c9;
+    --red: #c0392b;
+    --muted: #5a6472;
+    --line: #d8dee6;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 14px 28px;
+    box-sizing: border-box;
+  }
+  h1 { font-size: 20px; margin: 0 0 2px; }
+  .cap { color: var(--muted); font-size: 13px; margin: 0 0 14px; line-height: 1.45; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .tab {
+    flex: 1; padding: 9px 10px; font-size: 14px; cursor: pointer;
+    border: 1px solid var(--line); background: #fff; color: var(--fg);
+    border-radius: 8px; text-align: center; transition: all .12s;
+  }
+  .tab.active { background: var(--blue); color: #fff; border-color: var(--blue); font-weight: 600; }
+  canvas { width: 100%; display: block; border-radius: 8px; }
+  .controls { margin-top: 12px; }
+  .row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+  .row label { font-size: 13px; min-width: 92px; color: var(--muted); }
+  input[type=range] { flex: 1; accent-color: var(--blue); }
+  .val { font-variant-numeric: tabular-nums; min-width: 54px; text-align: right; font-size: 13px; }
+  .readout {
+    margin-top: 14px; padding: 12px 14px; background: #fff;
+    border: 1px solid var(--line); border-radius: 8px; font-size: 13.5px; line-height: 1.55;
+  }
+  .readout .big { font-size: 15px; }
+  .readout b { color: var(--blue); }
+  .readout .rd { color: var(--red); }
+  .note { color: var(--muted); font-size: 12.5px; margin-top: 8px; line-height: 1.5; }
+  .presets { display: flex; gap: 8px; margin: 10px 0 4px; flex-wrap: wrap; }
+  .presets button {
+    padding: 6px 12px; font-size: 13px; cursor: pointer; background: #fff;
+    border: 1px solid var(--line); border-radius: 7px; color: var(--fg);
+  }
+  .presets button:hover { border-color: var(--blue); color: var(--blue); }
+  .hidden { display: none; }
+  code { background: #eef1f5; padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Entropy explorer</h1>
+  <p class="cap">Entropy is the expected surprise of a random outcome: it is maximal when the distribution is uniform (most uncertain) and zero when the outcome is certain.</p>
+
+  <div class="tabs">
+    <div class="tab active" id="tabA" role="button" tabindex="0">Binary entropy H(p)</div>
+    <div class="tab" id="tabB" role="button" tabindex="0">Distribution entropy</div>
+  </div>
+
+  <canvas id="cv" width="1520" height="900"></canvas>
+
+  <!-- MODE A -->
+  <div id="ctrlA" class="controls">
+    <div class="row">
+      <label>p (heads)</label>
+      <input type="range" id="pSlider" min="0" max="1" step="0.001" value="0.5">
+      <span class="val" id="pVal">0.500</span>
+    </div>
+  </div>
+
+  <!-- MODE B -->
+  <div id="ctrlB" class="controls hidden">
+    <div class="presets">
+      <button id="preUniform">uniform (max)</button>
+      <button id="prePoint">point mass (zero)</button>
+      <button id="preSkewed">skewed</button>
+    </div>
+    <div id="bSliders"></div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script>
+"use strict";
+(function () {
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  var readout = document.getElementById("readout");
+
+  var BLUE = "#2563c9", RED = "#c0392b", FG = "#1c2126", MUTED = "#5a6472", LINE = "#d8dee6";
+
+  // log base 2 with the convention 0*log0 = 0
+  function log2(x) { return Math.log(x) / Math.LN2; }
+  function plogp(p) { return p <= 0 ? 0 : p * log2(p); } // returns p*log2(p)
+
+  var mode = "A";
+
+  // ---------- MODE A state ----------
+  var pSlider = document.getElementById("pSlider");
+  var pVal = document.getElementById("pVal");
+
+  // ---------- MODE B state ----------
+  var probs = [0.25, 0.25, 0.25, 0.25]; // raw weights, normalized on use
+  var bSlidersDiv = document.getElementById("bSliders");
+
+  function normalized() {
+    var s = probs.reduce(function (a, b) { return a + b; }, 0);
+    if (s <= 0) return probs.map(function () { return 1 / probs.length; });
+    return probs.map(function (x) { return x / s; });
+  }
+
+  function entropyOf(dist) {
+    var h = 0;
+    for (var i = 0; i < dist.length; i++) h -= plogp(dist[i]);
+    return h;
+  }
+
+  // ================= DRAWING =================
+  function clear() {
+    ctx.fillStyle = "#fbfcfd";
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawBinary() {
+    clear();
+    var padL = 90, padR = 40, padT = 40, padB = 70;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var x0 = padL, y0 = padT + plotH; // origin (bottom-left)
+
+    // axes helpers: p in [0,1] -> x ; H in [0,1] -> y
+    function X(p) { return x0 + p * plotW; }
+    function Y(h) { return y0 - (h / 1) * plotH; } // H max = 1
+
+    // gridlines
+    ctx.strokeStyle = LINE; ctx.lineWidth = 1.5;
+    ctx.fillStyle = MUTED; ctx.font = "26px sans-serif";
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    var yticks = [0, 0.25, 0.5, 0.75, 1];
+    for (var i = 0; i < yticks.length; i++) {
+      var yy = Y(yticks[i]);
+      ctx.beginPath(); ctx.moveTo(x0, yy); ctx.lineTo(x0 + plotW, yy); ctx.stroke();
+      ctx.fillText(yticks[i].toFixed(2), x0 - 12, yy);
+    }
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    var xticks = [0, 0.25, 0.5, 0.75, 1];
+    for (i = 0; i < xticks.length; i++) {
+      var xx = X(xticks[i]);
+      ctx.fillText(xticks[i].toFixed(2), xx, y0 + 12);
+    }
+
+    // axis labels
+    ctx.fillStyle = FG; ctx.font = "28px sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    ctx.fillText("p  (probability of heads)", x0 + plotW / 2, y0 + 44);
+    ctx.save();
+    ctx.translate(24, padT + plotH / 2); ctx.rotate(-Math.PI / 2);
+    ctx.textBaseline = "bottom";
+    ctx.fillText("H(p)  [bits]", 0, 0);
+    ctx.restore();
+
+    // curve
+    ctx.strokeStyle = BLUE; ctx.lineWidth = 4; ctx.beginPath();
+    var N = 400;
+    for (i = 0; i <= N; i++) {
+      var p = i / N;
+      var h = -plogp(p) - plogp(1 - p);
+      if (i === 0) ctx.moveTo(X(p), Y(h)); else ctx.lineTo(X(p), Y(h));
+    }
+    ctx.stroke();
+
+    // current point
+    var pc = parseFloat(pSlider.value);
+    var hc = -plogp(pc) - plogp(1 - pc);
+    // guideline
+    ctx.strokeStyle = "rgba(192,57,43,0.35)"; ctx.lineWidth = 2;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath(); ctx.moveTo(X(pc), y0); ctx.lineTo(X(pc), Y(hc)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x0, Y(hc)); ctx.lineTo(X(pc), Y(hc)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = RED; ctx.beginPath();
+    ctx.arc(X(pc), Y(hc), 11, 0, 2 * Math.PI); ctx.fill();
+  }
+
+  var COLS = ["A", "B", "C", "D", "E", "F"];
+
+  function drawDistribution() {
+    clear();
+    var dist = normalized();
+    var n = dist.length;
+
+    // two panels: top = probabilities, bottom = surprise
+    var padL = 70, padR = 30;
+    var plotW = W - padL - padR;
+    var topT = 40, topH = 340;
+    var gap = 90;
+    var botT = topT + topH + gap, botH = 340;
+
+    var slot = plotW / n;
+    var bw = slot * 0.62;
+
+    function label(cx, txt, color) {
+      ctx.fillStyle = color; ctx.font = "26px sans-serif";
+      ctx.textAlign = "center"; ctx.textBaseline = "top";
+      ctx.fillText(txt, cx, botT + botH + 14);
+    }
+
+    // ---- Probability panel ----
+    ctx.fillStyle = FG; ctx.font = "27px sans-serif";
+    ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+    ctx.fillText("Probability  pᵢ", padL, topT - 8);
+    // baseline
+    ctx.strokeStyle = LINE; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(padL, topT + topH); ctx.lineTo(padL + plotW, topT + topH); ctx.stroke();
+
+    var maxP = Math.max(0.001, Math.max.apply(null, dist));
+    var pScale = 1.0; // scale bars against p=1 axis but cap visually
+    var pAxisMax = Math.max(0.5, maxP);
+    for (var i = 0; i < n; i++) {
+      var cx = padL + slot * (i + 0.5);
+      var h = (dist[i] / pAxisMax) * topH;
+      ctx.fillStyle = BLUE;
+      ctx.fillRect(cx - bw / 2, topT + topH - h, bw, h);
+      // value
+      ctx.fillStyle = FG; ctx.font = "24px sans-serif";
+      ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+      ctx.fillText(dist[i].toFixed(3), cx, topT + topH - h - 8);
+    }
+
+    // ---- Surprise panel ----
+    ctx.fillStyle = FG; ctx.font = "27px sans-serif";
+    ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+    ctx.fillText("Surprise  −log₂ pᵢ  [bits]", padL, botT - 8);
+    ctx.strokeStyle = LINE; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(padL, botT + botH); ctx.lineTo(padL + plotW, botT + botH); ctx.stroke();
+
+    // surprise scale
+    var surprises = dist.map(function (p) { return p <= 0 ? Infinity : -log2(p); });
+    var finiteMax = 0;
+    surprises.forEach(function (s) { if (isFinite(s) && s > finiteMax) finiteMax = s; });
+    var sAxisMax = Math.max(2, finiteMax);
+    for (i = 0; i < n; i++) {
+      var cx2 = padL + slot * (i + 0.5);
+      var s = surprises[i];
+      var drawInf = !isFinite(s);
+      var sh = drawInf ? botH : (s / sAxisMax) * botH;
+      ctx.fillStyle = RED;
+      ctx.fillRect(cx2 - bw / 2, botT + botH - sh, bw, sh);
+      ctx.fillStyle = FG; ctx.font = "24px sans-serif";
+      ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+      ctx.fillText(drawInf ? "∞" : s.toFixed(2), cx2, botT + botH - sh - 8);
+      label(cx2, COLS[i], MUTED);
+    }
+  }
+
+  function draw() {
+    if (mode === "A") drawBinary(); else drawDistribution();
+  }
+
+  // ================= READOUT =================
+  function updateReadout() {
+    if (mode === "A") {
+      var pc = parseFloat(pSlider.value);
+      var hc = -plogp(pc) - plogp(1 - pc);
+      pVal.textContent = pc.toFixed(3);
+      readout.innerHTML =
+        '<div class="big">H(p) = <span class="rd">' + hc.toFixed(4) + ' bits</span></div>' +
+        'For a biased coin with P(heads) = ' + pc.toFixed(3) + ', the outcome carries <b>' +
+        hc.toFixed(4) + ' bits</b> of entropy. The curve peaks at <b>p = 0.5</b> with H = 1 bit ' +
+        '(a fair coin: maximum uncertainty) and reaches 0 at p = 0 or p = 1 (a certain outcome, no surprise).' +
+        '<div class="note">Entropy = expected surprise = the average number of bits an optimal code needs to encode one outcome.</div>';
+    } else {
+      var dist = normalized();
+      var n = dist.length;
+      var Hc = entropyOf(dist);
+      var Hmax = log2(n);
+      var frac = Hmax > 0 ? (Hc / Hmax) : 0;
+      readout.innerHTML =
+        '<div class="big">H = <span class="rd">' + Hc.toFixed(4) + ' bits</span> ' +
+        '&nbsp;of&nbsp; max log₂(' + n + ') = <b>' + Hmax.toFixed(4) + ' bits</b></div>' +
+        'This distribution is at <b>' + (frac * 100).toFixed(1) + '%</b> of the maximum possible entropy. ' +
+        'Maximum (' + Hmax.toFixed(3) + ' bits) is reached only by the <b>uniform</b> distribution; the minimum (0 bits) ' +
+        'by a <b>point mass</b> (one outcome certain). Rarer categories have larger surprise −log₂ pᵢ (red bars).' +
+        '<div class="note">H = −Σ pᵢ log₂ pᵢ = expected surprise = the average number of bits an optimal code uses per outcome.</div>';
+    }
+  }
+
+  function refresh() { draw(); updateReadout(); }
+
+  // ================= MODE B SLIDERS =================
+  function buildBSliders() {
+    bSlidersDiv.innerHTML = "";
+    for (var i = 0; i < probs.length; i++) {
+      (function (idx) {
+        var row = document.createElement("div");
+        row.className = "row";
+        var lab = document.createElement("label");
+        lab.textContent = "Category " + COLS[idx];
+        var inp = document.createElement("input");
+        inp.type = "range"; inp.min = "0"; inp.max = "1"; inp.step = "0.001";
+        inp.value = String(probs[idx]);
+        var v = document.createElement("span");
+        v.className = "val";
+        inp.addEventListener("input", function () {
+          probs[idx] = parseFloat(inp.value);
+          syncBVals();
+          refresh();
+        });
+        row._slider = inp; row._valSpan = v;
+        row.appendChild(lab); row.appendChild(inp); row.appendChild(v);
+        bSlidersDiv.appendChild(row);
+      })(i);
+    }
+    syncBVals();
+  }
+
+  function syncBVals() {
+    var dist = normalized();
+    var rows = bSlidersDiv.children;
+    for (var i = 0; i < rows.length; i++) {
+      rows[i]._valSpan.textContent = dist[i].toFixed(3);
+    }
+  }
+
+  function setProbs(arr) {
+    probs = arr.slice();
+    buildBSliders();
+    refresh();
+  }
+
+  document.getElementById("preUniform").onclick = function () { setProbs([1, 1, 1, 1]); };
+  document.getElementById("prePoint").onclick = function () { setProbs([1, 0, 0, 0]); };
+  document.getElementById("preSkewed").onclick = function () { setProbs([0.5, 0.25, 0.15, 0.10]); };
+
+  // ================= TABS =================
+  var tabA = document.getElementById("tabA"), tabB = document.getElementById("tabB");
+  var ctrlA = document.getElementById("ctrlA"), ctrlB = document.getElementById("ctrlB");
+
+  function setMode(m) {
+    mode = m;
+    tabA.classList.toggle("active", m === "A");
+    tabB.classList.toggle("active", m === "B");
+    ctrlA.classList.toggle("hidden", m !== "A");
+    ctrlB.classList.toggle("hidden", m !== "B");
+    refresh();
+  }
+  tabA.onclick = function () { setMode("A"); };
+  tabB.onclick = function () { setMode("B"); };
+  tabA.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setMode("A"); } };
+  tabB.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setMode("B"); } };
+
+  pSlider.addEventListener("input", refresh);
+
+  // init
+  buildBSliders();
+  setMode("A");
+})();
+</script>
+</body>
+</html>
