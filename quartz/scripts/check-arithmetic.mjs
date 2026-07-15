@@ -754,6 +754,22 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Probability (distributions, Bayes) =================
+{
+  const factP = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; };
+  { const n = 10, p = 0.3; let sum = 0; for (let k = 0; k <= n; k++) sum += comb(n, k) * p ** k * (1 - p) ** (n - k);
+    eq("Binomial(10,0.3) PMF sums to 1", sum, 1, 1e-9); eq("Binomial mean np = 3", n * p, 3, 1e-9); eq("Binomial var np(1-p) = 2.1", n * p * (1 - p), 2.1, 1e-9); }
+  { const lam = 4; let sum = 0; for (let k = 0; k <= 40; k++) sum += (Math.exp(-lam) * lam ** k) / factP(k); eq("Poisson(4) PMF sums to 1", sum, 1, 1e-6); eq("Poisson mean = var = 4", lam, 4); }
+  { const p = 0.25; eq("Geometric(0.25) mean 1/p = 4", 1 / p, 4); eq("Geometric var (1-p)/p^2 = 12", (1 - p) / p ** 2, 12, 1e-9);
+    let sum = 0; for (let k = 1; k <= 300; k++) sum += (1 - p) ** (k - 1) * p; eq("Geometric PMF sums to 1", sum, 1, 1e-6); }
+  { const lam = 2; eq("Exponential(2) mean 1/lambda = 0.5", 1 / lam, 0.5); eq("Exponential var 1/lambda^2 = 0.25", 1 / lam ** 2, 0.25); }
+  eq("Uniform(0,10) mean = 5", (0 + 10) / 2, 5); eq("Uniform(0,10) var = 100/12", (10 - 0) ** 2 / 12, 100 / 12, 1e-9);
+  { const pD = 0.01, sens = 0.99, fpr = 0.05; eq("Bayes P(D|+) rare-disease = 16.67%", (sens * pD) / (sens * pD + fpr * (1 - pD)), 0.1667, 1e-3); }
+  eq("Chebyshev bound P(|X-mu|>=2 sigma) <= 1/4", 1 / 2 ** 2, 0.25);
+  { const xs = [1, 2, 3, 4], ys = [2, 4, 6, 8], mx = 2.5, my = 5; let cov = 0, vx = 0, vy = 0; for (let i = 0; i < 4; i++) { cov += (xs[i] - mx) * (ys[i] - my); vx += (xs[i] - mx) ** 2; vy += (ys[i] - my) ** 2; } eq("correlation of perfectly linear data = 1", cov / Math.sqrt(vx * vy), 1, 1e-9); }
+  { const lam = 2, h = 1e-6, M = (t) => lam / (lam - t); eq("MGF' at 0 = mean for Exp(2)", (M(h) - M(-h)) / (2 * h), 1 / lam, 1e-4); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

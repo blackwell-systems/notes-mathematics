@@ -143,6 +143,10 @@ $$
 P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
 $$
 
+The most famous consequence is the **base-rate fallacy**. Set a disease's prevalence, a test's sensitivity, and its false-positive rate below, and see via natural frequencies why even a highly accurate positive test can still mean a low probability of disease when the condition is rare.
+
+<iframe src="/static/interactive/prob-bayes-visualizer.html" width="100%" height="660" style="border:none;"></iframe>
+
 **What each piece means:**
 
 - $P(A|B)$: **Posterior.** The probability of $A$ after observing $B$. This is what you want to know.
@@ -329,6 +333,10 @@ $$
 ## Common Discrete Distributions
 
 ![Comparison of common probability distributions](./media/common-distributions.png)
+
+Explore the standard distributions interactively below: switch between discrete and continuous, pick a distribution, and drag its parameters to reshape the PMF or PDF, with the mean, variance, and standard deviation updating live.
+
+<iframe src="/static/interactive/prob-distribution-explorer.html" width="100%" height="660" style="border:none;"></iframe>
 
 ### Bernoulli Distribution
 
@@ -1003,6 +1011,10 @@ $$
 $$
 
 **Intuition:** Flip a coin 10 times and you might get 70% heads. Flip it 10,000 times and you will get very close to 50% heads. The more data you collect, the more the average stabilizes around the true mean.
+
+Watch it happen below: keep adding trials (coin, die, or a skewed source) and see the running average swing wildly at first, then settle onto the true mean, with the deviation shrinking like $1/\sqrt{n}$.
+
+<iframe src="/static/interactive/prob-lln.html" width="100%" height="640" style="border:none;"></iframe>
 
 **Where it shows up:** This is why more training data generally leads to better ML models. It is the theoretical justification for using sample statistics to estimate population parameters.
 

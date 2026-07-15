@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bayes' Theorem / Base-Rate Visualizer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --muted:#5c6773; --line:#dde3ea;
+    --tp:#2f8f4e;   /* true positive  */
+    --fp:#d9822b;   /* false positive */
+    --fn:#8a4fbf;   /* diseased, missed */
+    --tn:#c9d3de;   /* healthy, negative */
+    --accent:#2b6cb0;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--fg);}
+  body{
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:22px 18px 40px;}
+  h1{font-size:1.35rem;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:.92rem;margin:0 0 18px;}
+  .controls{display:grid;gap:14px;margin-bottom:18px;}
+  .ctl{display:grid;grid-template-columns:1fr;gap:4px;}
+  .ctl .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+  .ctl label{font-weight:600;font-size:.92rem;}
+  .ctl .val{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;}
+  .ctl .hint{color:var(--muted);font-size:.78rem;}
+  input[type=range]{width:100%;accent-color:var(--accent);}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+  .presets button{
+    font:inherit;font-size:.83rem;padding:6px 11px;border:1px solid var(--line);
+    background:#fff;border-radius:7px;cursor:pointer;color:var(--fg);
+  }
+  .presets button:hover{border-color:var(--accent);color:var(--accent);}
+  .panel{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff;}
+  canvas{display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:6px;}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:.82rem;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.12);}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px;}
+  .stat{border:1px solid var(--line);border-radius:9px;padding:10px 12px;}
+  .stat .k{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
+  .stat .v{font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums;}
+  .posterior{
+    grid-column:1 / -1;background:#eef5fc;border-color:#cfe0f2;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;
+  }
+  .posterior .big{font-size:1.9rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .posterior .prior{font-size:.85rem;color:var(--muted);}
+  .bar{height:16px;border-radius:8px;overflow:hidden;display:flex;margin-top:14px;border:1px solid var(--line);}
+  .bar>i{display:block;height:100%;}
+  .barlabels{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-top:4px;}
+  .caption{margin-top:20px;font-size:.9rem;color:var(--muted);border-left:3px solid var(--accent);padding-left:12px;}
+  .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;background:#f2f5f8;
+    border-radius:7px;padding:9px 11px;margin-top:12px;color:#33414f;overflow-x:auto;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bayes' Theorem: the base-rate visualizer</h1>
+  <p class="sub">A positive result on an accurate medical test can still mean you probably don't have the disease. Set the numbers and see why, using natural frequencies over a population of 10,000 people.</p>
+
+  <div class="presets" id="presets">
+    <button data-p="rare">Rare disease</button>
+    <button data-p="common">Common condition</button>
+    <button data-p="accurate">Very accurate test</button>
+  </div>
+
+  <div class="controls">
+    <div class="ctl">
+      <div class="row"><label>Base rate &mdash; P(D), the prevalence</label><span class="val" id="vBase"></span></div>
+      <input type="range" id="sBase" min="0.1" max="50" step="0.1">
+      <span class="hint">How common the disease is in the population.</span>
+    </div>
+    <div class="ctl">
+      <div class="row"><label>Sensitivity &mdash; P(+ | D), true positive rate</label><span class="val" id="vSens"></span></div>
+      <input type="range" id="sSens" min="50" max="100" step="0.5">
+      <span class="hint">Of the people who have the disease, the fraction who test positive.</span>
+    </div>
+    <div class="ctl">
+      <div class="row"><label>False positive rate &mdash; P(+ | not D) = 1 &minus; specificity</label><span class="val" id="vFpr"></span></div>
+      <input type="range" id="sFpr" min="0" max="50" step="0.1">
+      <span class="hint">Of the healthy people, the fraction who wrongly test positive.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <canvas id="grid" width="100" height="100" aria-label="Grid of 10,000 people colored by test outcome"></canvas>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--tp)"></i> True positives (sick, +)</span>
+      <span><i class="sw" style="background:var(--fp)"></i> False positives (healthy, +)</span>
+      <span><i class="sw" style="background:var(--fn)"></i> Missed (sick, &minus;)</span>
+      <span><i class="sw" style="background:var(--tn)"></i> True negatives (healthy, &minus;)</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">People with disease</div><div class="v" id="oSick"></div></div>
+      <div class="stat"><div class="k">People healthy</div><div class="v" id="oHealthy"></div></div>
+      <div class="stat"><div class="k">True positives</div><div class="v" id="oTp" style="color:var(--tp)"></div></div>
+      <div class="stat"><div class="k">False positives</div><div class="v" id="oFp" style="color:var(--fp)"></div></div>
+      <div class="stat"><div class="k">Total positive tests</div><div class="v" id="oTot"></div></div>
+      <div class="stat"><div class="k">Of positives, actually sick</div><div class="v" id="oFrac"></div></div>
+
+      <div class="stat posterior">
+        <div>
+          <div class="k">Posterior &mdash; P(D | +)</div>
+          <div class="big" id="oPost"></div>
+        </div>
+        <div class="prior">Prior P(D) was <b id="oPrior"></b>.<br>A positive test updates the belief to the number at left.</div>
+      </div>
+    </div>
+
+    <div class="bar" id="bar" title="Among everyone who tests positive">
+      <i id="barTp" style="background:var(--tp)"></i>
+      <i id="barFp" style="background:var(--fp)"></i>
+    </div>
+    <div class="barlabels"><span>Among all positive tests: true positives</span><span>false positives</span></div>
+
+    <div class="formula" id="formula"></div>
+  </div>
+
+  <p class="caption" id="caption"></p>
+</div>
+
+<script>
+(function(){
+  var N = 10000;
+  var el = function(id){return document.getElementById(id);};
+  var sBase=el('sBase'), sSens=el('sSens'), sFpr=el('sFpr');
+  var cv=el('grid'), ctx=cv.getContext('2d');
+
+  var COL = {tp:'#2f8f4e', fp:'#d9822b', fn:'#8a4fbf', tn:'#c9d3de'};
+
+  function pct(x){ return (x*100); }
+  function fmtPct(x){
+    var v = x*100;
+    if (v>0 && v<0.1) return v.toFixed(2)+'%';
+    if (v<10) return v.toFixed(1)+'%';
+    return v.toFixed(1).replace(/\.0$/,'')+'%';
+  }
+  function commas(n){ return n.toLocaleString('en-US'); }
+
+  function draw(counts){
+    // counts: {tp, fp, fn, tn} summing to N. Fill row-major.
+    var img = ctx.createImageData(100,100);
+    var order = [['tp',counts.tp],['fn',counts.fn],['fp',counts.fp],['tn',counts.tn]];
+    // Interleave so categories are visually grouped but rare ones remain visible:
+    // draw sick block first (tp then fn), then healthy block (fp then tn).
+    var seq = [];
+    function push(cat,n){ for(var i=0;i<n;i++) seq.push(cat); }
+    push('tp',counts.tp); push('fn',counts.fn);
+    push('fp',counts.fp); push('tn',counts.tn);
+    for(var i=0;i<N;i++){
+      var hex = COL[seq[i]];
+      var r=parseInt(hex.substr(1,2),16), g=parseInt(hex.substr(3,2),16), b=parseInt(hex.substr(5,2),16);
+      var o=i*4; img.data[o]=r; img.data[o+1]=g; img.data[o+2]=b; img.data[o+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+  }
+
+  function update(){
+    var pD   = +sBase.value/100;
+    var sens = +sSens.value/100;   // P(+|D)
+    var fpr  = +sFpr.value/100;    // P(+|not D)
+
+    el('vBase').textContent = fmtPct(pD);
+    el('vSens').textContent = fmtPct(sens);
+    el('vFpr').textContent  = fmtPct(fpr);
+
+    // Natural-frequency counts over N people (rounded, but posterior uses exact prob).
+    var sick = Math.round(pD*N);
+    var healthy = N - sick;
+    var tp = Math.round(sens*sick);
+    var fn = sick - tp;
+    var fp = Math.round(fpr*healthy);
+    var tn = healthy - fp;
+    var totPos = tp + fp;
+
+    // Exact posterior via Bayes' theorem (not rounded counts).
+    var num = sens*pD;
+    var den = sens*pD + fpr*(1-pD);
+    var post = den>0 ? num/den : 0;
+
+    draw({tp:tp,fp:fp,fn:fn,tn:tn});
+
+    el('oSick').textContent = commas(sick);
+    el('oHealthy').textContent = commas(healthy);
+    el('oTp').textContent = commas(tp);
+    el('oFp').textContent = commas(fp);
+    el('oTot').textContent = commas(totPos);
+    el('oFrac').textContent = totPos>0 ? (commas(tp)+' / '+commas(totPos)) : '0 / 0';
+    el('oPost').textContent = fmtPct(post);
+    el('oPrior').textContent = fmtPct(pD);
+
+    // Bar: proportion of positive tests that are true vs false.
+    var tpShare = totPos>0 ? tp/totPos : 0;
+    el('barTp').style.width = (tpShare*100)+'%';
+    el('barFp').style.width = ((1-tpShare)*100)+'%';
+
+    el('formula').textContent =
+      'P(D|+) = P(+|D)P(D) / [P(+|D)P(D) + P(+|not D)P(not D)]\n' +
+      '       = (' + sens.toFixed(3) + ' × ' + pD.toFixed(4) + ') / '
+      + '(' + sens.toFixed(3) + ' × ' + pD.toFixed(4) + ' + '
+      + fpr.toFixed(3) + ' × ' + (1-pD).toFixed(4) + ')'
+      + ' = ' + fmtPct(post);
+
+    el('caption').textContent =
+      'Even a test with ' + fmtPct(sens) + ' sensitivity gives only a ' + fmtPct(post) +
+      ' chance of disease after a positive result, because the ' + commas(fp) +
+      ' false positives from the large healthy group ' +
+      (fp>tp ? 'outnumber' : 'are weighed against') + ' the ' + commas(tp) +
+      ' true positives. When the base rate is low, most positives are false.';
+  }
+
+  var PRESETS = {
+    rare:     {base:1,   sens:99, fpr:5},
+    common:   {base:30,  sens:90, fpr:10},
+    accurate: {base:1,   sens:99.5, fpr:0.5}
+  };
+  el('presets').addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    var p=PRESETS[b.getAttribute('data-p')]; if(!p) return;
+    sBase.value=p.base; sSens.value=p.sens; sFpr.value=p.fpr; update();
+  });
+
+  [sBase,sSens,sFpr].forEach(function(s){ s.addEventListener('input',update); });
+
+  // Initial state = rare disease preset.
+  sBase.value=1; sSens.value=99; sFpr.value=5;
+  update();
+})();
+</script>
+</body>
+</html>

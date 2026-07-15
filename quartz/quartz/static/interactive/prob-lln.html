@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Law of Large Numbers</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --fg: #1c2126;
+    --muted: #5a6470;
+    --curve: #2563c9;
+    --true: #c0392b;
+    --panel: #eef2f7;
+    --border: #d5dce4;
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 24px;
+    box-sizing: border-box;
+  }
+  h1 { font-size: 1.15rem; margin: 0 0 2px; }
+  .cap { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  label { font-size: 0.9rem; color: var(--muted); }
+  select, button {
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--fg);
+    cursor: pointer;
+  }
+  button:hover { background: var(--panel); }
+  button:active { transform: translateY(1px); }
+  select { cursor: pointer; }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .readout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .stat .k { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .stat .v { font-size: 1.1rem; font-variant-numeric: tabular-nums; font-weight: 600; margin-top: 2px; }
+  .note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: var(--panel);
+    border-left: 3px solid var(--curve);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 10px 0 0;
+  }
+  .legend { display: flex; gap: 16px; font-size: 0.82rem; color: var(--muted); margin: 8px 0 0; flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 22px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; }
+  @media (max-width: 520px) { .readout { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Law of Large Numbers</h1>
+  <p class="cap">Simulate more trials and watch the running sample mean settle toward the true expected value.</p>
+
+  <div class="controls">
+    <label for="exp">Experiment:</label>
+    <select id="exp">
+      <option value="coin">Coin flip (mean 0.5)</option>
+      <option value="die">Fair die (mean 3.5)</option>
+      <option value="exp">Exponential(1) (mean 1)</option>
+    </select>
+    <button id="add10">Add 10 trials</button>
+    <button id="add100">Add 100</button>
+    <button id="add1000">Add 1000</button>
+    <button id="newrun">New run</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <canvas id="plot" width="1520" height="880"></canvas>
+
+  <div class="legend">
+    <span><i class="swatch" style="border-top-color:#2563c9"></i> running average</span>
+    <span><i class="swatch" style="border-top-color:#c0392b;border-top-style:dashed"></i> true mean</span>
+    <span><i class="swatch" style="border-top-color:#c0392b;opacity:.28;border-top-width:8px"></i> &plusmn;1/&radic;n band</span>
+  </div>
+
+  <div class="readout">
+    <div class="stat"><div class="k">Trials</div><div class="v" id="rTrials">0</div></div>
+    <div class="stat"><div class="k">Running mean</div><div class="v" id="rMean">&mdash;</div></div>
+    <div class="stat"><div class="k">True mean</div><div class="v" id="rTrue">0.5</div></div>
+    <div class="stat"><div class="k">|deviation|</div><div class="v" id="rDev">&mdash;</div></div>
+  </div>
+
+  <p class="note"><strong>Not the gambler's fallacy:</strong> the <em>average</em> converges because later trials dilute early swings, but each individual trial stays independent and its outcome is never "due."</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- Seeded PRNG: a small 32-bit LCG (Numerical Recipes constants) ----
+  function makeLCG(seed) {
+    var state = (seed >>> 0) || 1;
+    return function next() {
+      // state = (a*state + c) mod 2^32
+      state = (Math.imul(1664525, state) + 1013904223) >>> 0;
+      return state / 4294967296; // in [0,1)
+    };
+  }
+
+  // Experiment definitions: draw a single trial value, and the true mean.
+  var EXPERIMENTS = {
+    coin: { trueMean: 0.5, ymin: 0, ymax: 1, draw: function (u) { return u < 0.5 ? 0 : 1; } },
+    die:  { trueMean: 3.5, ymin: 1, ymax: 6, draw: function (u) { return 1 + Math.floor(u * 6); } },
+    exp:  { trueMean: 1.0, ymin: 0, ymax: 3, draw: function (u) {
+              // inverse-CDF sampling of Exponential(rate=1): -ln(1-u)
+              var uu = 1 - u; if (uu < 1e-12) uu = 1e-12;
+              return -Math.log(uu);
+            } }
+  };
+
+  var canvas = document.getElementById("plot");
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width, H = canvas.height;
+
+  // State
+  var runCounter = 0;      // varies the seed for each "new run"
+  var baseSeed = 0x9e3779b9;
+  var rng = null;
+  var expKey = "coin";
+  var n = 0;               // trials so far
+  var sum = 0;             // running sum
+  var means = [];          // running mean sampled at each trial index (1-based)
+
+  function reseed() {
+    // advance seed via run counter so runs are reproducible yet distinct
+    var s = (baseSeed ^ Math.imul(runCounter + 1, 2654435761)) >>> 0;
+    rng = makeLCG(s);
+  }
+
+  function fullReset() {
+    n = 0; sum = 0; means = [];
+    reseed();
+    draw();
+    updateReadout();
+  }
+
+  function newRun() {
+    runCounter += 1;
+    fullReset();
+  }
+
+  function addTrials(k) {
+    var exp = EXPERIMENTS[expKey];
+    for (var i = 0; i < k; i++) {
+      var x = exp.draw(rng());
+      sum += x;
+      n += 1;
+      means.push(sum / n);
+    }
+    draw();
+    updateReadout();
+  }
+
+  function updateReadout() {
+    var exp = EXPERIMENTS[expKey];
+    document.getElementById("rTrials").textContent = n.toLocaleString();
+    document.getElementById("rTrue").textContent = fmt(exp.trueMean);
+    if (n === 0) {
+      document.getElementById("rMean").innerHTML = "&mdash;";
+      document.getElementById("rDev").innerHTML = "&mdash;";
+    } else {
+      var m = sum / n;
+      document.getElementById("rMean").textContent = fmt(m);
+      document.getElementById("rDev").textContent = fmt(Math.abs(m - exp.trueMean));
+    }
+  }
+
+  function fmt(v) {
+    return (Math.abs(v) >= 100 ? v.toFixed(2) : v.toFixed(4));
+  }
+
+  // ---- Plot ----
+  var PAD = { l: 96, r: 24, t: 24, b: 64 };
+
+  function xForTrial(i, xmaxLog) {
+    // log10 x-axis; i is 1-based trial index
+    var lx = Math.log10(i);
+    var frac = xmaxLog > 0 ? lx / xmaxLog : 0;
+    return PAD.l + frac * (W - PAD.l - PAD.r);
+  }
+
+  function yForVal(v, ymin, ymax) {
+    var frac = (v - ymin) / (ymax - ymin);
+    return H - PAD.b - frac * (H - PAD.t - PAD.b);
+  }
+
+  function draw() {
+    var exp = EXPERIMENTS[expKey];
+    var ymin = exp.ymin, ymax = exp.ymax, tm = exp.trueMean;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, W, H);
+
+    // x-axis range in log10; at least up to 10, grow to cover n
+    var xmax = Math.max(10, n);
+    var xmaxLog = Math.log10(xmax);
+
+    drawAxes(ymin, ymax, xmax, xmaxLog);
+
+    // convergence band: true mean +/- c/sqrt(x). Scale c to the spread of the
+    // distribution so the band is meaningful for each experiment.
+    var c = bandConst(exp);
+    ctx.fillStyle = "rgba(192,57,43,0.16)";
+    ctx.beginPath();
+    var started = false;
+    var xStart = 2; // start band at x=2 to avoid the infinite 1/sqrt at ~1
+    // upper edge left-to-right
+    for (var i = xStart; i <= xmax; i = nextStep(i, xmax)) {
+      var hi = clamp(tm + c / Math.sqrt(i), ymin, ymax);
+      var px = xForTrial(i, xmaxLog), py = yForVal(hi, ymin, ymax);
+      if (!started) { ctx.moveTo(px, py); started = true; } else { ctx.lineTo(px, py); }
+    }
+    // lower edge right-to-left
+    for (var j = xmax; j >= xStart; j = prevStep(j, xmax)) {
+      var lo = clamp(tm - c / Math.sqrt(j), ymin, ymax);
+      ctx.lineTo(xForTrial(j, xmaxLog), yForVal(lo, ymin, ymax));
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // true mean dashed red line
+    ctx.save();
+    ctx.strokeStyle = "#c0392b";
+    ctx.lineWidth = 3;
+    ctx.setLineDash([12, 10]);
+    ctx.beginPath();
+    var ytm = yForVal(tm, ymin, ymax);
+    ctx.moveTo(PAD.l, ytm);
+    ctx.lineTo(W - PAD.r, ytm);
+    ctx.stroke();
+    ctx.restore();
+
+    // running average curve (blue)
+    if (n >= 1) {
+      ctx.strokeStyle = "#2563c9";
+      ctx.lineWidth = 3.5;
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      var first = true;
+      // Down-sample when n is large so we don't draw millions of segments,
+      // but always start at trial 1 and end at trial n.
+      var stride = Math.max(1, Math.floor(n / 2000));
+      for (var t = 1; t <= n; t += stride) {
+        var px2 = xForTrial(t, xmaxLog);
+        var py2 = yForVal(means[t - 1], ymin, ymax);
+        if (first) { ctx.moveTo(px2, py2); first = false; } else { ctx.lineTo(px2, py2); }
+      }
+      // ensure the final point is drawn
+      ctx.lineTo(xForTrial(n, xmaxLog), yForVal(means[n - 1], ymin, ymax));
+      ctx.stroke();
+    }
+  }
+
+  // step generators for smooth band across a log axis
+  function nextStep(i, xmax) {
+    var s = Math.max(1, Math.floor(i * 0.05));
+    return Math.min(i + s, i + s) === i ? i + 1 : i + s;
+  }
+  function prevStep(j) {
+    var s = Math.max(1, Math.floor(j * 0.05));
+    return j - s <= 0 ? -1 : j - s;
+  }
+
+  function bandConst(exp) {
+    // Use ~1 standard deviation of a single draw so the band ~ sd/sqrt(n),
+    // matching the standard error of the sample mean.
+    if (exp === EXPERIMENTS.coin) return 0.5;      // sd = 0.5
+    if (exp === EXPERIMENTS.die)  return 1.7078;   // sd of fair die
+    return 1.0;                                    // Exponential(1) sd = 1
+  }
+
+  function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+  function drawAxes(ymin, ymax, xmax, xmaxLog) {
+    ctx.strokeStyle = "#d5dce4";
+    ctx.fillStyle = "#5a6470";
+    ctx.lineWidth = 1.5;
+    ctx.font = "22px system-ui, sans-serif";
+
+    // frame
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, PAD.t);
+    ctx.lineTo(PAD.l, H - PAD.b);
+    ctx.lineTo(W - PAD.r, H - PAD.b);
+    ctx.stroke();
+
+    // y gridlines / labels
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    var ticks = 5;
+    for (var k = 0; k <= ticks; k++) {
+      var val = ymin + (ymax - ymin) * (k / ticks);
+      var y = yForVal(val, ymin, ymax);
+      ctx.strokeStyle = "#eef2f7";
+      ctx.beginPath();
+      ctx.moveTo(PAD.l, y);
+      ctx.lineTo(W - PAD.r, y);
+      ctx.stroke();
+      ctx.fillStyle = "#5a6470";
+      ctx.fillText(val.toFixed(1), PAD.l - 12, y);
+    }
+
+    // x log-decade gridlines: powers of 10 and their intermediate ticks
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    var decades = Math.ceil(xmaxLog);
+    for (var d = 0; d <= decades; d++) {
+      var base = Math.pow(10, d);
+      if (base > xmax) break;
+      var xg = xForTrial(base, xmaxLog);
+      ctx.strokeStyle = "#e3e9f0";
+      ctx.beginPath();
+      ctx.moveTo(xg, PAD.t);
+      ctx.lineTo(xg, H - PAD.b);
+      ctx.stroke();
+      ctx.fillStyle = "#5a6470";
+      ctx.fillText(base >= 1000 ? (base / 1000) + "k" : String(base), xg, H - PAD.b + 10);
+    }
+
+    // axis titles
+    ctx.fillStyle = "#5a6470";
+    ctx.font = "24px system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText("number of trials  (log scale)", (PAD.l + W - PAD.r) / 2, H - 34);
+
+    ctx.save();
+    ctx.translate(28, (PAD.t + H - PAD.b) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textBaseline = "middle";
+    ctx.fillText("running average", 0, 0);
+    ctx.restore();
+  }
+
+  // ---- Wire up controls ----
+  document.getElementById("exp").addEventListener("change", function (e) {
+    expKey = e.target.value;
+    fullReset();
+  });
+  document.getElementById("add10").addEventListener("click", function () { addTrials(10); });
+  document.getElementById("add100").addEventListener("click", function () { addTrials(100); });
+  document.getElementById("add1000").addEventListener("click", function () { addTrials(1000); });
+  document.getElementById("newrun").addEventListener("click", newRun);
+  document.getElementById("reset").addEventListener("click", function () { runCounter = 0; fullReset(); });
+
+  fullReset();
+})();
+</script>
+</body>
+</html>

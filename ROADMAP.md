@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Probability interactive pass** — added three widgets to the (already scan-free,
+  callout-bearing) page: a distribution explorer (discrete + continuous, PMF/PDF with live
+  mean/variance/sd), a Bayes base-rate visualizer (natural-frequency grid demonstrating the
+  base-rate fallacy), and a Law-of-Large-Numbers demo (running average converging to the mean
+  with a 1/sqrt(n) band). +16 machine-checked assertions (binomial/Poisson/geometric/
+  exponential/uniform means & variances + PMF normalization, the Bayes rare-disease posterior,
+  Chebyshev bound, correlation, and an MGF-derivative check).
 - [x] **Remaining planned-widget batch** — built the last of the ranked interactive
   candidates: Bayesian (Beta-Binomial) updating, KL-divergence asymmetry, Taylor-series
   approximation (with interval-of-convergence failure), Newton's method (with a cycling

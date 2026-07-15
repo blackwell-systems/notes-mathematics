@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probability Distribution Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --ink:#1c2126; --blue:#2563c9; --red:#c0392b;
+    --line:#d8dee6; --muted:#5b6570; --band:rgba(37,99,201,0.10);
+  }
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 28px;}
+  h1{font-size:20px;margin:0 0 4px;}
+  .cap{color:var(--muted);font-size:13px;margin:0 0 14px;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .seg button{
+    border:none;background:#fff;color:var(--ink);padding:7px 14px;font-size:13px;cursor:pointer;
+  }
+  .seg button.active{background:var(--blue);color:#fff;}
+  select{
+    padding:7px 10px;font-size:13px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);
+  }
+  canvas{
+    display:block;width:100%;height:320px;border:1px solid var(--line);border-radius:10px;background:#fff;
+  }
+  .controls{margin:14px 0 10px;}
+  .ctl{display:flex;align-items:center;gap:12px;margin:8px 0;font-size:13px;}
+  .ctl label{width:120px;color:var(--muted);}
+  .ctl input[type=range]{flex:1;accent-color:var(--blue);}
+  .ctl .val{width:64px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;}
+  .readout{
+    background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;
+  }
+  .readout .name{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .readout .expr{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--blue);margin:6px 0;}
+  .stats{display:flex;gap:22px;margin-top:8px;flex-wrap:wrap;}
+  .stats div span{color:var(--muted);}
+  .stats b{font-variant-numeric:tabular-nums;}
+  .legend{font-size:12px;color:var(--muted);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap;}
+  .swatch{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin-right:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Probability Distribution Explorer</h1>
+  <p class="cap">Pick a distribution and drag its parameters to see how the PMF or PDF, its mean, and its spread respond.</p>
+
+  <div class="row">
+    <div class="seg" id="kind">
+      <button data-kind="discrete" class="active">Discrete</button>
+      <button data-kind="continuous">Continuous</button>
+    </div>
+    <select id="dist"></select>
+  </div>
+
+  <canvas id="cv" width="1520" height="640"></canvas>
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--blue)"></span>PMF / PDF</span>
+    <span><span class="swatch" style="background:var(--red)"></span>mean</span>
+    <span><span class="swatch" style="background:rgba(37,99,201,0.30)"></span>mean &plusmn; 1 sd</span>
+  </div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="readout">
+    <div class="name" id="rName"></div>
+    <div class="expr" id="rExpr"></div>
+    <div class="stats">
+      <div><span>mean &mu; =</span> <b id="rMean"></b></div>
+      <div><span>variance &sigma;&sup2; =</span> <b id="rVar"></b></div>
+      <div><span>std dev &sigma; =</span> <b id="rSd"></b></div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  // ---- math helpers ----
+  function logGamma(x){ // Lanczos
+    var g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
+      771.32342877765313,-176.61502916214059,12.507343278686905,
+      -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+    if(x<0.5) return Math.log(Math.PI/Math.sin(Math.PI*x))-logGamma(1-x);
+    x-=1; var a=c[0], t=x+g+0.5;
+    for(var i=1;i<g+2;i++) a+=c[i]/(x+i);
+    return 0.5*Math.log(2*Math.PI)+(x+0.5)*Math.log(t)-t+Math.log(a);
+  }
+  function logFact(k){ return logGamma(k+1); }
+  function logChoose(n,k){ return logFact(n)-logFact(k)-logFact(n-k); }
+  function fmt(v){
+    if(!isFinite(v)) return "—";
+    if(v===0) return "0";
+    var a=Math.abs(v);
+    if(a>=1000||a<0.001) return v.toExponential(3);
+    return (Math.round(v*1000)/1000).toString();
+  }
+
+  // ---- distribution definitions ----
+  // Each: params[], pmf/pdf(x,p), stats(p) -> {mean,var}, support(p) for discrete,
+  // range(p) for continuous, expr(p) text, label(p)
+  var DIST = {
+    discrete:{
+      binomial:{
+        title:"Binomial",
+        params:[
+          {key:"n",label:"n (trials)",min:1,max:40,step:1,val:10},
+          {key:"p",label:"p (success)",min:0.01,max:0.99,step:0.01,val:0.3}
+        ],
+        support:function(p){ var a=[]; for(var k=0;k<=p.n;k++) a.push(k); return a; },
+        pmf:function(k,p){ if(k<0||k>p.n) return 0;
+          return Math.exp(logChoose(p.n,k)+k*Math.log(p.p)+(p.n-k)*Math.log(1-p.p)); },
+        stats:function(p){ return {mean:p.n*p.p, vari:p.n*p.p*(1-p.p)}; },
+        expr:function(p){ return "P(k) = C(n,k) p^k (1-p)^(n-k)"; },
+        label:function(p){ return "Binomial(n="+p.n+", p="+p.p.toFixed(2)+")"; }
+      },
+      poisson:{
+        title:"Poisson",
+        params:[{key:"lam",label:"λ (rate)",min:0.1,max:20,step:0.1,val:4}],
+        support:function(p){ var hi=Math.max(10,Math.ceil(p.lam+4*Math.sqrt(p.lam)+4));
+          var a=[]; for(var k=0;k<=hi;k++) a.push(k); return a; },
+        pmf:function(k,p){ if(k<0) return 0;
+          return Math.exp(-p.lam + k*Math.log(p.lam) - logFact(k)); },
+        stats:function(p){ return {mean:p.lam, vari:p.lam}; },
+        expr:function(p){ return "P(k) = e^(-λ) λ^k / k!"; },
+        label:function(p){ return "Poisson(λ="+p.lam.toFixed(1)+")"; }
+      },
+      geometric:{
+        title:"Geometric",
+        params:[{key:"p",label:"p (success)",min:0.02,max:0.99,step:0.01,val:0.25}],
+        support:function(p){ var hi=Math.max(10,Math.ceil((1/p.p)+4*Math.sqrt((1-p.p)/(p.p*p.p))));
+          hi=Math.min(hi,120); var a=[]; for(var k=1;k<=hi;k++) a.push(k); return a; },
+        pmf:function(k,p){ if(k<1) return 0; return Math.pow(1-p.p,k-1)*p.p; },
+        stats:function(p){ return {mean:1/p.p, vari:(1-p.p)/(p.p*p.p)}; },
+        expr:function(p){ return "P(k) = (1-p)^(k-1) p,  k = 1,2,…"; },
+        label:function(p){ return "Geometric(p="+p.p.toFixed(2)+")"; }
+      },
+      bernoulli:{
+        title:"Bernoulli",
+        params:[{key:"p",label:"p (success)",min:0.01,max:0.99,step:0.01,val:0.5}],
+        support:function(p){ return [0,1]; },
+        pmf:function(k,p){ if(k===0) return 1-p.p; if(k===1) return p.p; return 0; },
+        stats:function(p){ return {mean:p.p, vari:p.p*(1-p.p)}; },
+        expr:function(p){ return "P(0)=1-p,  P(1)=p"; },
+        label:function(p){ return "Bernoulli(p="+p.p.toFixed(2)+")"; }
+      }
+    },
+    continuous:{
+      normal:{
+        title:"Normal",
+        params:[
+          {key:"mu",label:"μ (mean)",min:-5,max:5,step:0.1,val:0},
+          {key:"sig",label:"σ (std dev)",min:0.2,max:4,step:0.05,val:1}
+        ],
+        range:function(p){ return [p.mu-4*p.sig, p.mu+4*p.sig]; },
+        pdf:function(x,p){ var z=(x-p.mu)/p.sig;
+          return Math.exp(-0.5*z*z)/(p.sig*Math.sqrt(2*Math.PI)); },
+        stats:function(p){ return {mean:p.mu, vari:p.sig*p.sig}; },
+        expr:function(p){ return "f(x) = exp(-(x-μ)² / 2σ²) / (σ√(2π))"; },
+        label:function(p){ return "Normal(μ="+p.mu.toFixed(1)+", σ="+p.sig.toFixed(2)+")"; }
+      },
+      exponential:{
+        title:"Exponential",
+        params:[{key:"lam",label:"λ (rate)",min:0.2,max:5,step:0.05,val:2}],
+        range:function(p){ return [0, Math.max(6/p.lam, 1e-6)]; },
+        pdf:function(x,p){ if(x<0) return 0; return p.lam*Math.exp(-p.lam*x); },
+        stats:function(p){ return {mean:1/p.lam, vari:1/(p.lam*p.lam)}; },
+        expr:function(p){ return "f(x) = λ e^(-λ x),  x ≥ 0"; },
+        label:function(p){ return "Exponential(λ="+p.lam.toFixed(2)+")"; }
+      },
+      uniform:{
+        title:"Uniform",
+        params:[
+          {key:"a",label:"a (lower)",min:-10,max:10,step:0.5,val:0},
+          {key:"b",label:"b (upper)",min:-10,max:10,step:0.5,val:10}
+        ],
+        range:function(p){ var lo=Math.min(p.a,p.b), hi=Math.max(p.a,p.b);
+          var pad=(hi-lo)*0.15||1; return [lo-pad, hi+pad]; },
+        pdf:function(x,p){ var lo=Math.min(p.a,p.b), hi=Math.max(p.a,p.b);
+          if(hi<=lo) return 0; if(x<lo||x>hi) return 0; return 1/(hi-lo); },
+        stats:function(p){ return {mean:(p.a+p.b)/2, vari:Math.pow(p.b-p.a,2)/12}; },
+        expr:function(p){ return "f(x) = 1/(b-a),  a ≤ x ≤ b"; },
+        label:function(p){ return "Uniform(a="+p.a+", b="+p.b+")"; }
+      }
+    }
+  };
+
+  // ---- state ----
+  var state={ kind:"discrete", name:"binomial", params:{} };
+  var cv=document.getElementById("cv"), ctx=cv.getContext("2d");
+  var distSel=document.getElementById("dist");
+  var controls=document.getElementById("controls");
+
+  function currentDef(){ return DIST[state.kind][state.name]; }
+
+  function loadParams(){
+    var def=currentDef(); state.params={};
+    def.params.forEach(function(pr){ state.params[pr.key]=pr.val; });
+  }
+
+  function buildDistOptions(){
+    distSel.innerHTML="";
+    Object.keys(DIST[state.kind]).forEach(function(k){
+      var o=document.createElement("option");
+      o.value=k; o.textContent=DIST[state.kind][k].title;
+      distSel.appendChild(o);
+    });
+    distSel.value=state.name;
+  }
+
+  function buildControls(){
+    controls.innerHTML="";
+    var def=currentDef();
+    def.params.forEach(function(pr){
+      var wrap=document.createElement("div"); wrap.className="ctl";
+      var lab=document.createElement("label"); lab.textContent=pr.label;
+      var rng=document.createElement("input");
+      rng.type="range"; rng.min=pr.min; rng.max=pr.max; rng.step=pr.step;
+      rng.value=state.params[pr.key];
+      var val=document.createElement("span"); val.className="val";
+      val.textContent=(+state.params[pr.key]).toString();
+      rng.addEventListener("input",function(){
+        state.params[pr.key]=parseFloat(rng.value);
+        val.textContent=(+rng.value).toString();
+        render();
+      });
+      wrap.appendChild(lab); wrap.appendChild(rng); wrap.appendChild(val);
+      controls.appendChild(wrap);
+    });
+  }
+
+  // ---- drawing ----
+  var PAD={l:52,r:18,t:18,b:40};
+  function plotArea(){
+    return {x:PAD.l, y:PAD.t, w:cv.width-PAD.l-PAD.r, h:cv.height-PAD.t-PAD.b};
+  }
+  function drawAxes(a, xmin, xmax, ymax, xticks){
+    ctx.strokeStyle="#c9d2dc"; ctx.lineWidth=1.5;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y); ctx.lineTo(a.x, a.y+a.h); ctx.lineTo(a.x+a.w, a.y+a.h);
+    ctx.stroke();
+    ctx.fillStyle="#5b6570"; ctx.font="22px sans-serif";
+    ctx.textAlign="center"; ctx.textBaseline="top";
+    xticks.forEach(function(t){
+      var px=a.x + (t-xmin)/(xmax-xmin)*a.w;
+      ctx.strokeStyle="#e7ecf2"; ctx.beginPath();
+      ctx.moveTo(px,a.y); ctx.lineTo(px,a.y+a.h); ctx.stroke();
+      ctx.fillText(t.toString(), px, a.y+a.h+6);
+    });
+    // y ticks
+    ctx.textAlign="right"; ctx.textBaseline="middle";
+    for(var i=0;i<=4;i++){
+      var v=ymax*i/4, py=a.y+a.h-(i/4)*a.h;
+      ctx.strokeStyle="#eef2f6"; ctx.beginPath();
+      ctx.moveTo(a.x,py); ctx.lineTo(a.x+a.w,py); ctx.stroke();
+      ctx.fillText(fmt(v), a.x-8, py);
+    }
+  }
+  function xToPx(a,x,xmin,xmax){ return a.x+(x-xmin)/(xmax-xmin)*a.w; }
+
+  function shadeBand(a,lo,hi,xmin,xmax){
+    var pl=Math.max(a.x, xToPx(a,lo,xmin,xmax));
+    var ph=Math.min(a.x+a.w, xToPx(a,hi,xmin,xmax));
+    if(ph<=pl) return;
+    ctx.fillStyle="rgba(37,99,201,0.10)";
+    ctx.fillRect(pl,a.y,ph-pl,a.h);
+  }
+  function meanLine(a,m,xmin,xmax){
+    var px=xToPx(a,m,xmin,xmax);
+    if(px<a.x-1||px>a.x+a.w+1) return;
+    ctx.strokeStyle="#c0392b"; ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.moveTo(px,a.y); ctx.lineTo(px,a.y+a.h); ctx.stroke();
+  }
+
+  function renderDiscrete(def){
+    var a=plotArea();
+    var supp=def.support(state.params);
+    var probs=supp.map(function(k){ return def.pmf(k,state.params); });
+    var ymax=Math.max.apply(null,probs)*1.12 || 1;
+    var xmin=supp[0]-0.5, xmax=supp[supp.length-1]+0.5;
+    var st=def.stats(state.params), sd=Math.sqrt(st.vari);
+    // x tick subset
+    var step=Math.max(1,Math.ceil(supp.length/12));
+    var ticks=[]; for(var i=0;i<supp.length;i+=step) ticks.push(supp[i]);
+    drawAxes(a,xmin,xmax,ymax,ticks);
+    shadeBand(a, st.mean-sd, st.mean+sd, xmin, xmax);
+    // bars
+    var bw=a.w/(xmax-xmin);
+    ctx.fillStyle="#2563c9";
+    supp.forEach(function(k,idx){
+      var h=probs[idx]/ymax*a.h;
+      var cx=xToPx(a,k,xmin,xmax);
+      var w=Math.max(1, bw*0.72);
+      ctx.fillRect(cx-w/2, a.y+a.h-h, w, h);
+    });
+    meanLine(a, st.mean, xmin, xmax);
+    return st;
+  }
+
+  function renderContinuous(def){
+    var a=plotArea();
+    var rg=def.range(state.params);
+    var xmin=rg[0], xmax=rg[1];
+    if(xmax<=xmin) xmax=xmin+1;
+    var N=400, xs=[], ys=[], ymax=0;
+    for(var i=0;i<=N;i++){
+      var x=xmin+(xmax-xmin)*i/N; var y=def.pdf(x,state.params);
+      xs.push(x); ys.push(y); if(y>ymax) ymax=y;
+    }
+    ymax=ymax*1.15||1;
+    var st=def.stats(state.params), sd=Math.sqrt(st.vari);
+    // ticks
+    var ticks=[]; for(var t=0;t<=5;t++){
+      var v=xmin+(xmax-xmin)*t/5;
+      ticks.push(Math.round(v*100)/100);
+    }
+    drawAxes(a,xmin,xmax,ymax,ticks);
+    shadeBand(a, st.mean-sd, st.mean+sd, xmin, xmax);
+    // curve + fill
+    ctx.beginPath();
+    for(var j=0;j<xs.length;j++){
+      var px=xToPx(a,xs[j],xmin,xmax);
+      var py=a.y+a.h-ys[j]/ymax*a.h;
+      if(j===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.lineTo(xToPx(a,xs[xs.length-1],xmin,xmax), a.y+a.h);
+    ctx.lineTo(xToPx(a,xs[0],xmin,xmax), a.y+a.h);
+    ctx.closePath();
+    ctx.fillStyle="rgba(37,99,201,0.12)"; ctx.fill();
+    ctx.beginPath();
+    for(var m=0;m<xs.length;m++){
+      var qx=xToPx(a,xs[m],xmin,xmax);
+      var qy=a.y+a.h-ys[m]/ymax*a.h;
+      if(m===0) ctx.moveTo(qx,qy); else ctx.lineTo(qx,qy);
+    }
+    ctx.strokeStyle="#2563c9"; ctx.lineWidth=2.5; ctx.stroke();
+    meanLine(a, st.mean, xmin, xmax);
+    return st;
+  }
+
+  function render(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    var def=currentDef();
+    var st = (state.kind==="discrete") ? renderDiscrete(def) : renderContinuous(def);
+    var sd=Math.sqrt(st.vari);
+    document.getElementById("rName").textContent=def.label(state.params);
+    document.getElementById("rExpr").textContent=def.expr(state.params);
+    document.getElementById("rMean").textContent=fmt(st.mean);
+    document.getElementById("rVar").textContent=fmt(st.vari);
+    document.getElementById("rSd").textContent=fmt(sd);
+  }
+
+  // ---- wiring ----
+  document.querySelectorAll("#kind button").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      document.querySelectorAll("#kind button").forEach(function(b){b.classList.remove("active");});
+      btn.classList.add("active");
+      state.kind=btn.getAttribute("data-kind");
+      state.name=Object.keys(DIST[state.kind])[0];
+      buildDistOptions(); loadParams(); buildControls(); render();
+    });
+  });
+  distSel.addEventListener("change",function(){
+    state.name=distSel.value;
+    loadParams(); buildControls(); render();
+  });
+
+  buildDistOptions(); loadParams(); buildControls(); render();
+})();
+</script>
+</body>
+</html>
