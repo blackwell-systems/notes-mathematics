@@ -1,6 +1,13 @@
 ---
 title: "Algebraic Geometry"
+prerequisites: ["multivariable-calculus", "algebraic-structures"]
+enables: ["singular-learning-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Multivariable Calculus](./multivariable-calculus) · [Algebraic Structures](./algebraic-structures)
+> **Leads to:** [Singular Learning Theory](./singular-learning-theory)
+
 
 Algebraic geometry studies the shapes defined by polynomial equations. If you have worked through [conic sections](./conic-sections), you already know several examples: a circle is the set of points satisfying $x^2 + y^2 = 1$, a parabola satisfies $y = x^2$, and a hyperbola satisfies $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$. Algebraic geometry takes this idea and runs with it: what can we say about the shapes defined by *any* system of polynomial equations, in any number of variables, in any dimension?
 

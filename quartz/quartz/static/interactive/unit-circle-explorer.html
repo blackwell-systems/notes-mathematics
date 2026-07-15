@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Circle Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfe;
+    --panel: #ffffff;
+    --text: #1a2233;
+    --muted: #5b6577;
+    --line: #d7dde8;
+    --cos: #1f6feb;   /* blue  */
+    --sin: #e5484d;   /* red   */
+    --tan: #1a9e5a;   /* green */
+    --radius: #6b7280;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap {
+    max-width: 760px;
+    min-height: 520px;
+    margin: 0 auto;
+    padding: 14px 18px 18px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 18px;
+    margin: 0 0 2px;
+    font-weight: 650;
+  }
+  .caption {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  .stage {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  canvas {
+    touch-action: none;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: grab;
+  }
+  canvas:active { cursor: grabbing; }
+  .side {
+    flex: 1 1 240px;
+    min-width: 220px;
+  }
+  .controls {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .row { margin-bottom: 10px; }
+  .row:last-child { margin-bottom: 0; }
+  label.ctl {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    user-select: none;
+  }
+  input[type="range"] { flex: 1; accent-color: var(--cos); }
+  .angle-line {
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+  }
+  .angle-line b { font-size: 16px; color: var(--text); }
+  .readout {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .readout table { width: 100%; border-collapse: collapse; }
+  .readout td {
+    padding: 5px 2px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .readout tr:last-child td { border-bottom: none; }
+  .readout .name { font-weight: 650; }
+  .readout .val { text-align: right; }
+  .readout .exact {
+    text-align: right;
+    color: var(--muted);
+    font-size: 12px;
+    width: 70px;
+  }
+  .swatch {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .c-cos { color: var(--cos); }
+  .c-sin { color: var(--sin); }
+  .c-tan { color: var(--tan); }
+  .s-cos { background: var(--cos); }
+  .s-sin { background: var(--sin); }
+  .s-tan { background: var(--tan); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Unit Circle Explorer</h1>
+  <p class="caption">Drag the point around the circle (or use the slider) to see how <span class="c-cos">cos&thinsp;&theta;</span>, <span class="c-sin">sin&thinsp;&theta;</span>, and <span class="c-tan">tan&thinsp;&theta;</span> are the coordinates and slope of that point.</p>
+  <div class="stage">
+    <canvas id="cv" width="400" height="400"></canvas>
+    <div class="side">
+      <div class="controls">
+        <div class="row angle-line">&theta; = <b id="deg">30&deg;</b> &nbsp;=&nbsp; <span id="rad">&pi;/6</span> &nbsp;rad</div>
+        <div class="row">
+          <input type="range" id="slider" min="0" max="360" step="0.5" value="30">
+        </div>
+        <div class="row">
+          <label class="ctl"><input type="checkbox" id="snap"> Snap to common angles</label>
+        </div>
+        <div class="row">
+          <label class="ctl"><input type="checkbox" id="showTan" checked> Show tangent segment (line x&thinsp;=&thinsp;1)</label>
+        </div>
+      </div>
+      <div class="readout">
+        <table>
+          <tr>
+            <td class="name"><span class="swatch s-cos"></span><span class="c-cos">cos&thinsp;&theta;</span></td>
+            <td class="val c-cos" id="cosV">0.866</td>
+            <td class="exact" id="cosE">&radic;3/2</td>
+          </tr>
+          <tr>
+            <td class="name"><span class="swatch s-sin"></span><span class="c-sin">sin&thinsp;&theta;</span></td>
+            <td class="val c-sin" id="sinV">0.500</td>
+            <td class="exact" id="sinE">1/2</td>
+          </tr>
+          <tr>
+            <td class="name"><span class="swatch s-tan"></span><span class="c-tan">tan&thinsp;&theta;</span></td>
+            <td class="val c-tan" id="tanV">0.577</td>
+            <td class="exact" id="tanE">&radic;3/3</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var slider = document.getElementById("slider");
+  var snapChk = document.getElementById("snap");
+  var showTanChk = document.getElementById("showTan");
+  var degEl = document.getElementById("deg");
+  var radEl = document.getElementById("rad");
+  var cosV = document.getElementById("cosV"), cosE = document.getElementById("cosE");
+  var sinV = document.getElementById("sinV"), sinE = document.getElementById("sinE");
+  var tanV = document.getElementById("tanV"), tanE = document.getElementById("tanE");
+
+  var col = {
+    cos: "#1f6feb", sin: "#e5484d", tan: "#1a9e5a",
+    radius: "#6b7280", axis: "#c3cad6", grid: "#eef1f6",
+    circle: "#3a4356", text: "#1a2233", muted: "#5b6577"
+  };
+
+  // Geometry: origin at center, unit radius R px.
+  var W = cv.width, H = cv.height;
+  var cx = W / 2, cy = H / 2;
+  var R = 150;
+
+  var deg = 30; // current angle in degrees
+
+  // ---- exact-value tables for common angles ----
+  // key: degrees mod 360 -> {cos, sin, tan(string or null)}
+  var EXACT = {
+    0:   ["1", "0", "0"],
+    30:  ["√3/2", "1/2", "√3/3"],
+    45:  ["√2/2", "√2/2", "1"],
+    60:  ["1/2", "√3/2", "√3"],
+    90:  ["0", "1", null],
+    120: ["−1/2", "√3/2", "−√3"],
+    135: ["−√2/2", "√2/2", "−1"],
+    150: ["−√3/2", "1/2", "−√3/3"],
+    180: ["−1", "0", "0"],
+    210: ["−√3/2", "−1/2", "√3/3"],
+    225: ["−√2/2", "−√2/2", "1"],
+    240: ["−1/2", "−√3/2", "√3"],
+    270: ["0", "−1", null],
+    300: ["1/2", "−√3/2", "−√3"],
+    315: ["√2/2", "−√2/2", "−1"],
+    330: ["√3/2", "−√3/2", "−√3/3"]
+  };
+
+  // radian label as multiple of pi for common angles
+  function radLabel(d) {
+    // reduce to fraction of pi: d/180
+    var num = d, den = 180;
+    var g = gcd(Math.round(num), den);
+    if (g === 0) return "0";
+    num = Math.round(num) / g;
+    den = den / g;
+    if (Math.abs(num - Math.round(num)) > 1e-9) return null;
+    num = Math.round(num);
+    if (num === 0) return "0";
+    var sign = num < 0 ? "−" : "";
+    num = Math.abs(num);
+    var top = (num === 1) ? "π" : num + "π";
+    if (den === 1) return sign + top;
+    return sign + top + "/" + den;
+  }
+  function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a; }
+
+  function fmt(x) {
+    if (!isFinite(x)) return "undefined";
+    var s = x.toFixed(3);
+    if (s === "-0.000") s = "0.000";
+    return s.replace("-", "−");
+  }
+
+  function isCommon(d) {
+    var r = ((d % 360) + 360) % 360;
+    var rr = Math.round(r);
+    return (Math.abs(r - rr) < 1e-6) && EXACT.hasOwnProperty(rr) ? rr : null;
+  }
+
+  function update() {
+    var r = deg * Math.PI / 180;
+    var c = Math.cos(r), s = Math.sin(r);
+    var t = Math.tan(r);
+
+    // degree display
+    var dShow = Math.round(deg * 10) / 10;
+    degEl.textContent = (Number.isInteger(dShow) ? dShow : dShow.toFixed(1)) + "°";
+
+    // radian display
+    var common = isCommon(deg);
+    var rl = radLabel(deg);
+    if (rl !== null) radEl.textContent = rl;
+    else radEl.textContent = r.toFixed(3);
+
+    // numeric readouts
+    cosV.textContent = fmt(c);
+    sinV.textContent = fmt(s);
+    // tan undefined at 90/270
+    var near90 = Math.abs(Math.abs(((deg % 180) + 180) % 180) - 90) < 1e-6;
+    tanV.textContent = near90 ? "undefined" : fmt(t);
+
+    // exact values when on a common angle
+    if (common !== null) {
+      var e = EXACT[common];
+      cosE.textContent = e[0];
+      sinE.textContent = e[1];
+      tanE.textContent = (e[2] === null) ? "undefined" : e[2];
+    } else {
+      cosE.textContent = "";
+      sinE.textContent = "";
+      tanE.textContent = "";
+    }
+
+    slider.value = ((deg % 360) + 360) % 360;
+    draw(c, s, t, near90);
+  }
+
+  // ---------- drawing ----------
+  function X(u) { return cx + u * R; }   // math x -> pixel
+  function Y(v) { return cy - v * R; }   // math y -> pixel (flip)
+
+  function draw(c, s, t, tanUndef) {
+    ctx.clearRect(0, 0, W, H);
+
+    // axes
+    ctx.strokeStyle = col.axis;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(20, cy); ctx.lineTo(W - 20, cy);
+    ctx.moveTo(cx, 20); ctx.lineTo(cx, H - 20);
+    ctx.stroke();
+
+    // axis ticks at -1 / 1
+    ctx.fillStyle = col.muted;
+    ctx.font = "11px system-ui, sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    ctx.fillText("1", X(1), cy + 4);
+    ctx.fillText("−1", X(-1), cy + 4);
+    ctx.textAlign = "left";
+    ctx.fillText("1", cx + 4, Y(1) - 2);
+    ctx.fillText("−1", cx + 4, Y(-1) - 2);
+
+    // the tangent guide line x=1
+    if (showTanChk.checked) {
+      ctx.strokeStyle = "#d7f0e0";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(X(1), 20); ctx.lineTo(X(1), H - 20);
+      ctx.stroke();
+    }
+
+    // unit circle
+    ctx.strokeStyle = col.circle;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.stroke();
+
+    var px = X(c), py = Y(s);
+
+    // reference right triangle fill (subtle)
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(px, cy);
+    ctx.lineTo(px, py);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(31,111,235,0.06)";
+    ctx.fill();
+
+    // cosine segment (horizontal, blue) along x-axis
+    ctx.strokeStyle = col.cos;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy); ctx.lineTo(px, cy);
+    ctx.stroke();
+
+    // sine segment (vertical, red) from x-axis up to point
+    ctx.strokeStyle = col.sin;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(px, cy); ctx.lineTo(px, py);
+    ctx.stroke();
+
+    // dashed helper: from point down/across to show projections
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1;
+    // vertical dashed to x-axis (drop from point)
+    ctx.strokeStyle = col.sin;
+    ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, cy); ctx.stroke();
+    // horizontal dashed to y-axis (over from point)
+    ctx.strokeStyle = col.cos;
+    ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(cx, py); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // tangent segment on line x=1
+    if (showTanChk.checked && !tanUndef) {
+      var ty = Y(t);
+      // clamp for display but note it can run off; only draw if within panel-ish
+      ctx.strokeStyle = col.tan;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(X(1), cy);
+      ctx.lineTo(X(1), ty);
+      ctx.stroke();
+      // dashed extension of radius to meet x=1 (the secant to tangent point)
+      ctx.setLineDash([3, 4]);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = col.tan;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(X(1), ty);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // radius line to the point
+    ctx.strokeStyle = col.radius;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy); ctx.lineTo(px, py);
+    ctx.stroke();
+
+    // angle arc near origin (0 -> theta, counter-clockwise)
+    var ar = 26;
+    ctx.strokeStyle = col.muted;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    // canvas y grows downward, so a CCW math sweep is CW in canvas space
+    ctx.arc(cx, cy, ar, 0, -((deg % 360) * Math.PI / 180), true);
+    ctx.stroke();
+
+    // draggable point
+    ctx.beginPath();
+    ctx.arc(px, py, 7, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = "#334";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
+    ctx.fillStyle = "#334";
+    ctx.fill();
+
+    // theta label
+    ctx.fillStyle = col.text;
+    ctx.font = "13px system-ui, sans-serif";
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    var lr = (deg % 360) * Math.PI / 180;
+    ctx.fillText("θ", cx + 34 * Math.cos(lr / 2), cy - 34 * Math.sin(lr / 2));
+  }
+
+  // redraw angle arc correctly (overwrite the earlier hack): we simply
+  // draw the arc in draw() using canvas angle convention (y down => negate).
+  // Handled above.
+
+  // ---------- interaction ----------
+  function pointToDeg(clientX, clientY) {
+    var rect = cv.getBoundingClientRect();
+    var mx = (clientX - rect.left) * (W / rect.width);
+    var my = (clientY - rect.top) * (H / rect.height);
+    var dx = mx - cx, dy = cy - my; // flip y
+    var a = Math.atan2(dy, dx) * 180 / Math.PI;
+    if (a < 0) a += 360;
+    return a;
+  }
+
+  function snapDeg(d) {
+    if (!snapChk.checked) return d;
+    // snap to nearest 15 degrees (covers 0,15,30,45,60,90,...)
+    var step = 15;
+    return (Math.round(d / step) * step) % 360;
+  }
+
+  var dragging = false;
+  function setFromPointer(ev) {
+    var d = pointToDeg(ev.clientX, ev.clientY);
+    deg = snapDeg(d);
+    update();
+  }
+
+  cv.addEventListener("pointerdown", function (ev) {
+    dragging = true;
+    cv.setPointerCapture(ev.pointerId);
+    setFromPointer(ev);
+    ev.preventDefault();
+  });
+  cv.addEventListener("pointermove", function (ev) {
+    if (!dragging) return;
+    setFromPointer(ev);
+    ev.preventDefault();
+  });
+  cv.addEventListener("pointerup", function (ev) { dragging = false; });
+  cv.addEventListener("pointercancel", function () { dragging = false; });
+
+  slider.addEventListener("input", function () {
+    deg = snapDeg(parseFloat(slider.value));
+    update();
+  });
+  snapChk.addEventListener("change", function () {
+    deg = snapDeg(deg);
+    update();
+  });
+  showTanChk.addEventListener("change", update);
+
+  update();
+})();
+</script>
+</body>
+</html>

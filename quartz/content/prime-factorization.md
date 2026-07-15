@@ -123,7 +123,7 @@ method, follow the below steps:
 -   **Step 4:** Repeat the step, until to find the prime factors of all
     the composite factors
 
-![](./media/image39.png)
+![Two factor trees: 60 into 2, 3, 2, 5 and 282 into 2, 3, 47](./media/image39.png)
 
 ## Trial Division Method
 

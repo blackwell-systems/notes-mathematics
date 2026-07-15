@@ -1,6 +1,13 @@
 ---
 title: "Linear Algebra Foundations"
+prerequisites: ["algebraic-structures"]
+enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Algebraic Structures](./algebraic-structures)
+> **Leads to:** [Multivariable Calculus](./multivariable-calculus) · [Optimization](./optimization) · [Algebraic Geometry](./algebraic-geometry)
+
 
 Linear algebra is the study of vectors, vector spaces, and linear transformations. It provides the language and tools for understanding systems of linear equations, data transformations, and optimization, making it the mathematical backbone of machine learning.
 

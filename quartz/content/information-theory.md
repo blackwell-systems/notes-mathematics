@@ -1,6 +1,13 @@
 ---
 title: "Information Theory"
+prerequisites: ["probability"]
+enables: ["bayesian-inference", "singular-learning-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Probability](./probability)
+> **Leads to:** [Bayesian Inference](./bayesian-inference) · [Singular Learning Theory](./singular-learning-theory)
+
 
 Information theory is the mathematical framework for quantifying information. It answers questions like: How much information does a message contain? How efficiently can information be transmitted? How different are two probability distributions? These questions turn out to be central to machine learning, where models must learn patterns from data, compress representations, and make predictions under uncertainty.
 

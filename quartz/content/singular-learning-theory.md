@@ -1,6 +1,12 @@
 ---
 title: "Singular Learning Theory"
+prerequisites: ["measure-theory", "algebraic-geometry", "bayesian-inference"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Measure Theory](./measure-theory) · [Algebraic Geometry](./algebraic-geometry) · [Bayesian Inference](./bayesian-inference)
+> **Leads to:** this is the summit. See the [Path to SLT](./path-to-slt) for the full climb.
+
 
 Singular learning theory (SLT) is the mathematical theory of what happens when you fit a model whose parameters are *not* uniquely determined by its behavior. That describes almost every model in modern machine learning: a neural network with millions of weights can realize the exact same input-output function for many different weight settings. Classical statistics assumed this never happens, so its central results (the Bayesian Information Criterion, the asymptotic normality of estimators, the "one parameter costs half a $\log n$" rule of thumb) quietly break for the models we actually use. SLT is the repair. It replaces the parameter count with a geometric quantity, the **real log canonical threshold** (RLCT), that correctly measures a model's effective complexity even when the parameters are redundant.
 

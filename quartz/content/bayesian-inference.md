@@ -1,6 +1,13 @@
 ---
 title: "Bayesian Inference"
+prerequisites: ["probability", "statistics", "information-theory"]
+enables: ["singular-learning-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Probability](./probability) · [Statistics](./statistics) · [Information Theory](./information-theory)
+> **Leads to:** [Singular Learning Theory](./singular-learning-theory)
+
 
 Bayesian inference is the framework for reasoning about uncertainty by treating unknown quantities as probability distributions rather than fixed values. Instead of asking "what is the best parameter?", Bayesian inference asks "what is the distribution of the parameter given the data?" This page builds on [Bayes' theorem and probability distributions](./probability) and on [MLE and MAP estimation from statistics](./statistics). It provides the foundation for understanding singular learning theory (SLT), which is fundamentally a Bayesian framework.
 

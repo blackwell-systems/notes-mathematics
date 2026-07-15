@@ -438,7 +438,7 @@ table having $2^{n}$ rows.
 
 If a formula has 3 variables, it will require a truth table with 8 rows.
 
-![](./media/image1.png)
+![Eight-row truth table verifying the tautology ((A and B) implies C) iff (A implies (B implies C))](./media/image1.png)
 
 ## Compound Proposition / Statement
 
@@ -458,7 +458,7 @@ statements) to form compound propositions.
 They determine the truth value of the compound proposition based on the
 truth values of the individual propositions
 
-![](./media/image2.png)
+![Table of logical connectives and their alternative notations: AND, OR, NOT, NAND, NOR, XOR, XNOR, implies, equivalent, converse](./media/image2.png)
 
 ### Unary Logical Connectives / Unary Operators
 
@@ -481,7 +481,7 @@ Symbolically, we express negation with: ¬
 
 Example: If 𝑃 is a proposition, ¬𝑃 denotes its **negation** (read $\neg P$ as "not P").
 
-![](./media/image3.png)
+![Truth table for negation: not-P is false when P is true and true when P is false](./media/image3.png)
 
 Properties of Negation:
 
@@ -519,7 +519,7 @@ The negation of one quantifier is the other quantifier ($\neg\forall x\, P(x) \e
 Associativity refers to the ability to group operations in any order
 without changing the outcome.
 
-![](./media/image7.png)
+![Truth table for logical equivalence: P equiv Q is true only when P and Q share the same truth value](./media/image7.png)
 
 **Logical equivalence tells you whether two statements are always true
 or always false together. If they are, they are logically equivalent.**
@@ -532,7 +532,7 @@ If both lights are on (𝑃 is true and 𝑄 is true), then 𝑃 ≡ 𝑄 is tru
 
 If both lights are off (𝑃 is false and 𝑄 is false), then 𝑃 ≡ 𝑄 is true.
 
-![](./media/image8.png)
+![Venn diagram of A equivalent B: the two crescent-shaped non-overlapping regions shaded red](./media/image8.png)
 
 The Venn diagram of A EQ B (red part is true)
 
@@ -547,7 +547,7 @@ A logical conjunction is a binary operation, typically the values of two
 propositions, that produces a value of true if and only if both of its
 operands are true.
 
-![](./media/image9.png)
+![Truth table for conjunction A AND B: true only when both A and B are true](./media/image9.png)
 
 ![Venn diagram of logical conjunction: only the overlapping region of A and B is shaded](./media/image10.png) ![Truth table for logical conjunction P AND Q](./media/image11.png)
 
@@ -561,9 +561,9 @@ aloud as "or".
 In classical logic, disjunction is given a truth functional semantics
 according to which a formula 𝜙 ∨ 𝜓 is true unless both are false.
 
-![](./media/image12.png)
+![Truth table for disjunction A OR B: true whenever at least one of A or B is true](./media/image12.png)
 
-![](./media/image13.png)
+![Venn diagram of disjunction A OR B: the entire union of both overlapping circles shaded red](./media/image13.png)
 
 #### Exclusive Disjunction / Exclusive OR
 
@@ -582,7 +582,7 @@ or the other", and "A or B, but not A and B".
 
 Symbolically, XOR is expressed as: $\oplus$ (read $P \oplus Q$ as "P x-or Q" or "P exclusive-or Q"; also written $\not\equiv$).
 
-![](./media/image14.png)
+![Truth table for exclusive or A XOR B: true only when the two inputs differ](./media/image14.png)
 
 ![Venn diagram of exclusive or: the two non-overlapping regions of A and B are shaded, the overlap is not](./media/image15.png)
 
@@ -606,7 +606,7 @@ In a conditional formula A → B
 
 -   **B** is called the consequent of the **conditional**.
 
-![](./media/image16.png)
+![Truth table for implication A implies B: false only when A is true and B is false](./media/image16.png)
 
 The logical cases where the antecedent A is false and A → B is true, are
 called "vacuous truths". Examples are ...
@@ -617,7 +617,7 @@ called "vacuous truths". Examples are ...
 -   ... with **B** true: "If Marie Curie is a sister of Galileo
     Galilei, then Marie Curie has a sibling.".
 
-![](./media/image17.png)
+![Truth table for material implication annotating each row, including the two false-antecedent rows as vacuous truths](./media/image17.png)
 
 ##### Vacuous Truth
 
@@ -669,9 +669,9 @@ Conditional statement $P \to Q$
 
 In formulas: the contrapositive of $P \to Q$ is $\neg Q \to \neg P$
 
-![](./media/image19.png)
+![Truth table for the biconditional A iff B: true only when A and B have the same truth value](./media/image19.png)
 
-![](./media/image20.png)
+![Venn diagram of the biconditional P iff Q: overlap and outer region shaded red, non-overlapping crescents white](./media/image20.png)
 
 ### Connective Precedence
 
@@ -680,7 +680,7 @@ expressions to indicate the order in which the operators are to be
 evaluated. In the absence of parentheses, the order of evaluation is
 determined by precedence rules.
 
-![](./media/image21.png)
+![Connective precedence table: negation 1, conjunction 2, disjunction 3, implication 4, biconditional 5](./media/image21.png)
 
 ## Logical Equivalences
 

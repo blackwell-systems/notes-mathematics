@@ -1,6 +1,13 @@
 ---
 title: "Real Analysis"
+prerequisites: ["calculus", "sequences-and-series"]
+enables: ["measure-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Calculus](./calculus) · [Sequences & Series](./sequences-and-series)
+> **Leads to:** [Measure Theory](./measure-theory)
+
 
 Real analysis is what happens when you ask calculus to justify itself. In calculus, you learned to compute derivatives, evaluate integrals, and work with infinite series. You developed powerful intuition about continuity, convergence, and limits. Real analysis takes every one of those ideas and asks: *why does this actually work? When does it break?*
 
@@ -105,6 +112,10 @@ $$
 Unpacking this: $\epsilon$ represents how close you want the terms to be to $L$. No matter how small you make $\epsilon$ (even $\epsilon = 10^{-100}$), you can find a point $N$ in the sequence beyond which *every* term is within $\epsilon$ of $L$. The sequence eventually enters and stays inside any neighborhood of $L$, no matter how tiny.
 
 ![A convergent sequence approaching a limit L: given a tolerance epsilon, there is an index N beyond which every term lies inside the horizontal band from L minus epsilon to L plus epsilon](./media/ra-epsilon-n.png)
+
+The same tolerance game works for limits of *functions*: $\lim_{x \to a} f(x) = L$ means that for every $\varepsilon > 0$ there is a $\delta > 0$ with $0 < |x - a| < \delta \implies |f(x) - L| < \varepsilon$. Drag $\varepsilon$ below and watch a matching $\delta$ shrink to keep the curve inside the band:
+
+<iframe src="/static/interactive/epsilon-delta-explorer.html" width="100%" height="520" style="border:none;"></iframe>
 
 ### Worked Example: Proving $1/n \to 0$
 

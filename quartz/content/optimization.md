@@ -1,6 +1,13 @@
 ---
 title: "Optimization"
+prerequisites: ["multivariable-calculus", "linear-algebra-foundations"]
+enables: ["singular-learning-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Multivariable Calculus](./multivariable-calculus) · [Linear Algebra Foundations](./linear-algebra-foundations)
+> **Leads to:** [Singular Learning Theory](./singular-learning-theory)
+
 
 Optimization is the mathematical framework for finding the best solution from a set of possibilities. "Best" means minimizing (or maximizing) some numerical measure of quality. Almost every machine learning algorithm reduces to an optimization problem: find the model parameters that minimize a loss function.
 
@@ -139,6 +146,10 @@ Non-convex problems (like training deep neural networks) are much harder. The lo
 ## Gradient Descent: Full Treatment
 
 Gradient descent was introduced in [Multivariable Calculus](./multivariable-calculus). Here we develop it fully.
+
+Before the formulas, build intuition: pick a surface and a learning rate, click to drop a starting point, and watch the iterates descend, zig-zag in a stretched valley, or diverge when the step size is too large.
+
+<iframe src="/static/interactive/gradient-descent-playground.html" width="100%" height="600" style="border:none;"></iframe>
 
 ### The Algorithm
 

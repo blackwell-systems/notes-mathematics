@@ -1,6 +1,13 @@
 ---
 title: "Algebraic Structures"
+prerequisites: ["number-systems"]
+enables: ["linear-algebra-foundations", "algebraic-geometry"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Number Systems](./number-systems)
+> **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Algebraic Geometry](./algebraic-geometry)
+
 
 ## Why name the obvious?
 

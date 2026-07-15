@@ -12,11 +12,10 @@ const CONTENT = "content";
 const PUBLIC = "public";
 const MEDIA = join(CONTENT, "media");
 
-// Ratchet for legacy empty-alt scanned images: the build fails only if the
-// count rises ABOVE this baseline, so no NEW empty-alt image can ship while
-// the existing debt is driven down. Lower this number as pages are cleaned;
-// the goal is 0, at which point empty alt text becomes a hard failure.
-const MAX_EMPTY_ALT = 58;
+// Empty-alt images are a hard failure: every image must carry descriptive alt
+// text. The legacy scanned-image debt (once 58) has been cleared, so the ratchet
+// is now 0 and any new empty-alt image fails the build.
+const MAX_EMPTY_ALT = 0;
 
 const errors = [];
 const warnings = [];

@@ -267,6 +267,10 @@ Converting back to rectangular form: $6(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}) 
 
 ![Two complex numbers and their product drawn as arrows from the origin; the product's angle is the sum of the two angles and its length is the product of the two lengths, so multiplication rotates and scales](./media/complex-multiply-rotation.png)
 
+Drag $z_1$ and $z_2$ below to feel the rule directly: the product's length is the product of the lengths, and its angle is the sum of the angles, so multiplying is rotating-and-scaling.
+
+<iframe src="/static/interactive/complex-multiplication-rotation.html" width="100%" height="600" style="border:none;"></iframe>
+
 ### Division
 
 To divide two complex numbers in polar form, divide their moduli and subtract their angles:

@@ -1,6 +1,13 @@
 ---
 title: "Number Systems"
+prerequisites: ["set-theory"]
+enables: ["algebraic-structures", "complex-numbers"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Set Theory](./set-theory)
+> **Leads to:** [Algebraic Structures](./algebraic-structures) · [complex-numbers](./complex-numbers)
+
 
 The numbers we use every day did not arrive all at once. They were built up, one layer at a time, each new layer added to repair a specific limitation of the one before it. You can count with the natural numbers, but you cannot always subtract. You can subtract with the integers, but you cannot always divide. You can divide with the rationals, but you cannot always take a limit. Following this chain of "but you cannot..." is the cleanest way to understand what each number system is *for*.
 

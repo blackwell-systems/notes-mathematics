@@ -1,6 +1,13 @@
 ---
 title: "Statistics"
+prerequisites: ["probability", "functions-relations"]
+enables: ["bayesian-inference"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Probability](./probability) · [Functions & Relations](./functions-relations)
+> **Leads to:** [Bayesian Inference](./bayesian-inference)
+
 
 Statistics is the science of collecting, analyzing, and drawing conclusions from data. It builds on [probability theory](./probability) and provides the tools for making decisions under uncertainty.
 
@@ -2107,6 +2114,10 @@ Linear and logistic regression are two instances of one framework, the **general
 Seen this way, [linear regression](#linear-regression) is a GLM with the identity link and a normal response; logistic regression is the logit link with a Bernoulli response; and **Poisson regression** (log link, Poisson response) is the standard tool for count outcomes, such as visits per hour or claims per policy, where values are non-negative integers and the variance grows with the mean. The framework unifies all of these under one fitting procedure (maximum likelihood) and one interpretive language (coefficients act on the scale set by the link function).
 
 ## Bias-Variance Tradeoff
+
+Slide the polynomial degree below to see the tradeoff before the algebra: a low-degree fit underfits (high bias), a high-degree fit chases the noise (high variance), and the test error is U-shaped even as training error keeps falling.
+
+<iframe src="/static/interactive/bias-variance-explorer.html" width="100%" height="600" style="border:none;"></iframe>
 
 The **bias-variance tradeoff** is the central tension in machine learning. Fix an input $x$, and suppose the true relationship is $y = f(x) + \varepsilon$ where the noise $\varepsilon$ has mean $0$ and variance $\sigma^2$. Let $\hat{f}(x)$ be the model's prediction at $x$, treated as random because it depends on the training set drawn at random. Taking the expectation over both the random training set (which determines $\hat{f}$) and the noise in a fresh target $y$ at $x$, the expected squared prediction error decomposes into three components:
 

@@ -84,7 +84,7 @@ vertex/axis of symmetry directly from the equation.
 
 $$f(x) = a(x - h)^{2} + k$$
 
-![](./media/image64.png)
+![Graph of the basic parabola f(x) equals x squared, vertex at origin opening upward](./media/image64.png)
 
 $$f(x) = x^{2}$$
 
@@ -100,7 +100,7 @@ the line that divides the graph into two perfect halves.
 
 $$x = \frac{- b}{2a}$$
 
-![](./media/image65.png)
+![Upward parabola with vertical axis of symmetry through the vertex labeled x equals minus b over 2a](./media/image65.png)
 
 ### Methods for Solving Quadratic Equations
 
@@ -134,7 +134,7 @@ also zero.
 
 If ab = 0, then either a = 0 or b = 0
 
-![](./media/image66.png)
+![Worked example factoring x squared minus 5x plus 6 and applying the zero product property to get x equals 2 or 3](./media/image66.png)
 
 The zero product property can be used to solve polynomial equations of
 **any degree** as long as the polynomial can be factored
@@ -231,7 +231,7 @@ $$(2x - 3)(x^2 - 1) = (2x - 3)(x - 1)(x + 1)$$
 another method of solving a quadratic equation is by using the square
 root property.
 
-![](./media/image67.png)
+![Statement of the square root property: if x squared equals k then x equals plus or minus square root of k](./media/image67.png)
 
 ### Completing the Square
 
@@ -334,7 +334,7 @@ The vertex form reveals the maximum or minimum of the parabola. For the general 
 is by using the quadratic formula, a formula that will solve all
 quadratic equations.
 
-![](./media/image70.png)
+![Table relating discriminant b squared minus 4ac to number and type of solutions](./media/image70.png)
 
 ### The Discriminant
 
@@ -412,7 +412,7 @@ x-axis at a maximum of 3 points.
 has either 1 or 3 real zeros. It cannot have 2 real
 zeros.***
 
-![](./media/image71.png)
+![Graph of the cubic y equals x cubed, increasing through the origin with one real root](./media/image71.png)
 
 ### Domain / Range of Cubic Function
 
@@ -480,7 +480,7 @@ highest power the variable is raised to in the polynomial.
 The degree also dictates *how many zeros a polynomial can
 have* and *what the end behavior is*.
 
-![](./media/image73.png)
+![Quartic curve with three turning points, labeling increasing and decreasing intervals and turning points](./media/image73.png)
 
 Graph of f(x)= $x^{4} - x^{3} - 4x^{2} + 4x$
 
@@ -495,7 +495,7 @@ by its leading term.
 
 **Even power, positive leading coefficient:**
 
-![](./media/image74.png)
+![End-behavior arrows for even degree with positive leading coefficient, both ends pointing up](./media/image74.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -503,7 +503,7 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Even power, negative leading coefficient:**
 
-![](./media/image75.png)
+![End-behavior arrows for even degree with negative leading coefficient, both ends pointing down](./media/image75.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \  - \infty}$$
 
@@ -511,7 +511,7 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Odd power, positive leading coefficient:**
 
-![](./media/image76.png)
+![End-behavior arrows for odd degree with positive leading coefficient, left end down and right end up](./media/image76.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -519,7 +519,7 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Odd power, negative leading coefficient:**
 
-![](./media/image77.png)
+![End-behavior arrows for odd degree with negative leading coefficient, left end up and right end down](./media/image77.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ -\infty}$$
 
@@ -547,7 +547,7 @@ graph behaves at the x-intercept.
 -   If the multiplicity of a zero is odd, the *graph will cross the
     x-axis* at that zero.
 
-![](./media/image80.png)
+![Graphs of x squared touching the x-axis and x cubed plus 1 crossing it, contrasting even and odd multiplicity](./media/image80.png)
 
 ## The Fundamental Theorem of Algebra
 
@@ -558,9 +558,9 @@ function with degree $\geq 1$ (equivalently, every non-constant
 polynomial) has at least one *complex* zero. This includes degree-1
 polynomials, which always have a (possibly complex) root.
 
-![](./media/image86.png)
+![Listing rational-root candidates: factors p of constant minus 4 and factors q of leading coefficient 2](./media/image86.png)
 
-![](./media/image87.png)
+![Forming all possible rational zeros p over q from factors of the constant over factors of the leading coefficient](./media/image87.png)
 
 So what about the irrational roots of a polynomial? How do we find those
 when the rational roots theorem fails?
@@ -571,7 +571,7 @@ For polynomial of degree 2, you can use the quadratic formula.
 
 **Polynomial Long Division:**
 
-![](./media/image88.png)
+![Division Algorithm statement: f of x equals d of x times q of x plus r of x for a nonzero divisor](./media/image88.png)
 
 Where:
 
@@ -596,7 +596,7 @@ the current remainder.*
 
 *Algorithm: Divide, multiply, subtract, repeat as needed.*
 
-![](./media/image89.png)
+![Worked polynomial long division of 2x^5 plus x^4 minus 6x plus 9 by x squared minus 3x plus 1, remainder 125x minus 41](./media/image89.png)
 
 Divisor: The quantity by which another quantity is divided
 

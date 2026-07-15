@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fourier Decomposer</title>
+<style>
+  :root{
+    --bg:#fbfbfc; --panel:#ffffff; --ink:#1c2024; --muted:#6b7280;
+    --line:#e3e6ea; --grid:#eef1f4; --accent:#2563eb; --target:#e11d48;
+    --faint:#c8ced6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; justify-content:center; padding:14px 0;
+  }
+  .wrap{width:760px;max-width:96vw}
+  h1{font-size:17px;margin:0 0 2px;font-weight:650;letter-spacing:.2px}
+  .sub{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+  .modes{display:flex;gap:6px;margin-bottom:10px}
+  .modes button{
+    flex:0 0 auto;font:inherit;font-size:12.5px;padding:6px 14px;
+    border:1px solid var(--line);background:var(--panel);color:var(--muted);
+    border-radius:8px;cursor:pointer;transition:.12s;
+  }
+  .modes button.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .stage{
+    display:grid;grid-template-columns:1fr 168px;gap:12px;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:12px;
+  }
+  canvas{display:block;width:100%;border-radius:8px;background:#fff}
+  #wave{height:300px}
+  #spec{height:110px}
+  .side{display:flex;flex-direction:column;gap:9px}
+  .ctl label{font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:2px}
+  .ctl label b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
+  input[type=range]{width:100%;accent-color:var(--accent);margin:0}
+  .picker{display:flex;gap:4px;margin-bottom:2px}
+  .picker button{
+    flex:1;font:inherit;font-size:11px;padding:5px 0;border:1px solid var(--line);
+    background:#fff;color:var(--muted);border-radius:6px;cursor:pointer;
+  }
+  .picker button.on{background:#eef4ff;border-color:var(--accent);color:var(--accent);font-weight:600}
+  .readout{
+    font-size:11.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--line);padding-top:8px;margin-top:2px;
+    font-variant-numeric:tabular-nums;
+  }
+  .readout b{color:var(--ink)}
+  .caption{font-size:12px;color:var(--muted);margin:10px 2px 0;line-height:1.45}
+  .legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin:4px 2px 0}
+  .legend i{display:inline-block;width:16px;height:0;border-top:2.5px solid;vertical-align:middle;margin-right:5px}
+  .hidden{display:none}
+  .specttl{font-size:10.5px;color:var(--muted);margin:6px 0 3px;text-transform:uppercase;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Fourier Decomposer</h1>
+  <p class="sub">How a periodic wave is built from sinusoidal harmonics.</p>
+
+  <div class="modes">
+    <button id="mSyn" class="on">Synthesis</button>
+    <button id="mBuild">Build your own</button>
+  </div>
+
+  <div class="stage">
+    <div>
+      <canvas id="wave"></canvas>
+      <div class="specttl">Amplitude spectrum</div>
+      <canvas id="spec"></canvas>
+    </div>
+    <div class="side">
+      <!-- Synthesis controls -->
+      <div id="synCtl">
+        <div class="picker" id="picker">
+          <button data-w="square" class="on">Square</button>
+          <button data-w="saw">Saw</button>
+          <button data-w="tri">Tri</button>
+        </div>
+        <div class="ctl">
+          <label>Harmonics N <b id="nVal">8</b></label>
+          <input type="range" id="nHarm" min="1" max="60" value="8" step="1">
+        </div>
+        <div class="readout" id="synRead"></div>
+      </div>
+      <!-- Build controls -->
+      <div id="buildCtl" class="hidden"></div>
+    </div>
+  </div>
+
+  <div class="legend" id="legend"></div>
+  <p class="caption" id="caption"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TAU = Math.PI*2;
+
+  // ---- canvases ----
+  var wave = document.getElementById('wave');
+  var spec = document.getElementById('spec');
+  var wctx = wave.getContext('2d');
+  var sctx = spec.getContext('2d');
+
+  function fit(cv, ctx){
+    var dpr = window.devicePixelRatio||1;
+    var r = cv.getBoundingClientRect();
+    cv.width = Math.round(r.width*dpr);
+    cv.height = Math.round(r.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {w:r.width, h:r.height};
+  }
+
+  // ---- Fourier partial sum for target waves ----
+  // Domain x in [-pi, pi], amplitude normalized to ~1.
+  function squareSum(x, N){
+    var s=0, k;
+    for(k=1;k<=N;k++){ if(k%2===1) s += Math.sin(k*x)/k; }
+    return (4/Math.PI)*s;
+  }
+  function sawSum(x, N){
+    var s=0, n;
+    for(n=1;n<=N;n++){ s += (n%2===1?1:-1)*Math.sin(n*x)/n; }
+    return (2/Math.PI)*s;
+  }
+  function triSum(x, N){
+    var s=0, k;
+    for(k=1;k<=N;k++){
+      if(k%2===1){
+        var sign = (((k-1)/2)%2===0)?1:-1;
+        s += sign*Math.sin(k*x)/(k*k);
+      }
+    }
+    return (8/(Math.PI*Math.PI))*s;
+  }
+  // Ideal target waves (amplitude ~1), period 2*pi.
+  function squareIdeal(x){ var m=((x%TAU)+TAU)%TAU; return m<Math.PI?1:-1; }
+  function sawIdeal(x){ var m=((x+Math.PI)%TAU+TAU)%TAU - Math.PI; return m/Math.PI; }
+  function triIdeal(x){
+    var m=((x%TAU)+TAU)%TAU; // 0..2pi
+    // peak +1 at pi/2, -1 at 3pi/2 to match series phase
+    return (2/Math.PI)*Math.asin(Math.sin(x));
+  }
+
+  // Coefficient magnitude of the k-th harmonic (for spectrum bars).
+  function coeffMag(kind, k){
+    if(kind==='square'){ return (k%2===1)? (4/Math.PI)/k : 0; }
+    if(kind==='saw'){ return (2/Math.PI)/k; }
+    if(kind==='tri'){ return (k%2===1)? (8/(Math.PI*Math.PI))/(k*k) : 0; }
+    return 0;
+  }
+
+  // ---- state ----
+  var mode = 'syn';
+  var kind = 'square';
+  var N = 8;
+  var NB = 5;                       // build harmonics
+  var amps = [1,0,0.5,0,0.25];      // default amplitudes
+  var idealFn = {square:squareIdeal, saw:sawIdeal, tri:triIdeal};
+  var sumFn   = {square:squareSum,   saw:sawSum,   tri:triSum};
+
+  // ---- drawing ----
+  var XMIN=-Math.PI, XMAX=Math.PI, YMAX=1.35;
+  function drawWave(){
+    var d = fit(wave, wctx), w=d.w, h=d.h;
+    var padL=8, padR=8, padT=8, padB=8;
+    var x0=padL, x1=w-padR, y0=padT, y1=h-padB;
+    function px(x){ return x0 + (x-XMIN)/(XMAX-XMIN)*(x1-x0); }
+    function py(y){ return (y0+y1)/2 - y/YMAX*((y1-y0)/2); }
+
+    wctx.clearRect(0,0,w,h);
+    // grid
+    wctx.strokeStyle=getcss('--grid'); wctx.lineWidth=1;
+    var g;
+    for(g=-1;g<=1;g+=0.5){ wctx.beginPath(); wctx.moveTo(x0,py(g)); wctx.lineTo(x1,py(g)); wctx.stroke(); }
+    for(g=-1;g<=1;g++){ var xx=g*Math.PI; wctx.beginPath(); wctx.moveTo(px(xx),y0); wctx.lineTo(px(xx),y1); wctx.stroke(); }
+    // axes
+    wctx.strokeStyle=getcss('--line'); wctx.lineWidth=1.2;
+    wctx.beginPath(); wctx.moveTo(x0,py(0)); wctx.lineTo(x1,py(0)); wctx.stroke();
+
+    var steps = 900, i, x, y;
+
+    if(mode==='syn'){
+      // target (ideal) wave, dashed
+      wctx.strokeStyle=getcss('--target'); wctx.globalAlpha=0.55;
+      wctx.setLineDash([5,4]); wctx.lineWidth=1.6;
+      wctx.beginPath();
+      var jump = (kind!=='tri');
+      var prevY=null;
+      for(i=0;i<=steps;i++){
+        x = XMIN + (XMAX-XMIN)*i/steps;
+        y = idealFn[kind](x);
+        var Y=py(y);
+        if(i===0 || (jump && prevY!==null && Math.abs(Y-prevY)>h*0.35)){ wctx.moveTo(px(x),Y); }
+        else wctx.lineTo(px(x),Y);
+        prevY=Y;
+      }
+      wctx.stroke(); wctx.setLineDash([]); wctx.globalAlpha=1;
+
+      // partial sum, solid accent
+      wctx.strokeStyle=getcss('--accent'); wctx.lineWidth=2;
+      wctx.beginPath();
+      for(i=0;i<=steps;i++){
+        x = XMIN + (XMAX-XMIN)*i/steps;
+        y = sumFn[kind](x, N);
+        if(i===0) wctx.moveTo(px(x),py(y)); else wctx.lineTo(px(x),py(y));
+      }
+      wctx.stroke();
+    } else {
+      // build mode: faint components + solid sum
+      var n;
+      wctx.strokeStyle=getcss('--faint'); wctx.lineWidth=1; wctx.globalAlpha=0.9;
+      for(n=1;n<=NB;n++){
+        var a=amps[n-1];
+        if(Math.abs(a)<1e-6) continue;
+        wctx.beginPath();
+        for(i=0;i<=steps;i++){
+          x = XMIN + (XMAX-XMIN)*i/steps;
+          y = a*Math.sin(n*x);
+          if(i===0) wctx.moveTo(px(x),py(y)); else wctx.lineTo(px(x),py(y));
+        }
+        wctx.stroke();
+      }
+      wctx.globalAlpha=1;
+      wctx.strokeStyle=getcss('--accent'); wctx.lineWidth=2.2;
+      wctx.beginPath();
+      for(i=0;i<=steps;i++){
+        x = XMIN + (XMAX-XMIN)*i/steps;
+        y=0; for(n=1;n<=NB;n++){ y += amps[n-1]*Math.sin(n*x); }
+        if(i===0) wctx.moveTo(px(x),py(y)); else wctx.lineTo(px(x),py(y));
+      }
+      wctx.stroke();
+    }
+  }
+
+  function drawSpec(){
+    var d = fit(spec, sctx), w=d.w, h=d.h;
+    sctx.clearRect(0,0,w,h);
+    var padL=6,padR=6,padT=6,padB=16;
+    var x0=padL,x1=w-padR,y1=h-padB;
+    var mags=[], maxN, k;
+    if(mode==='syn'){
+      maxN = N;
+      for(k=1;k<=maxN;k++) mags.push(coeffMag(kind,k));
+    } else {
+      maxN = NB;
+      for(k=1;k<=maxN;k++) mags.push(Math.abs(amps[k-1]));
+    }
+    var maxMag=0; for(k=0;k<mags.length;k++) if(mags[k]>maxMag) maxMag=mags[k];
+    if(maxMag<=0) maxMag=1;
+    // baseline
+    sctx.strokeStyle=getcss('--line'); sctx.lineWidth=1;
+    sctx.beginPath(); sctx.moveTo(x0,y1); sctx.lineTo(x1,y1); sctx.stroke();
+
+    var slot=(x1-x0)/mags.length;
+    var bw=Math.max(1.5, Math.min(slot*0.6, 14));
+    sctx.fillStyle=getcss('--accent');
+    sctx.font='9px system-ui';
+    for(k=0;k<mags.length;k++){
+      var bh=(mags[k]/maxMag)*(y1-padT);
+      var cx=x0+slot*(k+0.5);
+      sctx.globalAlpha = mags[k]>1e-6?0.85:0.15;
+      sctx.fillRect(cx-bw/2, y1-bh, bw, bh);
+      if(mags.length<=24 && ((k+1)%(mags.length>12?2:1)===0 || mags.length<=12)){
+        sctx.globalAlpha=0.7; sctx.fillStyle=getcss('--muted');
+        sctx.textAlign='center';
+        sctx.fillText(String(k+1), cx, h-4);
+        sctx.fillStyle=getcss('--accent');
+      }
+    }
+    sctx.globalAlpha=1;
+  }
+
+  function getcss(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+  // ---- readouts / legend / caption ----
+  function updateText(){
+    var leg=document.getElementById('legend');
+    var cap=document.getElementById('caption');
+    if(mode==='syn'){
+      var name={square:'square',saw:'sawtooth',tri:'triangle'}[kind];
+      document.getElementById('synRead').innerHTML =
+        'Wave: <b>'+name+'</b><br>Harmonics used: <b>'+N+'</b><br>'+
+        'Highest term: <b>sin('+N+'x)</b>';
+      leg.innerHTML='<span><i style="border-color:var(--target)"></i>Target ('+name+')</span>'+
+                    '<span><i style="border-color:var(--accent)"></i>Partial sum, N='+N+'</span>';
+      var g = kind==='tri'
+        ? 'Triangle sums converge fast and smoothly (no overshoot).'
+        : 'Watch the persistent ~9% Gibbs overshoot near each jump as N grows.';
+      cap.innerHTML='Pick a target wave and drag N: the partial sum '+
+        '&Sigma; of sinusoidal harmonics approaches the target. '+g;
+    } else {
+      leg.innerHTML='<span><i style="border-color:var(--faint)"></i>Harmonic components</span>'+
+                    '<span><i style="border-color:var(--accent)"></i>Sum</span>';
+      cap.innerHTML='Drag each amplitude a<sub>n</sub> to build a wave '+
+        'f(x)=&Sigma; a<sub>n</sub> sin(nx). Faint curves are individual harmonics; '+
+        'the accent curve is their sum.';
+    }
+  }
+
+  // ---- build-mode slider construction ----
+  function buildSliders(){
+    var host=document.getElementById('buildCtl');
+    host.innerHTML='';
+    for(var n=1;n<=NB;n++){
+      (function(n){
+        var wrap=document.createElement('div'); wrap.className='ctl';
+        var lab=document.createElement('label');
+        lab.innerHTML='a<sub>'+n+'</sub> &middot; sin('+(n===1?'':n)+'x) <b id="bv'+n+'">'+amps[n-1].toFixed(2)+'</b>';
+        var inp=document.createElement('input');
+        inp.type='range'; inp.min='-1'; inp.max='1'; inp.step='0.05';
+        inp.value=String(amps[n-1]);
+        inp.addEventListener('input',function(){
+          amps[n-1]=parseFloat(inp.value);
+          document.getElementById('bv'+n).textContent=amps[n-1].toFixed(2);
+          drawWave(); drawSpec();
+        });
+        wrap.appendChild(lab); wrap.appendChild(inp);
+        host.appendChild(wrap);
+      })(n);
+    }
+    var rd=document.createElement('div'); rd.className='readout';
+    rd.innerHTML='Adjust the first '+NB+' harmonic amplitudes.<br>Range −1 to +1 each.';
+    host.appendChild(rd);
+  }
+
+  // ---- wiring ----
+  document.getElementById('nHarm').addEventListener('input',function(e){
+    N=parseInt(e.target.value,10);
+    document.getElementById('nVal').textContent=N;
+    drawWave(); drawSpec(); updateText();
+  });
+  var picker=document.getElementById('picker');
+  picker.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    kind=b.getAttribute('data-w');
+    [].forEach.call(picker.children,function(c){c.classList.toggle('on',c===b);});
+    drawWave(); drawSpec(); updateText();
+  });
+
+  function setMode(m){
+    mode=m;
+    document.getElementById('mSyn').classList.toggle('on',m==='syn');
+    document.getElementById('mBuild').classList.toggle('on',m==='build');
+    document.getElementById('synCtl').classList.toggle('hidden',m!=='syn');
+    document.getElementById('buildCtl').classList.toggle('hidden',m!=='build');
+    if(m==='build') buildSliders();
+    drawWave(); drawSpec(); updateText();
+  }
+  document.getElementById('mSyn').addEventListener('click',function(){setMode('syn');});
+  document.getElementById('mBuild').addEventListener('click',function(){setMode('build');});
+
+  window.addEventListener('resize',function(){ drawWave(); drawSpec(); });
+
+  // init
+  drawWave(); drawSpec(); updateText();
+})();
+</script>
+</body>
+</html>

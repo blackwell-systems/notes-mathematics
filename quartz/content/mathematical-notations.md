@@ -1,6 +1,12 @@
 ---
 title: "Mathematical Notations"
+enables: ["set-theory", "real-analysis"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** nothing earlier — this is a starting point.
+> **Leads to:** [Set Theory](./set-theory) · [Real Analysis](./real-analysis)
+
 
 Mathematical writing relies on a compact symbolic vocabulary. This page collects the symbols used throughout these notes, grouped by area, with how to **read each one aloud** and a one-line meaning. Knowing the spoken form makes notation usable in speech and lectures and reinforces what each symbol means. The page also flags a few symbols whose meaning shifts with context, since those are a common source of confusion.
 

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bias–Variance Explorer</title>
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --panel: #ffffff;
+    --ink: #1d1d24;
+    --muted: #6b6b78;
+    --line: #e2e2ea;
+    --accent: #2563eb;
+    --true: #9aa0ac;
+    --train: #16a34a;
+    --test: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap {
+    width: 760px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 14px 16px 18px;
+  }
+  h1 {
+    font-size: 17px;
+    font-weight: 650;
+    margin: 0 0 2px;
+  }
+  .caption {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0 0 12px;
+    line-height: 1.4;
+  }
+  .panels {
+    display: flex;
+    gap: 12px;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px;
+    flex: 1;
+  }
+  canvas { display: block; width: 100%; height: auto; }
+  .controls {
+    margin-top: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .row label { font-size: 13px; font-weight: 600; white-space: nowrap; }
+  input[type=range] { flex: 1; accent-color: var(--accent); }
+  .degval {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    min-width: 22px;
+    text-align: right;
+    color: var(--accent);
+  }
+  .readout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 10px;
+    font-size: 12.5px;
+  }
+  .readout .k { color: var(--muted); }
+  .readout .v { font-variant-numeric: tabular-nums; font-weight: 650; }
+  .verdict {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 650;
+    padding: 6px 10px;
+    border-radius: 7px;
+    display: inline-block;
+  }
+  .v-under { background: #fef3c7; color: #92400e; }
+  .v-good  { background: #dcfce7; color: #166534; }
+  .v-over  { background: #fee2e2; color: #991b1b; }
+  .legend {
+    display: flex;
+    gap: 14px;
+    font-size: 11.5px;
+    color: var(--muted);
+    margin: 2px 2px 0;
+    flex-wrap: wrap;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .swatch { width: 14px; height: 0; border-top: 3px solid; display: inline-block; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bias–Variance Explorer</h1>
+  <p class="caption">Drag the degree slider: a low-degree fit underfits the data (high bias), a high-degree fit wiggles through the noise (high variance), and test error is smallest in between.</p>
+
+  <div class="panels">
+    <div class="panel">
+      <canvas id="fit" width="720" height="640"></canvas>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--accent)"></span>training data</span>
+        <span><span class="swatch" style="border-top-style:dashed;border-color:var(--true)"></span>true f(x)</span>
+        <span><span class="swatch" style="border-color:var(--accent)"></span>degree-d fit</span>
+      </div>
+    </div>
+    <div class="panel">
+      <canvas id="err" width="720" height="640"></canvas>
+      <div class="legend">
+        <span><span class="swatch" style="border-color:var(--train)"></span>training MSE</span>
+        <span><span class="swatch" style="border-color:var(--test)"></span>test MSE</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <label for="deg">Polynomial degree</label>
+      <input type="range" id="deg" min="1" max="12" step="1" value="1">
+      <span class="degval" id="degval">1</span>
+    </div>
+    <div class="readout">
+      <span><span class="k">degree</span> <span class="v" id="rDeg">1</span></span>
+      <span><span class="k">training MSE</span> <span class="v" id="rTrain">–</span></span>
+      <span><span class="k">test MSE</span> <span class="v" id="rTest">–</span></span>
+    </div>
+    <div id="verdict" class="verdict v-under">underfitting: high bias</div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+// ---------- deterministic RNG (LCG + Box–Muller) ----------
+function makeRNG(seed) {
+  let s = seed >>> 0;
+  return function () {
+    // Numerical Recipes LCG
+    s = (1664525 * s + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
+}
+function makeGauss(rng) {
+  let spare = null;
+  return function () {
+    if (spare !== null) { const v = spare; spare = null; return v; }
+    let u, v, r;
+    do {
+      u = 2 * rng() - 1;
+      v = 2 * rng() - 1;
+      r = u * u + v * v;
+    } while (r === 0 || r >= 1);
+    const m = Math.sqrt(-2 * Math.log(r) / r);
+    spare = v * m;
+    return u * m;
+  };
+}
+
+// ---------- true function ----------
+function trueF(x) { return Math.sin(Math.PI * x); }
+
+// ---------- generate fixed datasets on [-1, 1] ----------
+const rng = makeRNG(20260714);
+const gauss = makeGauss(rng);
+
+const NOISE = 0.22;
+const N_TRAIN = 15;
+const train = { x: [], y: [] };
+for (let i = 0; i < N_TRAIN; i++) {
+  // deterministic-ish spread across [-1,1] with small jitter
+  const base = -1 + 2 * i / (N_TRAIN - 1);
+  const jit = (rng() - 0.5) * 0.06;
+  const x = Math.max(-1, Math.min(1, base + jit));
+  train.x.push(x);
+  train.y.push(trueF(x) + NOISE * gauss());
+}
+
+const N_TEST = 60;
+const test = { x: [], y: [] };
+const testRng = makeRNG(99887766);
+const testGauss = makeGauss(testRng);
+for (let i = 0; i < N_TEST; i++) {
+  const x = -1 + 2 * i / (N_TEST - 1);
+  test.x.push(x);
+  test.y.push(trueF(x) + 0.05 * testGauss()); // denser, low noise
+}
+
+// x already in [-1,1] so normalization is identity here, but keep it explicit
+// and robust in case the domain changes.
+const XMIN = -1, XMAX = 1;
+function norm(x) { return 2 * (x - XMIN) / (XMAX - XMIN) - 1; }
+
+// ---------- linear algebra: solve normal equations ----------
+// Build Vandermonde on normalized x, form (XtX) beta = Xt y, solve via
+// Gaussian elimination with partial pivoting.
+function fitPoly(xs, ys, degree) {
+  const n = xs.length;
+  const m = degree + 1;
+  // Vandermonde (normalized)
+  const V = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const row = new Array(m);
+    const xn = norm(xs[i]);
+    let p = 1;
+    for (let j = 0; j < m; j++) { row[j] = p; p *= xn; }
+    V[i] = row;
+  }
+  // A = Vt V  (m x m),  b = Vt y  (m)
+  const A = new Array(m);
+  const b = new Array(m).fill(0);
+  for (let a = 0; a < m; a++) {
+    A[a] = new Array(m).fill(0);
+  }
+  for (let a = 0; a < m; a++) {
+    for (let c = 0; c < m; c++) {
+      let sum = 0;
+      for (let i = 0; i < n; i++) sum += V[i][a] * V[i][c];
+      A[a][c] = sum;
+    }
+    let sb = 0;
+    for (let i = 0; i < n; i++) sb += V[i][a] * ys[i];
+    b[a] = sb;
+  }
+  const beta = gaussSolve(A, b);
+  return beta; // coefficients in the normalized basis
+}
+
+function gaussSolve(Ain, bin) {
+  const m = bin.length;
+  // copy
+  const A = Ain.map(r => r.slice());
+  const b = bin.slice();
+  for (let col = 0; col < m; col++) {
+    // partial pivot
+    let piv = col, best = Math.abs(A[col][col]);
+    for (let r = col + 1; r < m; r++) {
+      const v = Math.abs(A[r][col]);
+      if (v > best) { best = v; piv = r; }
+    }
+    if (piv !== col) {
+      const t = A[piv]; A[piv] = A[col]; A[col] = t;
+      const tb = b[piv]; b[piv] = b[col]; b[col] = tb;
+    }
+    const d = A[col][col];
+    if (Math.abs(d) < 1e-14) continue; // singular guard; leave as-is
+    for (let r = col + 1; r < m; r++) {
+      const f = A[r][col] / d;
+      if (f === 0) continue;
+      for (let c = col; c < m; c++) A[r][c] -= f * A[col][c];
+      b[r] -= f * b[col];
+    }
+  }
+  // back-substitution
+  const x = new Array(m).fill(0);
+  for (let r = m - 1; r >= 0; r--) {
+    let s = b[r];
+    for (let c = r + 1; c < m; c++) s -= A[r][c] * x[c];
+    const d = A[r][r];
+    x[r] = Math.abs(d) < 1e-14 ? 0 : s / d;
+  }
+  return x;
+}
+
+function evalPoly(beta, x) {
+  const xn = norm(x);
+  let p = 1, y = 0;
+  for (let j = 0; j < beta.length; j++) { y += beta[j] * p; p *= xn; }
+  return y;
+}
+
+function mse(beta, xs, ys) {
+  let s = 0;
+  for (let i = 0; i < xs.length; i++) {
+    const d = evalPoly(beta, xs[i]) - ys[i];
+    s += d * d;
+  }
+  return s / xs.length;
+}
+
+// ---------- precompute error curves for all degrees ----------
+const MAXDEG = 12;
+const curves = { deg: [], train: [], test: [], beta: [] };
+for (let d = 1; d <= MAXDEG; d++) {
+  const beta = fitPoly(train.x, train.y, d);
+  curves.deg.push(d);
+  curves.beta.push(beta);
+  curves.train.push(mse(beta, train.x, train.y));
+  curves.test.push(mse(beta, test.x, test.y));
+}
+
+// ---------- rendering ----------
+const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+
+function setupCanvas(canvas, cssW, cssH) {
+  canvas.width = Math.round(cssW * dpr);
+  canvas.height = Math.round(cssH * dpr);
+  canvas.style.height = cssH + "px";
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+
+const CW = 360, CH = 320;
+const fitCanvas = document.getElementById("fit");
+const errCanvas = document.getElementById("err");
+const fitCtx = setupCanvas(fitCanvas, CW, CH);
+const errCtx = setupCanvas(errCanvas, CW, CH);
+
+const YMIN = -1.7, YMAX = 1.7;
+function fitPx(x, y, pad) {
+  const px = pad.l + (x - XMIN) / (XMAX - XMIN) * (CW - pad.l - pad.r);
+  const py = pad.t + (YMAX - y) / (YMAX - YMIN) * (CH - pad.t - pad.b);
+  return [px, py];
+}
+
+function drawFit(degree) {
+  const ctx = fitCtx;
+  const pad = { l: 34, r: 14, t: 14, b: 26 };
+  ctx.clearRect(0, 0, CW, CH);
+
+  // axes
+  ctx.strokeStyle = "#ececf2";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let gx = -1; gx <= 1.0001; gx += 0.5) {
+    const [px] = fitPx(gx, 0, pad);
+    ctx.moveTo(px, pad.t); ctx.lineTo(px, CH - pad.b);
+  }
+  for (let gy = -1.5; gy <= 1.5001; gy += 0.5) {
+    const [, py] = fitPx(0, gy, pad);
+    ctx.moveTo(pad.l, py); ctx.lineTo(CW - pad.r, py);
+  }
+  ctx.stroke();
+
+  // axis labels
+  ctx.fillStyle = "#9a9aa6";
+  ctx.font = "10px -apple-system, sans-serif";
+  ctx.textAlign = "center";
+  for (let gx = -1; gx <= 1.0001; gx += 0.5) {
+    const [px] = fitPx(gx, 0, pad);
+    ctx.fillText(gx.toFixed(1), px, CH - pad.b + 12);
+  }
+  ctx.textAlign = "right";
+  for (let gy = -1.5; gy <= 1.5001; gy += 0.5) {
+    const [, py] = fitPx(0, gy, pad);
+    ctx.fillText(gy.toFixed(1), pad.l - 5, py + 3);
+  }
+
+  // true function (dashed)
+  ctx.strokeStyle = getVar("--true");
+  ctx.lineWidth = 2;
+  ctx.setLineDash([5, 4]);
+  ctx.beginPath();
+  for (let i = 0; i <= 200; i++) {
+    const x = XMIN + (XMAX - XMIN) * i / 200;
+    const [px, py] = fitPx(x, trueF(x), pad);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // fitted curve (clamped to plot region)
+  const beta = curves.beta[degree - 1];
+  ctx.strokeStyle = getVar("--accent");
+  ctx.lineWidth = 2.2;
+  ctx.beginPath();
+  let started = false;
+  for (let i = 0; i <= 400; i++) {
+    const x = XMIN + (XMAX - XMIN) * i / 400;
+    let y = evalPoly(beta, x);
+    const [px, py] = fitPx(x, Math.max(YMIN, Math.min(YMAX, y)), pad);
+    if (!started) { ctx.moveTo(px, py); started = true; }
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  // training points
+  ctx.fillStyle = getVar("--accent");
+  for (let i = 0; i < train.x.length; i++) {
+    const [px, py] = fitPx(train.x[i], train.y[i], pad);
+    ctx.beginPath();
+    ctx.arc(px, py, 3.2, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+}
+
+function drawErr(degree) {
+  const ctx = errCtx;
+  const pad = { l: 40, r: 14, t: 30, b: 40 };
+  ctx.clearRect(0, 0, CW, CH);
+
+  const w = CW - pad.l - pad.r;
+  const h = CH - pad.t - pad.b;
+
+  // y-scale: log-ish clamp for readability
+  let maxE = 0;
+  for (let i = 0; i < curves.train.length; i++) {
+    maxE = Math.max(maxE, curves.train[i], curves.test[i]);
+  }
+  maxE = Math.min(maxE, 0.8); // clamp explosive high-degree test error
+  const yTop = maxE * 1.08 + 1e-6;
+
+  function ePx(d, e) {
+    const px = pad.l + (d - 1) / (MAXDEG - 1) * w;
+    const py = pad.t + (1 - Math.min(e, yTop) / yTop) * h;
+    return [px, py];
+  }
+
+  // grid
+  ctx.strokeStyle = "#ececf2";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let d = 1; d <= MAXDEG; d++) {
+    const [px] = ePx(d, 0);
+    ctx.moveTo(px, pad.t); ctx.lineTo(px, pad.t + h);
+  }
+  ctx.stroke();
+
+  // region shading: underfit (1-2), good (3-4), overfit (>=5) — heuristic bands
+  const bestTest = curves.test.indexOf(Math.min(...curves.test)) + 1;
+
+  // labels for regions
+  ctx.font = "10px -apple-system, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#b08300";
+  const [uP] = ePx(1.5, 0);
+  ctx.fillText("underfit", uP, pad.t - 16 + 5);
+  ctx.fillStyle = "#166534";
+  const [gP] = ePx(bestTest, 0);
+  ctx.fillText("good", gP, pad.t - 16 + 5);
+  ctx.fillStyle = "#991b1b";
+  const [oP] = ePx(MAXDEG - 1, 0);
+  ctx.fillText("overfit", oP, pad.t - 16 + 5);
+
+  // axis labels
+  ctx.fillStyle = "#9a9aa6";
+  ctx.textAlign = "center";
+  for (let d = 1; d <= MAXDEG; d += 1) {
+    if (d % 2 === 1 || d === MAXDEG) {
+      const [px] = ePx(d, 0);
+      ctx.fillText(String(d), px, pad.t + h + 13);
+    }
+  }
+  ctx.fillText("polynomial degree", pad.l + w / 2, pad.t + h + 28);
+  ctx.save();
+  ctx.translate(11, pad.t + h / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText("MSE", 0, 0);
+  ctx.restore();
+
+  // curves
+  function plot(arr, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let d = 1; d <= MAXDEG; d++) {
+      const [px, py] = ePx(d, arr[d - 1]);
+      d === 1 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.fillStyle = color;
+    for (let d = 1; d <= MAXDEG; d++) {
+      const [px, py] = ePx(d, arr[d - 1]);
+      ctx.beginPath();
+      ctx.arc(px, py, 2, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }
+  plot(curves.train, getVar("--train"));
+  plot(curves.test, getVar("--test"));
+
+  // current-degree marker
+  const [mx] = ePx(degree, 0);
+  ctx.strokeStyle = getVar("--accent");
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 3]);
+  ctx.beginPath();
+  ctx.moveTo(mx, pad.t);
+  ctx.lineTo(mx, pad.t + h);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  const [ctx1, cty1] = ePx(degree, curves.train[degree - 1]);
+  const [ctx2, cty2] = ePx(degree, curves.test[degree - 1]);
+  ctx.fillStyle = getVar("--train");
+  ctx.beginPath(); ctx.arc(ctx1, cty1, 3.6, 0, 2 * Math.PI); ctx.fill();
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.2; ctx.stroke();
+  ctx.fillStyle = getVar("--test");
+  ctx.beginPath(); ctx.arc(ctx2, cty2, 3.6, 0, 2 * Math.PI); ctx.fill();
+  ctx.stroke();
+}
+
+function getVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// ---------- verdict logic ----------
+const bestTestDeg = curves.test.indexOf(Math.min(...curves.test)) + 1;
+
+function verdictFor(d) {
+  const tr = curves.train[d - 1];
+  const te = curves.test[d - 1];
+  const gap = te - tr;
+  const bestTe = curves.test[bestTestDeg - 1];
+  if (d < bestTestDeg && te > bestTe * 1.4) {
+    return ["underfitting: high bias", "v-under"];
+  }
+  // overfit if test error meaningfully above the minimum or a big train/test gap
+  if (te > bestTe * 1.25 && d > bestTestDeg) {
+    return ["overfitting: high variance", "v-over"];
+  }
+  if (gap > 0.06 && d > bestTestDeg) {
+    return ["overfitting: high variance", "v-over"];
+  }
+  return ["good fit", "v-good"];
+}
+
+// ---------- wiring ----------
+const slider = document.getElementById("deg");
+const degval = document.getElementById("degval");
+const rDeg = document.getElementById("rDeg");
+const rTrain = document.getElementById("rTrain");
+const rTest = document.getElementById("rTest");
+const verdictEl = document.getElementById("verdict");
+
+function render() {
+  const d = parseInt(slider.value, 10);
+  degval.textContent = d;
+  rDeg.textContent = d;
+  rTrain.textContent = curves.train[d - 1].toFixed(4);
+  rTest.textContent = curves.test[d - 1].toFixed(4);
+  const [msg, cls] = verdictFor(d);
+  verdictEl.textContent = msg;
+  verdictEl.className = "verdict " + cls;
+  drawFit(d);
+  drawErr(d);
+}
+
+slider.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>

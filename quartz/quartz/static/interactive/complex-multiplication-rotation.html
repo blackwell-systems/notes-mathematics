@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Complex Multiplication as Rotation and Scaling</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fbfbfd;
+    color: #1d1d22;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  #wrap {
+    width: 760px;
+    margin: 0 auto;
+    padding: 12px 0 16px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 17px;
+    font-weight: 650;
+    margin: 4px 0 2px;
+  }
+  .caption {
+    font-size: 12.5px;
+    color: #56565e;
+    margin: 0 0 10px;
+    line-height: 1.4;
+  }
+  #board {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  canvas {
+    background: #ffffff;
+    border: 1px solid #e2e2ea;
+    border-radius: 8px;
+    touch-action: none;
+    cursor: grab;
+  }
+  #panel {
+    flex: 1;
+    font-size: 13px;
+  }
+  .row {
+    border: 1px solid #e6e6ee;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: #ffffff;
+  }
+  .row .tag {
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+  .row .val { font-variant-numeric: tabular-nums; line-height: 1.5; }
+  .z1 { color: #1565c0; }
+  .z2 { color: #2e7d32; }
+  .zp { color: #c62828; }
+  .identity {
+    background: #f4f6ff;
+    border-color: #d7ddf5;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #2a2a33;
+  }
+  .identity b { color: #c62828; }
+  .controls { margin: 4px 0 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  button {
+    font: inherit;
+    font-size: 12.5px;
+    padding: 5px 12px;
+    border: 1px solid #c9c9d6;
+    background: #f2f2f7;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #1d1d22;
+  }
+  button:hover { background: #e8e8f0; }
+  label.chk { font-size: 12.5px; color: #56565e; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>Complex multiplication = multiply lengths, add angles</h1>
+  <p class="caption">Drag the tips of <b class="z1">z&#8321;</b> and <b class="z2">z&#8322;</b> on the Argand plane; the product <b class="zp">z&#8321;&#183;z&#8322;</b> updates so that its length is |z&#8321;||z&#8322;| and its angle is arg z&#8321; + arg z&#8322;.</p>
+  <div class="controls">
+    <button id="animate">Animate rotation</button>
+    <button id="reset">Reset</button>
+    <label class="chk"><input type="checkbox" id="snap"> Snap to grid / 15&#176;</label>
+  </div>
+  <div id="board">
+    <canvas id="cv" width="440" height="440"></canvas>
+    <div id="panel">
+      <div class="row"><span class="tag z1">z&#8321;</span><div class="val" id="r1"></div></div>
+      <div class="row"><span class="tag z2">z&#8322;</span><div class="val" id="r2"></div></div>
+      <div class="row"><span class="tag zp">z&#8321;&#183;z&#8322;</span><div class="val" id="rp"></div></div>
+      <div class="row identity" id="ident"></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  var RANGE = 4;            // axes span [-4,4]
+  var cx = W/2, cy = H/2;   // pixel origin
+  var scale = (W/2) / RANGE; // pixels per unit
+
+  var COL = { z1:"#1565c0", z2:"#2e7d32", zp:"#c62828" };
+
+  // state (complex points, in math coordinates)
+  var z1 = { a: 1.6, b: 0.9 };
+  var z2 = { a: 0.7, b: 1.3 };
+
+  var snap = false;
+  var animating = false;
+  var animAngle = 0;
+  var animBaseZ2 = { a: z2.a, b: z2.b };
+  var trace = [];
+
+  // coordinate transforms
+  function toPx(a, b){ return { x: cx + a*scale, y: cy - b*scale }; }
+  function toMath(x, y){ return { a: (x - cx)/scale, b: (cy - y)/scale }; }
+
+  // complex helpers
+  function mul(u, v){ return { a: u.a*v.a - u.b*v.b, b: u.a*v.b + u.b*v.a }; }
+  function mag(u){ return Math.hypot(u.a, u.b); }
+  function arg(u){ return Math.atan2(u.b, u.a); } // radians, (-pi, pi]
+
+  function fmtRect(u){
+    var a = u.a, b = u.b;
+    var as = a.toFixed(2);
+    var bs = Math.abs(b).toFixed(2);
+    var sign = b >= 0 ? "+" : "&#8722;";
+    return as + " " + sign + " " + bs + "i";
+  }
+  function fmtPolar(u){
+    var r = mag(u).toFixed(2);
+    var deg = (arg(u) * 180 / Math.PI);
+    return r + " &#8736; " + deg.toFixed(1) + "&#176;";
+  }
+  function normDeg(d){ // fold into (-180,180]
+    while (d > 180) d -= 360;
+    while (d <= -180) d += 360;
+    return d;
+  }
+
+  // ---------- drawing ----------
+  function drawGrid(){
+    ctx.clearRect(0,0,W,H);
+    ctx.lineWidth = 1;
+    // minor grid
+    ctx.strokeStyle = "#eef0f4";
+    for (var i = -RANGE; i <= RANGE; i++){
+      var p = toPx(i, 0);
+      ctx.beginPath(); ctx.moveTo(p.x, 0); ctx.lineTo(p.x, H); ctx.stroke();
+      var q = toPx(0, i);
+      ctx.beginPath(); ctx.moveTo(0, q.y); ctx.lineTo(W, q.y); ctx.stroke();
+    }
+    // unit circle (reference for rotation)
+    ctx.strokeStyle = "#e6e6ef";
+    ctx.setLineDash([4,4]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, scale, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // axes
+    ctx.strokeStyle = "#b9bcc6";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+    // axis labels + ticks
+    ctx.fillStyle = "#8a8d99";
+    ctx.font = "11px system-ui, sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var k = -RANGE; k <= RANGE; k++){
+      if (k === 0) continue;
+      var pp = toPx(k, 0);
+      ctx.fillText(String(k), pp.x, cy + 3);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    for (var m = -RANGE; m <= RANGE; m++){
+      if (m === 0) continue;
+      var qq = toPx(0, m);
+      ctx.fillText(String(m) + "i", cx + 4, qq.y);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "top";
+    ctx.fillStyle = "#6b6e7a";
+    ctx.font = "12px system-ui, sans-serif";
+    ctx.fillText("Re", W - 6, cy + 4);
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
+    ctx.fillText("Im", cx + 6, 4);
+  }
+
+  function drawArc(u, color){
+    var r = 34; // pixel radius of the arc near origin
+    var a0 = 0;
+    var a1 = -arg(u); // canvas y is flipped, so screen angle = -math angle
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, a0, a1, a1 < a0 ? false : true);
+    ctx.stroke();
+  }
+
+  function drawVector(u, color, label, headSize){
+    var tip = toPx(u.a, u.b);
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(tip.x, tip.y);
+    ctx.stroke();
+    // arrowhead
+    var ang = Math.atan2(tip.y - cy, tip.x - cx);
+    var hs = headSize || 10;
+    ctx.beginPath();
+    ctx.moveTo(tip.x, tip.y);
+    ctx.lineTo(tip.x - hs*Math.cos(ang - 0.4), tip.y - hs*Math.sin(ang - 0.4));
+    ctx.lineTo(tip.x - hs*Math.cos(ang + 0.4), tip.y - hs*Math.sin(ang + 0.4));
+    ctx.closePath();
+    ctx.fill();
+    // label
+    if (label){
+      ctx.font = "600 13px system-ui, sans-serif";
+      ctx.fillStyle = color;
+      ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      var lx = tip.x + 8*Math.cos(ang) + 4;
+      var ly = tip.y + 8*Math.sin(ang);
+      ctx.fillText(label, lx, ly);
+    }
+  }
+
+  function drawHandle(u, color){
+    var tip = toPx(u.a, u.b);
+    ctx.fillStyle = "#fff";
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(tip.x, tip.y, 6, 0, Math.PI*2);
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  function render(){
+    drawGrid();
+    var zp = mul(z1, z2);
+
+    // product trace during animation
+    if (trace.length > 1){
+      ctx.strokeStyle = "rgba(198,40,40,0.35)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for (var i = 0; i < trace.length; i++){
+        var pt = toPx(trace[i].a, trace[i].b);
+        if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+      }
+      ctx.stroke();
+    }
+
+    // angle arcs (draw before vectors so vectors sit on top)
+    drawArc(z1, COL.z1);
+    drawArc(z2, COL.z2);
+    drawArc(zp, COL.zp);
+
+    // product vector first (thicker underlay), then z1, z2
+    drawVector(zp, COL.zp, "z₁·z₂", 12);
+    drawVector(z1, COL.z1, "z₁", 10);
+    drawVector(z2, COL.z2, "z₂", 10);
+
+    drawHandle(z1, COL.z1);
+    drawHandle(z2, COL.z2);
+
+    updateReadouts(zp);
+  }
+
+  function updateReadouts(zp){
+    document.getElementById("r1").innerHTML =
+      "rect &nbsp;" + fmtRect(z1) + "<br>polar " + fmtPolar(z1);
+    document.getElementById("r2").innerHTML =
+      "rect &nbsp;" + fmtRect(z2) + "<br>polar " + fmtPolar(z2);
+    document.getElementById("rp").innerHTML =
+      "rect &nbsp;" + fmtRect(zp) + "<br>polar " + fmtPolar(zp);
+
+    var r1 = mag(z1), r2 = mag(z2), rp = mag(zp);
+    var t1 = arg(z1)*180/Math.PI, t2 = arg(z2)*180/Math.PI;
+    var tp = arg(zp)*180/Math.PI;
+    var sumDeg = normDeg(t1 + t2);
+    document.getElementById("ident").innerHTML =
+      "<b>|z₁·z₂|</b> = |z₁|·|z₂| = " +
+        r1.toFixed(2) + " × " + r2.toFixed(2) + " = " + rp.toFixed(2) +
+      "<br><b>arg(z₁·z₂)</b> = arg z₁ + arg z₂ = " +
+        t1.toFixed(1) + "° + " + t2.toFixed(1) + "° = " +
+        sumDeg.toFixed(1) + "°";
+  }
+
+  // ---------- interaction ----------
+  var dragging = null;
+
+  function evtPos(e){
+    var rect = cv.getBoundingClientRect();
+    var t = (e.touches && e.touches[0]) ? e.touches[0] : e;
+    return { x: (t.clientX - rect.left) * (W/rect.width),
+             y: (t.clientY - rect.top) * (H/rect.height) };
+  }
+
+  function applySnap(u){
+    if (!snap) return u;
+    // snap to nearest 0.25 grid, then also allow angle snapping via nearest 15deg on same mag
+    var a = Math.round(u.a*4)/4;
+    var b = Math.round(u.b*4)/4;
+    return { a:a, b:b };
+  }
+
+  function pick(pos){
+    var p1 = toPx(z1.a, z1.b), p2 = toPx(z2.a, z2.b);
+    var d1 = Math.hypot(pos.x-p1.x, pos.y-p1.y);
+    var d2 = Math.hypot(pos.x-p2.x, pos.y-p2.y);
+    if (d1 <= 14 && d1 <= d2) return "z1";
+    if (d2 <= 14) return "z2";
+    return null;
+  }
+
+  function onDown(e){
+    var pos = evtPos(e);
+    dragging = pick(pos);
+    if (dragging){
+      animating = false;
+      trace = [];
+      cv.style.cursor = "grabbing";
+      e.preventDefault();
+    }
+  }
+  function onMove(e){
+    if (!dragging) return;
+    var pos = evtPos(e);
+    var m = toMath(pos.x, pos.y);
+    m.a = Math.max(-RANGE, Math.min(RANGE, m.a));
+    m.b = Math.max(-RANGE, Math.min(RANGE, m.b));
+    m = applySnap(m);
+    if (dragging === "z1") z1 = m; else z2 = m;
+    render();
+    e.preventDefault();
+  }
+  function onUp(){ dragging = null; cv.style.cursor = "grab"; }
+
+  cv.addEventListener("mousedown", onDown);
+  window.addEventListener("mousemove", onMove);
+  window.addEventListener("mouseup", onUp);
+  cv.addEventListener("touchstart", onDown, {passive:false});
+  cv.addEventListener("touchmove", onMove, {passive:false});
+  cv.addEventListener("touchend", onUp);
+
+  // ---------- animation ----------
+  // Rotate z2 around the origin at constant magnitude; product traces
+  // a scaled rotation of z1 (a circle of radius |z1||z2|).
+  var rafId = null;
+  function stepAnim(){
+    if (!animating) return;
+    animAngle += 0.02;
+    var r2 = mag(animBaseZ2);
+    var base = arg(animBaseZ2);
+    z2 = { a: r2*Math.cos(base + animAngle), b: r2*Math.sin(base + animAngle) };
+    var zp = mul(z1, z2);
+    trace.push({a: zp.a, b: zp.b});
+    if (trace.length > 320) trace.shift();
+    render();
+    if (animAngle >= Math.PI*2){ animating = false; }
+    if (animating) rafId = requestAnimationFrame(stepAnim);
+  }
+
+  document.getElementById("animate").addEventListener("click", function(){
+    if (animating){ animating = false; return; }
+    animating = true;
+    animAngle = 0;
+    animBaseZ2 = { a: z2.a, b: z2.b };
+    trace = [];
+    rafId = requestAnimationFrame(stepAnim);
+  });
+
+  document.getElementById("reset").addEventListener("click", function(){
+    animating = false;
+    z1 = { a: 1.6, b: 0.9 };
+    z2 = { a: 0.7, b: 1.3 };
+    trace = [];
+    render();
+  });
+
+  document.getElementById("snap").addEventListener("change", function(e){
+    snap = e.target.checked;
+    if (snap){ z1 = applySnap(z1); z2 = applySnap(z2); render(); }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

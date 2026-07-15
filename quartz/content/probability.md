@@ -1,6 +1,13 @@
 ---
 title: "Probability"
+prerequisites: ["set-theory", "calculus"]
+enables: ["statistics", "information-theory", "bayesian-inference"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Set Theory](./set-theory) · [Calculus](./calculus)
+> **Leads to:** [Statistics](./statistics) · [Information Theory](./information-theory) · [Bayesian Inference](./bayesian-inference)
+
 
 Probability is the mathematical framework for reasoning about uncertainty. It quantifies how likely events are, and provides the foundation for statistics, machine learning, and decision-making under uncertainty. This page builds directly on [combinatorics](./combination) (counting how many ways things can happen) and extends it to measuring how likely they are.
 

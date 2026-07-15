@@ -1,6 +1,13 @@
 ---
 title: "Calculus"
+prerequisites: ["functions-relations"]
+enables: ["multivariable-calculus", "sequences-and-series", "real-analysis"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Functions & Relations](./functions-relations)
+> **Leads to:** [Multivariable Calculus](./multivariable-calculus) · [Sequences & Series](./sequences-and-series) · [Real Analysis](./real-analysis)
+
 
 Calculus is the mathematics of change. Where algebra studies fixed relationships (what is $y$ when $x = 3$?), calculus asks: how fast is $y$ changing as $x$ changes? And if we know how fast something is changing, can we figure out how much total change has accumulated? These two questions give rise to the two halves of calculus: **derivatives** (rates of change) and **integrals** (accumulated totals). Both are built on a single foundational idea: the **limit**.
 

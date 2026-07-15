@@ -1,6 +1,13 @@
 ---
 title: "Sequences & Series"
+prerequisites: ["calculus"]
+enables: ["real-analysis"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Calculus](./calculus)
+> **Leads to:** [Real Analysis](./real-analysis)
+
 
 ## Why Sequences and Series?
 
@@ -773,6 +780,12 @@ $$
 This connects discrete sums to continuous integrals. See [Calculus](./calculus) for improper integrals.
 
 **Note:** These tests, along with the alternating series test, root test, and limit comparison test, are standard topics in a calculus II course. The key takeaway here is that determining convergence of a general series requires tools beyond the geometric series formula.
+
+## Fourier Series: Building Waves from Sinusoids
+
+One of the most far-reaching applications of infinite series is the **Fourier series**: any reasonable periodic function can be written as an infinite sum of sines and cosines. A square wave, for example, is $\frac{4}{\pi}\sum_{k \text{ odd}} \frac{\sin(kx)}{k}$. Each term is a *harmonic*, and adding more harmonics sharpens the approximation (though a persistent overshoot near jumps, the Gibbs phenomenon, never fully disappears). Explore both directions below: synthesize a target wave from its harmonics, or dial in your own amplitudes and watch the sum.
+
+<iframe src="/static/interactive/fourier-decomposer.html" width="100%" height="600" style="border:none;"></iframe>
 
 ## Where It Shows Up
 

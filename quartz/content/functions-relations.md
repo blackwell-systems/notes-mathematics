@@ -1,6 +1,13 @@
 ---
 title: "Functions & Relations"
+prerequisites: ["set-theory"]
+enables: ["calculus", "statistics"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Set Theory](./set-theory)
+> **Leads to:** [Calculus](./calculus) · [Statistics](./statistics)
+
 
 ## Why Study Functions?
 
@@ -113,7 +120,7 @@ The reflexive property of relations can be understood from a matrix by
 looking for a diagonal connecting from top left corner to bottom right
 corner
 
-![](./media/image42.png)
+![Reflexive relation shown as directed graph with self-loops and adjacency matrix with filled diagonal](./media/image42.png)
 
 #### Symmetric Property
 
@@ -608,7 +615,7 @@ A function is formed by three sets, the **domain** **X,** the
 **codomain** **Y**, and the **graph R** that satisfy the three following
 conditions.
 
-![](./media/image43.png)
+![Three conditions defining a function: graph as subset of X times Y, totality, and single-valuedness](./media/image43.png)
 
 Each function type has characteristic domain restrictions. See [Rational Functions](./rational-functions) (excluded zeros of denominator), [Radical Functions](./radical-functions) (non-negative under even roots), and [Logarithms](./logarithms) (positive arguments only).
 
@@ -647,7 +654,7 @@ subset in question is the entire **domain**, then the **image** and the
 **range** are the same. For a particular subset $A \subseteq X$, the image of
 **A** under **f** is denoted as **f(A)**.
 
-![](./media/image44.png)
+![Definition callout: f(a) is the image of a under the function f from X to Y](./media/image44.png)
 
 ### Domain
 
@@ -752,9 +759,9 @@ $\forall x_1 \forall x_2 ( (f(x_1) = f(x_2)) \rightarrow (x_1 = x_2) )$
 
 *For every $x_1$, $x_2$ if $f(x_1) = f(x_2)$, then $x_1$ must equal $x_2$*
 
-![](./media/image47.png)
+![Symbolic definition of surjective: for every y in Y there exists x in X with f(x) equals y](./media/image47.png)
 
-![](./media/image50.png)
+![Mapping diagram of a non-surjective function where the image is a small yellow oval not filling codomain Y](./media/image50.png)
 
 ### Bijection (injective and surjective)
 
@@ -764,7 +771,7 @@ the codomain is mapped to from at most one element of the
 domain---and **surjective** **(or *onto*)---**meaning that each element
 of the codomain is mapped to from at least one element of the domain. 
 
-![](./media/image51.png)
+![Combined bijection definition conjoining injectivity and surjectivity conditions with explanation](./media/image51.png)
 
 ### Invertibility
 

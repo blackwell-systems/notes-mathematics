@@ -433,7 +433,7 @@ Given a right triangle with an acute angle $\theta$, label the sides relative to
 - **Adjacent:** the side next to $\theta$ (not the hypotenuse)
 - **Hypotenuse:** the side opposite the right angle (always the longest side)
 
-![](./media/right-triangle-sohcahtoa.png)
+![Right triangle labeled with hypotenuse, opposite, and adjacent sides at angle theta, with SOH CAH TOA definitions](./media/right-triangle-sohcahtoa.png)
 
 The six trigonometric functions are defined as:
 
@@ -485,6 +485,10 @@ $$
 
 ## The Unit Circle
 
+Drag the point around the circle below to see how sine, cosine, and tangent are read directly off the coordinates, in both degrees and radians:
+
+<iframe src="/static/interactive/unit-circle-explorer.html" width="100%" height="560" style="border:none;"></iframe>
+
 ### Definition
 
 The **unit circle** is a circle of radius $1$ centered at the origin. Its equation is:
@@ -514,7 +518,7 @@ So for any angle $\theta$, the point on the unit circle is $(\cos\theta, \sin\th
 
 The values at every standard angle can be derived from the 30-60-90 and 45-45-90 special triangles.
 
-![](./media/unit-circle-standard-angles.png)
+![Unit circle showing standard angles in degrees and radians with their coordinates across four quadrants](./media/unit-circle-standard-angles.png)
 
 **Complete table of standard angle coordinates:**
 

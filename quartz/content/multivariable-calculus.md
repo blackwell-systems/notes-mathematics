@@ -1,6 +1,13 @@
 ---
 title: "Multivariable Calculus"
+prerequisites: ["calculus", "linear-algebra-foundations"]
+enables: ["optimization", "algebraic-geometry"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Calculus](./calculus) · [Linear Algebra Foundations](./linear-algebra-foundations)
+> **Leads to:** [Optimization](./optimization) · [Algebraic Geometry](./algebraic-geometry)
+
 
 Single-variable calculus studies functions with one input and one output: $f(x) = x^2$. But most real problems involve many variables. A house's price depends on square footage, location, age, and number of bedrooms. A neural network's loss depends on thousands (or millions) of parameters. **Multivariable calculus** extends derivatives and integrals to functions of several variables.
 

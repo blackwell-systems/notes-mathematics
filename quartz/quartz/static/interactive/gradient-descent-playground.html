@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient Descent Playground</title>
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --panel: #ffffff;
+    --text: #1d1d22;
+    --muted: #6b6b78;
+    --accent: #3b6ef2;
+    --accent-2: #e8552d;
+    --border: #e3e3ea;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    width: 760px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 14px 12px 18px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 17px;
+    margin: 0 0 2px;
+    font-weight: 650;
+  }
+  .caption {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0 0 12px;
+    line-height: 1.4;
+  }
+  .stage {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  canvas {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: crosshair;
+    display: block;
+  }
+  .panel {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 11px;
+  }
+  label.row {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  label.row:last-child { margin-bottom: 0; }
+  .val {
+    color: var(--text);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    float: right;
+  }
+  input[type=range] {
+    width: 100%;
+    margin: 4px 0 2px;
+    accent-color: var(--accent);
+  }
+  select {
+    width: 100%;
+    font-size: 13px;
+    padding: 5px 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text);
+  }
+  .btns {
+    display: flex;
+    gap: 7px;
+  }
+  button {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text);
+    cursor: pointer;
+    transition: background .12s, border-color .12s;
+  }
+  button:hover { background: #f2f4ff; border-color: var(--accent); }
+  button.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  button.primary:hover { background: #2f5ee0; }
+  .readout {
+    font-size: 12.5px;
+    line-height: 1.7;
+    font-variant-numeric: tabular-nums;
+  }
+  .readout .k { color: var(--muted); display: inline-block; width: 118px; }
+  .readout .v { font-weight: 600; }
+  .status {
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .status.ok { color: #1a8a4a; }
+  .status.diverge { color: var(--accent-2); }
+  .status.idle { color: var(--muted); }
+  .hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Gradient Descent Playground</h1>
+  <p class="caption">Pick a loss surface and learning rate, click the contour to set a start point, then step or run to watch <b>w &larr; w &minus; &eta;&nabla;f(w)</b> converge (small &eta;) or blow up (large &eta;).</p>
+
+  <div class="stage">
+    <canvas id="cv" width="440" height="440"></canvas>
+    <div class="panel">
+      <div class="card">
+        <label class="row">Loss surface f(x, y)</label>
+        <select id="fn">
+          <option value="quad">Elongated bowl: x&sup2; + 8y&sup2;</option>
+          <option value="rosen">Rosenbrock: (1&minus;x)&sup2; + 100(y&minus;x&sup2;)&sup2;</option>
+          <option value="twomin">Two minima: (x&sup2;&minus;1)&sup2; + y&sup2;</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <label class="row">Learning rate &eta; <span class="val" id="etaVal">0.0500</span></label>
+        <input type="range" id="eta" min="-3.3" max="0.2" step="0.01" value="-1.301">
+        <div class="hint">Log scale. Raise it until the path diverges.</div>
+        <label class="row" style="margin-top:9px">Start x <span class="val" id="sxVal">0</span></label>
+        <input type="range" id="sx" min="-100" max="100" step="1" value="-85">
+        <label class="row">Start y <span class="val" id="syVal">0</span></label>
+        <input type="range" id="sy" min="-100" max="100" step="1" value="80">
+      </div>
+
+      <div class="card">
+        <div class="btns">
+          <button class="primary" id="run">Run</button>
+          <button id="step">Step</button>
+          <button id="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="readout">
+          <div><span class="k">Iteration</span><span class="v" id="iter">0</span></div>
+          <div><span class="k">w = (x, y)</span><span class="v" id="wpt">&mdash;</span></div>
+          <div><span class="k">f(w)</span><span class="v" id="fval">&mdash;</span></div>
+          <div><span class="k">&#8741;&nabla;f(w)&#8741;</span><span class="v" id="gmag">&mdash;</span></div>
+        </div>
+        <div class="status idle" id="status">Idle &mdash; click the plot or step.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // ---- Loss surfaces: value f(x,y) and analytic gradient grad(x,y) ----
+  var surfaces = {
+    quad: {
+      // f = x^2 + 8 y^2
+      range: 3.0,
+      f: function (x, y) { return x * x + 8 * y * y; },
+      g: function (x, y) { return [2 * x, 16 * y]; }
+    },
+    rosen: {
+      // f = (1-x)^2 + 100 (y - x^2)^2
+      range: 2.0,
+      xmin: -1.6, xmax: 2.0, ymin: -0.8, ymax: 3.0,
+      f: function (x, y) {
+        var a = (1 - x), b = (y - x * x);
+        return a * a + 100 * b * b;
+      },
+      g: function (x, y) {
+        var b = (y - x * x);
+        var dx = -2 * (1 - x) - 400 * x * b;
+        var dy = 200 * b;
+        return [dx, dy];
+      }
+    },
+    twomin: {
+      // f = (x^2 - 1)^2 + y^2   -> minima at (+-1, 0)
+      range: 2.2,
+      f: function (x, y) { var t = x * x - 1; return t * t + y * y; },
+      g: function (x, y) { return [4 * x * (x * x - 1), 2 * y]; }
+    }
+  };
+
+  var current = "quad";
+
+  // world <-> pixel mapping. Each surface has a symmetric or explicit window.
+  function bounds() {
+    var s = surfaces[current];
+    if (s.xmin !== undefined) {
+      return { xmin: s.xmin, xmax: s.xmax, ymin: s.ymin, ymax: s.ymax };
+    }
+    var r = s.range;
+    return { xmin: -r, xmax: r, ymin: -r, ymax: r };
+  }
+
+  function toPix(x, y) {
+    var b = bounds();
+    var px = (x - b.xmin) / (b.xmax - b.xmin) * W;
+    var py = H - (y - b.ymin) / (b.ymax - b.ymin) * H;
+    return [px, py];
+  }
+  function toWorld(px, py) {
+    var b = bounds();
+    var x = b.xmin + px / W * (b.xmax - b.xmin);
+    var y = b.ymin + (H - py) / H * (b.ymax - b.ymin);
+    return [x, y];
+  }
+
+  // ---- Heatmap of log(1+f) with viridis-ish light palette ----
+  var palette = [
+    [68, 1, 84], [59, 82, 139], [33, 145, 140],
+    [94, 201, 98], [253, 231, 37]
+  ];
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function colorFor(t) {
+    // t in [0,1]; blend toward lighter for a light-theme feel
+    t = Math.max(0, Math.min(1, t));
+    var seg = t * (palette.length - 1);
+    var i = Math.floor(seg);
+    if (i >= palette.length - 1) i = palette.length - 2;
+    var f = seg - i;
+    var c0 = palette[i], c1 = palette[i + 1];
+    var r = lerp(c0[0], c1[0], f);
+    var g = lerp(c0[1], c1[1], f);
+    var b = lerp(c0[2], c1[2], f);
+    // lighten so dark text/lines read well
+    r = lerp(r, 255, 0.30); g = lerp(g, 255, 0.30); b = lerp(b, 255, 0.30);
+    return [r | 0, g | 0, b | 0];
+  }
+
+  var STEP = 2; // heatmap block size in px
+  function drawHeat() {
+    var s = surfaces[current];
+    var b = bounds();
+    // find max log for normalization by sampling
+    var maxL = 0;
+    for (var yy = 0; yy < H; yy += 8) {
+      for (var xx = 0; xx < W; xx += 8) {
+        var w = toWorld(xx, yy);
+        var L = Math.log(1 + s.f(w[0], w[1]));
+        if (L > maxL) maxL = L;
+      }
+    }
+    if (maxL <= 0) maxL = 1;
+
+    var img = ctx.createImageData(W, H);
+    var data = img.data;
+    for (var py = 0; py < H; py += STEP) {
+      for (var px = 0; px < W; px += STEP) {
+        var wc = toWorld(px + 0.5, py + 0.5);
+        var Lv = Math.log(1 + s.f(wc[0], wc[1])) / maxL;
+        var col = colorFor(Lv);
+        for (var dy = 0; dy < STEP && py + dy < H; dy++) {
+          for (var dx = 0; dx < STEP && px + dx < W; dx++) {
+            var idx = ((py + dy) * W + (px + dx)) * 4;
+            data[idx] = col[0];
+            data[idx + 1] = col[1];
+            data[idx + 2] = col[2];
+            data[idx + 3] = 255;
+          }
+        }
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+
+    // overlaid iso-lines via marching squares on a coarse grid
+    drawIso(maxL);
+  }
+
+  function drawIso(maxL) {
+    var s = surfaces[current];
+    var N = 90;
+    var b = bounds();
+    var grid = [];
+    for (var j = 0; j <= N; j++) {
+      grid[j] = [];
+      for (var i = 0; i <= N; i++) {
+        var x = b.xmin + (i / N) * (b.xmax - b.xmin);
+        var y = b.ymin + (j / N) * (b.ymax - b.ymin);
+        grid[j][i] = Math.log(1 + s.f(x, y));
+      }
+    }
+    var levels = [];
+    for (var k = 1; k <= 7; k++) levels.push((k / 8) * maxL);
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(30,30,40,0.28)";
+    ctx.beginPath();
+    var cw = W / N, ch = H / N;
+    for (var li = 0; li < levels.length; li++) {
+      var lev = levels[li];
+      for (var jj = 0; jj < N; jj++) {
+        for (var ii = 0; ii < N; ii++) {
+          var v0 = grid[jj][ii], v1 = grid[jj][ii + 1];
+          var v2 = grid[jj + 1][ii + 1], v3 = grid[jj + 1][ii];
+          var cidx = (v0 > lev ? 1 : 0) | (v1 > lev ? 2 : 0) |
+                     (v2 > lev ? 4 : 0) | (v3 > lev ? 8 : 0);
+          if (cidx === 0 || cidx === 15) continue;
+          // cell pixel corners (note y flip: j grows downward in world but we drew grid bottom->top)
+          var x0 = ii * cw, x1 = (ii + 1) * cw;
+          // world row jj corresponds to y increasing; pixel y decreases with y
+          var yA = H - jj * ch;      // bottom of world cell -> lower pixel
+          var yB = H - (jj + 1) * ch;
+          // interpolation helpers along edges
+          function ip(a, bb) { return (lev - a) / (bb - a); }
+          // edge points (top=between v3,v2 i.e. row jj+1 ; using pixel coords)
+          var top = [x0 + ip(v3, v2) * cw, yB];
+          var right = [x1, yB + ip(v2, v1) * ch];
+          var bot = [x0 + ip(v0, v1) * cw, yA];
+          var left = [x0, yB + ip(v3, v0) * ch];
+          function seg(p, q) { ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); }
+          switch (cidx) {
+            case 1: case 14: seg(left, bot); break;
+            case 2: case 13: seg(bot, right); break;
+            case 3: case 12: seg(left, right); break;
+            case 4: case 11: seg(top, right); break;
+            case 6: case 9: seg(top, bot); break;
+            case 7: case 8: seg(left, top); break;
+            case 5: seg(left, top); seg(bot, right); break;
+            case 10: seg(left, bot); seg(top, right); break;
+          }
+        }
+      }
+    }
+    ctx.stroke();
+
+    // mark minima
+    ctx.fillStyle = "rgba(20,20,28,0.9)";
+    var mins = minimaFor();
+    for (var m = 0; m < mins.length; m++) {
+      var p = toPix(mins[m][0], mins[m][1]);
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], 3.5, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(255,255,255,0.9)";
+      ctx.lineWidth = 1;
+      ctx.arc(p[0], p[1], 3.5, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+  }
+
+  function minimaFor() {
+    if (current === "quad") return [[0, 0]];
+    if (current === "rosen") return [[1, 1]];
+    if (current === "twomin") return [[-1, 0], [1, 0]];
+    return [];
+  }
+
+  // ---- Optimization state ----
+  var path = [];         // array of [x,y]
+  var startW = [-2.5, 2.4];
+  var running = false;
+  var rafId = null;
+  var MAX_ITERS = 400;
+  var prevF = null;
+  var diverged = false;
+
+  function eta() { return Math.pow(10, parseFloat(document.getElementById("eta").value)); }
+
+  function resetPath() {
+    stopRun();
+    path = [startW.slice()];
+    prevF = null;
+    diverged = false;
+    render();
+    updateReadout("idle");
+  }
+
+  function inRange(x, y) {
+    var b = bounds();
+    var pad = (b.xmax - b.xmin) * 0.5;
+    return x > b.xmin - pad && x < b.xmax + pad &&
+           y > b.ymin - pad && y < b.ymax + pad &&
+           isFinite(x) && isFinite(y);
+  }
+
+  function doStep() {
+    if (diverged || path.length > MAX_ITERS) return false;
+    var s = surfaces[current];
+    var w = path[path.length - 1];
+    var fCur = s.f(w[0], w[1]);
+    var gr = s.g(w[0], w[1]);
+    var e = eta();
+    var nx = w[0] - e * gr[0];
+    var ny = w[1] - e * gr[1];
+    path.push([nx, ny]);
+
+    if (!inRange(nx, ny) || Math.abs(nx) > 1e6 || Math.abs(ny) > 1e6) {
+      diverged = true;
+    }
+    prevF = fCur;
+    return true;
+  }
+
+  // ---- Rendering ----
+  var cachedKey = "";
+  function render() {
+    var key = current + "|" + JSON.stringify(bounds());
+    // heatmap only depends on surface; redraw each frame is cheap enough at STEP=2? redraw always for correctness
+    drawHeat();
+    drawPath();
+  }
+
+  function drawPath() {
+    if (path.length === 0) return;
+    var s = surfaces[current];
+    // connecting line
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(232,85,45,0.95)";
+    ctx.beginPath();
+    for (var i = 0; i < path.length; i++) {
+      var p = clampPix(path[i]);
+      if (i === 0) ctx.moveTo(p[0], p[1]);
+      else ctx.lineTo(p[0], p[1]);
+    }
+    ctx.stroke();
+
+    // dots
+    for (var j = 0; j < path.length; j++) {
+      var q = clampPix(path[j]);
+      var last = (j === path.length - 1);
+      ctx.beginPath();
+      ctx.fillStyle = last ? "#3b6ef2" : "rgba(232,85,45,0.9)";
+      ctx.arc(q[0], q[1], last ? 5 : 2.6, 0, 2 * Math.PI);
+      ctx.fill();
+      if (last) {
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+    // start marker
+    var sp = clampPix(path[0]);
+    ctx.beginPath();
+    ctx.strokeStyle = "#1d1d22";
+    ctx.lineWidth = 1.5;
+    ctx.arc(sp[0], sp[1], 4.5, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+
+  function clampPix(w) {
+    var p = toPix(w[0], w[1]);
+    // clamp to a margin so blown-up points still render at the edge
+    p[0] = Math.max(-20, Math.min(W + 20, p[0]));
+    p[1] = Math.max(-20, Math.min(H + 20, p[1]));
+    return p;
+  }
+
+  function updateReadout(mode) {
+    var s = surfaces[current];
+    var w = path[path.length - 1] || startW;
+    var iter = path.length - 1;
+    var fv = s.f(w[0], w[1]);
+    var gr = s.g(w[0], w[1]);
+    var gm = Math.sqrt(gr[0] * gr[0] + gr[1] * gr[1]);
+
+    document.getElementById("iter").textContent = iter < 0 ? 0 : iter;
+    document.getElementById("wpt").textContent =
+      "(" + fmt(w[0]) + ", " + fmt(w[1]) + ")";
+    document.getElementById("fval").textContent = fmtF(fv);
+    document.getElementById("gmag").textContent = fmtF(gm);
+
+    var st = document.getElementById("status");
+    if (mode === "idle") {
+      st.className = "status idle";
+      st.textContent = "Idle — click the plot or step.";
+      return;
+    }
+    if (diverged) {
+      st.className = "status diverge";
+      st.textContent = "⚠ Diverging — η too large, iterates blowing up.";
+    } else if (prevF !== null && fv > prevF + 1e-9) {
+      st.className = "status diverge";
+      st.textContent = "Loss increased — overshooting / oscillating.";
+    } else if (gm < 1e-3 || iter >= MAX_ITERS) {
+      st.className = "status ok";
+      st.textContent = "✓ Converged near a minimum.";
+    } else {
+      st.className = "status ok";
+      st.textContent = "Descending — loss decreasing.";
+    }
+  }
+
+  function fmt(v) {
+    if (!isFinite(v)) return v > 0 ? "∞" : "-∞";
+    if (Math.abs(v) >= 1e4) return v.toExponential(1);
+    return v.toFixed(3);
+  }
+  function fmtF(v) {
+    if (!isFinite(v)) return "∞";
+    if (v !== 0 && (Math.abs(v) >= 1e4 || Math.abs(v) < 1e-3)) return v.toExponential(2);
+    return v.toFixed(4);
+  }
+
+  // ---- Animation loop ----
+  function loop() {
+    if (!running) return;
+    var ok = doStep();
+    render();
+    updateReadout("run");
+    if (!ok || diverged || path.length > MAX_ITERS) {
+      stopRun();
+      return;
+    }
+    rafId = setTimeout(function () { requestAnimationFrame(loop); }, 55);
+  }
+  function startRun() {
+    if (running) return;
+    // if at a finished state, restart from start point
+    if (diverged || path.length > MAX_ITERS) resetPath();
+    running = true;
+    document.getElementById("run").textContent = "Pause";
+    loop();
+  }
+  function stopRun() {
+    running = false;
+    if (rafId) { clearTimeout(rafId); rafId = null; }
+    document.getElementById("run").textContent = "Run";
+  }
+
+  // ---- Controls ----
+  var elEta = document.getElementById("eta");
+  var elFn = document.getElementById("fn");
+  var elSx = document.getElementById("sx");
+  var elSy = document.getElementById("sy");
+
+  function syncEtaLabel() {
+    document.getElementById("etaVal").textContent = eta().toFixed(4);
+  }
+  // start sliders are in [-100,100] mapped to current bounds
+  function sliderToStart() {
+    var b = bounds();
+    var tx = (parseFloat(elSx.value) + 100) / 200;
+    var ty = (parseFloat(elSy.value) + 100) / 200;
+    startW = [b.xmin + tx * (b.xmax - b.xmin), b.ymin + ty * (b.ymax - b.ymin)];
+    document.getElementById("sxVal").textContent = startW[0].toFixed(2);
+    document.getElementById("syVal").textContent = startW[1].toFixed(2);
+  }
+  function startToSlider() {
+    var b = bounds();
+    elSx.value = Math.round(((startW[0] - b.xmin) / (b.xmax - b.xmin)) * 200 - 100);
+    elSy.value = Math.round(((startW[1] - b.ymin) / (b.ymax - b.ymin)) * 200 - 100);
+    document.getElementById("sxVal").textContent = startW[0].toFixed(2);
+    document.getElementById("syVal").textContent = startW[1].toFixed(2);
+  }
+
+  elEta.addEventListener("input", function () {
+    syncEtaLabel();
+    if (!running) updateReadout(path.length > 1 ? "run" : "idle");
+  });
+
+  elFn.addEventListener("change", function () {
+    current = elFn.value;
+    // choose a sensible default start per surface
+    var b = bounds();
+    if (current === "quad") startW = [b.xmin * 0.85, b.ymax * 0.8];
+    else if (current === "rosen") startW = [-1.2, 2.4];
+    else startW = [-1.9, 1.6];
+    startToSlider();
+    resetPath();
+  });
+
+  elSx.addEventListener("input", function () { sliderToStart(); startW = startW.slice(); resetPath(); });
+  elSy.addEventListener("input", function () { sliderToStart(); resetPath(); });
+
+  document.getElementById("run").addEventListener("click", function () {
+    if (running) stopRun(); else startRun();
+  });
+  document.getElementById("step").addEventListener("click", function () {
+    stopRun();
+    if (diverged || path.length > MAX_ITERS) resetPath();
+    doStep();
+    render();
+    updateReadout("run");
+  });
+  document.getElementById("reset").addEventListener("click", resetPath);
+
+  cv.addEventListener("click", function (ev) {
+    var rect = cv.getBoundingClientRect();
+    var px = (ev.clientX - rect.left) * (W / rect.width);
+    var py = (ev.clientY - rect.top) * (H / rect.height);
+    var w = toWorld(px, py);
+    startW = w;
+    startToSlider();
+    resetPath();
+  });
+
+  // ---- init ----
+  syncEtaLabel();
+  sliderToStart();
+  startW = [bounds().xmin * 0.85, bounds().ymax * 0.8];
+  startToSlider();
+  resetPath();
+})();
+</script>
+</body>
+</html>

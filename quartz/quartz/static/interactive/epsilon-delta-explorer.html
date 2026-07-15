@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Epsilon-Delta Limit Explorer</title>
+<style>
+  :root { --accent: #2f6fed; --band-eps: rgba(47,111,237,0.14); --band-del: rgba(230,120,30,0.16); --del: #e6781e; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fafafa; color: #2a3f5f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex; justify-content: center;
+  }
+  .wrap { width: 760px; max-width: 100%; padding: 14px 18px 18px; }
+  h1 { font-size: 17px; margin: 0 0 2px; font-weight: 650; }
+  .caption { font-size: 13px; color: #5a6b82; margin: 0 0 12px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 16px 22px; align-items: center; margin-bottom: 10px; }
+  .ctrl { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  label { font-weight: 600; color: #3a4d68; }
+  select { font: inherit; padding: 3px 6px; border: 1px solid #c7d0dd; border-radius: 6px; background: #fff; color: #2a3f5f; }
+  input[type=range] { width: 170px; accent-color: var(--accent); }
+  .epsval { font-variant-numeric: tabular-nums; min-width: 46px; color: var(--accent); font-weight: 650; }
+  canvas { display: block; border: 1px solid #e3e8ef; border-radius: 8px; background: #fff; width: 100%; height: auto; }
+  .readout {
+    margin-top: 11px; font-size: 13.5px; line-height: 1.5; background: #fff;
+    border: 1px solid #e3e8ef; border-left: 3px solid var(--accent);
+    border-radius: 6px; padding: 9px 12px;
+  }
+  .readout b { color: var(--accent); }
+  .readout .d { color: var(--del); }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: #5a6b82; margin-top: 8px; flex-wrap: wrap; }
+  .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Epsilon-Delta Limit Explorer</h1>
+  <p class="caption">Pick a function and drag the &epsilon; slider: watch how &delta; (the input tolerance) shrinks so that every x within &delta; of a lands within &epsilon; of L.</p>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label for="fn">Function</label>
+      <select id="fn"></select>
+    </div>
+    <div class="ctrl">
+      <label for="eps">&epsilon;</label>
+      <input type="range" id="eps" min="0.01" max="1.5" step="0.01" value="0.5">
+      <span class="epsval" id="epsval">0.50</span>
+    </div>
+  </div>
+
+  <canvas id="cv" width="1440" height="720"></canvas>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--band-eps)"></span>output band: L&nbsp;&plusmn;&nbsp;&epsilon;</span>
+    <span><span class="swatch" style="background:var(--band-del)"></span>input band: a&nbsp;&plusmn;&nbsp;&delta;</span>
+    <span><span class="swatch" style="background:var(--accent)"></span>f(x)</span>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Each preset: a, L, f(x), a delta(eps) that PROVABLY satisfies the implication,
+  // and whether the point (a,L) is a removable hole.
+  var PRESETS = [
+    {
+      id: "sq",
+      label: "f(x) = x²   (a = 2, L = 4)",
+      a: 2, L: 4, hole: false,
+      f: function (x) { return x * x; },
+      // |x²-4| = |x-2||x+2|. If |x-2|<1 then |x+2|<5, so |x²-4|<5|x-2|.
+      // delta = min(1, eps/5) guarantees |x²-4| < eps.
+      delta: function (e) { return Math.min(1, e / 5); },
+      fLabel: "x²", aLabel: "2", LLabel: "4"
+    },
+    {
+      id: "lin",
+      label: "f(x) = 2x + 1   (a = 1, L = 3)",
+      a: 1, L: 3, hole: false,
+      f: function (x) { return 2 * x + 1; },
+      // |f(x)-3| = 2|x-1|, so delta = eps/2 gives exactly |f-3| < eps.
+      delta: function (e) { return e / 2; },
+      fLabel: "2x+1", aLabel: "1", LLabel: "3"
+    },
+    {
+      id: "hole",
+      label: "f(x) = (x²−1)/(x−1)   (a = 1, L = 2, hole)",
+      a: 1, L: 2, hole: true,
+      f: function (x) { return (x * x - 1) / (x - 1); }, // = x+1 for x != 1
+      // For x != 1, f simplifies to x+1, so |f(x)-2| = |x-1|. delta = eps exactly.
+      delta: function (e) { return e; },
+      fLabel: "(x²−1)/(x−1)", aLabel: "1", LLabel: "2"
+    }
+  ];
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height, DPR = 2; // logical = W/DPR
+  var fnSel = document.getElementById("fn");
+  var epsSlider = document.getElementById("eps");
+  var epsLabel = document.getElementById("epsval");
+  var readout = document.getElementById("readout");
+
+  PRESETS.forEach(function (p, i) {
+    var o = document.createElement("option");
+    o.value = i; o.textContent = p.label;
+    fnSel.appendChild(o);
+  });
+
+  function fmt(v) {
+    // trim to a readable number of decimals
+    var s = v.toFixed(4);
+    s = s.replace(/0+$/, "").replace(/\.$/, "");
+    return s;
+  }
+
+  function draw() {
+    var p = PRESETS[+fnSel.value];
+    var eps = parseFloat(epsSlider.value);
+    var del = p.delta(eps);
+    var a = p.a, L = p.L;
+
+    epsLabel.textContent = eps.toFixed(2);
+
+    // View window: horizontally always show a +/- 1.6 so shrinking delta is visible.
+    var halfX = 1.6;
+    var xmin = a - halfX, xmax = a + halfX;
+    // Vertically frame around L with generous margin (max eps is 1.5).
+    var halfY = 2.2;
+    var ymin = L - halfY, ymax = L + halfY;
+
+    // pixel padding
+    var padL = 60 * DPR, padR = 24 * DPR, padT = 24 * DPR, padB = 44 * DPR;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    function X(x) { return padL + (x - xmin) / (xmax - xmin) * plotW; }
+    function Y(y) { return padT + (ymax - y) / (ymax - ymin) * plotH; }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(padL, padT, plotW, plotH);
+
+    // ---- epsilon band (horizontal, output tolerance) ----
+    var epsTop = Y(L + eps), epsBot = Y(L - eps);
+    ctx.fillStyle = "rgba(47,111,237,0.13)";
+    ctx.fillRect(padL, epsTop, plotW, epsBot - epsTop);
+
+    // ---- delta band (vertical, input tolerance) ----
+    var delL = X(a - del), delR = X(a + del);
+    ctx.fillStyle = "rgba(230,120,30,0.16)";
+    ctx.fillRect(delL, padT, delR - delL, plotH);
+
+    // ---- grid ticks (integers) ----
+    ctx.font = (13 * DPR) + "px -apple-system, Segoe UI, sans-serif";
+    ctx.fillStyle = "#8a97aa";
+    ctx.strokeStyle = "#eef1f5";
+    ctx.lineWidth = 1 * DPR;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var xi = Math.ceil(xmin); xi <= xmax; xi++) {
+      var px = X(xi);
+      ctx.beginPath(); ctx.moveTo(px, padT); ctx.lineTo(px, padT + plotH); ctx.stroke();
+      ctx.fillText(String(xi), px, padT + plotH + 6 * DPR);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (var yi = Math.ceil(ymin); yi <= ymax; yi++) {
+      var py = Y(yi);
+      ctx.beginPath(); ctx.moveTo(padL, py); ctx.lineTo(padL + plotW, py); ctx.stroke();
+      ctx.fillText(String(yi), padL - 8 * DPR, py);
+    }
+
+    // ---- band edge lines (dashed) ----
+    ctx.setLineDash([6 * DPR, 5 * DPR]);
+    ctx.lineWidth = 1.4 * DPR;
+    // eps edges (blue)
+    ctx.strokeStyle = "rgba(47,111,237,0.55)";
+    [L + eps, L - eps].forEach(function (yv) {
+      var yy = Y(yv);
+      ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(padL + plotW, yy); ctx.stroke();
+    });
+    // delta edges (orange)
+    ctx.strokeStyle = "rgba(230,120,30,0.65)";
+    [a - del, a + del].forEach(function (xv) {
+      var xx = X(xv);
+      ctx.beginPath(); ctx.moveTo(xx, padT); ctx.lineTo(xx, padT + plotH); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    // ---- guide lines to (a, L) ----
+    ctx.setLineDash([3 * DPR, 4 * DPR]);
+    ctx.strokeStyle = "#b8c1cf";
+    ctx.lineWidth = 1 * DPR;
+    ctx.beginPath(); ctx.moveTo(X(a), padT + plotH); ctx.lineTo(X(a), Y(L)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(padL, Y(L)); ctx.lineTo(X(a), Y(L)); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // ---- the curve ----
+    ctx.strokeStyle = "#2f6fed";
+    ctx.lineWidth = 2.4 * DPR;
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    var started = false;
+    var N = 600;
+    for (var i = 0; i <= N; i++) {
+      var x = xmin + (i / N) * (xmax - xmin);
+      if (p.hole && Math.abs(x - a) < 1e-6) { started = false; continue; }
+      var y = p.f(x);
+      if (!isFinite(y)) { started = false; continue; }
+      var sx = X(x), sy = Y(y);
+      if (sy < padT - 40 || sy > padT + plotH + 40) { started = false; continue; }
+      if (!started) { ctx.moveTo(sx, sy); started = true; }
+      else ctx.lineTo(sx, sy);
+    }
+    ctx.stroke();
+
+    // ---- the point (a, L) ----
+    var pax = X(a), pay = Y(L);
+    if (p.hole) {
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath(); ctx.arc(pax, pay, 6 * DPR, 0, 2 * Math.PI); ctx.fill();
+      ctx.strokeStyle = "#2f6fed"; ctx.lineWidth = 2.4 * DPR;
+      ctx.beginPath(); ctx.arc(pax, pay, 6 * DPR, 0, 2 * Math.PI); ctx.stroke();
+    } else {
+      ctx.fillStyle = "#2f6fed";
+      ctx.beginPath(); ctx.arc(pax, pay, 5.5 * DPR, 0, 2 * Math.PI); ctx.fill();
+    }
+
+    // ---- axis labels ----
+    ctx.fillStyle = "#5a6b82";
+    ctx.font = "italic " + (14 * DPR) + "px -apple-system, Segoe UI, sans-serif";
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
+    ctx.fillText("a = " + p.aLabel, X(a) + 6 * DPR, padT + 4 * DPR);
+    ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+    ctx.fillText("L = " + p.LLabel, padL + 6 * DPR, Y(L) - 6 * DPR);
+
+    // ---- readout ----
+    readout.innerHTML =
+      "For <b>&epsilon; = " + fmt(eps) + "</b>, a valid <span class='d'>&delta; = " + fmt(del) + "</span>: " +
+      "whenever <code>0 &lt; |x&minus;" + p.aLabel + "| &lt; " + fmt(del) + "</code>, we have " +
+      "<code>|f(x)&minus;" + p.LLabel + "| &lt; " + fmt(eps) + "</code>." +
+      (p.hole ? " (The value at x=" + p.aLabel + " is undefined — the open circle — yet the limit still equals " + p.LLabel + ".)" : "");
+  }
+
+  fnSel.addEventListener("change", draw);
+  epsSlider.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

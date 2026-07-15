@@ -1,6 +1,13 @@
 ---
 title: "Set Theory"
+prerequisites: ["mathematical-notations"]
+enables: ["functions-relations", "number-systems", "measure-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads <!-- slt-nav -->
+> **Builds on:** [Mathematical Notations](./mathematical-notations)
+> **Leads to:** [Functions & Relations](./functions-relations) · [Number Systems](./number-systems) · [Measure Theory](./measure-theory)
+
 
 Sets are the most fundamental building block in all of mathematics: a **set** is simply a collection of distinct objects. We need formal set theory because mathematics requires a precise language for talking about collections, membership, and relationships between groups of objects. Nearly everything else in math, including numbers, functions, sequences, and probability, is built on the concept of a set. Understanding sets first makes every other topic easier to reason about.
 
@@ -38,21 +45,21 @@ We write $a \in A$ for "a is an element of a set A" (read "a is an element of A"
 
 $\emptyset$ or $\{\}$ (read "the empty set") denotes the empty set, which contains no element.
 
-![](./media/image22.png)
+![Membership example: 1 is in set A, 0 is not in A](./media/image22.png)
 
 **Set elements are unique.** An element is either in the set or not in
 the set. It makes no sense to say that an element is in the set
 multiple times. It may be listed multiple times, but this is
 extraneous.
 
-![](./media/image24.png)
+![Membership statements about sets A, B, C using element and not-element symbols](./media/image24.png)
 
 ## Roster Notation
 
 Roster notation (also known as **enumeration notation**) involves
 explicitly listing out all the elements of the set within curly braces.
 
-![](./media/image25.png)
+![Roster notation examples: set of vowels and first five natural numbers](./media/image25.png)
 
 ## Set-Builder Notation
 
@@ -97,7 +104,7 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 
 **Key Property:** Every set is a subset of itself (reflexive property).
 
-![](./media/image27.png)
+![Two Euler diagrams contrasting proper subset A of B with non-proper subset C of B](./media/image27.png)
 
 ## Set Equality
 
@@ -230,7 +237,7 @@ average, thus $\geq \lceil m/n\rceil$.
 **Cardinality:** Let A be a set. then the number of elements in the set
 A is called **cardinality** of the set A, and is denoted by **\|A\|** (read "the cardinality of A" or "the size of A")
 
-![](./media/image29.png)
+![Cardinality of the set containing the empty set equals one, distinguished from the empty set](./media/image29.png)
 
 ### Finite vs. Infinite Sets
 
@@ -379,7 +386,7 @@ $\forall x\, (x \in (A \cup B) \leftrightarrow (x \in A \lor x \in B))$
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then $A \cup B = \{1, 2, 3, 4, 5\}$
 
-![](./media/image31.png)
+![Venn diagram of union A union B with both circles shaded red](./media/image31.png)
 
 ### Set Intersection
 
@@ -389,7 +396,7 @@ $\forall x\, (x \in (A \cap B) \leftrightarrow (x \in A \land x \in B))$
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then $A \cap B = \{3\}$
 
-![](./media/image32.png)
+![Venn diagram of intersection A intersect B with overlap shaded red](./media/image32.png)
 
 ### Set Complement
 
@@ -400,7 +407,7 @@ elements from the domain of discourse which are NOT in A.
 
 $\forall x\, (x \in A' \leftrightarrow (x \in U \land x \notin A))$
 
-![](./media/image35.png)
+![Complement of set A: region outside circle A shaded red](./media/image35.png)
 
 ### Symmetric Difference
 
@@ -434,7 +441,7 @@ $$
 A \setminus B = \{x : x \in A \text{ and } x \notin B\}
 $$
 
-![](./media/image33.png)
+![Venn diagram of set difference with the part of B outside A shaded red](./media/image33.png)
 
 The set difference is not the same as the complement unless $B$ is the universal set. In general, $A \setminus B$ only removes elements of $B$ from $A$, whereas the complement $A'$ (or $A^c$) removes all elements of $A$ from the entire universal set.
 
@@ -1019,7 +1026,7 @@ $$
 A \times B = \{(a, b) : a \in A,\, b \in B\}
 $$
 
-![](./media/image36.png)
+![Cartesian product A cross B defined as the set of ordered pairs (a, b)](./media/image36.png)
 
 **Worked Example:**
 
@@ -1059,7 +1066,7 @@ and a set of columns. If the Cartesian product **rows** $\times$ **columns**
 is taken, the cells of the table contain ordered pairs of the form (row
 value, column value).
 
-![](./media/image37.png)
+![Grid of the Cartesian product of {x, y, z} and {1, 2, 3} as ordered-pair cells](./media/image37.png)
 
-![](./media/image38.png)
+![Worked example of {1,2} cross {2,3} listing its four ordered pairs](./media/image38.png)
 

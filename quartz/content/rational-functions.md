@@ -110,7 +110,7 @@ proper rational function.
 
 **Finding x-intercepts:** Factor numerator and solve for x.
 
-![](./media/image91.png)
+![Desmos graph of (x-1)(x+1)/((x-2)(x+2)) with vertical asymptotes at x = plus or minus 2 and horizontal asymptote y = 1](./media/image91.png)
 
 ## Finding y-intercept
 
@@ -119,7 +119,7 @@ you need to evaluate the function at *𝑥 = 0*. The y-intercept is the
 point where the graph of the function crosses the y-axis, which
 corresponds to 𝑥 = 0.
 
-![](./media/image94.png)
+![Worked solution finding where (x+3)/(2x^2+9x-5) is undefined by factoring the denominator to x = 1/2 and x = -5](./media/image94.png)
 
 ## Horizontal, Slant, and Polynomial Asymptotes
 
@@ -156,7 +156,7 @@ and denominator polynomials, having degree $n$ and $m$ respectively.
   denominator          
   -----------------------------------------------------------------------
 
-![](./media/image96.png)
+![Desmos graph of (x^2+1)/x^3 approaching the x-axis, showing horizontal asymptote y = 0](./media/image96.png)
 
 $$f(x) = \ \frac{x^{2} + 1}{x^{3}}$$
 
@@ -169,13 +169,13 @@ Numerator = Denominator
 
 Horizontal asymptote : y = 1/1
 
-![](./media/image97.png)
+![Desmos graph of (x^2+3)/x^2 leveling off toward the horizontal asymptote y = 1](./media/image97.png)
 
 ### Numerator \> Denominator (improper fraction)
 
 Numerator \> Denominator
 
-![](./media/image98.png)
+![Desmos graph of (x^3+3)/x^2 hugging the dashed slant asymptote line y = x](./media/image98.png)
 
 Num\>Denom by 1
 
@@ -183,7 +183,7 @@ Num\>Denom by 1
 denominator by 1, the graph of the asymptote will be linear: **mx +
 b**)*
 
-![](./media/image99.png)
+![Desmos graph of (x^4+3)/x^2 approaching the dashed parabolic asymptote y = x^2](./media/image99.png)
 
 Num\>Denom by 2
 
@@ -191,7 +191,7 @@ Num\>Denom by 2
 denominator by 2, the graph of the asymptote will be quadratic:
 **x\^2**)*
 
-![](./media/image100.png)
+![Desmos graph of (x^5+3)/x^2 approaching the dashed cubic asymptote y = x^3](./media/image100.png)
 
 Num\>Denom by 3
 
