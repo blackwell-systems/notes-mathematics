@@ -25,6 +25,8 @@ In mathematics, a limit describes the value a function approaches as its input a
 
 The values are approaching 2. We say the limit is 2, even though $f(1)$ itself is undefined.
 
+![Graph of (x^2-1)/(x-1), which equals x+1 with an open hole at (1, 2); the function is undefined at x=1 but approaches 2 from both sides](./media/limit-concept.png)
+
 ### Limit Notation
 
 We write:
@@ -56,6 +58,8 @@ $$
 The overall limit $\lim_{x \to a} f(x)$ exists only if both one-sided limits exist and are equal.
 
 **Example:** The function $f(x) = \frac{|x|}{x}$ equals $-1$ for negative $x$ and $+1$ for positive $x$. So $\lim_{x \to 0^-} f(x) = -1$ and $\lim_{x \to 0^+} f(x) = 1$. Since these differ, $\lim_{x \to 0} f(x)$ does not exist.
+
+![The function |x|/x equals -1 for x<0 and +1 for x>0, with open circles at both points above x=0; the left and right limits disagree, so the two-sided limit does not exist](./media/one-sided-limit-jump.png)
 
 ### Infinite Limits (Vertical Asymptotes)
 
@@ -214,6 +218,8 @@ $$
 Both $-x^2$ and $x^2$ approach 0 as $x \to 0$. By the squeeze theorem, $x^2 \sin(1/x) \to 0$.
 
 This is noteworthy because $\sin(1/x)$ alone has no limit at 0 (it oscillates forever), but multiplying by $x^2$ "squeezes" the oscillation down to nothing.
+
+![The curve y = x^2 sin(1/x) oscillating between the envelopes y = x^2 and y = -x^2; as x approaches 0 both envelopes approach 0, forcing the trapped function to approach 0 as well](./media/squeeze-theorem.png)
 
 ### Indeterminate Forms
 
@@ -721,6 +727,8 @@ The **second derivative test** provides a faster way to classify critical points
 
 An **inflection point** is where concavity changes (from concave up to concave down or vice versa). It occurs where $f''(x) = 0$ (and the concavity actually changes).
 
+![A curve that is concave down where the second derivative is negative and concave up where it is positive, with an inflection point marked where the concavity switches](./media/concavity-inflection.png)
+
 ### Optimization
 
 Finding maxima and minima is exactly what optimization is about.
@@ -976,6 +984,8 @@ This theorem is the central result of calculus. It says that differentiation and
 **Part 1:** If $F(x) = \int_a^x f(t) \, dt$, then $F'(x) = f(x)$.
 
 In words: the derivative of the integral gives back the original function.
+
+![The accumulation function A(x) equals the shaded area under f(t) from a to x; as x moves right the area grows at the rate f(x), so differentiating the accumulated area recovers the original function](./media/ftc-accumulation.png)
 
 **Part 2:** If $F$ is any antiderivative of $f$ (meaning $F' = f$), then:
 
