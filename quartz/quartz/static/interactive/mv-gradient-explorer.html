@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient &amp; Directional-Derivative Explorer</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fbfcfd;
+    color: #1c2126;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  .wrap { width: 760px; max-width: 100%; padding: 14px 16px 20px; box-sizing: border-box; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .caption { font-size: 13px; color: #4a545e; margin: 0 0 12px; line-height: 1.45; }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; margin-bottom: 10px; }
+  .ctl { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  select, input[type=range] { font: inherit; }
+  select { padding: 2px 4px; }
+  input[type=range] { width: 150px; }
+  canvas { border: 1px solid #dbe0e6; border-radius: 6px; background: #fff; touch-action: none; display: block; }
+  .row { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .readout {
+    flex: 1 1 250px; min-width: 240px; font-size: 13px; line-height: 1.7;
+    background: #f4f6f8; border: 1px solid #e2e7ec; border-radius: 6px; padding: 10px 12px;
+  }
+  .readout b { font-weight: 600; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .swatch { display: inline-block; width: 11px; height: 11px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
+  .red { background: #c0392b; } .blue { background: #2563c9; }
+  .note { font-size: 12px; color: #566270; margin-top: 8px; line-height: 1.5; }
+  .val { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Gradient &amp; Directional-Derivative Explorer</h1>
+  <p class="caption">
+    The gradient <span class="mono">&nabla;f</span> (<span class="swatch red"></span>red) is always perpendicular to the level curve and points in the direction of steepest ascent;
+    the directional derivative <span class="mono">D<sub>u</sub>f = &nabla;f&middot;u</span> along your chosen unit vector (<span class="swatch blue"></span>blue) measures the rate of change in that direction.
+  </p>
+
+  <div class="controls">
+    <label class="ctl">Surface
+      <select id="preset">
+        <option value="bowl">Bowl&nbsp; f = x&sup2; + y&sup2;</option>
+        <option value="saddle">Saddle&nbsp; f = x&sup2; &minus; y&sup2;</option>
+        <option value="ripple">Ripple&nbsp; f = sin x + cos y</option>
+        <option value="gauss">Gaussian&nbsp; f = e^(&minus;(x&sup2;+y&sup2;)/2)</option>
+      </select>
+    </label>
+    <label class="ctl">Direction &theta;
+      <input type="range" id="angle" min="0" max="360" step="1" value="0">
+      <span class="mono val" id="angLbl">0&deg;</span>
+    </label>
+  </div>
+
+  <div class="row">
+    <canvas id="cv" width="440" height="440"></canvas>
+    <div class="readout" id="out"></div>
+  </div>
+  <div class="note">
+    Drag the black point to move (x&#8320;,&nbsp;y&#8320;). Drag the blue handle (or use the slider) to set the direction.
+    <span class="mono">D<sub>u</sub>f</span> is maximal (= |&nabla;f|) when u aligns with &nabla;f, and zero when u is tangent to the level curve.
+  </div>
+</div>
+
+<script>
+"use strict";
+(function () {
+  // ---------- domain / view ----------
+  var XMIN = -3, XMAX = 3, YMIN = -3, YMAX = 3;
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // presets: value f, gradient (fx, fy), and a nice set of contour levels
+  var presets = {
+    bowl: {
+      f: function (x, y) { return x * x + y * y; },
+      g: function (x, y) { return [2 * x, 2 * y]; },
+      levels: [0.5, 1.5, 3, 5, 8, 12, 16]
+    },
+    saddle: {
+      f: function (x, y) { return x * x - y * y; },
+      g: function (x, y) { return [2 * x, -2 * y]; },
+      levels: [-8, -4, -2, -0.5, 0, 0.5, 2, 4, 8]
+    },
+    ripple: {
+      f: function (x, y) { return Math.sin(x) + Math.cos(y); },
+      g: function (x, y) { return [Math.cos(x), -Math.sin(y)]; },
+      levels: [-1.5, -1, -0.5, 0, 0.5, 1, 1.5]
+    },
+    gauss: {
+      f: function (x, y) { return Math.exp(-(x * x + y * y) / 2); },
+      g: function (x, y) { var e = Math.exp(-(x * x + y * y) / 2); return [-x * e, -y * e]; },
+      levels: [0.1, 0.25, 0.4, 0.55, 0.7, 0.85, 0.95]
+    }
+  };
+
+  var state = { name: "bowl", x0: 1, y0: 2, theta: 0 };
+
+  // ---------- coordinate transforms ----------
+  function toPx(x, y) {
+    return [ (x - XMIN) / (XMAX - XMIN) * W, H - (y - YMIN) / (YMAX - YMIN) * H ];
+  }
+  function toXY(px, py) {
+    return [ XMIN + px / W * (XMAX - XMIN), YMIN + (H - py) / H * (YMAX - YMIN) ];
+  }
+
+  // ---------- field range for heatmap ----------
+  function fieldRange(f) {
+    var lo = Infinity, hi = -Infinity, N = 40, i, j;
+    for (i = 0; i <= N; i++) for (j = 0; j <= N; j++) {
+      var x = XMIN + i / N * (XMAX - XMIN);
+      var y = YMIN + j / N * (YMAX - YMIN);
+      var v = f(x, y);
+      if (v < lo) lo = v; if (v > hi) hi = v;
+    }
+    return [lo, hi];
+  }
+
+  // blue -> white -> red diverging colormap, t in [0,1]
+  function colormap(t) {
+    t = Math.max(0, Math.min(1, t));
+    var r, g, b;
+    if (t < 0.5) {
+      var s = t / 0.5;               // 0..1
+      r = Math.round(230 + s * (255 - 230));
+      g = Math.round(240 + s * (255 - 240));
+      b = 255;
+    } else {
+      var s2 = (t - 0.5) / 0.5;       // 0..1
+      r = 255;
+      g = Math.round(255 - s2 * (255 - 214));
+      b = Math.round(255 - s2 * (255 - 170));
+    }
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+
+  // ---------- draw heatmap (coarse cells) ----------
+  function drawHeatmap(P) {
+    var rng = fieldRange(P.f), lo = rng[0], hi = rng[1], span = (hi - lo) || 1;
+    var N = 60, cw = W / N, ch = H / N, i, j;
+    for (i = 0; i < N; i++) for (j = 0; j < N; j++) {
+      var px = (i + 0.5) * cw, py = (j + 0.5) * ch;
+      var xy = toXY(px, py);
+      var v = P.f(xy[0], xy[1]);
+      ctx.fillStyle = colormap((v - lo) / span);
+      ctx.fillRect(i * cw - 0.5, j * ch - 0.5, cw + 1, ch + 1);
+    }
+    return [lo, hi];
+  }
+
+  // ---------- marching squares iso-lines ----------
+  function drawContours(P) {
+    var N = 120, i, j, k;
+    var xs = new Array(N + 1), ys = new Array(N + 1);
+    for (i = 0; i <= N; i++) { xs[i] = XMIN + i / N * (XMAX - XMIN); }
+    for (j = 0; j <= N; j++) { ys[j] = YMIN + j / N * (YMAX - YMIN); }
+    // precompute grid of f
+    var grid = new Array(N + 1);
+    for (i = 0; i <= N; i++) {
+      grid[i] = new Array(N + 1);
+      for (j = 0; j <= N; j++) grid[i][j] = P.f(xs[i], ys[j]);
+    }
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(60,70,82,0.55)";
+    for (k = 0; k < P.levels.length; k++) {
+      var lev = P.levels[k];
+      ctx.beginPath();
+      for (i = 0; i < N; i++) for (j = 0; j < N; j++) {
+        var a = grid[i][j] - lev, b = grid[i + 1][j] - lev,
+            c = grid[i + 1][j + 1] - lev, d = grid[i][j + 1] - lev;
+        var idx = (a > 0 ? 1 : 0) | (b > 0 ? 2 : 0) | (c > 0 ? 4 : 0) | (d > 0 ? 8 : 0);
+        if (idx === 0 || idx === 15) continue;
+        var x0 = xs[i], x1 = xs[i + 1], y0 = ys[j], y1 = ys[j + 1];
+        // edge interpolation helpers -> pixel coords
+        function eB() { var t = a / (a - b); return toPx(x0 + t * (x1 - x0), y0); }   // bottom
+        function eR() { var t = b / (b - c); return toPx(x1, y0 + t * (y1 - y0)); }   // right
+        function eT() { var t = d / (d - c); return toPx(x0 + t * (x1 - x0), y1); }   // top
+        function eL() { var t = a / (a - d); return toPx(x0, y0 + t * (y1 - y0)); }   // left
+        var segs = [];
+        switch (idx) {
+          case 1: case 14: segs = [eL(), eB()]; break;
+          case 2: case 13: segs = [eB(), eR()]; break;
+          case 3: case 12: segs = [eL(), eR()]; break;
+          case 4: case 11: segs = [eR(), eT()]; break;
+          case 6: case 9:  segs = [eB(), eT()]; break;
+          case 7: case 8:  segs = [eL(), eT()]; break;
+          case 5:  segs = [eL(), eB(), eR(), eT()]; break; // ambiguous, draw both
+          case 10: segs = [eL(), eT(), eB(), eR()]; break;
+        }
+        for (var s = 0; s < segs.length; s += 2) {
+          ctx.moveTo(segs[s][0], segs[s][1]);
+          ctx.lineTo(segs[s + 1][0], segs[s + 1][1]);
+        }
+      }
+      ctx.stroke();
+    }
+  }
+
+  // ---------- arrows ----------
+  function arrow(px, py, qx, qy, color, wid) {
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = wid;
+    ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke();
+    var ang = Math.atan2(qy - py, qx - px), hl = 10 + wid;
+    ctx.beginPath();
+    ctx.moveTo(qx, qy);
+    ctx.lineTo(qx - hl * Math.cos(ang - 0.4), qy - hl * Math.sin(ang - 0.4));
+    ctx.lineTo(qx - hl * Math.cos(ang + 0.4), qy - hl * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fill();
+  }
+
+  var blueHandlePx = null; // for hit testing
+
+  function render() {
+    var P = presets[state.name];
+    ctx.clearRect(0, 0, W, H);
+    drawHeatmap(P);
+    drawContours(P);
+
+    var x0 = state.x0, y0 = state.y0;
+    var pt = toPx(x0, y0);
+    var g = P.g(x0, y0), fx = g[0], fy = g[1];
+    var mag = Math.hypot(fx, fy);
+    var th = state.theta * Math.PI / 180;
+    var ux = Math.cos(th), uy = Math.sin(th);
+    var Du = fx * ux + fy * uy;
+
+    // scale so a gradient of magnitude ~ typical fills a fixed pixel length
+    var GLEN = 78; // px length of a unit-magnitude-ish gradient reference
+    // scale gradient by a fixed factor relative to plot, capped
+    var scale = 26; // pixels per unit gradient magnitude (data units)
+    var gpx = fx * scale, gpy = -fy * scale; // note y flip
+    var gp = Math.hypot(gpx, gpy);
+    if (gp > 150) { gpx *= 150 / gp; gpy *= 150 / gp; }
+
+    // blue unit direction arrow (fixed pixel length)
+    var upx = ux * GLEN, upy = -uy * GLEN;
+
+    // draw blue direction first (under red if overlapping less important)
+    var bq = [pt[0] + upx, pt[1] + upy];
+    blueHandlePx = bq;
+    arrow(pt[0], pt[1], bq[0], bq[1], "#2563c9", 3);
+
+    // red gradient
+    if (mag > 1e-9) arrow(pt[0], pt[1], pt[0] + gpx, pt[1] + gpy, "#c0392b", 3.4);
+
+    // the point
+    ctx.beginPath(); ctx.arc(pt[0], pt[1], 6, 0, 2 * Math.PI);
+    ctx.fillStyle = "#1c2126"; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = "#fff"; ctx.stroke();
+
+    // blue handle knob
+    ctx.beginPath(); ctx.arc(bq[0], bq[1], 5, 0, 2 * Math.PI);
+    ctx.fillStyle = "#2563c9"; ctx.fill();
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.5; ctx.stroke();
+
+    // readout
+    var maxNote = "";
+    if (mag > 1e-9) {
+      var gang = Math.atan2(fy, fx) * 180 / Math.PI; if (gang < 0) gang += 360;
+      maxNote = gang;
+    }
+    var fv = P.f(x0, y0);
+    document.getElementById("out").innerHTML =
+      '<div><b>Point</b> (x&#8320;, y&#8320;) = <span class="mono val">(' + fmt(x0) + ', ' + fmt(y0) + ')</span></div>' +
+      '<div><b>f(x&#8320;, y&#8320;)</b> = <span class="mono val">' + fmt(fv) + '</span></div>' +
+      '<div style="margin-top:6px;"><b><span class="swatch red"></span>&nabla;f</b> = <span class="mono val">(' + fmt(fx) + ', ' + fmt(fy) + ')</span></div>' +
+      '<div><b>|&nabla;f|</b> = <span class="mono val">' + fmt(mag) + '</span> &nbsp;<span style="color:#566270;">(max rate of increase)</span></div>' +
+      (mag > 1e-9 ? '<div style="color:#566270;font-size:12px;">gradient points at <span class="mono val">' + fmt(maxNote) + '&deg;</span></div>' : '') +
+      '<div style="margin-top:6px;"><b><span class="swatch blue"></span>direction &theta;</b> = <span class="mono val">' + fmt(state.theta) + '&deg;</span>, u = <span class="mono val">(' + fmt(ux) + ', ' + fmt(uy) + ')</span></div>' +
+      '<div><b>D<sub>u</sub>f = &nabla;f&middot;u</b> = <span class="mono val" style="color:#c0392b;">' + fmt(Du) + '</span></div>' +
+      '<div style="color:#566270;font-size:12px;margin-top:4px;">range of D<sub>u</sub>f: &minus;|&nabla;f| &hellip; +|&nabla;f| = <span class="mono">' + fmt(-mag) + ' &hellip; ' + fmt(mag) + '</span></div>';
+  }
+
+  function fmt(v) {
+    if (!isFinite(v)) return "--";
+    var a = Math.abs(v);
+    if (a !== 0 && a < 0.001) return v.toExponential(2);
+    return (Math.round(v * 1000) / 1000).toString();
+  }
+
+  // ---------- interaction ----------
+  var dragging = null; // 'point' | 'dir'
+  function evtPos(e) {
+    var r = cv.getBoundingClientRect();
+    var cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    var cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+    return [cx * (W / r.width), cy * (H / r.height)];
+  }
+  function near(p, q, rad) { return Math.hypot(p[0] - q[0], p[1] - q[1]) <= rad; }
+
+  function down(e) {
+    e.preventDefault();
+    var p = evtPos(e);
+    var pt = toPx(state.x0, state.y0);
+    if (blueHandlePx && near(p, blueHandlePx, 16)) { dragging = "dir"; move(e); return; }
+    if (near(p, pt, 18)) { dragging = "point"; return; }
+    // click elsewhere: move point there
+    dragging = "point"; move(e);
+  }
+  function move(e) {
+    if (!dragging) return;
+    e.preventDefault();
+    var p = evtPos(e);
+    if (dragging === "point") {
+      var xy = toXY(p[0], p[1]);
+      state.x0 = Math.max(XMIN, Math.min(XMAX, Math.round(xy[0] * 100) / 100));
+      state.y0 = Math.max(YMIN, Math.min(YMAX, Math.round(xy[1] * 100) / 100));
+    } else {
+      var pt = toPx(state.x0, state.y0);
+      var ang = Math.atan2(-(p[1] - pt[1]), p[0] - pt[0]) * 180 / Math.PI;
+      if (ang < 0) ang += 360;
+      state.theta = Math.round(ang);
+      document.getElementById("angle").value = state.theta;
+      document.getElementById("angLbl").textContent = state.theta + "°";
+    }
+    render();
+  }
+  function up() { dragging = null; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  document.getElementById("preset").addEventListener("change", function (e) {
+    state.name = e.target.value;
+    // sensible default points per preset
+    if (state.name === "bowl") { state.x0 = 1; state.y0 = 2; }
+    else if (state.name === "saddle") { state.x0 = 1; state.y0 = 1; }
+    else if (state.name === "ripple") { state.x0 = 1; state.y0 = 1; }
+    else { state.x0 = 0.8; state.y0 = 0.8; }
+    render();
+  });
+  document.getElementById("angle").addEventListener("input", function (e) {
+    state.theta = parseInt(e.target.value, 10);
+    document.getElementById("angLbl").textContent = state.theta + "°";
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

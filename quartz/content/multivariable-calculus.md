@@ -117,6 +117,10 @@ $$
 
 The symbol $\nabla$ is called "nabla" or "del." The gradient $\nabla f$ is a vector that lives in the same space as the input.
 
+Explore the gradient below. Drag a point on the contour plot to see $\nabla f$ (red), which is always perpendicular to the level curve and points toward steepest ascent; rotate the direction arrow (blue) to watch the directional derivative $\nabla f \cdot \hat{u}$ peak at $|\nabla f|$ along the gradient and vanish along the level curve.
+
+<iframe src="/static/interactive/mv-gradient-explorer.html" width="100%" height="660" style="border:none;"></iframe>
+
 **Worked example:** For $f(x, y) = x^2 + 3xy + y^2$:
 
 $$
@@ -336,6 +340,10 @@ This process of integrating out a variable is called **marginalization**, and it
 
 Gradient descent is the workhorse optimization algorithm of machine learning. The idea is simple: to minimize a function $f(\mathbf{x})$, start at some point and repeatedly take small steps in the direction of steepest decrease (the negative gradient).
 
+Watch it run below: pick a surface and learning rate, drop a starting point, and follow the iterates down the negative gradient, seeing the zig-zag in a stretched valley and the divergence when the step size is too large.
+
+<iframe src="/static/interactive/gradient-descent-playground.html" width="100%" height="600" style="border:none;"></iframe>
+
 **Algorithm:**
 
 1. Choose a starting point $\mathbf{x}_0$
@@ -465,6 +473,10 @@ Many classical ML models (linear regression, logistic regression, SVMs) have con
 ### Constrained Optimization
 
 So far we have minimized a function over its entire domain. Often, though, the inputs are not free: they must satisfy a **constraint**. You might minimize a cost subject to a fixed budget, or maximize an area subject to a fixed perimeter. The general problem is to optimize $f(\mathbf{x})$ subject to $g(\mathbf{x}) = c$, where $g(\mathbf{x}) = c$ describes a curve or surface (the **constraint set**) that the solution must lie on:
+
+Drag the point along the constraint curve below to see why the optimum sits where the constraint is **tangent** to a level curve of $f$: that is exactly where $\nabla f$ (red) and $\nabla g$ (green) become parallel, i.e. $\nabla f = \lambda \nabla g$.
+
+<iframe src="/static/interactive/mv-lagrange.html" width="100%" height="660" style="border:none;"></iframe>
 
 $$
 \text{optimize } f(\mathbf{x}) \quad \text{subject to } g(\mathbf{x}) = c

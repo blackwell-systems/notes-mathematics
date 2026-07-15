@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lagrange Multipliers</title>
+<style>
+  html,body{margin:0;padding:0;background:#fbfcfd;color:#1c2126;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:14px 16px 22px;}
+  h1{font-size:19px;margin:2px 0 6px;font-weight:650;}
+  p.cap{font-size:13.5px;line-height:1.5;color:#3a424b;margin:0 0 12px;}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px;}
+  button.pre{font:inherit;font-size:12.5px;padding:6px 11px;border:1px solid #cfd6dd;
+    background:#fff;border-radius:7px;cursor:pointer;color:#1c2126;line-height:1.25;text-align:left;}
+  button.pre:hover{background:#f0f4f8;}
+  button.pre.active{background:#1c2126;color:#fff;border-color:#1c2126;}
+  canvas{display:block;width:100%;height:auto;border:1px solid #e2e7ec;border-radius:8px;
+    background:#fff;touch-action:none;cursor:grab;}
+  canvas.drag{cursor:grabbing;}
+  .read{margin:12px 0 0;font-size:13px;line-height:1.55;background:#f5f8fb;
+    border:1px solid #e2e7ec;border-radius:8px;padding:11px 13px;}
+  .read .row{display:flex;flex-wrap:wrap;gap:4px 18px;}
+  .read b{font-weight:600;}
+  .gf{color:#c0392b;font-weight:600;} .gg{color:#1e874b;font-weight:600;}
+  .opt{color:#8e44ad;font-weight:650;}
+  .status{margin-top:8px;font-size:13px;padding:7px 10px;border-radius:6px;
+    background:#eef1f4;color:#3a424b;}
+  .status.hit{background:#f3ecfa;color:#5b2d82;font-weight:600;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;}
+  .hint{font-size:12px;color:#71797f;margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Lagrange multipliers: optimum at tangency</h1>
+  <p class="cap">A constrained optimum of <code>f</code> on the curve <code>g=c</code> occurs where that curve is
+    <em>tangent</em> to a level curve of <code>f</code>, so the gradients line up:
+    <span class="gf">&nabla;f</span> = &lambda;&thinsp;<span class="gg">&nabla;g</span>.</p>
+
+  <div class="presets" id="presets"></div>
+
+  <canvas id="cv" width="1520" height="1000"></canvas>
+  <div class="hint">Drag the point along the bold constraint curve. Watch the two arrows: at the optimum they become parallel.</div>
+
+  <div class="read" id="read"></div>
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+(function(){
+  var cv=document.getElementById("cv"), ctx=cv.getContext("2d");
+  var W=cv.width, H=cv.height;
+
+  // ---- world <-> pixel mapping (set per preset) ----
+  var view={xmin:-1,xmax:11,ymin:-1,ymax:11};
+  function px(x){return (x-view.xmin)/(view.xmax-view.xmin)*W;}
+  function py(y){return H-(y-view.ymin)/(view.ymax-view.ymin)*H;}
+  function ux(p){return view.xmin+p/W*(view.xmax-view.xmin);}
+  // scale for gradient arrow lengths: world units per pixel-ish
+  function sx(){return (view.xmax-view.xmin)/W;}
+
+  // ---- presets ----
+  // Each: f, gradf, g-curve param p->(x,y), tParam range, optimum t, view, labels
+  var PRE=[
+    {
+      name:"Maximize f = x·y   s.t.   x + y = 10",
+      sense:"max",
+      f:function(x,y){return x*y;},
+      gf:function(x,y){return [y,x];},
+      gname:"x + y = 10",
+      // constraint line param by x
+      pt:function(t){return [t,10-t];},
+      gg:function(x,y){return [1,1];},
+      tmin:0.6, tmax:9.4, topt:5,
+      view:{xmin:-0.5,xmax:10.5,ymin:-0.5,ymax:10.5},
+      levels:[6,12,18,24,25,30,36],
+      fmt:"f = x·y",
+    },
+    {
+      name:"Minimize f = x² + y²   s.t.   x + 2y = 5",
+      sense:"min",
+      f:function(x,y){return x*x+y*y;},
+      gf:function(x,y){return [2*x,2*y];},
+      gname:"x + 2y = 5",
+      pt:function(t){return [t,(5-t)/2];},          // x = t
+      gg:function(x,y){return [1,2];},
+      tmin:-2.2, tmax:4.2, topt:1,
+      view:{xmin:-3,xmax:5,ymin:-1.5,ymax:4.5},
+      levels:[1,3,5,8,12,18],
+      fmt:"f = x² + y²",
+    },
+    {
+      name:"Maximize f = x + y   s.t.   x² + y² = 1",
+      sense:"max",
+      f:function(x,y){return x+y;},
+      gf:function(x,y){return [1,1];},
+      gname:"x² + y² = 1",
+      pt:function(t){return [Math.cos(t),Math.sin(t)];},   // t = angle
+      gg:function(x,y){return [2*x,2*y];},
+      tmin:0, tmax:2*Math.PI, topt:Math.PI/4, closed:true,
+      view:{xmin:-1.6,xmax:1.6,ymin:-1.6,ymax:1.6},
+      levels:[-1.4,-1,-0.5,0,0.5,1,1.4142,1.9],
+      fmt:"f = x + y",
+    }
+  ];
+
+  var cur=0, t=0, dragging=false;
+
+  // ---- level curve drawing via marching-squares on a grid ----
+  function drawLevel(P,val,color,lw){
+    var N=170;
+    var dx=(view.xmax-view.xmin)/N, dy=(view.ymax-view.ymin)/N;
+    ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.beginPath();
+    for(var i=0;i<N;i++){
+      for(var j=0;j<N;j++){
+        var x0=view.xmin+i*dx, y0=view.ymin+j*dy;
+        var x1=x0+dx, y1=y0+dy;
+        var a=P.f(x0,y0)-val, b=P.f(x1,y0)-val, c=P.f(x1,y1)-val, d=P.f(x0,y1)-val;
+        var idx=(a>0?1:0)|(b>0?2:0)|(c>0?4:0)|(d>0?8:0);
+        if(idx===0||idx===15) continue;
+        // edge interpolation points
+        function ip(v0,v1,pa,pb){var t=v0/(v0-v1);return [pa[0]+(pb[0]-pa[0])*t,pa[1]+(pb[1]-pa[1])*t];}
+        var pB=[x0,y0],pR=[x1,y0],pT=[x1,y1],pL=[x0,y1];
+        var eB=ip(a,b,pB,pR), eR=ip(b,c,pR,pT), eT=ip(d,c,pL,pT), eL=ip(a,d,pB,pL);
+        var segs=[];
+        switch(idx){
+          case 1: case 14: segs=[eB,eL]; break;
+          case 2: case 13: segs=[eB,eR]; break;
+          case 3: case 12: segs=[eL,eR]; break;
+          case 4: case 11: segs=[eR,eT]; break;
+          case 6: case 9:  segs=[eB,eT]; break;
+          case 7: case 8:  segs=[eL,eT]; break;
+          case 5: segs=[eB,eL,eR,eT]; break;
+          case 10: segs=[eB,eR,eL,eT]; break;
+        }
+        for(var s=0;s<segs.length;s+=2){
+          ctx.moveTo(px(segs[s][0]),py(segs[s][1]));
+          ctx.lineTo(px(segs[s+1][0]),py(segs[s+1][1]));
+        }
+      }
+    }
+    ctx.stroke();
+  }
+
+  function drawConstraint(P){
+    ctx.strokeStyle="#1c2126"; ctx.lineWidth=4; ctx.beginPath();
+    var n=400;
+    for(var k=0;k<=n;k++){
+      var tt=P.tmin+(P.tmax-P.tmin)*k/n;
+      var p=P.pt(tt);
+      if(k===0) ctx.moveTo(px(p[0]),py(p[1])); else ctx.lineTo(px(p[0]),py(p[1]));
+    }
+    ctx.stroke();
+  }
+
+  function drawArrow(x0,y0,vx,vy,color){
+    // draw vector (vx,vy) in world units, scaled to a fixed pixel length
+    var mag=Math.hypot(vx,vy)||1;
+    var pixLen=95; // desired arrow length in px
+    var ux0=px(x0), uy0=py(y0);
+    var ux1=ux0 + vx/mag*pixLen, uy1=uy0 - vy/mag*pixLen; // y flipped
+    ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=3.5;
+    ctx.beginPath(); ctx.moveTo(ux0,uy0); ctx.lineTo(ux1,uy1); ctx.stroke();
+    var ang=Math.atan2(uy1-uy0,ux1-ux0), ah=13;
+    ctx.beginPath();
+    ctx.moveTo(ux1,uy1);
+    ctx.lineTo(ux1-ah*Math.cos(ang-0.4),uy1-ah*Math.sin(ang-0.4));
+    ctx.lineTo(ux1-ah*Math.cos(ang+0.4),uy1-ah*Math.sin(ang+0.4));
+    ctx.closePath(); ctx.fill();
+  }
+
+  function axes(){
+    ctx.strokeStyle="#dfe5ea"; ctx.lineWidth=1;
+    // gridlines at integers
+    ctx.beginPath();
+    var x0=Math.ceil(view.xmin), x1=Math.floor(view.xmax);
+    for(var x=x0;x<=x1;x++){ctx.moveTo(px(x),0);ctx.lineTo(px(x),H);}
+    var y0=Math.ceil(view.ymin), y1=Math.floor(view.ymax);
+    for(var y=y0;y<=y1;y++){ctx.moveTo(0,py(y));ctx.lineTo(W,py(y));}
+    ctx.stroke();
+    ctx.strokeStyle="#b3bcc4"; ctx.lineWidth=1.6; ctx.beginPath();
+    if(view.ymin<0&&view.ymax>0){ctx.moveTo(0,py(0));ctx.lineTo(W,py(0));}
+    if(view.xmin<0&&view.xmax>0){ctx.moveTo(px(0),0);ctx.lineTo(px(0),H);}
+    ctx.stroke();
+  }
+
+  function fmtN(v){var r=Math.round(v*1000)/1000; return (Math.abs(r)<1e-9?0:r).toString();}
+  function vecStr(v){return "("+fmtN(v[0])+", "+fmtN(v[1])+")";}
+
+  function render(){
+    var P=PRE[cur];
+    ctx.clearRect(0,0,W,H);
+    axes();
+    // level curves of f (light blue), optimal level thicker
+    var fopt=P.f.apply(null,P.pt(P.topt));
+    for(var i=0;i<P.levels.length;i++){
+      var lv=P.levels[i];
+      var isOpt=Math.abs(lv-fopt)<0.06;
+      drawLevel(P,lv,isOpt?"#4a90d9":"#bcdcf5",isOpt?2.6:1.6);
+    }
+    drawConstraint(P);
+
+    // true optimum marker
+    var op=P.pt(P.topt);
+    ctx.fillStyle="#8e44ad";
+    ctx.beginPath();ctx.arc(px(op[0]),py(op[1]),8,0,7);ctx.fill();
+    ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+
+    // current dragged point
+    var cp=P.pt(t);
+    var gfv=P.gf(cp[0],cp[1]), ggv=P.gg(cp[0],cp[1]);
+    drawArrow(cp[0],cp[1],ggv[0],ggv[1],"#1e874b");
+    drawArrow(cp[0],cp[1],gfv[0],gfv[1],"#c0392b");
+    ctx.fillStyle="#1c2126";
+    ctx.beginPath();ctx.arc(px(cp[0]),py(cp[1]),7,0,7);ctx.fill();
+    ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+
+    updateRead(P,cp,gfv,ggv,fopt,op);
+  }
+
+  function parallelMeasure(gfv,ggv){
+    // sine of angle between; 0 => parallel
+    var cross=gfv[0]*ggv[1]-gfv[1]*ggv[0];
+    var m=(Math.hypot(gfv[0],gfv[1])*Math.hypot(ggv[0],ggv[1]))||1;
+    return Math.abs(cross)/m;
+  }
+
+  function updateRead(P,cp,gfv,ggv,fopt,op){
+    var fval=P.f(cp[0],cp[1]);
+    var s=parallelMeasure(gfv,ggv);
+    var atOpt = s<0.02;
+    // lambda from grad f = lambda grad g (use larger component)
+    var lam = Math.abs(ggv[0])>Math.abs(ggv[1]) ? gfv[0]/ggv[0] : gfv[1]/ggv[1];
+
+    var html="";
+    html+='<div class="row"><span><b>Point on constraint:</b> ('+fmtN(cp[0])+", "+fmtN(cp[1])+')</span>';
+    html+='<span><b>'+P.fmt+' =</b> '+fmtN(fval)+'</span></div>';
+    html+='<div class="row" style="margin-top:5px">';
+    html+='<span class="gf">&nabla;f = '+vecStr(gfv)+'</span>';
+    html+='<span class="gg">&nabla;g = '+vecStr(ggv)+'</span>';
+    html+='<span>parallel-gap = '+fmtN(s)+'</span></div>';
+    document.getElementById("read").innerHTML=html;
+
+    var st=document.getElementById("status");
+    if(atOpt){
+      st.className="status hit";
+      st.innerHTML='At the optimum &nabla;f and &nabla;g are <b>parallel</b> &mdash; the constraint is tangent to a level curve. '+
+        'Here &lambda; = '+fmtN(lam)+', so &nabla;f = '+fmtN(lam)+'&thinsp;&nabla;g. '+
+        'Optimal value <b>f = '+fmtN(P.f(op[0],op[1]))+'</b> at ('+fmtN(op[0])+", "+fmtN(op[1])+') ('+P.sense+').';
+    }else{
+      st.className="status";
+      var need = P.sense==="max" ? "the largest value of f" : "the smallest value of f";
+      st.innerHTML='Not optimal yet: the arrows point in different directions, so the constraint crosses the level curve here. '+
+        'Slide toward '+need+' until &nabla;f and &nabla;g align. (Purple dot = true optimum.)';
+    }
+  }
+
+  // ---- drag: pick nearest t on constraint to pointer ----
+  function pointerT(P,mx,my){
+    // world coords of pointer
+    var rect=cv.getBoundingClientRect();
+    var wx=view.xmin+(mx-rect.left)/rect.width*(view.xmax-view.xmin);
+    var wy=view.ymax-(my-rect.top)/rect.height*(view.ymax-view.ymin);
+    var best=P.tmin,bd=1e18,n=600;
+    for(var k=0;k<=n;k++){
+      var tt=P.tmin+(P.tmax-P.tmin)*k/n;
+      var p=P.pt(tt);
+      var d=(p[0]-wx)*(p[0]-wx)+(p[1]-wy)*(p[1]-wy);
+      if(d<bd){bd=d;best=tt;}
+    }
+    return best;
+  }
+  function onDown(e){dragging=true;cv.classList.add("drag");onMove(e);e.preventDefault();}
+  function onMove(e){
+    if(!dragging) return;
+    var pt=e.touches?e.touches[0]:e;
+    t=pointerT(PRE[cur],pt.clientX,pt.clientY);
+    render(); e.preventDefault();
+  }
+  function onUp(){dragging=false;cv.classList.remove("drag");}
+  cv.addEventListener("mousedown",onDown);
+  window.addEventListener("mousemove",onMove);
+  window.addEventListener("mouseup",onUp);
+  cv.addEventListener("touchstart",onDown,{passive:false});
+  cv.addEventListener("touchmove",onMove,{passive:false});
+  cv.addEventListener("touchend",onUp);
+
+  // ---- presets UI ----
+  var pdiv=document.getElementById("presets");
+  PRE.forEach(function(P,i){
+    var b=document.createElement("button");
+    b.className="pre"+(i===0?" active":"");
+    b.textContent=P.name;
+    b.onclick=function(){
+      cur=i; view=Object.assign({},PRE[i].view);
+      // start a bit away from optimum so the "not optimal" state shows
+      t=PRE[i].tmin+(PRE[i].tmax-PRE[i].tmin)*0.22;
+      Array.prototype.forEach.call(pdiv.children,function(c){c.classList.remove("active");});
+      b.classList.add("active");
+      render();
+    };
+    pdiv.appendChild(b);
+  });
+
+  // init
+  view=Object.assign({},PRE[0].view);
+  t=PRE[0].tmin+(PRE[0].tmax-PRE[0].tmin)*0.22;
+  render();
+})();
+</script>
+</body>
+</html>

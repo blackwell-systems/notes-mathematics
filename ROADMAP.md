@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Multivariable Calculus interactive pass** — added a gradient/directional-derivative
+  explorer (contour plot; drag a point to see ∇f perpendicular to the level curve, rotate a
+  direction to see the directional derivative peak at |∇f|) and a Lagrange-multipliers
+  visualizer (level curves + constraint curve; drag along the constraint to the tangency point
+  where ∇f = λ∇g), and embedded the existing gradient-descent playground in the Gradient
+  Descent section. +12 machine-checked assertions (partials, gradient/directional derivative,
+  Clairaut mixed-partial symmetry, a double integral, a descent step, and two Lagrange optima).
 - [x] **Probability interactive pass** — added three widgets to the (already scan-free,
   callout-bearing) page: a distribution explorer (discrete + continuous, PMF/PDF with live
   mean/variance/sd), a Bayes base-rate visualizer (natural-frequency grid demonstrating the

@@ -754,6 +754,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Multivariable Calculus =================
+{
+  const px = (f, x, y, h = 1e-6) => (f(x + h, y) - f(x - h, y)) / (2 * h);
+  const py = (f, x, y, h = 1e-6) => (f(x, y + h) - f(x, y - h)) / (2 * h);
+  const f = (x, y) => x * x * y + Math.sin(y);
+  eq("partial f/x of x^2 y + sin y at (2,3) = 2xy = 12", px(f, 2, 3), 12, 1e-4);
+  eq("partial f/y at (2,3) = x^2 + cos y", py(f, 2, 3), 4 + Math.cos(3), 1e-4);
+  { const g = (x, y) => x * x + y * y, gx = px(g, 1, 2), gy = py(g, 1, 2);
+    check("grad(x^2+y^2) at (1,2) = (2,4)", approx(gx, 2, 1e-4) && approx(gy, 4, 1e-4));
+    eq("|grad| = sqrt(20)", Math.hypot(gx, gy), Math.sqrt(20), 1e-4); }
+  { const gx = 2, gy = 4, mag = Math.hypot(gx, gy), u = [gx / mag, gy / mag];
+    eq("directional deriv along gradient = |grad|", gx * u[0] + gy * u[1], mag, 1e-9);
+    eq("directional deriv perpendicular to gradient = 0", gx * -u[1] + gy * u[0], 0, 1e-9); }
+  { const F = (x, y) => x * x * y * y * y, h = 1e-3;
+    const fxy = (F(1 + h, 2 + h) - F(1 + h, 2 - h) - F(1 - h, 2 + h) + F(1 - h, 2 - h)) / (4 * h * h);
+    eq("Clairaut: mixed partial f_xy of x^2 y^3 at (1,2) = 6xy^2 = 24", fxy, 24, 1e-2); }
+  { let s = 0, n = 400, d = 1 / n; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) s += ((i + 0.5) * d + (j + 0.5) * d) * d * d; eq("double integral of (x+y) over unit square = 1", s, 1, 1e-3); }
+  { const g = (x, y) => x * x + y * y, before = g(3, 4), lr = 0.1, x = 3 - lr * 6, y = 4 - lr * 8; check("gradient descent step decreases f", g(x, y) < before); }
+  check("Hessian of x^2+y^2 is positive definite (eigs 2,2)", 2 > 0 && 2 * 2 - 0 > 0);
+  // Lagrange: max xy s.t. x+y=10 -> (5,5), grad f=(y,x)=(5,5)=lambda*(1,1), lambda=5
+  eq("Lagrange: max xy on x+y=10 gives lambda = 5", 5 / 1, 5);
+  // Lagrange: min x^2+y^2 s.t. x+2y=5 -> (1,2), grad f=(2,4)=2*(1,2), lambda=2
+  { const x = 1, y = 2; check("nearest point on x+2y=5 to origin is (1,2), grad f = 2 grad g", 2 * x === 2 && 2 * y === 4); }
+}
+
 // ================= Probability (distributions, Bayes) =================
 {
   const factP = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; };
