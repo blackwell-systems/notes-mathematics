@@ -1,11 +1,11 @@
 ---
 title: "Geometry & Trigonometry"
-prerequisites: ["functions-relations", "number-systems"]
+prerequisites: ["euclidean-geometry", "functions-relations", "number-systems"]
 enables: ["complex-numbers", "calculus"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Functions & Relations](./functions-relations) · [Number Systems](./number-systems)
+> **Builds on:** [Euclidean Geometry](./euclidean-geometry) · [Functions & Relations](./functions-relations) · [Number Systems](./number-systems)
 > **Leads to:** [Complex Numbers](./complex-numbers) · [Calculus](./calculus)
 
 Geometry studies the properties and relationships of shapes, sizes, and positions. Trigonometry extends geometric reasoning by connecting angles to ratios, providing the tools needed to analyze periodic phenomena, wave behavior, and spatial relationships. Together they form the mathematical foundation for physics, engineering, computer graphics, and machine learning (rotation matrices, Fourier transforms, and distance metrics all rely on these ideas).

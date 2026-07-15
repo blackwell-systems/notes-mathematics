@@ -1300,6 +1300,36 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("cube-root angular spacing = 2pi/3 = 120 deg", ((2 * Math.PI) / 3) * 180 / Math.PI, 120, 1e-9);
 }
 
+// ================= Euclidean Geometry =================
+{
+  const interiorSum = (n) => (n - 2) * 180;
+  eq("pentagon interior angle sum = 540", interiorSum(5), 540);
+  eq("octagon interior angle sum = 1080", interiorSum(8), 1080);
+  eq("quadrilateral interior angle sum = 360", interiorSum(4), 360);
+  eq("triangle interior angle sum = 180", interiorSum(3), 180);
+  eq("regular hexagon each interior angle = 120", interiorSum(6) / 6, 120);
+  eq("exterior angle sum is 360 for any n (n=5)", 5 * (360 / 5), 360);
+  // angle pairs
+  eq("complement of 35 is 55", 90 - 35, 55);
+  eq("supplement of 110 is 70", 180 - 110, 70);
+  // Euler's formula V - E + F = 2 for Platonic solids
+  eq("cube: V-E+F = 2", 8 - 12 + 6, 2);
+  eq("tetrahedron: V-E+F = 2", 4 - 6 + 4, 2);
+  eq("octahedron: V-E+F = 2", 6 - 12 + 8, 2);
+  check("there are exactly 5 Platonic solids", 5 === 5);
+  // areas
+  eq("trapezoid area 1/2(6+10)(4) = 32", 0.5 * (6 + 10) * 4, 32);
+  eq("circle area pi*5^2 = 25pi ~ 78.54", Math.PI * 5 ** 2, 78.5398, 1e-3);
+  // volumes
+  eq("sphere volume 4/3 pi 3^3 = 36pi ~ 113.10", (4 / 3) * Math.PI * 3 ** 3, 113.097, 1e-2);
+  { const r = 2, h = 3; eq("cone is one third of cylinder (same r,h)", (1 / 3) * Math.PI * r * r * h, ((Math.PI * r * r * h) / 3), 1e-12); }
+  // circle facts
+  eq("diameter = 2r for r=5 is 10", 2 * 5, 10);
+  // inscribed angle theorem: inscribed = half central
+  eq("inscribed angle = half of 80-degree central = 40", 80 / 2, 40);
+  eq("Thales: inscribed angle in a semicircle = 90", 180 / 2, 90);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

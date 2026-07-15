@@ -10,7 +10,7 @@ deployed to GitHub Pages on every push to `main`.
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (50 topic pages). The landing page and reading-order guide are in
+per topic (51 topic pages). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Broad areas covered:
@@ -19,7 +19,7 @@ Broad areas covered:
 - **Set Theory** — operations, relations, cardinality, countability
 - **Algebra** — number theory, functions, polynomial/rational/exponential/log/radical functions, complex numbers, sequences and series, conic sections
 - **Linear Algebra** — vector spaces, four fundamental subspaces, eigenvalues, SVD, factorizations, matrix calculus
-- **Geometry & Trigonometry** — trig functions, identities, unit circle, coordinate geometry
+- **Geometry & Trigonometry** — Euclidean geometry from points to solids, transformations, trig functions, identities, unit circle, coordinate geometry
 - **Calculus** — limits, derivatives, integrals, multivariable calculus, differential equations
 - **Probability & Statistics** — combinatorics, distributions, estimation, hypothesis testing, regression, Bayesian inference
 - **Optimization & Information Theory** — convexity, gradient descent variants, entropy, KL divergence

@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **50 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **51 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 > **Heading for singular learning theory?** There is a dedicated guided route: [Path to SLT](./path-to-slt) orders every prerequisite from set notation to the [Singular Learning Theory](./singular-learning-theory) capstone, with a note on why each step is needed.
 
@@ -83,6 +83,7 @@ Functions, then work through the function types) → Linear Algebra
 
 ## Geometry & Trigonometry
 
+- [Euclidean Geometry](./euclidean-geometry) (points, lines, angles, postulates, polygons, triangles, quadrilaterals, circles, solids, transformations)
 - [Geometry & Trigonometry](./geometry-trigonometry) (trig functions, identities, unit circle, coordinate geometry)
 
 ## Calculus
