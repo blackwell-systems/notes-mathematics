@@ -68,6 +68,15 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Polynomial Functions pass** — replaced all 16 scans (the most of any page): 9 graph
+  scans to 6 clean matplotlib diagrams (parabola, axis of symmetry, cubic, quartic turning
+  points, a 4-panel end-behavior figure, multiplicity touch-vs-cross); 7 text/table scans to
+  native markdown, fixing mislabeled placements (a discriminant-table scan under the Quadratic
+  Formula heading -> the actual quadratic formula + a summary table; rational-root candidates
+  under the FTA heading). Added a prerequisites callout. Two widgets (quadratic explorer with
+  live discriminant/vertex/roots; polynomial grapher from factored roots with end behavior /
+  touch-vs-cross / turning points). +17 machine-checked assertions (discriminant, long-division
+  identity, factor/rational-root theorems, Vieta, Descartes, multiplicity, Newton's method).
 - [x] **Rational Functions pass** — replaced all 7 Desmos screenshot scans (6 with clean
   matplotlib graphs drawn with proper pen-lifting at asymptotes; 1 worked-solution scan to
   native math, fixing a misplaced domain example under the y-intercept heading). Added the

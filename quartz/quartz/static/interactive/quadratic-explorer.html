@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quadratic Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6470;
+    --curve: #2563c9;
+    --axis: #c0392b;
+    --grid: #e4e8ec;
+    --line: #aab2bb;
+    --panel: #f1f4f7;
+    --border: #d6dce2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 28px;
+  }
+  h1 { font-size: 1.25rem; margin: 0 0 4px; }
+  .eq {
+    font-size: 1.35rem;
+    font-family: "Cambria Math", Georgia, serif;
+    margin: 8px 0 14px;
+    padding: 8px 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .eq .val { color: var(--curve); font-weight: 600; }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px 12px;
+    align-items: center;
+    margin: 14px 0;
+  }
+  .controls label { font-weight: 600; font-family: "Cambria Math", Georgia, serif; font-size: 1.05rem; }
+  .controls input[type=range] { width: 100%; accent-color: var(--curve); }
+  .controls .num {
+    font-variant-numeric: tabular-nums;
+    min-width: 3.4em;
+    text-align: right;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.92rem;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+  .panel .row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px dotted var(--border); }
+  .panel .row:last-child { border-bottom: none; }
+  .panel .k { color: var(--muted); }
+  .panel .v { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; text-align: right; }
+  .class { font-weight: 600; }
+  .class.pos { color: #1e7a3c; }
+  .class.zero { color: #b5730f; }
+  .class.neg { color: #8e44ad; }
+  .warn { color: var(--axis); font-weight: 600; }
+  .caption { color: var(--muted); font-size: 0.88rem; margin-top: 12px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Quadratic Explorer</h1>
+  <div class="eq" id="eq"></div>
+  <canvas id="cv" width="1440" height="960"></canvas>
+
+  <div class="controls">
+    <label for="a">a</label>
+    <input type="range" id="a" min="-3" max="3" step="0.1" value="1">
+    <span class="num" id="av"></span>
+
+    <label for="b">b</label>
+    <input type="range" id="b" min="-6" max="6" step="0.1" value="-5">
+    <span class="num" id="bv"></span>
+
+    <label for="c">c</label>
+    <input type="range" id="c" min="-6" max="6" step="0.1" value="6">
+    <span class="num" id="cv2"></span>
+  </div>
+
+  <div class="panel" id="panel"></div>
+
+  <p class="caption">Drag the sliders to reshape the parabola: the sign of the discriminant D = b&sup2; &minus; 4ac decides whether the curve crosses the x-axis in two points, touches it once, or misses it entirely.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // Plot window in math coordinates
+  var XMIN = -8, XMAX = 8, YMIN = -10, YMAX = 10;
+
+  function px(x) { return (x - XMIN) / (XMAX - XMIN) * W; }
+  function py(y) { return H - (y - YMIN) / (YMAX - YMIN) * H; }
+
+  function fmt(n, d) {
+    if (d === undefined) d = 2;
+    if (!isFinite(n)) return "—";
+    var r = Math.round(n * Math.pow(10, d)) / Math.pow(10, d);
+    if (Object.is(r, -0)) r = 0;
+    return r.toString();
+  }
+
+  function draw(a, b, c) {
+    ctx.clearRect(0, 0, W, H);
+
+    // grid
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#e4e8ec";
+    ctx.beginPath();
+    for (var gx = Math.ceil(XMIN); gx <= XMAX; gx++) {
+      ctx.moveTo(px(gx), 0); ctx.lineTo(px(gx), H);
+    }
+    for (var gy = Math.ceil(YMIN); gy <= YMAX; gy++) {
+      ctx.moveTo(0, py(gy)); ctx.lineTo(W, py(gy));
+    }
+    ctx.stroke();
+
+    // axes
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#aab2bb";
+    ctx.beginPath();
+    ctx.moveTo(0, py(0)); ctx.lineTo(W, py(0));      // x-axis
+    ctx.moveTo(px(0), 0); ctx.lineTo(px(0), H);      // y-axis
+    ctx.stroke();
+
+    // axis tick labels
+    ctx.fillStyle = "#5a6470";
+    ctx.font = "22px ui-monospace, monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    for (var tx = Math.ceil(XMIN); tx <= XMAX; tx += 2) {
+      if (tx === 0) continue;
+      ctx.fillText(tx.toString(), px(tx), py(0) + 4);
+    }
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    for (var ty = Math.ceil(YMIN); ty <= YMAX; ty += 2) {
+      if (ty === 0) continue;
+      ctx.fillText(ty.toString(), px(0) + 6, py(ty));
+    }
+
+    var quad = Math.abs(a) > 1e-9;
+
+    // curve
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#2563c9";
+    ctx.beginPath();
+    var started = false;
+    for (var i = 0; i <= W; i++) {
+      var x = XMIN + (i / W) * (XMAX - XMIN);
+      var y = a * x * x + b * x + c;
+      var Y = py(y);
+      if (!started) { ctx.moveTo(px(x), Y); started = true; }
+      else ctx.lineTo(px(x), Y);
+    }
+    ctx.stroke();
+
+    // y-intercept (0, c)
+    dot(px(0), py(c), "#2563c9");
+    label("(0, " + fmt(c) + ")", px(0) + 10, py(c) - 10, "#2563c9", "left");
+
+    if (!quad) return;
+
+    // axis of symmetry
+    var xv = -b / (2 * a);
+    var yv = c - (b * b) / (4 * a);
+
+    ctx.save();
+    ctx.setLineDash([10, 8]);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#c0392b";
+    ctx.beginPath();
+    ctx.moveTo(px(xv), 0); ctx.lineTo(px(xv), H);
+    ctx.stroke();
+    ctx.restore();
+
+    // vertex
+    dot(px(xv), py(yv), "#c0392b");
+    label("V(" + fmt(xv) + ", " + fmt(yv) + ")", px(xv) + 10, py(yv) + 16, "#c0392b", "left");
+
+    // roots
+    var D = b * b - 4 * a * c;
+    if (D >= 0) {
+      var s = Math.sqrt(D);
+      var r1 = (-b - s) / (2 * a);
+      var r2 = (-b + s) / (2 * a);
+      dot(px(r1), py(0), "#1e7a3c");
+      if (Math.abs(r1 - r2) > 1e-9) dot(px(r2), py(0), "#1e7a3c");
+      label(fmt(r1, 3), px(r1), py(0) - 14, "#1e7a3c", "center");
+      if (Math.abs(r1 - r2) > 1e-9) label(fmt(r2, 3), px(r2), py(0) - 14, "#1e7a3c", "center");
+    }
+  }
+
+  function dot(X, Y, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(X, Y, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  function label(text, X, Y, color, align) {
+    ctx.fillStyle = color;
+    ctx.font = "600 24px -apple-system, sans-serif";
+    ctx.textAlign = align || "left";
+    ctx.textBaseline = "middle";
+    // keep inside canvas horizontally
+    if (align === "left") X = Math.min(X, W - 4 - ctx.measureText(text).width);
+    X = Math.max(4, X);
+    ctx.fillText(text, X, Math.max(14, Math.min(H - 14, Y)));
+  }
+
+  function complexPair(a, b, D) {
+    // roots = (-b ± sqrt(D)) / 2a with D < 0 -> p ± q i
+    var p = -b / (2 * a);
+    var q = Math.sqrt(-D) / (2 * a); // may be negative if a<0; take magnitude for ±
+    q = Math.abs(q);
+    return { p: p, q: q };
+  }
+
+  function render() {
+    var a = parseFloat(document.getElementById("a").value);
+    var b = parseFloat(document.getElementById("b").value);
+    var c = parseFloat(document.getElementById("c").value);
+
+    document.getElementById("av").textContent = fmt(a, 1);
+    document.getElementById("bv").textContent = fmt(b, 1);
+    document.getElementById("cv2").textContent = fmt(c, 1);
+
+    // live equation
+    function term(coef, suffix, first) {
+      var sign = coef < 0 ? " − " : (first ? "" : " + ");
+      var mag = Math.abs(coef);
+      return sign + '<span class="val">' + fmt(mag, 1) + "</span>" + suffix;
+    }
+    var eqHtml = "y = " +
+      term(a, "x²", true) +
+      term(b, "x", false) +
+      term(c, "", false);
+    document.getElementById("eq").innerHTML = eqHtml;
+
+    draw(a, b, c);
+
+    var panel = document.getElementById("panel");
+    var quad = Math.abs(a) > 1e-9;
+
+    if (!quad) {
+      panel.innerHTML =
+        '<div class="row"><span class="k">Status</span>' +
+        '<span class="warn">a = 0 &rarr; not a quadratic (this is a line)</span></div>' +
+        '<div class="row"><span class="k">Equation reduces to</span>' +
+        '<span class="v">y = ' + fmt(b, 1) + 'x + ' + fmt(c, 1) + '</span></div>';
+      return;
+    }
+
+    var xv = -b / (2 * a);
+    var yv = c - (b * b) / (4 * a);
+    var D = b * b - 4 * a * c;
+
+    var cls, clsText, rootsRow;
+    if (D > 1e-9) {
+      cls = "pos"; clsText = "two distinct real roots";
+      var s = Math.sqrt(D);
+      var r1 = (-b - s) / (2 * a);
+      var r2 = (-b + s) / (2 * a);
+      var lo = Math.min(r1, r2), hi = Math.max(r1, r2);
+      rootsRow = "x = " + fmt(lo, 4) + ",  " + fmt(hi, 4);
+    } else if (D >= -1e-9) {
+      cls = "zero"; clsText = "one repeated real root";
+      var r0 = -b / (2 * a);
+      rootsRow = "x = " + fmt(r0, 4) + " (double)";
+    } else {
+      cls = "neg"; clsText = "two complex conjugate roots (no x-intercepts)";
+      var cp = complexPair(a, b, D);
+      rootsRow = "x = " + fmt(cp.p, 4) + " ± " + fmt(cp.q, 4) + " i";
+    }
+
+    panel.innerHTML =
+      '<div class="row"><span class="k">Vertex</span>' +
+        '<span class="v">(' + fmt(xv, 4) + ", " + fmt(yv, 4) + ")</span></div>" +
+      '<div class="row"><span class="k">Axis of symmetry</span>' +
+        '<span class="v">x = &minus;b/(2a) = ' + fmt(xv, 4) + "</span></div>" +
+      '<div class="row"><span class="k">Discriminant</span>' +
+        '<span class="v">D = b² &minus; 4ac = ' + fmt(D, 4) + "</span></div>" +
+      '<div class="row"><span class="k">Classification</span>' +
+        '<span class="v class ' + cls + '">' + clsText + "</span></div>" +
+      '<div class="row"><span class="k">Roots</span>' +
+        '<span class="v">' + rootsRow + "</span></div>";
+  }
+
+  ["a", "b", "c"].forEach(function (id) {
+    document.getElementById(id).addEventListener("input", render);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

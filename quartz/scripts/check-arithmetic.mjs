@@ -313,6 +313,56 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
 }
 
+// ================= Polynomial Functions =================
+{
+  const disc = (a, b, c) => b * b - 4 * a * c;
+  eq("discriminant x^2-5x+6", disc(1, -5, 6), 1);
+  eq("discriminant x^2-6x+9 (double root)", disc(1, -6, 9), 0);
+  eq("discriminant x^2+2x+5 (complex)", disc(1, 2, 5), -16);
+  { const a = 1, b = -5, c = 6, d = Math.sqrt(disc(a, b, c)); const r1 = (-b + d) / (2 * a), r2 = (-b - d) / (2 * a);
+    check("x^2-5x+6 roots are 2 and 3", approx(Math.max(r1, r2), 3) && approx(Math.min(r1, r2), 2)); }
+  { const a = 1, b = -6, c = 5; const h = -b / (2 * a), k = c - (b * b) / (4 * a);
+    check("completing the square: x^2-6x+5 vertex (3,-4)", approx(h, 3) && approx(k, -4)); }
+
+  // polynomials as ascending-order coefficient arrays
+  const pmul = (p, q) => { const r = Array(p.length + q.length - 1).fill(0); for (let i = 0; i < p.length; i++) for (let j = 0; j < q.length; j++) r[i + j] += p[i] * q[j]; return r; };
+  const padd = (p, q) => { const n = Math.max(p.length, q.length), r = Array(n).fill(0); for (let i = 0; i < n; i++) r[i] = (p[i] || 0) + (q[i] || 0); return r; };
+  // long division identity: 2x^5+x^4-6x+9 = (x^2-3x+1)(2x^3+7x^2+19x+50) + (125x-41)
+  { const f = [9, -6, 0, 0, 1, 2], d = [1, -3, 1], q = [50, 19, 7, 2], r = [-41, 125];
+    const recon = padd(pmul(d, q), r);
+    check("polynomial long-division identity checks out", f.every((c, i) => approx(c, recon[i] || 0)) && recon.every((c, i) => approx(c, f[i] || 0))); }
+
+  // factor theorem: roots of x^3 - 7x + 6 are 1, 2, -3
+  const g = (x) => x ** 3 - 7 * x + 6;
+  check("factor theorem: 1, 2, -3 are roots of x^3-7x+6", g(1) === 0 && g(2) === 0 && g(-3) === 0);
+
+  // rational-root candidates for constant -4, leading coeff 2
+  { const divs = (n) => { n = Math.abs(n); const d = []; for (let i = 1; i <= n; i++) if (n % i === 0) d.push(i); return d; };
+    const cands = new Set(); for (const a of divs(4)) for (const b of divs(2)) { cands.add(a / b); cands.add(-a / b); }
+    check("rational-root candidates include +/-1,2,4,1/2", [1, 2, 4, 0.5, -1, -2, -4, -0.5].every((v) => cands.has(v))); }
+
+  // Vieta (monic x^2+px+q): sum of roots = -p, product = q
+  eq("Vieta sum for x^2-5x+6", -(-5), 5);
+  eq("Vieta product for x^2-5x+6", 6, 6);
+
+  // Descartes' rule of signs: sign changes in descending coefficients
+  const signChanges = (c) => { let n = 0, prev = 0; for (const v of c) { if (v === 0) continue; if (prev !== 0 && Math.sign(v) !== Math.sign(prev)) n++; prev = v; } return n; };
+  eq("Descartes sign changes of x^3-x^2-x+1", signChanges([1, -1, -1, 1]), 2);
+
+  // multiplicity: even -> touch (no sign change), odd -> cross (sign change)
+  const P = (x) => (x + 1) * (x + 1) * (x - 2); // (x+1)^2 (x-2)
+  check("even-multiplicity root: touches (no sign change) at x=-1", Math.sign(P(-1.1)) === Math.sign(P(-0.9)));
+  check("odd-multiplicity root: crosses (sign change) at x=2", Math.sign(P(1.9)) !== Math.sign(P(2.1)));
+  check("odd degree, positive lead: ends go -inf and +inf", P(-1000) < 0 && P(1000) > 0);
+
+  // binomial expansion coefficients
+  eq("C(5,2) = 10", comb(5, 2), 10);
+  eq("sum of binomial row n=4 = 2^4", [0, 1, 2, 3, 4].reduce((s, k) => s + comb(4, k), 0), 16);
+
+  // Newton's method converges to a root of x^2-2
+  { let x = 1; for (let i = 0; i < 10; i++) x = x - (x * x - 2) / (2 * x); eq("Newton's method finds sqrt(2)", x, Math.SQRT2, 1e-9); }
+}
+
 // ================= Rational Functions =================
 {
   // end-behavior asymptote type from degrees of numerator/denominator

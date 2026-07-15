@@ -1,6 +1,12 @@
 ---
 title: "Polynomial Functions"
+prerequisites: ["functions-relations", "linear-functions"]
+enables: ["rational-functions", "calculus"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Linear Functions](./linear-functions)
+> **Leads to:** [Rational Functions](./rational-functions) · [Calculus](./calculus)
 
 ## What Is a Polynomial?
 
@@ -84,7 +90,7 @@ vertex/axis of symmetry directly from the equation.
 
 $$f(x) = a(x - h)^{2} + k$$
 
-![Graph of the basic parabola f(x) equals x squared, vertex at origin opening upward](./media/image64.png)
+![Upward-opening parabola y = x squared with its vertex at the origin](./media/poly-parabola-x2.png)
 
 $$f(x) = x^{2}$$
 
@@ -100,7 +106,11 @@ the line that divides the graph into two perfect halves.
 
 $$x = \frac{- b}{2a}$$
 
-![Upward parabola with vertical axis of symmetry through the vertex labeled x equals minus b over 2a](./media/image65.png)
+![Upward parabola with its vertex marked and a dashed vertical axis of symmetry x = -b/2a through it, with a symmetric pair of points at equal height](./media/poly-axis-symmetry.png)
+
+Drag the $a$, $b$, $c$ sliders below to reshape the parabola and watch the vertex, axis of symmetry, discriminant, and roots update live, including how the discriminant's sign switches the roots between real and complex.
+
+<iframe src="/static/interactive/quadratic-explorer.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Methods for Solving Quadratic Equations
 
@@ -134,7 +144,10 @@ also zero.
 
 If ab = 0, then either a = 0 or b = 0
 
-![Worked example factoring x squared minus 5x plus 6 and applying the zero product property to get x equals 2 or 3](./media/image66.png)
+**Worked example.** To solve $x^2 - 5x + 6 = 0$, factor the quadratic and set each factor to zero:
+$$
+x^2 - 5x + 6 = (x - 2)(x - 3) = 0 \;\Longrightarrow\; x - 2 = 0 \ \text{or}\ x - 3 = 0 \;\Longrightarrow\; x = 2 \ \text{or}\ x = 3.
+$$
 
 The zero product property can be used to solve polynomial equations of
 **any degree** as long as the polynomial can be factored
@@ -231,7 +244,7 @@ $$(2x - 3)(x^2 - 1) = (2x - 3)(x - 1)(x + 1)$$
 another method of solving a quadratic equation is by using the square
 root property.
 
-![Statement of the square root property: if x squared equals k then x equals plus or minus square root of k](./media/image67.png)
+**Square Root Property:** If $x^2 = k$, then $x = \pm\sqrt{k}$. For example, $x^2 = 9$ gives $x = \pm 3$, and $(x - 4)^2 = 25$ gives $x - 4 = \pm 5$, so $x = 9$ or $x = -1$. When $k < 0$ the two roots are complex, $x = \pm\sqrt{k} = \pm i\sqrt{|k|}$.
 
 ### Completing the Square
 
@@ -334,7 +347,17 @@ The vertex form reveals the maximum or minimum of the parabola. For the general 
 is by using the quadratic formula, a formula that will solve all
 quadratic equations.
 
-![Table relating discriminant b squared minus 4ac to number and type of solutions](./media/image70.png)
+For a quadratic $ax^2 + bx + c = 0$ (with $a \neq 0$), the roots are given by the **quadratic formula**:
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+$$
+The quantity under the root, $b^2 - 4ac$, is the **discriminant** $\Delta$, and its sign alone determines the number and type of solutions (developed in the next section):
+
+| Discriminant | Roots |
+|---|---|
+| $\Delta > 0$ | two distinct real roots |
+| $\Delta = 0$ | one repeated real root (double root) |
+| $\Delta < 0$ | two complex conjugate roots |
 
 ### The Discriminant
 
@@ -412,7 +435,7 @@ x-axis at a maximum of 3 points.
 has either 1 or 3 real zeros. It cannot have 2 real
 zeros.***
 
-![Graph of the cubic y equals x cubed, increasing through the origin with one real root](./media/image71.png)
+![Increasing S-shaped cubic y = x cubed passing through the origin with an inflection point there](./media/poly-cubic-x3.png)
 
 ### Domain / Range of Cubic Function
 
@@ -480,7 +503,7 @@ highest power the variable is raised to in the polynomial.
 The degree also dictates *how many zeros a polynomial can
 have* and *what the end behavior is*.
 
-![Quartic curve with three turning points, labeling increasing and decreasing intervals and turning points](./media/image73.png)
+![W-shaped quartic with three turning points marked and increasing/decreasing intervals arrowed, noting a degree-n polynomial has at most n-1 turning points](./media/poly-quartic-turning.png)
 
 Graph of f(x)= $x^{4} - x^{3} - 4x^{2} + 4x$
 
@@ -491,11 +514,11 @@ always one less than the degree of the function.
 ## End Behavior
 
 **End Behavior:** A polynomial's end-behavior is completely determined
-by its leading term.
+by its leading term. The four cases below are fixed by the *parity of the degree* and the *sign of the leading coefficient*:
+
+![Four-panel diagram of polynomial end behavior: even degree with positive leading coefficient both ends up, even negative both ends down, odd positive left-down right-up, odd negative left-up right-down](./media/poly-end-behavior.png)
 
 **Even power, positive leading coefficient:**
-
-![End-behavior arrows for even degree with positive leading coefficient, both ends pointing up](./media/image74.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
@@ -503,23 +526,17 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 
 **Even power, negative leading coefficient:**
 
-![End-behavior arrows for even degree with negative leading coefficient, both ends pointing down](./media/image75.png)
-
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \  - \infty}$$
 
 $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow - \infty}$$
 
 **Odd power, positive leading coefficient:**
 
-![End-behavior arrows for odd degree with positive leading coefficient, left end down and right end up](./media/image76.png)
-
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
 
 $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow - \infty}$$
 
 **Odd power, negative leading coefficient:**
-
-![End-behavior arrows for odd degree with negative leading coefficient, left end up and right end down](./media/image77.png)
 
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ -\infty}$$
 
@@ -547,7 +564,11 @@ graph behaves at the x-intercept.
 -   If the multiplicity of a zero is odd, the *graph will cross the
     x-axis* at that zero.
 
-![Graphs of x squared touching the x-axis and x cubed plus 1 crossing it, contrasting even and odd multiplicity](./media/image80.png)
+![Cubic (x+1) squared times (x-2) touching and bouncing off the x-axis at x = -1 (even multiplicity) and crossing at x = 2 (odd multiplicity)](./media/poly-multiplicity.png)
+
+Build your own polynomial from its roots below. Enter each real root with a multiplicity and watch the graph, together with the end behavior, the touch-versus-cross behavior at each root, the y-intercept, and the turning-point count, all computed exactly from the factored form.
+
+<iframe src="/static/interactive/polynomial-grapher.html" width="100%" height="660" style="border:none;"></iframe>
 
 ## The Fundamental Theorem of Algebra
 
@@ -558,9 +579,7 @@ function with degree $\geq 1$ (equivalently, every non-constant
 polynomial) has at least one *complex* zero. This includes degree-1
 polynomials, which always have a (possibly complex) root.
 
-![Listing rational-root candidates: factors p of constant minus 4 and factors q of leading coefficient 2](./media/image86.png)
-
-![Forming all possible rational zeros p over q from factors of the constant over factors of the leading coefficient](./media/image87.png)
+When the complex roots include *rational* ones, they can be found by hand. The **Rational Root Theorem** (developed in full below) says any rational zero $p/q$ of a polynomial has $p$ dividing the constant term and $q$ dividing the leading coefficient. For example, for a polynomial with constant term $-4$ and leading coefficient $2$, the candidates are $\dfrac{p}{q}$ with $p \in \{\pm 1, \pm 2, \pm 4\}$ and $q \in \{\pm 1, \pm 2\}$, giving the finite list $\pm 1, \pm 2, \pm 4, \pm\tfrac{1}{2}$ to test.
 
 So what about the irrational roots of a polynomial? How do we find those
 when the rational roots theorem fails?
@@ -571,7 +590,11 @@ For polynomial of degree 2, you can use the quadratic formula.
 
 **Polynomial Long Division:**
 
-![Division Algorithm statement: f of x equals d of x times q of x plus r of x for a nonzero divisor](./media/image88.png)
+The **division algorithm** for polynomials says that for any $f(x)$ and any nonzero divisor $d(x)$, there are unique $q(x)$ and $r(x)$ with
+$$
+f(x) = d(x)\,q(x) + r(x),
+$$
+where the remainder $r(x)$ is either $0$ or has degree less than $d(x)$.
 
 Where:
 
@@ -596,7 +619,16 @@ the current remainder.*
 
 *Algorithm: Divide, multiply, subtract, repeat as needed.*
 
-![Worked polynomial long division of 2x^5 plus x^4 minus 6x plus 9 by x squared minus 3x plus 1, remainder 125x minus 41](./media/image89.png)
+**Worked example.** Divide $2x^5 + x^4 - 6x + 9$ by $x^2 - 3x + 1$. At each step, divide the leading term of the current remainder by the leading term $x^2$ of the divisor, multiply back, and subtract:
+
+- $2x^5 \div x^2 = 2x^3$; subtracting $2x^3(x^2-3x+1)$ leaves $7x^4 - 2x^3 + 0x^2 - 6x + 9$.
+- $7x^4 \div x^2 = 7x^2$; subtracting leaves $19x^3 - 7x^2 - 6x + 9$.
+- $19x^3 \div x^2 = 19x$; subtracting leaves $50x^2 - 25x + 9$.
+- $50x^2 \div x^2 = 50$; subtracting leaves $125x - 41$, whose degree ($1$) is less than the divisor's, so we stop.
+
+$$
+2x^5 + x^4 - 6x + 9 = (x^2 - 3x + 1)\underbrace{(2x^3 + 7x^2 + 19x + 50)}_{\text{quotient } q(x)} + \underbrace{(125x - 41)}_{\text{remainder } r(x)}.
+$$
 
 Divisor: The quantity by which another quantity is divided
 
