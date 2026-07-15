@@ -54,6 +54,17 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Remove all CDN/Plotly dependencies from widgets** — 9 widgets were Plotly HTML exports
+  that pulled ~4MB of plotly.min.js from cdn.plot.ly at page load (breaking offline use and the
+  self-contained convention). Split fix: rewrote the two conceptually-2D ones as self-contained
+  vanilla-canvas widgets (eigenvalue-transform: matrix action on the plane with invariant
+  eigen-lines and a draggable test vector; direction-field-interactive: a 2D slope field with
+  click-to-integrate RK4 solution curves), and vendored plotly-3.6.0.min.js locally for the six
+  genuine 3D surfaces (loss-landscape-convex/nonconvex, optimizer-comparison, svd-sphere-to-ellipsoid,
+  bivariate-normal, partial-derivative-slice), repointing their script tags to the local copy.
+  The mislabeled singularity-surface was already rewritten in the prior batch. Every widget is now
+  CDN-free. +14 machine-checked assertions (513 total): eigenvalue/eigenvector identities and RK4
+  re-proofs of the slope-field solution curves.
 - [x] **Coverage-gap batch (callouts + widgets for 11 pages) & widget auto-fit** — closed the
   remaining pages that had no prerequisites callout and/or no interactive widget. Added callouts
   to 11 pages (exponential-functions, logarithms, matrices, linear-functions, graphing-functions,

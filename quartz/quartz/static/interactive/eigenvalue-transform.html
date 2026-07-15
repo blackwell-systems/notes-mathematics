@@ -1,8 +1,419 @@
-<html>
-<head><meta charset="utf-8" /></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eigenvalues &amp; Eigenvectors: how a matrix stretches space</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fbfcfd;
+    color: #1c2126;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 16px; box-sizing: border-box; }
+  h1 { font-size: 1.2rem; margin: 0 0 4px 0; }
+  .caption { font-size: 0.9rem; color: #4a5560; margin: 0 0 14px 0; }
+  canvas { display: block; border: 1px solid #d8dde3; border-radius: 6px; background: #fbfcfd; width: 100%; height: auto; touch-action: none; }
+  .matrix-inputs { display: grid; grid-template-columns: repeat(2, auto) 1fr; gap: 8px 14px; align-items: center; margin: 14px 0 6px; }
+  .mrow { display: flex; gap: 8px; align-items: center; }
+  .mrow label { font-size: 0.85rem; color: #4a5560; width: 14px; font-style: italic; }
+  input[type=number] {
+    width: 68px; padding: 5px 6px; font-size: 0.95rem;
+    border: 1px solid #c3cad2; border-radius: 4px; background: #fff; color: #1c2126;
+    font-variant-numeric: tabular-nums;
+  }
+  .hint { grid-column: 3; grid-row: 1 / span 2; font-size: 0.85rem; color: #4a5560; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 14px; }
+  button {
+    font-size: 0.82rem; padding: 5px 10px; border: 1px solid #c3cad2;
+    border-radius: 5px; background: #fff; color: #1c2126; cursor: pointer;
+  }
+  button:hover { background: #eef3fa; border-color: #2563c9; }
+  .readout {
+    background: #f2f5f8; border: 1px solid #e0e6ec; border-radius: 6px;
+    padding: 12px 14px; font-size: 0.9rem;
+  }
+  .readout .line { margin: 3px 0; }
+  .k { color: #4a5560; }
+  .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .swatch { display: inline-block; width: 11px; height: 11px; border-radius: 2px; vertical-align: -1px; margin-right: 3px; }
+  .legend { font-size: 0.8rem; color: #4a5560; margin: 10px 0 0; }
+  .legend span { margin-right: 12px; white-space: nowrap; }
+  .neg { color: #c0392b; }
+  .ok { color: #0e8a6b; }
+</style>
+</head>
 <body>
-    <div style="height:550px; width:750px;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.6.0.min.js" integrity="sha256-QaOVwtVY0T02VaHrr6pnoHLCwayMJp4O5n4YyaE3rJk=" crossorigin="anonymous"></script>                <div id="93bbb31e-d7be-4ae6-85a4-e409912121bf" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("93bbb31e-d7be-4ae6-85a4-e409912121bf")) {                    Plotly.newPlot(                        "93bbb31e-d7be-4ae6-85a4-e409912121bf",                        [{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,-1.5],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[-1.5,-1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.0,-1.0],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[-1.0,-1.0],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-0.5,-0.5],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[-0.5,-0.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[0.0,0.0],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[0.0,0.0],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[0.5,0.5],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[0.5,0.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[1.0,1.0],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[1.0,1.0],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[1.5,1.5],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(70,130,180,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-6.0,-3.0],"y":[-4.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-6.0,3.0],"y":[-4.5,-1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-4.5,-1.5],"y":[-4.0,2.0],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-5.5,3.5],"y":[-3.5,-0.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-3.0,0.0],"y":[-3.5,2.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-5.0,4.0],"y":[-2.5,0.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-1.5,1.5],"y":[-3.0,3.0],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-4.5,4.5],"y":[-1.5,1.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[0.0,3.0],"y":[-2.5,3.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-4.0,5.0],"y":[-0.5,2.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[1.5,4.5],"y":[-2.0,4.0],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-3.5,5.5],"y":[0.5,3.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[3.0,6.0],"y":[-1.5,4.5],"type":"scatter"},{"hoverinfo":"skip","line":{"color":"rgba(220,60,60,0.3)","width":1},"mode":"lines","showlegend":false,"x":[-3.0,6.0],"y":[1.5,4.5],"type":"scatter"},{"marker":{"color":"steelblue","size":5},"mode":"markers","name":"Original grid","x":[-1.5,-1.5,-1.5,-1.5,-1.5,-1.5,-1.5,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.5,1.5,1.5,1.5,1.5,1.5,1.5],"y":[-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5],"type":"scatter"},{"marker":{"color":"crimson","size":5},"mode":"markers","name":"Transformed grid","x":[-6.0,-5.5,-5.0,-4.5,-4.0,-3.5,-3.0,-4.5,-4.0,-3.5,-3.0,-2.5,-2.0,-1.5,-3.0,-2.5,-2.0,-1.5,-1.0,-0.5,0.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,0.0,0.5,1.0,1.5,2.0,2.5,3.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0],"y":[-4.5,-3.5,-2.5,-1.5,-0.5,0.5,1.5,-4.0,-3.0,-2.0,-1.0,0.0,1.0,2.0,-3.5,-2.5,-1.5,-0.5,0.5,1.5,2.5,-3.0,-2.0,-1.0,0.0,1.0,2.0,3.0,-2.5,-1.5,-0.5,0.5,1.5,2.5,3.5,-2.0,-1.0,0.0,1.0,2.0,3.0,4.0,-1.5,-0.5,0.5,1.5,2.5,3.5,4.5],"type":"scatter"},{"line":{"color":"#2ca02c","width":4},"mode":"lines","name":"Eigenvector 1 (\u03bb=3.62)","x":[-1.7013016167040798,1.7013016167040798],"y":[-1.051462224238267,1.051462224238267],"type":"scatter"},{"line":{"color":"#ff7f0e","width":4},"mode":"lines","name":"Eigenvector 2 (\u03bb=1.38)","x":[1.051462224238267,-1.051462224238267],"y":[-1.7013016167040798,1.7013016167040798],"type":"scatter"},{"line":{"color":"steelblue","dash":"dot","width":2},"mode":"lines","name":"Unit circle","x":[1.0,0.9979866764718844,0.9919548128307953,0.9819286972627067,0.9679487013963562,0.9500711177409454,0.9283679330160726,0.9029265382866212,0.8738493770697849,0.8412535328311812,0.8052702575310586,0.766044443118978,0.7237340381050702,0.6785094115571322,0.6305526670845225,0.5800569095711982,0.5272254676105024,0.4722710747726827,0.41541501300188644,0.3568862215918719,0.2969203753282749,0.23575893550942728,0.17364817766693041,0.1108381999010111,0.04758191582374218,-0.01586596383480803,-0.07924995685678854,-0.14231483827328523,-0.20480666806519074,-0.26647381369003503,-0.32706796331742166,-0.3863451256931287,-0.4440666126057741,-0.5000000000000002,-0.5539200638661103,-0.6056096871376668,-0.6548607339452851,-0.7014748877063214,-0.7452644496757547,-0.7860530947427875,-0.8236765814298327,-0.8579834132349771,-0.8888354486549234,-0.9161084574320696,-0.9396926207859083,-0.9594929736144974,-0.975429786885407,-0.9874388886763943,-0.9954719225730846,-0.9994965423831851,-0.9994965423831851,-0.9954719225730846,-0.9874388886763943,-0.975429786885407,-0.9594929736144974,-0.9396926207859084,-0.9161084574320696,-0.8888354486549235,-0.857983413234977,-0.8236765814298328,-0.7860530947427874,-0.7452644496757548,-0.7014748877063213,-0.6548607339452852,-0.6056096871376666,-0.5539200638661105,-0.4999999999999996,-0.44406661260577396,-0.3863451256931287,-0.3270679633174219,-0.26647381369003464,-0.20480666806519054,-0.14231483827328523,-0.07924995685678879,-0.01586596383480761,0.04758191582374238,0.11083819990101086,0.17364817766692997,0.23575893550942748,0.29692037532827487,0.35688622159187167,0.4154150130018868,0.4722710747726829,0.5272254676105024,0.5800569095711979,0.6305526670845228,0.6785094115571323,0.7237340381050701,0.7660444431189778,0.8052702575310589,0.8412535328311812,0.8738493770697849,0.9029265382866211,0.9283679330160727,0.9500711177409454,0.9679487013963562,0.9819286972627068,0.9919548128307953,0.9979866764718844,1.0],"y":[0.0,0.0634239196565645,0.12659245357374926,0.18925124436041021,0.2511479871810792,0.31203344569848707,0.3716624556603276,0.42979491208917164,0.4861967361004687,0.5406408174555976,0.5929079290546404,0.6427876096865393,0.690079011482112,0.7345917086575333,0.7761464642917568,0.8145759520503357,0.8497254299495144,0.8814533634475821,0.9096319953545183,0.9341478602651067,0.9549022414440739,0.9718115683235417,0.984807753012208,0.9938384644612541,0.998867339183008,0.9998741276738751,0.9968547759519424,0.9898214418809327,0.9788024462147787,0.963842158559942,0.9450008187146685,0.9223542941045814,0.8959937742913359,0.8660254037844386,0.8325698546347714,0.795761840530832,0.7557495743542583,0.7126941713788628,0.6667690005162916,0.6181589862206052,0.5670598638627709,0.5136773915734063,0.4582265217274105,0.4009305354066136,0.3420201433256689,0.28173255684142967,0.2203105327865408,0.1580013959733499,0.09505604330418244,0.031727933498067656,-0.03172793349806786,-0.09505604330418263,-0.15800139597335008,-0.22031053278654056,-0.28173255684142984,-0.34202014332566866,-0.4009305354066138,-0.4582265217274103,-0.5136773915734064,-0.5670598638627706,-0.6181589862206053,-0.6667690005162915,-0.7126941713788629,-0.7557495743542582,-0.7957618405308321,-0.8325698546347713,-0.8660254037844388,-0.895993774291336,-0.9223542941045814,-0.9450008187146683,-0.9638421585599422,-0.9788024462147787,-0.9898214418809327,-0.9968547759519423,-0.9998741276738751,-0.998867339183008,-0.9938384644612541,-0.9848077530122081,-0.9718115683235417,-0.9549022414440739,-0.9341478602651068,-0.9096319953545182,-0.881453363447582,-0.8497254299495144,-0.8145759520503358,-0.7761464642917566,-0.7345917086575332,-0.690079011482112,-0.6427876096865396,-0.5929079290546402,-0.5406408174555976,-0.4861967361004688,-0.4297949120891719,-0.37166245566032724,-0.31203344569848707,-0.2511479871810794,-0.18925124436040974,-0.12659245357374904,-0.06342391965656452,-2.4492935982947064e-16],"type":"scatter"},{"line":{"color":"crimson","dash":"dot","width":2},"mode":"lines","name":"Transformed circle","x":[3.0,3.057383949072218,3.1024568920661353,3.1350373361485304,3.1549940913701477,3.1622467989213234,3.156766254708545,3.138574526949035,3.1077448673098234,3.0644014159491415,3.0087187016478163,2.9409209390434734,2.8612811257973227,2.77011994332893,2.6678044655453244,2.5547466807639303,2.4314018327810216,2.29826658776563,2.1558770343601776,2.0048065250407223,1.8456633674288985,1.6790883748518235,1.5057522860129993,1.3263530641642873,1.1416130866542344,0.952276236169451,0.7591049053815768,0.562876927061077,0.36438244201920655,0.164420717489837,-0.036203071237596585,-0.2366810829748046,-0.43620606352598645,-0.6339745962155621,-0.8291903369635593,-1.0210672208821685,-1.208832627481597,-1.3917304917401012,-1.5690243485109725,-1.7400002980077571,-1.9039698804267273,-2.0602728481315253,-2.20827982423736,-2.3473948368895954,-2.477057719032056,-2.5967463640020623,-2.7059788278696804,-2.804315270055833,-2.891359724415071,-2.9667616936514873,-3.030217560647623,-3.081471811023436,-3.120318062002533,-3.1465998934427617,-3.1602114776849217,-3.161098005683394,-3.149255907702823,-3.124732867692181,-3.0876276312783375,-3.038089608152269,-2.9763182704489677,-2.9025623495435555,-2.817118834497827,-2.720331776190114,-2.612590901943832,-2.494330046233103,-2.3660254037844375,-2.228193612108658,-2.0813896711839672,-1.926204708666934,-1.763263599630046,-1.5932224504103503,-1.4167659567007884,-1.2346046465223086,-1.0474720191782978,-0.8561215917117808,-0.6613238647582216,-0.4638632200114182,-0.26453476179525925,-0.06414111545924928,0.13651080451050812,0.3366130436511423,0.5353598608704667,0.7319509728819927,0.9255947766632581,1.1155115369618118,1.3009365260138637,1.4811231028330982,1.6553457196703936,1.8229028435385364,1.9831197810379462,2.135351395108886,2.2789847027706913,2.4134413433878907,2.5381799075243494,2.652698117007989,2.7565348474277105,2.849271984918637,2.930536109759089,2.9999999999999996],"y":[1.0,1.1248345157850135,1.2451397199782939,1.3604311859835272,1.4702446757585146,1.5741380091379196,1.6716928443367278,1.7625163624649645,1.8462428492707224,1.9225351677423763,1.9910861156403394,2.0516196624920564,2.103892061069294,2.1476928288721986,2.182845595668036,2.2092088136718697,2.226676327509531,2.235177801667847,2.234679003710923,2.2251819421220853,2.2067248582164227,2.1793820721565105,2.1432636836913463,2.0985151288235193,2.045316594189758,1.9838822915129422,1.9144595950470962,1.83732804548858,1.7527982243643667,1.661210503429849,1.5629336741119153,1.458363462516034,1.3479209359768975,1.232050807568877,1.1112196454034327,0.9859139939239971,0.8566384147632314,0.7239134550514043,0.5882735513568286,0.4502648776984228,0.310443146295709,0.16937136991183555,0.02761759479989767,-0.11424738661884237,-0.25565233413457056,-0.396027859931638,-0.5348087213123254,-0.6714360967296945,-0.8053598359647197,-0.9360406753870498,-1.0629524093793208,-1.1855840091814498,-1.3034416806230944,-1.416050852458488,-1.522958087297357,-1.6237329074372457,-1.7179695282452971,-1.805288492109744,-1.88533819638179,-1.957796309155374,-2.022371067183998,-2.078802450708338,-2.126863230464047,-2.1663598826538015,-2.1971333681993306,-2.219059773135653,-2.232050807568877,-2.236054161188446,-2.2310537139022912,-2.2170696007467585,-2.194158130809919,-2.162411560494748,-2.1219577220351504,-2.072959508760673,-2.0156142191825577,-1.9501527625422734,-1.8768387290214974,-1.7959673283574862,-1.707864201137656,-1.6128841075598728,-1.5114094989383418,-1.4038489777071497,-1.290635652122481,-1.1722253922885264,-1.0490949945294736,-0.9217402614989904,-0.7906740057579341,-0.656423984859154,-0.5195307762541014,-0.3805456005782215,-0.2400281020800139,-0.0985440951311527,0.04333671410827722,0.1850430216954182,0.3260042263439713,0.46565272703419747,0.6034262085418873,0.7387699056832973,0.8711388371587554,0.9999999999999996],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"title":{"text":"x"},"scaleanchor":"y","range":[-6,6]},"yaxis":{"title":{"text":"y"},"range":[-6,6]},"legend":{"x":0.02,"y":0.98},"margin":{"l":0,"r":0,"t":40,"b":0},"font":{"size":13},"title":{"text":"Matrix Transformation: eigenvalues \u03bb\u2081=3.62, \u03bb\u2082=1.38"},"width":750,"height":550,"paper_bgcolor":"white"},                        {"responsive": true}                    )                };            </script>        </div>
+<div class="wrap">
+  <h1>Eigenvalues &amp; eigenvectors: the directions a matrix does not turn</h1>
+  <p class="caption">The matrix A (say "A") transforms the whole plane. Most vectors get rotated as well as stretched, but along an <b>eigenvector</b> the map only scales: A&thinsp;v = &lambda;&thinsp;v, where &lambda; (say "lambda") is the <b>eigenvalue</b>. Watch the unit circle become an ellipse, and drag the black test vector to hunt for the special non-turning directions (the dashed red lines).</p>
+
+  <canvas id="cv" width="1520" height="1180"></canvas>
+
+  <p class="legend">
+    <span><i class="swatch" style="background:#b9bfc7"></i>original grid / unit circle</span>
+    <span><i class="swatch" style="background:#bcd0ef"></i>A&thinsp;&middot;&thinsp;grid</span>
+    <span><i class="swatch" style="background:#2563c9"></i>A maps circle to ellipse</span>
+    <span><i class="swatch" style="background:#c0392b"></i>eigen-directions (invariant lines)</span>
+    <span><i class="swatch" style="background:#111"></i>your test vector v</span>
+    <span><i class="swatch" style="background:#d97706"></i>its image A&thinsp;v</span>
+  </p>
+
+  <div class="matrix-inputs">
+    <div class="mrow"><label>a</label><input type="number" id="a" step="0.1" value="2"></div>
+    <div class="mrow"><label>b</label><input type="number" id="b" step="0.1" value="1"></div>
+    <div class="hint">
+      A = [[a, b], [c, d]] &nbsp; columns show where the basis vectors land: (1,0)&rarr;(a,c), (0,1)&rarr;(b,d).
+    </div>
+    <div class="mrow"><label>c</label><input type="number" id="c" step="0.1" value="1"></div>
+    <div class="mrow"><label>d</label><input type="number" id="d" step="0.1" value="2"></div>
+  </div>
+
+  <div class="presets">
+    <button data-m="1,1,0,1">Shear</button>
+    <button data-m="2,0,0,0.5">Pure scaling</button>
+    <button data-m="0,-1,1,0">Rotation 90&deg; (complex)</button>
+    <button data-m="2,1,1,2">Symmetric (real eigenvectors)</button>
+    <button data-m="3,0,0,3">Repeated (3, 3)</button>
+    <button data-m="1,0,0,-1">Reflection</button>
+  </div>
+
+  <div class="readout" id="out"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var out = document.getElementById("out");
+  var ids = ["a", "b", "c", "d"];
+  var el = {};
+  ids.forEach(function (k) { el[k] = document.getElementById(k); });
+
+  var W = cv.width, H = cv.height;
+  var ox = W / 2, oy = H / 2;      // origin in pixels
+  var U = 100;                     // pixels per unit
+  var RANGE = 7;                   // grid extent in units each direction
+
+  // draggable test vector in world coordinates
+  var testV = { x: 1.2, y: 0.4 };
+  var dragging = false;
+
+  // world (x,y) -> screen pixel. y flips (math up = screen up)
+  function sx(x) { return ox + x * U; }
+  function syf(y) { return oy - y * U; }
+  function wx(px) { return (px - ox) / U; }
+  function wy(py) { return (oy - py) / U; }
+
+  function fmt(n) {
+    if (Math.abs(n) < 1e-9) n = 0;
+    var r = Math.round(n * 1000) / 1000;
+    return (Object.is(r, -0) ? 0 : r).toString();
+  }
+
+  function readM() {
+    var m = {};
+    ids.forEach(function (k) {
+      var v = parseFloat(el[k].value);
+      m[k] = isFinite(v) ? v : 0;
+    });
+    return m;
+  }
+
+  // apply matrix A to world vector (x,y): [[a,b],[c,d]] * [x,y]
+  function apply(m, x, y) {
+    return [m.a * x + m.b * y, m.c * x + m.d * y];
+  }
+
+  function line(x1, y1, x2, y2, color, width, dash) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    if (dash) ctx.setLineDash(dash);
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // transform each integer gridline (a segment in world space) by A and draw it
+  function drawTransformedGrid(m, color, w) {
+    for (var i = -RANGE; i <= RANGE; i++) {
+      var p1 = apply(m, i, -RANGE), p2 = apply(m, i, RANGE);
+      line(sx(p1[0]), syf(p1[1]), sx(p2[0]), syf(p2[1]), color, w);
+      var q1 = apply(m, -RANGE, i), q2 = apply(m, RANGE, i);
+      line(sx(q1[0]), syf(q1[1]), sx(q2[0]), syf(q2[1]), color, w);
+    }
+  }
+
+  // draw the original unit circle plus its image under A (an ellipse)
+  function drawCircleImage(m) {
+    var N = 128, i;
+    ctx.save();
+    ctx.strokeStyle = "#c3cad2";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    for (i = 0; i <= N; i++) {
+      var t = (i / N) * Math.PI * 2;
+      var x = Math.cos(t), y = Math.sin(t);
+      if (i === 0) ctx.moveTo(sx(x), syf(y)); else ctx.lineTo(sx(x), syf(y));
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.strokeStyle = "#2563c9";
+    ctx.fillStyle = "rgba(37,99,201,0.10)";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    for (i = 0; i <= N; i++) {
+      var tt = (i / N) * Math.PI * 2;
+      var p = apply(m, Math.cos(tt), Math.sin(tt));
+      if (i === 0) ctx.moveTo(sx(p[0]), syf(p[1])); else ctx.lineTo(sx(p[0]), syf(p[1]));
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function arrow(x0w, y0w, xw, yw, color, label, width, headLen) {
+    var x0 = sx(x0w), y0 = syf(y0w), x1 = sx(xw), y1 = syf(yw);
+    ctx.save();
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = width || 4;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    var ang = Math.atan2(y1 - y0, x1 - x0);
+    var hl = headLen || 20;
+    if (Math.hypot(x1 - x0, y1 - y0) > 6) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x1 - hl * Math.cos(ang - 0.4), y1 - hl * Math.sin(ang - 0.4));
+      ctx.lineTo(x1 - hl * Math.cos(ang + 0.4), y1 - hl * Math.sin(ang + 0.4));
+      ctx.closePath(); ctx.fill();
+    }
+    if (label) {
+      ctx.font = "600 26px system-ui, sans-serif";
+      ctx.fillText(label, x1 + 10, y1 - 8);
+    }
+    ctx.restore();
+  }
+
+  // eigen: solve lambda^2 - trace*lambda + det = 0
+  function eigen(m) {
+    var tr = m.a + m.d, det = m.a * m.d - m.b * m.c;
+    var disc = tr * tr - 4 * det;
+    var res = { tr: tr, det: det, disc: disc, real: disc >= -1e-9,
+                repeated: false, scalar: false, vals: [], vecs: [] };
+    if (!res.real) return res;
+    var s = Math.sqrt(Math.max(0, disc));
+    var l1 = (tr + s) / 2, l2 = (tr - s) / 2;
+    res.repeated = Math.abs(disc) < 1e-9;
+    // A a scalar multiple of the identity? then every direction is an eigenvector
+    res.scalar = Math.abs(m.b) < 1e-12 && Math.abs(m.c) < 1e-12 && Math.abs(m.a - m.d) < 1e-12;
+    var lams = res.repeated ? [l1] : [l1, l2];
+    lams.forEach(function (lam) {
+      // solve (A - lam I) v = 0
+      var A = m.a - lam, B = m.b, C = m.c, D = m.d - lam;
+      var v;
+      if (Math.abs(A) > 1e-9 || Math.abs(B) > 1e-9) {
+        v = [B, -A];
+      } else if (Math.abs(C) > 1e-9 || Math.abs(D) > 1e-9) {
+        v = [D, -C];
+      } else {
+        v = [1, 0]; // A = lam I : every vector is an eigenvector
+      }
+      if (Math.hypot(v[0], v[1]) < 1e-9) v = [1, 0];
+      res.vals.push(lam);
+      res.vecs.push(v);
+    });
+    return res;
+  }
+
+  function normalizeVec(v) {
+    var n = Math.hypot(v[0], v[1]);
+    if (n < 1e-12) return [1, 0];
+    return [v[0] / n, v[1] / n];
+  }
+
+  function draw() {
+    var m = readM();
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#fbfcfd";
+    ctx.fillRect(0, 0, W, H);
+
+    // original faint grid (identity)
+    var ID = { a: 1, b: 0, c: 0, d: 1 };
+    drawTransformedGrid(ID, "#e7eaee", 1);
+    // axes a touch darker
+    line(sx(-RANGE), oy, sx(RANGE), oy, "#c3cad2", 1.5);
+    line(ox, syf(-RANGE), ox, syf(RANGE), "#c3cad2", 1.5);
+
+    // faint transformed grid (blue) so you can see how A warps space
+    drawTransformedGrid(m, "#dbe6f7", 1.1);
+
+    var eig = eigen(m);
+
+    // eigen-directions: red invariant lines through the origin
+    if (eig.real) {
+      var L = RANGE * 1.5;
+      if (eig.scalar) {
+        // every direction is invariant: fan of soft lines as a hint
+        for (var a = 0; a < 8; a++) {
+          var th = a * Math.PI / 8;
+          line(sx(-Math.cos(th) * L), syf(-Math.sin(th) * L),
+               sx(Math.cos(th) * L), syf(Math.sin(th) * L), "rgba(192,57,43,0.35)", 2, [6, 6]);
+        }
+      } else {
+        eig.vecs.forEach(function (v) {
+          var u = normalizeVec(v);
+          line(sx(-u[0] * L), syf(-u[1] * L), sx(u[0] * L), syf(u[1] * L), "#c0392b", 2.2, [10, 8]);
+        });
+      }
+    }
+
+    // unit circle and its image (the ellipse)
+    drawCircleImage(m);
+
+    // for each real eigen-direction, show a sample vector before/after so scaling is visible
+    if (eig.real && !eig.scalar) {
+      eig.vals.forEach(function (lam, i) {
+        var u = normalizeVec(eig.vecs[i]);
+        arrow(0, 0, u[0], u[1], "rgba(192,57,43,0.45)", null, 3, 16);
+        arrow(0, 0, u[0] * lam, u[1] * lam, "#c0392b", "λ·v", 3.5, 18);
+      });
+    }
+
+    // draggable test vector v (black) and its image A v (orange)
+    var img = apply(m, testV.x, testV.y);
+    arrow(0, 0, testV.x, testV.y, "#111", "v", 4.5, 20);
+    arrow(0, 0, img[0], img[1], "#d97706", "A v", 4.5, 20);
+
+    // handle dot on the test vector tip so it reads as draggable
+    ctx.save();
+    ctx.fillStyle = "#111";
+    ctx.beginPath();
+    ctx.arc(sx(testV.x), syf(testV.y), 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    renderReadout(m, eig, img);
+  }
+
+  function alignmentNote(m, eig) {
+    if (!eig.real || eig.scalar) return "";
+    var tn = Math.hypot(testV.x, testV.y);
+    if (tn < 1e-6) return "";
+    for (var i = 0; i < eig.vecs.length; i++) {
+      var u = normalizeVec(eig.vecs[i]);
+      var cross = Math.abs((testV.x / tn) * u[1] - (testV.y / tn) * u[0]);
+      if (cross < 0.03) {
+        return ' <span class="ok">v is on an eigen-direction now: A v = ' +
+               fmt(eig.vals[i]) + ' &middot; v (same line, just scaled).</span>';
+      }
+    }
+    return "";
+  }
+
+  function renderReadout(m, eig, img) {
+    var det = eig.det, tr = eig.tr;
+    var html = "";
+    html += '<div class="line"><span class="k">Matrix A</span> &nbsp;<span class="mono">[ ' +
+      fmt(m.a) + '  ' + fmt(m.b) + ' ;  ' + fmt(m.c) + '  ' + fmt(m.d) + ' ]</span></div>';
+
+    html += '<div class="line"><span class="k">Trace</span> &nbsp;a + d = <span class="mono">' + fmt(tr) +
+      '</span> <span class="k">(equals the sum of the eigenvalues)</span></div>';
+
+    var detCls = det < 0 ? ' class="neg"' : '';
+    html += '<div class="line"><span class="k">Determinant</span> &nbsp;ad &minus; bc = <span class="mono"' + detCls + '">' +
+      fmt(det) + '</span> <span class="k">(area scale factor; equals the product of the eigenvalues';
+    if (det < 0) html += '; negative means orientation flips';
+    if (Math.abs(det) < 1e-9) html += '; zero means the plane collapses to a line or point';
+    html += ')</span></div>';
+
+    if (!eig.real) {
+      html += '<div class="line"><span class="k">Eigenvalues &lambda;</span> &nbsp;<b>complex</b> ' +
+        '<span class="k">(discriminant (a+d)&sup2; &minus; 4&thinsp;det = ' + fmt(eig.disc) + ' &lt; 0)</span></div>';
+      html += '<div class="line"><span class="k">There are no real eigen-directions: this map rotates every real vector, ' +
+        'so no nonzero real vector stays on its own line. Watch A v (orange) always leave the line of v (black).</span></div>';
+    } else if (eig.scalar) {
+      html += '<div class="line"><span class="k">Eigenvalue &lambda;</span> &nbsp;<span class="mono">' + fmt(eig.vals[0]) +
+        '</span> (repeated) &nbsp;<span class="k">and A = &lambda; I, so <b>every</b> direction is an eigenvector ' +
+        '(the map is a uniform scaling).</span></div>';
+    } else if (eig.repeated) {
+      var lam = eig.vals[0], v = normalizeVec(eig.vecs[0]);
+      html += '<div class="line"><span class="k">Eigenvalue &lambda;</span> &nbsp;<span class="mono">' + fmt(lam) +
+        '</span> (repeated) &nbsp;<span class="k">eigenvector</span> <span class="mono">(' +
+        fmt(v[0]) + ', ' + fmt(v[1]) + ')</span> <span class="k">(only one independent eigen-direction: a defective matrix)</span></div>';
+    } else {
+      html += '<div class="line"><span class="k">Eigenvalues &lambda;</span> &nbsp;<span class="mono">&lambda;&#8321; = ' +
+        fmt(eig.vals[0]) + '</span>, <span class="mono">&lambda;&#8322; = ' + fmt(eig.vals[1]) + '</span></div>';
+      for (var i = 0; i < 2; i++) {
+        var vv = normalizeVec(eig.vecs[i]);
+        html += '<div class="line"><span class="k">&nbsp;&nbsp;eigenvector for &lambda; = ' + fmt(eig.vals[i]) +
+          '</span> &nbsp;<span class="mono">(' + fmt(vv[0]) + ', ' + fmt(vv[1]) + ')</span> ' +
+          '<span class="k">(A scales anything on this line by ' + fmt(eig.vals[i]) + ')</span></div>';
+      }
+    }
+
+    html += '<div class="line" style="margin-top:8px"><span class="k">Test vector</span> &nbsp;v = <span class="mono">(' +
+      fmt(testV.x) + ', ' + fmt(testV.y) + ')</span> &nbsp;&rarr;&nbsp; A v = <span class="mono">(' +
+      fmt(img[0]) + ', ' + fmt(img[1]) + ')</span>' + alignmentNote(m, eig) + '</div>';
+
+    out.innerHTML = html;
+  }
+
+  // ---- interaction: drag the test vector ----
+  function pointerToWorld(ev) {
+    var rect = cv.getBoundingClientRect();
+    var scaleX = cv.width / rect.width, scaleY = cv.height / rect.height;
+    var px = (ev.clientX - rect.left) * scaleX;
+    var py = (ev.clientY - rect.top) * scaleY;
+    return { x: wx(px), y: wy(py), px: px, py: py };
+  }
+
+  function nearTip(p) {
+    var dx = sx(testV.x) - p.px, dy = syf(testV.y) - p.py;
+    return Math.hypot(dx, dy) < 26;
+  }
+
+  cv.addEventListener("pointerdown", function (ev) {
+    var p = pointerToWorld(ev);
+    dragging = true;
+    if (!nearTip(p)) { testV.x = p.x; testV.y = p.y; }
+    try { cv.setPointerCapture(ev.pointerId); } catch (e) {}
+    draw();
+  });
+  cv.addEventListener("pointermove", function (ev) {
+    if (!dragging) return;
+    var p = pointerToWorld(ev);
+    testV.x = Math.max(-RANGE, Math.min(RANGE, p.x));
+    testV.y = Math.max(-RANGE, Math.min(RANGE, p.y));
+    draw();
+  });
+  function endDrag(ev) {
+    dragging = false;
+    try { cv.releasePointerCapture(ev.pointerId); } catch (e) {}
+  }
+  cv.addEventListener("pointerup", endDrag);
+  cv.addEventListener("pointercancel", endDrag);
+
+  ids.forEach(function (k) { el[k].addEventListener("input", draw); });
+
+  document.querySelectorAll("button[data-m]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var vals = b.getAttribute("data-m").split(",");
+      ids.forEach(function (k, i) { el[k].value = vals[i]; });
+      draw();
+    });
+  });
+
+  draw();
+})();
+</script>
 
 <script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
 (function () {

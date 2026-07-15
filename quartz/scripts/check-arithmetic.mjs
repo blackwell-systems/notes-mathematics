@@ -1173,6 +1173,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const A = (2 * 0 - 1) / (0 - 3), B = (2 * 3 - 1) / (3 - 0); eq("PFD (2x-1)/(x(x-3)): A = 1/3", A, 1 / 3, 1e-9); eq("... B = 5/3", B, 5 / 3, 1e-9); }
 }
 
+// ================= Eigenvalues (eigenvalue-transform widget) =================
+{
+  // eigenvalues of [[a,b],[c,d]] from lambda^2 - (a+d) lambda + (ad-bc) = 0
+  const eig = (a, b, c, d) => { const tr = a + d, det = a * d - b * c, disc = tr * tr - 4 * det; return { tr, det, disc, lo: (tr - Math.sqrt(disc)) / 2, hi: (tr + Math.sqrt(disc)) / 2 }; };
+  { const e = eig(2, 1, 1, 2); eq("[[2,1],[1,2]] eigenvalue hi = 3", e.hi, 3); eq("... lo = 1", e.lo, 1); eq("trace = sum of eigenvalues", e.tr, e.hi + e.lo); eq("det = product of eigenvalues", e.det, e.hi * e.lo); }
+  { const e = eig(2, 0, 0, 3); eq("[[2,0],[0,3]] eigenvalues 2 and 3", e.lo * 100 + e.hi, 2 * 100 + 3); }
+  { const e = eig(0, -1, 1, 0); check("rotation [[0,-1],[1,0]] has complex eigenvalues (disc < 0)", e.disc < 0); }
+  { const e = eig(1, 1, 0, 1); check("shear [[1,1],[0,1]] repeated eigenvalue 1 (disc = 0)", approx(e.disc, 0) && approx(e.hi, 1)); }
+  // eigenvector check: [[2,1],[1,2]]*(1,1) = (3,3) = 3*(1,1); *(1,-1) = (1,-1) = 1*(1,-1)
+  check("eigenvector (1,1) of [[2,1],[1,2]] scales by 3", 2 * 1 + 1 * 1 === 3 && 1 * 1 + 2 * 1 === 3);
+  check("eigenvector (1,-1) of [[2,1],[1,2]] scales by 1", 2 * 1 + 1 * -1 === 1 && 1 * 1 + 2 * -1 === -1);
+}
+
+// ================= Slope fields / ODEs (direction-field widget) =================
+{
+  // RK4 integrator re-proves the solution curves the widget draws
+  const rk4 = (f, x0, y0, x1, n) => { const h = (x1 - x0) / n; let x = x0, y = y0; for (let i = 0; i < n; i++) { const k1 = f(x, y), k2 = f(x + h / 2, y + (h / 2) * k1), k3 = f(x + h / 2, y + (h / 2) * k2), k4 = f(x + h, y + h * k3); y += (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4); x += h; } return y; };
+  eq("dy/dx=y through (0,1): y(1) = e", rk4((x, y) => y, 0, 1, 1, 2000), Math.E, 1e-4);
+  eq("dy/dx=x through (0,0): y(2) = 2 (y=x^2/2)", rk4((x, y) => x, 0, 0, 2, 2000), 2, 1e-6);
+  eq("logistic dy/dx=y(1-y) through (0,0.5): y(2) = 1/(1+e^-2)", rk4((x, y) => y * (1 - y), 0, 0.5, 2, 2000), 1 / (1 + Math.exp(-2)), 1e-5);
+  check("logistic equilibria: f=0 at y=0 and y=1", 0 * (1 - 0) === 0 && 1 * (1 - 1) === 0);
+  // dy/dx = -x/y conserves x^2+y^2: start (0,2), integrate a bit, radius^2 stays ~4
+  { const y = rk4((x, yy) => -x / yy, 0, 2, 1, 4000); eq("dy/dx=-x/y from (0,2): x^2+y^2 stays 4 at x=1", 1 * 1 + y * y, 4, 1e-3); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
