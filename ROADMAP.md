@@ -68,6 +68,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Predicate logic expansion to parity** — added quantifier inference rules (UI/UG/EI/EG
+  with eigenvariable side-conditions), proof techniques, equality/identity with axioms (∃!
+  defined via `=`), Tarskian satisfaction + validity/entailment, ε-δ and other math
+  formalizations, prenex normal form + Skolemization, and metatheory (Gödel completeness,
+  compactness, Löwenheim-Skolem, FOL undecidability, first- vs higher-order). Added the
+  **finite-model explorer** widget, 3 clean diagrams, prerequisites callout, and 15 harness
+  assertions. Page grew 364 → 544 lines.
 - [x] **Propositional logic overhaul** — converted 17 scanned truth-table/Venn images to
   native Markdown tables + clean matplotlib Venn diagrams (fixing a shading error where
   "equivalence" was drawn as XOR); added a **Functional Completeness** section (16 binary

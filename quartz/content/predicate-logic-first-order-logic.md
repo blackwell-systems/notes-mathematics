@@ -1,6 +1,12 @@
 ---
 title: "Predicate Logic / first-order logic"
+prerequisites: ["propositional-logic-zeroth-order-logic", "set-theory"]
+enables: ["real-analysis", "measure-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Propositional Logic](./propositional-logic-zeroth-order-logic) · [Set Theory](./set-theory)
+> **Leads to:** [Real Analysis](./real-analysis) · [Measure Theory](./measure-theory)
 
 Propositional logic can only express complete statements like "it is raining" as true or false. Predicate logic goes further: it can express "it is raining in city x," where the truth value depends on which city x refers to. This lets us make statements about *all* objects or *some* objects, such as "every even number greater than 2 is the sum of two primes." Predicate logic is the language in which mathematical definitions and theorems are formally written.
 
@@ -51,6 +57,35 @@ When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$
 - $P(x)$ means "x is prime"
 - $Q(x, y)$ means "x is greater than y"
 - $R(x)$ means "x is an even number"
+
+## Equality (First-Order Logic with Identity)
+
+Almost all of mathematics is written in first-order logic *with equality*: the binary predicate $=$ (read "equals") is treated as a built-in logical symbol with a fixed meaning, rather than just another relation you get to interpret freely. Wherever a structure interprets $x = y$, it must mean genuine identity: $x$ and $y$ name the *same* object of the domain. This fixed meaning is pinned down by axioms.
+
+**Reflexivity.** Everything equals itself:
+$$
+\forall x\,(x = x).
+$$
+
+**Substitution (Leibniz's law).** Equal objects are interchangeable in every context. For any predicate $P$ and any function symbol $f$:
+$$
+\forall x\,\forall y\,\big(x = y \to (P(x) \leftrightarrow P(y))\big), \qquad
+\forall x\,\forall y\,\big(x = y \to f(x) = f(y)\big).
+$$
+That is, if $x = y$, then $x$ has a property exactly when $y$ does, and applying a function to $x$ gives the same result as applying it to $y$. This single schema is what makes "substitute equals for equals," the most-used move in all of algebra, a *logical* rule rather than an assumption.
+
+From reflexivity and substitution, the familiar properties follow as theorems (you do not have to assume them separately):
+
+- **Symmetry:** $\forall x\,\forall y\,(x = y \to y = x)$.
+- **Transitivity:** $\forall x\,\forall y\,\forall z\,\big((x = y \wedge y = z) \to x = z\big)$.
+
+Together, symmetry, reflexivity, and transitivity make $=$ an [equivalence relation](./set-theory), and substitution makes it a *congruence* compatible with every function and predicate.
+
+**Defining uniqueness through equality.** Equality is what lets us say "exactly one." The unique existential quantifier $\exists! x\, P(x)$ introduced below is not a new primitive; it abbreviates a formula built from $\exists$, $\forall$, and $=$:
+$$
+\exists! x\, P(x) \quad\equiv\quad \exists x\,\Big(P(x) \wedge \forall y\,\big(P(y) \to y = x\big)\Big).
+$$
+In words: something satisfies $P$, and anything satisfying $P$ *is that same thing*. Counting, definite descriptions ("the smallest prime"), and the very notion of a well-defined function all rest on this.
 
 ## Domain of Discourse
 
@@ -121,7 +156,7 @@ When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$
 - Meaning: "There exists exactly one real number $x$ such that $x + 5 = 7$"
 - Truth value: TRUE (only $x = 2$)
 
-![Universal vs existential quantifiers: for all checks every element, there exists checks at least one](./media/quantifier-scope.png)
+![Two panels over a finite domain of objects: the universal quantifier checks that every object satisfies P, the existential quantifier needs at least one](./media/fol-forall-exists.png)
 
 ## Multiple Quantifiers
 
@@ -138,6 +173,10 @@ A full quantified formula is read left to right, symbol by symbol: $\forall x\, 
 - Domain: $\mathbb{R}$
 - Meaning: "There exists a real number $y$ such that for all real numbers $x$, $x < y$"
 - Truth value: FALSE (no single $y$ is greater than all real numbers)
+
+The difference is *dependency*. In $\forall x\, \exists y$, the witness $y$ is chosen **after** $x$ and may depend on it (here $y = x+1$). In $\exists y\, \forall x$, the single $y$ must be fixed **first** and work for every $x$ at once, which is a far stronger, here impossible, demand.
+
+![Dependency diagram: for all x there exists y with x less than y, each of x=1,2,3,4 maps by an arrow to a distinct y=x+1, showing the witness y depends on x](./media/fol-nested-quantifiers.png)
 
 ### Mixed Quantifiers
 
@@ -194,6 +233,29 @@ A formula with no free variables is called a **sentence** (or closed formula). O
 
 **Capture-avoiding substitution ("free for"):** Substituting a term $t$ for a free variable $x$ in a formula, written $\phi[t/x]$, is subtle when $t$ itself contains variables. We say $t$ is **free for** $x$ in $\phi$ if no free variable of $t$ becomes bound (gets "captured") after the substitution. For example, substituting $y$ for $x$ in $\exists y\,(x < y)$ would produce $\exists y\,(y < y)$, silently capturing $y$ and changing the meaning. To substitute safely, first rename the bound $y$ to a fresh variable ($\exists w\,(x < w)$), then substitute to get $\exists w\,(y < w)$. Only capture-avoiding substitutions preserve meaning, which is why quantifier instantiation rules require the substituted term to be free for the variable.
 
+## Formal Semantics: Satisfaction, Validity, and Entailment
+
+The [Structures and Interpretations](#structures-and-interpretations-models) section said informally that a structure makes each sentence true or false. Making this precise is **Tarski's definition of satisfaction**, the semantic backbone of first-order logic. It is the exact analog of the propositional [Syntax and Semantics](./propositional-logic-zeroth-order-logic) section, but now truth must track the *objects* that variables range over.
+
+**Variable assignments.** Because a formula may have free variables, we cannot evaluate it from a structure alone; we also need to say what its free variables refer to. A **variable assignment** $s$ in a structure $\mathcal{M}$ is a function sending each variable to an element of the domain $D$. Write $s[x \mapsto d]$ for the assignment that agrees with $s$ everywhere except it sends $x$ to $d$.
+
+**The satisfaction relation $\mathcal{M}, s \vDash \phi$** (read "$\mathcal{M}$ with assignment $s$ satisfies $\phi$") is defined by recursion on the shape of $\phi$. Terms first denote objects (a constant denotes its interpretation, a variable denotes $s(x)$, and $f(t_1,\ldots,t_n)$ denotes the interpreted function applied to the denotations of the $t_i$). Then:
+
+- $\mathcal{M}, s \vDash P(t_1, \ldots, t_n)$ iff the denoted objects stand in the interpreted relation $P^{\mathcal{M}}$.
+- $\mathcal{M}, s \vDash \neg\phi$ iff **not** $\mathcal{M}, s \vDash \phi$; and $\wedge, \vee, \to, \leftrightarrow$ follow the propositional truth tables.
+- $\mathcal{M}, s \vDash \forall x\, \phi$ iff $\mathcal{M}, s[x \mapsto d] \vDash \phi$ for **every** $d \in D$.
+- $\mathcal{M}, s \vDash \exists x\, \phi$ iff $\mathcal{M}, s[x \mapsto d] \vDash \phi$ for **some** $d \in D$.
+
+The two quantifier clauses are the heart of it: $\forall$ ranges over *all* ways of reassigning $x$, $\exists$ over *some*. For a **sentence** (no free variables), the assignment $s$ makes no difference, and we recover the clean $\mathcal{M} \vDash \phi$ from before. On a finite domain, these clauses are exactly the finite conjunction/disjunction expansion used below, and they are what the interactive explorer computes.
+
+**The three semantic notions** then mirror propositional logic, but "all interpretations" now means all structures:
+
+- $\phi$ is **valid** (**logically true**) if it is true in *every* structure under every assignment, written $\vDash \phi$. Example: $\forall x\, P(x) \to \exists x\, P(x)$ (over a non-empty domain) is valid.
+- $\phi$ is **satisfiable** if it is true in *at least one* structure. Example: $\exists x\, \exists y\, (x \neq y)$ is satisfiable (any two-element domain works) but not valid (it fails on a one-element domain).
+- $\Gamma$ **entails** $\phi$, written $\Gamma \vDash \phi$, if every structure-and-assignment satisfying all of $\Gamma$ also satisfies $\phi$. This is the semantic notion of a valid argument.
+
+Validity is the first-order analog of a propositional tautology, satisfiability of consistency, and entailment of logical consequence. What is *provable* by the inference rules below relates to what is *valid* by the metatheorems in the final section.
+
 ## Common Patterns
 
 ### "For all... if..., then..."
@@ -230,6 +292,10 @@ When the domain is finite, quantified statements can be expanded:
 $\forall x P(x) \equiv P(1) \land P(2) \land P(3) \equiv F \land T \land F \equiv F$
 
 $\exists x P(x) \equiv P(1) \lor P(2) \lor P(3) \equiv F \lor T \lor F \equiv T$
+
+Build your own finite structure below: choose the domain size, toggle which elements satisfy the predicate $P$, fill in the relation $R$ (or load a preset like "less-than"), and watch each quantified sentence evaluate live. Put $\forall x\, \exists y\, R(x,y)$ next to $\exists y\, \forall x\, R(x,y)$ and see for yourself when quantifier order changes the answer.
+
+<iframe src="/static/interactive/fol-model-explorer.html" width="100%" height="640" style="border:none;"></iframe>
 
 ## Logical Equivalences for Quantifiers
 
@@ -361,4 +427,118 @@ $$\neg \exists x (D(x) \land P(x)) \equiv \forall x (D(x) \to \neg P(x))$$
 - $\exists x (P \to Q(x)) \equiv P \to \exists x Q(x)$ (if $x$ not in $P$)
 - $\forall x (P(x) \to Q) \equiv (\exists x P(x)) \to Q$ (if $x$ not in $Q$)
 - $\exists x (P(x) \to Q) \equiv (\forall x P(x)) \to Q$ (if $x$ not in $Q$)
+
+## Rules of Inference for Quantifiers
+
+The propositional [rules of inference](./propositional-logic-zeroth-order-logic) (modus ponens and friends) handle connectives, but they cannot get inside a quantifier. First-order natural deduction adds exactly four rules: two for *removing* a quantifier (instantiation) and two for *introducing* one (generalization). Each generalization rule carries a **side condition** whose whole job is to block a tempting fallacy. Throughout, $c$ is a term and $\phi[c/x]$ is the capture-avoiding substitution defined above.
+
+**Universal Instantiation (UI).** From $\forall x\, \phi(x)$, infer $\phi(c)$ for any term $c$ (free for $x$).
+$$
+\frac{\forall x\, \phi(x)}{\phi(c)}
+$$
+What holds for everything holds for any particular thing. No side condition: this direction is always safe.
+
+**Existential Generalization (EG).** From $\phi(c)$, infer $\exists x\, \phi(x)$.
+$$
+\frac{\phi(c)}{\exists x\, \phi(x)}
+$$
+If some specific object has the property, then *something* has it. Also always safe.
+
+**Universal Generalization (UG).** From $\phi(c)$, infer $\forall x\, \phi(x)$ **provided $c$ is arbitrary**: $c$ is a variable (an *eigenvariable*) that does not occur free in any premise or undischarged assumption.
+$$
+\frac{\phi(c)}{\forall x\, \phi(x)} \quad (c \text{ arbitrary})
+$$
+This is the formal version of "let $x$ be arbitrary; ... therefore it holds for all $x$." The side condition is essential: if $c$ appeared in a premise, then $c$ was *special*, not arbitrary, and generalizing would be a fallacy (proving something about a chosen number does not prove it for all numbers).
+
+**Existential Instantiation (EI).** From $\exists x\, \phi(x)$, introduce a **fresh** name $c$ (a *witness*) and assume $\phi(c)$, where $c$ is new: it must not occur earlier in the derivation or in the conclusion.
+$$
+\frac{\exists x\, \phi(x)}{\phi(c)} \quad (c \text{ fresh})
+$$
+"Something satisfies $\phi$; call one such thing $c$." The freshness condition stops you from conflating this unknown witness with an object you already named.
+
+**Worked derivation (a classic syllogism).** Premises: $\forall x\,(\text{Human}(x) \to \text{Mortal}(x))$ and $\text{Human}(\text{socrates})$. Conclude $\text{Mortal}(\text{socrates})$.
+
+1. $\forall x\,(\text{Human}(x) \to \text{Mortal}(x))$ — premise
+2. $\text{Human}(\text{socrates}) \to \text{Mortal}(\text{socrates})$ — UI on 1 (instantiate $x := \text{socrates}$)
+3. $\text{Human}(\text{socrates})$ — premise
+4. $\text{Mortal}(\text{socrates})$ — modus ponens on 2, 3.
+
+**Worked derivation (using UG).** To show $\forall x\,(P(x) \wedge Q(x)) \vdash \forall x\, P(x)$: take an arbitrary $c$; from $\forall x\,(P(x)\wedge Q(x))$ get $P(c)\wedge Q(c)$ by UI; simplify to $P(c)$; since $c$ was arbitrary, conclude $\forall x\, P(x)$ by UG.
+
+**Why the side conditions matter.** Dropping freshness in EI lets you "prove" absurdities: from $\exists x\,\text{Even}(x)$ and $\exists x\,\text{Odd}(x)$ you must introduce *different* witnesses; naming both $c$ would falsely give $\text{Even}(c)\wedge\text{Odd}(c)$. Dropping arbitrariness in UG lets you generalize a lucky special case to a false universal.
+
+## Proof Techniques with Quantifiers
+
+These rules turn into everyday proof strategy:
+
+- **To prove $\forall x\, P(x)$:** "Let $x$ be arbitrary," prove $P(x)$ using nothing special about $x$, then apply UG. (This is [direct proof](./propositional-logic-zeroth-order-logic) under a universal.)
+- **To prove $\exists x\, P(x)$:** exhibit a **witness**, a specific object you can check, then apply EG. (Non-constructive existence proofs instead derive a contradiction from $\forall x\, \neg P(x)$.)
+- **To disprove $\forall x\, P(x)$:** give a single **counterexample**, one object with $\neg P(x)$. By the negation rules, $\neg\forall x\, P(x) \equiv \exists x\, \neg P(x)$, so a counterexample *is* a proof of the negation.
+- **To prove $\exists! x\, P(x)$:** prove **existence** (a witness $a$ with $P(a)$) and **uniqueness** (assume $P(a)$ and $P(b)$, derive $a = b$), exactly the two conjuncts of the equality definition of $\exists!$.
+
+**Example (prove a universal).** Claim: $\forall n\,(n \text{ is even} \to n^2 \text{ is even})$. Let $n$ be arbitrary and suppose $n$ is even, so $n = 2k$. Then $n^2 = 4k^2 = 2(2k^2)$, which is even. Since $n$ was arbitrary, the universal holds.
+
+**Example (disprove by counterexample).** Claim: $\forall x\,(x^2 > x)$ over $\mathbb{R}$. Counterexample $x = \tfrac{1}{2}$: then $x^2 = \tfrac{1}{4} < \tfrac{1}{2}$. One counterexample settles it; the statement is false.
+
+## Formalizing Mathematics in First-Order Logic
+
+The reason to learn all this: the definitions of analysis, algebra, and number theory *are* first-order sentences, and their logical structure is what makes them precise. The most important case is the limit.
+
+**The $\varepsilon$–$\delta$ definition of a limit** is three nested quantifiers:
+$$
+\lim_{x \to a} f(x) = L \quad\equiv\quad \forall \varepsilon > 0\ \; \exists \delta > 0\ \; \forall x\,\big(0 < |x - a| < \delta \;\to\; |f(x) - L| < \varepsilon\big).
+$$
+
+![The epsilon-delta limit definition drawn as a graph: a horizontal band L plus or minus epsilon labeled for-all epsilon, and a vertical band a plus or minus delta labeled there-exists delta, tying the nested quantifiers to the picture](./media/fol-epsilon-delta.png)
+
+Read the quantifier order as a game (this is exactly the [real analysis](./real-analysis) picture): a **challenger** names a tolerance $\varepsilon > 0$; a **responder** must produce a width $\delta > 0$; then **every** $x$ within $\delta$ of $a$ must land within $\varepsilon$ of $L$. Because $\exists\delta$ sits *inside* $\forall\varepsilon$, the width $\delta$ is allowed to depend on $\varepsilon$, just as $y$ depended on $x$ earlier.
+
+**Quantifier order distinguishes deep concepts.** Compare pointwise and uniform continuity of $f$ on a set:
+$$
+\text{pointwise: } \forall \varepsilon\, \forall a\, \exists \delta\, \forall x\,(\ldots) \qquad\text{vs.}\qquad \text{uniform: } \forall \varepsilon\, \exists \delta\, \forall a\, \forall x\,(\ldots).
+$$
+In the pointwise version $\delta$ may depend on the point $a$; in the uniform version one $\delta$ must work for *all* points at once. That single swap of $\exists\delta$ past $\forall a$ is the entire difference between two theorems, a vivid reminder that quantifier order carries mathematical content.
+
+**More formalizations:**
+- **Infinitely many primes:** $\forall n\, \exists p\,\big(p > n \wedge \text{Prime}(p)\big)$ ("beyond every $n$ there is a prime").
+- **Boundedness of $f$:** $\exists M\, \forall x\,\big(|f(x)| \le M\big)$; its negation, unboundedness, flips to $\forall M\, \exists x\,\big(|f(x)| > M\big)$.
+- **Density of the rationals:** $\forall x\, \forall y\,\big(x < y \to \exists q\,(x < q \wedge q < y)\big)$.
+- **Negating a limit** (to prove $\lim \neq L$) flips every quantifier: $\exists \varepsilon > 0\ \forall \delta > 0\ \exists x\,\big(0 < |x-a| < \delta \wedge |f(x) - L| \ge \varepsilon\big)$.
+
+## Prenex Normal Form and Skolemization
+
+**Prenex normal form (PNF).** Every first-order formula is logically equivalent to one in which all quantifiers appear in a single prefix at the front, followed by a quantifier-free **matrix**:
+$$
+Q_1 x_1\, Q_2 x_2\, \cdots\, Q_n x_n\ \; M(x_1, \ldots, x_n), \qquad Q_i \in \{\forall, \exists\}.
+$$
+You reach it by renaming bound variables apart (to avoid capture) and then pulling quantifiers outward with the scope equivalences already listed above, for example $\big(\forall x\, P(x)\big) \to Q \equiv \exists x\,\big(P(x) \to Q\big)$ (note the flip: a universal in the antecedent becomes existential when it moves out). PNF is the standard input format for the algorithms below and for automated theorem provers.
+
+**Skolemization.** Once in prenex form, we can eliminate existential quantifiers by naming their witnesses. An existential that sits inside some universals is replaced by a **Skolem function** of exactly those universals:
+$$
+\forall x\, \exists y\, R(x, y) \quad\rightsquigarrow\quad \forall x\, R\big(x, f(x)\big),
+$$
+where $f$ is a new **Skolem function** symbol. An existential with no universals in front of it becomes a **Skolem constant** ($\exists y\, \phi \rightsquigarrow \phi[c/y]$). The Skolem function *is* the dependency made explicit: $f(x)$ literally names "the $y$ that works for this $x$," the same dependency the $\forall x\,\exists y$ diagram drew. Skolemization does **not** preserve logical equivalence, but it preserves **satisfiability**, which is all that resolution-based theorem proving needs.
+
+## Metatheory: Soundness, Completeness, and the Limits of FOL
+
+First-order logic has a proof system (the rules above, plus the propositional rules and equality axioms). How does *provability* $\vdash$ relate to *truth in all structures* $\vDash$? The answer is a set of celebrated metatheorems.
+
+- **Soundness:** if $\Gamma \vdash \phi$ then $\Gamma \vDash \phi$. The rules never derive anything invalid.
+- **Gödel's Completeness Theorem (1929):** if $\Gamma \vDash \phi$ then $\Gamma \vdash \phi$. *Every* valid first-order sentence has a proof. So, exactly as in propositional logic, $\vdash$ and $\vDash$ coincide. (This is **not** the incompleteness theorem: incompleteness is about a particular *theory*, like arithmetic, failing to *decide* every sentence about its intended model; completeness is about the logic's proof system capturing all *logically valid* inferences. They are compatible.)
+- **Compactness:** a set of sentences has a model if and only if every *finite* subset has a model. This has striking consequences, such as the existence of non-standard models of arithmetic containing "infinite" numbers.
+- **Löwenheim–Skolem:** if a countable set of first-order sentences has an infinite model, it has infinite models of *every* infinite cardinality. First-order logic cannot pin down the size of an infinite structure, which is why no first-order theory can categorically describe $\mathbb{N}$, $\mathbb{R}$, or the sets.
+
+**The decidability gap.** Propositional validity is **decidable**: a truth table (or the [truth-table generator](./propositional-logic-zeroth-order-logic)) always terminates with a yes/no answer. First-order validity is **not**. By the Church–Turing theorem (1936), no algorithm can decide, for an arbitrary first-order sentence, whether it is valid. It is, however, **semi-decidable**: by completeness, a systematic proof search will eventually find a proof *if one exists*, but may run forever when the sentence is invalid. Certain fragments (monadic predicate logic, and others) are decidable; full first-order logic is the boundary where expressive power meets undecidability.
+
+## First-Order vs Higher-Order Logic
+
+The "first" in first-order names a deliberate restriction: quantifiers range only over **objects** of the domain, never over predicates, functions, or sets of objects. You may write $\forall x\,(\ldots)$ for $x$ an element, but not $\forall P\,(\ldots)$ for $P$ a property.
+
+**Second-order logic** lifts that restriction and allows quantifying over predicates and relations. This buys real expressive power. Mathematical induction becomes a single axiom rather than an infinite schema,
+$$
+\forall P\,\Big(\big(P(0) \wedge \forall n\,(P(n) \to P(n+1))\big) \to \forall n\, P(n)\Big),
+$$
+and the least-upper-bound property of $\mathbb{R}$ becomes directly statable. Second-order logic can even characterize $\mathbb{N}$ up to isomorphism, which first-order logic (by Löwenheim–Skolem) cannot.
+
+The catch is exactly the metatheory above: **second-order logic has no sound and complete proof system, and fails compactness.** You cannot have both full expressive power and a complete, effective notion of proof. This trade-off is why mainstream mathematics is founded on *first-order* set theory (ZFC): a first-order theory keeps Gödel completeness and a usable proof system, and recovers the strength of second-order ideas by quantifying over sets *as objects* rather than over predicates. Choosing first-order logic is choosing a complete, well-behaved logic over a maximally expressive one.
 

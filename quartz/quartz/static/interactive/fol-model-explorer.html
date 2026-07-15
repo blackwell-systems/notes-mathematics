@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First-Order Logic: Finite Model Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --text:#1c2126; --muted:#5a6672;
+    --accent:#2563c9; --true:#1e874b; --false:#b23a3a;
+    --line:#dde3ea; --chip:#eef2f7; --panel:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:20px 16px 40px;}
+  h1{font-size:20px; margin:0 0 4px;}
+  .caption{color:var(--muted); font-size:13px; margin:0 0 16px;}
+  .panel{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:10px; padding:14px 16px; margin-bottom:16px;
+  }
+  .panel h2{font-size:14px; margin:0 0 10px; letter-spacing:.02em; color:#2b333c; text-transform:uppercase; font-weight:700;}
+  .row{display:flex; align-items:center; flex-wrap:wrap; gap:8px;}
+  .lbl{font-size:13px; color:var(--muted); min-width:70px;}
+  button{
+    font:inherit; font-size:13px; cursor:pointer;
+    background:var(--chip); color:var(--text);
+    border:1px solid var(--line); border-radius:7px; padding:5px 10px;
+  }
+  button:hover{border-color:var(--accent);}
+  button.stepper{width:32px; padding:5px 0; font-weight:700;}
+  .nval{font-weight:700; min-width:22px; text-align:center; font-variant-numeric:tabular-nums;}
+  .presets{margin-top:8px;}
+  .presets button{background:#f4f7fb;}
+  /* P chips */
+  .chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{
+    width:40px; height:40px; border-radius:50%;
+    border:2px solid var(--line); background:#fff; color:var(--muted);
+    font-weight:700; font-size:15px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all .08s;
+  }
+  .chip.on{background:var(--accent); border-color:var(--accent); color:#fff;}
+  /* R grid */
+  table.grid{border-collapse:collapse; margin-top:4px;}
+  table.grid th, table.grid td{
+    width:34px; height:34px; text-align:center; padding:0;
+  }
+  table.grid th{color:var(--muted); font-size:12px; font-weight:600;}
+  table.grid td.corner{color:var(--accent); font-weight:700; font-size:11px;}
+  .cell{
+    width:26px; height:26px; margin:auto; border-radius:5px;
+    border:1.5px solid var(--line); background:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:15px; line-height:1;
+  }
+  .cell.on{background:var(--accent); border-color:var(--accent);}
+  .gridnote{font-size:12px; color:var(--muted); margin-top:8px;}
+  /* readout */
+  .readout{
+    font-size:13px; color:#2b333c;
+    background:#f0f4fa; border:1px solid #dbe4f2;
+    border-radius:8px; padding:8px 12px; margin-bottom:16px;
+    font-variant-numeric:tabular-nums;
+  }
+  .readout code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px;}
+  /* results */
+  table.results{width:100%; border-collapse:collapse;}
+  table.results td{padding:7px 6px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  table.results tr:last-child td{border-bottom:none;}
+  .sent{font-size:14.5px;}
+  .math{font-family:"Cambria Math","STIX Two Math",Georgia,serif; font-style:italic;}
+  .math .q{font-style:normal; font-weight:600;}
+  .why{font-size:12px; color:var(--muted); font-style:normal; margin-top:2px;}
+  .badge{
+    display:inline-block; min-width:56px; text-align:center;
+    font-weight:700; font-size:12px; letter-spacing:.04em;
+    padding:4px 8px; border-radius:6px; white-space:nowrap;
+  }
+  .badge.T{background:#e4f4ea; color:var(--true); border:1px solid #b7e0c6;}
+  .badge.F{background:#f9e6e6; color:var(--false); border:1px solid #ecbcbc;}
+  td.vcol{text-align:right; white-space:nowrap; width:70px;}
+  .sec-label{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); padding-top:12px !important; font-weight:700;}
+  tr.pair td{background:#fafbfd;}
+  tr.pair.differ td{background:#fdf4ec;}
+  .ordernote{
+    font-size:12px; margin-top:2px; padding:4px 8px; border-radius:6px;
+    display:inline-block;
+  }
+  .ordernote.differ{background:#fbe7d4; color:#a35a17; border:1px solid #f0cfa8;}
+  .ordernote.same{background:#eef1f4; color:var(--muted); border:1px solid var(--line);}
+  .demorgan{font-size:12px; color:var(--true); margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>First-Order Logic: Finite Model Explorer</h1>
+  <p class="caption">Build a small finite structure below (a domain, a set <span class="math">P</span>, and a relation <span class="math">R</span>). Every sentence on the right is re-evaluated live by looping over the domain. Watch how <span class="math">&#8704;x&#8707;y</span> and <span class="math">&#8707;y&#8704;x</span> can disagree.</p>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="panel">
+    <h2>Domain</h2>
+    <div class="row">
+      <span class="lbl">size n =</span>
+      <button class="stepper" id="nDown">&#8722;</button>
+      <span class="nval" id="nVal">3</span>
+      <button class="stepper" id="nUp">+</button>
+      <span style="font-size:13px;color:var(--muted);margin-left:8px;">domain = {1, &hellip;, n}</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Unary predicate P(x)</h2>
+    <div class="chips" id="pChips"></div>
+    <div class="row presets">
+      <span class="lbl">fill P:</span>
+      <button data-p="evens">evens</button>
+      <button data-p="all">all</button>
+      <button data-p="none">none</button>
+      <button data-p="one">just {1}</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Binary relation R(i, j)</h2>
+    <div id="rGrid"></div>
+    <div class="gridnote">Row <span class="math">i</span>, column <span class="math">j</span>: a filled cell means <span class="math">R(i,&#8202;j)</span> holds.</div>
+    <div class="row presets">
+      <span class="lbl">fill R:</span>
+      <button data-r="lt">less-than (i&lt;j)</button>
+      <button data-r="succ">successor (j=i+1)</button>
+      <button data-r="eq">equality (i=j)</button>
+      <button data-r="empty">empty</button>
+      <button data-r="full">full</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Sentences &mdash; live truth values</h2>
+    <table class="results"><tbody id="results"></tbody></table>
+  </div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  // ---- model state ----
+  var n = 3;
+  var P = {};   // P[i] = true/false, i in 1..n
+  var R = {};   // R[i+"_"+j] = true/false
+
+  function dom(){ var a=[]; for(var i=1;i<=n;i++) a.push(i); return a; }
+  function inP(i){ return !!P[i]; }
+  function inR(i,j){ return !!R[i+"_"+j]; }
+
+  // ---- evaluators (loop over finite domain) ----
+  function forallP(){ return dom().every(inP); }
+  function existsP(){ return dom().some(inP); }
+  function countP(){ var c=0; dom().forEach(function(i){ if(inP(i)) c++; }); return c; }
+  function uniqueP(){ return countP()===1; }
+
+  function forallForall(){
+    var D=dom();
+    for(var a=0;a<D.length;a++) for(var b=0;b<D.length;b++)
+      if(!inR(D[a],D[b])) return {v:false, ce:D[a]+","+D[b]};
+    return {v:true};
+  }
+  function existsExists(){
+    var D=dom();
+    for(var a=0;a<D.length;a++) for(var b=0;b<D.length;b++)
+      if(inR(D[a],D[b])) return {v:true, w:D[a]+","+D[b]};
+    return {v:false};
+  }
+  // forall x exists y R(x,y): every row has at least one filled cell
+  function forallExists(){
+    var D=dom();
+    for(var a=0;a<D.length;a++){
+      var found=false;
+      for(var b=0;b<D.length;b++) if(inR(D[a],D[b])){ found=true; break; }
+      if(!found) return {v:false, ce:D[a]};
+    }
+    return {v:true};
+  }
+  // exists y forall x R(x,y): some column is filled in every row
+  function existsForall(){
+    var D=dom();
+    for(var b=0;b<D.length;b++){
+      var all=true;
+      for(var a=0;a<D.length;a++) if(!inR(D[a],D[b])){ all=false; break; }
+      if(all) return {v:true, w:D[b]};
+    }
+    return {v:false};
+  }
+  // forall x (P(x) -> exists y R(x,y))
+  function forallImp(){
+    var D=dom();
+    for(var a=0;a<D.length;a++){
+      if(!inP(D[a])) continue; // antecedent false => implication true
+      var found=false;
+      for(var b=0;b<D.length;b++) if(inR(D[a],D[b])){ found=true; break; }
+      if(!found) return {v:false, ce:D[a]};
+    }
+    return {v:true};
+  }
+
+  // ---- rendering controls ----
+  function renderP(){
+    var box=document.getElementById("pChips");
+    box.innerHTML="";
+    dom().forEach(function(i){
+      var c=document.createElement("div");
+      c.className="chip"+(inP(i)?" on":"");
+      c.textContent=i;
+      c.title="toggle "+i+" in/out of P";
+      c.addEventListener("click",function(){ P[i]=!P[i]; renderP(); evaluate(); });
+      box.appendChild(c);
+    });
+  }
+
+  function renderR(){
+    var host=document.getElementById("rGrid");
+    var t=document.createElement("table");
+    t.className="grid";
+    // header row
+    var head=document.createElement("tr");
+    var corner=document.createElement("td"); corner.className="corner"; corner.textContent="i\\j";
+    head.appendChild(corner);
+    dom().forEach(function(j){ var th=document.createElement("th"); th.textContent=j; head.appendChild(th); });
+    t.appendChild(head);
+    dom().forEach(function(i){
+      var tr=document.createElement("tr");
+      var rh=document.createElement("th"); rh.textContent=i; tr.appendChild(rh);
+      dom().forEach(function(j){
+        var td=document.createElement("td");
+        var cell=document.createElement("div");
+        cell.className="cell"+(inR(i,j)?" on":"");
+        cell.innerHTML=inR(i,j)?"&#10003;":"";
+        cell.title="toggle R("+i+","+j+")";
+        cell.addEventListener("click",function(){ R[i+"_"+j]=!inR(i,j); renderR(); evaluate(); });
+        td.appendChild(cell); tr.appendChild(td);
+      });
+      t.appendChild(tr);
+    });
+    host.innerHTML=""; host.appendChild(t);
+  }
+
+  // ---- presets ----
+  function setP(kind){
+    P={};
+    dom().forEach(function(i){
+      if(kind==="all") P[i]=true;
+      else if(kind==="none") P[i]=false;
+      else if(kind==="evens") P[i]=(i%2===0);
+      else if(kind==="one") P[i]=(i===1);
+    });
+    renderP(); evaluate();
+  }
+  function setR(kind){
+    R={};
+    dom().forEach(function(i){ dom().forEach(function(j){
+      var v=false;
+      if(kind==="lt") v=(i<j);
+      else if(kind==="succ") v=(j===i+1);
+      else if(kind==="eq") v=(i===j);
+      else if(kind==="full") v=true;
+      else if(kind==="empty") v=false;
+      R[i+"_"+j]=v;
+    });});
+    renderR(); evaluate();
+  }
+
+  // ---- resize domain, preserving values ----
+  function setN(newN){
+    newN=Math.max(2,Math.min(6,newN));
+    n=newN;
+    document.getElementById("nVal").textContent=n;
+    // prune out-of-range entries
+    Object.keys(P).forEach(function(k){ if(+k>n) delete P[k]; });
+    Object.keys(R).forEach(function(k){
+      var p=k.split("_"); if(+p[0]>n||+p[1]>n) delete R[k];
+    });
+    renderP(); renderR(); evaluate();
+  }
+
+  // ---- readout + results ----
+  var m={q:function(s){return '<span class="q">'+s+'</span>';}};
+  function mathP(){ return '<span class="math">P(x)</span>'; }
+
+  function readout(){
+    var pset=dom().filter(inP);
+    var rcount=0; dom().forEach(function(i){ dom().forEach(function(j){ if(inR(i,j)) rcount++; }); });
+    var el=document.getElementById("readout");
+    el.innerHTML="<b>Structure:</b> domain = {"+dom().join(", ")+"} &nbsp;&middot;&nbsp; "+
+      "P = {"+pset.join(", ")+"} &nbsp;&middot;&nbsp; |R| = "+rcount+" related pair"+(rcount===1?"":"s")+".";
+  }
+
+  function badge(v){ return '<span class="badge '+(v?"T":"F")+'">'+(v?"TRUE":"FALSE")+'</span>'; }
+
+  var results=[
+    {type:"label", text:"About P (the unary predicate)"},
+    {math:'&#8704;x P(x)', f:function(){ var v=forallP(); return {v:v, why:v?"every element is in P":"some element is outside P"}; }},
+    {math:'&#8707;x P(x)', f:function(){ var v=existsP(); var w=dom().filter(inP); return {v:v, why:v?("witness: x = "+w[0]):"P is empty"}; }},
+    {math:'&#8707;!x P(x)', f:function(){ var c=countP(); var v=(c===1); var w=dom().filter(inP);
+        return {v:v, why:"|P| = "+c+(v?(", the unique x = "+w[0]):(c===0?" (need exactly one)":" (more than one)"))}; }},
+    {type:"demorgan"},
+    {type:"label", text:"About R (the binary relation)"},
+    {math:'&#8704;x&#8704;y R(x,y)', f:function(){ var r=forallForall(); return {v:r.v, why:r.v?"R holds for all pairs":"fails at (x,y) = ("+r.ce+")"}; }},
+    {math:'&#8707;x&#8707;y R(x,y)', f:function(){ var r=existsExists(); return {v:r.v, why:r.v?("witness (x,y) = ("+r.w+")"):"R is empty"}; }},
+    {type:"pair"},
+    {math:'&#8704;x (P(x) &#8594; &#8707;y R(x,y))', f:function(){ var r=forallImp();
+        return {v:r.v, why:r.v?"every P-element has an R-successor":"x = "+r.ce+" is in P but has no R-successor"}; }}
+  ];
+
+  function evaluate(){
+    readout();
+    var tb=document.getElementById("results");
+    tb.innerHTML="";
+
+    results.forEach(function(item){
+      if(item.type==="label"){
+        var tr=document.createElement("tr");
+        tr.innerHTML='<td colspan="2" class="sec-label">'+item.text+'</td>';
+        tb.appendChild(tr); return;
+      }
+      if(item.type==="demorgan"){
+        var na=!forallP();        // ¬∀x P(x)
+        var ex=dom().some(function(i){ return !inP(i); }); // ∃x ¬P(x)
+        var agree=(na===ex);
+        var tr=document.createElement("tr");
+        tr.innerHTML=
+          '<td class="sent"><span class="math">&#172;&#8704;x P(x)</span> &nbsp; and &nbsp; <span class="math">&#8707;x &#172;P(x)</span>'+
+          '<div class="demorgan">De Morgan check: both '+(na?"TRUE":"FALSE")+
+          ' &mdash; '+(agree?"they agree &#10003;":"MISMATCH (bug!)")+'</div></td>'+
+          '<td class="vcol">'+badge(na)+'</td>';
+        tb.appendChild(tr); return;
+      }
+      if(item.type==="pair"){
+        var ae=forallExists();    // ∀x∃y
+        var ea=existsForall();    // ∃y∀x
+        var differ=(ae.v!==ea.v);
+
+        var tr1=document.createElement("tr");
+        tr1.className="pair"+(differ?" differ":"");
+        tr1.innerHTML=
+          '<td class="sent"><span class="math">&#8704;x&#8707;y R(x,y)</span>'+
+          '<div class="why">'+(ae.v?"every row has a filled cell":"row x = "+ae.ce+" is all-empty")+'</div></td>'+
+          '<td class="vcol">'+badge(ae.v)+'</td>';
+        tb.appendChild(tr1);
+
+        var tr2=document.createElement("tr");
+        tr2.className="pair"+(differ?" differ":"");
+        var note=differ
+          ? '<div class="ordernote differ">order matters: these two disagree &mdash; swapping the quantifiers changed the meaning.</div>'
+          : '<div class="ordernote same">here they happen to agree, but in general &#8707;y&#8704;x is the stronger claim.</div>';
+        tr2.innerHTML=
+          '<td class="sent"><span class="math">&#8707;y&#8704;x R(x,y)</span>'+
+          '<div class="why">'+(ea.v?"column y = "+ea.w+" is filled in every row":"no single column works for all rows")+'</div>'+
+          note+'</td>'+
+          '<td class="vcol">'+badge(ea.v)+'</td>';
+        tb.appendChild(tr2);
+        return;
+      }
+      // normal sentence
+      var r=item.f();
+      var tr=document.createElement("tr");
+      tr.innerHTML=
+        '<td class="sent"><span class="math">'+item.math+'</span>'+
+        '<div class="why">'+r.why+'</div></td>'+
+        '<td class="vcol">'+badge(r.v)+'</td>';
+      tb.appendChild(tr);
+    });
+  }
+
+  // ---- wire up ----
+  document.getElementById("nUp").addEventListener("click",function(){ setN(n+1); });
+  document.getElementById("nDown").addEventListener("click",function(){ setN(n-1); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-p]"),function(b){
+    b.addEventListener("click",function(){ setP(b.getAttribute("data-p")); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-r]"),function(b){
+    b.addEventListener("click",function(){ setR(b.getAttribute("data-r")); });
+  });
+
+  // ---- initial model: n=3, P={2}, R=less-than ----
+  setP("evens");    // on n=3 evens = {2}
+  setR("lt");
+  renderP(); renderR(); evaluate();
+})();
+</script>
+</body>
+</html>

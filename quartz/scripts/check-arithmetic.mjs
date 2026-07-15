@@ -259,6 +259,60 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("number of binary connectives = 2^(2^2)", 2 ** (2 ** 2), 16);
 }
 
+// ================= Predicate Logic (finite models) =================
+{
+  const dom = [1, 2, 3];
+  const forAll = (f) => dom.every(f);
+  const exists = (f) => dom.some(f);
+
+  // R = less-than on {1,2,3}
+  const lt = (x, y) => x < y;
+  check("dom{1,2,3},R=<: forall-x exists-y is false", forAll((x) => exists((y) => lt(x, y))) === false);
+  check("dom{1,2,3},R=<: exists-y forall-x is false", exists((y) => forAll((x) => lt(x, y))) === false);
+  check("dom{1,2,3},R=<: exists-x exists-y is true", exists((x) => exists((y) => lt(x, y))) === true);
+
+  // cyclic successor: forall-x exists-y TRUE but exists-y forall-x FALSE (order matters)
+  const succ = (x, y) => y === (x % 3) + 1;
+  check("cyclic succ: forall-x exists-y true", forAll((x) => exists((y) => succ(x, y))) === true);
+  check("cyclic succ: exists-y forall-x false (order matters)", exists((y) => forAll((x) => succ(x, y))) === false);
+
+  // exists-unique via equality definition
+  const uniq = (P) => exists((x) => P(x) && forAll((y) => (P(y) ? y === x : true)));
+  check("exists! for P={2} is true", uniq((x) => x === 2) === true);
+  check("exists! for P={2,3} is false", uniq((x) => x === 2 || x === 3) === false);
+
+  // De Morgan for quantifiers: not-forall P == exists not-P, over every P on {1,2,3}
+  let deMorgan = true;
+  for (let m = 0; m < 8; m++) {
+    const P = (x) => ((m >> (x - 1)) & 1) === 1;
+    if (!forAll((x) => P(x)) !== exists((x) => !P(x))) deMorgan = false;
+  }
+  check("not-forall-x P == exists-x not-P (all P on {1,2,3})", deMorgan);
+
+  // forall distributes over AND; does NOT over OR (counterexample)
+  let distAnd = true;
+  for (let pm = 0; pm < 8; pm++)
+    for (let qm = 0; qm < 8; qm++) {
+      const P = (x) => ((pm >> (x - 1)) & 1) === 1,
+        Q = (x) => ((qm >> (x - 1)) & 1) === 1;
+      if (forAll((x) => P(x) && Q(x)) !== (forAll(P) && forAll(Q))) distAnd = false;
+    }
+  check("forall-x (P&Q) == (forall P)&(forall Q)", distAnd);
+  {
+    const P = (x) => x === 1,
+      Q = (x) => x !== 1; // P|Q always true, neither universal holds
+    check("forall-x (P|Q) != (forall P)|(forall Q) counterexample",
+      forAll((x) => P(x) || Q(x)) === true && (forAll(P) || forAll(Q)) === false);
+  }
+
+  // Skolemization preserves satisfiability: forall-x exists-y R  <=>  choice f with forall-x R(x,f(x))
+  const holds = forAll((x) => exists((y) => succ(x, y)));
+  const f = {};
+  dom.forEach((x) => (f[x] = dom.find((y) => succ(x, y))));
+  const skolem = forAll((x) => f[x] !== undefined && succ(x, f[x]));
+  check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
