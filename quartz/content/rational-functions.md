@@ -1,6 +1,12 @@
 ---
 title: "Rational Functions"
+prerequisites: ["polynomial-functions", "functions-relations"]
+enables: ["calculus", "partial-fraction-decomposition"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Polynomial Functions](./polynomial-functions) · [Functions & Relations](./functions-relations)
+> **Leads to:** [Calculus](./calculus) · [Partial Fraction Decomposition](./partial-fraction-decomposition)
 
 ## What Is a Rational Function?
 
@@ -110,7 +116,7 @@ proper rational function.
 
 **Finding x-intercepts:** Factor numerator and solve for x.
 
-![Desmos graph of (x-1)(x+1)/((x-2)(x+2)) with vertical asymptotes at x = plus or minus 2 and horizontal asymptote y = 1](./media/image91.png)
+![Graph of f(x) = (x^2-1)/(x^2-4) with dashed vertical asymptotes at x = -2 and x = 2, a dashed horizontal asymptote at y = 1, and x-intercepts at -1 and 1](./media/rf-graph-example.png)
 
 ## Finding y-intercept
 
@@ -119,7 +125,7 @@ you need to evaluate the function at *𝑥 = 0*. The y-intercept is the
 point where the graph of the function crosses the y-axis, which
 corresponds to 𝑥 = 0.
 
-![Worked solution finding where (x+3)/(2x^2+9x-5) is undefined by factoring the denominator to x = 1/2 and x = -5](./media/image94.png)
+**Worked example.** For $f(x) = \dfrac{x+3}{2x^2 + 9x - 5}$, the y-intercept is $f(0) = \dfrac{0+3}{0 + 0 - 5} = -\dfrac{3}{5}$. (Separately, the denominator factors as $2x^2 + 9x - 5 = (2x - 1)(x + 5)$, so the function is *undefined* at $x = \tfrac{1}{2}$ and $x = -5$, which are excluded from the domain and are candidate vertical asymptotes.)
 
 ## Horizontal, Slant, and Polynomial Asymptotes
 
@@ -156,7 +162,7 @@ and denominator polynomials, having degree $n$ and $m$ respectively.
   denominator          
   -----------------------------------------------------------------------
 
-![Desmos graph of (x^2+1)/x^3 approaching the x-axis, showing horizontal asymptote y = 0](./media/image96.png)
+![Graph of (x^2+1)/x^3 with a vertical asymptote at x = 0 and a horizontal asymptote y = 0 along the x-axis](./media/rf-ha-y0.png)
 
 $$f(x) = \ \frac{x^{2} + 1}{x^{3}}$$
 
@@ -169,13 +175,13 @@ Numerator = Denominator
 
 Horizontal asymptote : y = 1/1
 
-![Desmos graph of (x^2+3)/x^2 leveling off toward the horizontal asymptote y = 1](./media/image97.png)
+![Graph of (x^2+3)/x^2 with a vertical asymptote at x = 0 and a horizontal asymptote y = 1](./media/rf-ha-y1.png)
 
 ### Numerator \> Denominator (improper fraction)
 
 Numerator \> Denominator
 
-![Desmos graph of (x^3+3)/x^2 hugging the dashed slant asymptote line y = x](./media/image98.png)
+![Graph of (x^3+3)/x^2 with a vertical asymptote at x = 0 and a dashed slant asymptote y = x that the curve hugs at large x](./media/rf-slant.png)
 
 Num\>Denom by 1
 
@@ -183,7 +189,7 @@ Num\>Denom by 1
 denominator by 1, the graph of the asymptote will be linear: **mx +
 b**)*
 
-![Desmos graph of (x^4+3)/x^2 approaching the dashed parabolic asymptote y = x^2](./media/image99.png)
+![Graph of (x^4+3)/x^2 with a vertical asymptote at x = 0 and a dashed parabolic asymptote y = x^2 that both branches approach](./media/rf-parabolic.png)
 
 Num\>Denom by 2
 
@@ -191,7 +197,7 @@ Num\>Denom by 2
 denominator by 2, the graph of the asymptote will be quadratic:
 **x\^2**)*
 
-![Desmos graph of (x^5+3)/x^2 approaching the dashed cubic asymptote y = x^3](./media/image100.png)
+![Graph of (x^5+3)/x^2 with a vertical asymptote at x = 0 and a dashed cubic asymptote y = x^3 that the curve approaches](./media/rf-cubic.png)
 
 Num\>Denom by 3
 
@@ -494,6 +500,56 @@ After polynomial division: $f(x) = x - 1 + \frac{0}{x+1} = x - 1$
 | IV: 1 < x < 2 | 1.5 | - | Below |
 | V: x > 2 | 3 | + | Above |
 
+## Solving Rational Equations
+
+A **rational equation** sets rational expressions equal. The standard method is to clear denominators, with one essential caveat: multiplying by an expression that can equal zero may introduce **extraneous solutions**, so every candidate must be checked against the original domain.
+
+**Method:**
+
+1. Factor all denominators and record the domain (any value making a denominator zero is excluded).
+2. Multiply both sides by the least common denominator (LCD) to clear fractions.
+3. Solve the resulting polynomial equation.
+4. Discard any solution that is excluded from the domain (extraneous); keep and verify the rest.
+
+**Worked example.** Solve $\dfrac{x}{x-2} + 1 = \dfrac{4}{x-2}$.
+
+Domain: $x \neq 2$. Multiply through by the LCD $(x-2)$:
+$$
+x + (x - 2) = 4 \;\Longrightarrow\; 2x - 2 = 4 \;\Longrightarrow\; x = 3.
+$$
+Since $3 \neq 2$, it is in the domain: the solution is $x = 3$.
+
+**Worked example (extraneous solution).** Solve $\dfrac{x}{x-2} = \dfrac{2}{x-2}$.
+
+Domain: $x \neq 2$. Multiplying by $(x-2)$ gives $x = 2$, but $x = 2$ is *excluded* from the domain. It is extraneous, so the equation has **no solution**. This is exactly why step 4 is non-negotiable.
+
+## Solving Rational Inequalities
+
+To solve an inequality such as $\dfrac{x-1}{x+2} \ge 0$, do **not** multiply across by $(x+2)$: its sign is unknown, and multiplying by a negative would flip the inequality. Instead, reuse the [sign analysis](#sign-analysis--interval-testing) machinery.
+
+**Method:**
+
+1. Rearrange so one side is $0$: get a single rational expression $\dfrac{p(x)}{q(x)}$ compared to $0$.
+2. Find the critical points: zeros of the numerator and zeros of the denominator (vertical asymptotes and holes).
+3. Build a sign chart across the intervals the critical points create.
+4. Read off the intervals with the required sign. For $\le$ or $\ge$, **include** numerator zeros (there the expression equals $0$); **always exclude** denominator zeros (there it is undefined).
+
+**Worked example.** Solve $\dfrac{x-1}{x+2} \ge 0$.
+
+Critical points: $x = 1$ (numerator zero, a candidate to include) and $x = -2$ (denominator zero, always excluded). Testing the three intervals:
+
+| Interval | Test $x$ | Sign of $\frac{x-1}{x+2}$ |
+|---|:---:|:---:|
+| $x < -2$ | $-3$ | $\frac{-}{-} = +$ |
+| $-2 < x < 1$ | $0$ | $\frac{-}{+} = -$ |
+| $x > 1$ | $2$ | $\frac{+}{+} = +$ |
+
+The expression is $\ge 0$ on the first and third intervals. Including $x = 1$ (where it equals $0$) but excluding $x = -2$ (undefined), the solution is
+$$
+(-\infty,\, -2) \;\cup\; [\,1,\, \infty).
+$$
+Note the *open* bracket at $-2$ and the *closed* bracket at $1$: the distinction between "undefined" and "equals zero" is exactly what the endpoints record.
+
 ## One-Sided Limits at Discontinuities
 
 **One-Sided Limits:** Describe the behavior of a function as x approaches a discontinuity from the left (-) or right (+).
@@ -587,6 +643,10 @@ Test x = 2.1: $\frac{2.1+1}{(2.1-2)(2.1+2)} = \frac{3.1}{(0.1)(4.1)} = \frac{3.1
 $$\lim_{x \to 2^-} f(x) = -\infty, \quad \lim_{x \to 2^+} f(x) = +\infty$$
 
 ## Complete Graphing Example
+
+Before the worked example, explore interactively. Enter the numerator and denominator in **factored form** (by their roots) and the grapher draws the curve and labels every feature exactly: vertical asymptotes, the horizontal/slant/polynomial asymptote, holes (open circles), and intercepts. Because it works from the roots, the features are computed exactly rather than estimated.
+
+<iframe src="/static/interactive/rational-function-grapher.html" width="100%" height="660" style="border:none;"></iframe>
 
 **Problem:** Graph $f(x) = \frac{x^2 - x - 6}{x - 2}$ showing all key features.
 

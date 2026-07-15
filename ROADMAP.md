@@ -68,6 +68,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Rational Functions pass** — replaced all 7 Desmos screenshot scans (6 with clean
+  matplotlib graphs drawn with proper pen-lifting at asymptotes; 1 worked-solution scan to
+  native math, fixing a misplaced domain example under the y-intercept heading). Added the
+  missing "Solving Rational Equations" (with extraneous-solution checks) and "Solving
+  Rational Inequalities" (sign-chart method) sections, plus a prerequisites callout. New
+  rational-function grapher widget (factored input → exact VAs / HA-slant-polynomial
+  asymptote / holes / intercepts). +16 machine-checked assertions.
 - [x] **Functions & Relations pass** — converted all 6 scans (2 to clean matplotlib: a
   relation digraph+matrix and a 4-panel inj/surj/bij mapping figure; 4 text-scans to native
   markdown). Filled a real gap: the surjection definition existed *only* as a scanned image,

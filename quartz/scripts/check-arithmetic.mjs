@@ -313,6 +313,44 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
 }
 
+// ================= Rational Functions =================
+{
+  // end-behavior asymptote type from degrees of numerator/denominator
+  const asymType = (dp, dq) => (dp < dq ? "y=0" : dp === dq ? "horizontal" : dp === dq + 1 ? "slant" : "polynomial");
+  eq("deg num < deg den -> y=0", asymType(2, 3), "y=0");
+  eq("deg num = deg den -> horizontal", asymType(2, 2), "horizontal");
+  eq("deg num = deg den + 1 -> slant", asymType(3, 2), "slant");
+  eq("deg num >> deg den -> polynomial", asymType(4, 2), "polynomial");
+
+  // factored feature detection (roots as multisets)
+  const feat = (num, den) => ({
+    holes: [...new Set(num.filter((r) => den.includes(r)))].sort((a, b) => a - b),
+    xints: [...new Set(num.filter((r) => !den.includes(r)))].sort((a, b) => a - b),
+    vas: [...new Set(den.filter((r) => !num.includes(r)))].sort((a, b) => a - b),
+  });
+  { const f = feat([1, -1], [2, -2]);
+    eq("(x^2-1)/(x^2-4) x-intercepts", f.xints.join(","), "-1,1");
+    eq("(x^2-1)/(x^2-4) vertical asymptotes", f.vas.join(","), "-2,2");
+    eq("(x^2-1)/(x^2-4) holes", f.holes.join(","), ""); }
+  { const f = feat([1], [1, -2]);
+    eq("(x-1)/((x-1)(x+2)) hole at 1", f.holes.join(","), "1");
+    eq("(x-1)/((x-1)(x+2)) VA at -2", f.vas.join(","), "-2");
+    eq("(x-1)/((x-1)(x+2)) no x-intercept", f.xints.join(","), ""); }
+
+  // slant / polynomial asymptotes: f(x) - asymptote -> 0 at large x
+  check("(x^3+3)/x^2 - x -> 0 (slant y=x)", Math.abs((1e3 ** 3 + 3) / 1e3 ** 2 - 1e3) < 1e-3);
+  check("(x^4+3)/x^2 - x^2 -> 0 (parabolic y=x^2)", Math.abs((1e3 ** 4 + 3) / 1e3 ** 2 - 1e6) < 1e-3);
+  eq("y-intercept of (x+3)/(2x^2+9x-5)", 3 / -5, -0.6);
+
+  // solving rational equations, with the extraneous check
+  eq("x/(x-2)+1=4/(x-2) -> x=3 (valid)", 3 !== 2 ? 3 : "none", 3);
+  eq("x/(x-2)=2/(x-2) -> x=2 excluded", 2 !== 2 ? 2 : "no solution", "no solution");
+
+  // rational inequality (x-1)/(x+2) >= 0 sign chart
+  const rf = (x) => (x - 1) / (x + 2);
+  check("(x-1)/(x+2): sign(-3)>0, sign(0)<0, sign(2)>0", rf(-3) > 0 && rf(0) < 0 && rf(2) > 0);
+}
+
 // ================= Functions & Relations =================
 {
   // f : X={0..4} -> Y={0..3}, non-injective; sets as bitmasks

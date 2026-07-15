@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rational Function Grapher</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fbfcfd;
+    color: #1c2126;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 16px; box-sizing: border-box; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .caption { font-size: 13px; color: #4a5560; margin: 0 0 14px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: flex-end; margin-bottom: 12px; }
+  .field { display: flex; flex-direction: column; gap: 3px; }
+  .field label { font-size: 12px; font-weight: 600; color: #33404c; }
+  .field input {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px; padding: 5px 7px; border: 1px solid #c3ccd4;
+    border-radius: 5px; background: #fff; color: #1c2126;
+  }
+  .field input.wide { width: 150px; }
+  .field input.narrow { width: 52px; }
+  .presets { margin-bottom: 12px; }
+  .presets .plabel { font-size: 12px; font-weight: 600; color: #33404c; margin-right: 6px; }
+  button {
+    font-family: inherit; font-size: 12px; padding: 5px 10px; margin: 2px 4px 2px 0;
+    border: 1px solid #c3ccd4; border-radius: 5px; background: #fff; color: #1c2126;
+    cursor: pointer;
+  }
+  button:hover { background: #eef3f8; border-color: #2563c9; }
+  button.go { background: #2563c9; color: #fff; border-color: #2563c9; font-weight: 600; }
+  button.go:hover { background: #1d51a8; }
+  canvas { display: block; width: 100%; height: auto; border: 1px solid #d7dee5; border-radius: 6px; background: #fff; }
+  .readout { margin-top: 12px; font-size: 13px; }
+  .readout h2 { font-size: 14px; margin: 0 0 6px; }
+  .readout ul { margin: 0; padding-left: 18px; }
+  .readout li { margin: 2px 0; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .err { color: #c0392b; font-weight: 600; }
+  .legend { font-size: 12px; color: #4a5560; margin-top: 8px; }
+  .sw { display: inline-block; width: 22px; height: 0; vertical-align: middle; margin: 0 4px 0 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Rational Function Grapher</h1>
+  <p class="caption">Enter a rational function in factored form (by its roots) to plot the curve exactly and reveal its asymptotes, holes, and intercepts.</p>
+
+  <div class="presets">
+    <span class="plabel">Presets:</span>
+    <button data-nr="1,-1" data-dr="2,-2" data-a="1" data-b="1">(x²−1)/(x²−4)</button>
+    <button data-nr="" data-dr="0" data-a="1" data-b="1">1/x</button>
+    <button data-nr="1" data-dr="1,-2" data-a="1" data-b="1">(x−1)/((x−1)(x+2))</button>
+    <button data-nr="-1,-1,2" data-dr="0,0" data-a="1" data-b="1">(x+1)²(x−2)/x² (slant)</button>
+  </div>
+
+  <div class="controls">
+    <div class="field">
+      <label for="nroots">Numerator roots</label>
+      <input id="nroots" class="wide" type="text" value="1,-1" placeholder="e.g. 1,-1">
+    </div>
+    <div class="field">
+      <label for="a">a</label>
+      <input id="a" class="narrow" type="text" value="1">
+    </div>
+    <div class="field">
+      <label for="droots">Denominator roots</label>
+      <input id="droots" class="wide" type="text" value="2,-2" placeholder="e.g. 2,-2">
+    </div>
+    <div class="field">
+      <label for="b">b</label>
+      <input id="b" class="narrow" type="text" value="1">
+    </div>
+    <div class="field">
+      <button id="plot" class="go">Plot</button>
+    </div>
+  </div>
+
+  <canvas id="cv" width="1500" height="1000"></canvas>
+  <div class="legend">
+    <svg class="sw" viewBox="0 0 22 6"><line x1="0" y1="3" x2="22" y2="3" stroke="#2563c9" stroke-width="2.5"/></svg>curve
+    <svg class="sw" viewBox="0 0 22 6"><line x1="0" y1="3" x2="22" y2="3" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/></svg>asymptote
+    &nbsp;&#9679; intercept &nbsp;&#9711; hole
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script>
+"use strict";
+(function () {
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var readout = document.getElementById("readout");
+  var W = cv.width, H = cv.height;
+
+  // ---------- polynomial helpers (arrays: index = power, ascending) ----------
+  function polyFromRoots(roots) {
+    // returns monic polynomial prod(x - r)
+    var p = [1];
+    for (var i = 0; i < roots.length; i++) {
+      var r = roots[i];
+      // multiply p by (x - r)
+      var q = new Array(p.length + 1).fill(0);
+      for (var k = 0; k < p.length; k++) {
+        q[k + 1] += p[k];      // x * p_k
+        q[k] += -r * p[k];     // -r * p_k
+      }
+      p = q;
+    }
+    return p;
+  }
+  function polyEval(p, x) {
+    var s = 0;
+    for (var k = p.length - 1; k >= 0; k--) s = s * x + p[k];
+    return s;
+  }
+  function polyScale(p, c) { return p.map(function (v) { return v * c; }); }
+  function deg(p) {
+    var d = p.length - 1;
+    while (d > 0 && Math.abs(p[d]) < 1e-12) d--;
+    return d;
+  }
+  // Long division: returns {quo, rem} for num/den (arrays ascending)
+  function polyDivide(num, den) {
+    var n = num.slice();
+    var dn = deg(den);
+    var quo = new Array(Math.max(0, deg(num) - dn) + 1).fill(0);
+    var dlead = den[dn];
+    var dnum = deg(n);
+    while (dnum >= dn && !(dnum === 0 && Math.abs(n[0]) < 1e-12)) {
+      var shift = dnum - dn;
+      var coef = n[dnum] / dlead;
+      quo[shift] = coef;
+      for (var k = 0; k <= dn; k++) {
+        n[k + shift] -= coef * den[k];
+      }
+      // recompute working degree
+      var nd = dnum;
+      while (nd > 0 && Math.abs(n[nd]) < 1e-9) nd--;
+      if (nd === dnum) break; // safety
+      dnum = nd;
+    }
+    // trim remainder
+    return { quo: quo, rem: n };
+  }
+  function polyToString(p) {
+    var d = deg(p);
+    var terms = [];
+    for (var k = d; k >= 0; k--) {
+      var c = p[k];
+      if (Math.abs(c) < 1e-9) continue;
+      var cr = round(c);
+      var abs = Math.abs(cr);
+      var sign = cr < 0 ? "−" : (terms.length ? "+" : "");
+      var mag;
+      if (k === 0) mag = fmt(abs);
+      else {
+        var coefStr = (Math.abs(abs - 1) < 1e-9) ? "" : fmt(abs);
+        mag = coefStr + "x" + (k > 1 ? sup(k) : "");
+      }
+      terms.push(sign + (terms.length ? " " : "") + mag);
+    }
+    if (!terms.length) return "0";
+    return terms.join(" ");
+  }
+  function sup(n) {
+    var map = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" };
+    return String(n).split("").map(function (c) { return map[c]; }).join("");
+  }
+
+  // ---------- multiset helpers ----------
+  function counts(roots) {
+    var m = new Map();
+    for (var i = 0; i < roots.length; i++) {
+      var key = round(roots[i]);
+      m.set(key, (m.get(key) || 0) + 1);
+    }
+    return m;
+  }
+  function round(x) { return Math.round(x * 1e9) / 1e9; }
+  function fmt(x) {
+    x = round(x);
+    if (Number.isInteger(x)) return String(x);
+    var s = x.toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
+    return s;
+  }
+  function fmtNum(x) { // with unicode minus
+    var s = fmt(Math.abs(x));
+    return (x < 0 ? "−" : "") + s;
+  }
+
+  function parseRoots(str) {
+    str = str.trim();
+    if (str === "") return [];
+    var parts = str.split(",");
+    var out = [];
+    for (var i = 0; i < parts.length; i++) {
+      var t = parts[i].trim();
+      if (t === "") continue;
+      var v = Number(t.replace(/−/g, "-"));
+      if (!isFinite(v)) throw new Error("Invalid root: " + parts[i]);
+      out.push(v);
+    }
+    return out;
+  }
+
+  // ---------- analysis ----------
+  function analyze(nRoots, dRoots, a, b) {
+    var numC = counts(nRoots), denC = counts(dRoots);
+    var holes = [];    // {x, y}
+    var vAsy = [];     // x values
+    var xInts = [];    // x values (after removing holes)
+
+    // holes = shared roots, min multiplicity cancels
+    var allKeys = new Set();
+    numC.forEach(function (_, k) { allKeys.add(k); });
+    denC.forEach(function (_, k) { allKeys.add(k); });
+
+    // reduced multiplicities
+    var redNum = new Map(), redDen = new Map();
+    allKeys.forEach(function (k) {
+      var nm = numC.get(k) || 0;
+      var dm = denC.get(k) || 0;
+      var cancel = Math.min(nm, dm);
+      if (cancel > 0) holes.push({ x: k }); // value computed later from reduced fns
+      var rn = nm - cancel, rd = dm - cancel;
+      if (rn > 0) redNum.set(k, rn);
+      if (rd > 0) redDen.set(k, rd);
+    });
+
+    // reduced root lists
+    var redNumRoots = [], redDenRoots = [];
+    redNum.forEach(function (mult, k) { for (var i = 0; i < mult; i++) redNumRoots.push(k); });
+    redDen.forEach(function (mult, k) { for (var i = 0; i < mult; i++) redDenRoots.push(k); });
+
+    // vertical asymptotes: reduced denominator roots
+    redDen.forEach(function (_, k) { vAsy.push(k); });
+    vAsy.sort(function (p, q) { return p - q; });
+
+    // x-intercepts: reduced numerator roots (not holes, not VA)
+    redNum.forEach(function (_, k) { xInts.push(k); });
+    xInts.sort(function (p, q) { return p - q; });
+
+    // reduced polynomials (with leading coeffs)
+    var P = polyScale(polyFromRoots(redNumRoots), a); // reduced numerator * a
+    var Q = polyScale(polyFromRoots(redDenRoots), b); // reduced denominator * b
+    var origP = polyScale(polyFromRoots(nRoots), a);
+    var origQ = polyScale(polyFromRoots(dRoots), b);
+
+    // reduced function f(x) = P/Q (used for holes' limit + evaluation)
+    function fRed(x) { return polyEval(P, x) / polyEval(Q, x); }
+    // original for domain-accurate plotting (division by zero at holes & VAs)
+    function fOrig(x) { return polyEval(origP, x) / polyEval(origQ, x); }
+
+    // compute hole y-values via reduced function
+    holes.forEach(function (h) { h.y = fRed(h.x); });
+    holes.sort(function (p, q) { return p.x - q.x; });
+
+    var dp = deg(P), dq = deg(Q);
+    var lcP = P[dp], lcQ = Q[dq];
+
+    // end behavior
+    var end = { type: "", poly: null, value: null, label: "" };
+    if (dp < dq) {
+      end.type = "horizontal"; end.value = 0; end.poly = [0];
+      end.label = "y = 0";
+    } else if (dp === dq) {
+      end.type = "horizontal"; end.value = lcP / lcQ; end.poly = [lcP / lcQ];
+      end.label = "y = " + fmtNum(round(lcP / lcQ));
+    } else {
+      // division
+      var d = polyDivide(P, Q);
+      end.poly = d.quo;
+      if (dp === dq + 1) { end.type = "slant"; }
+      else { end.type = "polynomial"; }
+      end.label = "y = " + polyToString(d.quo);
+    }
+
+    // y-intercept: f(0) if 0 in domain (0 not a VA and not a hole)
+    var yInt = null;
+    var zeroIsVA = vAsy.some(function (v) { return Math.abs(v) < 1e-12; });
+    var zeroIsHole = holes.some(function (h) { return Math.abs(h.x) < 1e-12; });
+    if (!zeroIsVA && !zeroIsHole) {
+      yInt = fRed(0);
+    }
+
+    return {
+      holes: holes, vAsy: vAsy, xInts: xInts, yInt: yInt,
+      end: end, fOrig: fOrig, fRed: fRed,
+      dp: dp, dq: dq, P: P, Q: Q,
+      redNumRoots: redNumRoots, redDenRoots: redDenRoots
+    };
+  }
+
+  // ---------- rendering ----------
+  function chooseWindow(res) {
+    var xs = [];
+    res.vAsy.forEach(function (v) { xs.push(v); });
+    res.xInts.forEach(function (v) { xs.push(v); });
+    res.holes.forEach(function (h) { xs.push(h.x); });
+    if (res.yInt !== null) xs.push(0);
+    var xmin, xmax;
+    if (xs.length) {
+      xmin = Math.min.apply(null, xs);
+      xmax = Math.max.apply(null, xs);
+      var pad = Math.max(3, (xmax - xmin) * 0.6);
+      xmin -= pad; xmax += pad;
+    } else { xmin = -6; xmax = 6; }
+    if (xmax - xmin < 6) { var c = (xmin + xmax) / 2; xmin = c - 5; xmax = c + 5; }
+    // y window: sample function
+    var ymin = Infinity, ymax = -Infinity;
+    var N = 1200;
+    for (var i = 0; i <= N; i++) {
+      var x = xmin + (xmax - xmin) * i / N;
+      // skip near VAs
+      var near = res.vAsy.some(function (v) { return Math.abs(x - v) < (xmax - xmin) / 60; });
+      if (near) continue;
+      var y = res.fOrig(x);
+      if (!isFinite(y)) continue;
+      if (y < ymin) ymin = y;
+      if (y > ymax) ymax = y;
+    }
+    if (!isFinite(ymin) || !isFinite(ymax) || ymin === ymax) { ymin = -6; ymax = 6; }
+    var yr = ymax - ymin;
+    ymin -= yr * 0.15; ymax += yr * 0.15;
+    // cap runaway
+    var span = ymax - ymin;
+    if (span > 40) {
+      var mid = (ymin + ymax) / 2;
+      ymin = mid - 20; ymax = mid + 20;
+    }
+    if (ymax - ymin < 6) { var cy = (ymin + ymax) / 2; ymin = cy - 5; ymax = cy + 5; }
+    return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax };
+  }
+
+  function draw(res) {
+    var win = chooseWindow(res);
+    var xmin = win.xmin, xmax = win.xmax, ymin = win.ymin, ymax = win.ymax;
+    var pxL = 55, pxR = 20, pxT = 20, pxB = 40;
+    var plotW = W - pxL - pxR, plotH = H - pxT - pxB;
+    function X(x) { return pxL + (x - xmin) / (xmax - xmin) * plotW; }
+    function Y(y) { return pxT + (ymax - y) / (ymax - ymin) * plotH; }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, W, H);
+
+    // grid
+    ctx.strokeStyle = "#e6ebf0";
+    ctx.fillStyle = "#7a8794";
+    ctx.lineWidth = 1.5;
+    ctx.font = "22px system-ui, sans-serif";
+    ctx.textBaseline = "middle";
+    var xStep = niceStep((xmax - xmin) / 10);
+    var yStep = niceStep((ymax - ymin) / 8);
+    ctx.textAlign = "center";
+    for (var gx = Math.ceil(xmin / xStep) * xStep; gx <= xmax + 1e-9; gx += xStep) {
+      var px = X(gx);
+      ctx.beginPath(); ctx.moveTo(px, pxT); ctx.lineTo(px, H - pxB); ctx.stroke();
+      if (Math.abs(gx) > 1e-9) ctx.fillText(fmtNum(round(gx)), px, H - pxB + 18);
+    }
+    ctx.textAlign = "right";
+    for (var gy = Math.ceil(ymin / yStep) * yStep; gy <= ymax + 1e-9; gy += yStep) {
+      var py = Y(gy);
+      ctx.beginPath(); ctx.moveTo(pxL, py); ctx.lineTo(W - pxR, py); ctx.stroke();
+      if (Math.abs(gy) > 1e-9) ctx.fillText(fmtNum(round(gy)), pxL - 8, py);
+    }
+    // axes
+    ctx.strokeStyle = "#9aa6b2"; ctx.lineWidth = 2;
+    if (xmin < 0 && xmax > 0) { ctx.beginPath(); ctx.moveTo(X(0), pxT); ctx.lineTo(X(0), H - pxB); ctx.stroke(); }
+    if (ymin < 0 && ymax > 0) { ctx.beginPath(); ctx.moveTo(pxL, Y(0)); ctx.lineTo(W - pxR, Y(0)); ctx.stroke(); }
+
+    // clip to plot area for curves
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(pxL, pxT, plotW, plotH);
+    ctx.clip();
+
+    // asymptote: end behavior curve (dashed red)
+    ctx.strokeStyle = "#c0392b"; ctx.lineWidth = 2.5;
+    ctx.setLineDash([9, 7]);
+    if (res.end.poly) {
+      ctx.beginPath();
+      var started = false;
+      var M = 600;
+      for (var i = 0; i <= M; i++) {
+        var xx = xmin + (xmax - xmin) * i / M;
+        var yy = polyEval(res.end.poly, xx);
+        var pyv = Y(yy);
+        if (!started) { ctx.moveTo(X(xx), pyv); started = true; }
+        else ctx.lineTo(X(xx), pyv);
+      }
+      ctx.stroke();
+    }
+    // vertical asymptotes (dashed red)
+    res.vAsy.forEach(function (v) {
+      ctx.beginPath();
+      ctx.moveTo(X(v), pxT); ctx.lineTo(X(v), H - pxB); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    // the curve — plot with pen lifting at VAs / large jumps
+    ctx.strokeStyle = "#2563c9"; ctx.lineWidth = 3;
+    ctx.lineJoin = "round";
+    var Np = 3000;
+    ctx.beginPath();
+    var pen = false;
+    var prevY = null;
+    var yGuard = (ymax - ymin) * 4; // jump threshold
+    for (var i = 0; i <= Np; i++) {
+      var x = xmin + (xmax - xmin) * i / Np;
+      // skip exactly at VA / holes
+      var atSingularity = res.vAsy.some(function (v) { return Math.abs(x - v) < (xmax - xmin) / (Np * 2); });
+      var y = res.fOrig(x);
+      if (!isFinite(y) || atSingularity) { pen = false; prevY = null; continue; }
+      // lift pen on huge jumps (crossing a VA between samples)
+      if (prevY !== null && Math.abs(y - prevY) > yGuard) { pen = false; }
+      // also lift if we crossed a VA between prev and current sample
+      var crossedVA = false;
+      var prevX = xmin + (xmax - xmin) * (i - 1) / Np;
+      res.vAsy.forEach(function (v) { if ((prevX - v) * (x - v) < 0) crossedVA = true; });
+      if (crossedVA) pen = false;
+
+      var py = Y(y);
+      // clamp for drawing continuity but off-canvas handled by clip
+      if (!pen) { ctx.moveTo(X(x), py); pen = true; }
+      else ctx.lineTo(X(x), py);
+      prevY = y;
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // markers
+    // x-intercepts (filled blue-dark)
+    ctx.fillStyle = "#1c2126";
+    res.xInts.forEach(function (xi) {
+      dot(ctx, X(xi), Y(0), 6, true);
+    });
+    // y-intercept (filled)
+    if (res.yInt !== null && isFinite(res.yInt)) {
+      dot(ctx, X(0), Y(res.yInt), 6, true);
+    }
+    // holes (open circle) — only draw if within window
+    res.holes.forEach(function (h) {
+      if (isFinite(h.y) && h.y >= ymin && h.y <= ymax && h.x >= xmin && h.x <= xmax) {
+        openCircle(ctx, X(h.x), Y(h.y), 7);
+      }
+    });
+  }
+
+  function dot(ctx, x, y, r, fill) {
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    if (fill) ctx.fill(); else { ctx.lineWidth = 2.5; ctx.stroke(); }
+  }
+  function openCircle(ctx, x, y, r) {
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff"; ctx.fill();
+    ctx.strokeStyle = "#1c2126"; ctx.lineWidth = 2.8; ctx.stroke();
+  }
+  function niceStep(raw) {
+    var pow = Math.pow(10, Math.floor(Math.log10(raw)));
+    var n = raw / pow;
+    var s;
+    if (n < 1.5) s = 1; else if (n < 3) s = 2; else if (n < 7) s = 5; else s = 10;
+    return s * pow;
+  }
+
+  // ---------- readout ----------
+  function renderReadout(res) {
+    var h = "";
+    h += "<h2>Detected features</h2><ul>";
+    // vertical asymptotes
+    if (res.vAsy.length) {
+      h += "<li><b>Vertical asymptotes:</b> " +
+        res.vAsy.map(function (v) { return "<span class='mono'>x = " + fmtNum(v) + "</span>"; }).join(", ") + "</li>";
+    } else {
+      h += "<li><b>Vertical asymptotes:</b> none</li>";
+    }
+    // end behavior
+    var etLabel = res.end.type === "horizontal" ? "Horizontal asymptote" :
+      res.end.type === "slant" ? "Slant (oblique) asymptote" : "Polynomial asymptote";
+    h += "<li><b>" + etLabel + ":</b> <span class='mono'>" + res.end.label + "</span></li>";
+    // holes
+    if (res.holes.length) {
+      h += "<li><b>Holes:</b> " + res.holes.map(function (hh) {
+        return "<span class='mono'>(" + fmtNum(hh.x) + ", " + fmtNum(round(hh.y)) + ")</span>";
+      }).join(", ") + "</li>";
+    } else {
+      h += "<li><b>Holes:</b> none</li>";
+    }
+    // x-intercepts
+    if (res.xInts.length) {
+      h += "<li><b>x-intercepts:</b> " + res.xInts.map(function (xi) {
+        return "<span class='mono'>(" + fmtNum(xi) + ", 0)</span>";
+      }).join(", ") + "</li>";
+    } else {
+      h += "<li><b>x-intercepts:</b> none</li>";
+    }
+    // y-intercept
+    if (res.yInt !== null && isFinite(res.yInt)) {
+      h += "<li><b>y-intercept:</b> <span class='mono'>(0, " + fmtNum(round(res.yInt)) + ")</span></li>";
+    } else {
+      h += "<li><b>y-intercept:</b> none (x = 0 is not in the domain)</li>";
+    }
+    // domain
+    var excl = [];
+    res.vAsy.forEach(function (v) { excl.push(fmtNum(v)); });
+    res.holes.forEach(function (hh) { excl.push(fmtNum(hh.x)); });
+    excl.sort(function (a, b) { return Number(a.replace(/−/g, "-")) - Number(b.replace(/−/g, "-")); });
+    if (excl.length) {
+      h += "<li><b>Domain:</b> all real x except <span class='mono'>" + excl.join(", ") + "</span></li>";
+    } else {
+      h += "<li><b>Domain:</b> all real numbers</li>";
+    }
+    h += "</ul>";
+    readout.innerHTML = h;
+  }
+
+  // ---------- driver ----------
+  function run() {
+    try {
+      var nr = parseRoots(document.getElementById("nroots").value);
+      var dr = parseRoots(document.getElementById("droots").value);
+      var a = Number(document.getElementById("a").value.replace(/−/g, "-")) || 1;
+      var b = Number(document.getElementById("b").value.replace(/−/g, "-")) || 1;
+      if (b === 0) throw new Error("Denominator leading coefficient b cannot be 0.");
+      var res = analyze(nr, dr, a, b);
+      draw(res);
+      renderReadout(res);
+    } catch (e) {
+      readout.innerHTML = "<p class='err'>Error: " + e.message + "</p>";
+    }
+  }
+
+  document.getElementById("plot").addEventListener("click", run);
+  ["nroots", "droots", "a", "b"].forEach(function (id) {
+    document.getElementById(id).addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter") run();
+    });
+  });
+  var pbtns = document.querySelectorAll(".presets button");
+  pbtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.getElementById("nroots").value = btn.getAttribute("data-nr");
+      document.getElementById("droots").value = btn.getAttribute("data-dr");
+      document.getElementById("a").value = btn.getAttribute("data-a");
+      document.getElementById("b").value = btn.getAttribute("data-b");
+      run();
+    });
+  });
+
+  run();
+})();
+</script>
+</body>
+</html>
