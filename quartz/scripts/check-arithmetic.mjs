@@ -1501,6 +1501,22 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("spread example IQR = Q3 - Q1 = 2", Q3 - Q1, 2); }
 }
 
+// ================= Number Systems (diagrams) =================
+{
+  // sqrt(2) is irrational, but its square is exactly 2
+  eq("(sqrt 2)^2 = 2", Math.sqrt(2) ** 2, 2, 1e-12);
+  // rationals are dense: the midpoint of 1/3 and 1/2 is 5/12, strictly between them
+  { const mid = (1 / 3 + 1 / 2) / 2; eq("midpoint of 1/3 and 1/2 = 5/12", mid, 5 / 12, 1e-12); check("1/3 < 5/12 < 1/2 (density)", 1 / 3 < mid && mid < 1 / 2); }
+  // complex number 3 + 2i lives at distance sqrt(13) from the origin in the plane
+  eq("|3 + 2i| = sqrt(13)", Math.hypot(3, 2), Math.sqrt(13), 1e-12);
+  // containment N subset Z subset Q subset R
+  check("5 is a natural number (integer >= 0)", Number.isInteger(5) && 5 >= 0);
+  check("-2 is an integer but not a natural", Number.isInteger(-2) && !(-2 >= 0));
+  check("0.5 is rational but not an integer", !Number.isInteger(0.5) && Number.isInteger(0.5 * 2));
+  // C is pairs of reals, so |C| = |R^2| = c (same cardinality): a bijection component count
+  eq("a complex number is an ordered pair of 2 reals", [3, 2].length, 2);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

@@ -15,6 +15,8 @@ This page tells that story, shows how the systems nest inside one another, and t
 
 ## The Building-Up Story
 
+![Four stacked number lines showing how each system extends the previous one: the naturals as discrete dots 0, 1, 2, and so on going one direction; the integers adding negatives in both directions; the rationals filling in densely with fractions but still leaving gaps; and the reals as a continuous line that fills every gap, including irrationals like root two and pi](./media/ns-number-line-buildup.png)
+
 ### Natural numbers $\mathbb{N}$
 
 The symbol $\mathbb{N}$ is read "the natural numbers" (or just "N"). These are the counting numbers:
@@ -74,6 +76,8 @@ $$x^2 + 1 = 0$$
 has no real solution, because $x^2 \geq 0$ for every real $x$, so $x^2 + 1 \geq 1 > 0$ always. No amount of filling gaps on the number line produces a square root of $-1$. That is the last limitation we fix.
 
 ### Complex numbers $\mathbb{C}$
+
+![The complex plane with a horizontal real axis and a vertical imaginary axis, showing the point z equals 3 plus 2i with dashed lines to its real part 3 and imaginary part 2, and the real numbers lying along the horizontal axis, so the complex numbers extend the reals into two dimensions](./media/ns-complex-plane.png)
 
 The symbol $\mathbb{C}$ is read "the complex numbers." We adjoin a single new number $i$, read "$i$," defined by the rule
 
@@ -166,6 +170,8 @@ The two classifications nest cleanly: the rationals sit inside the algebraic num
 ![Nested-set diagram: the rationals (7, one-third, minus four) inside the algebraic numbers (root two, the golden ratio, cube root of two) inside the reals, with the transcendentals pi and e in the outer band](./media/real-number-classification.png)
 
 ## How Big Are These Sets? (cardinality)
+
+![A grid of positive fractions p over q with a zigzag path threading through them in the order 1, 2, 3, and so on, skipping already-seen values like 2/2 and 2/4, showing that every rational can be tagged with a counting number, so the rationals are countably infinite with the same cardinality aleph-null as the naturals](./media/ns-counting-rationals.png)
 
 Infinite sets can still have different sizes, and the number systems split cleanly into two size classes. The sets $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$ are all **countably infinite**: their elements can be listed in an endless sequence, so they all have the *same* size, written $\aleph_0$ ("aleph-null"). Remarkably, this means there are exactly as many fractions as counting numbers. By contrast, $\mathbb{R}$ and $\mathbb{C}$ are **uncountable**: no list can exhaust them, so they are strictly larger than $\mathbb{Q}$. The proof that $\mathbb{R}$ cannot be listed (Cantor's diagonal argument) and the meaning of countability are developed in [Set Theory](./set-theory).
 
