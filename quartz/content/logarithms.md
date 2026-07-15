@@ -636,3 +636,46 @@ From this one definition every property follows cleanly: $\ln 1 = 0$ (an empty i
 
 Logarithmic and exponential functions are inverses of each other. The graph of $y = \log_a(x)$ is the reflection of $y = a^x$ across the line $y = x$. This inverse relationship means that every property of logarithms has a corresponding property of exponentials, and techniques for solving exponential equations rely heavily on logarithms (and vice versa). For a full treatment of exponential functions, their graphs, growth and decay models, and the inverse relationship illustrated graphically, see [Exponential Functions](./exponential-functions).
 
+## Essential Rules (Quick Reference)
+
+**Logarithm laws** (base $a > 0$, $a \neq 1$; all arguments $> 0$):
+
+| Rule | Formula |
+|---|---|
+| Product | $\log_a(xy) = \log_a x + \log_a y$ |
+| Quotient | $\log_a\!\left(\dfrac{x}{y}\right) = \log_a x - \log_a y$ |
+| Power | $\log_a(x^n) = n\log_a x$ |
+| Change of base | $\log_a x = \dfrac{\log_b x}{\log_b a}$ |
+| Reciprocal argument | $\log_a\!\left(\dfrac{1}{x}\right) = -\log_a x$ |
+| Base swap | $\log_a b = \dfrac{1}{\log_b a}$ |
+
+**Special values and the inverse relationship:**
+
+| Rule | Formula |
+|---|---|
+| Log of the base | $\log_a a = 1$ |
+| Log of 1 | $\log_a 1 = 0$ |
+| Undefined | $\log_a x$ is undefined for $x \le 0$ |
+| Log cancels exp | $\log_a(a^x) = x$ |
+| Exp cancels log | $a^{\log_a x} = x$ |
+| Named bases | $\ln = \log_e$, $\;\log = \log_{10}$, $\;\lg = \log_2$ |
+
+**Calculus:**
+
+| Rule | Formula |
+|---|---|
+| Derivative | $\dfrac{d}{dx}\ln x = \dfrac{1}{x}$, $\quad\dfrac{d}{dx}\log_a x = \dfrac{1}{x\ln a}$ |
+| Integral | $\int \dfrac{1}{x}\,dx = \ln\lvert x\rvert + C$ |
+| Area definition | $\ln x = \displaystyle\int_1^x \dfrac{dt}{t}$ |
+
+**The function** $y = \log_a x$, and solving:
+
+| Feature / Task | Value |
+|---|---|
+| Domain / Range | $(0, \infty)$ / $(-\infty, \infty)$ |
+| Vertical asymptote | $x = 0$ |
+| Key points | $(1, 0)$ and $(a, 1)$ |
+| Increasing vs decreasing | increasing if $a > 1$; decreasing if $0 < a < 1$ |
+| Solve $\log_a x = c$ | $x = a^c$ |
+| pH / Richter / decibels | $-\log_{10}[\text{H}^+]$ / $\log_{10}(A/A_0)$ / $10\log_{10}(I/I_0)$ |
+

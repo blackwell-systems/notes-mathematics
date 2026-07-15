@@ -730,9 +730,9 @@ The average cost per unit is:
 $$\bar{C}(x) = \frac{5000 + 20x}{x} = \frac{5000}{x} + 20$$
 
 **Analysis:**
-- When $x = 10$: $\bar{C}(10) = 500 + 20 = \$520$ per unit
-- When $x = 100$: $\bar{C}(100) = 50 + 20 = \$70$ per unit
-- When $x = 1000$: $\bar{C}(1000) = 5 + 20 = \$25$ per unit
+- When $x = 10$: $\bar{C}(10) = 500 + 20 = 520$, i.e. \$520 per unit
+- When $x = 100$: $\bar{C}(100) = 50 + 20 = 70$, i.e. \$70 per unit
+- When $x = 1000$: $\bar{C}(1000) = 5 + 20 = 25$, i.e. \$25 per unit
 
 As $x \to \infty$, the term $\frac{5000}{x} \to 0$, so $\bar{C}(x) \to 20$. The average cost approaches \$20 (the variable cost per unit) but never reaches it. This is the horizontal asymptote $y = 20$.
 
