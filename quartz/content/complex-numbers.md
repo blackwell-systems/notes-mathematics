@@ -223,6 +223,8 @@ $$e^{i\theta} = \cos\theta + i\sin\theta$$
 
 This single equation connects three seemingly unrelated areas of mathematics: exponential functions, trigonometry, and complex numbers. It says that raising $e$ to an imaginary power produces a point on the unit circle in the complex plane, with the angle $\theta$ measured in radians from the positive real axis.
 
+![Euler's formula on the complex plane: the point e to the i theta sits on the unit circle at angle theta, with its real part cos theta on the horizontal axis and imaginary part sin theta on the vertical axis; the special case e to the i pi equals negative one is marked at the left](./media/cn-euler-formula.png)
+
 **Why it works:** The key insight comes from Taylor series. The Taylor series for $e^x$, $\sin x$, and $\cos x$ are:
 
 $$e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots$$
@@ -338,6 +340,12 @@ For $k = 2$: the angle is $\dfrac{\pi/2 + 4\pi}{3} = \dfrac{3\pi}{2}$, so
 $$z_2 = 2\left(\cos\tfrac{3\pi}{2} + i\sin\tfrac{3\pi}{2}\right) = 2\left(0 - i\right) = -2i.$$
 
 The three cube roots of $8i$ are therefore $\sqrt{3} + i$, $-\sqrt{3} + i$, and $-2i$. Geometrically they are equally spaced around a circle of radius $2$, separated by $\tfrac{2\pi}{3}$ radians (120 degrees). You can check the first: $(\sqrt{3} + i)^3 = 8i$.
+
+![The three cube roots of 8i plotted on the complex plane: sqrt(3) plus i, negative sqrt(3) plus i, and negative 2i sit on a circle of radius 2, equally spaced 120 degrees apart as the vertices of an equilateral triangle](./media/cn-nth-roots.png)
+
+Explore this yourself: change the number $z$ and the root order $n$ below and watch the $n$ roots spread into a regular $n$-gon on the circle of radius $\sqrt[n]{|z|}$.
+
+<iframe src="/static/interactive/complex-nth-roots.html" width="100%" height="600" style="border:none;"></iframe>
 
 ## The Complex Exponential and Logarithm
 

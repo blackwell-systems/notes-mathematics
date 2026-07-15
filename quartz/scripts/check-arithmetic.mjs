@@ -1264,6 +1264,32 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("diagram aligned case cos(<3,0>,<2.7,1>) ~ 0.94", dot([3, 0], [2.7, 1]) / (mag([3, 0]) * mag([2.7, 1])), 0.94, 5e-3);
 }
 
+// ================= Complex Numbers (Euler, polar ops, nth roots) =================
+{
+  // Euler's formula values at pi/3, and Euler's identity e^{i pi} = -1
+  eq("Euler cos(pi/3) = 0.5", Math.cos(Math.PI / 3), 0.5, 1e-12);
+  eq("Euler sin(pi/3) = sqrt3/2", Math.sin(Math.PI / 3), Math.sqrt(3) / 2, 1e-12);
+  eq("Euler identity e^{i pi} real part = -1", Math.cos(Math.PI), -1, 1e-12);
+  eq("Euler identity e^{i pi} imag part = 0", Math.sin(Math.PI), 0, 1e-12);
+  // polar multiplication: 3 e^{i pi/6} * 2 e^{i pi/3} = 6 e^{i pi/2} = 6i
+  { const r = 3 * 2, th = Math.PI / 6 + Math.PI / 3; eq("polar product modulus = 6", r, 6); eq("polar product angle = pi/2", th, Math.PI / 2, 1e-12); eq("polar product = 6i (real 0)", r * Math.cos(th), 0, 1e-9); eq("polar product = 6i (imag 6)", r * Math.sin(th), 6, 1e-9); }
+  // polar division: 4 e^{i 5pi/6} / 2 e^{i pi/3} = 2 e^{i pi/2} = 2i
+  { const r = 4 / 2, th = (5 * Math.PI) / 6 - Math.PI / 3; eq("polar quotient modulus = 2", r, 2); eq("polar quotient = 2i (imag 2)", r * Math.sin(th), 2, 1e-9); eq("polar quotient = 2i (real 0)", r * Math.cos(th), 0, 1e-9); }
+  // all three cube roots of 8i cube back to 8i
+  { const cubes8i = (re, im) => { const [x, y] = cpow(re, im, 3); return approx(x, 0, 1e-6) && approx(y, 8, 1e-6); };
+    check("(sqrt3+i)^3 = 8i", cubes8i(Math.sqrt(3), 1));
+    check("(-sqrt3+i)^3 = 8i", cubes8i(-Math.sqrt(3), 1));
+    check("(-2i)^3 = 8i", cubes8i(0, -2)); }
+  // 4th roots of unity: 1, i, -1, -i each to the 4th power = 1
+  { const isOne = (re, im) => { const [x, y] = cpow(re, im, 4); return approx(x, 1, 1e-9) && approx(y, 0, 1e-9); };
+    check("4th roots of unity (1,i,-1,-i) all satisfy z^4 = 1", isOne(1, 0) && isOne(0, 1) && isOne(-1, 0) && isOne(0, -1)); }
+  // complex logarithm ln(-1) = ln|−1| + i*arg(-1) = 0 + i*pi
+  eq("ln(-1) real part = ln|-1| = 0", Math.log(1), 0);
+  eq("ln(-1) imag part = arg(-1) = pi", Math.atan2(0, -1), Math.PI, 1e-12);
+  // nth roots are spaced 2 pi / n apart; for n=3 that is 120 degrees
+  eq("cube-root angular spacing = 2pi/3 = 120 deg", ((2 * Math.PI) / 3) * 180 / Math.PI, 120, 1e-9);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

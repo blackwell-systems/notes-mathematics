@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The n distinct nth roots of a complex number</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fbfbfd;
+    color: #1d1d22;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  #wrap {
+    width: 760px;
+    margin: 0 auto;
+    padding: 12px 0 16px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 17px;
+    font-weight: 650;
+    margin: 4px 0 2px;
+  }
+  .caption {
+    font-size: 12.5px;
+    color: #56565e;
+    margin: 0 0 10px;
+    line-height: 1.4;
+  }
+  #board {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  canvas {
+    background: #ffffff;
+    border: 1px solid #e2e2ea;
+    border-radius: 8px;
+    touch-action: none;
+  }
+  #panel {
+    flex: 1;
+    font-size: 13px;
+    min-width: 0;
+  }
+  .row {
+    border: 1px solid #e6e6ee;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: #ffffff;
+  }
+  .row .tag {
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+  .row .val { font-variant-numeric: tabular-nums; line-height: 1.5; }
+  .zc { color: #1565c0; }
+  .zk { color: #2e7d32; }
+  .z0 { color: #c62828; }
+  .identity {
+    background: #f4f6ff;
+    border-color: #d7ddf5;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #2a2a33;
+  }
+  .identity b { color: #c62828; }
+  .rootlist {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    line-height: 1.55;
+  }
+  .rootlist .k0 { color: #c62828; font-weight: 700; }
+  .controls { margin: 4px 0 10px; display: flex; gap: 10px 14px; align-items: center; flex-wrap: wrap; }
+  .ctl { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: #56565e; }
+  .ctl input[type=range] { width: 120px; }
+  .ctl .num { font-variant-numeric: tabular-nums; min-width: 46px; display: inline-block; color: #1d1d22; }
+  .presets { margin: 0 0 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    font: inherit;
+    font-size: 12.5px;
+    padding: 5px 12px;
+    border: 1px solid #c9c9d6;
+    background: #f2f2f7;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #1d1d22;
+  }
+  button:hover { background: #e8e8f0; }
+  .legend { font-size: 12px; color: #56565e; margin: 6px 0 0; line-height: 1.6; }
+  .legend .sw { display: inline-block; width: 11px; height: 11px; border-radius: 3px; vertical-align: -1px; margin-right: 3px; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>The n distinct nth roots of a complex number</h1>
+  <p class="caption">
+    The nth roots of <b class="zc">z</b> = r(cos theta + i sin theta) all have modulus r<sup>1/n</sup> and are
+    spaced 2 pi / n radians apart, so they form a regular n-gon on a circle. The k-th root (read
+    "z-sub-k") is z<sub>k</sub> = r<sup>1/n</sup>(cos((theta + 2 pi k)/n) + i sin((theta + 2 pi k)/n)) for k = 0, 1, ..., n minus 1.
+  </p>
+  <div class="presets">
+    <button id="pUnity">nth roots of unity (z = 1)</button>
+    <button id="pCube8i">cube roots of 8i</button>
+    <button id="pReset">Reset</button>
+  </div>
+  <div class="controls">
+    <span class="ctl">r (modulus): <input type="range" id="sr" min="0.2" max="4" step="0.05"><span class="num" id="nr"></span></span>
+    <span class="ctl">theta (argument): <input type="range" id="st" min="-3.14159265" max="3.14159265" step="0.0174533"><span class="num" id="nt"></span></span>
+    <span class="ctl">n (which root): <input type="range" id="sn" min="2" max="8" step="1"><span class="num" id="nn"></span></span>
+  </div>
+  <div id="board">
+    <canvas id="cv" width="440" height="440"></canvas>
+    <div id="panel">
+      <div class="row"><span class="tag zc">z</span><div class="val" id="rz"></div></div>
+      <div class="row identity" id="ident"></div>
+      <div class="row"><span class="tag zk">Roots z<sub>k</sub></span><div class="val rootlist" id="rlist"></div></div>
+      <p class="legend">
+        <span class="sw" style="background:#1565c0"></span> z (the number whose roots we take, drawn faint)&nbsp;&nbsp;
+        <span class="sw" style="background:#c62828"></span> principal root z<sub>0</sub> (k = 0)&nbsp;&nbsp;
+        <span class="sw" style="background:#2e7d32"></span> other roots&nbsp;&nbsp;
+        dashed circle: radius r<sup>1/n</sup>
+      </p>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  var RANGE = 4;             // axes span [-4,4]
+  var cx = W/2, cy = H/2;    // pixel origin
+  var scale = (W/2) / RANGE; // pixels per unit
+
+  var COL = { z:"#1565c0", zk:"#2e7d32", z0:"#c62828" };
+
+  // state: z given by modulus r and argument theta (radians); n roots
+  var st = { r: 1.6, theta: Math.PI/3, n: 5 };
+
+  // coordinate transforms
+  function toPx(a, b){ return { x: cx + a*scale, y: cy - b*scale }; }
+
+  function fmtRect(a, b){
+    var as = a.toFixed(2);
+    if (Object.is(a, -0)) as = "0.00";
+    var bs = Math.abs(b).toFixed(2);
+    var sign = b >= 0 ? "+" : "&#8722;";
+    return as + " " + sign + " " + bs + "i";
+  }
+
+  // ---------- roots ----------
+  function roots(){
+    var rr = Math.pow(st.r, 1/st.n);
+    var out = [];
+    for (var k = 0; k < st.n; k++){
+      var ang = (st.theta + 2*Math.PI*k) / st.n;
+      out.push({ k:k, mod:rr, ang:ang, a: rr*Math.cos(ang), b: rr*Math.sin(ang) });
+    }
+    return out;
+  }
+
+  // ---------- drawing ----------
+  function drawGrid(){
+    ctx.clearRect(0,0,W,H);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#eef0f4";
+    for (var i = -RANGE; i <= RANGE; i++){
+      var p = toPx(i, 0);
+      ctx.beginPath(); ctx.moveTo(p.x, 0); ctx.lineTo(p.x, H); ctx.stroke();
+      var q = toPx(0, i);
+      ctx.beginPath(); ctx.moveTo(0, q.y); ctx.lineTo(W, q.y); ctx.stroke();
+    }
+    // unit circle reference
+    ctx.strokeStyle = "#eef0f4";
+    ctx.beginPath();
+    ctx.arc(cx, cy, scale, 0, Math.PI*2);
+    ctx.stroke();
+    // axes
+    ctx.strokeStyle = "#b9bcc6";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+    // origin dot
+    ctx.fillStyle = "#8a8d99";
+    ctx.beginPath(); ctx.arc(cx, cy, 2.5, 0, Math.PI*2); ctx.fill();
+    // axis labels + ticks
+    ctx.fillStyle = "#8a8d99";
+    ctx.font = "11px system-ui, sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var kx = -RANGE; kx <= RANGE; kx++){
+      if (kx === 0) continue;
+      var pp = toPx(kx, 0);
+      ctx.fillText(String(kx), pp.x, cy + 3);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    for (var m = -RANGE; m <= RANGE; m++){
+      if (m === 0) continue;
+      var qq = toPx(0, m);
+      ctx.fillText(String(m) + "i", cx + 4, qq.y);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "top";
+    ctx.fillStyle = "#6b6e7a";
+    ctx.font = "12px system-ui, sans-serif";
+    ctx.fillText("Re", W - 6, cy + 4);
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
+    ctx.fillText("Im", cx + 6, 4);
+  }
+
+  function drawDot(a, b, color, rad){
+    var p = toPx(a, b);
+    ctx.fillStyle = "#fff";
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, rad, 0, Math.PI*2);
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  function render(){
+    drawGrid();
+    var rr = Math.pow(st.r, 1/st.n);
+    var rs = roots();
+
+    // faint z (the number whose roots we take)
+    var ztip = toPx(st.r*Math.cos(st.theta), st.r*Math.sin(st.theta));
+    ctx.strokeStyle = "rgba(21,101,192,0.35)";
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(ztip.x, ztip.y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "rgba(21,101,192,0.6)";
+    ctx.beginPath(); ctx.arc(ztip.x, ztip.y, 4, 0, Math.PI*2); ctx.fill();
+    ctx.font = "600 12px system-ui, sans-serif";
+    ctx.fillStyle = "rgba(21,101,192,0.85)";
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    ctx.fillText("z", ztip.x + 7, ztip.y);
+
+    // circle of radius r^(1/n)
+    ctx.strokeStyle = "#9aa0b5";
+    ctx.lineWidth = 1.4;
+    ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.arc(cx, cy, rr*scale, 0, Math.PI*2); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // regular polygon connecting the roots
+    ctx.strokeStyle = "rgba(46,125,50,0.5)";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    for (var i = 0; i < rs.length; i++){
+      var pt = toPx(rs[i].a, rs[i].b);
+      if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+
+    // spokes from origin to each root
+    for (var j = 0; j < rs.length; j++){
+      var col = rs[j].k === 0 ? COL.z0 : COL.zk;
+      var tp = toPx(rs[j].a, rs[j].b);
+      ctx.strokeStyle = rs[j].k === 0 ? "rgba(198,40,40,0.85)" : "rgba(46,125,50,0.7)";
+      ctx.lineWidth = rs[j].k === 0 ? 2.5 : 1.8;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(tp.x, tp.y); ctx.stroke();
+    }
+    // dots on top, principal root last (highlighted, larger)
+    for (var d = 0; d < rs.length; d++){
+      if (rs[d].k === 0) continue;
+      drawDot(rs[d].a, rs[d].b, COL.zk, 5);
+    }
+    drawDot(rs[0].a, rs[0].b, COL.z0, 6.5);
+    // label the principal root k=0
+    var p0 = toPx(rs[0].a, rs[0].b);
+    ctx.font = "700 12px system-ui, sans-serif";
+    ctx.fillStyle = COL.z0;
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    ctx.fillText("z₀", p0.x + 9, p0.y);
+
+    updateReadouts(rr, rs);
+  }
+
+  function deg(rad){ return rad * 180 / Math.PI; }
+
+  function updateReadouts(rr, rs){
+    var a = st.r*Math.cos(st.theta), b = st.r*Math.sin(st.theta);
+    document.getElementById("rz").innerHTML =
+      "polar &nbsp;" + st.r.toFixed(2) + " (cos " + deg(st.theta).toFixed(1) + "&#176; + i sin " + deg(st.theta).toFixed(1) + "&#176;)" +
+      "<br>rect &nbsp;&nbsp;" + fmtRect(a, b);
+
+    var spacingDeg = (360 / st.n).toFixed(1);
+    document.getElementById("ident").innerHTML =
+      "<b>n</b> = " + st.n + " distinct roots, each with modulus <b>r<sup>1/n</sup></b> = " +
+        st.r.toFixed(2) + "<sup>1/" + st.n + "</sup> = " + rr.toFixed(4) +
+      "<br>angular spacing = <b>2 pi / n</b> = " + spacingDeg + "&#176; between neighbours";
+
+    var html = "";
+    for (var i = 0; i < rs.length; i++){
+      var r = rs[i];
+      var cls = r.k === 0 ? "k0" : "";
+      html += "<div class='" + cls + "'>z<sub>" + r.k + "</sub> = " +
+        rr.toFixed(3) + " e^(i " + deg(r.ang).toFixed(1) + "&#176;)" +
+        " &nbsp;&#8776;&nbsp; " + fmtRect(r.a, r.b) +
+        (r.k === 0 ? " &nbsp;(principal)" : "") + "</div>";
+    }
+    document.getElementById("rlist").innerHTML = html;
+  }
+
+  // ---------- controls ----------
+  var sr = document.getElementById("sr"), st_ = document.getElementById("st"), sn = document.getElementById("sn");
+  var nr = document.getElementById("nr"), nt = document.getElementById("nt"), nn = document.getElementById("nn");
+
+  function syncControls(){
+    sr.value = st.r; st_.value = st.theta; sn.value = st.n;
+    nr.textContent = st.r.toFixed(2);
+    nt.textContent = deg(st.theta).toFixed(0) + "°";
+    nn.textContent = String(st.n);
+  }
+
+  sr.addEventListener("input", function(){ st.r = parseFloat(sr.value); syncControls(); render(); });
+  st_.addEventListener("input", function(){ st.theta = parseFloat(st_.value); syncControls(); render(); });
+  sn.addEventListener("input", function(){ st.n = parseInt(sn.value, 10); syncControls(); render(); });
+
+  document.getElementById("pUnity").addEventListener("click", function(){
+    st.r = 1; st.theta = 0; st.n = 5; syncControls(); render();
+  });
+  document.getElementById("pCube8i").addEventListener("click", function(){
+    st.r = 8; st.theta = Math.PI/2; st.n = 3;
+    // r slider caps at 4; keep the true state, clamp only the slider display
+    sr.value = Math.min(4, st.r);
+    st_.value = st.theta; sn.value = st.n;
+    nr.textContent = st.r.toFixed(2) + " (off-scale)";
+    nt.textContent = deg(st.theta).toFixed(0) + "°";
+    nn.textContent = String(st.n);
+    render();
+  });
+  document.getElementById("pReset").addEventListener("click", function(){
+    st.r = 1.6; st.theta = Math.PI/3; st.n = 5; syncControls(); render();
+  });
+
+  syncControls();
+  render();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>
