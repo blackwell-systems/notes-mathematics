@@ -54,6 +54,12 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Real Analysis interactive pass** — added an epsilon-N sequence-convergence explorer
+  (shrink epsilon, the widget finds the smallest N with all later terms inside the L+/-epsilon
+  band; handles oscillating sequences) and a uniform-vs-pointwise convergence explorer (slide n,
+  watch the sup-norm distance shrink to 0 for x/n and sin(nx)/n but stay pinned at 1 for x^n and
+  the moving bump). +13 machine-checked assertions (sequence limits + epsilon-N, sup/completeness,
+  geometric/harmonic/ratio series, uniform-convergence sup-norms, MVT, squeeze, IVT).
 - [x] **Optimization pass** — already the most interactive page (4 widgets) and complete, so
   a focused pass: added a convexity chord-test explorer (drag two points; chord above the
   graph = convex, dips below = not) for the big Convexity section, filled the one real content

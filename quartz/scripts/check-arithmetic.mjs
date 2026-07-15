@@ -754,6 +754,23 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Real Analysis =================
+{
+  eq("1/n -> 0", 1 / 1e6, 0, 1e-5);
+  { const eps = 0.1; let N = 1; while (!(1 / N < eps)) N++; eq("epsilon-N for 1/n, eps=0.1 -> N=11", N, 11); }
+  eq("(3n+1)/(n+2) -> 3", (3 * 1e6 + 1) / (1e6 + 2), 3, 1e-5);
+  eq("(1+1/n)^n -> e", Math.pow(1 + 1 / 1e7, 1e7), Math.E, 1e-3);
+  { const terms = Array.from({ length: 1000 }, (_, i) => 1 - 1 / (i + 1)); const sup = Math.max(...terms); check("sup{1-1/n} approaches 1 but is never attained", sup < 1 && 1 - sup < 1e-2); }
+  { let s = 0; for (let n = 0; n < 60; n++) s += Math.pow(0.5, n); eq("geometric series sum (1/2)^n from n=0 = 2", s, 2, 1e-9); }
+  { let H = 0; for (let n = 1; n <= 100000; n++) H += 1 / n; check("harmonic partial sum ~ ln n + gamma (diverges)", H > 11 && Math.abs(H - (Math.log(100000) + 0.5772156649)) < 0.01); }
+  { const fac = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; }; let s = 0; for (let n = 0; n <= 20; n++) s += 1 / fac(n); eq("sum 1/n! = e (ratio test converges)", s, Math.E, 1e-9); }
+  { const n = 50; let sup = 0; for (let i = 0; i <= 1000; i++) sup = Math.max(sup, Math.pow(i / 1000, n)); eq("sup of x^n on [0,1] = 1 (not uniform)", sup, 1, 1e-9); }
+  { const n = 50; let sup = 0; for (let i = 0; i <= 1000; i++) sup = Math.max(sup, (i / 1000) / n); eq("sup of x/n on [0,1] = 1/n (uniform -> 0)", sup, 1 / n, 1e-9); }
+  { const a = 1, b = 3, fa = 1, fb = 9; eq("MVT: f'(c)=slope gives c=2 for x^2 on [1,3]", (fb - fa) / (b - a) / 2, 2); }
+  check("squeeze theorem: |sin(n)/n| <= 1/n", [1, 5, 50, 1000].every((n) => Math.abs(Math.sin(n) / n) <= 1 / n + 1e-12));
+  { const f = (x) => x * x - 2; check("IVT: x^2-2 has a root in (1,2)", f(1) < 0 && f(2) > 0); }
+}
+
 // ================= Optimization =================
 {
   // Jensen / chord test: x^2 convex -> f(midpoint) <= average of endpoint values

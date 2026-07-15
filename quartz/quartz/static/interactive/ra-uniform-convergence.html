@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uniform vs Pointwise Convergence</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --ink:#1c2126; --fn:#2563c9; --lim:#8a929b; --gap:#c0392b;
+    --panel:#f0f3f6; --line:#d7dde3;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 28px;}
+  h1{font-size:19px;margin:0 0 4px;font-weight:650;}
+  .sub{font-size:13px;color:#4a525b;margin:0 0 14px;line-height:1.45;}
+  canvas{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:8px;}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 10px;}
+  .preset{font-size:12.5px;padding:6px 10px;border:1px solid var(--line);background:#fff;
+    border-radius:7px;cursor:pointer;color:var(--ink);line-height:1.2;}
+  .preset:hover{background:var(--panel);}
+  .preset.active{background:var(--fn);color:#fff;border-color:var(--fn);}
+  .sliderrow{display:flex;align-items:center;gap:12px;margin:12px 0 6px;}
+  .sliderrow label{font-size:13px;font-weight:600;min-width:82px;}
+  input[type=range]{flex:1;accent-color:var(--fn);}
+  .nval{font-variant-numeric:tabular-nums;min-width:64px;text-align:right;font-size:13px;font-weight:600;}
+  .readout{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;line-height:1.6;}
+  .readout b{font-variant-numeric:tabular-nums;}
+  .verdict{font-weight:700;padding:2px 8px;border-radius:6px;display:inline-block;margin-top:2px;}
+  .v-uniform{background:#e3f0e6;color:#1d6b34;}
+  .v-pointwise{background:#fbe6e3;color:#a12a1a;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#4a525b;margin-top:8px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:22px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block;}
+  .caption{font-size:12px;color:#5a626b;margin-top:14px;line-height:1.5;font-style:italic;}
+  .explain{font-size:12.5px;color:#4a525b;margin-top:8px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Uniform vs. pointwise convergence of f<sub>n</sub>(x)</h1>
+  <p class="sub">Pick a function sequence and slide <i>n</i>. We plot f<sub>n</sub> (blue) against its pointwise limit f (dashed gray),
+    and measure the worst-case gap &#8741;f<sub>n</sub>&nbsp;&minus;&nbsp;f&#8741;<sub>&infin;</sub> = sup<sub>x</sub> |f<sub>n</sub>(x)&nbsp;&minus;&nbsp;f(x)| (red segment).</p>
+
+  <canvas id="cv" width="760" height="360"></canvas>
+
+  <div class="legend">
+    <span><i class="sw" style="border-top-color:#2563c9"></i> f<sub>n</sub>(x)</span>
+    <span><i class="sw" style="border-top-color:#8a929b;border-top-style:dashed"></i> pointwise limit f(x)</span>
+    <span><i class="sw" style="border-top-color:#c0392b"></i> location of max gap</span>
+  </div>
+
+  <div class="controls" id="presets"></div>
+
+  <div class="sliderrow">
+    <label for="n">n</label>
+    <input type="range" id="n" min="1" max="50" step="1" value="3">
+    <span class="nval" id="nval">n = 3</span>
+  </div>
+
+  <div class="readout" id="readout"></div>
+  <div class="explain">
+    <b>Uniform:</b> the entire graph of f<sub>n</sub> fits inside an &epsilon;-tube around f (one &epsilon; works for all x). &nbsp;
+    <b>Pointwise:</b> each x eventually gets close to f(x), but maybe not all at the same rate, so the tube never closes.
+  </div>
+
+  <p class="caption">The sup-norm gap is the single number that decides it: if it marches to 0 the convergence is uniform; if it stays pinned above 0 the limit is only pointwise.</p>
+</div>
+
+<script>
+"use strict";
+(function(){
+  // ---- Presets: each defines f_n(x,n), pointwise limit f(x), domain, and true-sup label ----
+  var PI = Math.PI;
+  var presets = [
+    {
+      id:"xn",
+      name:"fₙ(x) = xⁿ  on [0,1]",
+      a:0, b:1, ymin:-0.08, ymax:1.12,
+      fn:function(x,n){ return Math.pow(x,n); },
+      lim:function(x){ return x>=1 ? 1 : 0; },
+      // discontinuous limit; drawn as two pieces
+      limPieces:function(){ return [[0,1,0],[1,1,1]]; }, // [x0,x1,y] flat segments
+      uniform:false
+    },
+    {
+      id:"xovern",
+      name:"fₙ(x) = x / n  on [0,1]",
+      a:0, b:1, ymin:-0.08, ymax:1.12,
+      fn:function(x,n){ return x/n; },
+      lim:function(x){ return 0; },
+      uniform:true
+    },
+    {
+      id:"bump",
+      name:"moving bump  on [0,1]",
+      a:0, b:1, ymin:-0.12, ymax:1.15,
+      fn:function(x,n){ var t=n*x; return (x>=0 && x<=1/n) ? 4*t*(1-t) : 0; },
+      lim:function(x){ return 0; },
+      uniform:false
+    },
+    {
+      id:"sin",
+      name:"fₙ(x) = sin(n x) / n  on [0,2π]",
+      a:0, b:2*PI, ymin:-1.1, ymax:1.1,
+      fn:function(x,n){ return Math.sin(n*x)/n; },
+      lim:function(x){ return 0; },
+      uniform:true
+    }
+  ];
+
+  var current = presets[0];
+  var canvas = document.getElementById("cv");
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width, H = canvas.height;
+  var PAD = {l:46,r:16,t:16,b:32};
+
+  var slider = document.getElementById("n");
+  var nval = document.getElementById("nval");
+  var readout = document.getElementById("readout");
+  var presetBox = document.getElementById("presets");
+
+  // build preset buttons
+  presets.forEach(function(p,i){
+    var btn = document.createElement("button");
+    btn.className = "preset" + (i===0?" active":"");
+    btn.innerHTML = p.name;
+    btn.addEventListener("click", function(){
+      current = p;
+      Array.prototype.forEach.call(presetBox.children,function(c){c.classList.remove("active");});
+      btn.classList.add("active");
+      draw();
+    });
+    presetBox.appendChild(btn);
+  });
+
+  slider.addEventListener("input", draw);
+
+  function xToPx(x){ return PAD.l + (x-current.a)/(current.b-current.a)*(W-PAD.l-PAD.r); }
+  function yToPx(y){ return PAD.t + (current.ymax-y)/(current.ymax-current.ymin)*(H-PAD.t-PAD.b); }
+
+  function fmt(v){
+    if(v<0.0005) return v.toExponential(2);
+    return v.toFixed(4);
+  }
+
+  function computeSup(n){
+    // fine sampling of the gap |f_n - f| across the domain
+    var N = 4000;
+    var best = 0, bestx = current.a;
+    for(var i=0;i<=N;i++){
+      var x = current.a + (current.b-current.a)*i/N;
+      var g = Math.abs(current.fn(x,n) - current.lim(x));
+      if(g>best){ best=g; bestx=x; }
+    }
+    // For x^n the sup is a limit approached (open sup) at x->1^-: refine near right end
+    if(current.id==="xn"){
+      // |x^n - 0| for x in [0,1) climbs to 1; the true sup over [0,1] is 1.
+      best = 1; bestx = 1; // marker drawn just left of 1 conceptually; place at 1
+    }
+    return {sup:best, x:bestx};
+  }
+
+  function draw(){
+    var n = parseInt(slider.value,10);
+    nval.textContent = "n = " + n;
+    ctx.clearRect(0,0,W,H);
+
+    // background
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0,0,W,H);
+
+    // axes / gridlines
+    ctx.strokeStyle = "#eef1f4";
+    ctx.lineWidth = 1;
+    var yZero = yToPx(0);
+    // horizontal grid at 0, and quarter marks within range
+    ctx.beginPath();
+    var gy = [0];
+    if(current.ymax>=1) gy.push(1);
+    if(current.ymin<=-1) gy.push(-1);
+    if(current.ymax>=0.5 && current.ymax<1) gy.push(0.5);
+    gy.forEach(function(v){ var py=yToPx(v); ctx.moveTo(PAD.l,py); ctx.lineTo(W-PAD.r,py); });
+    ctx.stroke();
+
+    // x axis
+    ctx.strokeStyle = "#cfd6dd";
+    ctx.beginPath(); ctx.moveTo(PAD.l,yZero); ctx.lineTo(W-PAD.r,yZero); ctx.stroke();
+    // y axis
+    ctx.beginPath(); ctx.moveTo(PAD.l,PAD.t); ctx.lineTo(PAD.l,H-PAD.b); ctx.stroke();
+
+    // axis labels
+    ctx.fillStyle = "#7a828b";
+    ctx.font = "11px system-ui,sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    ctx.fillText(current.a.toFixed(0), xToPx(current.a), H-PAD.b+4);
+    var bLabel = current.id==="sin" ? "2π" : current.b.toFixed(0);
+    ctx.fillText(bLabel, xToPx(current.b), H-PAD.b+4);
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    ctx.fillText("0", PAD.l-6, yToPx(0));
+    if(current.ymax>=1) ctx.fillText("1", PAD.l-6, yToPx(1));
+    if(current.ymin<=-1) ctx.fillText("-1", PAD.l-6, yToPx(-1));
+
+    // epsilon tube around limit (visualize current sup as the tube half-width)
+    var res = computeSup(n);
+    var eps = res.sup;
+
+    // ---- draw pointwise limit (dashed gray) ----
+    ctx.strokeStyle = "#8a929b";
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([6,5]);
+    if(current.limPieces){
+      var pcs = current.limPieces();
+      pcs.forEach(function(seg){
+        ctx.beginPath();
+        ctx.moveTo(xToPx(seg[0]), yToPx(seg[2]));
+        ctx.lineTo(xToPx(seg[1]), yToPx(seg[2]));
+        ctx.stroke();
+      });
+      // open/closed dots for the discontinuity
+      ctx.setLineDash([]);
+      var xr = xToPx(1);
+      // open circle at (1,0)
+      ctx.beginPath(); ctx.arc(xr, yToPx(0), 3.2, 0, 2*PI);
+      ctx.fillStyle="#fff"; ctx.fill(); ctx.strokeStyle="#8a929b"; ctx.lineWidth=1.4; ctx.stroke();
+      // filled dot at (1,1)
+      ctx.beginPath(); ctx.arc(xr, yToPx(1), 3.2, 0, 2*PI);
+      ctx.fillStyle="#8a929b"; ctx.fill();
+    } else {
+      ctx.beginPath();
+      var Nl=200;
+      for(var i=0;i<=Nl;i++){
+        var x=current.a+(current.b-current.a)*i/Nl;
+        var px=xToPx(x), py=yToPx(current.lim(x));
+        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // ---- draw f_n (blue smooth) ----
+    ctx.strokeStyle = "#2563c9";
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    var Nc = 1200, started=false;
+    for(var j=0;j<=Nc;j++){
+      var xx = current.a + (current.b-current.a)*j/Nc;
+      var yy = current.fn(xx,n);
+      var px = xToPx(xx), py = yToPx(Math.max(current.ymin,Math.min(current.ymax,yy)));
+      if(!started){ ctx.moveTo(px,py); started=true; } else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+
+    // ---- red vertical segment at location of maximum gap ----
+    var xm = res.x;
+    var ym_fn = current.fn(xm,n);
+    var ym_lim = current.lim(xm);
+    // for xn preset, show the gap at x=1 between limit(=1 there) drawn as full height 1 gap near x=1
+    var pxm = xToPx(xm);
+    var yA, yB;
+    if(current.id==="xn"){
+      // the sup=1 is realized in the limit as x->1^-: f_n ~ near 1 but limit 0. Draw gap 0..1 at right edge.
+      yA = yToPx(0); yB = yToPx(1);
+      pxm = xToPx(1) - 1; // just inside
+    } else {
+      yA = yToPx(ym_lim); yB = yToPx(ym_fn);
+    }
+    ctx.strokeStyle = "#c0392b";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath(); ctx.moveTo(pxm,yA); ctx.lineTo(pxm,yB); ctx.stroke();
+    // caps
+    ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.moveTo(pxm-4,yA); ctx.lineTo(pxm+4,yA); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pxm-4,yB); ctx.lineTo(pxm+4,yB); ctx.stroke();
+
+    // gap label
+    ctx.fillStyle="#c0392b";
+    ctx.font="11px system-ui,sans-serif";
+    ctx.textAlign = pxm > W*0.7 ? "right" : "left";
+    ctx.textBaseline="middle";
+    var lx = pxm > W*0.7 ? pxm-7 : pxm+7;
+    ctx.fillText("gap = "+fmt(eps), lx, (yA+yB)/2);
+
+    // ---- verdict logic: compare sup(n) to sup(2n); shrinking => uniform ----
+    var res2 = computeSup(Math.min(50, n*2 + 1));
+    var shrinking = current.uniform; // ground truth from preset
+    // still show numeric evidence
+    var verdictClass = shrinking ? "v-uniform" : "v-pointwise";
+    var verdictText = shrinking
+      ? "converging uniformly (sup → 0)"
+      : "pointwise only (sup stays ≈ constant)";
+
+    var supAtN = fmt(eps);
+    var supStr;
+    if(current.id==="xovern" || current.id==="sin"){
+      supStr = " &nbsp;(formula: 1/n = " + fmt(1/n) + ")";
+    } else if(current.id==="xn"){
+      supStr = " &nbsp;(equals 1 for every n)";
+    } else {
+      supStr = " &nbsp;(equals 1 for every n)";
+    }
+
+    readout.innerHTML =
+      "At <b>n = " + n + "</b>: &nbsp; &#8741;fₙ &minus; f&#8741;<sub>&infin;</sub> = <b>" + supAtN + "</b>" + supStr +
+      "<br>As n grows (n → " + Math.min(50,n*2+1) + "): sup = <b>" + fmt(res2.sup) + "</b>. " +
+      "<br>Verdict: <span class='verdict " + verdictClass + "'>" + verdictText + "</span>";
+  }
+
+  draw();
+})();
+</script>
+</body>
+</html>

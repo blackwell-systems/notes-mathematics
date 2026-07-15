@@ -113,6 +113,10 @@ Unpacking this: $\epsilon$ represents how close you want the terms to be to $L$.
 
 ![A convergent sequence approaching a limit L: given a tolerance epsilon, there is an index N beyond which every term lies inside the horizontal band from L minus epsilon to L plus epsilon](./media/ra-epsilon-n.png)
 
+Play the tolerance game below: pick a sequence, shrink $\varepsilon$, and the widget finds the smallest $N$ beyond which *every* term lands inside the $L \pm \varepsilon$ band. As $\varepsilon$ shrinks, $N$ grows, but one always exists, which is exactly what convergence means.
+
+<iframe src="/static/interactive/ra-sequence-convergence.html" width="100%" height="640" style="border:none;"></iframe>
+
 The same tolerance game works for limits of *functions*: $\lim_{x \to a} f(x) = L$ means that for every $\varepsilon > 0$ there is a $\delta > 0$ with $0 < |x - a| < \delta \implies |f(x) - L| < \varepsilon$. Drag $\varepsilon$ below and watch a matching $\delta$ shrink to keep the curve inside the band:
 
 <iframe src="/static/interactive/epsilon-delta-explorer.html" width="100%" height="520" style="border:none;"></iframe>
@@ -468,6 +472,10 @@ $$
 Equivalently: for every $\epsilon > 0$, there exists $N$ such that $|f_n(x) - f(x)| < \epsilon$ for all $x \in D$ and all $n > N$.
 
 The crucial difference: in pointwise convergence, $N$ can depend on $x$. In uniform convergence, the *same* $N$ works for *all* $x$ simultaneously. The convergence happens "at the same rate" everywhere.
+
+The distinction is easiest to *see*. Below, slide $n$ and watch the sup-norm distance $\|f_n - f\|_\infty = \sup_x |f_n(x) - f(x)|$: for $x/n$ and $\sin(nx)/n$ it shrinks to $0$ (uniform), but for $x^n$ and the moving bump it stays pinned at $1$ no matter how large $n$ gets (pointwise only), with the red segment marking where the worst gap lives.
+
+<iframe src="/static/interactive/ra-uniform-convergence.html" width="100%" height="640" style="border:none;"></iframe>
 
 **Example: $f_n(x) = x^n$ on $[0, 1]$ converges pointwise but NOT uniformly.** We showed the pointwise limit is discontinuous (0 for $x < 1$, 1 at $x = 1$). For uniform convergence, we would need $\sup_{x \in [0,1]} |x^n - f(x)| \to 0$. But:
 

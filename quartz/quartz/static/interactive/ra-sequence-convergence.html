@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Epsilon-N Sequence Convergence Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --fg: #1c2126;
+    --blue: #2563c9;
+    --red: #c0392b;
+    --muted: #6b7480;
+    --panel: #f1f4f8;
+    --border: #d8dee6;
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 28px;
+  }
+  h1 { font-size: 1.28rem; margin: 0 0 2px; }
+  .sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 22px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  label { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+  select, input[type=range] { font: inherit; }
+  select {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--fg);
+    min-width: 260px;
+  }
+  .epsrow { display: flex; align-items: center; gap: 10px; }
+  input[type=range] { width: 220px; accent-color: var(--red); }
+  .epsval {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--red);
+    min-width: 54px;
+  }
+  canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .readout {
+    margin-top: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.93rem;
+  }
+  .readout .row { margin: 2px 0; }
+  .k { color: var(--muted); }
+  .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .v.blue { color: var(--blue); }
+  .v.red { color: var(--red); }
+  .stmt {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.9rem;
+  }
+  .caption {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.86rem;
+    font-style: italic;
+  }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot.blue { background: var(--blue); }
+  .dot.gray { background: #9aa4b0; }
+  .swatch { width: 16px; height: 10px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Epsilon&ndash;N sequence convergence</h1>
+  <p class="sub">Pick a sequence, shrink &epsilon;, and watch the smallest working <b>N</b> grow.</p>
+
+  <div class="controls">
+    <div class="field">
+      <label for="seq">Sequence</label>
+      <select id="seq"></select>
+    </div>
+    <div class="field">
+      <label for="eps">Epsilon (&epsilon;)</label>
+      <div class="epsrow">
+        <input id="eps" type="range" min="0.01" max="0.5" step="0.01" value="0.20">
+        <span class="epsval" id="epsval">0.20</span>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="plot" width="1520" height="900"></canvas>
+
+  <div class="legend">
+    <span><span class="dot blue"></span> term inside band (n &ge; N)</span>
+    <span><span class="dot gray"></span> early term (n &lt; N, may escape)</span>
+    <span><span class="swatch" style="background:rgba(192,57,43,.14);border:1px solid #c0392b"></span> &epsilon;-band [L&minus;&epsilon;, L+&epsilon;]</span>
+  </div>
+
+  <div class="readout">
+    <div class="row"><span class="k">limit</span> &nbsp;<span id="Lval" class="v red">L = 0</span></div>
+    <div class="row"><span class="k">epsilon</span> &nbsp;<span id="epsread" class="v red">&epsilon; = 0.20</span></div>
+    <div class="row"><span class="k">smallest working index</span> &nbsp;<span id="Nval" class="v blue">N = 6</span></div>
+    <div class="stmt" id="stmt">for all n &ge; 6: |a_n &minus; 0| &lt; 0.20</div>
+  </div>
+
+  <p class="caption" id="caption">Convergence means this threshold N exists for <b>every</b> &epsilon; &gt; 0, no matter how small.</p>
+</div>
+
+<script>
+"use strict";
+(function () {
+  var E = Math.E;
+  // Each preset: closed-form term a_n and its KNOWN limit L.
+  var PRESETS = [
+    { name: "a_n = 1/n → 0",                a: function (n) { return 1 / n; },                 L: 0,      Lstr: "0" },
+    { name: "a_n = (3n+1)/(n+2) → 3",        a: function (n) { return (3 * n + 1) / (n + 2); }, L: 3,      Lstr: "3" },
+    { name: "a_n = (-1)^n / n → 0",          a: function (n) { return Math.pow(-1, n) / n; },  L: 0,      Lstr: "0" },
+    { name: "a_n = (1 + 1/n)^n → e",         a: function (n) { return Math.pow(1 + 1 / n, n); }, L: E,     Lstr: "e ≈ 2.71828" },
+    { name: "a_n = sin(n)/n → 0",            a: function (n) { return Math.sin(n) / n; },       L: 0,      Lstr: "0" },
+    { name: "a_n = (n+1)/n → 1",             a: function (n) { return (n + 1) / n; },           L: 1,      Lstr: "1" }
+  ];
+
+  var NUM_TERMS = 60;   // plot first 60 terms
+  var SEARCH_MAX = 20000; // search horizon for N
+
+  var seqSel = document.getElementById("seq");
+  var epsSlider = document.getElementById("eps");
+  var epsValEl = document.getElementById("epsval");
+  var canvas = document.getElementById("plot");
+  var ctx = canvas.getContext("2d");
+
+  var LvalEl = document.getElementById("Lval");
+  var epsreadEl = document.getElementById("epsread");
+  var NvalEl = document.getElementById("Nval");
+  var stmtEl = document.getElementById("stmt");
+
+  PRESETS.forEach(function (p, i) {
+    var o = document.createElement("option");
+    o.value = String(i);
+    o.textContent = p.name;
+    seqSel.appendChild(o);
+  });
+
+  // Smallest N such that for ALL n >= N, |a_n - L| < eps.
+  // Scan a large horizon: find the last index that violates, N = that + 1.
+  function findN(p, eps) {
+    var lastBad = 0;
+    for (var n = 1; n <= SEARCH_MAX; n++) {
+      if (Math.abs(p.a(n) - p.L) >= eps) lastBad = n;
+    }
+    return lastBad + 1;
+  }
+
+  function fmt(x) {
+    if (!isFinite(x)) return "∞";
+    var r = Math.round(x * 1000) / 1000;
+    return String(r);
+  }
+
+  function draw() {
+    var p = PRESETS[parseInt(seqSel.value, 10)];
+    var eps = parseFloat(epsSlider.value);
+    epsValEl.textContent = eps.toFixed(2);
+
+    var N = findN(p, eps);
+
+    // compute plotted terms
+    var terms = [];
+    var minY = p.L - eps, maxY = p.L + eps;
+    for (var n = 1; n <= NUM_TERMS; n++) {
+      var v = p.a(n);
+      terms.push({ n: n, v: v });
+      if (isFinite(v)) { if (v < minY) minY = v; if (v > maxY) maxY = v; }
+    }
+    // pad y-range
+    var pad = (maxY - minY) * 0.12 || 0.5;
+    minY -= pad; maxY += pad;
+
+    // geometry (canvas is 1520x900, hi-dpi-ish)
+    var W = canvas.width, H = canvas.height;
+    var mL = 90, mR = 40, mT = 40, mB = 70;
+    var pw = W - mL - mR, ph = H - mT - mB;
+
+    function X(n) { return mL + (n - 1) / (NUM_TERMS - 1) * pw; }
+    function Y(v) { return mT + (maxY - v) / (maxY - minY) * ph; }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#fbfcfd";
+    ctx.fillRect(0, 0, W, H);
+
+    // epsilon band
+    var yTop = Y(p.L + eps), yBot = Y(p.L - eps);
+    ctx.fillStyle = "rgba(192,57,43,0.12)";
+    ctx.fillRect(mL, yTop, pw, yBot - yTop);
+
+    // gridlines / axes
+    ctx.strokeStyle = "#e3e8ef";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (var g = 0; g <= 6; g++) {
+      var gy = mT + g / 6 * ph;
+      ctx.moveTo(mL, gy); ctx.lineTo(mL + pw, gy);
+    }
+    ctx.stroke();
+
+    // axis frame
+    ctx.strokeStyle = "#b7c0cc";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(mL, mT); ctx.lineTo(mL, mT + ph); ctx.lineTo(mL + pw, mT + ph);
+    ctx.stroke();
+
+    // y tick labels
+    ctx.fillStyle = "#6b7480";
+    ctx.font = "22px system-ui, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    for (var t = 0; t <= 6; t++) {
+      var val = maxY - t / 6 * (maxY - minY);
+      ctx.fillText(fmt(val), mL - 10, mT + t / 6 * ph);
+    }
+    // x tick labels
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    [1, 10, 20, 30, 40, 50, 60].forEach(function (n) {
+      ctx.fillText(String(n), X(n), mT + ph + 10);
+    });
+    ctx.fillText("n", mL + pw, mT + ph + 40);
+
+    // limit line (red dashed)
+    ctx.strokeStyle = "#c0392b";
+    ctx.lineWidth = 3;
+    ctx.setLineDash([12, 8]);
+    var yL = Y(p.L);
+    ctx.beginPath(); ctx.moveTo(mL, yL); ctx.lineTo(mL + pw, yL); ctx.stroke();
+    // band edges dashed
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(192,57,43,0.75)";
+    ctx.beginPath(); ctx.moveTo(mL, yTop); ctx.lineTo(mL + pw, yTop);
+    ctx.moveTo(mL, yBot); ctx.lineTo(mL + pw, yBot); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // L label
+    ctx.fillStyle = "#c0392b";
+    ctx.font = "bold 22px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "bottom";
+    ctx.fillText("L", mL + 6, yL - 6);
+
+    // vertical N line (only if within plot window)
+    if (N <= NUM_TERMS) {
+      ctx.strokeStyle = "#2563c9";
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([6, 6]);
+      var xN = X(N);
+      ctx.beginPath(); ctx.moveTo(xN, mT); ctx.lineTo(xN, mT + ph); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "#2563c9";
+      ctx.font = "bold 22px system-ui, sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText("N = " + N, xN + 6, mT + 4);
+    }
+
+    // dots
+    terms.forEach(function (pt) {
+      if (!isFinite(pt.v)) return;
+      var x = X(pt.n), y = Y(pt.v);
+      var early = pt.n < N;
+      ctx.beginPath();
+      ctx.arc(x, y, early ? 6 : 7, 0, 2 * Math.PI);
+      ctx.fillStyle = early ? "#9aa4b0" : "#2563c9";
+      ctx.fill();
+      // ring outside band
+      if (Math.abs(pt.v - p.L) >= eps) {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "#c0392b";
+        ctx.stroke();
+      }
+    });
+
+    // readout
+    LvalEl.textContent = "L = " + p.Lstr;
+    epsreadEl.textContent = "ε = " + eps.toFixed(2);
+    var Ntext = (N > NUM_TERMS && N <= SEARCH_MAX) ? (N + " (beyond plotted 60)")
+              : (N > SEARCH_MAX ? "> " + SEARCH_MAX : String(N));
+    NvalEl.textContent = "N = " + Ntext;
+    stmtEl.textContent = "for all n ≥ " + N + ":  |a_n − " + p.Lstr.replace(/ ≈.*/, "") + "| < " + eps.toFixed(2);
+  }
+
+  seqSel.addEventListener("change", draw);
+  epsSlider.addEventListener("input", draw);
+  seqSel.value = "0";
+  draw();
+})();
+</script>
+</body>
+</html>
