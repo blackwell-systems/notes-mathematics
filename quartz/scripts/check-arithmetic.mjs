@@ -313,6 +313,63 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
 }
 
+// ================= Number Systems (constructions & decimals) =================
+{
+  // von Neumann encoding: n = {0,...,n-1}, so |n| = n and S(n)=n u {n}
+  const vn = (n) => (n === 0 ? [] : (() => { const s = vn(n - 1); return s.concat([s]); })());
+  check("von Neumann |n| = n", [0, 1, 2, 3, 5].every((n) => vn(n).length === n));
+
+  // Z as pairs (a,b) ~ (c,d) iff a+d=b+c, representing a-b
+  const zsim = (a, b, c, d) => a + d === b + c;
+  check("Z pair equiv: (5,3)~(2,0), (3,5) not", zsim(5, 3, 2, 0) && !zsim(3, 5, 2, 0));
+  const zmul = (a, b, c, d) => [a * c + b * d, a * d + b * c];
+  { const [x, y] = zmul(5, 3, 4, 1); check("Z pair mult represents (a-b)(c-d)", x - y === (5 - 3) * (4 - 1)); }
+
+  // Q as pairs (p,q) ~ (r,s) iff ps=qr
+  const qsim = (p, q, r, s) => p * s === q * r;
+  check("Q pair equiv: 1/2~2/4~3/6, not 1/3", qsim(1, 2, 2, 4) && qsim(2, 4, 3, 6) && !qsim(1, 2, 1, 3));
+
+  // C as ordered pairs: (0,1)^2 = (-1,0)
+  const cmul = (a, b, c, d) => [a * c - b * d, a * d + b * c];
+  { const [x, y] = cmul(0, 1, 0, 1); check("C pair construction: i^2 = -1", x === -1 && y === 0); }
+
+  // Repeating decimal -> fraction (exact, BigInt)
+  const gcdB = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b] = [b, a % b]; } return a; };
+  function repToFrac(whole, nonrep, rep) {
+    const a = BigInt(nonrep.length), b = BigInt(rep.length);
+    const p10a = 10n ** a, p10b = 10n ** b;
+    const full = BigInt((nonrep + rep) || "0"), nonr = BigInt(nonrep || "0");
+    let num, den;
+    if (rep.length === 0) { num = full; den = p10a; }
+    else { num = full - nonr; den = (p10b - 1n) * p10a; }
+    num += BigInt(whole) * den;
+    const g = gcdB(num, den);
+    return [num / g, den / g];
+  }
+  const fr = (w, n, r) => repToFrac(w, n, r).join("/");
+  eq("0.(3) = 1/3", fr(0, "", "3"), "1/3");
+  eq("0.(27) = 3/11", fr(0, "", "27"), "3/11");
+  eq("0.1(6) = 1/6", fr(0, "1", "6"), "1/6");
+  eq("0.(142857) = 1/7", fr(0, "", "142857"), "1/7");
+  eq("0.(9) = 1", fr(0, "", "9"), "1/1");
+  eq("0.25 terminating = 1/4", fr(0, "25", ""), "1/4");
+
+  // Fraction -> decimal period = multiplicative order of 10 mod (q without 2s and 5s)
+  function period(q) {
+    q = Math.abs(q);
+    while (q % 2 === 0) q /= 2;
+    while (q % 5 === 0) q /= 5;
+    if (q === 1) return 0;
+    let r = 10 % q, k = 1;
+    while (r !== 1) { r = (r * 10) % q; k++; }
+    return k;
+  }
+  eq("period of 1/7 = 6", period(7), 6);
+  eq("period of 1/3 = 1", period(3), 1);
+  eq("1/4 terminates (period 0)", period(4), 0);
+  eq("period of 1/6 = 1", period(6), 1);
+}
+
 // ================= Hypercomplex Numbers (Cayley-Dickson) =================
 {
   const sub = (x, y) => x.map((v, i) => v - y[i]);

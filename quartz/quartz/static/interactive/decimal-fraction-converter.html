@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decimal &harr; Fraction Converter</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6672;
+    --accent: #2563c9;
+    --line: #dde3ea;
+    --panel: #ffffff;
+    --chip: #eef3fb;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .caption { color: var(--muted); margin: 0 0 18px; font-size: 13.5px; }
+  .toggle {
+    display: inline-flex; border: 1px solid var(--line);
+    border-radius: 9px; overflow: hidden; margin-bottom: 18px;
+  }
+  .toggle button {
+    border: none; background: var(--panel); color: var(--text);
+    padding: 8px 16px; font-size: 14px; cursor: pointer; font-family: inherit;
+  }
+  .toggle button.active { background: var(--accent); color: #fff; }
+  .toggle button + button { border-left: 1px solid var(--line); }
+  .panel {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 11px; padding: 18px; margin-bottom: 16px;
+  }
+  .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  input[type=text] {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 15px; padding: 7px 9px; border: 1px solid var(--line);
+    border-radius: 7px; background: var(--bg); color: var(--text);
+    width: 110px;
+  }
+  input.wide { width: 150px; }
+  input.narrow { width: 78px; }
+  .chips { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+  .chips .lbl { font-size: 12px; color: var(--muted); margin-right: 2px; }
+  .chip {
+    background: var(--chip); border: 1px solid var(--line); color: var(--accent);
+    border-radius: 20px; padding: 4px 12px; font-size: 13px; cursor: pointer;
+    font-family: ui-monospace, monospace;
+  }
+  .chip:hover { background: #e2ebfa; }
+  .result { margin-top: 4px; }
+  .big {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 22px; margin: 6px 0 10px; word-break: break-all;
+  }
+  .over { text-decoration: overline; }
+  .badge {
+    display: inline-block; font-size: 12.5px; font-weight: 600;
+    padding: 3px 10px; border-radius: 20px; margin-right: 8px;
+  }
+  .badge.term { background: #e4f6ea; color: #17663a; }
+  .badge.rep { background: #fdefe0; color: #9a5410; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .algebra {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px; background: var(--bg); border: 1px solid var(--line);
+    border-radius: 8px; padding: 12px 14px; margin-top: 12px; line-height: 1.9;
+    overflow-x: auto;
+  }
+  .algebra .step { white-space: nowrap; }
+  .frac {
+    display: inline-flex; flex-direction: column; text-align: center;
+    vertical-align: middle; margin: 0 2px;
+  }
+  .frac .num { border-bottom: 1.5px solid var(--text); padding: 0 4px; }
+  .frac .den { padding: 0 4px; }
+  .err { color: #b42318; font-size: 13.5px; margin-top: 8px; }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  code { font-family: ui-monospace, monospace; background: var(--chip); padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Decimal &harr; Fraction Converter</h1>
+  <p class="caption">Every rational number has a decimal that either terminates or repeats, and every terminating-or-repeating decimal is a fraction: this tool shows the exact arithmetic both ways.</p>
+
+  <div class="toggle">
+    <button id="tabA" class="active">Fraction &rarr; decimal</button>
+    <button id="tabB">Repeating decimal &rarr; fraction</button>
+  </div>
+
+  <!-- MODE A -->
+  <div id="modeA">
+    <div class="panel">
+      <div class="row">
+        <div class="field">
+          <label for="numA">numerator p</label>
+          <input type="text" id="numA" value="1" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="denA">denominator q</label>
+          <input type="text" id="denA" value="3" inputmode="numeric">
+        </div>
+      </div>
+      <div class="hint">Integers only, q &ne; 0. Result updates as you type.</div>
+      <div class="chips">
+        <span class="lbl">Examples:</span>
+        <span class="chip" data-a="1/3">1/3</span>
+        <span class="chip" data-a="2/7">2/7</span>
+        <span class="chip" data-a="1/6">1/6</span>
+        <span class="chip" data-a="22/7">22/7</span>
+        <span class="chip" data-a="1/8">1/8</span>
+      </div>
+    </div>
+    <div class="panel result" id="outA"></div>
+  </div>
+
+  <!-- MODE B -->
+  <div id="modeB" style="display:none">
+    <div class="panel">
+      <div class="row">
+        <div class="field">
+          <label for="wholeB">whole part</label>
+          <input type="text" id="wholeB" class="narrow" value="0" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="nonrepB">non-repeating (after point)</label>
+          <input type="text" id="nonrepB" class="narrow" value="1" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="repB">repeating block</label>
+          <input type="text" id="repB" class="narrow" value="6" inputmode="numeric">
+        </div>
+      </div>
+      <div class="hint">For 0.1(6): whole=0, non-repeating=<code>1</code>, repeating=<code>6</code>. Leave repeating empty for a terminating decimal.</div>
+      <div class="chips">
+        <span class="lbl">Examples:</span>
+        <span class="chip" data-b="0||3">0.(3)</span>
+        <span class="chip" data-b="0||27">0.(27)</span>
+        <span class="chip" data-b="0|1|6">0.1(6)</span>
+        <span class="chip" data-b="0||142857">0.(142857)</span>
+        <span class="chip" data-b="0||9">0.(9)</span>
+      </div>
+    </div>
+    <div class="panel result" id="outB"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+function absB(x){ return x < 0n ? -x : x; }
+function gcd(a, b){ a = absB(a); b = absB(b); while (b) { [a, b] = [b, a % b]; } return a; }
+
+function fracHTML(n, d){
+  if (d < 0n) { n = -n; d = -d; }
+  if (d === 1n) return String(n);
+  return '<span class="frac"><span class="num">' + n + '</span><span class="den">' + d + '</span></span>';
+}
+function pow10(k){ let r = 1n; for (let i = 0; i < k; i++) r *= 10n; return r; }
+
+// ---- MODE A: long division ----
+function fractionToDecimal(p, q){
+  if (q === 0n) throw new Error("Denominator cannot be 0.");
+  const g = gcd(p, q);
+  let rp = p / g, rq = q / g;
+  if (rq < 0n) { rp = -rp; rq = -rq; }        // keep denominator positive
+  const neg = rp < 0n;
+  let n = absB(rp);
+
+  const intPart = n / rq;
+  let rem = n % rq;
+
+  const digits = [];      // fractional digits
+  const seen = new Map(); // remainder -> index in digits
+  let repeatStart = -1;
+
+  while (rem !== 0n) {
+    if (seen.has(rem)) { repeatStart = seen.get(rem); break; }
+    seen.set(rem, digits.length);
+    rem *= 10n;
+    digits.push(Number(rem / rq));
+    rem = rem % rq;
+  }
+
+  const terminating = (repeatStart === -1);
+  let nonRep, repBlock;
+  if (terminating) { nonRep = digits.join(""); repBlock = ""; }
+  else {
+    nonRep = digits.slice(0, repeatStart).join("");
+    repBlock = digits.slice(repeatStart).join("");
+  }
+  return {
+    neg, intPart, nonRep, repBlock, terminating,
+    period: repBlock.length, reducedNum: neg ? -rp * -1n : rp, reducedDen: rq,
+    origReducedNum: rp, origReducedDen: rq
+  };
+}
+
+function factorizeDenTail(q){
+  // return non-2,5 prime factors present in q (for the note)
+  let x = absB(q);
+  let twos = 0, fives = 0;
+  while (x % 2n === 0n) { x /= 2n; twos++; }
+  while (x % 5n === 0n) { x /= 5n; fives++; }
+  return { others: x, hasOther: x !== 1n, twos, fives };
+}
+
+function renderA(){
+  const out = document.getElementById("outA");
+  const rawP = document.getElementById("numA").value.trim();
+  const rawQ = document.getElementById("denA").value.trim();
+  if (rawP === "" || rawQ === "") { out.innerHTML = '<div class="err">Enter both p and q.</div>'; return; }
+  let p, q;
+  try { p = BigInt(rawP); q = BigInt(rawQ); }
+  catch(e){ out.innerHTML = '<div class="err">Please enter whole integers only.</div>'; return; }
+  if (q === 0n) { out.innerHTML = '<div class="err">Denominator q cannot be 0.</div>'; return; }
+
+  const r = fractionToDecimal(p, q);
+  const reducedFrac = fracHTML(r.origReducedNum, r.origReducedDen);
+
+  // decimal string
+  let dec = (r.neg ? "-" : "") + r.intPart.toString();
+  if (r.nonRep !== "" || r.repBlock !== "") {
+    dec += "." + r.nonRep;
+    if (r.repBlock !== "") dec += '(' + r.repBlock + ')';
+  }
+  // overline variant
+  let decOver = (r.neg ? "-" : "") + r.intPart.toString();
+  if (r.nonRep !== "" || r.repBlock !== "") {
+    decOver += "." + r.nonRep;
+    if (r.repBlock !== "") decOver += '<span class="over">' + r.repBlock + '</span>';
+  }
+
+  const tail = factorizeDenTail(r.origReducedDen);
+  let note;
+  if (r.terminating) {
+    note = "The reduced denominator " + r.origReducedDen +
+      " has only 2's and 5's as prime factors, so the expansion terminates.";
+  } else {
+    note = "The reduced denominator " + r.origReducedDen +
+      " has a prime factor other than 2 or 5 (" + tail.others +
+      "), which forces the decimal to repeat.";
+  }
+
+  out.innerHTML =
+    '<div>Reduced fraction: <span class="big" style="display:inline-block">' + reducedFrac + '</span></div>' +
+    '<div class="big">' + dec + '</div>' +
+    '<div class="big" style="font-size:18px;color:var(--muted)">= ' + decOver + '</div>' +
+    '<div>' +
+      (r.terminating
+        ? '<span class="badge term">terminating</span>'
+        : '<span class="badge rep">repeating &middot; period ' + r.period + '</span>') +
+    '</div>' +
+    '<div class="note">' + note + '</div>';
+}
+
+// ---- MODE B: repeating decimal to fraction ----
+function decimalToFraction(whole, nonRep, rep){
+  // whole: BigInt (may be negative), nonRep/rep: digit strings
+  const a = nonRep.length;   // non-repeating length
+  const b = rep.length;      // repeating length
+  const neg = whole < 0n || String(whole)[0] === '-';
+  const W = absB(whole);
+
+  // fractional value f = value of the pure fractional decimal 0.nonRep(rep)
+  // Standard: numerator = (nonRep+rep) - (nonRep), denominator = (10^b - 1)*10^a  [when b>0]
+  let fnum, fden;
+  const nonRepVal = a > 0 ? BigInt(nonRep) : 0n;
+  if (b > 0) {
+    const nonPlusRep = BigInt((nonRep + rep) === "" ? "0" : (nonRep + rep));
+    fnum = nonPlusRep - nonRepVal;
+    fden = (pow10(b) - 1n) * pow10(a);
+  } else {
+    // terminating: f = nonRep / 10^a
+    fnum = nonRepVal;
+    fden = pow10(a);
+    if (a === 0) { fnum = 0n; fden = 1n; }
+  }
+
+  // total = W + f
+  let num = W * fden + fnum;
+  let den = fden;
+  const g = gcd(num, den);
+  num /= g; den /= g;
+  if (neg) num = -num;
+  return { num, den, a, b, W, neg, nonRep, rep };
+}
+
+function renderB(){
+  const out = document.getElementById("outB");
+  const rawW = document.getElementById("wholeB").value.trim();
+  const nonRep = document.getElementById("nonrepB").value.trim();
+  const rep = document.getElementById("repB").value.trim();
+
+  if (nonRep !== "" && !/^\d+$/.test(nonRep)) { out.innerHTML = '<div class="err">Non-repeating part must be digits only.</div>'; return; }
+  if (rep !== "" && !/^\d+$/.test(rep)) { out.innerHTML = '<div class="err">Repeating block must be digits only.</div>'; return; }
+  let whole;
+  try { whole = (rawW === "" || rawW === "-") ? 0n : BigInt(rawW); }
+  catch(e){ out.innerHTML = '<div class="err">Whole part must be an integer.</div>'; return; }
+  if (nonRep === "" && rep === "" && (rawW === "" )) { out.innerHTML = '<div class="err">Enter a decimal.</div>'; return; }
+
+  const r = decimalToFraction(whole, nonRep, rep);
+
+  // pretty printed input decimal
+  const neg = whole < 0n || rawW === "-0";
+  let shown = (r.neg ? "-" : "") + absB(whole).toString();
+  if (nonRep !== "" || rep !== "") {
+    shown += "." + nonRep;
+    if (rep !== "") shown += "(" + rep + ")";
+  }
+
+  // Build the algebra
+  const a = r.a, b = r.b;
+  let alg = "";
+  if (b === 0) {
+    // terminating
+    const den = pow10(a);
+    alg =
+      '<div class="step">Let x = ' + shown + '</div>' +
+      '<div class="step">This decimal terminates, so multiply by 10<sup>' + a + '</sup> = ' + den + ':</div>' +
+      '<div class="step">' + den + '&middot;x = ' + (r.neg ? "-" : "") + (absB(whole) * den + BigInt(nonRep === "" ? "0" : nonRep)) + '</div>' +
+      '<div class="step">x = ' + fracHTML(r.num, r.den) + '</div>';
+  } else {
+    // repeating
+    const bigK = a + b;         // shift past non-repeat + one period
+    const smallK = a;           // shift past just non-repeat
+    const P = pow10(bigK);
+    const Q = pow10(smallK);
+    // x = whole.nonRep(rep). Consider y = fractional expansion but easier to work with full x.
+    // 10^(a+b) x  and  10^a x  align the repeating tails, subtract.
+    const fullDigitsBig = shown; // conceptual
+    const Xbig = (P - Q);        // coefficient of x after subtraction (times possibly) => (10^(a+b)-10^a) x = integer
+    // integer value of 10^(a+b) x minus 10^a x:
+    // = W*(P-Q) + [ (nonRep+rep as int)*10^0 ... ] ; simplest: compute via r's num/den before reduce
+    // 10^(a+b)x - 10^a x = (P-Q) x = integer diff
+    const bigInt = absB(whole) * P + BigInt((nonRep + rep) === "" ? "0" : (nonRep + rep)); // 10^(a+b) x rounded down to move rep once
+    const smallInt = absB(whole) * Q + BigInt((nonRep) === "" ? "0" : nonRep);
+    const diff = bigInt - smallInt;
+    const coeff = P - Q;
+    alg =
+      '<div class="step">Let x = ' + shown + '</div>' +
+      '<div class="step">Multiply so both align on the repeating tail:</div>' +
+      '<div class="step">' + P + '&middot;x = ' + (r.neg?"-":"") + bigInt + '.(' + rep + ')</div>' +
+      '<div class="step">' + Q + '&middot;x = ' + (r.neg?"-":"") + smallInt + '.(' + rep + ')</div>' +
+      '<div class="step">Subtract (the tails cancel):</div>' +
+      '<div class="step">(' + P + ' &minus; ' + Q + ')&middot;x = ' + (r.neg?"-":"") + diff + '</div>' +
+      '<div class="step">' + coeff + '&middot;x = ' + (r.neg?"-":"") + diff + '</div>' +
+      '<div class="step">x = ' + fracHTML(r.neg? -diff : diff, coeff) + '  (reduce by gcd)</div>' +
+      '<div class="step">x = ' + fracHTML(r.num, r.den) + '</div>';
+  }
+
+  let edge = "";
+  if (r.den === 1n) {
+    edge = '<div class="note">This decimal equals the whole number <strong>' + r.num + '</strong> exactly. (For example 0.(9) = 1.)</div>';
+  }
+
+  out.innerHTML =
+    '<div>Input decimal: <span class="big" style="display:inline-block">' + shown + '</span></div>' +
+    '<div>Fraction: <span class="big" style="display:inline-block">' + fracHTML(r.num, r.den) + '</span></div>' +
+    '<div class="algebra">' + alg + '</div>' +
+    edge;
+}
+
+// ---- wiring ----
+document.getElementById("numA").addEventListener("input", renderA);
+document.getElementById("denA").addEventListener("input", renderA);
+document.getElementById("wholeB").addEventListener("input", renderB);
+document.getElementById("nonrepB").addEventListener("input", renderB);
+document.getElementById("repB").addEventListener("input", renderB);
+
+document.querySelectorAll("[data-a]").forEach(function(c){
+  c.addEventListener("click", function(){
+    const [p, q] = c.getAttribute("data-a").split("/");
+    document.getElementById("numA").value = p;
+    document.getElementById("denA").value = q;
+    renderA();
+  });
+});
+document.querySelectorAll("[data-b]").forEach(function(c){
+  c.addEventListener("click", function(){
+    const [w, n, r] = c.getAttribute("data-b").split("|");
+    document.getElementById("wholeB").value = w;
+    document.getElementById("nonrepB").value = n;
+    document.getElementById("repB").value = r;
+    renderB();
+  });
+});
+
+const tabA = document.getElementById("tabA");
+const tabB = document.getElementById("tabB");
+tabA.addEventListener("click", function(){
+  tabA.classList.add("active"); tabB.classList.remove("active");
+  document.getElementById("modeA").style.display = "";
+  document.getElementById("modeB").style.display = "none";
+});
+tabB.addEventListener("click", function(){
+  tabB.classList.add("active"); tabA.classList.remove("active");
+  document.getElementById("modeB").style.display = "";
+  document.getElementById("modeA").style.display = "none";
+});
+
+renderA();
+renderB();
+</script>
+</body>
+</html>

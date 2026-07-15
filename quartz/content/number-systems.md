@@ -57,6 +57,8 @@ where the bar in $0.\overline{3}$ marks the block of digits that repeats without
 
 **But there are gaps.** Consider the diagonal of a unit square. By the Pythagorean theorem its length $d$ satisfies $d^2 = 1^2 + 1^2 = 2$. There *ought* to be a number whose square is $2$, yet **no rational number squares to $2$**. The classic proof supposes $\sqrt{2} = p/q$ in lowest terms, deduces that $p$ and $q$ are both even, and hits a contradiction; it is carried out in full in [Real Analysis](./real-analysis), and the underlying style of argument appears in [Set Theory](./set-theory). The rationals are riddled with such holes: points the number line clearly wants but $\mathbb{Q}$ does not supply. That is the gap we fill next.
 
+![A number line near root two showing rational approximations 1.4, 1.41, 1.414 crowding in from both sides toward root two, which is marked as a gap the rationals miss and the reals fill](./media/rational-gaps-numberline.png)
+
 ### Real numbers $\mathbb{R}$
 
 The symbol $\mathbb{R}$ is read "the reals." Informally, the reals are all the points on a continuous, gapless number line, the rationals *together with* every irrational number like $\sqrt{2}$, $\pi$, and $e$ that fills the holes.
@@ -142,6 +144,10 @@ $$
 
 The pattern generalizes: a block of length $k$ calls for multiplying by $10^k$.
 
+Try both directions below: turn any fraction into its decimal (and watch the repeating block emerge from long division), or turn a repeating decimal back into a fraction with the shift-and-subtract trick worked out step by step.
+
+<iframe src="/static/interactive/decimal-fraction-converter.html" width="100%" height="600" style="border:none;"></iframe>
+
 ### Algebraic vs transcendental
 
 A second, deeper classification. A real number is **algebraic** if it is a root of some nonzero polynomial with integer coefficients, and **transcendental** if it is not.
@@ -155,9 +161,63 @@ The two classifications relate as follows. Every rational is algebraic, and ever
 
 A striking fact for later: **most real numbers are transcendental.** The algebraic numbers, despite including every rational and every root you can build by hand, form a *countable* set, whereas $\mathbb{R}$ is *uncountable*. In the precise sense of the next section, the transcendental numbers vastly outnumber the algebraic ones, even though the two celebrities we can name are $\pi$ and $e$.
 
+The two classifications nest cleanly: the rationals sit inside the algebraic numbers, which sit inside the reals, with the transcendentals filling the outermost region.
+
+![Nested-set diagram: the rationals (7, one-third, minus four) inside the algebraic numbers (root two, the golden ratio, cube root of two) inside the reals, with the transcendentals pi and e in the outer band](./media/real-number-classification.png)
+
 ## How Big Are These Sets? (cardinality)
 
 Infinite sets can still have different sizes, and the number systems split cleanly into two size classes. The sets $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$ are all **countably infinite**: their elements can be listed in an endless sequence, so they all have the *same* size, written $\aleph_0$ ("aleph-null"). Remarkably, this means there are exactly as many fractions as counting numbers. By contrast, $\mathbb{R}$ and $\mathbb{C}$ are **uncountable**: no list can exhaust them, so they are strictly larger than $\mathbb{Q}$. The proof that $\mathbb{R}$ cannot be listed (Cantor's diagonal argument) and the meaning of countability are developed in [Set Theory](./set-theory).
+
+The size of $\mathbb{R}$ has its own name: the **cardinality of the continuum**, written $\mathfrak{c}$ (read "c"), and it equals $2^{\aleph_0}$ (the number of subsets of $\mathbb{N}$). The complex numbers are no bigger: because $\mathbb{C}$ is just pairs of reals, $|\mathbb{C}| = |\mathbb{R}^2| = \mathfrak{c}$, so "adding a second dimension" does not increase cardinality. The **algebraic numbers** are countable (each is a root of one of countably many integer polynomials, each with finitely many roots), which is why the transcendentals, the uncountable remainder, are the overwhelming majority. Whether any size sits strictly *between* $\aleph_0$ and $\mathfrak{c}$ is the famous **Continuum Hypothesis**, which Gödel and Cohen showed can neither be proved nor disproved from the standard axioms of set theory.
+
+## How the Systems Are Actually Constructed
+
+The building-up story above is the *motivation*. But "adjoin a negative" and "adjoin a quotient" are promissory notes; a foundations course cashes them out with explicit constructions that use nothing but [sets](./set-theory) and equivalence relations. The pattern is the same at every step: **form pairs of objects from the previous system, then glue together the pairs that ought to name the same number** (an [equivalence relation](./set-theory)), so each new number is an equivalence class. The reals are the one exception, built by *completing* rather than pairing.
+
+### The naturals, from sets
+
+The naturals are pinned down by the **Peano axioms**: $0$ is a natural number; every $n$ has a **successor** $S(n)$; $0$ is not the successor of anything; $S$ is injective (different numbers have different successors); and **induction** holds (any set containing $0$ and closed under $S$ is all of $\mathbb{N}$). These five conditions determine $\mathbb{N}$ uniquely up to relabeling, and induction is exactly the proof principle developed in [propositional logic](./propositional-logic-zeroth-order-logic).
+
+Set theory then supplies concrete objects to *be* the naturals, the **von Neumann encoding**: each number is the set of all smaller numbers.
+$$
+0 = \varnothing, \qquad S(n) = n \cup \{n\}, \qquad\text{so}\qquad 1 = \{0\},\ \ 2 = \{0, 1\},\ \ 3 = \{0, 1, 2\},\ \ldots
+$$
+This is elegant on two counts: the number $n$ is a set with exactly $n$ elements, and the order relation $m < n$ is simply $m \in n$. Addition and multiplication are then defined by recursion.
+
+### The integers, from pairs of naturals
+
+An integer is meant to be a *difference* $a - b$ of naturals, but subtraction is what we lack. So represent the difference by the **pair** $(a, b)$ and declare two pairs equal when the differences they intend agree, using only addition (which we do have):
+$$
+\mathbb{Z} = (\mathbb{N} \times \mathbb{N}) / {\sim}, \qquad (a, b) \sim (c, d) \iff a + d = b + c.
+$$
+The class of $(a, b)$ is the integer "$a - b$": so $(5, 3), (2, 0), (100, 98)$ all name $+2$, while $(3, 5)$ names $-2$. Addition is componentwise, $(a,b) + (c,d) = (a+c,\, b+d)$, and multiplication is $(a,b)(c,d) = (ac + bd,\ ad + bc)$ (exactly what expanding $(a-b)(c-d)$ predicts). The naturals sit inside as the classes of $(n, 0)$.
+
+### The rationals, from pairs of integers
+
+A rational is meant to be a quotient $p/q$, so pair a numerator with a nonzero denominator and glue pairs by cross-multiplication (which needs only integer multiplication):
+$$
+\mathbb{Q} = \big(\mathbb{Z} \times (\mathbb{Z} \setminus \{0\})\big) / {\sim}, \qquad (p, q) \sim (r, s) \iff ps = qr.
+$$
+The class of $(p, q)$ is the fraction $p/q$, and the equivalence is precisely why $\tfrac{1}{2} = \tfrac{2}{4} = \tfrac{3}{6}$. Addition is $(p,q) + (r,s) = (ps + rq,\ qs)$ and multiplication is $(p,q)(r,s) = (pr,\ qs)$, the usual fraction rules. The integers embed as the classes of $(n, 1)$.
+
+### The reals, by completing the rationals
+
+Here the pattern changes: the reals fill *gaps*, and you cannot reach an irrational by any finite pairing of rationals. Two standard constructions both work.
+
+- **Dedekind cuts.** A real number *is* a way of splitting $\mathbb{Q}$ into a downward-closed lower set $A$ with no greatest element and its complement. The cut for $\sqrt{2}$ is $A = \{x \in \mathbb{Q} : x < 0 \text{ or } x^2 < 2\}$: the number is identified with the gap it marks in the rationals. Order is just set inclusion of the lower sets, and completeness is automatic.
+- **Cauchy sequences.** A real is an equivalence class of Cauchy sequences of rationals (sequences whose terms bunch arbitrarily close together), where two sequences are identified when their difference tends to $0$. This realizes $\mathbb{R}$ as the **completion** of $\mathbb{Q}$, the same move that later builds the [$p$-adic numbers](./hypercomplex-numbers) from a *different* notion of distance.
+
+Both constructions yield the same object up to isomorphism, the unique complete ordered field, as [Real Analysis](./real-analysis) develops.
+
+### The complex numbers, as a quotient ring
+
+Finally $\mathbb{C}$ needs no mystical "invent $\sqrt{-1}$." Two equivalent concrete constructions:
+
+- **Ordered pairs.** $\mathbb{C} = \mathbb{R} \times \mathbb{R}$ with addition componentwise and multiplication $(a, b)(c, d) = (ac - bd,\ ad + bc)$. Then $i = (0, 1)$ literally satisfies $i^2 = (0,1)(0,1) = (-1, 0) = -1$. No new axioms, just a multiplication rule.
+- **A quotient ring.** $\mathbb{C} = \mathbb{R}[x] / (x^2 + 1)$: real-coefficient polynomials with the single relation $x^2 + 1 = 0$ imposed, so $x$ *becomes* a square root of $-1$. This is the [algebraic structures](./algebraic-structures) way of saying "adjoin a root of $x^2 + 1$," and it is the first rung of the [Cayley–Dickson tower](./hypercomplex-numbers).
+
+The whole ladder, then, is four instances of one idea (pair-and-quotient) plus one completion, turning the informal "but you cannot..." into rigorous mathematics resting on set theory alone.
 
 ## Beyond the Complex Numbers
 

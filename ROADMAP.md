@@ -68,6 +68,11 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Number Systems deepening** — added a rigorous "How the Systems Are Actually
+  Constructed" section (Peano axioms + von Neumann encoding, Z & Q as pair quotients, R via
+  Dedekind cuts / Cauchy sequences, C as ordered pairs / R[x]/(x²+1)), deepened cardinality
+  (𝔠 = 2^ℵ₀, |ℂ|=|ℝ|, continuum hypothesis), 2 diagrams (Q⊂algebraic⊂R classification, ℚ-gaps
+  number line), the decimal↔fraction converter widget, and +15 machine-checked assertions.
 - [x] **Hypercomplex Numbers & Beyond page** — expanded the one-paragraph "Beyond the
   Complex Numbers" note into a full page: the Cayley-Dickson construction, quaternions
   (lose commutativity), octonions (lose associativity), sedenions (lose division), Hurwitz
