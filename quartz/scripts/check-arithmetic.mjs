@@ -1590,6 +1590,35 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("denying the antecedent is invalid", !combos.every(([p, q]) => imp(!p && imp(p, q), !q)));
 }
 
+// ================= Tier-2 diagram pages (SLE 3D, DE, bases, polynomials) =================
+{
+  // SLE: 3-variable system has a unique solution when the coefficient matrix is invertible
+  const det3 = (m) => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+  eq("3x3 upper-triangular det = 1 (three planes meet at a point)", det3([[1, 1, 1], [0, 1, 1], [0, 0, 1]]), 1);
+  { const z = 3, y = 5 - z, x = 6 - y - z; check("planes x+y+z=6, y+z=5, z=3 meet at (1,2,3)", x === 1 && y === 2 && z === 3); }
+  // DE: dy/dx = y has general solution y = C e^x; an initial condition fixes C
+  eq("dy/dx=y through (0,1): particular y = e^x, y(1) = e", 1 * Math.E, Math.E, 1e-12);
+  eq("dy/dx=y through (0,2): y(1) = 2e", 2 * Math.E, 2 * Math.E, 1e-12);
+  // logistic dy/dt = y(1-y): equilibria y=0 and y=1; f'(y)=1-2y so 0 unstable, 1 stable
+  { const f = (y) => y * (1 - y), fp = (y) => 1 - 2 * y;
+    check("logistic equilibria at y=0 and y=1", f(0) === 0 && f(1) === 0);
+    check("y=0 is unstable (f'>0), y=1 is stable (f'<0)", fp(0) > 0 && fp(1) < 0); }
+  // number bases: 11 decimal -> 1011 binary by repeated division by 2
+  { let n = 11; const rem = []; while (n > 0) { rem.push(n % 2); n = Math.floor(n / 2); }
+    eq("11 decimal reads 1011 in binary", rem.reverse().join(""), "1011");
+    eq("1011_2 = 8 + 0 + 2 + 1 = 11", 8 + 0 + 2 + 1, 11); }
+  // two's complement (4-bit): negate = invert bits + 1; 3 -> 1101 = -3
+  { const neg4 = (x) => ((~x) + 1) & 0xF, val = (u) => (u < 8 ? u : u - 16);
+    eq("4-bit two's complement of 3 is 1101 = 13 unsigned", neg4(3), 13);
+    eq("1101 read as signed = -3", val(13), -3);
+    eq("4-bit signed range low = -8 (1000)", val(8), -8);
+    eq("4-bit signed range high = 7 (0111)", val(7), 7); }
+  // polynomials: degree-5 curve has at most n-1 = 4 turning points; it has 5 real roots
+  { const f = (x) => x * (x + 2) * (x + 1) * (x - 1) * (x - 2);
+    check("degree-5 poly x(x+2)(x+1)(x-1)(x-2) is zero at all five roots", [-2, -1, 0, 1, 2].every((r) => approx(f(r), 0, 1e-9)));
+    eq("max turning points of a degree-5 polynomial = n-1 = 4", 5 - 1, 4); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

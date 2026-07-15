@@ -65,6 +65,8 @@ Linear DEs are much easier to solve and have a well-developed theory. Nonlinear 
 
 ### General and Particular Solutions
 
+![A family of solution curves y equals C times e to the x for several values of the constant C drawn in grey, with the particular solution y equals e to the x through the initial condition (0, 1) highlighted in bold, showing that the general solution is a whole family and an initial condition selects one curve](./media/de-solution-family.png)
+
 The **general solution** of a DE is the family of all solutions, typically containing arbitrary constants. The number of constants equals the order of the DE.
 
 **Example:** The general solution of $y'' + y = 0$ is $y = C_1 \cos(x) + C_2 \sin(x)$, with two constants (because it is second-order).
@@ -429,6 +431,8 @@ The eigenvalues also fix the *geometry* of the flow. Set the entries of $A$ belo
 <iframe src="/static/interactive/de-phase-portrait.html" width="100%" height="660" style="border:none;"></iframe>
 
 ### Stability
+
+![A stability diagram for the logistic equation dy/dt = y(1-y): the function f(y) crosses zero at the equilibria y=0 and y=1, and a phase line shows the flow pointing away from the unstable equilibrium at y=0 and toward the stable equilibrium at y=1, with solution curves converging to y=1](./media/de-stability.png)
 
 The eigenvalues of $A$ completely determine the long-term behavior:
 

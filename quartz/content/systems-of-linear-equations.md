@@ -502,6 +502,10 @@ These are parallel lines. No solution.
 
 ## Systems with More than Two Variables
 
+![Three semi-transparent planes in x-y-z space crossing at a single common point marked as the unique solution, with a caption noting that parallel planes give no solution and planes sharing a common line give infinitely many solutions](./media/sle-three-planes.png)
+
+With three variables, each equation is a plane in space rather than a line, and a solution is a point lying on all of them at once. Three planes can meet at a single point (unique solution), share a common line or plane (infinitely many), or have no common point (no solution).
+
 The same methods apply to systems with 3 or more variables:
 - Substitution becomes more tedious
 - Elimination and matrix methods scale better

@@ -93,6 +93,8 @@ So $157_8 = 111_{10}$.
 
 ### From decimal to base $b$
 
+![Converting the decimal number 11 to binary by repeated division by 2: 11 over 2 is 5 remainder 1, 5 over 2 is 2 remainder 1, 2 over 2 is 1 remainder 0, 1 over 2 is 0 remainder 1; reading the remainders bottom to top gives 1011 in base 2, which checks as 8 plus 2 plus 1 equals 11](./media/nb-base-conversion.png)
+
 Going the other way uses **repeated division**. Divide the number by $b$, record the remainder, then keep dividing the quotient by $b$ until the quotient reaches $0$. The base-$b$ digits are the remainders read *from bottom to top* (last remainder first).
 
 The reason this works: the first remainder is what is left after removing all multiples of $b$, so it is exactly the ones digit $d_0$. Dividing away that ones place and repeating peels off $d_1$, then $d_2$, and so on.
@@ -167,6 +169,8 @@ Reading the written bits from the leftmost carry down to the ones: $10001_2$.
 Verify in decimal: $1011_2 = 11$ and $0110_2 = 6$, and indeed $11 + 6 = 17$. Checking the result, $10001_2 = 16 + 0 + 0 + 0 + 1 = 17$. $\checkmark$
 
 ## Representing Negative Numbers: Two's Complement
+
+![A 4-bit two's complement reference table: the sixteen bit patterns 0000 to 1111 with their signed values, where 0000 to 0111 are the nonnegative values 0 to 7 and 1000 to 1111 are the negatives -8 to -1; the leading bit is the sign, and negation means inverting all bits and adding 1, as in 3 equals 0011, invert to 1100, add 1 to get 1101 equals -3](./media/nb-twos-complement.png)
 
 So far every numeral has been non-negative. Hardware, though, works with **fixed-width** registers: a fixed number of bits, say 8 or 32 or 64, and no room for a separate minus sign. The dominant scheme for encoding negatives in a fixed width is **two's complement**.
 

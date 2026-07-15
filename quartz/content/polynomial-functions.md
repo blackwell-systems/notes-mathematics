@@ -497,6 +497,8 @@ This does not mean high-degree equations are unsolvable, only that no *radical f
 
 ## Polynomial Degree
 
+![A degree-5 polynomial graph f(x) = x(x+2)(x+1)(x-1)(x-2) showing its five real roots on the x-axis, its four turning points (local maxima and minima), and its end behavior going down on the left and up on the right, illustrating that a degree-n polynomial has at most n-1 turning points](./media/poly-turning-points.png)
+
 **Polynomial Degree:** The degree of the polynomial is defined as the
 highest power the variable is raised to in the polynomial.
 
