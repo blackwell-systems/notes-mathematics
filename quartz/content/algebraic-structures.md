@@ -85,6 +85,8 @@ The three patterns you meet first are the group, the ring, and the field. Each i
 
 ### Group
 
+![Two Cayley tables, each showing a finite group's entire operation as a grid: the integers modulo 4 under addition, and the nonzero elements of the field F5 under multiplication modulo 5. The identity is highlighted, and because each value appears exactly once in every row and column (a Latin square) every element has a unique inverse; in F5, 2 times 3 equals 1, so the inverse of 2 is 3](./media/as-group-cayley-table.png)
+
 A **group** is a set $G$ with one operation (call it $*$) satisfying three axioms: the operation is *associative*, there is an *identity* element $e$ with $e * a = a * e = a$, and every element $a$ has an *inverse* $a^{-1}$ with $a * a^{-1} = a^{-1} * a = e$. That is all. If the operation is also commutative ($a * b = b * a$), the group is called **abelian** (after Niels Abel). A group is the minimal setting in which "undoing" always makes sense.
 
 Examples:
@@ -93,6 +95,8 @@ Examples:
 - The nonzero rationals $\mathbb{Q}^{\times} = \mathbb{Q}\setminus\{0\}$ under multiplication. The identity is $1$, the inverse of $p/q$ is $q/p$. Abelian. (Zero must be removed, since it has no inverse.)
 - Symmetries of a square, or permutations of a finite set, under composition. Here order usually matters, so these groups are *not* abelian: doing rotation-then-flip differs from flip-then-rotation.
 - $\mathbb{Z}/n\mathbb{Z}$, the integers modulo $n$, under addition. This is "clock arithmetic," where $n \equiv 0$. It is the working setting of modular arithmetic on [Number Theory](./number-theory), and it is a finite abelian group.
+
+![The six symmetries of an equilateral triangle shown as relabelings of its vertices: the identity, rotations by 120 and 240 degrees, and three reflections across axes through a vertex. Together they form a group under composition that is non-abelian, since rotating then flipping gives a different result from flipping then rotating](./media/as-symmetry-group.png)
 
 ### Ring
 
@@ -106,6 +110,8 @@ Examples:
 - $\mathbb{Z}/n\mathbb{Z}$ again, now with both addition and multiplication modulo $n$: a finite commutative ring.
 
 ### Field
+
+![A structural diagram of a field as two abelian groups glued by distributivity: the whole set under addition is an abelian group with identity 0 and negatives, the nonzero elements under multiplication form an abelian group with identity 1 and reciprocals, and distributivity, a times the quantity b plus c equals ab plus ac, links the two, with examples the rationals, reals, complex numbers, and the prime fields Fp](./media/as-field-structure.png)
 
 A **field** is a commutative ring in which every nonzero element has a multiplicative inverse. Equivalently, it is a set satisfying the full field-axiom table from the top of this page. Fields are the sets where you can add, subtract, multiply, and divide (except by zero) freely, which is exactly the arithmetic you are used to.
 

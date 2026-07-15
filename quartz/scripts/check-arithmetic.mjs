@@ -1517,6 +1517,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("a complex number is an ordered pair of 2 reals", [3, 2].length, 2);
 }
 
+// ================= Algebraic Structures (groups, rings, fields) =================
+{
+  const perm = (arr, m) => new Set(arr).size === m; // arr is a permutation of 0..m-1
+  // (Z/4, +): identity 0, inverse of 1 is 3, and every row is a Latin square
+  eq("Z/4: 2 + 3 = 1 (mod 4)", (2 + 3) % 4, 1);
+  eq("Z/4: inverse of 1 is 3 (1 + 3 = 0)", (1 + 3) % 4, 0);
+  check("Z/4 addition table rows are permutations (Latin square)",
+    [0, 1, 2, 3].every((i) => perm([0, 1, 2, 3].map((j) => (i + j) % 4), 4)));
+  // (F_5^x, x): every nonzero element has a multiplicative inverse
+  eq("F_5: 2 * 3 = 1 (mod 5), so 2^-1 = 3", (2 * 3) % 5, 1);
+  eq("F_5: 4 * 4 = 1 (mod 5), so 4 is self-inverse", (4 * 4) % 5, 1);
+  check("F_5: every nonzero element has an inverse",
+    [1, 2, 3, 4].every((a) => [1, 2, 3, 4].some((b) => (a * b) % 5 === 1)));
+  check("F_5 multiplication table rows are permutations of {1,2,3,4}",
+    [1, 2, 3, 4].every((a) => new Set([1, 2, 3, 4].map((j) => (a * j) % 5)).size === 4));
+  // Z/6 is NOT a field: 2 has no multiplicative inverse mod 6
+  check("Z/6 is not a field: 2 has no inverse mod 6",
+    ![1, 2, 3, 4, 5].some((x) => (2 * x) % 6 === 1));
+  // the symmetry group of a triangle is non-abelian: rotation and reflection do not commute
+  { const rho = [1, 2, 0], sig = [0, 2, 1];
+    const comp = (p, q) => q.map((_, i) => p[q[i]]);
+    check("D3 is non-abelian: rho after sig != sig after rho",
+      JSON.stringify(comp(rho, sig)) !== JSON.stringify(comp(sig, rho))); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
