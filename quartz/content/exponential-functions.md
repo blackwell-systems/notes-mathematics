@@ -467,3 +467,46 @@ Starting with $f(x) = b^x$:
 3. Reflect across x-axis: $-3 \cdot 2^{x-1}$
 4. Shift up 5: $-3 \cdot 2^{x-1} + 5$
 
+## Essential Rules (Quick Reference)
+
+**Exponent laws** (base $b > 0$):
+
+| Rule | Formula |
+|---|---|
+| Product | $b^x \cdot b^y = b^{x+y}$ |
+| Quotient | $\dfrac{b^x}{b^y} = b^{x-y}$ |
+| Power of a power | $(b^x)^y = b^{xy}$ |
+| Power of a product | $(ab)^x = a^x b^x$ |
+| Zero exponent | $b^0 = 1$ |
+| Negative exponent | $b^{-x} = \dfrac{1}{b^x}$ |
+| Fractional exponent | $b^{m/n} = \sqrt[n]{b^m}$ |
+
+**The function** $f(x) = a\,b^x + c$:
+
+| Feature | Value |
+|---|---|
+| Domain | $(-\infty, \infty)$ |
+| Range | $(c, \infty)$ if $a > 0$; $(-\infty, c)$ if $a < 0$ |
+| Horizontal asymptote | $y = c$ |
+| $y$-intercept | $a + c$ |
+| Growth vs decay | growth if $b > 1$; decay if $0 < b < 1$ |
+
+**Natural base and calculus:**
+
+| Rule | Formula |
+|---|---|
+| Definition of $e$ | $e = \lim_{n\to\infty}\left(1+\tfrac{1}{n}\right)^n \approx 2.71828$ |
+| Base conversion | $b^x = e^{x\ln b}$ |
+| Derivative | $\dfrac{d}{dx}e^x = e^x$, $\quad\dfrac{d}{dx}b^x = b^x\ln b$ |
+| Integral | $\int e^x\,dx = e^x + C$, $\quad\int b^x\,dx = \dfrac{b^x}{\ln b}+C$ |
+| Series | $e^x = \displaystyle\sum_{n=0}^{\infty} \dfrac{x^n}{n!}$ |
+
+**Solving and modeling:**
+
+| Task | Result |
+|---|---|
+| Solve $b^x = c$ | $x = \log_b c$ (for $c > 0$) |
+| Growth / decay ODE | $y' = ky \implies y = y_0\, e^{kt}$ |
+| Doubling time | $T_d = \dfrac{\ln 2}{\ln b} = \dfrac{\ln 2}{k}$ |
+| Half-life | $T_{1/2} = \dfrac{\ln 2}{\lvert\ln b\rvert} = \dfrac{\ln 2}{\lvert k\rvert}$ |
+
