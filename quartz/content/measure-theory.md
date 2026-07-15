@@ -47,6 +47,8 @@ This integral is over the parameter space, with respect to Lebesgue measure. Nea
 
 ## Sigma-Algebras
 
+![A schematic of a sigma-algebra on a sample space Omega: the collection of measurable subsets is closed under taking complements (a set A and its complement both belong) and under countable unions, and always contains Omega and the empty set, with a note that the Borel sigma-algebra is the smallest one containing all open intervals](./media/mt-sigma-algebra.png)
+
 ### Which Sets Can We Measure?
 
 Before assigning sizes to sets, we need to decide which sets are eligible for measurement. You might think: just measure all subsets. But Vitali's construction shows this is impossible. Using the Axiom of Choice, one can build a subset of $\mathbb{R}$ (a Vitali set) that cannot be assigned a length consistent with translation invariance and countable additivity: if you try to assign a consistent "length" to every subset of $\mathbb{R}$, you will run into contradictions. Some subsets are so pathological that no consistent size assignment exists. (A related phenomenon in $\mathbb{R}^3$ is the Banach-Tarski paradox, where a solid ball is decomposed into finitely many non-measurable pieces and reassembled into two copies of itself.)
@@ -220,6 +222,8 @@ The cumulative distribution function $F(a) = P(X \leq a)$ is well-defined precis
 
 ### Building the Integral in Three Steps
 
+![A smooth positive bump function approximated from below by two increasing simple-function staircases, a coarse grey one and a finer purple one, both staying at or below the curve; a simple function is a sum of constant levels times indicators of measurable sets and its integral is the sum of each level times the measure of its set, and the integral of f is the supremum over all such staircases](./media/mt-simple-functions.png)
+
 The Lebesgue integral is constructed in stages, starting with the simplest functions and building up.
 
 **Step 1: Simple functions.** A **simple function** is a measurable function that takes only finitely many values. It can be written as:
@@ -261,6 +265,8 @@ $$
 provided at least one of these integrals is finite (to avoid $\infty - \infty$). When both are finite, $f$ is called **integrable** (or $L^1$), meaning $\int |f| \, d\mu < \infty$.
 
 ### How Lebesgue Differs from Riemann
+
+![Two panels of the same bump-shaped function: on the left the Riemann integral partitions the domain into vertical strips summing height times width; on the right the Lebesgue integral partitions the range into horizontal bands, and for one band it highlights on the x-axis the preimage set of x-values whose height falls in that band, summing height times the measure of that set](./media/mt-riemann-vs-lebesgue-static.png)
 
 The Riemann integral partitions the domain into small intervals $[x_{i-1}, x_i]$ and sums $f(x_i^*)(x_i - x_{i-1})$: height times width. The Lebesgue integral partitions the range into small intervals $[y_{j-1}, y_j]$ and sums $y_j \cdot \mu(\{x : y_{j-1} < f(x) \leq y_j\})$: height times the measure of the set at that height.
 
@@ -471,6 +477,8 @@ This is a function, not a number. It represents the "best prediction of $X$ give
 Conditional expectation is the foundation of martingale theory, which is central to stochastic processes, mathematical finance, and the analysis of sequential learning algorithms.
 
 ### Modes of Convergence
+
+![A box-and-arrow diagram of the four modes of convergence: almost sure convergence and L-p convergence each point by an arrow to convergence in probability, which points to convergence in distribution, the weakest; there is no arrow between almost sure and L-p because they are incomparable](./media/mt-convergence-modes.png)
 
 When a sequence of random variables $X_n$ "approaches" a limit $X$, there are several senses in which this can happen, each with different strength:
 

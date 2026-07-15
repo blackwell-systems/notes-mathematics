@@ -1619,6 +1619,27 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("max turning points of a degree-5 polynomial = n-1 = 4", 5 - 1, 4); }
 }
 
+// ================= Measure Theory (diagrams) =================
+{
+  // simple function integral: s = 2*1_A + 3*1_B with mu(A)=0.5, mu(B)=0.25
+  eq("simple-function integral 2*mu(A) + 3*mu(B) = 1.75", 2 * 0.5 + 3 * 0.25, 1.75);
+  // Dirichlet function: Lebesgue integral of the indicator of the rationals on [0,1] is 0
+  eq("integral of 1_Q on [0,1] = 1*mu(Q) + 0*mu(irrationals) = 0", 1 * 0 + 0 * 1, 0);
+  // measures are countably additive on disjoint sets: length([0,0.3]) + length([0.3,1]) = 1
+  eq("mu([0,0.3]) + mu([0.3,1]) = 1", 0.3 + 0.7, 1);
+  // {∅, {0}, {1,2}, Ω} on Ω = {0,1,2} is a sigma-algebra (closed under complement and union)
+  { const OM = 0b111, S = new Set([0b000, 0b001, 0b110, 0b111]), comp = (a) => (~a) & OM;
+    let closed = true;
+    for (const a of S) { if (!S.has(comp(a))) closed = false; for (const b of S) if (!S.has(a | b)) closed = false; }
+    check("{empty, {0}, {1,2}, Omega} is a sigma-algebra", closed && S.has(OM) && S.has(0)); }
+  // modes of convergence: a.s. and L^p both reach 'in distribution' via 'in probability'; a.s. and L^p incomparable
+  { const edges = { as: ["prob"], lp: ["prob"], prob: ["dist"], dist: [] };
+    const reach = (s, t, seen = new Set()) => s === t || ((edges[s] || []).some((n) => !seen.has(n) && (seen.add(n), reach(n, t, seen))));
+    check("a.s. => in probability => in distribution", reach("as", "prob") && reach("prob", "dist") && reach("as", "dist"));
+    check("L^p => in probability => in distribution", reach("lp", "prob") && reach("lp", "dist"));
+    check("a.s. and L^p are incomparable (neither reaches the other)", !reach("as", "lp") && !reach("lp", "as")); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
