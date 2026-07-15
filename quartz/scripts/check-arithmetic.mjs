@@ -313,6 +313,61 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
 }
 
+// ================= Hypercomplex Numbers (Cayley-Dickson) =================
+{
+  const sub = (x, y) => x.map((v, i) => v - y[i]);
+  const addv = (x, y) => x.map((v, i) => v + y[i]);
+  function conjcd(x) {
+    if (x.length === 1) return x.slice();
+    const n = x.length / 2;
+    return conjcd(x.slice(0, n)).concat(x.slice(n).map((v) => -v));
+  }
+  function cd(x, y) {
+    if (x.length === 1) return [x[0] * y[0]];
+    const n = x.length / 2;
+    const a = x.slice(0, n), b = x.slice(n), c = y.slice(0, n), d = y.slice(n);
+    return sub(cd(a, c), cd(conjcd(d), b)).concat(addv(cd(d, a), cd(b, conjcd(c))));
+  }
+  const basis = (dim, i) => { const v = Array(dim).fill(0); v[i] = 1; return v; };
+  const n2 = (x) => x.reduce((s, v) => s + v * v, 0);
+  const zero = (x) => x.every((v) => Math.abs(v) < 1e-9);
+  const same = (x, y) => x.every((v, i) => Math.abs(v - y[i]) < 1e-9);
+  const neg = (x) => x.map((v) => -v);
+
+  // Cayley-Dickson from R reproduces complex multiplication (a,b)(c,d)=(ac-bd, ad+bc)
+  check("Cayley-Dickson reproduces complex mult", same(cd([3, 4], [1, 2]), [3 - 8, 6 + 4]));
+
+  // Quaternions: i*j=k, j*i=-k, i^2=-1, ijk=-1
+  const [q1, qi, qj, qk] = [0, 1, 2, 3].map((n) => basis(4, n));
+  check("quaternion ij = k", same(cd(qi, qj), qk));
+  check("quaternion ji = -k (non-commutative)", same(cd(qj, qi), neg(qk)));
+  check("quaternion i^2 = -1", same(cd(qi, qi), neg(q1)));
+  check("quaternion ijk = -1", same(cd(cd(qi, qj), qk), neg(q1)));
+  check("quaternion norm multiplicative |pq|=|p||q|",
+    Math.abs(n2(cd([1, 2, 3, 4], [2, -1, 0, 5])) - n2([1, 2, 3, 4]) * n2([2, -1, 0, 5])) < 1e-6);
+
+  // Octonions: non-associative -- (e1 e2) e4 = e7 but e1 (e2 e4) = -e7
+  const oe = (i) => basis(8, i);
+  check("octonion non-associative: (e1e2)e4 != e1(e2e4)",
+    !same(cd(cd(oe(1), oe(2)), oe(4)), cd(oe(1), cd(oe(2), oe(4)))));
+  check("octonion (e1e2)e4 = e7", same(cd(cd(oe(1), oe(2)), oe(4)), oe(7)));
+  check("octonion e1(e2e4) = -e7", same(cd(oe(1), cd(oe(2), oe(4))), neg(oe(7))));
+  check("octonion norm still multiplicative",
+    Math.abs(n2(cd(addv(oe(1), oe(3)), addv(oe(2), oe(5)))) -
+      n2(addv(oe(1), oe(3))) * n2(addv(oe(2), oe(5)))) < 1e-6);
+
+  // Sedenions: zero divisors -- (e1+e10)(e5+e14) = 0 with both factors nonzero
+  const se = (i) => basis(16, i);
+  const s1 = addv(se(1), se(10)), s2 = addv(se(5), se(14));
+  check("sedenion zero divisor (e1+e10)(e5+e14)=0", !zero(s1) && !zero(s2) && zero(cd(s1, s2)));
+
+  // Dual numbers: f(x)=x^3-2x at 2+eps gives 4+10eps, so f'(2)=10
+  const dmul = (p, q) => [p[0] * q[0], p[0] * q[1] + p[1] * q[0]];
+  const fdual = (p) => { const x2 = dmul(p, p), x3 = dmul(x2, p); return [x3[0] - 2 * p[0], x3[1] - 2 * p[1]]; };
+  eq("dual-number autodiff f(2+eps) real part = f(2)", fdual([2, 1])[0], 4);
+  eq("dual-number autodiff eps part = f'(2)", fdual([2, 1])[1], 10);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

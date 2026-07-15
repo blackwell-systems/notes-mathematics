@@ -163,6 +163,8 @@ Infinite sets can still have different sizes, and the number systems split clean
 
 Since $\mathbb{C}$ is algebraically closed, extending it can never buy you new roots: the original motive for building each layer runs out. You can still extend further, but now every extension *trades away* a property rather than adding one. The **quaternions** $\mathbb{H}$ are four-dimensional numbers of the form $a + bi + cj + dk$; they give up *commutativity*, so multiplication depends on order ($ij = k$ but $ji = -k$), and in exchange they encode 3D rotations so cleanly that graphics and robotics rely on them. Push further and even more structure is surrendered (the octonions lose *associativity*), while entirely different constructions such as the *$p$-adic numbers* re-imagine what "close together" means. Each such system is best understood as a specific axiom deliberately given up, a perspective made precise in [Algebraic Structures](./algebraic-structures).
 
+For the full story, including the Cayley–Dickson construction that generates this tower, Hurwitz's theorem on why it ends at the octonions, and the "sideways" extensions like dual numbers (which power automatic differentiation), see [Hypercomplex Numbers & Beyond](./hypercomplex-numbers).
+
 ## Summary
 
 | System | Symbol | Fixes | Key property gained |

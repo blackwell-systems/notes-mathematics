@@ -68,6 +68,12 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Hypercomplex Numbers & Beyond page** — expanded the one-paragraph "Beyond the
+  Complex Numbers" note into a full page: the Cayley-Dickson construction, quaternions
+  (lose commutativity), octonions (lose associativity), sedenions (lose division), Hurwitz
+  and Frobenius theorems, and sideways extensions (dual numbers → autodiff, split-complex,
+  p-adics, hyperreals/surreals). 3 diagrams + 13 machine-checked assertions (ij=k, octonion
+  non-associativity witness, sedenion zero divisor, dual-number autodiff).
 - [x] **Image lightbox (click-to-zoom)** — content diagrams open full-size in a modal
   overlay on click (Esc/click to close). Implemented as a portable post-build injector
   (`scripts/inject-lightbox.mjs`, wired into CI) rather than a Quartz plugin, since the
