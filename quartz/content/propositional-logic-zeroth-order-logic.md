@@ -811,6 +811,8 @@ So $\neg P \vee Q \to R$ means $(((\neg P) \vee Q) \to R)$. As with arithmetic, 
 
 ### Conditional Equivalences
 
+![The conditional P implies Q shown two ways: a truth table that is true in every row except when P is true and Q is false, and a Venn diagram shading everywhere except the region inside P but outside Q, illustrating that P implies Q is equivalent to not-P or Q and is vacuously true whenever P is false](./media/pl-conditional.png)
+
 **Conditional as Disjunction:**
 - $P \to Q \equiv \neg P \vee Q$
 
@@ -945,6 +947,8 @@ CNF:
 The normal-form results above hide a remarkable fact: they show that *every* truth function can be written using only negation, conjunction, and disjunction, because the DNF construction reproduces any truth table you like. This raises a foundational question. How many connectives do we actually *need*, and could a single one suffice?
 
 ### The Sixteen Binary Connectives
+
+![A reference table of all sixteen binary truth functions: the two input columns P and Q on the left over the four rows TT, TF, FT, FF, and sixteen output columns each labeled with its name, including FALSE, AND, XOR, OR, NOR, IFF, the two implications, NAND, and TRUE, showing that there are two-to-the-power-four equals sixteen possible binary connectives](./media/pl-sixteen-connectives.png)
 
 A binary connective is completely determined by the output column of its truth table, which has $2^2 = 4$ rows. Each of those 4 outputs is independently $T$ or $F$, so there are $2^4 = 16$ possible binary truth functions. Every binary connective you could ever invent is one of these sixteen. Listing them by their output on the rows $(P,Q) = (T,T),(T,F),(F,T),(F,F)$:
 
@@ -1104,6 +1108,8 @@ Valid structure, but Premise 1 is false (penguins, ostriches cannot fly).
 An argument is valid if and only if: $(P_1 \wedge P_2 \wedge \ldots \wedge P_n) \to Q$ is a tautology
 
 ## Rules of Inference
+
+![A reference card of inference rules in premises-over-line-over-conclusion form: four valid rules marked with a green check (modus ponens, modus tollens, hypothetical syllogism, disjunctive syllogism) and two invalid fallacies marked with a red X (affirming the consequent, denying the antecedent)](./media/pl-inference-rules.png)
 
 **Rules of Inference:** Valid argument forms that allow us to derive conclusions from premises.
 
@@ -1493,6 +1499,8 @@ Proof by cases:
 **Why cases work:** We've covered all possibilities (even and odd are exhaustive for integers) and proved the statement for each.
 
 ### Mathematical Induction
+
+![Mathematical induction pictured as a chain of dominoes: the first domino, the base case P(1), is pushed over, and because each standing domino topples the next (the inductive step, P(k) implies P(k+1)), every domino falls, so P(n) holds for all n](./media/pl-induction-dominoes.png)
 
 **Mathematical Induction:** A proof technique for statements about natural numbers (or any well-ordered set).
 

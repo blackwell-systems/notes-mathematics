@@ -1568,6 +1568,28 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("partition blocks are pairwise disjoint and cover S", disjoint && seen.size === S.length); }
 }
 
+// ================= Propositional Logic (diagrams) =================
+{
+  const imp = (p, q) => !p || q;
+  const nand = (p, q) => !(p && q);
+  const combos = [[true, true], [true, false], [false, true], [false, false]];
+  // the conditional: P -> Q equals not-P or Q, and is false on exactly one row
+  check("P -> Q equals (not P) or Q", combos.every(([p, q]) => imp(p, q) === (!p || q)));
+  check("P -> Q is false only when P true and Q false", combos.filter(([p, q]) => !imp(p, q)).length === 1 && !imp(true, false));
+  // induction example: sum 1..n = n(n+1)/2
+  { let s = 0; for (let k = 1; k <= 100; k++) s += k; eq("sum 1..100 = 5050 (induction example)", s, 5050); eq("closed form n(n+1)/2 at n=100", (100 * 101) / 2, 5050); }
+  // there are 2^(2^2) = 16 binary truth functions
+  eq("number of binary connectives = 2^(2^2) = 16", 2 ** (2 ** 2), 16);
+  // NAND is functionally complete: not, and, or all built from it
+  check("not p = p NAND p", combos.every(([p]) => nand(p, p) === !p));
+  check("p and q = NOT(p NAND q)", combos.every(([p, q]) => !nand(p, q) === (p && q)));
+  check("p or q = (NOT p) NAND (NOT q)", combos.every(([p, q]) => nand(!p, !q) === (p || q)));
+  // modus ponens valid; affirming-the-consequent and denying-the-antecedent invalid
+  check("modus ponens valid: (P and P->Q) => Q for all assignments", combos.every(([p, q]) => imp(p && imp(p, q), q)));
+  check("affirming the consequent is invalid", !combos.every(([p, q]) => imp(q && imp(p, q), p)));
+  check("denying the antecedent is invalid", !combos.every(([p, q]) => imp(!p && imp(p, q), !q)));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
