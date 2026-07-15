@@ -104,6 +104,8 @@ Explore Beta-Binomial updating below: set a Beta prior, feed in coin-flip data, 
 
 ### Worked Example: Beta-Binomial
 
+![Four Beta densities over the probability theta showing conjugate Bayesian updating: a nearly flat Beta(2,2) prior, then Beta(9,5) after 10 flips, Beta(37,17) after 50, and a tall narrow Beta(142,62) after 200 flips, the posterior concentrating around the true rate 0.7 as data accumulates, with the posterior mean 9/14 marked](./media/bi-conjugate-updating.png)
+
 Suppose you want to estimate the probability $\theta$ that a coin lands heads. You start with a $\text{Beta}(2, 2)$ prior, which is symmetric and mildly concentrated around $\theta = 0.5$. The Beta distribution has PDF:
 
 $$
@@ -168,6 +170,8 @@ Grid approximation is intuitive and exact in the limit of fine grids, but it sca
 
 ### Laplace Approximation
 
+![The Laplace approximation: a skewed posterior density with a symmetric Gaussian fitted at its mode using the curvature of the log-posterior, matching near the peak but missing the skew in the tails, with the mode marked as the MAP estimate](./media/bi-laplace.png)
+
 Approximate the posterior as a Gaussian centered at the MAP estimate $\hat{\theta}$, with covariance given by the inverse of the Hessian of the negative log-posterior:
 
 $$
@@ -179,6 +183,8 @@ This is a second-order Taylor expansion of the log-posterior around its mode. It
 **Where Laplace approximation fails (the SLT connection):** The negative Hessian of the log-posterior, $-\nabla^2 \log P(\theta | D)$, is the observed Fisher information (for a posterior it includes the prior's curvature contribution alongside the likelihood's). At a singularity, where the map from parameters to distributions is not one-to-one, the Hessian is degenerate (has zero eigenvalues). The Gaussian approximation becomes meaningless because the posterior is fundamentally non-Gaussian near singularities. This is exactly the situation that singular learning theory addresses.
 
 ### Markov Chain Monte Carlo (MCMC)
+
+![Two panels illustrating Markov chain Monte Carlo: on the left a trace plot of a Metropolis random walk over 4000 iterations oscillating between the two modes of the target, and on the right a density histogram of the samples closely matching the overlaid bimodal target posterior](./media/bi-mcmc.png)
 
 MCMC is the workhorse of modern Bayesian computation. The idea: construct a Markov chain whose stationary distribution is the posterior $P(\theta | D)$. Run the chain long enough, and the samples $\theta^{(1)}, \theta^{(2)}, \ldots, \theta^{(T)}$ approximate the posterior. You can then estimate any quantity of interest (mean, variance, quantiles) using sample averages.
 
@@ -321,6 +327,8 @@ $$
 This is the same evidence integral $P(D)$ from Bayes' theorem, but now made explicit as a function of the model. It answers: "How probable is the data under this model, averaging over all possible parameter values?"
 
 ### Bayes Factor
+
+![Bayesian Occam's razor: the marginal likelihood over the space of possible data sets for a simple model with a tall narrow peak versus a complex model spread thin over many data sets; for the observed data the simple model has the higher evidence, so the Bayes factor favors it](./media/bi-occam.png)
 
 The **Bayes factor** compares two models:
 

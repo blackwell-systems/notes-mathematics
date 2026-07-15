@@ -1660,6 +1660,28 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("sound = valid AND premises-true; a valid arg with a false premise is unsound", sound(true, true) === true && sound(true, false) === false); }
 }
 
+// ================= Bayesian Inference (diagrams) =================
+{
+  // Beta-Binomial conjugate update: prior Beta(2,2), data 7 heads / 3 tails -> Beta(9,5)
+  const a0 = 2, b0 = 2, k = 7, n = 10, a = a0 + k, b = b0 + (n - k);
+  eq("posterior is Beta(9,5): alpha = 9", a, 9);
+  eq("posterior beta = 5", b, 5);
+  eq("prior mean Beta(2,2) = 0.5", a0 / (a0 + b0), 0.5);
+  eq("posterior mean Beta(9,5) = 9/14 = 0.643", a / (a + b), 9 / 14, 1e-9);
+  eq("MLE = k/n = 0.7", k / n, 0.7);
+  check("posterior mean lies between prior mean 0.5 and MLE 0.7 (shrinkage)", 0.5 < a / (a + b) && a / (a + b) < 0.7);
+  eq("prior pseudo-count (sample size) = alpha + beta = 4", a0 + b0, 4);
+  // sequential updating: one head increments alpha, one tail increments beta
+  check("Beta(2,2) after 1 head is Beta(3,2), after +1 tail is Beta(3,3)", a0 + 1 === 3 && b0 === 2 && b0 + 1 === 3);
+  // model selection: a Bayes factor of 10 means data 10x more probable under M1
+  eq("Bayes factor P(D|M1)/P(D|M2) = 10", 10 / 1, 10);
+  // BIC complexity penalty d*log(n)
+  eq("BIC penalty d*ln(n) for d=3, n=100 = 13.8155", 3 * Math.log(100), 13.8155, 1e-3);
+  // Occam: evidence is a normalized distribution over datasets, so a broader (complex) model has a lower peak
+  const npeak = (s) => 1 / (s * Math.sqrt(2 * Math.PI));
+  check("broader evidence => lower peak (complex model spreads thin)", npeak(2.6) < npeak(0.7));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
