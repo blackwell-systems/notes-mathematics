@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RLCT &amp; Free Energy Explorer</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #fbfcfd; color: #1c2126; line-height: 1.45;
+    display: flex; justify-content: center;
+  }
+  .wrap { width: 780px; max-width: 100%; padding: 14px 10px 24px; }
+  h1 { font-size: 18px; margin: 4px 0 2px; }
+  .sub { font-size: 12.5px; color: #5b6673; margin: 0 0 12px; }
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center;
+    background: #f2f5f8; border: 1px solid #e2e8ef; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px;
+  }
+  .ctrl { display: flex; flex-direction: column; gap: 3px; font-size: 12px; }
+  .ctrl label { font-weight: 600; color: #33404d; }
+  .ctrl .val { color: #2563c9; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 150px; accent-color: #2563c9; }
+  .seg { display: inline-flex; border: 1px solid #c4d0dd; border-radius: 6px; overflow: hidden; }
+  .seg button {
+    border: none; background: #fff; color: #33404d; padding: 5px 12px;
+    font-size: 12px; cursor: pointer; font-family: inherit;
+  }
+  .seg button.active { background: #2563c9; color: #fff; }
+  canvas { display: block; background: #fff; border: 1px solid #e2e8ef; border-radius: 6px; }
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .panel h2 { font-size: 12.5px; margin: 0 0 5px; color: #33404d; font-weight: 600; }
+  .fe { grid-column: 1 / span 2; }
+  .readout {
+    margin-top: 12px; background: #f7faf7; border: 1px solid #dfeadf;
+    border-radius: 8px; padding: 11px 14px; font-size: 13px;
+  }
+  .readout .row { margin: 2px 0; }
+  .readout code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .hl { color: #2563c9; font-weight: 600; }
+  .cap { font-size: 12.5px; color: #4a5560; margin-top: 8px; font-style: italic; }
+  .slopes { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>RLCT &amp; Free Energy Explorer</h1>
+  <p class="sub">How the real log canonical threshold &lambda; sets the leading term of the Bayesian free energy
+    F<sub>n</sub> &asymp; &lambda; log n &minus; (m&minus;1) log log n + O(1).</p>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label>degeneracy k = <span class="val" id="kval">1</span></label>
+      <input type="range" id="k" min="1" max="6" step="1" value="1">
+    </div>
+    <div class="ctrl">
+      <label>dimension</label>
+      <div class="seg" id="dim">
+        <button data-d="1" class="active">1D</button>
+        <button data-d="2">2D</button>
+      </div>
+    </div>
+    <div class="ctrl">
+      <label>sample size n = <span class="val" id="nval">1000</span></label>
+      <input type="range" id="n" min="1" max="6" step="0.02" value="3">
+    </div>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <h2 id="t1">1. Loss K(w)</h2>
+      <canvas id="c1" width="378" height="240"></canvas>
+    </div>
+    <div class="panel">
+      <h2 id="t2">2. Posterior p<sub>n</sub>(w) &prop; e<sup>&minus;nK</sup>&middot;prior</h2>
+      <canvas id="c2" width="378" height="240"></canvas>
+    </div>
+    <div class="panel fe">
+      <h2>3. Free energy F<sub>n</sub> = &minus;log &int; e<sup>&minus;nK</sup> dw &nbsp;vs&nbsp; log n</h2>
+      <canvas id="c3" width="760" height="250"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  const $ = id => document.getElementById(id);
+  const kEl = $("k"), nEl = $("n"), dimEl = $("dim");
+  const c1 = $("c1"), c2 = $("c2"), c3 = $("c3");
+  const g1 = c1.getContext("2d"), g2 = c2.getContext("2d"), g3 = c3.getContext("2d");
+
+  let state = { k: 1, dim: 1, nExp: 3 };
+  // precomputed per (k,dim): F_n vs log n data, slope fit, 2D loss grid, 2D normalization grid
+  let cache = null;
+
+  const ACC = "#2563c9", ACC2 = "#c9422f", GRID = "#e7edf3", AXIS = "#8a97a5";
+
+  // ---------- numerics ----------
+  // 1D partition function Z_n = int_0^1 exp(-n w^{2k}) dw  via fine grid (returns log Z)
+  function logZ1D(n, k){
+    const N = 4000;
+    // integrand max is at w=0 (value 0 in exponent), so exp(0)=1 is the max -> no shift needed,
+    // but keep log-domain accumulation via log-sum for safety.
+    let sum = 0;
+    const h = 1 / N;
+    for (let i = 0; i <= N; i++){
+      const w = i * h;
+      const e = -n * Math.pow(w, 2*k);
+      const wgt = (i === 0 || i === N) ? 0.5 : 1.0; // trapezoid
+      sum += wgt * Math.exp(e);
+    }
+    // max exponent is 0 so exp fine; Z = h*sum
+    return Math.log(sum * h);
+  }
+
+  // 2D: K = (w1 w2)^{2k} on [0,1]^2. Precompute exponent grid once; logZ = log( h^2 * sum exp(-n E_ij) )
+  function build2DGrid(k){
+    const N = 200;
+    const E = new Float64Array((N+1)*(N+1)); // stores w1^{2k}*w2^{2k}
+    const h = 1 / N;
+    const pw = new Float64Array(N+1); // w^{2k}
+    for (let i = 0; i <= N; i++) pw[i] = Math.pow(i*h, 2*k);
+    for (let i = 0; i <= N; i++){
+      for (let j = 0; j <= N; j++){
+        E[i*(N+1)+j] = pw[i] * pw[j];
+      }
+    }
+    return { N, h, E };
+  }
+  function logZ2D(n, grid){
+    const { N, h, E } = grid;
+    // min E is 0 (max exponent 0) -> exp fine.
+    let sum = 0;
+    for (let i = 0; i <= N; i++){
+      const wi = (i === 0 || i === N) ? 0.5 : 1.0;
+      for (let j = 0; j <= N; j++){
+        const wj = (j === 0 || j === N) ? 0.5 : 1.0;
+        sum += wi * wj * Math.exp(-n * E[i*(N+1)+j]);
+      }
+    }
+    return Math.log(sum * h * h);
+  }
+
+  function recompute(){
+    const k = state.k, dim = state.dim;
+    const grid2d = (dim === 2) ? build2DGrid(k) : null;
+    // F_n at ~25 n-values spread log-uniformly over [10, 1e6]
+    const M = 25;
+    const pts = [];
+    const loNexp = 1, hiNexp = 6; // n from 10^1 to 10^6
+    for (let i = 0; i < M; i++){
+      const ne = loNexp + (hiNexp - loNexp) * i / (M - 1);
+      const n = Math.pow(10, ne);
+      const lZ = (dim === 1) ? logZ1D(n, k) : logZ2D(n, grid2d);
+      const F = -lZ;
+      pts.push({ logn: Math.log(n), F: F });
+    }
+    // fit slope of last 8 points via least squares
+    const tail = pts.slice(pts.length - 8);
+    let sx=0, sy=0, sxx=0, sxy=0, nn=tail.length;
+    for (const p of tail){ sx+=p.logn; sy+=p.F; sxx+=p.logn*p.logn; sxy+=p.logn*p.F; }
+    const slope = (nn*sxy - sx*sy) / (nn*sxx - sx*sx);
+    const intercept = (sy - slope*sx) / nn;
+    const lambda = 1/(2*k), m = (dim===1?1:2);
+    // Full Watanabe asymptote F ~ lambda*log n - (m-1)*log log n + b; fit constant b on the tail.
+    const tail2 = pts.slice(pts.length - 12);
+    let bsum=0;
+    for (const p of tail2){ bsum += p.F - (lambda*p.logn - (m-1)*Math.log(p.logn)); }
+    const bConst = bsum / tail2.length;
+    cache = { k, dim, grid2d, pts, slope, intercept, lambda, m, bConst };
+  }
+
+  // ---------- drawing ----------
+  function clear(g, c){ g.clearRect(0,0,c.width,c.height); }
+
+  function drawLoss(){
+    clear(g1, c1);
+    const W = c1.width, H = c1.height, k = state.k;
+    if (state.dim === 1){
+      // K(w)=w^{2k} on [-1,1]
+      const padL=34, padR=8, padT=8, padB=24;
+      const x0=padL, x1=W-padR, y0=H-padB, y1=padT;
+      const X = w => x0 + (w+1)/2 * (x1-x0);
+      const Y = v => y0 + v*(y1-y0); // v in [0,1]
+      // axes
+      g1.strokeStyle=GRID; g1.lineWidth=1;
+      for(let t=0;t<=1;t+=0.25){ const yy=Y(t); g1.beginPath(); g1.moveTo(x0,yy); g1.lineTo(x1,yy); g1.stroke(); }
+      g1.strokeStyle=AXIS; g1.beginPath(); g1.moveTo(X(0),y1); g1.lineTo(X(0),y0); g1.stroke();
+      g1.beginPath(); g1.moveTo(x0,y0); g1.lineTo(x1,y0); g1.stroke();
+      // curve
+      g1.strokeStyle=ACC; g1.lineWidth=2; g1.beginPath();
+      for(let px=0; px<=200; px++){
+        const w = -1 + 2*px/200;
+        const v = Math.pow(Math.abs(w), 2*k);
+        const X_=X(w), Y_=Y(v);
+        if(px===0) g1.moveTo(X_,Y_); else g1.lineTo(X_,Y_);
+      }
+      g1.stroke();
+      g1.fillStyle="#5b6673"; g1.font="11px sans-serif";
+      g1.fillText("w", x1-10, y0+16); g1.fillText("K", x0-28, y1+10);
+      g1.fillText("0", X(0)-3, y0+15); g1.fillText("1", x1-8, y0+15); g1.fillText("-1", x0-2, y0+15);
+    } else {
+      draw2DLoss(g1, c1);
+    }
+  }
+
+  // dedicated 2D loss heatmap
+  function draw2DLoss(g, c){
+    clear(g, c);
+    const W=c.width,H=c.height, k=state.k;
+    const padL=30,padR=8,padT=8,padB=22;
+    const gx0=padL,gx1=W-padR,gy0=padT,gy1=H-padB;
+    const P=90;
+    const img=g.createImageData(gx1-gx0, gy1-gy0);
+    const iw=gx1-gx0, ih=gy1-gy0;
+    for(let py=0;py<ih;py++){
+      const w2 = 1 - py/(ih-1); // top = w2=1
+      for(let px=0;px<iw;px++){
+        const w1 = px/(iw-1);
+        const K = Math.pow(w1,2*k)*Math.pow(w2,2*k);
+        // low K (valley) = dark blue, high K = light. Use log-ish scale.
+        const t = Math.pow(K, 0.25); // emphasize the cross
+        const r = Math.round(20 + t*(250-20));
+        const gg= Math.round(50 + t*(250-50));
+        const b = Math.round(120 + t*(252-120));
+        const o=(py*iw+px)*4;
+        img.data[o]=r; img.data[o+1]=gg; img.data[o+2]=b; img.data[o+3]=255;
+      }
+    }
+    g.putImageData(img, gx0, gy0);
+    frame2D(g,c,gx0,gx1,gy0,gy1);
+    g.fillStyle="#33404d"; g.font="10.5px sans-serif";
+    g.fillText("dark = valley K≈0 (the cross)", gx0+4, gy0+13);
+  }
+
+  function frame2D(g,c,gx0,gx1,gy0,gy1){
+    g.strokeStyle=AXIS; g.lineWidth=1;
+    g.strokeRect(gx0+0.5,gy0+0.5,gx1-gx0-1,gy1-gy0-1);
+    g.fillStyle="#5b6673"; g.font="11px sans-serif";
+    g.fillText("w₁", (gx0+gx1)/2-6, gy1+16);
+    g.save(); g.translate(gx0-18,(gy0+gy1)/2+8); g.rotate(-Math.PI/2);
+    g.fillText("w₂",0,0); g.restore();
+    g.fillText("0", gx0-2, gy1+15); g.fillText("1", gx1-6, gy1+15);
+  }
+
+  function drawPosterior(){
+    clear(g2, c2);
+    const k=state.k, n=Math.pow(10, state.nExp);
+    if(state.dim===1){
+      const W=c2.width,H=c2.height;
+      const padL=34,padR=8,padT=8,padB=24;
+      const x0=padL,x1=W-padR,y0=H-padB,y1=padT;
+      // posterior on [-1,1], symmetric; density p(w)=exp(-n|w|^{2k})/Zsym, Zsym=2*int_0^1
+      const NN=800; const dens=new Float64Array(NN+1); let Z=0; const h=2/NN;
+      for(let i=0;i<=NN;i++){ const w=-1+2*i/NN; const v=Math.exp(-n*Math.pow(Math.abs(w),2*k)); dens[i]=v; Z+=((i===0||i===NN)?0.5:1)*v; }
+      Z*=h;
+      let pmax=0; for(let i=0;i<=NN;i++){ dens[i]/=Z; if(dens[i]>pmax)pmax=dens[i]; }
+      const X=w=>x0+(w+1)/2*(x1-x0);
+      const Y=v=>y0 + (v/pmax)*(y1-y0)*0.92;
+      // grid
+      g2.strokeStyle=GRID; g2.beginPath(); g2.moveTo(x0,y0); g2.lineTo(x1,y0); g2.stroke();
+      g2.strokeStyle=AXIS; g2.beginPath(); g2.moveTo(X(0),y1); g2.lineTo(X(0),y0); g2.stroke();
+      // fill
+      g2.fillStyle="rgba(37,99,201,0.16)"; g2.strokeStyle=ACC; g2.lineWidth=2;
+      g2.beginPath();
+      for(let i=0;i<=NN;i++){ const w=-1+2*i/NN; const X_=X(w),Y_=Y(dens[i]); if(i===0)g2.moveTo(X_,Y_); else g2.lineTo(X_,Y_); }
+      g2.stroke();
+      g2.lineTo(X(1),y0); g2.lineTo(X(-1),y0); g2.closePath(); g2.fill();
+      g2.fillStyle="#5b6673"; g2.font="11px sans-serif";
+      g2.fillText("w", x1-10, y0+16); g2.fillText("0", X(0)-3, y0+15);
+      g2.fillText("peak ≈ "+pmax.toFixed(1), x0+6, y1+12);
+    } else {
+      // 2D posterior heatmap on [0,1]^2: exp(-nK)/Z
+      clear(g2,c2);
+      const W=c2.width,H=c2.height;
+      const padL=30,padR=8,padT=8,padB=22;
+      const gx0=padL,gx1=W-padR,gy0=padT,gy1=H-padB;
+      const iw=gx1-gx0, ih=gy1-gy0;
+      // compute unnormalized on the display grid; max exponent is 0 (at cross) so exp fine
+      const vals=new Float64Array(iw*ih); let mx=0;
+      for(let py=0;py<ih;py++){ const w2=1-py/(ih-1);
+        for(let px=0;px<iw;px++){ const w1=px/(iw-1);
+          const K=Math.pow(w1,2*k)*Math.pow(w2,2*k);
+          const v=Math.exp(-n*K); vals[py*iw+px]=v; if(v>mx)mx=v; }}
+      const img=g2.createImageData(iw,ih);
+      for(let i=0;i<iw*ih;i++){ const t=vals[i]/mx; // high posterior = warm
+        const r=Math.round(252 - (1-t)*(252-30));
+        const gg=Math.round(250 - (1-t)*(250-60));
+        const b=Math.round(200*(1-t)+70*t);
+        // make high-density = deep red/orange, low = pale
+        const rr=Math.round(255*t + 245*(1-t));
+        const g_=Math.round(90*t + 245*(1-t));
+        const b_=Math.round(40*t + 250*(1-t));
+        const o=i*4; img.data[o]=rr; img.data[o+1]=g_; img.data[o+2]=b_; img.data[o+3]=255; }
+      g2.putImageData(img,gx0,gy0);
+      frame2D(g2,c2,gx0,gx1,gy0,gy1);
+      g2.fillStyle="#33404d"; g2.font="10.5px sans-serif";
+      g2.fillText("mass on the cross {w₁=0}∪{w₂=0}", gx0+4, gy0+13);
+    }
+  }
+
+  function drawFreeEnergy(){
+    clear(g3,c3);
+    const W=c3.width,H=c3.height;
+    const padL=52,padR=150,padT=14,padB=34;
+    const x0=padL,x1=W-padR,y0=H-padB,y1=padT;
+    const pts=cache.pts;
+    let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+    for(const p of pts){ xmin=Math.min(xmin,p.logn); xmax=Math.max(xmax,p.logn); ymin=Math.min(ymin,p.F); ymax=Math.max(ymax,p.F); }
+    const yr=ymax-ymin || 1; ymin-=0.1*yr; ymax+=0.1*yr;
+    const X=lx=>x0+(lx-xmin)/(xmax-xmin)*(x1-x0);
+    const Y=f=>y0+(f-ymin)/(ymax-ymin)*(y1-y0);
+    // grid + axes
+    g3.strokeStyle=GRID; g3.lineWidth=1; g3.font="10px sans-serif"; g3.fillStyle="#8a97a5";
+    for(let t=0;t<=4;t++){ const f=ymin+(ymax-ymin)*t/4; const yy=Y(f);
+      g3.beginPath(); g3.moveTo(x0,yy); g3.lineTo(x1,yy); g3.stroke();
+      g3.fillText(f.toFixed(1), 6, yy+3); }
+    g3.strokeStyle=AXIS; g3.beginPath(); g3.moveTo(x0,y0); g3.lineTo(x1,y0); g3.stroke();
+    g3.beginPath(); g3.moveTo(x0,y0); g3.lineTo(x0,y1); g3.stroke();
+    g3.fillStyle="#5b6673"; g3.font="11px sans-serif";
+    g3.fillText("log n", (x0+x1)/2-14, y0+24);
+    g3.save(); g3.translate(16,(y0+y1)/2+16); g3.rotate(-Math.PI/2); g3.fillText("Fₙ",0,0); g3.restore();
+    for(let t=0;t<=4;t++){ const lx=xmin+(xmax-xmin)*t/4; g3.fillText(lx.toFixed(1), X(lx)-8, y0+16); }
+    // theoretical asymptote: 1D -> line of slope lambda; 2D -> full Watanabe curve with log log n term
+    const lam=cache.lambda, m=cache.m;
+    g3.strokeStyle=ACC2; g3.lineWidth=1.7; g3.setLineDash([6,4]);
+    g3.beginPath();
+    if(m===1){
+      const last=pts[pts.length-1];
+      const bTheory = last.F - lam*last.logn;
+      g3.moveTo(X(xmin), Y(lam*xmin+bTheory));
+      g3.lineTo(X(xmax), Y(lam*xmax+bTheory));
+    } else {
+      // curve: lambda*log n - (m-1)*log log n + bConst
+      let first=true;
+      for(let s=0;s<=60;s++){ const lx=xmin+(xmax-xmin)*s/60;
+        const val=lam*lx-(m-1)*Math.log(lx)+cache.bConst;
+        if(first){ g3.moveTo(X(lx),Y(val)); first=false; } else g3.lineTo(X(lx),Y(val)); }
+    }
+    g3.stroke(); g3.setLineDash([]);
+    // fitted slope line (last 8 pts)
+    g3.strokeStyle="#3aa06a"; g3.lineWidth=1.2; g3.setLineDash([2,3]);
+    g3.beginPath();
+    g3.moveTo(X(xmin), Y(cache.slope*xmin+cache.intercept));
+    g3.lineTo(X(xmax), Y(cache.slope*xmax+cache.intercept));
+    g3.stroke(); g3.setLineDash([]);
+    // data points
+    g3.fillStyle=ACC;
+    for(const p of pts){ g3.beginPath(); g3.arc(X(p.logn),Y(p.F),2.6,0,7); g3.fill(); }
+    // legend
+    const lx=x1+14, ly=y1+6;
+    g3.font="11px sans-serif";
+    g3.fillStyle=ACC; g3.beginPath(); g3.arc(lx+4,ly+2,3,0,7); g3.fill();
+    g3.fillStyle="#33404d"; g3.fillText("Fₙ (numeric)", lx+14, ly+5);
+    g3.strokeStyle=ACC2; g3.setLineDash([6,4]); g3.beginPath(); g3.moveTo(lx,ly+18); g3.lineTo(lx+10,ly+18); g3.stroke(); g3.setLineDash([]);
+    g3.fillStyle="#33404d";
+    g3.fillText(m===1 ? "slope λ (theory)" : "Watanabe asymptote", lx+14, ly+21);
+    g3.strokeStyle="#3aa06a"; g3.setLineDash([2,3]); g3.beginPath(); g3.moveTo(lx,ly+34); g3.lineTo(lx+10,ly+34); g3.stroke(); g3.setLineDash([]);
+    g3.fillStyle="#33404d"; g3.fillText("fitted slope", lx+14, ly+37);
+    g3.fillStyle="#33404d"; g3.font="12px ui-monospace, monospace";
+    g3.fillText("λ theory  = "+lam.toFixed(4), lx, ly+62);
+    g3.fillText("slope fit = "+cache.slope.toFixed(4), lx, ly+80);
+    if(m===1){
+      const err=Math.abs(cache.slope-lam);
+      g3.fillStyle= err<0.03? "#2f7a4d" : "#b06a1e";
+      g3.fillText("|diff| = "+err.toFixed(4), lx, ly+98);
+    } else {
+      g3.fillStyle="#b06a1e"; g3.font="10.5px sans-serif";
+      g3.fillText("fit < λ: the −log log n", lx, ly+98);
+      g3.fillText("term (m=2) bends Fₙ down", lx, ly+112);
+    }
+  }
+
+  function gcd(a,b){ return b? gcd(b,a%b):a; }
+  function frac(num,den){ const g=gcd(num,den); return (num/g)+"/"+(den/g); }
+
+  function drawReadout(){
+    const k=state.k, dim=state.dim, lam=cache.lambda, m=(dim===1?1:2);
+    const Kstr = dim===1 ? "K(w) = w<sup>"+(2*k)+"</sup> &nbsp;on [-1,1]"
+                         : "K(w₁,w₂) = w₁<sup>"+(2*k)+"</sup> · w₂<sup>"+(2*k)+"</sup> &nbsp;on [0,1]²";
+    const d = dim; // ambient parameter dimension
+    const lamFrac = frac(1,2*k);
+    const html =
+      '<div class="row"><b>Loss:</b> <span class="mono">'+Kstr+'</span></div>'+
+      '<div class="row"><b>RLCT:</b> <span class="hl mono">λ = 1/(2k) = '+lamFrac+' = '+lam.toFixed(4)+'</span>'+
+        ' &nbsp; <b>multiplicity</b> m = <span class="hl">'+m+'</span>'+
+        ' &nbsp; <b>effective dim</b> 2λ = <span class="hl">'+(2*lam).toFixed(4)+'</span></div>'+
+      '<div class="row slopes"><b>F<sub>n</sub> vs log n:</b> fitted slope (large n) = <span class="hl">'+cache.slope.toFixed(4)+
+        '</span> vs theoretical λ = <span class="hl">'+lam.toFixed(4)+'</span>'+
+        (dim===2 ? ' &nbsp;<span style="color:#b06a1e">(fit sits below λ: the −(m−1)log log n term still bends F<sub>n</sub> down at finite n)</span>' : '')+
+        '</div>'+
+      '<div class="row">A regular '+d+'-parameter model has λ = d/2 = <span class="mono">'+(d/2).toFixed(1)+
+        '</span>; here λ = '+lam.toFixed(4)+' &lt; d/2, so the singular model is effectively simpler.</div>'+
+      '<div class="cap">'+ (dim===1
+        ? "As k grows, K flattens at w=0 (deeper degeneracy), λ shrinks, the posterior concentrates faster, and Fₙ rises more slowly with n: the model behaves as if it had fewer effective parameters."
+        : "The zero set of K is the cross {w₁=0}∪{w₂=0}; two branches meet (m=2), giving the log log n correction, while the leading rate is still λ = 1/(2k).")
+      +'</div>';
+    $("readout").innerHTML = html;
+  }
+
+  function renderStatic(){
+    if(state.dim===1) drawLoss(); else draw2DLoss(g1,c1);
+    drawPosterior();
+    drawFreeEnergy();
+    drawReadout();
+    $("t1").innerHTML = state.dim===1 ? "1. Loss K(w) = w<sup>"+(2*state.k)+"</sup>"
+                                      : "1. Loss K(w₁,w₂) = (w₁w₂)<sup>"+(2*state.k)+"</sup>";
+    $("t2").innerHTML = "2. Posterior p<sub>n</sub> ∝ e<sup>−nK</sup>·prior (n="+fmtN(Math.pow(10,state.nExp))+")";
+  }
+
+  function fmtN(n){
+    if(n>=1e5) return (n/1e3).toFixed(0)+"k";
+    if(n>=1000) return (n/1000).toFixed(1)+"k";
+    return Math.round(n).toString();
+  }
+
+  function onParamChange(){
+    recompute();
+    renderStatic();
+  }
+  function onNChange(){
+    $("nval").textContent = fmtN(Math.pow(10,state.nExp));
+    drawPosterior();
+    $("t2").innerHTML = "2. Posterior p<sub>n</sub> ∝ e<sup>−nK</sup>·prior (n="+fmtN(Math.pow(10,state.nExp))+")";
+  }
+
+  // events
+  kEl.addEventListener("input", ()=>{ state.k=+kEl.value; $("kval").textContent=state.k; onParamChange(); });
+  nEl.addEventListener("input", ()=>{ state.nExp=+nEl.value; onNChange(); });
+  dimEl.addEventListener("click", e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    for(const btn of dimEl.children) btn.classList.remove("active");
+    b.classList.add("active"); state.dim=+b.dataset.d; onParamChange();
+  });
+
+  // init
+  $("kval").textContent=state.k; $("nval").textContent=fmtN(Math.pow(10,state.nExp));
+  onParamChange();
+})();
+</script>
+</body>
+</html>

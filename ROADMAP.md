@@ -12,10 +12,11 @@ Ranked by leverage. Each names its target page(s) and the pedagogical payoff.
 
 Highest value — the SLT throughline is the site's purpose but has no interactives yet:
 
-- [ ] **RLCT / free-energy explorer** — `singular-learning-theory`, `algebraic-geometry`.
-  Slider over $k$ in $K(w)=w^{2k}$ (and the two-parameter monomial); show how
+- [x] **RLCT / free-energy explorer** — `singular-learning-theory`, `algebraic-geometry`.
+  Slider over $k$ in $K(w)=w^{2k}$ (and the two-parameter monomial); shows how
   $\lambda=\tfrac{1}{2k}$ changes posterior concentration and the $\lambda\log n$ slope of
-  $F_n$ vs $n$. Makes "effective dimension" tangible.
+  $F_n$ vs $n$. Makes "effective dimension" tangible. (1D shows slope $=\lambda$ exactly;
+  2D overlays the full Watanabe asymptote with the $-(m-1)\log\log n$ term.)
 - [ ] **Bayesian updating** — `bayesian-inference`. Beta-Binomial prior × likelihood →
   posterior with a data slider (live version of the static `bayesian-updating.png`).
 - [ ] **CLT sampler** — `probability` / `statistics`. Sample from a skewed distribution,

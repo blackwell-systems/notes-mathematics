@@ -191,6 +191,10 @@ $$
 
 and taking $-\log$ reproduces $F_n = n L_n(w_0) + \tfrac12 \log n - \log\log n + O_p(1)$, exactly Watanabe's formula with the values we computed. This monomial calculation is the atom from which all RLCT computations are built; resolution of singularities is the guarantee that *every* model can be reduced to this atomic case.
 
+Explore this directly below. Vary the singularity exponent $k$ in $K(w) = w^{2k}$ (and switch to the two-parameter crossing $K = w_1^{2k}w_2^{2k}$): watch the loss flatten, the posterior concentrate, and the numerically computed free energy $F_n$ grow with slope exactly $\lambda = \tfrac{1}{2k}$, always less than the regular value $d/2$.
+
+<iframe src="/static/interactive/rlct-free-energy-explorer.html" width="100%" height="660" style="border:none;"></iframe>
+
 ## Where to Go Next
 
 - The geometry behind $\lambda$: [Algebraic Geometry](./algebraic-geometry) (varieties, singularities, resolution, RLCT).

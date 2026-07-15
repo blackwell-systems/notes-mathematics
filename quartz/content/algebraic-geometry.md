@@ -349,6 +349,10 @@ The RLCT measures how "sharp" or "severe" a singularity is. It controls the rate
 
 The RLCT is sometimes called the **learning coefficient** because it controls the learning behavior of the model. A smaller $\lambda$ means the model's effective complexity is lower, which means it generalizes better (all else being equal).
 
+The interactive below makes this concrete. For the monomial loss $K(w) = w^{2k}$, the RLCT is $\lambda = \tfrac{1}{2k}$; drag $k$ and see the free energy $F_n = -\log \int e^{-nK}\,dw$ grow with slope exactly $\lambda$, confirming numerically that a sharper singularity (larger $k$) yields a smaller learning coefficient.
+
+<iframe src="/static/interactive/rlct-free-energy-explorer.html" width="100%" height="660" style="border:none;"></iframe>
+
 ### The Key Insight for Deep Learning
 
 For neural networks, $\lambda$ can be dramatically smaller than $d/2$. Illustratively, a network with $d = 10{,}000$ parameters might have $\lambda = 50$, so that it behaves like a model with only 100 effective parameters (this figure is schematic, not a measured value). SLT gives a principled reason why an overparameterized model **can** generalize despite its raw parameter count: the singularity structure of the parameter space can make the effective complexity $\lambda$ far below $d/2$.
