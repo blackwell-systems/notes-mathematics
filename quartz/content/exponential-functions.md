@@ -93,12 +93,12 @@ If something decays by 3% per year, the decay rate is $r = 0.03$ and the growth 
 
 Imagine you put \$1 in a bank that pays 100% annual interest. How much do you have after one year?
 
-- **Compounded once** (annually): $1 \cdot (1 + 1)^1 = \$2.00$
-- **Compounded twice** (semi-annually): $1 \cdot (1 + 1/2)^2 = \$2.25$
-- **Compounded 4 times** (quarterly): $1 \cdot (1 + 1/4)^4 = \$2.4414$
-- **Compounded 12 times** (monthly): $1 \cdot (1 + 1/12)^{12} = \$2.6130$
-- **Compounded 365 times** (daily): $1 \cdot (1 + 1/365)^{365} = \$2.7146$
-- **Compounded continuously** ($n \to \infty$): $\lim_{n \to \infty}(1 + 1/n)^n = \$2.71828...$
+- **Compounded once** (annually): $1 \cdot (1 + 1)^1 = 2$, giving \$2.00
+- **Compounded twice** (semi-annually): $1 \cdot (1 + 1/2)^2 = 2.25$, giving \$2.25
+- **Compounded 4 times** (quarterly): $1 \cdot (1 + 1/4)^4 \approx 2.4414$, giving \$2.4414
+- **Compounded 12 times** (monthly): $1 \cdot (1 + 1/12)^{12} \approx 2.6130$, giving \$2.6130
+- **Compounded 365 times** (daily): $1 \cdot (1 + 1/365)^{365} \approx 2.7146$, giving \$2.7146
+- **Compounded continuously** ($n \to \infty$): $\lim_{n \to \infty}(1 + 1/n)^n \approx 2.71828$, giving about \$2.72
 
 That limit is $e$. No matter how frequently you compound, you never exceed this number. It is the natural limit of compound growth.
 
@@ -229,6 +229,14 @@ As $x \to \infty$ or $x \to -\infty$, the function approaches $y = c$ but never 
 
 **Fractional Exponent:** $b^{1/n} = \sqrt[n]{b}$
 
+## Common Mistakes with Exponents
+
+- **A sum in the base does not distribute.** $(a + b)^x \neq a^x + b^x$. For $x = 2$, $(a+b)^2 = a^2 + 2ab + b^2$, not $a^2 + b^2$.
+- **Multiplying powers adds exponents; it does not multiply them.** $b^x \cdot b^y = b^{x+y}$, not $b^{xy}$.
+- **A power of a power multiplies exponents.** $(b^x)^y = b^{xy}$, not $b^{x+y}$.
+- **The variable's position matters.** $2^x$ (exponential) and $x^2$ (polynomial) are completely different functions; only in $2^x$ is the variable in the exponent.
+- **A negative exponent means reciprocal, not a negative value.** $b^{-x} = 1/b^x > 0$; it never makes the result negative.
+
 ## Examples
 
 **Example 1: Exponential Growth**
@@ -352,6 +360,72 @@ Use $\ln$ directly, since $\ln(e^x) = x$:
 $$
 e^{2x} = 15 \implies 2x = \ln 15 \implies x = \frac{\ln 15}{2} \approx 1.354
 $$
+
+## Exponential Inequalities
+
+Like logarithms, exponentials are monotonic, so an inequality between exponentials becomes an inequality between the exponents, with the direction set by the base. Because $b^x > 0$ for every $x$, the exponential itself never adds domain restrictions (unlike logs).
+
+**Base greater than 1 (increasing).** For $b > 1$, the direction is preserved:
+
+$$b^x > b^y \iff x > y, \qquad b^x > c \iff x > \log_b c \ \ (c > 0).$$
+
+**Base between 0 and 1 (decreasing).** For $0 < b < 1$, the direction **flips**:
+
+$$b^x > b^y \iff x < y.$$
+
+**Worked example (base $>1$).** Solve $2^{x} > 32$. Since $32 = 2^5$ and the base exceeds 1, $2^x > 2^5 \iff x > 5$.
+
+**Worked example (base $<1$, direction flips).** Solve $\left(\tfrac13\right)^{x} \le \tfrac19$. Write $\tfrac19 = \left(\tfrac13\right)^2$. Because the base is less than 1, $\left(\tfrac13\right)^x \le \left(\tfrac13\right)^2 \iff x \ge 2$.
+
+**Worked example (unequal bases).** Solve $5^x < 100$. Take natural logs (base $e > 1$, so the inequality is preserved): $x \ln 5 < \ln 100$, so $x < \dfrac{\ln 100}{\ln 5} = \dfrac{4.605}{1.609} \approx 2.86$.
+
+## Calculus of Exponentials
+
+The natural exponential is as central to calculus as the natural logarithm, and for a related reason: it is the function that equals its own rate of change.
+
+### The Derivative and the Defining Equation
+
+The natural exponential is its own derivative:
+
+$$\frac{d}{dx}e^x = e^x.$$
+
+Geometrically, at every point the slope of the curve equals its height. For a general base, $\frac{d}{dx}b^x = b^x \ln b$; the extra $\ln b$ is why $e$ is the clean choice (compare the [calculus of logarithms](./logarithms#calculus-of-logarithms)).
+
+![The curve y = e^x with tangent lines at several points, showing that the slope of the tangent equals the height of the curve](./media/exp-slope-height.png)
+
+This "slope equals height" property is the deep reason exponentials appear everywhere. Whenever a quantity changes at a rate proportional to its current size, it satisfies the differential equation
+
+$$\frac{dy}{dt} = k\,y,$$
+
+whose solution is an exponential:
+
+$$y(t) = y_0\, e^{kt},$$
+
+where $y_0 = y(0)$ is the starting value and $k$ is the continuous growth rate ($k > 0$ for growth, $k < 0$ for decay). Population growth, radioactive decay, Newton's cooling, RC circuits, and continuously compounded interest are all this one equation with different values of $k$. See [Differential Equations](./differential-equations) for the general theory.
+
+### The Integral
+
+Since $e^x$ is its own derivative, it is also its own antiderivative (up to a constant):
+
+$$\int e^x\,dx = e^x + C, \qquad \int b^x\,dx = \frac{b^x}{\ln b} + C.$$
+
+### The Series Definition
+
+$e^x$ can be built directly as an infinite polynomial, its **Taylor series**:
+
+$$e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots$$
+
+Setting $x = 1$ gives a series for $e$ itself: $e = 1 + 1 + \tfrac12 + \tfrac16 + \tfrac1{24} + \cdots \approx 2.71828$. Differentiating the series term by term returns the same series, another way to see that $\frac{d}{dx}e^x = e^x$. Feeding an imaginary argument into the same series yields **Euler's formula** $e^{i\theta} = \cos\theta + i\sin\theta$ (see [Complex Numbers](./complex-numbers)), one of the most celebrated identities in mathematics.
+
+## Exponentials in Machine Learning
+
+The exponential is one of the most heavily used building blocks in machine learning, because it turns any real number into a positive one and because sums in the exponent become products.
+
+- **Sigmoid (logistic function).** $\sigma(z) = \dfrac{1}{1 + e^{-z}}$ squashes any real number into $(0, 1)$, turning a linear score into a probability. It is the output nonlinearity of [logistic regression](./statistics#logistic-regression-and-generalized-linear-models) and a classic neural-network activation.
+- **Softmax.** $\text{softmax}(z)_i = \dfrac{e^{z_i}}{\sum_j e^{z_j}}$ turns a vector of scores into a probability distribution over classes. The exponential guarantees positivity and accentuates the largest scores; a **temperature** $T$ (using $e^{z_i/T}$) tunes how sharp the distribution is.
+- **The Gaussian.** The normal density $\dfrac{1}{\sqrt{2\pi}\,\sigma}\,e^{-(x-\mu)^2/2\sigma^2}$ is built on $e^{-x^2}$; the exponential decay of its tails is why the normal distribution is so concentrated (see [Probability](./probability#normal-gaussian-distribution)).
+- **The exponential family.** A large class of distributions (normal, Bernoulli, Poisson, gamma, ...) share the form $p(x \mid \theta) \propto e^{\langle \theta,\, T(x)\rangle}$, which is what makes their maximum-likelihood estimation and their use in [generalized linear models](./statistics#logistic-regression-and-generalized-linear-models) so uniform.
+- **Products to sums.** Because $e^{a}e^{b} = e^{a+b}$, working in the exponent turns products into sums, the mirror image of the [log-likelihood trick](./logarithms#logarithms-in-information-theory-and-machine-learning) on the logarithms page.
 
 ## The Exponential-Logarithm Connection
 
