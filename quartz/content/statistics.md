@@ -23,6 +23,8 @@ Before doing statistics, we need to be precise about what we are working with.
 
 ### Types of Variables
 
+![A taxonomy tree of variable types: data or variables split into categorical (qualitative), which divides into nominal and ordinal, and numerical (quantitative), which divides into discrete and continuous, each with examples](./media/stats-variable-types.png)
+
 Variables come in two fundamental types, and the type determines which statistical methods apply.
 
 **Quantitative (numerical) variables:** Values are numbers that represent quantities. You can do arithmetic with them (add, subtract, average).
@@ -36,6 +38,8 @@ Variables come in two fundamental types, and the type determines which statistic
 - **Ordinal:** Categories with a meaningful order, but the gaps between categories are not necessarily equal. Education level (high school, bachelor's, master's, PhD), customer satisfaction (poor, fair, good, excellent), letter grades (A, B, C, D, F).
 
 ### Scales of Measurement
+
+![A ladder of the four scales of measurement from bottom to top: nominal (categories only, equality), ordinal (adds ordering), interval (adds equal spacing but no true zero), and ratio (adds a true zero so ratios are meaningful), each rung keeping the capabilities below it and adding one more, with examples](./media/stats-scales-measurement.png)
 
 This is a more formal way of classifying variables. Each level adds more structure.
 
@@ -90,6 +94,8 @@ Everything on this page flows from this one problem. Descriptive statistics summ
 
 ## Populations and Samples
 
+![A large population circle of dots labeled with the fixed unknown parameters mu and sigma, from which a small sample is drawn via a sampling arrow, and an inference arrow back showing that the sample statistics x-bar and s estimate the population parameters](./media/stats-population-sample.png)
+
 These two concepts must be clear before anything else.
 
 **Population:** The complete set of all individuals, items, or outcomes you care about. All adults in a country. All possible coin flips. All future users of your product. The population is usually too large (or infinite) to observe entirely.
@@ -111,6 +117,8 @@ These two concepts must be clear before anything else.
 The central question of statistics: **how well does a statistic estimate the corresponding parameter?** If your sample mean is 72, how close is that to the true population mean? Can you put bounds on how far off you might be? That is what the rest of this page builds toward.
 
 ### How Samples Are Collected
+
+![Four probability sampling methods illustrated on a population of dots: simple random (a random handful), stratified (a proportional few from each of three strata), cluster (a few whole clusters chosen), and systematic (every fourth unit in order)](./media/stats-sampling-methods.png)
 
 The way you collect a sample determines whether your conclusions are valid. A bad sample can give completely misleading results, no matter how sophisticated your analysis.
 
@@ -197,6 +205,8 @@ This is exactly the danger a randomized experiment avoids. If you could randomly
 
 ### Simpson's Paradox
 
+![A grouped bar chart of kidney-stone treatment success rates: Treatment A beats Treatment B on small stones (0.931 versus 0.867) and on large stones (0.730 versus 0.688), yet Treatment B beats A when the two groups are combined (0.826 versus 0.780), the reversal that defines Simpson's paradox](./media/stats-simpsons-paradox.png)
+
 Confounding can be dramatic enough to *reverse* an association. **Simpson's paradox** is the phenomenon in which a trend that appears in each subgroup of the data reverses when the subgroups are combined. It happens when a lurking variable is unevenly distributed across the groups being compared.
 
 Consider two treatments, A and B, for kidney stones. Patients also differ in whether their stones are **small** or **large**, and large stones are harder to cure. Here are the success counts (successes out of patients treated), broken out by stone size.
@@ -229,6 +239,8 @@ The average is 100. But four of the five people earn less than half the average,
 
 ### Measures of Central Tendency
 
+![A right-skewed distribution with three vertical lines showing that for right-skewed data the mode sits at the peak, the median is to its right, and the mean is furthest right, pulled out by the long tail, so mode is less than median is less than mean](./media/stats-central-tendency.png)
+
 **Mean (arithmetic average):** Add up all values and divide by the count:
 
 $$
@@ -252,6 +264,8 @@ Two datasets can have the same mean but look completely different. Consider:
 You need a number that captures how spread out the data is.
 
 ### Measures of Spread
+
+![The dataset 2, 4, 4, 4, 5, 5, 7, 9 shown as a dot plot with three spread measures marked: the range from 2 to 9 equal to 7, the interquartile range box from Q1 equal 4 to Q3 equal 6 (IQR equal 2), and the standard-deviation band of the mean 5 plus or minus 2](./media/stats-measures-of-spread.png)
 
 **Range:** $\text{max} - \text{min}$. For Dataset A: $51 - 49 = 2$. For Dataset B: $90 - 10 = 80$. Simple, but it depends entirely on the two most extreme values.
 
@@ -538,6 +552,8 @@ When you estimate the standard error using the sample standard deviation $s$ ins
 
 ### Point Estimation
 
+![Three sampling distributions of an estimator relative to the true parameter value: one unbiased with low variance (tight and centered on the true value), one unbiased with high variance (wide but centered), and one biased with low variance (tight but shifted off the true value), with the offset marked as the bias](./media/stats-estimator-bias-variance.png)
+
 **Point estimate:** A single value used to estimate a population parameter. The sample mean $\bar{x}$ is a point estimate of $\mu$. A point estimate is your best single guess but gives no sense of how reliable it is.
 
 **Desirable properties of estimators:**
@@ -766,6 +782,8 @@ $$
 
 ### Worked Example: MLE for a Coin
 
+![The likelihood function L of p equal to p to the seventh power times one minus p cubed for the coin example, a curve over p that rises to a single peak at p-hat equal to 0.7, the fraction of heads (7 out of 10), which is the maximum likelihood estimate](./media/stats-mle-likelihood.png)
+
 You flip a coin 10 times and get 7 heads. What is the MLE of $p$ (the probability of heads)?
 
 Each flip follows a Bernoulli distribution, so:
@@ -881,6 +899,8 @@ For comparison, the MLE for this problem is $\hat{\theta}_{MLE} = \max(X_1, \ldo
 **In practice:** MoM estimates are often used as starting values for iterative MLE algorithms. They are quick to compute and usually in the right neighborhood, which helps the optimizer converge.
 
 ## MAP Estimation
+
+![Three curves over a parameter: a broad prior, a likelihood from the data, and the posterior proportional to prior times likelihood. The posterior's peak, the MAP estimate, sits between the prior's peak and the likelihood's peak (the MLE) and is narrower than both](./media/stats-map-estimation.png)
 
 **Maximum a Posteriori (MAP) estimation:** Like MLE, but incorporates a prior belief about the parameters.
 
@@ -1445,6 +1465,8 @@ where $F_n(x)$ is the empirical CDF (the proportion of data points $\leq x$) and
 
 ## Inference for Variances
 
+![Two panels of distribution shapes: chi-squared densities for degrees of freedom 1, 3, 5, and 10, right-skewed and becoming more symmetric as the degrees of freedom grow; and F-distribution densities for two degree-of-freedom pairs](./media/stats-chi-f-distributions.png)
+
 So far our inference has been about *centers*: the mean of a population, the difference between two means. But sometimes the *spread itself* is the quantity of interest. A machine that fills cereal boxes might hit the correct average weight while varying so wildly that some boxes are nearly empty; the customer cares about the consistency, which is a statement about the variance. Two portfolios might share the same expected return while one is far more volatile. Quality control is very often a claim that a process variance stays below a tolerance. The tools for such claims are two new reference distributions: the chi-squared distribution (for a single variance) and the F-distribution (for comparing two variances).
 
 ### The Chi-Squared Distribution in This Context
@@ -1801,6 +1823,8 @@ where $d_i$ is the difference between the ranks of paired observations, and $n$ 
 Once we have plotted two quantitative variables against each other, the natural next question is quantitative: *how strongly*, and *in what direction*, are they associated? Before fitting a line through the cloud (the next section), we want a single number summarizing the **strength** and **direction** of the *linear* association. That number is the correlation coefficient.
 
 ### The Pearson Correlation Coefficient
+
+![Four scatter plots showing what different Pearson correlation values look like: a strong negative relationship near minus 0.9, no linear relationship near 0, a moderate positive relationship near 0.5, and a strong positive relationship near 0.9](./media/stats-correlation-spectrum.png)
 
 The **Pearson correlation coefficient**, written $r$, measures the strength and direction of the linear relationship between two quantitative variables $x$ and $y$:
 
@@ -2217,6 +2241,8 @@ The optimal model balances these two forces. This is why you cannot just "add mo
 
 ### k-Fold Cross-Validation
 
+![A five-fold cross-validation diagram: five rows, each splitting the data into five blocks with one block held out as the validation set in red and the other four used for training, the held-out block rotating position across the folds so every block is validated exactly once](./media/stats-kfold-cv.png)
+
 1. Split the data into $k$ equal-sized folds (commonly $k = 5$ or $k = 10$)
 2. For each fold $i$:
    - Train the model on all folds except fold $i$
@@ -2246,6 +2272,8 @@ For classification problems, each fold maintains the same class proportions as t
 The reason cross-validation matters so deeply: it is the practical answer to the bias-variance tradeoff. You cannot directly measure bias and variance on real data, but cross-validation lets you detect their effects by measuring generalization performance.
 
 ## Bootstrapping
+
+![A schematic of the bootstrap: an original sample of eight values, arrows to three resamples drawn with replacement so some values repeat and others are dropped, each yielding a computed statistic such as the mean, which together build up the bootstrap distribution of that statistic](./media/stats-bootstrapping.png)
 
 **Bootstrapping** is a resampling technique that lets you estimate the sampling distribution of almost any statistic without relying on theoretical formulas or distributional assumptions.
 

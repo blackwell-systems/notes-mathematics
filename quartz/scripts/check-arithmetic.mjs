@@ -1463,6 +1463,44 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("|-3| = 3", Math.abs(-3), 3);
 }
 
+// ================= Statistics (Simpson, MLE, chi/F, CV) =================
+{
+  // Simpson's paradox: kidney stones. A beats B in each subgroup but B wins combined.
+  const aSmall = 81 / 87, bSmall = 234 / 270, aLarge = 192 / 263, bLarge = 55 / 80;
+  const aComb = 273 / 350, bComb = 289 / 350;
+  check("Simpson: A beats B on small stones", aSmall > bSmall);
+  check("Simpson: A beats B on large stones", aLarge > bLarge);
+  check("Simpson: B beats A when combined (the reversal)", bComb > aComb);
+  eq("Simpson combined A rate = 0.780", aComb, 0.78, 1e-9);
+  eq("Simpson combined B rate = 0.826", bComb, 0.8257, 1e-3);
+  // MLE for a coin: L(p) = p^7 (1-p)^3, log-lik derivative 7/p - 3/(1-p) = 0 at p = 0.7
+  const dll = (p) => 7 / p - 3 / (1 - p);
+  eq("MLE coin: log-likelihood derivative is 0 at p=0.7", dll(0.7), 0, 1e-9);
+  { const L = (p) => p ** 7 * (1 - p) ** 3; check("MLE: likelihood peaks at 0.7", L(0.7) > L(0.6) && L(0.7) > L(0.8)); }
+  eq("MLE p-hat = 7/10 = fraction of heads", 7 / 10, 0.7);
+  // chi-squared with 4 df has density x e^{-x/2}/4; integrates to 1 with mean = df = 4
+  { const f = (x) => (x * Math.exp(-x / 2)) / 4; let area = 0, mean = 0, h = 0.002;
+    for (let x = 0; x < 60; x += h) { area += h * f(x); mean += h * x * f(x); }
+    eq("chi-squared(4) density integrates to 1", area, 1, 2e-3);
+    eq("chi-squared(4) mean = df = 4", mean, 4, 1e-2); }
+  // F(d1, d2) mean = d2/(d2-2) for d2 > 2
+  eq("F(5,10) mean = d2/(d2-2) = 1.25", 10 / (10 - 2), 1.25);
+  // 5-fold CV on 100 points: each fold holds out 20
+  eq("5-fold CV: each validation fold has 100/5 = 20 points", 100 / 5, 20);
+  // measures of spread example {2,4,4,4,5,5,7,9}
+  { const d = [2, 4, 4, 4, 5, 5, 7, 9], n = d.length, mean = d.reduce((a, b) => a + b, 0) / n;
+    eq("spread example mean = 5", mean, 5);
+    const varp = d.reduce((s, x) => s + (x - mean) ** 2, 0) / n;
+    eq("spread example population variance = 4", varp, 4);
+    eq("spread example population sd = 2", Math.sqrt(varp), 2);
+    eq("spread example range = 7", d[n - 1] - d[0], 7);
+    const median = (a) => { const m = Math.floor(a.length / 2); return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
+    const Q1 = median(d.slice(0, n / 2)), Q3 = median(d.slice(n / 2));
+    eq("spread example Q1 = 4 (median of lower half)", Q1, 4);
+    eq("spread example Q3 = 6 (median of upper half)", Q3, 6);
+    eq("spread example IQR = Q3 - Q1 = 2", Q3 - Q1, 2); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
