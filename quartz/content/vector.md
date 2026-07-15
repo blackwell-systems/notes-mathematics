@@ -142,6 +142,8 @@ $$
 
 **Example 2:** $\langle -2, 5 \rangle + \langle 3, -1 \rangle = \langle 1, 4 \rangle$
 
+![Tip-to-tail and parallelogram construction of vector addition: u = (3,4) in blue and v = (1,2) in red placed head to tail, with the resultant u plus v = (4,6) drawn in green as the diagonal of the parallelogram they span](./media/vec-addition.png)
+
 **Properties:**
 - **Commutative:** $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$
 - **Associative:** $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$
@@ -159,6 +161,8 @@ $$
 
 **Example:** $\langle 5, 7 \rangle - \langle 2, 3 \rangle = \langle 3, 4 \rangle$
 
+![Vector subtraction u minus v: u = (5,7) and v = (2,3) drawn from the origin, with u minus v = (3,4) shown as the green arrow from the head of v to the head of u, and the same vector redrawn from the origin](./media/vec-subtraction.png)
+
 ### Scalar Multiplication
 
 **Scalar Multiplication:** Multiply each component by the scalar.
@@ -175,6 +179,8 @@ $$
 **Example 1:** $3\langle 2, -1 \rangle = \langle 6, -3 \rangle$
 
 **Example 2:** $-2\langle 1, 4 \rangle = \langle -2, -8 \rangle$
+
+![Scalar multiples of v = (2,1) all lying on one line through the origin: 2v = (4,2) is twice as long, one-half v is shorter, and negative v = (-2,-1) points the opposite way](./media/vec-scalar-multiplication.png)
 
 **Properties:**
 - $c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}$
@@ -297,6 +303,8 @@ Where $\theta$ is the angle between vectors.
 
 $= \langle 0(0) - 0(1),\; 0(0) - 1(0),\; 1(1) - 0(0) \rangle = \langle 0, 0, 1 \rangle$
 
+![Three-dimensional right-hand-rule diagram: i = (1,0,0) and j = (0,1,0) span a unit square of area 1 in the xy-plane, and their cross product i cross j = k = (0,0,1) points straight up, perpendicular to both](./media/vec-cross-product.png)
+
 **Properties:**
 - **NOT commutative:** $\mathbf{u} \times \mathbf{v} = -(\mathbf{v} \times \mathbf{u})$ (anti-commutative)
 - **Distributive:** $\mathbf{u} \times (\mathbf{v} + \mathbf{w}) = \mathbf{u} \times \mathbf{v} + \mathbf{u} \times \mathbf{w}$
@@ -325,3 +333,5 @@ $$
 **Example:** Project $\mathbf{u} = \langle 3, 4 \rangle$ onto $\mathbf{v} = \langle 1, 0 \rangle$
 
 $\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{3(1) + 4(0)}{1^2 + 0^2} \langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$
+
+![Projection of u = (3,4) onto v = (1,0): a dashed perpendicular drops from the head of u to the x-axis, and the green projection vector (3,0) is the shadow of u along the direction of v](./media/vec-projection.png)

@@ -1213,6 +1213,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const y = rk4((x, yy) => -x / yy, 0, 2, 1, 4000); eq("dy/dx=-x/y from (0,2): x^2+y^2 stays 4 at x=1", 1 * 1 + y * y, 4, 1e-3); }
 }
 
+// ================= Vector operations (vector page diagrams) =================
+{
+  const add = (a, b) => a.map((x, i) => x + b[i]);
+  const sub = (a, b) => a.map((x, i) => x - b[i]);
+  const smul = (c, a) => a.map((x) => c * x);
+  const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);
+  const mag = (a) => Math.sqrt(dot(a, a));
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  check("<3,4>+<1,2> = <4,6>", JSON.stringify(add([3, 4], [1, 2])) === JSON.stringify([4, 6]));
+  check("<5,7>-<2,3> = <3,4>", JSON.stringify(sub([5, 7], [2, 3])) === JSON.stringify([3, 4]));
+  check("3<2,-1> = <6,-3>", JSON.stringify(smul(3, [2, -1])) === JSON.stringify([6, -3]));
+  check("-2<1,4> = <-2,-8>", JSON.stringify(smul(-2, [1, 4])) === JSON.stringify([-2, -8]));
+  eq("|<3,4>| = 5", mag([3, 4]), 5);
+  eq("|<1,2,2>| = 3", mag([1, 2, 2]), 3);
+  eq("<2,3>.<4,-1> = 5", dot([2, 3], [4, -1]), 5);
+  eq("<1,0>.<0,1> = 0 (perpendicular)", dot([1, 0], [0, 1]), 0);
+  check("<1,0,0> x <0,1,0> = <0,0,1>", JSON.stringify(cross([1, 0, 0], [0, 1, 0])) === JSON.stringify([0, 0, 1]));
+  // angle between <1,0> and <1,1> is 45 degrees
+  eq("angle(<1,0>,<1,1>) = 45 deg", Math.acos(dot([1, 0], [1, 1]) / (mag([1, 0]) * mag([1, 1]))) * 180 / Math.PI, 45, 1e-6);
+  // projection of <3,4> onto <1,0> is <3,0>
+  { const u = [3, 4], v = [1, 0], k = dot(u, v) / dot(v, v); check("proj_v u for u=<3,4>,v=<1,0> = <3,0>", JSON.stringify(smul(k, v)) === JSON.stringify([3, 0])); }
+  // unit vector of <3,4> is <3/5,4/5>, magnitude 1
+  eq("unit vector of <3,4> has magnitude 1", mag(smul(1 / mag([3, 4]), [3, 4])), 1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
