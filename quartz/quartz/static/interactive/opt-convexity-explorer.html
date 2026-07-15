@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convexity Chord-Test Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --fg: #1c2126;
+    --curve: #2563c9;
+    --chord: #c0392b;
+    --green: #1a7f37;
+    --red: #c0392b;
+    --muted: #5b6570;
+    --border: #d9dee3;
+    --panel: #f1f4f7;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 26px;
+  }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .caption { color: var(--muted); font-size: 13px; margin: 0 0 14px; line-height: 1.45; }
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 12px;
+  }
+  button.preset {
+    font: inherit; font-size: 12.5px;
+    border: 1px solid var(--border);
+    background: #fff; color: var(--fg);
+    padding: 5px 9px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  button.preset:hover { background: var(--panel); }
+  button.preset.active { border-color: var(--curve); box-shadow: 0 0 0 1px var(--curve) inset; }
+  .tag { font-size: 10px; padding: 1px 5px; border-radius: 8px; font-weight: 600; }
+  .tag.cvx { background: #dcf3e3; color: var(--green); }
+  .tag.non { background: #fbe1de; color: var(--red); }
+  canvas { display: block; width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; touch-action: none; cursor: grab; }
+  canvas.grab { cursor: grabbing; }
+  .lambda-row {
+    display: flex; align-items: center; gap: 10px;
+    margin: 12px 0 6px; font-size: 13px;
+  }
+  .lambda-row label { white-space: nowrap; }
+  input[type=range] { flex: 1; accent-color: var(--curve); }
+  .verdict {
+    margin: 10px 0; padding: 9px 12px; border-radius: 7px;
+    font-size: 14px; font-weight: 600; line-height: 1.4;
+  }
+  .verdict.ok { background: #dcf3e3; color: var(--green); border: 1px solid #b6e4c4; }
+  .verdict.bad { background: #fbe1de; color: var(--red); border: 1px solid #f0c2bc; }
+  .readout {
+    font-size: 12.5px; color: var(--fg); line-height: 1.6;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 7px; padding: 10px 12px; margin-top: 8px;
+  }
+  .readout code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; }
+  .readout .k { color: var(--muted); }
+  .note { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+  .cmp { font-weight: 700; }
+  .cmp.leq { color: var(--green); }
+  .cmp.gt { color: var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Convexity Chord-Test Explorer</h1>
+  <p class="caption">A function is convex exactly when the straight chord between any two points on its graph lies on or above the graph: drag points A and B to test it.</p>
+
+  <div class="controls" id="presets"></div>
+
+  <canvas id="cv" width="1456" height="820"></canvas>
+
+  <div class="lambda-row">
+    <label for="lam">&lambda; = <span id="lamVal">0.50</span></label>
+    <input type="range" id="lam" min="0" max="1" step="0.01" value="0.5">
+  </div>
+
+  <div id="verdict" class="verdict ok"></div>
+
+  <div class="readout" id="readout"></div>
+
+  <p class="note" id="note"></p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- Function presets -------------------------------------------------
+  var PRESETS = [
+    { name: "x²",         convex: true,  win: [-3, 3],  f: function (x) { return x * x; } },
+    { name: "eˣ",         convex: true,  win: [-2.5, 2.5], f: function (x) { return Math.exp(x); } },
+    { name: "|x|",        convex: true,  win: [-3, 3],  f: function (x) { return Math.abs(x); } },
+    { name: "x⁴",         convex: true,  win: [-1.8, 1.8], f: function (x) { return x * x * x * x; } },
+    { name: "x³",         convex: false, win: [-2.2, 2.2], f: function (x) { return x * x * x; } },
+    { name: "sin(x)",     convex: false, win: [-Math.PI, 2 * Math.PI], f: function (x) { return Math.sin(x); } },
+    { name: "x⁴−3x²",     convex: false, win: [-2.1, 2.1], f: function (x) { return x * x * x * x - 3 * x * x; } },
+    { name: "−x²",        convex: false, win: [-3, 3],  f: function (x) { return -x * x; } }
+  ];
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var DPR = 2; // canvas is 2x logical for crispness
+  var Wc = cv.width, Hc = cv.height;   // device px
+  var W = Wc / DPR, H = Hc / DPR;      // logical px
+  ctx.scale(DPR, DPR);
+
+  var PAD = { l: 46, r: 18, t: 16, b: 30 };
+  var plotW = W - PAD.l - PAD.r;
+  var plotH = H - PAD.t - PAD.b;
+
+  var state = {
+    idx: 0,
+    xA: null,
+    xB: null,
+    lambda: 0.5,
+    view: null,   // {x0,x1,y0,y1}
+    drag: null    // 'A' | 'B' | null
+  };
+
+  // ---- View / coordinate helpers ---------------------------------------
+  function computeView(p) {
+    var x0 = p.win[0], x1 = p.win[1];
+    var N = 240, ymin = Infinity, ymax = -Infinity;
+    for (var i = 0; i <= N; i++) {
+      var x = x0 + (x1 - x0) * i / N;
+      var y = p.f(x);
+      if (isFinite(y)) { if (y < ymin) ymin = y; if (y > ymax) ymax = y; }
+    }
+    var span = ymax - ymin || 1;
+    ymin -= span * 0.12; ymax += span * 0.12;
+    return { x0: x0, x1: x1, y0: ymin, y1: ymax };
+  }
+  function X(x) { var v = state.view; return PAD.l + (x - v.x0) / (v.x1 - v.x0) * plotW; }
+  function Y(y) { var v = state.view; return PAD.t + (1 - (y - v.y0) / (v.y1 - v.y0)) * plotH; }
+  function invX(px) { var v = state.view; return v.x0 + (px - PAD.l) / plotW * (v.x1 - v.x0); }
+
+  // ---- Preset buttons ---------------------------------------------------
+  var presetsEl = document.getElementById("presets");
+  PRESETS.forEach(function (p, i) {
+    var b = document.createElement("button");
+    b.className = "preset";
+    b.innerHTML = "f(x)=" + p.name +
+      '<span class="tag ' + (p.convex ? "cvx" : "non") + '">' +
+      (p.convex ? "convex" : "not") + "</span>";
+    b.addEventListener("click", function () { selectPreset(i); });
+    presetsEl.appendChild(b);
+  });
+
+  function selectPreset(i) {
+    state.idx = i;
+    var p = PRESETS[i];
+    state.view = computeView(p);
+    // default A, B at 1/4 and 3/4 of window
+    state.xA = p.win[0] + (p.win[1] - p.win[0]) * 0.28;
+    state.xB = p.win[0] + (p.win[1] - p.win[0]) * 0.72;
+    Array.prototype.forEach.call(presetsEl.children, function (c, j) {
+      c.classList.toggle("active", j === i);
+    });
+    render();
+  }
+
+  var lamSlider = document.getElementById("lam");
+  lamSlider.addEventListener("input", function () {
+    state.lambda = parseFloat(lamSlider.value);
+    document.getElementById("lamVal").textContent = state.lambda.toFixed(2);
+    render();
+  });
+
+  // ---- Convexity test on the current interval --------------------------
+  // Chord parameterised by t in [0,1]: x = xL + t(xR-xL), chordY = fL + t(fR-fL).
+  // Convex-on-interval  <=>  chord >= curve everywhere.
+  function analyzeInterval() {
+    var f = PRESETS[state.idx].f;
+    var xL = Math.min(state.xA, state.xB), xR = Math.max(state.xA, state.xB);
+    var fL = f(xL), fR = f(xR);
+    var N = 400;
+    var below = false;                // chord dips below curve somewhere
+    var maxGap = 0;                    // max (curve - chord) when positive
+    var segs = [];                     // violating x-ranges
+    var inViol = false, segStart = 0;
+    var eps = 1e-9;
+    for (var i = 0; i <= N; i++) {
+      var t = i / N;
+      var x = xL + t * (xR - xL);
+      var curveY = f(x);
+      var chordY = fL + t * (fR - fL);
+      var gap = curveY - chordY;      // >0 means curve above chord => violation
+      var viol = gap > 1e-7 * (Math.abs(chordY) + 1);
+      if (viol) {
+        below = true;
+        if (gap > maxGap) maxGap = gap;
+        if (!inViol) { inViol = true; segStart = x; }
+      } else if (inViol) {
+        inViol = false; segs.push([segStart, x]);
+      }
+    }
+    if (inViol) segs.push([segStart, xR]);
+    return { xL: xL, xR: xR, fL: fL, fR: fR, below: below, segs: segs };
+  }
+
+  // ---- Rendering --------------------------------------------------------
+  function render() {
+    var p = PRESETS[state.idx];
+    var f = p.f, v = state.view;
+    ctx.clearRect(0, 0, W, H);
+
+    // background plot area
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(PAD.l, PAD.t, plotW, plotH);
+
+    // grid + axes
+    drawGrid();
+
+    var info = analyzeInterval();
+
+    // shade violation region (curve above chord)
+    if (info.below) {
+      ctx.fillStyle = "rgba(192,57,43,0.12)";
+      info.segs.forEach(function (s) {
+        ctx.fillRect(X(s[0]), PAD.t, X(s[1]) - X(s[0]), plotH);
+      });
+    }
+
+    // curve
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--curve").trim() || "#2563c9";
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    var Nc = 600, started = false;
+    for (var i = 0; i <= Nc; i++) {
+      var x = v.x0 + (v.x1 - v.x0) * i / Nc;
+      var y = f(x);
+      if (!isFinite(y)) { started = false; continue; }
+      var px = X(x), py = Y(y);
+      if (!started) { ctx.moveTo(px, py); started = true; } else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // chord
+    var fA = f(state.xA), fB = f(state.xB);
+    ctx.strokeStyle = "#c0392b";
+    ctx.lineWidth = 2.2;
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(X(state.xA), Y(fA));
+    ctx.lineTo(X(state.xB), Y(fB));
+    ctx.stroke();
+
+    // lambda marker: point = lambda*A + (1-lambda)*B
+    var lam = state.lambda;
+    var xMix = lam * state.xA + (1 - lam) * state.xB;
+    var chordVal = lam * fA + (1 - lam) * fB;          // on the chord
+    var curveVal = f(xMix);                             // on the curve
+    // vertical connector
+    ctx.strokeStyle = "#8a94a0";
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(X(xMix), Y(chordVal));
+    ctx.lineTo(X(xMix), Y(curveVal));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // marker on chord
+    dot(X(xMix), Y(chordVal), "#c0392b", 4.5);
+    // marker on curve
+    dot(X(xMix), Y(curveVal), "#2563c9", 4.5);
+
+    // A and B handles
+    handle(state.xA, fA, "A");
+    handle(state.xB, fB, "B");
+
+    updateText(info, lam, xMix, chordVal, curveVal);
+  }
+
+  function dot(px, py, color, r) {
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(px, py, r, 0, 2 * Math.PI); ctx.fill();
+  }
+  function handle(x, y, label) {
+    var px = X(x), py = Y(y);
+    ctx.fillStyle = "#c0392b";
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(px, py, 6.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#1c2126";
+    ctx.font = "600 13px -apple-system, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(label, px, py - 12);
+  }
+
+  function drawGrid() {
+    var v = state.view;
+    ctx.strokeStyle = "#eef1f4";
+    ctx.lineWidth = 1;
+    ctx.fillStyle = "#8a94a0";
+    ctx.font = "11px -apple-system, sans-serif";
+    // choose ~6 nice ticks each axis
+    var xt = niceTicks(v.x0, v.x1, 7);
+    var yt = niceTicks(v.y0, v.y1, 6);
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    xt.forEach(function (x) {
+      var px = X(x);
+      ctx.beginPath(); ctx.moveTo(px, PAD.t); ctx.lineTo(px, PAD.t + plotH); ctx.stroke();
+      ctx.fillText(fmt(x), px, PAD.t + plotH + 4);
+    });
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    yt.forEach(function (y) {
+      var py = Y(y);
+      ctx.beginPath(); ctx.moveTo(PAD.l, py); ctx.lineTo(PAD.l + plotW, py); ctx.stroke();
+      ctx.fillText(fmt(y), PAD.l - 6, py);
+    });
+    // zero axes
+    ctx.strokeStyle = "#c7cdd4"; ctx.lineWidth = 1.2;
+    if (v.y0 < 0 && v.y1 > 0) { var y0 = Y(0); ctx.beginPath(); ctx.moveTo(PAD.l, y0); ctx.lineTo(PAD.l + plotW, y0); ctx.stroke(); }
+    if (v.x0 < 0 && v.x1 > 0) { var x0 = X(0); ctx.beginPath(); ctx.moveTo(x0, PAD.t); ctx.lineTo(x0, PAD.t + plotH); ctx.stroke(); }
+  }
+
+  function niceTicks(lo, hi, n) {
+    var span = hi - lo;
+    var step = Math.pow(10, Math.floor(Math.log10(span / n)));
+    var err = (span / n) / step;
+    if (err > 5) step *= 10; else if (err > 2) step *= 5; else if (err > 1) step *= 2;
+    var start = Math.ceil(lo / step) * step;
+    var out = [];
+    for (var t = start; t <= hi + step * 0.5; t += step) out.push(t);
+    return out;
+  }
+  function fmt(x) {
+    if (Math.abs(x) < 1e-9) return "0";
+    var a = Math.abs(x);
+    if (a >= 100) return x.toFixed(0);
+    if (a >= 1) return (Math.round(x * 100) / 100).toString();
+    return (Math.round(x * 1000) / 1000).toString();
+  }
+
+  function updateText(info, lam, xMix, chordVal, curveVal) {
+    var p = PRESETS[state.idx];
+    var f = p.f;
+    var fA = f(state.xA), fB = f(state.xB);
+
+    // verdict
+    var vEl = document.getElementById("verdict");
+    if (info.below) {
+      vEl.className = "verdict bad";
+      vEl.textContent = "Chord dips below the graph: NOT convex on this interval.";
+    } else {
+      vEl.className = "verdict ok";
+      vEl.textContent = "Chord lies above the graph: convex on this interval.";
+    }
+
+    // lambda comparison. Curve value must be <= chord value for convexity.
+    var leq = curveVal <= chordVal + 1e-9;
+    var cmpSym = leq ? "&le;" : "&gt;";
+    var cmpCls = leq ? "leq" : "gt";
+
+    var r = document.getElementById("readout");
+    r.innerHTML =
+      '<div><span class="k">A =</span> (' + fmt(state.xA) + ", " + fmt(fA) + ')' +
+      '&nbsp;&nbsp;<span class="k">B =</span> (' + fmt(state.xB) + ", " + fmt(fB) + ')</div>' +
+      '<div style="margin-top:5px"><span class="k">&lambda;-point x =</span> &lambda;·x<sub>A</sub>+(1&minus;&lambda;)·x<sub>B</sub> = ' + fmt(xMix) + '</div>' +
+      '<div style="margin-top:3px">' +
+        '<code>f(&lambda;x<sub>A</sub>+(1&minus;&lambda;)x<sub>B</sub>) = ' + fmt(curveVal) + '</code> &nbsp;(on curve)' +
+      '</div>' +
+      '<div>' +
+        '<code>&lambda;f(x<sub>A</sub>)+(1&minus;&lambda;)f(x<sub>B</sub>) = ' + fmt(chordVal) + '</code> &nbsp;(on chord)' +
+      '</div>' +
+      '<div style="margin-top:4px">Convexity inequality here: curve value <span class="cmp ' + cmpCls + '">' + cmpSym + '</span> chord value &rarr; ' +
+        (leq ? '<span class="cmp leq">holds</span>' : '<span class="cmp gt">VIOLATED</span>') + '</div>';
+
+    var note = document.getElementById("note");
+    note.innerHTML =
+      p.convex
+        ? 'f(x)=' + p.name + ' is <b>convex</b>: no matter where you place A and B, the chord never drops below the graph.'
+        : 'f(x)=' + p.name + ' is <b>not convex</b>: try to find a pair of points where the chord dips below the curve. One such pair disproves convexity.';
+    note.innerHTML +=
+      ' A function is convex <i>iff</i> the chord lies above the graph for <b>every</b> pair of points; equivalently (when twice differentiable) iff f&Prime;(x) &ge; 0 everywhere.';
+  }
+
+  // ---- Dragging ---------------------------------------------------------
+  function evtX(e) {
+    var rect = cv.getBoundingClientRect();
+    var scaleX = W / rect.width;
+    var cx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return cx * scaleX;
+  }
+  function pickHandle(px) {
+    var f = PRESETS[state.idx].f;
+    var dA = Math.abs(px - X(state.xA));
+    var dB = Math.abs(px - X(state.xB));
+    if (Math.min(dA, dB) > 40) return null;
+    return dA <= dB ? "A" : "B";
+  }
+  function clampX(x) {
+    var v = state.view;
+    var m = (v.x1 - v.x0) * 0.001;
+    return Math.max(v.x0 + m, Math.min(v.x1 - m, x));
+  }
+  function startDrag(e) {
+    var px = evtX(e);
+    var h = pickHandle(px);
+    if (h) { state.drag = h; cv.classList.add("grab"); moveDrag(e); e.preventDefault(); }
+  }
+  function moveDrag(e) {
+    if (!state.drag) return;
+    var x = clampX(invX(evtX(e)));
+    if (state.drag === "A") state.xA = x; else state.xB = x;
+    render();
+    e.preventDefault();
+  }
+  function endDrag() { state.drag = null; cv.classList.remove("grab"); }
+
+  cv.addEventListener("mousedown", startDrag);
+  window.addEventListener("mousemove", moveDrag);
+  window.addEventListener("mouseup", endDrag);
+  cv.addEventListener("touchstart", startDrag, { passive: false });
+  cv.addEventListener("touchmove", moveDrag, { passive: false });
+  window.addEventListener("touchend", endDrag);
+
+  // ---- Go ---------------------------------------------------------------
+  selectPreset(0);
+})();
+</script>
+</body>
+</html>

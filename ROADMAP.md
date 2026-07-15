@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Optimization pass** — already the most interactive page (4 widgets) and complete, so
+  a focused pass: added a convexity chord-test explorer (drag two points; chord above the
+  graph = convex, dips below = not) for the big Convexity section, filled the one real content
+  gap with a **Subgradients** subsection (subdifferential of |x| is [-1,1]; soft-thresholding /
+  proximal operator for L1), and +12 machine-checked assertions (Jensen/chord test, GD
+  convergence + divergence threshold, Newton-for-optimization one-step, soft-thresholding,
+  scalar ridge solution, the |x| subgradient inequality, and momentum convergence).
 - [x] **Multivariable Calculus interactive pass** — added a gradient/directional-derivative
   explorer (contour plot; drag a point to see ∇f perpendicular to the level curve, rotate a
   direction to see the directional derivative peak at |∇f|) and a Lagrange-multipliers

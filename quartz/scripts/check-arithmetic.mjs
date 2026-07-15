@@ -754,6 +754,32 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Optimization =================
+{
+  // Jensen / chord test: x^2 convex -> f(midpoint) <= average of endpoint values
+  check("x^2 convex: f(mid) <= avg(f(a),f(b))", [[-1, 3], [0, 5], [2, -4]].every(([a, b]) => ((a + b) / 2) ** 2 <= (a * a + b * b) / 2 + 1e-12));
+  // x^3 not convex: chord dips below the curve
+  { const a = -2, b = 2, fa = -8, fb = 8, slope = (fb - fa) / (b - a), chordAt = (x) => fa + slope * (x - a);
+    check("x^3 not convex: curve above chord at x=-1", (-1) ** 3 > chordAt(-1) + 1e-9); }
+  check("second-derivative test: f''=2>0 (x^2 convex), 6x sign-changes (x^3)", 2 > 0 && 6 * -1 < 0);
+  // gradient descent on f=x^2: x' = (1-2lr)x; converges iff 0<lr<1
+  { let x = 5; for (let i = 0; i < 300; i++) x = x - 0.3 * 2 * x; eq("GD on x^2 with lr=0.3 -> 0", x, 0, 1e-6); }
+  check("GD on x^2 diverges for lr=1.1 (|1-2lr|>1)", Math.abs(1 - 2 * 1.1) > 1);
+  // Newton for optimization reaches a quadratic minimum in one step
+  { const fp = (x) => 6 * x - 12; let x = 100; x = x - fp(x) / 6; eq("Newton min of 3x^2-12x+7 reaches x=2 in one step", x, 2, 1e-12); }
+  // soft-thresholding = proximal operator of lambda|x|
+  const soft = (v, l) => Math.sign(v) * Math.max(Math.abs(v) - l, 0);
+  eq("soft-threshold(3, 1) = 2", soft(3, 1), 2);
+  eq("soft-threshold(0.5, 1) = 0 (drives to zero)", soft(0.5, 1), 0);
+  eq("soft-threshold(-4, 1.5) = -2.5", soft(-4, 1.5), -2.5);
+  // ridge (scalar): minimize (x-b)^2 + lambda x^2 -> x = b/(1+lambda)
+  eq("ridge scalar solution b/(1+lambda)", 6 / (1 + 2), 2);
+  // subgradient of |x| at 0: any g in [-1,1] satisfies |y| >= g*y for all y
+  check("g=0.5 is a subgradient of |x| at 0", [-3, -1, 0, 1, 5].every((y) => Math.abs(y) >= 0.5 * y - 1e-12));
+  // momentum GD converges on a convex quadratic
+  { let x = 5, v = 0; for (let i = 0; i < 3000; i++) { v = 0.9 * v - 0.02 * 2 * x; x += v; } check("momentum GD on x^2 converges to 0", Math.abs(x) < 1e-2); }
+}
+
 // ================= Multivariable Calculus =================
 {
   const px = (f, x, y, h = 1e-6) => (f(x + h, y) - f(x - h, y)) / (2 * h);

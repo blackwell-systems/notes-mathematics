@@ -129,6 +129,10 @@ For a twice-differentiable function, the Hessian test is the standard approach:
 
 ![Convex vs non-convex functions showing the difference between global and local minima](./media/convex-vs-nonconvex.png)
 
+Test convexity yourself below with the **chord test**: drag two points on a curve and see whether the chord between them lies above the graph (convex) or dips below it (not convex). A function is convex exactly when this holds for *every* pair of points, so a single chord that dips below disproves it.
+
+<iframe src="/static/interactive/opt-convexity-explorer.html" width="100%" height="640" style="border:none;"></iframe>
+
 **Interactive 3D visualizations** (drag to rotate, scroll to zoom):
 
 <iframe src="/static/interactive/loss-landscape-convex.html" width="100%" height="550" style="border:none;"></iframe>
@@ -142,6 +146,14 @@ A **convex optimization problem** is one where:
 - The feasible set is a convex set (formed by convex inequality constraints and affine equality constraints)
 
 Non-convex problems (like training deep neural networks) are much harder. The loss landscape has many local minima, saddle points, and flat regions. Remarkably, SGD with momentum still works well in practice, partly because most local minima in high-dimensional spaces tend to have similar loss values.
+
+### Subgradients
+
+Convex functions need not be differentiable. The absolute value $|x|$ is convex but has a corner at $x = 0$ where no tangent line exists. A **subgradient** generalizes the derivative to such points: $g$ is a subgradient of a convex $f$ at $x$ if the line through $(x, f(x))$ with slope $g$ stays *below* the graph everywhere,
+$$
+f(y) \ge f(x) + g\,(y - x) \quad \text{for all } y.
+$$
+At a differentiable point the only subgradient is $f'(x)$; at a corner there is a whole interval of valid slopes. For $|x|$ at $0$, any $g \in [-1, 1]$ works, so the **subdifferential** (the set of all subgradients) is $\partial|x|(0) = [-1, 1]$. This is what makes $L_1$ regularization tractable: **subgradient descent** replaces $\nabla f$ with any subgradient, and the *proximal* operator of $\lambda|x|$ (soft-thresholding, $\operatorname{prox}_{\lambda|\cdot|}(v) = \operatorname{sign}(v)\max(|v| - \lambda,\, 0)$) drives coordinates exactly to zero, producing the sparse solutions $L_1$ is prized for (see [Regularization as Optimization](#regularization-as-optimization)).
 
 ## Gradient Descent: Full Treatment
 
