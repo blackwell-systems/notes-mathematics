@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Least-Squares Regression Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --ink: #1c2126;
+    --muted: #5a636c;
+    --point: #2563c9;
+    --line: #c0392b;
+    --resid: #e08a2e;
+    --panel: #ffffff;
+    --border: #dce1e6;
+  }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 26px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 1.18rem;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .cap {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .canvas-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    touch-action: none;
+  }
+  canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  button {
+    font: inherit;
+    font-size: 0.86rem;
+    padding: 6px 12px;
+    background: var(--panel);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover { border-color: #b7c0c8; background: #f3f6f9; }
+  button:active { background: #e9eef3; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .stat .k { font-size: 0.72rem; color: var(--muted); }
+  .stat .v { font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .eq {
+    font-variant-numeric: tabular-nums;
+    background: #f4f7fa;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+  .note {
+    font-size: 0.86rem;
+    color: var(--muted);
+    background: #fff7ed;
+    border: 1px solid #f4d9b4;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 12px;
+  }
+  .note b { color: #a25c12; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.86em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Least-Squares Regression Explorer</h1>
+  <p class="cap">Drag the blue points, click empty space to add one, and watch the red best-fit line and its fit statistics respond to every move.</p>
+
+  <div class="canvas-box">
+    <canvas id="cv" width="1456" height="900"></canvas>
+  </div>
+
+  <div class="controls">
+    <button id="add">Add outlier (far x)</button>
+    <button id="remove">Remove last point</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <div class="eq" id="eq"></div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">slope&nbsp; b&#8321;</div><div class="v" id="s-b1">&mdash;</div></div>
+    <div class="stat"><div class="k">intercept&nbsp; b&#8320;</div><div class="v" id="s-b0">&mdash;</div></div>
+    <div class="stat"><div class="k">correlation&nbsp; r</div><div class="v" id="s-r">&mdash;</div></div>
+    <div class="stat"><div class="k">R&sup2;</div><div class="v" id="s-r2">&mdash;</div></div>
+    <div class="stat"><div class="k">SSE</div><div class="v" id="s-sse">&mdash;</div></div>
+    <div class="stat"><div class="k">points&nbsp; n</div><div class="v" id="s-n">&mdash;</div></div>
+  </div>
+
+  <div class="note">
+    The line is chosen to <b>minimize the total squared vertical residual</b> (SSE): no other line makes the sum of the dashed segments' squared lengths smaller. Try dragging a single point far to the <b>right (large x)</b>: because it sits far from the mean, it has high <b>leverage</b> and can swing the whole line, while a point dragged up or down near the center barely moves the slope.
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+
+  // Logical drawing size (CSS px). Canvas backing store is 2x for sharpness.
+  var W = 728, H = 450, DPR = 2;
+  cv.width = W * DPR; cv.height = H * DPR;
+  cv.style.width = "100%";
+  ctx.scale(DPR, DPR);
+
+  // Data domain (data coordinates).
+  var DX0 = 0, DX1 = 10, DY0 = 0, DY1 = 10;
+  var PAD = { l: 44, r: 18, t: 16, b: 34 };
+
+  var initial = [
+    [1, 1.4], [2, 2.2], [3, 2.6], [4, 4.1],
+    [5, 4.4], [6, 5.9], [7, 6.4], [8, 7.8]
+  ];
+  var pts = initial.map(function (p) { return { x: p[0], y: p[1] }; });
+
+  // ---- coordinate transforms ----
+  function px(x) { return PAD.l + (x - DX0) / (DX1 - DX0) * (W - PAD.l - PAD.r); }
+  function py(y) { return H - PAD.b - (y - DY0) / (DY1 - DY0) * (H - PAD.t - PAD.b); }
+  function ux(sx) { return DX0 + (sx - PAD.l) / (W - PAD.l - PAD.r) * (DX1 - DX0); }
+  function uy(sy) { return DY0 + (H - PAD.b - sy) / (H - PAD.t - PAD.b) * (DY1 - DY0); }
+
+  // ---- ordinary least squares ----
+  function fit() {
+    var n = pts.length;
+    if (n < 2) return null;
+    var sx = 0, sy = 0, i;
+    for (i = 0; i < n; i++) { sx += pts[i].x; sy += pts[i].y; }
+    var xbar = sx / n, ybar = sy / n;
+    var Sxy = 0, Sxx = 0, Syy = 0, dx, dy;
+    for (i = 0; i < n; i++) {
+      dx = pts[i].x - xbar; dy = pts[i].y - ybar;
+      Sxy += dx * dy; Sxx += dx * dx; Syy += dy * dy;
+    }
+    if (Sxx === 0) return { degenerate: true, xbar: xbar, ybar: ybar };
+    var b1 = Sxy / Sxx;
+    var b0 = ybar - b1 * xbar;
+    var r = (Sxx > 0 && Syy > 0) ? Sxy / Math.sqrt(Sxx * Syy) : 0;
+    var sse = 0, e;
+    for (i = 0; i < n; i++) { e = pts[i].y - (b0 + b1 * pts[i].x); sse += e * e; }
+    return { b1: b1, b0: b0, r: r, r2: r * r, sse: sse, xbar: xbar, ybar: ybar, n: n };
+  }
+
+  // ---- rendering ----
+  function drawGrid() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#fbfcfd";
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.lineWidth = 1;
+    ctx.font = "11px -apple-system, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    var t;
+    for (t = DX0; t <= DX1; t += 1) {
+      var X = px(t);
+      ctx.strokeStyle = (t === DX0) ? "#c4ccd3" : "#eef2f5";
+      ctx.beginPath(); ctx.moveTo(X, PAD.t); ctx.lineTo(X, H - PAD.b); ctx.stroke();
+      ctx.fillStyle = "#7c848c";
+      ctx.fillText(String(t), X, H - PAD.b + 5);
+    }
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    for (t = DY0; t <= DY1; t += 2) {
+      var Y = py(t);
+      ctx.strokeStyle = (t === DY0) ? "#c4ccd3" : "#eef2f5";
+      ctx.beginPath(); ctx.moveTo(PAD.l, Y); ctx.lineTo(W - PAD.r, Y); ctx.stroke();
+      ctx.fillStyle = "#7c848c";
+      ctx.fillText(String(t), PAD.l - 6, Y);
+    }
+    // axis labels
+    ctx.fillStyle = "#5a636c";
+    ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.fillText("x", W - PAD.r, H - PAD.b + 30);
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
+    ctx.fillText("y", 4, PAD.t - 2);
+  }
+
+  function draw() {
+    drawGrid();
+    var f = fit();
+
+    // regression line + residuals
+    if (f && !f.degenerate) {
+      // residuals first (behind points)
+      ctx.setLineDash([4, 4]);
+      ctx.lineWidth = 1.4;
+      ctx.strokeStyle = "#e08a2e";
+      for (var i = 0; i < pts.length; i++) {
+        var yhat = f.b0 + f.b1 * pts[i].x;
+        ctx.beginPath();
+        ctx.moveTo(px(pts[i].x), py(pts[i].y));
+        ctx.lineTo(px(pts[i].x), py(yhat));
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+
+      // line clipped to plot area
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(PAD.l, PAD.t, W - PAD.l - PAD.r, H - PAD.t - PAD.b);
+      ctx.clip();
+      ctx.strokeStyle = "#c0392b";
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(px(DX0), py(f.b0 + f.b1 * DX0));
+      ctx.lineTo(px(DX1), py(f.b0 + f.b1 * DX1));
+      ctx.stroke();
+      ctx.restore();
+    } else if (f && f.degenerate) {
+      // vertical arrangement: no unique slope
+      ctx.strokeStyle = "#c0392b";
+      ctx.setLineDash([6, 5]);
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(px(f.xbar), PAD.t); ctx.lineTo(px(f.xbar), H - PAD.b);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // points
+    for (var j = 0; j < pts.length; j++) {
+      var cx = px(pts[j].x), cy = py(pts[j].y);
+      ctx.beginPath();
+      ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+      ctx.fillStyle = (j === hoverIdx || j === dragIdx) ? "#1749a3" : "#2563c9";
+      ctx.fill();
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = "#ffffff";
+      ctx.stroke();
+    }
+
+    updateReadout(f);
+  }
+
+  function fmt(v, d) {
+    if (v === undefined || v === null || !isFinite(v)) return "—";
+    return v.toFixed(d === undefined ? 3 : d);
+  }
+
+  function updateReadout(f) {
+    var eq = document.getElementById("eq");
+    if (!f) {
+      eq.textContent = "Need at least 2 points to fit a line.";
+      ["s-b1", "s-b0", "s-r", "s-r2", "s-sse", "s-n"].forEach(function (id) {
+        document.getElementById(id).innerHTML = "—";
+      });
+      document.getElementById("s-n").textContent = String(pts.length);
+      return;
+    }
+    if (f.degenerate) {
+      eq.textContent = "All points share one x value — the slope is undefined (vertical).";
+      document.getElementById("s-b1").innerHTML = "—";
+      document.getElementById("s-b0").innerHTML = "—";
+      document.getElementById("s-r").innerHTML = "—";
+      document.getElementById("s-r2").innerHTML = "—";
+      document.getElementById("s-sse").innerHTML = "—";
+      document.getElementById("s-n").textContent = String(f.n || pts.length);
+      return;
+    }
+    var sign = f.b0 >= 0 ? "+" : "−";
+    eq.innerHTML = "ŷ = " + fmt(f.b0) + " " + sign + " " + fmt(Math.abs(f.b1)) +
+      " · x";
+    document.getElementById("s-b1").textContent = fmt(f.b1);
+    document.getElementById("s-b0").textContent = fmt(f.b0);
+    document.getElementById("s-r").textContent = fmt(f.r);
+    document.getElementById("s-r2").textContent = fmt(f.r2);
+    document.getElementById("s-sse").textContent = fmt(f.sse);
+    document.getElementById("s-n").textContent = String(f.n);
+  }
+
+  // ---- interaction ----
+  var dragIdx = -1, hoverIdx = -1;
+
+  function localPos(evt) {
+    var rect = cv.getBoundingClientRect();
+    var scaleX = W / rect.width, scaleY = H / rect.height;
+    var src = (evt.touches && evt.touches[0]) ? evt.touches[0] : evt;
+    return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
+  }
+
+  function hit(pos) {
+    for (var i = pts.length - 1; i >= 0; i--) {
+      var dx = px(pts[i].x) - pos.x, dy = py(pts[i].y) - pos.y;
+      if (dx * dx + dy * dy <= 12 * 12) return i;
+    }
+    return -1;
+  }
+
+  function clampData(p) {
+    p.x = Math.max(DX0, Math.min(DX1, p.x));
+    p.y = Math.max(DY0, Math.min(DY1, p.y));
+    return p;
+  }
+
+  function onDown(evt) {
+    evt.preventDefault();
+    var pos = localPos(evt);
+    var idx = hit(pos);
+    if (idx >= 0) {
+      dragIdx = idx;
+    } else if (pos.x >= PAD.l && pos.x <= W - PAD.r && pos.y >= PAD.t && pos.y <= H - PAD.b) {
+      // add a point where clicked
+      pts.push(clampData({ x: ux(pos.x), y: uy(pos.y) }));
+      dragIdx = pts.length - 1;
+    }
+    draw();
+  }
+
+  function onMove(evt) {
+    var pos = localPos(evt);
+    if (dragIdx >= 0) {
+      evt.preventDefault();
+      pts[dragIdx].x = ux(pos.x);
+      pts[dragIdx].y = uy(pos.y);
+      clampData(pts[dragIdx]);
+      draw();
+    } else {
+      var h = hit(pos);
+      if (h !== hoverIdx) { hoverIdx = h; draw(); }
+      cv.style.cursor = h >= 0 ? "grab" : "crosshair";
+    }
+  }
+
+  function onUp() { dragIdx = -1; draw(); }
+
+  cv.addEventListener("mousedown", onDown);
+  window.addEventListener("mousemove", onMove);
+  window.addEventListener("mouseup", onUp);
+  cv.addEventListener("touchstart", onDown, { passive: false });
+  cv.addEventListener("touchmove", onMove, { passive: false });
+  window.addEventListener("touchend", onUp);
+
+  document.getElementById("add").addEventListener("click", function () {
+    // Add a high-leverage point far to the right, off the current trend.
+    pts.push(clampData({ x: 9.5, y: 1.5 }));
+    draw();
+  });
+  document.getElementById("remove").addEventListener("click", function () {
+    if (pts.length > 0) { pts.pop(); draw(); }
+  });
+  document.getElementById("reset").addEventListener("click", function () {
+    pts = initial.map(function (p) { return { x: p[0], y: p[1] }; });
+    hoverIdx = -1; dragIdx = -1;
+    draw();
+  });
+
+  draw();
+
+  // ---- self-test (console) for the reference dataset ----
+  (function selfTest() {
+    var saved = pts;
+    pts = [[1,1],[2,3],[3,2],[4,5],[5,4]].map(function(p){return {x:p[0],y:p[1]};});
+    var f = fit();
+    pts = saved;
+    var ok = Math.abs(f.b1 - 0.8) < 1e-9 && Math.abs(f.b0 - 0.6) < 1e-9 &&
+             Math.abs(f.r - 0.8) < 1e-9 && Math.abs(f.r2 - 0.64) < 1e-9;
+    if (window.console) console.log("[regression self-test]",
+      "b1=" + f.b1, "b0=" + f.b0, "r=" + f.r, "R2=" + f.r2, ok ? "PASS" : "FAIL");
+  })();
+})();
+</script>
+</body>
+</html>

@@ -647,6 +647,53 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("cross((1,0,0),(0,1,0)) = (0,0,1)", cross([1, 0, 0], [0, 1, 0]).join(",") === "0,0,1");
 }
 
+// ================= Calculus =================
+{
+  const ddx = (f, x, h = 1e-6) => (f(x + h) - f(x - h)) / (2 * h);
+  eq("power rule: d/dx x^3 at 2 = 12", ddx((x) => x ** 3, 2), 12, 1e-4);
+  { const analytic = 2 * 1 * Math.sin(1) + 1 * Math.cos(1); eq("product rule: d/dx(x^2 sin x) at 1", ddx((x) => x * x * Math.sin(x), 1), analytic, 1e-4); }
+  eq("chain rule: d/dx sin(x^2) at 1", ddx((x) => Math.sin(x * x), 1), 2 * Math.cos(1), 1e-4);
+  const integ = (f, a, b, n = 200000) => { let s = 0; const dx = (b - a) / n; for (let i = 0; i < n; i++) s += f(a + (i + 0.5) * dx) * dx; return s; };
+  eq("integral x^2 on [0,1] = 1/3", integ((x) => x * x, 0, 1), 1 / 3, 1e-6);
+  eq("integral sin on [0,pi] = 2", integ(Math.sin, 0, Math.PI), 2, 1e-6);
+  eq("integral 1/x on [1,2] = ln 2", integ((x) => 1 / x, 1, 2), Math.log(2), 1e-6);
+  eq("FTC: integral 3x^2 on [1,2] = 7", integ((x) => 3 * x * x, 1, 2), 7, 1e-6);
+  eq("standard limit sin(x)/x -> 1", Math.sin(1e-5) / 1e-5, 1, 1e-8);
+  eq("standard limit (1+1/n)^n -> e", Math.pow(1 + 1 / 1e7, 1e7), Math.E, 1e-3);
+}
+
+// ================= Linear Algebra =================
+{
+  const det2 = (m) => m[0][0] * m[1][1] - m[0][1] * m[1][0];
+  const det3 = (m) => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+  const matvec = (m, v) => m.map((row) => row.reduce((s, x, i) => s + x * v[i], 0));
+  const eig2 = (m) => { const tr = m[0][0] + m[1][1], d = det2(m), disc = Math.sqrt(tr * tr - 4 * d); return [(tr - disc) / 2, (tr + disc) / 2]; };
+  eq("det [[2,0],[0,3]] = 6", det2([[2, 0], [0, 3]]), 6);
+  eq("det [[1,2],[3,4]] = -2", det2([[1, 2], [3, 4]]), -2);
+  eq("det identity 3x3 = 1", det3([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), 1);
+  { const m = [[2, 1], [1, 2]], ev = eig2(m);
+    check("eigenvalues of [[2,1],[1,2]] are 1 and 3", approx(ev[0], 1) && approx(ev[1], 3));
+    eq("det = product of eigenvalues", det2(m), ev[0] * ev[1], 1e-9);
+    eq("trace = sum of eigenvalues", m[0][0] + m[1][1], ev[0] + ev[1], 1e-9);
+    check("Av = lambda v: [[2,1],[1,2]] on (1,1) = 3(1,1)", matvec(m, [1, 1]).every((c, i) => approx(c, 3 * [1, 1][i]))); }
+  check("rotation 90 deg sends (1,0) to (0,1)", matvec([[0, -1], [1, 0]], [1, 0]).join(",") === "0,1");
+}
+
+// ================= Statistics: regression & CLT =================
+{
+  const xs = [1, 2, 3, 4, 5], ys = [1, 3, 2, 5, 4];
+  const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+  const xb = mean(xs), yb = mean(ys);
+  let Sxy = 0, Sxx = 0, Syy = 0;
+  for (let i = 0; i < xs.length; i++) { Sxy += (xs[i] - xb) * (ys[i] - yb); Sxx += (xs[i] - xb) ** 2; Syy += (ys[i] - yb) ** 2; }
+  const b1 = Sxy / Sxx, b0 = yb - b1 * xb, r = Sxy / Math.sqrt(Sxx * Syy);
+  eq("OLS slope = 0.8", b1, 0.8, 1e-9);
+  eq("OLS intercept = 0.6", b0, 0.6, 1e-9);
+  eq("correlation r = 0.8", r, 0.8, 1e-9);
+  eq("R^2 = 0.64", r * r, 0.64, 1e-9);
+  eq("CLT: sd of mean, Uniform[0,1], n=10", (1 / Math.sqrt(12)) / Math.sqrt(10), 0.0913, 5e-4);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

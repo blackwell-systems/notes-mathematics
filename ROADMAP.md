@@ -54,6 +54,14 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Calculus / Linear Algebra / Statistics interactive pass** — added 5 widgets to the
+  three flagship advanced pages (which had 0 / 2 / 1): calculus Riemann-sum explorer and
+  tangent/secant derivative explorer; a 2D linear-transformation visualizer (grid/unit-square
+  image, determinant as area factor, eigenvector directions); a CLT sampler (non-normal
+  source -> normal sampling distribution of the mean); and a least-squares regression explorer
+  (drag points -> live line, residuals, r, R^2). +22 machine-checked assertions (derivatives,
+  integrals, FTC, standard limits, determinants/eigenvalues/eigenvectors, OLS slope/r/R^2, CLT SE).
+
 - [x] **CI quality gate** (`scripts/check-quality.mjs`, wired into `deploy.yml`) — fatal on
   KaTeX errors, broken links/anchors, broken images, and empty alt text (ratcheted 58 → 0).
 - [x] **Arithmetic harness** (`scripts/check-arithmetic.mjs`) — re-proves every worked

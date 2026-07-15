@@ -490,6 +490,10 @@ By the [Central Limit Theorem](./probability#central-limit-theorem), this sampli
 - Mean: $\mu_{\bar{x}} = \mu$ (the sample mean is centered on the true mean)
 - Standard deviation: $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
 
+See the Central Limit Theorem happen below: pick a deliberately non-normal source (skewed, bimodal, a coin flip), draw many sample means, and watch their histogram become bell-shaped and tighten like $1/\sqrt{n}$, tracking the overlaid normal.
+
+<iframe src="/static/interactive/stats-clt-sampler.html" width="100%" height="660" style="border:none;"></iframe>
+
 **Standard error (SE):** The standard deviation of a sampling distribution. For the sample mean:
 
 $$
@@ -1872,6 +1876,10 @@ The two-sided critical value is $t_{0.025,\,3} \approx 3.182$. Since $|t| \appro
 ## Linear Regression
 
 **Linear regression:** Fits a straight line to data by minimizing the sum of squared residuals. It is the simplest and most important predictive model, and understanding it deeply is essential for ML.
+
+Drag the points below to feel how least squares works: the line minimizes the total squared vertical residual, and the slope, intercept, correlation $r$, and $R^2$ update live. Drag one point far out in $x$ to see how a high-leverage outlier swings the fit.
+
+<iframe src="/static/interactive/stats-regression-explorer.html" width="100%" height="660" style="border:none;"></iframe>
 
 ### The Model
 

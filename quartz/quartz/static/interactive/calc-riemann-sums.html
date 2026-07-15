@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riemann Sum Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6672;
+    --curve: #2563c9;
+    --grid: #e3e8ee;
+    --axis: #b3bcc7;
+    --panel: #f1f4f8;
+    --border: #d5dde6;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 14px 22px;
+  }
+  h1 {
+    font-size: 18px;
+    margin: 0 0 4px;
+    font-weight: 650;
+  }
+  .caption {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    margin: 14px 0 4px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .ctl { display: flex; flex-direction: column; gap: 4px; }
+  .ctl.full { grid-column: 1 / -1; }
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: .01em;
+  }
+  select, input[type="number"] {
+    font-size: 14px;
+    padding: 5px 7px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #fff;
+    color: var(--text);
+  }
+  input[type="range"] { width: 100%; accent-color: var(--curve); }
+  .row { display: flex; align-items: center; gap: 8px; }
+  .row input[type="number"] { width: 78px; }
+  .seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .seg button {
+    font-size: 12.5px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #fff;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .seg button.active {
+    background: var(--curve);
+    color: #fff;
+    border-color: var(--curve);
+  }
+  .nval { font-weight: 700; color: var(--text); }
+  .readout {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+  }
+  .stat .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .stat .v { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .stat.err .v { color: #c2560e; }
+  .note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .note b { color: var(--text); }
+  @media (max-width: 560px) {
+    .controls { grid-template-columns: 1fr; }
+    .readout { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Riemann Sum Explorer</h1>
+  <p class="caption">Watch how a sum of rectangle (or trapezoid) areas approximates a definite integral, converging to the exact value as the number of subintervals n grows.</p>
+
+  <canvas id="cv" width="1480" height="800"></canvas>
+
+  <div class="controls">
+    <div class="ctl">
+      <label for="fn">Function f(x)</label>
+      <select id="fn"></select>
+    </div>
+    <div class="ctl">
+      <label>Interval [a, b]</label>
+      <div class="row">
+        <input type="number" id="a" step="0.1"> <span>to</span> <input type="number" id="b" step="0.1">
+      </div>
+    </div>
+    <div class="ctl full">
+      <label>Subintervals n = <span class="nval" id="nlab">10</span></label>
+      <input type="range" id="n" min="1" max="200" value="10">
+    </div>
+    <div class="ctl full">
+      <label>Method</label>
+      <div class="seg" id="methods"></div>
+    </div>
+  </div>
+
+  <div class="readout">
+    <div class="stat"><div class="k">Riemann sum</div><div class="v" id="rsum">-</div></div>
+    <div class="stat"><div class="k">Exact integral</div><div class="v" id="rexact">-</div></div>
+    <div class="stat err"><div class="k">Absolute error</div><div class="v" id="rerr">-</div></div>
+  </div>
+
+  <p class="note">
+    The shaded area is the approximation for the current <b>n</b> and method. As
+    <b>n &rarr; &infin;</b> the sum converges to the exact integral: the error &rarr; 0.
+    Midpoint and Trapezoidal converge much faster (error ~ 1/n<sup>2</sup>) than Left/Right
+    (error ~ 1/n); Simpson is faster still (~ 1/n<sup>4</sup>).
+  </p>
+</div>
+
+<script>
+"use strict";
+
+// Each preset stores f, its antiderivative F (so exact integral = F(b)-F(a)),
+// and a sensible default interval.
+const PRESETS = {
+  "x^2":     { label: "x²",       f: x => x*x,        F: x => x*x*x/3,          a: 0, b: 1 },
+  "sin":     { label: "sin(x)",        f: x => Math.sin(x),F: x => -Math.cos(x),     a: 0, b: Math.PI },
+  "exp":     { label: "eˣ",       f: x => Math.exp(x),F: x => Math.exp(x),      a: 0, b: 2 },
+  "recip":   { label: "1/x",           f: x => 1/x,        F: x => Math.log(x),      a: 1, b: 2 },
+  "cubic":   { label: "x³ − 2x + 1", f: x => x*x*x - 2*x + 1,
+               F: x => x*x*x*x/4 - x*x + x,                                          a: -1, b: 2 }
+};
+
+const METHODS = ["Left", "Right", "Midpoint", "Trapezoidal", "Simpson"];
+
+const state = {
+  key: "x^2",
+  a: 0,
+  b: 1,
+  n: 10,
+  method: "Left"
+};
+
+// --- Numerics -------------------------------------------------------------
+
+function exactIntegral(p, a, b) {
+  return p.F(b) - p.F(a);
+}
+
+function riemannSum(p, a, b, n, method) {
+  const h = (b - a) / n;
+  let s = 0;
+  if (method === "Trapezoidal") {
+    s = 0.5 * (p.f(a) + p.f(b));
+    for (let i = 1; i < n; i++) s += p.f(a + i*h);
+    return s * h;
+  }
+  if (method === "Simpson") {
+    // Composite Simpson needs an even number of subintervals; adjust locally.
+    let m = n;
+    if (m % 2 === 1) m += 1;
+    const hh = (b - a) / m;
+    let sum = p.f(a) + p.f(b);
+    for (let i = 1; i < m; i++) {
+      sum += (i % 2 === 0 ? 2 : 4) * p.f(a + i*hh);
+    }
+    return sum * hh / 3;
+  }
+  for (let i = 0; i < n; i++) {
+    let x;
+    if (method === "Left") x = a + i*h;
+    else if (method === "Right") x = a + (i+1)*h;
+    else x = a + (i + 0.5)*h; // Midpoint
+    s += p.f(x);
+  }
+  return s * h;
+}
+
+function fmt(v) {
+  if (!isFinite(v)) return "—";
+  const av = Math.abs(v);
+  if (av !== 0 && (av < 1e-4 || av >= 1e6)) return v.toExponential(3);
+  return v.toFixed(6);
+}
+
+// --- Rendering ------------------------------------------------------------
+
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+const W = cv.width, H = cv.height;
+const PAD = { l: 70, r: 30, t: 30, b: 56 };
+const PW = W - PAD.l - PAD.r;
+const PH = H - PAD.t - PAD.b;
+
+function sampleRange(p, a, b) {
+  // y-extent over the interval plus a little context, sampled densely.
+  let lo = Infinity, hi = -Infinity;
+  const N = 400;
+  for (let i = 0; i <= N; i++) {
+    const x = a + (b - a) * i / N;
+    const y = p.f(x);
+    if (isFinite(y)) { if (y < lo) lo = y; if (y > hi) hi = y; }
+  }
+  if (!isFinite(lo) || !isFinite(hi)) { lo = -1; hi = 1; }
+  if (lo > 0) lo = 0;            // include the x-axis when curve is positive
+  if (hi < 0) hi = 0;
+  if (hi === lo) { hi += 1; lo -= 1; }
+  const pad = (hi - lo) * 0.10;
+  return { lo: lo - pad, hi: hi + pad };
+}
+
+function draw() {
+  const p = PRESETS[state.key];
+  const a = state.a, b = state.b, n = state.n, method = state.method;
+  const yr = sampleRange(p, a, b);
+
+  const sx = x => PAD.l + (x - a) / (b - a) * PW;
+  const sy = y => PAD.t + (yr.hi - y) / (yr.hi - yr.lo) * PH;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, W, H);
+
+  // grid
+  ctx.strokeStyle = "#e3e8ee";
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#8a95a1";
+  ctx.font = "20px system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  const xticks = 8;
+  for (let i = 0; i <= xticks; i++) {
+    const xv = a + (b - a) * i / xticks;
+    const px = sx(xv);
+    ctx.beginPath(); ctx.moveTo(px, PAD.t); ctx.lineTo(px, PAD.t + PH); ctx.stroke();
+    ctx.fillText(xv.toFixed(2), px, PAD.t + PH + 8);
+  }
+  ctx.textAlign = "right";
+  ctx.textBaseline = "middle";
+  const yticks = 6;
+  for (let i = 0; i <= yticks; i++) {
+    const yv = yr.lo + (yr.hi - yr.lo) * i / yticks;
+    const py = sy(yv);
+    ctx.beginPath(); ctx.moveTo(PAD.l, py); ctx.lineTo(PAD.l + PW, py); ctx.stroke();
+    ctx.fillText(yv.toFixed(2), PAD.l - 8, py);
+  }
+
+  // axes (x=0 / y=0 if visible)
+  ctx.strokeStyle = "#b3bcc7";
+  ctx.lineWidth = 1.5;
+  if (yr.lo <= 0 && yr.hi >= 0) {
+    const y0 = sy(0);
+    ctx.beginPath(); ctx.moveTo(PAD.l, y0); ctx.lineTo(PAD.l + PW, y0); ctx.stroke();
+  }
+
+  // rectangles / trapezoids
+  const h = (b - a) / n;
+  const y0px = sy(0);
+  const isTrap = method === "Trapezoidal";
+  for (let i = 0; i < n; i++) {
+    const xl = a + i*h, xr = a + (i+1)*h;
+    if (isTrap) {
+      const yl = p.f(xl), yrv = p.f(xr);
+      ctx.beginPath();
+      ctx.moveTo(sx(xl), y0px);
+      ctx.lineTo(sx(xl), sy(yl));
+      ctx.lineTo(sx(xr), sy(yrv));
+      ctx.lineTo(sx(xr), y0px);
+      ctx.closePath();
+    } else if (method === "Simpson") {
+      // draw the parabolic panels' underlying sample rectangles lightly (midpoint-ish)
+      const xm = a + (i + 0.5)*h;
+      const ym = p.f(xm);
+      ctx.beginPath();
+      ctx.rect(sx(xl), Math.min(sy(ym), y0px), sx(xr) - sx(xl), Math.abs(sy(ym) - y0px));
+    } else {
+      let xs;
+      if (method === "Left") xs = xl;
+      else if (method === "Right") xs = xr;
+      else xs = a + (i + 0.5)*h;
+      const ys = p.f(xs);
+      ctx.beginPath();
+      ctx.rect(sx(xl), Math.min(sy(ys), y0px), sx(xr) - sx(xl), Math.abs(sy(ys) - y0px));
+    }
+    const yc = p.f(a + (i + 0.5)*h);
+    ctx.fillStyle = yc >= 0 ? "rgba(37,99,201,0.20)" : "rgba(220,120,20,0.22)";
+    ctx.fill();
+    ctx.strokeStyle = yc >= 0 ? "rgba(37,99,201,0.55)" : "rgba(200,100,15,0.55)";
+    ctx.lineWidth = n > 80 ? 0.5 : 1;
+    ctx.stroke();
+  }
+
+  // curve
+  ctx.strokeStyle = "#2563c9";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  let started = false;
+  const NS = 600;
+  for (let i = 0; i <= NS; i++) {
+    const x = a + (b - a) * i / NS;
+    const y = p.f(x);
+    if (!isFinite(y)) { started = false; continue; }
+    const px = sx(x), py = sy(y);
+    if (!started) { ctx.moveTo(px, py); started = true; } else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  // frame
+  ctx.strokeStyle = "#d5dde6";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(PAD.l, PAD.t, PW, PH);
+
+  // readout
+  const approx = riemannSum(p, a, b, n, method);
+  const exact = exactIntegral(p, a, b);
+  document.getElementById("rsum").textContent = fmt(approx);
+  document.getElementById("rexact").textContent = fmt(exact);
+  document.getElementById("rerr").textContent = fmt(Math.abs(approx - exact));
+}
+
+// --- Wiring ---------------------------------------------------------------
+
+const fnSel = document.getElementById("fn");
+for (const k in PRESETS) {
+  const o = document.createElement("option");
+  o.value = k; o.textContent = "f(x) = " + PRESETS[k].label;
+  fnSel.appendChild(o);
+}
+fnSel.value = state.key;
+
+const aIn = document.getElementById("a");
+const bIn = document.getElementById("b");
+const nIn = document.getElementById("n");
+const nLab = document.getElementById("nlab");
+const methodsEl = document.getElementById("methods");
+
+METHODS.forEach(m => {
+  const btn = document.createElement("button");
+  btn.textContent = m;
+  btn.dataset.m = m;
+  if (m === state.method) btn.classList.add("active");
+  btn.addEventListener("click", () => {
+    state.method = m;
+    [...methodsEl.children].forEach(c => c.classList.toggle("active", c.dataset.m === m));
+    draw();
+  });
+  methodsEl.appendChild(btn);
+});
+
+function syncInterval() {
+  aIn.value = state.a;
+  bIn.value = state.b;
+}
+
+fnSel.addEventListener("change", () => {
+  state.key = fnSel.value;
+  const p = PRESETS[state.key];
+  state.a = p.a; state.b = p.b;
+  syncInterval();
+  draw();
+});
+
+function readInterval() {
+  let a = parseFloat(aIn.value), b = parseFloat(bIn.value);
+  if (!isFinite(a) || !isFinite(b) || b <= a) return;
+  // Keep away from singularities for 1/x (domain must not cross 0).
+  if (state.key === "recip") {
+    if (a <= 0) a = 0.1;
+    if (b <= a) b = a + 0.1;
+  }
+  state.a = a; state.b = b;
+  draw();
+}
+aIn.addEventListener("change", readInterval);
+bIn.addEventListener("change", readInterval);
+
+nIn.addEventListener("input", () => {
+  state.n = parseInt(nIn.value, 10);
+  nLab.textContent = state.n;
+  draw();
+});
+
+// init
+state.a = PRESETS[state.key].a;
+state.b = PRESETS[state.key].b;
+syncInterval();
+nLab.textContent = state.n;
+draw();
+</script>
+</body>
+</html>

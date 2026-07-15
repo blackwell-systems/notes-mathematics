@@ -508,6 +508,10 @@ Equivalently: $T(c_1 v_1 + c_2 v_2) = c_1 T(v_1) + c_2 T(v_2)$
 
 To find the matrix: apply $T$ to each standard basis vector. The outputs become the columns of the matrix.
 
+See this directly below: set the entries of a $2\times 2$ matrix and watch it transform the grid and the unit square, with the determinant shown as the area-scaling factor and the (real) eigenvectors drawn as invariant directions.
+
+<iframe src="/static/interactive/linear-transformation-2d.html" width="100%" height="660" style="border:none;"></iframe>
+
 $$
 A = \begin{bmatrix} T(e_1) & T(e_2) & \cdots & T(e_n) \end{bmatrix}
 $$

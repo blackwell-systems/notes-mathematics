@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tangent &amp; Derivative Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --muted:#5a6572;
+    --curve:#2563c9; --tangent:#c0392b; --secant:#e08a1e;
+    --grid:#e4e8ee; --axis:#aab2bd; --panel:#f1f4f8; --border:#d7dde6;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px;box-sizing:border-box;}
+  h1{font-size:19px;margin:0 0 2px;}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px;}
+  canvas{width:100%;height:auto;display:block;background:var(--bg);
+    border:1px solid var(--border);border-radius:8px;touch-action:none;cursor:grab;}
+  canvas.drag{cursor:grabbing;}
+  .controls{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin:14px 0 4px;}
+  .ctl{display:flex;flex-direction:column;gap:4px;font-size:13px;min-width:150px;flex:1;}
+  .ctl label{color:var(--muted);font-weight:600;display:flex;justify-content:space-between;}
+  .ctl .val{color:var(--fg);font-variant-numeric:tabular-nums;}
+  select{font:inherit;padding:5px 6px;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--fg);}
+  input[type=range]{width:100%;accent-color:var(--curve);}
+  .moderow{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:600;}
+  .moderow input{width:16px;height:16px;accent-color:var(--secant);}
+  .hgroup{transition:opacity .15s;}
+  .hgroup.off{opacity:.35;pointer-events:none;}
+  .readout{margin-top:14px;background:var(--panel);border:1px solid var(--border);
+    border-radius:8px;padding:12px 14px;font-size:13.5px;line-height:1.7;}
+  .readout .row{display:flex;flex-wrap:wrap;gap:6px 20px;}
+  .readout code, .eq{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#fff;border:1px solid var(--border);border-radius:4px;padding:1px 6px;
+    font-variant-numeric:tabular-nums;}
+  .k{color:var(--muted);}
+  .tan-c{color:var(--tangent);font-weight:700;}
+  .sec-c{color:var(--secant);font-weight:700;}
+  .cur-c{color:var(--curve);font-weight:700;}
+  .def{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);
+    font-size:13px;color:var(--fg);}
+  .def .eq{font-size:14px;}
+  .gap.small{color:#1a8a4a;font-weight:700;}
+  .cap{color:var(--muted);font-size:12.5px;margin-top:12px;font-style:italic;}
+  .secline{margin-top:6px;}
+  .secline.off{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Tangent &amp; Derivative Explorer</h1>
+  <p class="sub">Drag the point along the curve to see the tangent line and its slope <code>f&prime;(x)</code>.</p>
+
+  <canvas id="cv" width="1480" height="900" aria-label="Interactive plot of a function with its tangent line"></canvas>
+
+  <div class="controls">
+    <div class="ctl">
+      <label for="fn">function f(x)</label>
+      <select id="fn">
+        <option value="sq">x&sup2;</option>
+        <option value="cubic">x&sup3; &minus; 3x</option>
+        <option value="sin">sin(x)</option>
+        <option value="exp">e&#8339;</option>
+      </select>
+    </div>
+    <div class="ctl">
+      <label for="x0">point x&#8320; <span class="val" id="x0v">1.00</span></label>
+      <input type="range" id="x0" min="-3" max="3" step="0.01" value="1">
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="moderow">
+      <input type="checkbox" id="mode"><label for="mode" style="cursor:pointer">secant &rarr; tangent mode</label>
+    </div>
+    <div class="ctl hgroup off" id="hgroup">
+      <label for="h">step h <span class="val" id="hv">1.00</span></label>
+      <input type="range" id="h" min="0.01" max="2" step="0.01" value="1">
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <p class="cap">The derivative is the slope of the tangent, obtained as the limiting slope of secant lines as the two points merge (h&rarr;0).</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- function presets: value + EXACT analytic derivative ----
+  var PRESETS = {
+    sq:    {f:function(x){return x*x;},        d:function(x){return 2*x;},
+            fs:"x²",  ds:"2x",       range:[-3,3]},
+    cubic: {f:function(x){return x*x*x-3*x;},  d:function(x){return 3*x*x-3;},
+            fs:"x³− 3x", ds:"3x²− 3", range:[-3,3]},
+    sin:   {f:function(x){return Math.sin(x);},d:function(x){return Math.cos(x);},
+            fs:"sin(x)", ds:"cos(x)",    range:[-6.28,6.28]},
+    exp:   {f:function(x){return Math.exp(x);},d:function(x){return Math.exp(x);},
+            fs:"eˣ",  ds:"eˣ", range:[-3,2.2]}
+  };
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  var sel   = document.getElementById("fn");
+  var x0In  = document.getElementById("x0");
+  var x0V   = document.getElementById("x0v");
+  var modeC = document.getElementById("mode");
+  var hIn   = document.getElementById("h");
+  var hV    = document.getElementById("hv");
+  var hGroup= document.getElementById("hgroup");
+  var readout = document.getElementById("readout");
+
+  var state = { key:"sq", x0:1, h:1, secant:false };
+
+  // world <-> pixel. viewport chosen per-preset with a bit of padding.
+  var view; // {xmin,xmax,ymin,ymax}
+
+  function computeView(){
+    var p = PRESETS[state.key];
+    var r = p.range;
+    var xmin = r[0], xmax = r[1];
+    // sample y over the x-range for vertical bounds
+    var ymin = Infinity, ymax = -Infinity, N = 400;
+    for(var i=0;i<=N;i++){
+      var x = xmin + (xmax-xmin)*i/N;
+      var y = p.f(x);
+      if(isFinite(y)){ if(y<ymin)ymin=y; if(y>ymax)ymax=y; }
+    }
+    // include the current point too
+    var yp = p.f(state.x0);
+    if(isFinite(yp)){ if(yp<ymin)ymin=yp; if(yp>ymax)ymax=yp; }
+    if(!isFinite(ymin)||!isFinite(ymax)||ymin===ymax){ ymin=-1; ymax=1; }
+    var pad = (ymax-ymin)*0.18 + 0.4;
+    ymin -= pad; ymax += pad;
+    // ensure 0 is visible-ish for axes
+    view = {xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax};
+    // sync slider range to preset domain
+    x0In.min = r[0]; x0In.max = r[1];
+  }
+
+  function X(x){ return (x-view.xmin)/(view.xmax-view.xmin)*W; }
+  function Y(y){ return H - (y-view.ymin)/(view.ymax-view.ymin)*H; }
+  function invX(px){ return view.xmin + px/W*(view.xmax-view.xmin); }
+
+  function fmt(v, d){
+    if(!isFinite(v)) return "—";
+    d = (d===undefined)?3:d;
+    var s = v.toFixed(d);
+    // strip trailing insignificant zeros but keep at least 2 decimals for readouts
+    return s;
+  }
+  function fmtEq(m, x0, y0){
+    // build y = y0 + m (x - x0), pretty
+    var mS = fmt(m,3);
+    var b  = y0 - m*x0;         // intercept form
+    // present as y = m x + b
+    var bS = (b>=0?"+ "+fmt(b,3):"− "+fmt(-b,3));
+    return "y = " + mS + "x " + bS;
+  }
+
+  function draw(){
+    var p = PRESETS[state.key];
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = getCss("--bg","#fbfcfd");
+    ctx.fillRect(0,0,W,H);
+
+    drawGrid();
+
+    var x0 = state.x0;
+    var y0 = p.f(x0);
+    var m  = p.d(x0);           // EXACT derivative
+
+    // --- curve ---
+    strokeCurve(p.f, getCss("--curve","#2563c9"), 3.2);
+
+    // --- secant (behind tangent) ---
+    if(state.secant){
+      var xh = x0 + state.h;
+      var yh = p.f(xh);
+      var ms = (yh - y0)/state.h;   // secant slope
+      drawInfLine(x0, y0, ms, getCss("--secant","#e08a1e"), 3, [10,7]);
+      // second point
+      dot(xh, yh, getCss("--secant","#e08a1e"), 9);
+      // connect chord segment emphasized
+      ctx.strokeStyle = getCss("--secant","#e08a1e");
+      ctx.lineWidth = 3; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(X(x0),Y(y0)); ctx.lineTo(X(xh),Y(yh)); ctx.stroke();
+    }
+
+    // --- tangent ---
+    drawInfLine(x0, y0, m, getCss("--tangent","#c0392b"), 3.4, []);
+
+    // --- main point ---
+    dot(x0, y0, getCss("--tangent","#c0392b"), 11);
+    // white core
+    ctx.fillStyle="#fff";
+    ctx.beginPath(); ctx.arc(X(x0),Y(y0),3.6,0,7); ctx.fill();
+  }
+
+  function getCss(name, fb){
+    try{
+      var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v||fb;
+    }catch(e){ return fb; }
+  }
+
+  function drawGrid(){
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = getCss("--grid","#e4e8ee");
+    ctx.fillStyle   = getCss("--muted","#5a6572");
+    ctx.font = "22px system-ui, sans-serif";
+    // choose nice step for x
+    var xstep = niceStep(view.xmax-view.xmin);
+    var ystep = niceStep(view.ymax-view.ymin);
+    var i, x, y;
+    for(i=Math.ceil(view.xmin/xstep)*xstep; i<=view.xmax; i+=xstep){
+      var px = X(i);
+      ctx.beginPath(); ctx.moveTo(px,0); ctx.lineTo(px,H); ctx.stroke();
+    }
+    for(i=Math.ceil(view.ymin/ystep)*ystep; i<=view.ymax; i+=ystep){
+      var py = Y(i);
+      ctx.beginPath(); ctx.moveTo(0,py); ctx.lineTo(W,py); ctx.stroke();
+    }
+    // axes
+    ctx.strokeStyle = getCss("--axis","#aab2bd");
+    ctx.lineWidth = 2;
+    if(view.ymin<0 && view.ymax>0){
+      ctx.beginPath(); ctx.moveTo(0,Y(0)); ctx.lineTo(W,Y(0)); ctx.stroke();
+    }
+    if(view.xmin<0 && view.xmax>0){
+      ctx.beginPath(); ctx.moveTo(X(0),0); ctx.lineTo(X(0),H); ctx.stroke();
+    }
+  }
+
+  function niceStep(span){
+    var raw = span/8;
+    var mag = Math.pow(10, Math.floor(Math.log(raw)/Math.LN10));
+    var n = raw/mag;
+    var s = n<1.5?1:n<3?2:n<7?5:10;
+    return s*mag;
+  }
+
+  function strokeCurve(f, color, w){
+    ctx.strokeStyle=color; ctx.lineWidth=w; ctx.setLineDash([]);
+    ctx.lineJoin="round";
+    ctx.beginPath();
+    var started=false, N=600;
+    for(var i=0;i<=N;i++){
+      var x = view.xmin + (view.xmax-view.xmin)*i/N;
+      var y = f(x);
+      if(!isFinite(y)){ started=false; continue; }
+      var py = Y(y);
+      // clip extreme
+      if(py< -H || py> 2*H){ started=false; continue; }
+      if(!started){ ctx.moveTo(X(x),py); started=true; }
+      else ctx.lineTo(X(x),py);
+    }
+    ctx.stroke();
+  }
+
+  function drawInfLine(x0,y0,m,color,w,dash){
+    // extend across viewport
+    var xL = view.xmin, xR = view.xmax;
+    ctx.strokeStyle=color; ctx.lineWidth=w; ctx.setLineDash(dash||[]);
+    ctx.beginPath();
+    ctx.moveTo(X(xL), Y(y0+m*(xL-x0)));
+    ctx.lineTo(X(xR), Y(y0+m*(xR-x0)));
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function dot(x,y,color,r){
+    ctx.fillStyle=color;
+    ctx.beginPath(); ctx.arc(X(x),Y(y),r,0,7); ctx.fill();
+  }
+
+  function updateReadout(){
+    var p = PRESETS[state.key];
+    var x0 = state.x0, y0 = p.f(x0), m = p.d(x0);
+    var html = "";
+    html += '<div class="row">';
+    html += '<span><span class="k">f(x) =</span> <code>'+p.fs+'</code></span>';
+    html += '<span><span class="k">f&prime;(x) =</span> <code>'+p.ds+'</code></span>';
+    html += '</div>';
+    html += '<div class="row" style="margin-top:6px">';
+    html += '<span><span class="k">x&#8320; =</span> <code>'+fmt(x0,2)+'</code></span>';
+    html += '<span><span class="k">f(x&#8320;) =</span> <code>'+fmt(y0,3)+'</code></span>';
+    html += '<span><span class="cur-c">curve point</span></span>';
+    html += '</div>';
+    html += '<div class="row" style="margin-top:6px">';
+    html += '<span><span class="k">slope</span> <span class="tan-c">f&prime;(x&#8320;) =</span> <code>'+fmt(m,4)+'</code></span>';
+    html += '<span><span class="tan-c">tangent:</span> <code>'+fmtEq(m,x0,y0)+'</code></span>';
+    html += '</div>';
+
+    if(state.secant){
+      var h = state.h;
+      var xh = x0+h, yh = p.f(xh);
+      var ms = (yh-y0)/h;
+      var gap = ms - m;
+      var gapSmall = Math.abs(gap) < 0.05;
+      html += '<div class="secline"><div class="row" style="margin-top:8px">';
+      html += '<span><span class="k">h =</span> <code>'+fmt(h,2)+'</code></span>';
+      html += '<span><span class="k">x&#8320;+h =</span> <code>'+fmt(xh,2)+'</code></span>';
+      html += '<span><span class="k">f(x&#8320;+h) =</span> <code>'+fmt(yh,3)+'</code></span>';
+      html += '</div><div class="row" style="margin-top:6px">';
+      html += '<span><span class="sec-c">secant slope</span> = <code>[f(x&#8320;+h)&minus;f(x&#8320;)]/h = '+fmt(ms,4)+'</code></span>';
+      html += '<span><span class="k">gap to f&prime;(x&#8320;):</span> <code class="gap'+(gapSmall?' small':'')+'">'+(gap>=0?'+':'')+fmt(gap,4)+'</code></span>';
+      html += '</div></div>';
+    }
+
+    html += '<div class="def">Definition of the derivative: '+
+            '<span class="eq">f&prime;(x&#8320;) = lim<sub>h&rarr;0</sub> [ f(x&#8320;+h) &minus; f(x&#8320;) ] / h</span>'+
+            (state.secant?' &nbsp; As <code>h&rarr;0</code> the <span class="sec-c">secant</span> approaches the <span class="tan-c">tangent</span>.':'')+
+            '</div>';
+    readout.innerHTML = html;
+  }
+
+  function refreshAll(){
+    computeView();
+    draw();
+    updateReadout();
+    x0V.textContent = fmt(state.x0,2);
+    hV.textContent  = fmt(state.h,2);
+  }
+
+  // ---- events ----
+  sel.addEventListener("change", function(){
+    state.key = sel.value;
+    var r = PRESETS[state.key].range;
+    if(state.x0<r[0]) state.x0=r[0];
+    if(state.x0>r[1]) state.x0=r[1];
+    x0In.value = state.x0;
+    refreshAll();
+  });
+  x0In.addEventListener("input", function(){
+    state.x0 = parseFloat(x0In.value);
+    refreshAll();
+  });
+  hIn.addEventListener("input", function(){
+    state.h = parseFloat(hIn.value);
+    refreshAll();
+  });
+  modeC.addEventListener("change", function(){
+    state.secant = modeC.checked;
+    hGroup.classList.toggle("off", !state.secant);
+    refreshAll();
+  });
+
+  // drag the point along the curve
+  var dragging=false;
+  function pointerToX(ev){
+    var rect = cv.getBoundingClientRect();
+    var cxRaw = (ev.clientX!==undefined?ev.clientX:(ev.touches&&ev.touches[0].clientX));
+    var px = (cxRaw-rect.left)/rect.width*W;
+    return invX(px);
+  }
+  function nearPoint(ev){
+    var p=PRESETS[state.key];
+    var rect=cv.getBoundingClientRect();
+    var cxRaw=(ev.clientX!==undefined?ev.clientX:(ev.touches&&ev.touches[0].clientX));
+    var cyRaw=(ev.clientY!==undefined?ev.clientY:(ev.touches&&ev.touches[0].clientY));
+    var px=(cxRaw-rect.left)/rect.width*W;
+    var py=(cyRaw-rect.top)/rect.height*H;
+    var dx=px-X(state.x0), dy=py-Y(p.f(state.x0));
+    return dx*dx+dy*dy < 60*60;
+  }
+  function startDrag(ev){
+    dragging=true; cv.classList.add("drag");
+    moveDrag(ev);
+  }
+  function moveDrag(ev){
+    if(!dragging) return;
+    var r=PRESETS[state.key].range;
+    var x=pointerToX(ev);
+    if(x<r[0])x=r[0]; if(x>r[1])x=r[1];
+    state.x0=x; x0In.value=x;
+    refreshAll();
+    ev.preventDefault();
+  }
+  function endDrag(){ dragging=false; cv.classList.remove("drag"); }
+
+  cv.addEventListener("mousedown", function(ev){ startDrag(ev); });
+  window.addEventListener("mousemove", moveDrag);
+  window.addEventListener("mouseup", endDrag);
+  cv.addEventListener("touchstart", function(ev){ startDrag(ev); }, {passive:false});
+  cv.addEventListener("touchmove", moveDrag, {passive:false});
+  window.addEventListener("touchend", endDrag);
+
+  refreshAll();
+})();
+</script>
+</body>
+</html>

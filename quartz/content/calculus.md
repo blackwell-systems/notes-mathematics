@@ -343,6 +343,10 @@ This line connecting two points on the curve is called a **secant line**. Now im
 
 ![Secant lines approaching the tangent line as the second point gets closer](./media/secant-to-tangent.png)
 
+Explore this limit directly below. Drag the point along the curve to see the tangent line and its slope $f'(x)$; switch to secant mode and shrink $h$ to watch the secant slope converge to the derivative.
+
+<iframe src="/static/interactive/calc-tangent-explorer.html" width="100%" height="620" style="border:none;"></iframe>
+
 ### The Limit Definition of the Derivative
 
 The derivative of $f$ at the point $x$, written $f'(x)$ (read "f prime of x"), is:
@@ -971,6 +975,10 @@ How do you find the area under a curve? Approximate it with rectangles.
 As you use more and more rectangles, the approximation gets better. In the limit (as $n \to \infty$), you get the exact area.
 
 ![Riemann sums with increasing numbers of rectangles approaching the exact area](./media/riemann-sums.png)
+
+Try it below: choose a function and rule (left, right, midpoint, trapezoid) and slide the number of rectangles up to watch the sum converge to the exact integral, with the error shrinking as $n$ grows.
+
+<iframe src="/static/interactive/calc-riemann-sums.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### The Definite Integral
 

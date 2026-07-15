@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Central Limit Theorem Sampler</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6572;
+    --bar: #2563c9;
+    --curve: #c0392b;
+    --line: #d3d9e0;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0 0 4px 0;
+  }
+  .cap {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 14px 0;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .ctl {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 13px;
+  }
+  .ctl label { color: var(--muted); }
+  select, button {
+    font: inherit;
+    font-size: 13px;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 5px 9px;
+    cursor: pointer;
+  }
+  button:hover { background: #eef3fb; }
+  button:active { background: #dfe8f7; }
+  input[type=range] { width: 150px; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  canvas { display: block; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+  .panels { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+  .main-panel { flex: 1 1 460px; min-width: 300px; }
+  .side { flex: 0 0 210px; display: flex; flex-direction: column; gap: 10px; }
+  .side .lbl { font-size: 12px; color: var(--muted); margin: 0 0 3px 2px; }
+  .readout {
+    font-size: 12.5px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 11px;
+    line-height: 1.55;
+  }
+  .readout b { color: var(--text); }
+  .k { color: var(--muted); }
+  .teach {
+    font-size: 13px;
+    line-height: 1.55;
+    background: #f4f7fc;
+    border: 1px solid #e0e8f4;
+    border-radius: 8px;
+    padding: 11px 13px;
+    margin-top: 14px;
+  }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
+  .sw-bar { background: var(--bar); }
+  .sw-curve { background: var(--curve); }
+  .n-val { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Central Limit Theorem Sampler</h1>
+  <p class="cap">Average <span class="n-val">n</span> draws from a lopsided source and watch the histogram of those averages settle into a bell curve.</p>
+
+  <div class="controls">
+    <div class="ctl">
+      <label for="dist">Source distribution</label>
+      <select id="dist">
+        <option value="uniform">Uniform on [0,1]</option>
+        <option value="exponential">Exponential (skewed)</option>
+        <option value="bernoulli">Bernoulli / coin (0 or 1)</option>
+        <option value="bimodal">Bimodal mixture</option>
+        <option value="normal">Normal</option>
+      </select>
+    </div>
+    <div class="ctl">
+      <label for="n">Sample size n = <span id="nlabel" class="n-val">10</span></label>
+      <input type="range" id="n" min="1" max="50" value="10">
+    </div>
+  </div>
+
+  <div class="btns">
+    <button id="d1">Draw 1 sample mean</button>
+    <button id="d100">Draw 100</button>
+    <button id="d1000">Draw 1000</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <div class="panels">
+    <div class="main-panel">
+      <canvas id="hist" width="460" height="300"></canvas>
+    </div>
+    <div class="side">
+      <div>
+        <p class="lbl">Shape of the source (one draw)</p>
+        <canvas id="src" width="210" height="130"></canvas>
+      </div>
+      <div class="readout" id="readout"></div>
+    </div>
+  </div>
+
+  <div class="teach">
+    <b>The key idea:</b> even when the source is skewed (Exponential) or bimodal, the distribution
+    of the <b>sample mean</b> becomes approximately <b>normal</b> as <span class="n-val">n</span> grows.
+    Its center stays at the source mean &mu;, but its spread shrinks like 1/&radic;n:
+    the red curve is Normal(&mu;, &sigma;/&radic;n), and the blue
+    <span class="swatch sw-bar"></span>histogram of collected means marches toward it.
+  </div>
+</div>
+
+<script>
+"use strict";
+(function () {
+  // ----- seeded PRNG: 32-bit LCG (Numerical Recipes constants) -----
+  var seed = 123456789 >>> 0;
+  function rand() {
+    seed = (Math.imul(1664525, seed) + 1013904223) >>> 0;
+    return seed / 4294967296; // in [0,1)
+  }
+
+  // standard normal via Box-Muller (uses two LCG draws)
+  function randn() {
+    var u1 = rand();
+    var u2 = rand();
+    if (u1 < 1e-12) u1 = 1e-12;
+    return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+  }
+
+  // ----- source distributions with known mu, sigma -----
+  // bimodal: 50/50 mixture of Normal(-2, 0.5) and Normal(2, 0.5)
+  //   mean = 0; var = 0.5(0.25+4) + 0.5(0.25+4) - 0^2 = 4.25 ; sigma = sqrt(4.25)
+  var BIM_SD = 0.5, BIM_M = 2;
+  var bimVar = 0.5 * (BIM_SD * BIM_SD + BIM_M * BIM_M) + 0.5 * (BIM_SD * BIM_SD + BIM_M * BIM_M);
+  var dists = {
+    uniform:     { mu: 0.5, sigma: 1 / Math.sqrt(12), lo: 0, hi: 1,   draw: function () { return rand(); } },
+    exponential: { mu: 1,   sigma: 1,                 lo: 0, hi: 5,   draw: function () { var u = rand(); if (u < 1e-12) u = 1e-12; return -Math.log(u); } },
+    bernoulli:   { mu: 0.5, sigma: 0.5,               lo: 0, hi: 1,   draw: function () { return rand() < 0.5 ? 0 : 1; } },
+    bimodal:     { mu: 0,   sigma: Math.sqrt(bimVar), lo: -4, hi: 4,  draw: function () { return (rand() < 0.5 ? -BIM_M : BIM_M) + BIM_SD * randn(); } },
+    normal:      { mu: 0,   sigma: 1,                 lo: -4, hi: 4,   draw: function () { return randn(); } }
+  };
+
+  // ----- state -----
+  var means = [];      // collected sample means
+  var sumM = 0, sumM2 = 0;
+  var currentKey = "uniform";
+  var n = 10;
+
+  var histCanvas = document.getElementById("hist");
+  var srcCanvas = document.getElementById("src");
+  var hctx = histCanvas.getContext("2d");
+  var sctx = srcCanvas.getContext("2d");
+  var readout = document.getElementById("readout");
+
+  var distSel = document.getElementById("dist");
+  var nSlider = document.getElementById("n");
+  var nLabel = document.getElementById("nlabel");
+
+  function drawSampleMean() {
+    var d = dists[currentKey];
+    var s = 0;
+    for (var i = 0; i < n; i++) s += d.draw();
+    var m = s / n;
+    means.push(m);
+    sumM += m;
+    sumM2 += m * m;
+  }
+
+  function drawMany(k) {
+    for (var i = 0; i < k; i++) drawSampleMean();
+    render();
+  }
+
+  function reset() {
+    means = [];
+    sumM = 0;
+    sumM2 = 0;
+    render();
+  }
+
+  // normal pdf
+  function pdf(x, mu, sd) {
+    var z = (x - mu) / sd;
+    return Math.exp(-0.5 * z * z) / (sd * Math.sqrt(2 * Math.PI));
+  }
+
+  // Plot bounds for the sampling distribution: center on mu, span +/- 4 sd_mean
+  function meanBounds() {
+    var d = dists[currentKey];
+    var sdm = d.sigma / Math.sqrt(n);
+    var half = 4 * sdm;
+    if (half < 1e-6) half = 1e-6;
+    return { lo: d.mu - half, hi: d.mu + half, sdm: sdm };
+  }
+
+  var NBINS = 40;
+
+  function render() {
+    renderHist();
+    renderSource();
+    renderReadout();
+  }
+
+  function renderHist() {
+    var W = histCanvas.width, H = histCanvas.height;
+    hctx.clearRect(0, 0, W, H);
+    var padL = 42, padR = 12, padT = 14, padB = 26;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var d = dists[currentKey];
+    var b = meanBounds();
+    var lo = b.lo, hi = b.hi, sdm = b.sdm;
+    var binW = (hi - lo) / NBINS;
+
+    // build histogram (density-normalized)
+    var counts = new Array(NBINS).fill(0);
+    var inRange = 0;
+    for (var i = 0; i < means.length; i++) {
+      var idx = Math.floor((means[i] - lo) / binW);
+      if (idx >= 0 && idx < NBINS) { counts[idx]++; inRange++; }
+    }
+
+    // convert to density so it is comparable to the pdf
+    var maxDensity = 0;
+    var density = new Array(NBINS);
+    for (var j = 0; j < NBINS; j++) {
+      density[j] = means.length > 0 ? counts[j] / (means.length * binW) : 0;
+      if (density[j] > maxDensity) maxDensity = density[j];
+    }
+    // peak of theoretical curve
+    var curvePeak = pdf(d.mu, d.mu, sdm);
+    var yMax = Math.max(maxDensity, curvePeak) * 1.12;
+    if (yMax <= 0) yMax = 1;
+
+    function X(v) { return padL + (v - lo) / (hi - lo) * plotW; }
+    function Y(dens) { return padT + plotH - (dens / yMax) * plotH; }
+
+    // axes
+    hctx.strokeStyle = "#d3d9e0";
+    hctx.lineWidth = 1;
+    hctx.beginPath();
+    hctx.moveTo(padL, padT);
+    hctx.lineTo(padL, padT + plotH);
+    hctx.lineTo(padL + plotW, padT + plotH);
+    hctx.stroke();
+
+    // x ticks: lo, mu, hi
+    hctx.fillStyle = "#5a6572";
+    hctx.font = "11px system-ui, sans-serif";
+    hctx.textAlign = "center";
+    var ticks = [lo, d.mu, hi];
+    for (var t = 0; t < ticks.length; t++) {
+      var tx = X(ticks[t]);
+      hctx.beginPath();
+      hctx.moveTo(tx, padT + plotH);
+      hctx.lineTo(tx, padT + plotH + 4);
+      hctx.strokeStyle = "#d3d9e0";
+      hctx.stroke();
+      hctx.fillText(ticks[t].toFixed(2), tx, padT + plotH + 16);
+    }
+
+    // bars
+    hctx.fillStyle = "#2563c9";
+    for (var k = 0; k < NBINS; k++) {
+      if (density[k] <= 0) continue;
+      var x0 = X(lo + k * binW);
+      var x1 = X(lo + (k + 1) * binW);
+      var y = Y(density[k]);
+      hctx.fillRect(x0 + 0.5, y, Math.max(1, x1 - x0 - 1), padT + plotH - y);
+    }
+
+    // theoretical normal curve
+    hctx.strokeStyle = "#c0392b";
+    hctx.lineWidth = 2;
+    hctx.beginPath();
+    var steps = 160;
+    for (var q = 0; q <= steps; q++) {
+      var xv = lo + (hi - lo) * q / steps;
+      var yv = pdf(xv, d.mu, sdm);
+      var px = X(xv), py = Y(yv);
+      if (q === 0) hctx.moveTo(px, py); else hctx.lineTo(px, py);
+    }
+    hctx.stroke();
+
+    // title
+    hctx.fillStyle = "#1c2126";
+    hctx.font = "12px system-ui, sans-serif";
+    hctx.textAlign = "left";
+    hctx.fillText("Histogram of sample means (n = " + n + ")", padL, 10);
+  }
+
+  // small source-shape panel: bin a big fixed sample from the source
+  function renderSource() {
+    var W = srcCanvas.width, H = srcCanvas.height;
+    sctx.clearRect(0, 0, W, H);
+    var padL = 6, padR = 6, padT = 6, padB = 16;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var d = dists[currentKey];
+    var lo = d.lo, hi = d.hi;
+    var SB = 28;
+    var binW = (hi - lo) / SB;
+    var counts = new Array(SB).fill(0);
+
+    // dedicated PRNG state so the source panel is stable and does not disturb sampling
+    var s2 = 987654321 >>> 0;
+    function r2() { s2 = (Math.imul(1664525, s2) + 1013904223) >>> 0; return s2 / 4294967296; }
+    function rn2() { var u1 = r2(); var u2 = r2(); if (u1 < 1e-12) u1 = 1e-12; return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2); }
+    function drawSrc() {
+      switch (currentKey) {
+        case "uniform": return r2();
+        case "exponential": { var u = r2(); if (u < 1e-12) u = 1e-12; return -Math.log(u); }
+        case "bernoulli": return r2() < 0.5 ? 0 : 1;
+        case "bimodal": return (r2() < 0.5 ? -BIM_M : BIM_M) + BIM_SD * rn2();
+        case "normal": return rn2();
+      }
+      return 0;
+    }
+    var N = 20000, maxC = 0;
+    for (var i = 0; i < N; i++) {
+      var v = drawSrc();
+      var idx = Math.floor((v - lo) / binW);
+      if (idx >= 0 && idx < SB) { counts[idx]++; if (counts[idx] > maxC) maxC = counts[idx]; }
+    }
+    if (maxC <= 0) maxC = 1;
+
+    // baseline
+    sctx.strokeStyle = "#d3d9e0";
+    sctx.lineWidth = 1;
+    sctx.beginPath();
+    sctx.moveTo(padL, padT + plotH);
+    sctx.lineTo(padL + plotW, padT + plotH);
+    sctx.stroke();
+
+    sctx.fillStyle = "#93aede";
+    for (var k = 0; k < SB; k++) {
+      if (!counts[k]) continue;
+      var x0 = padL + (k / SB) * plotW;
+      var bw = plotW / SB;
+      var h = (counts[k] / maxC) * plotH;
+      sctx.fillRect(x0 + 0.5, padT + plotH - h, Math.max(1, bw - 1), h);
+    }
+
+    // mu marker
+    var muX = padL + (d.mu - lo) / (hi - lo) * plotW;
+    sctx.strokeStyle = "#c0392b";
+    sctx.setLineDash([3, 3]);
+    sctx.beginPath();
+    sctx.moveTo(muX, padT);
+    sctx.lineTo(muX, padT + plotH);
+    sctx.stroke();
+    sctx.setLineDash([]);
+
+    sctx.fillStyle = "#5a6572";
+    sctx.font = "10px system-ui, sans-serif";
+    sctx.textAlign = "center";
+    sctx.fillText(lo.toFixed(1), padL + 8, H - 3);
+    sctx.fillText(hi.toFixed(1), padL + plotW - 8, H - 3);
+    sctx.fillStyle = "#c0392b";
+    sctx.fillText("μ", muX, H - 3);
+  }
+
+  function renderReadout() {
+    var d = dists[currentKey];
+    var sdm = d.sigma / Math.sqrt(n);
+    var count = means.length;
+    var obsSd = "—";
+    var obsMean = "—";
+    if (count >= 2) {
+      var mean = sumM / count;
+      var variance = (sumM2 - count * mean * mean) / (count - 1);
+      if (variance < 0) variance = 0;
+      obsSd = Math.sqrt(variance).toFixed(4);
+      obsMean = mean.toFixed(4);
+    } else if (count === 1) {
+      obsMean = (sumM).toFixed(4);
+    }
+    readout.innerHTML =
+      '<div><span class="k">Sample means collected:</span> <b>' + count + '</b></div>' +
+      '<div><span class="k">Source mean &mu;:</span> <b>' + d.mu.toFixed(4) + '</b></div>' +
+      '<div><span class="k">Source sd &sigma;:</span> <b>' + d.sigma.toFixed(4) + '</b></div>' +
+      '<hr style="border:none;border-top:1px solid #e3e8ef;margin:6px 0">' +
+      '<div><span class="k">Predicted sd of mean &sigma;/&radic;n:</span> <b>' + sdm.toFixed(4) + '</b></div>' +
+      '<div><span class="k">Observed sd of means:</span> <b>' + obsSd + '</b></div>' +
+      '<div><span class="k">Observed mean of means:</span> <b>' + obsMean + '</b></div>' +
+      '<hr style="border:none;border-top:1px solid #e3e8ef;margin:6px 0">' +
+      '<div><span class="swatch sw-bar"></span>histogram &nbsp; <span class="swatch sw-curve"></span>Normal(&mu;, &sigma;/&radic;n)</div>';
+  }
+
+  // ----- wiring -----
+  distSel.addEventListener("change", function () {
+    currentKey = distSel.value;
+    reset(); // fresh histogram for the new source
+  });
+  nSlider.addEventListener("input", function () {
+    n = parseInt(nSlider.value, 10);
+    nLabel.textContent = n;
+    document.querySelectorAll(".n-val").forEach(function (e) {
+      if (e.id !== "nlabel") e.textContent = n;
+    });
+    reset(); // sd of mean changes with n; collected means no longer valid
+  });
+  document.getElementById("d1").addEventListener("click", function () { drawMany(1); });
+  document.getElementById("d100").addEventListener("click", function () { drawMany(100); });
+  document.getElementById("d1000").addEventListener("click", function () { drawMany(1000); });
+  document.getElementById("reset").addEventListener("click", reset);
+
+  // init
+  document.querySelectorAll(".n-val").forEach(function (e) {
+    if (e.id !== "nlabel") e.textContent = n;
+  });
+  render();
+})();
+</script>
+</body>
+</html>
