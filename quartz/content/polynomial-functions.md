@@ -153,6 +153,28 @@ The zero product property can be used to solve polynomial equations of
 **any degree** as long as the polynomial can be factored
 into a product of simpler polynomials.
 
+### Special Products (Multiplying Binomials)
+
+Before factoring, it pays to recognize the products that factoring undoes. A handful of binomial products occur constantly, and knowing them by sight is what lets you factor by pattern instead of by trial.
+
+- **FOIL** (First, Outer, Inner, Last) multiplies any two binomials: $(a + b)(c + d) = ac + ad + bc + bd$.
+- **Square of a binomial:** $(a + b)^2 = a^2 + 2ab + b^2$ and $(a - b)^2 = a^2 - 2ab + b^2$. The middle term is *twice* the product of the two terms; dropping it (writing $(a+b)^2 = a^2 + b^2$) is the single most common algebra error.
+- **Product of a sum and a difference (conjugates):** $(a + b)(a - b) = a^2 - b^2$. The two cross terms cancel, leaving only the difference of squares.
+- **Cube of a binomial:** $(a + b)^3 = a^3 + 3a^2 b + 3ab^2 + b^3$ and $(a - b)^3 = a^3 - 3a^2 b + 3ab^2 - b^3$.
+
+![Two geometric area models: a square of side a plus b subdivided into an a-squared region, a b-squared region, and two a-b rectangles, showing that (a plus b) squared equals a squared plus 2ab plus b squared; and a square of side a with a b-by-b corner removed whose remaining L-shape rearranges into an (a plus b) by (a minus b) rectangle, showing that a squared minus b squared equals (a plus b)(a minus b)](./media/poly-special-products-area.png)
+
+The square-of-a-binomial and difference-of-squares identities have a clean geometric reading, shown above: $(a+b)^2$ is a square of side $a+b$ cut into an $a^2$, a $b^2$, and two $ab$ rectangles, while $a^2-b^2$ is a square with a smaller square removed, whose leftover L-shape rearranges into an $(a+b)\times(a-b)$ rectangle.
+
+**Worked examples.**
+
+- $(2x + 3)(x - 5) = 2x^2 - 10x + 3x - 15 = 2x^2 - 7x - 15$ (FOIL).
+- $(3x + 4)^2 = 9x^2 + 24x + 16$ (square of a binomial).
+- $(x + 7)(x - 7) = x^2 - 49$ (conjugates).
+- $(x + 2)^3 = x^3 + 6x^2 + 12x + 8$ (cube of a binomial).
+
+Every special factoring form below is one of these products read right to left.
+
 ### Special Factoring Forms
 
 For factoring that involves dividing polynomials into simpler rational expressions, see [Partial Fraction Decomposition](./partial-fraction-decomposition).
@@ -167,6 +189,53 @@ For factoring that involves dividing polynomials into simpler rational expressio
 | Factoring by Grouping | $ax + ay + bx + by$ | $(a + b)(x + y)$ |
 | Quadratic Trinomial | $ax^{2} + bx + c$ | $(px + q)(rx + s)$ |
 | Factoring out the GCF | $ab + ac$ | $a(b + c)$ |
+
+The table lists the patterns; here is each one in action. In every case you can **check the answer by multiplying the factors back out**.
+
+#### Factoring Out the GCF
+
+Always the first move: pull out the **greatest common factor**, the largest monomial dividing every term. This is the distributive law $a(b + c) = ab + ac$ run backward.
+
+- $6x^3 + 9x^2 = 3x^2(2x + 3)$. The GCF is $3x^2$; check: $3x^2 \cdot 2x + 3x^2 \cdot 3 = 6x^3 + 9x^2$.
+- $12x^4 y - 8x^2 y^2 = 4x^2 y\,(3x^2 - 2y)$.
+
+#### Difference of Squares
+
+$a^2 - b^2 = (a + b)(a - b)$: two perfect squares separated by a minus sign.
+
+- $x^2 - 25 = (x + 5)(x - 5)$.
+- $9x^2 - 16 = (3x + 4)(3x - 4)$.
+- $x^4 - 81 = (x^2 + 9)(x^2 - 9) = (x^2 + 9)(x + 3)(x - 3)$ (factor twice).
+
+A **sum** of squares $a^2 + b^2$ does *not* factor over the real numbers. (It does over the complex numbers: $a^2 + b^2 = (a + bi)(a - bi)$; see [Complex Numbers](./complex-numbers).)
+
+#### Perfect Square Trinomials
+
+$a^2 + 2ab + b^2 = (a + b)^2$ and $a^2 - 2ab + b^2 = (a - b)^2$. Recognize one when the first and last terms are perfect squares and the middle term is *twice* the product of their roots.
+
+- $x^2 + 6x + 9 = (x + 3)^2$ (since $6x = 2 \cdot x \cdot 3$).
+- $4x^2 - 20x + 25 = (2x - 5)^2$ (since $20x = 2 \cdot 2x \cdot 5$).
+
+#### Sum and Difference of Cubes
+
+$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$ and $a^3 - b^3 = (a - b)(a^2 + ab + b^2)$. The signs follow the mnemonic **SOAP**: **S**ame as the cube, **O**pposite, **A**lways **P**ositive.
+
+- $x^3 + 8 = (x + 2)(x^2 - 2x + 4)$.
+- $27x^3 - 1 = (3x - 1)(9x^2 + 3x + 1)$.
+
+The quadratic factor $a^2 \mp ab + b^2$ never factors further over the reals (its discriminant is negative).
+
+#### Factoring a Quadratic Trinomial $ax^2 + bx + c$
+
+When the leading coefficient is $1$, find two numbers that multiply to $c$ and add to $b$:
+
+- $x^2 + 7x + 12 = (x + 3)(x + 4)$ (since $3 \cdot 4 = 12$ and $3 + 4 = 7$).
+
+When $a \neq 1$, use the **AC method**: multiply $a \cdot c$, find two numbers multiplying to $ac$ and adding to $b$, split the middle term with them, and factor by grouping.
+
+- Factor $6x^2 + 11x + 3$. Here $ac = 18$, and $9$ and $2$ multiply to $18$ and add to $11$. Split and group: $6x^2 + 9x + 2x + 3 = 3x(2x + 3) + 1(2x + 3) = (2x + 3)(3x + 1)$.
+
+And always factor out the GCF first: $2x^2 + 8x + 6 = 2(x^2 + 4x + 3) = 2(x + 1)(x + 3)$.
 
 ### Factoring by Grouping
 

@@ -1707,6 +1707,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const lam = 0.5, n = 1000; eq("Bayes gen error + CV error = 2 lambda / n", 2 * lam / n, 0.001, 1e-12); }
 }
 
+// ================= Special Products and Factoring (polynomial-functions) =================
+{
+  const pts = [-3, -1, 0.5, 2, 4];
+  const idOK = (f, g) => pts.every((x) => approx(f(x), g(x), 1e-9));
+  // special products (checked over several a,b)
+  check("(a+b)^2 = a^2 + 2ab + b^2", [[2, 3], [5, -1], [-2, 4]].every(([a, b]) => approx((a + b) ** 2, a * a + 2 * a * b + b * b, 1e-9)));
+  check("(a-b)^2 = a^2 - 2ab + b^2", [[5, 2], [3, 7]].every(([a, b]) => approx((a - b) ** 2, a * a - 2 * a * b + b * b, 1e-9)));
+  check("(a+b)(a-b) = a^2 - b^2", [[7, 3], [2, 5]].every(([a, b]) => approx((a + b) * (a - b), a * a - b * b, 1e-9)));
+  check("(a+b)^3 = a^3 + 3a^2 b + 3ab^2 + b^3", [[1, 2], [3, -1]].every(([a, b]) => approx((a + b) ** 3, a ** 3 + 3 * a * a * b + 3 * a * b * b + b ** 3, 1e-9)));
+  check("FOIL: (2x+3)(x-5) = 2x^2 - 7x - 15", idOK((x) => (2 * x + 3) * (x - 5), (x) => 2 * x * x - 7 * x - 15));
+  // factoring forms
+  check("GCF: 6x^3 + 9x^2 = 3x^2(2x+3)", idOK((x) => 6 * x ** 3 + 9 * x * x, (x) => 3 * x * x * (2 * x + 3)));
+  check("difference of squares: x^2 - 25 = (x+5)(x-5)", idOK((x) => x * x - 25, (x) => (x + 5) * (x - 5)));
+  check("x^4 - 81 = (x^2+9)(x+3)(x-3)", idOK((x) => x ** 4 - 81, (x) => (x * x + 9) * (x + 3) * (x - 3)));
+  check("perfect square: x^2 + 6x + 9 = (x+3)^2", idOK((x) => x * x + 6 * x + 9, (x) => (x + 3) ** 2));
+  check("perfect square: 4x^2 - 20x + 25 = (2x-5)^2", idOK((x) => 4 * x * x - 20 * x + 25, (x) => (2 * x - 5) ** 2));
+  check("sum of cubes: x^3 + 8 = (x+2)(x^2-2x+4)", idOK((x) => x ** 3 + 8, (x) => (x + 2) * (x * x - 2 * x + 4)));
+  check("difference of cubes: 27x^3 - 1 = (3x-1)(9x^2+3x+1)", idOK((x) => 27 * x ** 3 - 1, (x) => (3 * x - 1) * (9 * x * x + 3 * x + 1)));
+  check("AC method: 6x^2 + 11x + 3 = (2x+3)(3x+1)", idOK((x) => 6 * x * x + 11 * x + 3, (x) => (2 * x + 3) * (3 * x + 1)));
+  check("trinomial: x^2 + 7x + 12 = (x+3)(x+4)", idOK((x) => x * x + 7 * x + 12, (x) => (x + 3) * (x + 4)));
+  check("GCF-first: 2x^2 + 8x + 6 = 2(x+1)(x+3)", idOK((x) => 2 * x * x + 8 * x + 6, (x) => 2 * (x + 1) * (x + 3)));
+  // a sum of squares has no real factorization: negative discriminant, always positive
+  check("sum of squares x^2 + 4 is irreducible over R (disc < 0, always positive)", 0 - 4 * 1 * 4 < 0 && pts.every((x) => x * x + 4 > 0));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
