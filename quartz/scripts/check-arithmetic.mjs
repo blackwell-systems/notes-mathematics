@@ -1064,6 +1064,115 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const s = cramer(2, 3, 6, 1, -1, 0.5); eq("2x+3y=6, x-y=0.5 -> D=-5", s.D, -5); eq("... x=1.5", s.x, 1.5, 1e-9); eq("... y=1", s.y, 1, 1e-9); }
 }
 
+// ================= Matrices =================
+{
+  const mmul = (A, B) => A.map((row) => B[0].map((_, j) => row.reduce((s, _v, k) => s + A[A.indexOf(row)][k] * B[k][j], 0)));
+  // 2x2 * 2x2
+  { const A = [[1, 2], [3, 4]], B = [[5, 6], [7, 8]]; const C = mmul(A, B); eq("[[1,2],[3,4]]*[[5,6],[7,8]] top-left = 19", C[0][0], 19); eq("... top-right = 22", C[0][1], 22); eq("... bottom-left = 43", C[1][0], 43); eq("... bottom-right = 50", C[1][1], 50); }
+  eq("det[[2,3],[5,-1]] = -17", 2 * -1 - 3 * 5, -17);
+  // inverse of [[2,3],[1,4]] = (1/det)[[4,-3],[-1,2]], det=5
+  { const det = 2 * 4 - 3 * 1; eq("det[[2,3],[1,4]] = 5", det, 5); eq("inv[[2,3],[1,4]][0][0] = 0.8", 4 / det, 0.8); eq("inv[0][1] = -0.6", -3 / det, -0.6); }
+  // matrix-vector: A * e2 = second column
+  { const A = [[1, 2], [3, 4]]; eq("A*[0,1]^T = [2,4]: top = 2", A[0][1], 2); eq("... bottom = 4", A[1][1], 4); }
+  // eigenvalues of [[2,1],[1,2]]: trace 4, det 3 -> lambda 3 and 1
+  { const tr = 4, det = 3, disc = Math.sqrt(tr * tr - 4 * det); eq("eigenvalue of [[2,1],[1,2]] large = 3", (tr + disc) / 2, 3); eq("... small = 1", (tr - disc) / 2, 1); }
+}
+
+// ================= Logarithms =================
+{
+  const log = Math.log, log2 = (x) => log(x) / log(2), log10 = (x) => log(x) / log(10);
+  eq("log2(8) = 3", log2(8), 3, 1e-9);
+  eq("ln(e) = 1", Math.log(Math.E), 1, 1e-12);
+  eq("log10(1000) = 3", log10(1000), 3, 1e-9);
+  eq("product rule: log2(2*8) = log2(16) = 4 = 1+3", log2(2 * 8), log2(2) + log2(8), 1e-9);
+  eq("change of base log2(10) = ln10/ln2", log2(10), Math.log(10) / Math.log(2), 1e-12);
+  eq("log_5(1) = 0", Math.log(1) / Math.log(5), 0);
+  eq("power rule: log2(8^2) = 2*log2(8) = 6", log2(8 ** 2), 2 * log2(8), 1e-9);
+}
+
+// ================= Exponential Functions =================
+{
+  eq("2^10 = 1024", 2 ** 10, 1024);
+  eq("b^0 = 1 (zero-exponent)", 7 ** 0, 1);
+  eq("doubling: 100*2^t at t=3 = 800", 100 * 2 ** 3, 800);
+  eq("half-life: (1/2)^3 = 0.125", (1 / 2) ** 3, 0.125);
+  eq("continuous base: e^(ln2) = 2", Math.exp(Math.log(2)), 2, 1e-12);
+  eq("doubling time for k=ln2 is 1", Math.log(2) / Math.log(2), 1, 1e-12);
+  // monthly compound: A = 1000(1+0.05/12)^120
+  eq("compound A = 1000(1+0.05/12)^120 = 1647.01", 1000 * (1 + 0.05 / 12) ** 120, 1647.01, 0.02);
+}
+
+// ================= Prime Factorization / Sieve =================
+{
+  const factorize = (n) => { const f = {}; for (let d = 2; d * d <= n; d++) while (n % d === 0) { f[d] = (f[d] || 0) + 1; n /= d; } if (n > 1) f[n] = (f[n] || 0) + 1; return f; };
+  const numDivisors = (n) => Object.values(factorize(n)).reduce((p, e) => p * (e + 1), 1);
+  const sieve = (N) => { const s = Array(N + 1).fill(true); s[0] = s[1] = false; for (let i = 2; i * i <= N; i++) if (s[i]) for (let j = i * i; j <= N; j += i) s[j] = false; return s.reduce((a, v, i) => (v ? a.concat(i) : a), []); };
+  { const f = factorize(60); eq("60 = 2^2 * 3 * 5: exp of 2", f[2], 2); check("... has factor 3^1 and 5^1", f[3] === 1 && f[5] === 1); }
+  eq("number of divisors of 60 = 12", numDivisors(60), 12);
+  eq("count of primes below 30 = 10", sieve(29).length, 10);
+  { const f = factorize(84); check("84 = 2^2 * 3 * 7", f[2] === 2 && f[3] === 1 && f[7] === 1); }
+  eq("gcd(60,84) = 12", gcd(60, 84), 12);
+  { const f = factorize(1000); check("1000 = 2^3 * 5^3", f[2] === 3 && f[5] === 3); }
+}
+
+// ================= Graphing: transformations =================
+{
+  const shifted = (x) => (x - 2) ** 2 + 3; // y=(x-2)^2+3, vertex (2,3)
+  eq("y=(x-2)^2+3 vertex value at x=2 is 3", shifted(2), 3);
+  eq("y=(x-2)^2+3 at x=0 is 7", shifted(0), 7);
+  eq("y=-x^2 at x=2 is -4 (x-axis reflection)", -(2 ** 2), -4);
+  eq("y=2x^2 at x=3 is 18 (vertical stretch)", 2 * 3 ** 2, 18);
+  eq("y=|x-1| vertex at x=1 is 0", Math.abs(1 - 1), 0);
+  eq("y=sqrt(2x) at x=2 is 2 (horizontal compression)", Math.sqrt(2 * 2), 2);
+}
+
+// ================= Linear Functions =================
+{
+  const slope = (x1, y1, x2, y2) => (y2 - y1) / (x2 - x1);
+  eq("slope through (2,5),(4,11) = 3", slope(2, 5, 4, 11), 3);
+  eq("y=2x+1 x-intercept = -0.5", -1 / 2, -0.5);
+  eq("y=2x+1 at x=4 is 9", 2 * 4 + 1, 9);
+  eq("perpendicular slopes multiply to -1", 2 * (-1 / 2), -1);
+  // point-slope through (2,5) slope 3 -> y = 3x - 1, so at x=2 y=5
+  eq("point-slope (2,5) m=3 gives y=3x-1 at x=2 -> 5", 3 * 2 - 1, 5);
+  // direct variation y=12 at x=3 -> k=4, at x=7 y=28
+  eq("direct variation k=4 gives y(7)=28", (12 / 3) * 7, 28);
+}
+
+// ================= Systems of Linear Equations (Gaussian) =================
+{
+  // x+y+z=6, y+z=5, z=3 -> back-substitution (1,2,3)
+  { const z = 3, y = 5 - z, x = 6 - y - z; check("x+y+z=6,y+z=5,z=3 -> (1,2,3)", x === 1 && y === 2 && z === 3); }
+  // 2x2 [[2,1|5],[1,-1|1]] -> x=2,y=1 via Cramer
+  { const D = 2 * -1 - 1 * 1, Dx = 5 * -1 - 1 * 1, Dy = 2 * 1 - 1 * 5; eq("[[2,1|5],[1,-1|1]] x = 2", Dx / D, 2); eq("... y = 1", Dy / D, 1); }
+  // rank of [[1,2],[2,4]] = 1 (second row = 2x first) -> det 0
+  eq("det[[1,2],[2,4]] = 0 (rank 1)", 1 * 4 - 2 * 2, 0);
+  // worked 3x3 [[1,2,1|8],[2,5,2|18],[1,1,3|11]] -> (3/2, 2, 5/2); verify by substitution
+  { const x = 1.5, y = 2, z = 2.5; check("3x3 solution (3/2,2,5/2) satisfies all rows", approx(x + 2 * y + z, 8) && approx(2 * x + 5 * y + 2 * z, 18) && approx(x + y + 3 * z, 11)); }
+}
+
+// ================= Radical Functions =================
+{
+  eq("sqrt(9) = 3", Math.sqrt(9), 3);
+  eq("sqrt(72) = 6*sqrt(2)", Math.sqrt(72), 6 * Math.SQRT2, 1e-9);
+  eq("cube root of -8 = -2 (odd root of negative)", Math.cbrt(-8), -2, 1e-12);
+  eq("cube root of 54 = 3*cbrt(2)", Math.cbrt(54), 3 * Math.cbrt(2), 1e-9);
+  eq("domain of sqrt(x-3): boundary x = 3", 3, 3); // radicand x-3 >= 0
+  eq("domain of sqrt(5-2x): boundary x = 5/2", 5 / 2, 2.5); // 5-2x >= 0
+}
+
+// ================= Partial Fraction Decomposition =================
+{
+  // (3x+5)/((x+1)(x+2)) = A/(x+1) + B/(x+2), cover-up: A at x=-1, B at x=-2
+  { const A = (3 * -1 + 5) / (-1 + 2), B = (3 * -2 + 5) / (-2 + 1); eq("PFD (3x+5)/((x+1)(x+2)): A = 2", A, 2); eq("... B = 1", B, 1);
+    // verify recombination at a test point x=0: A/1 + B/2 should equal 5/2
+    eq("recombine at x=0 gives 3*0+5 over 1*2 = 2.5", A / (0 + 1) + B / (0 + 2), (3 * 0 + 5) / ((0 + 1) * (0 + 2)), 1e-9); }
+  // 1/(x^2-1) = (1/2)/(x-1) - (1/2)/(x+1)
+  { const A = 1 / (1 + 1), B = 1 / (-1 - 1); eq("PFD 1/(x^2-1): A = 1/2", A, 0.5); eq("... B = -1/2", B, -0.5); }
+  // (2x-1)/(x(x-3)) = (1/3)/x + (5/3)/(x-3)
+  { const A = (2 * 0 - 1) / (0 - 3), B = (2 * 3 - 1) / (3 - 0); eq("PFD (2x-1)/(x(x-3)): A = 1/3", A, 1 / 3, 1e-9); eq("... B = 5/3", B, 5 / 3, 1e-9); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

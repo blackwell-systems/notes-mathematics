@@ -54,6 +54,18 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Coverage-gap batch (callouts + widgets for 11 pages) & widget auto-fit** — closed the
+  remaining pages that had no prerequisites callout and/or no interactive widget. Added callouts
+  to 11 pages (exponential-functions, logarithms, matrices, linear-functions, graphing-functions,
+  systems-of-linear-equations, radical-functions, number-bases, partial-fraction-decomposition,
+  propositional-logic, symbolic-methods-vs-numerical-methods) and new self-contained widgets:
+  log-explorer, exp-growth-explorer, gaussian-elimination stepper, factor-tree-sieve,
+  function-transformer, slope-intercept-explorer, radical-explorer, partial-fraction-visualizer.
+  Embedded the orphaned singularity-surface on algebraic-geometry (and rewrote it from a
+  CDN-Plotly export to a self-contained vanilla-canvas Whitney umbrella; the old export was also
+  mislabeled). Matrices reuses the existing linear-transformation-2d widget. New
+  `scripts/inject-widget-autofit.mjs`: every widget now sizes its own iframe to content height via
+  `window.frameElement`, so no widget shows a scrollbar. +63 machine-checked assertions (499 total).
 - [x] **Discrete-math & combinatorics batch (8 pages)** — one prerequisites callout + one
   self-contained widget each, all built in a single parallel wave: graph-theory (click-to-build
   graph with step-through BFS/DFS, degree table, handshaking readout), number-theory (modular

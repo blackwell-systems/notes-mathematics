@@ -1,6 +1,12 @@
 ---
 title: "Symbolic Methods vs. Numerical Methods"
+prerequisites: ["calculus"]
+enables: ["differential-equations", "optimization"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Calculus](./calculus)
+> **Leads to:** [Differential Equations](./differential-equations) · [Optimization](./optimization)
 
 ## Symbolic Methods
 

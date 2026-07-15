@@ -1,6 +1,12 @@
 ---
 title: "Systems of Linear Equations"
+prerequisites: ["matrices", "systems-of-equations"]
+enables: ["linear-algebra-foundations", "linear-algebra-computation"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Matrices](./matrices) · [Systems of Equations](./systems-of-equations)
+> **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Linear Algebra for Computation](./linear-algebra-computation)
 
 ## The Problem
 
@@ -348,6 +354,10 @@ $$
 **Phase 1: Forward Elimination** - Transform to row echelon form
 
 **Phase 2: Back-substitution** - Solve for variables starting from bottom row
+
+The stepper below runs the whole procedure one elementary row operation at a time. Enter an augmented matrix $[A \mid b]$ (read "A bar b", the coefficient matrix $A$ next to the constant column $b$), then step through forward elimination and reduction to RREF. Each step names its operation (for example "R2 -> R2 - 2·R1"), highlights the pivot it is working from, and the final panel classifies the system as unique, inconsistent, or dependent.
+
+<iframe src="/static/interactive/gaussian-elimination.html" width="100%" height="600" style="border:none;"></iframe>
 
 **Example:** Solve the 3×3 system:
 

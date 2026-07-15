@@ -1,10 +1,16 @@
 ---
 title: "Partial Fraction Decomposition"
+prerequisites: ["rational-functions", "systems-of-equations"]
+enables: ["calculus", "differential-equations"]
 ---
 
 **Partial Fraction Decomposition:** A method for rewriting a proper rational function (where the degree of the numerator is less than the degree of the denominator) as a sum of simpler fractions. This is the inverse process of finding a common denominator.
 
 This technique requires understanding [Rational Functions](./rational-functions) (what makes a fraction proper vs improper) and [Polynomial Functions](./polynomial-functions) (how to factor denominators). It is used in [Calculus](./calculus) to simplify integrals of rational functions.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Rational Functions](./rational-functions) · [Systems of Equations](./systems-of-equations)
+> **Leads to:** [Calculus](./calculus) · [Differential Equations](./differential-equations)
 
 **Prerequisite:** The rational function must be **proper**. If it is improper (degree of numerator $\geq$ degree of denominator), first perform polynomial long division to extract the polynomial part, then decompose the remaining proper fraction.
 
@@ -165,6 +171,12 @@ Compare $x^2$ coefficients: $1 = A + B$, so $B = 1 - \frac{2}{3} = \frac{1}{3}$
 $$
 \frac{x^2 + 2x + 3}{(x - 1)(x + 2)^2} = \frac{2/3}{x - 1} + \frac{1/3}{x + 2} + \frac{-1}{(x + 2)^2}
 $$
+
+## Step Through a Decomposition
+
+The widget below walks through the distinct-linear-factors case for a few preset proper rational functions. Pick a function, then step through: setting up $\frac{A}{x - r_1} + \frac{B}{x - r_2}$ (read $A$ as "A", $B$ as "B", and $r_1, r_2$ as "r-one, r-two", the roots of the denominator), clearing denominators, solving for the constants by the **cover-up method** (substituting each root to isolate one constant) and by **equating coefficients** (matching powers of $x$ to build a linear system), then recombining to verify. The plot overlays the original function and the sum of the partial fractions so you can confirm they coincide.
+
+<iframe src="/static/interactive/partial-fraction-visualizer.html" width="100%" height="580" style="border:none;"></iframe>
 
 ## Where It Shows Up
 

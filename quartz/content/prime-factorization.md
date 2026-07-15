@@ -1,12 +1,12 @@
 ---
 title: "Prime Factorization"
-prerequisites: ["number-systems"]
-enables: ["number-theory"]
+prerequisites: ["number-systems", "order-of-operations"]
+enables: ["number-theory", "partial-fraction-decomposition"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Number Systems](./number-systems)
-> **Leads to:** [Number Theory](./number-theory)
+> **Builds on:** [Number Systems](./number-systems) · [Order of Operations](./order-of-operations)
+> **Leads to:** [Number Theory](./number-theory) · [Partial Fraction Decomposition](./partial-fraction-decomposition)
 
 Prime factorization is a core tool in [Number Theory](./number-theory), where it is used to compute GCDs, LCMs, and in modular arithmetic.
 
@@ -130,6 +130,12 @@ method, follow the below steps:
     the composite factors
 
 ![Two factor trees: 60 branching to primes 2, 2, 3, 5 giving 2^2 x 3 x 5, and 282 branching to 2, 3, 47](./media/pf-factor-tree.png)
+
+### Try It: Factor Tree and Sieve
+
+The widget below has two modes. In **Factor Tree** mode, enter any integer from 2 to 9999 and watch the tree grow as each composite splits into a prime factor and a cofactor; it then reports the factorization in exponent form (read $2^2$ as "two squared") along with the number of divisors. In **Sieve of Eratosthenes** mode, choose a limit $N$ (read as "en") and step through crossing out multiples to see which numbers survive as primes, with a running prime count.
+
+<iframe src="/static/interactive/factor-tree-sieve.html" width="100%" height="600" style="border:none;"></iframe>
 
 ## Trial Division Method
 

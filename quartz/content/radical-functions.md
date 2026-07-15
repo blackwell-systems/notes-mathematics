@@ -1,10 +1,18 @@
 ---
 title: "Radical Functions"
+prerequisites: ["functions-relations", "polynomial-functions"]
+enables: ["complex-numbers", "rational-functions"]
 ---
+
+A **radical** (or **root**) is the inverse operation of raising a number to a power. If squaring a number means multiplying it by itself ($3^2 = 9$), then taking the square root reverses that process ($\sqrt{9} = 3$).
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Polynomial Functions](./polynomial-functions)
+> **Leads to:** [Complex Numbers](./complex-numbers) · [Rational Functions](./rational-functions)
 
 ## What Is a Radical?
 
-A **radical** (or **root**) is the inverse operation of raising a number to a power. If squaring a number means multiplying it by itself ($3^2 = 9$), then taking the square root reverses that process ($\sqrt{9} = 3$).
+Radicals undo powers. Squaring sends $3$ to $9$; the square root sends $9$ back to $3$. This section motivates the operation and connects it to fractional exponents before we define radical functions themselves.
 
 ### Why We Need Radicals
 
@@ -307,6 +315,12 @@ $5 \geq 2x$
 $x \leq \frac{5}{2}$
 
 Domain: $(-\infty, \frac{5}{2}]$
+
+### Explore Radical Transformations
+
+Use the widget below to see how the four parameters reshape a radical graph. It plots $y = a\sqrt[n]{b(x - h)} + k$, where you read $a$ as "a" (vertical stretch), $b$ as "b" (horizontal stretch), $h$ as "h" (the horizontal shift, read "aitch"), and $k$ as "k" (the vertical shift). Switch the index $n$ (read "n") between $2$ for the square root and $3$ for the cube root. For the even (square) root the shaded band marks the invalid region where the radicand is negative, so the domain starts at the point $(h, k)$; for the odd (cube) root there is no restriction. The dashed reflection curve shows the inverse relationship to the corresponding power function $y = x^n$.
+
+<iframe src="/static/interactive/radical-explorer.html" width="100%" height="560" style="border:none;"></iframe>
 
 ## Cube Root Function
 

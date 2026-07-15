@@ -1,10 +1,18 @@
 ---
 title: "Linear Functions"
+prerequisites: ["functions-relations", "graphing-functions"]
+enables: ["systems-of-equations", "inequalities"]
 ---
+
+Linear functions are the simplest and most important type of function, and they show up everywhere. Any time a quantity changes at a steady, predictable rate, a linear function describes it.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Graphing Functions](./graphing-functions)
+> **Leads to:** [Systems of Equations](./systems-of-equations) · [Inequalities](./inequalities)
 
 ## Why Linear Functions?
 
-Linear functions are the simplest and most important type of function, and they show up everywhere. Any time a quantity changes at a steady, predictable rate, a linear function describes it.
+Any time a quantity changes at a steady, predictable rate, a linear function describes it.
 
 ### What "Constant Rate of Change" Means
 
@@ -48,8 +56,12 @@ $$f(x) = mx + b$$
 
 - $f(x)$ (or $y$) is the output or dependent variable.
 - $x$ is the input or independent variable.
-- $m$ is the slope of the line, representing the constant rate of change.
-- $b$ is the $y$-intercept, representing the value of $f(x)$ when $x = 0$.
+- $m$ is the slope of the line, representing the constant rate of change. Read $m$ aloud as "the slope."
+- $b$ is the $y$-intercept, representing the value of $f(x)$ when $x = 0$. Read $b$ aloud as "the y-intercept."
+
+Use the explorer below to build intuition. Drag the sliders for the slope $m$ and the y-intercept $b$ and watch the line, the "rise over run" triangle, and both intercepts update in real time. Toggle to point-slope form to drag the anchor point $(x_1, y_1)$ directly.
+
+<iframe src="/static/interactive/slope-intercept-explorer.html" width="100%" height="560" style="border:none;"></iframe>
 
 ### Calculating Slope
 

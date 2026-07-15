@@ -1,8 +1,14 @@
 ---
 title: "Number Bases"
+prerequisites: ["number-systems", "order-of-operations"]
+enables: ["prime-factorization"]
 ---
 
 Every whole number you write down is a coded message. The string `3204` is not the number itself: it is a compact instruction for building the number out of powers of ten. This page unpacks that instruction, shows how the *same* number can be written using powers of any base (2, 8, 16, or an arbitrary base $b$), and explains why computers overwhelmingly prefer base 2. It is the computer-science-facing companion to [Number Systems](./number-systems) and [Algebraic Structures](./algebraic-structures).
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Number Systems](./number-systems) · [Order of Operations](./order-of-operations)
+> **Leads to:** [Prime Factorization](./prime-factorization)
 
 ## Positional Notation and Place Value
 

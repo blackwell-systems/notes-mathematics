@@ -1,10 +1,16 @@
 ---
 title: "Exponential Functions"
+prerequisites: ["functions-relations", "polynomial-functions"]
+enables: ["logarithms", "calculus"]
 ---
 
 ## What Is Exponential Growth?
 
 **Exponential growth** describes a quantity that multiplies by a fixed factor in each time period, rather than increasing by a fixed amount. When something doubles every hour, or halves every year, or grows by 5% each month, that is exponential behavior.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Polynomial Functions](./polynomial-functions)
+> **Leads to:** [Logarithms](./logarithms) · [Calculus](./calculus)
 
 ### Real-World Examples
 
@@ -86,6 +92,12 @@ If something decays by 3% per year, the decay rate is $r = 0.03$ and the growth 
 | Halves each period | 0.50 | 0.50 | $a \cdot 0.5^t$ |
 
 ![Exponential growth and decay curves showing the contrast between b > 1 and 0 < b < 1](./media/exponential-growth-decay.png)
+
+### Explore It Yourself
+
+Drag the sliders to see how the base $b$ (read "b") and the coefficient $a$ (read "a") shape the curve $y = a \cdot b^x$ (read "a times b to the x"). Switch to the continuous form $y = a \cdot e^{kt}$ (read "a times e to the k t") to watch the same curves expressed with a rate $k$ (read "k"), with the doubling time $\frac{\ln 2}{k}$ (read "natural log of 2 over k") or half-life $\frac{\ln 2}{|k|}$ reported live. The dashed polynomial overlay shows that exponential growth eventually overtakes any polynomial.
+
+<iframe src="/static/interactive/exp-growth-explorer.html" width="100%" height="580" style="border:none;"></iframe>
 
 ## The Natural Exponential Function
 

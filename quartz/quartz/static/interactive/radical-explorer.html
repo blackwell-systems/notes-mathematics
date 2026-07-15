@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radical Function Explorer</title>
+<style>
+  :root { --ink:#222; --muted:#666; --line:#d9d9d9; --accent:#2563eb; --invalid:#e11d48; --inverse:#16a34a; }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; padding:14px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:#fff;
+  }
+  .wrap { max-width:760px; margin:0 auto; }
+  h1 { font-size:1.15rem; margin:0 0 4px; }
+  p.sub { margin:0 0 12px; color:var(--muted); font-size:.85rem; }
+  canvas { width:100%; height:auto; border:1px solid var(--line); border-radius:6px; background:#fff; display:block; }
+  .controls { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; margin-top:12px; }
+  .ctrl { display:flex; align-items:center; gap:8px; font-size:.85rem; }
+  .ctrl label { width:74px; flex:0 0 auto; font-variant-numeric:tabular-nums; }
+  .ctrl input[type=range] { flex:1 1 auto; accent-color:var(--accent); }
+  .ctrl .val { width:44px; text-align:right; font-variant-numeric:tabular-nums; color:var(--accent); }
+  .toprow { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin:10px 0 2px; }
+  .seg { display:inline-flex; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .seg button { border:none; background:#f5f5f5; padding:5px 12px; font-size:.85rem; cursor:pointer; color:var(--ink); }
+  .seg button.active { background:var(--accent); color:#fff; }
+  .readout { margin-top:12px; padding:10px 12px; background:#f7f8fa; border:1px solid var(--line); border-radius:6px; font-size:.85rem; line-height:1.55; }
+  .readout code { background:#eef1f6; padding:1px 5px; border-radius:4px; font-size:.82rem; }
+  .legend { display:flex; flex-wrap:wrap; gap:14px; font-size:.78rem; color:var(--muted); margin-top:8px; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; }
+  .swatch { width:16px; height:3px; border-radius:2px; display:inline-block; }
+  .btn-reset { border:1px solid var(--line); background:#f5f5f5; border-radius:6px; padding:5px 12px; font-size:.82rem; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Radical Function Explorer</h1>
+  <p class="sub">Plot y = a &middot; (b(x &minus; h))<sup>1/n</sup> + k. Drag the sliders; switch between square root (n = 2) and cube root (n = 3).</p>
+
+  <div class="toprow">
+    <div class="seg" id="rootSeg">
+      <button data-n="2" class="active">Square root (n = 2)</button>
+      <button data-n="3">Cube root (n = 3)</button>
+    </div>
+    <button class="btn-reset" id="resetBtn">Reset</button>
+  </div>
+
+  <canvas id="cv" width="1520" height="1040"></canvas>
+
+  <div class="legend">
+    <span><i class="swatch" style="background:#2563eb"></i> radical function</span>
+    <span><i class="swatch" style="background:#16a34a;height:0;border-top:3px dashed #16a34a"></i> inverse power y = x<sup>n</sup></span>
+    <span><i class="swatch" style="background:#e11d48;opacity:.25;height:12px"></i> invalid domain (even root)</span>
+    <span><i class="swatch" style="background:#111;border-radius:50%;width:8px;height:8px"></i> start point (h, k)</span>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl"><label>a (v. stretch)</label><input type="range" id="a" min="-3" max="3" step="0.1" value="1"><span class="val" id="aV">1.0</span></div>
+    <div class="ctrl"><label>b (h. stretch)</label><input type="range" id="b" min="-3" max="3" step="0.1" value="1"><span class="val" id="bV">1.0</span></div>
+    <div class="ctrl"><label>h (h. shift)</label><input type="range" id="h" min="-6" max="6" step="0.1" value="0"><span class="val" id="hV">0.0</span></div>
+    <div class="ctrl"><label>k (v. shift)</label><input type="range" id="k" min="-6" max="6" step="0.1" value="0"><span class="val" id="kV">0.0</span></div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script>
+(function(){
+  var cv = document.getElementById('cv');
+  var ctx = cv.getContext('2d');
+  var W = cv.width, H = cv.height;
+  // world coords
+  var XMIN=-8, XMAX=8, YMIN=-6, YMAX=6;
+  function sx(x){ return (x-XMIN)/(XMAX-XMIN)*W; }
+  function sy(y){ return H - (y-YMIN)/(YMAX-YMIN)*H; }
+
+  var state = { n:2, a:1, b:1, h:0, k:0 };
+
+  function nthroot(v, n){
+    if(n%2===1){ return Math.sign(v)*Math.pow(Math.abs(v), 1/n); }
+    if(v<0) return NaN;
+    return Math.pow(v, 1/n);
+  }
+  function f(x){
+    var rad = state.b*(x - state.h);
+    var r = nthroot(rad, state.n);
+    if(isNaN(r)) return NaN;
+    return state.a*r + state.k;
+  }
+
+  function grid(){
+    ctx.clearRect(0,0,W,H);
+    // shaded invalid region for even roots: where b(x-h) < 0
+    if(state.n%2===0){
+      // radicand b*(x-h) >= 0 required. invalid where b*(x-h) < 0
+      // boundary at x = h. If b>0 invalid x<h; if b<0 invalid x>h; b=0 => all invalid unless const.
+      ctx.fillStyle = 'rgba(225,29,72,0.12)';
+      if(state.b>0){ ctx.fillRect(0,0, sx(state.h), H); }
+      else if(state.b<0){ ctx.fillRect(sx(state.h),0, W-sx(state.h), H); }
+      else { ctx.fillRect(0,0,W,H); }
+    }
+    // minor grid
+    ctx.strokeStyle='#eee'; ctx.lineWidth=1;
+    for(var gx=Math.ceil(XMIN); gx<=XMAX; gx++){ ctx.beginPath(); ctx.moveTo(sx(gx),0); ctx.lineTo(sx(gx),H); ctx.stroke(); }
+    for(var gy=Math.ceil(YMIN); gy<=YMAX; gy++){ ctx.beginPath(); ctx.moveTo(0,sy(gy)); ctx.lineTo(W,sy(gy)); ctx.stroke(); }
+    // axes
+    ctx.strokeStyle='#999'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(0,sy(0)); ctx.lineTo(W,sy(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(sx(0),0); ctx.lineTo(sx(0),H); ctx.stroke();
+    // axis ticks labels
+    ctx.fillStyle='#888'; ctx.font='22px sans-serif'; ctx.textAlign='center';
+    for(var lx=Math.ceil(XMIN); lx<=XMAX; lx+=2){ if(lx!==0) ctx.fillText(lx, sx(lx), sy(0)+26); }
+    ctx.textAlign='right';
+    for(var ly=Math.ceil(YMIN); ly<=YMAX; ly+=2){ if(ly!==0) ctx.fillText(ly, sx(0)-8, sy(ly)+8); }
+  }
+
+  function plotCurve(fn, color, dashed){
+    ctx.strokeStyle=color; ctx.lineWidth=3.5;
+    ctx.setLineDash(dashed?[10,8]:[]);
+    ctx.beginPath();
+    var started=false;
+    var N=1400;
+    for(var i=0;i<=N;i++){
+      var x = XMIN + (XMAX-XMIN)*i/N;
+      var y = fn(x);
+      if(isNaN(y) || y<YMIN-40 || y>YMAX+40){ started=false; continue; }
+      var px=sx(x), py=sy(y);
+      if(!started){ ctx.moveTo(px,py); started=true; } else { ctx.lineTo(px,py); }
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function draw(){
+    grid();
+    // inverse power curve y = x^n (the operation the radical undoes), drawn dashed
+    plotCurve(function(x){ var v=Math.pow(x, state.n); return v; }, '#16a34a', true);
+    // radical function
+    plotCurve(f, '#2563eb', false);
+    // start point (h,k)
+    var pxh=sx(state.h), pyk=sy(state.k);
+    ctx.fillStyle='#111';
+    ctx.beginPath(); ctx.arc(pxh,pyk,9,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#111'; ctx.font='24px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('(h, k)', pxh+12, pyk-12);
+  }
+
+  function fmt(v){ return (Math.round(v*100)/100).toString(); }
+  function interval(lo, hi, loOpen, hiOpen){
+    var L = (lo===-Infinity)?'(-∞':((loOpen?'(':'[')+fmt(lo));
+    var R = (hi===Infinity)?'∞)':(fmt(hi)+(hiOpen?')':']'));
+    return L+', '+R;
+  }
+
+  function updateReadout(){
+    var r = document.getElementById('readout');
+    var dom, rng;
+    var eq = 'y = '+fmt(state.a)+'·√['+state.n+']('+fmt(state.b)+'(x − '+fmt(state.h)+')) + '+fmt(state.k);
+    if(state.n%2===1){
+      dom = '(-∞, ∞)';
+      rng = '(-∞, ∞)';
+    } else {
+      // domain: b(x-h)>=0
+      if(state.b>0){ dom = interval(state.h, Infinity, false, false); }
+      else if(state.b<0){ dom = interval(-Infinity, state.h, false, false); }
+      else { dom = 'empty (b = 0)'; }
+      // range: a*sqrt(...)+k, sqrt>=0
+      if(state.a>=0){ rng = interval(state.k, Infinity, false, false); }
+      else { rng = interval(-Infinity, state.k, false, false); }
+      if(state.b===0) rng='empty (b = 0)';
+    }
+    r.innerHTML =
+      '<div><strong>Function:</strong> <code>'+eq+'</code></div>'+
+      '<div><strong>Index n:</strong> '+state.n+' ('+(state.n%2===1?'odd – all reals allowed':'even – radicand must be ≥ 0')+')</div>'+
+      '<div><strong>Start point (h, k):</strong> ('+fmt(state.h)+', '+fmt(state.k)+')</div>'+
+      '<div><strong>Domain:</strong> '+dom+'</div>'+
+      '<div><strong>Range:</strong> '+rng+'</div>'+
+      '<div style="margin-top:6px;color:#666">The dashed green curve is y = x<sup>'+state.n+'</sup>, the power operation the radical undoes: reflecting it across y = x reproduces the radical branch.</div>';
+  }
+
+  function refresh(){ draw(); updateReadout(); }
+
+  ['a','b','h','k'].forEach(function(id){
+    var el=document.getElementById(id), lab=document.getElementById(id+'V');
+    el.addEventListener('input', function(){
+      state[id]=parseFloat(el.value); lab.textContent=parseFloat(el.value).toFixed(1); refresh();
+    });
+  });
+
+  var seg=document.getElementById('rootSeg');
+  seg.addEventListener('click', function(e){
+    var btn=e.target.closest('button'); if(!btn) return;
+    state.n=parseInt(btn.getAttribute('data-n'),10);
+    [].forEach.call(seg.querySelectorAll('button'), function(b){ b.classList.toggle('active', b===btn); });
+    refresh();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    state.a=1; state.b=1; state.h=0; state.k=0;
+    var m={a:'1',b:'1',h:'0',k:'0'};
+    for(var id in m){ document.getElementById(id).value=m[id]; document.getElementById(id+'V').textContent=parseFloat(m[id]).toFixed(1); }
+    refresh();
+  });
+
+  refresh();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

@@ -558,5 +558,27 @@
   run();
 })();
 </script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
 </body>
 </html>

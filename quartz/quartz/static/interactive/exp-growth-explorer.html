@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exponential Growth &amp; Decay Explorer</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fbfcfd;
+    color: #1c2126;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 14px 16px 22px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #566; font-size: 13px; margin: 0 0 12px; }
+  canvas { display: block; background: #fbfcfd; border: 1px solid #dce1e6; border-radius: 6px; width: 100%; height: auto; }
+  .modes { display: flex; gap: 8px; margin: 0 0 10px; flex-wrap: wrap; }
+  .modebtn {
+    font-size: 13.5px; padding: 5px 12px; border: 1px solid #cfd6dc; border-radius: 6px;
+    background: #fff; color: #334; cursor: pointer; user-select: none;
+  }
+  .modebtn.on { background: #2563c9; color: #fff; border-color: #2563c9; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0; align-items: center; font-size: 13.5px; }
+  .legitem { display: inline-flex; align-items: center; gap: 6px; }
+  .swline { width: 24px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; vertical-align: middle; }
+  .swline.dash { border-top-style: dashed; }
+  .toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .slider-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; flex-wrap: wrap; }
+  .slider-row label { min-width: 118px; }
+  .slider-row input[type=range] { flex: 1; min-width: 180px; accent-color: #2563c9; }
+  .pval { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 62px; text-align: right; }
+  .readout {
+    background: #eef4fb; border: 1px solid #cfe0f2; border-radius: 6px;
+    padding: 10px 12px; margin: 12px 0; font-size: 13.5px;
+  }
+  .readout b { color: #1c3a63; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; margin: 8px 0; }
+  th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid #e6eaee; font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: #566; font-weight: 600; border-bottom: 2px solid #cfd6dc; }
+  .note { font-size: 12.5px; color: #667; margin: 12px 0 0; font-style: italic; }
+  code { background: #eef2f5; padding: 0 3px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Exponential growth &amp; decay explorer</h1>
+  <p class="sub">Shape the curve <code>y = a·b^x</code> ("a times b to the x"), or switch to the continuous form <code>y = a·e^{kt}</code> ("a times e to the k t"). The dashed polynomial shows that exponential growth eventually overtakes any polynomial.</p>
+
+  <div class="modes">
+    <button class="modebtn on" id="mDiscrete">Discrete: y = a·b<sup>x</sup></button>
+    <button class="modebtn" id="mContinuous">Continuous: y = a·e<sup>kt</sup></button>
+  </div>
+
+  <div class="legend">
+    <span class="legitem"><span class="swline" style="border-top-color:#2563c9"></span> exponential</span>
+    <label class="toggle legitem"><input type="checkbox" id="showPoly" checked><span class="swline dash" style="border-top-color:#d97706"></span> polynomial overlay</label>
+    <label class="toggle legitem"><input type="checkbox" id="logY"> log-scale y-axis</label>
+  </div>
+
+  <canvas id="cv" width="728" height="380"></canvas>
+
+  <div class="slider-row">
+    <label for="sa">coefficient a =</label>
+    <input type="range" id="sa" min="0.25" max="5" value="1" step="0.05">
+    <span class="pval" id="la">1.00</span>
+  </div>
+
+  <div class="slider-row" id="rowB">
+    <label for="sb">base b =</label>
+    <input type="range" id="sb" min="0.1" max="4" value="2" step="0.01">
+    <span class="pval" id="lb">2.00</span>
+  </div>
+
+  <div class="slider-row" id="rowK" style="display:none">
+    <label for="sk">rate k =</label>
+    <input type="range" id="sk" min="-1.5" max="1.5" value="0.6931" step="0.001">
+    <span class="pval" id="lk">0.693</span>
+  </div>
+
+  <div class="slider-row" id="rowP">
+    <label for="sp">polynomial degree =</label>
+    <input type="range" id="sp" min="1" max="5" value="3" step="1">
+    <span class="pval" id="lp">3</span>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <table>
+    <thead>
+      <tr><th>x</th><th id="hdrExp">y = a·b^x</th><th id="hdrPoly">polynomial</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <p class="note" id="cap"></p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var LN2 = Math.log(2);
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  var padL = 54, padR = 14, padT = 14, padB = 32;
+  var plotW = W - padL - padR, plotH = H - padT - padB;
+
+  var mDiscrete = document.getElementById("mDiscrete");
+  var mContinuous = document.getElementById("mContinuous");
+  var sa = document.getElementById("sa"), la = document.getElementById("la");
+  var sb = document.getElementById("sb"), lb = document.getElementById("lb");
+  var sk = document.getElementById("sk"), lk = document.getElementById("lk");
+  var sp = document.getElementById("sp"), lp = document.getElementById("lp");
+  var rowB = document.getElementById("rowB"), rowK = document.getElementById("rowK");
+  var showPoly = document.getElementById("showPoly");
+  var logY = document.getElementById("logY");
+  var readout = document.getElementById("readout");
+  var tbody = document.getElementById("tbody");
+  var hdrExp = document.getElementById("hdrExp"), hdrPoly = document.getElementById("hdrPoly");
+  var cap = document.getElementById("cap");
+
+  var mode = "discrete"; // or "continuous"
+  var X_MAX = 6;         // domain [0, 6]
+
+  // Current exponential value at x, using whichever form is active.
+  function expAt(x) {
+    var a = parseFloat(sa.value);
+    if (mode === "discrete") {
+      var b = parseFloat(sb.value);
+      return a * Math.pow(b, x);
+    } else {
+      var k = parseFloat(sk.value);
+      return a * Math.exp(k * x);
+    }
+  }
+
+  // Polynomial overlay: x^d normalized so it passes through the same start-ish scale.
+  // We plot y = x^d (with the same a coefficient) so it is comparable in units.
+  function polyAt(x) {
+    var d = parseInt(sp.value, 10);
+    return Math.pow(x, d);
+  }
+
+  function isGrowth() {
+    if (mode === "discrete") return parseFloat(sb.value) > 1;
+    return parseFloat(sk.value) > 0;
+  }
+
+  function fmt(v) {
+    if (!isFinite(v)) return "∞";
+    if (v === 0) return "0";
+    var av = Math.abs(v);
+    if (av >= 1e6 || (av > 0 && av < 1e-3)) return v.toExponential(2);
+    if (av >= 100) return v.toFixed(1);
+    return v.toFixed(3);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    la.textContent = parseFloat(sa.value).toFixed(2);
+    lb.textContent = parseFloat(sb.value).toFixed(2);
+    lk.textContent = parseFloat(sk.value).toFixed(3);
+    lp.textContent = sp.value;
+
+    var useLog = logY.checked;
+    var wantPoly = showPoly.checked;
+
+    // Determine y-range across visible curves over the domain.
+    var yMax = 1e-9, yMinPos = Infinity;
+    var samples = 240;
+    for (var i = 0; i <= samples; i++) {
+      var x = X_MAX * i / samples;
+      var ye = expAt(x);
+      if (isFinite(ye)) { if (ye > yMax) yMax = ye; if (ye > 0 && ye < yMinPos) yMinPos = ye; }
+      if (wantPoly) {
+        var yp = polyAt(x);
+        if (isFinite(yp)) { if (yp > yMax) yMax = yp; if (yp > 0 && yp < yMinPos) yMinPos = yp; }
+      }
+    }
+    if (!isFinite(yMinPos) || yMinPos <= 0) yMinPos = Math.max(1e-3, yMax * 1e-4);
+    if (yMax <= yMinPos) yMax = yMinPos * 10;
+
+    function xToPx(x) { return padL + (x / X_MAX) * plotW; }
+    function yToPx(y) {
+      if (useLog) {
+        var lo = Math.log10(yMinPos), hi = Math.log10(yMax);
+        if (hi <= lo) hi = lo + 1;
+        var yc = Math.max(y, yMinPos * 0.5);
+        var t = (Math.log10(yc) - lo) / (hi - lo);
+        return padT + (1 - t) * plotH;
+      }
+      var t2 = y / yMax;
+      return padT + (1 - t2) * plotH;
+    }
+
+    // Axes.
+    ctx.strokeStyle = "#cfd6dc";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT); ctx.lineTo(padL, padT + plotH); ctx.lineTo(padL + plotW, padT + plotH);
+    ctx.stroke();
+
+    // Y gridlines + labels.
+    ctx.fillStyle = "#889";
+    ctx.font = "11px -apple-system, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    var ticks = 5;
+    for (var g = 0; g <= ticks; g++) {
+      var yv;
+      if (useLog) {
+        var lo = Math.log10(yMinPos), hi = Math.log10(yMax);
+        if (hi <= lo) hi = lo + 1;
+        yv = Math.pow(10, lo + (hi - lo) * g / ticks);
+      } else {
+        yv = yMax * g / ticks;
+      }
+      var py = yToPx(yv);
+      ctx.strokeStyle = "#eef2f5";
+      ctx.beginPath(); ctx.moveTo(padL, py); ctx.lineTo(padL + plotW, py); ctx.stroke();
+      ctx.fillStyle = "#889";
+      ctx.fillText(fmtAxis(yv), padL - 6, py);
+    }
+
+    // X labels.
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    for (var xt = 0; xt <= X_MAX; xt++) {
+      var px = xToPx(xt);
+      ctx.fillText(String(xt), px, padT + plotH + 6);
+    }
+    ctx.textAlign = "left";
+    ctx.fillText(mode === "continuous" ? "t" : "x", padL + plotW - 6, padT + plotH + 6);
+
+    // Polynomial overlay (dashed, orange).
+    if (wantPoly) {
+      ctx.strokeStyle = "#d97706";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      var startedP = false;
+      for (var pi = 0; pi <= samples; pi++) {
+        var xp = X_MAX * pi / samples;
+        var yp2 = polyAt(xp);
+        if (!isFinite(yp2)) { startedP = false; continue; }
+        var pyp = yToPx(yp2);
+        if (pyp < padT - 30 || pyp > padT + plotH + 30) { startedP = false; continue; }
+        var pxp = xToPx(xp);
+        if (!startedP) { ctx.moveTo(pxp, pyp); startedP = true; } else ctx.lineTo(pxp, pyp);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Exponential curve (blue).
+    ctx.strokeStyle = "#2563c9";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    var startedE = false;
+    for (var ei = 0; ei <= samples; ei++) {
+      var xe = X_MAX * ei / samples;
+      var ye2 = expAt(xe);
+      if (!isFinite(ye2)) { startedE = false; continue; }
+      var pye = yToPx(ye2);
+      if (pye < padT - 30 || pye > padT + plotH + 30) { startedE = false; continue; }
+      var pxe = xToPx(xe);
+      if (!startedE) { ctx.moveTo(pxe, pye); startedE = true; } else ctx.lineTo(pxe, pye);
+    }
+    ctx.stroke();
+
+    buildReadout();
+    buildTable();
+    buildCap();
+  }
+
+  function fmtAxis(v) {
+    if (v >= 1e5 || (v > 0 && v < 0.01)) return v.toExponential(0);
+    if (v >= 1000) return Math.round(v).toLocaleString("en-US");
+    return (Math.abs(v - Math.round(v)) < 1e-6) ? String(Math.round(v)) : v.toFixed(1);
+  }
+
+  function buildReadout() {
+    var a = parseFloat(sa.value);
+    var growth = isGrowth();
+    // Compute continuous rate k regardless of active form, for the doubling/half-life line.
+    var k;
+    if (mode === "discrete") {
+      var b = parseFloat(sb.value);
+      k = Math.log(b); // continuous rate equivalent, k = ln b
+    } else {
+      k = parseFloat(sk.value);
+    }
+
+    var html = "";
+    if (mode === "discrete") {
+      var b2 = parseFloat(sb.value);
+      html += "Current function: <b>y = " + a.toFixed(2) + " · " + b2.toFixed(2) + "<sup>x</sup></b> " +
+        "(read “" + a.toFixed(2) + " times " + b2.toFixed(2) + " to the x”). ";
+      html += "Continuous rate <b>k = ln b = " + k.toFixed(3) + "</b>. ";
+    } else {
+      html += "Current function: <b>y = " + a.toFixed(2) + " · e<sup>" + k.toFixed(3) + "t</sup></b> " +
+        "(read “" + a.toFixed(2) + " times e to the " + k.toFixed(3) + " t”). ";
+      html += "Equivalent base <b>b = e<sup>k</sup> = " + Math.exp(k).toFixed(3) + "</b>. ";
+    }
+
+    if (Math.abs(k) < 1e-6) {
+      html += "With k ≈ 0 the curve is essentially constant, so there is no finite doubling time or half-life.";
+    } else if (growth) {
+      var Td = LN2 / k; // doubling time = ln2 / k
+      html += "This is <b>growth</b>. Doubling time <b>T<sub>d</sub> = ln 2 / k = " + Td.toFixed(3) +
+        "</b> “natural log of 2 over k”: the value doubles every " + Td.toFixed(2) + " units of the input.";
+    } else {
+      var Th = LN2 / Math.abs(k); // half-life = ln2 / |k|
+      html += "This is <b>decay</b>. Half-life <b>T<sub>1/2</sub> = ln 2 / |k| = " + Th.toFixed(3) +
+        "</b>: half of the quantity is gone every " + Th.toFixed(2) + " units of the input.";
+    }
+    readout.innerHTML = html;
+  }
+
+  function buildTable() {
+    var wantPoly = showPoly.checked;
+    hdrExp.textContent = mode === "continuous" ? "y = a·e^{kt}" : "y = a·b^x";
+    hdrPoly.textContent = "polynomial x^" + sp.value;
+    hdrPoly.style.display = wantPoly ? "" : "none";
+    tbody.innerHTML = "";
+    var xs = [0, 1, 2, 4, 6];
+    xs.forEach(function (x) {
+      var tr = document.createElement("tr");
+      var td0 = document.createElement("td"); td0.textContent = String(x);
+      var td1 = document.createElement("td"); td1.textContent = fmt(expAt(x));
+      tr.appendChild(td0); tr.appendChild(td1);
+      if (wantPoly) {
+        var td2 = document.createElement("td"); td2.textContent = fmt(polyAt(x));
+        tr.appendChild(td2);
+      }
+      tbody.appendChild(tr);
+    });
+  }
+
+  function buildCap() {
+    if (!showPoly.checked) {
+      cap.textContent = "Toggle the polynomial overlay to compare growth rates. Toggle the log-scale axis to see the exponential as a straight line.";
+      return;
+    }
+    var growth = isGrowth();
+    if (growth) {
+      cap.textContent = "The dashed polynomial x^" + sp.value + " may lead early, but any growing exponential (b > 1 or k > 0) eventually overtakes it and stays ahead forever. On a log-scale axis the exponential is a straight line while the polynomial bends down.";
+    } else {
+      cap.textContent = "In decay (0 < b < 1, or k < 0) the exponential heads toward 0 while the polynomial keeps rising; the polynomial “wins” here only because the exponential is shrinking. Switch the base above 1 (or k above 0) to see eventual exponential dominance.";
+    }
+  }
+
+  function setMode(m) {
+    mode = m;
+    var disc = (m === "discrete");
+    mDiscrete.classList.toggle("on", disc);
+    mContinuous.classList.toggle("on", !disc);
+    rowB.style.display = disc ? "" : "none";
+    rowK.style.display = disc ? "none" : "";
+    draw();
+  }
+
+  mDiscrete.addEventListener("click", function () { setMode("discrete"); });
+  mContinuous.addEventListener("click", function () { setMode("continuous"); });
+  [sa, sb, sk, sp].forEach(function (el) { el.addEventListener("input", draw); });
+  showPoly.addEventListener("change", draw);
+  logY.addEventListener("change", draw);
+
+  draw();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

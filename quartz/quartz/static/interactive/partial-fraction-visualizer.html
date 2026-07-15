@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partial Fraction Visualizer</title>
+<style>
+  :root { --ink:#222; --muted:#666; --line:#d9d9d9; --accent:#2563eb; --orig:#2563eb; --sum:#e11d48; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:14px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fff; }
+  .wrap { max-width:760px; margin:0 auto; }
+  h1 { font-size:1.15rem; margin:0 0 4px; }
+  p.sub { margin:0 0 12px; color:var(--muted); font-size:.85rem; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:12px; }
+  select { font-size:.9rem; padding:5px 8px; border:1px solid var(--line); border-radius:6px; background:#fff; }
+  .nav { display:inline-flex; gap:6px; }
+  .nav button, .btn { border:1px solid var(--line); background:#f5f5f5; border-radius:6px; padding:6px 12px; font-size:.85rem; cursor:pointer; color:var(--ink); }
+  .nav button:disabled { opacity:.4; cursor:default; }
+  .btn.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .stepbox { border:1px solid var(--line); border-radius:8px; padding:14px 16px; min-height:150px; background:#fafbfc; font-size:.95rem; line-height:1.7; }
+  .stepbox .title { font-weight:600; margin-bottom:8px; color:var(--accent); }
+  .frac { display:inline-flex; flex-direction:column; text-align:center; vertical-align:middle; margin:0 2px; }
+  .frac .num { border-bottom:1.5px solid var(--ink); padding:0 5px; }
+  .frac .den { padding:0 5px; }
+  .eq { font-size:1.05rem; margin:6px 0; font-variant-numeric:tabular-nums; }
+  .sys { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.9rem; background:#eef1f6; padding:8px 10px; border-radius:6px; margin:6px 0; white-space:pre-wrap; }
+  .stepmeta { color:var(--muted); font-size:.85rem; }
+  canvas { width:100%; height:auto; border:1px solid var(--line); border-radius:6px; background:#fff; display:block; margin-top:14px; }
+  .legend { display:flex; gap:16px; font-size:.78rem; color:var(--muted); margin-top:6px; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; }
+  .swatch { width:16px; height:3px; border-radius:2px; display:inline-block; }
+  .progress { font-size:.8rem; color:var(--muted); margin-left:auto; }
+  .hl { background:#fff3bf; padding:0 3px; border-radius:3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Partial Fraction Visualizer</h1>
+  <p class="sub">Distinct linear factors: step through the cover-up method and the coefficient system, then verify by recombining and overlaying the graphs.</p>
+
+  <div class="row">
+    <label for="preset" style="font-size:.85rem">Function:</label>
+    <select id="preset"></select>
+    <div class="nav">
+      <button id="prev">&larr; Prev</button>
+      <button id="next">Next &rarr;</button>
+    </div>
+    <span class="progress" id="progress"></span>
+  </div>
+
+  <div class="stepbox" id="stepbox"></div>
+
+  <canvas id="cv" width="1520" height="820"></canvas>
+  <div class="legend">
+    <span><i class="swatch" style="background:#2563eb"></i> original rational function</span>
+    <span><i class="swatch" style="background:#e11d48;height:0;border-top:3px dashed #e11d48"></i> sum of partial fractions</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---- rational arithmetic ----
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=b; b=a%b; a=t; } return a||1; }
+  function R(n,d){ if(d<0){n=-n;d=-d;} var g=gcd(n,d); return {n:n/g, d:d/g}; }
+  function rStr(r){ if(r.d===1) return ''+r.n; return r.n+'/'+r.d; }
+  function rVal(r){ return r.n/r.d; }
+
+  // ---- presets: proper rational P(x) / ((x-r1)(x-r2)), P(x)=p1*x+p0 ----
+  // roots given as r1,r2. Numerator coefficients p1,p0.
+  var PRESETS = [
+    { label:'(3x + 5) / ((x + 1)(x + 2))', p1:3, p0:5, r1:-1, r2:-2, fr1:'x + 1', fr2:'x + 2' },
+    { label:'1 / (x² − 1)',                  p1:0, p0:1, r1:1,  r2:-1, fr1:'x − 1', fr2:'x + 1' },
+    { label:'(2x − 1) / (x(x − 3))',         p1:2, p0:-1, r1:0, r2:3,  fr1:'x',     fr2:'x − 3' }
+  ];
+
+  function pget(pr){
+    // P(root) = p1*root + p0
+    var Proot = function(x){ return pr.p1*x + pr.p0; };
+    // Cover-up: A = P(r1)/(r1-r2), B = P(r2)/(r2-r1)
+    var A = R(Proot(pr.r1), (pr.r1 - pr.r2));
+    var B = R(Proot(pr.r2), (pr.r2 - pr.r1));
+    return {A:A, B:B, Proot:Proot};
+  }
+
+  // factor string for a root: (x - r) -> displayable using fr labels
+  function fracHTML(numHTML, denHTML){
+    return '<span class="frac"><span class="num">'+numHTML+'</span><span class="den">'+denHTML+'</span></span>';
+  }
+
+  function origHTML(pr){
+    var num = (pr.p1===0? ''+pr.p0 : (pr.p1===1?'x':(pr.p1===-1?'−x':pr.p1+'x')) + (pr.p0>0?' + '+pr.p0 : (pr.p0<0?' − '+Math.abs(pr.p0):'')));
+    return fracHTML(num, '('+pr.fr1+')('+pr.fr2+')');
+  }
+
+  function coefStr(r){ // for A/(x..) display, allow fraction
+    return (r.d===1)? (''+r.n) : ('('+r.n+'/'+r.d+')');
+  }
+
+  function buildSteps(pr){
+    var s = pget(pr);
+    var A=s.A, B=s.B;
+    var steps = [];
+
+    // Step 0: set up
+    steps.push({
+      title:'Step 1: Set up the decomposition',
+      body:
+        '<div class="eq">'+origHTML(pr)+' &nbsp;=&nbsp; '+
+          fracHTML('A','('+pr.fr1+')')+' &nbsp;+&nbsp; '+
+          fracHTML('B','('+pr.fr2+')')+'</div>'+
+        '<div class="stepmeta">One constant per distinct linear factor. We must find <span class="hl">A</span> and <span class="hl">B</span>.</div>'
+    });
+
+    // Step 1: clear denominators
+    var numExpanded = (pr.p1===0? ''+pr.p0 : (pr.p1===1?'x':pr.p1+'x')+(pr.p0>0?' + '+pr.p0:(pr.p0<0?' − '+Math.abs(pr.p0):'')));
+    steps.push({
+      title:'Step 2: Clear denominators',
+      body:
+        '<div class="stepmeta">Multiply both sides by ('+pr.fr1+')('+pr.fr2+'):</div>'+
+        '<div class="eq">'+numExpanded+' &nbsp;=&nbsp; A('+pr.fr2+') + B('+pr.fr1+')</div>'+
+        '<div class="stepmeta">Both sides are now polynomials, valid for every x.</div>'
+    });
+
+    // Step 2: cover-up
+    steps.push({
+      title:'Step 3: Cover-up method',
+      body:
+        '<div class="stepmeta">Substitute each root to kill one term.</div>'+
+        '<div class="eq">x = '+pr.r1+':&nbsp; '+(pr.p1*pr.r1+pr.p0)+' = A('+(pr.r1-pr.r2)+') &rarr; <span class="hl">A = '+rStr(A)+'</span></div>'+
+        '<div class="eq">x = '+pr.r2+':&nbsp; '+(pr.p1*pr.r2+pr.p0)+' = B('+(pr.r2-pr.r1)+') &rarr; <span class="hl">B = '+rStr(B)+'</span></div>'
+    });
+
+    // Step 3: equating coefficients (build linear system)
+    // A(x - r2) + B(x - r1) = (A+B)x + (-A r2 - B r1)
+    // Match to p1 x + p0:  A + B = p1 ;  -r2 A - r1 B = p0
+    var eq1 = 'A + B = '+pr.p1;
+    var c2A = -pr.r2, c2B = -pr.r1;
+    function coefTerm(c, sym){
+      if(c===0) return '';
+      var sign = (c<0?' − ':' + ');
+      var mag = Math.abs(c);
+      var body = (mag===1?'':mag)+sym;
+      return {sign:sign, body:body, first:(c<0?'−':'')+ (mag===1?'':mag)+sym};
+    }
+    var t1 = coefTerm(c2A,'A'), t2 = coefTerm(c2B,'B');
+    var eq2;
+    if(c2A===0 && c2B===0){ eq2 = '0 = '+pr.p0; }
+    else {
+      var lhs='';
+      if(c2A!==0) lhs += t1.first;
+      if(c2B!==0){ if(lhs==='') lhs+=t2.first; else lhs+= t2.sign+t2.body; }
+      eq2 = lhs+' = '+pr.p0;
+    }
+    steps.push({
+      title:'Step 4: Equating coefficients',
+      body:
+        '<div class="stepmeta">Expand A('+pr.fr2+') + B('+pr.fr1+') = (A + B)x + (−'+(pr.r2)+'A − '+(pr.r1)+'B), then match powers of x against '+numExpanded+':</div>'+
+        '<div class="sys">x¹:   '+eq1+'\nx⁰:   '+eq2+'</div>'+
+        '<div class="stepmeta">Solving this 2×2 linear system gives the same A = '+rStr(A)+', B = '+rStr(B)+'. Substitution and the system always agree.</div>'
+    });
+
+    // Step 4: result + verify recombine
+    steps.push({
+      title:'Step 5: Result and check',
+      body:
+        '<div class="eq">'+origHTML(pr)+' &nbsp;=&nbsp; '+
+          fracHTML(coefStr(A),'('+pr.fr1+')')+' &nbsp;+&nbsp; '+
+          fracHTML(coefStr(B),'('+pr.fr2+')')+'</div>'+
+        '<div class="stepmeta">Recombine over the common denominator ('+pr.fr1+')('+pr.fr2+'): the numerator collapses back to '+numExpanded+', confirming the decomposition. The graph below overlays original and sum.</div>'
+    });
+
+    return {steps:steps, A:A, B:B};
+  }
+
+  // ---- plotting ----
+  var cv=document.getElementById('cv'), ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+  var XMIN=-6, XMAX=6, YMIN=-6, YMAX=6;
+  function sx(x){ return (x-XMIN)/(XMAX-XMIN)*W; }
+  function sy(y){ return H - (y-YMIN)/(YMAX-YMIN)*H; }
+
+  function drawGrid(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='#eee'; ctx.lineWidth=1;
+    for(var gx=Math.ceil(XMIN); gx<=XMAX; gx++){ ctx.beginPath(); ctx.moveTo(sx(gx),0); ctx.lineTo(sx(gx),H); ctx.stroke(); }
+    for(var gy=Math.ceil(YMIN); gy<=YMAX; gy++){ ctx.beginPath(); ctx.moveTo(0,sy(gy)); ctx.lineTo(W,sy(gy)); ctx.stroke(); }
+    ctx.strokeStyle='#999'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(0,sy(0)); ctx.lineTo(W,sy(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(sx(0),0); ctx.lineTo(sx(0),H); ctx.stroke();
+    ctx.fillStyle='#888'; ctx.font='20px sans-serif'; ctx.textAlign='center';
+    for(var lx=Math.ceil(XMIN); lx<=XMAX; lx+=2){ if(lx!==0) ctx.fillText(lx, sx(lx), sy(0)+24); }
+    ctx.textAlign='right';
+    for(var ly=Math.ceil(YMIN); ly<=YMAX; ly+=2){ if(ly!==0) ctx.fillText(ly, sx(0)-6, sy(ly)+7); }
+  }
+  function plot(fn, color, dashed, offset){
+    ctx.strokeStyle=color; ctx.lineWidth=3.5; ctx.setLineDash(dashed?[10,8]:[]);
+    var N=1600, started=false;
+    ctx.beginPath();
+    for(var i=0;i<=N;i++){
+      var x=XMIN+(XMAX-XMIN)*i/N;
+      var y=fn(x);
+      if(!isFinite(y) || y<YMIN-60 || y>YMAX+60){ started=false; continue; }
+      var px=sx(x), py=sy(y+ (offset||0));
+      if(!started){ ctx.moveTo(px,py); started=true; } else { ctx.lineTo(px,py); }
+    }
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+  function drawPlot(pr, res){
+    drawGrid();
+    var orig=function(x){ var d=(x-pr.r1)*(x-pr.r2); return (pr.p1*x+pr.p0)/d; };
+    var av=rVal(res.A), bv=rVal(res.B);
+    var sum=function(x){ return av/(x-pr.r1) + bv/(x-pr.r2); };
+    // original solid, thicker; sum dashed offset slightly not needed - they coincide
+    plot(orig, '#2563eb', false, 0);
+    plot(sum, '#e11d48', true, 0);
+  }
+
+  // ---- controller ----
+  var sel=document.getElementById('preset');
+  PRESETS.forEach(function(p,i){ var o=document.createElement('option'); o.value=i; o.textContent=p.label; sel.appendChild(o); });
+  var cur=0, step=0, built=null;
+
+  function rebuild(){ built=buildSteps(PRESETS[cur]); step=0; render(); }
+  function render(){
+    var box=document.getElementById('stepbox');
+    var st=built.steps[step];
+    box.innerHTML='<div class="title">'+st.title+'</div>'+st.body;
+    document.getElementById('progress').textContent='Step '+(step+1)+' of '+built.steps.length;
+    document.getElementById('prev').disabled = (step===0);
+    document.getElementById('next').disabled = (step===built.steps.length-1);
+    drawPlot(PRESETS[cur], built);
+  }
+  sel.addEventListener('change', function(){ cur=parseInt(sel.value,10); rebuild(); });
+  document.getElementById('prev').addEventListener('click', function(){ if(step>0){ step--; render(); } });
+  document.getElementById('next').addEventListener('click', function(){ if(step<built.steps.length-1){ step++; render(); } });
+
+  rebuild();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

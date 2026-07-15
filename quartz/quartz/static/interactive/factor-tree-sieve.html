@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Factor Tree and Sieve of Eratosthenes</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #2b2b2b;
+    --muted: #6b7280;
+    --line: #d5d8dd;
+    --accent: #2f6f4f;
+    --accent-soft: #e3f0e8;
+    --prime: #2f6f4f;
+    --prime-soft: #d8ecdf;
+    --composite: #b45f45;
+    --composite-soft: #f7e6df;
+    --crossed: #c7ccd4;
+    --panel: #f7f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 18px 26px;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 4px 0 2px;
+  }
+  .sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 14px;
+  }
+  .modebar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .modebar button {
+    flex: 1;
+    padding: 9px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--fg);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .modebar button.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .controls label { font-size: 13px; color: var(--muted); }
+  .controls input[type="number"] {
+    width: 90px;
+    padding: 7px 8px;
+    font-size: 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .controls input[type="range"] { vertical-align: middle; }
+  .btn {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .btn.ghost {
+    background: #fff;
+    color: var(--accent);
+  }
+  .btn:disabled { opacity: 0.45; cursor: default; }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel);
+    padding: 12px;
+  }
+  canvas { display: block; width: 100%; }
+  .result {
+    margin-top: 12px;
+    font-size: 15px;
+    min-height: 22px;
+  }
+  .result .eq { font-weight: 600; }
+  .result .exp { font-size: 0.72em; vertical-align: super; }
+  .result .muted2 { color: var(--muted); font-size: 13px; }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch {
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.12);
+    display: inline-block;
+  }
+  .hidden { display: none; }
+  .grid {
+    display: grid;
+    gap: 4px;
+  }
+  .cell {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border-radius: 5px;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--fg);
+    user-select: none;
+  }
+  .cell.prime { background: var(--prime-soft); border-color: var(--prime); color: var(--prime); font-weight: 700; }
+  .cell.crossed { background: #f1f2f4; color: var(--crossed); text-decoration: line-through; }
+  .cell.active { outline: 2px solid var(--composite); outline-offset: -2px; }
+  .status { font-size: 13px; color: var(--fg); margin-top: 10px; min-height: 20px; }
+  .count { font-weight: 700; color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Factor Tree and Sieve of Eratosthenes</h1>
+  <p class="sub">Two views of primes: break one number into its prime factors, or sieve out every prime up to N.</p>
+
+  <div class="modebar">
+    <button id="mode-tree" class="active">Factor Tree</button>
+    <button id="mode-sieve">Sieve of Eratosthenes</button>
+  </div>
+
+  <!-- FACTOR TREE MODE -->
+  <section id="tree-section">
+    <div class="controls">
+      <label for="tree-input">Number (2&ndash;9999):</label>
+      <input type="number" id="tree-input" min="2" max="9999" value="60">
+      <button class="btn" id="tree-go">Build tree</button>
+      <button class="btn ghost" id="tree-replay">Replay</button>
+    </div>
+    <div class="panel">
+      <canvas id="tree-canvas" height="320"></canvas>
+    </div>
+    <div class="result" id="tree-result"></div>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--composite-soft);border-color:var(--composite)"></span> composite (splits further)</span>
+      <span><span class="swatch" style="background:var(--prime-soft);border-color:var(--prime)"></span> prime (a leaf)</span>
+    </div>
+  </section>
+
+  <!-- SIEVE MODE -->
+  <section id="sieve-section" class="hidden">
+    <div class="controls">
+      <label for="sieve-n">N (up to 200):</label>
+      <input type="range" id="sieve-n" min="10" max="200" value="100" step="1">
+      <span id="sieve-n-val" style="font-size:13px;">100</span>
+      <button class="btn" id="sieve-play">Play</button>
+      <button class="btn ghost" id="sieve-step">Step</button>
+      <button class="btn ghost" id="sieve-reset">Reset</button>
+    </div>
+    <div class="panel">
+      <div class="grid" id="sieve-grid"></div>
+    </div>
+    <div class="status" id="sieve-status"></div>
+    <div class="legend">
+      <span><span class="swatch" style="background:#fff;border-color:var(--line)"></span> unmarked</span>
+      <span><span class="swatch" style="background:var(--prime-soft);border-color:var(--prime)"></span> prime</span>
+      <span><span class="swatch" style="background:#f1f2f4"></span> crossed out (composite)</span>
+      <span><span class="swatch" style="background:#fff;outline:2px solid var(--composite)"></span> current prime being sieved</span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ----- Mode switching -----
+  var btnTree = document.getElementById("mode-tree");
+  var btnSieve = document.getElementById("mode-sieve");
+  var secTree = document.getElementById("tree-section");
+  var secSieve = document.getElementById("sieve-section");
+
+  btnTree.addEventListener("click", function () {
+    btnTree.classList.add("active");
+    btnSieve.classList.remove("active");
+    secTree.classList.remove("hidden");
+    secSieve.classList.add("hidden");
+  });
+  btnSieve.addEventListener("click", function () {
+    btnSieve.classList.add("active");
+    btnTree.classList.remove("active");
+    secSieve.classList.remove("hidden");
+    secTree.classList.add("hidden");
+    ensureSieve();
+  });
+
+  // ====================================================================
+  // FACTOR TREE
+  // ====================================================================
+  var canvas = document.getElementById("tree-canvas");
+  var ctx = canvas.getContext("2d");
+  var treeResult = document.getElementById("tree-result");
+  var treeInput = document.getElementById("tree-input");
+  var treeGo = document.getElementById("tree-go");
+  var treeReplay = document.getElementById("tree-replay");
+
+  var lastN = null;
+  var animTimer = null;
+
+  function smallestFactor(n) {
+    if (n % 2 === 0) return 2;
+    for (var d = 3; d * d <= n; d += 2) {
+      if (n % d === 0) return d;
+    }
+    return n; // prime
+  }
+
+  // Build a binary factor tree: each composite splits into (smallest prime, cofactor).
+  // Node: {value, prime:bool, left, right, x, y}
+  function buildTree(n) {
+    function make(v) {
+      var f = smallestFactor(v);
+      if (f === v) {
+        return { value: v, prime: true, left: null, right: null };
+      }
+      return {
+        value: v,
+        prime: false,
+        left: make(f),          // the prime factor (leaf)
+        right: make(v / f)      // the remaining cofactor
+      };
+    }
+    return make(n);
+  }
+
+  function primeFactors(n) {
+    var factors = [];
+    var m = n;
+    var d = 2;
+    while (d * d <= m) {
+      while (m % d === 0) { factors.push(d); m = m / d; }
+      d = (d === 2) ? 3 : d + 2;
+    }
+    if (m > 1) factors.push(m);
+    return factors;
+  }
+
+  function toExponents(factors) {
+    var map = [];
+    for (var i = 0; i < factors.length; i++) {
+      var p = factors[i];
+      if (map.length && map[map.length - 1].p === p) {
+        map[map.length - 1].e += 1;
+      } else {
+        map.push({ p: p, e: 1 });
+      }
+    }
+    return map;
+  }
+
+  // Assign layout coordinates. We do a simple depth-based layout where leaves
+  // are spread evenly and internal nodes centre over their subtree.
+  function layout(root, width) {
+    var leafIndex = 0;
+    var maxDepth = 0;
+    function assign(node, depth) {
+      node.depth = depth;
+      if (depth > maxDepth) maxDepth = depth;
+      if (!node.left && !node.right) {
+        node.leaf = leafIndex++;
+        return;
+      }
+      assign(node.left, depth + 1);
+      assign(node.right, depth + 1);
+    }
+    assign(root, 0);
+    var leafCount = leafIndex;
+    var padX = 40;
+    var usable = width - padX * 2;
+    var rowH = 66;
+
+    function place(node) {
+      node.y = 34 + node.depth * rowH;
+      if (!node.left && !node.right) {
+        node.x = padX + (leafCount <= 1 ? usable / 2 : (node.leaf + 0.5) / leafCount * usable);
+        return node.x;
+      }
+      var lx = place(node.left);
+      var rx = place(node.right);
+      node.x = (lx + rx) / 2;
+      return node.x;
+    }
+    place(root);
+    return { depth: maxDepth, height: 34 + maxDepth * rowH + 40 };
+  }
+
+  // Collect nodes in reveal order (breadth-ish by depth) for animation.
+  function collectByDepth(root) {
+    var byDepth = [];
+    function walk(node) {
+      (byDepth[node.depth] = byDepth[node.depth] || []).push(node);
+      if (node.left) walk(node.left);
+      if (node.right) walk(node.right);
+    }
+    walk(root);
+    var order = [];
+    for (var d = 0; d < byDepth.length; d++) {
+      for (var i = 0; i < byDepth[d].length; i++) order.push(byDepth[d][i]);
+    }
+    return order;
+  }
+
+  function sizeCanvas(w, h) {
+    var dpr = window.devicePixelRatio || 1;
+    canvas.style.height = h + "px";
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function drawNode(node) {
+    var r = 20;
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+    if (node.prime) {
+      ctx.fillStyle = getVar("--prime-soft");
+      ctx.strokeStyle = getVar("--prime");
+    } else {
+      ctx.fillStyle = getVar("--composite-soft");
+      ctx.strokeStyle = getVar("--composite");
+    }
+    ctx.lineWidth = 2;
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = getVar("--fg");
+    ctx.font = "600 14px -apple-system, Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(node.value), node.x, node.y);
+  }
+
+  function drawEdge(a, b) {
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y + 20);
+    ctx.lineTo(b.x, b.y - 20);
+    ctx.strokeStyle = getVar("--line");
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  function getVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function renderTree(root, revealUpTo) {
+    var w = canvas.clientWidth || 700;
+    var lay = layout(root, w);
+    sizeCanvas(w, lay.height);
+    ctx.clearRect(0, 0, w, lay.height);
+
+    var order = collectByDepth(root);
+    var shown = new Set();
+    for (var i = 0; i <= revealUpTo && i < order.length; i++) shown.add(order[i]);
+
+    // edges first (only between shown nodes)
+    (function drawEdges(node) {
+      if (node.left && shown.has(node) && shown.has(node.left)) drawEdge(node, node.left);
+      if (node.right && shown.has(node) && shown.has(node.right)) drawEdge(node, node.right);
+      if (node.left) drawEdges(node.left);
+      if (node.right) drawEdges(node.right);
+    })(root);
+
+    order.forEach(function (n, i) {
+      if (i <= revealUpTo) drawNode(n);
+    });
+    return order.length;
+  }
+
+  function animateTree(n) {
+    if (animTimer) { clearInterval(animTimer); animTimer = null; }
+    var root = buildTree(n);
+    var total = renderTree(root, 0);
+    var i = 0;
+    animTimer = setInterval(function () {
+      i++;
+      renderTree(root, i);
+      if (i >= total - 1) {
+        clearInterval(animTimer);
+        animTimer = null;
+      }
+    }, 320);
+    showResult(n);
+  }
+
+  function showResult(n) {
+    var factors = primeFactors(n);
+    if (factors.length === 1 && factors[0] === n) {
+      treeResult.innerHTML =
+        '<span class="eq">' + n + ' is prime.</span> ' +
+        '<span class="muted2">Its only prime factor is itself, so the tree is a single leaf.</span>';
+      return;
+    }
+    var exps = toExponents(factors);
+    var parts = exps.map(function (t) {
+      return t.e === 1 ? String(t.p) : t.p + '<span class="exp">' + t.e + '</span>';
+    });
+    var divisorCount = exps.reduce(function (acc, t) { return acc * (t.e + 1); }, 1);
+    var dcTerms = exps.map(function (t) { return '(' + t.e + '+1)'; }).join('');
+    treeResult.innerHTML =
+      '<div class="eq">' + n + ' = ' + parts.join(' &middot; ') + '</div>' +
+      '<div class="muted2">Number of divisors = ' + dcTerms + ' = ' + divisorCount + '</div>';
+  }
+
+  function runTree() {
+    var raw = parseInt(treeInput.value, 10);
+    if (isNaN(raw) || raw < 2 || raw > 9999) {
+      treeResult.innerHTML = '<span class="muted2">Please enter a whole number from 2 to 9999.</span>';
+      return;
+    }
+    lastN = raw;
+    animateTree(raw);
+  }
+
+  treeGo.addEventListener("click", runTree);
+  treeInput.addEventListener("keydown", function (e) { if (e.key === "Enter") runTree(); });
+  treeReplay.addEventListener("click", function () { if (lastN != null) animateTree(lastN); });
+
+  // initial render
+  runTree();
+  window.addEventListener("resize", function () {
+    if (lastN != null && !secTree.classList.contains("hidden")) {
+      renderTree(buildTree(lastN), 9999);
+    }
+  });
+
+  // ====================================================================
+  // SIEVE OF ERATOSTHENES
+  // ====================================================================
+  var sieveGrid = document.getElementById("sieve-grid");
+  var sieveN = document.getElementById("sieve-n");
+  var sieveNVal = document.getElementById("sieve-n-val");
+  var sieveStatus = document.getElementById("sieve-status");
+  var btnPlay = document.getElementById("sieve-play");
+  var btnStep = document.getElementById("sieve-step");
+  var btnReset = document.getElementById("sieve-reset");
+
+  var S = {
+    n: 100,
+    state: [],       // 0 unknown, 1 prime, 2 crossed
+    cells: [],
+    currentP: 1,     // last prime processed
+    playing: false,
+    timer: null,
+    built: false
+  };
+
+  function ensureSieve() {
+    if (!S.built) buildSieve();
+  }
+
+  function buildSieve() {
+    S.n = parseInt(sieveN.value, 10);
+    sieveNVal.textContent = S.n;
+    S.state = new Array(S.n + 1).fill(0);
+    S.cells = [];
+    S.currentP = 1;
+    S.built = true;
+    stopPlay();
+
+    // choose columns for a tidy grid
+    var cols = S.n <= 30 ? 5 : (S.n <= 60 ? 6 : (S.n <= 120 ? 10 : 20));
+    sieveGrid.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+    sieveGrid.innerHTML = "";
+    // numbers start at 2
+    for (var v = 2; v <= S.n; v++) {
+      var c = document.createElement("div");
+      c.className = "cell";
+      c.textContent = v;
+      sieveGrid.appendChild(c);
+      S.cells[v] = c;
+    }
+    updateStatus("Ready. Numbers 2 to " + S.n + ". Press Step or Play.", null);
+  }
+
+  function repaint(activeP) {
+    for (var v = 2; v <= S.n; v++) {
+      var cell = S.cells[v];
+      cell.className = "cell";
+      if (S.state[v] === 1) cell.classList.add("prime");
+      else if (S.state[v] === 2) cell.classList.add("crossed");
+      if (activeP && v === activeP) cell.classList.add("active");
+    }
+  }
+
+  function primeCount() {
+    var c = 0;
+    for (var v = 2; v <= S.n; v++) if (S.state[v] === 1) c++;
+    return c;
+  }
+
+  function nextUnmarked(from) {
+    for (var v = from; v <= S.n; v++) {
+      if (S.state[v] === 0) return v;
+    }
+    return -1;
+  }
+
+  // One step = pick next prime p, mark it prime, cross out its multiples.
+  function stepSieve() {
+    ensureSieve();
+    var p = nextUnmarked(S.currentP + 1);
+    if (p === -1 || p * p > S.n) {
+      // finish: everything unmarked is prime
+      var newlyMarked = 0;
+      for (var v = 2; v <= S.n; v++) {
+        if (S.state[v] === 0) { S.state[v] = 1; newlyMarked++; }
+      }
+      S.currentP = S.n;
+      repaint(null);
+      updateStatus(
+        "Done. All numbers past &radic;N are already resolved; the "
+        + newlyMarked + " remaining unmarked numbers are prime.",
+        primeCount()
+      );
+      stopPlay();
+      return false;
+    }
+    S.state[p] = 1;
+    S.currentP = p;
+    var crossed = 0;
+    for (var m = p * p; m <= S.n; m += p) {
+      if (S.state[m] !== 1) {
+        if (S.state[m] === 0) crossed++;
+        S.state[m] = 2;
+      }
+    }
+    repaint(p);
+    updateStatus(
+      "p = " + p + " is prime. Crossed out its multiples starting at "
+      + p + "&sup2; = " + (p * p) + " (" + crossed + " newly crossed).",
+      primeCount()
+    );
+    return true;
+  }
+
+  function updateStatus(msg, count) {
+    var suffix = count == null ? "" :
+      ' &nbsp;|&nbsp; primes so far: <span class="count">' + count + "</span>";
+    sieveStatus.innerHTML = msg + suffix;
+  }
+
+  function playSieve() {
+    ensureSieve();
+    if (S.playing) { stopPlay(); return; }
+    S.playing = true;
+    btnPlay.textContent = "Pause";
+    S.timer = setInterval(function () {
+      var more = stepSieve();
+      if (!more) stopPlay();
+    }, 650);
+  }
+
+  function stopPlay() {
+    S.playing = false;
+    btnPlay.textContent = "Play";
+    if (S.timer) { clearInterval(S.timer); S.timer = null; }
+  }
+
+  sieveN.addEventListener("input", function () {
+    sieveNVal.textContent = sieveN.value;
+  });
+  sieveN.addEventListener("change", buildSieve);
+  btnStep.addEventListener("click", function () { stopPlay(); stepSieve(); });
+  btnPlay.addEventListener("click", playSieve);
+  btnReset.addEventListener("click", buildSieve);
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

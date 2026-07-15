@@ -1,8 +1,14 @@
 ---
 title: "Graphing Functions"
+prerequisites: ["functions-relations", "order-of-operations"]
+enables: ["linear-functions", "polynomial-functions"]
 ---
 
-**Graphing Functions:** Graphing is the visual representation of a function on a coordinate plane. The graph shows the relationship between input values ($x$) and output values ($y$), revealing important features like intercepts, asymptotes, extrema, and overall behavior.
+**Graphing Functions:** Graphing is the visual representation of a function on a coordinate plane. The graph shows the relationship between input values ($x$, read "x") and output values ($y$, read "y"), revealing important features like intercepts, asymptotes, extrema, and overall behavior.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Order of Operations](./order-of-operations)
+> **Leads to:** [Linear Functions](./linear-functions) · [Polynomial Functions](./polynomial-functions)
 
 ## The Coordinate Plane
 
@@ -370,7 +376,11 @@ When graphing any function, identify these key features:
 
 ## Common Transformations Summary
 
-Starting with parent function $f(x)$:
+Starting with parent function $f(x)$ (read "f of x"):
+
+The explorer below lets you pick a base function and drag the parameters $a$ ("a"), $b$ ("b"), $h$ ("h"), and $k$ ("k") in the combined form $y = a \cdot f\big(b(x - h)\big) + k$. The faint curve is the base function, the bold curve is the transformed result, and the readout states in words what each parameter is doing.
+
+<iframe src="/static/interactive/function-transformer.html" width="100%" height="580" style="border:none;"></iframe>
 
 **Vertical Transformations:**
 - $f(x) + k$: Shift up $k$ units

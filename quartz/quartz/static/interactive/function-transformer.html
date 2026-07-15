@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Function Transformer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6470;
+    --base: #aab2bb;
+    --curve: #2563c9;
+    --axis: #c0392b;
+    --grid: #e4e8ec;
+    --panel: #f1f4f7;
+    --border: #d6dce2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 16px 16px 24px; }
+  h1 { font-size: 1.2rem; margin: 0 0 6px; }
+  .eq {
+    font-size: 1.3rem;
+    font-family: "Cambria Math", Georgia, serif;
+    margin: 8px 0 12px;
+    padding: 8px 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .eq .val { color: var(--curve); font-weight: 600; }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    margin: 10px 0 4px;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 22px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; }
+  .swatch.base { border-top-color: var(--base); border-top-style: dashed; }
+  .swatch.curve { border-top-color: var(--curve); }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0;
+  }
+  .row label { font-weight: 600; font-family: "Cambria Math", Georgia, serif; font-size: 1.05rem; min-width: 1.4em; }
+  .row select, .row input[type=range] { flex: 1; }
+  .row input[type=range] { accent-color: var(--curve); }
+  .row select {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    font-size: 0.95rem;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+    min-width: 3.2em;
+    text-align: right;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9rem;
+  }
+  .reset {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .reset:hover { background: var(--panel); }
+  .readout {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 12px;
+    font-size: 0.92rem;
+  }
+  .readout h2 { font-size: 0.95rem; margin: 0 0 6px; }
+  .readout ul { margin: 0; padding-left: 18px; }
+  .readout li { margin: 2px 0; }
+  .readout .none { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Function Transformation Explorer</h1>
+  <div class="eq" id="eq"></div>
+
+  <canvas id="cv" width="1040" height="640"></canvas>
+
+  <div class="legend">
+    <span><i class="swatch base"></i> base <span id="baseName"></span></span>
+    <span><i class="swatch curve"></i> transformed</span>
+  </div>
+
+  <div class="row">
+    <label for="fn">f</label>
+    <select id="fn">
+      <option value="sq">x&#178; (square)</option>
+      <option value="abs">|x| (absolute value)</option>
+      <option value="sqrt">&#8730;x (square root)</option>
+      <option value="recip">1/x (reciprocal)</option>
+      <option value="sin">sin x (sine)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="a">a</label>
+    <input type="range" id="a" min="-3" max="3" step="0.1" value="1">
+    <span class="num" id="aVal">1.0</span>
+  </div>
+  <div class="row">
+    <label for="b">b</label>
+    <input type="range" id="b" min="-3" max="3" step="0.1" value="1">
+    <span class="num" id="bVal">1.0</span>
+  </div>
+  <div class="row">
+    <label for="h">h</label>
+    <input type="range" id="h" min="-5" max="5" step="0.1" value="0">
+    <span class="num" id="hVal">0.0</span>
+  </div>
+  <div class="row">
+    <label for="k">k</label>
+    <input type="range" id="k" min="-5" max="5" step="0.1" value="0">
+    <span class="num" id="kVal">0.0</span>
+  </div>
+  <div class="row" style="justify-content:flex-end;">
+    <button class="reset" id="reset">Reset to base function</button>
+  </div>
+
+  <div class="readout">
+    <h2>What the parameters are doing</h2>
+    <ul id="words"></ul>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // world coordinate window
+  var XMIN = -8, XMAX = 8, YMIN = -6, YMAX = 6;
+
+  var funcs = {
+    sq:    { name: "y = x²",  f: function (x) { return x * x; }, isFinite: function () { return true; } },
+    abs:   { name: "y = |x|",      f: function (x) { return Math.abs(x); }, isFinite: function () { return true; } },
+    sqrt:  { name: "y = √x",  f: function (x) { return x >= 0 ? Math.sqrt(x) : NaN; }, isFinite: function (x) { return x >= 0; } },
+    recip: { name: "y = 1/x",      f: function (x) { return x === 0 ? NaN : 1 / x; }, isFinite: function (x) { return x !== 0; } },
+    sin:   { name: "y = sin x",    f: function (x) { return Math.sin(x); }, isFinite: function () { return true; } }
+  };
+
+  var state = { fn: "sq", a: 1, b: 1, h: 0, k: 0 };
+
+  function fmt(v) {
+    var s = v.toFixed(1);
+    if (s === "-0.0") s = "0.0";
+    return s;
+  }
+
+  function sx(x) { return (x - XMIN) / (XMAX - XMIN) * W; }
+  function sy(y) { return H - (y - YMIN) / (YMAX - YMIN) * H; }
+
+  function drawGrid() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = getCss("--grid");
+    ctx.fillStyle = getCss("--muted");
+    ctx.font = "13px ui-monospace, Menlo, monospace";
+    var x, y;
+    for (x = Math.ceil(XMIN); x <= XMAX; x++) {
+      ctx.beginPath(); ctx.moveTo(sx(x), 0); ctx.lineTo(sx(x), H); ctx.stroke();
+    }
+    for (y = Math.ceil(YMIN); y <= YMAX; y++) {
+      ctx.beginPath(); ctx.moveTo(0, sy(y)); ctx.lineTo(W, sy(y)); ctx.stroke();
+    }
+    // axes
+    ctx.strokeStyle = getCss("--axis");
+    ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.moveTo(0, sy(0)); ctx.lineTo(W, sy(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(sx(0), 0); ctx.lineTo(sx(0), H); ctx.stroke();
+    // tick labels
+    ctx.fillStyle = getCss("--muted");
+    for (x = Math.ceil(XMIN); x <= XMAX; x++) {
+      if (x === 0) continue;
+      ctx.fillText(String(x), sx(x) - 4, sy(0) + 16);
+    }
+    for (y = Math.ceil(YMIN); y <= YMAX; y++) {
+      if (y === 0) continue;
+      ctx.fillText(String(y), sx(0) + 6, sy(y) + 4);
+    }
+  }
+
+  function plot(fn, color, width, dashed) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.setLineDash(dashed ? [7, 6] : []);
+    ctx.beginPath();
+    var started = false;
+    var N = 1600;
+    var prevY = null;
+    for (var i = 0; i <= N; i++) {
+      var x = XMIN + (XMAX - XMIN) * i / N;
+      var y = fn(x);
+      if (!isFinite(y) || isNaN(y)) { started = false; prevY = null; continue; }
+      // break the pen on a huge jump (asymptote crossing)
+      if (prevY !== null && Math.abs(y - prevY) > (YMAX - YMIN) * 1.5) {
+        started = false;
+      }
+      var px = sx(x), py = sy(y);
+      if (!started) { ctx.moveTo(px, py); started = true; }
+      else { ctx.lineTo(px, py); }
+      prevY = y;
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function getCss(v) {
+    return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  }
+
+  function render() {
+    var base = funcs[state.fn];
+    var a = state.a, b = state.b, h = state.h, k = state.k;
+    var transformed = function (x) {
+      return a * base.f(b * (x - h)) + k;
+    };
+
+    drawGrid();
+    plot(base.f, getCss("--base"), 2, true);
+    plot(transformed, getCss("--curve"), 3, false);
+
+    document.getElementById("baseName").textContent = base.name;
+
+    // equation readout
+    var eq = "y = <span class=\"val\">" + fmt(a) + "</span> · f( <span class=\"val\">" +
+      fmt(b) + "</span>( x − <span class=\"val\">" + fmt(h) + "</span> ) ) + <span class=\"val\">" +
+      fmt(k) + "</span>";
+    document.getElementById("eq").innerHTML = eq;
+
+    updateWords(a, b, h, k);
+  }
+
+  function updateWords(a, b, h, k) {
+    var items = [];
+
+    // vertical stretch / compression / reflection from a
+    var absA = Math.abs(a);
+    if (a < 0 && absA > 1.0001) {
+      items.push("<b>a = " + fmt(a) + ":</b> reflects across the x-axis and stretches vertically by a factor of " + fmt(absA) + ".");
+    } else if (a < 0 && Math.abs(absA - 1) < 0.0001) {
+      items.push("<b>a = " + fmt(a) + ":</b> reflects across the x-axis (every output flips sign).");
+    } else if (a < 0) {
+      items.push("<b>a = " + fmt(a) + ":</b> reflects across the x-axis and compresses vertically by a factor of " + fmt(absA) + ".");
+    } else if (absA > 1.0001) {
+      items.push("<b>a = " + fmt(a) + ":</b> stretches vertically by a factor of " + fmt(absA) + " (taller).");
+    } else if (Math.abs(absA - 1) < 0.0001) {
+      items.push("<b>a = " + fmt(a) + ":</b> no vertical stretch (outputs unchanged in scale).");
+    } else if (absA < 0.0001) {
+      items.push("<b>a = 0:</b> collapses the curve to a horizontal line.");
+    } else {
+      items.push("<b>a = " + fmt(a) + ":</b> compresses vertically by a factor of " + fmt(absA) + " (flatter).");
+    }
+
+    // horizontal scaling / reflection from b
+    var absB = Math.abs(b);
+    if (b < 0 && Math.abs(absB - 1) < 0.0001) {
+      items.push("<b>b = " + fmt(b) + ":</b> reflects across the y-axis.");
+    } else if (b < 0) {
+      items.push("<b>b = " + fmt(b) + ":</b> reflects across the y-axis and scales horizontally by 1/" + fmt(absB) + ".");
+    } else if (absB > 1.0001) {
+      items.push("<b>b = " + fmt(b) + ":</b> compresses horizontally by a factor of " + fmt(absB) + " (narrower).");
+    } else if (Math.abs(absB - 1) < 0.0001) {
+      items.push("<b>b = " + fmt(b) + ":</b> no horizontal scaling.");
+    } else if (absB < 0.0001) {
+      items.push("<b>b = 0:</b> flattens all inputs to f(0).");
+    } else {
+      items.push("<b>b = " + fmt(b) + ":</b> stretches horizontally by a factor of 1/" + fmt(absB) + " (wider).");
+    }
+
+    // horizontal shift h
+    if (Math.abs(h) < 0.0001) {
+      items.push("<b>h = 0:</b> no horizontal shift.");
+    } else if (h > 0) {
+      items.push("<b>h = " + fmt(h) + ":</b> shifts right by " + fmt(h) + " units.");
+    } else {
+      items.push("<b>h = " + fmt(h) + ":</b> shifts left by " + fmt(Math.abs(h)) + " units.");
+    }
+
+    // vertical shift k
+    if (Math.abs(k) < 0.0001) {
+      items.push("<b>k = 0:</b> no vertical shift.");
+    } else if (k > 0) {
+      items.push("<b>k = " + fmt(k) + ":</b> shifts up by " + fmt(k) + " units.");
+    } else {
+      items.push("<b>k = " + fmt(k) + ":</b> shifts down by " + fmt(Math.abs(k)) + " units.");
+    }
+
+    document.getElementById("words").innerHTML =
+      items.map(function (t) { return "<li>" + t + "</li>"; }).join("");
+  }
+
+  function bindSlider(id, key) {
+    var el = document.getElementById(id);
+    var out = document.getElementById(id + "Val");
+    el.addEventListener("input", function () {
+      state[key] = parseFloat(el.value);
+      out.textContent = fmt(state[key]);
+      render();
+    });
+  }
+
+  document.getElementById("fn").addEventListener("change", function () {
+    state.fn = this.value;
+    render();
+  });
+  bindSlider("a", "a");
+  bindSlider("b", "b");
+  bindSlider("h", "h");
+  bindSlider("k", "k");
+
+  document.getElementById("reset").addEventListener("click", function () {
+    state.a = 1; state.b = 1; state.h = 0; state.k = 0;
+    document.getElementById("a").value = 1; document.getElementById("aVal").textContent = "1.0";
+    document.getElementById("b").value = 1; document.getElementById("bVal").textContent = "1.0";
+    document.getElementById("h").value = 0; document.getElementById("hVal").textContent = "0.0";
+    document.getElementById("k").value = 0; document.getElementById("kVal").textContent = "0.0";
+    render();
+  });
+
+  render();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

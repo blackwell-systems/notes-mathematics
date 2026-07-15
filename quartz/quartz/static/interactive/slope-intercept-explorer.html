@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slope-Intercept Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6470;
+    --line: #2563c9;
+    --axis: #c0392b;
+    --grid: #e4e8ec;
+    --tri: #d97706;
+    --pt: #16a34a;
+    --panel: #f1f4f7;
+    --border: #d6dce2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 28px;
+  }
+  h1 { font-size: 1.2rem; margin: 0 0 4px; }
+  .eq {
+    font-size: 1.2rem;
+    font-family: "Cambria Math", Georgia, serif;
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .eq .val { color: var(--line); font-weight: 600; }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    touch-action: none;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px 12px;
+    align-items: center;
+    margin: 14px 0;
+  }
+  .controls label { font-weight: 600; font-family: "Cambria Math", Georgia, serif; font-size: 1.05rem; }
+  .controls input[type=range] { width: 100%; accent-color: var(--line); }
+  .controls .num {
+    font-variant-numeric: tabular-nums;
+    min-width: 3.6em;
+    text-align: right;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.92rem;
+  }
+  .row { display: flex; align-items: center; gap: 10px; margin: 12px 0 6px; flex-wrap: wrap; }
+  .row label { font-weight: 600; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 0.95rem;
+  }
+  .panel div { margin: 3px 0; }
+  .panel code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: 0.86rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .hint { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Slope-Intercept Explorer</h1>
+  <p class="hint">Drag the sliders to change the slope <em>m</em> and the y-intercept <em>b</em>. Toggle point-slope form to drag the anchor point.</p>
+
+  <div class="eq" id="eqSI"></div>
+  <div class="eq" id="eqPS" style="display:none"></div>
+
+  <canvas id="cv" width="1120" height="700"></canvas>
+
+  <div class="controls">
+    <label for="mS">m</label>
+    <input id="mS" type="range" min="-4" max="4" step="0.1" value="2">
+    <span class="num" id="mV">2.0</span>
+
+    <label for="bS">b</label>
+    <input id="bS" type="range" min="-6" max="6" step="0.1" value="1">
+    <span class="num" id="bV">1.0</span>
+  </div>
+
+  <div class="row">
+    <input id="psToggle" type="checkbox">
+    <label for="psToggle">Show point-slope form (drag the anchor point)</label>
+  </div>
+
+  <div class="panel" id="readout"></div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--line)"></span> line y = mx + b</span>
+    <span><span class="sw" style="background:var(--tri)"></span> rise over run</span>
+    <span><span class="dot" style="background:var(--axis)"></span> y-intercept</span>
+    <span><span class="dot" style="background:#7c3aed"></span> x-intercept</span>
+    <span><span class="dot" style="background:var(--pt)"></span> anchor (x&#8321;, y&#8321;)</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // world coordinate range
+  var XMIN = -8, XMAX = 8, YMIN = -8, YMAX = 8;
+
+  var mS = document.getElementById("mS");
+  var bS = document.getElementById("bS");
+  var mV = document.getElementById("mV");
+  var bV = document.getElementById("bV");
+  var psToggle = document.getElementById("psToggle");
+  var eqSI = document.getElementById("eqSI");
+  var eqPS = document.getElementById("eqPS");
+  var readout = document.getElementById("readout");
+
+  // anchor point for point-slope form (world coords), snapped to line
+  var x1 = 1;
+
+  function toPX(x) { return (x - XMIN) / (XMAX - XMIN) * W; }
+  function toPY(y) { return H - (y - YMIN) / (YMAX - YMIN) * H; }
+  function toWX(px) { return XMIN + px / W * (XMAX - XMIN); }
+
+  function fmt(v) {
+    var r = Math.round(v * 100) / 100;
+    if (Object.is(r, -0)) r = 0;
+    return String(r);
+  }
+  function fmtSigned(v) {
+    var r = Math.round(v * 100) / 100;
+    if (Object.is(r, -0)) r = 0;
+    return (r < 0 ? "− " : "+ ") + fmt(Math.abs(r));
+  }
+
+  function draw() {
+    var m = parseFloat(mS.value);
+    var b = parseFloat(bS.value);
+    var y1 = m * x1 + b;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // grid
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#e4e8ec";
+    ctx.fillStyle = "#8a94a0";
+    ctx.font = "18px -apple-system, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    for (var gx = Math.ceil(XMIN); gx <= XMAX; gx++) {
+      var px = toPX(gx);
+      ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, H); ctx.stroke();
+      if (gx !== 0) ctx.fillText(String(gx), px, toPY(0) + 4);
+    }
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    for (var gy = Math.ceil(YMIN); gy <= YMAX; gy++) {
+      var py = toPY(gy);
+      ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(W, py); ctx.stroke();
+      if (gy !== 0) ctx.fillText(String(gy), toPX(0) - 6, py);
+    }
+
+    // axes
+    ctx.strokeStyle = "#9aa4b0";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, toPY(0)); ctx.lineTo(W, toPY(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(toPX(0), 0); ctx.lineTo(toPX(0), H); ctx.stroke();
+
+    // the line: y = mx + b across full x range
+    var yL = m * XMIN + b, yR = m * XMAX + b;
+    ctx.strokeStyle = "#2563c9";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(toPX(XMIN), toPY(yL));
+    ctx.lineTo(toPX(XMAX), toPY(yR));
+    ctx.stroke();
+
+    // rise-over-run triangle between two integer x values near center
+    var xa = 0, xb = 1;
+    // if slope is 0 the run still shows a flat triangle; keep run = 1
+    var ya = m * xa + b, yb = m * xb + b;
+    ctx.strokeStyle = "#d97706";
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([7, 5]);
+    // run (horizontal)
+    ctx.beginPath();
+    ctx.moveTo(toPX(xa), toPY(ya));
+    ctx.lineTo(toPX(xb), toPY(ya));
+    ctx.stroke();
+    // rise (vertical)
+    ctx.beginPath();
+    ctx.moveTo(toPX(xb), toPY(ya));
+    ctx.lineTo(toPX(xb), toPY(yb));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // triangle labels
+    ctx.fillStyle = "#b45309";
+    ctx.font = "17px -apple-system, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText("run = 1", (toPX(xa) + toPX(xb)) / 2, toPY(ya) + 5);
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText("rise = " + fmt(m), toPX(xb) + 8, (toPY(ya) + toPY(yb)) / 2);
+
+    // y-intercept marker (0, b)
+    dot(toPX(0), toPY(b), "#c0392b", "(0, " + fmt(b) + ")", "left", -1);
+
+    // x-intercept marker (-b/m, 0) when m != 0
+    if (m !== 0) {
+      var xi = -b / m;
+      if (xi >= XMIN && xi <= XMAX) {
+        dot(toPX(xi), toPY(0), "#7c3aed", "(" + fmt(xi) + ", 0)", "center", 1);
+      }
+    }
+
+    // anchor point for point-slope
+    if (psToggle.checked) {
+      dot(toPX(x1), toPY(y1), "#16a34a", "(" + fmt(x1) + ", " + fmt(y1) + ")", "left", 1);
+    }
+
+    updateText(m, b, x1, y1);
+  }
+
+  function dot(px, py, color, label, align, dir) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(px, py, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.font = "16px -apple-system, sans-serif";
+    ctx.textAlign = align;
+    ctx.textBaseline = "middle";
+    var ox = align === "center" ? 0 : (align === "left" ? 12 : -12);
+    ctx.fillText(label, px + ox, py + dir * 18);
+  }
+
+  function updateText(m, b, x1v, y1v) {
+    mV.textContent = m.toFixed(1);
+    bV.textContent = b.toFixed(1);
+
+    // slope-intercept equation
+    eqSI.innerHTML = "y = <span class='val'>" + fmt(m) + "</span> x " + fmtSigned(b);
+
+    // point-slope equation
+    eqPS.innerHTML = "y − <span class='val'>" + fmt(y1v) +
+      "</span> = <span class='val'>" + fmt(m) +
+      "</span>( x − <span class='val'>" + fmt(x1v) + "</span> )";
+
+    eqPS.style.display = psToggle.checked ? "block" : "none";
+
+    var xiTxt = (m !== 0) ? fmt(-b / m) : "none (line is horizontal)";
+    var slopeFrac = (m !== 0)
+      ? ("slope = rise / run = " + fmt(m) + " / 1 = " + fmt(m))
+      : "slope = 0 (horizontal line)";
+
+    readout.innerHTML =
+      "<div><strong>Slope-intercept:</strong> <code>y = " + fmt(m) + "x " +
+        (b < 0 ? "- " + fmt(Math.abs(b)) : "+ " + fmt(b)) + "</code></div>" +
+      "<div><strong>Point-slope:</strong> <code>y - " + fmt(y1v) + " = " +
+        fmt(m) + "(x - " + fmt(x1v) + ")</code></div>" +
+      "<div><strong>Slope m:</strong> " + slopeFrac + "</div>" +
+      "<div><strong>y-intercept:</strong> (0, " + fmt(b) + ")</div>" +
+      "<div><strong>x-intercept:</strong> " +
+        (m !== 0 ? "(" + xiTxt + ", 0)" : xiTxt) + "</div>";
+  }
+
+  // dragging the anchor point (only in point-slope mode)
+  var dragging = false;
+  function anchorScreen() {
+    var m = parseFloat(mS.value), b = parseFloat(bS.value);
+    return { px: toPX(x1) * (cv.clientWidth / W), py: toPY(m * x1 + b) * (cv.clientHeight / H) };
+  }
+  function pointerToWX(e) {
+    var rect = cv.getBoundingClientRect();
+    var cx = (e.clientX - rect.left) * (W / rect.width);
+    return toWX(cx);
+  }
+  cv.addEventListener("pointerdown", function (e) {
+    if (!psToggle.checked) return;
+    var rect = cv.getBoundingClientRect();
+    var sx = e.clientX - rect.left, sy = e.clientY - rect.top;
+    var a = anchorScreen();
+    if (Math.hypot(sx - a.px, sy - a.py) < 22) {
+      dragging = true;
+      cv.setPointerCapture(e.pointerId);
+    }
+  });
+  cv.addEventListener("pointermove", function (e) {
+    if (!dragging) return;
+    var wx = pointerToWX(e);
+    x1 = Math.max(XMIN + 0.5, Math.min(XMAX - 0.5, Math.round(wx * 2) / 2));
+    draw();
+  });
+  cv.addEventListener("pointerup", function (e) {
+    dragging = false;
+    try { cv.releasePointerCapture(e.pointerId); } catch (err) {}
+  });
+
+  mS.addEventListener("input", draw);
+  bS.addEventListener("input", draw);
+  psToggle.addEventListener("change", draw);
+
+  draw();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,8 +1,14 @@
 ---
 title: "Propositional Logic / zeroth-order logic"
+prerequisites: ["set-theory"]
+enables: ["predicate-logic-first-order-logic"]
 ---
 
 Logic is the study of valid reasoning: given certain facts, what can you conclude? Propositional logic is the simplest form of formal logic. It works with statements (propositions) that are either true or false, and studies how to combine them using connectives like "and," "or," and "not." Propositional logic is the foundation of mathematical proofs, digital circuit design, programming constructs like if/else, and database queries.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Set Theory](./set-theory)
+> **Leads to:** [Predicate Logic (First-Order Logic)](./predicate-logic-first-order-logic)
 
 **Propositional Logic:** Propositional Logic, is a formal system in
 logic that deals with statements or propositions as whole, indivisible

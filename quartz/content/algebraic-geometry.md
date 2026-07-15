@@ -223,6 +223,10 @@ At a smooth point, a variety locally looks like flat Euclidean space. All smooth
 
 All the interesting geometry lives at the singular points. Cusps, nodes, crossings, pinch points: these are where the variety's global structure manifests locally. And as we will see, it is precisely these singular points that control the behavior of learning machines.
 
+Explore it: the surface below is the **Whitney umbrella** $z = x^2 y$ (read "z equals x squared times y"), a 3D variety whose lone singularity is the **pinch point** at the origin; rotate it to see how the sheet folds and self-intersects there while every other point stays smooth.
+
+<iframe src="/static/interactive/singularity-surface.html" width="100%" height="560" style="border:none;"></iframe>
+
 ## Why Singularities Matter for SLT
 
 ### The Parameter-to-Distribution Map

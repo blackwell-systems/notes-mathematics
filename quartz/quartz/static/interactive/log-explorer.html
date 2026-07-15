@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logarithm Explorer</title>
+<style>
+  :root { --fg:#1f2430; --muted:#5c6472; --line:#d7dbe3; --bg:#ffffff;
+          --exp:#c0392b; --log:#2471a3; --ident:#8a8f99; --pt:#1e8449; --panelbg:#f6f8fb; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         color: var(--fg); background: var(--bg); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 12px; }
+  h2 { font-size: 1.05rem; margin: 0 0 4px; }
+  p.note { color: var(--muted); font-size: 0.85rem; margin: 0 0 10px; }
+  canvas { display:block; width:100%; height:auto; touch-action:none;
+           border:1px solid var(--line); border-radius:8px; background:#fff; cursor:crosshair; }
+  .controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:10px 0; }
+  .controls label { font-size:0.85rem; color:var(--muted); }
+  input[type=range] { vertical-align:middle; }
+  .legend { display:flex; gap:16px; flex-wrap:wrap; font-size:0.82rem; margin:6px 0 0; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .swatch { width:16px; height:0; border-top:3px solid #000; display:inline-block; }
+  .swatch.dash { border-top-style:dashed; }
+  .panel { background:var(--panelbg); border:1px solid var(--line); border-radius:8px;
+           padding:12px 14px; margin-top:14px; }
+  .panel h3 { margin:0 0 8px; font-size:0.95rem; }
+  .lawrow { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:8px 0;
+            font-size:0.9rem; padding:6px 0; border-bottom:1px dashed var(--line); }
+  .lawrow:last-child { border-bottom:none; }
+  .lawname { flex:0 0 100%; font-weight:600; font-size:0.82rem; color:var(--muted); }
+  .eq { font-variant-numeric: tabular-nums; }
+  .lhs, .rhs { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+  .ok { color:#1e8449; font-weight:600; }
+  .inputs { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:6px; }
+  .inputs label { font-size:0.85rem; color:var(--muted); display:inline-flex; align-items:center; gap:6px; }
+  .inputs input[type=number] { width:64px; padding:3px 5px; font-size:0.85rem;
+           border:1px solid var(--line); border-radius:5px; }
+  .val { font-weight:600; color:var(--fg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Logarithm &amp; Exponential: Inverse Explorer</h2>
+  <p class="note">The curve <b>y = b<sup>x</sup></b> (b to the x) and <b>y = log<sub>b</sub>(x)</b>
+     (log base b of x) are mirror images across the line y = x. Drag the green point on either
+     curve; its reflection follows on the other.</p>
+
+  <div class="controls">
+    <label>base <b>b</b> = <span class="val" id="bval">2.00</span></label>
+    <input type="range" id="base" min="0.2" max="5" step="0.05" value="2">
+  </div>
+
+  <canvas id="cv" width="720" height="440"></canvas>
+
+  <div class="legend">
+    <span><i class="swatch" style="border-color:var(--exp)"></i> y = b<sup>x</sup></span>
+    <span><i class="swatch" style="border-color:var(--log)"></i> y = log<sub>b</sub>(x)</span>
+    <span><i class="swatch dash" style="border-color:var(--ident)"></i> y = x (mirror)</span>
+    <span><i class="swatch" style="border-color:var(--pt);border-top-width:0;width:10px;height:10px;border-radius:50%;background:var(--pt)"></i> draggable point &amp; reflection</span>
+  </div>
+
+  <div class="panel">
+    <h3>Log laws, checked numerically (base b)</h3>
+    <div class="inputs">
+      <label>x = <input type="number" id="x" value="8" min="0.0001" step="0.5"></label>
+      <label>y = <input type="number" id="y" value="4" min="0.0001" step="0.5"></label>
+      <label>k = <input type="number" id="k" value="2" step="0.5"></label>
+    </div>
+
+    <div class="lawrow">
+      <span class="lawname">Product: log<sub>b</sub>(xy) = log<sub>b</sub>(x) + log<sub>b</sub>(y)</span>
+      <span class="eq"><span class="lhs" id="p_l"></span> = <span class="rhs" id="p_r"></span> <span class="ok" id="p_ok">✓</span></span>
+    </div>
+    <div class="lawrow">
+      <span class="lawname">Quotient: log<sub>b</sub>(x/y) = log<sub>b</sub>(x) − log<sub>b</sub>(y)</span>
+      <span class="eq"><span class="lhs" id="q_l"></span> = <span class="rhs" id="q_r"></span> <span class="ok" id="q_ok">✓</span></span>
+    </div>
+    <div class="lawrow">
+      <span class="lawname">Power: log<sub>b</sub>(x<sup>k</sup>) = k · log<sub>b</sub>(x)</span>
+      <span class="eq"><span class="lhs" id="pw_l"></span> = <span class="rhs" id="pw_r"></span> <span class="ok" id="pw_ok">✓</span></span>
+    </div>
+    <div class="lawrow">
+      <span class="lawname">Change of base: log<sub>b</sub>(x) = ln(x) / ln(b)</span>
+      <span class="eq"><span class="lhs" id="cb_l"></span> = <span class="rhs" id="cb_r"></span> <span class="ok" id="cb_ok">✓</span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  // world coordinate window (symmetric so y=x is the diagonal)
+  var XMIN = -4, XMAX = 8, YMIN = -4, YMAX = 8;
+  var PADL = 42, PADR = 12, PADT = 12, PADB = 30;
+
+  function sx(x){ return PADL + (x - XMIN)/(XMAX - XMIN) * (W - PADL - PADR); }
+  function sy(y){ return H - PADB - (y - YMIN)/(YMAX - YMIN) * (H - PADT - PADB); }
+  function invx(px){ return XMIN + (px - PADL)/(W - PADL - PADR) * (XMAX - XMIN); }
+
+  var base = 2;
+  // the draggable "input" t: point on exp curve is (t, b^t); reflection is (b^t, t) on log curve
+  var t = 2;
+
+  function bpow(x){ return Math.pow(base, x); }        // b^x
+  function logb(x){ return Math.log(x) / Math.log(base); } // log_b(x)
+
+  function drawGrid(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle = "#eef1f6"; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for(var gx=Math.ceil(XMIN); gx<=XMAX; gx++){ ctx.moveTo(sx(gx),sy(YMIN)); ctx.lineTo(sx(gx),sy(YMAX)); }
+    for(var gy=Math.ceil(YMIN); gy<=YMAX; gy++){ ctx.moveTo(sx(XMIN),sy(gy)); ctx.lineTo(sx(XMAX),sy(gy)); }
+    ctx.stroke();
+    // axes
+    ctx.strokeStyle = "#aab0bb"; ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(sx(XMIN),sy(0)); ctx.lineTo(sx(XMAX),sy(0));
+    ctx.moveTo(sx(0),sy(YMIN)); ctx.lineTo(sx(0),sy(YMAX));
+    ctx.stroke();
+    // tick labels
+    ctx.fillStyle = "#5c6472"; ctx.font = "11px sans-serif"; ctx.textAlign="center";
+    for(var lx=Math.ceil(XMIN); lx<=XMAX; lx+=2){ if(lx===0) continue; ctx.fillText(String(lx), sx(lx), sy(0)+14); }
+    ctx.textAlign="right";
+    for(var ly=Math.ceil(YMIN); ly<=YMAX; ly+=2){ if(ly===0) continue; ctx.fillText(String(ly), sx(0)-5, sy(ly)+4); }
+  }
+
+  function drawLineYX(){
+    ctx.strokeStyle = "#8a8f99"; ctx.lineWidth = 1.2; ctx.setLineDash([6,5]);
+    ctx.beginPath();
+    var lo = Math.max(XMIN,YMIN), hi = Math.min(XMAX,YMAX);
+    ctx.moveTo(sx(lo),sy(lo)); ctx.lineTo(sx(hi),sy(hi));
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  function drawCurve(fn, color, dom){
+    ctx.strokeStyle = color; ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    var started = false;
+    var steps = 600;
+    for(var i=0;i<=steps;i++){
+      var x = dom[0] + (dom[1]-dom[0])*i/steps;
+      var y = fn(x);
+      if(!isFinite(y)) { started=false; continue; }
+      if(y < YMIN-2 || y > YMAX+2){ started=false; continue; }
+      var px = sx(x), py = sy(y);
+      if(!started){ ctx.moveTo(px,py); started=true; } else { ctx.lineTo(px,py); }
+    }
+    ctx.stroke();
+  }
+
+  function drawExp(){ drawCurve(bpow, getComputedStyle(document.documentElement).getPropertyValue("--exp").trim() || "#c0392b", [XMIN, XMAX]); }
+  function drawLog(){ drawCurve(logb, getComputedStyle(document.documentElement).getPropertyValue("--log").trim() || "#2471a3", [0.0001, XMAX]); }
+
+  function drawPoints(){
+    var ex = t, ey = bpow(t);       // point on exponential
+    var lx = ey, ly = t;            // reflection on logarithm  (log_b(ey) = t)
+    var green = "#1e8449";
+    // connector across mirror
+    ctx.strokeStyle = "#1e844955"; ctx.setLineDash([3,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(sx(ex),sy(ey)); ctx.lineTo(sx(lx),sy(ly)); ctx.stroke(); ctx.setLineDash([]);
+    function dot(x,y,label){
+      ctx.fillStyle = green; ctx.beginPath(); ctx.arc(sx(x),sy(y),6,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle="#fff"; ctx.lineWidth=1.5; ctx.stroke();
+      ctx.fillStyle="#12321f"; ctx.font="11px sans-serif"; ctx.textAlign="left";
+      ctx.fillText(label, sx(x)+9, sy(y)-8);
+    }
+    if(isFinite(ey)) dot(ex,ey,"("+fmt(ex)+", "+fmt(ey)+")");
+    if(isFinite(lx)&&lx>0) dot(lx,ly,"("+fmt(lx)+", "+fmt(ly)+")");
+  }
+
+  function fmt(v){ return (Math.round(v*100)/100).toString(); }
+
+  function render(){
+    drawGrid(); drawLineYX(); drawExp(); drawLog(); drawPoints();
+  }
+
+  // dragging: pick the point (either exp or log) nearest the cursor, then set t
+  var dragging = false;
+  function pointerPos(evt){
+    var r = cv.getBoundingClientRect();
+    var cxp = (evt.touches?evt.touches[0].clientX:evt.clientX) - r.left;
+    var cyp = (evt.touches?evt.touches[0].clientY:evt.clientY) - r.top;
+    // canvas is scaled to CSS width; convert to internal px
+    return { x: cxp * (W/r.width), y: cyp * (H/r.height) };
+  }
+  function updateFromPointer(evt){
+    var p = pointerPos(evt);
+    // distance to exp point and to log point
+    var ex = t, ey = bpow(t), lx = ey, ly = t;
+    var dExp = Math.hypot(p.x - sx(ex), p.y - sy(ey));
+    var dLog = Math.hypot(p.x - sx(lx), p.y - sy(ly));
+    var wx = invx(p.x);
+    if(dLog < dExp){
+      // dragging the log point: its x is the argument (b^t), so t = log_b(x)
+      var arg = Math.max(wx, 0.0001);
+      t = logb(arg);
+    } else {
+      // dragging the exp point: its x IS t
+      t = wx;
+    }
+    // clamp t so b^t stays roughly on screen
+    t = Math.max(XMIN, Math.min(XMAX, t));
+    render();
+  }
+  cv.addEventListener("mousedown", function(e){ dragging=true; updateFromPointer(e); });
+  window.addEventListener("mousemove", function(e){ if(dragging) updateFromPointer(e); });
+  window.addEventListener("mouseup", function(){ dragging=false; });
+  cv.addEventListener("touchstart", function(e){ dragging=true; updateFromPointer(e); e.preventDefault(); }, {passive:false});
+  cv.addEventListener("touchmove", function(e){ if(dragging){ updateFromPointer(e); e.preventDefault(); } }, {passive:false});
+  window.addEventListener("touchend", function(){ dragging=false; });
+
+  // base slider
+  var slider = document.getElementById("base");
+  var bval = document.getElementById("bval");
+  slider.addEventListener("input", function(){
+    var v = parseFloat(slider.value);
+    if(Math.abs(v-1) < 0.06){ v = (v < 1) ? 0.9 : 1.1; } // skip b=1 (undefined)
+    base = v; bval.textContent = base.toFixed(2);
+    render(); updateLaws();
+  });
+
+  // --- log laws panel ---
+  var xi=document.getElementById("x"), yi=document.getElementById("y"), ki=document.getElementById("k");
+  function set(id,val){ document.getElementById(id).textContent = val; }
+  function round4(v){ return Math.round(v*10000)/10000; }
+  function approxEq(a,b){ return Math.abs(a-b) < 1e-9; }
+
+  function updateLaws(){
+    var x = parseFloat(xi.value), y = parseFloat(yi.value), k = parseFloat(ki.value);
+    var Lx = logb(x), Ly = logb(y), Lnb = Math.log(base);
+
+    // product
+    var pL = logb(x*y), pR = Lx + Ly;
+    set("p_l", round4(pL)); set("p_r", round4(pR));
+    document.getElementById("p_ok").style.visibility = approxEq(pL,pR) ? "visible":"hidden";
+
+    // quotient
+    var qL = logb(x/y), qR = Lx - Ly;
+    set("q_l", round4(qL)); set("q_r", round4(qR));
+    document.getElementById("q_ok").style.visibility = approxEq(qL,qR) ? "visible":"hidden";
+
+    // power
+    var wL = logb(Math.pow(x,k)), wR = k*Lx;
+    set("pw_l", round4(wL)); set("pw_r", round4(wR));
+    document.getElementById("pw_ok").style.visibility = approxEq(wL,wR) ? "visible":"hidden";
+
+    // change of base
+    var cL = Lx, cR = Math.log(x)/Lnb;
+    set("cb_l", round4(cL)); set("cb_r", round4(cR));
+    document.getElementById("cb_ok").style.visibility = approxEq(cL,cR) ? "visible":"hidden";
+  }
+  [xi,yi,ki].forEach(function(el){ el.addEventListener("input", updateLaws); });
+
+  // init
+  render(); updateLaws();
+})();
+</script>
+
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

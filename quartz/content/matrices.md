@@ -1,5 +1,7 @@
 ---
 title: "Matrices"
+prerequisites: ["vector", "number-systems"]
+enables: ["linear-algebra-foundations", "systems-of-linear-equations"]
 ---
 
 ## Why Matrices?
@@ -28,6 +30,10 @@ $$
 For a system of 3 equations in 3 unknowns, there are 9 coefficients that naturally arrange into a $3 \times 3$ grid. Matrices give us a single symbol ($A$) to represent that entire grid, and matrix operations (addition, multiplication, inversion) let us manipulate and solve the system without rewriting every coefficient by hand.
 
 > **Scope note:** This page covers the mechanics of matrices: how to add, multiply, transpose, and invert them. For the deeper theory of what these operations mean geometrically (linear transformations, vector spaces, eigenvalues), see [Linear Algebra Foundations](./linear-algebra-foundations).
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Vectors](./vector) · [Number Systems](./number-systems)
+> **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Systems of Linear Equations](./systems-of-linear-equations)
 
 ---
 
@@ -130,6 +136,12 @@ $$\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 5 & 6 \\ 7 & 8 \e
 - **Identity:** $AI = IA = A$ (where $I$ is the identity matrix)
 
 ![Matrix multiplication visual showing row times column to produce each entry](./media/matrix-multiplication.png)
+
+**Matrices as transformations.** When a matrix $A$ multiplies a column vector $\mathbf{x}$ (read "x-vector"), each output coordinate is a dot product of a row of $A$ with $\mathbf{x}$. Geometrically, a $2 \times 2$ matrix takes every point of the plane and moves it, so multiplication is the same as applying a linear transformation.
+
+Explore it: drag the grid and watch how the $2 \times 2$ matrix $A$ reshapes the plane; each column of $A$ shows where the unit vectors $\mathbf{i}$ (read "i-hat") and $\mathbf{j}$ (read "j-hat") land.
+
+<iframe src="/static/interactive/linear-transformation-2d.html" width="100%" height="560" style="border:none;"></iframe>
 
 ## Identity Matrix
 

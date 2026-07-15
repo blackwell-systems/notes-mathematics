@@ -1,5 +1,7 @@
 ---
 title: "Logarithms"
+prerequisites: ["exponential-functions", "functions-relations"]
+enables: ["calculus", "information-theory"]
 ---
 
 ## The Problem Logarithms Solve
@@ -11,6 +13,10 @@ Now consider a harder question: **10 to what power gives 500?** The answer is no
 $$\log_{10}(500) \approx 2.699$$
 
 This tells us $10^{2.699} \approx 500$.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Exponential Functions](./exponential-functions) · [Functions & Relations](./functions-relations)
+> **Leads to:** [Calculus](./calculus) · [Information Theory](./information-theory)
 
 ### Why We Need Logarithms
 
@@ -42,6 +48,12 @@ $$\forall x \in \mathbb{R}, \forall y \in (0,\infty), \quad y = a^x \Longleftrig
 In words: If $y = a^x$, then $x = \log_a(y)$
 
 **Example:** $2^3 = 8 \Longleftrightarrow \log_2(8) = 3$
+
+### Explore the Inverse Relationship
+
+Because a logarithm undoes an exponential, the graph of $y = \log_b(x)$ (read "y equals log base b of x") is the mirror image of $y = b^x$ (read "y equals b to the x") across the line $y = x$. The widget below makes that reflection concrete: drag the point on either curve and watch its partner appear at the swapped coordinates. Change the base $b$ with the slider, and use the lower panel to check the log laws numerically for values of $x$, $y$, and $k$ that you choose.
+
+<iframe src="/static/interactive/log-explorer.html" width="100%" height="580" style="border:none;"></iframe>
 
 ## Common Logarithms
 
