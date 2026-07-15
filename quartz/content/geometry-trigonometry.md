@@ -871,6 +871,8 @@ This matches the right side. $\square$
 
 These extend trigonometry to **oblique triangles** (triangles without a right angle). In any triangle with sides $a, b, c$ opposite angles $A, B, C$:
 
+![An oblique triangle with vertices A, B, C: side a is opposite angle A, side b is opposite angle B, and side c is opposite angle C, illustrating the standard side-angle naming convention](./media/geo-oblique-triangle.png)
+
 Solve any triangle interactively below. Pick a case (SSS, SAS, ASA, AAS, or the ambiguous SSA), enter the known parts, and the solver finds the rest and draws the triangle to scale, including the 0, 1, or 2 triangles that the SSA case can produce.
 
 <iframe src="/static/interactive/geo-triangle-solver.html" width="100%" height="660" style="border:none;"></iframe>
@@ -907,6 +909,10 @@ B = \arcsin(0.75) \approx 48.6° \quad \text{or} \quad B \approx 180° - 48.6° 
 $$
 
 Both values are valid (since $30° + 48.6° < 180°$ and $30° + 131.4° < 180°$), so there are **two** possible triangles.
+
+![The ambiguous SSA case for A = 30 degrees, a = 8, b = 12: the fixed side b runs from A to C, and the side a of length 8 swings from C as an arc that crosses the baseline at two points B1 and B2, producing one triangle with angle B about 131.4 degrees and another with B about 48.6 degrees](./media/geo-ambiguous-ssa.png)
+
+The picture shows why: the altitude from $C$ to the baseline has length $h = b\sin A = 6$. Because $a = 8$ is longer than $h = 6$ but shorter than $b = 12$, the arc of radius $a$ swung from $C$ meets the baseline at two distinct points, one on each side of the foot of the altitude.
 
 ### Law of Cosines
 

@@ -715,6 +715,16 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const A = 3, B = 2, C = Math.PI; eq("sinusoid amplitude |A| = 3", Math.abs(A), 3); eq("sinusoid period 2pi/B = pi", (2 * Math.PI) / B, Math.PI, 1e-12); eq("sinusoid phase shift C/B = pi/2", C / B, Math.PI / 2, 1e-12); }
   eq("triangle angles sum to 180", 36.87 + 53.13 + 90, 180, 0.01);
   { const A = d2r(30), a = 5, b = 8, sinB = (b * Math.sin(A)) / a; check("SSA A=30,a=5,b=8 is ambiguous (0<sinB<1)", sinB > 0 && sinB < 1 && approx(sinB, 0.8)); }
+  // SSA worked example on the page: A=30, a=8, b=12 -> sinB = 0.75, B = 48.6 or 131.4 (two triangles)
+  { const A = d2r(30), a = 8, b = 12, sinB = (b * Math.sin(A)) / a; eq("SSA A=30,a=8,b=12: sin B = 0.75", sinB, 0.75, 1e-12);
+    const B1 = r2d(Math.asin(sinB)), B2 = 180 - B1; eq("... B1 = 48.6 deg", B1, 48.59, 1e-2); eq("... B2 = 131.4 deg", B2, 131.41, 1e-2);
+    check("both triangles valid (A+B < 180)", 30 + B1 < 180 && 30 + B2 < 180);
+    const h = b * Math.sin(A); check("ambiguous because h=6 < a=8 < b=12", h < a && a < b); eq("altitude h = b sin A = 6", h, 6, 1e-12); }
+  // Law of cosines worked example: a=5, b=7, C=42 -> c ~ 4.69
+  { const a = 5, b = 7, C = d2r(42), c2 = a * a + b * b - 2 * a * b * Math.cos(C); eq("law of cosines a=5,b=7,C=42: c ~ 4.69", Math.sqrt(c2), 4.69, 5e-3); }
+  // inverse trig worked examples
+  eq("arccos(-sqrt3/2) = 150 deg", r2d(Math.acos(-Math.sqrt(3) / 2)), 150, 1e-9);
+  eq("sin(arccos(3/5)) = 4/5", Math.sin(Math.acos(3 / 5)), 0.8, 1e-12);
 }
 
 // ================= Bayesian updating, KL, Taylor, Newton, Vectors =================
