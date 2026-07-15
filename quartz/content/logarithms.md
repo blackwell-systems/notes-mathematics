@@ -137,6 +137,22 @@ This tells us $3^{3.561} \approx 50$.
 
 $$\log_5(200) = \frac{\log_{10}(200)}{\log_{10}(5)} = \frac{2.301}{0.699} \approx 3.292$$
 
+### Reciprocal and Base-Swap Identities
+
+Two more identities follow directly from the rules above and are worth naming.
+
+**Reciprocal of the argument.** By the quotient (or power) rule,
+
+$$\log_a\!\left(\frac{1}{x}\right) = -\log_a(x).$$
+
+For example, $\log_2\!\left(\tfrac{1}{8}\right) = -3$.
+
+**Swapping base and argument.** Change of base with the roles reversed gives
+
+$$\log_a(b) = \frac{1}{\log_b(a)}.$$
+
+For example, $\log_2(8) = 3$ while $\log_8(2) = \tfrac{1}{3}$: swapping the base and the argument inverts the value.
+
 ## Expanding Logarithmic Expressions
 
 **Expanding** a logarithmic expression means using the product, quotient, and power rules to rewrite a single logarithm as a sum or difference of simpler logarithms. This is the standard direction when simplifying expressions for analysis or comparison.
@@ -211,6 +227,16 @@ $$\ln\!\left(\frac{abc}{de}\right)$$
 
 $$\frac{1}{2}\left[\ln(x^2+1) - \ln(x^2-1)\right] = \frac{1}{2}\ln\!\left(\frac{x^2+1}{x^2-1}\right) = \ln\!\sqrt{\frac{x^2+1}{x^2-1}}$$
 
+## Common Mistakes with Logarithms
+
+The logarithm laws apply to products, quotients, and powers *inside* a single log. Most errors come from trying to stretch them to sums, or to logs of logs.
+
+- **The log of a sum does not split.** $\log_a(x + y) \neq \log_a x + \log_a y$. There is no rule that simplifies $\log(x+y)$; the product rule applies to $\log(xy)$, not $\log(x+y)$.
+- **A quotient of logs is not the log of a quotient.** $\dfrac{\log x}{\log y} \neq \log\!\left(\dfrac{x}{y}\right)$. The left side is a *change of base* (it equals $\log_y x$); the log of a quotient is $\log x - \log y$.
+- **A power outside the log is not a power inside.** $(\log x)^n \neq \log(x^n)$. Only an exponent *inside* the log comes out front: $\log(x^n) = n\log x$. (The shorthand $\log^2 x$ conventionally means $(\log x)^2$, which is different again.)
+- **A product of logs does not combine.** $\log x \cdot \log y \neq \log(xy)$; the product rule turns a log of a product into a *sum* of logs, not a product of logs.
+- **The argument must stay positive.** $\log_a(x)$ has no real value for $x \le 0$, which is exactly why candidate solutions must be checked against the domain (the source of the extraneous solutions above).
+
 ## Special Values
 
 ### Identity
@@ -234,6 +260,8 @@ Any base raised to the power 0 equals 1.
 - $\log_a(0)$ is undefined (no power of $a$ gives 0)
 - $\log_a(x)$ is undefined for $x < 0$ (in real numbers)
 - $\log_1(x)$ is undefined ($1^n = 1$ for all $n$)
+
+For negative (and complex) arguments the logarithm does exist in the [complex numbers](./complex-numbers), where it becomes multivalued through Euler's formula. It is only the *real* logarithm that is restricted to positive arguments.
 
 ## Inverse Relationship
 
@@ -386,6 +414,30 @@ For $x = -3$: $\ln(-4)$ is undefined. **Extraneous; reject.**
 
 The only solution is $x = 3$.
 
+## Logarithmic Inequalities
+
+Because $\log_a$ is a *monotonic* function, an inequality between logarithms turns into an inequality between their arguments, but two things need care: the **direction** of the inequality depends on the base, and the **domain** (every argument must be positive) can trim the solution.
+
+**Base greater than 1 (increasing).** For $a > 1$, larger inputs give larger logs, so the direction is preserved:
+
+$$\log_a(x) > c \iff x > a^c \quad(\text{with } x>0), \qquad \log_a(f) > \log_a(g) \iff f > g.$$
+
+**Base between 0 and 1 (decreasing).** For $0 < a < 1$, larger inputs give *smaller* logs, so the direction **flips**:
+
+$$\log_a(x) > c \iff 0 < x < a^c.$$
+
+**Worked example (base $>1$).** Solve $\log_2(x - 1) > 3$.
+
+Rewrite: $x - 1 > 2^3 = 8$, so $x > 9$. The domain needs $x - 1 > 0$ (i.e. $x > 1$), already implied. Solution: $x > 9$.
+
+**Worked example (base $<1$, direction flips).** Solve $\log_{1/2}(x) \ge -2$.
+
+Since the base $\tfrac12 < 1$, flip the direction when removing the log: $x \le \left(\tfrac12\right)^{-2} = 4$. With the domain $x > 0$, the solution is $0 < x \le 4$.
+
+**Worked example (two logs).** Solve $\log_3(x) + \log_3(x - 2) \le 1$.
+
+Condense: $\log_3[x(x-2)] \le 1$, so $x(x-2) \le 3^1 = 3$ (base $>1$, direction preserved). Then $x^2 - 2x - 3 \le 0$, i.e. $(x-3)(x+1) \le 0$, giving $-1 \le x \le 3$. But the domain requires $x > 0$ *and* $x - 2 > 0$, i.e. $x > 2$. Intersecting: $2 < x \le 3$.
+
 ## Graph Properties
 
 The graph of $y = \log_a(x)$:
@@ -534,6 +586,51 @@ Logarithms appear in models of:
 - Radioactive decay
 - Compound interest
 - Algorithm complexity analysis
+
+### Logarithms in Information Theory and Machine Learning
+
+Logarithms are woven through information theory and machine learning, which makes them one of the most-used functions in the field.
+
+- **Information is measured in logs.** The information content (the "surprise") of an outcome with probability $p$ is $-\log_2 p$ **bits**: a rarer event carries more information. Averaging this over a distribution gives the **entropy** $H = -\sum_i p_i \log_2 p_i$, the central quantity of [information theory](./information-theory).
+- **Products become sums.** A model's likelihood of a dataset is a product of many probabilities, $\prod_i p_i$. Multiplying thousands of numbers below 1 underflows to zero on a computer. Taking the **log-likelihood** $\sum_i \log p_i$ turns the product into a numerically stable sum, which is why training objectives are almost always written with logs.
+- **Log-loss is the standard training objective.** Minimizing **cross-entropy** (log-loss), $-\sum_i y_i \log \hat{p}_i$, is exactly maximum-likelihood estimation for a classifier (see [Logistic Regression](./statistics#logistic-regression-and-generalized-linear-models) and [Cross-Entropy](./information-theory#cross-entropy)).
+- **Log scales tame magnitudes.** Learning rates, model sizes, and loss curves are routinely plotted and searched on a log scale, because the interesting behavior spans many orders of magnitude.
+
+## Calculus of Logarithms
+
+Logarithms are not just an algebraic convenience; the natural logarithm has an especially clean role in calculus, and this is the deepest reason base $e$ is called "natural."
+
+### The Derivative
+
+The natural logarithm has the simplest possible derivative:
+
+$$\frac{d}{dx}\ln x = \frac{1}{x} \quad (x > 0).$$
+
+For a general base, change of base $\log_a x = \dfrac{\ln x}{\ln a}$ gives
+
+$$\frac{d}{dx}\log_a x = \frac{1}{x \ln a}.$$
+
+The extra factor $\ln a$ equals 1 exactly when $a = e$, and that is what singles out $e$: it is the unique base whose logarithm has derivative exactly $1/x$ (equivalently, whose exponential $e^x$ is its own derivative). Every other base drags along the nuisance constant $\ln a$. See [Calculus](./calculus) for the derivative rules and for **logarithmic differentiation**, a technique that uses $\ln$ to differentiate complicated products and powers.
+
+### The Integral
+
+The power rule for integration, $\int x^n\,dx = \dfrac{x^{n+1}}{n+1}$, breaks down at $n = -1$ (division by zero). The logarithm fills exactly that gap:
+
+$$\int \frac{1}{x}\,dx = \ln|x| + C.$$
+
+The absolute value covers negative $x$ as well, since $1/x$ is defined there too.
+
+### The Natural Log as an Area
+
+These facts come together in a definition that many analysis texts take as the *starting point* for the natural logarithm:
+
+$$\ln x = \int_1^x \frac{dt}{t}.$$
+
+That is, $\ln x$ is the signed area under the curve $y = 1/t$ from $1$ to $x$.
+
+![The curve y = 1/t with the region from t = 1 to t = x shaded, whose area equals the natural logarithm of x](./media/log-integral-area.png)
+
+From this one definition every property follows cleanly: $\ln 1 = 0$ (an empty interval has no area); $\ln$ is increasing (the integrand $1/t$ is positive); the product rule $\ln(ab) = \ln a + \ln b$ falls out of a substitution in the integral; and $e$ can be *defined* as the unique number with $\ln e = 1$ (where the accumulated area first reaches 1). This is the rigorous foundation sitting underneath all the algebra on this page.
 
 ## Connection to Exponential Functions
 
