@@ -61,7 +61,7 @@ $$\sum_{k = 0}^{n}{a_{k}x^{k}}$$
 -   A **polynomial** of degree ***n*** could have up to ***n-many
     possible roots***, but it could have less.
 
-## Quadratic Functions d=2
+## Quadratic Functions (Degree 2)
 
 **Quadratic Functions:**
 
@@ -398,7 +398,7 @@ $$
 
 The roots are $-1 + 2i$ and $-1 - 2i$, a conjugate pair.
 
-## Cubic Functions d=3
+## Cubic Functions (Degree 3)
 
 **Cubic Functions**: a cubic function is a function of the form
 
