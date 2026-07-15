@@ -754,6 +754,30 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Linear Algebra (Computation) =================
+{
+  eq("L1 norm of (3,-4) = 7", Math.abs(3) + Math.abs(-4), 7);
+  eq("L2 norm of (3,-4) = 5", Math.hypot(3, -4), 5);
+  eq("Linf norm of (3,-4) = 4", Math.max(Math.abs(3), Math.abs(-4)), 4);
+  check("norm inequality Linf <= L2 <= L1", 4 <= 5 && 5 <= 7);
+  eq("Frobenius norm of [[1,2],[3,4]] = sqrt(30)", Math.hypot(1, 2, 3, 4), Math.sqrt(30), 1e-9);
+  // Gram-Schmidt on (1,1,0),(1,0,1) yields an orthonormal pair
+  { const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0), nrm = (a) => Math.hypot(...a), sc = (k, a) => a.map((x) => k * x), sub = (a, b) => a.map((x, i) => x - b[i]);
+    const q1 = sc(1 / nrm([1, 1, 0]), [1, 1, 0]); let u2 = [1, 0, 1]; u2 = sub(u2, sc(dot(u2, q1), q1)); const q2 = sc(1 / nrm(u2), u2);
+    check("Gram-Schmidt: q1, q2 orthonormal", Math.abs(dot(q1, q2)) < 1e-9 && approx(nrm(q1), 1) && approx(nrm(q2), 1)); }
+  // positive definite: [[2,1],[1,2]] has x^T A x > 0
+  { const xAx = (x) => 2 * x[0] * x[0] + 2 * x[0] * x[1] + 2 * x[1] * x[1];
+    check("[[2,1],[1,2]] is positive definite", [[1, 0], [0, 1], [1, -1], [2, 3]].every((x) => xAx(x) > 0)); }
+  eq("condition number of diag(1,100) = 100", 100 / 1, 100);
+  // matrix calculus: grad(x^T A x) = (A + A^T) x; A=[[1,2],[3,4]] at (1,1) -> (7,13)
+  { const f = (x, y) => 1 * x * x + (2 + 3) * x * y + 4 * y * y, gx = (x, y, h = 1e-6) => (f(x + h, y) - f(x - h, y)) / (2 * h), gy = (x, y, h = 1e-6) => (f(x, y + h) - f(x, y - h)) / (2 * h);
+    eq("grad(x^T A x)_x at (1,1) = 7", gx(1, 1), 7, 1e-4); eq("grad(x^T A x)_y at (1,1) = 13", gy(1, 1), 13, 1e-4); }
+  // Markov chain stationary distribution of P=[[0.9,0.1],[0.5,0.5]] is (5/6, 1/6)
+  { let p = [0.5, 0.5]; const P = [[0.9, 0.1], [0.5, 0.5]]; for (let i = 0; i < 500; i++) p = [p[0] * P[0][0] + p[1] * P[1][0], p[0] * P[0][1] + p[1] * P[1][1]];
+    eq("Markov stationary pi_0 = 5/6", p[0], 5 / 6, 1e-6); eq("Markov stationary pi_1 = 1/6", p[1], 1 / 6, 1e-6);
+    check("stationary satisfies pi P = pi", approx(p[0] * 0.9 + p[1] * 0.5, p[0], 1e-6)); }
+}
+
 // ================= Information Theory =================
 {
   const log2 = (x) => Math.log(x) / Math.LN2;

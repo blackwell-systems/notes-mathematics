@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markov Chain Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --blue:#2563c9; --red:#c0392b;
+    --muted:#5a6672; --line:#d5dbe1; --panel:#f1f4f7;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 14px 24px;}
+  h1{font-size:20px;margin:0 0 2px;}
+  .cap{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.4;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;}
+  button{font:inherit;font-size:13px;padding:6px 11px;border:1px solid var(--line);
+    background:#fff;border-radius:6px;cursor:pointer;color:var(--fg);}
+  button:hover{background:var(--panel);}
+  button.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+  button.primary:hover{background:#1e56b0;}
+  button:disabled{opacity:.5;cursor:default;}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .seg button{border:none;border-radius:0;border-right:1px solid var(--line);}
+  .seg button:last-child{border-right:none;}
+  .seg button.on{background:var(--blue);color:#fff;}
+  label.lbl{font-size:13px;color:var(--muted);margin-right:4px;}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;margin:12px 0;}
+  table.mat{border-collapse:collapse;font-size:14px;}
+  table.mat td,table.mat th{padding:3px 5px;text-align:center;}
+  table.mat th{color:var(--muted);font-weight:600;font-size:12px;}
+  table.mat input{width:52px;font:inherit;font-size:13px;text-align:center;
+    border:1px solid var(--line);border-radius:4px;padding:3px;background:#fff;color:var(--fg);}
+  .matnote{font-size:12px;color:var(--muted);margin-top:6px;}
+  canvas{display:block;width:100%;max-width:732px;height:auto;
+    background:#fff;border:1px solid var(--line);border-radius:8px;}
+  .readout{font-size:13px;line-height:1.55;margin-top:10px;}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .swatch{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:baseline;margin-right:3px;}
+  .warn{color:var(--red);font-weight:600;}
+  .steplab{font-weight:600;}
+  .grp{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:10px 0;}
+  .grp h3{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Markov Chain Explorer</h1>
+  <p class="cap">Watch a probability distribution evolve under <span class="mono">p &larr; pP</span> and converge to the stationary distribution <span class="mono">&pi;</span> (where <span class="mono">&pi;P = &pi;</span>) - for regular chains it converges from any start, but a periodic chain oscillates forever.</p>
+
+  <div class="row">
+    <label class="lbl">States:</label>
+    <div class="seg" id="nseg">
+      <button data-n="2" class="on">2</button>
+      <button data-n="3">3</button>
+    </div>
+    <span style="flex:1"></span>
+    <label class="lbl">Presets:</label>
+    <button data-preset="regular">Regular chain</button>
+    <button data-preset="absorbing">Absorbing</button>
+    <button data-preset="periodic">Periodic</button>
+  </div>
+
+  <div class="grp">
+    <h3>Transition matrix P &nbsp;(row i &rarr; column j; each row auto-normalized to sum 1)</h3>
+    <div id="matbox"></div>
+    <div class="matnote">Row-stochastic convention: <span class="mono">P[i][j]</span> = probability of moving from state i to state j.</div>
+  </div>
+
+  <div class="row">
+    <button class="primary" id="step">Step</button>
+    <button id="run">Run</button>
+    <button id="reset">Reset</button>
+    <span style="flex:1"></span>
+    <span class="steplab">Step: <span class="mono" id="stepct">0</span></span>
+  </div>
+
+  <canvas id="cv" width="1464" height="620"></canvas>
+
+  <div class="panel readout" id="readout"></div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = 732, H = 310;            // logical CSS pixels
+  var DPR = 2;                     // canvas is 2x for crispness
+  cv.width = W*DPR; cv.height = H*DPR;
+  cv.style.height = H + "px";
+  ctx.scale(DPR, DPR);
+
+  var BLUE = "#2563c9", RED = "#c0392b", FG = "#1c2126", MUTED="#5a6672", LINE="#d5dbe1";
+
+  // ---- state ----
+  var n = 2;
+  var P = [];          // n x n row-stochastic
+  var p = [];          // current distribution (row vector)
+  var pi = [];         // stationary distribution
+  var startState = 0;
+  var steps = 0;
+  var running = false;
+  var runTimer = null;
+
+  var presets = {
+    regular:   { n:2, P:[[0.9,0.1],[0.5,0.5]] },
+    absorbing: { n:3, P:[[0.5,0.4,0.1],[0.0,0.7,0.3],[0.0,0.0,1.0]] },
+    periodic:  { n:2, P:[[0.0,1.0],[1.0,0.0]] }
+  };
+
+  function normalizeRows(M){
+    for(var i=0;i<M.length;i++){
+      var s=0; for(var j=0;j<M[i].length;j++){ if(M[i][j]<0) M[i][j]=0; s+=M[i][j]; }
+      if(s<=0){ for(var j2=0;j2<M[i].length;j2++) M[i][j2]=1/M[i].length; }
+      else { for(var j3=0;j3<M[i].length;j3++) M[i][j3]/=s; }
+    }
+  }
+
+  function matVec(pv, M){  // row vector times matrix: q[j] = sum_i p[i]*M[i][j]
+    var q = new Array(M.length).fill(0);
+    for(var i=0;i<M.length;i++) for(var j=0;j<M.length;j++) q[j] += pv[i]*M[i][j];
+    return q;
+  }
+
+  // stationary via power iteration from uniform start
+  function computeStationary(M){
+    var v = new Array(M.length).fill(1/M.length);
+    var prev = v.slice();
+    var converged = false;
+    for(var k=0;k<20000;k++){
+      v = matVec(v, M);
+      var d=0; for(var i=0;i<v.length;i++) d+=Math.abs(v[i]-prev[i]);
+      if(d<1e-13){ converged=true; break; }
+      prev = v.slice();
+    }
+    // If periodic (does not converge pointwise), fall back to averaging (Cesaro mean)
+    if(!converged){
+      // Cesaro: average of iterates gives the stationary distribution even for periodic chains
+      var acc = new Array(M.length).fill(0);
+      var w = new Array(M.length).fill(1/M.length);
+      var T = 4000;
+      for(var t=0;t<T;t++){ for(var q=0;q<w.length;q++) acc[q]+=w[q]; w = matVec(w, M); }
+      for(var r=0;r<acc.length;r++) v[r]=acc[r]/T;
+    }
+    var s=0; for(var z=0;z<v.length;z++) s+=v[z];
+    for(var y=0;y<v.length;y++) v[y]/=s;
+    return {vec:v, converged:converged};
+  }
+
+  var stationaryConverges = true;  // whether power iteration converged (regular-ish)
+
+  function recompute(){
+    normalizeRows(P);
+    var r = computeStationary(P);
+    pi = r.vec;
+    stationaryConverges = r.converged;
+    draw();
+    updateReadout();
+  }
+
+  // ---- matrix editor ----
+  var matbox = document.getElementById("matbox");
+  function buildMatrix(){
+    var html = '<table class="mat"><tr><th></th>';
+    for(var j=0;j<n;j++) html += '<th>&rarr; s'+j+'</th>';
+    html += '</tr>';
+    for(var i=0;i<n;i++){
+      html += '<tr><th>s'+i+'</th>';
+      for(var j2=0;j2<n;j2++){
+        html += '<td><input data-i="'+i+'" data-j="'+j2+'" value="'+ round(P[i][j2],3) +'"></td>';
+      }
+      html += '</tr>';
+    }
+    html += '</table>';
+    matbox.innerHTML = html;
+    var inputs = matbox.querySelectorAll("input");
+    inputs.forEach(function(inp){
+      inp.addEventListener("change", onMatInput);
+    });
+  }
+  function onMatInput(e){
+    var i = +e.target.dataset.i, j = +e.target.dataset.j;
+    var val = parseFloat(e.target.value);
+    if(isNaN(val)||val<0) val = 0;
+    P[i][j] = val;
+    normalizeRows(P);
+    // refresh displayed row values to reflect normalization
+    var inputs = matbox.querySelectorAll("input");
+    inputs.forEach(function(inp){
+      var ii=+inp.dataset.i, jj=+inp.dataset.j;
+      inp.value = round(P[ii][jj],3);
+    });
+    recompute();
+  }
+
+  function round(x,d){ var f=Math.pow(10,d); return Math.round(x*f)/f; }
+  function fmt(x){ return (Math.round(x*10000)/10000).toFixed(4); }
+  function fmt3(x){ return (Math.round(x*1000)/1000).toFixed(3); }
+
+  // ---- init / preset ----
+  function setN(newN, mat){
+    n = newN;
+    P = [];
+    for(var i=0;i<n;i++){
+      P.push([]);
+      for(var j=0;j<n;j++) P[i].push(mat ? mat[i][j] : (i===j?0.6:0.4/(n-1)));
+    }
+    normalizeRows(P);
+    startState = 0;
+    resetDist();
+    buildMatrix();
+    document.querySelectorAll("#nseg button").forEach(function(b){
+      b.classList.toggle("on", +b.dataset.n===n);
+    });
+    recompute();
+  }
+
+  function resetDist(){
+    p = new Array(n).fill(0);
+    p[startState] = 1;
+    steps = 0;
+    document.getElementById("stepct").textContent = steps;
+  }
+
+  function applyPreset(name){
+    stopRun();
+    var pr = presets[name];
+    setN(pr.n, pr.P);
+  }
+
+  // ---- stepping ----
+  function doStep(){
+    p = matVec(p, P);
+    steps++;
+    document.getElementById("stepct").textContent = steps;
+    draw();
+    updateReadout();
+  }
+  function reset(){
+    stopRun();
+    resetDist();
+    draw();
+    updateReadout();
+  }
+  function stopRun(){
+    running = false;
+    if(runTimer){ clearInterval(runTimer); runTimer=null; }
+    document.getElementById("run").textContent = "Run";
+  }
+  function toggleRun(){
+    if(running){ stopRun(); return; }
+    running = true;
+    document.getElementById("run").textContent = "Stop";
+    var count = 0;
+    runTimer = setInterval(function(){
+      doStep();
+      count++;
+      if(count>=40){ stopRun(); }
+    }, 260);
+  }
+
+  // ---- drawing ----
+  function stateColor(){ return [BLUE]; }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // panel split: left = bar chart, right = node diagram
+    var barW = n===2 ? 300 : 360;
+    drawBars(0, 0, barW, H);
+    drawGraph(barW+8, 0, W-barW-8, H);
+  }
+
+  function drawBars(x0,y0,w,h){
+    var padL=44, padR=14, padT=30, padB=52;
+    var plotX=x0+padL, plotY=y0+padT, plotW=w-padL-padR, plotH=h-padT-padB;
+    // title
+    ctx.fillStyle=FG; ctx.font="600 13px sans-serif"; ctx.textAlign="left";
+    ctx.fillText("Distribution over states", x0+padL-30, y0+18);
+    // axis
+    ctx.strokeStyle=LINE; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(plotX, plotY); ctx.lineTo(plotX, plotY+plotH); ctx.lineTo(plotX+plotW, plotY+plotH); ctx.stroke();
+    // y gridlines 0,0.5,1
+    ctx.font="11px sans-serif"; ctx.fillStyle=MUTED; ctx.textAlign="right";
+    for(var g=0;g<=4;g++){
+      var yy = plotY+plotH - (g/4)*plotH;
+      ctx.strokeStyle="#eef1f4"; ctx.beginPath(); ctx.moveTo(plotX,yy); ctx.lineTo(plotX+plotW,yy); ctx.stroke();
+      ctx.fillStyle=MUTED; ctx.fillText((g/4).toFixed(2), plotX-6, yy+3);
+    }
+    // bars
+    var slot = plotW/n;
+    var bw = Math.min(70, slot*0.5);
+    for(var i=0;i<n;i++){
+      var cx = plotX + slot*(i+0.5);
+      var val = Math.max(0,Math.min(1,p[i]));
+      var bh = val*plotH;
+      // current dist bar (blue)
+      ctx.fillStyle=BLUE;
+      ctx.fillRect(cx-bw/2, plotY+plotH-bh, bw, bh);
+      // stationary marker (red line across the slot)
+      var pv = Math.max(0,Math.min(1,pi[i]));
+      var ry = plotY+plotH - pv*plotH;
+      ctx.strokeStyle=RED; ctx.lineWidth=2.5;
+      ctx.beginPath(); ctx.moveTo(cx-bw/2-6, ry); ctx.lineTo(cx+bw/2+6, ry); ctx.stroke();
+      // little red tick caps
+      ctx.lineWidth=1;
+      // labels
+      ctx.fillStyle=FG; ctx.font="12px sans-serif"; ctx.textAlign="center";
+      ctx.fillText("s"+i, cx, plotY+plotH+16);
+      ctx.fillStyle=BLUE; ctx.font="11px sans-serif";
+      ctx.fillText(fmt3(p[i]), cx, plotY+plotH-bh-5<plotY?plotY+12:plotY+plotH-bh-5);
+    }
+    // legend
+    ctx.textAlign="left"; ctx.font="11px sans-serif";
+    var ly=y0+h-20;
+    ctx.fillStyle=BLUE; ctx.fillRect(x0+padL-30, ly-8, 11, 11);
+    ctx.fillStyle=MUTED; ctx.fillText("current  p", x0+padL-14, ly+1);
+    ctx.strokeStyle=RED; ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.moveTo(x0+padL+66, ly-3); ctx.lineTo(x0+padL+80, ly-3); ctx.stroke();
+    ctx.fillStyle=MUTED; ctx.fillText("stationary  π", x0+padL+84, ly+1);
+  }
+
+  function drawGraph(x0,y0,w,h){
+    ctx.fillStyle=FG; ctx.font="600 13px sans-serif"; ctx.textAlign="left";
+    ctx.fillText("Chain diagram", x0+10, y0+18);
+    var cx = x0 + w/2, cy = y0 + h/2 + 6;
+    var R = Math.min(w,h)*0.30;
+    var r = 26;
+    var pos = [];
+    for(var i=0;i<n;i++){
+      var ang = -Math.PI/2 + i*(2*Math.PI/n);
+      if(n===2) ang = i===0 ? Math.PI : 0; // horizontal for 2 states
+      pos.push({x: cx + R*Math.cos(ang), y: cy + R*Math.sin(ang)});
+    }
+    // draw edges (arrows) for P[i][j] > 0
+    for(var i2=0;i2<n;i2++){
+      for(var j=0;j<n;j++){
+        var prob = P[i2][j];
+        if(prob<=0.0005) continue;
+        if(i2===j){ drawSelfLoop(pos[i2], r, prob, cx, cy); }
+        else { drawArrow(pos[i2], pos[j], r, prob, i2<j); }
+      }
+    }
+    // draw nodes on top
+    for(var k=0;k<n;k++){
+      ctx.beginPath(); ctx.arc(pos[k].x,pos[k].y,r,0,2*Math.PI);
+      ctx.fillStyle="#fff"; ctx.fill();
+      ctx.lineWidth=2; ctx.strokeStyle=BLUE; ctx.stroke();
+      ctx.fillStyle=FG; ctx.font="600 14px sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText("s"+k, pos[k].x, pos[k].y-6);
+      // show current prob mass inside node
+      ctx.fillStyle=BLUE; ctx.font="11px sans-serif";
+      ctx.fillText(fmt3(p[k]), pos[k].x, pos[k].y+9);
+    }
+    ctx.textBaseline="alphabetic";
+  }
+
+  function drawArrow(a,b,r,prob,curveUp){
+    var dx=b.x-a.x, dy=b.y-a.y, len=Math.hypot(dx,dy);
+    var ux=dx/len, uy=dy/len;
+    // perpendicular offset so opposite arrows don't overlap
+    var off = 12 * (curveUp?1:-1);
+    var px=-uy, py=ux;
+    var sx=a.x+ux*r + px*off, sy=a.y+uy*r + py*off;
+    var ex=b.x-ux*r + px*off, ey=b.y-uy*r + py*off;
+    ctx.strokeStyle=MUTED; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(ex,ey); ctx.stroke();
+    // arrowhead
+    var ah=8, aa=Math.atan2(ey-sy,ex-sx);
+    ctx.fillStyle=MUTED;
+    ctx.beginPath();
+    ctx.moveTo(ex,ey);
+    ctx.lineTo(ex-ah*Math.cos(aa-0.4), ey-ah*Math.sin(aa-0.4));
+    ctx.lineTo(ex-ah*Math.cos(aa+0.4), ey-ah*Math.sin(aa+0.4));
+    ctx.closePath(); ctx.fill();
+    // label at midpoint
+    var mx=(sx+ex)/2 + px*10, my=(sy+ey)/2 + py*10;
+    ctx.fillStyle=FG; ctx.font="11px sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(fmt3(prob), mx, my);
+    ctx.textBaseline="alphabetic";
+  }
+
+  function drawSelfLoop(a,r,prob,cx,cy){
+    // loop pointing away from center
+    var dx=a.x-cx, dy=a.y-cy, d=Math.hypot(dx,dy)||1;
+    var ux=dx/d, uy=dy/d;
+    var lx=a.x+ux*(r+16), ly=a.y+uy*(r+16);
+    ctx.strokeStyle=MUTED; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.arc(lx,ly,13,0,2*Math.PI); ctx.stroke();
+    // arrowhead on loop
+    ctx.fillStyle=MUTED;
+    var ax=a.x+ux*r, ay=a.y+uy*r;
+    ctx.beginPath(); ctx.arc(ax,ay,3,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle=FG; ctx.font="11px sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(fmt3(prob), lx+ux*16, ly+uy*16);
+    ctx.textBaseline="alphabetic";
+  }
+
+  // ---- readout ----
+  function updateReadout(){
+    var el = document.getElementById("readout");
+    var curr = "["+p.map(fmt).join(", ")+"]";
+    var st   = "["+pi.map(fmt).join(", ")+"]";
+    var html = "";
+    html += '<div><span class="swatch" style="background:'+BLUE+'"></span><b>Current distribution</b> <span class="mono">p = '+curr+'</span> &nbsp; (sum = '+fmt(p.reduce(function(s,v){return s+v;},0))+')</div>';
+    html += '<div><span class="swatch" style="background:'+RED+'"></span><b>Stationary distribution</b> <span class="mono">π = '+st+'</span> &nbsp; (πP = π)</div>';
+    html += '<div><b>Step count:</b> <span class="mono">'+steps+'</span></div>';
+    // distance to stationary
+    var dist=0; for(var i=0;i<n;i++) dist+=Math.abs(p[i]-pi[i]);
+    html += '<div><b>&#8721;|p&minus;π|:</b> <span class="mono">'+fmt(dist)+'</span></div>';
+    if(stationaryConverges){
+      html += '<div style="margin-top:6px;color:'+MUTED+'">For a <b>regular</b> chain (irreducible + aperiodic), <span class="mono">p</span> converges to <span class="mono">π</span> regardless of the starting distribution.</div>';
+    } else {
+      html += '<div style="margin-top:6px" class="warn">This chain is periodic: <span class="mono">p</span> oscillates and does NOT converge pointwise, even though a stationary distribution π exists (here π is the long-run / Ces&agrave;ro average).</div>';
+    }
+    el.innerHTML = html;
+  }
+
+  // ---- wire up ----
+  document.getElementById("step").addEventListener("click", function(){ stopRun(); doStep(); });
+  document.getElementById("run").addEventListener("click", toggleRun);
+  document.getElementById("reset").addEventListener("click", reset);
+  document.querySelectorAll("#nseg button").forEach(function(b){
+    b.addEventListener("click", function(){ stopRun(); setN(+b.dataset.n, null); });
+  });
+  document.querySelectorAll("[data-preset]").forEach(function(b){
+    b.addEventListener("click", function(){ applyPreset(b.dataset.preset); });
+  });
+
+  // start with the regular preset
+  applyPreset("regular");
+})();
+</script>
+</body>
+</html>

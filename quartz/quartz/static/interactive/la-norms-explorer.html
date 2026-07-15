@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vector Norm Explorer</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fbfcfd;
+    color: #1c2126;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 14px 16px 22px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #566; font-size: 13px; margin: 0 0 12px; }
+  canvas { display: block; background: #fbfcfd; border: 1px solid #dce1e6; border-radius: 6px; touch-action: none; cursor: grab; }
+  canvas.drag { cursor: grabbing; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 12px 0; align-items: center; }
+  .toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; user-select: none; cursor: pointer; }
+  .sw { width: 26px; height: 12px; border-radius: 2px; display: inline-block; }
+  .swline { width: 26px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; }
+  .slider-row { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; flex-wrap: wrap; }
+  .slider-row input[type=range] { flex: 1; min-width: 200px; accent-color: #7b3fb5; }
+  .pval { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 80px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 8px 0; }
+  th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid #e6eaee; font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: #566; font-weight: 600; border-bottom: 2px solid #cfd6dc; }
+  .ineq { background: #f1f5f9; border-radius: 6px; padding: 8px 11px; font-size: 14px; margin: 8px 0; font-variant-numeric: tabular-nums; }
+  .note { font-size: 13px; color: #445; margin: 10px 0 0; }
+  .cap { font-size: 12.5px; color: #667; margin: 14px 0 0; font-style: italic; }
+  code { background: #eef2f5; padding: 0 3px; border-radius: 3px; }
+  .c1 { color: #d97706; } .c2 { color: #2563c9; } .cinf { color: #16a34a; } .cp { color: #7b3fb5; } .cv { color: #c0392b; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Vector norm explorer &mdash; unit balls in 2D</h1>
+  <p class="sub">Drag the red vector. Each curve is the set of vectors of norm 1, i.e. { v : &#8214;v&#8214;<sub>p</sub> = 1 }.</p>
+
+  <canvas id="cv" width="728" height="420"></canvas>
+
+  <div class="controls">
+    <label class="toggle"><input type="checkbox" id="t1" checked><span class="sw" style="background:#d97706"></span> L<sub>1</sub> (diamond)</label>
+    <label class="toggle"><input type="checkbox" id="t2" checked><span class="sw" style="background:#2563c9"></span> L<sub>2</sub> (circle)</label>
+    <label class="toggle"><input type="checkbox" id="tinf" checked><span class="sw" style="background:#16a34a"></span> L<sub>&#8734;</sub> (square)</label>
+    <label class="toggle"><input type="checkbox" id="tp" checked><span class="sw" style="background:#7b3fb5"></span> general p</label>
+  </div>
+
+  <div class="slider-row">
+    <label for="pslider">p&nbsp;=</label>
+    <input type="range" id="pslider" min="0" max="100" value="14" step="1">
+    <span class="pval cp" id="plabel">p = 2.0</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>quantity</th><th>value</th><th>formula</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>vector v = (x, y)</td><td class="cv" id="vcomp">(0.60, -0.80)</td><td></td></tr>
+      <tr><td class="cinf">&#8214;v&#8214;<sub>&#8734;</sub></td><td class="cinf" id="ninf">0.800</td><td>max(|x|, |y|)</td></tr>
+      <tr><td class="c2">&#8214;v&#8214;<sub>2</sub></td><td class="c2" id="n2">1.000</td><td>&#8730;(x&sup2; + y&sup2;)</td></tr>
+      <tr><td class="c1">&#8214;v&#8214;<sub>1</sub></td><td class="c1" id="n1">1.400</td><td>|x| + |y|</td></tr>
+      <tr><td class="cp">&#8214;v&#8214;<sub>p</sub></td><td class="cp" id="np">1.000</td><td>(|x|<sup>p</sup> + |y|<sup>p</sup>)<sup>1/p</sup></td></tr>
+    </tbody>
+  </table>
+
+  <div class="ineq" id="ineq">&#8214;v&#8214;<sub>&#8734;</sub> &#8804; &#8214;v&#8214;<sub>2</sub> &#8804; &#8214;v&#8214;<sub>1</sub></div>
+
+  <p class="note">
+    The <span class="c1">L<sub>1</sub></span> ball's corners sit on the axes, so among vectors of equal L<sub>1</sub> size the "cheapest" directions are axis-aligned &mdash; this is why L<sub>1</sub> penalties favor <b>sparse</b> solutions.
+    The <span class="c2">L<sub>2</sub></span> ball is a circle, perfectly rotationally symmetric (no direction preferred).
+    The <span class="cinf">L<sub>&#8734;</sub></span> ball is a square that simply bounds each coordinate by 1.
+  </p>
+
+  <p class="cap">As p grows from 1 to &#8734;, the unit ball morphs from the diamond through the circle toward the square, showing that a vector's "size" depends entirely on which norm you measure it with.</p>
+</div>
+
+<script>
+(function () {
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  var RANGE = 2.2;            // world coords span roughly [-2.2, 2.2] on the shorter axis
+  var cx = W / 2, cy = H / 2;
+  var scale = Math.min(W, H) / (2 * RANGE);
+
+  var vx = 0.6, vy = -0.8;   // draggable vector (world coords)
+  var dragging = false;
+
+  var t1 = document.getElementById("t1");
+  var t2 = document.getElementById("t2");
+  var tinf = document.getElementById("tinf");
+  var tp = document.getElementById("tp");
+  var pslider = document.getElementById("pslider");
+  var plabel = document.getElementById("plabel");
+
+  // Map slider 0..100 to p in [1, 8] then an "infinity" position at max.
+  function sliderP() {
+    var s = +pslider.value;
+    if (s >= 100) return Infinity;
+    return 1 + (s / 99) * 7;   // 0 -> 1, 99 -> 8
+  }
+
+  function w2s(x, y) { return [cx + x * scale, cy - y * scale]; }
+  function s2w(px, py) { return [(px - cx) / scale, (cy - py) / scale]; }
+
+  function pnorm(x, y, p) {
+    x = Math.abs(x); y = Math.abs(y);
+    if (!isFinite(p)) return Math.max(x, y);
+    if (p === 1) return x + y;
+    if (p === 2) return Math.sqrt(x * x + y * y);
+    return Math.pow(Math.pow(x, p) + Math.pow(y, p), 1 / p);
+  }
+
+  // Return world-coord point on the unit ball ||v||_p = 1 at polar angle theta.
+  function ballPoint(theta, p) {
+    var c = Math.cos(theta), s = Math.sin(theta);
+    var r = pnorm(c, s, p);          // norm of the unit-direction vector
+    return [c / r, s / r];
+  }
+
+  function drawBall(p, color, width, dash) {
+    ctx.beginPath();
+    var N = 240;
+    for (var i = 0; i <= N; i++) {
+      var th = (i / N) * 2 * Math.PI;
+      var pt = ballPoint(th, p);
+      var sp = w2s(pt[0], pt[1]);
+      if (i === 0) ctx.moveTo(sp[0], sp[1]); else ctx.lineTo(sp[0], sp[1]);
+    }
+    ctx.closePath();
+    ctx.lineWidth = width;
+    ctx.strokeStyle = color;
+    ctx.setLineDash(dash || []);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function drawGrid() {
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#e7ecf0";
+    for (var g = -3; g <= 3; g++) {
+      if (g === 0) continue;
+      var a = w2s(g, -RANGE), b = w2s(g, RANGE);
+      ctx.beginPath(); ctx.moveTo(a[0], 0); ctx.lineTo(a[0], H); ctx.stroke();
+      var c = w2s(-RANGE, g), d = w2s(RANGE, g);
+      ctx.beginPath(); ctx.moveTo(0, c[1]); ctx.lineTo(W, c[1]); ctx.stroke();
+    }
+    // axes
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "#98a4ad";
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+    // tick labels
+    ctx.fillStyle = "#7a8790";
+    ctx.font = "11px sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var t = -2; t <= 2; t++) {
+      if (t === 0) continue;
+      var tp2 = w2s(t, 0);
+      ctx.fillText(String(t), tp2[0], cy + 3);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    for (var u = -2; u <= 2; u++) {
+      if (u === 0) continue;
+      var up = w2s(0, u);
+      ctx.fillText(String(u), cx + 4, up[1]);
+    }
+  }
+
+  function drawArrow(x, y) {
+    var o = w2s(0, 0), e = w2s(x, y);
+    ctx.strokeStyle = "#c0392b"; ctx.fillStyle = "#c0392b"; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(o[0], o[1]); ctx.lineTo(e[0], e[1]); ctx.stroke();
+    var ang = Math.atan2(e[1] - o[1], e[0] - o[0]);
+    var hl = 11;
+    ctx.beginPath();
+    ctx.moveTo(e[0], e[1]);
+    ctx.lineTo(e[0] - hl * Math.cos(ang - 0.4), e[1] - hl * Math.sin(ang - 0.4));
+    ctx.lineTo(e[0] - hl * Math.cos(ang + 0.4), e[1] - hl * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fill();
+    // handle dot
+    ctx.beginPath(); ctx.arc(e[0], e[1], 5, 0, 2 * Math.PI);
+    ctx.fillStyle = "#fff"; ctx.fill();
+    ctx.strokeStyle = "#c0392b"; ctx.lineWidth = 2; ctx.stroke();
+  }
+
+  function fmt(n) {
+    if (!isFinite(n)) return "&#8734;";
+    return n.toFixed(3);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    drawGrid();
+
+    var p = sliderP();
+    if (tp.checked) drawBall(p, "#7b3fb5", 3, [7, 5]);
+    if (tinf.checked) drawBall(Infinity, "#16a34a", 2, []);
+    if (t2.checked) drawBall(2, "#2563c9", 2, []);
+    if (t1.checked) drawBall(1, "#d97706", 2, []);
+
+    drawArrow(vx, vy);
+
+    // readouts
+    document.getElementById("vcomp").innerHTML =
+      "(" + vx.toFixed(2) + ", " + vy.toFixed(2) + ")";
+    var ni = pnorm(vx, vy, Infinity), n2 = pnorm(vx, vy, 2), n1 = pnorm(vx, vy, 1);
+    var npv = pnorm(vx, vy, p);
+    document.getElementById("ninf").innerHTML = fmt(ni);
+    document.getElementById("n2").innerHTML = fmt(n2);
+    document.getElementById("n1").innerHTML = fmt(n1);
+    document.getElementById("np").innerHTML = fmt(npv);
+    plabel.innerHTML = isFinite(p) ? ("p = " + p.toFixed(1)) : "p = &#8734;";
+
+    document.getElementById("ineq").innerHTML =
+      "&#8214;v&#8214;<sub>&#8734;</sub> &#8804; &#8214;v&#8214;<sub>2</sub> &#8804; &#8214;v&#8214;<sub>1</sub> &nbsp;&rarr;&nbsp; " +
+      "<b class='cinf'>" + fmt(ni) + "</b> &#8804; " +
+      "<b class='c2'>" + fmt(n2) + "</b> &#8804; " +
+      "<b class='c1'>" + fmt(n1) + "</b>" +
+      (ni <= n2 + 1e-9 && n2 <= n1 + 1e-9 ? " &nbsp;&#10003;" : "");
+  }
+
+  // ---- interaction ----
+  function evtPos(e) {
+    var r = cv.getBoundingClientRect();
+    var px = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    var py = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+    px *= cv.width / r.width; py *= cv.height / r.height;
+    return [px, py];
+  }
+  function near(e) {
+    var pos = evtPos(e);
+    var tip = w2s(vx, vy);
+    var d = Math.hypot(pos[0] - tip[0], pos[1] - tip[1]);
+    return d < 24;
+  }
+  function setV(e) {
+    var pos = evtPos(e);
+    var w = s2w(pos[0], pos[1]);
+    vx = Math.max(-RANGE, Math.min(RANGE, w[0]));
+    vy = Math.max(-RANGE, Math.min(RANGE, w[1]));
+    draw();
+  }
+  cv.addEventListener("mousedown", function (e) {
+    dragging = true; cv.classList.add("drag");
+    if (!near(e)) setV(e); e.preventDefault();
+  });
+  window.addEventListener("mousemove", function (e) { if (dragging) setV(e); });
+  window.addEventListener("mouseup", function () { dragging = false; cv.classList.remove("drag"); });
+  cv.addEventListener("touchstart", function (e) {
+    dragging = true; setV(e); e.preventDefault();
+  }, { passive: false });
+  cv.addEventListener("touchmove", function (e) { if (dragging) { setV(e); e.preventDefault(); } }, { passive: false });
+  window.addEventListener("touchend", function () { dragging = false; });
+
+  [t1, t2, tinf, tp].forEach(function (t) { t.addEventListener("change", draw); });
+  pslider.addEventListener("input", draw);
+
+  draw();
+})();
+</script>
+</body>
+</html>

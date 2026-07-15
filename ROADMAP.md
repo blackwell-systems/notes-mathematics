@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Linear Algebra for Computation pass** — added the missing prerequisites callout and two
+  widgets: a norms / unit-ball explorer (drag a vector, compare L1/L2/Linf norms, and morph the
+  unit ball from diamond to circle to square with a p-slider) and a Markov-chain explorer
+  (editable transition matrix, step the distribution to the stationary pi, with regular /
+  absorbing / periodic presets showing when convergence holds or fails). +13 machine-checked
+  assertions (vector and Frobenius norms + the norm inequality, Gram-Schmidt orthonormality,
+  positive definiteness, condition number, the x^T A x gradient, and the Markov stationary pi).
 - [x] **Information Theory interactive pass** — the page already had the KL-divergence widget;
   added an entropy explorer (binary entropy curve H(p) peaking at p=0.5, plus a multi-category
   mode with per-outcome surprise, max at uniform / zero at a point mass) and a mutual-information

@@ -1,6 +1,12 @@
 ---
 title: "Linear Algebra for Computation"
+prerequisites: ["linear-algebra-foundations", "vector"]
+enables: ["optimization", "statistics"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Vectors](./vector)
+> **Leads to:** [Optimization](./optimization) · [Statistics](./statistics)
 
 This page builds on [Linear Algebra Foundations](./linear-algebra-foundations) and covers the topics that bridge theory to actual computation: how to measure vectors, how to change perspectives, how to factor matrices for efficient solving, and how to take derivatives of matrix expressions. Each section uses ideas from the ones before it.
 
@@ -73,6 +79,10 @@ The "unit ball" for each norm (the set of all vectors with $\|v\| \leq 1$) has a
 These shapes explain why L1 regularization produces sparse solutions: the diamond has sharp corners where coordinates are zero, and optimization tends to find those corners.
 
 ![Unit balls for L1 (diamond), L2 (circle), and L-infinity (square) norms](./media/norm-unit-balls.png)
+
+Drag a vector below and toggle the unit balls to compare its $L^1$, $L^2$, and $L^\infty$ norms; the $p$-slider morphs the unit ball from the diamond ($p=1$) through the circle ($p=2$) toward the square ($p=\infty$), and $\|v\|_\infty \le \|v\|_2 \le \|v\|_1$ always holds.
+
+<iframe src="/static/interactive/la-norms-explorer.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Properties Every Norm Must Have
 
@@ -706,6 +716,10 @@ A **steady state** $\pi$ is a probability vector that does not change under the 
 $$
 P\pi = \pi
 $$
+
+Set a transition matrix below, then step the chain and watch the distribution converge to this stationary $\pi$ (marked in red) regardless of where it starts, for a regular chain. The absorbing and periodic presets show the two ways convergence can fail.
+
+<iframe src="/static/interactive/la-markov-chain.html" width="100%" height="660" style="border:none;"></iframe>
 
 This is an eigenvalue problem! The steady state is the eigenvector of $P$ corresponding to eigenvalue $\lambda = 1$.
 
