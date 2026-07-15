@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parametric &amp; Polar Plotter</title>
+<style>
+  :root{
+    --bg:#ffffff; --panel:#fafafa; --ink:#1c2330; --muted:#5b6472;
+    --line:#d9dee6; --grid:#eef1f5; --axis:#aab2bf;
+    --curve:#2563eb; --dot:#e11d48; --accent:#2563eb;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink);
+    display:flex; justify-content:center;
+  }
+  .app{width:760px; padding:14px 16px 18px}
+  h1{font-size:17px; margin:0 0 2px; font-weight:650}
+  .cap{font-size:12.5px; color:var(--muted); margin:0 0 10px; line-height:1.35}
+  .row{display:flex; gap:14px; align-items:flex-start}
+  canvas{background:var(--bg); border:1px solid var(--line); border-radius:8px; display:block}
+  .side{width:280px; display:flex; flex-direction:column; gap:10px}
+  .seg{display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden}
+  .seg button{
+    flex:1; border:0; background:var(--panel); color:var(--muted);
+    padding:7px 0; font-size:13px; cursor:pointer; font-weight:600;
+  }
+  .seg button.on{background:var(--accent); color:#fff}
+  select{
+    width:100%; padding:6px 8px; font-size:13px; border:1px solid var(--line);
+    border-radius:8px; background:var(--panel); color:var(--ink);
+  }
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px}
+  .card h2{font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 8px; font-weight:700}
+  .sl{margin:7px 0}
+  .sl label{display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:3px}
+  .sl label b{font-weight:600}
+  .sl label span{color:var(--accent); font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%; accent-color:var(--accent); margin:0}
+  .btns{display:flex; gap:8px}
+  .btns button{
+    flex:1; padding:8px 0; font-size:13px; font-weight:600; cursor:pointer;
+    border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink);
+  }
+  .btns button.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .eq{font-size:13.5px; line-height:1.55}
+  .eq .expr{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; color:var(--curve); font-size:12.5px}
+  .read{font-size:12.5px; font-variant-numeric:tabular-nums; line-height:1.6}
+  .read .k{color:var(--muted)}
+  .read .dotc{color:var(--dot); font-weight:600}
+  .note{font-size:11.5px; color:var(--muted); margin-top:2px}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Parametric &amp; Polar Curve Plotter</h1>
+  <p class="cap">Press Play to watch the tracing dot advance with the parameter (t or &theta;), so you can see how the parameter drives the point along the curve.</p>
+  <div class="row">
+    <canvas id="cv" width="460" height="460"></canvas>
+    <div class="side">
+      <div class="seg" id="mode">
+        <button data-m="param" class="on">Parametric</button>
+        <button data-m="polar">Polar</button>
+      </div>
+      <select id="preset"></select>
+      <div class="card" id="slcard"><h2>Parameters</h2><div id="sliders"></div></div>
+      <div class="btns">
+        <button id="play" class="primary">Play</button>
+        <button id="reset">Reset</button>
+      </div>
+      <div class="card">
+        <h2>Equations</h2>
+        <div class="eq" id="eq"></div>
+        <div class="read" id="read"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var cv=document.getElementById("cv"), ctx=cv.getContext("2d");
+  var W=cv.width, H=cv.height, cx=W/2, cy=H/2;
+  var TAU=Math.PI*2;
+
+  // Preset definitions. tmin/tmax = parameter range. scale chosen per-preset via world extent.
+  // fn(p, t) returns {x,y} in world coords.
+  var PARAM = {
+    ellipse:{
+      name:"Ellipse", tmin:0, tmax:TAU, ext:4,
+      eq:function(p){return "x = a&middot;cos t = "+f(p.a)+"&middot;cos t<br>y = b&middot;sin t = "+f(p.b)+"&middot;sin t";},
+      sliders:[["a","a",1,4,0.1,2.5],["b","b",1,4,0.1,1.5]],
+      fn:function(p,t){return {x:p.a*Math.cos(t), y:p.b*Math.sin(t)};}
+    },
+    lissajous:{
+      name:"Lissajous", tmin:0, tmax:TAU, ext:1.35,
+      eq:function(p){return "x = sin(p&middot;t) = sin("+p.p+"t)<br>y = sin(q&middot;t + &phi;) = sin("+p.q+"t + "+f(p.phi)+")";},
+      sliders:[["p","p (int)",1,7,1,3],["q","q (int)",1,7,1,2],["phi","&phi;",0,Math.PI,0.05,Math.PI/2]],
+      fn:function(p,t){return {x:Math.sin(p.p*t), y:Math.sin(p.q*t+p.phi)};}
+    },
+    spiral:{
+      name:"Spiral", tmin:0, tmax:6*Math.PI, ext:19,
+      eq:function(){return "x = t&middot;cos t<br>y = t&middot;sin t";},
+      sliders:[],
+      fn:function(p,t){return {x:t*Math.cos(t), y:t*Math.sin(t)};}
+    },
+    projectile:{
+      name:"Projectile", tmin:0, tmax:1, ext:1, // tmax computed dynamically
+      eq:function(p){return "x = v&middot;cos&alpha;&middot;t = "+f(p.v)+"&middot;cos("+deg(p.alpha)+"&deg;)&middot;t<br>y = v&middot;sin&alpha;&middot;t &minus; &frac12;g t&sup2;,  g = 9.8";},
+      sliders:[["v","v (speed)",5,25,0.5,15],["alpha","&alpha; (angle)",0.1,1.5,0.02,0.9]],
+      fn:function(p,t){var g=9.8; return {x:p.v*Math.cos(p.alpha)*t, y:p.v*Math.sin(p.alpha)*t-0.5*g*t*t};}
+    }
+  };
+
+  var POLAR = {
+    circle:{
+      name:"Circle", tmin:0, tmax:TAU, ext:5,
+      eq:function(p){return "r = a = "+f(p.a);},
+      sliders:[["a","a",1,5,0.1,3]],
+      r:function(p,th){return p.a;}
+    },
+    cardioid:{
+      name:"Cardioid", tmin:0, tmax:TAU, ext:5,
+      eq:function(p){return "r = a(1 + cos&theta;) = "+f(p.a)+"(1 + cos&theta;)";},
+      sliders:[["a","a",1,3,0.1,2]],
+      r:function(p,th){return p.a*(1+Math.cos(th));}
+    },
+    rose:{
+      name:"Rose", tmin:0, tmax:TAU, ext:4,
+      eq:function(p){var pet=(p.k%2===0)?2*p.k:p.k; return "r = a&middot;cos(k&theta;) = "+f(p.a)+"&middot;cos("+p.k+"&theta;)<br><span class='note'>k = "+p.k+" &rarr; "+pet+" petals</span>";},
+      sliders:[["a","a",1,4,0.1,3],["k","k (int)",1,7,1,4]],
+      r:function(p,th){return p.a*Math.cos(p.k*th);}
+    },
+    limacon:{
+      name:"Lima&ccedil;on", tmin:0, tmax:TAU, ext:6,
+      eq:function(p){var t=(p.b>p.a)?"inner loop (b &gt; a)":(p.b===p.a?"cardioid (b = a)":"dimpled/convex"); return "r = a + b&middot;cos&theta; = "+f(p.a)+" + "+f(p.b)+"cos&theta;<br><span class='note'>"+t+"</span>";},
+      sliders:[["a","a",0.5,4,0.1,1.5],["b","b",0.5,4,0.1,3]],
+      r:function(p,th){return p.a+p.b*Math.cos(th);}
+    },
+    archimedean:{
+      name:"Archimedean spiral", tmin:0, tmax:4*Math.PI, ext:14,
+      eq:function(p){return "r = a&middot;&theta; = "+f(p.a)+"&middot;&theta;";},
+      sliders:[["a","a",0.3,1.5,0.05,1]],
+      r:function(p,th){return p.a*th;}
+    }
+  };
+
+  function f(v){return (Math.round(v*100)/100).toString();}
+  function deg(rad){return Math.round(rad*180/Math.PI);}
+
+  var state={mode:"param", key:"ellipse", params:{}, t:0, playing:false, def:null};
+
+  var elMode=document.getElementById("mode");
+  var elPreset=document.getElementById("preset");
+  var elSliders=document.getElementById("sliders");
+  var elEq=document.getElementById("eq");
+  var elRead=document.getElementById("read");
+  var elPlay=document.getElementById("play");
+  var elReset=document.getElementById("reset");
+
+  function currentSet(){return state.mode==="param"?PARAM:POLAR;}
+  function curDef(){return currentSet()[state.key];}
+
+  // dynamic tmax for projectile: time until y returns to 0
+  function tmaxOf(def,p){
+    if(state.mode==="param" && state.key==="projectile"){
+      var g=9.8; return 2*p.v*Math.sin(p.alpha)/g;
+    }
+    return def.tmax;
+  }
+
+  function fillPresets(){
+    elPreset.innerHTML="";
+    var set=currentSet();
+    for(var k in set){
+      var o=document.createElement("option");
+      o.value=k; o.textContent=set[k].name;
+      elPreset.appendChild(o);
+    }
+    elPreset.value=state.key;
+  }
+
+  function buildSliders(){
+    var def=curDef();
+    elSliders.innerHTML="";
+    state.params={};
+    def.sliders.forEach(function(s){
+      var key=s[0], label=s[1], mn=s[2], mx=s[3], step=s[4], val=s[5];
+      state.params[key]=val;
+      var wrap=document.createElement("div"); wrap.className="sl";
+      var lab=document.createElement("label");
+      var b=document.createElement("b"); b.innerHTML=label;
+      var sp=document.createElement("span"); sp.textContent=f(val);
+      lab.appendChild(b); lab.appendChild(sp);
+      var inp=document.createElement("input");
+      inp.type="range"; inp.min=mn; inp.max=mx; inp.step=step; inp.value=val;
+      inp.addEventListener("input",function(){
+        var v=parseFloat(inp.value);
+        state.params[key]=v;
+        sp.textContent=(step<1)?f(v):v.toString();
+        draw();
+      });
+      wrap.appendChild(lab); wrap.appendChild(inp);
+      elSliders.appendChild(wrap);
+    });
+    if(def.sliders.length===0){
+      var n=document.createElement("div"); n.className="note";
+      n.textContent="No adjustable parameters for this curve.";
+      elSliders.appendChild(n);
+    }
+  }
+
+  // world -> screen. scale from ext (half-extent of world in units).
+  function scaleFor(def){
+    var ext=def.ext;
+    if(state.mode==="param" && state.key==="ellipse"){
+      ext=Math.max(state.params.a,state.params.b)*1.15;
+    }
+    if(state.mode==="param" && state.key==="projectile"){
+      var p=state.params, g=9.8;
+      var range=p.v*p.v*Math.sin(2*p.alpha)/g;
+      var hmax=p.v*p.v*Math.sin(p.alpha)*Math.sin(p.alpha)/(2*g);
+      ext=Math.max(range,hmax)*1.15+1;
+    }
+    if(state.mode==="polar"){
+      // estimate max |r| across theta for tighter framing
+      var def2=def, mx=0.001, N=180, tm=def2.tmax;
+      for(var i=0;i<=N;i++){var th=tm*i/N; var rr=Math.abs(def2.r(state.params,th)); if(rr>mx)mx=rr;}
+      ext=mx*1.12;
+    }
+    return (Math.min(W,H)/2-16)/ext;
+  }
+
+  // For projectile, origin sits at bottom-left-ish; others center.
+  function originFor(def){
+    if(state.mode==="param" && state.key==="projectile"){
+      return {ox:24, oy:H-24};
+    }
+    return {ox:cx, oy:cy};
+  }
+
+  function pt(def,scale,org,wx,wy){
+    return {sx:org.ox+wx*scale, sy:org.oy-wy*scale};
+  }
+
+  function drawGrid(def,scale,org){
+    ctx.lineWidth=1;
+    // polar grid
+    if(state.mode==="polar"){
+      ctx.strokeStyle=getVar("--grid");
+      var maxR=(Math.min(W,H)/2-8)/scale;
+      var ringStep=niceStep(maxR);
+      for(var rr=ringStep; rr<=maxR+1e-6; rr+=ringStep){
+        ctx.beginPath();
+        ctx.arc(org.ox,org.oy,rr*scale,0,TAU); ctx.stroke();
+      }
+      for(var a=0;a<12;a++){
+        var ang=a*Math.PI/6;
+        ctx.beginPath();
+        ctx.moveTo(org.ox,org.oy);
+        ctx.lineTo(org.ox+Math.cos(ang)*maxR*scale, org.oy-Math.sin(ang)*maxR*scale);
+        ctx.stroke();
+      }
+    } else {
+      // cartesian grid
+      ctx.strokeStyle=getVar("--grid");
+      var half=Math.max(W,H)/scale;
+      var gs=niceStep(half/2);
+      for(var gx=-40;gx<=40;gx++){
+        var x=gx*gs; var sx=org.ox+x*scale;
+        if(sx<0||sx>W)continue;
+        ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,H); ctx.stroke();
+      }
+      for(var gy=-40;gy<=40;gy++){
+        var y=gy*gs; var sy=org.oy-y*scale;
+        if(sy<0||sy>H)continue;
+        ctx.beginPath(); ctx.moveTo(0,sy); ctx.lineTo(W,sy); ctx.stroke();
+      }
+    }
+    // axes
+    ctx.strokeStyle=getVar("--axis"); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(0,org.oy); ctx.lineTo(W,org.oy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(org.ox,0); ctx.lineTo(org.ox,H); ctx.stroke();
+  }
+
+  function niceStep(v){
+    if(v<=0)return 1;
+    var pow=Math.pow(10,Math.floor(Math.log10(v/5)));
+    var c=[1,2,5,10];
+    for(var i=0;i<c.length;i++){ if(c[i]*pow>=v/5) return c[i]*pow; }
+    return 10*pow;
+  }
+
+  function getVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+
+  function evalPoint(def,t){
+    if(state.mode==="param"){ return def.fn(state.params,t); }
+    var r=def.r(state.params,t);
+    return {x:r*Math.cos(t), y:r*Math.sin(t)};
+  }
+
+  function draw(){
+    var def=curDef();
+    var scale=scaleFor(def), org=originFor(def);
+    ctx.clearRect(0,0,W,H);
+    drawGrid(def,scale,org);
+
+    var tmin=def.tmin, tmax=tmaxOf(def,state.params);
+    var N=1200;
+    // full curve
+    ctx.strokeStyle=getVar("--curve"); ctx.lineWidth=2.2;
+    ctx.lineJoin="round";
+    ctx.beginPath();
+    var started=false;
+    for(var i=0;i<=N;i++){
+      var t=tmin+(tmax-tmin)*i/N;
+      var w=evalPoint(def,t);
+      var s=pt(def,scale,org,w.x,w.y);
+      if(!started){ctx.moveTo(s.sx,s.sy); started=true;} else ctx.lineTo(s.sx,s.sy);
+    }
+    ctx.stroke();
+
+    // partial trace up to current t (thicker/accent already same color; use dot)
+    var tcur=tmin+(tmax-tmin)*state.t;
+    var wc=evalPoint(def,tcur);
+    var sc=pt(def,scale,org,wc.x,wc.y);
+
+    // line from origin to point in polar (radius vector)
+    if(state.mode==="polar"){
+      ctx.strokeStyle=getVar("--dot"); ctx.lineWidth=1.3; ctx.setLineDash([4,3]);
+      ctx.beginPath(); ctx.moveTo(org.ox,org.oy); ctx.lineTo(sc.sx,sc.sy); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // moving dot
+    ctx.fillStyle=getVar("--dot");
+    ctx.beginPath(); ctx.arc(sc.sx,sc.sy,5.5,0,TAU); ctx.fill();
+    ctx.strokeStyle="#fff"; ctx.lineWidth=1.5; ctx.stroke();
+
+    // readouts
+    elEq.innerHTML=def.eq(state.params);
+    var pv = tcur;
+    var pname = state.mode==="param"?"t":"&theta;";
+    var pdisp = state.mode==="param"
+      ? f(pv)
+      : f(pv)+" rad ("+deg(pv)+"&deg;)";
+    var extra="";
+    if(state.mode==="polar"){
+      extra="<span class='k'>r =</span> "+f(def.r(state.params,tcur))+"<br>";
+    }
+    elRead.innerHTML=
+      "<span class='k'>"+pname+" =</span> "+pdisp+"<br>"+
+      extra+
+      "<span class='dotc'>&bull;</span> <span class='k'>(x, y) =</span> ("+f(wc.x)+", "+f(wc.y)+")";
+  }
+
+  var last=0;
+  function loop(ts){
+    if(!state.playing)return;
+    if(!last)last=ts;
+    var dt=(ts-last)/1000; last=ts;
+    state.t+=dt*0.28;              // ~3.5s per full sweep
+    if(state.t>=1){state.t-=1;}    // loop
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function setPlay(on){
+    state.playing=on;
+    elPlay.textContent=on?"Pause":"Play";
+    elPlay.classList.toggle("primary",!on);
+    if(on){last=0; requestAnimationFrame(loop);}
+  }
+
+  // events
+  elMode.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click",function(){
+      if(b.dataset.m===state.mode)return;
+      state.mode=b.dataset.m;
+      elMode.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b);});
+      state.key=(state.mode==="param")?"ellipse":"circle";
+      fillPresets(); buildSliders(); state.t=0; draw();
+    });
+  });
+  elPreset.addEventListener("change",function(){
+    state.key=elPreset.value; buildSliders(); state.t=0; draw();
+  });
+  elPlay.addEventListener("click",function(){setPlay(!state.playing);});
+  elReset.addEventListener("click",function(){state.t=0; setPlay(false); draw();});
+
+  // init
+  fillPresets(); buildSliders(); draw();
+})();
+</script>
+</body>
+</html>

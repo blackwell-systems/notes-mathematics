@@ -176,6 +176,48 @@ eq("chi-squared variance CI upper", (19 * 4.2) / 8.907, 8.96, 0.01);
 // one-way ANOVA
 eq("ANOVA F = MSB/MSW", 1000 / 2 / (174 / 12), 34.48, 0.01);
 
+// ================= Order of Operations =================
+eq("3 + 4 x 2^2 - (5-1) = 15", 3 + 4 * 2 ** 2 - (5 - 1), 15);
+eq("8 / 2 x 4 left-to-right = 16", 8 / 2 * 4, 16);
+eq("10 - 4 + 3 left-to-right = 9", 10 - 4 + 3, 9);
+eq("2^(3^2) right-assoc = 512", 2 ** (3 ** 2), 512);
+eq("(2^3)^2 = 64", (2 ** 3) ** 2, 64);
+eq("-3^2 = -(3^2) = -9", -(3 ** 2), -9);
+eq("(-3)^2 = 9", (-3) ** 2, 9);
+eq("(6+4)/(2+3) fraction bar = 2", (6 + 4) / (2 + 3), 2);
+eq("sqrt(9+16) = 5", Math.sqrt(9 + 16), 5);
+eq("2 x [3 + (8 - 2 x 3)] = 10", 2 * (3 + (8 - 2 * 3)), 10);
+
+// ================= Parametric & Polar =================
+const rosePetals = (k) => (k % 2 === 1 ? k : 2 * k);
+eq("rose r=cos(3 theta) has 3 petals", rosePetals(3), 3);
+eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
+{
+  // polar -> rectangular for (r,theta)=(4, 120 deg): x=-2, y=2 sqrt(3)
+  const th = (120 * Math.PI) / 180;
+  eq("polar->rect x at (4,120deg)", 4 * Math.cos(th), -2, 1e-9);
+  eq("polar->rect y at (4,120deg)", 4 * Math.sin(th), 2 * Math.sqrt(3), 1e-9);
+  // rectangular -> polar for (1,1): r=sqrt(2), theta=45 deg
+  eq("rect->polar r at (1,1)", Math.hypot(1, 1), Math.SQRT2, 1e-9);
+  eq("rect->polar theta at (1,1) deg", (Math.atan2(1, 1) * 180) / Math.PI, 45, 1e-9);
+  // cardioid r = 1 + cos theta key values
+  eq("cardioid r at theta=0", 1 + Math.cos(0), 2, 1e-9);
+  eq("cardioid r at theta=pi/2", 1 + Math.cos(Math.PI / 2), 1, 1e-9);
+  eq("cardioid r at theta=pi (reaches pole)", 1 + Math.cos(Math.PI), 0, 1e-9);
+  // ellipse elimination: (x/3)^2 + (y/2)^2 = 1 for x=3cos t, y=2sin t
+  const t = Math.PI / 3;
+  const x = 3 * Math.cos(t),
+    y = 2 * Math.sin(t);
+  eq("ellipse identity holds at t=pi/3", (x / 3) ** 2 + (y / 2) ** 2, 1, 1e-9);
+  // projectile v0=20, alpha=45 deg, g=9.8
+  const v0 = 20,
+    a = Math.PI / 4,
+    g = 9.8;
+  eq("projectile range = v0^2 sin(2a)/g", (v0 * v0 * Math.sin(2 * a)) / g, 40.816, 0.005);
+  eq("projectile time of flight", (2 * v0 * Math.sin(a)) / g, 2.8862, 0.001);
+  eq("projectile max height", (v0 * Math.sin(a)) ** 2 / (2 * g), 10.204, 0.005);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
