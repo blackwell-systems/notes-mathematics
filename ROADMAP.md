@@ -68,6 +68,12 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Site is scan-free** — converted the last 7 scanned diagrams (complex-numbers x4:
+  real/imag parts, number hierarchy, complex plane, polar form; prime-factorization x1:
+  factor trees; vector x2: directed segment, position vector) to clean matplotlib, added
+  prerequisites callouts to all three pages, and +20 machine-checked assertions (complex
+  modulus/polar/De Moivre, GCD*LCM and unique factorization, vector magnitude/dot/cross).
+  No `imageNN.png` scan remains anywhere on the site.
 - [x] **Polynomial Functions pass** — replaced all 16 scans (the most of any page): 9 graph
   scans to 6 clean matplotlib diagrams (parabola, axis of symmetry, cubic, quartic turning
   points, a 4-panel end-behavior figure, multiplicity touch-vs-cross); 7 text/table scans to

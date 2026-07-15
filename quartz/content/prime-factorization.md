@@ -1,6 +1,12 @@
 ---
 title: "Prime Factorization"
+prerequisites: ["number-systems"]
+enables: ["number-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Number Systems](./number-systems)
+> **Leads to:** [Number Theory](./number-theory)
 
 Prime factorization is a core tool in [Number Theory](./number-theory), where it is used to compute GCDs, LCMs, and in modular arithmetic.
 
@@ -123,7 +129,7 @@ method, follow the below steps:
 -   **Step 4:** Repeat the step, until to find the prime factors of all
     the composite factors
 
-![Two factor trees: 60 into 2, 3, 2, 5 and 282 into 2, 3, 47](./media/image39.png)
+![Two factor trees: 60 branching to primes 2, 2, 3, 5 giving 2^2 x 3 x 5, and 282 branching to 2, 3, 47](./media/pf-factor-tree.png)
 
 ## Trial Division Method
 

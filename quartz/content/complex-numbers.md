@@ -1,6 +1,12 @@
 ---
 title: "Complex Numbers"
+prerequisites: ["number-systems", "polynomial-functions"]
+enables: ["hypercomplex-numbers", "geometry-trigonometry"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Number Systems](./number-systems) · [Polynomial Functions](./polynomial-functions)
+> **Leads to:** [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) · [Geometry & Trigonometry](./geometry-trigonometry)
 
 ## The Problem: Some Equations Have No Real Solution
 
@@ -34,9 +40,9 @@ Complex numbers allow solutions to all polynomial equations, even those that hav
 
 For example, the equation $(x + 1)^2 = -9$ has no real solution, because the square of a real number cannot be negative. Over the complex numbers it has the two nonreal solutions $-1 + 3i$ and $-1 - 3i$, since $(-1 + 3i + 1)^2 = (3i)^2 = 9i^2 = -9$.
 
-![Number line labeled with the real part a and imaginary part b of a complex number](./media/image52.png)
+![The complex number z = 3 + 2i on the plane, with a horizontal segment marking the real part a = 3 and a vertical segment marking the imaginary part b = 2](./media/cn-real-imag-parts.png)
 
-![Venn diagram showing complex numbers containing the real numbers and the imaginary numbers as subsets](./media/image53.png)
+![Nested diagram of the complex numbers containing the real numbers (imaginary part zero) and the pure imaginary numbers (real part zero), overlapping only at zero](./media/cn-number-hierarchy.png)
 
 ## Complex Plane
 
@@ -44,13 +50,13 @@ For example, the equation $(x + 1)^2 = -9$ has no real solution, because the squ
 
 A complex number $a + bi$ is plotted on this plane just as the ordered pair $(a, b)$ would be plotted on the Cartesian coordinate plane: the real part $a$ gives the horizontal coordinate, and the imaginary part $b$ gives the vertical coordinate. In this correspondence the real axis plays the role of the $x$-axis and the imaginary axis plays the role of the $y$-axis.
 
-![Complex plane with a horizontal real axis and a vertical imaginary axis, showing the plotted point a plus b i](./media/image54.png)
+![The complex plane with a horizontal real axis and a vertical imaginary axis, showing the point 2 + 3i with dashed guide lines to each axis](./media/cn-complex-plane.png)
 
 ### Polar (Trigonometric) Form
 
 **Polar form (trigonometric form):** The polar form is an alternative way to describe a complex number, using its distance from the origin and its angle rather than its real and imaginary parts. Instead of locating the point by horizontal and vertical coordinates, polar form locates it by the length $r$ of the segment from the origin to the point and the angle $\theta$ that segment makes with the positive real axis.
 
-![Polar form of a complex number showing the modulus r as the distance from the origin and the argument theta as the angle from the positive real axis](./media/image55.png)
+![Polar form of a complex number: the modulus r as the distance from the origin to the point and the argument theta as the angle from the positive real axis, with a = r cos theta and b = r sin theta](./media/cn-polar-form.png)
 
 ## Imaginary Unit
 

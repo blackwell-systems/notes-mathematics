@@ -1,6 +1,12 @@
 ---
 title: "Vector"
+prerequisites: ["geometry-trigonometry", "number-systems"]
+enables: ["linear-algebra-foundations", "multivariable-calculus"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Geometry & Trigonometry](./geometry-trigonometry) · [Number Systems](./number-systems)
+> **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Multivariable Calculus](./multivariable-calculus)
 
 ## Why Numbers Alone Are Not Enough
 
@@ -24,7 +30,7 @@ Geometrically, we can picture a vector as a directed line segment, whose
 length is the magnitude of the vector and with an arrow indicating the
 direction.
 
-![A vector drawn as a directed line segment: an arrow from its initial point to its terminal point, where the length represents magnitude and the arrowhead indicates direction](./media/image182.png)
+![A vector as a directed line segment: an arrow from its initial point A to its terminal point B, with the length labeled magnitude and the arrowhead indicating direction](./media/vec-directed-segment.png)
 
 ## Writing Vectors
 
@@ -69,7 +75,7 @@ $$
 
 The result is the equivalent vector drawn from the origin, so its head lies at $(b_1 - a_1,\; b_2 - a_2)$. When the tail is already the origin, the head's coordinates are the position vector directly.
 
-![Diagram of a directed line segment from initial point A to terminal point B, with the equivalent position vector drawn from the origin to the point (b1 - a1, b2 - a2)](./media/image183.png)
+![A directed segment from point A to point B and the equal position vector drawn from the origin to (b1 - a1, b2 - a2), shown parallel and the same length](./media/vec-position-vector.png)
 
 ## Unit Vector
 

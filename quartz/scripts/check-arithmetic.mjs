@@ -609,6 +609,44 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("dual-number autodiff eps part = f'(2)", fdual([2, 1])[1], 10);
 }
 
+// ================= Complex Numbers (modulus, polar, De Moivre) =================
+{
+  const mod = (a, b) => Math.hypot(a, b);
+  eq("|3+4i| = 5", mod(3, 4), 5);
+  eq("z * conj(z) = |z|^2 for 3+4i", 3 * 3 + 4 * 4, 25);
+  eq("modulus of 2+2i = 2 sqrt(2)", mod(2, 2), 2 * Math.SQRT2, 1e-9);
+  eq("arg of 2+2i is 45 deg", (Math.atan2(2, 2) * 180) / Math.PI, 45, 1e-9);
+  { const r = 2, th = Math.PI / 3; eq("polar->rect: 2 cis 60 real part", r * Math.cos(th), 1, 1e-9); eq("polar->rect: 2 cis 60 imag part", r * Math.sin(th), Math.sqrt(3), 1e-9); }
+  { const th = Math.PI / 6; check("De Moivre: (cis 30)^3 = i", approx(Math.cos(3 * th), 0, 1e-9) && approx(Math.sin(3 * th), 1, 1e-9)); }
+}
+
+// ================= Prime Factorization =================
+{
+  const gcd2 = (a, b) => (b ? gcd2(b, a % b) : a);
+  const lcm2 = (a, b) => (a / gcd2(a, b)) * b;
+  eq("gcd(60, 282) = 6", gcd2(60, 282), 6);
+  eq("lcm(60, 282) = 2820", lcm2(60, 282), 2820);
+  eq("gcd * lcm = product of the numbers", gcd2(60, 282) * lcm2(60, 282), 60 * 282);
+  const factorize = (n) => { const f = {}; for (let d = 2; d * d <= n; d++) while (n % d === 0) { f[d] = (f[d] || 0) + 1; n /= d; } if (n > 1) f[n] = (f[n] || 0) + 1; return f; };
+  { const f = factorize(60); check("60 = 2^2 * 3 * 5", f[2] === 2 && f[3] === 1 && f[5] === 1); }
+  { const f = factorize(282); check("282 = 2 * 3 * 47", f[2] === 1 && f[3] === 1 && f[47] === 1); }
+  check("prime factorization reconstructs 60", Object.entries(factorize(60)).reduce((p, [pr, e]) => p * Math.pow(+pr, e), 1) === 60);
+}
+
+// ================= Vectors =================
+{
+  const mag = (v) => Math.hypot(...v);
+  const dot = (u, v) => u.reduce((s, x, i) => s + x * v[i], 0);
+  const cross = (u, v) => [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+  eq("|(3,4)| = 5", mag([3, 4]), 5);
+  eq("|(1,2,2)| = 3", mag([1, 2, 2]), 3);
+  eq("dot((1,2,3),(4,-5,6)) = 12", dot([1, 2, 3], [4, -5, 6]), 12);
+  check("(1,2)+(3,4) = (4,6)", [1 + 3, 2 + 4].join(",") === "4,6");
+  check("position vector AB = B - A", [5 - 2, 7 - 3].join(",") === "3,4");
+  check("(1,0) perpendicular (0,1): dot = 0", dot([1, 0], [0, 1]) === 0);
+  check("cross((1,0,0),(0,1,0)) = (0,0,1)", cross([1, 0, 0], [0, 1, 0]).join(",") === "0,0,1");
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
