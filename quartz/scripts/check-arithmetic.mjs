@@ -313,6 +313,56 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
 }
 
+// ================= Functions & Relations =================
+{
+  // f : X={0..4} -> Y={0..3}, non-injective; sets as bitmasks
+  const m = 5, k = 4, f = [0, 2, 2, 3, 1];
+  const UX = (1 << m) - 1, UY = (1 << k) - 1;
+  const img = (A) => { let r = 0; for (let x = 0; x < m; x++) if (A & (1 << x)) r |= 1 << f[x]; return r; };
+  const pre = (B) => { let r = 0; for (let x = 0; x < m; x++) if (B & (1 << f[x])) r |= 1 << x; return r; };
+
+  let preOK = true;
+  for (let B = 0; B <= UY; B++) {
+    if (pre(UY & ~B) !== (UX & ~pre(B))) preOK = false;
+    for (let C = 0; C <= UY; C++) {
+      if (pre(B | C) !== (pre(B) | pre(C))) preOK = false;
+      if (pre(B & C) !== (pre(B) & pre(C))) preOK = false;
+    }
+  }
+  check("preimage commutes with union, intersection, complement", preOK);
+
+  let imgUnion = true, imgSubset = true, imgStrict = false;
+  for (let A = 0; A <= UX; A++) for (let D = 0; D <= UX; D++) {
+    if (img(A | D) !== (img(A) | img(D))) imgUnion = false;
+    if ((img(A & D) & (img(A) & img(D))) !== img(A & D)) imgSubset = false; // img(A n D) subset of img(A) n img(D)
+    if (img(A & D) !== (img(A) & img(D))) imgStrict = true;
+  }
+  check("image commutes with union", imgUnion);
+  check("image(A n D) subset of image(A) n image(D) always", imgSubset);
+  check("image and intersection can be strict for non-injective f", imgStrict);
+
+  // injective/surjective/bijective via image size
+  const isInj = (g, n) => new Set(g.slice(0, n)).size === n;
+  const isSurj = (g, n, c) => new Set(g.slice(0, n)).size === c;
+  check("f=[0,2,2,3,1] is not injective", !isInj(f, m));
+  check("identity on 4 is bijective", isInj([0, 1, 2, 3], 4) && isSurj([0, 1, 2, 3], 4, 4));
+
+  // fibers partition the domain
+  { const fib = {}; for (let x = 0; x < m; x++) (fib[f[x]] ||= []).push(x);
+    const u = Object.values(fib).flat().sort((a, b) => a - b);
+    check("fibers partition the domain", u.length === m && u.every((v, i) => v === i)); }
+
+  // well-definedness on Z/5Z
+  const respectsMod5 = (rule) => { for (let a = 0; a < 50; a++) for (let b = 0; b < 50; b++) if (a % 5 === b % 5 && rule(a) !== rule(b)) return false; return true; };
+  check("g([n])=[2n] is well-defined on Z/5Z", respectsMod5((n) => (2 * n) % 5));
+  check("h([n])=n is NOT well-defined on Z/5Z", !respectsMod5((n) => n));
+
+  // floor / ceiling identities
+  eq("floor(2.7) = 2", Math.floor(2.7), 2);
+  eq("ceil(2.7) = 3", Math.ceil(2.7), 3);
+  check("ceil(x) = -floor(-x)", [2.7, -1.3, 5, -0.5, 3.0001].every((x) => Math.ceil(x) === -Math.floor(-x)));
+}
+
 // ================= Set Theory =================
 {
   // Sets as bitmasks over the universe {0,...,N-1}

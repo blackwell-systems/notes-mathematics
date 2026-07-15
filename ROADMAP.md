@@ -68,6 +68,14 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
   empty alt now a hard build failure.
 - [x] **Curriculum gaps filled** — `order-of-operations` (Foundations) and
   `parametric-and-polar` (precalc) pages with diagrams and machine-checked examples.
+- [x] **Functions & Relations pass** — converted all 6 scans (2 to clean matplotlib: a
+  relation digraph+matrix and a 4-panel inj/surj/bij mapping figure; 4 text-scans to native
+  markdown). Filled a real gap: the surjection definition existed *only* as a scanned image,
+  now a proper section. Added the formal 3-condition function definition, image/preimage
+  set-algebra (with the strict-inclusion example), the kernel/fibers bridge to equivalence
+  relations, well-defined functions on quotients, and a relation-properties summary table.
+  Two widgets (relation-properties checker, finite-function explorer); +12 machine-checked
+  assertions. (Hasse diagrams left as-is — Mermaid renders them client-side via CDN.)
 - [x] **Set Theory pass** — converted all 13 scanned images (6 to clean matplotlib Venn/
   Euler/universal-set diagrams, 7 to native markdown text/tables); added the ZFC axioms,
   an Ordinals & Well-Ordering section (von Neumann ordinals, ω, well-ordering theorem =

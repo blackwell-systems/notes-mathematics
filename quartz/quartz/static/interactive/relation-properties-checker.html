@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relation Properties Checker</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --accent:#2563c9;
+    --true:#1e874b; --false:#b23a3a; --muted:#6b7480;
+    --line:#d7dde3; --cell:#eef2f6;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 40px;}
+  h1{font-size:1.35rem;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 16px;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;}
+  .row label{font-size:.9rem;}
+  button{font:inherit;font-size:.82rem;padding:5px 10px;border:1px solid var(--line);
+    background:#fff;color:var(--fg);border-radius:6px;cursor:pointer;}
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  input[type=range]{vertical-align:middle;}
+  .panels{display:flex;gap:20px;flex-wrap:wrap;}
+  .matrixbox{flex:0 0 auto;}
+  table{border-collapse:collapse;}
+  th,td{width:30px;height:30px;text-align:center;font-size:.82rem;}
+  th{color:var(--muted);font-weight:600;}
+  td.cell{border:1px solid var(--line);background:var(--cell);cursor:pointer;
+    padding:0;}
+  td.cell.on{background:var(--accent);}
+  .corner{color:var(--accent);font-weight:700;}
+  canvas{border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .props{margin-top:18px;}
+  .prop{display:flex;align-items:flex-start;gap:10px;padding:7px 0;
+    border-bottom:1px solid var(--line);}
+  .prop .name{flex:0 0 168px;font-weight:600;font-size:.92rem;}
+  .badge{flex:0 0 58px;text-align:center;font-weight:700;font-size:.78rem;
+    padding:2px 0;border-radius:5px;color:#fff;}
+  .badge.t{background:var(--true);}
+  .badge.f{background:var(--false);}
+  .why{flex:1;font-size:.85rem;color:var(--muted);}
+  .derived .name{font-size:.98rem;}
+  .derived{border-bottom:2px solid var(--line);}
+  .legend{font-size:.8rem;color:var(--muted);margin:8px 0 0;}
+  .cap{font-size:.86rem;color:var(--muted);margin-top:20px;font-style:italic;}
+  code{background:var(--cell);padding:1px 4px;border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Relation Properties Checker</h1>
+  <p class="sub">Toggle the matrix to build a binary relation R on {1,&hellip;,n}. Cell (row i, col j) on means (i,&thinsp;j)&nbsp;&isin;&nbsp;R.</p>
+
+  <div class="row">
+    <label>Set size n = <span id="nval">4</span></label>
+    <input id="nrange" type="range" min="2" max="5" value="4" step="1">
+  </div>
+  <div class="row">
+    <button data-preset="eq">equality (i=j)</button>
+    <button data-preset="le">less-or-equal (i&le;j)</button>
+    <button data-preset="lt">less-than (i&lt;j)</button>
+    <button data-preset="div">divides (i | j)</button>
+    <button data-preset="empty">empty</button>
+    <button data-preset="full">full</button>
+  </div>
+
+  <div class="panels">
+    <div class="matrixbox">
+      <div id="matrix"></div>
+      <p class="legend">Rows = first element, columns = second.</p>
+    </div>
+    <div>
+      <canvas id="graph" width="300" height="300"></canvas>
+      <p class="legend">Directed graph of R (curved arrows; loops = reflexive pairs).</p>
+    </div>
+  </div>
+
+  <div class="props" id="props"></div>
+
+  <p class="cap">A relation is an <b>equivalence relation</b> when it is reflexive, symmetric, and transitive, and a <b>partial order</b> when it is reflexive, antisymmetric, and transitive.</p>
+</div>
+
+<script>
+"use strict";
+(function(){
+  var n = 4;
+  var R = {};            // R["i,j"] = true
+  var canvas = document.getElementById("graph");
+  var ctx = canvas.getContext("2d");
+
+  function has(i,j){ return R[i+","+j] === true; }
+  function setR(i,j,v){ if(v) R[i+","+j]=true; else delete R[i+","+j]; }
+
+  // ---- property evaluation (loop over the finite set) ----
+  function evalProps(){
+    var res = {};
+    // reflexive
+    (function(){
+      for(var i=1;i<=n;i++) if(!has(i,i)) return res.reflexive={ok:false,w:"("+i+","+i+") &notin; R"};
+      res.reflexive={ok:true};
+    })();
+    // irreflexive
+    (function(){
+      for(var i=1;i<=n;i++) if(has(i,i)) return res.irreflexive={ok:false,w:"("+i+","+i+") &isin; R"};
+      res.irreflexive={ok:true};
+    })();
+    // symmetric
+    (function(){
+      for(var i=1;i<=n;i++)for(var j=1;j<=n;j++)
+        if(has(i,j)&&!has(j,i)) return res.symmetric={ok:false,w:"("+i+","+j+") &isin; R but ("+j+","+i+") &notin; R"};
+      res.symmetric={ok:true};
+    })();
+    // antisymmetric
+    (function(){
+      for(var i=1;i<=n;i++)for(var j=1;j<=n;j++)
+        if(i!==j&&has(i,j)&&has(j,i)) return res.antisymmetric={ok:false,w:"("+i+","+j+") and ("+j+","+i+") both &isin; R, i&ne;j"};
+      res.antisymmetric={ok:true};
+    })();
+    // transitive
+    (function(){
+      for(var i=1;i<=n;i++)for(var j=1;j<=n;j++)for(var k=1;k<=n;k++)
+        if(has(i,j)&&has(j,k)&&!has(i,k))
+          return res.transitive={ok:false,w:"("+i+","+j+"),("+j+","+k+") &isin; R but ("+i+","+k+") &notin; R"};
+      res.transitive={ok:true};
+    })();
+    // derived
+    res.equivalence={ok: res.reflexive.ok&&res.symmetric.ok&&res.transitive.ok};
+    res.partialorder={ok: res.reflexive.ok&&res.antisymmetric.ok&&res.transitive.ok};
+    if(!res.equivalence.ok) res.equivalence.w="needs reflexive + symmetric + transitive";
+    if(!res.partialorder.ok) res.partialorder.w="needs reflexive + antisymmetric + transitive";
+    return res;
+  }
+
+  var LABELS = {
+    reflexive:"Reflexive", irreflexive:"Irreflexive", symmetric:"Symmetric",
+    antisymmetric:"Antisymmetric", transitive:"Transitive"
+  };
+  var DERIVED = { equivalence:"Equivalence relation", partialorder:"Partial order" };
+
+  function renderProps(){
+    var res = evalProps();
+    var html = "";
+    function line(key,name,derived){
+      var p=res[key], cls=p.ok?"t":"f", txt=p.ok?"TRUE":"FALSE";
+      var why=p.ok?"":("<span class='why'>"+(p.w||"")+"</span>");
+      return "<div class='prop"+(derived?" derived":"")+"'>"+
+        "<span class='name'>"+name+"</span>"+
+        "<span class='badge "+cls+"'>"+txt+"</span>"+why+"</div>";
+    }
+    for(var k in LABELS) html += line(k,LABELS[k],false);
+    for(var d in DERIVED) html += line(d,DERIVED[d],true);
+    document.getElementById("props").innerHTML = html;
+  }
+
+  // ---- matrix ----
+  function renderMatrix(){
+    var h = "<table><tr><td class='corner'>R</td>";
+    for(var j=1;j<=n;j++) h+="<th>"+j+"</th>";
+    h+="</tr>";
+    for(var i=1;i<=n;i++){
+      h+="<tr><th>"+i+"</th>";
+      for(var j2=1;j2<=n;j2++)
+        h+="<td class='cell"+(has(i,j2)?" on":"")+"' data-i='"+i+"' data-j='"+j2+"'></td>";
+      h+="</tr>";
+    }
+    h+="</table>";
+    var box=document.getElementById("matrix");
+    box.innerHTML=h;
+    box.querySelectorAll("td.cell").forEach(function(td){
+      td.addEventListener("click",function(){
+        var i=+td.dataset.i, j=+td.dataset.j;
+        setR(i,j,!has(i,j));
+        td.classList.toggle("on",has(i,j));
+        renderProps(); drawGraph();
+      });
+    });
+  }
+
+  // ---- directed graph ----
+  function drawGraph(){
+    var W=canvas.width, H=canvas.height, cx=W/2, cy=H/2, rad=Math.min(W,H)/2-40;
+    ctx.clearRect(0,0,W,H);
+    var pos=[];
+    for(var i=1;i<=n;i++){
+      var a=-Math.PI/2 + 2*Math.PI*(i-1)/n;
+      pos[i]={x:cx+rad*Math.cos(a), y:cy+rad*Math.sin(a), a:a};
+    }
+    // edges
+    for(var s=1;s<=n;s++)for(var t=1;t<=n;t++){
+      if(!has(s,t)) continue;
+      if(s===t) drawLoop(pos[s]);
+      else drawArrow(pos[s],pos[t]);
+    }
+    // nodes
+    for(var k=1;k<=n;k++){
+      var p=pos[k];
+      ctx.beginPath(); ctx.arc(p.x,p.y,14,0,2*Math.PI);
+      ctx.fillStyle="#2563c9"; ctx.fill();
+      ctx.fillStyle="#fff"; ctx.font="bold 13px system-ui";
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText(k,p.x,p.y);
+    }
+  }
+  function drawArrow(a,b){
+    var dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy);
+    var ux=dx/d, uy=dy/d, nx=-uy, ny=ux;
+    var r=16;
+    var sx=a.x+ux*r, sy=a.y+uy*r, ex=b.x-ux*r, ey=b.y-uy*r;
+    // curve offset so (i,j) and (j,i) differ
+    var bend=Math.min(28, d*0.22);
+    var mx=(sx+ex)/2+nx*bend, my=(sy+ey)/2+ny*bend;
+    ctx.strokeStyle="#556"; ctx.fillStyle="#556"; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(sx,sy); ctx.quadraticCurveTo(mx,my,ex,ey); ctx.stroke();
+    // arrowhead: tangent at end = from control point to end
+    var tx=ex-mx, ty=ey-my, tl=Math.hypot(tx,ty); tx/=tl; ty/=tl;
+    var ah=8, aw=4;
+    var lx=-ty, ly=tx;
+    ctx.beginPath();
+    ctx.moveTo(ex,ey);
+    ctx.lineTo(ex-tx*ah+lx*aw, ey-ty*ah+ly*aw);
+    ctx.lineTo(ex-tx*ah-lx*aw, ey-ty*ah-ly*aw);
+    ctx.closePath(); ctx.fill();
+  }
+  function drawLoop(p){
+    var ox=Math.cos(p.a), oy=Math.sin(p.a);
+    var lx=p.x+ox*14, ly=p.y+oy*14;
+    var lr=11, cxp=lx+ox*lr, cyp=ly+oy*lr;
+    ctx.strokeStyle="#556"; ctx.fillStyle="#556"; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.arc(cxp,cyp,lr,0,2*Math.PI); ctx.stroke();
+    // small arrowhead on loop
+    var ax=lx+ (-oy)*2, ay=ly+ ox*2;
+    ctx.beginPath();
+    ctx.moveTo(lx,ly);
+    ctx.lineTo(lx-oy*6-ox*4, ly+ox*6-oy*4);
+    ctx.lineTo(lx-oy*6+ox*4, ly+ox*6+oy*4);
+    ctx.closePath(); ctx.fill();
+  }
+
+  // ---- presets ----
+  function applyPreset(kind){
+    R={};
+    for(var i=1;i<=n;i++)for(var j=1;j<=n;j++){
+      var v=false;
+      if(kind==="eq") v=(i===j);
+      else if(kind==="le") v=(i<=j);
+      else if(kind==="lt") v=(i<j);
+      else if(kind==="div") v=(j%i===0);
+      else if(kind==="empty") v=false;
+      else if(kind==="full") v=true;
+      if(v) setR(i,j,true);
+    }
+    renderMatrix(); renderProps(); drawGraph();
+  }
+
+  // ---- n change (preserve in-range values) ----
+  function setN(newN){
+    // keep only pairs within new range
+    var keep={};
+    for(var key in R){
+      var parts=key.split(","), i=+parts[0], j=+parts[1];
+      if(i<=newN && j<=newN) keep[key]=true;
+    }
+    R=keep; n=newN;
+    document.getElementById("nval").textContent=n;
+    renderMatrix(); renderProps(); drawGraph();
+  }
+
+  // ---- wiring ----
+  document.getElementById("nrange").addEventListener("input",function(){
+    setN(+this.value);
+  });
+  document.querySelectorAll("button[data-preset]").forEach(function(b){
+    b.addEventListener("click",function(){ applyPreset(b.dataset.preset); });
+  });
+
+  // init
+  applyPreset("eq");
+})();
+</script>
+</body>
+</html>

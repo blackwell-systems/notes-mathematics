@@ -120,7 +120,7 @@ The reflexive property of relations can be understood from a matrix by
 looking for a diagonal connecting from top left corner to bottom right
 corner
 
-![Reflexive relation shown as directed graph with self-loops and adjacency matrix with filled diagonal](./media/image42.png)
+![A relation on {1,2,3} drawn as a directed graph with a self-loop at each node plus arrows 1 to 2 and 2 to 3, next to its adjacency matrix whose all-ones diagonal marks it reflexive](./media/fr-relation-digraph.png)
 
 #### Symmetric Property
 
@@ -191,6 +191,23 @@ $$
 - No number is less than itself
 
 **Note:** Irreflexive is NOT the same as "not reflexive." A relation can be neither reflexive nor irreflexive.
+
+### Summary of Relation Properties
+
+The properties above, collected for reference ($R$ is a relation on a set $A$):
+
+| Property | Condition | Typical example |
+|---|---|---|
+| Reflexive | $\forall a,\ a\,R\,a$ | $=$, $\le$, $\subseteq$ |
+| Irreflexive | $\forall a,\ \neg(a\,R\,a)$ | $<$, $\ne$ |
+| Symmetric | $a\,R\,b \Rightarrow b\,R\,a$ | $=$, "is a sibling of" |
+| Antisymmetric | $a\,R\,b \wedge b\,R\,a \Rightarrow a = b$ | $\le$, $\subseteq$, divides |
+| Asymmetric | $a\,R\,b \Rightarrow \neg(b\,R\,a)$ | $<$, $\subsetneq$ |
+| Transitive | $a\,R\,b \wedge b\,R\,c \Rightarrow a\,R\,c$ | $=$, $<$, $\le$, $\subseteq$ |
+
+An **equivalence relation** is reflexive + symmetric + transitive; a **partial order** is reflexive + antisymmetric + transitive. Build a relation below and see which properties it has (and whether it is an equivalence or a partial order), with its directed graph drawn live:
+
+<iframe src="/static/interactive/relation-properties-checker.html" width="100%" height="660" style="border:none;"></iframe>
 
 ### Partial Order
 
@@ -611,11 +628,13 @@ The element **y** is called the **image** of **x** under the function
 
 Precise definition of a function:
 
-A function is formed by three sets, the **domain** **X,** the
-**codomain** **Y**, and the **graph R** that satisfy the three following
-conditions.
+A function is formed by three sets: the **domain** $X$, the **codomain** $Y$, and the **graph** $R$ (a set of input-output pairs) satisfying three conditions:
 
-![Three conditions defining a function: graph as subset of X times Y, totality, and single-valuedness](./media/image43.png)
+1. **The graph is a set of pairs:** $R \subseteq X \times Y$. Each pair $(x, y) \in R$ records that $f$ sends $x$ to $y$.
+2. **Totality (defined everywhere):** every input has an output. $\forall x \in X,\ \exists y \in Y,\ (x, y) \in R$.
+3. **Single-valuedness (functionality):** every input has *only one* output. If $(x, y) \in R$ and $(x, y') \in R$, then $y = y'$.
+
+Conditions 2 and 3 together say each $x \in X$ relates to *exactly one* $y$, which is precisely what separates a function from a general [relation](#relation): a relation may leave an element unpaired or pair it with several, a function does neither.
 
 Each function type has characteristic domain restrictions. See [Rational Functions](./rational-functions) (excluded zeros of denominator), [Radical Functions](./radical-functions) (non-negative under even roots), and [Logarithms](./logarithms) (positive arguments only).
 
@@ -652,9 +671,7 @@ The **image** of a function is similar to the **range** but often refers
 to the outputs corresponding to a specific subset of the domain. If the
 subset in question is the entire **domain**, then the **image** and the
 **range** are the same. For a particular subset $A \subseteq X$, the image of
-**A** under **f** is denoted as **f(A)**.
-
-![Definition callout: f(a) is the image of a under the function f from X to Y](./media/image44.png)
+**A** under **f** is denoted as **f(A)**. For a single element $a$, the value $f(a)$ is called the **image of $a$ under $f$**.
 
 ### Domain
 
@@ -750,6 +767,29 @@ f has an inverse or not. **Note that however** if f does have an
 inverse, then the preimage is exactly the image of Y under the inverse
 map.
 
+### How Image and Preimage Interact with Set Operations
+
+Image and preimage behave *very* differently under union, intersection, and complement, an asymmetry worth committing to memory.
+
+**Preimage is the well-behaved one:** it commutes with every set operation. For subsets $B, C \subseteq Y$,
+$$
+f^{-1}(B \cup C) = f^{-1}(B) \cup f^{-1}(C), \quad f^{-1}(B \cap C) = f^{-1}(B) \cap f^{-1}(C), \quad f^{-1}(B^c) = \big(f^{-1}(B)\big)^c.
+$$
+
+**Image is not:** it commutes with union but only *half*-commutes with intersection. For subsets $A, D \subseteq X$,
+$$
+f(A \cup D) = f(A) \cup f(D), \qquad f(A \cap D) \subseteq f(A) \cap f(D),
+$$
+and the second inclusion can be **strict**. Take $f(x) = x^2$ on $\mathbb{R}$ with $A = (-\infty, 0]$ and $D = [0, \infty)$: then $A \cap D = \{0\}$ so $f(A \cap D) = \{0\}$, but $f(A) \cap f(D) = [0, \infty)$. The reason is non-injectivity: an output can sit in both $f(A)$ and $f(D)$ by coming from *different* inputs, one in each set. In fact $f(A \cap D) = f(A) \cap f(D)$ for all $A, D$ if and only if $f$ is injective. This is why preimages, not images, are the right tool for pulling structure back through a function.
+
+### Fibers and the Kernel of a Function
+
+For each $y \in Y$, its preimage of a single point, $f^{-1}(\{y\}) = \{x \in X : f(x) = y\}$, is called the **fiber** over $y$. The fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
+$$
+x \sim x' \iff f(x) = f(x'),
+$$
+called the **kernel** of $f$. So *every function silently carves its domain into equivalence classes* (its fibers), and the [quotient set](#quotient-set-set-of-equivalence-classes) $X/{\sim}$ is in bijection with the range of $f$. This is the bridge between the two halves of this page: relations give rise to functions, and every function gives back an equivalence relation. ($f$ is injective exactly when every fiber has at most one element, i.e. its kernel is plain equality.)
+
 ### Injection (one-to-one)
 
 **Injection:** A function is **injective** if every element in the
@@ -759,9 +799,13 @@ $\forall x_1 \forall x_2 ( (f(x_1) = f(x_2)) \rightarrow (x_1 = x_2) )$
 
 *For every $x_1$, $x_2$ if $f(x_1) = f(x_2)$, then $x_1$ must equal $x_2$*
 
-![Symbolic definition of surjective: for every y in Y there exists x in X with f(x) equals y](./media/image47.png)
+### Surjection (onto)
 
-![Mapping diagram of a non-surjective function where the image is a small yellow oval not filling codomain Y](./media/image50.png)
+**Surjection:** A function $f : X \to Y$ is **surjective** (or **onto**) if every element of the codomain is the image of at least one input:
+$$
+\forall y \in Y,\ \exists x \in X,\ f(x) = y.
+$$
+Equivalently, the range equals the whole codomain, $\text{Range}(f) = Y$: nothing in $Y$ is left unhit. Surjectivity is a condition on the *codomain* (everything is reached), exactly complementary to injectivity, which is a condition on the *inputs* (nothing is doubled up).
 
 ### Bijection (injective and surjective)
 
@@ -771,7 +815,17 @@ the codomain is mapped to from at most one element of the
 domain---and **surjective** **(or *onto*)---**meaning that each element
 of the codomain is mapped to from at least one element of the domain. 
 
-![Combined bijection definition conjoining injectivity and surjectivity conditions with explanation](./media/image51.png)
+Formally, $f$ is bijective when it is injective *and* surjective:
+$$
+\underbrace{\forall x_1, x_2\ \big(f(x_1) = f(x_2) \to x_1 = x_2\big)}_{\text{injective}} \quad\wedge\quad \underbrace{\forall y \in Y\ \exists x \in X\ (f(x) = y)}_{\text{surjective}}.
+$$
+A bijection pairs the elements of $X$ and $Y$ perfectly, one-to-one and onto, which is exactly what makes it invertible (next) and what underlies comparing set sizes.
+
+![Four mapping diagrams contrasting injective-not-surjective, surjective-not-injective, bijective, and neither, each drawn as arrows between a domain oval and a codomain oval](./media/fr-inj-surj-bij.png)
+
+Define your own function on a small domain below: choose each output and watch whether it is injective, surjective, bijective, or invertible, with its image, a chosen preimage, and the mapping diagram updating live.
+
+<iframe src="/static/interactive/finite-function-explorer.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Invertibility
 
@@ -784,6 +838,17 @@ $\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
 **In this case, g is called the inverse of f, written f^−1**
 
 **Important:** A function is invertible if and only if it is bijective (both injective and surjective).
+
+## Well-Defined Functions
+
+A rule counts as a **well-defined** function only if it genuinely assigns *one* output to each input, independent of any arbitrary choices made while stating the rule. The issue is easy to miss because most everyday formulas are automatically well-defined, but it becomes central the moment you define a function on a [quotient set](#quotient-set-set-of-equivalence-classes), where each input is an equivalence class named by one of its many representatives.
+
+**Example (on the integers mod 5).** Elements of $\mathbb{Z}/5\mathbb{Z}$ are classes like $[2] = [7] = [12] = \cdots$. Consider two attempted definitions:
+
+- $g([n]) = [2n]$ **is** well-defined: different names for the same class give the same answer, since $[7] \mapsto [14] = [4]$ and $[2] \mapsto [4]$ agree. (In general $n \equiv n' \pmod 5$ forces $2n \equiv 2n' \pmod 5$.)
+- $h([n]) = n$ (return the representative itself) is **not** well-defined: $[2]$ and $[7]$ are the *same* input, yet the rule would return $2$ for one name and $7$ for the other, so it assigns two outputs to one input, not a function at all.
+
+The rule to remember: whenever a function is defined via representatives of equivalence classes, you must check that **equivalent inputs produce equal outputs**, that is, that the rule respects the [kernel](#fibers-and-the-kernel-of-a-function). Verifying well-definedness is the first obligation for *any* construction on a quotient, throughout algebra and topology.
 
 ## Identity Function
 

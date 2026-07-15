@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finite Function Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --accent:#2563c9;
+    --true:#1e874b; --false:#b23a3a; --muted:#6b7480; --line:#d7dde3;
+    --panel:#f2f5f8;
+  }
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; font-size:15px;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px;}
+  h1{font-size:20px;margin:0 0 4px;}
+  .cap{color:var(--muted);font-size:13px;margin:0 0 18px;}
+  .row{display:flex;flex-wrap:wrap;gap:16px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .col-l{flex:1 1 300px;} .col-r{flex:1 1 380px;}
+  h2{font-size:14px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .maprow{display:flex;align-items:center;gap:10px;margin:6px 0;}
+  .maprow .lbl{font-weight:600;min-width:70px;font-family:ui-monospace,Menlo,Consolas,monospace;}
+  select{font-size:15px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--fg);font-family:ui-monospace,Menlo,Consolas,monospace;}
+  .steppers{display:flex;gap:18px;margin-bottom:12px;flex-wrap:wrap;}
+  .stepper{display:flex;align-items:center;gap:6px;font-size:13px;}
+  .stepper button{width:26px;height:26px;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;font-size:16px;line-height:1;color:var(--accent);}
+  .stepper button:hover{background:#eef3fb;}
+  .stepper .val{min-width:16px;text-align:center;font-weight:600;font-family:ui-monospace,Menlo,Consolas,monospace;}
+  .badges{display:grid;grid-template-columns:1fr;gap:8px;}
+  .badge{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 10px;border-radius:8px;background:#fff;border:1px solid var(--line);}
+  .badge .name{font-weight:600;}
+  .badge .tf{font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:2px 8px;border-radius:5px;}
+  .tf.t{color:#fff;background:var(--true);}
+  .tf.f{color:#fff;background:var(--false);}
+  .badge .why{display:block;font-size:12px;color:var(--muted);margin-top:2px;}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+  .presets button{font-size:12px;padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;color:var(--fg);}
+  .presets button:hover{border-color:var(--accent);color:var(--accent);}
+  canvas{display:block;width:100%;max-width:420px;height:auto;margin:6px auto 0;}
+  .sets{margin-top:12px;font-size:14px;}
+  .sets .setline{margin:6px 0;font-family:ui-monospace,Menlo,Consolas,monospace;}
+  .setval{color:var(--accent);font-weight:600;}
+  .pre-pick{display:inline-flex;gap:4px;align-items:center;margin:8px 0 2px;}
+  .pre-pick select{font-size:14px;}
+  .note{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px solid var(--line);padding-top:10px;}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Finite function explorer</h1>
+  <p class="cap">Define a function <code>f: X &rarr; Y</code> by choosing each output, and watch whether it is injective, surjective, bijective, and invertible.</p>
+
+  <div class="steppers">
+    <div class="stepper">|X| <button id="xm">&minus;</button><span class="val" id="xv">4</span><button id="xp">+</button></div>
+    <div class="stepper">|Y| <button id="ym">&minus;</button><span class="val" id="yv">4</span><button id="yp">+</button></div>
+  </div>
+
+  <div class="row">
+    <div class="card col-l">
+      <h2>Define f</h2>
+      <div id="mapping"></div>
+      <div class="presets">
+        <button data-p="id">identity-like</button>
+        <button data-p="const">constant (all&rarr;a)</button>
+        <button data-p="notinj">not injective</button>
+        <button data-p="notsurj">not surjective</button>
+      </div>
+    </div>
+
+    <div class="card col-r">
+      <h2>Properties</h2>
+      <div class="badges" id="badges"></div>
+      <div class="sets">
+        <div class="setline">image <code>f(X)</code> = <span class="setval" id="image"></span></div>
+        <div class="pre-pick">preimage of <select id="prePick"></select></div>
+        <div class="setline"><code>f&#8315;&sup1;(<span id="preY"></span>)</code> = <span class="setval" id="preimage"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h2>Mapping diagram</h2>
+    <canvas id="cv" width="420" height="300"></canvas>
+    <div class="note">Dots on the right marked <span style="color:var(--false);font-weight:600;">red / hollow</span> are elements of the codomain <code>Y</code> that no input maps to (not in the image). <b>Invertible</b> is TRUE exactly when <code>f</code> is bijective: a two-sided inverse <code>f&#8315;&sup1;</code> exists iff every <code>y</code> has exactly one preimage.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var XLABELS = ['1','2','3','4','5'];
+  var YLABELS = ['a','b','c','d','e'];
+  var nX = 4, nY = 4;
+  var f = [0,1,2,3,4];        // f[i] = index into Y for domain element i
+  var prePickIdx = 0;
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  function domIdx(){ var a=[]; for(var i=0;i<nX;i++)a.push(i); return a; }
+  function codIdx(){ var a=[]; for(var j=0;j<nY;j++)a.push(j); return a; }
+
+  function clampF(){
+    for(var i=0;i<nX;i++){ if(f[i]==null||f[i]>=nY||f[i]<0) f[i]=0; }
+    if(prePickIdx>=nY) prePickIdx=nY-1;
+  }
+
+  // ---- property computation ----
+  function imageSet(){
+    var seen={}, out=[];
+    for(var i=0;i<nX;i++){ if(!(f[i] in seen)){ seen[f[i]]=true; out.push(f[i]); } }
+    out.sort(function(a,b){return a-b;});
+    return out;
+  }
+  function preimage(j){
+    var out=[];
+    for(var i=0;i<nX;i++){ if(f[i]===j) out.push(i); }
+    return out;
+  }
+  function analyze(){
+    // injective: no two inputs share an output
+    var inj=true, injWit='';
+    for(var a=0;a<nX && inj;a++){
+      for(var b=a+1;b<nX;b++){
+        if(f[a]===f[b]){ inj=false; injWit='f('+XLABELS[a]+')=f('+XLABELS[b]+')='+YLABELS[f[a]]; break; }
+      }
+    }
+    // surjective: every y hit
+    var img=imageSet(), inImg={};
+    for(var k=0;k<img.length;k++) inImg[img[k]]=true;
+    var surj=true, missing=[];
+    for(var j=0;j<nY;j++){ if(!inImg[j]){ surj=false; missing.push(YLABELS[j]); } }
+    var surjWit = surj?'':(missing.join(', ')+(missing.length>1?' have':' has')+' no preimage');
+    var bij = inj && surj;
+    return {inj:inj,injWit:injWit,surj:surj,surjWit:surjWit,bij:bij,img:img};
+  }
+
+  // ---- rendering ----
+  function fmtSet(labels){ return labels.length? '{ '+labels.join(', ')+' }' : '{ } (empty)'; }
+
+  function renderMapping(){
+    var m=$('mapping'); m.innerHTML='';
+    for(var i=0;i<nX;i++){
+      (function(i){
+        var row=document.createElement('div'); row.className='maprow';
+        var lbl=document.createElement('span'); lbl.className='lbl';
+        lbl.textContent='f('+XLABELS[i]+') =';
+        var sel=document.createElement('select');
+        for(var j=0;j<nY;j++){
+          var o=document.createElement('option'); o.value=j; o.textContent=YLABELS[j];
+          if(f[i]===j) o.selected=true; sel.appendChild(o);
+        }
+        sel.addEventListener('change',function(){ f[i]=parseInt(sel.value,10); refresh(); });
+        row.appendChild(lbl); row.appendChild(sel); m.appendChild(row);
+      })(i);
+    }
+  }
+
+  function renderPrePick(){
+    var sel=$('prePick'); sel.innerHTML='';
+    for(var j=0;j<nY;j++){
+      var o=document.createElement('option'); o.value=j; o.textContent=YLABELS[j];
+      if(prePickIdx===j) o.selected=true; sel.appendChild(o);
+    }
+  }
+
+  function renderBadges(res){
+    var defs=[
+      {name:'Injective (one-to-one)',v:res.inj,ok:'distinct inputs &rarr; distinct outputs',bad:res.injWit},
+      {name:'Surjective (onto)',v:res.surj,ok:'every y in Y is hit',bad:res.surjWit},
+      {name:'Bijective',v:res.bij,ok:'injective and surjective',bad:'needs both injective and surjective'},
+      {name:'Invertible',v:res.bij,ok:'inverse f&#8315;&sup1; exists (⇔ bijective)',bad:'no two-sided inverse (⇔ not bijective)'}
+    ];
+    var html='';
+    for(var i=0;i<defs.length;i++){
+      var d=defs[i];
+      html+='<div class="badge"><div><span class="name">'+d.name+'</span>'+
+            '<span class="why">'+(d.v?d.ok:d.bad)+'</span></div>'+
+            '<span class="tf '+(d.v?'t':'f')+'">'+(d.v?'TRUE':'FALSE')+'</span></div>';
+    }
+    $('badges').innerHTML=html;
+  }
+
+  function drawDiagram(res){
+    var cv=$('cv'), ctx=cv.getContext('2d');
+    var W=cv.width, H=cv.height;
+    ctx.clearRect(0,0,W,H);
+    var pad=40, top=40;
+    var lx=90, rx=W-90;
+    var slotX=(H-top-24)/Math.max(1,(nX-1||1));
+    var slotY=(H-top-24)/Math.max(1,(nY-1||1));
+    function py(n,slot){ return nX===1||nY===1? top+(H-top-24)/2 : top+ (arguments[2]||0); }
+    function coordX(i){ return {x:lx, y: nX===1? top+(H-top-24)/2 : top + i*((H-top-24)/(nX-1))}; }
+    function coordY(j){ return {x:rx, y: nY===1? top+(H-top-24)/2 : top + j*((H-top-24)/(nY-1))}; }
+
+    // ovals
+    ctx.strokeStyle='#c3ccd6'; ctx.lineWidth=1.5;
+    function oval(cx,cy,rw,rh,label){
+      ctx.beginPath(); ctx.ellipse(cx,cy,rw,rh,0,0,Math.PI*2); ctx.stroke();
+      ctx.fillStyle='#8a929c'; ctx.font='600 13px system-ui'; ctx.textAlign='center';
+      ctx.fillText(label,cx,top-16);
+    }
+    var midY=top+(H-top-24)/2;
+    var ovH=(H-top-24)/2+24;
+    oval(lx,midY,34,ovH,'X'); oval(rx,midY,34,ovH,'Y');
+
+    var img=res.img, inImg={}; for(var k=0;k<img.length;k++) inImg[img[k]]=true;
+
+    // arrows
+    ctx.lineWidth=2;
+    for(var i=0;i<nX;i++){
+      var a=coordX(i), b=coordY(f[i]);
+      ctx.strokeStyle=getAccent(); ctx.globalAlpha=0.85;
+      var sx=a.x+8, sy=a.y, ex=b.x-8, ey=b.y;
+      ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(ex,ey); ctx.stroke();
+      // arrowhead
+      var ang=Math.atan2(ey-sy,ex-sx);
+      ctx.beginPath(); ctx.moveTo(ex,ey);
+      ctx.lineTo(ex-9*Math.cos(ang-0.4),ey-9*Math.sin(ang-0.4));
+      ctx.lineTo(ex-9*Math.cos(ang+0.4),ey-9*Math.sin(ang+0.4));
+      ctx.closePath(); ctx.fillStyle=getAccent(); ctx.fill();
+      ctx.globalAlpha=1;
+    }
+
+    // dots + labels
+    ctx.font='600 14px ui-monospace,Menlo,monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    for(var i2=0;i2<nX;i2++){
+      var p=coordX(i2);
+      ctx.beginPath(); ctx.arc(p.x,p.y,6,0,Math.PI*2);
+      ctx.fillStyle=getAccent(); ctx.fill();
+      ctx.fillStyle='#1c2126'; ctx.fillText(XLABELS[i2],p.x-22,p.y);
+    }
+    for(var j2=0;j2<nY;j2++){
+      var q=coordY(j2); var hit=inImg[j2];
+      ctx.beginPath(); ctx.arc(q.x,q.y,6,0,Math.PI*2);
+      if(hit){ ctx.fillStyle=getAccent(); ctx.fill(); }
+      else { ctx.fillStyle='#fbfcfd'; ctx.fill(); ctx.lineWidth=2; ctx.strokeStyle='#b23a3a'; ctx.stroke(); }
+      ctx.fillStyle = hit? '#1c2126' : '#b23a3a';
+      ctx.fillText(YLABELS[j2],q.x+22,q.y);
+    }
+  }
+  function getAccent(){ return '#2563c9'; }
+
+  function refresh(){
+    clampF();
+    var res=analyze();
+    renderBadges(res);
+    $('image').textContent=fmtSet(res.img.map(function(j){return YLABELS[j];}));
+    if(prePickIdx>=nY) prePickIdx=nY-1;
+    $('preY').textContent=YLABELS[prePickIdx];
+    $('preimage').textContent=fmtSet(preimage(prePickIdx).map(function(i){return XLABELS[i];}));
+    drawDiagram(res);
+  }
+
+  function fullRender(){
+    $('xv').textContent=nX; $('yv').textContent=nY;
+    renderMapping(); renderPrePick(); refresh();
+  }
+
+  // ---- presets ----
+  function applyPreset(p){
+    if(p==='id'){ for(var i=0;i<nX;i++) f[i]=Math.min(i,nY-1); }
+    else if(p==='const'){ for(var i=0;i<nX;i++) f[i]=0; }
+    else if(p==='notinj'){ // collide 1&3 onto a, cover rest sequentially
+      for(var i=0;i<nX;i++) f[i]=Math.min(i,nY-1);
+      if(nX>=3) f[2]=0;
+    }
+    else if(p==='notsurj'){ // hit only first nY-1 codomain elements
+      var cap=Math.max(1,nY-1);
+      for(var i=0;i<nX;i++) f[i]=Math.min(i,cap-1);
+    }
+    fullRender();
+  }
+
+  // ---- steppers ----
+  function step(which,delta){
+    if(which==='x'){ nX=Math.max(2,Math.min(5,nX+delta)); }
+    else { nY=Math.max(2,Math.min(5,nY+delta)); }
+    clampF(); fullRender();
+  }
+
+  // ---- wire up ----
+  $('xm').onclick=function(){step('x',-1);};
+  $('xp').onclick=function(){step('x',1);};
+  $('ym').onclick=function(){step('y',-1);};
+  $('yp').onclick=function(){step('y',1);};
+  $('prePick').addEventListener('change',function(e){ prePickIdx=parseInt(e.target.value,10); refresh(); });
+  var pb=document.querySelectorAll('.presets button');
+  for(var i=0;i<pb.length;i++){ pb[i].onclick=(function(el){return function(){applyPreset(el.getAttribute('data-p'));};})(pb[i]); }
+
+  fullRender();
+})();
+</script>
+</body>
+</html>
