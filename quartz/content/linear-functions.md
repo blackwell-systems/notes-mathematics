@@ -12,7 +12,7 @@ Linear functions are the simplest and most important type of function, and they 
 
 ## Why Linear Functions?
 
-Any time a quantity changes at a steady, predictable rate, a linear function describes it.
+What sets a linear function apart is that its rate of change never varies: over every equal step of the input, the output changes by the same amount. That single property is what forces the graph to be a straight line and makes these functions so predictable.
 
 ### What "Constant Rate of Change" Means
 
@@ -72,7 +72,7 @@ according to the following:
 
 $$m = \frac{y_2 - y_1}{x_2 - x_1} = \frac{\Delta y}{\Delta x}$$
 
-Where $(x_1, y_1)$ and $(x_2, y_2)$ are two distinct points on the line.
+Where $(x_1, y_1)$ and $(x_2, y_2)$ are two distinct points on the line. The symbol $\Delta$ (read aloud as "delta") means "change in," so $\Delta y$ ("delta y") is the change in the output and $\Delta x$ ("delta x") is the change in the input. Slope is therefore rise over run: how much the line climbs for each unit it moves to the right.
 
 ### Standard Form
 
@@ -101,7 +101,7 @@ Where $(x_1, y_1)$ is a known point on the line and $m$ is the slope.
 
 **Domain and Range of Linear Functions:**
 
-- **Domain:** $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers)
+- **Domain:** $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers; read $\mathbb{R}$ aloud as "the real numbers")
 - **Range:** $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers)
 
 A linear function (that is not constant) is defined for all real numbers and can output all real numbers.

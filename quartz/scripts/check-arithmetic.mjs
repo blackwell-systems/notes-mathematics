@@ -1137,6 +1137,21 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("point-slope (2,5) m=3 gives y=3x-1 at x=2 -> 5", 3 * 2 - 1, 5);
   // direct variation y=12 at x=3 -> k=4, at x=7 y=28
   eq("direct variation k=4 gives y(7)=28", (12 / 3) * 7, 28);
+  // point+slope: m=-2 through (3,7) -> y=-2x+13; verify it passes through (3,7)
+  eq("y=-2x+13 at x=3 is 7", -2 * 3 + 13, 7);
+  // parallel to y=3x-1 through (2,4) -> y=3x-2 (same slope); passes through (2,4)
+  eq("parallel line y=3x-2 at x=2 is 4", 3 * 2 - 2, 4);
+  // perpendicular to y=2x+5 through (6,1) -> slope -1/2, y=-1/2 x + 4; passes through (6,1)
+  { const mperp = -1 / 2; eq("perpendicular slope to 2 is -1/2", mperp, -0.5); eq("y=-1/2 x + 4 at x=6 is 1", mperp * 6 + 4, 1); }
+  // depreciation V(t) = -2500 t + 20000, fully depreciated when V=0 -> t=8
+  eq("depreciation V(t)=-2500t+20000 hits 0 at t=8", 20000 / 2500, 8);
+  eq("... V(8) = 0", -2500 * 8 + 20000, 0);
+  // temperature F = 9/5 C + 32: slope 1.8, and 100C -> 212F, 0C -> 32F
+  eq("F=9/5 C+32 slope = 1.8", 9 / 5, 1.8);
+  eq("100 C = 212 F", (9 / 5) * 100 + 32, 212);
+  eq("0 C = 32 F", (9 / 5) * 0 + 32, 32);
+  // cost C(x)=8x+500: fixed cost 500, per-unit 8
+  eq("cost C(0) = fixed cost 500", 8 * 0 + 500, 500);
 }
 
 // ================= Systems of Linear Equations (Gaussian) =================
