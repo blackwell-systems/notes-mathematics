@@ -1999,6 +1999,32 @@ $$
 
 This follows an F-distribution with $p$ and $n - p - 1$ degrees of freedom. A significant F-test means at least one predictor is useful; it does not tell you which one(s).
 
+### Polynomial and Quadratic Regression
+
+Real relationships are often curved, and a straight line will systematically miss the pattern (the linearity assumption discussed in the next section). The fix is surprisingly simple: add powers of the predictor as extra columns.
+
+**Quadratic regression** fits
+
+$$
+y = \beta_0 + \beta_1 x + \beta_2 x^2 + \epsilon.
+$$
+
+The crucial observation is that **this is still linear regression.** The word "linear" refers to linearity in the coefficients $\beta$, not in $x$. If you treat $x$ and $x^2$ as two separate predictors $x_1 = x$ and $x_2 = x^2$, quadratic regression is exactly the multiple regression above, with design matrix
+
+$$
+X = \begin{bmatrix} 1 & x_1 & x_1^2 \\ 1 & x_2 & x_2^2 \\ \vdots & \vdots & \vdots \\ 1 & x_n & x_n^2 \end{bmatrix},
+$$
+
+and the same OLS solution $\hat{\beta} = (X^TX)^{-1}X^Ty$. Nothing new is needed; you just build the extra column. More generally, **polynomial regression** of degree $d$ adds $x, x^2, \dots, x^d$ and fits a degree-$d$ curve, still by ordinary least squares.
+
+![Two scatter plots of the same U-shaped data. On the left a flat straight-line fit with an R-squared of 0.00 leaves residuals that are positive at both ends and negative in the middle, a clear curvature pattern. On the right a quadratic curve hugs the data with an R-squared of 0.89, labeled as still linear in the coefficients beta](./media/quadratic-regression.png)
+
+**Worked example.** The four points $(-1, 2), (0, 1), (1, 2), (2, 5)$ lie exactly on the parabola $y = x^2 + 1$. The best straight line through them is $\hat{y} = 2 + x$, which explains only $R^2 = 1 - \tfrac{4}{9} \approx 0.56$ of the variance, and its residuals are $+1, -1, -1, +1$: a U-shaped pattern that signals the curvature the line is missing. Fitting a quadratic recovers $\hat{\beta} = (1, 0, 1)$ exactly, with zero residuals and $R^2 = 1$.
+
+**The overfitting trap.** Since a higher degree always fits the training data at least as well, why not use a large degree? Because a polynomial of degree $n - 1$ passes exactly through any $n$ points ($R^2 = 1$) but oscillates wildly between them and predicts terribly on new data. This is the [bias-variance tradeoff](#bias-variance-tradeoff) in miniature: too low a degree underfits (high bias), too high a degree overfits (high variance). Choose the degree by [cross-validation](#cross-validation), not by maximizing training $R^2$.
+
+**Connection to ML.** Quadratic and polynomial regression are the simplest example of a **basis expansion**: you transform the input through fixed feature functions (here $x \mapsto (x, x^2, \dots)$) and then fit a linear model in that richer feature space. Kernel methods and the hidden layers of neural networks generalize the same idea, replacing the fixed polynomial features with similarity functions or learned features. The model stays linear in its parameters; the expressiveness comes from the features.
+
 ### Regression Diagnostics
 
 The validity of regression inference depends on four key assumptions. When these assumptions are violated, the coefficient estimates may be biased, the standard errors may be wrong, and the p-values and confidence intervals may be unreliable.

@@ -1406,6 +1406,33 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("standard normal PDF integrates to 1", area, 1, 1e-4); }
 }
 
+// ================= Quadratic / Polynomial Regression (statistics) =================
+{
+  const xs = [-1, 0, 1, 2], ys = [2, 1, 2, 5];
+  const n = xs.length, mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;
+  // simple linear regression through the four points
+  let sxy = 0, sxx = 0;
+  for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; }
+  const b1 = sxy / sxx, b0 = my - b1 * mx;
+  eq("quad-reg example: best line slope = 1", b1, 1, 1e-12);
+  eq("quad-reg example: best line intercept = 2", b0, 2, 1e-12);
+  let rssL = 0, tss = 0;
+  for (let i = 0; i < n; i++) { rssL += (ys[i] - (b0 + b1 * xs[i])) ** 2; tss += (ys[i] - my) ** 2; }
+  eq("line RSS = 4", rssL, 4, 1e-12);
+  eq("line R^2 = 1 - 4/9 = 0.556", 1 - rssL / tss, 5 / 9, 1e-9);
+  // line residuals form the U-shaped pattern +,-,-,+
+  const res = xs.map((x, i) => ys[i] - (b0 + b1 * x));
+  check("line residuals show curvature pattern +,-,-,+", res[0] > 0 && res[1] < 0 && res[2] < 0 && res[3] > 0);
+  // quadratic y = 1 + 0*x + 1*x^2 is the exact (zero-residual) fit -> R^2 = 1
+  const quad = (x) => 1 + 0 * x + 1 * x * x;
+  check("quadratic 1 + x^2 fits all four points exactly", xs.every((x, i) => approx(quad(x), ys[i], 1e-12)));
+  let rssQ = 0; for (let i = 0; i < n; i++) rssQ += (ys[i] - quad(xs[i])) ** 2;
+  eq("quadratic RSS = 0 (exact fit)", rssQ, 0, 1e-12);
+  eq("quadratic R^2 = 1", 1 - rssQ / tss, 1, 1e-12);
+  // quadratic regression is linear in the coefficients: design column x^2 for x=2 is 4
+  eq("design-matrix x^2 entry for x=2 is 4", 2 ** 2, 4);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
