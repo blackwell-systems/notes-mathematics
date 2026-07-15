@@ -1682,6 +1682,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("broader evidence => lower peak (complex model spreads thin)", npeak(2.6) < npeak(0.7));
 }
 
+// ================= Singular Learning Theory (RLCT worked examples) =================
+{
+  // RLCT of a single squared factor w^(2k): lambda = 1/(2k)
+  eq("RLCT of w^2 (k=1) = 1/2", 1 / (2 * 1), 0.5);
+  eq("RLCT of w^4 (k=2) = 1/4", 1 / (2 * 2), 0.25);
+  // worked cross K = w1^2 w2^2 (a normal-crossing monomial): lambda = min (h+1)/(2k), m = count of ties
+  { const ratios = [(0 + 1) / (2 * 1), (0 + 1) / (2 * 1)], lam = Math.min(...ratios), m = ratios.filter((r) => Math.abs(r - lam) < 1e-12).length;
+    eq("cross K = w1^2 w2^2: RLCT lambda = 1/2", lam, 0.5);
+    eq("cross K = w1^2 w2^2: multiplicity m = 2", m, 2); }
+  // regular d-parameter bowl K = sum wi^2: lambda = d/2, m = 1 (additive, not the min rule)
+  eq("regular 2-parameter model RLCT = d/2 = 1", 2 / 2, 1);
+  check("singular lambda 1/2 is strictly less than regular d/2 = 1", 0.5 < 2 / 2);
+  // Gaussian atom: integral over (0, inf) of exp(-n u^2) du = (1/2) sqrt(pi/n), scaling like n^(-1/2)
+  { const n = 100; let s = 0, h = 1e-4; for (let u = 0; u < 6; u += h) s += h * Math.exp(-n * u * u);
+    eq("integral exp(-100 u^2) du over (0,inf) = 0.5 sqrt(pi/100)", s, 0.5 * Math.sqrt(Math.PI / 100), 1e-4); }
+  // free-energy complexity penalty: singular is below BIC at large n
+  { const n = 1e6, lam = 0.5, m = 2, d = 2, slt = lam * Math.log(n) - (m - 1) * Math.log(Math.log(n)), bic = (d / 2) * Math.log(n);
+    check("singular free-energy penalty < BIC penalty at n = 1e6", slt < bic);
+    eq("BIC penalty (d/2) log n for d=2 equals log n", (d / 2) * Math.log(n), Math.log(1e6), 1e-9); }
+  // WBIC tempered posterior: the special inverse temperature satisfies beta * log n = 1
+  { const n = 1000; eq("WBIC: beta * log n = 1 at beta = 1/log n", (1 / Math.log(n)) * Math.log(n), 1, 1e-12); }
+  // Watanabe: Bayes generalization error + Bayes cross-validation error is asymptotically 2 lambda / n
+  { const lam = 0.5, n = 1000; eq("Bayes gen error + CV error = 2 lambda / n", 2 * lam / n, 0.001, 1e-12); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

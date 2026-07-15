@@ -42,6 +42,8 @@ is the **set of true parameters** (read "W-naught" or "W-zero"). It is the geome
 
 ## Regular vs. Singular: The Fork in the Road
 
+![Two loss-landscape contour plots: a regular model with K equal to w1 squared plus w2 squared forming a parabolic bowl whose set of best-fit parameters W-zero is a single point at the origin; and a singular model with K equal to w1 squared, flat along w2, whose W-zero is an entire line, a positive-dimensional flat valley](./media/slt-regular-vs-singular.png)
+
 Everything hinges on the shape of $W_0$ and on one matrix.
 
 **The Fisher information matrix** $I(w)$ (read "I of w") measures how sharply the model's predictions change as you wiggle $w$:
@@ -90,6 +92,8 @@ $$
 (read "$L_n(w)$" as "L-sub-n of w", the empirical negative log-likelihood per sample) shows the free energy is dominated by a competition: parameters with low loss $L_n(w)$ are favored, but only in proportion to how much prior *volume* $\varphi(w)\,dw$ surrounds them. **Complexity, in the Bayesian sense, is a volume.** How much parameter space does a good fit occupy? That question is what the RLCT answers.
 
 ## Watanabe's Fundamental Theorem
+
+![A plot of the complexity penalty, the free energy minus the linear energy term, against sample size n on a log scale: the regular BIC penalty grows as d over 2 times log n, while the singular penalty grows only as lambda log n minus the quantity m minus 1 times log log n, staying well below it, with the gap labeled as BIC over-penalizing](./media/slt-free-energy.png)
 
 Here is the central result of the field. Sumio Watanabe proved that as the sample size grows, the free energy of *any* model (regular or singular) obeys a universal asymptotic expansion:
 
@@ -153,6 +157,8 @@ At that temperature, the tempered-posterior expectation of $nL_n$ matches $nL_n(
 
 ## From RLCT to Interpretability: The Local Learning Coefficient
 
+![Two stacked training curves over the same steps: the training loss decreasing smoothly and monotonically, and below it the estimated local learning coefficient lambda-hat showing a staircase of plateaus and sudden jumps, with vertical dashed lines marking phase transitions where the network reorganizes its internal structure even though the loss curve shows no visible stages](./media/slt-llc-phases.png)
+
 The global RLCT describes a model at a single true parameter. During training, we want a *local, running* version. The **local learning coefficient** $\hat\lambda$ (read "lambda-hat") estimates the RLCT of the loss landscape at the current weights $w_t$ (read "w-sub-t"), typically by a WBIC-style tempered estimate localized around $w_t$. It answers: *how much effective complexity has the network committed to so far?*
 
 Its power is dynamic. Watching $\hat\lambda$ across training reveals **phase transitions**: when $\hat\lambda$ jumps or drops, the network has moved to a region of the landscape with different singularity geometry, which corresponds to a qualitative change in the computation it implements. A drop in $\hat\lambda$ means the model found a *simpler* explanation (lower effective complexity) that fits equally well. These transitions can be located, timed, and interpreted, giving [developmental interpretability](./bayesian-inference) a principled, quantitative handle on *when* and *what* a network learns, rather than only *that* its loss went down.
@@ -160,6 +166,8 @@ Its power is dynamic. Watching $\hat\lambda$ across training reveals **phase tra
 This closes the circle these notes have been building toward: Bayes' theorem gives the posterior, the posterior's normalizer is the free energy, the free energy's growth rate is the RLCT, the RLCT is the geometry of the loss landscape, and that geometry, tracked over training, is the internal developmental structure of the network.
 
 ## Worked Example: An RLCT You Can Check by Hand
+
+![The worked RLCT example K equal to w1 squared times w2 squared: on the left a contour plot whose zero set W-zero is the union of the two axes forming a crossing, with four flat valleys along the axes; on the right the Gaussian atom integral of e to the minus n u squared concentrating like n to the minus one half, with the zeta function equal to one over (2z plus 1) squared giving a double pole at minus one half, hence RLCT lambda equal to one half and multiplicity two, versus one for a regular two-parameter model](./media/slt-rlct-cross.png)
 
 Take the simplest genuinely singular loss. Suppose that after resolution the loss and prior on the unit square $[0,1]^2$ are
 
