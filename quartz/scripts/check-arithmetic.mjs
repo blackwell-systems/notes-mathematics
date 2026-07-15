@@ -694,6 +694,29 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("CLT: sd of mean, Uniform[0,1], n=10", (1 / Math.sqrt(12)) / Math.sqrt(10), 0.0913, 5e-4);
 }
 
+// ================= Geometry & Trigonometry =================
+{
+  const d2r = (d) => (d * Math.PI) / 180, r2d = (r) => (r * 180) / Math.PI;
+  check("sin^2 + cos^2 = 1", [0.3, 1, 2, -0.7].every((t) => approx(Math.sin(t) ** 2 + Math.cos(t) ** 2, 1, 1e-12)));
+  eq("sin 30 = 1/2", Math.sin(d2r(30)), 0.5, 1e-12);
+  eq("cos 30 = sqrt(3)/2", Math.cos(d2r(30)), Math.sqrt(3) / 2, 1e-12);
+  eq("tan 45 = 1", Math.tan(d2r(45)), 1, 1e-12);
+  eq("sin 45 = sqrt(2)/2", Math.sin(d2r(45)), Math.SQRT2 / 2, 1e-12);
+  eq("180 deg = pi rad", d2r(180), Math.PI, 1e-12);
+  { const a = 3, b = 4, c = 5, cosC = (a * a + b * b - c * c) / (2 * a * b); eq("law of cosines: 3-4-5 gives C = 90", r2d(Math.acos(cosC)), 90, 1e-9); }
+  { const A = d2r(30), B = d2r(90), a = 1; eq("law of sines: 30-60-90 hypotenuse = 2", (a * Math.sin(B)) / Math.sin(A), 2, 1e-9); }
+  { const a = 3, b = 4, c = 5, s = (a + b + c) / 2; eq("Heron area of 3-4-5 = 6", Math.sqrt(s * (s - a) * (s - b) * (s - c)), 6, 1e-9); eq("area 1/2 ab sinC = 6", 0.5 * 3 * 4 * Math.sin(d2r(90)), 6, 1e-9); }
+  { const t = 0.7; eq("sin(2t) = 2 sin t cos t", Math.sin(2 * t), 2 * Math.sin(t) * Math.cos(t), 1e-12); eq("cos(2t) = cos^2 - sin^2", Math.cos(2 * t), Math.cos(t) ** 2 - Math.sin(t) ** 2, 1e-12); }
+  { const a = 0.5, b = 0.9; eq("sin(a+b) = sin a cos b + cos a sin b", Math.sin(a + b), Math.sin(a) * Math.cos(b) + Math.cos(a) * Math.sin(b), 1e-12); }
+  eq("arcsin(1/2) = 30 deg", r2d(Math.asin(0.5)), 30, 1e-9);
+  eq("arctan(1) = 45 deg", r2d(Math.atan(1)), 45, 1e-9);
+  eq("arc length s = r*theta (r=2, theta=pi/2) = pi", 2 * (Math.PI / 2), Math.PI, 1e-12);
+  eq("sector area 1/2 r^2 theta = pi", 0.5 * 4 * (Math.PI / 2), Math.PI, 1e-12);
+  { const A = 3, B = 2, C = Math.PI; eq("sinusoid amplitude |A| = 3", Math.abs(A), 3); eq("sinusoid period 2pi/B = pi", (2 * Math.PI) / B, Math.PI, 1e-12); eq("sinusoid phase shift C/B = pi/2", C / B, Math.PI / 2, 1e-12); }
+  eq("triangle angles sum to 180", 36.87 + 53.13 + 90, 180, 0.01);
+  { const A = d2r(30), a = 5, b = 8, sinB = (b * Math.sin(A)) / a; check("SSA A=30,a=5,b=8 is ambiguous (0<sinB<1)", sinB > 0 && sinB < 1 && approx(sinB, 0.8)); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

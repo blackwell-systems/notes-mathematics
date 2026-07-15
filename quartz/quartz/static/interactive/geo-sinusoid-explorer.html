@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sinusoid Transformation Explorer</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --text:#1c2126; --wave:#2563c9; --midline:#c0392b;
+    --band:#9aa0a6; --ref:#c8ccd0; --grid:#e6e9ec; --axis:#8a9099;
+    --panel:#f1f4f7; --border:#dfe4e9;
+  }
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:16px 14px 26px;}
+  h1{font-size:1.15rem;margin:.2em 0 .1em;}
+  .equation{
+    font-size:1.15rem;text-align:center;background:var(--panel);
+    border:1px solid var(--border);border-radius:8px;padding:10px 8px;
+    margin:8px 0 14px;font-variant-numeric:tabular-nums;
+  }
+  .equation b{color:var(--wave);}
+  canvas{display:block;width:100%;height:auto;border:1px solid var(--border);
+    border-radius:8px;background:#fff;}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:14px 0 4px;}
+  .ctrl{display:flex;flex-direction:column;gap:2px;}
+  .ctrl label{font-size:.82rem;font-weight:600;display:flex;justify-content:space-between;}
+  .ctrl label span{color:var(--wave);font-variant-numeric:tabular-nums;}
+  input[type=range]{width:100%;accent-color:var(--wave);}
+  .toggle{grid-column:1 / -1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    font-size:.85rem;padding-top:2px;}
+  .toggle label{cursor:pointer;font-weight:600;}
+  button.reset{border:1px solid var(--border);background:var(--panel);border-radius:6px;
+    padding:4px 10px;cursor:pointer;font:inherit;font-size:.8rem;color:var(--text);}
+  .readout{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 18px;margin-top:12px;
+    font-size:.9rem;background:var(--panel);border:1px solid var(--border);
+    border-radius:8px;padding:12px 14px;font-variant-numeric:tabular-nums;}
+  .readout div{display:flex;justify-content:space-between;gap:8px;}
+  .readout .k{color:#55606b;}
+  .readout .v{font-weight:600;}
+  .caption{font-size:.82rem;color:#55606b;margin-top:12px;text-align:center;}
+  @media(max-width:520px){.controls{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sinusoid Transformation Explorer</h1>
+  <div class="equation" id="eq"></div>
+  <canvas id="cv" width="1520" height="880"></canvas>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label>Amplitude coeff. A <span id="lA"></span></label>
+      <input type="range" id="A" min="-3" max="3" step="0.1" value="3">
+    </div>
+    <div class="ctrl">
+      <label>B (affects period) <span id="lB"></span></label>
+      <input type="range" id="B" min="0.25" max="4" step="0.05" value="2">
+    </div>
+    <div class="ctrl">
+      <label>Phase C <span id="lC"></span></label>
+      <input type="range" id="C" min="-6.2832" max="6.2832" step="0.05" value="3.1416">
+    </div>
+    <div class="ctrl">
+      <label>Vertical shift D <span id="lD"></span></label>
+      <input type="range" id="D" min="-3" max="3" step="0.1" value="1">
+    </div>
+    <div class="toggle">
+      <span>Function:</span>
+      <label><input type="radio" name="fn" value="sin" checked> sin</label>
+      <label><input type="radio" name="fn" value="cos"> cos</label>
+      <button class="reset" id="reset" type="button">Reset</button>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+  <p class="caption">Drag the sliders to see how A stretches the amplitude, B compresses the period, C slides the wave horizontally (phase shift = C/B), and D raises the midline.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TAU = Math.PI * 2;
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  var els = {
+    A: document.getElementById("A"), B: document.getElementById("B"),
+    C: document.getElementById("C"), D: document.getElementById("D"),
+    lA: document.getElementById("lA"), lB: document.getElementById("lB"),
+    lC: document.getElementById("lC"), lD: document.getElementById("lD"),
+    eq: document.getElementById("eq"), readout: document.getElementById("readout"),
+    reset: document.getElementById("reset")
+  };
+
+  function fn(x, useCos){ return useCos ? Math.cos(x) : Math.sin(x); }
+  function useCos(){ return document.querySelector('input[name=fn]:checked').value === "cos"; }
+  function fmt(v){ var s = (Math.round(v*1000)/1000).toString(); return s; }
+  function fmtPi(v){
+    // express v as a multiple of pi when clean, else decimal
+    var r = v / Math.PI;
+    var rr = Math.round(r*12)/12;
+    if (Math.abs(r - rr) < 1e-9 && Math.abs(rr) > 1e-9){
+      var num = Math.round(rr*12), den = 12, g = gcd(Math.abs(num), den);
+      num/=g; den/=g;
+      var sign = num<0 ? "−" : "";
+      num = Math.abs(num);
+      var np = (num===1)? "π" : num+"π";
+      return sign + (den===1 ? np : np+"/"+den);
+    }
+    return fmt(v);
+  }
+  function gcd(a,b){ while(b){ var t=b; b=a%b; a=t; } return a||1; }
+
+  // world -> screen mapping. X domain fixed to show ~2 periods but capped.
+  function draw(){
+    var A = parseFloat(els.A.value), B = parseFloat(els.B.value),
+        C = parseFloat(els.C.value), D = parseFloat(els.D.value);
+    var cos = useCos();
+
+    var period = TAU / B;
+    var phase = C / B;            // horizontal shift of the whole curve
+    var amp = Math.abs(A);
+
+    // X view: center on phase shift, span ~2 periods (clamped for readability)
+    var span = Math.min(Math.max(2*period, TAU*0.5), 4*Math.PI*2);
+    var xMin = phase - span/2, xMax = phase + span/2;
+    // Y view based on midline +/- amplitude with padding
+    var yHi = D + amp, yLo = D - amp;
+    var yPad = Math.max(1, (yHi - yLo) * 0.18 + 0.4);
+    var yMax = Math.max(yHi + yPad, 1.2), yMin = Math.min(yLo - yPad, -1.2);
+
+    var L = 70, R = W - 24, T = 24, Bt = H - 40;
+    function sx(x){ return L + (x - xMin)/(xMax - xMin)*(R - L); }
+    function sy(y){ return T + (yMax - y)/(yMax - yMin)*(Bt - T); }
+
+    ctx.clearRect(0,0,W,H);
+
+    // --- grid ---
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#e6e9ec";
+    ctx.font = "20px system-ui,sans-serif";
+    ctx.fillStyle = "#8a9099";
+    // vertical grid at multiples of pi/2
+    var step = Math.PI/2;
+    var startK = Math.ceil(xMin/step), endK = Math.floor(xMax/step);
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var k=startK; k<=endK; k++){
+      var xv = k*step, X = sx(xv);
+      ctx.beginPath(); ctx.moveTo(X,T); ctx.lineTo(X,Bt); ctx.stroke();
+      if (Bt+6 < H) ctx.fillText(k===0? "0" : fmtPi(xv), X, Bt+6);
+    }
+    // horizontal grid at integers
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    var yStart = Math.ceil(yMin), yEnd = Math.floor(yMax);
+    for (var yy=yStart; yy<=yEnd; yy++){
+      var Y = sy(yy);
+      ctx.beginPath(); ctx.moveTo(L,Y); ctx.lineTo(R,Y); ctx.stroke();
+      ctx.fillText(yy.toString(), L-8, Y);
+    }
+
+    // --- axes ---
+    ctx.strokeStyle = "#8a9099"; ctx.lineWidth = 1.6;
+    if (0 >= yMin && 0 <= yMax){ var Y0 = sy(0);
+      ctx.beginPath(); ctx.moveTo(L,Y0); ctx.lineTo(R,Y0); ctx.stroke(); }
+    if (0 >= xMin && 0 <= xMax){ var X0 = sx(0);
+      ctx.beginPath(); ctx.moveTo(X0,T); ctx.lineTo(X0,Bt); ctx.stroke(); }
+
+    // --- amplitude band y = D +/- |A| ---
+    ctx.save();
+    ctx.setLineDash([4,6]); ctx.lineWidth = 1.4; ctx.strokeStyle = "#9aa0a6";
+    [D+amp, D-amp].forEach(function(yb){
+      if (yb <= yMax && yb >= yMin){ var Yb = sy(yb);
+        ctx.beginPath(); ctx.moveTo(L,Yb); ctx.lineTo(R,Yb); ctx.stroke(); }
+    });
+    ctx.restore();
+    // faint band fill
+    ctx.fillStyle = "rgba(154,160,166,0.07)";
+    ctx.fillRect(L, sy(D+amp), R-L, sy(D-amp)-sy(D+amp));
+
+    // --- midline y = D (dashed red) ---
+    ctx.save();
+    ctx.setLineDash([9,6]); ctx.lineWidth = 2; ctx.strokeStyle = "#c0392b";
+    var YD = sy(D);
+    ctx.beginPath(); ctx.moveTo(L,YD); ctx.lineTo(R,YD); ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = "#c0392b"; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+    ctx.font = "20px system-ui,sans-serif";
+    ctx.fillText("midline y = " + fmt(D), L+8, YD-4);
+
+    // --- reference y = sin(x) or cos(x), light gray ---
+    ctx.strokeStyle = "#c8ccd0"; ctx.lineWidth = 2; ctx.beginPath();
+    for (var i=0;i<=600;i++){
+      var xr = xMin + (xMax-xMin)*i/600;
+      var yr = fn(xr, cos);
+      var Xr = sx(xr), Yr = sy(yr);
+      if (i===0) ctx.moveTo(Xr,Yr); else ctx.lineTo(Xr,Yr);
+    }
+    ctx.stroke();
+
+    // --- main wave ---
+    ctx.strokeStyle = "#2563c9"; ctx.lineWidth = 3.2; ctx.beginPath();
+    for (var j=0;j<=1200;j++){
+      var xw = xMin + (xMax-xMin)*j/1200;
+      var yw = A * fn(B*xw - C, cos) + D;
+      var Xw = sx(xw), Yw = sy(yw);
+      if (j===0) ctx.moveTo(Xw,Yw); else ctx.lineTo(Xw,Yw);
+    }
+    ctx.stroke();
+
+    // --- mark ONE period ---
+    // A basic cycle begins where the argument (B x - C) = 0  => x = phase.
+    var pStart = phase, pEnd = phase + period;
+    // keep within view if possible
+    if (pEnd > xMax){ pStart -= period; pEnd -= period; }
+    if (pStart < xMin){ pStart += period; pEnd += period; }
+    var yMark = D - amp - yPad*0.45;
+    if (yMark < yMin + (yMax-yMin)*0.04) yMark = yMin + (yMax-yMin)*0.06;
+    var Xa = sx(pStart), Xb = sx(pEnd), Ym = sy(yMark);
+    ctx.strokeStyle = "#2563c9"; ctx.lineWidth = 1.8; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(Xa,Ym); ctx.lineTo(Xb,Ym); ctx.stroke();
+    // end caps
+    ctx.beginPath(); ctx.moveTo(Xa,Ym-8); ctx.lineTo(Xa,Ym+8);
+    ctx.moveTo(Xb,Ym-8); ctx.lineTo(Xb,Ym+8); ctx.stroke();
+    ctx.fillStyle = "#2563c9"; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.fillText("period = " + fmtPi(period), (Xa+Xb)/2, Ym-6);
+
+    // --- mark phase shift from x=0 to x=phase ---
+    if (Math.abs(phase) > 1e-6){
+      var yPh = D + amp + yPad*0.42;
+      if (yPh > yMax - (yMax-yMin)*0.04) yPh = yMax - (yMax-yMin)*0.06;
+      var Xz = sx(0), Xp = sx(phase), Yp = sy(yPh);
+      ctx.strokeStyle = "#c0392b"; ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.moveTo(Xz,Yp); ctx.lineTo(Xp,Yp); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(Xz,Yp-8); ctx.lineTo(Xz,Yp+8);
+      ctx.moveTo(Xp,Yp-8); ctx.lineTo(Xp,Yp+8); ctx.stroke();
+      // arrow direction
+      var dir = phase > 0 ? 1 : -1, ax = Xp;
+      ctx.beginPath(); ctx.moveTo(ax, Yp); ctx.lineTo(ax-8*dir, Yp-5);
+      ctx.moveTo(ax, Yp); ctx.lineTo(ax-8*dir, Yp+5); ctx.stroke();
+      ctx.fillStyle = "#c0392b"; ctx.textBaseline = "top";
+      ctx.fillText("phase shift " + fmt(Math.abs(phase)) + " " +
+        (phase>0? "right":"left"), (Xz+Xp)/2, Yp+6);
+    }
+
+    updateText(A,B,C,D,cos,amp,period,phase);
+  }
+
+  function updateText(A,B,C,D,cos,amp,period,phase){
+    var name = cos ? "cos" : "sin";
+    els.lA.textContent = fmt(A);
+    els.lB.textContent = fmt(B);
+    els.lC.textContent = fmt(C) + " (" + fmtPi(C) + ")";
+    els.lD.textContent = fmt(D);
+
+    // equation with live values
+    var Bs = (Math.abs(B-1)<1e-9)? "" : fmt(B);
+    var inside = Bs + "x" + (C>=0 ? " − " + fmt(C) : " + " + fmt(-C));
+    var pre = (Math.abs(A-1)<1e-9)? "" : (Math.abs(A+1)<1e-9? "−" : fmt(A));
+    var post = (Math.abs(D)<1e-9)? "" : (D>0 ? " + " + fmt(D) : " − " + fmt(-D));
+    els.eq.innerHTML = "y = <b>" + pre + name + "(" + inside + ")" + post + "</b>";
+
+    var dir = phase > 0 ? "right" : (phase < 0 ? "left" : "none");
+    var freq = B / TAU;
+    var rows = [
+      ["amplitude |A|", fmt(amp)],
+      ["period 2π/B", fmtPi(period) + "  ≈ " + fmt(period)],
+      ["phase shift C/B", fmt(phase) + "  (" + dir + ")"],
+      ["midline y = D", fmt(D)],
+      ["frequency B/2π", fmt(freq)],
+      ["max / min", fmt(D+amp) + " / " + fmt(D-amp)]
+    ];
+    els.readout.innerHTML = rows.map(function(r){
+      return '<div><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>';
+    }).join("");
+  }
+
+  ["A","B","C","D"].forEach(function(id){
+    els[id].addEventListener("input", draw);
+  });
+  document.querySelectorAll('input[name=fn]').forEach(function(r){
+    r.addEventListener("change", draw);
+  });
+  els.reset.addEventListener("click", function(){
+    els.A.value=3; els.B.value=2; els.C.value=3.1416; els.D.value=1;
+    document.querySelector('input[name=fn][value=sin]').checked = true;
+    draw();
+  });
+
+  draw();
+})();
+</script>
+</body>
+</html>

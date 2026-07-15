@@ -54,6 +54,12 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Geometry & Trigonometry interactive pass** — added a prerequisites callout and two
+  widgets (triangle solver handling SSS/SAS/ASA/AAS and the ambiguous SSA 0/1/2-triangle case
+  via law of sines/cosines with an area readout; a sinusoid explorer with A/B/C/D sliders
+  showing amplitude/period/phase-shift/midline live). +22 machine-checked assertions
+  (Pythagorean identity, special angles, law of sines/cosines, Heron, double-angle/sum
+  formulas, inverse trig, arc length/sector, sinusoid params, SSA ambiguity).
 - [x] **Calculus / Linear Algebra / Statistics interactive pass** — added 5 widgets to the
   three flagship advanced pages (which had 0 / 2 / 1): calculus Riemann-sum explorer and
   tangent/secant derivative explorer; a 2D linear-transformation visualizer (grid/unit-square

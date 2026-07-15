@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triangle Solver</title>
+<style>
+  :root { --bg:#fbfcfd; --ink:#1c2126; --blue:#2563c9; --muted:#5a6674; --line:#d6dbe1; }
+  html,body { margin:0; background:var(--bg); color:var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width:760px; margin:0 auto; padding:16px; box-sizing:border-box; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .cap { color:var(--muted); font-size:13px; margin:0 0 14px; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end; margin-bottom:12px; }
+  label { font-size:12px; color:var(--muted); display:block; margin-bottom:3px; }
+  select, input { font-size:14px; padding:6px 8px; border:1px solid var(--line);
+    border-radius:6px; background:#fff; color:var(--ink); box-sizing:border-box; }
+  input { width:70px; }
+  .field { display:none; }
+  .field.show { display:block; }
+  button { font-size:14px; padding:7px 16px; border:1px solid var(--blue);
+    background:var(--blue); color:#fff; border-radius:6px; cursor:pointer; }
+  button.ghost { background:#fff; color:var(--blue); }
+  .hint { font-size:12px; color:var(--muted); margin:0 0 12px; min-height:16px; }
+  canvas { display:block; width:100%; max-width:720px; height:auto;
+    border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .out { margin-top:14px; font-size:14px; line-height:1.5; }
+  .out h3 { font-size:15px; margin:14px 0 4px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px 14px; font-size:13px;
+    margin:4px 0; }
+  .k { color:var(--muted); }
+  .note { font-size:13px; color:var(--ink); background:#eef3fb; border-left:3px solid var(--blue);
+    padding:8px 10px; border-radius:0 6px 6px 0; margin:8px 0; }
+  .err { border-left-color:#c0392b; background:#fdeeee; }
+  .togglebar { margin:8px 0; font-size:13px; }
+  .togglebar label { display:inline; color:var(--ink); margin-right:12px; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Triangle Solver</h1>
+  <p class="cap">Enter three known parts of a triangle and solve for the rest with the Laws of Sines and Cosines, including the ambiguous SSA case.</p>
+
+  <div class="row">
+    <div>
+      <label for="case">Case</label>
+      <select id="case">
+        <option value="SSS">SSS — three sides</option>
+        <option value="SAS">SAS — two sides + included angle</option>
+        <option value="ASA">ASA — two angles + included side</option>
+        <option value="AAS">AAS — two angles + non-included side</option>
+        <option value="SSA">SSA — two sides + non-included angle (ambiguous)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row" id="inputs">
+    <div class="field" data-k="a"><label>side a</label><input id="a" type="number" step="any"></div>
+    <div class="field" data-k="b"><label>side b</label><input id="b" type="number" step="any"></div>
+    <div class="field" data-k="c"><label>side c</label><input id="c" type="number" step="any"></div>
+    <div class="field" data-k="A"><label>angle A&deg;</label><input id="A" type="number" step="any"></div>
+    <div class="field" data-k="B"><label>angle B&deg;</label><input id="B" type="number" step="any"></div>
+    <div class="field" data-k="C"><label>angle C&deg;</label><input id="C" type="number" step="any"></div>
+    <div><button id="solve">Solve</button></div>
+  </div>
+  <p class="hint" id="hint"></p>
+
+  <div class="togglebar" id="togglebar" style="display:none">
+    <label><input type="radio" name="sol" value="0" checked> Triangle 1</label>
+    <label><input type="radio" name="sol" value="1"> Triangle 2</label>
+    <label><input type="radio" name="sol" value="both"> Both</label>
+  </div>
+
+  <canvas id="cv" width="720" height="420"></canvas>
+  <div class="out" id="out"></div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  var D2R = Math.PI/180, R2D = 180/Math.PI;
+  var $ = function(id){ return document.getElementById(id); };
+  var EPS = 1e-9;
+
+  // Which fields each case needs.
+  var FIELDS = {
+    SSS: ["a","b","c"],
+    SAS: ["b","c","A"],        // included angle A between sides b and c
+    ASA: ["A","B","c"],        // included side c between angles A and B
+    AAS: ["A","B","a"],        // side a not between A and B
+    SSA: ["A","a","b"]         // angle A opposite a; b non-included
+  };
+
+  var solutions = [];   // array of solved triangles {a,b,c,A,B,C,area}
+  var view = "0";
+
+  function showFields(){
+    var need = FIELDS[$("case").value];
+    var divs = document.querySelectorAll("#inputs .field");
+    for (var i=0;i<divs.length;i++){
+      var d = divs[i];
+      d.classList.toggle("show", need.indexOf(d.getAttribute("data-k"))>=0);
+    }
+  }
+
+  function num(id){ var v = parseFloat($(id).value); return isNaN(v)?null:v; }
+
+  // Build a full solution object from three sides (angles via law of cosines).
+  function fromSides(a,b,c){
+    var A = Math.acos(clamp((b*b+c*c-a*a)/(2*b*c)))*R2D;
+    var B = Math.acos(clamp((a*a+c*c-b*b)/(2*a*c)))*R2D;
+    var C = 180 - A - B;
+    return finalize(a,b,c,A,B,C);
+  }
+  function clamp(x){ return Math.max(-1, Math.min(1, x)); }
+
+  function finalize(a,b,c,A,B,C){
+    var s = (a+b+c)/2;
+    var area = Math.sqrt(Math.max(0, s*(s-a)*(s-b)*(s-c)));
+    return {a:a,b:b,c:c,A:A,B:B,C:C,area:area};
+  }
+
+  function solve(){
+    solutions = [];
+    var notes = [];
+    var err = null;
+    var kase = $("case").value;
+    var a=num("a"), b=num("b"), c=num("c"), A=num("A"), B=num("B"), C=num("C");
+
+    function posSides(){ return arguments.length && [].every.call(arguments,function(x){return x>EPS;}); }
+
+    if (kase === "SSS"){
+      if (a==null||b==null||c==null){ err="Enter all three sides."; }
+      else if (a<=0||b<=0||c<=0){ err="Sides must be positive."; }
+      else if (a+b<=c+EPS || a+c<=b+EPS || b+c<=a+EPS){
+        err="No such triangle: the triangle inequality fails (each side must be less than the sum of the other two).";
+      } else {
+        solutions.push(fromSides(a,b,c));
+        notes.push("SSS: each angle found with the Law of Cosines.");
+      }
+    }
+    else if (kase === "SAS"){
+      // sides b,c and included angle A -> a via law of cosines
+      if (b==null||c==null||A==null){ err="Enter sides b, c and included angle A."; }
+      else if (b<=0||c<=0){ err="Sides must be positive."; }
+      else if (A<=0||A>=180){ err="Angle A must be between 0 and 180 degrees."; }
+      else {
+        a = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(A*D2R));
+        // remaining angles via law of cosines (robust for obtuse)
+        var Bv = Math.acos(clamp((a*a+c*c-b*b)/(2*a*c)))*R2D;
+        var Cv = 180 - A - Bv;
+        solutions.push(finalize(a,b,c,A,Bv,Cv));
+        notes.push("SAS: side a from the Law of Cosines, then the remaining angles.");
+      }
+    }
+    else if (kase === "ASA" || kase === "AAS"){
+      if (kase==="ASA"){
+        if (A==null||B==null||c==null){ err="Enter angles A, B and included side c."; }
+      } else {
+        if (A==null||B==null||a==null){ err="Enter angles A, B and side a."; }
+      }
+      if (!err){
+        if (A<=0||B<=0||A+B>=180){ err="Angles A and B must be positive and sum to less than 180 degrees."; }
+      }
+      if (!err){
+        C = 180 - A - B;
+        var k;
+        if (kase==="ASA"){ if(c<=0){err="Side c must be positive.";} else k = c/Math.sin(C*D2R); }
+        else { if(a<=0){err="Side a must be positive.";} else k = a/Math.sin(A*D2R); }
+        if(!err){
+          a = k*Math.sin(A*D2R); b = k*Math.sin(B*D2R); c = k*Math.sin(C*D2R);
+          solutions.push(finalize(a,b,c,A,B,C));
+          notes.push((kase)+": third angle = 180 - (A + B), then sides by the Law of Sines.");
+        }
+      }
+    }
+    else if (kase === "SSA"){
+      // angle A, side a (opposite A), side b (non-included)
+      if (A==null||a==null||b==null){ err="Enter angle A, side a and side b."; }
+      else if (a<=0||b<=0){ err="Sides must be positive."; }
+      else if (A<=0||A>=180){ err="Angle A must be between 0 and 180 degrees."; }
+      else {
+        var sinB = b*Math.sin(A*D2R)/a;
+        if (sinB > 1+1e-12){
+          err = "No triangle: sin B = b·sin A / a = "+sinB.toFixed(4)+" > 1, so side a is too short to reach.";
+        } else {
+          var B1 = Math.asin(clamp(sinB))*R2D;
+          var built = [];
+          // candidate 1: acute B1
+          if (A + B1 < 180 - EPS){
+            var C1 = 180 - A - B1;
+            var aa = a, bb = b, cc = a*Math.sin(C1*D2R)/Math.sin(A*D2R);
+            built.push(finalize(aa,bb,cc,A,B1,C1));
+          }
+          // candidate 2: supplement (only distinct when B1 not ~90 and valid)
+          var B2 = 180 - B1;
+          if (Math.abs(B2 - B1) > 1e-6 && A + B2 < 180 - EPS){
+            var C2 = 180 - A - B2;
+            var cc2 = a*Math.sin(C2*D2R)/Math.sin(A*D2R);
+            built.push(finalize(a,b,cc2,A,B2,C2));
+          }
+          if (built.length === 0){
+            err = "No triangle: the supplementary angle would make the angle sum reach or exceed 180 degrees.";
+          } else {
+            solutions = built;
+            var why;
+            if (Math.abs(sinB-1) < 1e-9) why = "sin B = 1, giving exactly one right-angle solution (B = 90 deg).";
+            else if (built.length === 2) why = "sin B < 1 and both B and its supplement 180 - B keep the angle sum below 180, so two triangles exist.";
+            else why = "sin B < 1, but only the acute value of B yields a valid triangle (the supplement would overflow 180 deg), so one triangle.";
+            notes.push("SSA (ambiguous case): "+built.length+" triangle"+(built.length>1?"s":"")+". "+why);
+          }
+        }
+      }
+    }
+
+    render(err, notes);
+  }
+
+  // ---------- rendering ----------
+  function fmt(x){ return (Math.round(x*100)/100).toFixed(2); }
+
+  function render(err, notes){
+    var out = $("out");
+    var tb = $("togglebar");
+    if (err){
+      out.innerHTML = '<div class="note err">'+err+'</div>';
+      tb.style.display="none";
+      clearCanvas();
+      return;
+    }
+    // toggle bar only for 2 SSA solutions
+    if (solutions.length === 2){
+      tb.style.display="block";
+      var radios = tb.querySelectorAll('input');
+      radios[0].checked = (view!=="1"&&view!=="both");
+    } else {
+      tb.style.display="none";
+      view = "0";
+    }
+
+    var html = "";
+    notes.forEach(function(n){ html += '<div class="note">'+n+'</div>'; });
+    solutions.forEach(function(t,i){
+      var lbl = solutions.length>1 ? "Triangle "+(i+1) : "Solution";
+      html += "<h3>"+lbl+"</h3>";
+      html += '<div class="grid">'+
+        cell("side a", fmt(t.a))+cell("side b", fmt(t.b))+cell("side c", fmt(t.c))+
+        cell("angle A", fmt(t.A)+"°")+cell("angle B", fmt(t.B)+"°")+cell("angle C", fmt(t.C)+"°")+
+      '</div>';
+      html += '<div style="font-size:13px;margin-top:2px"><span class="k">area</span> = '+fmt(t.area)+
+        ' &nbsp;(&frac12;·a·b·sin C)</div>';
+    });
+    out.innerHTML = html;
+
+    draw();
+  }
+  function cell(k,v){ return '<div><span class="k">'+k+'</span> = '+v+'</div>'; }
+
+  function clearCanvas(){
+    var cv=$("cv"), g=cv.getContext("2d");
+    g.setTransform(1,0,0,1,0,0); g.clearRect(0,0,cv.width,cv.height);
+  }
+
+  // vertices: place A at origin along side c (A->B), B along x-axis, C above.
+  // Standard: side c is between A and B; place A=(0,0), B=(c,0),
+  // C found from angle A (between sides c and b) with |AC| = b.
+  function vertices(t){
+    var A = {x:0, y:0};
+    var B = {x:t.c, y:0};
+    var C = {x: t.b*Math.cos(t.A*D2R), y: t.b*Math.sin(t.A*D2R)};
+    return {A:A,B:B,C:C};
+  }
+
+  function draw(){
+    var cv=$("cv"), g=cv.getContext("2d");
+    var W=cv.width, H=cv.height;
+    g.setTransform(1,0,0,1,0,0); g.clearRect(0,0,W,H);
+
+    var list = [];
+    if (solutions.length===2 && view==="both"){ list=[0,1]; }
+    else if (solutions.length===2){ list=[view==="1"?1:0]; }
+    else { list=[0]; }
+
+    // compute bounding box across shown triangles (in math coords, y up)
+    var pts=[];
+    list.forEach(function(i){ var v=vertices(solutions[i]); pts.push(v.A,v.B,v.C); });
+    var minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
+    pts.forEach(function(p){ minx=Math.min(minx,p.x);maxx=Math.max(maxx,p.x);
+      miny=Math.min(miny,p.y);maxy=Math.max(maxy,p.y); });
+    var pad=60;
+    var bw=Math.max(maxx-minx,1e-6), bh=Math.max(maxy-miny,1e-6);
+    var s=Math.min((W-2*pad)/bw, (H-2*pad)/bh);
+    var offx=(W-s*bw)/2 - s*minx;
+    var offy=(H-s*bh)/2 - s*miny;
+    // map: screen_x = offx + s*x ; screen_y = H - (offy + s*y)  (flip y so up is up)
+    function M(p){ return {x: offx + s*p.x, y: H - (offy + s*p.y)}; }
+
+    var colors = ["#2563c9", "#e07b39"];
+    list.forEach(function(i, idx){
+      var t=solutions[i];
+      var v=vertices(t);
+      var pA=M(v.A), pB=M(v.B), pC=M(v.C);
+      var col = list.length>1 ? colors[i] : "#2563c9";
+      g.lineWidth=2; g.strokeStyle=col;
+      g.fillStyle = hexA(col, 0.08);
+      g.beginPath(); g.moveTo(pA.x,pA.y); g.lineTo(pB.x,pB.y); g.lineTo(pC.x,pC.y); g.closePath();
+      g.fill(); g.stroke();
+
+      // vertex + angle labels
+      g.fillStyle="#1c2126";
+      g.font="bold 15px system-ui, sans-serif";
+      labelVertex(g, pA, {A:pA,B:pB,C:pC}, "A", t.A);
+      labelVertex(g, pB, {A:pB,B:pA,C:pC}, "B", t.B);
+      labelVertex(g, pC, {A:pC,B:pA,C:pB}, "C", t.C);
+
+      // side length labels at edge midpoints, nudged outward from centroid
+      var cen={x:(pA.x+pB.x+pC.x)/3, y:(pA.y+pB.y+pC.y)/3};
+      g.font="13px system-ui, sans-serif"; g.fillStyle=col;
+      sideLabel(g, pB,pC, cen, "a = "+fmt(t.a));   // a opposite A -> side BC
+      sideLabel(g, pA,pC, cen, "b = "+fmt(t.b));   // b opposite B -> side AC
+      sideLabel(g, pA,pB, cen, "c = "+fmt(t.c));   // c opposite C -> side AB
+
+      // small vertex dots
+      g.fillStyle=col;
+      [pA,pB,pC].forEach(function(p){ g.beginPath(); g.arc(p.x,p.y,3,0,7); g.fill(); });
+    });
+  }
+
+  function hexA(hex, a){
+    var r=parseInt(hex.slice(1,3),16),gg=parseInt(hex.slice(3,5),16),bb=parseInt(hex.slice(5,7),16);
+    return "rgba("+r+","+gg+","+bb+","+a+")";
+  }
+
+  // place label just outside the vertex, along the bisector away from opposite side
+  function labelVertex(g, p, tri, name, ang){
+    var toB={x:tri.B.x-p.x,y:tri.B.y-p.y}, toC={x:tri.C.x-p.x,y:tri.C.y-p.y};
+    var b=norm(toB), c=norm(toC);
+    var bis={x:b.x+c.x,y:b.y+c.y}; var n=norm(bis);
+    if (n.x===0&&n.y===0){ n={x:0,y:-1}; }
+    var lx=p.x - n.x*22, ly=p.y - n.y*22;
+    g.textAlign="center"; g.textBaseline="middle";
+    g.fillText(name, lx, ly);
+  }
+  function sideLabel(g, p1, p2, centroid, txt){
+    var mx=(p1.x+p2.x)/2, my=(p1.y+p2.y)/2;
+    var out={x:mx-centroid.x, y:my-centroid.y}; var n=norm(out);
+    g.textAlign="center"; g.textBaseline="middle";
+    g.fillText(txt, mx + n.x*16, my + n.y*16);
+  }
+  function norm(v){ var d=Math.hypot(v.x,v.y); return d<1e-9?{x:0,y:0}:{x:v.x/d,y:v.y/d}; }
+
+  // ---------- wiring ----------
+  $("case").addEventListener("change", function(){ showFields(); });
+  $("solve").addEventListener("click", solve);
+  document.getElementById("inputs").addEventListener("keydown", function(e){
+    if (e.key==="Enter") solve();
+  });
+  $("togglebar").addEventListener("change", function(e){
+    if (e.target.name==="sol"){ view=e.target.value; draw(); }
+  });
+
+  showFields();
+})();
+</script>
+</body>
+</html>

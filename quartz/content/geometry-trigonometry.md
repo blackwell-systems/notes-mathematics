@@ -1,6 +1,12 @@
 ---
 title: "Geometry & Trigonometry"
+prerequisites: ["functions-relations", "number-systems"]
+enables: ["complex-numbers", "calculus"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Number Systems](./number-systems)
+> **Leads to:** [Complex Numbers](./complex-numbers) · [Calculus](./calculus)
 
 Geometry studies the properties and relationships of shapes, sizes, and positions. Trigonometry extends geometric reasoning by connecting angles to ratios, providing the tools needed to analyze periodic phenomena, wave behavior, and spatial relationships. Together they form the mathematical foundation for physics, engineering, computer graphics, and machine learning (rotation matrices, Fourier transforms, and distance metrics all rely on these ideas).
 
@@ -629,6 +635,10 @@ The general sinusoidal function is $y = A\sin(B\theta - C) + D$, where:
 - $\frac{C}{B}$ = phase shift (horizontal shift)
 - $D$ = vertical shift (midline)
 
+Drag the $A$, $B$, $C$, $D$ sliders below to see each parameter's effect: $A$ stretches the amplitude, $B$ compresses the period, $C$ shifts it horizontally, and $D$ raises the midline, all labeled live on the graph.
+
+<iframe src="/static/interactive/geo-sinusoid-explorer.html" width="100%" height="640" style="border:none;"></iframe>
+
 ![Graph of y = sin(theta) over two full periods, a smooth wave oscillating between -1 and 1 with period 2 pi and amplitude 1](./media/trig-sine.png)
 
 ### Cosine Function
@@ -860,6 +870,10 @@ This matches the right side. $\square$
 ## Law of Sines and Law of Cosines
 
 These extend trigonometry to **oblique triangles** (triangles without a right angle). In any triangle with sides $a, b, c$ opposite angles $A, B, C$:
+
+Solve any triangle interactively below. Pick a case (SSS, SAS, ASA, AAS, or the ambiguous SSA), enter the known parts, and the solver finds the rest and draws the triangle to scale, including the 0, 1, or 2 triangles that the SSA case can produce.
+
+<iframe src="/static/interactive/geo-triangle-solver.html" width="100%" height="660" style="border:none;"></iframe>
 
 ### Law of Sines
 
