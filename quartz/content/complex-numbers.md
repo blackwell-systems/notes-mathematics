@@ -62,7 +62,7 @@ No real number satisfies this equation, so $i$ is not a point on the ordinary nu
 
 For example, $\sqrt{-9} = i\sqrt{9} = 3i$, and $\sqrt{-5} = i\sqrt{5}$.
 
-![Definition of the imaginary unit i as the square root of negative one, with i squared equal to negative one](./media/image56.jpeg)
+![The powers of i plotted on the complex plane at the four compass points (1, i, -1, -i); each multiplication by i is a 90-degree counterclockwise rotation, so the powers cycle every four steps](./media/powers-of-i-cycle.png)
 
 **Powers of i:**
 
@@ -265,6 +265,8 @@ Converting back to rectangular form: $6(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}) 
 
 **Geometric interpretation:** Multiplying by $z_2 = 2e^{i\pi/3}$ scales the distance from the origin by 2 and rotates the point by $\pi/3$ radians (60 degrees) counterclockwise.
 
+![Two complex numbers and their product drawn as arrows from the origin; the product's angle is the sum of the two angles and its length is the product of the two lengths, so multiplication rotates and scales](./media/complex-multiply-rotation.png)
+
 ### Division
 
 To divide two complex numbers in polar form, divide their moduli and subtract their angles:
@@ -327,6 +329,34 @@ $$z_2 = 2\left(\cos\tfrac{3\pi}{2} + i\sin\tfrac{3\pi}{2}\right) = 2\left(0 - i\
 
 The three cube roots of $8i$ are therefore $\sqrt{3} + i$, $-\sqrt{3} + i$, and $-2i$. Geometrically they are equally spaced around a circle of radius $2$, separated by $\tfrac{2\pi}{3}$ radians (120 degrees). You can check the first: $(\sqrt{3} + i)^3 = 8i$.
 
+## The Complex Exponential and Logarithm
+
+Euler's formula extends the exponential to any complex input. Writing $z = x + iy$,
+
+$$e^z = e^{x + iy} = e^x(\cos y + i\sin y),$$
+
+so $e^z$ has modulus $e^x$ and argument $y$. This is the natural setting for the complex **logarithm**, the inverse of $e^z$.
+
+**Definition.** For a nonzero complex number $z = re^{i\theta}$ (modulus $r = |z|$, argument $\theta$),
+
+$$\ln z = \ln r + i\theta = \ln|z| + i\arg(z).$$
+
+The real part is the ordinary natural log of the modulus; the imaginary part is the angle.
+
+**It is multivalued.** Because the argument is only defined up to full turns (rotating by $2\pi$ lands on the same point), the logarithm has infinitely many values:
+
+$$\ln z = \ln|z| + i(\theta + 2\pi k), \qquad k \in \mathbb{Z}.$$
+
+Restricting the argument to $(-\pi, \pi]$ selects the single **principal value**, written $\operatorname{Log} z$.
+
+**Example.** $\ln(-1)$: here $|-1| = 1$ and $\arg(-1) = \pi$, so
+
+$$\ln(-1) = \ln 1 + i\pi = i\pi,$$
+
+which is Euler's identity $e^{i\pi} = -1$ read backwards. This is *why* the real logarithm is undefined for negative numbers: their logarithms are complex, not real (the full set of values is $i\pi + 2\pi i k$). See the pointer from [Logarithms](./logarithms#undefined-values).
+
+**Example.** $\ln(2i)$: here $|2i| = 2$ and $\arg(2i) = \tfrac{\pi}{2}$, so the principal value is $\operatorname{Log}(2i) = \ln 2 + i\tfrac{\pi}{2}$.
+
 ## Complex Zeros of Polynomials
 
 Complex numbers complete the picture of polynomial factoring. Over the real numbers, some polynomials cannot be factored completely (for example, $x^2 + 1$ has no real roots). Over the complex numbers, every polynomial factors into linear terms.
@@ -364,4 +394,13 @@ The real root is $x = 1$. The factor $x^2 + 1 = 0$ gives $x = \pm i$.
 All zeros: $1, i, -i$. Note that $i$ and $-i$ form a conjugate pair.
 
 Complete factorization: $p(x) = (x - 1)(x - i)(x + i)$
+
+## Where Complex Numbers Show Up
+
+Complex numbers are far more than a device for solving quadratics; they are the natural language for anything involving rotation, oscillation, or frequency.
+
+- **Rotations in the plane.** Multiplying by $e^{i\theta}$ rotates a point about the origin by angle $\theta$ (and multiplying by $re^{i\theta}$ also scales by $r$). This makes complex multiplication the cleanest description of 2D rotation, and it is the ancestor of quaternions for 3D rotation in graphics and robotics.
+- **The Fourier transform.** Signals are decomposed into complex exponentials $e^{2\pi i f t}$, one per frequency. The **Fast Fourier Transform (FFT)** is one of the most important algorithms in computing, underpinning audio and image processing, data compression, and fast convolution. The [$n$th roots of unity](#nth-roots) above are exactly the sample points the FFT evaluates.
+- **Waves and oscillations.** Alternating-current circuits, quantum mechanics (whose state amplitudes are complex numbers), and any oscillating system are described with complex exponentials, because $e^{i\omega t}$ packages amplitude and phase into a single number.
+- **Machine learning.** Fourier features and spectral methods bring complex analysis into ML; convolution (a core neural-network operation) is multiplication in the frequency domain, and complex-valued networks are used for signal-heavy domains.
 
