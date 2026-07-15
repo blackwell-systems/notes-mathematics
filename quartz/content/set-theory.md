@@ -209,6 +209,8 @@ By double containment, $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$. $\black
 
 ## Pigeonhole Principle (PHP)
 
+![Four pigeons mapped by arrows into three holes, with one hole receiving two pigeons and highlighted: whenever m objects go into n containers with m greater than n, some container holds two or more, and in general some hole holds the ceiling of m over n](./media/st-pigeonhole.png)
+
 If $m$ objects (pigeons) are placed into $n$ containers (holes) with
 $m > n$, then at least one container holds **two or more** objects.
 
@@ -533,6 +535,8 @@ Modern axiomatic set theories (like Zermelo-Fraenkel set theory) avoid Russell's
 
 ## Power Set
 
+![The power set of the three-element set a, b, c drawn as a Hasse lattice ordered by inclusion: the empty set at the bottom, the three singletons above it, the three two-element subsets above those, and the full set at the top, for 2 to the third power equals 8 subsets, in rows of sizes 1, 3, 3, 1](./media/st-power-set-lattice.png)
+
 **Power Set:** The power set of a set **A**, denoted $\mathcal{P}(A)$ (read "the power set of A") or $2^A$, is the set of all subsets of **A**, including the empty set and **A** itself.
 
 **Definition:** $\mathcal{P}(A) = \{S \mid S \subseteq A\}$
@@ -570,6 +574,8 @@ Formally: $\forall i, j : i \neq j \Rightarrow A_i \cap A_j = \varnothing$
 **Example:** {1, 2}, {3, 4}, {5, 6} are pairwise disjoint.
 
 ## Partition of a Set
+
+![A set S of eight elements enclosed in a box and split into three disjoint colored blocks that together cover every element, illustrating a partition in which the blocks are pairwise disjoint and their union is all of S](./media/st-partition.png)
 
 **Partition:** A partition of a set **A** is a collection of non-empty, pairwise disjoint subsets of **A** whose union is **A**.
 
@@ -1089,6 +1095,8 @@ $$
 The proof still works: if $\{\{a\}\} = \{\{c\}, \{c, d\}\}$, then {c} = {c, d}, so c = d = a.
 
 ### Cartesian Product
+
+![The Cartesian product A cross B as a grid of points, with A equal to 1, 2, 3 along the horizontal axis and B equal to a, b along the vertical axis, giving the six ordered pairs, so the size of A cross B equals the size of A times the size of B, three times two equals six](./media/st-cartesian-product.png)
 
 **Cartesian Product:** The Cartesian product of two sets $A$ and $B$, written $A \times B$ (read "A cross B"), is the set of all ordered pairs where the first element belongs to $A$ and the second belongs to $B$.
 

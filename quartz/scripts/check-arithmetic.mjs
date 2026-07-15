@@ -1542,6 +1542,32 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
       JSON.stringify(comp(rho, sig)) !== JSON.stringify(comp(sig, rho))); }
 }
 
+// ================= Set Theory (diagrams) =================
+{
+  // pigeonhole: ceil(m/n) is the guaranteed max load
+  eq("PHP: 4 pigeons, 3 holes -> some hole has ceil(4/3) = 2", Math.ceil(4 / 3), 2);
+  eq("PHP: 10 into 3 -> ceil(10/3) = 4", Math.ceil(10 / 3), 4);
+  eq("PHP: 7 into 3 -> ceil(7/3) = 3", Math.ceil(7 / 3), 3);
+  check("PHP: 4 > 3 forces a shared hole", 4 > 3);
+  // power set of a 3-element set: 2^3 = 8 subsets, sizes counted by C(3,k) = 1,3,3,1
+  eq("|P({a,b,c})| = 2^3 = 8", 2 ** 3, 8);
+  check("subset counts by size are 1,3,3,1", [0, 1, 2, 3].map((k) => comb(3, k)).join(",") === "1,3,3,1");
+  eq("sum of subset counts = 8", [0, 1, 2, 3].reduce((s, k) => s + comb(3, k), 0), 8);
+  // Cartesian product cardinality and non-commutativity
+  { const A = [1, 2, 3], B = ["a", "b"];
+    eq("|A x B| = |A| * |B| = 6", A.length * B.length, 6);
+    const AxB = A.flatMap((a) => B.map((b) => `${a},${b}`));
+    const BxA = B.flatMap((b) => A.map((a) => `${b},${a}`));
+    eq("A x B has 6 ordered pairs", AxB.length, 6);
+    check("A x B != B x A (pairs are ordered)", JSON.stringify(AxB) !== JSON.stringify(BxA)); }
+  // partition: blocks pairwise disjoint and covering S, so their sizes sum to |S|
+  { const S = [1, 2, 3, 4, 5, 6, 7, 8], blocks = [[1, 2, 3], [4, 5], [6, 7, 8]];
+    eq("partition block sizes sum to |S| = 8", blocks.reduce((s, b) => s + b.length, 0), S.length);
+    const seen = new Set(); let disjoint = true;
+    for (const b of blocks) for (const x of b) { if (seen.has(x)) disjoint = false; seen.add(x); }
+    check("partition blocks are pairwise disjoint and cover S", disjoint && seen.size === S.length); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
