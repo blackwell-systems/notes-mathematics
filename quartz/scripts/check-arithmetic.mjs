@@ -1433,6 +1433,36 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("design-matrix x^2 entry for x=2 is 4", 2 ** 2, 4);
 }
 
+// ================= Functions & Relations (diagrams) =================
+{
+  // floor and ceiling
+  eq("floor(2.5) = 2", Math.floor(2.5), 2);
+  eq("ceil(2.5) = 3", Math.ceil(2.5), 3);
+  eq("floor(-1.5) = -2", Math.floor(-1.5), -2);
+  eq("ceil(-1.5) = -1", Math.ceil(-1.5), -1);
+  check("ceil(x) = -floor(-x)", [2.5, -1.5, 3.0, -0.2].every((x) => Math.ceil(x) === -Math.floor(-x)));
+  // even and odd functions
+  { const ev = (x) => x * x, od = (x) => x ** 3;
+    check("x^2 is even: f(-x)=f(x)", [1, 2, -3].every((x) => approx(ev(-x), ev(x))));
+    check("x^3 is odd: f(-x)=-f(x)", [1, 2, -3].every((x) => approx(od(-x), -od(x)))); }
+  // composition (f o g)(x) with g(x)=x+1, f(u)=u^2
+  { const g = (x) => x + 1, f = (u) => u * u; eq("(f o g)(2) = (2+1)^2 = 9", f(g(2)), 9); eq("(f o g)(x) at x=3 = 16", f(g(3)), 16); }
+  // signum
+  eq("sgn(-3) = -1", Math.sign(-3), -1);
+  eq("sgn(0) = 0", Math.sign(0), 0);
+  eq("sgn(5) = 1", Math.sign(5), 1);
+  // Heaviside step H(x) = 0 for x<0, 1 for x>=0
+  { const H = (x) => (x >= 0 ? 1 : 0); eq("H(-1) = 0", H(-1), 0); eq("H(0) = 1", H(0), 1); }
+  // periodicity of sine
+  check("sin is periodic with period 2pi", [0, 0.7, 2].every((x) => approx(Math.sin(x + 2 * Math.PI), Math.sin(x), 1e-12)));
+  // inverse reflection: (a,b) on f = e^x  <->  (b,a) on f^{-1} = ln
+  eq("e^0 = 1 and ln(1) = 0 (reflected point)", Math.log(Math.exp(0)), 0, 1e-12);
+  // equivalence classes: integers mod 3 give exactly 3 classes; 7 mod 3 = 1
+  { const cls = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8].map((n) => n % 3)); eq("integers mod 3 form 3 classes", cls.size, 3); eq("7 mod 3 = 1 (class [1])", 7 % 3, 1); }
+  // absolute value
+  eq("|-3| = 3", Math.abs(-3), 3);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

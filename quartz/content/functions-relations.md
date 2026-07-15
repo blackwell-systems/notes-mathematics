@@ -101,6 +101,8 @@ codomain).
 
 ### Properties of Relations
 
+![Four small directed graphs illustrating relation properties: reflexive with a self-loop at every node, symmetric with every edge drawn both ways, transitive where edges a to b and b to c force the implied edge a to c, and antisymmetric where no two distinct nodes have arrows in both directions](./media/fr-relation-properties.png)
+
 **Properties of Relations**
 
 #### Reflexive Property
@@ -429,6 +431,8 @@ these three classes.
 
 ### Equivalence Classes
 
+![Nine integers 0 through 8 drawn as dots and partitioned into three disjoint colored boxes by congruence modulo 3: the class of 0 holds 0, 3, 6; the class of 1 holds 1, 4, 7; and the class of 2 holds 2, 5, 8, showing that an equivalence relation partitions a set into disjoint classes](./media/fr-equivalence-classes.png)
+
 **Equivalence Class:** Given an equivalence relation **R** on a set **A** and an element $a \in A$, the equivalence class of **a** is the set of all elements in **A** that are related to **a** under **R**.
 
 **Notation:** $[a]_R$ or simply $[a]$
@@ -607,6 +611,8 @@ these three classes.
 
 ### Vertical Line Test
 
+![Two graphs demonstrating the vertical line test: a parabola y equals x squared where a vertical line meets the curve exactly once, so it is a function; and a sideways parabola x equals y squared where a vertical line meets the curve twice, so it is not a function](./media/fr-vertical-line-test.png)
+
 **Vertical Line Test:** A graph in the coordinate plane represents a function if and only if every vertical line intersects the graph at most once.
 
 **Why this works:** A function assigns exactly one output to each input. A vertical line at $x = a$ passes through every point with that $x$-value. If the line crosses the graph at two or more points, then the input $a$ would map to multiple outputs, violating the definition of a function.
@@ -674,6 +680,8 @@ subset in question is the entire **domain**, then the **image** and the
 **A** under **f** is denoted as **f(A)**. For a single element $a$, the value $f(a)$ is called the **image of $a$ under $f$**.
 
 ### Domain
+
+![A mapping diagram between a domain oval with elements a, b, c, d and a codomain oval with elements 1 through 5, with arrows a to 2, b to 3, c to 3, and d to 5. The range (image of the domain) is the hit subset 2, 3, 5, while 1 and 4 are unhit, and the preimage of 3 is the set b, c](./media/fr-domain-codomain-range.png)
 
 The domain of a function **f** is the set **X**, which includes all the
 possible inputs for the function. In terms of ordered pairs, the domain
@@ -867,6 +875,8 @@ The rule to remember: whenever a function is defined via representatives of equi
 
 ## Inverse Functions
 
+![The graph of f of x equals e to the x and its inverse the natural logarithm drawn as mirror images across the dashed line y equals x, with the point (0, 1) on the exponential reflecting to the point (1, 0) on the logarithm](./media/fr-inverse-reflection.png)
+
 The exponential and logarithm are the most important pair of inverse functions. See [Exponential Functions](./exponential-functions) and [Logarithms](./logarithms).
 
 **Inverse Function:** If a function **f: A → B** is bijective, then there exists a unique function **f^−1: B → A** called the inverse function, such that:
@@ -907,6 +917,8 @@ A function has an inverse if and only if it is bijective:
 **Horizontal Line Test:** A function has an inverse if and only if every horizontal line intersects its graph at most once.
 
 ## Composition of Functions
+
+![A left-to-right pipeline diagram of function composition: an input x enters box g to produce g of x, which enters box f to produce f of g of x, written f composed with g of x. The example uses g of x equals x plus 1 and f of u equals u squared, giving x plus 1 quantity squared, with the trace x equals 2 to g of 2 equals 3 to f of 3 equals 9](./media/fr-composition.png)
 
 Function composition is the mathematical foundation of the chain rule in [Calculus](./calculus), which is in turn the basis of backpropagation in machine learning.
 
@@ -1054,6 +1066,8 @@ Different families of functions have characteristic domain restrictions:
 
 ### Even and Odd Functions
 
+![Two graphs: an even function y equals x squared symmetric about the y-axis where f of negative x equals f of x, and an odd function y equals x cubed symmetric about the origin where f of negative x equals negative f of x](./media/fr-even-odd.png)
+
 **Even Function:** A function $f$ is even if $f(-x) = f(x)$ for all $x$ in the domain.
 
 - Graph is symmetric about the y-axis
@@ -1068,6 +1082,8 @@ Different families of functions have characteristic domain restrictions:
 
 ### Periodic Functions
 
+![The sine curve over several cycles with a horizontal double-headed arrow marking one full period of length 2 pi between corresponding peaks, and dashed lines at plus 1 and minus 1 marking the amplitude](./media/fr-periodic.png)
+
 **Periodic Function:** A function $f$ is periodic if there exists a positive number $p$ such that:
 
 $$f(x + p) = f(x)$$
@@ -1080,6 +1096,8 @@ for all $x$ in the domain. The smallest such positive number $p$ is called the *
 - $\tan(x)$ has period $\pi$
 
 ### Monotonic Functions
+
+![Three graphs: an increasing function that rises left to right, a decreasing function that falls left to right, and a non-monotonic parabola that decreases and then increases](./media/fr-monotonic.png)
 
 **Increasing Function:** A function $f$ is increasing on an interval if:
 
@@ -1173,6 +1191,8 @@ $\mid A \mid = \mid B \mid$. No Choice needed.)
 
 ## Piecewise Functions
 
+![A piecewise function graph: the parabola y equals x squared for x less than 1 ending in an open circle at the point (1, 1), and the constant value 3 for x at least 1 starting from a closed dot at the point (1, 3), illustrating that an open circle excludes a point and a closed dot includes it](./media/fr-piecewise.png)
+
 **Piecewise Function:** A piecewise function is a function defined by multiple sub-functions, each applying to a different interval of the domain.
 
 **General Form:**
@@ -1229,6 +1249,8 @@ A piecewise function is continuous at a boundary point $x = a$ if:
 $$\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = f(a)$$
 
 ## Function Transformations
+
+![A base parabola y equals x squared shown bold, with three dashed transformations: shifted up two units to x squared plus 2, shifted right two units to the quantity x minus 2 squared, and reflected across the x-axis to negative x squared](./media/fr-transformations.png)
 
 **Function Transformations** describe how to shift, stretch, compress, or reflect the graph of a function.
 
@@ -1299,6 +1321,8 @@ Apply in this order:
 
 ### Floor Function
 
+![Two staircase step graphs: the floor function with a closed dot at the left of each step and an open circle at the right, so the floor of 2.5 is 2; and the ceiling function with an open circle at the left and a closed dot at the right, so the ceiling of 2.5 is 3](./media/fr-floor-ceiling.png)
+
 **Floor Function:** $\lfloor x \rfloor$ (also called the **greatest integer function**)
 
 Returns the largest integer **less than or equal to** $x$.
@@ -1366,6 +1390,8 @@ Where $c$ is a constant.
 **Example:** $f(x) = 5$ for all $x$
 
 ### Absolute Value Function
+
+![Three graphs of special functions: the absolute value function as a V-shape through the origin, the signum function equal to minus 1, 0, or plus 1 with a closed dot at the origin and open circles at plus and minus 1, and the Heaviside step function jumping from 0 to 1 at the origin](./media/fr-special-functions.png)
 
 **Absolute Value Function:** Returns the magnitude (distance from zero) of a number.
 
