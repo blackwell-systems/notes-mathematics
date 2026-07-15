@@ -928,6 +928,10 @@ By [Bayes' theorem](./probability#bayes-theorem): the posterior is proportional 
 
 **The tradeoff:** Lowering $\alpha$ (being more strict about rejecting $H_0$) reduces Type I errors but increases Type II errors. You catch fewer false alarms, but you also miss more real effects.
 
+![Two overlapping bell curves: the null hypothesis H0 (no effect) on the left and the alternative H1 (real effect) on the right, separated by a vertical critical-value line. The red area under the H0 tail is alpha, the Type I error of 0.05; the purple area under H1 to the left of the line is beta, the Type II error of about 0.12; the green area under H1 to the right of the line is the power, one minus beta, about 0.88](./media/stats-type-i-ii-error.png)
+
+The picture shows why the errors trade off. Sliding the critical value left shrinks $\beta$ (more power) but grows $\alpha$; sliding it right does the reverse. The only way to shrink both at once is to separate the two curves, which means a larger sample or a bigger effect.
+
 ### Example: Testing Whether a Coin Is Fair
 
 You flip a coin 100 times and get 60 heads. Is the coin fair?
@@ -2077,6 +2081,8 @@ $$
 $$
 
 It squashes any real $z$ into $(0, 1)$: as $z \to +\infty$, $\sigma(z) \to 1$; as $z \to -\infty$, $\sigma(z) \to 0$; and $\sigma(0) = 0.5$. The S-shaped curve is steepest at the center and flattens at both ends, exactly the behavior we want for a probability.
+
+![The logistic sigmoid curve sigma of z equals 1 over 1 plus e to the minus z, rising smoothly from 0 to 1 with sigma of 0 equal to 0.5 and staying inside the valid probability band, contrasted with a dashed straight line that rises past 1 and drops below 0](./media/stats-sigmoid.png)
 
 ### The Model and the Log-Odds
 

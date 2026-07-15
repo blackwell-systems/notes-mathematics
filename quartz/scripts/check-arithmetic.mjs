@@ -1362,6 +1362,30 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("cross-entropy H(P,Q) = H(P) + D_KL(P||Q)", Hpq, H + kl, 1e-12); }
 }
 
+// ================= Statistics (Type I/II, power, logistic) =================
+{
+  // uses Phi / twoTail helpers defined at the top of this file
+  // Type I/II diagram: H0 ~ N(0,1), H1 ~ N(2.8,1), one-sided critical value 1.645
+  const crit = 1.645, mu1 = 2.8;
+  eq("alpha = P(Z > 1.645) = 0.05", 1 - Phi(crit), 0.05, 1e-3);
+  eq("beta = P(H1 < crit) approx 0.124", Phi(crit - mu1), 0.124, 2e-3);
+  eq("power = 1 - beta approx 0.876", 1 - Phi(crit - mu1), 0.876, 2e-3);
+  // coin-fairness example: 60 heads in 100, Z = 2, two-tailed p approx 0.046
+  eq("coin test Z = (60-50)/5 = 2", (60 - 50) / 5, 2);
+  eq("two-tailed p for Z=2 approx 0.046", twoTail(2), 0.0455, 2e-3);
+  // power/sample-size formula n approx ((z_{1-a/2}+z_{1-b})/d)^2 for d=0.5
+  eq("sample size ((1.96+0.84)/0.5)^2 = 31.4", ((1.96 + 0.84) / 0.5) ** 2, 31.36, 1e-2);
+  // logistic / sigmoid worked numbers from the loan example (b0=-2, b1=0.7)
+  const sig = (z) => 1 / (1 + Math.exp(-z));
+  eq("sigmoid sigma(0) = 0.5", sig(0), 0.5, 1e-12);
+  eq("sigmoid sigma(-0.6) approx 0.354", sig(-0.6), 0.354, 1e-3);
+  eq("sigmoid sigma(0.1) approx 0.525", sig(0.1), 0.525, 1e-3);
+  eq("odds ratio e^0.7 approx 2.01", Math.exp(0.7), 2.014, 1e-3);
+  { const oddsAt2 = Math.exp(-0.6), oddsAt3 = Math.exp(0.1); eq("odds ratio across unit step = e^0.7", oddsAt3 / oddsAt2, Math.exp(0.7), 1e-9); }
+  // log-odds are linear: logit(sigma(z)) = z
+  { const z = 0.1; eq("logit(sigma(z)) = z (inverse link)", Math.log(sig(z) / (1 - sig(z))), z, 1e-9); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
