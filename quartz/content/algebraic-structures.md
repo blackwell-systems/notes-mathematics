@@ -78,7 +78,7 @@ The three patterns you meet first are the group, the ring, and the field. Each i
 
 ### Group
 
-A **group** is a set $G$ with one operation (call it $*$) satisfying three axioms: the operation is *associative*, there is an *identity* element $e$ with $e * a = a * e = a$, and every element $a$ has an *inverse* $a^{-1}$ with $a * a^{-1} = e$. That is all. If the operation is also commutative ($a * b = b * a$), the group is called **abelian** (after Niels Abel). A group is the minimal setting in which "undoing" always makes sense.
+A **group** is a set $G$ with one operation (call it $*$) satisfying three axioms: the operation is *associative*, there is an *identity* element $e$ with $e * a = a * e = a$, and every element $a$ has an *inverse* $a^{-1}$ with $a * a^{-1} = a^{-1} * a = e$. That is all. If the operation is also commutative ($a * b = b * a$), the group is called **abelian** (after Niels Abel). A group is the minimal setting in which "undoing" always makes sense.
 
 Examples:
 
@@ -89,7 +89,7 @@ Examples:
 
 ### Ring
 
-A **ring** is a set $R$ with *two* operations, $+$ and $\times$, such that $R$ is an abelian group under $+$ (giving $0$, negatives, commutativity of addition), multiplication is associative, and multiplication distributes over addition. What a ring does *not* require is multiplicative inverses, or even commutativity of multiplication. So a ring is a field with the multiplicative-inverse axiom (and possibly commutativity of $\times$) dropped.
+A **ring** is a set $R$ with *two* operations, $+$ and $\times$, such that $R$ is an abelian group under $+$ (giving $0$, negatives, commutativity of addition), multiplication is associative and has an identity element $1$ (with $1 \cdot a = a \cdot 1 = a$), and multiplication distributes over addition. What a ring does *not* require is multiplicative inverses, or even commutativity of multiplication. So a ring is a field with the multiplicative-inverse axiom (and possibly commutativity of $\times$) dropped.
 
 Examples:
 
@@ -115,9 +115,9 @@ Summary:
 | Ring | two ($+$, $\times$) | abelian group under $+$; $\times$ associative and distributes | $\mathbb{Z}$; $\mathbb{R}[x]$; $n\times n$ matrices; $\mathbb{Z}/n\mathbb{Z}$ |
 | Field | two ($+$, $\times$) | commutative ring; every nonzero element has a $\times$-inverse | $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$; $\mathbb{F}_p$ |
 
-The three sit in a strict hierarchy. Every field is a ring (it just satisfies extra axioms). Every ring is an abelian group under its addition (that is part of the definition of a ring). So each structure is a special case of the one before, gaining power by demanding more.
+The three are related, but not all by simple containment. Every field *is* a ring (it satisfies extra axioms: commutative multiplication, and inverses for nonzero elements). A ring, on the other hand, is not a special *kind* of group, because it carries a second operation that a group does not have; what is true is that every ring is an abelian group under its addition alone. So each step inward adds structure: a second operation takes you from a group to a ring, and multiplicative inverses take you from a ring to a field.
 
-![Nested hierarchy of algebraic structures: groups contain rings contain fields, each adding more axioms, with example sets labeled](./media/algebraic-structures-hierarchy.png)
+![Groups, rings, and fields drawn as levels of increasing structure: a ring is an abelian group under addition equipped with a second operation, and a field is a ring in which every nonzero element has a multiplicative inverse, with example sets labeled in each level](./media/algebraic-structures-hierarchy.png)
 
 ## Where these structures show up
 

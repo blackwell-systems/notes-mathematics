@@ -40,7 +40,7 @@ $$\mathbb{Q} = \left\{\, \frac{p}{q} \;\middle|\; p, q \in \mathbb{Z},\; q \neq 
 
 The number $\frac{p}{q}$ is read "$p$ over $q$." Two fractions name the same rational when they cross-multiply equally: $\frac{p}{q} = \frac{r}{s}$ exactly when $ps = qr$. So $\frac{1}{2} = \frac{2}{4} = \frac{3}{6}$, all the same point.
 
-Now every division by a nonzero number has an answer, because $q/q = 1$ means every nonzero rational has a multiplicative inverse. In the terms of [Algebraic Structures](./algebraic-structures), $\mathbb{Q}$ is the first system on our list that is a *field*: you can add, subtract, multiply, and divide (except by zero) and never leave the set.
+Now every division by a nonzero number has an answer, because every nonzero rational $p/q$ has a multiplicative inverse $q/p$ (their product is $\frac{p}{q}\cdot\frac{q}{p} = 1$). In the terms of [Algebraic Structures](./algebraic-structures), $\mathbb{Q}$ is the first system on our list that is a *field*: you can add, subtract, multiply, and divide (except by zero) and never leave the set.
 
 **Decimals: terminating and repeating.** Every rational, written as a decimal, either *terminates* or *eventually repeats* forever:
 
@@ -54,7 +54,7 @@ where the bar in $0.\overline{3}$ marks the block of digits that repeats without
 
 The symbol $\mathbb{R}$ is read "the reals." Informally, the reals are all the points on a continuous, gapless number line, the rationals *together with* every irrational number like $\sqrt{2}$, $\pi$, and $e$ that fills the holes.
 
-Making "gapless" precise is the whole content of the **completeness axiom**: every set of reals that is bounded above has a *least upper bound* inside $\mathbb{R}$. Completeness is what guarantees that $\sqrt{2}$ actually exists (it is the least upper bound of all rationals whose square is below $2$), and it is the foundation on which limits, continuity, derivatives, and integrals are built. The precise statement and its consequences are developed in [Real Analysis](./real-analysis).
+Making "gapless" precise is the whole content of the **completeness axiom**: every *nonempty* set of reals that is bounded above has a *least upper bound* inside $\mathbb{R}$. Completeness is what guarantees that $\sqrt{2}$ actually exists (it is the least upper bound of all rationals whose square is below $2$), and it is the foundation on which limits, continuity, derivatives, and integrals are built. The precise statement and its consequences are developed in [Real Analysis](./real-analysis).
 
 $\mathbb{R}$ is a field, like $\mathbb{Q}$, but it adds completeness, and that single extra property is what makes calculus possible.
 
