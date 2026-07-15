@@ -335,3 +335,107 @@ $$
 $\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{3(1) + 4(0)}{1^2 + 0^2} \langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$
 
 ![Projection of u = (3,4) onto v = (1,0): a dashed perpendicular drops from the head of u to the x-axis, and the green projection vector (3,0) is the shadow of u along the direction of v](./media/vec-projection.png)
+
+## Component and Direction Form
+
+Physics and navigation usually hand you a vector as a **magnitude and a direction** ("a 10 newton force at 30 degrees above horizontal"), but the componentwise algebra above needs it as $\langle x, y \rangle$. Converting between the two forms is one of the most common vector operations.
+
+**From magnitude and angle to components.** If a vector has magnitude $r$ (read "r") and points at an angle $\theta$ (read "theta") measured counterclockwise from the positive $x$-axis, then its components are
+
+$$
+\langle x, y \rangle = \langle r\cos\theta,\; r\sin\theta \rangle
+$$
+
+The horizontal leg is $r\cos\theta$ and the vertical leg is $r\sin\theta$: the vector is the hypotenuse of a right triangle whose legs are its components.
+
+![Resolving a force of magnitude 10 at 30 degrees into a horizontal component 10 cos 30 approximately 8.66 and a vertical component 10 sin 30 equals 5, drawn as the two legs of a right triangle under the vector](./media/vec-components.png)
+
+**Worked Example (physics):** A force of magnitude $10$ N acts at $30°$ above the horizontal. Its components are
+
+$$
+F_x = 10\cos 30° = 10\cdot\tfrac{\sqrt{3}}{2} \approx 8.66 \text{ N}, \qquad F_y = 10\sin 30° = 10\cdot\tfrac{1}{2} = 5 \text{ N}
+$$
+
+so $\mathbf{F} = \langle 8.66,\; 5 \rangle$ N.
+
+**From components to magnitude and angle.** Going the other way, the magnitude is the length $\lVert\mathbf v\rVert = \sqrt{x^2+y^2}$ and the direction angle is
+
+$$
+\theta = \operatorname{atan2}(y, x)
+$$
+
+read aloud as "arc-tangent-two of y and x." The two-argument $\operatorname{atan2}$ is used instead of $\arctan(y/x)$ because it returns the correct angle in all four quadrants (plain $\arctan$ cannot tell $\langle 1,1\rangle$ from $\langle -1,-1\rangle$, since their ratio $y/x$ is the same).
+
+**Worked Example:** The displacement $\langle 3, 4 \rangle$ has magnitude $\sqrt{9+16}=5$ and direction $\theta = \operatorname{atan2}(4,3) \approx 53.13°$.
+
+**Net force by components.** Because addition is componentwise, resolving each vector into components makes summing them trivial. A $3$ N force pointing east, $\langle 3, 0 \rangle$, plus a $4$ N force pointing north, $\langle 0, 4 \rangle$, gives a net force $\langle 3, 4 \rangle$ of magnitude $5$ N at $53.13°$ north of east.
+
+Writing $\langle x, y \rangle = x\langle 1,0\rangle + y\langle 0,1\rangle$ expresses the vector as a weighted sum of the two axis directions. That "weighted sum of building-block vectors" idea, called a linear combination, is the bridge to everything that follows.
+
+## Vectors in n Dimensions
+
+Everything so far used two or three components, but nothing forces that. A vector can have any number of components:
+
+$$
+\mathbf v = \langle v_1, v_2, \dots, v_n \rangle
+$$
+
+Such a vector lives in $\mathbb{R}^n$ (read "R-n"), the set of all ordered lists of $n$ real numbers. Every operation defined above except the cross product extends unchanged, componentwise:
+
+- **Addition and scaling** act component by component.
+- **Dot product:** $\mathbf u \cdot \mathbf v = \sum_{i=1}^{n} u_i v_i$ (read "the sum over $i$ of $u_i$ times $v_i$").
+- **Magnitude:** $\lVert \mathbf v \rVert = \sqrt{\sum_{i=1}^{n} v_i^2}$.
+
+The cross product is the exception: it is defined only in three dimensions. The dot product, by contrast, works in every dimension, which is why it does so much of the heavy lifting later.
+
+**Standard basis vectors.** In $\mathbb{R}^n$ the standard basis is $\mathbf e_1 = \langle 1,0,\dots,0\rangle,\ \mathbf e_2 = \langle 0,1,0,\dots,0\rangle,\ \dots,\ \mathbf e_n$ (each $\mathbf e_i$, read "e-sub-i," has a $1$ in slot $i$ and $0$ elsewhere). Any vector is the sum of its components times these basis vectors: $\mathbf v = v_1\mathbf e_1 + \dots + v_n\mathbf e_n$. In three dimensions these are the familiar $\mathbf i, \mathbf j, \mathbf k$.
+
+**Linear combination.** A **linear combination** of vectors $\mathbf v_1, \dots, \mathbf v_k$ is any sum
+
+$$
+a_1\mathbf v_1 + a_2\mathbf v_2 + \dots + a_k\mathbf v_k
+$$
+
+where the $a_i$ (read "a-sub-i") are scalars. This single scale-and-add operation is the most important idea built on vectors: the set of all linear combinations of some vectors is their **span**, and the questions of which combinations are redundant (linear independence) and which minimal set generates everything (a basis) are the starting point of [Linear Algebra Foundations](./linear-algebra-foundations).
+
+**Worked Example:** $2\langle 1,0\rangle + 3\langle 0,1\rangle = \langle 2,3\rangle$, and in three dimensions $\langle 1,2,3\rangle\cdot\langle 4,5,6\rangle = 4+10+18 = 32$.
+
+**Distance between vectors.** Treating vectors as points, the distance between $\mathbf u$ and $\mathbf v$ is the magnitude of their difference:
+
+$$
+d(\mathbf u, \mathbf v) = \lVert \mathbf u - \mathbf v \rVert = \sqrt{\sum_{i=1}^{n}(u_i - v_i)^2}
+$$
+
+This is the ordinary Euclidean distance. For $\mathbf u = \langle 1,2,2\rangle$ and $\mathbf v = \langle 4,6,2\rangle$, the difference is $\langle -3,-4,0\rangle$, so $d = \sqrt{9+16+0} = 5$.
+
+## Applications: Physics and Machine Learning
+
+The same handful of operations power two very different fields.
+
+### Physics
+
+- **Work** is the dot product of force and displacement: $W = \mathbf F \cdot \mathbf d$ (read "W equals F dot d"). A force $\mathbf F = \langle 3, 4\rangle$ N moving an object through displacement $\mathbf d = \langle 2, 0\rangle$ m does $W = 3(2) + 4(0) = 6$ joules. Only the part of the force along the motion counts, which is exactly what the dot product measures.
+- **Torque** is the cross product of the lever arm and the force: $\boldsymbol\tau = \mathbf r \times \mathbf F$ (read "tau equals r cross F"). With $\mathbf r = \langle 2,0,0\rangle$ m and $\mathbf F = \langle 0,3,0\rangle$ N, $\boldsymbol\tau = \langle 0,0,6\rangle$ newton-meters: a magnitude-$6$ torque about the $z$-axis. The perpendicular direction from the cross product is the axis the force twists around.
+- **Net force** is vector addition, resolved by components as shown above.
+
+### Machine Learning
+
+In machine learning a single data example is stored as a **feature vector**: a point in $\mathbb{R}^n$ whose components are measured features. A house might be $\langle \text{square feet},\ \text{bedrooms},\ \text{age}\rangle$; a $28\times 28$ pixel image is a vector in $\mathbb{R}^{784}$. The vector operations then become the core computations.
+
+- **Cosine similarity** measures how alike two vectors are in direction, ignoring their lengths:
+$$
+\cos\theta = \frac{\mathbf u \cdot \mathbf v}{\lVert\mathbf u\rVert\,\lVert\mathbf v\rVert} \in [-1, 1]
+$$
+It is $1$ for vectors pointing the same way, $0$ for perpendicular, and $-1$ for opposite. This is the standard way to compare word or document embeddings. For $\mathbf u = \langle 1,1\rangle$ and $\mathbf v = \langle 1,0\rangle$, $\cos\theta = \frac{1}{\sqrt 2} \approx 0.707$ (a $45°$ angle).
+
+![Cosine similarity between a reference vector and three others: a nearly aligned vector with cosine about 0.94, a perpendicular vector with cosine 0, and an opposing vector with negative cosine, all drawn from a common origin](./media/vec-cosine-similarity.png)
+
+- **Euclidean distance** $\lVert\mathbf u - \mathbf v\rVert$ measures how far apart two examples are; the k-nearest-neighbors classifier labels a new point by the labels of the closest feature vectors.
+- **The linear model, or neuron.** The fundamental computation in a linear model (and in one unit of a neural network) is a weighted sum of inputs, which is a dot product of a weight vector $\mathbf w$ with the input $\mathbf x$ plus a bias $b$:
+$$
+s = \mathbf w \cdot \mathbf x + b
+$$
+With weights $\mathbf w = \langle 0.5, -1, 2\rangle$, input $\mathbf x = \langle 4, 1, 0.5\rangle$, and bias $b = 1$, the score is $s = (2 - 1 + 1) + 1 = 3$. Training a model means adjusting $\mathbf w$ and $b$ so these scores are useful.
+- **Normalization.** Dividing a vector by its magnitude, $\mathbf x / \lVert\mathbf x\rVert$, rescales every example to length $1$, a common preprocessing step so that magnitude differences do not dominate.
+
+These uses all reduce to addition, scaling, the dot product, and magnitude: the operations on this page. The theory of what collections of vectors can represent continues in [Linear Algebra Foundations](./linear-algebra-foundations).

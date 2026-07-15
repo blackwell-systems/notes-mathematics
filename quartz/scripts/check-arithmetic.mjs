@@ -1238,6 +1238,32 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("unit vector of <3,4> has magnitude 1", mag(smul(1 / mag([3, 4]), [3, 4])), 1);
 }
 
+// ================= Vectors: components, n-D, physics & ML (vector page) =================
+{
+  const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);
+  const mag = (a) => Math.sqrt(dot(a, a));
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const deg = (r) => (r * 180) / Math.PI;
+  // component / direction form
+  eq("10 cos 30 deg = 8.66 (Fx)", 10 * Math.cos(Math.PI / 6), 8.66, 5e-3);
+  eq("10 sin 30 deg = 5 (Fy)", 10 * Math.sin(Math.PI / 6), 5, 1e-9);
+  eq("direction of <3,4>: atan2(4,3) = 53.13 deg", deg(Math.atan2(4, 3)), 53.13, 1e-2);
+  // net force <3,0>+<0,4> = <3,4>, magnitude 5
+  eq("net force |<3,4>| = 5 N", mag([3, 0].map((x, i) => x + [0, 4][i])), 5);
+  // n-dimensional dot and a linear combination
+  eq("<1,2,3>.<4,5,6> = 32", dot([1, 2, 3], [4, 5, 6]), 32);
+  check("2<1,0> + 3<0,1> = <2,3>", JSON.stringify([2 * 1 + 3 * 0, 2 * 0 + 3 * 1]) === JSON.stringify([2, 3]));
+  // Euclidean distance |<1,2,2> - <4,6,2>| = 5
+  eq("distance <1,2,2> to <4,6,2> = 5", mag([1 - 4, 2 - 6, 2 - 2]), 5);
+  // physics: work = F.d, torque = r x F
+  eq("work W = <3,4>.<2,0> = 6 J", dot([3, 4], [2, 0]), 6);
+  check("torque <2,0,0> x <0,3,0> = <0,0,6>", JSON.stringify(cross([2, 0, 0], [0, 3, 0])) === JSON.stringify([0, 0, 6]));
+  // ML: cosine similarity, neuron w.x + b, and the diagram's "aligned ~0.94"
+  eq("cosine similarity <1,1>,<1,0> = 1/sqrt2 ~ 0.707", dot([1, 1], [1, 0]) / (mag([1, 1]) * mag([1, 0])), 0.7071, 1e-3);
+  eq("neuron w.x + b for w=<0.5,-1,2>, x=<4,1,0.5>, b=1 gives 3", dot([0.5, -1, 2], [4, 1, 0.5]) + 1, 3, 1e-9);
+  eq("diagram aligned case cos(<3,0>,<2.7,1>) ~ 0.94", dot([3, 0], [2.7, 1]) / (mag([3, 0]) * mag([2.7, 1])), 0.94, 5e-3);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
