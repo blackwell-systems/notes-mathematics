@@ -848,6 +848,8 @@ $$
 
 ## Tautologies, Contradictions, and Contingencies
 
+![Three truth tables illustrating the three kinds of formula: a tautology P or not P whose output column is always true, a contradiction P and not P whose column is always false, and a contingency P implies Q whose column has both true and false rows](./media/pl-tautology-contradiction.png)
+
 **Tautology:** A proposition that is always true, regardless of the truth values of its components.
 
 **Examples:**
@@ -983,6 +985,8 @@ A set of connectives is **functionally complete** (or **adequate**) if every tru
 
 ### One Connective Is Enough: NAND and NOR
 
+![Three logic circuits showing the NAND gate is functionally complete: NOT built from one NAND with both inputs tied to P, AND built from two NANDs, and OR built from three NANDs, each drawn with the D-shaped gate body and an output inversion bubble, with the formulas not-P equals P NAND P, P and Q equals the quantity P NAND Q NANDed with itself, and P or Q equals P-NAND-P NANDed with Q-NAND-Q](./media/pl-nand-gates.png)
+
 Two of the sixteen are each, on their own, functionally complete. They are the only single binary connectives with this property, and they are the reason digital hardware can be built from one repeated gate.
 
 **NAND** (the **Sheffer stroke**, $P \uparrow Q$, read "P nand Q", meaning $\neg(P \wedge Q)$) generates everything:
@@ -1066,6 +1070,8 @@ Conclusion
 **Notation:** $P_1, P_2, \ldots, P_n \vdash Q$ (the conclusion $Q$ is derivable from the premises). By soundness and completeness (see Syntax and Semantics above), this holds exactly when $P_1, \ldots, P_n \vDash Q$, that is, when every valuation making all premises true also makes $Q$ true.
 
 ### Validity vs Soundness
+
+![Nested ellipses showing sound arguments as a subset of valid arguments, which are a subset of all arguments: a sound argument is valid with all premises actually true (Socrates is mortal); a valid but unsound argument has correct structure but a false premise (penguins can fly); and an invalid argument has bad structure (all dogs are cats), drawn outside the valid region](./media/pl-validity-soundness.png)
 
 **Valid Argument:** An argument where IF all premises are true, THEN the conclusion must be true.
 

@@ -1640,6 +1640,26 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("a.s. and L^p are incomparable (neither reaches the other)", !reach("as", "lp") && !reach("lp", "as")); }
 }
 
+// ================= Propositional Logic (tautology, pure-NAND, soundness) =================
+{
+  const nand = (p, q) => !(p && q);
+  const bools = [true, false];
+  const combos = [[true, true], [true, false], [false, true], [false, false]];
+  // tautology / contradiction / contingency
+  check("P or not P is a tautology (column all true)", bools.every((p) => (p || !p) === true));
+  check("P and not P is a contradiction (column all false)", bools.every((p) => (p && !p) === false));
+  { const col = combos.map(([p, q]) => !p || q); check("P -> Q is a contingency (column has both T and F)", col.includes(true) && col.includes(false)); }
+  // the page's pure-NAND constructions (Sheffer stroke)
+  check("NOT from NAND: P|P = not P", bools.every((p) => nand(p, p) === !p));
+  check("AND from NAND: (P|Q)|(P|Q) = P and Q", combos.every(([p, q]) => nand(nand(p, q), nand(p, q)) === (p && q)));
+  check("OR from NAND: (P|P)|(Q|Q) = P or Q", combos.every(([p, q]) => nand(nand(p, p), nand(q, q)) === (p || q)));
+  // duality: the dual of the excluded middle (tautology) is non-contradiction (contradiction)
+  check("dual of P or not P (taut) is P and not P (contradiction)", bools.every((p) => (p || !p) === true) && bools.every((p) => (p && !p) === false));
+  // validity vs soundness: sound = valid AND all premises true
+  { const sound = (valid, premisesTrue) => valid && premisesTrue;
+    check("sound = valid AND premises-true; a valid arg with a false premise is unsound", sound(true, true) === true && sound(true, false) === false); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
