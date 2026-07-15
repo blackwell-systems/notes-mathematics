@@ -37,6 +37,12 @@ The **arithmetic harness** re-proves every worked example from scratch. When you
 change a numeric worked example in the notes, add/adjust an assertion in
 `check-arithmetic.mjs` so the example stays machine-verified.
 
+`scripts/inject-lightbox.mjs` is a **post-build** pass (runs after the gates, before the
+Pages upload) that inlines a click-to-zoom image lightbox into every `public/*.html`. It is
+idempotent. Run it after a local `npx quartz build` if you want to preview the lightbox.
+It is a post-build injector rather than a Quartz plugin on purpose: the plugin lockfile pins
+non-portable absolute paths, so a post-build step is the portable choice.
+
 ## Content conventions (non-negotiable)
 
 - **Foundations-first:** define basic terms and motivate a concept before any formula.
