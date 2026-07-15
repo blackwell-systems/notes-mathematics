@@ -627,6 +627,8 @@ The general sinusoidal function is $y = A\sin(B\theta - C) + D$, where:
 - $\frac{C}{B}$ = phase shift (horizontal shift)
 - $D$ = vertical shift (midline)
 
+![Graph of y = sin(theta) over two full periods, a smooth wave oscillating between -1 and 1 with period 2 pi and amplitude 1](./media/trig-sine.png)
+
 ### Cosine Function
 
 $$
@@ -640,6 +642,8 @@ $$
 
 The cosine function is a phase-shifted sine: $\cos\theta = \sin\left(\theta + \frac{\pi}{2}\right)$.
 
+![Graph of y = cos(theta) over two periods, shown together with the sine curve dashed to illustrate that cosine is the sine wave shifted left by pi over 2](./media/trig-cosine.png)
+
 ### Tangent Function
 
 $$
@@ -650,6 +654,8 @@ $$
 - **Range:** all real numbers $(-\infty, \infty)$
 - **Period:** $\pi$ (not $2\pi$)
 - **Vertical asymptotes** at $\theta = \frac{\pi}{2} + n\pi$ for integer $n$
+
+![Graph of y = tan(theta) showing its repeating branches with period pi and vertical asymptotes at the odd multiples of pi over 2 where cosine is zero](./media/trig-tangent.png)
 
 ### Reciprocal Functions
 
