@@ -84,6 +84,10 @@ $$
 
 A die roll carries more information than a coin flip because there are more possible outcomes.
 
+![A curve of information content I(x) = minus log base 2 of p against the probability p, decreasing from very large values as p approaches 0 down to 0 at p = 1, with the fair coin at 1 bit, the fair die at 2.585 bits, a biased heads at 0.152 bits, and a rare tails at 3.322 bits marked as points](./media/it-surprise-curve.png)
+
+The curve makes the three requirements visible at once: it is $0$ at $p = 1$ (certainty carries no information), it rises without bound as $p \to 0$ (rare outcomes are very informative), and because it is a logarithm, the information from independent events adds.
+
 ## Entropy
 
 ### Definition
@@ -149,6 +153,30 @@ H(X) = -\sum_{i=1}^{6} \frac{1}{6} \log_2\left(\frac{1}{6}\right) = -6 \cdot \fr
 $$
 
 You need about 2.585 yes/no questions on average to identify which face came up.
+
+### Entropy as the Compression Limit (Source Coding)
+
+Entropy is not just a measure of expected surprise; Shannon proved it has a concrete operational meaning. Suppose you want to encode a long stream of symbols as a string of bits, losslessly, using as few bits as possible. The trick is to give **frequent symbols short codewords and rare symbols long ones** (this is exactly what Morse code does: the common letter E is a single dot). The ideal length for a symbol $x$ is its surprise, $-\log_2 p(x)$ bits.
+
+**Shannon's source coding theorem.** The minimum possible average codeword length $L$ for a source $X$ is bounded by
+
+$$
+H(X) \le L < H(X) + 1
+$$
+
+No lossless code can use fewer than $H(X)$ bits per symbol on average. Entropy is the hard floor on compression: it is the number of bits genuinely needed to describe the source.
+
+**Worked example.** Take four symbols with probabilities $p(A) = 0.5$, $p(B) = 0.25$, $p(C) = 0.125$, $p(D) = 0.125$. The entropy is
+
+$$
+H(X) = 0.5(1) + 0.25(2) + 0.125(3) + 0.125(3) = 1.75 \text{ bits}
+$$
+
+(each term is $p(x)\log_2\frac{1}{p(x)}$). A **Huffman code** assigns $A \to 0$, $B \to 10$, $C \to 110$, $D \to 111$. These are a **prefix code**: no codeword is the start of another, so a bit string decodes unambiguously. Its average length is $0.5(1) + 0.25(2) + 0.125(3) + 0.125(3) = 1.75$ bits per symbol, exactly the entropy. A naive fixed-length code would spend $2$ bits on each of the four symbols, so matching the entropy saves $12.5\%$.
+
+![A Huffman coding tree for four symbols A, B, C, D with probabilities 0.5, 0.25, 0.125, 0.125, whose codewords 0, 10, 110, 111 have lengths 1, 2, 3, 3, giving an average code length of 1.75 bits that exactly equals the entropy, compared with 2 bits for a fixed-length code](./media/it-source-coding.png)
+
+This is why the cross-entropy and KL formulas below are described in "bits": cross-entropy $H(P, Q)$ is the average code length you pay when you build your code for the wrong distribution $Q$ but the data actually comes from $P$, and the KL divergence $D_{\text{KL}}(P \| Q)$ is precisely the *extra* bits wasted by that mismatch.
 
 ### The Binary Entropy Function
 
@@ -275,6 +303,10 @@ The asymmetry of KL divergence leads to two distinct optimization behaviors, bot
 **Reverse KL** $D_{\text{KL}}(Q \| P)$: Minimizing this over $Q$ penalizes $Q$ heavily wherever $Q$ has probability mass but $P$ does not. The result is **mode-seeking**: $Q$ concentrates on one mode of $P$ and ignores others, producing a tighter but less complete approximation. This is the behavior in variational inference.
 
 **Example:** Suppose $P$ is a bimodal distribution (two peaks). Forward KL produces a $Q$ that covers both peaks (perhaps a broad single Gaussian spanning both). Reverse KL produces a $Q$ that locks onto one peak and ignores the other.
+
+![Two panels fitting a single Gaussian Q to a two-peaked target distribution P: on the left, minimizing forward KL divergence produces a broad Q that spans and covers both peaks (mode-covering); on the right, minimizing reverse KL produces a narrow Q concentrated on just one peak (mode-seeking)](./media/it-forward-reverse-kl.png)
+
+This asymmetry is not a technicality: it is why maximum likelihood (forward KL) and variational inference (reverse KL) can fit visibly different approximations to the same data.
 
 ### Worked Example
 

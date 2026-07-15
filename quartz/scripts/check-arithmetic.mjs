@@ -1330,6 +1330,38 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("Thales: inscribed angle in a semicircle = 90", 180 / 2, 90);
 }
 
+// ================= Information Theory (source coding, forward/reverse KL) =================
+{
+  const log2 = (x) => Math.log(x) / Math.log(2);
+  // surprise curve worked points
+  eq("surprise -log2(0.5) = 1 bit", -log2(0.5), 1, 1e-12);
+  eq("surprise -log2(0.9) = 0.152 bits", -log2(0.9), 0.152, 1e-3);
+  eq("surprise -log2(0.1) = 3.322 bits", -log2(0.1), 3.322, 1e-3);
+  eq("surprise -log2(1/6) = 2.585 bits", -log2(1 / 6), 2.585, 1e-3);
+  // source coding: dyadic source entropy equals optimal Huffman average length
+  { const p = [0.5, 0.25, 0.125, 0.125], len = [1, 2, 3, 3];
+    const H = -p.reduce((s, pi) => s + pi * log2(pi), 0);
+    const L = p.reduce((s, pi, i) => s + pi * len[i], 0);
+    eq("dyadic source entropy = 1.75 bits", H, 1.75, 1e-12);
+    eq("Huffman average code length = 1.75 bits", L, 1.75, 1e-12);
+    check("Huffman achieves the entropy (L = H)", approx(L, H, 1e-12));
+    eq("fixed-length code uses 2 bits/symbol", Math.ceil(log2(4)), 2);
+    // Kraft inequality holds with equality for a complete prefix code
+    eq("Kraft sum = 1 for {1,2,3,3}", len.reduce((s, l) => s + 2 ** -l, 0), 1, 1e-12); }
+  // forward/reverse KL asymmetry (page worked example), Bernoulli 0.7 vs 0.5
+  { const kl = (P, Q) => P.reduce((s, pi, i) => (pi > 0 ? s + pi * log2(pi / Q[i]) : s), 0);
+    const P = [0.7, 0.3], Q = [0.5, 0.5];
+    eq("D_KL(P||Q) Bernoulli 0.7,0.5 = 0.119 bits", kl(P, Q), 0.119, 1e-3);
+    eq("D_KL(Q||P) reverse = 0.126 bits", kl(Q, P), 0.126, 1e-3);
+    check("KL is asymmetric here", !approx(kl(P, Q), kl(Q, P), 1e-3)); }
+  // cross-entropy identity: H(P,Q) = H(P) + D_KL(P||Q)
+  { const P = [0.7, 0.3], Q = [0.5, 0.5];
+    const H = -P.reduce((s, pi) => s + pi * log2(pi), 0);
+    const Hpq = -P.reduce((s, pi, i) => s + pi * log2(Q[i]), 0);
+    const kl = P.reduce((s, pi, i) => s + pi * log2(pi / Q[i]), 0);
+    eq("cross-entropy H(P,Q) = H(P) + D_KL(P||Q)", Hpq, H + kl, 1e-12); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
