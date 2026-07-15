@@ -1386,6 +1386,26 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const z = 0.1; eq("logit(sigma(z)) = z (inverse link)", Math.log(sig(z) / (1 - sig(z))), z, 1e-9); }
 }
 
+// ================= Probability (PMF/PDF/CDF, inequalities) =================
+{
+  // 3-coin-flip PMF {1/8, 3/8, 3/8, 1/8}
+  const pmf = [1 / 8, 3 / 8, 3 / 8, 1 / 8];
+  eq("3-flip PMF sums to 1", pmf.reduce((s, p) => s + p, 0), 1, 1e-12);
+  eq("E[heads in 3 flips] = 1.5", pmf.reduce((s, p, x) => s + p * x, 0), 1.5, 1e-12);
+  // Markov: mean 2, a = 10 -> bound 0.2
+  eq("Markov bound E[X]/a for mean 2, a=10 = 0.2", 2 / 10, 0.2);
+  // Chebyshev: at least 1 - 1/k^2 within k sigma
+  eq("Chebyshev: within 2 sigma at least 75%", 1 - 1 / 2 ** 2, 0.75);
+  eq("Chebyshev: within 3 sigma at least ~89%", 1 - 1 / 3 ** 2, 0.8889, 1e-3);
+  eq("Chebyshev: within 4 sigma at least 93.75%", 1 - 1 / 4 ** 2, 0.9375);
+  // Chebyshev is conservative vs the normal (75% <= 95% within 2 sigma)
+  check("Chebyshev 2-sigma bound is looser than the normal 95%", (1 - 1 / 4) <= 0.95);
+  // a valid PDF integrates to 1: standard normal via trapezoid over [-8,8]
+  { let area = 0, h = 0.001; const f = (x) => Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI);
+    for (let x = -8; x < 8; x += h) area += h * (f(x) + f(x + h)) / 2;
+    eq("standard normal PDF integrates to 1", area, 1, 1e-4); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

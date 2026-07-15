@@ -241,6 +241,10 @@ The PDF must satisfy:
 
 **Cumulative distribution function (CDF):** $F(x) = P(X \leq x)$. The CDF works for both discrete and continuous variables and gives the probability that $X$ is at most $x$.
 
+![Three panels contrasting the ways a distribution is described: a discrete PMF drawn as stems at 0, 1, 2, 3 with heights one-eighth, three-eighths, three-eighths, one-eighth for the number of heads in three coin flips; a continuous PDF drawn as a bell curve with the area between a and b shaded to show that probability is area under the curve; and a CDF drawn as an S-shaped curve rising monotonically from 0 to 1](./media/prob-pmf-pdf-cdf.png)
+
+The three pictures capture the key contrast: a discrete variable places lumps of probability at individual points (the PMF), a continuous variable spreads probability as area under a curve (the PDF, where any single point has probability zero), and the CDF accumulates that probability from the left and works for both.
+
 ## Expected Value, Variance, and Standard Deviation
 
 ### Expected Value
@@ -1021,6 +1025,8 @@ Watch it happen below: keep adding trials (coin, die, or a skewed source) and se
 ## Probability Inequalities
 
 Probability inequalities give bounds on probabilities when you do not know the exact distribution. They are weaker than exact calculations but apply to broad classes of distributions.
+
+![Two panels illustrating the inequalities: on the left, Markov's inequality shown as a non-negative decreasing density with the right tail beyond a shaded, bounding the probability that X is at least a by the mean over a; on the right, Chebyshev's inequality shown as a symmetric bell with the two tails beyond mu minus 2 sigma and mu plus 2 sigma shaded, bounding the mass far from the mean by one over k squared](./media/prob-inequalities.png)
 
 ### Markov's Inequality
 
