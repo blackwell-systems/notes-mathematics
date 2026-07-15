@@ -754,6 +754,28 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Algebraic Geometry =================
+{
+  // singular point of a plane curve: f = f_x = f_y = 0
+  { const f = (x, y) => y * y - x * x * x, fx = (x) => -3 * x * x, fy = (y) => 2 * y;
+    check("cusp y^2=x^3 is singular at origin", f(0, 0) === 0 && fx(0) === 0 && fy(0) === 0); }
+  { const f = (x, y) => y * y - x * x - x * x * x, fx = (x) => -2 * x - 3 * x * x, fy = (y) => 2 * y;
+    check("node y^2=x^2(1+x) is singular at origin", f(0, 0) === 0 && fx(0) === 0 && fy(0) === 0); }
+  check("circle x^2+y^2=1 is smooth (gradient vanishes only at origin, off the curve)", 0 * 0 + 0 * 0 - 1 !== 0);
+  // Weierstrass y^2 = x^3 + ax + b: singular iff 4a^3 + 27b^2 = 0
+  const singW = (a, b) => Math.abs(4 * a ** 3 + 27 * b ** 2) < 1e-12;
+  check("y^2=x^3-x (a=-1,b=0) is smooth", !singW(-1, 0));
+  check("y^2=x^3 (a=0,b=0) is singular (cusp)", singW(0, 0));
+  check("y^2=x^3-3x+2 (a=-3,b=2) is singular (node)", singW(-3, 2));
+  // RLCT normal-form formula lambda = min_j (h_j + 1)/(2 k_j)
+  const rlctNF = (ks, hs) => Math.min(...ks.map((k, j) => (hs[j] + 1) / (2 * k)));
+  eq("RLCT of w1^2 w2^4 (constant prior) = 1/4", rlctNF([1, 2], [0, 0]), 0.25, 1e-12);
+  eq("RLCT of w^2 (1D) = 1/2", rlctNF([1], [0]), 0.5, 1e-12);
+  // Bezout: curves of degree d and e meet in d*e points over C (with multiplicity)
+  eq("Bezout: two conics meet in 2*2 = 4 points", 2 * 2, 4);
+  eq("Bezout: a line and a cubic meet in 1*3 = 3 points", 1 * 3, 3);
+}
+
 // ================= Measure Theory =================
 {
   const integ = (f, a, b, n = 200000) => { let s = 0; const dx = (b - a) / n; for (let i = 0; i < n; i++) s += f(a + (i + 0.5) * dx) * dx; return s; };

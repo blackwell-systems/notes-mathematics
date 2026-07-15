@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affine Variety Explorer</title>
+<style>
+  html,body{margin:0;background:#fbfcfd;color:#1c2126;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 16px 28px;}
+  h1{font-size:19px;margin:0 0 4px;}
+  .sub{font-size:13px;color:#5a636c;margin:0 0 14px;line-height:1.45;}
+  .controls{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center;}
+  button{font:inherit;font-size:13px;padding:6px 11px;border:1px solid #cdd5dd;background:#fff;
+    color:#1c2126;border-radius:6px;cursor:pointer;}
+  button:hover{background:#eef3f8;}
+  button.active{background:#2563c9;border-color:#2563c9;color:#fff;}
+  canvas{display:block;border:1px solid #e2e7ec;border-radius:8px;background:#fbfcfd;}
+  .sliders{margin:12px 0 8px;display:none;}
+  .sliders.show{display:block;}
+  .row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px;}
+  .row label{width:150px;color:#3a434c;}
+  .row input[type=range]{flex:1;}
+  .row .val{width:56px;text-align:right;font-variant-numeric:tabular-nums;color:#2563c9;}
+  .readout{margin-top:12px;font-size:13.5px;line-height:1.6;background:#f4f7fa;
+    border:1px solid #e2e7ec;border-radius:8px;padding:11px 14px;}
+  .readout .eq{font-size:15px;font-weight:600;margin-bottom:4px;}
+  .verdict{font-weight:700;}
+  .smooth{color:#1f8b4c;}
+  .singular{color:#c0392b;}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .caption{margin-top:12px;font-size:12.5px;color:#5a636c;line-height:1.5;
+    border-top:1px solid #e6ebef;padding-top:10px;}
+  code{background:#eceff3;padding:1px 4px;border-radius:4px;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Affine Variety Explorer: smooth curves, nodes &amp; cusps</h1>
+  <p class="sub">Plots the real zero set { (x,&thinsp;y) : f(x,&thinsp;y)=0 } of a plane curve and marks its
+  <span style="color:#c0392b;font-weight:600;">singular points</span> &mdash; the places where
+  f = &part;f/&part;x = &part;f/&part;y = 0 all vanish at once.</p>
+
+  <div class="controls" id="presetBar"></div>
+
+  <div class="sliders" id="sliders">
+    <div class="row"><label>a</label><input type="range" id="a" min="-2.5" max="2.5" step="0.05" value="-1"><span class="val mono" id="aVal">-1.00</span></div>
+    <div class="row"><label>b</label><input type="range" id="b" min="-2.5" max="2.5" step="0.05" value="0"><span class="val mono" id="bVal">0.00</span></div>
+  </div>
+
+  <canvas id="cv" width="720" height="380"></canvas>
+
+  <div class="readout" id="readout"></div>
+
+  <p class="caption">A point is <b>singular</b> when both partial derivatives vanish there on the curve:
+  the gradient gives no well-defined tangent line, so the variety is not locally a smooth curve
+  (a node has two crossing branches, a cusp a single sharp point).</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var cv = document.getElementById("cv"),
+    ctx = cv.getContext("2d"),
+    W = cv.width, H = cv.height;
+
+// world window
+var X0=-2.5, X1=2.5, Y0=-2.5, Y1=2.5;
+function sx(x){ return (x-X0)/(X1-X0)*W; }
+function sy(y){ return H - (y-Y0)/(Y1-Y0)*H; }
+
+// ---- presets: f and analytic partials -----------------------------------
+var presets = [
+  { name:"Circle (smooth)",
+    eq:"x² + y² − 1 = 0",
+    f:function(x,y){return x*x+y*y-1;},
+    fx:function(x,y){return 2*x;},
+    fy:function(x,y){return 2*y;} },
+  { name:"Node",
+    eq:"y² − x² − x³ = 0",
+    f:function(x,y){return y*y - x*x - x*x*x;},
+    fx:function(x,y){return -2*x - 3*x*x;},
+    fy:function(x,y){return 2*y;} },
+  { name:"Cusp",
+    eq:"y² − x³ = 0",
+    f:function(x,y){return y*y - x*x*x;},
+    fx:function(x,y){return -3*x*x;},
+    fy:function(x,y){return 2*y;} },
+  { name:"Pair of lines",
+    eq:"x·y = 0",
+    f:function(x,y){return x*y;},
+    fx:function(x,y){return y;},
+    fy:function(x,y){return x;} },
+  { name:"Smooth cubic",
+    eq:"y² − x³ + x = 0",
+    f:function(x,y){return y*y - x*x*x + x;},
+    fx:function(x,y){return -3*x*x + 1;},
+    fy:function(x,y){return 2*y;} }
+];
+
+var WMODE = "weierstrass";
+var state = { mode:0 };  // index into presets, or WMODE
+
+// ---- current f / partials ------------------------------------------------
+function current(){
+  if(state.mode===WMODE){
+    var a=+aEl.value, b=+bEl.value;
+    return {
+      a:a, b:b,
+      eq:"y² = x³ + ("+fmt(a)+")·x + ("+fmt(b)+")",
+      f:function(x,y){return y*y - x*x*x - a*x - b;},
+      fx:function(x,y){return -3*x*x - a;},
+      fy:function(x,y){return 2*y;}
+    };
+  }
+  return presets[state.mode];
+}
+
+function fmt(v){ return (Math.round(v*100)/100).toFixed(2); }
+
+// ---- axes / grid ---------------------------------------------------------
+function drawAxes(){
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle="#eef1f4"; ctx.lineWidth=1;
+  ctx.beginPath();
+  for(var gx=Math.ceil(X0);gx<=X1;gx++){ ctx.moveTo(sx(gx),0); ctx.lineTo(sx(gx),H); }
+  for(var gy=Math.ceil(Y0);gy<=Y1;gy++){ ctx.moveTo(0,sy(gy)); ctx.lineTo(W,sy(gy)); }
+  ctx.stroke();
+  ctx.strokeStyle="#c4ccd4"; ctx.lineWidth=1.2;
+  ctx.beginPath();
+  ctx.moveTo(0,sy(0)); ctx.lineTo(W,sy(0));
+  ctx.moveTo(sx(0),0); ctx.lineTo(sx(0),H);
+  ctx.stroke();
+  // tick labels
+  ctx.fillStyle="#9aa4ad"; ctx.font="10px sans-serif"; ctx.textAlign="center";
+  for(var tx=Math.ceil(X0);tx<=X1;tx++){ if(tx!==0) ctx.fillText(tx, sx(tx), sy(0)+12); }
+  ctx.textAlign="left";
+  for(var ty=Math.ceil(Y0);ty<=Y1;ty++){ if(ty!==0) ctx.fillText(ty, sx(0)+4, sy(ty)-2); }
+}
+
+// ---- marching squares: draw the 0-level set of f -------------------------
+function drawCurve(fn){
+  var N=280, dx=(X1-X0)/N, dy=(Y1-Y0)/N;
+  // sample grid
+  var g=new Float64Array((N+1)*(N+1));
+  for(var j=0;j<=N;j++){
+    var yy=Y0+j*dy;
+    for(var i=0;i<=N;i++){
+      g[j*(N+1)+i]=fn(X0+i*dx, yy);
+    }
+  }
+  function interp(v0,v1){ var d=v1-v0; return (Math.abs(d)<1e-14)?0.5:(-v0/d); }
+  ctx.strokeStyle="#2563c9"; ctx.lineWidth=2; ctx.lineJoin="round";
+  ctx.beginPath();
+  for(var jc=0;jc<N;jc++){
+    for(var ic=0;ic<N;ic++){
+      var idx=jc*(N+1)+ic;
+      var v00=g[idx], v10=g[idx+1], v01=g[idx+N+1], v11=g[idx+N+2];
+      // skip cells where any corner is undefined/huge
+      if(!isFinite(v00)||!isFinite(v10)||!isFinite(v01)||!isFinite(v11)) continue;
+      var c=(v00>0?1:0)|(v10>0?2:0)|(v11>0?4:0)|(v01>0?8:0);
+      if(c===0||c===15) continue;
+      var xl=X0+ic*dx, yl=Y0+jc*dy;
+      // edge crossings: bottom(0-1), right(1-2), top(2-3), left(3-0)
+      var pB={x:xl+interp(v00,v10)*dx, y:yl};
+      var pR={x:xl+dx, y:yl+interp(v10,v11)*dy};
+      var pT={x:xl+interp(v01,v11)*dx, y:yl+dy};
+      var pL={x:xl, y:yl+interp(v00,v01)*dy};
+      function seg(p,q){ ctx.moveTo(sx(p.x),sy(p.y)); ctx.lineTo(sx(q.x),sy(q.y)); }
+      switch(c){
+        case 1: case 14: seg(pL,pB); break;
+        case 2: case 13: seg(pB,pR); break;
+        case 3: case 12: seg(pL,pR); break;
+        case 4: case 11: seg(pR,pT); break;
+        case 6: case 9:  seg(pB,pT); break;
+        case 7: case 8:  seg(pL,pT); break;
+        case 5:  seg(pL,pT); seg(pB,pR); break; // saddle
+        case 10: seg(pL,pB); seg(pR,pT); break; // saddle
+      }
+    }
+  }
+  ctx.stroke();
+}
+
+// ---- singular-point search ----------------------------------------------
+// Newton refine on system (f, fx) treating fx,fy as functions; use gradient
+// descent on g = f^2 + fx^2 + fy^2 seeded from a coarse grid, keep distinct.
+function findSingular(P){
+  var found=[];
+  function g(x,y){ var f=P.f(x,y),a=P.fx(x,y),b=P.fy(x,y); return f*f+a*a+b*b; }
+  function near(x,y){ for(var k=0;k<found.length;k++){ if(Math.hypot(found[k].x-x,found[k].y-y)<0.05) return true;} return false; }
+  var M=90;
+  for(var j=0;j<=M;j++){
+    for(var i=0;i<=M;i++){
+      var x=X0+(X1-X0)*i/M, y=Y0+(Y1-Y0)*j/M;
+      // refine with a few gradient-descent steps (numeric grad of g)
+      var h=1e-4;
+      for(var it=0;it<60;it++){
+        var g0=g(x,y);
+        if(g0<1e-14) break;
+        var gxp=(g(x+h,y)-g(x-h,y))/(2*h);
+        var gyp=(g(x,y+h)-g(x,y-h))/(2*h);
+        var nrm=gxp*gxp+gyp*gyp;
+        if(nrm<1e-18) break;
+        var step=g0/nrm;                 // Gauss-Newton-ish on scalar g
+        step=Math.min(step,0.3);
+        x-=step*gxp; y-=step*gyp;
+        if(x<X0-0.2||x>X1+0.2||y<Y0-0.2||y>Y1+0.2) break;
+      }
+      if(x<X0-0.05||x>X1+0.05||y<Y0-0.05||y>Y1+0.05) continue;
+      // snap tiny coords to zero
+      if(Math.abs(x)<2e-4) x=0;
+      if(Math.abs(y)<2e-4) y=0;
+      if(Math.abs(P.f(x,y))<1e-4 && Math.abs(P.fx(x,y))<1e-4 && Math.abs(P.fy(x,y))<1e-4){
+        if(!near(x,y)) found.push({x:x,y:y});
+      }
+    }
+  }
+  return found;
+}
+
+// classify node vs cusp via the Hessian of f at the singular point.
+// For a singular point, the quadratic form (Hessian) discriminant
+// fxx*fyy - fxy^2 : <0 node (two real tangents), =0 cusp/degenerate, >0 isolated.
+function classify(P,x,y){
+  var h=1e-3;
+  var fxx=(P.fx(x+h,y)-P.fx(x-h,y))/(2*h);
+  var fyy=(P.fy(x,y+h)-P.fy(x,y-h))/(2*h);
+  var fxy=(P.fx(x,y+h)-P.fx(x,y-h))/(2*h);
+  var det=fxx*fyy - fxy*fxy;
+  if(det < -1e-6) return "node";
+  if(det >  1e-6) return "isolated point";
+  return "cusp";
+}
+
+function drawSingular(pts){
+  ctx.fillStyle="#c0392b"; ctx.strokeStyle="#fff"; ctx.lineWidth=1.5;
+  for(var k=0;k<pts.length;k++){
+    ctx.beginPath(); ctx.arc(sx(pts[k].x),sy(pts[k].y),5,0,2*Math.PI);
+    ctx.fill(); ctx.stroke();
+  }
+}
+
+// ---- render --------------------------------------------------------------
+function render(){
+  var P=current();
+  drawAxes();
+  drawCurve(P.f);
+  var sings, weier=(state.mode===WMODE), delta, quant;
+  if(weier){
+    quant = 4*P.a*P.a*P.a + 27*P.b*P.b;
+    delta = -16*quant;
+    if(Math.abs(quant) < 1e-9){
+      // singular: double root of x^3+ax+b. If a=b=0 -> cusp at 0.
+      var xs;
+      if(Math.abs(P.a)<1e-9 && Math.abs(P.b)<1e-9) xs=0;
+      else xs = -3*P.b/(2*P.a);   // double root formula = 9b/(... ) simplified: -3b/(2a)? use standard
+      // standard: double root r satisfies 3r^2 + a =0 and r^3+ar+b=0 -> r = -3b/(2a) when a!=0
+      sings=[{x:xs,y:0}];
+    } else sings=[];
+  } else {
+    sings = findSingular(P);
+  }
+  drawSingular(sings);
+  writeReadout(P, sings, weier, delta, quant);
+}
+
+function writeReadout(P, sings, weier, delta, quant){
+  var r=document.getElementById("readout");
+  var html='<div class="eq mono">'+P.eq+'</div>';
+  var isSing = sings.length>0;
+  if(weier){
+    var sgn = isSing ? '= 0' : (quant>0?'> 0':'< 0');
+    html+='<div>Discriminant &Delta; = &minus;16(4a³ + 27b²) = <b class="mono">'+fmt(delta)+'</b>';
+    html+=' &nbsp;<span class="mono">(4a³+27b² '+sgn+')</span></div>';
+  }
+  if(!isSing){
+    html+='<div class="verdict smooth">SMOOTH &mdash; the gradient (&part;f/&part;x, &part;f/&part;y) never vanishes on the curve.</div>';
+  } else {
+    var types=[];
+    for(var k=0;k<sings.length;k++){
+      var t = weier
+        ? ((Math.abs(P.a)<1e-9 && Math.abs(P.b)<1e-9) ? "cusp" : "node")
+        : classify(P, sings[k].x, sings[k].y);
+      types.push('('+fmt(sings[k].x)+', '+fmt(sings[k].y)+') &mdash; <b>'+t+'</b>');
+    }
+    html+='<div class="verdict singular">SINGULAR at '+sings.length+' point'+(sings.length>1?'s':'')+':</div>';
+    html+='<div class="mono" style="font-size:13px">'+types.join('<br>')+'</div>';
+  }
+  r.innerHTML=html;
+}
+
+// ---- controls ------------------------------------------------------------
+var bar=document.getElementById("presetBar");
+var buttons=[];
+presets.forEach(function(p,i){
+  var btn=document.createElement("button");
+  btn.textContent=p.name;
+  btn.onclick=function(){ setMode(i); };
+  bar.appendChild(btn); buttons.push(btn);
+});
+var wbtn=document.createElement("button");
+wbtn.textContent="Weierstrass y²=x³+ax+b";
+wbtn.onclick=function(){ setMode(WMODE); };
+bar.appendChild(wbtn); buttons.push(wbtn);
+
+var slidersEl=document.getElementById("sliders");
+var aEl=document.getElementById("a"), bEl=document.getElementById("b");
+var aVal=document.getElementById("aVal"), bVal=document.getElementById("bVal");
+function syncVals(){ aVal.textContent=fmt(+aEl.value); bVal.textContent=fmt(+bEl.value); }
+aEl.oninput=function(){ syncVals(); render(); };
+bEl.oninput=function(){ syncVals(); render(); };
+
+function setMode(m){
+  state.mode=m;
+  buttons.forEach(function(b){ b.classList.remove("active"); });
+  if(m===WMODE){ wbtn.classList.add("active"); slidersEl.classList.add("show"); syncVals(); }
+  else { buttons[m].classList.add("active"); slidersEl.classList.remove("show"); }
+  render();
+}
+
+setMode(0);
+})();
+</script>
+</body>
+</html>

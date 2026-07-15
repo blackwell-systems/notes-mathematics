@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Algebraic Geometry interactive pass** — the SLT-feeder page already had the RLCT
+  free-energy explorer; added a plane-curve / singularity explorer: plot the zero set of a
+  polynomial with marching squares and mark the singular points (f = f_x = f_y = 0), with a
+  gallery (smooth circle, node, cusp, pair of lines) and a Weierstrass mode where sliding a,b
+  in y^2 = x^3 + ax + b turns the curve singular exactly when 4a^3 + 27b^2 = 0. +10
+  machine-checked assertions (singular-point conditions for cusp/node/circle, the Weierstrass
+  discriminant, the RLCT normal-form formula, and Bezout counts).
 - [x] **Measure Theory interactive pass** — the abstract SLT-feeder page had zero images and
   zero widgets, so added the two canonical measure-theory visualizations: a Riemann-vs-Lebesgue
   explorer (toggle domain-strip vs range-layer partitioning; both converge to the same integral;

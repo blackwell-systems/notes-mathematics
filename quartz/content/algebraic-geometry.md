@@ -161,6 +161,10 @@ But some points are different. At a **singular point**, the curve does something
 
 ![Three types of curves: smooth, cusp, and node](./media/singularity-types.png)
 
+Explore these directly below. Plot the zero set of a polynomial and the widget marks the **singular points** (where $f = f_x = f_y = 0$); the gallery shows a smooth circle, a self-crossing node, a cusp, and a pair of lines, and the Weierstrass mode lets you slide $a, b$ in $y^2 = x^3 + ax + b$ to watch the curve turn singular exactly when its discriminant $4a^3 + 27b^2$ hits zero.
+
+<iframe src="/static/interactive/ag-variety-explorer.html" width="100%" height="660" style="border:none;"></iframe>
+
 ### The Jacobian Criterion
 
 How do we detect singular points? The answer comes from calculus.
