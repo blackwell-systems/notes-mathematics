@@ -66,7 +66,7 @@ $$
 
 An **angle** is formed by two rays (called **arms** or **sides**) that share a common endpoint called the **vertex**. The measure of an angle describes the amount of rotation from one ray to the other.
 
-![](./media/image148.png)
+![An angle formed by two rays sharing a common vertex O, with the angle BOR marked by an arc](./media/geo-angle.png)
 
 The vertex is always the center letter when naming an angle. For example, angle $BOR$ has vertex $O$ with arms extending toward $B$ and $R$.
 
@@ -83,7 +83,7 @@ For example, $42°30'$ means 42 degrees and 30 minutes, which equals $42.5°$.
 
 **Radians.** One radian is the angle subtended at the center of a circle by an arc whose length equals the radius. Since the circumference of a circle is $2\pi r$, a full rotation is $2\pi$ radians.
 
-![](./media/image159.png)
+![One radian defined on a circle: the central angle whose intercepted arc equals the radius](./media/geo-radian.png)
 
 A radian is a **dimensionless** quantity because it is defined as the ratio of two lengths (arc length divided by radius), so the units cancel.
 
@@ -113,9 +113,9 @@ $$
 \frac{5\pi}{4} \times \frac{180}{\pi} = \frac{5 \times 180}{4} = 225°
 $$
 
-![](./media/image167.png)
+![The graph of y = sin(theta) over one period, showing the characteristic sine wave shape](./media/geo-sine-basic.png)
 
-![](./media/image168.png)
+![A general sinusoid y = A sin(Bx - C) + D with its amplitude, period, phase shift, and midline labeled](./media/geo-sinusoid-params.png)
 
 ### Reference Angles
 
@@ -152,7 +152,7 @@ Since $\frac{5\pi}{3} \approx 300°$ is in Quadrant IV: $\alpha = 2\pi - \frac{5
 | **Full rotation** | $\theta = 360°$ |
 | **Coterminal** | Angles that share the same terminal side, differing by multiples of $360°$ |
 
-![](./media/image150.png)
+![Coterminal angles 60, 420, and -300 degrees drawn on a circle, all sharing the same terminal side](./media/geo-coterminal.png)
 
 ### Angle Relationships
 
@@ -164,7 +164,7 @@ Since $\frac{5\pi}{3} \approx 300°$ is in Quadrant IV: $\alpha = 2\pi - \frac{5
 
 **Corresponding angles** are formed when a transversal crosses two parallel lines. Corresponding angles are equal (see the Lines section below).
 
-![](./media/image158.png)
+![A degree shown as one 360th of a full turn, with a 90-degree right-angle wedge and a thin 1-degree slice](./media/geo-degree.png)
 
 ## Triangles
 
@@ -174,7 +174,7 @@ A **triangle** is a polygon with three vertices, three edges (sides), and three 
 
 The sum of the three interior angles of any triangle equals $180°$.
 
-![](./media/image107.png)
+![A triangle with its three interior angles marked, illustrating that angle A plus angle B plus angle C equals 180 degrees](./media/geo-triangle-angle-sum.png)
 
 **Brief proof.** Draw a line through one vertex parallel to the opposite side. The angles formed at that vertex (by the parallel line and the two sides of the triangle) equal the other two interior angles of the triangle (by alternate interior angles). These three angles together form a straight line, so they sum to $180°$.
 
@@ -182,7 +182,7 @@ The sum of the three interior angles of any triangle equals $180°$.
 
 An **exterior angle** of a triangle is formed by extending one side. Each exterior angle equals the sum of the two non-adjacent interior angles.
 
-![](./media/image112.png)
+![A triangle with one side extended, showing the exterior angle equals the sum of the two remote interior angles](./media/geo-exterior-angle.png)
 
 Every triangle has six exterior angles (two at each vertex). The exterior angles that are vertical to interior angles are not counted as exterior angles of the triangle.
 
@@ -190,7 +190,7 @@ Every triangle has six exterior angles (two at each vertex). The exterior angles
 
 **Base-height formula:**
 
-![](./media/image106.png)
+![A triangle with base b and perpendicular height h, giving area one-half base times height](./media/geo-triangle-area.png)
 
 $$
 A = \frac{1}{2}bh
@@ -267,7 +267,7 @@ If each leg has length $1$, the hypotenuse is $\sqrt{2}$ (by the Pythagorean the
 
 In general, if each leg has length $x$, the hypotenuse is $x\sqrt{2}$.
 
-![](./media/image127.jpeg)
+![The two special right triangles: the 45-45-90 with legs 1 and hypotenuse root 2, and the 30-60-90 with sides 1, root 3, and 2](./media/geo-special-triangles.png)
 
 #### 30-60-90 Triangle (Scalene Right Triangle)
 
@@ -281,7 +281,7 @@ Start with an equilateral triangle with side length $2$. Drop a perpendicular fr
 
 In general, if the short leg is $x$: long leg $= x\sqrt{3}$, hypotenuse $= 2x$.
 
-![](./media/image132.png)
+![A circle with its center, a radius r, and a diameter equal to 2r labeled](./media/geo-circle-radius.png)
 
 ### Triangle Inequality Theorem
 
@@ -297,7 +297,7 @@ This determines whether three given lengths can form a triangle. For example, si
 
 **Similar triangles** have the same shape but may differ in size. Corresponding angles are equal, and corresponding sides are proportional.
 
-![](./media/image113.png)
+![Two similar triangles JKL and UTV: the same shape at different scales, with equal angles and proportional sides](./media/geo-similar-triangles.png)
 
 #### Proving Similarity
 
@@ -305,7 +305,7 @@ This determines whether three given lengths can form a triangle. For example, si
 
 **SSS (Side-Side-Side) Similarity.** If all three pairs of corresponding sides are in the same ratio, the triangles are similar.
 
-![](./media/image114.png)
+![Two triangles ABC and DEF placed side by side for comparison](./media/geo-two-triangles.png)
 
 $$
 \frac{BC}{EF} = \frac{AC}{DF} = \frac{AB}{DE}
@@ -313,7 +313,7 @@ $$
 
 **SAS (Side-Angle-Side) Similarity.** If two pairs of corresponding sides are in the same ratio and the included angles are equal, the triangles are similar.
 
-![](./media/image117.png)
+![Two congruent triangles ABC and DEF: identical in both size and shape](./media/geo-congruent-triangles.png)
 
 ### Congruence
 
@@ -329,7 +329,7 @@ $$
 | **AAS** | Two pairs of angles and a non-included side are equal |
 | **HL** | Hypotenuse and one leg of two right triangles are equal |
 
-![](./media/image126.png)
+![A grid classifying triangles by sides (scalene, isosceles, equilateral) and angles (acute, right, obtuse); right and obtuse equilateral triangles are impossible](./media/geo-triangle-types.png)
 
 Note: **SSA** (two sides and a non-included angle) is not a valid congruence criterion because it can produce two different triangles (the "ambiguous case," discussed later under Law of Sines).
 
@@ -340,7 +340,7 @@ A **circle** is the set of all points in a plane that are a fixed distance (the 
 - **Radius ($r$):** distance from center to any point on the circle
 - **Diameter ($d$):** distance across the circle through the center; $d = 2r$
 
-![](./media/image148.png)
+![A circle centered at the point (h, k) with radius r, giving the equation (x-h)^2 + (y-k)^2 = r^2](./media/geo-circle-center.png)
 
 ### Equation of a Circle
 
@@ -508,7 +508,7 @@ $$
 
 So for any angle $\theta$, the point on the unit circle is $(\cos\theta, \sin\theta)$.
 
-![](./media/image181.jpeg)
+![A point on the unit circle at angle t has coordinates (cos t, sin t); the horizontal leg is cos t and the vertical leg is sin t](./media/geo-unit-circle-costsint.png)
 
 ### Standard Angles on the Unit Circle
 
@@ -538,21 +538,21 @@ The values at every standard angle can be derived from the 30-60-90 and 45-45-90
 | $330°$ | $\frac{11\pi}{6}$ | $\frac{\sqrt{3}}{2}$ | $-\frac{1}{2}$ |
 | $360°$ | $2\pi$ | $1$ | $0$ |
 
-![](./media/image173.gif)
+![The unit circle with spokes at the standard angles labeled in degrees from 0 to 330](./media/geo-unit-circle-degrees-grid.png)
 
-![](./media/image174.png)
+![The unit circle with all sixteen standard angles marked and labeled in degrees](./media/geo-unit-circle-degrees.png)
 
-![](./media/image175.png)
+![The unit circle divided into twelve colored segments at pi/6 (30 degree) intervals, labeled in radians](./media/geo-unit-circle-pie6.png)
 
-![](./media/image176.png)
+![The unit circle divided into eight colored segments at pi/4 (45 degree) intervals, labeled in radians](./media/geo-unit-circle-pie4.png)
 
-![](./media/image177.png)
+![The unit circle with all sixteen standard angles labeled in radians](./media/geo-unit-circle-radians.png)
 
-![](./media/image178.png)
+![The unit circle divided into six colored segments at pi/3 (60 degree) intervals, labeled in radians](./media/geo-unit-circle-pie3.png)
 
-![](./media/image179.png)
+![The complete unit circle showing each standard angle with its radian measure and its (cos, sin) coordinates](./media/geo-unit-circle-full.png)
 
-![](./media/image180.jpeg)
+![The 30-45-60 special triangles inscribed in the unit circle, showing how each angle's coordinates are read off](./media/geo-unit-circle-triangles.png)
 
 ### Deriving Values from Special Triangles
 
@@ -602,11 +602,9 @@ $$
 
 Right triangle definitions only work for acute angles ($0°$ to $90°$). The unit circle definition extends trigonometric functions to all real numbers: for any angle $\theta$, $\cos\theta$ and $\sin\theta$ are the $x$- and $y$-coordinates of the corresponding point on the unit circle.
 
-![](./media/image169.png)
+![The primary trigonometric functions as directed segments on the unit circle: cos along the x-axis, sin vertical to the point, and tan on the tangent line at x equals 1](./media/geo-six-trig.png)
 
-![](./media/image170.png)
-
-![](./media/image172.png)
+![An angle theta in standard position on the unit circle, drawn as a radius of length 1](./media/geo-unit-circle-angle.png)
 
 ### Sine Function
 
@@ -694,6 +692,14 @@ Dividing both sides by $\sin^2\theta$:
 $$
 1 + \cot^2\theta = \csc^2\theta
 $$
+
+You can also derive these two by rewriting everything in terms of sine and cosine and combining over a common denominator. For example,
+
+$$
+1 + \cot^2\theta = 1 + \frac{\cos^2\theta}{\sin^2\theta} = \frac{\sin^2\theta + \cos^2\theta}{\sin^2\theta} = \frac{1}{\sin^2\theta} = \csc^2\theta,
+$$
+
+which uses the first identity $\sin^2\theta + \cos^2\theta = 1$ in the numerator. The same manipulation with $\tan\theta = \sin\theta/\cos\theta$ gives $1 + \tan^2\theta = \sec^2\theta$.
 
 ### Reciprocal Identities
 
