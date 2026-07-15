@@ -326,7 +326,7 @@ In machine learning, the derivative tells you: "if I nudge this parameter slight
 
 ### From Average to Instantaneous Rate of Change
 
-You already know how to compute the slope of a line between two points (from [linear functions](./linear-functions-d1)). Given two points on a curve, the slope of the line connecting them is the **average rate of change**:
+You already know how to compute the slope of a line between two points (from [linear functions](./linear-functions)). Given two points on a curve, the slope of the line connecting them is the **average rate of change**:
 
 $$
 \text{average rate of change} = \frac{f(b) - f(a)}{b - a}

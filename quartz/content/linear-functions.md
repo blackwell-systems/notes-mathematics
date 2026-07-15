@@ -1,5 +1,5 @@
 ---
-title: "Linear Functions d=1"
+title: "Linear Functions"
 ---
 
 ## Why Linear Functions?
@@ -35,7 +35,7 @@ In the standard sense, a linear function has degree exactly 1 (a nonzero slope).
 
 When graphed, a linear function will create a straight line.
 
-![](./media/image57.png)
+![A linear function f(x) = mx + b graphed as a straight line, with the y-intercept b marked and a rise-over-run triangle illustrating the slope m](./media/linear-slope-intercept.png)
 
 ## Linear Equation Forms
 
@@ -44,16 +44,12 @@ When graphed, a linear function will create a straight line.
 
 **Slope-Intercept Form**
 
-f(x) = mx + b
+$$f(x) = mx + b$$
 
--   **f(x)** (or **y**) is the output or dependent variable.
-
--   𝑥 is the input or independent variable.
-
--   𝑚 is the slope of the line, representing the constant rate of
-    change.
-
--   𝑏 is the y-intercept, representing the value of 𝑓(𝑥) when 𝑥 = 0.
+- $f(x)$ (or $y$) is the output or dependent variable.
+- $x$ is the input or independent variable.
+- $m$ is the slope of the line, representing the constant rate of change.
+- $b$ is the $y$-intercept, representing the value of $f(x)$ when $x = 0$.
 
 ### Calculating Slope
 
