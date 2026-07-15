@@ -472,3 +472,5 @@ The mathematical path from polynomial equations to developmental interpretabilit
 10. **Developmental interpretability** uses $\hat{\lambda}$ to detect and characterize structural changes during training: heads specializing, circuits forming, redundancy collapsing. The algebraic geometry of the parameter space provides a principled lens for understanding how neural networks learn.
 
 This path, from the circle equation $x^2 + y^2 = 1$ to tracking phase transitions in transformer training, is the mathematical backbone of singular learning theory.
+
+To see the RLCT placed inside the full statistical theory, alongside the free energy and Watanabe's fundamental formula, continue to the [Singular Learning Theory](./singular-learning-theory) capstone.

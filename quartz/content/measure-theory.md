@@ -514,3 +514,5 @@ $$
 (where $\lambda$ is the RLCT and $m$ is the multiplicity), one must repeatedly exchange limits and integrals. The Dominated Convergence Theorem and related tools from measure theory are what make these exchanges rigorous.
 
 Without measure theory, the fundamental quantities of SLT (the free energy, the RLCT, the stochastic complexity) cannot even be properly defined, let alone analyzed.
+
+These quantities are assembled into the full theory on the [Singular Learning Theory](./singular-learning-theory) capstone page.

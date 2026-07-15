@@ -102,6 +102,34 @@ eq("e^0.7 ~ 2.01", Math.exp(0.7), 2.01, 0.005);
 eq("log_2(8) via change of base", Math.log(8) / Math.log(2), 3, 1e-9);
 eq("log_3(50) ~ 3.561", Math.log(50) / Math.log(3), 3.561, 0.005);
 
+// ================= Singular Learning Theory (RLCT) =================
+// Normal-form monomial: K(u) = prod u_j^{2k_j}, prior weight prod |u_j|^{h_j}.
+// RLCT lambda = min_j (h_j+1)/(2 k_j); multiplicity m = # directions at the min.
+function rlct(ks, hs) {
+  const ratios = ks.map((k, j) => (hs[j] + 1) / (2 * k));
+  const lambda = Math.min(...ratios);
+  const m = ratios.filter((r) => approx(r, lambda, 1e-12)).length;
+  return { lambda, m };
+}
+{
+  // Capstone worked example: K = u1^2 u2^2, constant prior -> lambda=1/2, m=2.
+  const { lambda, m } = rlct([1, 1], [0, 0]);
+  eq("RLCT of u1^2 u2^2 (constant prior)", lambda, 0.5, 1e-12);
+  eq("multiplicity of u1^2 u2^2", m, 2);
+  // A regular 2-parameter model (single nondegenerate point) has lambda = d/2 = 1.
+  eq("regular 2-param model lambda = d/2", rlct([1, 1], [1, 1]).lambda, 1, 1e-12); // k=1,h=1 -> 1
+  // 1D check via the integral: int_0^1 e^{-n u^2} du ~ (1/2) sqrt(pi/n), so Z*sqrt(n) -> sqrt(pi)/2.
+  const n = 1e6,
+    N = 2_000_000,
+    du = 1 / N;
+  let Z = 0;
+  for (let i = 0; i < N; i++) {
+    const u = (i + 0.5) * du;
+    Z += Math.exp(-n * u * u) * du;
+  }
+  eq("int_0^1 e^{-n u^2} du * sqrt(n) -> sqrt(pi)/2", Z * Math.sqrt(n), Math.sqrt(Math.PI) / 2, 2e-3);
+}
+
 // ================= Statistics =================
 // one-proportion z-test (coin: 115/200 vs 0.5)
 {

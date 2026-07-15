@@ -4,7 +4,9 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **45 topics** across 12 branches of mathematics, from basic algebra through singular learning theory.
+Currently covering **47 topics** across 12 branches of mathematics, from basic algebra through singular learning theory.
+
+> **Heading for singular learning theory?** There is a dedicated guided route: [Path to SLT](./path-to-slt) orders every prerequisite from set notation to the [Singular Learning Theory](./singular-learning-theory) capstone, with a note on why each step is needed.
 
 ## How to Use These Notes
 
@@ -28,7 +30,9 @@ Functions, then work through the function types) → Linear Algebra
    - Probability → Statistics → Bayesian Inference
    - Optimization (gradient descent variants, convexity)
    - Information Theory (cross-entropy loss)
-   - Real Analysis → Measure Theory (singular learning theory)
+   - Real Analysis → Measure Theory → Algebraic Geometry → [Singular Learning Theory](./singular-learning-theory)
+
+   For a single ordered trail to the last item, follow the [Path to SLT](./path-to-slt).
 
 ## Logic & Proofs
 
@@ -113,3 +117,5 @@ Functions, then work through the function types) → Linear Algebra
 - [Real Analysis](./real-analysis) (sequences, series, metric spaces, uniform convergence, rigorous calculus)
 - [Measure Theory](./measure-theory) (sigma-algebras, Lebesgue integral, convergence theorems, $L^p$ spaces, measure-theoretic probability)
 - [Algebraic Geometry](./algebraic-geometry) (varieties, singularities, resolution of singularities, RLCT, connection to SLT)
+- [Singular Learning Theory](./singular-learning-theory) (free energy, Watanabe's formula, RLCT as effective dimension, WAIC/WBIC, local learning coefficient) — the capstone
+- [Path to SLT](./path-to-slt) (the guided prerequisite sequence to the capstone)

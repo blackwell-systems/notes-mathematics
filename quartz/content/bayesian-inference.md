@@ -489,3 +489,5 @@ In developmental interpretability, the **local learning coefficient** $\hat{\lam
 Changes in $\hat{\lambda}$ during training correspond to **phase transitions**: qualitative shifts in what the model has learned. When $\hat{\lambda}$ drops, the model has moved to a region of parameter space with simpler geometry (lower effective complexity). These transitions can be detected and interpreted, providing a principled tool for understanding how neural networks develop their capabilities during training.
 
 The connection runs full circle: Bayes' theorem gives the posterior, the posterior determines the free energy, the free energy is controlled by the RLCT, and the RLCT reveals the geometry of learning. Bayesian inference is not just a framework for estimation; in the singular setting, it is the framework for understanding generalization itself.
+
+For the full theory assembled in one place, with Watanabe's fundamental formula and a worked RLCT calculation, see the [Singular Learning Theory](./singular-learning-theory) capstone.
