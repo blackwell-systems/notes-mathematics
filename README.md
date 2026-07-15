@@ -10,7 +10,7 @@ deployed to GitHub Pages on every push to `main`.
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (42 topic pages). The landing page and reading-order guide are in
+per topic (50 topic pages). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Broad areas covered:
@@ -26,6 +26,23 @@ Broad areas covered:
 - **Discrete Math** — asymptotic notation, graph theory
 - **Advanced** — real analysis, measure theory, algebraic geometry (with the connection to singular learning theory)
 
+## Interactive widgets & quality gates
+
+Most pages embed self-contained interactive widgets (vanilla JS + `<canvas>`, no
+external dependencies) that live in
+[`quartz/quartz/static/interactive/`](./quartz/quartz/static/interactive/): things
+like a Gaussian-elimination stepper, an eccentricity morph for conic sections, a
+BFS/DFS graph explorer, and growth-rate comparisons. Each widget sizes its own
+frame to its content, so nothing needs a scrollbar.
+
+Every push runs two CI gates before deploy:
+
+- **Quality gate** (`quartz/scripts/check-quality.mjs`) — fails on KaTeX render
+  errors, broken internal links or `#anchors`, broken image references, and empty
+  image alt text.
+- **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
+  numeric worked example in the notes from scratch (currently 499 assertions).
+
 ## File Structure
 
 ```
@@ -36,6 +53,8 @@ notes-mathematics/
 │   │   ├── set-theory.md
 │   │   ├── ...
 │   │   └── media/           # Images and diagrams
+│   ├── quartz/static/interactive/  # Self-contained interactive widgets
+│   ├── scripts/             # CI gates (quality + arithmetic) and build injectors
 │   └── quartz.config.default.yaml  # Site configuration
 ├── .github/workflows/       # GitHub Pages deploy workflow
 └── README.md                # This file
