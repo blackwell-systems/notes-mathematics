@@ -55,6 +55,12 @@ jobs:
       - name: Build Quartz
         run: npx quartz build
 
+      - name: Quality gate (KaTeX errors, broken links, empty alt, orphaned media)
+        run: node scripts/check-quality.mjs
+
+      - name: Arithmetic harness (re-prove worked examples)
+        run: node scripts/check-arithmetic.mjs
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
