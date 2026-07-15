@@ -218,6 +218,47 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("projectile max height", (v0 * Math.sin(a)) ** 2 / (2 * g), 10.204, 0.005);
 }
 
+// ================= Propositional Logic =================
+{
+  const B = [true, false];
+  const imp = (p, q) => !p || q;
+  const iff = (p, q) => p === q;
+  const nand = (p, q) => !(p && q);
+  const nor = (p, q) => !(p || q);
+  // Flagship tautology: ((A&B)->C) <-> (A->(B->C)) is true in all 8 valuations.
+  let allTaut = true;
+  for (const A of B) for (const Bv of B) for (const C of B) {
+    const lhs = imp(A && Bv, C);
+    const rhs = imp(A, imp(Bv, C));
+    if (!iff(lhs, rhs)) allTaut = false;
+  }
+  check("((A&B)->C) <-> (A->(B->C)) is a tautology", allTaut);
+  // NAND (Sheffer) universality: reconstruct NOT, AND, OR over all inputs.
+  let nandOk = true;
+  for (const p of B) {
+    if (nand(p, p) !== !p) nandOk = false;
+    for (const q of B) {
+      if (nand(nand(p, q), nand(p, q)) !== (p && q)) nandOk = false;
+      if (nand(nand(p, p), nand(q, q)) !== (p || q)) nandOk = false;
+    }
+  }
+  check("NAND is functionally complete (NOT/AND/OR reconstructed)", nandOk);
+  // NOR (Peirce) universality.
+  let norOk = true;
+  for (const p of B) {
+    if (nor(p, p) !== !p) norOk = false;
+    for (const q of B) {
+      if (nor(nor(p, q), nor(p, q)) !== (p || q)) norOk = false;
+      if (nor(nor(p, p), nor(q, q)) !== (p && q)) norOk = false;
+    }
+  }
+  check("NOR is functionally complete (NOT/OR/AND reconstructed)", norOk);
+  // Excluded middle is a tautology; non-contradiction (its dual) is a contradiction.
+  check("P v ~P tautology; P & ~P contradiction", B.every((p) => p || !p) && B.every((p) => !(p && !p)));
+  // 16 distinct binary truth functions.
+  eq("number of binary connectives = 2^(2^2)", 2 ** (2 ** 2), 16);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

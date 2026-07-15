@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Truth-Table Generator</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1a2230; --muted:#5a6577; --accent:#2563c9;
+    --line:#dfe4ec; --shade:#eef2f8; --true:#1f7a4d; --false:#b23b3b;
+  }
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:24px 18px 48px}
+  h1{font-size:1.35rem; margin:0 0 4px}
+  .cap{color:var(--muted); font-size:.9rem; margin:0 0 18px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+  .field{display:flex; gap:8px; margin-bottom:10px}
+  #formula{
+    flex:1; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:1rem; padding:10px 12px; border:1px solid var(--line);
+    border-radius:8px; background:#fff; color:var(--fg); outline:none;
+  }
+  #formula:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(37,99,201,.15)}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px}
+  .chip{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.78rem; padding:5px 9px; border:1px solid var(--line);
+    border-radius:999px; background:#fff; color:var(--accent); cursor:pointer;
+  }
+  .chip:hover{background:var(--shade); border-color:var(--accent)}
+  .err{
+    color:var(--false); background:#fdf1f1; border:1px solid #f2d2d2;
+    padding:8px 12px; border-radius:8px; font-size:.88rem; margin:10px 0;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .msg{color:var(--muted); font-size:.9rem; margin:12px 0}
+  .tablewrap{overflow-x:auto; margin-top:8px}
+  table{border-collapse:collapse; font-size:.86rem; min-width:100%}
+  th,td{
+    border:1px solid var(--line); padding:5px 10px; text-align:center;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+  thead th{background:var(--shade); color:var(--fg); font-weight:600}
+  th.var{color:var(--accent)}
+  th.full,td.full{background:#eef4ff}
+  thead th.full{background:#dbe6fb}
+  td.v{font-weight:600}
+  .t{color:var(--true)}
+  .f{color:var(--false)}
+  tbody tr:nth-child(even) td{background-color:rgba(0,0,0,.015)}
+  tbody tr:nth-child(even) td.full{background:#e7effe}
+  .verdict{margin-top:16px; font-size:1rem; font-weight:600}
+  .verdict.taut{color:var(--true)}
+  .verdict.contra{color:var(--false)}
+  .verdict.cont{color:var(--accent)}
+  .legend{color:var(--muted); font-size:.8rem; margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Truth-Table Generator</h1>
+  <p class="cap">Type a propositional formula using variables (letters) and connectives
+    <code>~ &amp; | ^ -&gt; &lt;-&gt;</code> (or <code>¬ ∧ ∨ ⊕ → ↔</code>, or words <code>not and or xor implies iff</code>); the table and verdict update as you type.</p>
+
+  <div class="field">
+    <input id="formula" type="text" spellcheck="false" value="(A & B) -> C" aria-label="Formula">
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div id="out"></div>
+</div>
+
+<script>
+"use strict";
+/* ---------------- Tokenizer ---------------- */
+// Token types: VAR, NOT, AND, OR, XOR, IMP, IFF, LP, RP
+const WORD_OPS = {not:"NOT", and:"AND", or:"OR", xor:"XOR", implies:"IMP", iff:"IFF"};
+
+function tokenize(src){
+  const toks = [];
+  let i = 0;
+  const n = src.length;
+  const push = (type, value) => toks.push({type, value, pos:i});
+  while(i < n){
+    const c = src[i];
+    if(/\s/.test(c)){ i++; continue; }
+    // multi-char symbolic operators first
+    if(src.startsWith("<->", i)){ toks.push({type:"IFF",value:"<->",pos:i}); i+=3; continue; }
+    if(src.startsWith("<=>", i)){ toks.push({type:"IFF",value:"<=>",pos:i}); i+=3; continue; }
+    if(src.startsWith("->", i)){ toks.push({type:"IMP",value:"->",pos:i}); i+=2; continue; }
+    if(src.startsWith("&&", i)){ toks.push({type:"AND",value:"&&",pos:i}); i+=2; continue; }
+    if(src.startsWith("||", i)){ toks.push({type:"OR",value:"||",pos:i}); i+=2; continue; }
+    // single-char symbolic operators (incl. unicode)
+    const single = {
+      "~":"NOT","!":"NOT","¬":"NOT",
+      "&":"AND","∧":"AND","*":"AND",
+      "|":"OR","∨":"OR","+":"OR",
+      "^":"XOR","⊕":"XOR",
+      "→":"IMP",
+      "↔":"IFF","≡":"IFF",
+      "(":"LP",")":"RP",
+    };
+    if(single[c]){ toks.push({type:single[c],value:c,pos:i}); i++; continue; }
+    // words / variables (letters)
+    if(/[A-Za-z]/.test(c)){
+      let j = i;
+      while(j < n && /[A-Za-z]/.test(src[j])) j++;
+      const word = src.slice(i, j);
+      const lw = word.toLowerCase();
+      if(WORD_OPS[lw]){ toks.push({type:WORD_OPS[lw],value:word,pos:i}); i = j; continue; }
+      // must be a single-letter variable
+      if(word.length === 1){ toks.push({type:"VAR",value:word,pos:i}); i = j; continue; }
+      throw new ParseError('Unknown word "'+word+'"', i);
+    }
+    throw new ParseError('Unexpected character "'+c+'"', i);
+  }
+  toks.push({type:"EOF", value:"", pos:n});
+  return toks;
+}
+
+function ParseError(msg, pos){ this.message = msg; this.pos = pos; }
+
+/* ---------------- Parser (recursive descent) ----------------
+   Precedence, tightest -> loosest: NOT, AND, XOR, OR, IMP, IFF.
+   XOR bound at AND level (between AND and OR) per documented choice.
+   IMP and IFF are right-associative; AND/OR/XOR left-associative.
+*/
+function parse(src){
+  const toks = tokenize(src);
+  let p = 0;
+  const peek = () => toks[p];
+  const next = () => toks[p++];
+  function expect(type){
+    if(peek().type !== type) throw new ParseError('Expected "'+type+'"', peek().pos);
+    return next();
+  }
+  function key(node){ // canonical string for dedup + display
+    return node.str;
+  }
+  // primary: VAR | ( expr ) | NOT primary
+  function parsePrimary(){
+    const t = peek();
+    if(t.type === "NOT"){
+      next();
+      const operand = parsePrimary();
+      return {op:"NOT", a:operand, str:"¬"+wrap(operand)};
+    }
+    if(t.type === "VAR"){ next(); return {op:"VAR", name:t.value, str:t.value}; }
+    if(t.type === "LP"){
+      next();
+      const e = parseIff();
+      expect("RP");
+      return e;
+    }
+    if(t.type === "EOF") throw new ParseError("Unexpected end of input", t.pos);
+    throw new ParseError('Unexpected token "'+t.value+'"', t.pos);
+  }
+  function binLeft(sub, type, sym){
+    let left = sub();
+    while(peek().type === type){
+      next();
+      const right = sub();
+      left = {op:type, a:left, b:right, str:wrap(left)+sym+wrap(right)};
+    }
+    return left;
+  }
+  const parseAnd = () => binLeft(parsePrimary, "AND", "∧");
+  const parseXor = () => binLeft(parseAnd, "XOR", "⊕");
+  const parseOr  = () => binLeft(parseXor, "OR", "∨");
+  function parseImp(){ // right-assoc
+    const left = parseOr();
+    if(peek().type === "IMP"){
+      next();
+      const right = parseImp();
+      return {op:"IMP", a:left, b:right, str:wrap(left)+"→"+wrap(right)};
+    }
+    return left;
+  }
+  function parseIff(){ // right-assoc
+    const left = parseImp();
+    if(peek().type === "IFF"){
+      next();
+      const right = parseIff();
+      return {op:"IFF", a:left, b:right, str:wrap(left)+"↔"+wrap(right)};
+    }
+    return left;
+  }
+  const ast = parseIff();
+  if(peek().type !== "EOF"){
+    throw new ParseError('Unexpected token "'+peek().value+'" near end', peek().pos);
+  }
+  return ast;
+}
+
+// wrap subformula in parens for display when it's a compound
+function wrap(node){
+  if(node.op === "VAR" || node.op === "NOT") return node.str;
+  return "("+node.str+")";
+}
+
+/* ---------------- Evaluation ---------------- */
+function evalNode(node, env){
+  switch(node.op){
+    case "VAR": return env[node.name];
+    case "NOT": return !evalNode(node.a, env);
+    case "AND": return evalNode(node.a, env) && evalNode(node.b, env);
+    case "OR":  return evalNode(node.a, env) || evalNode(node.b, env);
+    case "XOR": return evalNode(node.a, env) !== evalNode(node.b, env);
+    case "IMP": return !evalNode(node.a, env) || evalNode(node.b, env);
+    case "IFF": return evalNode(node.a, env) === evalNode(node.b, env);
+  }
+}
+
+function collectVars(node, set){
+  if(node.op === "VAR"){ set.add(node.name); return; }
+  if(node.a) collectVars(node.a, set);
+  if(node.b) collectVars(node.b, set);
+}
+
+// collect distinct non-trivial subformulas (compound, non-variable),
+// ordered by size ascending; dedup by canonical string.
+function collectSub(node, list, seen){
+  if(node.op === "VAR") return 0;
+  const sizeA = node.a ? collectSub(node.a, list, seen) : 0;
+  const sizeB = node.b ? collectSub(node.b, list, seen) : 0;
+  const size = 1 + sizeA + sizeB;
+  if(!seen.has(node.str)){
+    seen.add(node.str);
+    list.push({node, size, str:node.str});
+  }
+  return size;
+}
+
+/* ---------------- Rendering ---------------- */
+const out = document.getElementById("out");
+const input = document.getElementById("formula");
+
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function cell(v){ return v ? '<td class="v t">T</td>' : '<td class="v f">F</td>'; }
+function cellFull(v){ return v ? '<td class="v t full">T</td>' : '<td class="v f full">F</td>'; }
+
+function render(){
+  const src = input.value.trim();
+  if(src === ""){ out.innerHTML = '<p class="msg">Enter a formula above.</p>'; return; }
+  let ast;
+  try{
+    ast = parse(src);
+  }catch(e){
+    const near = (typeof e.pos === "number") ? src.slice(Math.max(0,e.pos-1), e.pos+8) : "";
+    out.innerHTML = '<div class="err">Syntax error: '+esc(e.message)+
+      (near ? ' &mdash; near "'+esc(near)+'"' : '')+'</div>';
+    return;
+  }
+
+  const varSet = new Set();
+  collectVars(ast, varSet);
+  const vars = [...varSet].sort();
+  if(vars.length === 0){
+    out.innerHTML = '<div class="err">Formula has no variables.</div>';
+    return;
+  }
+  if(vars.length > 8){
+    out.innerHTML = '<p class="msg">This formula has '+vars.length+
+      ' variables, which would need '+(2**vars.length)+
+      ' rows. Please use at most 8 variables.</p>';
+    return;
+  }
+
+  // subformulas ascending by size; full formula is guaranteed last (largest, dedup-safe)
+  const subs = [];
+  collectSub(ast, subs, new Set());
+  subs.sort((x,y)=> x.size - y.size);
+  const fullStr = ast.str;
+
+  // Build header
+  let html = '<div class="tablewrap"><table><thead><tr>';
+  for(const v of vars) html += '<th class="var">'+esc(v)+'</th>';
+  for(const s of subs){
+    const isFull = s.str === fullStr;
+    html += '<th class="'+(isFull?"full":"")+'">'+esc(s.str)+'</th>';
+  }
+  html += '</tr></thead><tbody>';
+
+  const nRows = 2 ** vars.length;
+  let trueCount = 0;
+  for(let r = 0; r < nRows; r++){
+    // first variable most significant; T before F (bit=1 -> T)
+    const env = {};
+    for(let k = 0; k < vars.length; k++){
+      const bit = (r >> (vars.length - 1 - k)) & 1;
+      env[vars[k]] = (bit === 0); // r=0 -> all T, descending
+    }
+    html += '<tr>';
+    for(const v of vars) html += cell(env[v]);
+    let fullVal = false;
+    for(const s of subs){
+      const val = evalNode(s.node, env);
+      const isFull = s.str === fullStr;
+      html += isFull ? cellFull(val) : cell(val);
+      if(isFull) fullVal = val;
+    }
+    if(fullVal) trueCount++;
+    html += '</tr>';
+  }
+  html += '</tbody></table></div>';
+
+  // verdict
+  let vClass, vText;
+  if(trueCount === nRows){ vClass="taut"; vText="Tautology (true in all "+nRows+" rows)"; }
+  else if(trueCount === 0){ vClass="contra"; vText="Contradiction (false in all "+nRows+" rows)"; }
+  else { vClass="cont"; vText="Contingency (true in "+trueCount+" of "+nRows+" rows)"; }
+  html += '<div class="verdict '+vClass+'">'+vText+'</div>';
+  html += '<p class="legend">Precedence (tightest to loosest): NOT, AND, XOR, OR, IMPLIES, IFF. '+
+          'IMPLIES and IFF are right-associative; AND/OR/XOR left-associative. '+
+          'Rows run from all-true (top) to all-false (bottom).</p>';
+
+  out.innerHTML = html;
+}
+
+/* ---------------- Examples + wiring ---------------- */
+const examples = [
+  "(A & B) -> C",
+  "(A -> B) & (B -> C) -> (A -> C)",
+  "A | ~A",
+  "A & ~A",
+  "A <-> B",
+  "(A -> B) <-> (~B -> ~A)"
+];
+const chips = document.getElementById("chips");
+for(const ex of examples){
+  const b = document.createElement("button");
+  b.className = "chip";
+  b.type = "button";
+  b.textContent = ex;
+  b.addEventListener("click", () => { input.value = ex; render(); input.focus(); });
+  chips.appendChild(b);
+}
+
+let timer = null;
+input.addEventListener("input", () => {
+  clearTimeout(timer);
+  timer = setTimeout(render, 150);
+});
+render();
+</script>
+</body>
+</html>

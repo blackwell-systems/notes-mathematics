@@ -438,7 +438,22 @@ table having $2^{n}$ rows.
 
 If a formula has 3 variables, it will require a truth table with 8 rows.
 
-![Eight-row truth table verifying the tautology ((A and B) implies C) iff (A implies (B implies C))](./media/image1.png)
+For example, consider the formula $((A \wedge B) \to C) \leftrightarrow (A \to (B \to C))$. There are 8 valuations of $A, B, C$ (the first three columns); the remaining columns build up the subformulas, ending in the full formula, which is **true in every row**, so the formula is a tautology.
+
+| $A$ | $B$ | $C$ | $A \wedge B$ | $(A \wedge B) \to C$ | $B \to C$ | $A \to (B \to C)$ | full formula |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| T | T | T | T | T | T | T | **T** |
+| T | T | F | T | F | F | F | **T** |
+| T | F | T | F | T | T | T | **T** |
+| T | F | F | F | T | T | T | **T** |
+| F | T | T | F | T | T | T | **T** |
+| F | T | F | F | T | F | T | **T** |
+| F | F | T | F | T | T | T | **T** |
+| F | F | F | F | T | T | T | **T** |
+
+You can build the truth table of any formula yourself below. Type a proposition (using `~ & | ^ -> <->`) and the generator enumerates every valuation and reports whether it is a tautology, contradiction, or contingency.
+
+<iframe src="/static/interactive/truth-table-generator.html" width="100%" height="620" style="border:none;"></iframe>
 
 ## Compound Proposition / Statement
 
@@ -458,7 +473,20 @@ statements) to form compound propositions.
 They determine the truth value of the compound proposition based on the
 truth values of the individual propositions
 
-![Table of logical connectives and their alternative notations: AND, OR, NOT, NAND, NOR, XOR, XNOR, implies, equivalent, converse](./media/image2.png)
+The same connective is often written with several different symbols. The common notations:
+
+| Connective | Common notations |
+|---|---|
+| AND (conjunction) | $A \wedge B,\quad A \cdot B,\quad AB,\quad A\,\&\,B$ |
+| OR (disjunction) | $A \vee B,\quad A + B,\quad A \parallel B$ |
+| NOT (negation) | $\neg A,\quad {\sim} A,\quad \overline{A},\quad -A$ |
+| NAND | $A \barwedge B,\quad A \uparrow B,\quad A \mid B,\quad \overline{A \cdot B}$ |
+| NOR | $A \barvee B,\quad A \downarrow B,\quad \overline{A + B}$ |
+| XOR (exclusive or) | $A \oplus B,\quad A \veebar B,\quad A \not\equiv B$ |
+| XNOR | $A \odot B,\quad \overline{A \oplus B}$ |
+| implies (conditional) | $A \to B,\quad A \Rightarrow B,\quad A \supset B$ |
+| equivalent (biconditional) | $A \leftrightarrow B,\quad A \Leftrightarrow B,\quad A \equiv B$ |
+| converse | $A \leftarrow B,\quad A \Leftarrow B$ |
 
 ### Unary Logical Connectives / Unary Operators
 
@@ -481,7 +509,10 @@ Symbolically, we express negation with: ¬
 
 Example: If 𝑃 is a proposition, ¬𝑃 denotes its **negation** (read $\neg P$ as "not P").
 
-![Truth table for negation: not-P is false when P is true and true when P is false](./media/image3.png)
+| $P$ | $\neg P$ |
+|:---:|:---:|
+| T | F |
+| F | T |
 
 Properties of Negation:
 
@@ -519,7 +550,12 @@ The negation of one quantifier is the other quantifier ($\neg\forall x\, P(x) \e
 Associativity refers to the ability to group operations in any order
 without changing the outcome.
 
-![Truth table for logical equivalence: P equiv Q is true only when P and Q share the same truth value](./media/image7.png)
+| $P$ | $Q$ | $P \equiv Q$ |
+|:---:|:---:|:---:|
+| T | T | T |
+| T | F | F |
+| F | T | F |
+| F | F | T |
 
 **Logical equivalence tells you whether two statements are always true
 or always false together. If they are, they are logically equivalent.**
@@ -532,9 +568,9 @@ If both lights are on (𝑃 is true and 𝑄 is true), then 𝑃 ≡ 𝑄 is tru
 
 If both lights are off (𝑃 is false and 𝑄 is false), then 𝑃 ≡ 𝑄 is true.
 
-![Venn diagram of A equivalent B: the two crescent-shaped non-overlapping regions shaded red](./media/image8.png)
+![Venn diagram for A equivalent B: the central overlap lens and the region outside both circles are shaded, marking where A and B share a truth value](./media/pl-venn-biconditional.png)
 
-The Venn diagram of A EQ B (red part is true)
+The Venn diagram of $A \equiv B$ (shaded region = where the equivalence is true): $A$ and $B$ match either inside the overlap (both true) or outside both circles (both false).
 
 #### Conjunction
 
@@ -547,9 +583,14 @@ A logical conjunction is a binary operation, typically the values of two
 propositions, that produces a value of true if and only if both of its
 operands are true.
 
-![Truth table for conjunction A AND B: true only when both A and B are true](./media/image9.png)
+| $P$ | $Q$ | $P \wedge Q$ |
+|:---:|:---:|:---:|
+| T | T | T |
+| T | F | F |
+| F | T | F |
+| F | F | F |
 
-![Venn diagram of logical conjunction: only the overlapping region of A and B is shaded](./media/image10.png) ![Truth table for logical conjunction P AND Q](./media/image11.png)
+![Venn diagram for A AND B: only the central lens where circles A and B overlap is shaded](./media/pl-venn-conjunction.png)
 
 #### Disjunction
 
@@ -561,9 +602,14 @@ aloud as "or".
 In classical logic, disjunction is given a truth functional semantics
 according to which a formula 𝜙 ∨ 𝜓 is true unless both are false.
 
-![Truth table for disjunction A OR B: true whenever at least one of A or B is true](./media/image12.png)
+| $P$ | $Q$ | $P \vee Q$ |
+|:---:|:---:|:---:|
+| T | T | T |
+| T | F | T |
+| F | T | T |
+| F | F | F |
 
-![Venn diagram of disjunction A OR B: the entire union of both overlapping circles shaded red](./media/image13.png)
+![Venn diagram for A OR B: the entire union of circles A and B is shaded, including the overlap](./media/pl-venn-disjunction.png)
 
 #### Exclusive Disjunction / Exclusive OR
 
@@ -582,9 +628,14 @@ or the other", and "A or B, but not A and B".
 
 Symbolically, XOR is expressed as: $\oplus$ (read $P \oplus Q$ as "P x-or Q" or "P exclusive-or Q"; also written $\not\equiv$).
 
-![Truth table for exclusive or A XOR B: true only when the two inputs differ](./media/image14.png)
+| $P$ | $Q$ | $P \oplus Q$ |
+|:---:|:---:|:---:|
+| T | T | F |
+| T | F | T |
+| F | T | T |
+| F | F | F |
 
-![Venn diagram of exclusive or: the two non-overlapping regions of A and B are shaded, the overlap is not](./media/image15.png)
+![Venn diagram for A XOR B: the two outer crescents (A-only and B-only) are shaded while the central overlap stays white](./media/pl-venn-xor.png)
 
 #### Conditional Statement / Material Condition / Material Implication / Hypothetical Proposition
 
@@ -606,7 +657,12 @@ In a conditional formula A → B
 
 -   **B** is called the consequent of the **conditional**.
 
-![Truth table for implication A implies B: false only when A is true and B is false](./media/image16.png)
+| $P$ | $Q$ | $P \to Q$ |
+|:---:|:---:|:---:|
+| T | T | T |
+| T | F | F |
+| F | T | T |
+| F | F | T |
 
 The logical cases where the antecedent A is false and A → B is true, are
 called "vacuous truths". Examples are ...
@@ -617,7 +673,12 @@ called "vacuous truths". Examples are ...
 -   ... with **B** true: "If Marie Curie is a sister of Galileo
     Galilei, then Marie Curie has a sibling.".
 
-![Truth table for material implication annotating each row, including the two false-antecedent rows as vacuous truths](./media/image17.png)
+| $P$ | $Q$ | $P \to Q$ | Reading |
+|:---:|:---:|:---:|---|
+| T | T | T | True antecedent, true consequent |
+| T | F | F | True antecedent, false consequent (the **only** false case) |
+| F | T | T | False antecedent (vacuously true) |
+| F | F | T | False antecedent (vacuously true) |
 
 ##### Vacuous Truth
 
@@ -669,9 +730,14 @@ Conditional statement $P \to Q$
 
 In formulas: the contrapositive of $P \to Q$ is $\neg Q \to \neg P$
 
-![Truth table for the biconditional A iff B: true only when A and B have the same truth value](./media/image19.png)
+| $P$ | $Q$ | $P \leftrightarrow Q$ |
+|:---:|:---:|:---:|
+| T | T | T |
+| T | F | F |
+| F | T | F |
+| F | F | T |
 
-![Venn diagram of the biconditional P iff Q: overlap and outer region shaded red, non-overlapping crescents white](./media/image20.png)
+![Venn diagram for the biconditional P if-and-only-if Q: the overlap lens and the region outside both circles are shaded, the two crescents white](./media/pl-venn-biconditional.png)
 
 ### Connective Precedence
 
@@ -680,7 +746,15 @@ expressions to indicate the order in which the operators are to be
 evaluated. In the absence of parentheses, the order of evaluation is
 determined by precedence rules.
 
-![Connective precedence table: negation 1, conjunction 2, disjunction 3, implication 4, biconditional 5](./media/image21.png)
+| Operator | Precedence |
+|:---:|:---:|
+| $\neg$ | 1 (binds tightest) |
+| $\wedge$ | 2 |
+| $\vee$ | 3 |
+| $\to$ | 4 |
+| $\leftrightarrow$ | 5 (binds loosest) |
+
+So $\neg P \vee Q \to R$ means $(((\neg P) \vee Q) \to R)$. As with arithmetic, use parentheses whenever the intended grouping is not obvious.
 
 ## Logical Equivalences
 
@@ -859,6 +933,73 @@ CNF:
 - Result: $F \equiv (\neg P \vee Q) \wedge (P \vee Q)$
 
 **Relationship:** Every proposition can be expressed in both DNF and CNF (though they may look different).
+
+## Functional Completeness and Adequate Connectives
+
+The normal-form results above hide a remarkable fact: they show that *every* truth function can be written using only negation, conjunction, and disjunction, because the DNF construction reproduces any truth table you like. This raises a foundational question. How many connectives do we actually *need*, and could a single one suffice?
+
+### The Sixteen Binary Connectives
+
+A binary connective is completely determined by the output column of its truth table, which has $2^2 = 4$ rows. Each of those 4 outputs is independently $T$ or $F$, so there are $2^4 = 16$ possible binary truth functions. Every binary connective you could ever invent is one of these sixteen. Listing them by their output on the rows $(P,Q) = (T,T),(T,F),(F,T),(F,F)$:
+
+| $TT$ | $TF$ | $FT$ | $FF$ | Name / symbol |
+|:---:|:---:|:---:|:---:|---|
+| F | F | F | F | Contradiction, $\bot$ (always false) |
+| F | F | F | T | NOR, $P \downarrow Q$ |
+| F | F | T | F | $\neg P \wedge Q$ |
+| F | F | T | T | $\neg P$ (ignores $Q$) |
+| F | T | F | F | $P \wedge \neg Q$ |
+| F | T | F | T | $\neg Q$ (ignores $P$) |
+| F | T | T | F | XOR, $P \oplus Q$ |
+| F | T | T | T | NAND, $P \uparrow Q$ |
+| T | F | F | F | AND, $P \wedge Q$ |
+| T | F | F | T | XNOR / biconditional, $P \leftrightarrow Q$ |
+| T | F | T | F | $Q$ (ignores $P$) |
+| T | F | T | T | Implication, $P \to Q$ |
+| T | T | F | F | $P$ (ignores $Q$) |
+| T | T | F | T | Converse implication, $Q \to P$ |
+| T | T | T | F | OR, $P \vee Q$ |
+| T | T | T | T | Tautology, $\top$ (always true) |
+
+### Functional Completeness
+
+A set of connectives is **functionally complete** (or **adequate**) if every truth function, of any number of variables, can be expressed using only connectives from that set. Functional completeness is what lets a finite handful of symbols capture *all* possible logical behavior.
+
+- $\{\neg, \wedge, \vee\}$ is functionally complete. The DNF construction is the proof: build one conjunction per row where the function is true, then join them with $\vee$.
+- $\{\neg, \wedge\}$ is complete: De Morgan recovers disjunction, $P \vee Q \equiv \neg(\neg P \wedge \neg Q)$.
+- $\{\neg, \vee\}$ is complete: symmetrically, $P \wedge Q \equiv \neg(\neg P \vee \neg Q)$.
+- $\{\neg, \to\}$ is complete: $P \vee Q \equiv \neg P \to Q$, and conjunction follows.
+- $\{\wedge, \vee\}$ is **not** complete: without negation every expression is *monotone* (making an input true can never make the output false), so you can never build $\neg P$. Negation, or a connective hiding it, is indispensable.
+
+### One Connective Is Enough: NAND and NOR
+
+Two of the sixteen are each, on their own, functionally complete. They are the only single binary connectives with this property, and they are the reason digital hardware can be built from one repeated gate.
+
+**NAND** (the **Sheffer stroke**, $P \uparrow Q$, read "P nand Q", meaning $\neg(P \wedge Q)$) generates everything:
+
+$$
+\neg P \equiv P \uparrow P, \qquad
+P \wedge Q \equiv (P \uparrow Q) \uparrow (P \uparrow Q), \qquad
+P \vee Q \equiv (P \uparrow P) \uparrow (Q \uparrow Q).
+$$
+
+**NOR** (the **Peirce arrow**, $P \downarrow Q$, read "P nor Q", meaning $\neg(P \vee Q)$) does the same:
+
+$$
+\neg P \equiv P \downarrow P, \qquad
+P \vee Q \equiv (P \downarrow Q) \downarrow (P \downarrow Q), \qquad
+P \wedge Q \equiv (P \downarrow P) \downarrow (Q \downarrow Q).
+$$
+
+Once you have $\neg$, $\wedge$, and $\vee$ from a single gate, the DNF construction gives you every other truth function. This is not a curiosity: because a NAND gate is cheap and universal, entire processors are laid out from NAND gates alone.
+
+### The Duality Principle
+
+Notice the mirror symmetry running through the equivalence laws: swap every $\wedge$ with $\vee$ and every $\top$ with $\bot$, and identities turn into other identities. The **dual** of a formula built from $\wedge, \vee, \neg, \top, \bot$ is obtained by making exactly that swap (variables and $\neg$ stay put). The **duality principle** states: if $\varphi \equiv \psi$, then their duals satisfy $\varphi^* \equiv \psi^*$. In particular, the dual of a tautology is a contradiction. For example, the dual of the excluded middle $P \vee \neg P \equiv \top$ is the non-contradiction law $P \wedge \neg P \equiv \bot$. Duality lets you get two theorems for the price of one.
+
+### Connection to Boolean Algebra
+
+All of this is one instance of a larger algebraic structure. The equivalence laws (commutativity, associativity, distributivity, identity, and complement) are exactly the axioms of a **Boolean algebra**, developed on the [algebraic structures](./algebraic-structures) page. Propositional logic *is* the two-element Boolean algebra: identify $F$ with $0$ and $T$ with $1$, and then $\wedge$ is the meet (like $\min$ or multiplication), $\vee$ is the join (like $\max$), and $\neg$ is complementation $1 - x$. This is the same algebra that governs digital circuits and bitwise operations, so the laws you use to simplify a logical formula are the same ones an engineer uses to minimize a circuit.
 
 ## Syntax and Semantics
 
