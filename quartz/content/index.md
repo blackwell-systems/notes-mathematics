@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **42 topics** across 12 branches of mathematics, from basic algebra through singular learning theory.
+Currently covering **45 topics** across 12 branches of mathematics, from basic algebra through singular learning theory.
 
 ## How to Use These Notes
 
@@ -13,8 +13,9 @@ Currently covering **42 topics** across 12 branches of mathematics, from basic a
 2. **As a learning path:** The topics build on each other. A suggested reading order for someone starting from scratch:
 
 ```
-Logic → Set Theory → Algebra (start with Functions, then work through
-the function types) → Linear Algebra (Foundations first, then Computation)
+Logic → Set Theory → Number Systems & Foundations → Algebra (start with
+Functions, then work through the function types) → Linear Algebra
+(Foundations first, then Computation)
 → Calculus → Multivariable Calculus → Differential Equations
 → Probability → Statistics → Bayesian Inference → Optimization
 → Information Theory → Discrete Math
@@ -38,6 +39,12 @@ the function types) → Linear Algebra (Foundations first, then Computation)
 ## Set Theory
 
 - [Set Theory](./set-theory) (operations, relations, cardinality, power sets)
+
+## Number Systems & Foundations
+
+- [Number Systems](./number-systems) (naturals through complex, the building-up story, rational/algebraic/transcendental)
+- [Algebraic Structures](./algebraic-structures) (field and order axioms, derived rules, groups/rings/fields)
+- [Number Bases](./number-bases) (binary, octal, hexadecimal, conversions, two's complement, floating point)
 
 ## Algebra
 
