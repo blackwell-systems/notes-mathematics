@@ -754,6 +754,27 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("2D cross of parallel (2,1)x(4,2) = 0", 2 * 2 - 1 * 4, 0);
 }
 
+// ================= Differential Equations =================
+{
+  const ddt = (f, t, h = 1e-6) => (f(t + h) - f(t - h)) / (2 * h);
+  { const k = 0.5, y = (t) => Math.exp(k * t); eq("y=e^{0.5t} satisfies y'=0.5y at t=2", ddt(y, 2), k * y(2), 1e-4); }
+  { const y = (t) => Math.exp(-t) * Math.cos(t), d2 = (t, h = 1e-4) => (y(t + h) - 2 * y(t) + y(t - h)) / (h * h), t = 1.3;
+    check("e^{-t}cos t solves y''+2y'+2y=0 (underdamped)", Math.abs(d2(t) + 2 * ddt(y, t) + 2 * y(t)) < 1e-3); }
+  { const disc = Math.sqrt(9 - 8), r1 = (-3 + disc) / 2, r2 = (-3 - disc) / 2; check("characteristic roots of r^2+3r+2 are -1,-2", approx(Math.max(r1, r2), -1) && approx(Math.min(r1, r2), -2)); }
+  check("underdamped: k=9, c=1 -> c^2-4mk < 0", 1 - 4 * 9 < 0);
+  check("critically damped: k=4, c=4 -> c^2-4mk = 0", 4 * 4 - 4 * 4 === 0);
+  check("overdamped: k=4, c=6 -> c^2-4mk > 0", 6 * 6 - 4 * 4 > 0);
+  eq("damping ratio zeta = c/(2 sqrt(mk)), c=1,k=9 -> 1/6", 1 / (2 * Math.sqrt(9)), 1 / 6, 1e-9);
+  { const cls = (m) => ({ tr: m[0][0] + m[1][1], d: m[0][0] * m[1][1] - m[0][1] * m[1][0] });
+    { const s = cls([[1, 0], [0, -1]]); check("[[1,0],[0,-1]] is a saddle (det<0)", s.d < 0); }
+    { const s = cls([[0, -1], [1, 0]]); check("[[0,-1],[1,0]] is a center (trace 0, det>0)", s.tr === 0 && s.d > 0); }
+    { const s = cls([[-2, 0], [0, -1]]); check("[[-2,0],[0,-1]] is a stable node (trace<0, det>0)", s.tr < 0 && s.d > 0); } }
+  { let y = 1, h = 1e-5; for (let t = 0; t < 1 - h / 2; t += h) y += h * y; eq("Euler's method y'=y, y(0)=1 -> e at t=1", y, Math.E, 1e-3); }
+  { const lap = (f, s, T = 60, n = 400000) => { let sum = 0; const dt = T / n; for (let i = 0; i < n; i++) { const t = (i + 0.5) * dt; sum += Math.exp(-s * t) * f(t) * dt; } return sum; };
+    eq("Laplace of e^{t} at s=3 = 1/(s-1)", lap((t) => Math.exp(t), 3), 1 / (3 - 1), 1e-3);
+    eq("Laplace of sin(2t) at s=3 = 2/(s^2+4)", lap((t) => Math.sin(2 * t), 3), 2 / (9 + 4), 1e-3); }
+}
+
 // ================= Real Analysis =================
 {
   eq("1/n -> 0", 1 / 1e6, 0, 1e-5);

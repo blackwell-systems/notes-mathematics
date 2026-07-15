@@ -1,6 +1,12 @@
 ---
 title: "Differential Equations"
+prerequisites: ["calculus", "linear-algebra-foundations"]
+enables: ["multivariable-calculus", "optimization"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Calculus](./calculus) · [Linear Algebra Foundations](./linear-algebra-foundations)
+> **Leads to:** [Multivariable Calculus](./multivariable-calculus) · [Optimization](./optimization)
 
 A differential equation is an equation that involves a function and its derivatives. Where algebra asks "solve for $x$" and the answer is a number, a differential equation asks "solve for $y(x)$" and the answer is a function.
 
@@ -418,6 +424,10 @@ $$
 
 **Why this works:** If $\mathbf{x} = e^{\lambda t} \mathbf{v}$, then $\mathbf{x}' = \lambda e^{\lambda t} \mathbf{v}$ and $A\mathbf{x} = e^{\lambda t} A\mathbf{v} = e^{\lambda t} \lambda \mathbf{v}$. These are equal when $A\mathbf{v} = \lambda \mathbf{v}$, which is the eigenvalue equation. Each eigenvector gives a solution, and the general solution is a linear combination (by linearity of the DE).
 
+The eigenvalues also fix the *geometry* of the flow. Set the entries of $A$ below to see the phase portrait and how the fixed point at the origin is classified, a saddle, node, spiral, or center, directly from the sign and type of the eigenvalues (with the real eigenvector directions drawn as invariant lines).
+
+<iframe src="/static/interactive/de-phase-portrait.html" width="100%" height="660" style="border:none;"></iframe>
+
 ### Stability
 
 The eigenvalues of $A$ completely determine the long-term behavior:
@@ -586,6 +596,10 @@ With damping ($y'' + 2\gamma y' + \omega^2 y = 0$), the characteristic roots bec
 - **Underdamped** ($\gamma < \omega$): complex roots, oscillation with exponential decay
 - **Critically damped** ($\gamma = \omega$): repeated root, fastest return to equilibrium without oscillation
 - **Overdamped** ($\gamma > \omega$): two negative real roots, slow return without oscillation
+
+Drag the damping and stiffness sliders below to move between the three regimes and watch the solution $x(t)$ change character, the discriminant and damping ratio $\zeta$ updating live, with the decay envelope drawn for the underdamped case.
+
+<iframe src="/static/interactive/de-damped-oscillator.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### The Logistic Equation
 

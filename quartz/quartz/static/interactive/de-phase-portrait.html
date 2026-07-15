@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase Portrait Explorer</title>
+<style>
+  html,body{margin:0;background:#fbfcfd;color:#1c2126;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 14px 28px;}
+  h1{font-size:19px;margin:0 0 2px;}
+  .cap{font-size:13px;color:#5a6672;margin:0 0 14px;line-height:1.4;}
+  canvas{display:block;background:#fff;border:1px solid #e2e7ec;border-radius:6px;
+    width:100%;height:auto;touch-action:none;}
+  .matrix{display:grid;grid-template-columns:auto auto;gap:10px 22px;margin:14px 0 8px;
+    justify-content:start;}
+  .cell{display:flex;align-items:center;gap:7px;}
+  .cell label{font-size:13px;color:#3a444e;width:54px;}
+  .cell input[type=range]{width:120px;accent-color:#2563c9;}
+  .cell input[type=number]{width:56px;font-size:13px;padding:2px 4px;
+    border:1px solid #d3dae1;border-radius:4px;background:#fff;color:#1c2126;}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 14px;}
+  .presets button{font-size:12.5px;padding:5px 11px;border:1px solid #cdd6de;
+    background:#fff;color:#1c2126;border-radius:5px;cursor:pointer;}
+  .presets button:hover{background:#eef3f8;border-color:#2563c9;}
+  .readout{font-size:13px;line-height:1.55;background:#f4f7fa;border:1px solid #e2e7ec;
+    border-radius:6px;padding:11px 14px;}
+  .readout .cls{font-weight:600;font-size:15px;}
+  .stable{color:#1a7a3d;}.unstable{color:#b23b2e;}.neutral{color:#8a6d00;}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .row{margin:2px 0;}
+  .lg{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#5a6672;margin:9px 0 2px;}
+  .lg span{display:inline-flex;align-items:center;gap:5px;}
+  .sw{width:20px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Phase Portrait Explorer &mdash; &nbsp;<span class="mono">x&prime; = A x</span></h1>
+  <p class="cap">Trajectories of the linear system flow along the vector field; the eigenvalues of A decide whether the origin is a node, saddle, spiral, or center.</p>
+
+  <canvas id="cv" width="960" height="600"></canvas>
+
+  <div class="lg">
+    <span><i class="sw" style="border-color:#b9c2cb"></i>vector field</span>
+    <span><i class="sw" style="border-color:#2563c9"></i>trajectories</span>
+    <span><i class="sw" style="border-color:#c0392b"></i>eigenvector lines</span>
+  </div>
+
+  <div class="matrix">
+    <div class="cell"><label>a =</label><input type="range" id="ra" min="-3" max="3" step="0.1"><input type="number" id="na" step="0.1"></div>
+    <div class="cell"><label>b =</label><input type="range" id="rb" min="-3" max="3" step="0.1"><input type="number" id="nb" step="0.1"></div>
+    <div class="cell"><label>c =</label><input type="range" id="rc" min="-3" max="3" step="0.1"><input type="number" id="nc" step="0.1"></div>
+    <div class="cell"><label>d =</label><input type="range" id="rd" min="-3" max="3" step="0.1"><input type="number" id="nd" step="0.1"></div>
+  </div>
+
+  <div class="presets">
+    <button data-m="1,0,0,-1">Saddle</button>
+    <button data-m="-2,0,0,-1">Stable node</button>
+    <button data-m="2,0,0,1">Unstable node</button>
+    <button data-m="0,-1,1,0">Center</button>
+    <button data-m="-0.3,-1,1,-0.3">Stable spiral</button>
+    <button data-m="0.2,-1,1,0.2">Unstable spiral</button>
+  </div>
+
+  <div class="readout" id="out"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var cv=document.getElementById("cv"), ctx=cv.getContext("2d");
+  var W=cv.width, H=cv.height;
+  var R=4.5;                       // world half-range shown
+  var A={a:1,b:0,c:0,d:-1};
+
+  var ids={a:["ra","na"],b:["rb","nb"],c:["rc","nc"],d:["rd","nd"]};
+
+  // ---- coordinate transforms (world -> pixel) ----
+  function px(x){ return (x/R*0.5+0.5)*W; }
+  function py(y){ return (0.5-y/R*0.5)*H; }     // y up
+  var sx=W/(2*R), sy=H/(2*R);                    // pixels per world unit
+
+  function deriv(x,y){ return [A.a*x+A.b*y, A.c*x+A.d*y]; }
+
+  function rk4(x,y,h){
+    var k1=deriv(x,y);
+    var k2=deriv(x+0.5*h*k1[0], y+0.5*h*k1[1]);
+    var k3=deriv(x+0.5*h*k2[0], y+0.5*h*k2[1]);
+    var k4=deriv(x+h*k3[0], y+h*k3[1]);
+    return [x+h/6*(k1[0]+2*k2[0]+2*k3[0]+k4[0]),
+            y+h/6*(k1[1]+2*k2[1]+2*k3[1]+k4[1])];
+  }
+
+  // ---- eigen analysis of 2x2 ----
+  function analyze(){
+    var tr=A.a+A.d, det=A.a*A.d-A.b*A.c, disc=tr*tr-4*det;
+    var res={tr:tr,det:det,disc:disc,complex:false};
+    if(disc> 1e-9){
+      var s=Math.sqrt(disc);
+      var l1=(tr+s)/2, l2=(tr-s)/2;
+      res.l1=l1; res.l2=l2;
+      // eigenvector for eigenvalue L: solve (A-L I)v=0 -> [b, L-a] (or [L-d, c])
+      res.v1=eigvec(l1); res.v2=eigvec(l2);
+      if(l1*l2<0){res.cls="Saddle"; res.stab="unstable";}
+      else if(l1<0&&l2<0){res.cls="Stable node"; res.stab="stable";}
+      else if(l1>0&&l2>0){res.cls="Unstable node"; res.stab="unstable";}
+      else {res.cls="Degenerate (a zero eigenvalue)"; res.stab="neutral";}
+    } else if(disc< -1e-9){
+      res.complex=true;
+      res.re=tr/2; res.im=Math.sqrt(-disc)/2;
+      if(Math.abs(tr)<1e-7){res.cls="Center"; res.stab="neutral";}
+      else if(tr<0){res.cls="Stable spiral"; res.stab="stable";}
+      else {res.cls="Unstable spiral"; res.stab="unstable";}
+    } else {
+      // repeated real eigenvalue
+      var l=tr/2; res.l1=l; res.l2=l; res.repeated=true;
+      // star node if A is a scalar multiple of identity
+      var star=(Math.abs(A.b)<1e-9&&Math.abs(A.c)<1e-9&&Math.abs(A.a-A.d)<1e-9);
+      res.cls=(star?"Star node":"Degenerate node")+" (repeated λ)";
+      res.stab = l<-1e-9?"stable":(l>1e-9?"unstable":"neutral");
+      if(!star) res.v1=eigvec(l);
+    }
+    return res;
+  }
+  function eigvec(L){
+    // (A - L I) v = 0
+    var v=[A.b, L-A.a];
+    if(Math.abs(v[0])<1e-9&&Math.abs(v[1])<1e-9) v=[L-A.d, A.c];
+    if(Math.abs(v[0])<1e-9&&Math.abs(v[1])<1e-9) v=[1,0];
+    var n=Math.hypot(v[0],v[1]); return [v[0]/n, v[1]/n];
+  }
+
+  // ---- drawing ----
+  function drawAxes(){
+    ctx.strokeStyle="#e6ebf0"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,py(0)); ctx.lineTo(W,py(0));
+    ctx.moveTo(px(0),0); ctx.lineTo(px(0),H); ctx.stroke();
+  }
+
+  function drawField(){
+    var n=19, lo=-R*0.92, hi=R*0.92, step=(hi-lo)/(n-1);
+    ctx.strokeStyle="#b9c2cb"; ctx.fillStyle="#b9c2cb"; ctx.lineWidth=1;
+    var len=0.30*sx; // arrow pixel length
+    for(var i=0;i<n;i++)for(var j=0;j<n;j++){
+      var wx=lo+i*step, wy=lo+j*step;
+      var d=deriv(wx,wy), m=Math.hypot(d[0],d[1]);
+      if(m<1e-6) continue;
+      var ux=d[0]/m, uy=d[1]/m;
+      var x0=px(wx), y0=py(wy);
+      var x1=x0+ux*len, y1=y0-uy*len;   // minus: pixel y down
+      ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1); ctx.stroke();
+      // arrowhead
+      var ah=4, ang=Math.atan2(-(uy),ux);
+      ctx.beginPath(); ctx.moveTo(x1,y1);
+      ctx.lineTo(x1-ah*Math.cos(ang-0.5), y1-ah*Math.sin(ang-0.5));
+      ctx.lineTo(x1-ah*Math.cos(ang+0.5), y1-ah*Math.sin(ang+0.5));
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  function drawTrajectory(x0,y0){
+    ctx.strokeStyle="#2563c9"; ctx.lineWidth=1.6;
+    [1,-1].forEach(function(dir){
+      var x=x0,y=y0,h=0.012*dir;
+      ctx.beginPath(); ctx.moveTo(px(x),py(y));
+      for(var k=0;k<2600;k++){
+        var nx=rk4(x,y,h);
+        x=nx[0]; y=nx[1];
+        if(!isFinite(x)||!isFinite(y)) break;
+        if(Math.abs(x)>R*1.6||Math.abs(y)>R*1.6){ ctx.lineTo(px(x),py(y)); break; }
+        ctx.lineTo(px(x),py(y));
+      }
+      ctx.stroke();
+    });
+  }
+
+  function drawEigenLine(v){
+    if(!v) return;
+    ctx.strokeStyle="#c0392b"; ctx.lineWidth=2;
+    var t=R*1.5;
+    ctx.beginPath();
+    ctx.moveTo(px(-v[0]*t),py(-v[1]*t));
+    ctx.lineTo(px( v[0]*t),py( v[1]*t));
+    ctx.stroke();
+  }
+
+  function drawOrigin(){
+    ctx.fillStyle="#1c2126";
+    ctx.beginPath(); ctx.arc(px(0),py(0),4.5,0,7); ctx.fill();
+    ctx.strokeStyle="#fff"; ctx.lineWidth=1.5; ctx.stroke();
+  }
+
+  var seeds=[];
+  (function(){
+    // ring of seed points + a few near-axis ones for coverage
+    var r=R*0.9;
+    for(var k=0;k<12;k++){var a=k/12*Math.PI*2; seeds.push([r*Math.cos(a),r*Math.sin(a)]);}
+    var m=R*0.4;
+    for(var k=0;k<8;k++){var a=k/8*Math.PI*2; seeds.push([m*Math.cos(a),m*Math.sin(a)]);}
+  })();
+
+  function fmt(v){ return (Math.round(v*1000)/1000).toString(); }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawAxes();
+    drawField();
+    var info=analyze();
+    seeds.forEach(function(s){ drawTrajectory(s[0],s[1]); });
+    if(!info.complex){ drawEigenLine(info.v1); drawEigenLine(info.v2); }
+    drawOrigin();
+    writeReadout(info);
+  }
+
+  function writeReadout(info){
+    var ev;
+    if(info.complex){
+      var sign=info.im>=0?"+":"-";
+      ev="λ = "+fmt(info.re)+" &plusmn; "+fmt(Math.abs(info.im))+"i";
+    } else {
+      ev="λ₁ = "+fmt(info.l1)+",&nbsp; λ₂ = "+fmt(info.l2)
+         + (info.repeated?"&nbsp; (repeated)":"");
+    }
+    var stabClass = info.stab==="stable"?"stable":(info.stab==="unstable"?"unstable":"neutral");
+    var html=""
+      +'<div class="row mono">A = [ ['+fmt(A.a)+', '+fmt(A.b)+'],&nbsp; ['+fmt(A.c)+', '+fmt(A.d)+'] ]</div>'
+      +'<div class="row mono">trace = '+fmt(info.tr)+'&nbsp;&nbsp; det = '+fmt(info.det)
+        +'&nbsp;&nbsp; discriminant = '+fmt(info.disc)+'</div>'
+      +'<div class="row mono">'+ev+'</div>'
+      +'<div class="row"><span class="cls '+stabClass+'">'+info.cls
+        +' &mdash; '+info.stab+'</span></div>';
+    document.getElementById("out").innerHTML=html;
+  }
+
+  // ---- inputs ----
+  function syncInputs(){
+    for(var k in ids){
+      document.getElementById(ids[k][0]).value=A[k];
+      document.getElementById(ids[k][1]).value=A[k];
+    }
+  }
+  function bind(k){
+    var rge=document.getElementById(ids[k][0]), num=document.getElementById(ids[k][1]);
+    function set(v){ v=parseFloat(v); if(isNaN(v)) return;
+      A[k]=v; rge.value=v; num.value=v; render(); }
+    rge.addEventListener("input",function(){ set(rge.value); });
+    num.addEventListener("input",function(){ set(num.value); });
+  }
+  for(var k in ids) bind(k);
+
+  document.querySelectorAll(".presets button").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var p=btn.getAttribute("data-m").split(",").map(Number);
+      A.a=p[0]; A.b=p[1]; A.c=p[2]; A.d=p[3];
+      syncInputs(); render();
+    });
+  });
+
+  // click on canvas to launch a trajectory from that point
+  cv.addEventListener("pointerdown",function(e){
+    var r=cv.getBoundingClientRect();
+    var mx=(e.clientX-r.left)/r.width*W, my=(e.clientY-r.top)/r.height*H;
+    var wx=(mx/W-0.5)*2*R, wy=(0.5-my/H)*2*R;
+    render();
+    ctx.save(); drawTrajectory(wx,wy);
+    ctx.fillStyle="#c0392b"; ctx.beginPath(); ctx.arc(px(wx),py(wy),3,0,7); ctx.fill();
+    ctx.restore();
+  });
+
+  syncInputs();
+  render();
+})();
+</script>
+</body>
+</html>

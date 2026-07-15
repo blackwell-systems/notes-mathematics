@@ -54,6 +54,13 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Differential Equations pass** — added the missing prerequisites callout and two
+  canonical DE widgets: a phase-portrait explorer for 2D linear systems x'=Ax (vector field +
+  RK4 trajectories, eigenvector invariant lines, fixed-point classification saddle/node/spiral/
+  center from the eigenvalues) and a damped-oscillator explorer (m x''+c x'+k x=0 with the exact
+  closed-form solution per regime, discriminant/damping-ratio readout, decay envelope). +13
+  machine-checked assertions (solution verification, characteristic roots, damping regimes and
+  zeta, phase-plane classification, Euler's method -> e, and numeric Laplace transforms).
 - [x] **Real Analysis interactive pass** — added an epsilon-N sequence-convergence explorer
   (shrink epsilon, the widget finds the smallest N with all later terms inside the L+/-epsilon
   band; handles oscillating sequences) and a uniform-vs-pointwise convergence explorer (slide n,

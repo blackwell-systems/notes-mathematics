@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Damped Harmonic Oscillator Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --fg: #1c2126;
+    --muted: #5b6570;
+    --blue: #2563c9;
+    --grid: #e4e8ec;
+    --equilib: #c3cad1;
+    --envelope: #9aa4ae;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.45;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 18px 16px 26px;
+  }
+  h1 { font-size: 1.15rem; margin: 0 0 2px; }
+  .caption { color: var(--muted); font-size: 0.86rem; margin: 0 0 14px; }
+  canvas { width: 100%; height: auto; display: block; border: 1px solid var(--grid); border-radius: 6px; background: #fff; }
+  .controls { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px; }
+  .ctrl { display: flex; flex-direction: column; gap: 3px; }
+  .ctrl label { font-size: 0.8rem; color: var(--muted); display: flex; justify-content: space-between; }
+  .ctrl label b { color: var(--fg); font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: var(--blue); }
+  .row { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .presets { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  button {
+    font: inherit; font-size: 0.8rem; padding: 5px 10px; cursor: pointer;
+    background: #fff; border: 1px solid var(--grid); border-radius: 5px; color: var(--fg);
+  }
+  button:hover { border-color: var(--blue); color: var(--blue); }
+  .toggle { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--muted); }
+  .readout {
+    margin-top: 14px; padding: 11px 13px; background: #f2f5f8; border: 1px solid var(--grid);
+    border-radius: 6px; font-size: 0.84rem; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4px 20px; font-variant-numeric: tabular-nums;
+  }
+  .readout span b { font-weight: 600; }
+  .regime { grid-column: 1 / -1; font-size: 0.95rem; margin-bottom: 4px; }
+  .regime b { color: var(--blue); }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .eq { font-style: italic; }
+  .forcing-only { transition: opacity 0.15s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Damped Harmonic Oscillator</h1>
+  <p class="caption">The solution of <span class="eq">m&nbsp;x&Prime; + c&nbsp;x&prime; + k&nbsp;x = 0</span> is set by the discriminant of its characteristic equation: raising damping <span class="eq">c</span> carries the motion through undamped, underdamped, critical, and overdamped regimes.</p>
+
+  <canvas id="cv" width="1480" height="720"></canvas>
+
+  <div class="presets">
+    <button data-preset="undamped">Undamped</button>
+    <button data-preset="under">Underdamped</button>
+    <button data-preset="crit">Critically damped</button>
+    <button data-preset="over">Overdamped</button>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label>damping <span class="eq">c</span> <b id="cVal">1.00</b></label>
+      <input type="range" id="c" min="0" max="6" step="0.01" value="1">
+    </div>
+    <div class="ctrl">
+      <label>stiffness <span class="eq">k</span> <b id="kVal">9.00</b></label>
+      <input type="range" id="k" min="0.5" max="16" step="0.1" value="9">
+    </div>
+    <div class="ctrl">
+      <label>x(0) <b id="x0Val">1.00</b></label>
+      <input type="range" id="x0" min="-2" max="2" step="0.05" value="1">
+    </div>
+    <div class="ctrl">
+      <label>x&prime;(0) <b id="v0Val">0.00</b></label>
+      <input type="range" id="v0" min="-4" max="4" step="0.05" value="0">
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="toggle"><input type="checkbox" id="force"> forcing <span class="eq">F cos(&omega; t)</span></label>
+  </div>
+  <div class="controls forcing-only" id="forceControls" style="opacity:0.4;">
+    <div class="ctrl">
+      <label>amplitude <span class="eq">F</span> <b id="FVal">1.00</b></label>
+      <input type="range" id="F" min="0" max="4" step="0.05" value="1" disabled>
+    </div>
+    <div class="ctrl">
+      <label>drive <span class="eq">&omega;</span> <b id="wVal">3.00</b></label>
+      <input type="range" id="w" min="0" max="8" step="0.05" value="3" disabled>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var m = 1; // fixed mass
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  var el = {
+    c: document.getElementById("c"), k: document.getElementById("k"),
+    x0: document.getElementById("x0"), v0: document.getElementById("v0"),
+    F: document.getElementById("F"), w: document.getElementById("w"),
+    force: document.getElementById("force"),
+    cVal: document.getElementById("cVal"), kVal: document.getElementById("kVal"),
+    x0Val: document.getElementById("x0Val"), v0Val: document.getElementById("v0Val"),
+    FVal: document.getElementById("FVal"), wVal: document.getElementById("wVal"),
+    readout: document.getElementById("readout"),
+    forceControls: document.getElementById("forceControls")
+  };
+
+  // ---- Analysis: exact regime classification + closed-form free solution ----
+  function analyze(c, k, x0, v0) {
+    var D = c * c - 4 * m * k;            // discriminant
+    var w0 = Math.sqrt(k / m);           // natural frequency
+    var zeta = c / (2 * Math.sqrt(m * k)); // damping ratio
+    var s = c / (2 * m);                 // decay rate |Re(root)|
+    var regime, roots, sol;
+
+    if (c === 0) {
+      // undamped: x = x0 cos(w0 t) + (v0/w0) sin(w0 t)
+      regime = "Undamped";
+      roots = "± " + w0.toFixed(3) + " i";
+      var Au = x0, Bu = v0 / w0;
+      sol = function (t) { return Au * Math.cos(w0 * t) + Bu * Math.sin(w0 * t); };
+      sol.envelope = null;
+    } else if (D < 0) {
+      // underdamped
+      regime = "Underdamped";
+      var wd = Math.sqrt(4 * m * k - c * c) / (2 * m); // damped frequency
+      var A = x0;
+      var B = (v0 + s * x0) / wd;
+      roots = "−" + s.toFixed(3) + " ± " + wd.toFixed(3) + " i";
+      sol = function (t) {
+        return Math.exp(-s * t) * (A * Math.cos(wd * t) + B * Math.sin(wd * t));
+      };
+      var amp = Math.sqrt(A * A + B * B);
+      sol.envelope = function (t) { return amp * Math.exp(-s * t); };
+      sol.wd = wd;
+    } else if (D === 0) {
+      // critically damped: x = (A + B t) e^{-s t}
+      regime = "Critically damped";
+      var Ac = x0;
+      var Bc = v0 + s * x0;
+      roots = "−" + s.toFixed(3) + " (double)";
+      sol = function (t) { return (Ac + Bc * t) * Math.exp(-s * t); };
+      sol.envelope = null;
+    } else {
+      // overdamped: two distinct real roots
+      regime = "Overdamped";
+      var sq = Math.sqrt(D) / (2 * m);
+      var r1 = -s + sq, r2 = -s - sq; // both negative
+      var Ao = (v0 - r2 * x0) / (r1 - r2);
+      var Bo = x0 - Ao;
+      roots = "−" + (-r1).toFixed(3) + ", −" + (-r2).toFixed(3);
+      sol = function (t) { return Ao * Math.exp(r1 * t) + Bo * Math.exp(r2 * t); };
+      sol.envelope = null;
+    }
+    return { D: D, w0: w0, zeta: zeta, s: s, regime: regime, roots: roots, sol: sol };
+  }
+
+  // Steady-state particular solution for forcing F cos(w t): use RK4 total solution.
+  // Free closed-form is exact; with forcing we integrate the full ODE with RK4.
+  function rk4Series(c, k, x0, v0, F, wdrive, T, N) {
+    var xs = new Float64Array(N + 1);
+    var dt = T / N;
+    var x = x0, v = v0;
+    function acc(t, x, v) { return (F * Math.cos(wdrive * t) - c * v - k * x) / m; }
+    xs[0] = x;
+    for (var i = 0; i < N; i++) {
+      var t = i * dt;
+      var k1x = v,                    k1v = acc(t, x, v);
+      var k2x = v + 0.5 * dt * k1v,   k2v = acc(t + 0.5 * dt, x + 0.5 * dt * k1x, v + 0.5 * dt * k1v);
+      var k3x = v + 0.5 * dt * k2v,   k3v = acc(t + 0.5 * dt, x + 0.5 * dt * k2x, v + 0.5 * dt * k2v);
+      var k4x = v + dt * k3v,         k4v = acc(t + dt, x + dt * k3x, v + dt * k3v);
+      x += dt / 6 * (k1x + 2 * k2x + 2 * k3x + k4x);
+      v += dt / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+      xs[i + 1] = x;
+    }
+    return { xs: xs, dt: dt };
+  }
+
+  function draw() {
+    var c = parseFloat(el.c.value), k = parseFloat(el.k.value);
+    var x0 = parseFloat(el.x0.value), v0 = parseFloat(el.v0.value);
+    var forcing = el.force.checked;
+    var F = parseFloat(el.F.value), wdrive = parseFloat(el.w.value);
+
+    el.cVal.textContent = c.toFixed(2);
+    el.kVal.textContent = k.toFixed(2);
+    el.x0Val.textContent = x0.toFixed(2);
+    el.v0Val.textContent = v0.toFixed(2);
+    el.FVal.textContent = F.toFixed(2);
+    el.wVal.textContent = wdrive.toFixed(2);
+
+    var a = analyze(c, k, x0, v0);
+
+    // Time window: several natural periods, but at least enough to see decay.
+    var Tperiod = 2 * Math.PI / (a.w0 || 1);
+    var T = Math.max(Tperiod * 4, (a.s > 0 ? 6 / a.s : 12));
+    T = Math.min(T, 40);
+
+    // Sample the solution.
+    var N = 1200;
+    var xs = new Float64Array(N + 1);
+    var dt = T / N;
+    var i, t;
+    if (forcing && F > 0) {
+      var r = rk4Series(c, k, x0, v0, F, wdrive, T, N);
+      xs = r.xs;
+    } else {
+      for (i = 0; i <= N; i++) xs[i] = a.sol(i * dt);
+    }
+
+    // Determine vertical range.
+    var ymax = 0.5;
+    for (i = 0; i <= N; i++) { var av = Math.abs(xs[i]); if (av > ymax) ymax = av; }
+    ymax *= 1.15;
+
+    // ---- Plot geometry ----
+    var padL = 66, padR = 26, padT = 26, padB = 54;
+    var pw = W - padL - padR, ph = H - padT - padB;
+    function X(tt) { return padL + (tt / T) * pw; }
+    function Y(yy) { return padT + (0.5 - yy / (2 * ymax)) * 2 * ph * 0.5; }
+    // Y maps [-ymax, ymax] to [padT+ph, padT]
+    function Yv(yy) { return padT + (1 - (yy + ymax) / (2 * ymax)) * ph; }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, W, H);
+
+    // grid
+    ctx.strokeStyle = "#e4e8ec";
+    ctx.lineWidth = 1;
+    ctx.fillStyle = "#8a939c";
+    ctx.font = "20px system-ui, sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    var tstep = niceStep(T, 8);
+    for (t = 0; t <= T + 1e-9; t += tstep) {
+      var px = X(t);
+      ctx.beginPath(); ctx.moveTo(px, padT); ctx.lineTo(px, padT + ph); ctx.stroke();
+      ctx.fillText(t.toFixed(t < 10 ? 1 : 0), px, padT + ph + 8);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    var ystep = niceStep(ymax, 3);
+    for (var yy = -Math.floor(ymax / ystep) * ystep; yy <= ymax; yy += ystep) {
+      var py = Yv(yy);
+      ctx.strokeStyle = Math.abs(yy) < 1e-9 ? "#c3cad1" : "#eef1f4";
+      ctx.beginPath(); ctx.moveTo(padL, py); ctx.lineTo(padL + pw, py); ctx.stroke();
+      ctx.fillText(yy.toFixed(1), padL - 10, py);
+    }
+
+    // axis labels
+    ctx.fillStyle = "#5b6570";
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    ctx.fillText("t", padL + pw / 2, padT + ph + 30);
+    ctx.save();
+    ctx.translate(18, padT + ph / 2); ctx.rotate(-Math.PI / 2);
+    ctx.textBaseline = "top";
+    ctx.fillText("x(t)", 0, 0);
+    ctx.restore();
+
+    // equilibrium line (emphasized)
+    ctx.strokeStyle = "#c3cad1";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(padL, Yv(0)); ctx.lineTo(padL + pw, Yv(0)); ctx.stroke();
+
+    // underdamped envelope (dashed gray), only for free vibration
+    if (a.sol.envelope && !(forcing && F > 0)) {
+      ctx.strokeStyle = "#9aa4ae";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([7, 6]);
+      for (var sgn = -1; sgn <= 1; sgn += 2) {
+        ctx.beginPath();
+        for (i = 0; i <= N; i++) {
+          var e = sgn * a.sol.envelope(i * dt);
+          var px2 = X(i * dt), py2 = Yv(e);
+          if (i === 0) ctx.moveTo(px2, py2); else ctx.lineTo(px2, py2);
+        }
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+    }
+
+    // solution curve
+    ctx.strokeStyle = "#2563c9";
+    ctx.lineWidth = 2.6;
+    ctx.beginPath();
+    for (i = 0; i <= N; i++) {
+      var px3 = X(i * dt), py3 = Yv(xs[i]);
+      if (i === 0) ctx.moveTo(px3, py3); else ctx.lineTo(px3, py3);
+    }
+    ctx.stroke();
+
+    updateReadout(a, c, k, forcing, F, wdrive);
+  }
+
+  function niceStep(range, target) {
+    var raw = range / target;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var n = raw / mag;
+    var s = n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10;
+    return s * mag;
+  }
+
+  function updateReadout(a, c, k, forcing, F, wdrive) {
+    var Dsign = a.D < 0 ? "&lt; 0" : a.D > 0 ? "&gt; 0" : "= 0";
+    var html = '<div class="regime">Regime: <b>' + a.regime + '</b></div>';
+    html += '<span><b>c</b> = ' + c.toFixed(2) + ' &nbsp; <b>k</b> = ' + k.toFixed(2) + ' &nbsp;(m = 1)</span>';
+    html += '<span><b>D = c² − 4mk</b> = ' + a.D.toFixed(2) + ' &nbsp;(' + Dsign + ')</span>';
+    html += '<span>damping ratio <b>ζ</b> = ' + a.zeta.toFixed(3) + '</span>';
+    html += '<span>natural freq <b>ω₀</b> = &radic;(k/m) = ' + a.w0.toFixed(3) + '</span>';
+    html += '<span class="mono">roots r = ' + a.roots + '</span>';
+    if (forcing && F > 0) {
+      // steady-state amplitude of driven oscillator
+      var denom = Math.sqrt(Math.pow(k - m * wdrive * wdrive, 2) + Math.pow(c * wdrive, 2));
+      var amp = F / denom;
+      var resPeak = (a.zeta < Math.SQRT1_2 && a.zeta > 0)
+        ? Math.sqrt(a.w0 * a.w0 - 2 * a.s * a.s) : NaN;
+      html += '<span>steady-state amp = ' + amp.toFixed(3) + '</span>';
+      html += '<span>' + (isFinite(resPeak)
+        ? 'resonant ω &asymp; ' + resPeak.toFixed(3)
+        : 'no resonant peak (ζ ≥ 1/&radic;2)') + '</span>';
+    }
+    el.readout.innerHTML = html;
+  }
+
+  // ---- Presets ----
+  var presets = {
+    undamped: { c: 0, k: 9, x0: 1, v0: 0, force: false },
+    under:    { c: 1, k: 9, x0: 1, v0: 0, force: false },
+    crit:     { c: 4, k: 4, x0: 1, v0: 0, force: false },
+    over:     { c: 6, k: 4, x0: 1, v0: 0, force: false }
+  };
+  document.querySelectorAll("[data-preset]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var p = presets[b.getAttribute("data-preset")];
+      el.c.value = p.c; el.k.value = p.k; el.x0.value = p.x0; el.v0.value = p.v0;
+      el.force.checked = p.force; syncForce(); draw();
+    });
+  });
+
+  function syncForce() {
+    var on = el.force.checked;
+    el.F.disabled = !on; el.w.disabled = !on;
+    el.forceControls.style.opacity = on ? "1" : "0.4";
+  }
+
+  ["c", "k", "x0", "v0", "F", "w"].forEach(function (id) {
+    el[id].addEventListener("input", draw);
+  });
+  el.force.addEventListener("change", function () { syncForce(); draw(); });
+
+  syncForce();
+  draw();
+})();
+</script>
+</body>
+</html>
