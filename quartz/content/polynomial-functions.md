@@ -463,6 +463,15 @@ $$
 
 **Historical note:** Published by Gerolamo Cardano in 1545, though discovered by Scipione del Ferro and Niccolo Tartaglia. This was the first formula to solve a general polynomial of degree higher than 2.
 
+### Solving Higher-Degree Polynomials
+
+Cardano's cubic formula raised a natural question: is there a formula for every degree? The answer is a famous "no."
+
+- **Degree 4 (quartic):** yes, a general solution in radicals exists, found by Cardano's student Lodovico Ferrari, though it is long and rarely used by hand.
+- **Degree 5 and higher:** **no** general formula in radicals exists. This is the **Abel-Ruffini theorem** (proved by Niels Henrik Abel in 1824, building on Paolo Ruffini), and Galois theory later explained precisely *why*: the roots of a general quintic cannot be written using only $+$, $-$, $\times$, $\div$, and $n$th roots of the coefficients.
+
+This does not mean high-degree equations are unsolvable, only that no *radical formula* exists. A specific polynomial may still factor nicely, and the numerical methods later on this page (Newton's method and bisection) locate roots to any desired precision regardless of degree. See [Symbolic Methods vs. Numerical Methods](./symbolic-methods-vs-numerical-methods) for more on this distinction.
+
 ## Polynomial Degree
 
 **Polynomial Degree:** The degree of the polynomial is defined as the
@@ -515,6 +524,16 @@ $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow
 $$\mathbf{x \rightarrow \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ -\infty}$$
 
 $$\mathbf{x \rightarrow - \infty, f}\left( \mathbf{x} \right)\mathbf{\rightarrow \ \infty}$$
+
+## Symmetry of Polynomials
+
+A polynomial's symmetry can be read directly from the degrees of its terms:
+
+- If **every** term has an **even** degree (for example $x^4 - 3x^2 + 1$), the polynomial is an **even function**: its graph is symmetric about the $y$-axis, and $f(-x) = f(x)$.
+- If **every** term has an **odd** degree (for example $x^5 - 2x^3 + x$), the polynomial is an **odd function**: its graph is symmetric about the origin, and $f(-x) = -f(x)$.
+- A polynomial mixing even- and odd-degree terms (for example $x^2 + x$) has neither symmetry.
+
+(A constant term has degree $0$, which counts as even.) This is a quick way to anticipate the shape of a graph before plotting.
 
 ## Factor Multiplicity
 
@@ -846,6 +865,36 @@ $$
 
 **Note on complex zeros:** If the polynomial must have real coefficients and one of the zeros is complex, you must include the conjugate as well. For example, if the zeros are $1$ and $2 + 3i$, the polynomial of minimum degree also has $2 - 3i$ as a zero and has degree 3.
 
+## Vieta's Formulas
+
+Writing a polynomial from its zeros also reveals a direct relationship between the **roots and the coefficients**, without solving the polynomial at all. These are **Vieta's formulas**.
+
+For a quadratic $ax^2 + bx + c = 0$ with roots $r_1, r_2$:
+
+$$
+r_1 + r_2 = -\frac{b}{a}, \qquad r_1 r_2 = \frac{c}{a}.
+$$
+
+For a cubic $ax^3 + bx^2 + cx + d = 0$ with roots $r_1, r_2, r_3$:
+
+$$
+r_1 + r_2 + r_3 = -\frac{b}{a}, \qquad r_1 r_2 + r_1 r_3 + r_2 r_3 = \frac{c}{a}, \qquad r_1 r_2 r_3 = -\frac{d}{a}.
+$$
+
+**The general pattern.** For $a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0$ with roots $r_1, \ldots, r_n$, the **elementary symmetric functions** of the roots equal the coefficients with alternating signs:
+
+$$
+\sum_i r_i = -\frac{a_{n-1}}{a_n}, \qquad \prod_i r_i = (-1)^n \frac{a_0}{a_n},
+$$
+
+and, in general, the sum of all products of $k$ roots at a time equals $(-1)^k \dfrac{a_{n-k}}{a_n}$.
+
+**Why it is useful.** You can read the sum and product of the roots straight off the coefficients, sanity-check a factorization, or recover a missing root once the others are known.
+
+**Example.** The roots of $x^2 - 7x + 12 = 0$ must sum to $7$ and multiply to $12$; the pair $3$ and $4$ fits, confirming $x^2 - 7x + 12 = (x - 3)(x - 4)$.
+
+**Example.** A monic cubic whose roots sum to $6$ has $x^2$-coefficient $-6$. If two of its three roots are known to be $1$ and $2$, the third must be $6 - 1 - 2 = 3$.
+
 ## Descartes Rule of Signs
 
 **Descartes Rule of Signs**: **Descartes' Rule of Signs** is a theorem
@@ -1128,4 +1177,13 @@ Each number is the sum of the two numbers above it.
 - The sum of all coefficients: $(1 + 1)^n = 2^n = \sum_{k=0}^{n} \binom{n}{k}$
 - The powers of $a$ decrease from $n$ to $0$, while powers of $b$ increase from $0$ to $n$
 - There are always $n + 1$ terms in the expansion
+
+## Where Polynomials Show Up in Machine Learning
+
+Polynomials are a recurring tool in machine learning and numerical computing.
+
+- **Polynomial features and regression.** Fitting $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \cdots + \beta_d x^d$ (polynomial regression) is still *linear* regression in the transformed features $1, x, x^2, \ldots, x^d$, so the same [least-squares machinery](./statistics#ordinary-least-squares-ols) applies. Polynomial features let a linear model capture curved relationships.
+- **The bias-variance tradeoff, made visible.** The degree $d$ is a direct knob on model complexity: a low-degree polynomial underfits (high bias), while a high-degree polynomial wiggles through every training point and overfits (high variance). Polynomials are the textbook illustration of the [bias-variance tradeoff](./statistics#bias-variance-tradeoff).
+- **Local approximation.** [Taylor's theorem](./calculus#taylor-and-maclaurin-series) approximates any smooth function by a polynomial near a point, which is how nonlinear functions get locally linearized (or quadratically approximated) throughout optimization and analysis.
+- **Basis functions.** Orthogonal polynomial families (Chebyshev, Legendre) provide numerically stable bases for function approximation, avoiding the ill-conditioning of the raw $1, x, x^2, \ldots$ basis.
 
