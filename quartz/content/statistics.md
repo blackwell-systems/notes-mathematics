@@ -119,6 +119,97 @@ The way you collect a sample determines whether your conclusions are valid. A ba
 
 **Where it shows up in ML:** Training data is almost always a convenience sample. If your training data does not represent the population you want your model to work on, the model will fail in deployment. This is the root cause of most "AI bias" problems.
 
+## Producing Data and Experimental Design
+
+Everything a statistical analysis can tell you is limited by how the data were produced. A [section above](#how-samples-are-collected) covered how to *select* units from a population (simple random, stratified, systematic, and convenience sampling, and the selection bias that arises when the sample is not representative). This section covers the other half of producing data: what you *do* to the units once you have them, and why the design of that intervention determines whether you can make a causal claim at all.
+
+### Observational studies vs designed experiments
+
+There are two broad ways to produce data about a relationship between variables.
+
+In an **observational study**, you measure the units as they already are, without intervening. You record who happens to smoke and who does not, then compare their rates of lung disease. You watch which users happen to see a new feature and compare their engagement. The word to hold onto is *happens*: the researcher does not assign the condition, so the groups being compared may differ in many ways besides the one under study.
+
+In an **experiment**, the researcher deliberately imposes a condition on each unit (for example, randomly deciding which patients receive a drug and which receive a sugar pill) and then observes the response. The researcher *creates* the difference between the groups rather than finding it.
+
+This distinction is the whole reason the two kinds of study support different conclusions. An observational study can establish that two variables are **associated** (they move together), but it cannot by itself establish that one **causes** the other, because any observed difference in outcomes might be due to a pre-existing difference between the groups rather than to the variable of interest. Only a **randomized experiment** can establish causation, because randomly assigning units to conditions makes the groups equivalent on average with respect to *every* characteristic, known and unknown, before the treatment is applied. If the groups start out interchangeable and then differ in their response, the treatment is the only systematic explanation left standing.
+
+> **Where it shows up in ML.** An A/B test is a randomized experiment: users are randomly assigned to variant A or B, so any difference in the response metric (click-through, retention, conversion) can be attributed to the variant. This is why "we shipped feature X and engagement went up" (observational, before/after) is far weaker evidence than an A/B test: in the before/after comparison, seasonality, a marketing push, or a concurrent release could be responsible.
+
+### The Vocabulary of Experiments
+
+A precise vocabulary keeps experimental reasoning clear.
+
+- **Experimental unit:** the smallest entity to which a condition is applied. When the units are people, they are called **subjects** (or **participants**).
+- **Treatment:** a specific condition applied to a unit. If a unit receives drug B at a dose of 50 mg, that particular combination is one treatment.
+- **Factor:** an explanatory variable that the experimenter manipulates. "Drug type" and "dose" are two factors.
+- **Level:** one of the possible values a factor can take. The factor "dose" might have levels 0 mg, 50 mg, and 100 mg.
+- **Treatment as a combination of levels:** when there is more than one factor, a treatment is a combination of one level from each factor. With drug type (2 levels) and dose (3 levels), there are $2 \times 3 = 6$ treatments.
+- **Response variable:** the outcome the experiment measures (blood pressure after four weeks, whether the user clicked).
+- **Control group:** a group that receives a baseline condition (no treatment, the current standard, or a placebo) so that the treated groups have something to be compared against. Without a control group, you cannot tell whether the response was caused by the treatment or would have happened anyway.
+
+### The Three Principles of Experimental Design
+
+Good experiments rest on three principles. Each one neutralizes a specific way that a naive comparison can mislead you.
+
+**Control.** Hold the other conditions of the experiment as constant as possible across groups, and include a control group as a baseline. The purpose of control is to prevent outside variables from differing systematically between the treatment groups, so that they cannot masquerade as an effect of the treatment.
+
+**Randomization.** Assign units to treatment groups by a chance mechanism rather than by choice or convenience. Randomization is what makes the groups comparable on average across *all* characteristics, including ones you never thought to measure. Control handles the variables you know about; randomization handles the ones you do not. This is the single feature that separates an experiment capable of establishing causation from one that is not.
+
+**Replication.** Apply each treatment to many units, not just one. A response measured on a single unit could be a fluke of that unit. Replication lets individual variation average out, so a real treatment effect can be distinguished from ordinary noise, and it lets you estimate how large that noise is. (Replication, many units within one study, is distinct from *reproducibility*, the independent repetition of the whole study by others.)
+
+### Blocking and Randomized Block Designs
+
+Randomization makes groups equal *on average*, but with a modest number of units, chance can still leave the groups noticeably unbalanced on a variable you know matters. **Blocking** addresses this. A **block** is a group of units that are similar with respect to some variable expected to affect the response. The design randomizes treatments *separately within each block*.
+
+Suppose you are testing a training method and you know that beginners and experts respond very differently. Rather than randomizing across everyone and hoping the experts split evenly, you form two blocks (beginners and experts) and randomly assign treatments within each block. This is a **randomized block design**. Because each treatment now appears in a balanced way among beginners and among experts, the beginner-versus-expert variation is prevented from inflating the noise, and the treatment comparison becomes sharper.
+
+The guiding slogan is **"block what you can, randomize what you cannot."** For nuisance variables you can identify and measure (skill level, age group, hardware type), remove their influence by blocking. For all the variables you cannot identify, fall back on randomization to balance them on average.
+
+> **Where it shows up in ML.** Paired or stratified evaluation is blocking. If you compare two models on a benchmark, evaluating both on the *same* set of examples (a paired design) blocks out example-to-example difficulty: each example serves as its own block.
+
+### Blinding, Placebo, and the Placebo Effect
+
+Subjects (and the people measuring them) can respond to their *expectations*, not just to the treatment. The **placebo effect** is a real, measurable response produced by the mere expectation of treatment: patients given an inert pill, a **placebo**, often improve simply because they believe they are being treated. If the treatment group knows it is being treated and the control group knows it is not, part of any observed difference could be expectation rather than the treatment itself.
+
+**Blinding** removes this by hiding who is in which group.
+
+- In a **single-blind** experiment, the subjects do not know which treatment they received, but the researchers do.
+- In a **double-blind** experiment, neither the subjects nor the people administering the treatment and measuring the response know who is in which group until the data are collected. Double-blinding also guards against experimenters unconsciously nudging results.
+
+A placebo is what makes single-blinding possible on the subject side: the control group must receive something indistinguishable from the treatment, or blinding is impossible.
+
+### Confounding Variables
+
+A **confounding variable** (also called a **lurking variable** when it was not measured or anticipated) is a variable that is associated with both the explanatory variable and the response variable, so that its effect on the response cannot be separated from the effect of the variable you care about. When a confounder is present, an observed association between two variables might be entirely, or partly, due to the confounder rather than to a direct relationship.
+
+Concrete example. A town's data show that months with higher ice-cream sales also have more drownings, a strong positive association. It would be absurd to conclude that ice cream causes drowning. The lurking variable is **temperature (or season)**: hot months drive up ice-cream sales *and* send more people swimming, which raises drownings. Temperature is associated with both variables, so it confounds the association between them.
+
+This is exactly the danger a randomized experiment avoids. If you could randomly assign ice-cream consumption, the hot and cold months would be balanced across the assigned groups, and the spurious link would vanish. In an observational study you cannot do that, which is why confounding is the central reason observational associations do not imply causation.
+
+> **Where it shows up in ML.** Confounding lives in observational training data. A model trained to predict disease from chest X-rays may learn to key off a scanner-specific marker because sicker patients happened to be imaged on a particular machine: the scanner confounds the association between image and diagnosis. Spurious correlations and shortcut learning are confounding by another name.
+
+### Simpson's Paradox
+
+Confounding can be dramatic enough to *reverse* an association. **Simpson's paradox** is the phenomenon in which a trend that appears in each subgroup of the data reverses when the subgroups are combined. It happens when a lurking variable is unevenly distributed across the groups being compared.
+
+Consider two treatments, A and B, for kidney stones. Patients also differ in whether their stones are **small** or **large**, and large stones are harder to cure. Here are the success counts (successes out of patients treated), broken out by stone size.
+
+| Stone size | Treatment A | Treatment B |
+|---|---|---|
+| Small stones | 81 / 87 | 234 / 270 |
+| Large stones | 192 / 263 | 55 / 80 |
+| **Combined** | **273 / 350** | **289 / 350** |
+
+Within the small-stone group, $\tfrac{81}{87} \approx 0.931$ for A versus $\tfrac{234}{270} \approx 0.867$ for B: A does better. Within the large-stone group, $\tfrac{192}{263} \approx 0.730$ for A versus $\tfrac{55}{80} = 0.688$ for B: A does better again. So A wins in *both* subgroups. Now combine them:
+
+$$
+\text{A: } \frac{81+192}{87+263} = \frac{273}{350} = 0.780, \qquad \text{B: } \frac{234+55}{270+80} = \frac{289}{350} \approx 0.826.
+$$
+
+Combined, B wins. The association has reversed. The lurking variable is **stone size**, distributed very unevenly: Treatment A was given mostly to the hard cases ($263$ of its $350$ patients had large stones), while Treatment B was given mostly to the easy cases (only $80$ of $350$). A's combined rate is dragged down because it is an average dominated by difficult patients. The fair comparison is *within* each stone-size group, where A is better. Had patients been *randomly* assigned, stone size would have been balanced and the reversal could not have arisen.
+
+> **Where it shows up in ML.** Aggregate metrics can hide subgroup reversals. A classifier with higher overall accuracy than a baseline can be *worse* on every demographic subgroup if the subgroups are unevenly sized across the two systems' evaluation sets. This is why disaggregated evaluation (reporting metrics per subgroup) is a standard fairness practice.
+
 ## Descriptive Statistics
 
 Before making inferences, you need to summarize what you observed. Descriptive statistics reduce a dataset to a few numbers that capture its key features.
@@ -465,6 +556,36 @@ $$
 No unbiased estimator can do better than $1/(n I(\theta))$; more information means a smaller achievable variance. This is the precise meaning of "efficient": an estimator is **efficient** when it attains the Cramér-Rao bound, i.e. its variance equals $1/(n I(\theta))$. An unbiased estimator that has the smallest possible variance among *all* unbiased estimators is called the **uniformly minimum-variance unbiased estimator (UMVUE)**; if it also meets the CRLB it is efficient in the finite-sample sense.
 
 **Finite-sample vs. asymptotic efficiency:** These two notions are worth separating. *Finite-sample efficiency* (the UMVUE / Cramér-Rao sense) asks whether an estimator attains the minimum variance for every fixed $n$. *Asymptotic efficiency* is a weaker, large-$n$ statement: it asks only that the variance approach the Cramér-Rao bound as $n \to \infty$. The MLE is generally *asymptotically* efficient (its variance approaches $1/(n I(\theta))$ for large $n$) even when it is biased or not the UMVUE at any finite sample size. This distinction is why, for small samples, a UMVUE can beat the MLE, while for large samples the MLE is essentially optimal.
+
+#### Sufficiency and the Factorization Theorem
+
+The Cramér-Rao thread asked *how well* a single estimator can do. A companion question is more structural: which functions of the data actually carry the information about $\theta$, and which parts of the sample are just noise we can discard? A statistic that captures everything relevant is called **sufficient**, and the answer connects directly back to the UMVUE.
+
+**Intuition.** A statistic $T(X)$ (any function of the sample $X = (X_1, \dots, X_n)$) is **sufficient** for $\theta$ if, once you know the value of $T$, the rest of the data tells you nothing more about $\theta$. For example, if you flip a coin $n$ times to learn its bias, the *number* of heads seems to be all that matters; the specific order in which they landed feels irrelevant. Sufficiency makes that intuition precise.
+
+**Formal definition.** $T(X)$ is sufficient for $\theta$ if the conditional distribution of the sample $X$ given $T(X) = t$ does not depend on $\theta$. Because that conditional distribution is $\theta$-free, whatever information the data held about $\theta$ has been fully absorbed into $T$.
+
+**The Neyman-Fisher factorization theorem.** Checking the definition directly requires computing a conditional distribution, which is awkward. The factorization theorem replaces it with a purely algebraic test: $T(X)$ is sufficient for $\theta$ if and only if the likelihood factors as
+
+$$
+p(x \mid \theta) = g\big(T(x), \theta\big)\, h(x),
+$$
+
+where $g$ depends on the data only through $T(x)$ and $h(x)$ does not depend on $\theta$ at all. In words: if $\theta$ touches the data only through the combination $T(x)$, then $T$ is sufficient.
+
+**Worked example (Bernoulli $p$).** Let $X_1, \dots, X_n$ be independent $\text{Bernoulli}(p)$, so each $x_i \in \{0,1\}$ with pmf $p(x_i \mid p) = p^{x_i}(1-p)^{1-x_i}$. The joint pmf is the product:
+
+$$
+p(x \mid p) = \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i} = p^{\,t}\,(1-p)^{\,n - t},
+$$
+
+where $t = \sum_{i=1}^n x_i$ is the total number of successes (the exponents add because $\sum_i x_i = t$ and $\sum_i (1 - x_i) = n - t$). This already has the factorization form with $g(t, p) = p^{\,t}(1-p)^{\,n-t}$ and $h(x) = 1$. The data enter only through $t$, so $T(X) = \sum_i X_i$ is sufficient for $p$. Concretely, once we know that $t = 3$ of $n = 10$ flips were heads, every arrangement of those 3 heads is equally likely (there are $\binom{10}{3} = 120$, each with conditional probability $1/120$), and that $1/120$ does not involve $p$. The same argument gives $\sum_i X_i$ as sufficient for the Poisson rate $\lambda$.
+
+**Minimal sufficiency.** A sufficient statistic is **minimal sufficient** if it is a function of every other sufficient statistic, i.e. it compresses the data as far as possible without losing information. For the Bernoulli model, $\sum_i X_i$ is minimal sufficient.
+
+**The Rao-Blackwell theorem.** Sufficiency is not just descriptive; it is a tool for *improving* estimators. Let $\hat{\theta}$ be any unbiased estimator of $\theta$, and let $T$ be sufficient. Define the **Rao-Blackwellized** estimator $\tilde{\theta} = \mathbb{E}[\hat{\theta} \mid T]$. Because $T$ is sufficient, this is a genuine statistic (it does not depend on the unknown $\theta$), and it is still unbiased ($\mathbb{E}[\tilde{\theta}] = \theta$ by the law of total expectation) with variance no larger ($\operatorname{Var}(\tilde{\theta}) \leq \operatorname{Var}(\hat{\theta})$ by the law of total variance). Conditioning on a sufficient statistic can only help, never hurt: it averages away the noise in the discarded part of the data.
+
+**Connection to the UMVUE (Lehmann-Scheffé).** Rao-Blackwell says the best unbiased estimators must be functions of a sufficient statistic, so the hunt for the UMVUE can be restricted to functions of $T$. If $T$ is moreover **complete** (a technical condition ruling out any nonzero unbiased estimator of $0$ built from $T$), there is only *one* unbiased function of $T$, and the **Lehmann-Scheffé theorem** concludes it is *the* UMVUE. For the Bernoulli model this recovers the familiar result that $\bar{X} = T/n$ is the UMVUE for $p$, an estimator that also attains the Cramér-Rao bound and is therefore efficient in the finite-sample sense.
 
 ### Confidence Intervals
 
@@ -993,6 +1114,14 @@ The critical value for a two-tailed test at $\alpha = 0.05$ with 46 df is approx
 
 Effect size: $d = \frac{74 - 79}{s_p} = \frac{-5}{11.05} \approx -0.45$, a small-to-medium effect. A larger sample might detect this difference.
 
+**Confidence interval for the difference of means.** The same ingredients give an interval for $\mu_1 - \mu_2$, which reports the plausible size of the difference rather than just testing whether it is zero:
+
+$$
+(\bar{x}_1 - \bar{x}_2) \pm t^* \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+$$
+
+(using the Welch standard error and degrees of freedom; the pooled version replaces the root with $s_p\sqrt{1/n_1 + 1/n_2}$). For the example above, $\bar{x}_1 - \bar{x}_2 = -5$, the standard error is $\sqrt{9.76} = 3.124$, and with $\nu = 46$, $t^* = 2.013$, so the 95% CI is $-5 \pm 2.013 \times 3.124 = -5 \pm 6.29 = (-11.29,\ 1.29)$. The interval contains $0$, which is the interval-based counterpart of failing to reject $H_0$.
+
 ### Paired t-Test
 
 **When to use:** You have two measurements on the same subjects (before and after a treatment, left and right hand, two test versions taken by the same students). The key feature is that the observations are not independent; they come in natural pairs.
@@ -1033,6 +1162,98 @@ t = \frac{4.7}{2.406/\sqrt{10}} = \frac{4.7}{0.761} = 6.175
 $$
 
 With $\nu = 9$ degrees of freedom, the critical value for a one-tailed test ($H_1: \mu_d > 0$) at $\alpha = 0.05$ is $t^* = 1.833$. Since $6.175 \gg 1.833$, we reject $H_0$. The training program significantly improved scores ($t(9) = 6.18$, $p < 0.001$, $d = 4.7/2.406 = 1.95$, a very large effect).
+
+### Tests for Proportions
+
+So far the tests in this chapter (t-tests, ANOVA) have compared *means* of numeric variables. Often the quantity of interest is instead a *proportion*: the fraction of a population in some category, such as the share of users who click a button or the accuracy of a classifier (the proportion of predictions that are correct). We already built the [confidence interval for a single proportion](#confidence-interval-for-a-proportion) above; this section develops the corresponding *hypothesis tests* and the two-sample comparison.
+
+The setup throughout is a **Bernoulli** experiment: $n$ independent trials, each a "success" (probability $p$) or "failure" (probability $1 - p$). We count $x$ successes and form $\hat{p} = x/n$. Because $\hat{p}$ is an average of $n$ independent 0/1 outcomes, the Central Limit Theorem makes its sampling distribution approximately normal for large $n$, which is what makes a $z$-test appropriate.
+
+#### One-Proportion z-Test
+
+**When to use:** You want to test whether a population proportion equals a specific hypothesized value $p_0$.
+
+$$
+H_0: p = p_0 \qquad H_1: p \neq p_0 \ \ (\text{or one-sided})
+$$
+
+**Test statistic:**
+
+$$
+z = \frac{\hat{p} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n}}}
+$$
+
+Under $H_0$ this is approximately standard normal. Note the denominator uses $p_0$, the *hypothesized* value, not the observed $\hat{p}$: a hypothesis test computes the null distribution, and *if $H_0$ were true* the true standard deviation of $\hat{p}$ is $\sqrt{p_0(1 - p_0)/n}$. (This differs from the confidence interval, which makes no such assumption and uses $\hat{p}$.) The normal approximation is trustworthy when $n p_0 \geq 10$ and $n(1 - p_0) \geq 10$.
+
+**Worked example:** A coin is spun 200 times and lands heads 115 times. Test at $\alpha = 0.05$ whether it is fair. $H_0: p = 0.5$ versus $H_1: p \neq 0.5$ (two-tailed). Here $\hat{p} = 115/200 = 0.575$, and conditions hold ($n p_0 = 100 \geq 10$). The standard error under the null is
+
+$$
+SE = \sqrt{\frac{0.5 \times 0.5}{200}} = \sqrt{0.00125} = 0.03536,
+$$
+
+so
+
+$$
+z = \frac{0.575 - 0.5}{0.03536} = 2.121, \qquad p\text{-value} = 2 \times P(Z > 2.121) = 2 \times 0.0169 = 0.034.
+$$
+
+Since $0.034 < 0.05$, we reject $H_0$: there is significant evidence the coin is not fair.
+
+#### Two-Proportion z-Test
+
+**When to use:** You want to compare the proportions of two independent groups, for example the conversion rate of a control page versus a redesign.
+
+$$
+H_0: p_1 = p_2 \qquad H_1: p_1 \neq p_2
+$$
+
+Under $H_0$ the two groups share a common true proportion, best estimated by pooling both samples into the **pooled proportion**
+
+$$
+\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}.
+$$
+
+**Test statistic:**
+
+$$
+z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p})\left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}}
+$$
+
+The pooled $\hat{p}$ appears in the standard error (because the test assumes $H_0$ is true, and under $H_0$ there is a single proportion), while the numerator is the observed difference.
+
+**Worked example (an A/B test):** A control checkout page converts $x_1 = 80$ of $n_1 = 1000$ visitors; a redesigned page converts $x_2 = 112$ of $n_2 = 1000$. Test at $\alpha = 0.05$. The sample proportions are $\hat{p}_1 = 0.080$ and $\hat{p}_2 = 0.112$; the pooled proportion is $\hat{p} = 192/2000 = 0.096$. Then
+
+$$
+SE = \sqrt{0.096 \times 0.904 \times \left(\tfrac{1}{1000} + \tfrac{1}{1000}\right)} = \sqrt{0.00017357} = 0.01317,
+$$
+
+$$
+z = \frac{0.112 - 0.080}{0.01317} = 2.429, \qquad p\text{-value} = 2 \times P(Z > 2.429) = 0.015.
+$$
+
+Since $0.015 < 0.05$, we reject $H_0$: the redesign has a significantly different (higher) conversion rate.
+
+#### Confidence Interval for a Difference of Proportions
+
+The test asks "is there a difference?"; a confidence interval asks "how big?". For $p_1 - p_2$:
+
+$$
+(\hat{p}_1 - \hat{p}_2) \pm z^* \sqrt{\frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2}}
+$$
+
+Note the interval uses the *separate, unpooled* proportions: a CI does not assume $p_1 = p_2$, so there is no shared value to pool toward. Using the A/B data above for $p_2 - p_1$, the point estimate is $0.112 - 0.080 = 0.032$ and
+
+$$
+SE = \sqrt{\frac{0.112 \times 0.888}{1000} + \frac{0.080 \times 0.920}{1000}} = \sqrt{0.00017306} = 0.01316,
+$$
+
+$$
+0.032 \pm 1.96 \times 0.01316 = 0.032 \pm 0.0258 = (0.0062,\ 0.0578).
+$$
+
+We are 95% confident the redesign increases conversion by between about 0.6 and 5.8 percentage points. The interval excludes 0, consistent with rejecting $H_0$ above.
+
+**Where it shows up in ML:** This is the statistical backbone of **A/B testing**. Conversion rates, click-through rates, and "fraction of sessions with an error" are all proportions, and deciding whether a new model or UI variant genuinely moved such a metric is a two-proportion comparison. The confidence interval is often more useful than the test alone, because shipping decisions depend on the *magnitude* of the lift. (For paired predictions on the *same* examples, McNemar's test is more powerful.)
 
 ### Chi-Squared Goodness-of-Fit Test
 
@@ -1119,6 +1340,58 @@ Since $16.67 \gg 3.841$, we reject $H_0$. There is a statistically significant a
 
 **Where it shows up in ML:** A/B testing uses hypothesis testing to determine if a new feature improves a metric. Statistical tests help determine if one model is significantly better than another, or if the difference is just noise. Chi-squared tests are used in feature selection to test whether a categorical feature is associated with the target variable.
 
+### Measures of Association: Odds Ratio and Relative Risk
+
+The [chi-squared test of independence](#chi-squared-test-of-independence) answers a yes-or-no question: **are** two categorical variables associated? It does not say **how strongly**. For a $2 \times 2$ table (two groups, an outcome that either happens or does not), the **relative risk** and the **odds ratio** quantify the strength and direction of the association with a single number.
+
+**The generic $2 \times 2$ table.** Label the cell counts:
+
+| | Outcome present | Outcome absent |
+|---|---|---|
+| **Group 1** | $a$ | $b$ |
+| **Group 2** | $c$ | $d$ |
+
+**Relative risk (RR).** The *risk* (probability) of the outcome is $a/(a+b)$ for group 1 and $c/(c+d)$ for group 2. Their ratio is
+
+$$
+\text{RR} = \frac{a/(a+b)}{c/(c+d)}.
+$$
+
+An RR of $2$ means the outcome is twice as likely in group 1 as in group 2.
+
+**Odds ratio (OR).** The *odds* of the outcome are $a/b$ in group 1 and $c/d$ in group 2. Their ratio is
+
+$$
+\text{OR} = \frac{a/b}{c/d} = \frac{ad}{bc}.
+$$
+
+The last form (the "cross-product ratio") is the quickest way to compute it by hand.
+
+**Interpretation.** For both measures, a value of $1$ means **no association**; greater than $1$ indicates a positive association (group 1 has the higher risk or odds), and less than $1$ indicates a protective effect.
+
+**When each is appropriate.** Relative risk is more directly interpretable ("twice as likely"), but it can only be estimated when the outcome probabilities are meaningful, as in a **cohort (prospective) study** that follows subjects forward from exposure to outcome. In a **case-control (retrospective) study**, subjects are selected *by their outcome*, so the sampling distorts $a+b$ and $c+d$ and the risks are not valid estimates. The odds ratio is invariant to this kind of sampling and can still be estimated, which is why case-control studies report odds ratios. When the outcome is rare, the odds ratio also closely approximates the relative risk.
+
+**Worked example.** Reusing the exercise-and-stress data from the [chi-squared test of independence](#chi-squared-test-of-independence), treat "high stress" as the outcome:
+
+| | High stress | Low stress | Total |
+|---|---|---|---|
+| **Does not exercise** (group 1) | 30 | 20 | 50 |
+| **Exercises regularly** (group 2) | 10 | 40 | 50 |
+
+So $a = 30$, $b = 20$, $c = 10$, $d = 40$. The risk of high stress is $30/50 = 0.60$ for non-exercisers and $10/50 = 0.20$ for exercisers, so
+
+$$
+\text{RR} = \frac{0.60}{0.20} = 3.0.
+$$
+
+The odds are $30/20 = 1.5$ and $10/40 = 0.25$, so
+
+$$
+\text{OR} = \frac{1.5}{0.25} = 6.0, \qquad \text{equivalently} \qquad \frac{ad}{bc} = \frac{30 \times 40}{20 \times 10} = 6.0.
+$$
+
+Both exceed $1$, quantifying the positive association the chi-squared test flagged: not exercising triples the *risk* and sextuples the *odds* of high stress. The odds ratio is larger than the relative risk here because the outcome is common (not rare), so the two are not expected to coincide.
+
 ### Goodness-of-Fit Beyond Chi-Squared
 
 The chi-squared test checks whether observed counts match expected counts across categories. But sometimes you want to test whether continuous data follows a specific distribution (normal, exponential, uniform, etc.). Two tests handle this.
@@ -1154,6 +1427,72 @@ where $F_n(x)$ is the empirical CDF (the proportion of data points $\leq x$) and
 | Shapiro-Wilk | Testing normality specifically | Only tests normality; limited to moderate $n$ |
 
 **Practical workflow:** Before running a t-test or ANOVA, check normality with a Q-Q plot (visual) and the Shapiro-Wilk test (formal). If normality is violated, either transform the data or switch to a nonparametric test.
+
+## Inference for Variances
+
+So far our inference has been about *centers*: the mean of a population, the difference between two means. But sometimes the *spread itself* is the quantity of interest. A machine that fills cereal boxes might hit the correct average weight while varying so wildly that some boxes are nearly empty; the customer cares about the consistency, which is a statement about the variance. Two portfolios might share the same expected return while one is far more volatile. Quality control is very often a claim that a process variance stays below a tolerance. The tools for such claims are two new reference distributions: the chi-squared distribution (for a single variance) and the F-distribution (for comparing two variances).
+
+### The Chi-Squared Distribution in This Context
+
+Draw a sample of size $n$ from a normal population with variance $\sigma^2$ and compute the sample variance $s^2$. The key distributional fact is that
+
+$$
+\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_{n-1},
+$$
+
+a [chi-squared distribution](./probability#chi-squared-distribution) with $n - 1$ degrees of freedom (one is used up estimating $\bar{x}$, exactly as with the $t$-distribution). Two features matter. First, it lives on $[0, \infty)$: a sum of squares is never negative. Second, it is **right-skewed**, so unlike the symmetric normal, a two-sided procedure needs **two separate critical values**, a lower one $\chi^2_{n-1,\,\alpha/2}$ and an upper one $\chi^2_{n-1,\,1-\alpha/2}$ (here $\chi^2_{k,\,p}$ is the $p$-quantile, the value below which a fraction $p$ of the distribution lies).
+
+### The F-Distribution
+
+To compare *two* variances we need a distribution for their ratio. The **F-distribution** is the distribution of a ratio of two independent chi-squared variables, each divided by its own degrees of freedom. If $U_1 \sim \chi^2_{d_1}$ and $U_2 \sim \chi^2_{d_2}$ are independent,
+
+$$
+F = \frac{U_1/d_1}{U_2/d_2} \sim F_{d_1,\,d_2},
+$$
+
+with **numerator degrees of freedom** $d_1$ and **denominator degrees of freedom** $d_2$ (the order matters; $F_{d_1,d_2}$ is generally not $F_{d_2,d_1}$). Because it is built from non-negative chi-squared variables, the F-distribution is supported on $[0, \infty)$ and is **right-skewed**. Its asymmetry gives a useful identity for lower-tail critical values:
+
+$$
+F_{d_1,\,d_2,\,1-\alpha} = \frac{1}{F_{d_2,\,d_1,\,\alpha}}.
+$$
+
+(For instance $F_{20,15,\,0.975} \approx 2.573$, so $1/2.573 \approx 0.363 = F_{15,20,\,0.025}$.) The F-distribution is also the reference distribution for the **ANOVA** F-statistic and the **overall F-test** in regression, both of which appear elsewhere on this page: in every case the idea is to form a ratio of two variance-like quantities and ask whether it is farther from $1$ than chance alone would explain.
+
+### Confidence Interval for a Single Variance
+
+Starting from the pivot $\dfrac{(n-1)s^2}{\sigma^2} \sim \chi^2_{n-1}$ and trapping it between the two critical values, then solving for $\sigma^2$ (inverting flips the inequalities, so the *upper* critical value lands in the *lower* endpoint), the $100(1-\alpha)\%$ confidence interval is
+
+$$
+\left(\frac{(n-1)s^2}{\chi^2_{n-1,\,1-\alpha/2}},\ \frac{(n-1)s^2}{\chi^2_{n-1,\,\alpha/2}}\right).
+$$
+
+**Worked example.** From $n = 20$ fills we compute $s^2 = 4.2$ (in mL$^2$) and want a 95% CI for $\sigma^2$, assuming normal fill volumes. With $\alpha/2 = 0.025$ and $n - 1 = 19$ df, $\chi^2_{19,\,0.025} = 8.907$ and $\chi^2_{19,\,0.975} = 32.852$, and $(n-1)s^2 = 19 \times 4.2 = 79.8$. So
+
+$$
+\text{lower} = \frac{79.8}{32.852} = 2.429, \qquad \text{upper} = \frac{79.8}{8.907} = 8.960,
+$$
+
+giving the 95% CI $(2.429,\ 8.960)$ mL$^2$. The interval is not centered on $s^2 = 4.2$; it stretches farther right, reflecting the chi-squared skew. For a CI on $\sigma$, take square roots: $(\sqrt{2.429},\ \sqrt{8.960}) = (1.559,\ 2.993)$ mL.
+
+### F-Test for Equality of Two Variances
+
+For two independent normal samples, to test $H_0: \sigma_1^2 = \sigma_2^2$ against $H_1: \sigma_1^2 \neq \sigma_2^2$, the population variances cancel under $H_0$ and
+
+$$
+F = \frac{s_1^2}{s_2^2} \sim F_{n_1 - 1,\,n_2 - 1}.
+$$
+
+Values near $1$ support $H_0$; values far from $1$ are evidence against it. Reject at level $\alpha$ if $F > F_{n_1-1,\,n_2-1,\,1-\alpha/2}$ or $F < F_{n_1-1,\,n_2-1,\,\alpha/2}$.
+
+**Worked example.** Strategy 1 has $n_1 = 16$ daily returns with $s_1^2 = 42.5$; strategy 2 has $n_2 = 21$ with $s_2^2 = 10.2$. Test at $\alpha = 0.05$. Then
+
+$$
+F = \frac{42.5}{10.2} = 4.167,
+$$
+
+compared against $F_{15,\,20}$. The two-sided critical values are $F_{15,20,\,0.975} = 2.573$ and $F_{15,20,\,0.025} = 0.363$. Since $4.167 > 2.573$ (equivalently, a two-sided p-value of about $0.0036$), we reject $H_0$: the two strategies have significantly different return variances, with strategy 1 the more volatile.
+
+**Caveat: the F-test is fragile.** The F-test for variances is notoriously **sensitive to departures from normality**: heavier tails or skew can make it reject far more often than its stated $\alpha$ even when the variances are equal. When normality is in doubt, prefer a robust alternative such as **Levene's test** (or its median-centered Brown-Forsythe variant).
 
 ## ANOVA (Analysis of Variance)
 
@@ -1267,6 +1606,40 @@ ANOVA tells you that at least one group is different, but not which one(s). Post
 
 **In the example above:** A Tukey HSD would test each of the three pairwise gaps against the studentized-range critical value (using $MSW = 14.5$ and $n = 5$ per group). The $20$-point B-C gap ($90 - 70$) is large relative to that threshold and would be clearly significant. The two $10$-point gaps (B vs. A at $90 - 80$, and A vs. C at $80 - 70$) are borderline: with this within-group spread they sit near the critical value, so whether they reach significance depends on the exact cutoff rather than being a foregone conclusion.
 
+### Two-Way ANOVA
+
+One-way ANOVA compares group means across a single factor. Often each observation is classified by **two** factors at once, and we want to know how each factor, and their combination, influences the response. **Two-way ANOVA** handles this.
+
+**Setup:** Factor $A$ has $a$ levels and factor $B$ has $b$ levels. Crossing them gives $a \times b$ cells. Write $\bar{x}_{i\cdot}$ for the mean at level $i$ of $A$, $\bar{x}_{\cdot j}$ for the mean at level $j$ of $B$, $\bar{x}_{ij}$ for the cell mean, and $\bar{x}$ for the grand mean.
+
+**Partitioning the variability.** Just as one-way ANOVA split $SST$ into between and within, two-way ANOVA splits it into four pieces:
+
+$$
+SST = SS_A + SS_B + SS_{AB} + SSE
+$$
+
+- **Main effect of $A$** ($SS_A$): how the $A$-level means deviate from the grand mean, ignoring $B$.
+- **Main effect of $B$** ($SS_B$): likewise for $B$.
+- **Interaction** ($SS_{AB}$): variability in the cell means left over after both main effects are accounted for, capturing the extent to which the combined effect of $A$ and $B$ is not simply the sum of their separate effects.
+- **Error** ($SSE$): variability of observations around their own cell mean, the background noise (analogous to $SSW$).
+
+**Three F-tests.** Divide each sum of squares by its degrees of freedom and form an F-ratio against $MSE = SSE / (n - ab)$:
+
+$$
+F_A = \frac{MS_A}{MSE}, \qquad F_B = \frac{MS_B}{MSE}, \qquad F_{AB} = \frac{MS_{AB}}{MSE}
+$$
+
+where $MS_A = SS_A/(a-1)$, $MS_B = SS_B/(b-1)$, and $MS_{AB} = SS_{AB}/[(a-1)(b-1)]$. Each $F$ is compared to an F-distribution with the corresponding numerator df and $n - ab$ denominator df.
+
+**What an interaction means.** An interaction is present when the effect of one factor **depends on the level of the other**. Cross a treatment factor (drug vs. placebo) with an age factor (young vs. old) and record mean recovery scores:
+
+| | Young | Old |
+|---|---|---|
+| **Placebo** | 50 | 50 |
+| **Drug** | 70 | 52 |
+
+For **young** patients the drug raises the score by $70 - 50 = 20$; for **old** patients by only $52 - 50 = 2$. The drug's effect is not a single number; it *depends on age*, so there is an interaction. (If the drug added $20$ points in both groups, the cell means would be $50, 50, 70, 70$ and there would be no interaction, only two main effects.) On an **interaction plot** (cell means with age on the horizontal axis, one line per treatment), no interaction shows as **parallel** lines; here the placebo line is flat while the drug line falls steeply, so the non-parallel lines are the visual signature of the interaction, and a significant $F_{AB}$ is its formal counterpart.
+
 ### Multiple Testing Correction
 
 **The problem:** When you perform many hypothesis tests simultaneously, the probability of at least one false positive grows rapidly, even if every null hypothesis is true. If you run 20 independent tests at $\alpha = 0.05$, the expected number of false positives is $20 \times 0.05 = 1$. The probability of at least one false positive is:
@@ -1338,6 +1711,27 @@ Standard tests like the t-test and ANOVA assume that data is normally distribute
 
 **The tradeoff:** Nonparametric tests are more broadly applicable, but they have less statistical power than their parametric counterparts when the parametric assumptions actually hold. If your data is truly normal, a t-test will detect effects that a nonparametric test might miss.
 
+### Sign Test
+
+The **sign test** is the simplest nonparametric test of all. It applies to a single sample (testing whether the population median equals some value $m_0$) or to paired data, and it assumes almost nothing: not normality, not even symmetry.
+
+**How it works.** For paired data, compute the difference within each pair (for a one-sample median test, subtract $m_0$ from each observation). Then:
+
+1. **Discard** any difference that is exactly zero, reducing the sample to $n$ nonzero differences.
+2. **Count** the number of positive differences, $S$.
+3. Under $H_0$, each nonzero difference is positive or negative with probability $\tfrac{1}{2}$, so $S \sim \text{Binomial}(n, \tfrac{1}{2})$.
+4. The p-value is a binomial tail probability; for a two-sided test, take the more extreme of $S$ and $n - S$ and double the corresponding tail.
+
+**Relationship to the Wilcoxon signed-rank test.** The sign test uses only the **sign** of each difference, throwing away its magnitude. The [Wilcoxon signed-rank test](#wilcoxon-signed-rank-test) additionally ranks the differences by size, so it uses more information and is **more powerful** when the differences are symmetric. The sign test's advantage is that it needs no symmetry assumption and works even when only the direction of each difference is known.
+
+**Worked example.** Ten judges each compare two recipes; recipe X is preferred by $8$, recipe Y by $2$, no ties, so $n = 10$ and $S = 8$. Test $H_0$ (equal split) two-sided. Under $H_0$, $S \sim \text{Binomial}(10, 0.5)$, and
+
+$$
+P(S \ge 8) = \frac{\binom{10}{8} + \binom{10}{9} + \binom{10}{10}}{2^{10}} = \frac{45 + 10 + 1}{1024} = \frac{56}{1024} \approx 0.0547.
+$$
+
+The two-sided p-value is $2 \times 0.0547 \approx 0.109$. Since $0.109 > 0.05$, we do **not** reject $H_0$: with only ten judges, an $8$-to-$2$ split is not strong enough to conclude a genuine preference (a $9$-to-$1$ split would have crossed the threshold).
+
 ### Wilcoxon Signed-Rank Test
 
 **Nonparametric alternative to:** the paired t-test.
@@ -1386,6 +1780,87 @@ where $d_i$ is the difference between the ranks of paired observations, and $n$ 
 | Two-sample t-test | Mann-Whitney U | Two independent groups |
 | One-way ANOVA | Kruskal-Wallis | Three+ independent groups |
 | Pearson correlation | Spearman rank correlation | Two continuous or ordinal variables |
+
+## Correlation
+
+Once we have plotted two quantitative variables against each other, the natural next question is quantitative: *how strongly*, and *in what direction*, are they associated? Before fitting a line through the cloud (the next section), we want a single number summarizing the **strength** and **direction** of the *linear* association. That number is the correlation coefficient.
+
+### The Pearson Correlation Coefficient
+
+The **Pearson correlation coefficient**, written $r$, measures the strength and direction of the linear relationship between two quantitative variables $x$ and $y$:
+
+$$
+r = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_i (x_i - \bar{x})^2}\,\sqrt{\sum_i (y_i - \bar{y})^2}} = \frac{\operatorname{cov}(x, y)}{s_x\, s_y}.
+$$
+
+The numerator accumulates a *positive* contribution when a point is above (or below) average on both variables, and a *negative* one when it is above on one and below the other, so it measures whether the variables move together. The denominator rescales by each variable's spread, which makes $r$ **unitless** and (by the Cauchy-Schwarz inequality) confines it to $[-1, 1]$. Equivalently, $r$ is the average product of the standardized ($z$-score) values of $x$ and $y$.
+
+### Worked Example
+
+Consider five paired observations:
+
+| $x_i$ | $y_i$ |
+|-------|-------|
+| 1 | 2 |
+| 2 | 1 |
+| 3 | 4 |
+| 4 | 3 |
+| 5 | 7 |
+
+The means are $\bar{x} = 15/5 = 3$ and $\bar{y} = 17/5 = 3.4$. Tabulating deviations $d_x = x_i - \bar{x}$, $d_y = y_i - \bar{y}$:
+
+| $d_x$ | $d_y$ | $d_x d_y$ | $d_x^2$ | $d_y^2$ |
+|-------|-------|-----------|---------|---------|
+| $-2$ | $-1.4$ | $2.8$ | $4$ | $1.96$ |
+| $-1$ | $-2.4$ | $2.4$ | $1$ | $5.76$ |
+| $0$ | $0.6$ | $0.0$ | $0$ | $0.36$ |
+| $1$ | $-0.4$ | $-0.4$ | $1$ | $0.16$ |
+| $2$ | $3.6$ | $7.2$ | $4$ | $12.96$ |
+
+Summing: $\sum d_x d_y = 12.0$, $\sum d_x^2 = 10$, $\sum d_y^2 = 21.2$. Therefore
+
+$$
+r = \frac{12.0}{\sqrt{10}\,\sqrt{21.2}} = \frac{12.0}{\sqrt{212}} = \frac{12.0}{14.560} \approx 0.824,
+$$
+
+a fairly strong positive linear association. (Note $r^2 \approx 0.679$; we return to this below.)
+
+### Properties of $r$
+
+- **Bounded:** $-1 \leq r \leq 1$.
+- **Sign gives direction:** $r > 0$ means the variables increase together; $r < 0$ means one decreases as the other increases; $r = 0$ means no *linear* trend.
+- **Magnitude gives strength:** values near $\pm 1$ mean points falling almost exactly on a line; $r = \pm 1$ occurs precisely when they are perfectly collinear.
+- **Unitless and shift/scale invariant:** converting temperature from Celsius to Fahrenheit leaves $r$ unchanged.
+- **Symmetric:** $r(x, y) = r(y, x)$; there is no predictor/response distinction.
+- **Linear association only.** A value $r \approx 0$ does *not* mean the variables are unrelated, only that there is no *linear* relationship. For $y = x^2$ at $x = -2, -1, 0, 1, 2$ the relationship is perfectly deterministic, yet by symmetry $r = 0$. Always look at the scatter plot too (recall **Anscombe's quartet** above).
+- **Sensitive to outliers.** A single extreme point can inflate or deflate $r$ dramatically. For skewed, ordinal, or outlier-prone data, prefer the rank-based [Spearman rank correlation](#spearman-rank-correlation), which measures *monotonic* (not just linear) association.
+
+### Correlation Is Not Causation
+
+A large $|r|$ says two variables move together; it says nothing about *why*. The association may arise because a **confounder** drives both. Across days of the year, ice cream sales and drowning deaths are strongly positively correlated, but ice cream does not cause drowning: both are driven by **temperature**. As discussed under [experimental design](#producing-data-and-experimental-design), only a randomized experiment breaks the link between a treatment and its confounders; observational correlation, however strong, cannot substitute for it.
+
+### Relationship to Regression
+
+Correlation and simple linear regression are two views of the same quantity, which is why this section precedes the next.
+
+- **Coefficient of determination.** For simple linear regression, $r^2 = R^2$, the fraction of the variance in $y$ explained by the fitted line. In the example, $r^2 \approx 0.679$, so about $68\%$ of the variation in $y$ is explained by its linear relationship with $x$.
+- **Slope.** The least-squares slope is a rescaled correlation: $\hat{\beta}_1 = r \cdot s_y / s_x$. In the example, $s_x = \sqrt{10/4} \approx 1.581$ and $s_y = \sqrt{21.2/4} \approx 2.302$, giving $\hat{\beta}_1 = 0.824 \times (2.302/1.581) = 1.2$, which matches the direct computation $\sum d_x d_y / \sum d_x^2 = 12.0/10 = 1.2$.
+
+### Inference for the Population Correlation $\rho$
+
+The sample $r$ estimates the unknown **population correlation** $\rho$. To test $H_0: \rho = 0$ against $H_a: \rho \neq 0$ (assuming $(x, y)$ are bivariate normal), the test statistic is
+
+$$
+t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}},
+$$
+
+which follows a $t$-distribution with $n - 2$ degrees of freedom under $H_0$. Using $r \approx 0.824$ and $n = 5$ ($n - 2 = 3$ df):
+
+$$
+t = \frac{0.824\sqrt{3}}{\sqrt{1 - 0.679}} = \frac{0.824 \times 1.732}{\sqrt{0.321}} = \frac{1.427}{0.567} \approx 2.52.
+$$
+
+The two-sided critical value is $t_{0.025,\,3} \approx 3.182$. Since $|t| \approx 2.52 < 3.182$, we **fail to reject** $H_0$: with only five points, an $r$ of $0.82$ is not strong enough to rule out chance. Correlation *strength* (the value of $r$) and *significance* (whether $\rho \neq 0$) are distinct questions, and both depend on the sample size.
 
 ## Linear Regression
 
@@ -1569,6 +2044,67 @@ If $R_j^2 = 0$ (predictor $j$ is uncorrelated with the others), $VIF_j = 1$. If 
 | Non-normality | Q-Q plot deviates from line | Transform $y$, use bootstrap CIs, or use robust methods |
 | Influential points | Cook's distance > 1 | Investigate the points; remove only with justification |
 | Multicollinearity | VIF > 10 | Remove or combine predictors, use ridge regression |
+
+## Logistic Regression and Generalized Linear Models
+
+[Linear regression](#linear-regression) predicts a continuous outcome by fitting a straight line. But many questions have a **binary outcome**: did the patient survive (1) or not (0), was the email clicked, is the tumor malignant? Here the response $y$ takes only the values $0$ and $1$, and what we want to predict is not the value but the *probability* $p = P(y = 1 \mid x)$.
+
+### Why a Straight Line Is the Wrong Tool
+
+Fitting $y = \beta_0 + \beta_1 x + \epsilon$ to $0/1$ data fails in two ways. First, a line is unbounded, so for extreme $x$ it returns predictions like $\hat{y} = 1.4$ or $-0.3$, which cannot be probabilities. Second, OLS assumes normal, constant-variance errors, but a $0/1$ outcome is Bernoulli with variance $p(1-p)$ that depends on $x$ and vanishes as $p$ approaches $0$ or $1$. We need a model whose output is always a valid probability and whose likelihood respects the Bernoulli data.
+
+### The Logistic (Sigmoid) Function
+
+The building block is the **logistic function**, or **sigmoid**:
+
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}.
+$$
+
+It squashes any real $z$ into $(0, 1)$: as $z \to +\infty$, $\sigma(z) \to 1$; as $z \to -\infty$, $\sigma(z) \to 0$; and $\sigma(0) = 0.5$. The S-shaped curve is steepest at the center and flattens at both ends, exactly the behavior we want for a probability.
+
+### The Model and the Log-Odds
+
+Logistic regression feeds a linear predictor through the sigmoid: $p = \sigma(\beta_0 + \beta_1 x)$. To see what the coefficients mean, invert the sigmoid. The **odds** of an event with probability $p$ are $\dfrac{p}{1-p}$ (if $p = 0.8$ the odds are $0.8/0.2 = 4$, "4-to-1"). Taking logs gives the **log-odds**, or **logit**, which ranges over all of $\mathbb{R}$. Applying the logit to the model shows that **the log-odds are linear in $x$**:
+
+$$
+\log \frac{p}{1 - p} = \beta_0 + \beta_1 x.
+$$
+
+This is the defining equation: we fit an ordinary linear model not to the outcome but to its log-odds. That is why logistic regression is a *linear* model despite its curved probability output.
+
+### Interpreting the Coefficients
+
+- **On the log-odds scale:** a one-unit increase in $x$ adds $\beta_1$ to the log-odds.
+- **On the odds scale:** exponentiating turns addition into multiplication, so a one-unit increase in $x$ multiplies the odds by $e^{\beta_1}$. The quantity $e^{\beta_1}$ is an **odds ratio** (the same quantity from the [odds-ratio](#measures-of-association-odds-ratio-and-relative-risk) discussion above), now arising as a fitted coefficient. An odds ratio of $1$ ($\beta_1 = 0$) means no effect; greater than $1$ means the event becomes more likely.
+
+**Worked interpretation.** Model the probability a loan is repaid as a function of income (in units of \$10{,}000), fitting $\hat{\beta}_0 = -2.0$, $\hat{\beta}_1 = 0.7$. Each additional \$10{,}000 multiplies the odds of repayment by $e^{0.7} \approx 2.01$, so the odds roughly double per unit. Tracing predictions: at $x = 2$ the log-odds are $-0.6$, odds $e^{-0.6} \approx 0.549$, probability $\sigma(-0.6) \approx 0.354$; at $x = 3$ the log-odds are $0.1$, odds $e^{0.1} \approx 1.105$, probability $\sigma(0.1) \approx 0.525$. The odds ratio $1.105/0.549 \approx 2.01$ matches $e^{0.7}$, while the *probability* jumped by about $0.17$ over this step. Near the tails of the curve the same unit step in $x$ moves the probability far less: the effect on probability is not constant, but the effect on the odds always is.
+
+### Fitting by Maximum Likelihood
+
+Unlike OLS, logistic regression has **no closed-form solution**; there is no analogue of the normal equations. Instead we fit by [maximum likelihood](#maximum-likelihood-estimation-mle). Each observation is Bernoulli with $p_i = \sigma(\beta_0 + \beta_1 x_i)$, so the log-likelihood is
+
+$$
+\ell(\beta) = \sum_{i=1}^{n} \big[\, y_i \log p_i + (1 - y_i)\log(1 - p_i) \,\big].
+$$
+
+This is **concave** in $\beta$, with a single global maximum and no spurious local maxima, so gradient-based [optimization](./optimization) (gradient ascent, or Newton-type methods such as iteratively reweighted least squares) reliably converges. Crucially, **maximizing this Bernoulli log-likelihood is exactly minimizing the binary cross-entropy loss** (they differ only by a sign), which links to [information theory](./information-theory#cross-entropy) and to how classifiers are trained throughout ML: a neural network with a sigmoid output and cross-entropy loss is performing maximum-likelihood logistic regression on top of learned features.
+
+### Generalized Linear Models (GLMs)
+
+Linear and logistic regression are two instances of one framework, the **generalized linear model**, with three components:
+
+1. **A response distribution** from the **exponential family** (normal, Bernoulli, Poisson, gamma, ...), specifying how the variance depends on the mean.
+2. **A linear predictor** $\eta = X\beta$, the same linear combination of features as ordinary regression.
+3. **A link function** $g$, connecting the mean $\mu = E[y]$ to the linear predictor via $g(\mu) = \eta$. The link lets a linear predictor drive a bounded or non-linear response.
+
+| Model | Link function $g$ | Response distribution | Typical outcome |
+|---|---|---|---|
+| Linear regression | Identity: $g(\mu) = \mu$ | Normal | Continuous |
+| Logistic regression | Logit: $g(\mu) = \log\dfrac{\mu}{1-\mu}$ | Bernoulli | Binary (0/1) |
+| Poisson regression | Log: $g(\mu) = \log \mu$ | Poisson | Counts $(0, 1, 2, \ldots)$ |
+
+Seen this way, [linear regression](#linear-regression) is a GLM with the identity link and a normal response; logistic regression is the logit link with a Bernoulli response; and **Poisson regression** (log link, Poisson response) is the standard tool for count outcomes, such as visits per hour or claims per policy, where values are non-negative integers and the variance grows with the mean. The framework unifies all of these under one fitting procedure (maximum likelihood) and one interpretive language (coefficients act on the scale set by the link function).
 
 ## Bias-Variance Tradeoff
 
