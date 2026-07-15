@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two-Line System Explorer</title>
+<style>
+  :root {
+    --bg: #fbfcfd;
+    --text: #1c2126;
+    --muted: #5a6470;
+    --line1: #2563c9;
+    --line2: #c0392b;
+    --sol: #1e7a3c;
+    --grid: #e4e8ec;
+    --axis: #aab2bb;
+    --panel: #f1f4f7;
+    --border: #d6dce2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 18px 16px 28px; }
+  h1 { font-size: 1.25rem; margin: 0 0 10px; }
+  .eqs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .eqbox {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .eqbox .title { font-weight: 600; font-size: 0.85rem; margin-bottom: 6px; }
+  .eqbox.l1 .title { color: var(--line1); }
+  .eqbox.l2 .title { color: var(--line2); }
+  .eqline {
+    font-family: "Cambria Math", Georgia, serif;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .eqline .v { font-weight: 600; }
+  .eqbox.l1 .eqline .v { color: var(--line1); }
+  .eqbox.l2 .eqline .v { color: var(--line2); }
+  .sliders { display: grid; grid-template-columns: auto 1fr auto; gap: 6px 10px; align-items: center; }
+  .sliders label { font-family: "Cambria Math", Georgia, serif; font-size: 1rem; }
+  .sliders input[type=range] { width: 100%; }
+  .eqbox.l1 input[type=range] { accent-color: var(--line1); }
+  .eqbox.l2 input[type=range] { accent-color: var(--line2); }
+  .sliders .num {
+    font-variant-numeric: tabular-nums;
+    min-width: 2.6em;
+    text-align: right;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88rem;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 10px 0 12px; font-size: 0.9rem; }
+  .legend .item { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 22px; height: 4px; border-radius: 2px; }
+  .swatch.dot { width: 12px; height: 12px; border-radius: 50%; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+  .panel .row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px dotted var(--border); }
+  .panel .row:last-child { border-bottom: none; }
+  .panel .k { color: var(--muted); }
+  .panel .v { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; text-align: right; }
+  .class { font-weight: 600; }
+  .class.one { color: #1e7a3c; }
+  .class.none { color: #b5730f; }
+  .class.inf { color: #8e44ad; }
+  .caption { color: var(--muted); font-size: 0.88rem; margin-top: 12px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Two-Line System Explorer</h1>
+
+  <div class="eqs">
+    <div class="eqbox l1">
+      <div class="title">Line 1 (blue)</div>
+      <div class="eqline" id="eq1"></div>
+      <div class="sliders">
+        <label for="a1">a&#8321;</label><input type="range" id="a1" min="-5" max="5" step="0.5" value="1"><span class="num" id="a1v"></span>
+        <label for="b1">b&#8321;</label><input type="range" id="b1" min="-5" max="5" step="0.5" value="1"><span class="num" id="b1v"></span>
+        <label for="c1">c&#8321;</label><input type="range" id="c1" min="-10" max="10" step="0.5" value="5"><span class="num" id="c1v"></span>
+      </div>
+    </div>
+    <div class="eqbox l2">
+      <div class="title">Line 2 (red)</div>
+      <div class="eqline" id="eq2"></div>
+      <div class="sliders">
+        <label for="a2">a&#8322;</label><input type="range" id="a2" min="-5" max="5" step="0.5" value="1"><span class="num" id="a2v"></span>
+        <label for="b2">b&#8322;</label><input type="range" id="b2" min="-5" max="5" step="0.5" value="-1"><span class="num" id="b2v"></span>
+        <label for="c2">c&#8322;</label><input type="range" id="c2" min="-10" max="10" step="0.5" value="1"><span class="num" id="c2v"></span>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="cv" width="1440" height="1080"></canvas>
+
+  <div class="legend">
+    <div class="item"><span class="swatch" style="background:#2563c9"></span> Line 1: a&#8321;x + b&#8321;y = c&#8321;</div>
+    <div class="item"><span class="swatch" style="background:#c0392b"></span> Line 2: a&#8322;x + b&#8322;y = c&#8322;</div>
+    <div class="item"><span class="swatch dot" style="background:#1e7a3c"></span> Solution (intersection)</div>
+  </div>
+
+  <div class="panel" id="panel"></div>
+
+  <p class="caption">Cramer's rule: with D = a&#8321;b&#8322; &minus; a&#8322;b&#8321;, the solution is x = (c&#8321;b&#8322; &minus; c&#8322;b&#8321;)/D and y = (a&#8321;c&#8322; &minus; a&#8322;c&#8321;)/D. When D = 0 the lines are parallel (no solution) or identical (infinitely many).</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  var XMIN = -10, XMAX = 10, YMIN = -7.5, YMAX = 7.5;
+
+  function px(x) { return (x - XMIN) / (XMAX - XMIN) * W; }
+  function py(y) { return H - (y - YMIN) / (YMAX - YMIN) * H; }
+
+  var EPS = 1e-9;
+
+  function fmt(n, d) {
+    if (d === undefined) d = 2;
+    if (!isFinite(n)) return "—";
+    var r = Math.round(n * Math.pow(10, d)) / Math.pow(10, d);
+    if (Object.is(r, -0)) r = 0;
+    return r.toString();
+  }
+
+  // Draw the line a x + b y = c across the plot window.
+  function drawLine(a, b, c, color) {
+    if (Math.abs(a) < EPS && Math.abs(b) < EPS) return; // degenerate: 0 = c, not a line
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    if (Math.abs(b) > EPS) {
+      // y = (c - a x) / b, sweep x
+      var x0 = XMIN, x1 = XMAX;
+      var y0 = (c - a * x0) / b, y1 = (c - a * x1) / b;
+      ctx.moveTo(px(x0), py(y0));
+      ctx.lineTo(px(x1), py(y1));
+    } else {
+      // vertical line x = c / a
+      var xv = c / a;
+      ctx.moveTo(px(xv), 0);
+      ctx.lineTo(px(xv), H);
+    }
+    ctx.stroke();
+  }
+
+  function dot(X, Y, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(X, Y, 9, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  function label(text, X, Y, color, align) {
+    ctx.fillStyle = color;
+    ctx.font = "600 26px -apple-system, sans-serif";
+    ctx.textAlign = align || "left";
+    ctx.textBaseline = "middle";
+    if (align === "left") X = Math.min(X, W - 4 - ctx.measureText(text).width);
+    X = Math.max(4, X);
+    ctx.fillText(text, X, Math.max(16, Math.min(H - 16, Y)));
+  }
+
+  function drawGrid() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#e4e8ec";
+    ctx.beginPath();
+    for (var gx = Math.ceil(XMIN); gx <= XMAX; gx++) { ctx.moveTo(px(gx), 0); ctx.lineTo(px(gx), H); }
+    for (var gy = Math.ceil(YMIN); gy <= YMAX; gy++) { ctx.moveTo(0, py(gy)); ctx.lineTo(W, py(gy)); }
+    ctx.stroke();
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#aab2bb";
+    ctx.beginPath();
+    ctx.moveTo(0, py(0)); ctx.lineTo(W, py(0));
+    ctx.moveTo(px(0), 0); ctx.lineTo(px(0), H);
+    ctx.stroke();
+
+    ctx.fillStyle = "#5a6470";
+    ctx.font = "22px ui-monospace, monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    for (var tx = Math.ceil(XMIN); tx <= XMAX; tx += 2) {
+      if (tx === 0) continue;
+      ctx.fillText(tx.toString(), px(tx), py(0) + 4);
+    }
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    for (var ty = Math.ceil(YMIN); ty <= YMAX; ty += 2) {
+      if (ty === 0) continue;
+      ctx.fillText(ty.toString(), px(0) + 6, py(ty));
+    }
+  }
+
+  // Build an equation string like "1x + 1y = 5"
+  function eqStr(a, b, c) {
+    function term(coef, suffix, first) {
+      var sign = coef < 0 ? " − " : (first ? "" : " + ");
+      var mag = Math.abs(coef);
+      return sign + '<span class="v">' + fmt(mag, 1) + "</span>" + suffix;
+    }
+    return term(a, "x", true) + term(b, "y", false) + " = " + '<span class="v">' + fmt(c, 1) + "</span>";
+  }
+
+  function get(id) { return parseFloat(document.getElementById(id).value); }
+
+  function classify(a1, b1, c1, a2, b2, c2) {
+    var D = a1 * b2 - a2 * b1;
+    if (Math.abs(D) > EPS) {
+      var Dx = c1 * b2 - c2 * b1;
+      var Dy = a1 * c2 - a2 * c1;
+      return { kind: "one", D: D, Dx: Dx, Dy: Dy, x: Dx / D, y: Dy / D };
+    }
+    // D = 0: parallel or identical. Compare via the same 2x2 minors that must
+    // also vanish for the lines to coincide.
+    var Dx = c1 * b2 - c2 * b1;
+    var Dy = a1 * c2 - a2 * c1;
+    if (Math.abs(Dx) < EPS && Math.abs(Dy) < EPS) {
+      return { kind: "inf", D: D };
+    }
+    return { kind: "none", D: D };
+  }
+
+  function render() {
+    var a1 = get("a1"), b1 = get("b1"), c1 = get("c1");
+    var a2 = get("a2"), b2 = get("b2"), c2 = get("c2");
+
+    ["a1","b1","c1","a2","b2","c2"].forEach(function (id) {
+      document.getElementById(id + "v").textContent = fmt(get(id), 1);
+    });
+
+    document.getElementById("eq1").innerHTML = eqStr(a1, b1, c1);
+    document.getElementById("eq2").innerHTML = eqStr(a2, b2, c2);
+
+    drawGrid();
+    drawLine(a1, b1, c1, "#2563c9");
+    drawLine(a2, b2, c2, "#c0392b");
+
+    var r = classify(a1, b1, c1, a2, b2, c2);
+    var panel = document.getElementById("panel");
+    var D = r.D;
+
+    if (r.kind === "one") {
+      dot(px(r.x), py(r.y), "#1e7a3c");
+      label("(" + fmt(r.x, 2) + ", " + fmt(r.y, 2) + ")", px(r.x) + 12, py(r.y) - 14, "#1e7a3c", "left");
+    }
+
+    var clsMap = {
+      one:  { cls: "one",  txt: "One solution (independent, consistent)" },
+      none: { cls: "none", txt: "No solution (parallel, inconsistent)" },
+      inf:  { cls: "inf",  txt: "Infinitely many solutions (same line, dependent)" }
+    };
+    var cm = clsMap[r.kind];
+
+    var solRow;
+    if (r.kind === "one") {
+      solRow = "x = " + fmt(r.x, 4) + ",  y = " + fmt(r.y, 4);
+    } else if (r.kind === "inf") {
+      solRow = "every point on the shared line";
+    } else {
+      solRow = "none (lines never meet)";
+    }
+
+    var stepRow;
+    if (r.kind === "one") {
+      stepRow = "x = (c₁b₂ − c₂b₁)/D = " + fmt(r.Dx, 2) + " / " + fmt(D, 2) +
+                " ,  y = (a₁c₂ − a₂c₁)/D = " + fmt(r.Dy, 2) + " / " + fmt(D, 2);
+    } else {
+      stepRow = "D = 0, so Cramer's rule does not give a unique point";
+    }
+
+    panel.innerHTML =
+      '<div class="row"><span class="k">Determinant</span>' +
+        '<span class="v">D = a₁b₂ − a₂b₁ = (' + fmt(a1,1) + ")(" + fmt(b2,1) + ") − (" +
+        fmt(a2,1) + ")(" + fmt(b1,1) + ") = " + fmt(D, 3) + "</span></div>" +
+      '<div class="row"><span class="k">Classification</span>' +
+        '<span class="v class ' + cm.cls + '">' + cm.txt + "</span></div>" +
+      '<div class="row"><span class="k">Cramer step</span>' +
+        '<span class="v">' + stepRow + "</span></div>" +
+      '<div class="row"><span class="k">Solution</span>' +
+        '<span class="v">' + solRow + "</span></div>";
+  }
+
+  ["a1","b1","c1","a2","b2","c2"].forEach(function (id) {
+    document.getElementById(id).addEventListener("input", render);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

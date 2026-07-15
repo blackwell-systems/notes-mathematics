@@ -35,7 +35,7 @@ Solid additions:
 
 - [x] **Vector playground** — `vector`. Drag two vectors: dot product, projection, angle,
   cross-product magnitude as area.
-- [ ] **Conic eccentricity morph** — `conic-sections`. One slider: circle → ellipse →
+- [x] **Conic eccentricity morph** — `conic-sections`. One slider: circle → ellipse →
   parabola → hyperbola.
 - [x] **KL-divergence asymmetry** — `information-theory`. Drag two distributions; show
   $D_{KL}(P\Vert Q)\ne D_{KL}(Q\Vert P)$.
@@ -54,6 +54,20 @@ widgets (top six above), built as one parallel wave alongside a few of the stati
 
 ## Completed
 
+- [x] **Discrete-math & combinatorics batch (8 pages)** — one prerequisites callout + one
+  self-contained widget each, all built in a single parallel wave: graph-theory (click-to-build
+  graph with step-through BFS/DFS, degree table, handshaking readout), number-theory (modular
+  clock + step-by-step Euclidean gcd), asymptotic-notation (growth-rate overlay of O(1) through
+  O(n!), log-scale toggle, crossover marker), permutation (nPr with factorial cancellation and
+  animated token arrangements; also added the missing Circular Permutations section), combination
+  (interactive Pascal's triangle with parent highlighting and an nCr compute panel), inequalities
+  (1-D number-line + 2-D half-plane region shader with open/closed and solid/dashed conventions),
+  conic-sections (the eccentricity morph: circle to ellipse to parabola to hyperbola from the
+  polar form, with foci and directrix), and systems-of-equations (two-line explorer classifying
+  one / none / infinitely-many via Cramer). +75 machine-checked assertions (436 total): Kn edge
+  counts and handshaking, gcd/phi/Fermat inverse, growth-rate dominance, P(n,r)/circular/bracelet
+  counts, Pascal symmetry and row sums, sign-flip and quadratic-root inequalities, eccentricity
+  identities, and Cramer classification. All 52 pages, 0 KaTeX errors, 0 broken links.
 - [x] **Linear Algebra for Computation pass** — added the missing prerequisites callout and two
   widgets: a norms / unit-ball explorer (drag a vector, compare L1/L2/Linf norms, and morph the
   unit ball from diamond to circle to square with a p-slider) and a Markov-chain explorer

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modular Arithmetic Clock</title>
+<style>
+  :root{
+    --bg:#fbfcfd; --fg:#1c2126; --accent:#2563c9;
+    --a:#1e874b; --b:#b23a3a; --res:#7a3fb0; --muted:#6b7480;
+    --line:#d7dde3; --cell:#eef2f6;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 34px;}
+  h1{font-size:1.3rem;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:.9rem;margin:0 0 14px;}
+  .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:12px;}
+  .ctrl{display:flex;align-items:center;gap:7px;font-size:.9rem;}
+  .ctrl b{font-variant-numeric:tabular-nums;min-width:1.6em;display:inline-block;text-align:right;}
+  input[type=range]{vertical-align:middle;}
+  button{font:inherit;font-size:.82rem;padding:5px 10px;border:1px solid var(--line);
+    background:#fff;color:var(--fg);border-radius:6px;cursor:pointer;}
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  button.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .panels{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;}
+  canvas{border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .side{flex:1 1 260px;min-width:250px;}
+  .card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px 14px;margin-bottom:14px;}
+  .card h2{font-size:.95rem;margin:0 0 8px;}
+  .eq{font-size:1rem;font-variant-numeric:tabular-nums;margin:2px 0;}
+  .eq .big{font-weight:700;font-size:1.15rem;color:var(--res);}
+  table.steps{border-collapse:collapse;width:100%;font-size:.82rem;
+    font-variant-numeric:tabular-nums;}
+  table.steps th,table.steps td{border-bottom:1px solid var(--line);
+    padding:4px 6px;text-align:right;}
+  table.steps th{color:var(--muted);font-weight:600;text-align:right;}
+  table.steps tr.final td{background:var(--cell);font-weight:700;}
+  .gcdline{font-size:.9rem;margin-top:8px;font-variant-numeric:tabular-nums;}
+  .gcdline b{color:var(--res);}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:10px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .cap{font-size:.84rem;color:var(--muted);margin-top:16px;font-style:italic;}
+  code{background:var(--cell);padding:1px 4px;border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Modular Arithmetic Clock</h1>
+  <p class="sub">A dial of the residues <code>0, 1, &hellip;, n&minus;1</code> modulo <b>n</b>. Combine
+    <b>a</b> and <b>b</b> and watch the result land on the dial. The panel runs the Euclidean algorithm for
+    <code>gcd(a,&thinsp;b)</code>, read "the greatest common divisor of a and b".</p>
+
+  <div class="row">
+    <span class="ctrl">modulus n = <b id="nv">12</b>
+      <input id="n" type="range" min="2" max="24" value="12" step="1"></span>
+    <span class="ctrl">a = <b id="av">17</b>
+      <input id="a" type="range" min="0" max="60" value="17" step="1"></span>
+    <span class="ctrl">b = <b id="bv">5</b>
+      <input id="b" type="range" min="0" max="60" value="5" step="1"></span>
+  </div>
+  <div class="row">
+    <span class="ctrl">operation:</span>
+    <button id="opAdd" class="on" data-op="add">a + b mod n</button>
+    <button id="opMul" data-op="mul">a &times; b mod n</button>
+  </div>
+
+  <div class="panels">
+    <canvas id="c" width="330" height="330"></canvas>
+    <div class="side">
+      <div class="card">
+        <h2>On the dial</h2>
+        <div class="eq" id="opEq">17 + 5 = 22</div>
+        <div class="eq" id="modEq">22 &equiv; <span class="big">10</span> (mod 12)</div>
+        <div class="eq" style="color:var(--muted);font-size:.85rem" id="congNote"></div>
+      </div>
+      <div class="card">
+        <h2>Euclidean algorithm: gcd(a,&thinsp;b)</h2>
+        <table class="steps" id="steps"><tbody></tbody></table>
+        <div class="gcdline" id="gcdOut"></div>
+        <div class="gcdline" id="coprimeOut" style="color:var(--muted)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--a)"></span> a (start)</span>
+    <span><span class="dot" style="background:var(--b)"></span> b (step amount)</span>
+    <span><span class="dot" style="background:var(--res)"></span> result mod n</span>
+  </div>
+
+  <p class="cap">"a &equiv; r (mod n)" is read "a is congruent to r modulo n": a and r leave the same
+    remainder when divided by n. Addition steps b positions clockwise from a; multiplication lands on
+    (a &times; b) mod n. The Euclidean algorithm repeatedly replaces (a, b) with (b, a mod b) until the
+    remainder is 0; the last nonzero remainder is the gcd.</p>
+</div>
+
+<script>
+(function(){
+  var C = document.getElementById('c'), X = C.getContext('2d');
+  var S = { n:12, a:17, b:5, op:'add' };
+  var els = {
+    n:document.getElementById('n'), a:document.getElementById('a'), b:document.getElementById('b'),
+    nv:document.getElementById('nv'), av:document.getElementById('av'), bv:document.getElementById('bv'),
+    opAdd:document.getElementById('opAdd'), opMul:document.getElementById('opMul'),
+    opEq:document.getElementById('opEq'), modEq:document.getElementById('modEq'),
+    congNote:document.getElementById('congNote'),
+    steps:document.getElementById('steps').querySelector('tbody'),
+    gcdOut:document.getElementById('gcdOut'), coprimeOut:document.getElementById('coprimeOut')
+  };
+
+  function mod(x,m){ return ((x % m) + m) % m; }
+  function gcd(x,y){ while(y){ var t=y; y=x%y; x=t; } return x; }
+
+  function result(){
+    if(S.op==='add') return mod(S.a + S.b, S.n);
+    return mod(S.a * S.b, S.n);
+  }
+
+  function drawDial(){
+    var W=C.width, H=C.height, cx=W/2, cy=H/2, R=Math.min(W,H)/2 - 34;
+    X.clearRect(0,0,W,H);
+    var n=S.n, res=result();
+    var aPos=mod(S.a,n), bPos=mod(S.b,n);
+    // outer ring
+    X.beginPath(); X.arc(cx,cy,R,0,Math.PI*2);
+    X.strokeStyle='#d7dde3'; X.lineWidth=2; X.stroke();
+
+    function ang(k){ return -Math.PI/2 + 2*Math.PI*k/n; }
+    function pt(k,r){ var t=ang(k); return [cx + r*Math.cos(t), cy + r*Math.sin(t)]; }
+
+    // addition arc from a to result (going through +b steps)
+    if(S.op==='add'){
+      X.beginPath();
+      var start=ang(aPos);
+      X.arc(cx,cy,R, start, start + 2*Math.PI*(mod(S.b,n))/n);
+      X.strokeStyle='rgba(178,58,58,.35)'; X.lineWidth=8; X.stroke();
+    }
+
+    var fs = n>16 ? 11 : 13;
+    for(var k=0;k<n;k++){
+      var p=pt(k,R), lp=pt(k,R+18);
+      var isA=(k===aPos), isB=(k===bPos), isR=(k===res);
+      var col='#8b93a0', rad=4;
+      if(isR){ col='#7a3fb0'; rad=9; }
+      else if(isA){ col='#1e874b'; rad=8; }
+      else if(isB){ col='#b23a3a'; rad=8; }
+      X.beginPath(); X.arc(p[0],p[1],rad,0,Math.PI*2); X.fillStyle=col; X.fill();
+      X.fillStyle=(isA||isB||isR)?'#1c2126':'#6b7480';
+      X.font=(isA||isB||isR? 'bold ':'')+fs+'px system-ui';
+      X.textAlign='center'; X.textBaseline='middle';
+      X.fillText(k, lp[0], lp[1]);
+    }
+    // center label
+    X.fillStyle='#1c2126'; X.textAlign='center'; X.textBaseline='middle';
+    X.font='bold 26px system-ui'; X.fillText(res, cx, cy-4);
+    X.font='12px system-ui'; X.fillStyle='#6b7480';
+    X.fillText('mod '+n, cx, cy+18);
+  }
+
+  function updateEq(){
+    var res=result(), sym = S.op==='add' ? '+' : '&times;';
+    var raw = S.op==='add' ? (S.a+S.b) : (S.a*S.b);
+    els.opEq.innerHTML = S.a+' '+sym+' '+S.b+' = '+raw;
+    els.modEq.innerHTML = raw+' &equiv; <span class="big">'+res+'</span> (mod '+S.n+')';
+    els.congNote.textContent = raw+' = '+S.n+' × '+Math.floor(raw/S.n)+' + '+res;
+  }
+
+  function euclid(){
+    var x=S.a, y=S.b, rows='';
+    // present with larger first for readability
+    if(x < y){ var t=x; x=y; y=t; }
+    rows += '<tr><th>a</th><th>b</th><th>a = b·q + r</th></tr>';
+    if(y===0){
+      rows += '<tr class="final"><td>'+x+'</td><td>0</td><td>gcd = '+x+'</td></tr>';
+      els.steps.innerHTML=rows;
+      els.gcdOut.innerHTML='gcd('+S.a+', '+S.b+') = <b>'+x+'</b> (gcd(k, 0) = k)';
+      els.coprimeOut.textContent='';
+      return;
+    }
+    var steps=[], A=x, B=y, guard=0;
+    while(B!==0 && guard<200){
+      var q=Math.floor(A/B), r=A - B*q;
+      steps.push([A,B,q,r]);
+      A=B; B=r; guard++;
+    }
+    for(var i=0;i<steps.length;i++){
+      var s=steps[i], last=(i===steps.length-1);
+      rows += '<tr'+(last?' class="final"':'')+'><td>'+s[0]+'</td><td>'+s[1]+'</td>'+
+        '<td>'+s[0]+' = '+s[1]+'·'+s[2]+' + '+s[3]+'</td></tr>';
+    }
+    els.steps.innerHTML=rows;
+    var g = gcd(S.a, S.b);
+    els.gcdOut.innerHTML='gcd('+S.a+', '+S.b+') = <b>'+g+'</b> (last nonzero remainder)';
+    els.coprimeOut.textContent = g===1
+      ? S.a+' and '+S.b+' are coprime.'
+      : S.a+' and '+S.b+' share the factor '+g+'.';
+  }
+
+  function render(){
+    els.nv.textContent=S.n; els.av.textContent=S.a; els.bv.textContent=S.b;
+    drawDial(); updateEq(); euclid();
+  }
+
+  els.n.addEventListener('input', function(){ S.n=+this.value; render(); });
+  els.a.addEventListener('input', function(){ S.a=+this.value; render(); });
+  els.b.addEventListener('input', function(){ S.b=+this.value; render(); });
+  function setOp(op){
+    S.op=op;
+    els.opAdd.classList.toggle('on', op==='add');
+    els.opMul.classList.toggle('on', op==='mul');
+    render();
+  }
+  els.opAdd.addEventListener('click', function(){ setOp('add'); });
+  els.opMul.addEventListener('click', function(){ setOp('mul'); });
+
+  render();
+})();
+</script>
+</body>
+</html>

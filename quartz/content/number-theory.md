@@ -1,10 +1,16 @@
 ---
 title: "Number Theory"
+prerequisites: ["prime-factorization", "number-systems"]
+enables: ["algebraic-structures"]
 ---
 
 Number theory is about understanding the patterns and structure hidden in the whole numbers (0, 1, 2, 3, ...). At its core, it asks deceptively simple questions: Why can some numbers only be divided evenly by 1 and themselves? Is there a pattern to how prime numbers are distributed? These questions turn out to have deep consequences far beyond pure mathematics. Modern cryptography (RSA encryption), hash functions, and large parts of computer science rely directly on results from number theory.
 
 **Number Theory:** The branch of mathematics dealing with properties and relationships of integers.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Prime Factorization](./prime-factorization) · [Number Systems](./number-systems)
+> **Leads to:** [Algebraic Structures](./algebraic-structures)
 
 ## Divisibility
 
@@ -92,6 +98,10 @@ Think of a 12-hour clock. When it's 10 o'clock and you add 5 hours, you get 3 o'
 The clock "wraps around" after 12. In general, modular arithmetic wraps around after reaching the modulus **n**.
 
 ![Modular arithmetic visualized as a clock face showing 17 mod 12 = 5](./media/modular-arithmetic-clock.png)
+
+**Explore it:** Set the modulus **n** and two integers **a**, **b**, then combine them on the dial with $a + b \pmod{n}$ or $a \times b \pmod{n}$. The companion panel runs the [Euclidean algorithm](#euclidean-algorithm) for $\gcd(a, b)$ step by step, so you can watch coprimality (whether $\gcd(a, b) = 1$) fall out of the same numbers.
+
+<iframe src="/static/interactive/nt-modular-clock.html" width="100%" height="560" style="border:none;"></iframe>
 
 **Why it matters:**
 - Cryptography (RSA encryption, digital signatures)

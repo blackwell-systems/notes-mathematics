@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graph Explorer: BFS and DFS</title>
+<style>
+  :root {
+    --ink: #24292f;
+    --muted: #57606a;
+    --line: #d0d7de;
+    --bg: #ffffff;
+    --panel: #f6f8fa;
+    --node: #ffffff;
+    --node-stroke: #57606a;
+    --edge: #8c959f;
+    --start: #0969da;
+    --frontier: #bf8700;
+    --visited: #1a7f37;
+    --current: #cf222e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 12px; }
+  h1 { font-size: 17px; margin: 0 0 4px; }
+  p.lede { font-size: 13px; color: var(--muted); margin: 0 0 10px; line-height: 1.45; }
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    margin-bottom: 8px;
+  }
+  .controls .group {
+    display: flex; gap: 6px; align-items: center;
+    padding: 4px 8px; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px;
+  }
+  .group label { font-size: 12px; color: var(--muted); }
+  button, select {
+    font: inherit; font-size: 12.5px;
+    padding: 5px 9px; border: 1px solid var(--line);
+    background: #fff; color: var(--ink); border-radius: 6px; cursor: pointer;
+  }
+  button:hover, select:hover { background: var(--panel); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  button.primary { background: var(--start); color: #fff; border-color: var(--start); }
+  button.primary:hover { background: #0860c9; }
+  canvas {
+    width: 100%; height: 300px; display: block;
+    border: 1px solid var(--line); border-radius: 8px; background: #fff;
+    touch-action: none;
+  }
+  .readout {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
+    font-size: 12.5px;
+  }
+  .card {
+    flex: 1 1 220px; min-width: 200px;
+    padding: 8px 10px; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px; line-height: 1.5;
+  }
+  .card b { color: var(--ink); }
+  .order span {
+    display: inline-block; margin: 1px 3px 1px 0; padding: 1px 6px;
+    background: #fff; border: 1px solid var(--line); border-radius: 5px;
+    font-variant-numeric: tabular-nums;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  th, td { text-align: left; padding: 2px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .legend .k { display: inline-flex; align-items: center; gap: 5px; }
+  .swatch { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--node-stroke); display: inline-block; }
+  .hint { font-size: 11.5px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
+  code { background: var(--panel); padding: 0 3px; border-radius: 4px; font-size: 11.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Graph Explorer: build a graph, run BFS or DFS</h1>
+  <p class="lede">
+    Click empty space to add a vertex. Click one vertex then another to add an edge between them
+    (click the same vertex twice to cancel). Pick a start vertex and step through a traversal to
+    watch the visit order form. Degrees update live.
+  </p>
+
+  <div class="controls">
+    <div class="group">
+      <label for="preset">Preset</label>
+      <select id="preset">
+        <option value="cycle">Cycle C6</option>
+        <option value="tree">Tree (7 nodes)</option>
+        <option value="k4">Complete K4</option>
+        <option value="blank">Blank canvas</option>
+      </select>
+    </div>
+    <div class="group">
+      <label for="algo">Algorithm</label>
+      <select id="algo">
+        <option value="bfs">BFS (queue)</option>
+        <option value="dfs">DFS (stack)</option>
+      </select>
+      <label for="start">Start</label>
+      <select id="start"></select>
+    </div>
+    <div class="group">
+      <button id="step">Step ▸</button>
+      <button id="run" class="primary">Run ▸▸</button>
+      <button id="reset">Reset walk</button>
+    </div>
+    <div class="group">
+      <button id="clear">Clear graph</button>
+    </div>
+  </div>
+
+  <canvas id="cv" width="736" height="300" aria-label="Interactive graph canvas"></canvas>
+
+  <div class="legend">
+    <span class="k"><span class="swatch" style="background:var(--start)"></span>start</span>
+    <span class="k"><span class="swatch" style="background:var(--current)"></span>current (just dequeued/popped)</span>
+    <span class="k"><span class="swatch" style="background:var(--frontier)"></span>in frontier (queue/stack)</span>
+    <span class="k"><span class="swatch" style="background:var(--visited)"></span>visited</span>
+    <span class="k"><span class="swatch" style="background:#fff"></span>unseen</span>
+  </div>
+
+  <div class="readout">
+    <div class="card">
+      <div><b>Visit order</b> <span id="algoName" style="color:var(--muted)"></span></div>
+      <div class="order" id="order">(press Step or Run)</div>
+      <div style="margin-top:6px;"><b id="frontierLabel">Frontier</b>: <span id="frontier">empty</span></div>
+      <div style="margin-top:4px;color:var(--muted)">Vertices |V| = <b id="vcount">0</b>&nbsp;&nbsp;Edges |E| = <b id="ecount">0</b>&nbsp;&nbsp;Sum of degrees = <b id="degsum">0</b> = 2|E|</div>
+    </div>
+    <div class="card" style="flex:0 1 200px;">
+      <b>Degrees</b>
+      <table id="degTable"><thead><tr><th>Vertex</th><th class="num">deg</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <p class="hint">
+    BFS uses a first-in-first-out <b>queue</b>, so it fans out level by level (shortest hop count from
+    the start in an unweighted graph). DFS uses a last-in-first-out <b>stack</b>, so it plunges down one
+    branch before backtracking. Both visit each vertex once; the <i>order</i> differs. Neighbors are
+    explored in ascending label order here so the walks are reproducible.
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var DPR = Math.max(1, window.devicePixelRatio || 1);
+
+  // Logical drawing size (CSS pixels); canvas backing store scaled by DPR.
+  var W = 736, H = 300;
+  function resize() {
+    var rect = cv.getBoundingClientRect();
+    W = Math.round(rect.width) || 736;
+    H = 300;
+    cv.width = Math.round(W * DPR);
+    cv.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    draw();
+  }
+
+  // Graph state: nodes = [{id,label,x,y}], edges = set of "a-b" with a<b.
+  var nodes = [];
+  var edges = [];        // [{a,b}]
+  var nextId = 0;
+  var pendingEdge = null; // node id awaiting a second click
+
+  // Traversal state.
+  var walk = null;        // {algo, start, order:[], frontier:[], state:{}, done, currentId}
+
+  function key(a, b) { return a < b ? a + "-" + b : b + "-" + a; }
+  function hasEdge(a, b) { var k = key(a, b); return edges.some(function (e) { return key(e.a, e.b) === k; }); }
+  function addEdge(a, b) { if (a !== b && !hasEdge(a, b)) edges.push({ a: a, b: b }); }
+
+  function neighbors(id) {
+    var out = [];
+    edges.forEach(function (e) {
+      if (e.a === id) out.push(e.b);
+      else if (e.b === id) out.push(e.a);
+    });
+    // Sort by label for reproducible traversals.
+    out.sort(function (x, y) { return label(x).localeCompare(label(y), undefined, { numeric: true }); });
+    return out;
+  }
+  function degree(id) {
+    var d = 0;
+    edges.forEach(function (e) { if (e.a === id) d++; if (e.b === id) d++; });
+    return d;
+  }
+  function nodeById(id) { return nodes.find(function (n) { return n.id === id; }); }
+  function label(id) { var n = nodeById(id); return n ? n.label : "?"; }
+
+  function addNode(x, y, lab) {
+    var id = nextId++;
+    nodes.push({ id: id, label: lab || String.fromCharCode(65 + (nodes.length % 26)) + (nodes.length >= 26 ? "" : ""), x: x, y: y });
+    return id;
+  }
+
+  // ---------- Presets ----------
+  function circleLayout(n, cx, cy, r) {
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + (2 * Math.PI * i) / n;
+      pts.push({ x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) });
+    }
+    return pts;
+  }
+
+  function loadPreset(name) {
+    nodes = []; edges = []; nextId = 0; pendingEdge = null; walk = null;
+    var cx = W / 2, cy = H / 2;
+    if (name === "cycle") {
+      var p = circleLayout(6, cx, cy, 110);
+      for (var i = 0; i < 6; i++) addNode(p[i].x, p[i].y, "V" + (i + 1));
+      for (var j = 0; j < 6; j++) addEdge(j, (j + 1) % 6);
+    } else if (name === "tree") {
+      // Rooted binary-ish tree: A over B,C over D,E,F,G
+      var labs = ["A", "B", "C", "D", "E", "F", "G"];
+      var pos = [
+        [cx, 45], [cx - 150, 130], [cx + 150, 130],
+        [cx - 220, 220], [cx - 80, 220], [cx + 80, 220], [cx + 220, 220]
+      ];
+      for (var t = 0; t < 7; t++) addNode(pos[t][0], pos[t][1], labs[t]);
+      addEdge(0, 1); addEdge(0, 2);
+      addEdge(1, 3); addEdge(1, 4); addEdge(2, 5); addEdge(2, 6);
+    } else if (name === "k4") {
+      var q = circleLayout(4, cx, cy, 105);
+      for (var k = 0; k < 4; k++) addNode(q[k].x, q[k].y, "V" + (k + 1));
+      for (var a = 0; a < 4; a++) for (var b = a + 1; b < 4; b++) addEdge(a, b);
+    } else {
+      // blank
+    }
+    refreshStartOptions();
+    draw();
+    updateReadout();
+  }
+
+  // ---------- Traversal ----------
+  function initWalk() {
+    var algo = document.getElementById("algo").value;
+    var startSel = document.getElementById("start").value;
+    if (startSel === "" || nodeById(Number(startSel)) == null) { walk = null; return; }
+    var start = Number(startSel);
+    var state = {};
+    nodes.forEach(function (n) { state[n.id] = "unseen"; });
+    state[start] = "frontier";
+    walk = {
+      algo: algo,
+      start: start,
+      order: [],
+      frontier: [start],   // used as queue (shift front) for BFS or stack (pop end) for DFS
+      state: state,
+      done: false,
+      currentId: null
+    };
+  }
+
+  function stepWalk() {
+    if (!walk) initWalk();
+    if (!walk || walk.done) return;
+    if (walk.frontier.length === 0) { walk.done = true; walk.currentId = null; return; }
+    var id;
+    if (walk.algo === "bfs") id = walk.frontier.shift();   // FIFO
+    else id = walk.frontier.pop();                          // LIFO
+    // A node may sit in the frontier twice for DFS; skip if already visited.
+    if (walk.state[id] === "visited") { stepWalk(); return; }
+    walk.state[id] = "visited";
+    walk.currentId = id;
+    walk.order.push(id);
+    var nbrs = neighbors(id);
+    nbrs.forEach(function (nb) {
+      if (walk.state[nb] === "unseen") {
+        walk.state[nb] = "frontier";
+        walk.frontier.push(nb);
+      } else if (walk.state[nb] === "frontier" && walk.algo === "dfs") {
+        // For DFS, push again so most-recently-seen is explored first; dedupe on pop.
+        walk.frontier.push(nb);
+      }
+    });
+    if (walk.frontier.length === 0) walk.done = true;
+  }
+
+  function runWalk() {
+    if (!walk) initWalk();
+    if (!walk) return;
+    var guard = 0;
+    while (!walk.done && guard < 5000) { stepWalk(); guard++; }
+    draw(); updateReadout();
+  }
+
+  function resetWalk() { walk = null; draw(); updateReadout(); }
+
+  // ---------- Drawing ----------
+  function colorFor(id) {
+    if (!walk) return { fill: "#fff", stroke: "var(--node-stroke)" };
+    if (id === walk.currentId) return { fill: "#cf222e", text: "#fff" };
+    var s = walk.state[id];
+    if (id === walk.start && s !== "visited") return { fill: "#0969da", text: "#fff" };
+    if (s === "visited") return { fill: "#1a7f37", text: "#fff" };
+    if (s === "frontier") return { fill: "#bf8700", text: "#fff" };
+    return { fill: "#fff", text: "#24292f" };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    // edges
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#8c959f";
+    edges.forEach(function (e) {
+      var na = nodeById(e.a), nb = nodeById(e.b);
+      if (!na || !nb) return;
+      ctx.beginPath();
+      ctx.moveTo(na.x, na.y);
+      ctx.lineTo(nb.x, nb.y);
+      ctx.stroke();
+    });
+    // pending edge line to cursor handled on mousemove via redraw; skip here
+    // nodes
+    var R = 18;
+    nodes.forEach(function (n) {
+      var c = colorFor(n.id);
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, R, 0, 2 * Math.PI);
+      ctx.fillStyle = (c.fill === "var(--node-stroke)") ? "#fff" : c.fill;
+      ctx.fill();
+      ctx.lineWidth = (pendingEdge === n.id) ? 3.5 : 2;
+      ctx.strokeStyle = (pendingEdge === n.id) ? "#0969da" : "#57606a";
+      ctx.stroke();
+      ctx.fillStyle = c.text || "#24292f";
+      ctx.font = "600 13px -apple-system, Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(n.label, n.x, n.y);
+    });
+  }
+
+  // ---------- Readout ----------
+  function updateReadout() {
+    var order = document.getElementById("order");
+    var algoName = document.getElementById("algoName");
+    var frontier = document.getElementById("frontier");
+    var frontierLabel = document.getElementById("frontierLabel");
+    algoName.textContent = walk ? "(" + walk.algo.toUpperCase() + " from " + label(walk.start) + ")" : "";
+    if (walk && walk.order.length) {
+      order.innerHTML = walk.order.map(function (id, i) {
+        return "<span>" + (i + 1) + ". " + label(id) + "</span>";
+      }).join("");
+    } else {
+      order.textContent = "(press Step or Run)";
+    }
+    if (walk) {
+      frontierLabel.textContent = walk.algo === "bfs" ? "Queue (front → back)" : "Stack (bottom → top)";
+      // Show frontier omitting already-visited duplicates.
+      var seen = {};
+      var fr = walk.frontier.filter(function (id) {
+        if (walk.state[id] === "visited") return false;
+        if (seen[id]) return false; seen[id] = true; return true;
+      });
+      frontier.textContent = fr.length ? fr.map(label).join(", ") + (walk.done ? "  (done)" : "") : (walk.done ? "empty (done)" : "empty");
+    } else {
+      frontierLabel.textContent = "Frontier";
+      frontier.textContent = "empty";
+    }
+
+    document.getElementById("vcount").textContent = nodes.length;
+    document.getElementById("ecount").textContent = edges.length;
+    var degsum = 0; nodes.forEach(function (n) { degsum += degree(n.id); });
+    document.getElementById("degsum").textContent = degsum;
+
+    var tb = document.querySelector("#degTable tbody");
+    tb.innerHTML = nodes.slice().sort(function (a, b) {
+      return a.label.localeCompare(b.label, undefined, { numeric: true });
+    }).map(function (n) {
+      return "<tr><td>" + n.label + "</td><td class='num'>" + degree(n.id) + "</td></tr>";
+    }).join("");
+  }
+
+  function refreshStartOptions() {
+    var sel = document.getElementById("start");
+    var prev = sel.value;
+    sel.innerHTML = nodes.slice().sort(function (a, b) {
+      return a.label.localeCompare(b.label, undefined, { numeric: true });
+    }).map(function (n) {
+      return "<option value='" + n.id + "'>" + n.label + "</option>";
+    }).join("");
+    // keep previous if still present, else pick first
+    if (nodes.some(function (n) { return String(n.id) === prev; })) sel.value = prev;
+  }
+
+  // ---------- Interaction ----------
+  function canvasPos(evt) {
+    var rect = cv.getBoundingClientRect();
+    var t = evt.touches ? evt.touches[0] : evt;
+    return { x: (t.clientX - rect.left) * (W / rect.width), y: (t.clientY - rect.top) * (H / rect.height) };
+  }
+  function hitNode(x, y) {
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var n = nodes[i];
+      if ((x - n.x) * (x - n.x) + (y - n.y) * (y - n.y) <= 20 * 20) return n;
+    }
+    return null;
+  }
+
+  var dragId = null, dragMoved = false;
+
+  function onDown(evt) {
+    evt.preventDefault();
+    var p = canvasPos(evt);
+    var hit = hitNode(p.x, p.y);
+    if (hit) { dragId = hit.id; dragMoved = false; }
+    else { dragId = null; dragMoved = false; }
+  }
+
+  function onMove(evt) {
+    if (dragId == null) return;
+    evt.preventDefault();
+    var p = canvasPos(evt);
+    var n = nodeById(dragId);
+    if (n) {
+      n.x = Math.max(20, Math.min(W - 20, p.x));
+      n.y = Math.max(20, Math.min(H - 20, p.y));
+      dragMoved = true;
+      draw();
+    }
+  }
+
+  function onUp(evt) {
+    var rect = cv.getBoundingClientRect();
+    var src = (evt.changedTouches && evt.changedTouches[0]) ? evt.changedTouches[0] : evt;
+    var p = { x: (src.clientX - rect.left) * (W / rect.width),
+              y: (src.clientY - rect.top) * (H / rect.height) };
+    var hit = hitNode(p.x, p.y);
+    if (dragId != null && dragMoved) {
+      // finished a drag; no edge/node action
+      dragId = null; return;
+    }
+    // treat as a click
+    if (hit) {
+      if (pendingEdge == null) {
+        pendingEdge = hit.id;
+      } else if (pendingEdge === hit.id) {
+        pendingEdge = null; // cancel
+      } else {
+        addEdge(pendingEdge, hit.id);
+        pendingEdge = null;
+        walk = null;
+      }
+    } else {
+      // empty space: add a node
+      addNode(p.x, p.y);
+      pendingEdge = null;
+      walk = null;
+      refreshStartOptions();
+    }
+    dragId = null;
+    draw(); updateReadout();
+  }
+
+  cv.addEventListener("mousedown", onDown);
+  cv.addEventListener("mousemove", onMove);
+  cv.addEventListener("mouseup", onUp);
+  cv.addEventListener("touchstart", onDown, { passive: false });
+  cv.addEventListener("touchmove", onMove, { passive: false });
+  cv.addEventListener("touchend", onUp);
+
+  // Buttons
+  document.getElementById("preset").addEventListener("change", function () { loadPreset(this.value); });
+  document.getElementById("algo").addEventListener("change", function () { resetWalk(); });
+  document.getElementById("start").addEventListener("change", function () { resetWalk(); });
+  document.getElementById("step").addEventListener("click", function () { stepWalk(); draw(); updateReadout(); });
+  document.getElementById("run").addEventListener("click", runWalk);
+  document.getElementById("reset").addEventListener("click", resetWalk);
+  document.getElementById("clear").addEventListener("click", function () {
+    nodes = []; edges = []; nextId = 0; pendingEdge = null; walk = null;
+    document.getElementById("preset").value = "blank";
+    refreshStartOptions(); draw(); updateReadout();
+  });
+
+  window.addEventListener("resize", resize);
+
+  // Init
+  resize();
+  loadPreset("cycle");
+})();
+</script>
+</body>
+</html>

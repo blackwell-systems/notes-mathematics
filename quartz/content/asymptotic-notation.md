@@ -1,6 +1,12 @@
 ---
 title: "Asymptotic Notation"
+prerequisites: ["functions-relations", "exponential-functions"]
+enables: ["real-analysis", "graph-theory"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Functions & Relations](./functions-relations) · [Exponential Functions](./exponential-functions)
+> **Leads to:** [Real Analysis](./real-analysis) · [Graph Theory](./graph-theory)
 
 ## Why We Need Asymptotic Notation
 
@@ -94,6 +100,10 @@ $$
 | $O(n^n)$ | Super-exponential | (Rarely encountered in practice) |
 
 ![Common growth rates plotted on a log scale: log n, sqrt(n), n, n log n, n squared, and 2 to the n](./media/growth-rates-comparison.png)
+
+**Explore the growth rates interactively.** The widget below overlays the common complexity classes so you can watch eventual dominance take over: toggle curves on and off, drag the input-size slider, and switch to a log-scale y-axis to see the whole family at once. The value table updates to the current $n$, and a crossover marker shows where $O(n^2)$ (read "big-O of n squared") first overtakes $O(n \log n)$ (read "big-O of n log n").
+
+<iframe src="/static/interactive/asymp-growth-explorer.html" width="100%" height="580" style="border:none;"></iframe>
 
 To appreciate the difference: for $n = 1{,}000{,}000$, $\log_2 n \approx 20$. The gap between $O(n)$ and $O(n^2)$ is the gap between processing a million items and processing a trillion pairs. The gap between $O(n^2)$ and $O(2^n)$ is the gap between "slow" and "physically impossible."
 

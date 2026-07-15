@@ -1,10 +1,16 @@
 ---
 title: "Systems of Equations"
+prerequisites: ["linear-functions", "graphing-functions"]
+enables: ["systems-of-linear-equations", "matrices"]
 ---
 
 **System of Equations:** A set of two or more equations that share the same variables. A **solution** to the system is a set of values that satisfies all equations simultaneously.
 
 For linear systems, see [Systems of Linear Equations](./systems-of-linear-equations). This page covers general solving techniques and nonlinear systems.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Linear Functions](./linear-functions) · [Graphing Functions](./graphing-functions)
+> **Leads to:** [Systems of Linear Equations](./systems-of-linear-equations) · [Matrices](./matrices)
 
 ## Solving Methods for Two-Variable Systems
 
@@ -204,6 +210,18 @@ The number of solutions to a nonlinear system depends on the geometry of the cur
 - $b^2 - 4ac > 0$: Two real solutions (curves intersect twice)
 - $b^2 - 4ac = 0$: One real solution (curves are tangent)
 - $b^2 - 4ac < 0$: No real solutions (curves do not intersect)
+
+### Interactive: Two-Line System Explorer
+
+The simplest case of the "number of solutions" question is a system of two **lines**. Each equation $a x + b y = c$ (read "$a$ times $x$ plus $b$ times $y$ equals $c$") graphs as a straight line, and the solution of the system is the point where the two lines cross. There are exactly three outcomes:
+
+- **One solution:** the lines cross at a single point (an *independent, consistent* system).
+- **No solution:** the lines are parallel but distinct, so they never meet (an *inconsistent* system).
+- **Infinitely many solutions:** the two equations describe the *same* line, so every point on it works (a *dependent* system).
+
+Set the six coefficients below and watch the classification change. The widget solves the system by **Cramer's rule**, using the determinant $D = a_1 b_2 - a_2 b_1$ (read "$D$ equals $a$-one $b$-two minus $a$-two $b$-one"): when $D \neq 0$ there is exactly one solution, and when $D = 0$ the lines are either parallel or identical.
+
+<iframe src="/static/interactive/sys-eq-solver.html" width="100%" height="580" style="border:none;"></iframe>
 
 ## Where It Shows Up
 

@@ -1,6 +1,12 @@
 ---
 title: "Permutation"
+prerequisites: ["set-theory"]
+enables: ["combination", "probability"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Set Theory](./set-theory)
+> **Leads to:** [Combinations](./combination) · [Probability](./probability)
 
 ## Why Permutations?
 
@@ -67,6 +73,12 @@ Alternate notation: $_nP_r$ or $P_r^n$
 
    $$P(5,5) = 5! = 120$$
 
+### Explore it interactively
+
+Pick $n$ (read "n", the size of the pool) and $r$ (read "r", how many you arrange) below. The widget shows the factorial cancellation in $P(n,r) = \frac{n!}{(n-r)!}$ (read "the number of permutations of n things taken r at a time") and, for small cases, draws the actual ordered arrangements so the count is concrete. Watch how swapping the order of two tokens produces a **different** arrangement: that is what "order matters" means.
+
+<iframe src="/static/interactive/perm-explorer.html" width="100%" height="560" style="border:none;"></iframe>
+
 ## Permutations with Repetition
 
 **Permutations with Repetition:** When elements can be repeated, the formula changes.
@@ -103,4 +115,32 @@ Where:
 - M: 1, I: 4, S: 4, P: 2
 
 $$\frac{11!}{1! \, 4! \, 4! \, 2!} = \frac{39916800}{1 \times 24 \times 24 \times 2} = 34650$$
+
+## Circular Permutations
+
+The formulas above count arrangements **in a row**, where there is a first position, a second position, and so on. But sometimes we arrange objects **around a circle**, such as people seated at a round table. On a circle there is no fixed starting seat: rotating everyone one seat to the left gives the same arrangement, because each person still has the same neighbors.
+
+**The rotation problem:** Take $n$ (read "n") people around a round table. If we naively used $n!$ (read "n factorial") arrangements as if the seats were in a row, we would count every distinct seating $n$ times, once for each of the $n$ rotations that leave the neighbor pattern unchanged. To correct for this, we fix one person as a reference point and arrange the remaining $n-1$ people relative to them.
+
+**Formula (circular permutations, arrangements distinguishable up to rotation):**
+
+$$
+(n-1)!
+$$
+
+**Example:** How many ways can 5 people be seated around a round table?
+
+$$(5-1)! = 4! = 4 \times 3 \times 2 \times 1 = 24$$
+
+Compare this to the $5! = 120$ arrangements in a row: the circular count is smaller by a factor of $5$, exactly the number of rotations.
+
+**Reflections (necklaces and bracelets):** If, in addition to rotations, a clockwise arrangement is considered the same as its mirror image (as with a bracelet you can flip over, or beads on a necklace), we also divide by $2$:
+
+$$
+\frac{(n-1)!}{2} \quad (n \geq 3)
+$$
+
+**Example:** Distinct bracelets from 5 different beads:
+
+$$\frac{(5-1)!}{2} = \frac{24}{2} = 12$$
 

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Growth-Rate Explorer</title>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #fbfcfd;
+    color: #1c2126;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 14px 16px 22px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #566; font-size: 13px; margin: 0 0 12px; }
+  canvas { display: block; background: #fbfcfd; border: 1px solid #dce1e6; border-radius: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 12px 0; align-items: center; }
+  .toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; user-select: none; cursor: pointer; }
+  .swline { width: 24px; height: 0; border-top-width: 3px; border-top-style: solid; display: inline-block; }
+  .slider-row { display: flex; align-items: center; gap: 10px; margin: 6px 0 6px; flex-wrap: wrap; }
+  .slider-row input[type=range] { flex: 1; min-width: 200px; accent-color: #2563c9; }
+  .pval { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 74px; }
+  .opts { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; margin: 4px 0 4px; font-size: 13.5px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; margin: 8px 0; }
+  th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid #e6eaee; font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: #566; font-weight: 600; border-bottom: 2px solid #cfd6dc; }
+  .sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 5px; }
+  .note { font-size: 13px; color: #445; margin: 10px 0 0; }
+  .cap { font-size: 12.5px; color: #667; margin: 12px 0 0; font-style: italic; }
+  code { background: #eef2f5; padding: 0 3px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Growth-rate explorer &mdash; eventual dominance</h1>
+  <p class="sub">Big-O describes how running time scales as the input size <code>n</code> grows. The faster-growing curve always wins for large enough <code>n</code>, no matter its constant factor.</p>
+
+  <div class="controls" id="legend"></div>
+
+  <canvas id="cv" width="728" height="400"></canvas>
+
+  <div class="slider-row">
+    <label for="nslider">max&nbsp;n&nbsp;=</label>
+    <input type="range" id="nslider" min="8" max="120" value="40" step="1">
+    <span class="pval" id="nlabel">40</span>
+  </div>
+
+  <div class="opts">
+    <label class="toggle"><input type="checkbox" id="logy"> log-scale y-axis</label>
+    <span id="crosstext" style="color:#445;"></span>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Complexity class</th><th id="ncolhdr">value at n = 40</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <p class="note" id="dominote"></p>
+  <p class="cap">Values use natural growth: <code>log</code> is base-2. Curves are clipped to the visible window; on a linear axis the fast classes shoot off the top almost immediately, which is exactly the point.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Each class: label, color, f(n), and a KaTeX-free display name.
+  var CLASSES = [
+    { key: "c1",   name: "O(1)",        color: "#94a3b8", f: function (n) { return 1; } },
+    { key: "clog", name: "O(log n)",    color: "#16a34a", f: function (n) { return Math.log2(n); } },
+    { key: "cn",   name: "O(n)",        color: "#2563c9", f: function (n) { return n; } },
+    { key: "cnln", name: "O(n log n)",  color: "#0891b2", f: function (n) { return n * Math.log2(n); } },
+    { key: "cn2",  name: "O(n²)",  color: "#d97706", f: function (n) { return n * n; } },
+    { key: "c2n",  name: "O(2ⁿ)",  color: "#dc2626", f: function (n) { return Math.pow(2, n); } },
+    { key: "cnf",  name: "O(n!)",       color: "#7b3fb5", f: function (n) { return factorial(n); } }
+  ];
+  // Default-visible set (n! and 2^n hidden by default so the slower ones stay readable).
+  var vis = { c1: true, clog: true, cn: true, cnln: true, cn2: true, c2n: false, cnf: false };
+
+  function factorial(n) {
+    n = Math.round(n);
+    var r = 1;
+    for (var i = 2; i <= n; i++) { r *= i; if (r === Infinity) return Infinity; }
+    return r;
+  }
+
+  var cv = document.getElementById("cv");
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+  var padL = 58, padR = 14, padT = 14, padB = 34;
+  var plotW = W - padL - padR, plotH = H - padT - padB;
+
+  var nslider = document.getElementById("nslider");
+  var nlabel = document.getElementById("nlabel");
+  var logyBox = document.getElementById("logy");
+  var legendEl = document.getElementById("legend");
+  var tbody = document.getElementById("tbody");
+  var ncolhdr = document.getElementById("ncolhdr");
+  var crosstext = document.getElementById("crosstext");
+  var dominote = document.getElementById("dominote");
+
+  // Build legend toggles.
+  CLASSES.forEach(function (c) {
+    var lab = document.createElement("label");
+    lab.className = "toggle";
+    var box = document.createElement("input");
+    box.type = "checkbox";
+    box.checked = vis[c.key];
+    box.addEventListener("change", function () { vis[c.key] = box.checked; draw(); });
+    var line = document.createElement("span");
+    line.className = "swline";
+    line.style.borderTopColor = c.color;
+    lab.appendChild(box);
+    lab.appendChild(line);
+    lab.appendChild(document.createTextNode(" " + c.name));
+    legendEl.appendChild(lab);
+  });
+
+  function fmt(v) {
+    if (v === Infinity) return "∞ (overflow)";
+    if (v < 1000) {
+      return (Math.abs(v - Math.round(v)) < 1e-9) ? String(Math.round(v)) : v.toFixed(2);
+    }
+    if (v < 1e15) return Math.round(v).toLocaleString("en-US");
+    return v.toExponential(3);
+  }
+
+  // Where does n^2 first meet/exceed n log n? Solve n^2 >= n log2 n -> n >= log2 n,
+  // true for all n >= 1. n^2 exceeds n log n once n > log2 n, i.e. immediately for n >= 2.
+  // The pedagogically interesting crossover is n log n vs n: they cross at n = 2 (log2 2 = 1).
+  // We report the n^2-over-(n log n) gap growing, and mark the n log n = n^2 relationship.
+  function crossoverN2overNlogN() {
+    // n^2 > n log2 n  <=>  n > log2 n, holds for every integer n >= 2 (log2 2 = 1 < 2).
+    return 2;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var nMax = parseInt(nslider.value, 10);
+    nlabel.textContent = nMax;
+    ncolhdr.textContent = "value at n = " + nMax;
+    var logy = logyBox.checked;
+
+    // Determine y-range from visible curves over [1, nMax].
+    var yMax = 1, yMin = Infinity;
+    CLASSES.forEach(function (c) {
+      if (!vis[c.key]) return;
+      for (var n = 1; n <= nMax; n++) {
+        var v = c.f(n);
+        if (v === Infinity || !isFinite(v)) continue;
+        if (v > yMax) yMax = v;
+        if (v > 0 && v < yMin) yMin = v;
+      }
+    });
+    if (!isFinite(yMin)) yMin = 1;
+    if (logy && yMin <= 0) yMin = 1;
+
+    function xToPx(n) { return padL + (n - 1) / Math.max(1, (nMax - 1)) * plotW; }
+    function yToPx(v) {
+      if (logy) {
+        var lo = Math.log10(Math.max(yMin, 0.5)), hi = Math.log10(yMax);
+        if (hi <= lo) hi = lo + 1;
+        var t = (Math.log10(Math.max(v, yMin * 0.5)) - lo) / (hi - lo);
+        return padT + (1 - t) * plotH;
+      }
+      var t2 = v / yMax;
+      return padT + (1 - t2) * plotH;
+    }
+
+    // Axes.
+    ctx.strokeStyle = "#cfd6dc";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, padT); ctx.lineTo(padL, padT + plotH); ctx.lineTo(padL + plotW, padT + plotH);
+    ctx.stroke();
+
+    // Gridlines + y labels.
+    ctx.fillStyle = "#889";
+    ctx.font = "11px -apple-system, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    var ticks = 5;
+    for (var i = 0; i <= ticks; i++) {
+      var yv;
+      if (logy) {
+        var lo = Math.log10(Math.max(yMin, 0.5)), hi = Math.log10(yMax);
+        if (hi <= lo) hi = lo + 1;
+        yv = Math.pow(10, lo + (hi - lo) * i / ticks);
+      } else {
+        yv = yMax * i / ticks;
+      }
+      var py = yToPx(yv);
+      ctx.strokeStyle = "#eef2f5";
+      ctx.beginPath(); ctx.moveTo(padL, py); ctx.lineTo(padL + plotW, py); ctx.stroke();
+      ctx.fillText(fmtAxis(yv), padL - 6, py);
+    }
+
+    // X labels.
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    var xticks = 5;
+    for (var j = 0; j <= xticks; j++) {
+      var nv = 1 + (nMax - 1) * j / xticks;
+      var px = xToPx(nv);
+      ctx.fillText(String(Math.round(nv)), px, padT + plotH + 6);
+    }
+    ctx.textAlign = "left";
+    ctx.fillText("n", padL + plotW - 6, padT + plotH + 6);
+
+    // Curves.
+    CLASSES.forEach(function (c) {
+      if (!vis[c.key]) return;
+      ctx.strokeStyle = c.color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      var started = false;
+      for (var n = 1; n <= nMax; n += (nMax > 60 ? 1 : 0.25)) {
+        var v = c.f(n);
+        if (v === Infinity || !isFinite(v)) break;
+        var px = xToPx(n), py = yToPx(v);
+        if (py < padT - 40) { started = false; continue; } // clipped above window
+        if (!started) { ctx.moveTo(px, py); started = true; }
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    });
+
+    // Crossover marker: n log n = n^2 comparison at n = 2 (they are equal there: 2*1 = 2, 2^2 = 4).
+    // Mark where n^2 pulls ahead of n log n visibly.
+    if (vis.cn2 && vis.cnln) {
+      var cn = crossoverN2overNlogN();
+      if (cn <= nMax) {
+        var cx = xToPx(cn);
+        ctx.strokeStyle = "#d97706";
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(cx, padT); ctx.lineTo(cx, padT + plotH); ctx.stroke();
+        ctx.setLineDash([]);
+        crosstext.textContent = "Dashed line: n² overtakes n log n from n = 2 onward.";
+      } else {
+        crosstext.textContent = "";
+      }
+    } else {
+      crosstext.textContent = "";
+    }
+
+    buildTable(nMax);
+    buildNote(nMax);
+  }
+
+  function fmtAxis(v) {
+    if (v >= 1e6 || (v > 0 && v < 0.01)) return v.toExponential(0);
+    if (v >= 1000) return Math.round(v).toLocaleString("en-US");
+    return (Math.abs(v - Math.round(v)) < 1e-6) ? String(Math.round(v)) : v.toFixed(1);
+  }
+
+  function buildTable(nMax) {
+    tbody.innerHTML = "";
+    CLASSES.forEach(function (c) {
+      var tr = document.createElement("tr");
+      var td1 = document.createElement("td");
+      td1.innerHTML = '<span class="sw" style="background:' + c.color + '"></span>' + c.name +
+        (vis[c.key] ? "" : ' <span style="color:#aab;">(hidden)</span>');
+      var td2 = document.createElement("td");
+      td2.textContent = fmt(c.f(nMax));
+      tr.appendChild(td1); tr.appendChild(td2);
+      tbody.appendChild(tr);
+    });
+  }
+
+  function buildNote(nMax) {
+    var l = Math.log2(nMax);
+    dominote.innerHTML = "At n = " + nMax + ": log₂ n ≈ " + l.toFixed(2) +
+      ", so n log n = " + fmt(nMax * l) + " while n² = " + fmt(nMax * nMax) +
+      ". The quadratic term is larger by a factor of about " + (nMax / l).toFixed(1) +
+      ", and that ratio keeps growing without bound.";
+  }
+
+  nslider.addEventListener("input", draw);
+  logyBox.addEventListener("change", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

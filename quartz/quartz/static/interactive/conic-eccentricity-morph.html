@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eccentricity Morph</title>
+<style>
+  :root { --bg:#ffffff; --ink:#1f2328; --muted:#57606a; --line:#d0d7de;
+          --curve:#0969da; --focus:#cf222e; --focus2:#8250df; --directrix:#1a7f37;
+          --panel:#f6f8fa; }
+  html,body { margin:0; background:var(--bg); color:var(--ink);
+    font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:760px; margin:0 auto; padding:12px; box-sizing:border-box; }
+  h1 { font-size:16px; margin:0 0 8px; }
+  .controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+  .controls label { font-weight:600; }
+  input[type=range] { flex:1 1 240px; min-width:200px; accent-color:var(--curve); }
+  .readout { display:flex; gap:16px; flex-wrap:wrap; margin:10px 0 6px; font-variant-numeric:tabular-nums; }
+  .readout b { color:var(--curve); }
+  .badge { display:inline-block; padding:2px 10px; border-radius:999px; font-weight:600;
+    background:#ddf4ff; color:var(--curve); border:1px solid #b6e3ff; }
+  canvas { display:block; width:100%; height:auto; border:1px solid var(--line);
+    border-radius:8px; margin-top:8px; background:var(--bg); }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; color:var(--muted); font-size:13px; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .swatch { width:14px; height:3px; border-radius:2px; display:inline-block; }
+  .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .presets { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .presets button { font:inherit; padding:3px 10px; border:1px solid var(--line);
+    background:var(--panel); border-radius:6px; cursor:pointer; }
+  .presets button:hover { background:#eaeef2; }
+  .note { color:var(--muted); font-size:12.5px; margin-top:8px; }
+  code { background:var(--panel); padding:1px 4px; border-radius:4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Eccentricity morph: one family, four conics</h1>
+
+  <div class="controls">
+    <label for="ecc">Eccentricity e</label>
+    <input id="ecc" type="range" min="0" max="2.5" step="0.01" value="0" />
+    <span class="badge" id="badge">Circle</span>
+  </div>
+
+  <div class="readout">
+    <span>e (eccentricity) = <b id="eVal">0.00</b></span>
+    <span>Conic type: <b id="typeVal">Circle</b></span>
+    <span>ratio = focus-dist / directrix-dist = <b id="ratioVal">0.00</b></span>
+  </div>
+
+  <div class="presets">
+    <button data-e="0">Circle (e=0)</button>
+    <button data-e="0.6">Ellipse (e=0.6)</button>
+    <button data-e="1">Parabola (e=1)</button>
+    <button data-e="1.6">Hyperbola (e=1.6)</button>
+  </div>
+
+  <canvas id="c" width="1480" height="900" aria-label="Conic curve morphing with eccentricity"></canvas>
+
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--curve)"></i>conic curve</span>
+    <span><i class="dot" style="background:var(--focus)"></i>focus F (on curve's polar pole)</span>
+    <span><i class="dot" style="background:var(--focus2)"></i>second focus (ellipse / hyperbola)</span>
+    <span><i class="swatch" style="background:var(--directrix)"></i>directrix</span>
+  </div>
+
+  <p class="note">
+    Drawn from the polar focus-directrix form <code>r = l / (1 + e&middot;cos&theta;)</code>, with the
+    focus F at the pole. Every point P on the curve satisfies
+    <code>(distance from P to F) = e &times; (distance from P to the directrix)</code>. Slide e (read "eccentricity")
+    from 0 upward: at e=0 the curve is a circle, for 0&lt;e&lt;1 an ellipse, at exactly e=1 a parabola,
+    and for e&gt;1 a hyperbola. Here &theta; is read "theta".
+  </p>
+</div>
+
+<script>
+(function () {
+  var cv = document.getElementById('c');
+  var ctx = cv.getContext('2d');
+  var slider = document.getElementById('ecc');
+  var W = cv.width, H = cv.height;
+
+  // Fixed semi-latus rectum l keeps the curve a comfortable size across all e.
+  var L = 2.2;
+
+  function conicType(e) {
+    if (e < 1e-9) return 'Circle';
+    if (e < 1 - 1e-9) return 'Ellipse';
+    if (Math.abs(e - 1) < 1e-9) return 'Parabola';
+    return 'Hyperbola';
+  }
+
+  // World -> screen mapping. World units, focus F at world origin (0,0).
+  // Scale and offset chosen so curves stay on-canvas for e up to ~2.5.
+  var scale = 92;                 // px per world unit
+  var ox = W * 0.62;              // focus x on screen (curve opens to the left as e grows -> keep room right)
+  var oy = H * 0.5;
+
+  function sx(x) { return ox + x * scale; }
+  function sy(y) { return oy - y * scale; }
+
+  function draw() {
+    var e = parseFloat(slider.value);
+    var type = conicType(e);
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+
+    // --- axes (light) ---
+    ctx.strokeStyle = '#eaeef2';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, sy(0)); ctx.lineTo(W, sy(0));
+    ctx.moveTo(sx(0), 0); ctx.lineTo(sx(0), H);
+    ctx.stroke();
+
+    // --- directrix ---
+    // Polar form r = L/(1 + e cos t) has focus at pole and directrix at x = L/e
+    // (to the right of the focus). For e=0 there is no finite directrix.
+    if (e > 1e-6) {
+      var dx = L / e; // world x of directrix
+      var dxs = sx(dx);
+      if (dxs > -20 && dxs < W + 20) {
+        ctx.strokeStyle = getCss('--directrix');
+        ctx.setLineDash([8, 6]);
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(dxs, 20); ctx.lineTo(dxs, H - 20);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = getCss('--directrix');
+        ctx.font = '600 22px sans-serif';
+        if (dxs < W - 90) ctx.fillText('directrix', dxs + 8, 40);
+        else ctx.fillText('directrix', dxs - 108, 40);
+      }
+    }
+
+    // --- the conic curve, from polar form ---
+    ctx.strokeStyle = getCss('--curve');
+    ctx.lineWidth = 3;
+    plotPolar(e);
+
+    // --- foci ---
+    // Focus 1 at pole (world origin).
+    dot(sx(0), sy(0), getCss('--focus'), 'F');
+
+    // Second focus for ellipse / hyperbola.
+    // Vertices along the axis (theta = 0 and theta = pi):
+    //   r(0)   = L/(1+e)  -> point at x = +L/(1+e)
+    //   r(pi)  = L/(1-e)  -> point at x = -L/(1-e)   (sign handles hyperbola)
+    if (type === 'Ellipse' || type === 'Hyperbola') {
+      var xv0 =  L / (1 + e);     // vertex near the focus side
+      var xvpi = -L / (1 - e);    // other vertex (for e>1 this flips to the other branch's vertex)
+      var center = (xv0 + xvpi) / 2;
+      var f2x = 2 * center; // second focus is mirror of F(at 0) about the center
+      dot(sx(f2x), sy(0), getCss('--focus2'), "F'");
+    }
+
+    // --- annotate the defining ratio at a sample point P ---
+    annotateRatio(e);
+
+    ctx.restore();
+    updateReadout(e, type);
+  }
+
+  function plotPolar(e) {
+    // Sweep theta; when e >= 1 the denominator (1 + e cos t) hits 0 -> asymptotic
+    // directions. We break the path there so the two branches / open arms render cleanly.
+    var N = 2400;
+    ctx.beginPath();
+    var started = false;
+    for (var i = 0; i <= N; i++) {
+      var t = -Math.PI + (2 * Math.PI) * i / N;
+      var denom = 1 + e * Math.cos(t);
+      if (Math.abs(denom) < 1e-3) { started = false; continue; }
+      var r = L / denom;
+      // For hyperbola, negative r gives the second branch at the opposite direction.
+      var x = r * Math.cos(t);
+      var y = r * Math.sin(t);
+      // Clip anything wildly off-canvas to avoid huge line jumps.
+      if (Math.abs(x) > 40 || Math.abs(y) > 40) { started = false; continue; }
+      var px = sx(x), py = sy(y);
+      if (!started) { ctx.moveTo(px, py); started = true; }
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  }
+
+  function annotateRatio(e) {
+    // Pick a visible point P on the curve (theta = 60 degrees) and draw the two
+    // distances whose ratio is e: |PF| and the horizontal distance to the directrix.
+    if (e < 1e-6) return; // circle: no directrix
+    var t = Math.PI / 3;
+    var denom = 1 + e * Math.cos(t);
+    if (Math.abs(denom) < 0.15) return;
+    var r = L / denom;
+    if (r <= 0 || r > 30) return;
+    var x = r * Math.cos(t), y = r * Math.sin(t);
+    var dx = L / e; // directrix world x
+
+    var P = [sx(x), sy(y)];
+    var F = [sx(0), sy(0)];
+    var D = [sx(dx), sy(y)]; // foot of perpendicular to directrix (same y)
+
+    // |PF| segment
+    ctx.strokeStyle = getCss('--focus');
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    seg(P, F);
+    // distance to directrix segment
+    ctx.strokeStyle = getCss('--directrix');
+    seg(P, D);
+    ctx.setLineDash([]);
+
+    dot(P[0], P[1], '#1f2328', 'P');
+
+    ctx.fillStyle = '#1f2328';
+    ctx.font = '600 20px sans-serif';
+    ctx.fillText('|PF|', (P[0] + F[0]) / 2 - 6, (P[1] + F[1]) / 2 - 8);
+    ctx.fillText('dist to directrix', (P[0] + D[0]) / 2 - 60, (P[1] + D[1]) / 2 - 8);
+    ctx.font = '600 19px sans-serif';
+    ctx.fillStyle = getCss('--curve');
+    ctx.fillText('|PF| / (dist to directrix) = e = ' + e.toFixed(2), 24, H - 28);
+  }
+
+  function seg(a, b) { ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+
+  function dot(x, y, color, label) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, 7, 0, 2 * Math.PI);
+    ctx.fill();
+    if (label) {
+      ctx.fillStyle = color;
+      ctx.font = '700 22px sans-serif';
+      ctx.fillText(label, x + 11, y - 10);
+    }
+  }
+
+  function updateReadout(e, type) {
+    document.getElementById('eVal').textContent = e.toFixed(2);
+    document.getElementById('typeVal').textContent = type;
+    document.getElementById('badge').textContent = type;
+    // For a circle (e=0) the ratio is defined as 0 (no directrix / limiting case).
+    document.getElementById('ratioVal').textContent = e.toFixed(2);
+  }
+
+  function getCss(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  slider.addEventListener('input', draw);
+  Array.prototype.forEach.call(document.querySelectorAll('.presets button'), function (b) {
+    b.addEventListener('click', function () {
+      slider.value = b.getAttribute('data-e');
+      draw();
+    });
+  });
+
+  draw();
+})();
+</script>
+</body>
+</html>

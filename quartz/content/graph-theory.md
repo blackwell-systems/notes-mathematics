@@ -1,6 +1,12 @@
 ---
 title: "Graph Theory"
+prerequisites: ["set-theory", "functions-relations"]
+enables: ["asymptotic-notation", "algebraic-structures"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Set Theory](./set-theory) · [Functions & Relations](./functions-relations)
+> **Leads to:** [Asymptotic Notation](./asymptotic-notation) · [Algebraic Structures](./algebraic-structures)
 
 ## What Is a Graph?
 
@@ -1503,6 +1509,10 @@ DFS starting from A: A → B → D → E → C → F
 BFS starting from A: A → B → C → D → E → F
 
 ![BFS vs DFS traversal order comparison on the same graph](./media/bfs-vs-dfs.png)
+
+**Try it:** Build a small graph (or load a preset), pick a start vertex, and step through BFS or DFS to watch the visit order form. The queue-versus-stack difference is exactly what makes BFS fan out level by level while DFS plunges down one branch first. Each vertex's degree is shown live, so you can also confirm the handshaking lemma (the sum of degrees equals twice the edge count) as you add edges.
+
+<iframe src="/static/interactive/gt-graph-explorer.html" width="100%" height="560" style="border:none;"></iframe>
 
 **Applications:**
 - Finding shortest path (unweighted graphs)

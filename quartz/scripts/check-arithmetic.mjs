@@ -950,6 +950,120 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const lam = 2, h = 1e-6, M = (t) => lam / (lam - t); eq("MGF' at 0 = mean for Exp(2)", (M(h) - M(-h)) / (2 * h), 1 / lam, 1e-4); }
 }
 
+// ================= Graph Theory =================
+{
+  const Kedges = (n) => (n * (n - 1)) / 2;
+  eq("K5 has 10 edges = n(n-1)/2", Kedges(5), 10);
+  eq("K4 has 6 edges", Kedges(4), 6);
+  eq("K6 has 15 edges", Kedges(6), 15);
+  eq("Kn vertex degree = n-1: K5 vertex degree 4", 5 - 1, 4);
+  eq("Handshaking on K5: sum of degrees = 2E = 20", 5 * (5 - 1), 2 * Kedges(5));
+  eq("Tree on 7 nodes has 6 edges (n-1)", 7 - 1, 6);
+  // Cycle C6: 6 vertices each degree 2
+  { const n = 6, deg = 2; eq("C6 sum of degrees = 12 = 2E", n * deg, 12); eq("C6 edge count from handshaking = 6", (n * deg) / 2, 6); }
+  // Sample graph V={A,B,C,D}, E={AB,BC,CD,DA,AC}: degrees 3,2,3,2
+  { const degs = [3, 2, 3, 2], E = 5; eq("Sample graph sum of degrees = 2E", degs.reduce((a, b) => a + b, 0), 2 * E); check("Sample graph degree sum is even", degs.reduce((a, b) => a + b, 0) % 2 === 0); }
+}
+
+// ================= Number Theory =================
+{
+  const mod = (a, n) => ((a % n) + n) % n;
+  const phi = (n) => { let c = 0; for (let k = 1; k <= n; k++) if (gcd(k, n) === 1) c++; return c; };
+  eq("gcd(17,5) = 1 (coprime)", gcd(17, 5), 1);
+  eq("(17+5) mod 12 = 10", mod(17 + 5, 12), 10);
+  eq("(17*5) mod 12 = 1", mod(17 * 5, 12), 1);
+  eq("gcd(252,105) = 21 (worked example)", gcd(252, 105), 21);
+  eq("Euler phi(12) = 4", phi(12), 4);
+  // Fermat inverse: 3^(7-2) mod 7 = 3^5 mod 7
+  { let r = 1; for (let i = 0; i < 5; i++) r = mod(r * 3, 7); eq("3^5 mod 7 = 5 (inverse of 3 mod 7)", r, 5); eq("3 * 5 mod 7 = 1 confirms inverse", mod(3 * 5, 7), 1); }
+}
+
+// ================= Asymptotic Notation =================
+{
+  const log2 = (x) => Math.log(x) / Math.log(2);
+  const fact = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; };
+  eq("at n=16: n^2 = 256", 16 ** 2, 256);
+  eq("at n=16: n*log2(n) = 64", 16 * log2(16), 64, 1e-9);
+  eq("2^10 = 1024", 2 ** 10, 1024);
+  eq("log2(1024) = 10", log2(1024), 10, 1e-9);
+  eq("10! = 3628800", fact(10), 3628800);
+  eq("at n=8: n*log2(n) = 24", 8 * log2(8), 24, 1e-9);
+  eq("at n=8: 2^n = 256", 2 ** 8, 256);
+  // n^2 dominates n log2 n for all n >= 2 (since n > log2 n)
+  { let ok = true; for (let n = 2; n <= 1000; n++) if (!(n * n > n * log2(n))) ok = false; check("n^2 > n*log2(n) for all n in [2,1000]", ok); }
+}
+
+// ================= Permutations =================
+{
+  const fact = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; };
+  const P = (n, r) => fact(n) / fact(n - r);
+  eq("5! = 120", fact(5), 120);
+  eq("P(5,2) = 20", P(5, 2), 20);
+  eq("P(5,3) = 60", P(5, 3), 60);
+  eq("P(10,4) = 5040", P(10, 4), 5040);
+  eq("P(5,5) = 5! = 120", P(5, 5), 120);
+  eq("P(n,0) = 1 (empty product)", P(7, 0), 1);
+  eq("circular permutations of 5 = (5-1)! = 24", fact(5 - 1), 24);
+  eq("bracelets from 5 beads = (5-1)!/2 = 12", fact(5 - 1) / 2, 12);
+  eq("MISSISSIPPI arrangements = 11!/(1!4!4!2!) = 34650", fact(11) / (fact(1) * fact(4) * fact(4) * fact(2)), 34650);
+  eq("with-repetition: 10^4 = 10000", 10 ** 4, 10000);
+}
+
+// ================= Combinations =================
+{
+  eq("C(5,2) = 10", comb(5, 2), 10);
+  eq("symmetry C(5,2) = C(5,3)", comb(5, 2), comb(5, 3));
+  eq("Pascal: C(5,2) = C(4,1)+C(4,2) = 4+6 = 10", comb(4, 1) + comb(4, 2), comb(5, 2));
+  // row 5 sums to 2^5 = 32
+  { let s = 0; for (let k = 0; k <= 5; k++) s += comb(5, k); eq("sum of Pascal row 5 = 2^5 = 32", s, 32); }
+  eq("C(10,3) = 120", comb(10, 3), 120);
+  eq("C(7,3) = 35", comb(7, 3), 35);
+  eq("C(12,4) = 495", comb(12, 4), 495);
+}
+
+// ================= Inequalities =================
+{
+  // -2x + 3 < 7  =>  x > -2 : boundary is (7-3)/(-2) = -2, and dividing by negative flips <
+  eq("solve -2x+3<7 boundary x = -2", (7 - 3) / -2, -2);
+  eq("solve -2x+3<=11 boundary x = -4", (11 - 3) / -2, -4);
+  // quadratic x^2 - 5x + 6 < 0 : roots 2,3
+  { const a = 1, b = -5, c = 6, d = Math.sqrt(b * b - 4 * a * c); eq("x^2-5x+6 roots 2 and 3", (-b - d) / (2 * a), 2); eq("x^2-5x+6 upper root 3", (-b + d) / (2 * a), 3); }
+  // quadratic x^2 + 2x - 8 >= 0 : roots -4, 2
+  { const a = 1, b = 2, c = -8, d = Math.sqrt(b * b - 4 * a * c); eq("x^2+2x-8 roots -4 and 2", (-b - d) / (2 * a), -4); eq("x^2+2x-8 upper root 2", (-b + d) / (2 * a), 2); }
+  // half-plane boundaries y=2x+1 and y=-x+3 meet at x=2/3, y=7/3
+  { const x = (3 - 1) / (2 + 1); eq("boundaries 2x+1=-x+3 meet at x=2/3", x, 2 / 3, 1e-9); eq("... y = 7/3", 2 * x + 1, 7 / 3, 1e-9); }
+  // AM-GM: (a+b)/2 >= sqrt(ab), a=4,b=9 -> 6.5 >= 6
+  { const a = 4, b = 9; check("AM-GM (4+9)/2 >= sqrt(36): 6.5 >= 6", (a + b) / 2 >= Math.sqrt(a * b)); eq("AM = 6.5", (a + b) / 2, 6.5); eq("GM = 6", Math.sqrt(a * b), 6); }
+}
+
+// ================= Conic Sections =================
+{
+  eq("circle eccentricity e = 0", 0, 0);
+  eq("parabola eccentricity e = 1", 1, 1);
+  // ellipse b^2 = a^2(1-e^2), a=5, e=0.6 -> b = 4
+  { const a = 5, e = 0.6; eq("ellipse b = 4 for a=5,e=0.6", Math.sqrt(a * a * (1 - e * e)), 4); }
+  // ellipse a=5, c=3 -> e = c/a = 0.6, b^2 = 16
+  { const a = 5, c = 3; eq("ellipse e = c/a = 0.6", c / a, 0.6); eq("ellipse b^2 = a^2-c^2 = 16", a * a - c * c, 16); }
+  // hyperbola a=4, c=5 -> e = 1.25, b^2 = 9
+  { const a = 4, c = 5; eq("hyperbola e = c/a = 1.25", c / a, 1.25); eq("hyperbola b^2 = c^2-a^2 = 9", c * c - a * a, 9); check("hyperbola e > 1", c / a > 1); }
+  // polar form r = l/(1+e cos θ), l=2.2, e=0.6: near vertex at θ=0 -> x = l/(1+e) = 1.375
+  { const l = 2.2, e = 0.6; eq("polar near vertex x = l/(1+e) = 1.375", l / (1 + e), 1.375, 1e-9); eq("polar far vertex x = -l/(1-e) = -5.5", -l / (1 - e), -5.5, 1e-9); }
+}
+
+// ================= Systems of Equations =================
+{
+  // Cramer: a1 x + b1 y = c1 ; a2 x + b2 y = c2
+  const cramer = (a1, b1, c1, a2, b2, c2) => {
+    const D = a1 * b2 - a2 * b1, Dx = c1 * b2 - c2 * b1, Dy = a1 * c2 - a2 * c1;
+    return { D, Dx, Dy, x: Dx / D, y: Dy / D };
+  };
+  { const s = cramer(1, 1, 5, 1, -1, 1); eq("x+y=5, x-y=1 -> D=-2", s.D, -2); eq("... x=3", s.x, 3); eq("... y=2", s.y, 2); }
+  eq("det [[1,1],[1,-1]] = -2", 1 * -1 - 1 * 1, -2);
+  { const s = cramer(2, 1, 1, 4, 2, 5); eq("parallel 2x+y=1,4x+2y=5 -> D=0", s.D, 0); check("... Dx != 0 (no solution)", s.Dx !== 0); eq("... Dx = -3", s.Dx, -3); }
+  { const s = cramer(2, 1, 1, 4, 2, 2); eq("dependent 2x+y=1,4x+2y=2 -> D=0", s.D, 0); check("... Dx=0 and Dy=0 (infinite solutions)", s.Dx === 0 && s.Dy === 0); }
+  { const s = cramer(2, 3, 6, 1, -1, 0.5); eq("2x+3y=6, x-y=0.5 -> D=-5", s.D, -5); eq("... x=1.5", s.x, 1.5, 1e-9); eq("... y=1", s.y, 1, 1e-9); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

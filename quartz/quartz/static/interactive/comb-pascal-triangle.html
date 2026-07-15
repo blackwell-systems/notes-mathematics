@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pascal's Triangle Explorer</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1f2328;
+    --muted: #57606a;
+    --line: #d0d7de;
+    --cell: #f6f8fa;
+    --cell-hover: #ddf4ff;
+    --sel: #ffd43b;
+    --sel-bd: #d9a400;
+    --parent: #b7e4c7;
+    --parent-bd: #2f9e44;
+    --accent: #0969da;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 14px 16px 22px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  p.lead { margin: 0 0 12px; color: var(--muted); font-size: 13.5px; }
+  #triangle {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px 16px;
+    margin: 10px 2px 4px; font-size: 12.5px; color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid var(--line); display: inline-block; }
+  .panel {
+    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: var(--cell);
+  }
+  .panel h2 { font-size: 14px; margin: 0 0 8px; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 8px; }
+  .controls label { font-size: 13px; }
+  .controls input[type="number"] {
+    width: 58px; padding: 4px 6px; font-size: 14px;
+    border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg);
+  }
+  .out { font-size: 14px; }
+  .out .big { font-size: 15px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .note { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+  .kbd { color: var(--accent); font-weight: 600; }
+  .warn { color: #cf222e; }
+  code { background: #eaeef2; border-radius: 4px; padding: 1px 4px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pascal's Triangle Explorer</h1>
+  <p class="lead">
+    Each cell is a binomial coefficient <span class="mono">C(n,k)</span> ("n choose k"), the number of ways to
+    choose <span class="mono">k</span> items from <span class="mono">n</span>. Hover or tap a cell to see Pascal's
+    rule: every cell equals the sum of the two above it.
+  </p>
+
+  <canvas id="triangle" width="760" height="440" aria-label="Interactive Pascal's triangle"></canvas>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--sel);border-color:var(--sel-bd)"></span> selected cell C(n,k)</span>
+    <span><span class="swatch" style="background:var(--parent);border-color:var(--parent-bd)"></span> the two parents that sum to it</span>
+    <span><span class="swatch" style="background:var(--cell-hover)"></span> row highlight (sums to 2<sup>n</sup>)</span>
+  </div>
+
+  <div class="panel" id="cellPanel">
+    <h2>Selected cell</h2>
+    <div class="out" id="cellOut">Hover or tap any cell above to inspect it.</div>
+  </div>
+
+  <div class="panel">
+    <h2>Compute C(n,r) = n! / (r! (n-r)!)</h2>
+    <div class="controls">
+      <label>n = <input type="number" id="inN" min="0" max="30" step="1" value="5"></label>
+      <label>r = <input type="number" id="inR" min="0" max="30" step="1" value="2"></label>
+    </div>
+    <div class="out" id="formulaOut"></div>
+    <div class="note">
+      Symmetry: <span class="mono">C(n,r) = C(n, n-r)</span>, because choosing which r to take is the same as
+      choosing which n-r to leave out. Click a triangle cell to load its n and r here.
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var MAXROW = 12;              // rows 0..12
+  var canvas = document.getElementById("triangle");
+  var ctx = canvas.getContext("2d");
+
+  // --- exact integer binomials via Pascal build (no factorial overflow) ---
+  var C = [];
+  for (var n = 0; n <= MAXROW; n++) {
+    C[n] = [];
+    for (var k = 0; k <= n; k++) {
+      C[n][k] = (k === 0 || k === n) ? 1 : C[n - 1][k - 1] + C[n - 1][k];
+    }
+  }
+
+  // BigInt factorial-based C(n,r) for the compute panel (handles larger n cleanly)
+  function fact(x) { var r = 1n; for (var i = 2n; i <= x; i++) r *= i; return r; }
+  function choose(n, r) {
+    if (r < 0 || r > n) return 0n;
+    // multiplicative form to keep numbers small
+    var num = 1n, den = 1n;
+    var rr = Math.min(r, n - r);
+    for (var i = 0; i < rr; i++) {
+      num *= BigInt(n - i);
+      den *= BigInt(i + 1);
+    }
+    return num / den;
+  }
+
+  // --- layout geometry (recomputed on resize for crisp canvas) ---
+  var geo = { cw: 0, ch: 0, top: 0, xstep: 0, ystep: 0, cells: [] };
+
+  function layout() {
+    var cssW = canvas.clientWidth || 760;
+    var dpr = window.devicePixelRatio || 1;
+    var W = cssW;
+    var rows = MAXROW + 1;
+    var xstep = W / (MAXROW + 1);           // horizontal spacing between adjacent cell centers
+    var cw = Math.min(xstep * 0.92, 46);
+    var ch = cw * 0.62;
+    var ystep = ch + 8;
+    var top = 6;
+    var H = top + rows * ystep + 6;
+
+    canvas.style.height = H + "px";
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    geo.cw = cw; geo.ch = ch; geo.top = top;
+    geo.xstep = xstep; geo.ystep = ystep; geo.W = W;
+
+    geo.cells = [];
+    for (var n = 0; n <= MAXROW; n++) {
+      geo.cells[n] = [];
+      var y = top + n * ystep + ch / 2;
+      var rowLeft = W / 2 - (n / 2) * xstep;
+      for (var k = 0; k <= n; k++) {
+        var x = rowLeft + k * xstep;
+        geo.cells[n][k] = { x: x, y: y };
+      }
+    }
+  }
+
+  var sel = null;   // {n,k}
+
+  function draw() {
+    ctx.clearRect(0, 0, geo.W, canvas.height);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    var fontSize = Math.max(9, Math.min(13, geo.cw * 0.36));
+    ctx.font = fontSize + "px ui-monospace, Menlo, Consolas, monospace";
+
+    var parents = null;
+    if (sel && sel.n > 0 && sel.k > 0 && sel.k < sel.n) {
+      parents = [{ n: sel.n - 1, k: sel.k - 1 }, { n: sel.n - 1, k: sel.k }];
+    }
+
+    for (var n = 0; n <= MAXROW; n++) {
+      for (var k = 0; k <= n; k++) {
+        var c = geo.cells[n][k];
+        var isSel = sel && sel.n === n && sel.k === k;
+        var isParent = false;
+        if (parents) {
+          for (var p = 0; p < parents.length; p++) {
+            if (parents[p].n === n && parents[p].k === k) { isParent = true; break; }
+          }
+        }
+        var inSelRow = sel && sel.n === n && !isSel;
+
+        var fill = "#f6f8fa", stroke = "#d0d7de", txt = "#1f2328", lw = 1;
+        if (inSelRow) { fill = "#ddf4ff"; }
+        if (isParent) { fill = "#b7e4c7"; stroke = "#2f9e44"; lw = 2; }
+        if (isSel)    { fill = "#ffd43b"; stroke = "#d9a400"; lw = 2.5; }
+
+        roundRect(c.x - geo.cw / 2, c.y - geo.ch / 2, geo.cw, geo.ch, 5);
+        ctx.fillStyle = fill; ctx.fill();
+        ctx.lineWidth = lw; ctx.strokeStyle = stroke; ctx.stroke();
+
+        ctx.fillStyle = txt;
+        ctx.fillText(String(C[n][k]), c.x, c.y);
+      }
+    }
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function hitTest(px, py) {
+    for (var n = 0; n <= MAXROW; n++) {
+      for (var k = 0; k <= n; k++) {
+        var c = geo.cells[n][k];
+        if (Math.abs(px - c.x) <= geo.cw / 2 && Math.abs(py - c.y) <= geo.ch / 2) {
+          return { n: n, k: k };
+        }
+      }
+    }
+    return null;
+  }
+
+  function fmtRule(n, k) {
+    var v = C[n][k];
+    if (n === 0 || k === 0 || k === n) {
+      return "C(" + n + "," + k + ") = " + v + " (edge of the triangle: exactly one way).";
+    }
+    var a = C[n - 1][k - 1], b = C[n - 1][k];
+    return "Pascal's rule: C(" + n + "," + k + ") = C(" + (n - 1) + "," + (k - 1) + ") + C(" +
+      (n - 1) + "," + k + ") = " + a + " + " + b + " = " + v + ".";
+  }
+
+  var cellOut = document.getElementById("cellOut");
+
+  function showCell(pick) {
+    sel = pick;
+    if (!pick) { draw(); return; }
+    var n = pick.n, k = pick.k, v = C[n][k];
+    var symK = n - k;
+    var symLine = "Symmetry: C(" + n + "," + k + ") = C(" + n + "," + symK + ") = " + v + ".";
+    var rowSum = (1 << n); // 2^n, fits for n<=12
+    var html =
+      '<div class="big"><b class="mono">C(' + n + ',' + k + ') = ' + v + '</b> &nbsp; ("' + n + ' choose ' + k + '")</div>' +
+      '<div class="mono" style="margin-top:4px">' + fmtRule(n, k) + '</div>' +
+      '<div class="mono" style="margin-top:4px">' + symLine + '</div>' +
+      '<div class="note">Row ' + n + ' sums to 2<sup>' + n + '</sup> = ' + rowSum + '.</div>';
+    cellOut.innerHTML = html;
+    draw();
+    // sync compute panel
+    inN.value = n; inR.value = k; computeFormula();
+  }
+
+  function evtPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    var cx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    var cy = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    return { x: cx, y: cy };
+  }
+
+  canvas.addEventListener("mousemove", function (e) {
+    var p = evtPos(e);
+    var pick = hitTest(p.x, p.y);
+    canvas.style.cursor = pick ? "pointer" : "default";
+    if (pick) showCell(pick);
+  });
+  canvas.addEventListener("click", function (e) {
+    var p = evtPos(e);
+    var pick = hitTest(p.x, p.y);
+    if (pick) showCell(pick);
+  });
+  canvas.addEventListener("touchstart", function (e) {
+    var p = evtPos(e);
+    var pick = hitTest(p.x, p.y);
+    if (pick) { e.preventDefault(); showCell(pick); }
+  }, { passive: false });
+
+  // --- compute panel ---
+  var inN = document.getElementById("inN");
+  var inR = document.getElementById("inR");
+  var formulaOut = document.getElementById("formulaOut");
+
+  function computeFormula() {
+    var n = parseInt(inN.value, 10);
+    var r = parseInt(inR.value, 10);
+    if (isNaN(n) || isNaN(r) || n < 0 || r < 0) {
+      formulaOut.innerHTML = '<span class="warn">Enter non-negative integers.</span>';
+      return;
+    }
+    if (r > n) {
+      formulaOut.innerHTML =
+        '<span class="warn">r &gt; n, so C(' + n + ',' + r + ') = 0</span> ' +
+        '<span class="note">(you cannot choose more items than the set contains).</span>';
+      return;
+    }
+    var val = choose(n, r);
+    var nf = String(fact(BigInt(n)));
+    var rf = String(fact(BigInt(r)));
+    var nrf = String(fact(BigInt(n - r)));
+    // cancellation view: n! / (r!(n-r)!) = [n(n-1)...(n-r+1)] / r!
+    var rr = Math.min(r, n - r);
+    var topTerms = [];
+    for (var i = 0; i < rr; i++) topTerms.push(n - i);
+    var topStr = topTerms.length ? topTerms.join(" × ") : "1";
+    var botStr = rr + "!";
+    var botVal = String(fact(BigInt(rr)));
+    var symMsg = (rr !== r)
+      ? ' &nbsp; (using symmetry C(' + n + ',' + r + ') = C(' + n + ',' + rr + ') to cancel less)'
+      : '';
+
+    var html =
+      '<div class="mono big">C(' + n + ',' + r + ') = ' + n + '! / (' + r + '! × ' + (n - r) + '!)</div>' +
+      '<div class="mono" style="margin-top:4px">= ' + nf + ' / (' + rf + ' × ' + nrf + ')</div>' +
+      '<div class="mono" style="margin-top:4px">= (' + topStr + ') / ' + botStr + symMsg + '</div>' +
+      '<div class="mono" style="margin-top:4px">= ' + prod(topTerms) + ' / ' + botVal + ' = <b>' + val + '</b></div>' +
+      '<div class="note">Symmetry check: C(' + n + ',' + r + ') = C(' + n + ',' + (n - r) + ') = ' + val + '.</div>';
+    formulaOut.innerHTML = html;
+  }
+
+  function prod(arr) {
+    if (!arr.length) return "1";
+    var p = 1n;
+    for (var i = 0; i < arr.length; i++) p *= BigInt(arr[i]);
+    return String(p);
+  }
+
+  inN.addEventListener("input", computeFormula);
+  inR.addEventListener("input", computeFormula);
+
+  // --- init ---
+  function boot() { layout(); showCell({ n: 5, k: 2 }); }
+  window.addEventListener("resize", function () { layout(); draw(); });
+  boot();
+})();
+</script>
+</body>
+</html>

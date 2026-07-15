@@ -1,6 +1,14 @@
 ---
 title: "Combination"
+prerequisites: ["permutation", "set-theory"]
+enables: ["probability", "statistics"]
 ---
+
+Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to choose 3 of them to form a team. When order does not matter, counting these selections is what combinations are for.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Permutations](./permutation) · [Set Theory](./set-theory)
+> **Leads to:** [Probability](./probability) · [Statistics](./statistics)
 
 ## Why Combinations?
 
@@ -78,6 +86,10 @@ This forms Pascal's Triangle:
 ```
 
 Each number is the sum of the two numbers above it.
+
+Explore this interactively below. Hover or tap any cell to see it as $C(n,k)$ ("n choose k") and the two parent cells that sum to it, use the panel to compute $C(n,r)$ ("n choose r") with the worked cancellation, and note that each row $n$ sums to $2^n$.
+
+<iframe src="/static/interactive/comb-pascal-triangle.html" width="100%" height="600" style="border:none;"></iframe>
 
 **Connection to Binomial Theorem:**
 

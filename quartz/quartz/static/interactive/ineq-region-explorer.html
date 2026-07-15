@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inequality Region Explorer</title>
+<style>
+  :root { --ink:#1f2328; --muted:#57606a; --line:#d8dee4; --bg:#ffffff;
+          --panel:#f6f8fa; --accent:#2563eb; --accent2:#d946ef;
+          --shade:rgba(37,99,235,0.16); --shade2:rgba(217,70,239,0.16); }
+  * { box-sizing:border-box; }
+  html,body { margin:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+         color:var(--ink); background:var(--bg); line-height:1.45; }
+  .wrap { max-width:760px; margin:0 auto; padding:16px; }
+  h1 { font-size:18px; margin:0 0 4px; }
+  p.sub { margin:0 0 12px; color:var(--muted); font-size:13px; }
+  .tabs { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
+  .tab { border:1px solid var(--line); background:var(--panel); color:var(--ink);
+         padding:7px 12px; border-radius:8px; cursor:pointer; font-size:13px; }
+  .tab[aria-selected="true"] { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .panel { border:1px solid var(--line); border-radius:10px; padding:14px; background:var(--bg); }
+  .controls { display:flex; flex-wrap:wrap; gap:12px 18px; align-items:center; margin-bottom:12px; }
+  .ctl { display:flex; flex-direction:column; gap:3px; font-size:12px; color:var(--muted); }
+  .ctl label { font-weight:600; }
+  .ctl .row { display:flex; align-items:center; gap:6px; }
+  input[type=range] { width:150px; }
+  input[type=number] { width:60px; padding:3px 5px; border:1px solid var(--line);
+                        border-radius:6px; font-size:13px; }
+  select { padding:4px 6px; border:1px solid var(--line); border-radius:6px; font-size:13px; }
+  .val { font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600; min-width:34px; }
+  canvas { display:block; width:100%; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .result { margin-top:10px; padding:9px 11px; background:var(--panel); border-radius:8px;
+            font-size:14px; }
+  .result code { font-size:14px; }
+  .legend { margin-top:10px; font-size:12px; color:var(--muted); display:flex;
+            flex-wrap:wrap; gap:6px 16px; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .sw { width:22px; height:12px; border-radius:3px; display:inline-block; }
+  .dot { width:12px; height:12px; border-radius:50%; display:inline-block; border:2px solid var(--accent); }
+  .dot.open { background:#fff; }
+  .dot.closed { background:var(--accent); }
+  .hide { display:none !important; }
+  .note { font-size:11px; color:var(--muted); margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Inequality Region Explorer</h1>
+  <p class="sub">Adjust the coefficients and watch the solution set shade in. Open circle
+    means the endpoint is excluded (strict "less than" or "greater than"); filled circle
+    means included ("less than or equal to" or "greater than or equal to").</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-mode="linear" aria-selected="true">1-D linear</button>
+    <button class="tab" role="tab" data-mode="quad" aria-selected="false">1-D quadratic</button>
+    <button class="tab" role="tab" data-mode="plane" aria-selected="false">2-D half-planes</button>
+  </div>
+
+  <!-- ============ 1-D LINEAR ============ -->
+  <section class="panel" id="p-linear">
+    <div class="controls">
+      <div class="ctl"><label>a</label>
+        <div class="row"><input type="range" id="l-a" min="-5" max="5" step="0.5" value="-2">
+        <span class="val" id="l-a-v">-2</span></div></div>
+      <div class="ctl"><label>x  op</label>
+        <div class="row">
+          <select id="l-op">
+            <option value="<">&lt; (less than)</option>
+            <option value="<=">&le; (less than or equal to)</option>
+            <option value=">">&gt; (greater than)</option>
+            <option value=">=">&ge; (greater than or equal to)</option>
+          </select>
+        </div></div>
+      <div class="ctl"><label>b (constant)</label>
+        <div class="row"><input type="range" id="l-b" min="-10" max="10" step="0.5" value="3">
+        <span class="val" id="l-b-v">3</span></div></div>
+      <div class="ctl"><label>c (right side)</label>
+        <div class="row"><input type="range" id="l-c" min="-10" max="10" step="0.5" value="7">
+        <span class="val" id="l-c-v">7</span></div></div>
+    </div>
+    <p class="note" id="l-expr"></p>
+    <canvas id="l-canvas" height="120"></canvas>
+    <div class="result" id="l-result"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--shade)"></span>solution set</span>
+      <span><span class="dot open"></span>excluded endpoint (&lt; or &gt;)</span>
+      <span><span class="dot closed"></span>included endpoint (&le; or &ge;)</span>
+    </div>
+  </section>
+
+  <!-- ============ 1-D QUADRATIC ============ -->
+  <section class="panel hide" id="p-quad">
+    <div class="controls">
+      <div class="ctl"><label>a (x&sup2;)</label>
+        <div class="row"><input type="range" id="q-a" min="-3" max="3" step="0.5" value="1">
+        <span class="val" id="q-a-v">1</span></div></div>
+      <div class="ctl"><label>b (x)</label>
+        <div class="row"><input type="range" id="q-b" min="-10" max="10" step="0.5" value="-5">
+        <span class="val" id="q-b-v">-5</span></div></div>
+      <div class="ctl"><label>c</label>
+        <div class="row"><input type="range" id="q-c" min="-15" max="15" step="0.5" value="6">
+        <span class="val" id="q-c-v">6</span></div></div>
+      <div class="ctl"><label>op  0</label>
+        <div class="row">
+          <select id="q-op">
+            <option value="<">&lt; 0</option>
+            <option value="<=">&le; 0</option>
+            <option value=">">&gt; 0</option>
+            <option value=">=">&ge; 0</option>
+          </select>
+        </div></div>
+    </div>
+    <p class="note" id="q-expr"></p>
+    <canvas id="q-canvas" height="240"></canvas>
+    <div class="result" id="q-result"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--shade)"></span>x-values in the solution set</span>
+      <span><span class="dot open"></span>excluded root</span>
+      <span><span class="dot closed"></span>included root</span>
+    </div>
+  </section>
+
+  <!-- ============ 2-D HALF-PLANES ============ -->
+  <section class="panel hide" id="p-plane">
+    <div class="controls">
+      <div class="ctl"><label>Inequality 1: y op m&sdot;x + k</label>
+        <div class="row">
+          <span>y</span>
+          <select id="s1-op">
+            <option value="<">&lt;</option>
+            <option value="<=">&le;</option>
+            <option value=">" selected>&gt;</option>
+            <option value=">=">&ge;</option>
+          </select>
+          <input type="number" id="s1-m" value="2" step="0.5" title="slope m"> x +
+          <input type="number" id="s1-k" value="1" step="0.5" title="intercept k">
+        </div></div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label>
+        <input type="checkbox" id="s2-on" checked> Inequality 2: y op m&sdot;x + k</label>
+        <div class="row">
+          <span>y</span>
+          <select id="s2-op">
+            <option value="<">&lt;</option>
+            <option value="<=" selected>&le;</option>
+            <option value=">">&gt;</option>
+            <option value=">=">&ge;</option>
+          </select>
+          <input type="number" id="s2-m" value="-1" step="0.5" title="slope m"> x +
+          <input type="number" id="s2-k" value="3" step="0.5" title="intercept k">
+        </div></div>
+    </div>
+    <canvas id="pl-canvas" height="380"></canvas>
+    <div class="result" id="pl-result"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--shade)"></span>region 1</span>
+      <span><span class="sw" style="background:var(--shade2)"></span>region 2</span>
+      <span><span class="sw" style="background:rgba(120,40,190,0.32)"></span>overlap (satisfies both)</span>
+      <span>solid line = boundary included (&le;, &ge;)</span>
+      <span>dashed line = boundary excluded (&lt;, &gt;)</span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var ACCENT="#2563eb", ACCENT2="#d946ef", INK="#1f2328", MUTED="#57606a", LINE="#d8dee4";
+  var opSym = {"<":"<","<=":"≤",">":">",">=":"≥"};
+  var opWord = {"<":"less than","<=":"less than or equal to",
+                ">":"greater than",">=":"greater than or equal to"};
+  function strict(op){ return op==="<"||op===">"; }
+
+  // ---- tab switching ----
+  var tabs=[].slice.call(document.querySelectorAll(".tab"));
+  var panels={linear:document.getElementById("p-linear"),
+              quad:document.getElementById("p-quad"),
+              plane:document.getElementById("p-plane")};
+  tabs.forEach(function(t){
+    t.addEventListener("click",function(){
+      tabs.forEach(function(o){o.setAttribute("aria-selected", o===t?"true":"false");});
+      for(var k in panels) panels[k].classList.toggle("hide", k!==t.dataset.mode);
+      if(t.dataset.mode==="linear") drawLinear();
+      if(t.dataset.mode==="quad") drawQuad();
+      if(t.dataset.mode==="plane") drawPlane();
+    });
+  });
+
+  // helper: crisp canvas sizing for devicePixelRatio
+  function fit(cv){
+    var dpr=window.devicePixelRatio||1;
+    var w=cv.clientWidth||cv.parentElement.clientWidth-2;
+    var h=cv.height;
+    cv.width=w*dpr; cv.style.height=h+"px";
+    // keep CSS height fixed, scale internal for width only (h already px)
+    cv.height=h*dpr;
+    var ctx=cv.getContext("2d");
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {ctx:ctx, w:w, h:h};
+  }
+  function fmt(n){ return (Math.round(n*1000)/1000).toString(); }
+
+  /* ================= 1-D LINEAR ================= */
+  var lA=document.getElementById("l-a"), lB=document.getElementById("l-b"),
+      lC=document.getElementById("l-c"), lOp=document.getElementById("l-op");
+  function drawLinear(){
+    var a=+lA.value, b=+lB.value, c=+lC.value, op=lOp.value;
+    document.getElementById("l-a-v").textContent=fmt(a);
+    document.getElementById("l-b-v").textContent=fmt(b);
+    document.getElementById("l-c-v").textContent=fmt(c);
+    // a*x + b op c  ->  a*x op (c-b)
+    document.getElementById("l-expr").textContent =
+      "Inequality:  "+fmt(a)+"x + "+fmt(b)+"  "+opSym[op]+"  "+fmt(c);
+
+    var resEl=document.getElementById("l-result");
+    var C=fit(document.getElementById("l-canvas")), ctx=C.ctx, W=C.w, H=C.h;
+    ctx.clearRect(0,0,W,H);
+
+    var boundary, dir, sol, xmin=-10, xmax=10, closed=!strict(op);
+    if(a===0){
+      // 0 op (c - b)
+      var lhs=b, holds=compare(lhs,op,c);
+      drawAxis(ctx,W,H,xmin,xmax);
+      if(holds){ shadeSeg(ctx,W,H,xmin,xmax,xmin,xmax,true,true);
+        resEl.innerHTML="With a = 0 the inequality is <code>"+fmt(b)+" "+opSym[op]+" "+fmt(c)+
+          "</code>, which is <b>always true</b>. Solution: all real x."; }
+      else { resEl.innerHTML="With a = 0 the inequality is <code>"+fmt(b)+" "+opSym[op]+" "+fmt(c)+
+          "</code>, which is <b>never true</b>. Solution: no x."; }
+      return;
+    }
+    boundary=(c-b)/a;
+    // determine direction after possible sign flip
+    // a*x op (c-b): divide by a. If a<0 flip op.
+    var effOp=op;
+    if(a<0) effOp=flip(op);
+    // effOp compares x to boundary
+    dir = (effOp===">"||effOp===">=") ? "right" : "left";
+
+    drawAxis(ctx,W,H,xmin,xmax);
+    if(dir==="right") shadeSeg(ctx,W,H,xmin,xmax,boundary,xmax,false,true);
+    else shadeSeg(ctx,W,H,xmin,xmax,xmin,boundary,true,false);
+    // endpoint
+    endpoint(ctx,W,H,xmin,xmax,boundary,closed);
+
+    var xop = dir==="right" ? (closed?">=":">") : (closed?"<=":"<");
+    var interval = dir==="right"
+        ? (closed?"[":"(")+fmt(boundary)+", ∞)"
+        : "(-∞, "+fmt(boundary)+(closed?"]":")");
+    resEl.innerHTML="Solution:  <code>x "+opSym[xop]+" "+fmt(boundary)+"</code>"+
+      "  =  <code>"+interval+"</code>"+
+      (a<0 ? "  <span style='color:var(--muted)'>(sign flipped: divided by a &lt; 0)</span>" : "");
+  }
+  function flip(op){ return {"<":">","<=":">=",">":"<",">=":"<="}[op]; }
+  function compare(l,op,r){
+    if(op==="<") return l<r; if(op==="<=") return l<=r;
+    if(op===">") return l>r; return l>=r;
+  }
+  function xToPx(x,W,xmin,xmax){ var pad=30; return pad + (x-xmin)/(xmax-xmin)*(W-2*pad); }
+  function drawAxis(ctx,W,H,xmin,xmax){
+    var y=H/2, pad=30;
+    ctx.strokeStyle=LINE; ctx.lineWidth=1;
+    // ticks
+    ctx.fillStyle=MUTED; ctx.font="11px sans-serif"; ctx.textAlign="center";
+    for(var x=xmin;x<=xmax;x++){
+      var px=xToPx(x,W,xmin,xmax);
+      ctx.beginPath(); ctx.moveTo(px,y-4); ctx.lineTo(px,y+4); ctx.stroke();
+      if(x%2===0) ctx.fillText(x, px, y+18);
+    }
+    ctx.strokeStyle=INK; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(pad,y); ctx.lineTo(W-pad,y); ctx.stroke();
+    // arrows
+    arrow(ctx,W-pad,y,1); arrow(ctx,pad,y,-1);
+  }
+  function arrow(ctx,px,y,d){
+    ctx.beginPath(); ctx.moveTo(px,y); ctx.lineTo(px-8*d,y-5);
+    ctx.lineTo(px-8*d,y+5); ctx.closePath(); ctx.fillStyle=INK; ctx.fill();
+  }
+  function shadeSeg(ctx,W,H,xmin,xmax,x0,x1,openLeft,openRight){
+    var y=H/2, p0=xToPx(Math.max(x0,xmin),W,xmin,xmax),
+        p1=xToPx(Math.min(x1,xmax),W,xmin,xmax);
+    ctx.fillStyle="rgba(37,99,235,0.16)";
+    ctx.fillRect(p0,y-14,p1-p0,28);
+    ctx.strokeStyle=ACCENT; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(p0,y); ctx.lineTo(p1,y); ctx.stroke();
+  }
+  function endpoint(ctx,W,H,xmin,xmax,x,closed){
+    if(x<xmin||x>xmax) return;
+    var y=H/2, px=xToPx(x,W,xmin,xmax);
+    ctx.beginPath(); ctx.arc(px,y,6,0,2*Math.PI);
+    if(closed){ ctx.fillStyle=ACCENT; ctx.fill(); }
+    else { ctx.fillStyle="#fff"; ctx.fill(); ctx.strokeStyle=ACCENT; ctx.lineWidth=2.5; ctx.stroke(); }
+    ctx.fillStyle=INK; ctx.font="12px sans-serif"; ctx.textAlign="center";
+    ctx.fillText(fmt(x), px, y-12);
+  }
+  [lA,lB,lC].forEach(function(e){e.addEventListener("input",drawLinear);});
+  lOp.addEventListener("change",drawLinear);
+
+  /* ================= 1-D QUADRATIC ================= */
+  var qA=document.getElementById("q-a"),qB=document.getElementById("q-b"),
+      qC=document.getElementById("q-c"),qOp=document.getElementById("q-op");
+  function drawQuad(){
+    var a=+qA.value,b=+qB.value,c=+qC.value,op=qOp.value;
+    document.getElementById("q-a-v").textContent=fmt(a);
+    document.getElementById("q-b-v").textContent=fmt(b);
+    document.getElementById("q-c-v").textContent=fmt(c);
+    document.getElementById("q-expr").textContent=
+      "Inequality:  "+fmt(a)+"x² + "+fmt(b)+"x + "+fmt(c)+"  "+opSym[op]+"  0";
+    var resEl=document.getElementById("q-result");
+    var C=fit(document.getElementById("q-canvas")),ctx=C.ctx,W=C.w,H=C.h;
+    ctx.clearRect(0,0,W,H);
+    var xmin=-10,xmax=10,ymin=-12,ymax=12;
+    var closed=!strict(op);
+
+    if(a===0){
+      resEl.innerHTML="With a = 0 this is not quadratic. Use the 1-D linear tab for "+
+        "<code>"+fmt(b)+"x + "+fmt(c)+" "+opSym[op]+" 0</code>.";
+      // still draw axes
+      drawGrid(ctx,W,H,xmin,xmax,ymin,ymax);
+      return;
+    }
+    var disc=b*b-4*a*c;
+    var roots=[];
+    if(disc>0){ var s=Math.sqrt(disc);
+      roots=[(-b-s)/(2*a),(-b+s)/(2*a)].sort(function(p,q){return p-q;}); }
+    else if(disc===0){ roots=[-b/(2*a)]; }
+
+    drawGrid(ctx,W,H,xmin,xmax,ymin,ymax);
+    // shade x-regions in the solution set (sample the number line)
+    var N=1200;
+    ctx.fillStyle="rgba(37,99,235,0.16)";
+    var yb=H-24; // baseline strip for shading near x-axis
+    var y0px=yToPx(0,H,ymin,ymax);
+    for(var i=0;i<N;i++){
+      var x=xmin+(i+0.5)/N*(xmax-xmin);
+      var val=a*x*x+b*x+c;
+      if(compare(val,op,0)){
+        var px=xToPx(x,W,xmin,xmax), pw=(W-60)/N+1;
+        ctx.fillRect(px,y0px-9,pw,18);
+      }
+    }
+    // parabola curve
+    ctx.strokeStyle=ACCENT; ctx.lineWidth=2; ctx.beginPath();
+    var started=false;
+    for(var j=0;j<=600;j++){
+      var xx=xmin+j/600*(xmax-xmin), yy=a*xx*xx+b*xx+c;
+      var px2=xToPx(xx,W,xmin,xmax), py2=yToPx(Math.max(ymin,Math.min(ymax,yy)),H,ymin,ymax);
+      if(!started){ctx.moveTo(px2,py2);started=true;} else ctx.lineTo(px2,py2);
+    }
+    ctx.stroke();
+    // roots as endpoints
+    roots.forEach(function(r){
+      if(r<xmin||r>xmax) return;
+      var px=xToPx(r,W,xmin,xmax);
+      ctx.beginPath(); ctx.arc(px,y0px,5.5,0,2*Math.PI);
+      if(closed){ctx.fillStyle=ACCENT;ctx.fill();}
+      else{ctx.fillStyle="#fff";ctx.fill();ctx.strokeStyle=ACCENT;ctx.lineWidth=2.3;ctx.stroke();}
+    });
+
+    // build interval-notation result
+    resEl.innerHTML="Solution:  <code>"+solveQuad(a,b,c,op,roots,disc)+"</code>";
+  }
+  function solveQuad(a,b,c,op,roots,disc){
+    var closed=!strict(op);
+    // sign of parabola: opens up if a>0
+    var wantPositive = (op===">"||op===">=");
+    // vertex value sign when no real roots
+    if(disc<0){
+      var opensUp=a>0;
+      var alwaysPos=opensUp;           // ax^2+bx+c > 0 for all x
+      var holds = wantPositive ? alwaysPos : !alwaysPos;
+      return holds ? "all real x" : "no solution";
+    }
+    if(disc===0){
+      var r=roots[0], opensUp=a>0;
+      // value is >=0 (opens up) or <=0 (opens down), =0 only at r
+      if(op===">"){ return opensUp ? "x ≠ "+fmt(r) : "no solution"; }
+      if(op===">="){ return opensUp ? "all real x" : "x = "+fmt(r); }
+      if(op==="<"){ return opensUp ? "no solution" : "x ≠ "+fmt(r); }
+      return opensUp ? "x = "+fmt(r) : "all real x"; // <=
+    }
+    var r1=roots[0], r2=roots[1];
+    var lb=closed?"[":"(", rb=closed?"]":")";
+    var opensUp=a>0;
+    // between roots: sign is opposite of a's sign; outside: same as a's sign
+    var wantBetween = wantPositive ? !opensUp : opensUp;
+    if(wantBetween){
+      return lb+fmt(r1)+", "+fmt(r2)+rb;
+    } else {
+      return "(-∞, "+fmt(r1)+rb+" ∪ "+lb+fmt(r2)+", ∞)";
+    }
+  }
+  function drawGrid(ctx,W,H,xmin,xmax,ymin,ymax){
+    ctx.strokeStyle="#eef1f4"; ctx.lineWidth=1;
+    var xz=xToPx(0,W,xmin,xmax), yz=yToPx(0,H,ymin,ymax);
+    for(var x=xmin;x<=xmax;x++){var px=xToPx(x,W,xmin,xmax);
+      ctx.beginPath();ctx.moveTo(px,10);ctx.lineTo(px,H-10);ctx.stroke();}
+    for(var y=ymin;y<=ymax;y+=2){var py=yToPx(y,H,ymin,ymax);
+      ctx.beginPath();ctx.moveTo(30,py);ctx.lineTo(W-10,py);ctx.stroke();}
+    ctx.strokeStyle=INK;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(30,yz);ctx.lineTo(W-10,yz);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(xz,10);ctx.lineTo(xz,H-10);ctx.stroke();
+    ctx.fillStyle=MUTED;ctx.font="10px sans-serif";ctx.textAlign="center";
+    for(var xt=xmin;xt<=xmax;xt+=2) if(xt!==0)
+      ctx.fillText(xt,xToPx(xt,W,xmin,xmax),yz+12);
+  }
+  function xToPxG(){}
+  function yToPx(y,H,ymin,ymax){var pad=12;return H-pad-(y-ymin)/(ymax-ymin)*(H-2*pad);}
+  [qA,qB,qC].forEach(function(e){e.addEventListener("input",drawQuad);});
+  qOp.addEventListener("change",drawQuad);
+
+  /* ================= 2-D HALF-PLANES ================= */
+  var s1op=document.getElementById("s1-op"),s1m=document.getElementById("s1-m"),
+      s1k=document.getElementById("s1-k"),
+      s2on=document.getElementById("s2-on"),s2op=document.getElementById("s2-op"),
+      s2m=document.getElementById("s2-m"),s2k=document.getElementById("s2-k");
+  function drawPlane(){
+    var C=fit(document.getElementById("pl-canvas")),ctx=C.ctx,W=C.w,H=C.h;
+    var xmin=-10,xmax=10,ymin=-10,ymax=10;
+    ctx.clearRect(0,0,W,H);
+    drawGridPlane(ctx,W,H,xmin,xmax,ymin,ymax);
+    var use2=s2on.checked;
+    var m1=+s1m.value,k1=+s1k.value,o1=s1op.value;
+    var m2=+s2m.value,k2=+s2k.value,o2=s2op.value;
+    // shade by sampling a grid of pixels
+    var step=3;
+    for(var py=12;py<H-12;py+=step){
+      for(var px=42;px<W-6;px+=step){
+        var x=pxToX(px,W,xmin,xmax), y=pyToY(py,H,ymin,ymax);
+        var in1=compare(y,o1,m1*x+k1);
+        var in2=use2?compare(y,o2,m2*x+k2):false;
+        if(use2 && in1 && in2){ ctx.fillStyle="rgba(120,40,190,0.32)"; ctx.fillRect(px,py,step,step); }
+        else if(in1){ ctx.fillStyle="rgba(37,99,235,0.16)"; ctx.fillRect(px,py,step,step); }
+        else if(in2){ ctx.fillStyle="rgba(217,70,239,0.16)"; ctx.fillRect(px,py,step,step); }
+      }
+    }
+    // boundary lines
+    drawLine(ctx,W,H,xmin,xmax,ymin,ymax,m1,k1,ACCENT,strict(o1));
+    if(use2) drawLine(ctx,W,H,xmin,xmax,ymin,ymax,m2,k2,ACCENT2,strict(o2));
+
+    var res=document.getElementById("pl-result");
+    var t1="y "+opSym[o1]+" "+fmt(m1)+"x + "+fmt(k1);
+    if(use2){
+      var t2="y "+opSym[o2]+" "+fmt(m2)+"x + "+fmt(k2);
+      // intersection point of the two boundary lines
+      var inter="";
+      if(m1!==m2){ var xi=(k2-k1)/(m1-m2), yi=m1*xi+k1;
+        inter=" Boundaries meet at ("+fmt(xi)+", "+fmt(yi)+").";
+      } else { inter=" Boundaries are parallel."; }
+      res.innerHTML="<b>Feasible region</b> (purple overlap) satisfies both <code>"+t1+
+        "</code> and <code>"+t2+"</code>."+inter;
+    } else {
+      res.innerHTML="Half-plane satisfying <code>"+t1+"</code> is shaded blue.";
+    }
+  }
+  function pxToX(px,W,xmin,xmax){var padL=42,padR=6;return xmin+(px-padL)/(W-padL-padR)*(xmax-xmin);}
+  function pyToY(py,H,ymin,ymax){var pad=12;return ymax-(py-pad)/(H-2*pad)*(ymax-ymin);}
+  function xToPxP(x,W,xmin,xmax){var padL=42,padR=6;return padL+(x-xmin)/(xmax-xmin)*(W-padL-padR);}
+  function yToPxP(y,H,ymin,ymax){var pad=12;return pad+(ymax-y)/(ymax-ymin)*(H-2*pad);}
+  function drawGridPlane(ctx,W,H,xmin,xmax,ymin,ymax){
+    ctx.strokeStyle="#eef1f4";ctx.lineWidth=1;
+    for(var x=xmin;x<=xmax;x++){var px=xToPxP(x,W,xmin,xmax);
+      ctx.beginPath();ctx.moveTo(px,12);ctx.lineTo(px,H-12);ctx.stroke();}
+    for(var y=ymin;y<=ymax;y++){var py=yToPxP(y,H,ymin,ymax);
+      ctx.beginPath();ctx.moveTo(42,py);ctx.lineTo(W-6,py);ctx.stroke();}
+    var xz=xToPxP(0,W,xmin,xmax),yz=yToPxP(0,H,ymin,ymax);
+    ctx.strokeStyle=INK;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(42,yz);ctx.lineTo(W-6,yz);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(xz,12);ctx.lineTo(xz,H-12);ctx.stroke();
+    ctx.fillStyle=MUTED;ctx.font="10px sans-serif";ctx.textAlign="center";
+    for(var xt=xmin;xt<=xmax;xt+=2) if(xt!==0) ctx.fillText(xt,xToPxP(xt,W,xmin,xmax),yz+12);
+    ctx.textAlign="right";
+    for(var yt=ymin;yt<=ymax;yt+=2) if(yt!==0) ctx.fillText(yt,xz-4,yToPxP(yt,H,ymin,ymax)+3);
+  }
+  function drawLine(ctx,W,H,xmin,xmax,ymin,ymax,m,k,color,isStrict){
+    ctx.strokeStyle=color;ctx.lineWidth=2.5;
+    ctx.setLineDash(isStrict?[7,5]:[]);
+    var x0=xmin,y0=m*x0+k, x1=xmax,y1=m*x1+k;
+    ctx.beginPath();
+    ctx.moveTo(xToPxP(x0,W,xmin,xmax),yToPxP(y0,H,ymin,ymax));
+    ctx.lineTo(xToPxP(x1,W,xmin,xmax),yToPxP(y1,H,ymin,ymax));
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+  [s1op,s1m,s1k,s2on,s2op,s2m,s2k].forEach(function(e){
+    e.addEventListener("input",drawPlane); e.addEventListener("change",drawPlane);
+  });
+
+  // initial render + responsive redraw
+  function redrawActive(){
+    var sel=document.querySelector('.tab[aria-selected="true"]').dataset.mode;
+    if(sel==="linear")drawLinear(); else if(sel==="quad")drawQuad(); else drawPlane();
+  }
+  window.addEventListener("resize",function(){ clearTimeout(window.__rt);
+    window.__rt=setTimeout(redrawActive,120); });
+  drawLinear();
+})();
+</script>
+</body>
+</html>

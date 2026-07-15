@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Permutation Explorer</title>
+<style>
+  html,body{margin:0;background:#fbfcfd;color:#1c2126;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 16px 24px;}
+  h1{font-size:19px;margin:0 0 4px;}
+  .sub{font-size:13px;color:#5a636c;margin:0 0 14px;line-height:1.45;}
+  .row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:13px;}
+  .row label{width:210px;color:#3a434c;}
+  .row input[type=range]{flex:1;}
+  .row .val{width:34px;text-align:right;font-variant-numeric:tabular-nums;color:#2563c9;
+    font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .readout{margin-top:12px;font-size:14px;line-height:1.65;background:#f4f7fa;
+    border:1px solid #e2e7ec;border-radius:8px;padding:12px 15px;}
+  .readout .eq{font-size:16px;margin-bottom:6px;font-variant-numeric:tabular-nums;}
+  .cancel{color:#c0392b;text-decoration:line-through;text-decoration-thickness:1.5px;}
+  .keep{color:#1f8b4c;font-weight:600;}
+  .big{font-size:18px;font-weight:700;color:#2563c9;font-variant-numeric:tabular-nums;}
+  .controls{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 6px;align-items:center;}
+  button{font:inherit;font-size:13px;padding:6px 12px;border:1px solid #cdd5dd;background:#fff;
+    color:#1c2126;border-radius:6px;cursor:pointer;}
+  button:hover{background:#eef3f8;}
+  button:disabled{opacity:.45;cursor:default;}
+  button.active{background:#2563c9;border-color:#2563c9;color:#fff;}
+  canvas{display:block;border:1px solid #e2e7ec;border-radius:8px;background:#fff;
+    margin-top:6px;max-width:100%;}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 2px;font-size:12.5px;color:#3a434c;}
+  .legend .item{display:flex;align-items:center;gap:5px;}
+  .swatch{width:13px;height:13px;border-radius:3px;border:1px solid rgba(0,0,0,.15);}
+  .note{margin-top:12px;font-size:12.5px;color:#5a636c;line-height:1.5;
+    border-top:1px solid #e6ebef;padding-top:10px;}
+  .count{font-size:12.5px;color:#5a636c;font-variant-numeric:tabular-nums;margin-top:4px;}
+  .toobig{font-size:12.5px;color:#8a5a00;background:#fdf6e3;border:1px solid #f0e2b8;
+    border-radius:6px;padding:8px 11px;margin-top:8px;line-height:1.5;}
+  code{background:#eceff3;padding:1px 4px;border-radius:4px;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Permutation Explorer: P(n,&thinsp;r) = n! / (n&minus;r)!</h1>
+  <p class="sub">Choose a pool of <b>n</b> colored tokens and arrange <b>r</b> of them in a row.
+  Because these are <b>ordered</b> arrangements (permutations), swapping two positions makes a
+  <i>different</i> arrangement. The count and the factorial cancellation update live; for small
+  cases every actual arrangement is drawn below.</p>
+
+  <div class="row">
+    <label>n &nbsp;(size of the pool)</label>
+    <input type="range" id="n" min="1" max="8" step="1" value="4">
+    <span class="val" id="nVal">4</span>
+  </div>
+  <div class="row">
+    <label>r &nbsp;(how many to arrange)</label>
+    <input type="range" id="r" min="0" max="4" step="1" value="2">
+    <span class="val" id="rVal">2</span>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="controls">
+    <button id="playBtn">&#9654; Animate arrangements</button>
+    <button id="stopBtn" disabled>&#9724; Stop</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="legend" id="legend"></div>
+  <canvas id="cv" width="720" height="260"></canvas>
+  <div id="msg"></div>
+
+  <p class="note"><b>Why divide by (n&minus;r)!</b> &mdash; laying out all n tokens gives n! full-row
+  orderings, but we only care about the first r positions. Every choice of the first r can be completed
+  by (n&minus;r)! orderings of the leftover tokens, so we divide those out:
+  <code>P(n,r) = n! / (n&minus;r)!</code>, which is just the falling product
+  <code>n &middot; (n&minus;1) &middot; &hellip;</code> with r factors. When r = n, nothing is left over
+  and P(n,n) = n!.</p>
+</div>
+
+<script>
+(function(){
+  var PALETTE = [
+    {name:"red",    c:"#d64545"},
+    {name:"blue",   c:"#2563c9"},
+    {name:"green",  c:"#1f8b4c"},
+    {name:"orange", c:"#e08a00"},
+    {name:"purple", c:"#8046c8"},
+    {name:"teal",   c:"#0f9aa8"},
+    {name:"pink",   c:"#d6519a"},
+    {name:"brown",  c:"#8a6240"}
+  ];
+  var MAX_DRAW = 720; // cap on how many arrangements we enumerate/draw
+
+  var nEl = document.getElementById("n"),
+      rEl = document.getElementById("r"),
+      nVal = document.getElementById("nVal"),
+      rVal = document.getElementById("rVal"),
+      readout = document.getElementById("readout"),
+      legendEl = document.getElementById("legend"),
+      countEl = document.getElementById("count"),
+      msgEl = document.getElementById("msg"),
+      playBtn = document.getElementById("playBtn"),
+      stopBtn = document.getElementById("stopBtn"),
+      cv = document.getElementById("cv"),
+      ctx = cv.getContext("2d");
+
+  var arrangements = [];
+  var animTimer = null, animIdx = 0;
+
+  function factorial(k){ var f=1; for(var i=2;i<=k;i++) f*=i; return f; }
+
+  // Generate all ordered arrangements (r-permutations) of indices 0..n-1, capped at MAX_DRAW+1.
+  function genPermutations(n, r){
+    var out = [];
+    var used = new Array(n).fill(false);
+    var cur = [];
+    var overflow = false;
+    (function rec(){
+      if(overflow) return;
+      if(cur.length === r){
+        if(out.length >= MAX_DRAW){ overflow = true; return; }
+        out.push(cur.slice());
+        return;
+      }
+      for(var i=0;i<n;i++){
+        if(!used[i]){
+          used[i]=true; cur.push(i);
+          rec();
+          cur.pop(); used[i]=false;
+          if(overflow) return;
+        }
+      }
+    })();
+    return {list: out, overflow: overflow};
+  }
+
+  function buildLegend(n){
+    legendEl.innerHTML = "";
+    for(var i=0;i<n;i++){
+      var it = document.createElement("span");
+      it.className = "item";
+      it.innerHTML = '<span class="swatch" style="background:'+PALETTE[i].c+'"></span>'+PALETTE[i].name;
+      legendEl.appendChild(it);
+    }
+  }
+
+  function fallingProduct(n, r){
+    // returns string "n x (n-1) x ... " with r factors, and the numeric value
+    if(r === 0) return {str:"(empty product) = 1", val:1};
+    var parts = [], val = 1;
+    for(var i=0;i<r;i++){ parts.push(n-i); val *= (n-i); }
+    return {str: parts.join(" &times; ") + " = " + val, val: val};
+  }
+
+  function renderReadout(n, r){
+    var nf = factorial(n), df = factorial(n-r), P = nf/df;
+    var fp = fallingProduct(n, r);
+    var html = "";
+    html += '<div class="eq">P(' + n + ', ' + r + ') = ' +
+            n + '! / (' + n + '&minus;' + r + ')! = ' +
+            n + '! / ' + (n-r) + '!</div>';
+    // factorial cancellation display
+    if(r === 0){
+      html += '<div>= <span class="keep">' + n + '! </span> / <span class="cancel">' +
+              n + '!</span> = <span class="big">1</span> &nbsp;(arranging none: one empty arrangement)</div>';
+    } else if(n === r){
+      html += '<div>= ' + n + '! / 0! = ' + n + '! = <span class="big">' + P + '</span> ' +
+              '&nbsp;(P(n,&thinsp;n) = n!)</div>';
+    } else {
+      // show n! expanded with the tail (n-r)! struck through
+      var topParts = [], botParts = [];
+      for(var i=n;i>=1;i--) topParts.push(i);
+      var struck = "";
+      for(var j=n-r;j>=1;j--) struck += (struck? " &times; ":"") + j;
+      var kept = "";
+      for(var k=n;k>=n-r+1;k--) kept += (kept? " &times; ":"") + k;
+      html += '<div>= (' + kept + ' &times; <span class="cancel">' + struck +
+              '</span>) / <span class="cancel">' + struck + '</span></div>';
+      html += '<div>= <span class="keep">' + fp.str + '</span></div>';
+    }
+    html += '<div style="margin-top:6px">Number of ordered arrangements: ' +
+            '<span class="big">' + P + '</span></div>';
+    readout.innerHTML = html;
+    return P;
+  }
+
+  function drawArrangements(highlightIdx){
+    var W = cv.width, H = cv.height;
+    ctx.clearRect(0,0,W,H);
+    var total = arrangements.length;
+    if(total === 0){
+      ctx.fillStyle = "#5a636c";
+      ctx.font = "14px -apple-system,sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("(no arrangement to draw)", W/2, H/2);
+      ctx.textAlign = "start";
+      return;
+    }
+    var r = arrangements[0].length;
+    if(r === 0){
+      ctx.fillStyle = "#5a636c";
+      ctx.font = "14px -apple-system,sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("r = 0: exactly one arrangement, the empty row.", W/2, H/2);
+      ctx.textAlign = "start";
+      return;
+    }
+    // grid layout
+    var pad = 10;
+    var tokW = 20, tokH = 20, gap = 4;
+    var rowW = r*tokW + (r-1)*gap;
+    var cellW = rowW + 26; // room for index label
+    var cols = Math.max(1, Math.floor((W - 2*pad) / cellW));
+    if(cols > total) cols = total;
+    var rows = Math.ceil(total/cols);
+    var cellH = tokH + 14;
+    // shrink if it would overflow height
+    while(rows*cellH > H - 2*pad && tokH > 8){
+      tokH -= 2; tokW -= 2; cellH = tokH + 14;
+      rowW = r*tokW + (r-1)*gap; cellW = rowW + 26;
+      cols = Math.max(1, Math.floor((W - 2*pad)/cellW));
+      if(cols > total) cols = total;
+      rows = Math.ceil(total/cols);
+    }
+    var gridW = cols*cellW;
+    var offX = pad + Math.max(0,(W - 2*pad - gridW)/2);
+    ctx.font = (Math.max(9,tokH-8)) + "px ui-monospace,Menlo,monospace";
+    ctx.textBaseline = "middle";
+    for(var idx=0; idx<total; idx++){
+      var col = idx % cols, row = Math.floor(idx/cols);
+      var x0 = offX + col*cellW;
+      var y0 = pad + row*cellH;
+      var arr = arrangements[idx];
+      var isHi = (idx === highlightIdx);
+      if(isHi){
+        ctx.fillStyle = "#eaf1fc";
+        ctx.fillRect(x0-3, y0-2, rowW+6, tokH+4);
+      }
+      for(var p=0;p<r;p++){
+        var tx = x0 + p*(tokW+gap);
+        ctx.fillStyle = PALETTE[arr[p]].c;
+        roundRect(ctx, tx, y0, tokW, tokH, 3);
+        ctx.fill();
+        if(isHi){
+          ctx.strokeStyle = "#1c2126";
+          ctx.lineWidth = 1.5;
+          roundRect(ctx, tx, y0, tokW, tokH, 3);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.textBaseline = "alphabetic";
+  }
+
+  function roundRect(c,x,y,w,h,r){
+    c.beginPath();
+    c.moveTo(x+r,y);
+    c.arcTo(x+w,y,x+w,y+h,r);
+    c.arcTo(x+w,y+h,x,y+h,r);
+    c.arcTo(x,y+h,x,y,r);
+    c.arcTo(x,y,x+w,y,r);
+    c.closePath();
+  }
+
+  function stopAnim(){
+    if(animTimer){ clearInterval(animTimer); animTimer=null; }
+    playBtn.disabled = false; stopBtn.disabled = true;
+    drawArrangements(-1);
+  }
+
+  function startAnim(){
+    if(arrangements.length <= 1){ return; }
+    stopAnim();
+    animIdx = 0;
+    playBtn.disabled = true; stopBtn.disabled = false;
+    animTimer = setInterval(function(){
+      drawArrangements(animIdx);
+      animIdx++;
+      if(animIdx >= arrangements.length){ animIdx = 0; }
+    }, 420);
+  }
+
+  function update(){
+    stopAnim();
+    var n = +nEl.value;
+    // r must be <= n; clamp slider max
+    rEl.max = n;
+    if(+rEl.value > n){ rEl.value = n; }
+    var r = +rEl.value;
+    nVal.textContent = n;
+    rVal.textContent = r;
+
+    buildLegend(n);
+    var P = renderReadout(n, r);
+
+    var gen = genPermutations(n, r);
+    arrangements = gen.list;
+
+    if(gen.overflow){
+      msgEl.innerHTML = '<div class="toobig">P(' + n + ',&thinsp;' + r + ') = ' + P +
+        ' is too many to draw individually. Showing the first ' + MAX_DRAW +
+        ' arrangements. Lower n or r to enumerate them all.</div>';
+    } else {
+      msgEl.innerHTML = "";
+    }
+    countEl.textContent = gen.overflow
+      ? ("showing " + arrangements.length + " of " + P)
+      : (arrangements.length + " arrangement" + (arrangements.length===1?"":"s") + " drawn");
+
+    playBtn.disabled = (arrangements.length <= 1);
+    drawArrangements(-1);
+  }
+
+  nEl.addEventListener("input", update);
+  rEl.addEventListener("input", update);
+  playBtn.addEventListener("click", startAnim);
+  stopBtn.addEventListener("click", stopAnim);
+
+  update();
+})();
+</script>
+</body>
+</html>

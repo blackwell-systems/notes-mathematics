@@ -1,8 +1,14 @@
 ---
 title: "Inequalities"
+prerequisites: ["linear-functions", "order-of-operations"]
+enables: ["optimization", "systems-of-equations"]
 ---
 
 **Inequalities:** An inequality is a mathematical statement that compares two expressions using inequality symbols. Unlike equations, which state that two expressions are equal, inequalities show that one expression is greater than, less than, greater than or equal to, or less than or equal to another expression.
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Linear Functions](./linear-functions) · [Order of Operations](./order-of-operations)
+> **Leads to:** [Optimization](./optimization) · [Systems of Equations](./systems-of-equations)
 
 **Inequality Symbols:**
 
@@ -77,6 +83,10 @@ $x > -2$ (sign flips)
 **Solution:** $x \in (-2, \infty)$
 
 ![Number line showing the solution set x in [-2, 5) with closed circle at -2 and open circle at 5](./media/inequality-number-line.png)
+
+**Try it:** Adjust the coefficients below to shade a solution set on the number line. The widget also has a 1-D quadratic mode and a 2-D half-plane mode (for the feasible regions in [Systems of Inequalities](#systems-of-inequalities)). An open circle marks an excluded endpoint (strict "less than" or "greater than"); a filled circle marks an included endpoint ("less than or equal to" or "greater than or equal to"). Boundary lines are dashed for strict inequalities and solid for non-strict ones.
+
+<iframe src="/static/interactive/ineq-region-explorer.html" width="100%" height="560" style="border:none;"></iframe>
 
 ## Compound Inequalities
 

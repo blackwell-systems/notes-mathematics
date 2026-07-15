@@ -1,6 +1,12 @@
 ---
 title: Conic Sections
+prerequisites: ["polynomial-functions", "graphing-functions"]
+enables: ["parametric-and-polar"]
 ---
+
+> [!abstract] Prerequisites & where this leads
+> **Builds on:** [Polynomial Functions](./polynomial-functions) · [Graphing Functions](./graphing-functions)
+> **Leads to:** [Parametric & Polar](./parametric-and-polar)
 
 ## What Are Conic Sections?
 
@@ -476,3 +482,9 @@ $$
 ![Conic sections compared by eccentricity: circle, ellipse, parabola, and hyperbola](./media/eccentricity-comparison.png)
 
 > **Unifying perspective**: All conic sections can be defined as the locus of points where the ratio of distance-to-focus to distance-to-directrix equals the eccentricity $e$. The value of $e$ determines the shape: $e < 1$ gives an ellipse, $e = 1$ a parabola, and $e > 1$ a hyperbola.
+
+### Interactive: The Eccentricity Morph
+
+Drag the eccentricity slider (read $e$ as "eccentricity") to watch one continuous family of curves pass through all four conic types. The widget draws each curve from the polar focus-directrix form $r = \frac{l}{1 + e\cos\theta}$ (with $\theta$ read "theta"), keeping the focus fixed at the pole. At every $e$ it marks the focus, the directrix, and (for the ellipse and hyperbola) the second focus, and it annotates the defining ratio $e = \frac{\text{distance to focus}}{\text{distance to directrix}}$. Watch the circle at $e = 0$ open into an ellipse, straighten into a parabola at exactly $e = 1$, and split into a hyperbola for $e > 1$.
+
+<iframe src="/static/interactive/conic-eccentricity-morph.html" width="100%" height="580" style="border:none;"></iframe>
