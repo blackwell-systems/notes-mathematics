@@ -131,7 +131,7 @@ In an **observational study**, you measure the units as they already are, withou
 
 In an **experiment**, the researcher deliberately imposes a condition on each unit (for example, randomly deciding which patients receive a drug and which receive a sugar pill) and then observes the response. The researcher *creates* the difference between the groups rather than finding it.
 
-This distinction is the whole reason the two kinds of study support different conclusions. An observational study can establish that two variables are **associated** (they move together), but it cannot by itself establish that one **causes** the other, because any observed difference in outcomes might be due to a pre-existing difference between the groups rather than to the variable of interest. Only a **randomized experiment** can establish causation, because randomly assigning units to conditions makes the groups equivalent on average with respect to *every* characteristic, known and unknown, before the treatment is applied. If the groups start out interchangeable and then differ in their response, the treatment is the only systematic explanation left standing.
+This distinction is the whole reason the two kinds of study support different conclusions. An observational study can establish that two variables are **associated** (they move together), but it cannot by itself establish that one **causes** the other, because any observed difference in outcomes might be due to a pre-existing difference between the groups rather than to the variable of interest. A **randomized experiment** is the most reliable way to establish causation, because randomly assigning units to conditions makes the groups equivalent on average with respect to *every* characteristic, known and unknown, before the treatment is applied. If the groups start out interchangeable and then differ in their response, the treatment is the only systematic explanation left standing. (Causal claims can sometimes be drawn from observational data as well, but only under strong additional assumptions, for example that every relevant confounder has been measured and adjusted for; randomization is what lets an experiment avoid relying on such assumptions.)
 
 > **Where it shows up in ML.** An A/B test is a randomized experiment: users are randomly assigned to variant A or B, so any difference in the response metric (click-through, retention, conversion) can be attributed to the variant. This is why "we shipped feature X and engagement went up" (observational, before/after) is far weaker evidence than an A/B test: in the before/after comparison, seasonality, a marketing push, or a concurrent release could be responsible.
 
@@ -1456,7 +1456,7 @@ $$
 F_{d_1,\,d_2,\,1-\alpha} = \frac{1}{F_{d_2,\,d_1,\,\alpha}}.
 $$
 
-(For instance $F_{20,15,\,0.975} \approx 2.573$, so $1/2.573 \approx 0.363 = F_{15,20,\,0.025}$.) The F-distribution is also the reference distribution for the **ANOVA** F-statistic and the **overall F-test** in regression, both of which appear elsewhere on this page: in every case the idea is to form a ratio of two variance-like quantities and ask whether it is farther from $1$ than chance alone would explain.
+(For instance $F_{20,15,\,0.975} \approx 2.756$, so $1/2.756 \approx 0.363 = F_{15,20,\,0.025}$.) The F-distribution is also the reference distribution for the **ANOVA** F-statistic and the **overall F-test** in regression, both of which appear elsewhere on this page: in every case the idea is to form a ratio of two variance-like quantities and ask whether it is farther from $1$ than chance alone would explain.
 
 ### Confidence Interval for a Single Variance
 
@@ -2088,7 +2088,7 @@ $$
 \ell(\beta) = \sum_{i=1}^{n} \big[\, y_i \log p_i + (1 - y_i)\log(1 - p_i) \,\big].
 $$
 
-This is **concave** in $\beta$, with a single global maximum and no spurious local maxima, so gradient-based [optimization](./optimization) (gradient ascent, or Newton-type methods such as iteratively reweighted least squares) reliably converges. Crucially, **maximizing this Bernoulli log-likelihood is exactly minimizing the binary cross-entropy loss** (they differ only by a sign), which links to [information theory](./information-theory#cross-entropy) and to how classifiers are trained throughout ML: a neural network with a sigmoid output and cross-entropy loss is performing maximum-likelihood logistic regression on top of learned features.
+This is **concave** in $\beta$, with no spurious local maxima, so gradient-based [optimization](./optimization) (gradient ascent, or Newton-type methods such as iteratively reweighted least squares) reliably converges. (The maximum is attained at a unique finite $\hat\beta$ as long as the classes are not perfectly separable; under complete separation the likelihood keeps increasing as the coefficients grow without bound, and a penalty or prior is added to keep them finite.) Crucially, **maximizing this Bernoulli log-likelihood is exactly minimizing the binary cross-entropy loss** (they differ only by a sign), which links to [information theory](./information-theory#cross-entropy) and to how classifiers are trained throughout ML: a neural network with a sigmoid output and cross-entropy loss is performing maximum-likelihood logistic regression on top of learned features.
 
 ### Generalized Linear Models (GLMs)
 
