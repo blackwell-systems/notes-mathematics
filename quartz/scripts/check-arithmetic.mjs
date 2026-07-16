@@ -2362,6 +2362,52 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("n/n = 1 (not ->0), so n != o(n); but n/n^2 -> 0, so n = o(n^2)", 1 / 1 === 1 && 1e6 / (1e6 * 1e6) < 1e-5);
 }
 
+// ================= Combinations =================
+{
+  const fact = (n) => (n <= 1 ? 1 : n * fact(n - 1));
+  const perm = (n, r) => fact(n) / fact(n - r);
+
+  // Core idea: C(5,3) = P(5,3)/3! = 60/6 = 10.
+  eq("P(5,3) = 60 ordered selections", perm(5, 3), 60);
+  eq("3! = 6 orderings per team", fact(3), 6);
+  eq("C(5,3) = 60/6 = 10 teams", comb(5, 3), 10);
+  check("C(n,r) = P(n,r)/r!", comb(5, 3) === perm(5, 3) / fact(3));
+
+  // Worked examples.
+  eq("C(5,3) = 10 (books)", comb(5, 3), 10);
+  eq("C(10,3) = 120 (pizza toppings)", comb(10, 3), 120);
+  eq("C(12,4) = 495 (committee)", comb(12, 4), 495);
+
+  // Symmetry: C(n,r) = C(n,n-r).
+  check("symmetry C(5,2) = C(5,3) = 10", comb(5, 2) === comb(5, 3) && comb(5, 2) === 10);
+  check("symmetry holds generally", [[7, 2], [10, 4], [9, 3]].every(([n, r]) => comb(n, r) === comb(n, n - r)));
+
+  // Pascal's identity: C(n,r) = C(n-1,r-1) + C(n-1,r).
+  check("Pascal C(4,2) = C(3,1)+C(3,2) = 3+3 = 6", comb(4, 2) === comb(3, 1) + comb(3, 2) && comb(4, 2) === 6);
+  check("Pascal's identity holds for several (n,r)", [[5, 2], [6, 3], [7, 4]].every(([n, r]) => comb(n, r) === comb(n - 1, r - 1) + comb(n - 1, r)));
+  // Row sums: sum_k C(n,k) = 2^n.
+  check("row sums of Pascal's triangle = 2^n", [0, 1, 2, 3, 4, 5, 6].every((n) => { let s = 0; for (let k = 0; k <= n; k++) s += comb(n, k); return s === 2 ** n; }));
+
+  // Combinations with repetition / stars and bars.
+  eq("C(5+3-1,3) = C(7,3) = 35 (donuts with repetition)", comb(7, 3), 35);
+  eq("stars and bars C(13,3) = 286 (10 balls, 4 boxes)", comb(13, 3), 286);
+  eq("stars and bars with min 1: C(9,3) = 84 (6 free balls, 4 boxes)", comb(9, 3), 84);
+
+  // Inclusion-exclusion divisibility 1..100 by 2,3,5.
+  { const f = (d) => Math.floor(100 / d); const answer = f(2) + f(3) + f(5) - f(6) - f(10) - f(15) + f(30); eq("|div by 2,3, or 5 in 1..100| = 74", answer, 74); check("component counts 50,33,20,16,10,6,3", f(2) === 50 && f(3) === 33 && f(5) === 20 && f(6) === 16 && f(10) === 10 && f(15) === 6 && f(30) === 3); }
+
+  // Derangements D_n = n! sum (-1)^k/k!; D_1..D_5 = 0,1,2,9,44.
+  const derange = (n) => { let s = 0; for (let k = 0; k <= n; k++) s += (-1) ** k / fact(k); return Math.round(fact(n) * s); };
+  check("derangements D_1..D_5 = 0,1,2,9,44", [1, 2, 3, 4, 5].map(derange).join(",") === "0,1,2,9,44");
+  check("D_n approaches n!/e (D_5=44 vs 120/e=44.15)", Math.abs(derange(5) - 120 / Math.E) < 0.5);
+
+  // Pigeonhole: 13 > 12 forces a shared month; generalized ceil(5/4)=2 socks; points-in-square diagonal.
+  check("pigeonhole: 13 people > 12 months forces a collision", 13 > 12);
+  eq("generalized pigeonhole: ceil(5/4) = 2 (socks)", Math.ceil(5 / 4), 2);
+  check("5 socks guarantee a pair among 4 colors; 4 do not", Math.ceil(5 / 4) >= 2 && Math.ceil(4 / 4) < 2);
+  eq("unit-square quarter diagonal = sqrt(2)/2 ≈ 0.707", Math.sqrt((1 / 2) ** 2 + (1 / 2) ** 2), Math.SQRT2 / 2, 1e-12);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

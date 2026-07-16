@@ -26,6 +26,10 @@ $$
 
 There are 10 possible teams. The key insight is: **when order does not matter, divide the permutation count by $r!$** to remove the repeated arrangements within each selection.
 
+![A diagram showing why a combination divides the ordered count by r factorial. On the left, a box lists the six orderings of the same three people A, B, C: ABC, ACB, BAC, BCA, CAB, CBA. A large arrow labeled order does not matter points right to a single set brace-A comma B comma C, one team. Below, the arithmetic reads: P of 5,3 equals 5 times 4 times 3 equals 60 ordered selections, divided by 3 factorial equals 6 orderings per team, giving the boxed result C of 5,3 equals 60 over 6 equals 10 teams.](./media/comb-choose-divide.png)
+
+The picture is the whole idea of a combination in one glance: the $60$ ordered selections fall into groups of $6$ (the $3!$ ways to reorder each team), and collapsing each group to a single unordered team leaves $60/6 = 10$.
+
 **Combination:** A combination refers to a selection of items from a larger set, where the **order does not matter**. Unlike permutations, where order is important, combinations consider only which items are selected, not the arrangement.
 
 **Combination Formula (without repetition):**
@@ -70,6 +74,8 @@ Choosing r items is the same as choosing which (n-r) items to leave out.
 
 **Example:** $\binom{5}{2} = \binom{5}{3} = 10$
 
+![A diagram of the symmetry property of combinations using five people A, B, C, D, E in a row. In an example selection, two of them are colored green and marked chosen with r equal to 2, while the other three are grey and marked left out with n minus r equal to 3. A two-headed correspondence shows that picking which 2 to keep is exactly the same act as picking which 3 to discard, so the two counts match: C of 5,2 equals C of 5,3 equals 10.](./media/comb-symmetry.png)
+
 **Pascal's Identity:**
 
 $$\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$$
@@ -86,6 +92,8 @@ This forms Pascal's Triangle:
 ```
 
 Each number is the sum of the two numbers above it.
+
+![An annotated Pascal's triangle with rows n equals 0 through 6, each entry being the binomial coefficient C of n, k. The entry C of 4,2 equals 6 is highlighted, with arrows from its two parent entries in the row above, C of 3,1 equals 3 and C of 3,2 equals 3, illustrating Pascal's identity 3 plus 3 equals 6. To the right of each row its sum is written: 1, 2, 4, 8, 16, 32, 64, showing that row n sums to 2 to the n.](./media/comb-pascal.png)
 
 Explore this interactively below. Hover or tap any cell to see it as $C(n,k)$ ("n choose k") and the two parent cells that sum to it, use the panel to compute $C(n,r)$ ("n choose r") with the worked cancellation, and note that each row $n$ sums to $2^n$.
 
@@ -295,6 +303,8 @@ If $n + 1$ (or more) objects are placed into $n$ boxes, then some box contains a
 
 There are 12 months (the "boxes") and 13 people (the "items"). Since $13 > 12$, by the pigeonhole principle, at least two people must share the same birth month. $\blacksquare$
 
+![The pigeonhole principle with 13 people distributed into 12 month-boxes labeled January through December. Eleven of the boxes hold exactly one person-dot each, and one box, March, is highlighted red holding two dots, labeled 2 people share this month. Because there are 13 people but only 12 months, at least one month is forced to contain two or more people.](./media/comb-pigeonhole.png)
+
 Note that the pigeonhole principle guarantees existence but does not tell us which month has the collision or which two people share it.
 
 ### Generalized Pigeonhole Principle
@@ -313,15 +323,7 @@ There are 4 colors (boxes). To guarantee 2 socks of the same color, you need $\l
 
 **Proof:** Divide the unit square into 4 smaller squares, each with side length $\frac{1}{2}$.
 
-```
-+-------+-------+
-|       |       |
-|       |       |
-+-------+-------+
-|       |       |
-|       |       |
-+-------+-------+
-```
+![A unit square of side 1 divided by its vertical and horizontal midlines into four sub-squares each of side one-half. Five points are plotted inside: three sub-squares contain one point each, and the top-right sub-square, lightly shaded, contains two points connected by a short line segment. The shared sub-square's diagonal is labeled as the square root of one-half squared plus one-half squared, which equals root two over two, about 0.707, the maximum possible distance between the two points sharing that quarter.](./media/comb-pigeonhole-square.png)
 
 By the pigeonhole principle, 5 points into 4 sub-squares means at least 2 points land in the same sub-square. The maximum distance between two points in a square of side $\frac{1}{2}$ is its diagonal:
 
