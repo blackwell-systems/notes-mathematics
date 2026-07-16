@@ -1381,6 +1381,42 @@ Line (5) chains the two conditionals; line (6) fires the first conditional now t
 $$[(P \to Q) \wedge (Q \to R) \wedge P \wedge (R \to S)] \to S$$
 is a tautology. Instead of writing all $2^4 = 16$ rows, work *backward* from the only way the conclusion could fail. Suppose $S = F$. Then premise (4) $R \to S$ forces $R = F$; then premise (2) $Q \to R$ forces $Q = F$; then premise (1) $P \to Q$ forces $P = F$; but premise (3) asserts $P = T$, a contradiction. So no valuation makes all four premises true while $S$ is false: there is no counterexample row, the implication is a tautology, and the argument is valid. The syntactic derivation and the semantic check agree, exactly as soundness and completeness promise.
 
+## Valid but Not Sound: the Limits of Logical Form
+
+Everything above sorts argument *forms* into valid and invalid. It is tempting to treat "valid" as the finish line, but validity is a far weaker prize than it looks, and mistaking one for the other is probably the most common way logic gets misused outside mathematics.
+
+**Validity hands you a conditional, never a categorical.** To call an argument valid is only to say: *if* every premise is true, *then* the conclusion must be true. That "if" is load-bearing and never goes away. Validity is a promise about the *link* between premises and conclusion, checked across every possible assignment of truth values (a form is valid exactly when no valuation makes all premises true and the conclusion false). It says nothing whatever about whether the premises are *actually* true in the world. This is the sense in which logic is **truth-preserving, not truth-generating**, the boundary the scope-of-logic diagram at the top of the page draws: it will faithfully carry truth from true premises through to the conclusion when you supply it, but it makes no matching promise running the other way. A *false* premise can still yield a *true* conclusion (Example 2 below is exactly this), so validity does not propagate falsehood forward at all. The only guarantee on the false side runs *backward*, and we return to it at the end.
+
+**Soundness is the property that actually matters.** An argument is **sound** when it is *both* valid *and* has all-true premises. Only a sound argument licenses belief in its conclusion *on the strength of the argument itself* (the conclusion might of course be believable for independent reasons; soundness is what makes *this* argument a reason). Validity is settled *inside* logic; the truth of the premises must be certified from *outside* it, by whatever field owns them, observation and experiment for empirical claims, prior theorems and axioms for mathematical ones, measurement or definition for the rest. Logic never manufactures a premise; it only routes the ones you feed it.
+
+**Worked example: valid, false premise, false conclusion.**
+```
+(1)  All fish can fly.        <- FALSE (a claim about the world; simply wrong)
+(2)  A salmon is a fish.      <- true
+―――――――――――――――――――――――――――――――
+     A salmon can fly.        <- false
+```
+The *form* is impeccable ("all F are G; x is an F; therefore x is G" is valid). The argument is nonetheless worthless, because premise (1) is false. Valid form carried a false premise straight through to a false conclusion, with no objection from logic. Garbage in, garbage out.
+
+**The subtle trap: valid, true conclusion, still unsound.**
+```
+(1)  All prime numbers are odd.   <- FALSE (2 is prime and even)
+(2)  3 is a prime number.         <- true
+―――――――――――――――――――――――――――――――――――
+     3 is odd.                    <- TRUE
+```
+Here the conclusion is actually *true*, and yet the argument still establishes nothing, because it rests on a false premise. A valid argument with a true conclusion can be entirely without merit: the conclusion's truth is a coincidence the argument did not earn. This is the sharpest form of the warning, **a correct conclusion does not certify the argument, and a valid argument does not certify the conclusion.** They are independent questions, and only a *sound* argument joins them.
+
+**How this gets abused.** Three recurring moves, all trading on the confusion of *valid* with *sound*:
+
+- **Laundering a premise.** Wrap a shaky assumption in a crisp valid form, and the rigor of the *structure* rubs off onto the *assumption* in the audience's mind. The syllogism is doing public relations for a premise nobody checked.
+- **Counterfeit validity by equivocation.** Validity requires each term to keep *one* fixed meaning throughout. Ordinary language lets a word quietly shift sense between premises, so the argument only *looks* valid; pin the meanings down and the form falls apart. A great deal of "you can't argue with the logic" is this optical illusion.
+- **"You can't refute my logic."** Granting that a form is valid concedes nothing about its conclusion. Validity was never the thing to contest; the premises were. The response to a valid argument you distrust is not to attack the form but to name the premise you deny and go check it in the appropriate court.
+
+**The honest use of the very same form.** Validity is not useless once you stop mistaking it for truth; it simply works best *in reverse*. Because a valid argument can never carry true premises to a false conclusion, its contrapositive is a gift: *if the conclusion is false, at least one premise must be false.* So when you are independently certain a conclusion is wrong, a valid argument becomes a **detector**: it proves a falsehood is hiding somewhere in the premises, and tells you exactly which set to audit. Run forward from unverified premises, valid form proves nothing about the world; run backward from a known-false conclusion (modus tollens on your own argument), it is one of the surest ways to expose a bad assumption. Same airtight form, opposite direction, honest either way.
+
+The one-sentence version: **logic guarantees the wiring, never the current.** A flawless derivation from unconfirmed premises is a flawless derivation and nothing more; the conclusion earns belief only when the premises have been independently earned, in the court of whatever subject they belong to.
+
 ## Proof Techniques
 
 Mathematical proofs are the foundation of rigorous reasoning in mathematics. A proof is a logical argument that establishes the truth of a statement beyond doubt, using previously established facts, definitions, and logical rules.

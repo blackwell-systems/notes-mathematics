@@ -480,13 +480,13 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:6c3faf63c5020950",
+      "contentHash": "sha1:647d68b4c4296ca6",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
       "phase2At": "2026-07-16",
       "overall": "strong",
-      "summary": "PHASE 2 DONE: fixed the three hand-waved cruxes. (a) Added a chained multi-step derivation (HS then two MP) with per-line rule citations, plus a backward semantic validity check (suppose S=F, force P=F, contradict premise P). (b) Promoted 'n^2 even => n even' to a named Lemma and made the sqrt2 proof cite it explicitly for both a and b, with a divisor-4 counterexample showing the step needs proof. (c) Added a 'separating the logic from the algebra' dissection of the induction step (one IH substitution, rest pure algebra). All 3 independently re-reviewed (returned []); +9 harness assertions. Resolves all 3 thin items.",
+      "summary": "PHASE 2 DONE: fixed the three hand-waved cruxes. (a) Added a chained multi-step derivation (HS then two MP) with per-line rule citations, plus a backward semantic validity check (suppose S=F, force P=F, contradict premise P). (b) Promoted 'n^2 even => n even' to a named Lemma and made the sqrt2 proof cite it explicitly for both a and b, with a divisor-4 counterexample showing the step needs proof. (c) Added a 'separating the logic from the algebra' dissection of the induction step (one IH substitution, rest pure algebra). Also added a 'Valid but Not Sound: the Limits of Logical Form' section (validity=conditional, deduction non-ampliative, valid+true-conclusion still unsound, the three abuses, modus-tollens detector); independent review caught + fixed a real error (validity does NOT propagate falsehood forward). All independently re-reviewed; +14 harness assertions. Resolves all 3 thin items.",
       "inventory": [
         {
           "concept": "truth-table construction",
@@ -537,6 +537,12 @@
           "concept": "valid vs invalid arguments / fallacies",
           "quality": "adequate",
           "upgrade": "side-by-side modus ponens vs affirming-the-consequent with tables"
+        },
+        {
+          "concept": "validity vs soundness (valid but unsound)",
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "added 'Valid but Not Sound' section: validity=conditional not categorical, soundness=valid+true premises, fish (valid/false-premise/false-concl) and primes (valid/false-premise/TRUE-concl) examples, three abuses, modus-tollens detector; +harness (syllogism validity, prime premise false, detector)"
         },
         {
           "concept": "proof by cases",

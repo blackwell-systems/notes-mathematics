@@ -293,6 +293,23 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
       let s = 0; for (let i = 1; i <= n; i++) s += i; return s === gauss(n); }));
   check("inductive step identity: k(k+1)/2 + (k+1) = (k+1)(k+2)/2",
     Array.from({ length: 50 }, (_, i) => i + 1).every((k) => gauss(k) + (k + 1) === ((k + 1) * (k + 2)) / 2));
+
+  // Valid but not sound: the syllogism form is valid over all finite models
+  { const dom = [0, 1, 2, 3]; let valid = true;
+    for (let F = 0; F < 16; F++) for (let G = 0; G < 16; G++) for (const a of dom) {
+      const inF = (F >> a) & 1, inG = (G >> a) & 1, subset = ((F & ~G) & 15) === 0;
+      if (subset && inF && !inG) valid = false; }
+    check("'all F are G; a in F => a in G' is valid over every finite model", valid); }
+  // the prime argument: VALID form, FALSE premise (not all primes odd), TRUE conclusion
+  const isPrime = (n) => { if (n < 2) return false; for (let d = 2; d * d <= n; d++) if (n % d === 0) return false; return true; };
+  check("premise 'all primes are odd' is FALSE (2 is prime and even)", isPrime(2) && 2 % 2 === 0);
+  check("yet conclusion '3 is odd' is TRUE (valid+true-conclusion can still be unsound)", isPrime(3) && 3 % 2 === 1);
+  // modus-tollens detector: a valid argument + false conclusion => not all premises true
+  { let ok = true; for (const P of B) for (const Q of B) { if (!Q && imp(P, Q) && P) ok = false; }
+    check("valid modus ponens + false conclusion => some premise is false", ok); }
+  // a valid form does NOT force premises true: the schema holds even where a premise is false
+  check("validity says nothing about premise truth (false-premise valuations exist)",
+    B.some((P) => B.some((Q) => imp(imp(P, Q) && P, Q) && !(imp(P, Q) && P))));
 }
 
 // ================= Predicate Logic (finite models) =================

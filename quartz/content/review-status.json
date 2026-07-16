@@ -126,11 +126,11 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:6c3faf63c5020950",
+      "contentHash": "sha1:647d68b4c4296ca6",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "note": "Phase-2 clarity pass added a chained inference derivation, lemma-ized the sqrt2 crux, and dissected the induction step; each independently correctness-reviewed (returned []) and machine-checked (+9 assertions). Hash refreshed to keep the prose-review ledger current.",
+      "note": "Phase-2 clarity pass added a chained inference derivation, lemma-ized the sqrt2 crux, dissected the induction step, and added a 'Valid but Not Sound' section on the validity/soundness distinction. Each independently correctness-reviewed and machine-checked (+14 assertions total). The valid-vs-sound review caught a real error (the text wrongly said validity 'carries falsehood' forward, contradicted by its own primes example) which was fixed. Hash refreshed to keep the prose-review ledger current.",
       "findings": [
         {
           "id": "THM-4",
