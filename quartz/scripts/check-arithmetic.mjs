@@ -554,6 +554,79 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("period of 1/6 = 1", period(6), 1);
 }
 
+// ========== Number Systems: Phase-2 worked-example checks ==========
+{
+  // von Neumann: build 0..4, |4|=4, and 2<4 <=> 2 in 4 (membership tracks order)
+  const vn = (n) => (n === 0 ? [] : (() => { const s = vn(n - 1); return s.concat([s]); })());
+  eq("von Neumann |4| = 4", vn(4).length, 4);
+  const vnEq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const memberOf = (m, n) => vn(n).some((el) => vnEq(el, vn(m)));
+  check("von Neumann 2 in 4 encodes 2<4", memberOf(2, 4) === (2 < 4));
+  check("von Neumann 4 not-in 2 encodes not(4<2)", memberOf(4, 2) === (4 < 2));
+
+  // Z pairs: the exact numbers in the worked example
+  const zval = (a, b) => a - b;              // the integer a pair (a,b) names
+  check("(5,3)~(2,0): both name +2", zval(5, 3) === 2 && zval(2, 0) === 2 && 5 + 0 === 3 + 2);
+  check("(3,5) names -2, not ~ (5,3)", zval(3, 5) === -2 && 5 + 5 !== 3 + 3);
+  // addition (5,3)+(1,4)=(6,7) -> -1 ; multiplication (5,3)(1,4)=(17,23) -> -6
+  { const s = [5 + 1, 3 + 4]; eq("(5,3)+(1,4)=(6,7)", s.join(","), "6,7");
+    check("(6,7) names -1 = (+2)+(-3)", s[0] - s[1] === 2 + -3); }
+  { const m = [5 * 1 + 3 * 4, 5 * 4 + 3 * 1]; eq("(5,3)(1,4)=(17,23)", m.join(","), "17,23");
+    check("(17,23) names -6 = (+2)(-3)", m[0] - m[1] === 2 * -3); }
+
+  // Q cross-mult in the worked example: 1/2=2/4, 1/2 != 1/3
+  check("1/2 ~ 2/4 by 1*4=2*2", 1 * 4 === 2 * 2);
+  check("1/2 !~ 1/3 by 1*3 != 2*1", 1 * 3 !== 2 * 1);
+
+  // Dedekind cut for sqrt2: the classification of the sampled rationals
+  const inCut = (x) => x < 0 || x * x < 2;
+  check("cut for sqrt2: 1,1.4,1.41,-5 are in A", [1, 1.4, 1.41, -5].every(inCut));
+  check("cut for sqrt2: 1.5,1.42,2 are not in A", [1.5, 1.42, 2].every((x) => !inCut(x)));
+  check("cut edge: 1.41^2<2<1.42^2", 1.41 ** 2 < 2 && 1.42 ** 2 > 2);
+
+  // Cauchy sequence 1,1.4,1.41,1.414,1.4142 -> sqrt2
+  const cauchy = [1, 1.4, 1.41, 1.414, 1.4142];
+  const gaps = cauchy.slice(1).map((v, i) => Math.abs(v - cauchy[i]));
+  check("Cauchy gaps 0.4,0.01,0.004,0.0002 shrink", gaps.every((g, i) => i === 0 || g < gaps[i - 1]));
+  eq("Cauchy gaps", gaps.map((g) => +g.toFixed(4)).join(","), "0.4,0.01,0.004,0.0002");
+  const sq = cauchy.map((v) => +(v * v).toFixed(8));
+  check("Cauchy squares climb toward 2 from below", sq.every((s, i) => s < 2 && (i === 0 || s > sq[i - 1])));
+  eq("Cauchy squares", sq.join(","), "1,1.96,1.9881,1.999396,1.99996164");
+
+  // Q zigzag: first 8 rationals by diagonal (p+q) increasing, skipping non-lowest-terms
+  const gcd2 = (a, b) => (b ? gcd2(b, a % b) : a);
+  const zigzag = [];
+  for (let d = 2; zigzag.length < 8; d++) {
+    for (let p = 1; p < d; p++) { const q = d - p; if (gcd2(p, q) === 1) zigzag.push([p, q]); }
+  }
+  eq("zigzag first 8 rationals",
+    zigzag.slice(0, 8).map(([p, q]) => `${p}/${q}`).join(","),
+    "1/1,1/2,2/1,1/3,3/1,1/4,2/3,3/2");
+
+  // Cantor diagonal: diagonal digits 3,5,8 -> new digits via +1 mod 10 -> 4,6,9
+  const diag = [3, 5, 8].map((x) => (x + 1) % 10);
+  eq("diagonal digits 3,5,8 map to 4,6,9", diag.join(""), "469");
+  check("d=0.469 differs from r1,r2,r3 on the diagonal", diag[0] !== 3 && diag[1] !== 5 && diag[2] !== 8);
+
+  // FTA: x^2-2x+2=0 -> discriminant -4, roots 1 +/- i, verified by substitution
+  eq("x^2-2x+2 discriminant = -4", (-2) ** 2 - 4 * 1 * 2, -4);
+  // complex arithmetic as [re,im]
+  const cmul = (a, b) => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]];
+  const cadd = (a, b) => [a[0] + b[0], a[1] + b[1]];
+  const root = [1, 1]; // 1 + i
+  const sq1 = cmul(root, root);
+  eq("(1+i)^2 = 2i", sq1.join(","), "0,2");
+  const plug = cadd(cadd(sq1, [-2 * root[0], -2 * root[1]]), [2, 0]); // x^2 -2x + 2
+  eq("(1+i) satisfies x^2-2x+2=0", plug.join(","), "0,0");
+
+  // C ordered-pair product in the worked example: (2,3)(1,1) = (-1,5)
+  const cp = cmul([2, 3], [1, 1]);
+  eq("(2+3i)(1+i) = -1+5i", cp.join(","), "-1,5");
+
+  // algebraic: sqrt2 is a root of x^2 - 2
+  check("sqrt2 solves x^2-2=0", Math.abs(Math.SQRT2 ** 2 - 2) < 1e-12);
+}
+
 // ================= Hypercomplex Numbers (Cayley-Dickson) =================
 {
   const sub = (x, y) => x.map((v, i) => v - y[i]);

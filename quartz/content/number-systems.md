@@ -91,6 +91,12 @@ Here $a$ is the *real part* and $b$ the *imaginary part*. Now $x^2 + 1 = 0$ has 
 
 The payoff is enormous and final. The **Fundamental Theorem of Algebra** says that *every* non-constant polynomial with complex coefficients has a complex root (see [Polynomial Functions](./polynomial-functions)). We say $\mathbb{C}$ is **algebraically closed**: you can never write down a polynomial equation that forces you outside $\mathbb{C}$ to solve it. The chain of "but you cannot..." finally stops here.
 
+**Worked example: a quadratic with no real roots, solved in $\mathbb{C}$.** Consider $x^2 - 2x + 2 = 0$. Its discriminant is $b^2 - 4ac = (-2)^2 - 4(1)(2) = 4 - 8 = -4 < 0$, so there is no real solution. Over $\mathbb{C}$ the quadratic formula still runs, now that $\sqrt{-4} = 2i$ is available:
+$$
+x = \frac{2 \pm \sqrt{-4}}{2} = \frac{2 \pm 2i}{2} = 1 \pm i.
+$$
+Check the root $x = 1 + i$ by substitution: $(1 + i)^2 = 1 + 2i + i^2 = 2i$, so $(1 + i)^2 - 2(1 + i) + 2 = 2i - 2 - 2i + 2 = 0$, confirmed. The two roots $1 + i$ and $1 - i$ are complex conjugates, and there are exactly two of them for this degree-$2$ polynomial, precisely the count the Fundamental Theorem of Algebra promises (roots with multiplicity).
+
 ## The Containment $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$
 
 Each system we built contains the previous one as a genuine subset. The symbol $\subset$ is read "is a subset of" (see [Set Theory](./set-theory)):
@@ -175,6 +181,22 @@ The two classifications nest cleanly: the rationals sit inside the algebraic num
 
 Infinite sets can still have different sizes, and the number systems split cleanly into two size classes. The sets $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$ are all **countably infinite**: their elements can be listed in an endless sequence, so they all have the *same* size, written $\aleph_0$ ("aleph-null"). Remarkably, this means there are exactly as many fractions as counting numbers. By contrast, $\mathbb{R}$ and $\mathbb{C}$ are **uncountable**: no list can exhaust them, so they are strictly larger than $\mathbb{Q}$. The proof that $\mathbb{R}$ cannot be listed (Cantor's diagonal argument) and the meaning of countability are developed in [Set Theory](./set-theory).
 
+**Worked example: the first eight rationals, listed.** Arrange the positive fractions $p/q$ in a grid ($p$ picks the row, $q$ the column) and sweep along diagonals of constant $p + q$, skipping any fraction not in lowest terms because it has already appeared:
+$$
+\underbrace{\tfrac{1}{1}}_{1},\ \ \underbrace{\tfrac{1}{2}}_{2},\ \underbrace{\tfrac{2}{1}}_{3},\ \ \underbrace{\tfrac{1}{3}}_{4},\ \big[\tfrac{2}{2}\ \text{skip} = 1\big],\ \underbrace{\tfrac{3}{1}}_{5},\ \ \underbrace{\tfrac{1}{4}}_{6},\ \underbrace{\tfrac{2}{3}}_{7},\ \underbrace{\tfrac{3}{2}}_{8},\ \tfrac{4}{1},\ \ldots
+$$
+The diagonals are $p + q = 2$, then $3$, then $4$, then $5$; within each we read the fractions off in order. Every positive rational eventually collects a unique counting-number tag, so $\mathbb{Q}^{+}$ is countable, and interleaving each fraction with its negative (plus $0$) tags all of $\mathbb{Q}$. The skip step is what keeps the tagging one-to-one: without it $\tfrac{2}{2}, \tfrac{3}{3}, \ldots$ would hand out several tickets to the single number $1$.
+
+**Worked example: why no list of reals can be complete (diagonal sketch).** Suppose someone claims a list containing *every* real in $[0, 1]$. Look at just the first three entries and their first three decimal digits:
+$$
+\begin{aligned}
+r_1 &= 0.\mathbf{3}72\ldots \\
+r_2 &= 0.1\mathbf{5}9\ldots \\
+r_3 &= 0.24\mathbf{8}\ldots
+\end{aligned}
+$$
+Build a new number $d$ by walking the **diagonal** (the bold digits $3, 5, 8$) and changing each, say by "add $1$, wrapping $9$ to $0$," giving digits $4, 6, 9$, so $d = 0.469\ldots$ Then $d$ differs from $r_1$ in place $1$, from $r_2$ in place $2$, from $r_3$ in place $3$, and running the same recipe down the whole list, $d$ differs from the $n$-th listed number in place $n$. So $d$ appears on no row: the list was incomplete. Since *every* candidate list fails the identical way, $\mathbb{R}$ is uncountable, strictly bigger than $\mathbb{Q}$. (The full argument, including the harmless $0.4999\ldots = 0.5000\ldots$ caveat, is in [Set Theory](./set-theory).)
+
 The size of $\mathbb{R}$ has its own name: the **cardinality of the continuum**, written $\mathfrak{c}$ (read "c"), and it equals $2^{\aleph_0}$ (the number of subsets of $\mathbb{N}$). The complex numbers are no bigger: because $\mathbb{C}$ is just pairs of reals, $|\mathbb{C}| = |\mathbb{R}^2| = \mathfrak{c}$, so "adding a second dimension" does not increase cardinality. The **algebraic numbers** are countable (each is a root of one of countably many integer polynomials, each with finitely many roots), which is why the transcendentals, the uncountable remainder, are the overwhelming majority. Whether any size sits strictly *between* $\aleph_0$ and $\mathfrak{c}$ is the famous **Continuum Hypothesis**, which Gödel and Cohen showed can neither be proved nor disproved from the standard axioms of set theory.
 
 ## How the Systems Are Actually Constructed
@@ -191,6 +213,18 @@ $$
 $$
 This is elegant on two counts: the number $n$ is a set with exactly $n$ elements, and the order relation $m < n$ is simply $m \in n$. Addition and multiplication are then defined by recursion.
 
+**Worked example: build the first five naturals.** Start from nothing and apply $S(n) = n \cup \{n\}$ over and over, each step throwing the just-built set in alongside its own elements:
+$$
+\begin{aligned}
+0 &= \varnothing, \\
+1 &= 0 \cup \{0\} = \{0\}, \\
+2 &= 1 \cup \{1\} = \{0\} \cup \{1\} = \{0, 1\}, \\
+3 &= 2 \cup \{2\} = \{0, 1\} \cup \{2\} = \{0, 1, 2\}, \\
+4 &= 3 \cup \{3\} = \{0, 1, 2\} \cup \{3\} = \{0, 1, 2, 3\}.
+\end{aligned}
+$$
+Two promised facts fall straight out. First, $n$ genuinely *has* $n$ elements: $4 = \{0, 1, 2, 3\}$ has four. Second, order *is* membership: the claim $2 < 4$ shows up as $2 \in 4$, because $2$ is literally one of the elements listed inside $4$. (Subset tracks order too: $2 = \{0, 1\} \subset \{0, 1, 2, 3\} = 4$.) Nothing here is assumed about "number"; it is all sets and the single successor rule.
+
 ### The integers, from pairs of naturals
 
 An integer is meant to be a *difference* $a - b$ of naturals, but subtraction is what we lack. So represent the difference by the **pair** $(a, b)$ and declare two pairs equal when the differences they intend agree, using only addition (which we do have):
@@ -198,6 +232,8 @@ $$
 \mathbb{Z} = (\mathbb{N} \times \mathbb{N}) / {\sim}, \qquad (a, b) \sim (c, d) \iff a + d = b + c.
 $$
 The class of $(a, b)$ is the integer "$a - b$": so $(5, 3), (2, 0), (100, 98)$ all name $+2$, while $(3, 5)$ names $-2$. Addition is componentwise, $(a,b) + (c,d) = (a+c,\, b+d)$, and multiplication is $(a,b)(c,d) = (ac + bd,\ ad + bc)$ (exactly what expanding $(a-b)(c-d)$ predicts). The naturals sit inside as the classes of $(n, 0)$.
+
+**Worked example: which pairs name the same integer?** The rule $(a,b) \sim (c,d) \iff a + d = b + c$ is just "$a - b = c - d$ rewritten without ever subtracting." Test $(5, 3)$ against $(2, 0)$: the intended differences are $5 - 3 = 2$ and $2 - 0 = 2$, and the rule checks $5 + 0 = 3 + 2$, that is $5 = 5$. True, so $(5, 3) \sim (2, 0)$ and both name $+2$. Now contrast $(5, 3)$ with $(3, 5)$: the rule asks $5 + 5 = 3 + 3$, that is $10 = 6$, which is false, so these are *not* equivalent, and indeed $(3, 5)$ names $3 - 5 = -2$, the opposite integer. The arithmetic descends to classes cleanly: $(5, 3) + (1, 4) = (6, 7)$, whose difference $6 - 7 = -1$ matches $(+2) + (-3) = -1$, and $(5, 3)(1, 4) = (5\cdot1 + 3\cdot4,\ 5\cdot4 + 3\cdot1) = (17, 23)$, whose difference $17 - 23 = -6$ matches $(+2)(-3) = -6$.
 
 ### The rationals, from pairs of integers
 
@@ -207,12 +243,25 @@ $$
 $$
 The class of $(p, q)$ is the fraction $p/q$, and the equivalence is precisely why $\tfrac{1}{2} = \tfrac{2}{4} = \tfrac{3}{6}$. Addition is $(p,q) + (r,s) = (ps + rq,\ qs)$ and multiplication is $(p,q)(r,s) = (pr,\ qs)$, the usual fraction rules. The integers embed as the classes of $(n, 1)$.
 
+**Worked example: when do two fractions match?** The rule $(p, q) \sim (r, s) \iff ps = qr$ is cross-multiplication. Check $(1, 2)$ against $(2, 4)$: it asks $1 \cdot 4 = 2 \cdot 2$, that is $4 = 4$, true, so $\tfrac{1}{2} = \tfrac{2}{4}$ as it must. Check $(1, 2)$ against $(1, 3)$: now $1 \cdot 3 = 2 \cdot 1$ asks $3 = 2$, false, so $\tfrac{1}{2} \neq \tfrac{1}{3}$. The point of phrasing equality this way is that it decides using only integer *products*, never a division we have not yet built.
+
 ### The reals, by completing the rationals
 
 Here the pattern changes: the reals fill *gaps*, and you cannot reach an irrational by any finite pairing of rationals. Two standard constructions both work.
 
 - **Dedekind cuts.** A real number *is* a way of splitting $\mathbb{Q}$ into a downward-closed lower set $A$ with no greatest element and its complement. The cut for $\sqrt{2}$ is $A = \{x \in \mathbb{Q} : x < 0 \text{ or } x^2 < 2\}$: the number is identified with the gap it marks in the rationals. Order is just set inclusion of the lower sets, and completeness is automatic.
 - **Cauchy sequences.** A real is an equivalence class of Cauchy sequences of rationals (sequences whose terms bunch arbitrarily close together), where two sequences are identified when their difference tends to $0$. This realizes $\mathbb{R}$ as the **completion** of $\mathbb{Q}$, the same move that later builds the [$p$-adic numbers](./hypercomplex-numbers) from a *different* notion of distance.
+
+**Worked example: the cut that *is* $\sqrt{2}$.** The lower set is $A = \{x \in \mathbb{Q} : x < 0 \text{ or } x^2 < 2\}$. Sort a few rationals with that test:
+
+- *In $A$:* $1$ (since $1^2 = 1 < 2$), $1.4$ ($1.96 < 2$), $1.41$ ($1.9881 < 2$), and every negative rational such as $-5$.
+- *Not in $A$:* $1.5$ ($2.25 > 2$), $1.42$ ($2.0164 > 2$), $2$ ($4 > 2$).
+
+So $A$ collects *every rational below $\sqrt{2}$* while never containing $\sqrt{2}$ itself (no rational squares to $2$). The decisive feature is that $A$ has **no greatest element**: given any $x \in A$ you can always nudge up to a slightly larger rational still squaring below $2$, so the "top edge" of $A$ is exactly the gap where $\sqrt{2}$ ought to sit. Declaring the real number $\sqrt{2}$ to *be* that cut is the whole idea; order between cuts is just set inclusion of their lower sets.
+
+**Worked example: the Cauchy sequence for $\sqrt{2}$.** Take the truncated decimal approximations
+$$1,\ 1.4,\ 1.41,\ 1.414,\ 1.4142,\ \ldots$$
+Consecutive terms bunch together fast: the gaps are $|1.4 - 1| = 0.4$, then $|1.41 - 1.4| = 0.01$, then $|1.414 - 1.41| = 0.004$, then $|1.4142 - 1.414| = 0.0002$, shrinking below any tolerance you name (that is the *Cauchy* condition). Their squares climb toward $2$: $1.96,\ 1.9881,\ 1.999396,\ 1.99996164,\ \ldots$ The sequence plainly *wants* a limit, yet no rational is that limit, so $\mathbb{Q}$ has a hole exactly here. Promoting the sequence itself to a new number (and identifying it with any other rational sequence closing in on the same spot) fills the hole.
 
 Both constructions yield the same object up to isomorphism, the unique complete ordered field, as [Real Analysis](./real-analysis) develops.
 
@@ -222,6 +271,10 @@ Finally $\mathbb{C}$ needs no mystical "invent $\sqrt{-1}$." Two equivalent conc
 
 - **Ordered pairs.** $\mathbb{C} = \mathbb{R} \times \mathbb{R}$ with addition componentwise and multiplication $(a, b)(c, d) = (ac - bd,\ ad + bc)$. Then $i = (0, 1)$ literally satisfies $i^2 = (0,1)(0,1) = (-1, 0) = -1$. No new axioms, just a multiplication rule.
 - **A quotient ring.** $\mathbb{C} = \mathbb{R}[x] / (x^2 + 1)$: real-coefficient polynomials with the single relation $x^2 + 1 = 0$ imposed, so $x$ *becomes* a square root of $-1$. This is the [algebraic structures](./algebraic-structures) way of saying "adjoin a root of $x^2 + 1$," and it is the first rung of the [Cayley–Dickson tower](./hypercomplex-numbers).
+
+**Worked example: multiplying as ordered pairs.** Take $(2, 3)$ and $(1, 1)$, meaning $2 + 3i$ and $1 + i$. The rule $(a, b)(c, d) = (ac - bd,\ ad + bc)$ gives
+$$(2 \cdot 1 - 3 \cdot 1,\ \ 2 \cdot 1 + 3 \cdot 1) = (-1, 5),$$
+that is $-1 + 5i$. Expanding the familiar way agrees: $(2 + 3i)(1 + i) = 2 + 2i + 3i + 3i^2 = 2 + 5i - 3 = -1 + 5i$. The $-bd$ term in the rule is exactly the place where $i^2 = -1$ has been absorbed, which is why the construction needs no new axiom, only this multiplication.
 
 The whole ladder, then, is four instances of one idea (pair-and-quotient) plus one completion, turning the informal "but you cannot..." into rigorous mathematics resting on set theory alone.
 

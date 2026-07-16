@@ -142,12 +142,13 @@
       ]
     },
     "number-systems.md": {
-      "contentHash": "sha1:d4730a3b62997e7c",
+      "contentHash": "sha1:f8d48673f47af40b",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "Strong on the narrative + repeating-decimal conversions + containment; the FORMAL CONSTRUCTIONS (Dedekind cuts, Cauchy sequences, pair-and-quotient for Z, von Neumann naturals, Q/R countability, FTA) are stated but never walked -> 7 thin items.",
+      "phase2At": "2026-07-16",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: added 9 fully-worked examples walking every formal construction that was previously only stated -- von Neumann 0..4 (2 in 4 encodes 2<4), Z pairs (5,3)~(2,0) with add/mult, Q cross-mult, Dedekind sqrt2 cut (in/out classification + no-greatest-element), Cauchy sqrt2 sequence (shrinking gaps + squares -> 2), C ordered-pair product (2,3)(1,1)=(-1,5), FTA quadratic x^2-2x+2 -> 1+/-i verified, zigzag first-8 rationals with 2/2 skip, Cantor diagonal 3x3 sketch. All 9 independently re-reviewed (returned []); +26 harness assertions. All 7 thin items resolved.",
       "inventory": [
         {
           "concept": "repeating decimal -> fraction (0.3bar)",
@@ -186,8 +187,9 @@
         },
         {
           "concept": "C as ordered pairs",
-          "quality": "adequate",
-          "upgrade": "add a nontrivial product e.g. (2,3)(1,1)=(-1,5)"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "added (2,3)(1,1)=(-1,5) via (ac-bd,ad+bc), cross-checked against i^2=-1 expansion"
         },
         {
           "concept": "irrationality of sqrt2 (deferred)",
@@ -196,38 +198,45 @@
         },
         {
           "concept": "countability of Q (zigzag enumeration)",
-          "quality": "thin",
-          "upgrade": "walk the first ~8 rationals in zigzag order, showing the skip-duplicates rule"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "listed first 8 rationals by diagonal p+q=2,3,4,5 with the 2/2-skip explained + harness"
         },
         {
           "concept": "uncountability of R (diagonal)",
-          "quality": "thin",
-          "upgrade": "sketch the diagonal on a small 3x3 grid so the 'no list works' idea is concrete"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "3-row diagonal sketch: bold digits 3,5,8 -> 4,6,9 -> d=0.469 on no row + harness"
         },
         {
           "concept": "von Neumann naturals",
-          "quality": "thin",
-          "upgrade": "build 0..4 step-by-step; verify 2∈4 encodes 2<4"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "built 0..4 via S(n)=n u {n}; verified |4|=4, 2 in 4 encodes 2<4, 2 subset 4 + harness"
         },
         {
           "concept": "pair-and-quotient for Z",
-          "quality": "thin",
-          "upgrade": "verify (5,3)~(2,0) via 5+0=3+2; contrast a non-equivalent pair"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "(5,3)~(2,0) via 5+0=3+2; contrast (3,5)=-2; add (6,7)->-1 and mult (17,23)->-6 + harness"
         },
         {
           "concept": "Dedekind cuts",
-          "quality": "thin",
-          "upgrade": "build the sqrt2 cut: list rationals in A and not in A; interpret as 'everything up to sqrt2'"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "sqrt2 cut: in/out classification of sampled rationals + no-greatest-element argument + harness"
         },
         {
           "concept": "Cauchy sequences",
-          "quality": "thin",
-          "upgrade": "walk (1,1.4,1.41,1.414,...) -> sqrt2, check consecutive terms shrink"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "walked 1,1.4,1.41,1.414,1.4142; gaps 0.4/0.01/0.004/0.0002 shrink; squares climb to 2 + harness"
         },
         {
           "concept": "Fundamental Theorem of Algebra",
-          "quality": "thin",
-          "upgrade": "solve x^2-2x+2=0 -> 1±i and verify 1+i by substitution"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "x^2-2x+2=0: disc -4, roots 1+/-i, verified (1+i)^2=2i and full substitution ->0 + harness"
         }
       ]
     },
