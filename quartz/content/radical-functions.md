@@ -278,6 +278,8 @@ Note that $c$ is not the horizontal shift by itself. Factoring out $b$ gives $bx
 
 ## Square Root Function
 
+![A graph of y equals x squared restricted to x greater than or equal to 0, its inverse y equals the square root of x, and the dashed line y equals x across which they mirror, with the point (2, 4) on the parabola reflecting to (4, 2) on the square root; the part of the parabola for x less than 0 is dotted and cut off, so that squaring is one-to-one and the square root returns the principal nonnegative root](./media/rf-sqrt-inverse.png)
+
 **Square Root Function (parent):** $f(x) = \sqrt{x}$
 
 **Domain:** $[0, \infty)$ (only non-negative numbers, since $\sqrt{x}$ is undefined for $x < 0$ in real numbers)
@@ -404,6 +406,8 @@ $$x = 8$$
 Check: $\sqrt{8 + 1} + \sqrt{8 - 4} = \sqrt{9} + \sqrt{4} = 3 + 2 = 5$ ✓
 
 ### Why Extraneous Solutions Occur
+
+![A graph explaining extraneous solutions: the curve y equals the square root of 2x minus 1, the line y equals x minus 2 (the equation being solved), and the dashed reflected line y equals minus the quantity x minus 2 that squaring implicitly adds. The radical meets the line at x equals 5, the valid solution, and meets the reflected line at x equals 1, the extraneous solution, where the actual line sits at negative 1, marked with an x](./media/rf-extraneous-solutions.png)
 
 **Squaring is not a reversible operation.** When we square both sides of an equation, we are applying a function ($x \mapsto x^2$) that is not one-to-one: both $3$ and $-3$ square to $9$. This means the squared equation may have solutions that the original equation does not.
 

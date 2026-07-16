@@ -1749,6 +1749,25 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("vertical asymptote at x=3: |f| blows up nearby", Math.abs(g(3.001)) > 1000);
 }
 
+// ================= Radical Functions (extraneous solutions) =================
+{
+  // Example 2: sqrt(2x-1) = x-2, squaring gives x^2-6x+5=0 -> x = 1, 5
+  const disc = 36 - 20, r1 = (6 + Math.sqrt(disc)) / 2, r2 = (6 - Math.sqrt(disc)) / 2;
+  eq("squared equation x^2-6x+5=0 has roots 5 and 1", r1 * 10 + r2, 51);
+  check("x=5 is a valid solution: sqrt(2*5-1) = 3 = 5-2", approx(Math.sqrt(2 * 5 - 1), 5 - 2));
+  check("x=1 is extraneous: sqrt(2*1-1)=1 does not equal 1-2=-1", !approx(Math.sqrt(2 * 1 - 1), 1 - 2));
+  check("x=1 solves the reflected equation sqrt(2x-1) = -(x-2)", approx(Math.sqrt(2 * 1 - 1), -(1 - 2)));
+  // sqrt(x) = -3 has no solution but squaring yields x=9 (extraneous)
+  check("sqrt(9)=3 != -3, so x=9 is extraneous for sqrt(x)=-3", Math.sqrt(9) === 3 && 3 !== -3);
+  eq("Example 1: sqrt(22+3) = 5", Math.sqrt(22 + 3), 5);
+  eq("Example 3: sqrt(8+1)+sqrt(8-4) = 5", Math.sqrt(8 + 1) + Math.sqrt(8 - 4), 5);
+  // inverse relationship: (sqrt x)^2 = x for x >= 0, but sqrt(x^2) = |x|
+  check("(sqrt x)^2 = x for x >= 0", [0, 2, 7].every((x) => approx(Math.sqrt(x) ** 2, x)));
+  check("sqrt(x^2) = |x| (not x when x < 0)", approx(Math.sqrt((-3) ** 2), 3) && Math.sqrt((-3) ** 2) !== -3);
+  // odd roots are one-to-one: cubing introduces no extraneous solutions; cbrt(-8) = -2
+  eq("cube root of -8 = -2 (odd root, no extraneous issue)", Math.cbrt(-8), -2, 1e-12);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
