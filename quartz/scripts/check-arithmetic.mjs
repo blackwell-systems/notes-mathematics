@@ -1781,6 +1781,26 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("a 3-element set has 2^3 - 1 = 7 proper subsets", 2 ** 3 - 1, 7);
 }
 
+// ================= Exponential Functions (e limit, doubling/half-life) =================
+{
+  // where e comes from: (1 + 1/n)^n for increasing n approaches e
+  eq("(1+1/1)^1 = 2", (1 + 1 / 1) ** 1, 2);
+  eq("(1+1/2)^2 = 2.25", (1 + 1 / 2) ** 2, 2.25);
+  eq("(1+1/4)^4 = 2.4414", (1 + 1 / 4) ** 4, 2.4414, 1e-3);
+  eq("(1+1/12)^12 ~ 2.6130", (1 + 1 / 12) ** 12, 2.6130, 1e-3);
+  eq("(1+1/365)^365 ~ 2.7146", (1 + 1 / 365) ** 365, 2.7146, 1e-3);
+  eq("e ~ 2.71828", Math.E, 2.71828, 1e-4);
+  check("(1+1/n)^n increases toward e but never exceeds it", [1, 2, 12, 365, 100000].every((n) => (1 + 1 / n) ** n < Math.E));
+  // doubling time T_d = ln2/k; base-2 growth has T_d = 1
+  eq("doubling time of 2^t is 1 (ln2/ln2)", Math.log(2) / Math.log(2), 1);
+  eq("Rule of 70: 7% growth doubles in ~10 (70/7)", 70 / 7, 10);
+  eq("Rule of 70: 10% growth doubles in 7", 70 / 10, 7);
+  // half-life: carbon-14 decays to 25% after two half-lives, 12.5% after three
+  eq("C-14: 100*(1/2)^(11460/5730) = 25 g", 100 * 0.5 ** (11460 / 5730), 25, 1e-9);
+  eq("C-14: 100*(1/2)^(17190/5730) = 12.5 g", 100 * 0.5 ** (17190 / 5730), 12.5, 1e-9);
+  eq("C-14 decay constant ln2/5730 ~ 0.000121", Math.log(2) / 5730, 0.000121, 1e-6);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

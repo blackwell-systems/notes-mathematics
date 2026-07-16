@@ -103,6 +103,8 @@ Drag the sliders to see how the base $b$ (read "b") and the coefficient $a$ (rea
 
 ### Where $e$ Comes From
 
+![A curve of (1 plus 1 over n) to the n against the number of compounding periods n on a log scale, rising and leveling off at the dashed line e approximately 2.71828: the marked points are n equals 1 giving 2, n equals 2 giving 2.25, n equals 4 giving 2.441, n equals 12 giving 2.613, and n equals 365 giving 2.715, showing that compounding a dollar at 100 percent interest ever more often approaches e](./media/exp-e-limit.png)
+
 Imagine you put \$1 in a bank that pays 100% annual interest. How much do you have after one year?
 
 - **Compounded once** (annually): $1 \cdot (1 + 1)^1 = 2$, giving \$2.00
@@ -288,6 +290,8 @@ Where:
 $$A = 1000\left(1 + \frac{0.05}{12}\right)^{12 \cdot 10} \approx \$1647.01$$
 
 ## Doubling Time and Half-Life
+
+![Two panels: on the left an exponential growth curve doubling every doubling-time T-d, with the amount marked 1, 2, 4, 8 at times 0, T-d, 2 T-d, 3 T-d; on the right the carbon-14 decay curve halving every half-life of 5730 years, with the mass marked 100, 50, 25, 12.5 grams at 0, 5730, 11460, 17190 years](./media/exp-doubling-halflife.png)
 
 Two of the most common questions about exponential functions: "How long until it doubles?" and "How long until half is left?"
 
