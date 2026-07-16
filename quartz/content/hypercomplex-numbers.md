@@ -101,6 +101,8 @@ So the whole tower, and its abrupt end, is captured by a table of what each rung
 
 Read down the **"Still has"** column and the losses turn out to be anything but random: each rung keeps a strictly *weaker* form of associativity than the last, a graceful descent rather than a collapse. Full associativity ($\mathbb{H}$) weakens to **alternativity** (any *two* elements associate, $\mathbb{O}$), which weakens to **power-associativity** (any *one* element associates with itself, so $x^n$ is unambiguous, $\mathbb{S}$). The structure degrades one notch at a time, never all at once.
 
+![A property-retention grid with the five algebras R, C, H, O, S as rows (dimensions 1, 2, 4, 8, 16) and seven algebraic laws as columns (ordered, commutative, associative, alternative, power-associative, division, normed). Green check cells mark a law the algebra keeps and red cross cells mark a law it has lost. The red cells form a staircase stepping down the diagonal: R keeps every law, C loses only ordering, H additionally loses commutativity, O additionally loses associativity, and S loses alternativity, division, and normedness. The associative, alternative, and power-associative columns are bracketed as a single weakening chain, and the power-associative column stays green for every row, the last law left standing at the sedenions](./media/hc-degradation-chain.png)
+
 And each surrendered law is the *price* of a gain, not pure loss, which answers the natural question "do the higher systems only lose properties?" with a firm no:
 
 - Giving up **order** buys $\mathbb{C}$ its **algebraic closure** (every polynomial factors, the Fundamental Theorem of Algebra) and the geometry of planar rotation.
