@@ -30,7 +30,7 @@ Guiding principles:
 - **Worked examples are the product.** Prefer one example done exhaustively over
   three done fast, with the diagram pinned to that same example so picture and
   steps can never drift.
-- **Clarity is protected by machinery, not vibes.** Every numeric worked example
+- **Clarity is enforced by tooling.** Every numeric worked example
   is re-proved from scratch in CI (the arithmetic harness), and the reasoning
   (definitions, hypotheses, proofs) is checked by a separate resumable review
   process. See below.
