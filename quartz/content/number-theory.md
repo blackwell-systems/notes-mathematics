@@ -60,6 +60,10 @@ Number theory is about understanding the patterns and structure hidden in the wh
 ```
 $\gcd(252, 105) = 21$
 
+![A 252 by 105 rectangle tiled with the largest possible squares, the geometric picture of the Euclidean algorithm. Two large blue 105 by 105 squares fill most of the rectangle, leaving a tall thin strip. That strip is filled by two red 42 by 42 squares, leaving a smaller strip, which is filled by two green 21 by 21 squares with nothing left over. The side of the smallest square that tiles the whole rectangle evenly is 21, which equals the greatest common divisor. The algorithm steps 252 equals 105 times 2 plus 42, 105 equals 42 times 2 plus 21, and 42 equals 21 times 2 plus 0 appear alongside, matching the three square sizes.](./media/nt-euclidean-squares.png)
+
+Each line of the algorithm is one size of square: fitting as many $105$-squares as possible into the rectangle leaves a $42$-wide strip, fitting $42$-squares into that leaves a $21$-strip, and the $21$-squares finish it exactly. The last (smallest) square is the gcd, because it is the largest tile that divides both original sides evenly.
+
 ### Extended Euclidean Algorithm
 
 **Extended Euclidean Algorithm:** Finds integers **x** and **y** such that $ax + by = \gcd(a, b)$
@@ -86,6 +90,10 @@ $\gcd(252, 105) = 21$
 $$\gcd(a, b) \times \text{lcm}(a, b) = a \times b$$
 
 **Example:** $\gcd(12, 18) \times \text{lcm}(12, 18) = 6 \times 36 = 216 = 12 \times 18$ ✓
+
+![A Venn diagram of the prime factors of 12 and 18. The left circle is labeled 12 equals 2 times 2 times 3 and the right circle 18 equals 2 times 3 times 3. The overlapping region holds the shared factors, one 2 and one 3, which multiply to the greatest common divisor 6. The left-only region holds an extra 2 (since 12 has two 2s but 18 has one), and the right-only region holds an extra 3 (since 18 has two 3s but 12 has one). Taking every factor across both circles, 2 times 2 times 3 times 3, gives the least common multiple 36. A caption notes gcd times lcm equals 6 times 36 equals 216 equals 12 times 18.](./media/nt-gcd-lcm-venn.png)
+
+The picture explains the identity $\gcd \times \operatorname{lcm} = a \times b$: the gcd collects the prime factors *shared* by both numbers (the overlap), the lcm collects *every* prime factor that appears in either (the union), and multiplying them counts every prime factor of $a$ and of $b$ exactly once each, which is just $a \times b$.
 
 ## Modular Arithmetic
 
@@ -124,6 +132,10 @@ The clock "wraps around" after 12. In general, modular arithmetic wraps around a
 - $17 \equiv 5 \pmod{12}$ because $17 - 5 = 12$ and $12 \mid 12$
 - $23 \equiv 3 \pmod{10}$ because $23 - 3 = 20$ and $10 \mid 20$
 - $-8 \equiv 4 \pmod{12}$ because $-8 - 4 = -12$ and $12 \mid -12$
+
+![A diagram showing that congruence mod 5 partitions the integers into 5 classes. At the top, a number line from negative 5 to 14 has each integer colored by its remainder mod 5, so the coloring repeats every five steps in a fixed pattern. Below, five labeled buckets collect the members of each class: class 0 holds the multiples of 5 such as negative 5, 0, 5, 10; class 1 holds negative 4, 1, 6, 11; class 2 holds negative 3, 2, 7, 12; class 3 holds negative 2, 3, 8, 13; and class 4 holds negative 1, 4, 9, 14. Each bucket header is colored to match the number line.](./media/nt-residue-classes.png)
+
+This is why congruence is an **equivalence relation**: it sorts every integer into exactly one of $n$ classes (its remainder), and two numbers are congruent precisely when they fall in the same bucket. Working "mod $n$" means treating all the numbers in a bucket as interchangeable.
 
 ### Properties of Congruence
 
@@ -236,6 +248,10 @@ $$a^{p-1} \equiv 1 \pmod{p}$$
 
 **Corollary:** $a^p \equiv a \pmod{p}$ for all integers a. Unlike the main theorem, this form needs no coprimality assumption: it holds even when $p \mid a$, since then both sides are $\equiv 0 \pmod{p}$.
 
+![A directed cycle illustrating Fermat's little theorem for base 3 modulo 7. Six nodes, the nonzero residues, are arranged on a circle in the order the powers of 3 visit them: 3, then 2, then 6, then 4, then 5, then 1, and an arrow back to 3. Each arrow is labeled times 3, and each node carries the power that produces it, so 3 is 3 to the 1, 2 is 3 squared, 6 is 3 cubed, 4 is 3 to the 4th, 5 is 3 to the 5th, and 1 is 3 to the 6th. The node 1 is highlighted, marking that after six multiplications the cycle returns to 1.](./media/nt-fermat-cycle.png)
+
+The picture is the theorem: repeatedly multiplying by $3$ modulo $7$ marches through all six nonzero residues and lands back on $1$ after exactly $p-1 = 6$ steps, which is precisely the statement $3^{6} \equiv 1 \pmod 7$. Because every $a$ coprime to $p$ generates such a returning walk, $a^{p-1} \equiv 1 \pmod p$ in general.
+
 **Application - Computing modular inverses:**
 If p is prime and $\gcd(a, p) = 1$, then:
 $$a^{-1} \equiv a^{p-2} \pmod{p}$$
@@ -251,6 +267,10 @@ $$a^{-1} \equiv a^{p-2} \pmod{p}$$
 **Intuition:** Imagine you know someone's position on multiple independent cycles (days of week, months, years). You can uniquely determine their position in the combined cycle.
 
 **Real-world example:** "It's a Tuesday in March during a leap year" uniquely identifies a specific day in a 4-year cycle, even though each piece of information alone doesn't.
+
+![A three by five grid illustrating the Chinese Remainder Theorem for the coprime moduli 3 and 5. The three rows are labeled by the remainder mod 3 (0, 1, 2) and the five columns by the remainder mod 5 (0, 1, 2, 3, 4). Each cell holds the unique integer from 0 to 14 whose remainders mod 3 and mod 5 match its row and column. Every one of the fifteen integers appears exactly once, so the grid is completely filled with no repeats. The cell in row 2, column 3, holding the value 8, is highlighted because x congruent to 2 mod 3 and 3 mod 5 pins down x equals 8.](./media/nt-crt-grid.png)
+
+Because $3$ and $5$ share no factors, the pair of remainders (one from each modulus) acts like a two-part address, and every address $0..14$ is used exactly once. That bijection is the theorem: the remainders *together* determine $x$ uniquely modulo $3 \times 5 = 15$. The worked example below just adds a third coprime modulus, extending the same idea to a unique answer mod $105$.
 
 **Statement:** If $n_1, n_2, \ldots, n_k$ are pairwise coprime, then the system:
 $$
@@ -320,6 +340,10 @@ There's exactly one position (23) in the combined 105-item cycle that matches al
 - $\phi(6) = 2$ (1 and 5 are coprime to 6)
 - $\phi(7) = 6$ (1, 2, 3, 4, 5, 6 are all coprime to 7)
 - $\phi(12) = 4$ (1, 5, 7, 11 are coprime to 12)
+
+![A clock-style dial with the numbers 1 through 12 placed evenly around a circle, 12 at the top. The four numbers coprime to 12, namely 1, 5, 7, and 11, are highlighted in green and tagged gcd equals 1. The remaining numbers are faded grey and tagged with the factor they share with 12: 2, 4, 8, and 10 share the factor 2; 3, 6, and 9 share 3; and 12 shares 12. The center reads phi of 12 equals 4, showing that exactly four of the twelve numbers are coprime to 12.](./media/nt-totient-dial.png)
+
+Those four coprime numbers, $1, 5, 7, 11$, are exactly the residues that have a **multiplicative inverse** mod $12$ (the [units](#modular-inverses)); every other number shares a factor with $12$ and so cannot be inverted. Counting them is what $\phi(n)$ does.
 
 **Formula for prime p:** $\phi(p) = p - 1$
 

@@ -2178,6 +2178,64 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const x = 11 / 17, y = 38 / 17; check("system 2x+3y=8, 5x-y=1 solved by x=11/17, y=38/17", approx(2 * x + 3 * y, 8, 1e-9) && approx(5 * x - y, 1, 1e-9)); }
 }
 
+// ================= Number theory =================
+{
+  const gcdN = (a, b) => (b === 0 ? Math.abs(a) : gcdN(b, a % b));
+  const mod = (a, n) => ((a % n) + n) % n;
+  const modpow = (base, e, n) => { let r = 1, b = mod(base, n); while (e > 0) { if (e & 1) r = mod(r * b, n); b = mod(b * b, n); e = Math.floor(e / 2); } return r; };
+  const totient = (n) => { let c = 0; for (let k = 1; k <= n; k++) if (gcdN(k, n) === 1) c++; return c; };
+
+  // Euclidean algorithm gcd(252,105)=21 and its step remainders.
+  eq("gcd(252,105) = 21", gcdN(252, 105), 21);
+  check("Euclid steps: 252=105*2+42, 105=42*2+21, 42=21*2+0", 252 % 105 === 42 && 105 % 42 === 21 && 42 % 21 === 0);
+  // Extended Euclid: 252*(-2) + 105*5 = 21.
+  eq("Bezout: 252*(-2) + 105*5 = 21", 252 * -2 + 105 * 5, 21);
+
+  // GCD-LCM: gcd(12,18)=6, lcm=36, product = 12*18.
+  const lcmN = (a, b) => (a * b) / gcdN(a, b);
+  eq("gcd(12,18) = 6", gcdN(12, 18), 6);
+  eq("lcm(12,18) = 36", lcmN(12, 18), 36);
+  eq("gcd*lcm = 216 = 12*18", gcdN(12, 18) * lcmN(12, 18), 12 * 18);
+
+  // Congruences.
+  check("17 ≡ 5 (mod 12), 23 ≡ 3 (mod 10), -8 ≡ 4 (mod 12)", mod(17, 12) === 5 && mod(23, 10) === 3 && mod(-8, 12) === 4);
+  // Arithmetic mod 12.
+  eq("17+23 ≡ 4 (mod 12)", mod(17 + 23, 12), 4);
+  eq("17*23 ≡ 7 (mod 12)", mod(17 * 23, 12), 7);
+
+  // Residue classes mod 5 form a partition: every integer lands in exactly one of 5 classes.
+  { const classes = new Set(); for (let k = -5; k <= 14; k++) classes.add(mod(k, 5)); check("mod 5 yields exactly the 5 classes {0,1,2,3,4}", classes.size === 5 && [...classes].every((c) => c >= 0 && c < 5)); }
+
+  // Modular inverse: 3^{-1} ≡ 5 (mod 7); 6 has no inverse mod 9.
+  check("3 * 5 ≡ 1 (mod 7): inverse of 3 is 5", mod(3 * 5, 7) === 1);
+  check("6 has no inverse mod 9 (gcd(6,9)=3)", gcdN(6, 9) !== 1);
+  // Modular division: 7/3 mod 11 = 7 * 4 = 28 ≡ 6.
+  check("7/3 ≡ 6 (mod 11) since 3^{-1} ≡ 4", mod(3 * 4, 11) === 1 && mod(7 * 4, 11) === 6);
+
+  // Modular exponentiation 3^13 mod 7 = 3.
+  eq("3^13 ≡ 3 (mod 7)", modpow(3, 13, 7), 3);
+
+  // Fermat's little theorem: 3^6 ≡ 1 (mod 7); a^p ≡ a; inverse via a^{p-2}.
+  eq("Fermat: 3^6 ≡ 1 (mod 7)", modpow(3, 6, 7), 1);
+  check("Fermat corollary a^p ≡ a (mod p) for p=7, several a", [0, 2, 3, 7, 10].every((a) => modpow(a, 7, 7) === mod(a, 7)));
+  eq("Fermat inverse: 3^5 ≡ 5 (mod 7)", modpow(3, 5, 7), 5);
+  // Powers of 3 mod 7 visit all 6 nonzero residues in order 3,2,6,4,5,1 (3 is a primitive root).
+  check("powers of 3 mod 7 cycle 3,2,6,4,5,1", [1, 2, 3, 4, 5, 6].map((k) => modpow(3, k, 7)).join(",") === "3,2,6,4,5,1");
+
+  // Chinese Remainder Theorem: x=23 solves x≡2(3), x≡3(5), x≡2(7); unique mod 105.
+  check("CRT solution 23: 23≡2(mod3), 23≡3(mod5), 23≡2(mod7)", mod(23, 3) === 2 && mod(23, 5) === 3 && mod(23, 7) === 2);
+  // The (x mod 3, x mod 5) grid is a bijection onto 15 cells (CRT for coprime 3,5).
+  { const seen = new Set(); for (let x = 0; x < 15; x++) seen.add(mod(x, 3) + "," + mod(x, 5)); check("CRT grid: all 15 (mod3,mod5) pairs distinct (bijection)", seen.size === 15); }
+  check("CRT cell (2 mod 3, 3 mod 5) is x=8", mod(8, 3) === 2 && mod(8, 5) === 3);
+
+  // Euler totient values and Euler's theorem.
+  check("phi: phi(6)=2, phi(7)=6, phi(12)=4, phi(36)=12", totient(6) === 2 && totient(7) === 6 && totient(12) === 4 && totient(36) === 12);
+  check("phi(12): coprime residues are exactly {1,5,7,11}", [1, 5, 7, 11].every((k) => gcdN(k, 12) === 1) && [2, 3, 4, 6, 8, 9, 10, 12].every((k) => gcdN(k, 12) !== 1));
+  eq("phi(p)=p-1 for p=7", totient(7), 6);
+  // Euler's theorem: a^phi(n) ≡ 1 (mod n) when gcd(a,n)=1. a=5, n=12: 5^4 ≡ 1.
+  eq("Euler: 5^phi(12) = 5^4 ≡ 1 (mod 12)", modpow(5, totient(12), 12), 1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
