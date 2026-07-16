@@ -1768,6 +1768,19 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("cube root of -8 = -2 (odd root, no extraneous issue)", Math.cbrt(-8), -2, 1e-12);
 }
 
+// ================= Set Theory: proper subset =================
+{
+  const isSubset = (a, b) => a.every((x) => b.includes(x));
+  const eqSet = (a, b) => isSubset(a, b) && isSubset(b, a);
+  const isProper = (a, b) => isSubset(a, b) && !eqSet(a, b);
+  check("{1,2} is a proper subset of {1,2,3}", isProper([1, 2], [1, 2, 3]));
+  check("{1,2,3} is a subset of itself but NOT a proper subset", isSubset([1, 2, 3], [1, 2, 3]) && !isProper([1, 2, 3], [1, 2, 3]));
+  check("the empty set is a proper subset of any nonempty set", isProper([], [1]));
+  check("empty set is NOT a proper subset of the empty set", !isProper([], []));
+  eq("a 3-element set has 2^3 = 8 subsets", 2 ** 3, 8);
+  eq("a 3-element set has 2^3 - 1 = 7 proper subsets", 2 ** 3 - 1, 7);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

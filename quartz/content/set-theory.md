@@ -106,6 +106,26 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 
 ![Euler diagram: circle A drawn entirely inside a larger circle B, showing that every element of A is also in B, so A is a subset of B](./media/st-subset-euler.png)
 
+## Proper Subset
+
+**Proper Subset:** A is a **proper subset** of B (denoted $A \subsetneq B$, read "A is a proper subset of B") if $A \subseteq B$ **and** $A \neq B$: every element of A is in B, but B contains at least one element that is not in A. The containment is *strict*.
+
+$$
+A \subsetneq B \iff (A \subseteq B) \ \wedge \ (A \neq B)
+$$
+
+![Euler diagram of a proper subset: a circle A containing the elements 1 and 2 drawn strictly inside a larger circle B, with the elements 3 and 4 lying in B but outside A and marked in red, showing that A is contained in B but B has elements A lacks, so the containment is strict](./media/st-proper-subset-euler.png)
+
+**Notation warning.** The symbol $\subset$ is ambiguous: some authors use it for *any* subset (identical to $\subseteq$), others reserve it for *proper* subsets only. To stay unambiguous, this page writes $\subseteq$ for "subset (equality allowed)" and $\subsetneq$ for "proper subset (strictly smaller)."
+
+**Examples:**
+
+- $\{1, 2\} \subsetneq \{1, 2, 3\}$ (proper: $3$ is in the larger set but not the smaller).
+- $\{1, 2, 3\} \subseteq \{1, 2, 3\}$ but $\{1, 2, 3\} \not\subsetneq \{1, 2, 3\}$ (a set is a subset of itself, but never a *proper* subset of itself).
+- $\emptyset \subsetneq A$ for every nonempty set $A$.
+
+**Counting.** A set with $n$ elements has $2^n$ subsets in all, of which exactly $2^n - 1$ are proper (every subset except the whole set itself). For example, $\{a, b, c\}$ has $2^3 = 8$ subsets and $7$ proper subsets. (See [Power Set](#power-set).)
+
 ## Set Equality
 
 Two sets are **equal** iff they have the **same members**. Formally
