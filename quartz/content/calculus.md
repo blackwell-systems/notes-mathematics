@@ -321,6 +321,8 @@ Since $f$ is continuous on $[1,2]$, $f(1) < 0$, and $f(2) > 0$, the IVT guarante
 
 **Connection to computing:** The IVT is the theoretical foundation of the **bisection method** for finding roots numerically. The algorithm repeatedly cuts the interval in half, checking the sign of $f$ at the midpoint to determine which half contains the root. Each step halves the interval, guaranteeing convergence. This is one of the simplest and most reliable root-finding algorithms in numerical computing.
 
+![Intermediate Value Theorem for f of x equals x cubed minus x minus 1 on the interval from 1 to 2. The curve starts at the point (1, negative 1), which is below the horizontal axis, and ends at the point (2, 5), which is above it. A dashed green line marks the target value N equals zero. Because the continuous curve starts below zero and ends above zero, it must cross the zero line at some interior point c, marked in purple at approximately x equals 1.325, where f of c equals zero, a guaranteed root.](./media/calc-ivt.png)
+
 ---
 
 ## Derivatives
@@ -790,6 +792,10 @@ $$
 
 The actual value is $2.02485...$, so the approximation is quite good.
 
+![Linear approximation of the square root function near a equals 4. The blue curve is f of x equals square root of x and the red dashed line is its tangent at the point (4, 2). Because the tangent hugs the curve near the point of tangency, the tangent's height is a good estimate of the curve's height nearby. A zoomed inset shows the differential triangle: a horizontal step dx equals 0.1 from x equals 4 to x equals 4.1, the tangent's vertical rise dy equals 0.025, and the small green gap between the tangent and the actual curve, the approximation error delta y minus dy of about 0.00015, since the concave-down curve falls just below its tangent. This gives square root of 4.1 approximately 2.025.](./media/calc-linear-approx.png)
+
+The inset previews the **differential** covered two sections below: $dy = f'(a)\,dx$ is the tangent's rise, and it approximates the true change $\Delta y$ with an error that shrinks quadratically as $dx \to 0$.
+
 ### Curve Sketching
 
 Calculus gives us a systematic procedure for sketching the graph of a function by combining all the tools developed so far. Follow these steps:
@@ -1243,6 +1249,8 @@ $$
 
 The average temperature is 20 degrees. The sine term integrates to zero over a full period, so the average equals the constant term, which makes intuitive sense.
 
+![Average value of the temperature model T of t equals 20 plus 5 sine of pi t over 12 over a 24-hour day. The blue curve rises to 25 degrees around hour 6 and falls to 15 degrees around hour 18. A red horizontal line marks the average value of 20 degrees. The region between the curve and the mean line where the curve is above 20 (roughly hours 0 to 12) is shaded green and marked with a plus sign; the region where the curve is below 20 (roughly hours 12 to 24) is shaded purple and marked with a minus sign. The two shaded areas are equal, so the deviations above and below cancel, which is why the mean line is exactly the height of the rectangle with the same area as the integral.](./media/calc-average-value.png)
+
 ### Numerical Integration
 
 In practice, many integrals have no elementary antiderivative. The function $e^{-x^2}$, for example, cannot be integrated symbolically (as noted in the Gaussian integral section). When exact antiderivatives are unavailable, we approximate the integral numerically.
@@ -1266,6 +1274,8 @@ $$
 Simpson's rule requires an even number of subintervals ($n$ must be even). The coefficients alternate: $1, 4, 2, 4, 2, \ldots, 4, 1$.
 
 **Error bounds:** The trapezoid rule has error of order $O(h^2)$ where $h = \Delta x$. Doubling the number of points cuts the error by a factor of 4. Simpson's rule has error of order $O(h^4)$, so doubling the points cuts the error by a factor of 16. Simpson's rule is remarkably accurate for smooth functions.
+
+![Two side-by-side panels approximating the integral of e to the minus x squared from 0 to 2, a function with no elementary antiderivative, using four subintervals. The left panel shows the trapezoid rule: each subinterval is capped by a straight red line connecting adjacent function values, and these straight tops visibly deviate from the blue curve, overshooting where the curve bends. The right panel shows Simpson's rule: each pair of subintervals is capped by a green parabola fitted through three points, and these parabolic tops hug the curve so closely they are almost indistinguishable from it. The visual gap between the two methods illustrates why the trapezoid error is order h squared while Simpson's error is the much smaller order h to the fourth.](./media/calc-numerical-integration.png)
 
 **Connection to computing:** This is exactly what numerical software (NumPy's `numpy.trapz`, SciPy's `scipy.integrate.quad`) does when computing integrals. The `quad` function uses adaptive versions of these methods, automatically choosing more points where the function changes rapidly.
 

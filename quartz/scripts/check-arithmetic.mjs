@@ -1881,6 +1881,55 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("regular model with d=10 parameters has RLCT d/2 = 5", 10 / 2, 5);
 }
 
+// ================= Single-variable calculus: new figure examples =================
+{
+  // IVT: f(x) = x^3 - x - 1 changes sign on [1,2], so it has a root there.
+  const fIVT = (x) => x ** 3 - x - 1;
+  eq("IVT: f(1) = -1", fIVT(1), -1);
+  eq("IVT: f(2) = 5", fIVT(2), 5);
+  check("IVT: f changes sign on [1,2] (f(1)<0<f(2)), so a root exists", fIVT(1) < 0 && fIVT(2) > 0);
+  // the guaranteed root c satisfies f(c)=0; check the quoted c ~ 1.325 is accurate
+  const cIVT = 1.3247179572;
+  check("IVT: quoted root c ~ 1.325 satisfies f(c) ~ 0", approx(fIVT(cIVT), 0, 1e-6));
+
+  // Linear approximation of sqrt(x) at a=4: L(x) = 2 + (1/4)(x-4); estimate sqrt(4.1).
+  const Lsqrt = (x) => 2 + 0.25 * (x - 4);
+  eq("linear approx: sqrt(4.1) ~ 2.025", Lsqrt(4.1), 2.025);
+  eq("actual sqrt(4.1) = 2.02485 (3 dp)", Math.sqrt(4.1), 2.02485, 5e-6);
+  // differential dy = f'(4) dx = (1/4)(0.1) = 0.025, and error = actual - dy is tiny and positive
+  const dy = 0.25 * 0.1, dYtrue = Math.sqrt(4.1) - 2;
+  eq("differential dy = 0.025", dy, 0.025);
+  check("linear approx overestimates: dy > true Delta y for concave-down sqrt", dy > dYtrue);
+  check("approximation error magnitude ~ 0.00015", approx(Math.abs(dy - dYtrue), 0.00015, 5e-5));
+
+  // Differentials: area of circle, dA = 2*pi*r*dr at r=5, dr=0.1 gives pi; exact = 1.01*pi.
+  const dA = 2 * Math.PI * 5 * 0.1;
+  eq("differential dA = 2*pi*5*0.1 = pi", dA, Math.PI);
+  const dAexact = Math.PI * 5.1 ** 2 - Math.PI * 5 ** 2;
+  eq("exact area change = 1.01*pi", dAexact, 1.01 * Math.PI, 1e-9);
+
+  // Average value: T(t) = 20 + 5 sin(pi t/12) over [0,24] has average exactly 20.
+  const nSeg = 240000, h = 24 / nSeg;
+  let integ = 0;
+  for (let i = 0; i < nSeg; i++) {
+    const t = (i + 0.5) * h;
+    integ += (20 + 5 * Math.sin((Math.PI * t) / 12)) * h;
+  }
+  eq("average value (1/24) * integral of T over [0,24] = 20", integ / 24, 20, 1e-3);
+
+  // Numerical integration of e^{-x^2} on [0,2], n=4 (h=0.5): trapezoid vs Simpson vs reference.
+  const gN = (x) => Math.exp(-x * x);
+  const xs = [0, 0.5, 1, 1.5, 2], ys = xs.map(gN), hN = 0.5;
+  const trap = (hN / 2) * (ys[0] + 2 * ys[1] + 2 * ys[2] + 2 * ys[3] + ys[4]);
+  const simp = (hN / 3) * (ys[0] + 4 * ys[1] + 2 * ys[2] + 4 * ys[3] + ys[4]);
+  // high-resolution reference value of the integral
+  let ref = 0; const m = 200000, hr = 2 / m;
+  for (let i = 0; i < m; i++) ref += gN((i + 0.5) * hr) * hr;
+  check("Simpson (n=4) is closer to the true integral than the trapezoid rule",
+    Math.abs(simp - ref) < Math.abs(trap - ref));
+  eq("reference integral of e^{-x^2} on [0,2] ~ 0.882081", ref, 0.882081, 1e-4);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
