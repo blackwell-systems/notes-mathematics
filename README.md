@@ -10,8 +10,13 @@ deployed to GitHub Pages on every push to `main`.
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (51 topic pages). The landing page and reading-order guide are in
+per topic (50 topic pages, plus a landing page and a guided reading path toward
+singular learning theory). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
+
+Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently
+366 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
+a page's own worked example so the figure and the prose cannot drift apart.
 
 Broad areas covered:
 
@@ -30,18 +35,41 @@ Broad areas covered:
 
 Most pages embed self-contained interactive widgets (vanilla JS + `<canvas>`, no
 external dependencies) that live in
-[`quartz/quartz/static/interactive/`](./quartz/quartz/static/interactive/): things
-like a Gaussian-elimination stepper, an eccentricity morph for conic sections, a
-BFS/DFS graph explorer, and growth-rate comparisons. Each widget sizes its own
-frame to its content, so nothing needs a scrollbar.
+[`quartz/quartz/static/interactive/`](./quartz/quartz/static/interactive/):
+**73 widgets across 43 pages**, including a Gaussian-elimination stepper, an
+eccentricity morph for conic sections, a BFS/DFS graph explorer, and growth-rate
+comparisons. Each widget sizes its own frame to its content, so nothing needs a
+scrollbar.
 
 Every push runs two CI gates before deploy:
 
 - **Quality gate** (`quartz/scripts/check-quality.mjs`) — fails on KaTeX render
   errors, broken internal links or `#anchors`, broken image references, and empty
-  image alt text.
+  image alt text (ratcheted to zero).
 - **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
-  numeric worked example in the notes from scratch (currently 499 assertions).
+  numeric worked example in the notes from scratch (currently 1062 assertions).
+  When you add or change a worked example, add or adjust an assertion so it stays
+  machine-verified.
+
+## Prose / proof review
+
+The arithmetic harness guarantees the *numbers*; a separate, resumable process
+covers the *reasoning* (definitions, theorem hypotheses, proof gaps, notation
+consistency) — the layer no numeric check can reach. It is a tracked review
+process, not a fatal CI gate (a judgment call should never block a deploy):
+
+- **Rubric** (`quartz/scripts/REVIEW-RUBRIC.md`) — a versioned, example-anchored
+  checklist applied identically to every page (the consistency layer).
+- **Status script** (`quartz/scripts/check-review-status.mjs`) — computes each
+  page's foundational depth from its `prerequisites:` frontmatter, hashes its
+  contents, and reports the review frontier (lowest-depth page not yet reviewed).
+  Editing a page changes its hash, which auto-flags it *stale* for re-review. Run
+  it to resume exactly where the last pass left off.
+- **Ledger** (`quartz/content/review-status.json`) — per-page findings with a
+  lifecycle (`open` / `resolved` / `false-positive`).
+
+Review proceeds foundations-first, so errors in the roots are caught before the
+pages that build on them.
 
 ## File Structure
 
@@ -52,9 +80,14 @@ notes-mathematics/
 │   │   ├── index.md         # Landing page + reading-order guide
 │   │   ├── set-theory.md
 │   │   ├── ...
-│   │   └── media/           # Images and diagrams
+│   │   ├── media/           # Images and diagrams (~366 figures)
+│   │   └── review-status.json  # Prose/proof review ledger
 │   ├── quartz/static/interactive/  # Self-contained interactive widgets
-│   ├── scripts/             # CI gates (quality + arithmetic) and build injectors
+│   ├── scripts/             # CI gates (quality + arithmetic), review tooling, build injectors
+│   │   ├── check-quality.mjs
+│   │   ├── check-arithmetic.mjs
+│   │   ├── check-review-status.mjs
+│   │   └── REVIEW-RUBRIC.md
 │   └── quartz.config.default.yaml  # Site configuration
 ├── .github/workflows/       # GitHub Pages deploy workflow
 └── README.md                # This file
