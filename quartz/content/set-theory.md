@@ -137,9 +137,13 @@ The pair $\subseteq$ / $\subsetneq$ behaves exactly like $\leq$ / $<$ on numbers
 | $a \leq b$ and $b \leq c \Rightarrow a \leq c$ | $A \subseteq B$ and $B \subseteq C \Rightarrow A \subseteq C$ | transitive |
 | $a < b \iff a \leq b \text{ and } a \neq b$ | $A \subsetneq B \iff A \subseteq B \text{ and } A \neq B$ | strict version |
 
+The quickest way to remember the last row: **a proper subset is "$\subseteq$ but not equal," exactly as $<$ is "$\leq$ but not equal."** Read $A \subsetneq B$ as "$A$ is contained in $B$ and strictly smaller," just like $a < b$ is "$a$ is at most $b$ and strictly less."
+
 The antisymmetry row is more than an analogy: showing $A \subseteq B$ **and** $B \subseteq A$ is *the* standard way to prove two sets equal, the double-inclusion method used in [Set Equality](#set-equality) just below.
 
 **One crucial difference.** The relation $\leq$ on numbers is a **total order**: any two numbers are comparable, either $a \leq b$ or $b \leq a$. The subset relation $\subseteq$ is only a **partial order**: two sets can be *incomparable*, with neither a subset of the other. For instance $\{1, 2\}$ and $\{2, 3\}$ satisfy $\{1,2\} \not\subseteq \{2,3\}$ (since $1 \notin \{2,3\}$) and $\{2,3\} \not\subseteq \{1,2\}$ (since $3 \notin \{1,2\}$). On a number line everything lies in a single row; the subsets of a set instead branch into a lattice (the [power set](#power-set)) in which side-by-side elements are incomparable.
+
+This difference changes what "$\neq$" buys you. For numbers, $a \neq b$ *already* pins down a direction: since any two numbers compare, non-equal numbers must have one strictly less, so $a \neq b$ forces $a < b$ **or** $b < a$. For sets, $A \neq B$ does **not** force $A \subsetneq B$ or $B \subsetneq A$, precisely because the two sets might be incomparable ($\{1,2\}$ and $\{2,3\}$ again). So the "and not equal" clause only upgrades $\subseteq$ to $\subsetneq$ *once you already know $A \subseteq B$*: the proper-subset relation acts just like $<$ **along a chain of containment**, but inequality alone never tells you a direction the way it does for numbers.
 
 ![Two panels contrasting a total order and a partial order: on the left a number line with 1, 2, 3, 4 where any two numbers are comparable; on the right the lattice of subsets of the two-element set a, b, ordered by inclusion, in which the singletons set-a and set-b are marked incomparable because neither is a subset of the other](./media/st-subset-order.png)
 
