@@ -18,10 +18,12 @@
       ]
     },
     "set-theory.md": {
-      "contentHash": "sha1:ffec94363c45e4cf",
+      "contentHash": "sha1:8694b23a0a021ddb",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
+      "reReviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
+      "note": "Re-reviewed after clarity Phase-2 (3 new worked examples: De Morgan element-chase proof, pigeonhole both-forms, injection/surjection check). Independent subagent verified every step incl. the De Morgan symmetry claim; clean.",
       "findings": [
         {
           "id": "THM-1",
