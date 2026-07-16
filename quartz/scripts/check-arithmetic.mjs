@@ -2236,6 +2236,51 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("Euler: 5^phi(12) = 5^4 ≡ 1 (mod 12)", modpow(5, totient(12), 12), 1);
 }
 
+// ================= Prime factorization =================
+{
+  const factorize = (n) => { const f = {}; for (let p = 2; p * p <= n; p++) while (n % p === 0) { f[p] = (f[p] || 0) + 1; n /= p; } if (n > 1) f[n] = (f[n] || 0) + 1; return f; };
+  const isPrime = (n) => { if (n < 2) return false; for (let p = 2; p * p <= n; p++) if (n % p === 0) return false; return true; };
+  const fromFactors = (f) => Object.entries(f).reduce((acc, [p, a]) => acc * p ** a, 1);
+
+  // Factorizations of the worked examples.
+  check("504 = 2^3 · 3^2 · 7", JSON.stringify(factorize(504)) === JSON.stringify({ 2: 3, 3: 2, 7: 1 }));
+  check("360 = 2^3 · 3^2 · 5", JSON.stringify(factorize(360)) === JSON.stringify({ 2: 3, 3: 2, 5: 1 }));
+  check("60 = 2^2 · 3 · 5", JSON.stringify(factorize(60)) === JSON.stringify({ 2: 2, 3: 1, 5: 1 }));
+  check("282 = 2 · 3 · 47", JSON.stringify(factorize(282)) === JSON.stringify({ 2: 1, 3: 1, 47: 1 }));
+
+  // Divisibility rules: 504 divisible by 3 and 9 (digit sum 9); 9163 divisible by 11 (alt sum 11).
+  { const ds = (5 + 0 + 4); check("504 digit sum 9 divisible by 3 and 9", ds % 3 === 0 && ds % 9 === 0 && 504 % 3 === 0 && 504 % 9 === 0); }
+  { const alt = 9 - 1 + 6 - 3; check("9163 alternating digit sum 11 divisible by 11", alt === 11 && 9163 % 11 === 0); }
+
+  // Sieve of Eratosthenes up to 30 gives the 10 primes; up to 100 gives 25 primes.
+  { const ps = []; for (let k = 2; k <= 30; k++) if (isPrime(k)) ps.push(k); check("primes up to 30 are 2,3,5,7,11,13,17,19,23,29", ps.join(",") === "2,3,5,7,11,13,17,19,23,29"); }
+  { let c = 0; for (let k = 2; k <= 100; k++) if (isPrime(k)) c++; eq("there are 25 primes up to 100", c, 25); }
+  // Sieving only needs primes up to sqrt(n): for n=30, sqrt is ~5.48 so primes 2,3,5.
+  check("sieve up to 30 only needs primes ≤ sqrt(30) ≈ 5.48, i.e. 2,3,5", Math.sqrt(30) < 6 && Math.sqrt(30) > 5);
+
+  // GCD and LCM via factorization (min/max exponents) for 360, 504.
+  const gcdN = (a, b) => (b === 0 ? a : gcdN(b, a % b)), lcmN = (a, b) => (a * b) / gcdN(a, b);
+  eq("gcd(360,504) = 2^3·3^2 = 72", gcdN(360, 504), 72);
+  eq("lcm(360,504) = 2^3·3^2·5·7 = 2520", lcmN(360, 504), 2520);
+  eq("gcd·lcm = 72·2520 = 181440 = 360·504", 72 * 2520, 360 * 504);
+
+  // Number of divisors tau(360) = (3+1)(2+1)(1+1) = 24; verify by counting.
+  { const f = factorize(360); const tau = Object.values(f).reduce((p, a) => p * (a + 1), 1); eq("tau(360) = (3+1)(2+1)(1+1) = 24", tau, 24); let cnt = 0; for (let d = 1; d <= 360; d++) if (360 % d === 0) cnt++; eq("360 actually has 24 divisors", cnt, 24); }
+  // The divisor grid: divisors are 2^e2·3^e3·5^e5, all distinct, exactly 24 of them.
+  { const divs = new Set(); for (let e2 = 0; e2 <= 3; e2++) for (let e3 = 0; e3 <= 2; e3++) for (let e5 = 0; e5 <= 1; e5++) divs.add(2 ** e2 * 3 ** e3 * 5 ** e5); eq("exponent grid yields 24 distinct divisors of 360", divs.size, 24); check("grid includes both 1 and 360", divs.has(1) && divs.has(360)); }
+
+  // Sum of divisors sigma(360) = 15 · 13 · 6 = 1170.
+  { const sig = (2 ** 4 - 1) / (2 - 1) * ((3 ** 3 - 1) / (3 - 1)) * ((5 ** 2 - 1) / (5 - 1)); eq("sigma(360) = 15·13·6 = 1170", sig, 1170); let s = 0; for (let d = 1; d <= 360; d++) if (360 % d === 0) s += d; eq("sum of divisors of 360 = 1170 by direct sum", s, 1170); }
+
+  // sqrt(n) factor pairs: divisors of 36 pair to product 36 around sqrt(36)=6.
+  { const divs = []; for (let d = 1; d <= 36; d++) if (36 % d === 0) divs.push(d); check("divisors of 36 pair to 36 around sqrt=6", divs.every((d) => 36 % (36 / d) === 0) && Math.sqrt(36) === 6 && divs.filter((d) => d < 6).length === divs.filter((d) => d > 6).length); }
+
+  // Simplify 504/360 = 7/5 (cancel shared 2^3·3^2 = 72).
+  { const g = gcdN(504, 360); check("504/360 reduces to 7/5", 504 / g === 7 && 360 / g === 5 && g === 72); }
+  // Common denominator lcm(12,18)=36: 1/12 + 5/18 = 3/36 + 10/36 = 13/36.
+  { const l = lcmN(12, 18); eq("lcm(12,18) = 36", l, 36); eq("1/12 + 5/18 = 13/36", l / 12 * 1 + l / 18 * 5, 13); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

@@ -44,6 +44,10 @@ Another example: $60 = 2 \times 2 \times 3 \times 5$. No matter how you factor 6
 
 This uniqueness is what makes prime factorization useful: it gives every number a unique "fingerprint" that we can use for finding greatest common divisors, simplifying fractions, and many other tasks.
 
+![An illustration of the Fundamental Theorem of Arithmetic showing three numbers built from colored prime blocks, one color per prime. The number 12 is a row of blocks 2, 2, 3, equal to 2 squared times 3. The number 60 is blocks 2, 2, 3, 5, equal to 2 squared times 3 times 5. The number 360 is blocks 2, 2, 2, 3, 3, 5, equal to 2 cubed times 3 squared times 5. Each number equals the product of its prime blocks, and the blocks are the same regardless of the order they are written in.](./media/pf-fundamental-theorem.png)
+
+Think of the prime blocks as a number's DNA: $360$ *always* breaks down into three $2$s, two $3$s, and one $5$, never any other combination. That fixed multiset of primes is the "fingerprint," and every technique on this page (GCD, LCM, counting divisors) is just a way of reading it.
+
 ## Definition
 
 **Prime Factorization:** Prime factorization is a process of factoring a
@@ -151,6 +155,10 @@ The **trial division method** is a systematic algorithm for finding the prime fa
 
 **Why stop at $\sqrt{n}$?** If $n$ has a factor larger than $\sqrt{n}$, then the corresponding cofactor must be smaller than $\sqrt{n}$, and we would have already found it.
 
+![A diagram explaining why trial division can stop at the square root of n, using n equals 36. The nine divisors of 36, namely 1, 2, 3, 4, 6, 9, 12, 18, 36, are placed along a horizontal axis with a dashed vertical line at the square root, 6. Arcs connect each small divisor to its partner that multiplies with it to give 36: 1 pairs with 36, 2 pairs with 18, 3 pairs with 12, and 4 pairs with 9, while 6 pairs with itself at the pivot. Small factors up to 6 are colored blue and large factors above 6 are red, showing that every large factor sits opposite a small one across the square root.](./media/pf-sqrt-factor-pairs.png)
+
+The arcs make the reason visual: divisors come in pairs $d \times (n/d) = n$, and the two members of a pair sit on opposite sides of $\sqrt{n}$ (only the perfect-square pivot $6 \times 6$ sits on the line). So if you have checked every candidate up to $\sqrt{n}$ and found no divisor, none of the *larger* candidates can divide $n$ either, because each would have already revealed its smaller partner.
+
 ### Worked Example: Prime Factorization of 504
 
 Find the prime factorization of $504$.
@@ -238,6 +246,10 @@ Start with the list: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
 
 **Primes up to 30:** $2, 3, 5, 7, 11, 13, 17, 19, 23, 29$.
 
+![A ten by ten grid of the numbers 1 to 100 illustrating the Sieve of Eratosthenes. The number 1 is greyed as neither prime nor composite. The 25 prime numbers are filled green. Every composite is marked with the color of its smallest prime factor: blue for even composites (smallest factor 2), red for the remaining multiples of 3, purple for the remaining multiples of 5, and orange for the remaining multiples of 7. A legend maps the four colors to smallest prime factor 2, 3, 5, and 7, and green to prime. Crossing out the multiples of just 2, 3, 5, and 7 leaves the 25 primes highlighted.](./media/pf-sieve.png)
+
+The same three steps shown above for numbers up to 30 extend to 100 in the picture: because every composite $\leq 100$ has a prime factor $\leq \sqrt{100} = 10$, sieving out the multiples of the four primes $2, 3, 5, 7$ is enough to eliminate every composite, and the $25$ survivors are exactly the primes up to $100$.
+
 ### Why It Works
 
 Every composite number $n$ has a prime factor $p \leq \sqrt{n}$. So by the time we have crossed out multiples of all primes up to $\sqrt{n}$, every composite has been eliminated. What remains must be prime.
@@ -316,6 +328,10 @@ $$
 \text{lcm}(360, 504) = 2^3 \cdot 3^2 \cdot 5 \cdot 7 = 8 \cdot 9 \cdot 5 \cdot 7 = 2520
 $$
 
+![A bar chart comparing the prime-power exponents of 360 and 504 for each prime 2, 3, 5, 7. For each prime there are two bars, blue for 360 and red for 504. Prime 2 has both bars at height 3; prime 3 has both at height 2; prime 5 has the 360 bar at height 1 and the 504 bar at height 0; prime 7 has the 360 bar at height 0 and the 504 bar at height 1. The minimum height for each prime, used by the greatest common divisor, is marked in green, giving gcd equal to 2 cubed times 3 squared equals 72. The maximum height, used by the least common multiple, gives lcm equal to 2 cubed times 3 squared times 5 times 7 equals 2520.](./media/pf-gcd-lcm-exponents.png)
+
+Read the chart prime by prime: for the GCD you keep the **shorter** bar of each pair (the most of that prime *both* numbers can supply), and for the LCM you keep the **taller** bar (the most *either* needs). Where one bar has height $0$ (like the $5$ in $504$ or the $7$ in $360$), the GCD gets nothing from that prime, which is why $5$ and $7$ drop out of $\gcd(360,504)=72$ but both appear in $\operatorname{lcm}(360,504)=2520$.
+
 ### The GCD-LCM Identity
 
 For any two positive integers $a$ and $b$:
@@ -361,6 +377,10 @@ So 360 has 24 positive divisors. We can verify this by listing them:
 $1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360$
 
 That is indeed 24 divisors.
+
+![Two four-by-three grids showing every divisor of 360 as a choice of exponents. Columns are the exponent of 2 running 0, 1, 2, 3 and rows are the exponent of 3 running 0, 1, 2. The left grid is for exponent of 5 equal to 0 and holds the divisors 1, 2, 4, 8 in its first row, 3, 6, 12, 24 in the second, and 9, 18, 36, 72 in the third. The right grid is for exponent of 5 equal to 1 and holds five times each of those, namely 5, 10, 20, 40, then 15, 30, 60, 120, then 45, 90, 180, 360. The two grids together hold all 24 divisors, matching the count 4 times 3 times 2.](./media/pf-divisor-grid.png)
+
+Every divisor is a separate dial-setting of the three exponents: $4$ choices for the power of $2$ (namely $0,1,2,3$), $3$ for the power of $3$, and $2$ for the power of $5$. The grids lay those $4 \times 3 \times 2 = 24$ combinations out explicitly, which is exactly why $\tau(n)$ multiplies the (exponent $+ 1$) values.
 
 ## Sum of Divisors
 
