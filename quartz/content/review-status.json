@@ -50,11 +50,13 @@
       ]
     },
     "euclidean-geometry.md": {
-      "contentHash": "sha1:b669dc5195e0accc",
+      "contentHash": "sha1:26f6060289bbbdf6",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
+      "reReviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "findings": []
+      "findings": [],
+      "note": "Re-reviewed after the clarity Phase-2 extension (11 new worked examples). Independent subagent verified every computation and claim; clean. Arithmetic also covered by 41 assertions in check-arithmetic.mjs."
     },
     "number-systems.md": {
       "contentHash": "sha1:d4730a3b62997e7c",
