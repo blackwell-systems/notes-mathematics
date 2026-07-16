@@ -2281,6 +2281,37 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const l = lcmN(12, 18); eq("lcm(12,18) = 36", l, 36); eq("1/12 + 5/18 = 13/36", l / 12 * 1 + l / 18 * 5, 13); }
 }
 
+// ================= Order of operations =================
+{
+  // Multiplication before addition: 3 + 4*2 = 11, not 14.
+  eq("3 + 4*2 = 11 (times before plus)", 3 + 4 * 2, 11);
+  check("the wrong (3+4)*2 = 14 differs", (3 + 4) * 2 === 14 && (3 + 4) * 2 !== 3 + 4 * 2);
+  // Left-to-right tie-breakers.
+  eq("8 / 2 * 4 = 16 (left to right)", 8 / 2 * 4, 16);
+  eq("wrong grouping 8 / (2*4) = 1", 8 / (2 * 4), 1);
+  eq("10 - 4 + 3 = 9 (left to right)", 10 - 4 + 3, 9);
+  eq("wrong grouping 10 - (4+3) = 3", 10 - (4 + 3), 3);
+  // Main worked example: 3 + 4*2^2 - (5-1) = 15.
+  eq("3 + 4*2^2 - (5-1) = 15", 3 + 4 * 2 ** 2 - (5 - 1), 15);
+  check("wrong add-first reading gives 24, not 15", (3 + 4) * 2 ** 2 - (5 - 1) !== 15);
+  // Nested grouping: 2*[3+(8-2*3)] = 10.
+  eq("2*(3+(8-2*3)) = 10", 2 * (3 + (8 - 2 * 3)), 10);
+  // Fraction bar groups: (6+4)/(2+3) = 2.
+  eq("(6+4)/(2+3) = 2", (6 + 4) / (2 + 3), 2);
+  // Radical groups its contents: sqrt(9+16) = 5, not sqrt9+sqrt16 = 7.
+  eq("sqrt(9+16) = 5", Math.sqrt(9 + 16), 5);
+  check("sqrt(9)+sqrt(16) = 7 differs from sqrt(9+16)", Math.sqrt(9) + Math.sqrt(16) === 7);
+  // Sign and exponent: -3^2 = -9, (-3)^2 = 9.
+  eq("-3^2 = -(3^2) = -9", -(3 ** 2), -9);
+  eq("(-3)^2 = 9", (-3) ** 2, 9);
+  // Stacked exponents right to left: 2^(3^2) = 512, (2^3)^2 = 64.
+  eq("2^(3^2) = 2^9 = 512 (right associative)", 2 ** (3 ** 2), 512);
+  eq("(2^3)^2 = 64 (the other grouping)", (2 ** 3) ** 2, 64);
+  // Ambiguous 6/2(1+2): strict left-to-right reading = 9.
+  eq("6 / 2 * (1+2) = 9 (strict left-to-right reading)", 6 / 2 * (1 + 2), 9);
+  eq("the juxtaposition reading 6 / (2*(1+2)) = 1", 6 / (2 * (1 + 2)), 1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

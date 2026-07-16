@@ -32,6 +32,8 @@ Evaluate an expression by handling higher-priority operations first. From highes
 3. **Multiplication and division**, including a "times" written as $\times$, $\cdot$, or juxtaposition like $3x$. These two share one priority level.
 4. **Addition and subtraction**. These also share one level.
 
+![A four-tier priority ladder for the order of operations, highest priority at the top. Tier 1, grouping, covers parentheses, square brackets, braces, the fraction bar, and the radical, done innermost first. Tier 2, exponents and roots, notes that stacked powers go right to left. Tier 3, multiplication and division, are equal priority and done left to right. Tier 4, addition and subtraction, are equal priority and done left to right. A large arrow down the left side runs from do first at the top to do last at the bottom, and the right side maps each tier to its PEMDAS and BODMAS letters: P/B, E/O, MD/DM, and AS/AS.](./media/ooo-priority-ladder.png)
+
 This ranking is often remembered by an acronym:
 
 - **PEMDAS** (US): **P**arentheses, **E**xponents, **M**ultiplication/**D**ivision, **A**ddition/**S**ubtraction. Sometimes taught as "Please Excuse My Dear Aunt Sally."
@@ -60,6 +62,8 @@ $$
 **not** $10 - (4 + 3) = 3$. Reading left to right, the subtraction happens first because it appears first.
 
 These two rules are the entire reason "PEMDAS" alone leads people astray: the acronym makes M look higher than D and A higher than S, but within each pair the operations tie and left-to-right breaks the tie.
+
+![Two rows demonstrating the left-to-right tie-breaker. The first row evaluates 8 divided by 2 times 4: reading left to right, 8 divided by 2 gives 4, then 4 times 4 gives 16, marked correct, while the wrong reading that groups 2 times 4 first gives 8 divided by 8 equals 1, marked incorrect. The second row evaluates 10 minus 4 plus 3: left to right, 10 minus 4 gives 6, then 6 plus 3 gives 9, marked correct, while the wrong reading that groups 4 plus 3 first gives 10 minus 7 equals 3, marked incorrect. A dashed arrow under each expression shows the left-to-right reading direction.](./media/ooo-left-to-right.png)
 
 ## Worked Example: Evaluating $3 + 4 \times 2^2 - (5 - 1)$
 
