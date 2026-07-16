@@ -2129,6 +2129,55 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("cost C(x)=8x+500: C(0)=500 fixed, each unit adds 8", cost(0) === 500 && cost(10) - cost(9) === 8);
 }
 
+// ================= Matrices =================
+{
+  const matEq = (X, Y) => X.length === Y.length && X.every((row, i) => row.length === Y[i].length && row.every((v, j) => approx(v, Y[i][j], 1e-9)));
+  const matmul = (A, B) => A.map((row) => B[0].map((_, j) => row.reduce((s, aik, k) => s + aik * B[k][j], 0)));
+
+  // Addition.
+  check("matrix addition [[1,2],[3,4]]+[[5,6],[7,8]] = [[6,8],[10,12]]",
+    matEq([[1 + 5, 2 + 6], [3 + 7, 4 + 8]], [[6, 8], [10, 12]]));
+  // Scalar multiplication.
+  check("scalar 3*[[1,2],[3,4]] = [[3,6],[9,12]]", matEq([[3, 6], [9, 12]], [[3, 6], [9, 12]]));
+
+  // Multiplication [[1,2],[3,4]]*[[5,6],[7,8]] = [[19,22],[43,50]].
+  check("matmul [[1,2],[3,4]]*[[5,6],[7,8]] = [[19,22],[43,50]]",
+    matEq(matmul([[1, 2], [3, 4]], [[5, 6], [7, 8]]), [[19, 22], [43, 50]]));
+  // Not commutative in general.
+  check("matrix multiplication is not commutative (AB != BA here)",
+    !matEq(matmul([[1, 2], [3, 4]], [[5, 6], [7, 8]]), matmul([[5, 6], [7, 8]], [[1, 2], [3, 4]])));
+  // Dimension rule: (2x3)(3x2) -> 2x2.
+  { const A = [[1, 2, 3], [4, 5, 6]], B = [[1, 0], [0, 1], [1, 1]]; const C = matmul(A, B); check("(2x3)(3x2) product is 2x2", C.length === 2 && C[0].length === 2); }
+
+  // Transpose.
+  const transpose = (M) => M[0].map((_, j) => M.map((row) => row[j]));
+  check("transpose of [[1,2,3],[4,5,6]] = [[1,4],[2,5],[3,6]]",
+    matEq(transpose([[1, 2, 3], [4, 5, 6]]), [[1, 4], [2, 5], [3, 6]]));
+
+  // Determinant and 2x2 inverse of [[2,3],[1,4]]: det=5, inv=[[0.8,-0.6],[-0.2,0.4]], A A^-1 = I.
+  const det2 = (a, b, c, d) => a * d - b * c;
+  eq("det [[2,3],[1,4]] = 5", det2(2, 3, 1, 4), 5);
+  const A = [[2, 3], [1, 4]], Ainv = [[0.8, -0.6], [-0.2, 0.4]];
+  check("inverse of [[2,3],[1,4]] is [[0.8,-0.6],[-0.2,0.4]]", matEq(matmul(A, Ainv), [[1, 0], [0, 1]]));
+  check("A^-1 A = I too", matEq(matmul(Ainv, A), [[1, 0], [0, 1]]));
+
+  // Determinant as area: |det [[2,1],[1,3]]| = 5 (columns (2,1),(1,3)).
+  eq("area of parallelogram from columns (2,1),(1,3) = |det| = 5", Math.abs(det2(2, 1, 1, 3)), 5);
+  // Singular: columns (2,4),(1,2) parallel => det 0 => no inverse.
+  eq("singular matrix columns (2,4),(1,2): det = 0", det2(2, 1, 4, 2), 0);
+
+  // Transformation columns: rotation 90 sends i-hat->(0,1), j-hat->(-1,0).
+  const applyM = (M, v) => [M[0][0] * v[0] + M[0][1] * v[1], M[1][0] * v[0] + M[1][1] * v[1]];
+  const rot90 = [[0, -1], [1, 0]];
+  check("rotate-90 matrix sends i-hat (1,0)->(0,1) and j-hat (0,1)->(-1,0)",
+    matEq([applyM(rot90, [1, 0])], [[0, 1]]) && matEq([applyM(rot90, [0, 1])], [[-1, 0]]));
+  // Reflection across y-axis sends (1,0)->(-1,0).
+  check("reflect matrix [[-1,0],[0,1]] sends (1,0)->(-1,0)", matEq([applyM([[-1, 0], [0, 1]], [1, 0])], [[-1, 0]]));
+
+  // The opening system Ax=b: [[2,3],[5,-1]] x = [8,1]. Solve: x=11/17, y=38/17.
+  { const x = 11 / 17, y = 38 / 17; check("system 2x+3y=8, 5x-y=1 solved by x=11/17, y=38/17", approx(2 * x + 3 * y, 8, 1e-9) && approx(5 * x - y, 1, 1e-9)); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
