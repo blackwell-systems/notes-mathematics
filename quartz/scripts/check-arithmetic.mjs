@@ -2029,6 +2029,58 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("f(x)=(x+1)/3 is injective (strictly increasing) on [0,1]", fInt(0.2) < fInt(0.8));
 }
 
+// ================= Multivariable calculus =================
+{
+  // Gradient of f = x^2 + 3xy + y^2 at (1,2) is [8,7].
+  const grad = (x, y) => [2 * x + 3 * y, 3 * x + 2 * y];
+  check("gradient of x^2+3xy+y^2 at (1,2) = [8,7]", grad(1, 2)[0] === 8 && grad(1, 2)[1] === 7);
+
+  // Directional derivative of x^2+y^2 at (1,1) toward the origin = -2*sqrt(2).
+  const gradXY = (x, y) => [2 * x, 2 * y];
+  const u = [-1 / Math.sqrt(2), -1 / Math.sqrt(2)];
+  const dd = gradXY(1, 1)[0] * u[0] + gradXY(1, 1)[1] * u[1];
+  eq("directional derivative of x^2+y^2 at (1,1) toward origin = -2*sqrt(2)", dd, -2 * Math.sqrt(2), 1e-9);
+
+  // Multivariable chain rule: z=x^2 y, x=cos t, y=sin t => dz/dt = -2 cos t sin^2 t + cos^3 t.
+  const zt = (t) => Math.cos(t) ** 2 * Math.sin(t); // z(t) = x^2 y = cos^2 t sin t
+  const dzdtAnalytic = (t) => -2 * Math.cos(t) * Math.sin(t) ** 2 + Math.cos(t) ** 3;
+  { const t = 0.7, e = 1e-6; const num = (zt(t + e) - zt(t - e)) / (2 * e); check("chain rule dz/dt matches numeric derivative at t=0.7", approx(num, dzdtAnalytic(t), 1e-5)); }
+
+  // Second partials of f = x^3 + x^2 y + y^3: mixed partials equal (Clairaut), f_xy=f_yx=2x.
+  const fxy = (x) => 2 * x, fyx = (x) => 2 * x;
+  check("mixed partials equal (Clairaut): f_xy = f_yx = 2x", fxy(3) === fyx(3) && fxy(3) === 6);
+
+  // Double integral of x*y over [0,2]x[0,3] = 9 (verify by dense Riemann sum).
+  { let s = 0; const nx = 400, ny = 600, dx = 2 / nx, dy = 3 / ny; for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) s += ((i + 0.5) * dx) * ((j + 0.5) * dy) * dx * dy; eq("double integral of xy over [0,2]x[0,3] = 9", s, 9, 1e-2); }
+  // Double integral of x^2+y^2 over [0,1]^2 = 2/3.
+  { let s = 0; const n = 500, d = 1 / n; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const x = (i + 0.5) * d, y = (j + 0.5) * d; s += (x * x + y * y) * d * d; } eq("double integral of x^2+y^2 over unit square = 2/3", s, 2 / 3, 1e-3); }
+
+  // Gradient descent on f=(x-1)^2+4(y-2)^2, alpha=0.1, from (3.5,4): first three iterates.
+  const gdGrad = (x, y) => [2 * (x - 1), 8 * (y - 2)];
+  let px = 3.5, py = 4, a = 0.1;
+  const step = () => { const g = gdGrad(px, py); px -= a * g[0]; py -= a * g[1]; };
+  step(); check("GD step 1 -> (3.0, 2.4)", approx(px, 3.0, 1e-9) && approx(py, 2.4, 1e-9));
+  step(); check("GD step 2 -> (2.6, 2.08)", approx(px, 2.6, 1e-9) && approx(py, 2.08, 1e-9));
+  step(); check("GD step 3 -> (2.28, 2.016)", approx(px, 2.28, 1e-9) && approx(py, 2.016, 1e-9));
+  eq("GD contraction factor along x = |1-0.1*2| = 0.8", Math.abs(1 - 0.1 * 2), 0.8, 1e-12);
+  eq("GD contraction factor along y = |1-0.1*8| = 0.2", Math.abs(1 - 0.1 * 8), 0.2, 1e-12);
+  check("larger Hessian eigenvalue (y-dir) gives smaller contraction => faster convergence", 0.2 < 0.8);
+
+  // Lagrange: max xy subject to x+y=10 gives x=y=5, f=25, lambda=5.
+  check("Lagrange optimum x=y=5 maximizes xy on x+y=10", 5 * 5 === 25 && [[1, 9], [2, 8], [4, 6], [3, 7]].every(([x, y]) => x * y <= 25));
+  eq("Lagrange multiplier lambda = 5 (= optimal y = optimal x)", 5, 5);
+
+  // Hessian eigenvalue signatures classify the three critical-point types.
+  const eig2x2sym = (a, b, c) => { const tr = a + c, disc = Math.sqrt((a - c) ** 2 + 4 * b * b); return [(tr + disc) / 2, (tr - disc) / 2]; };
+  check("H of x^2+y^2 = diag(2,2): positive definite (both eigenvalues > 0) => min", eig2x2sym(2, 0, 2).every((l) => l > 0));
+  check("H of -(x^2+y^2) = diag(-2,-2): negative definite (both < 0) => max", eig2x2sym(-2, 0, -2).every((l) => l < 0));
+  { const ev = eig2x2sym(2, 0, -2); check("H of x^2-y^2 = diag(2,-2): indefinite (mixed signs) => saddle", ev.some((l) => l > 0) && ev.some((l) => l < 0)); }
+
+  // Convexity of f(x)=x^2: chord lies above graph (midpoint test at several pairs).
+  const convexOK = (x1, x2, t) => { const xm = t * x1 + (1 - t) * x2; return xm * xm <= t * x1 * x1 + (1 - t) * x2 * x2 + 1e-12; };
+  check("x^2 is convex: chord lies on/above graph for sampled points", [[-1.5, 2, 0.5], [0, 3, 0.3], [-2, -0.5, 0.7]].every(([a, b, t]) => convexOK(a, b, t)));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

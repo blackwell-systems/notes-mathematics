@@ -23,6 +23,10 @@ $$
 
 This function takes two numbers $x$ and $y$ and returns a single number. You can visualize it as a surface in 3D: for each point $(x, y)$ in the plane, the function value $f(x, y)$ gives the height.
 
+![Two panels introducing a function of two variables as a surface. The left panel is a three-dimensional surface plot of a peaks-style function z equals f of x, y over the square from minus 3 to 3, showing several hills and valleys rising and dipping above the x-y plane. The right panel is the same function drawn as a filled contour map seen from directly above, where each closed contour line is a level curve joining all input points that share one output height, exactly like the elevation lines on a topographic map; warm colors mark high regions and cool colors mark low regions.](./media/mv-surface-contour.png)
+
+Reading the two views together is the key skill of the subject: the surface on the left and the **contour map** on the right carry the same information, and most multivariable pictures (gradients, optima, constraints) are easiest to reason about on the flat contour map.
+
 More generally, $f(x_1, x_2, \ldots, x_n)$ takes $n$ inputs. In machine learning, $n$ might be the number of model parameters, and $f$ might be the loss function that measures how wrong the model's predictions are.
 
 **Notation:** We sometimes write $f(\mathbf{x})$ where $\mathbf{x} = (x_1, x_2, \ldots, x_n)$ is a vector of inputs.
@@ -201,6 +205,10 @@ $$
 
 This is a sum over all paths from $t_j$ to $z$.
 
+![Two dependency-tree diagrams for the multivariable chain rule. The left panel, for z equals f of x, y with x equals g of t and y equals h of t, shows the output z at the top branching down to the two intermediate variables x and y, each of which branches down to the single input t; the upper edges are labeled with the partial derivatives of f with respect to x and y, the lower edges with the ordinary derivatives d x d t and d y d t, and the formula below reads d z d t equals partial f partial x times d x d t plus partial f partial y times d y d t, one term per path from t up to z. The right panel shows the general case where z depends on many intermediate variables x-one through x-n, each depending on t, with the summed formula partial z partial t equals the sum over i of partial f partial x-i times partial x-i partial t, and a note that summing over all paths is exactly what backpropagation organizes efficiently.](./media/mv-chain-rule-tree.png)
+
+Reading the tree: a partial derivative sits on each edge, you **multiply** along a path from $t$ up to $z$, and you **add** across the different paths. That multiply-along-paths, add-across-paths bookkeeping is precisely what the next section connects to backpropagation.
+
 ### Connection to Backpropagation
 
 In a neural network, the output (loss) depends on the final layer's weights, which depend on the previous layer's outputs, which depend on the previous layer's weights, and so on. Computing $\frac{\partial \text{loss}}{\partial w}$ for a weight $w$ in an early layer requires summing over all paths from $w$ to the loss. This is exactly the multivariable chain rule, and organizing this computation efficiently is what backpropagation does.
@@ -254,6 +262,10 @@ For multiple variables, the Hessian plays the same role using the concept of pos
 - If $H$ is **negative definite** at a critical point: local maximum
 - If $H$ is **indefinite** (has both positive and negative eigenvalues): saddle point
 
+![Three three-dimensional surfaces showing how the Hessian's eigenvalue signs classify a critical point at the origin. The left surface is the bowl z equals x squared plus y squared, curving up in every direction, labeled positive definite Hessian with eigenvalues plus 2 and plus 2, a local minimum. The middle surface is the dome z equals minus x squared minus y squared, curving down in every direction, labeled negative definite with eigenvalues minus 2 and minus 2, a local maximum. The right surface is the saddle z equals x squared minus y squared, curving up along one axis and down along the perpendicular axis, labeled indefinite with mixed eigenvalues plus 2 and minus 2, a saddle point. The critical point at the origin is marked on each surface.](./media/mv-hessian-classification.png)
+
+The pattern is the exact multivariable echo of the single-variable second-derivative test: all eigenvalues positive means "curves up in every direction" (a bowl, so a minimum), all negative means "curves down in every direction" (a dome, so a maximum), and mixed signs means it curves up along one axis and down along another (a saddle, neither).
+
 **Where it shows up:** The Hessian matrix appears in Newton's method for optimization, which uses second-order information to converge faster than gradient descent. It also determines whether a critical point of a loss function is a minimum, maximum, or saddle point.
 
 ## Double Integrals
@@ -267,6 +279,10 @@ $$
 $$
 
 The double sign $\iint_R$ (read "the double integral over R") signals that we integrate over a two-dimensional region: here $R$ is a region in the $xy$-plane, and $dA$ represents a tiny piece of area.
+
+![Two panels showing a double integral as the volume under a surface. The left panel is a three-dimensional plot of the surface z equals x times y over the rectangle where x runs 0 to 2 and y runs 0 to 3, with the solid volume beneath it approximated by a grid of vertical Riemann columns whose heights follow the surface; the volume equals the double integral of x y over the rectangle, which is 9. The right panel shows the iterated-integral idea: a single cross-sectional slab is highlighted at a fixed x equals 1, its area being the inner integral of the function over y, and the caption notes that integrating that slab area over x recovers the whole volume.](./media/mv-double-integral-volume.png)
+
+The picture explains the iterated-integral recipe below: freeze $x$, integrate over $y$ to get the **area of one slab**, then let $x$ sweep and integrate those slab areas. Summing slabs is why a double integral collapses into two ordinary one-variable integrals done in sequence.
 
 ### Computing Double Integrals
 
@@ -442,6 +458,8 @@ Gradient descent finds a local minimum, but that local minimum might not be the 
 
 A function $f$ is **convex** if the line segment between any two points on its graph lies above (or on) the graph. Geometrically, it is "bowl-shaped" with no bumps or valleys.
 
+![Two panels illustrating the chord test for convexity. The left panel, labeled convex, shows the parabola f of x equals x squared with a straight chord drawn between two points on it; the chord lies entirely above the curve, and the gap between chord and curve is lightly shaded, matching the definition inequality that f of a weighted average is at most the same weighted average of the outputs. The right panel, labeled non-convex, shows a wavy curve with a bump; a chord drawn between two of its points passes below part of the curve where the bump pokes above the chord, so the convexity inequality fails there.](./media/mv-convexity.png)
+
 **Formal definition:** $f$ is convex if for all $\mathbf{x}, \mathbf{y}$ and all $t \in [0, 1]$:
 
 $$
@@ -507,6 +525,10 @@ $$
 $$
 
 The condition $\nabla f = \lambda \nabla g$ gives $y = \lambda$ and $x = \lambda$, so $x = y$. Substituting into the constraint $x + y = 10$ yields $2x = 10$, hence $x = y = 5$. The maximum product is $f(5, 5) = 25$.
+
+![The Lagrange-multiplier worked example drawn in the x-y plane. Several grey hyperbolas are level curves of the objective f of x, y equals x y, one for each constant product value such as 6, 15, 25, and 40; the level curve x y equals 25 is drawn in bold blue because 25 is the optimal value. The red straight line x plus y equals 10 is the constraint. The line is tangent to the blue hyperbola exactly at the point (5, 5), which is marked with a large dot. At that point two gradient arrows are drawn pointing in the same up-right direction: the objective gradient grad f equal to (5, 5) in green and the constraint gradient grad g equal to (1, 1) in purple, showing that the gradients are parallel, grad f equals lambda times grad g with lambda equal to 5.](./media/mv-lagrange-example.png)
+
+The picture is the whole method in one glance: as you slide along the red constraint line, you cross to higher and higher level curves of $xy$ until the line just **touches** one without crossing it. At that tangency the constraint and the level curve share a tangent direction, so their perpendiculars, the two gradients, line up, which is exactly $\nabla f = \lambda \nabla g$.
 
 The multiplier $\lambda = 5$ has a meaning: it is the rate at which the optimal value would change if you loosened the constraint. Raising the budget from $10$ to $11$ would increase the maximum product by about $\lambda = 5$.
 
