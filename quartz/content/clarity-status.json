@@ -480,7 +480,7 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:647d68b4c4296ca6",
+      "contentHash": "sha1:3dd4685af328a9f1",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
@@ -543,6 +543,12 @@
           "quality": "strong",
           "upgrade": "",
           "phase2": "added 'Valid but Not Sound' section: validity=conditional not categorical, soundness=valid+true premises, fish (valid/false-premise/false-concl) and primes (valid/false-premise/TRUE-concl) examples, three abuses, modus-tollens detector; +harness (syllogism validity, prime premise false, detector)"
+        },
+        {
+          "concept": "case study: arguments for God's existence (valid vs sound applied)",
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "neutral structural case study: ontological argument + Kant 'existence is not a predicate' + begging the question; Godel modal argument (Benzmuller-Paleo 2013: original axioms inconsistent, Scott's variant machine-verified valid; modal collapse/Sobel); cosmological (Kalam/Aquinas/Leibniz-PSR) as valid-but-premises-disputed; non-ampliativeness diagnostic; abductive/cumulative-case as the honest register. Web-fact-checked; +harness (begging-the-question tautology)"
         },
         {
           "concept": "proof by cases",

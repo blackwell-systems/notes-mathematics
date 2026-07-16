@@ -310,6 +310,16 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   // a valid form does NOT force premises true: the schema holds even where a premise is false
   check("validity says nothing about premise truth (false-premise valuations exist)",
     B.some((P) => B.some((Q) => imp(imp(P, Q) && P, Q) && !(imp(P, Q) && P))));
+
+  // Case study (God arguments): begging the question. If the conclusion C is itself
+  // a premise, the argument (C & X) -> C is a tautology (valid) for EVERY C -- so
+  // validity is trivially purchasable by assuming the conclusion and certifies no content.
+  { let taut = true; for (const C of B) for (const X of B) if (!imp(C && X, C)) taut = false;
+    check("begging the question: (C & X) -> C is valid for all C (validity != content)", taut); }
+  // the ontological move (existence built into the definition) is this circularity:
+  // premise 'God-with-existence is the definition' -> conclusion 'God exists' adds nothing
+  check("assuming the conclusion makes derivation trivial (God in premise => God in conclusion)",
+    B.every((Gexists) => imp(Gexists, Gexists)));
 }
 
 // ================= Predicate Logic (finite models) =================

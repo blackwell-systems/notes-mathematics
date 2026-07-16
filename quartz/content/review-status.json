@@ -126,11 +126,11 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:647d68b4c4296ca6",
+      "contentHash": "sha1:3dd4685af328a9f1",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "note": "Phase-2 clarity pass added a chained inference derivation, lemma-ized the sqrt2 crux, dissected the induction step, and added a 'Valid but Not Sound' section on the validity/soundness distinction. Each independently correctness-reviewed and machine-checked (+14 assertions total). The valid-vs-sound review caught a real error (the text wrongly said validity 'carries falsehood' forward, contradicted by its own primes example) which was fixed. Hash refreshed to keep the prose-review ledger current.",
+      "note": "Phase-2 clarity pass added a chained inference derivation, lemma-ized the sqrt2 crux, dissected the induction step, added a 'Valid but Not Sound' section, and a neutral 'Arguments for the Existence of God' case study applying validity-vs-soundness. Each independently reviewed (prose + web fact-check) and machine-checked (+16 assertions total). Two real errors caught and fixed: (a) text wrongly said validity 'carries falsehood' forward (refuted by its own primes example); (b) Godel case originally overstated the machine-verification (Benzmuller-Paleo found the ORIGINAL axioms inconsistent; it was Scott's variant that was verified valid) -- corrected. Hash refreshed to keep the prose-review ledger current.",
       "findings": [
         {
           "id": "THM-4",
