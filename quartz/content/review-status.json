@@ -18,12 +18,12 @@
       ]
     },
     "set-theory.md": {
-      "contentHash": "sha1:8694b23a0a021ddb",
+      "contentHash": "sha1:204057b56218d940",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reReviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "note": "Re-reviewed after clarity Phase-2 (3 new worked examples: De Morgan element-chase proof, pigeonhole both-forms, injection/surjection check). Independent subagent verified every step incl. the De Morgan symmetry claim; clean.",
+      "note": "Hash includes a subsequent arrow-diagram embed of the (already-reviewed) apples bijection; the figure is a visual of verified content. Re-reviewed twice after clarity Phase-2 and cardinality additions: (1) De Morgan element-chase proof, pigeonhole both-forms, injection/surjection check; (2) the apples<->{1,2,3} bijection example and the 'comparability of cardinals = Axiom of Choice' note. Independent subagents verified all steps and metamathematical claims (comparability<=>AC, S-B needs no Choice); clean both times.",
       "findings": [
         {
           "id": "THM-1",

@@ -17,7 +17,7 @@
       ]
     },
     "set-theory.md": {
-      "contentHash": "sha1:8694b23a0a021ddb",
+      "contentHash": "sha1:204057b56218d940",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
@@ -25,6 +25,12 @@
       "overall": "strong",
       "summary": "Was 'mixed' with 0 thin/missing but several borderline-adequate items (a lenient audit). PHASE 2: upgraded the three highest-value ones -- De Morgan (added the element-chase PROOF, not just one instance), pigeonhole (concrete both-forms 5-into-3 example), injection/surjection (concrete map check). +11 assertions. Advanced proofs (Cantor, Kuratowski, enumerations) were already strong.",
       "inventory": [
+        {
+          "concept": "cardinality via bijection (apples <-> {1,2,3})",
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "added concrete bijection worked example + arrow diagram (st-bijection-apples.png) + harness (3!=6 bijections); plus the comparability=AC note"
+        },
         {
           "concept": "subset / proper subset & order analogy",
           "quality": "strong",
