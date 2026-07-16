@@ -29,7 +29,17 @@ Consider a simple example: suppose you are driving at a constant 60 miles per ho
 
 Each input (time) produces exactly one output (distance), so this is a function. We could write it as $f(t) = 60t$.
 
+The friendliest way to picture a function is as a **machine**: you drop an input in one end, the machine applies its rule, and exactly one output comes out the other end. Put in $t = 2$ hours, the machine multiplies by 60, and out comes 120 miles, every single time.
+
+![A function drawn as a machine: a central box holding the rule f of t equals 60 t, with an input arrow labeled input t entering from the left and an output arrow labeled output f of t leaving on the right. Three sample passes are shown going through the machine: t equals 1 comes out 60, t equals 2 comes out 120, and t equals 3 comes out 180.](./media/fr-function-machine.png)
+
+The single most important word in that sentence is **exactly one**. That is the whole difference between a function and a more general relation.
+
 Not every relation is a function. For instance, the relation "is a student at" might pair one person with multiple schools (if they transferred). A function requires that each input maps to a single output.
+
+![Two mapping diagrams side by side. On the left, labeled a function, each of the three inputs a, b, c in the domain oval has exactly one arrow to the codomain oval: a to 1, b to 3, c to 3. On the right, labeled not a function, the input a has two arrows leaving it, one to 1 and one to 2, drawn in red and flagged input a has two outputs, while b goes to 3. The caption reads: the defining rule of a function is exactly one output per input.](./media/fr-relation-vs-function.png)
+
+Look at the two pictures above. On the left, every input has **exactly one** arrow leaving it, so it is a function. On the right, the input $a$ has **two** arrows leaving it, so it is a relation but *not* a function. Notice that it is perfectly fine for two different inputs to share an output (both $b$ and $c$ point to $3$ on the left); what is forbidden is one input pointing to two outputs.
 
 With this intuition in place, we can now state the formal definitions.
 
@@ -52,6 +62,14 @@ Each element of $R$ is an ordered pair $(a,b)$ where $a \in A$ and
 $b \in B$.
 
 We may state that **x** bears relation **R** to **y** by writing **xRy**
+
+Do not let the formal language hide how simple this is. The **Cartesian product** $A \times B$ is the set of *all* possible ordered pairs (every element of $A$ paired with every element of $B$). A relation is nothing more than a **choice of which of those pairs you keep**. Picture the pairs as a grid of dots, one dot per possible pair; a relation just circles some of the dots.
+
+![Two panels illustrating a relation as a subset of a Cartesian product. On the left, a three by three grid of dots for A equals the set 1, 2, 3 on the horizontal axis and B equals the set x, y, z on the vertical axis; all nine possible pairs are shown as faint grey dots, and the four pairs in the relation R, namely (1,y), (1,z), (2,x), and (3,z), are overplotted as larger circled blue dots. On the right, the same relation drawn as blue arrows between an A oval and a B oval: 1 to y, 1 to z, 2 to x, 3 to z. The caption notes that a function is the special case with exactly one chosen dot in each row.](./media/fr-relation-cartesian.png)
+
+**Worked example.** Let $A = \{1, 2, 3\}$ and $B = \{x, y, z\}$. There are $|A| \times |B| = 3 \times 3 = 9$ possible pairs in $A \times B$. Suppose we keep the relation
+$$R = \{(1, y),\ (1, z),\ (2, x),\ (3, z)\}.$$
+This is a perfectly good relation (a subset of the 9 dots). Is it a function? **No**: the input $1$ appears in two pairs, $(1,y)$ and $(1,z)$, so $1$ has two outputs. In the grid picture, the row above $1$ has two circled dots. A function would require exactly one circled dot per input column.
 
 Key Concepts
 
@@ -250,16 +268,7 @@ Notation: Often written as ≤ or ⊑
 
 **Example 1 - Divisibility on {1, 2, 3, 4, 6, 12}:**
 
-```mermaid
-graph TB
-    12 --- 6
-    12 --- 4
-    6 --- 3
-    6 --- 2
-    4 --- 2
-    3 --- 1
-    2 --- 1
-```
+![Hasse diagram of the divisibility order on the set 1, 2, 3, 4, 6, 12. The number 1 sits at the bottom as the least element that divides everything; above it are 2 and 3; above those are 4 and 6; and 12 is at the top as the greatest element. Covering lines connect 1 to 2, 1 to 3, 2 to 4, 2 to 6, 3 to 6, 4 to 12, and 6 to 12. There is no line between 4 and 3, and none between 4 and 6, because those pairs are incomparable.](./media/fr-hasse-div12.png)
 
 Reading the diagram:
 - 1 divides everything (bottom)
@@ -270,13 +279,7 @@ Reading the diagram:
 
 **Example 2 - Subset relation on P({a, b}) (power set of {a, b}):**
 
-```mermaid
-graph TB
-    AB["{a, b}"] --- A["{a}"]
-    AB --- B["{b}"]
-    A --- E["{}"]
-    B --- E
-```
+![Hasse diagram of the subset order on the power set of the set a, b. The empty set is at the bottom, the full set a, b is at the top, and the two singletons a and b sit at the middle level on the left and right, forming a diamond. Covering lines connect the empty set up to a and up to b, and connect a and b each up to the set a, b. The singletons a and b are on the same level with no line between them, marking them as incomparable.](./media/fr-hasse-powerset-ab.png)
 
 Reading the diagram:
 - {} (empty set) is at the bottom (subset of all)
@@ -286,21 +289,9 @@ Reading the diagram:
 
 **Example 3 - Divisibility on {1, 2, 3, 5, 6, 10, 15, 30}:**
 
-```mermaid
-graph TB
-    30 --- 15
-    30 --- 10
-    30 --- 6
-    15 --- 5
-    15 --- 3
-    10 --- 5
-    10 --- 2
-    6 --- 3
-    6 --- 2
-    5 --- 1
-    3 --- 1
-    2 --- 1
-```
+![Hasse diagram of the divisibility order on the set 1, 2, 3, 5, 6, 10, 15, 30, which forms a cube. The number 1 is at the bottom; the three primes 2, 3, 5 sit at the first level; their pairwise products 6, 10, 15 sit at the second level; and 30 is at the top. Covering lines connect 1 up to 2, 3, and 5; connect 2 up to 6 and 10, 3 up to 6 and 15, 5 up to 10 and 15; and connect 6, 10, and 15 each up to 30. The result is the same shape as the power set of a three-element set.](./media/fr-hasse-div30.png)
+
+This eight-element divisibility order has exactly the shape of the power set of $\{2, 3, 5\}$ (send each divisor to its set of prime factors): $1 \leftrightarrow \varnothing$, $6 \leftrightarrow \{2,3\}$, $30 \leftrightarrow \{2,3,5\}$, and so on. Two posets with the same Hasse diagram are called **order-isomorphic**.
 
 **Key Properties:**
 
@@ -527,6 +518,10 @@ these three classes.
   - $(2,4) \in R$ and $(4,5) \in S$ → $(2,5) \in S \circ R$
 - Result: $S \circ R = \{(1,5), (1,6), (2,5)\}$
 
+![Composition of relations shown as three columns of nodes. Column A on the left holds 1, 2, 3; column B in the middle holds 2, 3, 4; column C on the right holds 5, 6. Blue solid arrows for R go from A to B: 1 to 2, 1 to 3, 2 to 4. Green solid arrows for S go from B to C: 2 to 5, 3 to 6, 4 to 5. Purple dashed arcs arch over the top directly from A to C for the composite S after R: 1 to 5 via 2, 1 to 6 via 3, and 2 to 5 via 4. The caption gives S composed with R equals the set of pairs (1,5), (1,6), (2,5).](./media/fr-composition-relations.png)
+
+To build $S \circ R$ from the picture, start at a node in $A$, walk one blue $R$-arrow to $B$, then continue along a green $S$-arrow to $C$; the pair (start, end) belongs to the composite. Every path from $A$ through $B$ to $C$ is one dashed purple arrow.
+
 **Example 2 - Parent relation:**
 - Let **P** be "is a parent of"
 - $P \circ P$ means "is a grandparent of"
@@ -545,6 +540,10 @@ these three classes.
 **Closure:** The closure of a relation **R** with respect to a property **P** is the smallest relation that:
 1. Contains **R** as a subset
 2. Has property **P**
+
+![Four directed-graph panels on the three nodes 1, 2, 3 arranged as a triangle, illustrating closures. The first panel shows the original relation R with blue arrows 1 to 2 and 2 to 3. The second panel, the reflexive closure, adds red self-loops at 1, 2, and 3. The third panel, the symmetric closure, adds red reverse arrows 2 to 1 and 3 to 2. The fourth panel, the transitive closure, adds the red shortcut arrow 1 to 3. In every panel the original blue arrows stay and the newly added edges are drawn in red.](./media/fr-closure-relations.png)
+
+Read "smallest" literally: you add the *fewest* new pairs that force the property to hold, and nothing more. The red edges in each panel above are exactly those forced additions.
 
 #### Reflexive Closure
 
@@ -617,6 +616,8 @@ these three classes.
 **Inverse Relation:** Given a relation $R \subseteq A \times B$, the inverse relation $R^{-1} \subseteq B \times A$ reverses the order of all pairs.
 
 **Definition:** $R^{-1} = \{(b,a) \mid (a,b) \in R\}$
+
+![Two panels showing that the inverse of a relation reverses every arrow. The left panel, labeled R from A to B, has an A oval with nodes 1 and 2 on the left and a B oval with nodes 2, 3, 4 on the right, with blue arrows 1 to 2, 1 to 3, and 2 to 4. The right panel, labeled R inverse from B to A, has the B oval on the left and the A oval on the right, with red arrows 2 to 1, 3 to 1, and 4 to 2, each the reverse of an arrow in the left panel. The caption notes that reversing twice returns the original relation.](./media/fr-inverse-relation.png)
 
 **Example:**
 - Let $R = \{(1,2), (1,3), (2,4)\}$
@@ -795,6 +796,16 @@ f has an inverse or not. **Note that however** if f does have an
 inverse, then the preimage is exactly the image of Y under the inverse
 map.
 
+![Two mapping-diagram panels sharing the same function, whose arrows are a to 2, b to 3, c to 3, and d to 5, between a domain oval a, b, c, d and a codomain oval 1, 2, 3, 4, 5. The left panel, image, highlights the domain subset A equals a, b in blue and pushes it forward along the arrows to the highlighted output set f of A equals 2, 3 in the codomain. The right panel, preimage, highlights the codomain subset B equals 3, 5 in green and pulls it back to the highlighted input set f inverse of B equals b, c, d, every input whose arrow lands in B. The caption stresses that the preimage is defined for any function, with no inverse required.](./media/fr-image-preimage.png)
+
+Think of it directionally: the **image** pushes a set of *inputs* **forward** to the outputs they produce; the **preimage** pulls a set of *outputs* **backward** to every input that lands there. The forward arrows and the backward gathering use the very same function.
+
+**Worked example (image and preimage of intervals).** Let $f(x) = x^2$ on $\mathbb{R}$.
+
+- **Image of a set:** $f([1, 2]) = [1, 4]$. As $x$ runs over $[1,2]$, $x^2$ runs over $[1, 4]$ (squaring is increasing on the positives).
+- **Preimage of a set:** $f^{-1}([1, 4]) = [-2, -1] \cup [1, 2]$. We want every $x$ with $1 \leq x^2 \leq 4$, i.e. $1 \leq |x| \leq 2$. That is *two* intervals, one positive and one negative, because both $x$ and $-x$ square to the same value. Notice the preimage here is a genuinely different-looking set from any single interval, and $f$ has no inverse, yet $f^{-1}([1,4])$ is still perfectly well defined.
+- **Preimage can be empty:** $f^{-1}([-5, -1]) = \varnothing$, since no real square is negative.
+
 ### How Image and Preimage Interact with Set Operations
 
 Image and preimage behave *very* differently under union, intersection, and complement, an asymmetry worth committing to memory.
@@ -810,7 +821,11 @@ f(A \cup D) = f(A) \cup f(D), \qquad f(A \cap D) \subseteq f(A) \cap f(D),
 $$
 and the second inclusion can be **strict**. Take $f(x) = x^2$ on $\mathbb{R}$ with $A = (-\infty, 0]$ and $D = [0, \infty)$: then $A \cap D = \{0\}$ so $f(A \cap D) = \{0\}$, but $f(A) \cap f(D) = [0, \infty)$. The reason is non-injectivity: an output can sit in both $f(A)$ and $f(D)$ by coming from *different* inputs, one in each set. In fact $f(A \cap D) = f(A) \cap f(D)$ for all $A, D$ if and only if $f$ is injective. This is why preimages, not images, are the right tool for pulling structure back through a function.
 
+![The parabola y equals x squared drawn in blue, used to show why the image only half-commutes with intersection. The negative half of the x-axis is highlighted blue as the set A equals the interval from minus infinity to 0, and the positive half is highlighted red as the set D equals the interval from 0 to infinity. Dashed lines from x equals minus 2 and x equals plus 2 both rise to the curve at height 4 and across to the y-axis, showing that the two different inputs minus 2 and 2 share the single output 4. On the y-axis both images f of A and f of D are the whole non-negative ray from 0 to infinity, so they overlap completely, while the domain intersection A intersect D is just the single point 0 whose image is just 0. The annotation concludes that f of the intersection equals just 0 but the intersection of the images is the whole ray, a strict gap caused by non-injectivity.](./media/fr-image-preimage-setops.png)
+
 ### Fibers and the Kernel of a Function
+
+![Two panels illustrating fibers. The left panel, fibers of a finite map, shows a domain oval containing eight dots grouped into three colored blobs: a blue blob 1, 2, 3, a green blob 4, 5, and a purple blob 6, 7, 8, with arrows from each blob to its single target in a codomain oval holding p, q, r, so all of 1, 2, 3 map to p, both 4 and 5 map to q, and 6, 7, 8 map to r. The right panel, fibers of f of x equals x squared, plots the parabola with a horizontal line at height 4 meeting it at the points minus 2, 4 and 2, 4, marking the fiber over 4 as the set minus 2, 2. The caption states that the fibers are the equivalence classes of the kernel, where x is related to x prime exactly when f of x equals f of x prime.](./media/fr-fibers-kernel.png)
 
 For each $y \in Y$, its preimage of a single point, $f^{-1}(\{y\}) = \{x \in X : f(x) = y\}$, is called the **fiber** over $y$. The fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
 $$
@@ -820,12 +835,19 @@ called the **kernel** of $f$. So *every function silently carves its domain into
 
 ### Injection (one-to-one)
 
-**Injection:** A function is **injective** if every element in the
-domain maps to one and only one element in the codomain.
+**Injection:** A function is **injective** (also called **one-to-one**) if *different inputs always produce different outputs*, so no output is ever hit twice. Equivalently, in the contrapositive form that is easiest to use in proofs:
 
 $\forall x_1 \forall x_2 ( (f(x_1) = f(x_2)) \rightarrow (x_1 = x_2) )$
 
-*For every $x_1$, $x_2$ if $f(x_1) = f(x_2)$, then $x_1$ must equal $x_2$*
+*For every $x_1$, $x_2$: if $f(x_1) = f(x_2)$, then $x_1$ must equal $x_2$.* (Read $x_1$ as "x-sub-one".) In the mapping-diagram pictures, injective means **no two arrows land on the same codomain dot**; with the [horizontal line test](#horizontal-line-test), it means every horizontal line hits the graph at most once.
+
+**Worked example (proving a function is injective).** Show $f(x) = 2x + 3$ on $\mathbb{R}$ is injective.
+
+Assume $f(x_1) = f(x_2)$. Then $2x_1 + 3 = 2x_2 + 3$. Subtract 3: $2x_1 = 2x_2$. Divide by 2: $x_1 = x_2$. Since equal outputs forced equal inputs, $f$ is injective. $\blacksquare$
+
+**Worked example (proving a function is NOT injective).** Show $f(x) = x^2$ on $\mathbb{R}$ is not injective.
+
+It is enough to exhibit **one** collision: $f(-2) = 4 = f(2)$, yet $-2 \neq 2$. Two different inputs share an output, so $f$ is not injective. (Restricting the domain to $[0, \infty)$ removes the collision and makes it injective, which is exactly the trick used to define $\sqrt{\ }$ as an inverse.)
 
 ### Surjection (onto)
 
@@ -834,6 +856,12 @@ $$
 \forall y \in Y,\ \exists x \in X,\ f(x) = y.
 $$
 Equivalently, the range equals the whole codomain, $\text{Range}(f) = Y$: nothing in $Y$ is left unhit. Surjectivity is a condition on the *codomain* (everything is reached), exactly complementary to injectivity, which is a condition on the *inputs* (nothing is doubled up).
+
+**Worked example (proving a function is surjective).** Show $f(x) = 2x + 3$ as a map $\mathbb{R} \to \mathbb{R}$ is surjective.
+
+Pick an arbitrary target $y \in \mathbb{R}$. We need an input $x$ with $f(x) = y$, so solve $2x + 3 = y$ for $x$: $x = \frac{y - 3}{2}$. This $x$ is a real number for every real $y$, and $f\!\left(\frac{y-3}{2}\right) = 2 \cdot \frac{y-3}{2} + 3 = y$. Since every $y$ is hit, $f$ is surjective. $\blacksquare$
+
+**Worked example (surjectivity depends on the codomain).** The rule $f(x) = x^2$ is **not** surjective as a map $\mathbb{R} \to \mathbb{R}$: no input produces the output $-1$, since squares are never negative, so $(-\infty, 0)$ is left entirely unhit. But the *same rule* $f(x) = x^2$ viewed as a map $\mathbb{R} \to [0, \infty)$ **is** surjective, because every non-negative $y$ has the input $\sqrt{y}$. Surjectivity is a statement about a specific chosen codomain, not about the formula alone.
 
 ### Bijection (injective and surjective)
 
@@ -1060,6 +1088,8 @@ $$\frac{f(x + h) - f(x)}{h}$$
 
 This expression computes the **average rate of change** of $f$ between the input $x$ and the input $x + h$. Geometrically, it is the slope of the **secant line** through the points $(x, f(x))$ and $(x + h, f(x + h))$.
 
+![The parabola y equals x squared in blue with two marked points P at (1, 1) and Q at (2, 4), taking x equals 1 and h equals 1. A red secant line is drawn through P and Q. A right triangle beneath the secant marks the horizontal run h equals 1 from x equals 1 to x equals 2 and the vertical rise equal to 3 from y equals 1 to y equals 4, so the secant slope is the rise over the run, 3 over 1, which equals 2x plus h. A thin grey dashed tangent line at P with slope 2 is shown for contrast, labeled as the limit slope 2x as h approaches 0.](./media/fr-difference-quotient.png)
+
 The difference quotient is the precursor to the derivative in [Calculus](./calculus). Taking the limit as $h \to 0$ turns the average rate of change into the instantaneous rate of change.
 
 **Worked example:** Find the difference quotient for $f(x) = x^2$.
@@ -1197,6 +1227,10 @@ A one-to-one correspondence between sets **A** and **B** means that **A** and **
    This creates a bijection: 0 → 0, 1 → -1, 2 → 1, 3 → -2, 4 → 2, ...
    
    This shows that the natural numbers and integers have the same cardinality (both are countably infinite).
+
+![A bijection between the natural numbers and the integers. The top row lists the naturals 0, 1, 2, 3, 4, 5 with an ellipsis, and the bottom row lists directly beneath each the integer it maps to: 0, minus 1, 1, minus 2, 2, minus 3, with an ellipsis. An arrow joins each natural to its integer. Even-numbered inputs map to non-negative integers along green arrows and odd-numbered inputs map to negative integers along purple arrows, so the two colors interleave and the pairing zig-zags outward from 0. The caption notes every integer is hit exactly once, so the cardinalities are equal.](./media/fr-cardinality-bijection.png)
+
+The picture makes the counting concrete: walking left to right along the naturals, the outputs bounce $0, -1, +1, -2, +2, -3, \ldots$, sweeping outward so that *every* integer is reached exactly once. A set that can be listed this way (put in bijection with $\mathbb{N}$) is called **countably infinite**.
 
 ## **Schröder--Bernstein (Cantor--Bernstein) Theorem**
 

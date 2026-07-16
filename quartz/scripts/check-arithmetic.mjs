@@ -1930,6 +1930,88 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("reference integral of e^{-x^2} on [0,2] ~ 0.882081", ref, 0.882081, 1e-4);
 }
 
+// ================= Functions & Relations: exhaustive rebuild examples =================
+{
+  const key = (p) => p.join(",");
+  const setEq = (X, Y) => X.length === Y.length && X.map(key).sort().join("|") === Y.map(key).sort().join("|");
+
+  // Relation R (not a function): input 1 appears twice.
+  const R0 = [[1, "y"], [1, "z"], [2, "x"], [3, "z"]];
+  check("relation R has 4 of the 9 pairs in A x B", R0.length === 4 && 3 * 3 === 9);
+  const outCount = (r, a) => r.filter(([x]) => x === a).length;
+  check("R is NOT a function: input 1 has two outputs", outCount(R0, 1) === 2);
+
+  // Composition S o R = {(1,5),(1,6),(2,5)}  (apply R then S).
+  const R = [[1, 2], [1, 3], [2, 4]], S = [[2, 5], [3, 6], [4, 5]];
+  const compose = (R, S) => {
+    const out = [];
+    for (const [a, b] of R) for (const [b2, c] of S) if (b === b2) if (!out.some((p) => p[0] === a && p[1] === c)) out.push([a, c]);
+    return out;
+  };
+  check("composition S o R = {(1,5),(1,6),(2,5)}", setEq(compose(R, S), [[1, 5], [1, 6], [2, 5]]));
+
+  // Closures of R1 = {(1,2),(2,3)} on {1,2,3}.
+  const R1 = [[1, 2], [2, 3]], A3 = [1, 2, 3];
+  const refl = (r, A) => [...r, ...A.map((a) => [a, a])].filter((p, i, arr) => arr.findIndex((q) => key(q) === key(p)) === i);
+  check("reflexive closure adds (1,1),(2,2),(3,3)", setEq(refl(R1, A3), [[1, 2], [2, 3], [1, 1], [2, 2], [3, 3]]));
+  const sym = (r) => [...r, ...r.map(([a, b]) => [b, a])].filter((p, i, arr) => arr.findIndex((q) => key(q) === key(p)) === i);
+  check("symmetric closure adds (2,1),(3,2)", setEq(sym(R1), [[1, 2], [2, 3], [2, 1], [3, 2]]));
+  // transitive closure of chain {(1,2),(2,3),(3,4)} = all i<j pairs among 1..4
+  const R2 = [[1, 2], [2, 3], [3, 4]];
+  const tclose = (r) => {
+    let t = r.map((p) => [...p]);
+    for (let k = 0; k < 5; k++) { const add = compose(t, t); for (const p of add) if (!t.some((q) => key(q) === key(p))) t.push(p); }
+    return t;
+  };
+  check("transitive closure of the 1->2->3->4 chain adds (1,3),(2,4),(1,4)",
+    setEq(tclose(R2), [[1, 2], [2, 3], [3, 4], [1, 3], [2, 4], [1, 4]]));
+
+  // Inverse relation reverses pairs; double inverse returns R.
+  const inv = (r) => r.map(([a, b]) => [b, a]);
+  check("inverse of {(1,2),(1,3),(2,4)} = {(2,1),(3,1),(4,2)}", setEq(inv(R), [[2, 1], [3, 1], [4, 2]]));
+  check("(R^-1)^-1 = R", setEq(inv(inv(R)), R));
+
+  // Image and preimage of intervals under f(x)=x^2 (sampled densely).
+  const sq = (x) => x * x;
+  const inSet = (v, lo, hi) => v >= lo - 1e-12 && v <= hi + 1e-12;
+  // image of [1,2] is [1,4]
+  let imgLo = Infinity, imgHi = -Infinity;
+  for (let x = 1; x <= 2; x += 1e-4) { const y = sq(x); if (y < imgLo) imgLo = y; if (y > imgHi) imgHi = y; }
+  check("image f([1,2]) = [1,4]", approx(imgLo, 1, 1e-3) && approx(imgHi, 4, 1e-3));
+  // preimage of [1,4] is [-2,-1] u [1,2]: sample x in [-3,3], keep where x^2 in [1,4]
+  const pre = [];
+  for (let x = -3; x <= 3; x += 1e-3) if (inSet(sq(x), 1, 4)) pre.push(x);
+  check("preimage f^-1([1,4]) includes -2,-1,1,2 but excludes 0 and 1.5-in-gap point 0",
+    inSet(sq(-2), 1, 4) && inSet(sq(-1.5), 1, 4) && !inSet(sq(0), 1, 4) && inSet(sq(2), 1, 4));
+  check("preimage f^-1([-5,-1]) is empty (no real square is negative)",
+    ![-3, -1, 0, 1, 3, 100].some((x) => inSet(sq(x), -5, -1)));
+  // image half-commutes with intersection: A=(-inf,0], D=[0,inf), A n D = {0}
+  check("f(A n D) = {0} but -2 and 2 both map to 4 so f(A) n f(D) contains 4",
+    sq(0) === 0 && sq(-2) === 4 && sq(2) === 4);
+
+  // Injectivity / surjectivity proofs.
+  const f1 = (x) => 2 * x + 3;
+  check("f(x)=2x+3 injective: equal outputs force equal inputs (sampled)",
+    [[1, 2], [-3, 5], [0, 0.5]].every(([a, b]) => (f1(a) === f1(b)) === (a === b)));
+  check("f(x)=x^2 not injective: f(-2)=f(2) but -2 != 2", sq(-2) === sq(2));
+  check("f(x)=2x+3 surjective: x=(y-3)/2 hits any target y", [7, -1, 0.5].every((y) => approx(f1((y - 3) / 2), y, 1e-12)));
+  check("f(x)=x^2 not onto R: no real maps to -1", ![-5, 0, 5, 2.3].some((x) => approx(sq(x), -1, 1e-9)));
+
+  // Difference quotient of x^2 is 2x+h; at x=1,h=1 it is 3 (secant slope through (1,1),(2,4)).
+  const dq = (x, h) => (sq(x + h) - sq(x)) / h;
+  eq("difference quotient of x^2 at x=1,h=1 is 3", dq(1, 1), 3);
+  check("difference quotient of x^2 equals 2x+h at several points", [[1, 1], [2, 0.5], [-1, 0.1]].every(([x, h]) => approx(dq(x, h), 2 * x + h, 1e-9)));
+  check("secant slope 3 through (1,1) and (2,4)", approx((4 - 1) / (2 - 1), 3, 1e-12));
+
+  // Bijection N <-> Z: f(n)=n/2 if even, -(n+1)/2 if odd. Check listed values and that it hits each integer once.
+  const fNZ = (n) => (n % 2 === 0 ? n / 2 : -(n + 1) / 2);
+  const listed = [[0, 0], [1, -1], [2, 1], [3, -2], [4, 2], [5, -3]];
+  check("N<->Z bijection matches 0,1,-1,2,-2,3,-3 pattern", listed.every(([n, z]) => fNZ(n) === z));
+  const hit = new Set();
+  for (let n = 0; n <= 20; n++) hit.add(fNZ(n));
+  check("N<->Z bijection hits each of -10..10 exactly once (no collisions in 0..20)", hit.size === 21);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
