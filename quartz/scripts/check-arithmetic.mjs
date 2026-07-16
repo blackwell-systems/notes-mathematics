@@ -2408,6 +2408,39 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("unit-square quarter diagonal = sqrt(2)/2 ≈ 0.707", Math.sqrt((1 / 2) ** 2 + (1 / 2) ** 2), Math.SQRT2 / 2, 1e-12);
 }
 
+// ================= Permutations =================
+{
+  const fac = (n) => (n <= 1 ? 1 : n * fac(n - 1));
+  const P = (n, r) => fac(n) / fac(n - r);
+
+  // Factorial basics and 0! convention.
+  eq("3! = 3*2*1 = 6", fac(3), 6);
+  eq("0! = 1 (by convention)", fac(0), 1);
+  // Counting tree: 3 people, 3 chairs = 3*2*1 = 6.
+  eq("3 chairs: 3*2*1 = 6 arrangements", 3 * 2 * 1, 6);
+
+  // P(n,r) worked examples.
+  eq("P(5,3) = 5!/2! = 60 (arrange 3 of 5 books)", P(5, 3), 60);
+  check("P(5,3) = 5*4*3 (decreasing choices)", P(5, 3) === 5 * 4 * 3);
+  eq("P(10,4) = 5040 (4-digit PIN, no repeat)", P(10, 4), 5040);
+  check("P(10,4) = 10*9*8*7", P(10, 4) === 10 * 9 * 8 * 7);
+  eq("P(5,5) = 5! = 120 (arrange all 5 in a line)", P(5, 5), 120);
+  check("P(n,n) = n!", P(5, 5) === fac(5) && P(4, 4) === fac(4));
+
+  // Permutations with repetition: n^r.
+  eq("10^4 = 10000 (4-digit PIN with repetition)", 10 ** 4, 10000);
+
+  // Indistinguishable objects: MISSISSIPPI = 11! / (1! 4! 4! 2!) = 34650.
+  eq("MISSISSIPPI arrangements = 11!/(1!4!4!2!) = 34650", fac(11) / (fac(1) * fac(4) * fac(4) * fac(2)), 34650);
+  check("MISSISSIPPI letter counts M1 I4 S4 P2 total 11", 1 + 4 + 4 + 2 === 11);
+
+  // Circular permutations: (n-1)! and it equals n!/n.
+  eq("circular seating of 5 = (5-1)! = 24", fac(5 - 1), 24);
+  check("circular = n!/n = (n-1)!", fac(5) / 5 === fac(4) && fac(5) / 5 === 24);
+  // Bracelet (rotation + reflection): (n-1)!/2.
+  eq("bracelets from 5 beads = (5-1)!/2 = 12", fac(5 - 1) / 2, 12);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
