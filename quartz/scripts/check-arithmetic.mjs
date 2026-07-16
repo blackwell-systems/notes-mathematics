@@ -681,6 +681,8 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("division-algebra dims are the Cayley-Dickson rungs R,C,H,O",
     divDims.join(","), "1,2,4,8");
   eq("parallelizable spheres S^{n-1} for those dims", divDims.map((n) => n - 1).join(","), "0,1,3,7");
+  // Baez-Huerta: classical superstring/super-Yang-Mills dims are dim(division algebra)+2
+  eq("SUSY-consistent dims 3,4,6,10 = div-algebra dims + 2", divDims.map((n) => n + 2).join(","), "3,4,6,10");
 
   // Dual numbers: f(x)=x^3-2x at 2+eps gives 4+10eps, so f'(2)=10
   const dmul = (p, q) => [p[0] * q[0], p[0] * q[1] + p[1] * q[0]];
