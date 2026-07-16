@@ -350,6 +350,21 @@ Since an injection $\{1,2\} \to \{a,b,c\}$ exists, $|\{1,2\}| \leq |\{a,b,c\}|$ 
   - Intuition: A and B have the same size (one-to-one correspondence)
   - Notation: $A \cong B$ or $|A| = |B|$
 
+**Worked example (why "same size" ignores what the elements are).** A bowl of three distinct apples, $\{a_1, a_2, a_3\}$, and the number set $\{1, 2, 3\}$ have the same cardinality. To prove it, exhibit a bijection — which is *literally* just a set of input-output pairs:
+
+$$
+f = \{\,(1, a_1),\ (2, a_2),\ (3, a_3)\,\}.
+$$
+
+Check the three conditions in turn: $f$ is a **function** (each of $1, 2, 3$ has exactly one partner), it is **injective** (different numbers go to different apples), and it is **surjective** (every apple is hit). So $f$ is a bijection, and therefore $|\{a_1, a_2, a_3\}| = |\{1, 2, 3\}| = 3$.
+
+Two things this makes concrete:
+
+- **A function need not be a formula.** No arithmetic turns the number $1$ into an apple; $f$ is given simply by *listing* its pairs, which for a finite set is all a function ever needs to be. The domain and codomain may hold *any* objects — numbers, apples, sets, even other functions.
+- **Cardinality keeps only the count, and forgets the elements' identity.** The apples being apples is irrelevant. What "$3$" records is the whole class of sets that pair up one-to-one with $\{1, 2, 3\}$. The pairing is not even unique — there are $3! = 6$ different bijections between these two sets — but cardinality asks only whether *at least one* exists.
+
+This is exactly what counting *is*: reciting "one, two, three" while pointing at the apples builds the bijection $f$ on the fly. The finite case is easy because a pairing is obvious; the very same move — exhibit one bijection — is how the harder facts such as $|\mathbb{N}| = |\mathbb{Z}|$ get proved, where a pairing is far from obvious.
+
 **Schröder-Bernstein Theorem:**
 
 If injections exist both ways ($A \hookrightarrow B$ and $B \hookrightarrow A$), then a bijection exists ($A \cong B$).

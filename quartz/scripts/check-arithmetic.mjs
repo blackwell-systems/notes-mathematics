@@ -2462,6 +2462,13 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   const inter = (X, Y) => X.filter((x) => Y.includes(x)).sort((a, b) => a - b);
   const comp = (X) => U.filter((u) => !X.includes(u));
   const same = (X, Y) => X.slice().sort((a, b) => a - b).join(",") === Y.slice().sort((a, b) => a - b).join(",");
+  // Cardinality worked example: {1,2,3} <-> {apple1,apple2,apple3} via a bijection; n! bijections.
+  { const apples = ["a1", "a2", "a3"]; const f = { 1: apples[0], 2: apples[1], 3: apples[2] };
+    check("f = {(1,a1),(2,a2),(3,a3)} is injective", new Set(Object.values(f)).size === 3);
+    check("f is surjective onto the three apples", apples.every((a) => Object.values(f).includes(a)));
+    eq("both sets have cardinality 3", Object.keys(f).length, 3); }
+  eq("number of bijections between two 3-element sets = 3! = 6", 3 * 2 * 1, 6);
+
   check("De Morgan (A∪B)' = A'∩B'", same(comp(uni(A, B)), inter(comp(A), comp(B))));
   check("De Morgan (A∩B)' = A'∪B'", same(comp(inter(A, B)), uni(comp(A), comp(B))));
   check("(A∪B)' = {6}", same(comp(uni(A, B)), [6]));
