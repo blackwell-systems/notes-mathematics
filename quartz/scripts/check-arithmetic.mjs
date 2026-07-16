@@ -257,6 +257,42 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("P v ~P tautology; P & ~P contradiction", B.every((p) => p || !p) && B.every((p) => !(p && !p)));
   // 16 distinct binary truth functions.
   eq("number of binary connectives = 2^(2^2)", 2 ** (2 ** 2), 16);
+
+  // ---- Phase-2 worked examples ----
+
+  // Chained derivation: [(P->Q)&(Q->R)&P&(R->S)] -> S is a tautology (all 16 rows)
+  let chainTaut = true, chainCounterexample = false;
+  for (const P of B) for (const Q of B) for (const R of B) for (const S of B) {
+    const premises = imp(P, Q) && imp(Q, R) && P && imp(R, S);
+    if (!imp(premises, S)) chainTaut = false;   // implication must hold everywhere
+    if (premises && !S) chainCounterexample = true; // a row with all premises true, S false
+  }
+  check("chained argument [(P->Q)&(Q->R)&P&(R->S)]->S is a tautology", chainTaut);
+  check("chained argument has NO counterexample row (valid)", !chainCounterexample);
+  // the intermediate steps of the derivation are themselves valid rules
+  check("hypothetical syllogism (P->Q),(Q->R) => (P->R)",
+    B.every((P) => B.every((Q) => B.every((R) => !(imp(P, Q) && imp(Q, R)) || imp(P, R)))));
+  check("modus ponens (P->R),P => R",
+    B.every((P) => B.every((R) => !(imp(P, R) && P) || R)));
+
+  // Lemma behind sqrt2: n^2 even <=> n even (checked over a window)
+  const NN = Array.from({ length: 41 }, (_, i) => i - 20); // -20..20
+  check("Lemma: n^2 even <=> n even", NN.every((n) => ((n * n) % 2 === 0) === (n % 2 === 0)));
+  // the divisor-4 analogue FAILS (why the Lemma needs proof): a=2 -> a^2=4 div by 4, a not
+  check("n^2 div by 4 does NOT force n div by 4 (a=2 counterexample)", (2 * 2) % 4 === 0 && 2 % 4 !== 0);
+  check("sqrt2 irrational: a^2=2b^2 forces both a,b even (parity contradiction)",
+    // no reduced a/b with a^2=2b^2: search small coprime pairs finds none
+    !(() => { const g = (x, y) => (y ? g(y, x % y) : x);
+      for (let a = 1; a <= 200; a++) for (let b = 1; b <= 200; b++)
+        if (g(a, b) === 1 && a * a === 2 * b * b) return true; return false; })());
+
+  // Induction example: sum 1..n = n(n+1)/2, and the inductive-step identity
+  const gauss = (n) => (n * (n + 1)) / 2;
+  check("sum 1..n = n(n+1)/2 for n=1..50",
+    Array.from({ length: 50 }, (_, i) => i + 1).every((n) => {
+      let s = 0; for (let i = 1; i <= n; i++) s += i; return s === gauss(n); }));
+  check("inductive step identity: k(k+1)/2 + (k+1) = (k+1)(k+2)/2",
+    Array.from({ length: 50 }, (_, i) => i + 1).every((k) => gauss(k) + (k + 1) === ((k + 1) * (k + 2)) / 2));
 }
 
 // ================= Predicate Logic (finite models) =================

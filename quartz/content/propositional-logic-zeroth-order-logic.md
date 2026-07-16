@@ -1356,6 +1356,31 @@ The ground is not wet
 
 Invalid: Ground could be wet from other sources.
 
+### Chaining Rules: a Worked Derivation
+
+The rules above are individual moves; a real argument strings several together. Here is a multi-step derivation that combines them, with every line justified by the rule it uses and the earlier lines it consumes.
+
+**Argument.** From the four premises
+```
+(1)  P → Q
+(2)  Q → R
+(3)  P
+(4)  R → S
+```
+derive the conclusion **S**. (One reading: (1) if I study then I understand, (2) if I understand then I pass, (3) I study, (4) if I pass then I graduate; conclusion: I graduate.)
+
+**Derivation.** Each new line names its rule and the line numbers it draws on:
+```
+(5)  P → R    Hypothetical Syllogism on (1), (2)
+(6)  R        Modus Ponens on (5), (3)
+(7)  S        Modus Ponens on (4), (6)     ∎
+```
+Line (5) chains the two conditionals; line (6) fires the first conditional now that its antecedent $P$ is in hand; line (7) fires the last. This establishes $\{(1),(2),(3),(4)\} \vdash S$: the conclusion is *derived* by pure symbol-pushing, never consulting truth values.
+
+**Checking the same argument semantically.** Because $\vdash$ and $\vDash$ agree (the soundness and completeness noted earlier), we can confirm validity a second way, with truth values: the argument is valid exactly when
+$$[(P \to Q) \wedge (Q \to R) \wedge P \wedge (R \to S)] \to S$$
+is a tautology. Instead of writing all $2^4 = 16$ rows, work *backward* from the only way the conclusion could fail. Suppose $S = F$. Then premise (4) $R \to S$ forces $R = F$; then premise (2) $Q \to R$ forces $Q = F$; then premise (1) $P \to Q$ forces $P = F$; but premise (3) asserts $P = T$, a contradiction. So no valuation makes all four premises true while $S$ is false: there is no counterexample row, the implication is a tautology, and the argument is valid. The syntactic derivation and the semantic check agree, exactly as soundness and completeness promise.
+
 ## Proof Techniques
 
 Mathematical proofs are the foundation of rigorous reasoning in mathematics. A proof is a logical argument that establishes the truth of a statement beyond doubt, using previously established facts, definitions, and logical rules.
@@ -1446,6 +1471,12 @@ Proof:
 - Since 2k² + 2k is an integer, n² has the form 2m + 1
 - By definition, n² is odd ∎
 
+This fact is worth recording as a reusable **lemma**, because the irrationality proof below leans on it twice:
+
+> **Lemma.** For every integer $n$: if $n^2$ is even, then $n$ is even.
+
+We just proved it. Its contrapositive, "$n$ odd $\Rightarrow n^2$ odd," is exactly the computation above, and a statement is equivalent to its contrapositive.
+
 **Why contrapositive helps:** It's much easier to work with "n is odd" (clear definition: n = 2k + 1) than to work with "n² is even" in the forward direction.
 
 ### Proof by Contradiction
@@ -1478,10 +1509,10 @@ Proof by contradiction:
 - Assume √2 is rational (negation of what we want to prove)
 - Then √2 = a/b where a, b are integers with no common factors (reduced form)
 - Squaring: 2 = a²/b², so a² = 2b²
-- This means a² is even, so a is even (by previous theorem)
+- Since a² = 2b², the number a² is even (it is twice the integer b²). By the **Lemma** above (if n² is even then n is even), a itself must be even. **This is the crux.** The jump from "a² even" to "a even" is not automatic and is precisely what the Lemma supplies: the analogous step for other divisors can fail (for instance a² divisible by 4 does *not* force a divisible by 4, as a = 2 shows), so this link genuinely has to be proved, not assumed.
 - Write a = 2k for some integer k
 - Then (2k)² = 2b², so 4k² = 2b², so b² = 2k²
-- This means b² is even, so b is even
+- Since b² = 2k², the number b² is even (twice the integer k²). By the **Lemma** again, b must be even.
 - But if both a and b are even, they have a common factor of 2
 - This contradicts our assumption that a/b is in reduced form
 - Therefore √2 cannot be rational, so √2 is irrational ∎
@@ -1584,6 +1615,10 @@ Starting from the left side:
 = (k+1)(k+2)/2 ✓
 
 This is exactly what we wanted to show.
+
+**Separating the logic from the algebra.** Exactly *one* line in that chain is a logical move; every other line is bookkeeping. The logical move is the substitution
+$$\underbrace{[1 + 2 + \cdots + k]}_{\text{the assumed thing}} \;=\; \frac{k(k+1)}{2},$$
+which we are entitled to make *only* because the inductive hypothesis asserts that equality. Nothing about $k$ is computed there; we simply trade the sum for its assumed closed form. That single swap is the entire contribution of induction to the step. Everything after it, rewriting $(k+1)$ as $\tfrac{2(k+1)}{2}$, combining the two fractions, factoring out the common $(k+1)$, and landing on $\tfrac{(k+1)(k+2)}{2}$, is pure algebra that would be valid whether or not we were doing induction; it just reshapes the result into the form $P(k+1)$ demands. So the anatomy of an inductive step is always the same: **one permitted substitution handed to you by the hypothesis, then ordinary algebra to tidy it into the target shape.** If you ever complete an inductive step without that one substitution, you did not use $P(k)$, and it was not really induction.
 
 By mathematical induction, the formula holds for all n ≥ 1. ∎
 

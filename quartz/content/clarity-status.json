@@ -480,12 +480,13 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:b795841723fb482c",
+      "contentHash": "sha1:6c3faf63c5020950",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "Strong truth-table + core-concept coverage; the PROOF-TECHNIQUE walkthroughs hand-wave the crux -- the sqrt2 contradiction skips 'a^2 even => a even', and the induction step under-explains the inductive-hypothesis substitution.",
+      "phase2At": "2026-07-16",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: fixed the three hand-waved cruxes. (a) Added a chained multi-step derivation (HS then two MP) with per-line rule citations, plus a backward semantic validity check (suppose S=F, force P=F, contradict premise P). (b) Promoted 'n^2 even => n even' to a named Lemma and made the sqrt2 proof cite it explicitly for both a and b, with a divisor-4 counterexample showing the step needs proof. (c) Added a 'separating the logic from the algebra' dissection of the induction step (one IH substitution, rest pure algebra). All 3 independently re-reviewed (returned []); +9 harness assertions. Resolves all 3 thin items.",
       "inventory": [
         {
           "concept": "truth-table construction",
@@ -559,18 +560,21 @@
         },
         {
           "concept": "rules of inference (applying them in a derivation)",
-          "quality": "thin",
-          "upgrade": "worked multi-step derivation (MP then hypothetical syllogism), then verify validity by a tautology check"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "added chained derivation (HS then two MP, per-line citations) + backward semantic validity check + harness (16-row tautology)"
         },
         {
           "concept": "proof by contradiction (sqrt2)",
-          "quality": "thin",
-          "upgrade": "inline-prove or lemma-ize 'a^2 even => a even' -- currently the crux is skipped"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "lemma-ized 'n^2 even => n even', cited explicitly for a and b, added divisor-4 counterexample; harness (Lemma + no coprime a^2=2b^2)"
         },
         {
           "concept": "mathematical induction",
-          "quality": "thin",
-          "upgrade": "make the inductive-hypothesis substitution explicit (separate the logic from the algebra)"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "added 'separating the logic from the algebra' dissection: one IH substitution vs pure algebra; harness (Gauss sum + step identity)"
         }
       ]
     }
