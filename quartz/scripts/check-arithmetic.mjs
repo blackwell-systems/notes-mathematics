@@ -1732,6 +1732,23 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("sum of squares x^2 + 4 is irreducible over R (disc < 0, always positive)", 0 - 4 * 1 * 4 < 0 && pts.every((x) => x * x + 4 > 0));
 }
 
+// ================= Rational Functions (holes, sign chart) =================
+{
+  // hole example: f = (x^2-1)/(x^2-2x-3) = (x-1)/(x-3) for x != -1; hole at (-1, 1/2)
+  const simp = (x) => (x - 1) / (x - 3);
+  eq("hole y-coordinate: simplified f(-1) = -2/-4 = 1/2", simp(-1), 0.5);
+  eq("hole example 2: (x^2-4)/(x-2) = x+2, hole y at x=2 is 4", 2 + 2, 4);
+  eq("horizontal asymptote of equal-degree ratio = leading-coeff ratio 1/1 = 1", 1 / 1, 1);
+  // sign chart for g = (x+2)(x-1)/(x-3): signs -,+,-,+ across the four intervals
+  const g = (x) => ((x + 2) * (x - 1)) / (x - 3);
+  check("sign chart interval I (x < -2): f(-3) < 0", g(-3) < 0);
+  check("sign chart interval II (-2 < x < 1): f(0) > 0", g(0) > 0);
+  check("sign chart interval III (1 < x < 3): f(2) < 0", g(2) < 0);
+  check("sign chart interval IV (x > 3): f(4) > 0", g(4) > 0);
+  check("sign flips across the vertical asymptote x=3 (III negative, IV positive)", g(2) < 0 && g(4) > 0);
+  check("vertical asymptote at x=3: |f| blows up nearby", Math.abs(g(3.001)) > 1000);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

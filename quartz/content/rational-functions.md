@@ -241,6 +241,8 @@ Perform Polynomial Long Division
 
 **Hole / Removable Discontinuity:** A hole occurs in a rational function when there is a common factor between the numerator and the denominator that can be cancelled.
 
+![The graph of f equal to x squared minus 1 over x squared minus 2x minus 3, which simplifies to x minus 1 over x minus 3: an open circle marks the removable hole at negative 1, one half where the factor x plus 1 cancels; a dashed vertical line at x equals 3 marks the vertical asymptote where the graph blows up because that factor does not cancel; and a dashed horizontal line marks the horizontal asymptote y equals 1](./media/rf-hole-vs-asymptote.png)
+
 At the point where this factor equals zero, the function is undefined, creating a "hole" in the graph.
 
 **How to identify:**
@@ -417,6 +419,8 @@ After polynomial division: $f(x) = x - 1 + \frac{0}{x+1} = x - 1$
 ## Sign Analysis / Interval Testing
 
 **Sign Analysis:** Determines where the function is positive (above x-axis) or negative (below x-axis) by testing intervals between critical points.
+
+![A sign chart on a number line for f equal to the quantity x plus 2 times x minus 1, all over x minus 3: the critical points x equals negative 2 and x equals 1 are zeros drawn as filled dots and x equals 3 is a vertical asymptote drawn as an open circle, dividing the line into four intervals whose signs are minus, plus, minus, plus, each labeled below or above the x-axis](./media/rf-sign-chart.png)
 
 **Critical Points:**
 1. **Zeros** (where numerator = 0) - function crosses x-axis
