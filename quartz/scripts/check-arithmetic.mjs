@@ -2234,6 +2234,17 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("phi(p)=p-1 for p=7", totient(7), 6);
   // Euler's theorem: a^phi(n) ≡ 1 (mod n) when gcd(a,n)=1. a=5, n=12: 5^4 ≡ 1.
   eq("Euler: 5^phi(12) = 5^4 ≡ 1 (mod 12)", modpow(5, totient(12), 12), 1);
+
+  // Square-and-multiply for 3^13 mod 7: the squaring ladder and bit combination.
+  check("squaring ladder 3^1,3^2,3^4,3^8 mod 7 = 3,2,4,2", [1, 2, 4, 8].map((k) => modpow(3, k, 7)).join(",") === "3,2,4,2");
+  check("13 = 1101 binary = 8+4+1", 8 + 4 + 1 === 13 && (13).toString(2) === "1101");
+  eq("combine set bits: 3^8·3^4·3^1 ≡ 2·4·3 = 24 ≡ 3 (mod 7)", mod(2 * 4 * 3, 7), 3);
+
+  // Z_5 Cayley tables: addition rows are permutations; nonzero multiplication is a Latin square (units).
+  { const perm = (row) => new Set(row).size === 5; const addRows = [0, 1, 2, 3, 4].map((i) => [0, 1, 2, 3, 4].map((j) => mod(i + j, 5))); check("every addition-mod-5 row is a permutation of {0..4}", addRows.every(perm)); }
+  { const mrows = [1, 2, 3, 4].map((i) => [1, 2, 3, 4].map((j) => mod(i * j, 5))); check("nonzero multiplication-mod-5 rows are permutations of {1,2,3,4} (Latin square)", mrows.every((r) => new Set(r).size === 4 && r.every((v) => v >= 1 && v <= 4))); }
+  check("mod 5 (prime): every nonzero element has an inverse", [1, 2, 3, 4].every((a) => [1, 2, 3, 4].some((x) => mod(a * x, 5) === 1)));
+  check("mod 6 (composite): 2,3,4 have NO inverse", [2, 3, 4].every((a) => ![1, 2, 3, 4, 5].some((x) => mod(a * x, 6) === 1)));
 }
 
 // ================= Prime factorization =================

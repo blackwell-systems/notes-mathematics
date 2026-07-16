@@ -181,6 +181,10 @@ If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then:
 | 3 | 0 | 3 | 1 | 4 | 2 |
 | 4 | 0 | 4 | 3 | 2 | 1 |
 
+![Two colored five-by-five Cayley tables for arithmetic modulo 5. The left table is addition mod 5, where the cell in row i and column j holds i plus j mod 5; every row and every column is a permutation of 0,1,2,3,4, so each value appears exactly once per row and column. The right table is multiplication mod 5, where the cell holds i times j mod 5; the entire row and column for 0 are all zeros, while the inner block for the nonzero elements 1 through 4 is a Latin square in which every nonzero element has a multiplicative inverse, because 5 is prime. Cells are colored by value using a continuous colormap so the repeating diagonal patterns are visible.](./media/nt-mod-tables.png)
+
+Reading the color patterns: in the addition table each value slides one step per row (a cyclic shift), and in the multiplication table the nonzero rows are all *reorderings* of $\{1,2,3,4\}$, which is the visual signature that every nonzero element is invertible. That last fact holds precisely because $5$ is prime; modulo a composite like $6$, some rows would repeat values and those elements would have no [inverse](#modular-inverses).
+
 ### Modular Inverses
 
 **Modular Inverse:** An integer **a** has a multiplicative inverse modulo **n** if there exists an integer **x** such that $ax \equiv 1 \pmod{n}$.
@@ -233,6 +237,10 @@ If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then:
 
 3^13 = 3^8 × 3^4 × 3^1 ≡ 2 × 4 × 3 ≡ 24 ≡ 3 (mod 7)
 ```
+
+![A two-panel diagram of square-and-multiply computing 3 to the 13th power mod 7. The left panel is a repeated-squaring ladder: 3 to the 1 is 3, squared gives 3 to the 2 is 2, squared gives 3 to the 4 is 4, squared gives 3 to the 8 is 2, all mod 7, with each box tagged by the corresponding binary bit of 13. The right panel writes 13 in binary as 1101, equal to 8 plus 4 plus 1, so 3 to the 13 equals 3 to the 8 times 3 to the 4 times 3 to the 1, which is 2 times 4 times 3, equal to 24, congruent to 3 mod 7. A note says this takes only about log base 2 of 13, roughly 4, squarings instead of 13 multiplications.](./media/nt-square-and-multiply.png)
+
+The trick is that the binary digits of the exponent tell you exactly which squared powers to multiply together: build $3^1, 3^2, 3^4, 3^8, \ldots$ by squaring (each is cheap), then multiply only the ones whose bit is $1$. That is why raising to an exponent with hundreds of digits, as RSA does, is fast: the cost is proportional to the *number of digits*, not the exponent's size.
 
 **Algorithm (Square-and-multiply):**
 1. Express exponent in binary
