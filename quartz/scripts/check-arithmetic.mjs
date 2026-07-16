@@ -2441,6 +2441,65 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("bracelets from 5 beads = (5-1)!/2 = 12", fac(5 - 1) / 2, 12);
 }
 
+// ================= Euclidean geometry (worked examples) =================
+{
+  // Complement / supplement of 37 deg.
+  eq("complement of 37 deg = 53", 90 - 37, 53);
+  eq("supplement of 37 deg = 143", 180 - 37, 143);
+  eq("supplement exceeds complement by 90", (180 - 37) - (90 - 37), 90);
+  // Linear pair + vertical angles from 110.
+  eq("linear-pair neighbor of 110 = 70", 180 - 110, 70);
+  eq("four angles around a crossing sum to 360", 110 + 70 + 110 + 70, 360);
+  // Transversal: one angle 65 -> supplement 115, co-interior sum 180.
+  eq("supplement of 65 = 115", 180 - 65, 115);
+  eq("co-interior pair 65 + 115 = 180", 65 + 115, 180);
+  // Polygon angle sums.
+  eq("pentagon interior sum (5-2)*180 = 540", (5 - 2) * 180, 540);
+  eq("3 triangles * 180 = 540", 3 * 180, 540);
+  eq("regular pentagon each angle 540/5 = 108", 540 / 5, 108);
+  check("5 * 108 = 540 (pentagon check)", 5 * 108 === 540);
+  eq("octagon interior sum (8-2)*180 = 1080", (8 - 2) * 180, 1080);
+  eq("pentagon missing angle 540-100-120-95-110 = 115", 540 - 100 - 120 - 95 - 110, 115);
+  eq("regular hexagon interior angle 720/6 = 120", 720 / 6, 120);
+  // Triangle angle sum: 55,70 -> 55.
+  eq("triangle third angle 180-55-70 = 55", 180 - 55 - 70, 55);
+  check("55 + 70 + 55 = 180", 55 + 70 + 55 === 180);
+  // Similarity AA: k=12/8, EF=1.5*6=9, ratios equal.
+  eq("similarity ratio k = 12/8 = 1.5", 12 / 8, 1.5);
+  eq("EF = 1.5 * 6 = 9", 1.5 * 6, 9);
+  check("ratios DE/AB = EF/BC = 1.5", 12 / 8 === 9 / 6);
+  eq("AA forces third angle 180-50-60 = 70", 180 - 50 - 60, 70);
+  // Parallelogram angles from 65.
+  eq("parallelogram adjacent angle 180-65 = 115", 180 - 65, 115);
+  check("parallelogram angles sum 65+115+65+115 = 360", 65 + 115 + 65 + 115 === 360);
+  eq("quadrilateral interior sum (4-2)*180 = 360", (4 - 2) * 180, 360);
+  // Inscribed angle: 120 -> 60; semicircle 180 -> 90 (Thales).
+  eq("inscribed angle = 120/2 = 60", 120 / 2, 60);
+  eq("Thales: inscribed in semicircle = 180/2 = 90", 180 / 2, 90);
+  // Translation preserves distance: A=(1,2),B=(4,6) shifted by (5,-1).
+  const dist = (x1, y1, x2, y2) => Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+  eq("AB length = 5", dist(1, 2, 4, 6), 5);
+  eq("A'B' length after translate (5,-1) = 5", dist(6, 1, 9, 5), 5);
+  check("translation preserved the length", dist(1, 2, 4, 6) === dist(6, 1, 9, 5));
+  // Dilation of 3-4-5 by k=2 -> 6-8-10; angles fixed (equal ratios); area scales by k^2.
+  check("3-4-5 is a right triangle", 3 ** 2 + 4 ** 2 === 5 ** 2);
+  check("6-8-10 is a right triangle", 6 ** 2 + 8 ** 2 === 10 ** 2);
+  check("dilation ratios all equal 2", 6 / 3 === 2 && 8 / 4 === 2 && 10 / 5 === 2);
+  eq("original triangle area = 6", 0.5 * 3 * 4, 6);
+  eq("dilated triangle area = 24 = 4*6 (area scales by k^2)", 0.5 * 6 * 8, 24);
+  check("area scaled by k^2 = 4", (0.5 * 6 * 8) / (0.5 * 3 * 4) === 4);
+  // Regular hexagon symmetries: 6 axes, 60-deg rotation, 2n=12 total.
+  eq("hexagon rotation angle 360/6 = 60", 360 / 6, 60);
+  eq("regular n-gon symmetry count 2n for n=6 is 12", 2 * 6, 12);
+  // Area/volume reference examples.
+  eq("trapezoid area (1/2)(6+10)(4) = 32", 0.5 * (6 + 10) * 4, 32);
+  eq("circle area pi*5^2 = 25pi", Math.PI * 25, 25 * Math.PI, 1e-9);
+  eq("sphere volume (4/3)pi*3^3 = 36pi", (4 / 3) * Math.PI * 27, 36 * Math.PI, 1e-9);
+  { const r = 3, h = 5; check("cone is one third of the cylinder (same base,height)", approx((1 / 3) * Math.PI * r * r * h, ((Math.PI * r * r * h) / 3), 1e-9)); }
+  // Euler's formula for a cube.
+  eq("cube Euler V-E+F = 8-12+6 = 2", 8 - 12 + 6, 2);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

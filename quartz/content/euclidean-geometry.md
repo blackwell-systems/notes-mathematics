@@ -62,6 +62,22 @@ Angles that occur together have special names, and each name carries a fact you 
 
 A ray that splits an angle into two congruent angles is an **angle bisector**.
 
+**Worked example (complement and supplement).** An angle measures $37°$. Find its complement and its supplement.
+
+The complement is whatever completes a **right** angle ($90°$), so subtract from $90°$:
+$$ 90° - 37° = 53°. $$
+The supplement is whatever completes a **straight** angle ($180°$), so subtract from $180°$:
+$$ 180° - 37° = 143°. $$
+Check each: $37° + 53° = 90°$ ✓ and $37° + 143° = 180°$ ✓. Notice the supplement is exactly $90°$ larger than the complement ($143° - 53° = 90°$), because a straight angle is $90°$ more than a right angle.
+
+**Worked example (linear pair and vertical angles).** Two lines cross, and one of the four angles they make measures $110°$. Find the other three.
+
+- The angle **next to** the $110°$ one forms a **linear pair** with it (their outer sides make a straight line), so the two are supplementary: the neighbor is $180° - 110° = 70°$.
+- The angle **vertically opposite** the $110°$ one is a vertical angle, so it is congruent: also $110°$.
+- The last angle is vertical to the $70°$ one, so it is $70°$.
+
+The four angles are $110°, 70°, 110°, 70°$, sweeping once around the crossing point. Check they total a full turn: $110° + 70° + 110° + 70° = 360°$ ✓.
+
 ## Euclid's Postulates
 
 Euclid organized geometry into theorems proved from a short list of **postulates** (assumptions taken as true without proof) and **common notions** (general logical truths, such as "things equal to the same thing are equal to each other"). His five postulates are:
@@ -91,6 +107,19 @@ A **transversal** is a line that crosses two or more other lines. When a transve
 
 These equalities run both ways: if a transversal makes a pair of corresponding (or alternate) angles equal, the two lines must be parallel. That converse is how parallelism is proved in practice.
 
+**Worked example (all eight angles from one).** A transversal cuts two parallel lines, and one of the eight angles measures $65°$. Find all the others.
+
+At each crossing the four angles are $65°$ and its supplement $180° - 65° = 115°$ (a $65°$ angle and the linear pair beside it), with vertical angles matching. Because the lines are **parallel**, angles carry across from one crossing to the other:
+- every angle **corresponding** to the $65°$ one (same position at the other crossing) is $65°$;
+- every **alternate interior** and **alternate exterior** angle equal to it is $65°$;
+- every **co-interior** (same-side interior) angle is its supplement, $115°$.
+
+So the eight angles are four $65°$ and four $115°$. Check a co-interior pair: $65° + 115° = 180°$ ✓, as required for same-side interior angles.
+
+**Worked example (the converse: proving two lines parallel).** A transversal crosses two lines, and the two **alternate interior** angles it forms both measure $72°$. Are the lines parallel?
+
+Yes. The alternate-interior-angle relationship runs both ways, so *equal* alternate interior angles force the lines to be parallel. (Had the angles been $72°$ and $73°$ instead, the lines would not be parallel: the co-interior angles on one side would total $72° + 108° = 180°$ while on the other they would total $73° + 108° = 181° \ne 180°$, so the lines would meet on the first side.) This converse is exactly how you *prove* lines parallel from an angle measurement.
+
 ## Polygons
 
 A **polygon** is a closed plane figure made of straight line segments joined end to end. Each segment is a **side** and each corner is a **vertex** (plural **vertices**). Polygons are named by their number of sides.
@@ -111,6 +140,20 @@ $$
 
 For a pentagon ($n = 5$) the sum is $(5 - 2) \times 180° = 540°$; for an octagon ($n = 8$) it is $(8 - 2) \times 180° = 1080°$. In a **regular** polygon all angles are equal, so each interior angle measures $\dfrac{(n-2) \times 180°}{n}$: a regular hexagon has interior angles of $\dfrac{720°}{6} = 120°$. No matter the number of sides, the **exterior angles** (one per vertex, turning from each side to the next) always sum to exactly $360°$, one full turn.
 
+**Worked example (a regular pentagon, step by step).** Find each interior angle of a regular pentagon.
+
+Set $n = 5$. From one vertex, draw the diagonals to the two non-adjacent vertices; this cuts the pentagon into $n - 2 = 3$ triangles, and those triangles' angles are exactly the pentagon's interior angles. Each triangle contributes $180°$, so
+$$ \text{interior sum} = 3 \times 180° = (5-2)\times 180° = 540°. $$
+"Regular" means all five angles are equal, so divide the total evenly:
+$$ \text{each angle} = \frac{540°}{5} = 108°. $$
+Check: $5 \times 108° = 540°$ ✓.
+
+**Worked example (a missing angle).** Four of the five interior angles of a pentagon measure $100°$, $120°$, $95°$, and $110°$. Find the fifth.
+
+The five angles sum to $540°$ (from above), so the fifth is
+$$ 540° - 100° - 120° - 95° - 110° = 115°. $$
+Check: $100° + 120° + 95° + 110° + 115° = 540°$ ✓. (This pentagon is *not* regular — its angles differ — but the total is fixed regardless.)
+
 ## Triangles
 
 The triangle is the simplest polygon and the foundation of the rest of geometry, because every polygon can be cut into triangles.
@@ -122,6 +165,12 @@ Triangles are classified two ways. **By sides:** *scalene* (no equal sides), *is
 ### The Angle Sum
 
 **The angles of any triangle sum to $180°$.** To see why, draw a line through one vertex parallel to the opposite side. The two "outer" angles at that vertex are equal to the triangle's other two angles (alternate interior angles with the parallel line), and together with the vertex angle they form a straight angle of $180°$. So the three triangle angles sum to $180°$.
+
+**Worked example.** Two angles of a triangle measure $55°$ and $70°$. Find the third.
+
+The three angles must total $180°$, so subtract the two known angles:
+$$ 180° - 55° - 70° = 55°. $$
+Check: $55° + 70° + 55° = 180°$ ✓. Two of the angles came out equal ($55°$), and equal angles sit opposite equal sides, so this triangle is **isosceles** — the interior-angle arithmetic has told us something about the *sides* without measuring them.
 
 ### Congruence
 
@@ -137,9 +186,25 @@ Two triangles are **congruent** (written with $\cong$) if they have the same siz
 
 Note that there is no "SSA" or "AAA" congruence rule: SSA can produce two different triangles (the ambiguous case discussed under the [Law of Sines](./geometry-trigonometry)), and AAA fixes only the shape, not the size.
 
+**Worked example (SSS, and what congruence buys you).** Triangle $ABC$ has sides $AB = 6$, $BC = 8$, $CA = 7$. Triangle $DEF$ has $DE = 6$, $EF = 8$, $FD = 7$. Are they congruent, and what follows?
+
+All three pairs of sides are equal ($6 = 6$, $8 = 8$, $7 = 7$), which is exactly the **SSS** criterion, so $\triangle ABC \cong \triangle DEF$. Congruence then forces the three *angles* to match as well, a fact abbreviated **CPCTC** ("corresponding parts of congruent triangles are congruent"): $\angle A = \angle D$, $\angle B = \angle E$, $\angle C = \angle F$. The payoff: three side measurements pinned down the entire triangle, angles included, with nothing left to check.
+
+**Worked example (SAS, and the SSA trap).** Suppose $AB = 5$, the angle at $B$ is $40°$, and $BC = 7$.
+
+Because the $40°$ angle lies *between* the two given sides, this is **SAS**: the angle and its two arms leave no freedom, so the third side $AC$ and the whole triangle are determined, and any two triangles built from these three facts are congruent. Contrast the **SSA** arrangement — say $AB = 5$, $BC = 7$, and a $40°$ angle *not* between them: swinging side $BC$ can land in two different places, giving two non-congruent triangles. That ambiguity is exactly why SAS is a valid rule and SSA is not.
+
 ### Similarity
 
 Two triangles are **similar**, written $\triangle ABC \sim \triangle DEF$ (the symbol $\sim$ is read "is similar to"), if they have the same shape but not necessarily the same size: equal corresponding angles and proportional corresponding sides. The shortcuts are **AA** (two equal angles force the third, so the triangles are similar), **SSS~** (all sides in the same ratio), and **SAS~** (two sides in ratio with the included angle equal). Congruence is the special case of similarity where the ratio is $1$.
+
+**Worked example (AA, then solve for a side).** In $\triangle ABC$ and $\triangle DEF$, $\angle A = \angle D = 50°$ and $\angle B = \angle E = 60°$. Given $AB = 8$, $BC = 6$, and $DE = 12$, find $EF$.
+
+First, similarity: two pairs of equal angles force the third ($\angle C = \angle F = 180° - 50° - 60° = 70°$), so by **AA**, $\triangle ABC \sim \triangle DEF$. Similar triangles have all sides in one common ratio. Find it from the pair we know both of, $AB$ and its corresponding side $DE$:
+$$ k = \frac{DE}{AB} = \frac{12}{8} = \frac{3}{2}. $$
+Every side of $DEF$ is $\frac{3}{2}$ times its match in $ABC$, so the side corresponding to $BC$ is
+$$ EF = k \times BC = \frac{3}{2} \times 6 = 9. $$
+Check the ratios agree: $\dfrac{DE}{AB} = \dfrac{12}{8} = 1.5$ and $\dfrac{EF}{BC} = \dfrac{9}{6} = 1.5$ ✓. Equal ratios are the signature of similar triangles.
 
 ## Quadrilaterals
 
@@ -155,6 +220,15 @@ A **quadrilateral** is a four-sided polygon. Its interior angles always sum to $
 - A **kite** has two pairs of adjacent equal sides.
 
 Reading the chart downward, each shape inherits every property of the shapes above it: a square is a rectangle, so it has four right angles, and it is a rhombus, so it has four equal sides.
+
+**Worked example (all angles of a parallelogram).** In parallelogram $ABCD$, $\angle A = 65°$. Find the other three angles.
+
+Apply the parallelogram facts in order:
+- Opposite angles are equal, so $\angle C = \angle A = 65°$.
+- Adjacent angles ($A$ and $B$) are co-interior between a pair of parallel sides, hence supplementary: $\angle B = 180° - 65° = 115°$.
+- Opposite again, so $\angle D = \angle B = 115°$.
+
+The four angles are $65°, 115°, 65°, 115°$. Check against the quadrilateral total: $65° + 115° + 65° + 115° = 360°$ ✓, matching $(4-2)\times 180°$.
 
 ## Circles
 
@@ -173,6 +247,12 @@ A **circle** is the set of all points in a plane at a fixed distance (the **radi
 ![A circle with a central angle of 80 degrees at the center and an inscribed angle of 40 degrees on the circle subtending the same arc, showing that the inscribed angle is half the central angle, with a note that an angle inscribed in a semicircle is 90 degrees](./media/geof-inscribed-angle.png)
 
 A famous special case is **Thales' theorem**: if the subtended arc is a semicircle (the central angle is the $180°$ straight angle of a diameter), the inscribed angle is exactly $90°$. Any triangle inscribed in a circle with one side as a diameter is therefore a right triangle.
+
+**Worked example (inscribed angle).** A central angle subtends an arc of $120°$. What does an inscribed angle opening onto that same arc measure?
+
+By the inscribed angle theorem, the inscribed angle is half the central angle for the same arc:
+$$ \frac{120°}{2} = 60°. $$
+The same rule delivers Thales' theorem as the special case where the arc is a semicircle: a $180°$ arc gives an inscribed angle of $\frac{180°}{2} = 90°$ ✓, so a triangle drawn on a diameter is right-angled.
 
 ## Perimeter, Area, and Volume
 
@@ -213,9 +293,29 @@ A **transformation** moves or resizes a figure. A **rigid motion** (or **isometr
 
 ![Three panels showing the same asymmetric shape and its image under a translation with the slide arrow drawn, a rotation about a marked center point with the turn angle shown, and a reflection across a dashed mirror line](./media/geof-transformations.png)
 
-Two figures are congruent exactly when some sequence of rigid motions maps one onto the other. A transformation that instead scales a figure by a fixed ratio about a center point is a **dilation**; it preserves shape but not size, producing a figure that is **similar** to the original.
+Two figures are congruent exactly when some sequence of rigid motions maps one onto the other.
+
+**Worked example (a translation preserves distance).** *(Using coordinates, previewing the [coordinate approach](./geometry-trigonometry); a point $(x, y)$ sits $x$ right and $y$ up.)* Slide the segment from $A = (1, 2)$ to $B = (4, 6)$ by the translation "$5$ right, $1$ down," that is, add $(5, -1)$ to every point. Then
+$$ A' = (1+5,\ 2-1) = (6, 1), \qquad B' = (4+5,\ 6-1) = (9, 5). $$
+Measure both segments with the distance formula $\sqrt{(\Delta x)^2 + (\Delta y)^2}$:
+$$ AB = \sqrt{(4-1)^2 + (6-2)^2} = \sqrt{9 + 16} = \sqrt{25} = 5, $$
+$$ A'B' = \sqrt{(9-6)^2 + (5-1)^2} = \sqrt{9 + 16} = 5. $$
+The lengths are equal, confirming that a translation is a **rigid motion** (it preserves distance), so $\overline{A'B'} \cong \overline{AB}$ ✓. Every rigid motion has this length-preserving property; that is precisely why the image is congruent to the original.
+
+A transformation that instead scales a figure by a fixed ratio about a center point is a **dilation**; it preserves shape but not size, producing a figure that is **similar** to the original.
+
+**Worked example (a dilation scales size but keeps shape).** Dilate the right triangle with legs $3$ and $4$ (hypotenuse $5$, since $3^2 + 4^2 = 9 + 16 = 25 = 5^2$) by a factor of $k = 2$ about a center.
+
+Every length multiplies by $k = 2$, so the legs become $6$ and $8$ and the hypotenuse becomes $10$. This is still a right triangle: $6^2 + 8^2 = 36 + 64 = 100 = 10^2$ ✓. The **angles are unchanged**, because all sides grew by the same factor: $\frac{6}{3} = \frac{8}{4} = \frac{10}{5} = 2$, so the new triangle is **similar** to the old with ratio $2:1$. One subtlety worth seeing: **area** does *not* scale by $2$ but by $k^2 = 4$. The original area is $\frac{1}{2}(3)(4) = 6$ and the image area is $\frac{1}{2}(6)(8) = 24 = 4 \times 6$ ✓. Lengths scale by $k$; areas scale by $k^2$.
 
 **Symmetry** is when a figure maps onto itself under a transformation. A figure has **line (reflection) symmetry** if reflecting it across some line leaves it unchanged, and **rotational symmetry** if rotating it by some angle less than a full turn leaves it unchanged.
+
+**Worked example (symmetries of a regular hexagon).** Count the ways a regular hexagon maps onto itself.
+
+- **Line (reflection) symmetry:** it has $6$ axes. Three run through opposite pairs of *vertices*, and three through the midpoints of opposite *sides*. (In general a regular $n$-gon has exactly $n$ axes of reflection.)
+- **Rotational symmetry:** rotating about the center by $\frac{360°}{6} = 60°$ sends each vertex to the next and leaves the figure unchanged. So do its multiples $120°, 180°, 240°, 300°$ — five distinct non-trivial rotations, and the $360°$ turn brings everything back to start.
+
+Counting them up: $6$ reflections and $6$ rotations (including the do-nothing $360°$) give $12$ symmetries in all. That total, $2n = 12$, is why a regular hexagon's symmetries form the **dihedral group of order $12$** — a first concrete example of the [group theory of symmetry](./algebraic-structures).
 
 ![Two panels: line symmetry shown by a shape with a dashed axis of symmetry that reflects it onto itself, and rotational symmetry shown by a pinwheel-like figure that maps onto itself under a rotation about its center](./media/geof-symmetry.png)
 

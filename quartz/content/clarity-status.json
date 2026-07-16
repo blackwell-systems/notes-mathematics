@@ -90,25 +90,26 @@
       ]
     },
     "euclidean-geometry.md": {
-      "contentHash": "sha1:b669dc5195e0accc",
+      "contentHash": "sha1:26f6060289bbbdf6",
       "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "HIGHEST-PRIORITY foundation target: strong vocabulary/taxonomy but a definition-catalog with ~10 thin/missing worked examples -- most theorems are stated and never demonstrated on concrete numbers.",
+      "phase2At": "2026-07-16",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: added 11 fully-worked examples (motivated, every step, justified, checked) covering all 10 thin/missing items plus inscribed-angle; every number machine-checked in check-arithmetic.mjs (+41 assertions). Was a definition-catalog; now demonstrates each technique. (Content changed -> flagged stale in the prose/proof review ledger; the new examples are owed a correctness re-review.)",
       "inventory": [
         { "concept": "Euler's formula V-E+F=2", "quality": "strong", "upgrade": "" },
-        { "concept": "inscribed angle theorem", "quality": "adequate", "upgrade": "add a compute-the-inscribed-angle example + harness entry" },
-        { "concept": "area formulas (rectangle/triangle/trapezoid/circle)", "quality": "adequate", "upgrade": "add WE-5 motivation and harness entries" },
-        { "concept": "volume formulas (sphere/cone/cylinder)", "quality": "adequate", "upgrade": "add cone = 1/3 cylinder worked comparison" },
-        { "concept": "complementary/supplementary angles", "quality": "thin", "upgrade": "worked: angle 42 deg -> complement 48 deg with check" },
-        { "concept": "polygon interior angle sum", "quality": "thin", "upgrade": "pentagon: (5-2)*180=540, each interior 108, with steps" },
-        { "concept": "triangle angle sum", "quality": "thin", "upgrade": "given 55 and 70 deg find the third with steps + check" },
-        { "concept": "transversal / parallel angle relationships", "quality": "missing", "upgrade": "worked: equal alternate-interior angles => prove lines parallel" },
-        { "concept": "triangle congruence (SSS/SAS/ASA)", "quality": "missing", "upgrade": "worked SSS on two 3-4-5 triangles, conclude corresponding angles equal" },
-        { "concept": "triangle similarity", "quality": "missing", "upgrade": "worked AA similarity with a side-ratio computation" },
-        { "concept": "quadrilateral angle/property verification", "quality": "missing", "upgrade": "parallelogram: given one angle, find the rest with check" },
-        { "concept": "rigid motions (translate/rotate/reflect)", "quality": "missing", "upgrade": "translate a point by a vector; verify distance preserved" },
-        { "concept": "dilation / scaling", "quality": "missing", "upgrade": "dilate a 3-4-5 triangle by 2 -> 6-8-10; shape preserved" },
-        { "concept": "line & rotational symmetry", "quality": "missing", "upgrade": "regular hexagon: 6 axes + 60-deg rotational symmetry, verified" }
+        { "concept": "inscribed angle theorem", "quality": "strong", "upgrade": "", "phase2": "added 120->60 worked example + Thales special case + harness" },
+        { "concept": "area formulas (rectangle/triangle/trapezoid/circle)", "quality": "adequate", "upgrade": "optional: add WE-5 motivation", "phase2": "added harness entries (trapezoid 32, circle 25pi)" },
+        { "concept": "volume formulas (sphere/cone/cylinder)", "quality": "adequate", "upgrade": "optional: full cone-vs-cylinder worked example", "phase2": "added harness entries (sphere 36pi, cone=1/3 cylinder)" },
+        { "concept": "complementary/supplementary angles", "quality": "strong", "upgrade": "", "phase2": "37 deg -> complement 53, supplement 143 + linear-pair/vertical example" },
+        { "concept": "polygon interior angle sum", "quality": "strong", "upgrade": "", "phase2": "pentagon 3x180=540, each 108 + missing-angle example" },
+        { "concept": "triangle angle sum", "quality": "strong", "upgrade": "", "phase2": "55,70 -> 55, noted isosceles consequence" },
+        { "concept": "transversal / parallel angle relationships", "quality": "strong", "upgrade": "", "phase2": "all eight from 65; plus the converse proving lines parallel" },
+        { "concept": "triangle congruence (SSS/SAS/ASA)", "quality": "strong", "upgrade": "", "phase2": "SSS + CPCTC; SAS vs the SSA trap" },
+        { "concept": "triangle similarity", "quality": "strong", "upgrade": "", "phase2": "AA then solve EF=9 via ratio 3/2, ratio check" },
+        { "concept": "quadrilateral angle/property verification", "quality": "strong", "upgrade": "", "phase2": "parallelogram from angle A=65, all four + sum check" },
+        { "concept": "rigid motions (translate/rotate/reflect)", "quality": "strong", "upgrade": "", "phase2": "translate (1,2)-(4,6) by (5,-1); distance 5 preserved" },
+        { "concept": "dilation / scaling", "quality": "strong", "upgrade": "", "phase2": "3-4-5 by k=2 -> 6-8-10; angles fixed, area x k^2=4" },
+        { "concept": "line & rotational symmetry", "quality": "strong", "upgrade": "", "phase2": "regular hexagon: 6 axes, 60-deg rotation, 2n=12 -> dihedral group" }
       ]
     },
     "permutation.md": {
