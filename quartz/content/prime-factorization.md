@@ -354,7 +354,7 @@ Prime factorization reveals exactly how many divisors a number has.
 
 ### Formula
 
-If $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$, then the number of positive divisors of $n$ is:
+If $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$, then the number of positive divisors of $n$, written $\tau(n)$ (read "tau of n"), is:
 
 $$
 \tau(n) = (a_1 + 1)(a_2 + 1) \cdots (a_k + 1)
@@ -388,7 +388,7 @@ We can also compute the **sum of all positive divisors** of $n$ using its prime 
 
 ### Formula
 
-If $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$, then the sum of divisors is:
+If $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$, then the sum of divisors, written $\sigma(n)$ (read "sigma of n"), is:
 
 $$
 \sigma(n) = \frac{p_1^{a_1+1} - 1}{p_1 - 1} \cdot \frac{p_2^{a_2+1} - 1}{p_2 - 1} \cdots \frac{p_k^{a_k+1} - 1}{p_k - 1}

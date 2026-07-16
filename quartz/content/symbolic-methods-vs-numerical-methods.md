@@ -51,7 +51,8 @@ given as approximate numerical values.
 Ex:
 
 -   **Newton's Method:** Starting from an initial guess, iterate
-    $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$, following the tangent line
+    $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$ (which requires $f'(x_n) \neq 0$),
+    following the tangent line
     to the function down to where it crosses the axis. It converges very
     quickly (quadratically) near a simple root but requires the
     derivative.

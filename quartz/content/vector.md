@@ -259,7 +259,7 @@ Where $\theta$ is the angle between the vectors.
 - **Distributive:** $\mathbf{u} \cdot (\mathbf{v} + \mathbf{w}) = \mathbf{u} \cdot \mathbf{v} + \mathbf{u} \cdot \mathbf{w}$
 - $\mathbf{v} \cdot \mathbf{v} = |\mathbf{v}|^2$
 
-**Finding Angle Between Vectors:**
+**Finding Angle Between Vectors:** (for nonzero $\mathbf{u}$ and $\mathbf{v}$; the zero vector has no defined direction, so no angle)
 
 $$
 \cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{|\mathbf{u}||\mathbf{v}|}

@@ -176,6 +176,8 @@ So far every numeral has been non-negative. Hardware, though, works with **fixed
 
 Fix a width of $n$ bits. A non-negative number is written in ordinary binary. To represent a negative number $-x$ (where $0 < x$), take the $n$-bit pattern for $x$, **flip every bit** (turn each $0$ into $1$ and each $1$ into $0$, called the *one's complement*), then **add $1$**. The most significant (leftmost) bit ends up acting as a **sign bit**: it is $0$ for non-negative values and $1$ for negative values.
 
+An $n$-bit register spans the **asymmetric** range $-2^{n-1}$ to $2^{n-1} - 1$ (one more negative value than positive, since $0$ takes a non-negative slot). For example, 8-bit two's complement runs from $-128$ to $127$, and 32-bit from $-2^{31}$ to $2^{31} - 1$.
+
 **Worked example.** Represent $-5$ in 8-bit two's complement.
 
 1. Write $+5$ in 8 bits: $5 = 4 + 1$, so $+5 = 00000101_2$.

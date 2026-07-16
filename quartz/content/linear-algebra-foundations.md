@@ -569,11 +569,13 @@ The four fundamental subspaces give two pairs of orthogonal subspaces:
 
 **Projection** is the operation of finding the closest point in a subspace to a given vector.
 
-**Projection onto a line (1D subspace):** To project vector $b$ onto the line through vector $a$:
+**Projection onto a line (1D subspace):** To project vector $b$ onto the line through a nonzero vector $a$:
 
 $$
 p = \frac{a^T b}{a^T a} a
 $$
+
+(This requires $a \neq 0$, so that $a^T a > 0$.)
 
 **Projection onto a subspace:** To project $b$ onto the column space of $A$:
 

@@ -140,10 +140,10 @@ This is different from regular independence. Two events can be dependent overall
 Bayes' theorem is arguably the most important single formula in probability for machine learning. It tells you how to update your beliefs when you see new evidence.
 
 $$
-P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} \qquad (P(B) > 0)
 $$
 
-The most famous consequence is the **base-rate fallacy**. Set a disease's prevalence, a test's sensitivity, and its false-positive rate below, and see via natural frequencies why even a highly accurate positive test can still mean a low probability of disease when the condition is rare.
+As with conditional probability, this requires $P(B) > 0$ so the denominator is nonzero. The most famous consequence is the **base-rate fallacy**. Set a disease's prevalence, a test's sensitivity, and its false-positive rate below, and see via natural frequencies why even a highly accurate positive test can still mean a low probability of disease when the condition is rare.
 
 <iframe src="/static/interactive/prob-bayes-visualizer.html" width="100%" height="660" style="border:none;"></iframe>
 
@@ -545,7 +545,7 @@ These are two views of the same process. The Poisson distribution counts events;
 **Uniform distribution:** All values in an interval $[a, b]$ are equally likely.
 
 $$
-f(x) = \frac{1}{b - a}, \quad a \leq x \leq b
+f(x) = \frac{1}{b - a}, \quad a \leq x \leq b \quad (a < b)
 $$
 
 - $E[X] = \frac{a + b}{2}$
@@ -558,7 +558,7 @@ $$
 **Exponential distribution:** Models the time between events in a Poisson process. If events happen at rate $\lambda$, the time between consecutive events follows an exponential distribution.
 
 $$
-f(x) = \lambda e^{-\lambda x}, \quad x \geq 0
+f(x) = \lambda e^{-\lambda x}, \quad x \geq 0 \quad (\lambda > 0)
 $$
 
 - $E[X] = 1/\lambda$

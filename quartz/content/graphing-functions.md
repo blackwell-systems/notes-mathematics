@@ -388,13 +388,13 @@ The explorer below lets you pick a base function and drag the parameters $a$ ("a
 - $a \cdot f(x)$: Vertical stretch by $|a|$ (if $|a| > 1$) or compression (if $|a| < 1$)
 - $-f(x)$: Reflect across x-axis
 
-**Horizontal Transformations:**
+**Horizontal Transformations:** (taking $h > 0$; a negative $h$ reverses the direction)
 - $f(x - h)$: Shift right $h$ units
 - $f(x + h)$: Shift left $h$ units
 - $f(bx)$: Horizontal compression by $b$ (if $|b| > 1$) or stretch (if $|b| < 1$)
 - $f(-x)$: Reflect across y-axis
 
-**Combined:** $f(x) = a \cdot f(b(x - h)) + k$
+**Combined:** the transformed function is $g(x) = a \cdot f(b(x - h)) + k$
 1. Horizontal shift $h$
 2. Horizontal stretch/compression $b$
 3. Vertical stretch/compression $a$
