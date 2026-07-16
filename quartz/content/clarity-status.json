@@ -1,0 +1,154 @@
+{
+  "clarityRubricVersion": 1,
+  "pages": {
+    "mathematical-notations.md": {
+      "contentHash": "sha1:eb65908f7388e14e",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "reference-page",
+      "summary": "Symbol glossary / pronunciation guide; no worked examples by design.",
+      "inventory": [
+        { "concept": "object-level vs meta-level symbol distinction", "quality": "strong", "upgrade": "" }
+      ]
+    },
+    "set-theory.md": {
+      "contentHash": "sha1:ffec94363c45e4cf",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Exemplary on the hard proofs (Cantor diagonal, Cantor theorem, Kuratowski, Q/Z enumerations, double-inclusion); several clear-but-terse operations rated adequate; no thin/missing (injection/surjection detail lives on functions-relations).",
+      "inventory": [
+        { "concept": "subset / proper subset & order analogy", "quality": "strong", "upgrade": "" },
+        { "concept": "set equality via double-inclusion", "quality": "strong", "upgrade": "" },
+        { "concept": "distributive law by element-chasing", "quality": "strong", "upgrade": "" },
+        { "concept": "power set enumeration & 2^n", "quality": "strong", "upgrade": "" },
+        { "concept": "countability of Z (enumeration)", "quality": "strong", "upgrade": "" },
+        { "concept": "countability of Q (zigzag)", "quality": "strong", "upgrade": "" },
+        { "concept": "Cantor diagonal (R uncountable)", "quality": "strong", "upgrade": "" },
+        { "concept": "Cantor theorem |A|<|P(A)|", "quality": "strong", "upgrade": "" },
+        { "concept": "Russell's paradox", "quality": "strong", "upgrade": "" },
+        { "concept": "Kuratowski ordered pair proof", "quality": "strong", "upgrade": "" },
+        { "concept": "Cartesian product", "quality": "strong", "upgrade": "" },
+        { "concept": "roster / set-builder notation", "quality": "adequate", "upgrade": "" },
+        { "concept": "union / intersection", "quality": "adequate", "upgrade": "add a worked identity proof, e.g. (A∪B)\\B = A∖B by element-chasing" },
+        { "concept": "set difference / symmetric difference", "quality": "adequate", "upgrade": "" },
+        { "concept": "De Morgan's laws", "quality": "adequate", "upgrade": "prove the law (element-chasing), not just compute one instance" },
+        { "concept": "pigeonhole principle", "quality": "adequate", "upgrade": "add a concrete 5-into-3 example showing ceil(5/3)=2" },
+        { "concept": "injection/surjection/bijection", "quality": "adequate", "upgrade": "worked check of a concrete map (defers detail to functions-relations)" },
+        { "concept": "Schroder-Bernstein", "quality": "adequate", "upgrade": "" },
+        { "concept": "finite/infinite definitions", "quality": "adequate", "upgrade": "" },
+        { "concept": "hierarchy of infinities", "quality": "adequate", "upgrade": "" },
+        { "concept": "ZFC / Axiom of Choice", "quality": "adequate", "upgrade": "" }
+      ]
+    },
+    "number-systems.md": {
+      "contentHash": "sha1:d4730a3b62997e7c",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Strong on the narrative + repeating-decimal conversions + containment; the FORMAL CONSTRUCTIONS (Dedekind cuts, Cauchy sequences, pair-and-quotient for Z, von Neumann naturals, Q/R countability, FTA) are stated but never walked -> 7 thin items.",
+      "inventory": [
+        { "concept": "repeating decimal -> fraction (0.3bar)", "quality": "strong", "upgrade": "" },
+        { "concept": "repeating decimal -> fraction (0.27bar)", "quality": "strong", "upgrade": "" },
+        { "concept": "containment N⊂Z⊂Q⊂R⊂C", "quality": "strong", "upgrade": "" },
+        { "concept": "sample numbers -> innermost home table", "quality": "strong", "upgrade": "" },
+        { "concept": "rational vs irrational (decimal test)", "quality": "adequate", "upgrade": "add a long-division walkthrough showing remainders must recur" },
+        { "concept": "algebraic vs transcendental", "quality": "adequate", "upgrade": "add substitution check that sqrt2 solves x^2-2=0; maybe cbrt2 edge case" },
+        { "concept": "pair-and-quotient for Q", "quality": "adequate", "upgrade": "add one cross-mult verification (1/2 ~ 2/4)" },
+        { "concept": "C as ordered pairs", "quality": "adequate", "upgrade": "add a nontrivial product e.g. (2,3)(1,1)=(-1,5)" },
+        { "concept": "irrationality of sqrt2 (deferred)", "quality": "adequate", "upgrade": "tighten the link to the full Real Analysis proof" },
+        { "concept": "countability of Q (zigzag enumeration)", "quality": "thin", "upgrade": "walk the first ~8 rationals in zigzag order, showing the skip-duplicates rule" },
+        { "concept": "uncountability of R (diagonal)", "quality": "thin", "upgrade": "sketch the diagonal on a small 3x3 grid so the 'no list works' idea is concrete" },
+        { "concept": "von Neumann naturals", "quality": "thin", "upgrade": "build 0..4 step-by-step; verify 2∈4 encodes 2<4" },
+        { "concept": "pair-and-quotient for Z", "quality": "thin", "upgrade": "verify (5,3)~(2,0) via 5+0=3+2; contrast a non-equivalent pair" },
+        { "concept": "Dedekind cuts", "quality": "thin", "upgrade": "build the sqrt2 cut: list rationals in A and not in A; interpret as 'everything up to sqrt2'" },
+        { "concept": "Cauchy sequences", "quality": "thin", "upgrade": "walk (1,1.4,1.41,1.414,...) -> sqrt2, check consecutive terms shrink" },
+        { "concept": "Fundamental Theorem of Algebra", "quality": "thin", "upgrade": "solve x^2-2x+2=0 -> 1±i and verify 1+i by substitution" }
+      ]
+    },
+    "functions-relations.md": {
+      "contentHash": "sha1:2b9b949afcae3ac8",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "strong",
+      "summary": "Solid on function properties (injective/surjective/inverse/composition/difference quotient) and excellent on the Schroder-Bernstein proof; relation properties are defined but rarely proved, and fibers/kernel + combined bijective proof lack worked examples.",
+      "inventory": [
+        { "concept": "transitive closure computation", "quality": "strong", "upgrade": "" },
+        { "concept": "image & preimage of a set (+ asymmetry)", "quality": "strong", "upgrade": "" },
+        { "concept": "proving a function injective", "quality": "strong", "upgrade": "" },
+        { "concept": "proving a function surjective", "quality": "strong", "upgrade": "" },
+        { "concept": "invertibility / finding an inverse", "quality": "strong", "upgrade": "" },
+        { "concept": "function composition", "quality": "strong", "upgrade": "" },
+        { "concept": "difference quotient", "quality": "strong", "upgrade": "" },
+        { "concept": "Schroder-Bernstein proof", "quality": "strong", "upgrade": "" },
+        { "concept": "well-definedness on quotients", "quality": "strong", "upgrade": "" },
+        { "concept": "relation vs function (defining property)", "quality": "adequate", "upgrade": "add a positive example verifying a relation IS a function" },
+        { "concept": "equivalence classes / quotient sets", "quality": "adequate", "upgrade": "derive [0],[1],[2] of mod-3 and show they partition Z" },
+        { "concept": "N<->Z bijection", "quality": "adequate", "upgrade": "prove injective + surjective, not just assert 'each integer hit once'" },
+        { "concept": "bounds / sup / inf / lattices", "quality": "adequate", "upgrade": "compute join/meet of {2,3} in a divisibility poset" },
+        { "concept": "partial order / Hasse diagrams", "quality": "adequate", "upgrade": "" },
+        { "concept": "fibers and kernel of a function", "quality": "thin", "upgrade": "compute fibers of x^2 (over 4 -> {-2,2}, over -1 -> empty); show they partition R" },
+        { "concept": "proving a function bijective (combined)", "quality": "thin", "upgrade": "one worked proof that a specific f is BOTH injective and surjective, then its inverse" },
+        { "concept": "checking reflexive/symmetric/transitive on a concrete relation", "quality": "missing", "upgrade": "prove 'divides' on Z+ is a partial order, checking each property" },
+        { "concept": "proving an equivalence relation (all 3 together)", "quality": "missing", "upgrade": "prove 'same age' (or congruence mod n) is reflexive+symmetric+transitive" }
+      ]
+    },
+    "euclidean-geometry.md": {
+      "contentHash": "sha1:b669dc5195e0accc",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "HIGHEST-PRIORITY foundation target: strong vocabulary/taxonomy but a definition-catalog with ~10 thin/missing worked examples -- most theorems are stated and never demonstrated on concrete numbers.",
+      "inventory": [
+        { "concept": "Euler's formula V-E+F=2", "quality": "strong", "upgrade": "" },
+        { "concept": "inscribed angle theorem", "quality": "adequate", "upgrade": "add a compute-the-inscribed-angle example + harness entry" },
+        { "concept": "area formulas (rectangle/triangle/trapezoid/circle)", "quality": "adequate", "upgrade": "add WE-5 motivation and harness entries" },
+        { "concept": "volume formulas (sphere/cone/cylinder)", "quality": "adequate", "upgrade": "add cone = 1/3 cylinder worked comparison" },
+        { "concept": "complementary/supplementary angles", "quality": "thin", "upgrade": "worked: angle 42 deg -> complement 48 deg with check" },
+        { "concept": "polygon interior angle sum", "quality": "thin", "upgrade": "pentagon: (5-2)*180=540, each interior 108, with steps" },
+        { "concept": "triangle angle sum", "quality": "thin", "upgrade": "given 55 and 70 deg find the third with steps + check" },
+        { "concept": "transversal / parallel angle relationships", "quality": "missing", "upgrade": "worked: equal alternate-interior angles => prove lines parallel" },
+        { "concept": "triangle congruence (SSS/SAS/ASA)", "quality": "missing", "upgrade": "worked SSS on two 3-4-5 triangles, conclude corresponding angles equal" },
+        { "concept": "triangle similarity", "quality": "missing", "upgrade": "worked AA similarity with a side-ratio computation" },
+        { "concept": "quadrilateral angle/property verification", "quality": "missing", "upgrade": "parallelogram: given one angle, find the rest with check" },
+        { "concept": "rigid motions (translate/rotate/reflect)", "quality": "missing", "upgrade": "translate a point by a vector; verify distance preserved" },
+        { "concept": "dilation / scaling", "quality": "missing", "upgrade": "dilate a 3-4-5 triangle by 2 -> 6-8-10; shape preserved" },
+        { "concept": "line & rotational symmetry", "quality": "missing", "upgrade": "regular hexagon: 6 axes + 60-deg rotational symmetry, verified" }
+      ]
+    },
+    "permutation.md": {
+      "contentHash": "sha1:6916a6e57413ee0d",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "strong",
+      "summary": "Excellent foundational + advanced walkthroughs (counting tree, MISSISSIPPI, circular, bracelets); the two core formulas (P(n,r), n^r) are adequate but lean on diagram intuition rather than re-deriving from counting.",
+      "inventory": [
+        { "concept": "counting-tree / multiplication principle", "quality": "strong", "upgrade": "" },
+        { "concept": "permutations with indistinguishable objects", "quality": "strong", "upgrade": "" },
+        { "concept": "circular permutations", "quality": "strong", "upgrade": "" },
+        { "concept": "bracelets / reflections", "quality": "strong", "upgrade": "" },
+        { "concept": "P(n,r) & factorial cancellation", "quality": "adequate", "upgrade": "tie 5x4x3 = 5!/2! by showing the unused 2! cancels" },
+        { "concept": "permutations with repetition n^r", "quality": "adequate", "upgrade": "enumerate a toy case (2 slots from {A,B,C}=9) before generalizing" }
+      ]
+    },
+    "propositional-logic-zeroth-order-logic.md": {
+      "contentHash": "sha1:b795841723fb482c",
+      "clarityRubricVersion": 1, "auditedAt": "2026-07-16", "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Strong truth-table + core-concept coverage; the PROOF-TECHNIQUE walkthroughs hand-wave the crux -- the sqrt2 contradiction skips 'a^2 even => a even', and the induction step under-explains the inductive-hypothesis substitution.",
+      "inventory": [
+        { "concept": "truth-table construction", "quality": "strong", "upgrade": "" },
+        { "concept": "tautology/contradiction/contingency classification", "quality": "strong", "upgrade": "" },
+        { "concept": "material conditional (table, vacuous truth, contrapositive)", "quality": "strong", "upgrade": "" },
+        { "concept": "direct proof", "quality": "strong", "upgrade": "" },
+        { "concept": "proof by contrapositive", "quality": "strong", "upgrade": "" },
+        { "concept": "vacuous truth edge case", "quality": "strong", "upgrade": "" },
+        { "concept": "proving logical equivalence", "quality": "adequate", "upgrade": "add a two-truth-tables side-by-side verification" },
+        { "concept": "applying logical laws (De Morgan/distribution)", "quality": "adequate", "upgrade": "worked De Morgan on ¬((P∧Q)∨R) step-by-step" },
+        { "concept": "translating English conditionals", "quality": "adequate", "upgrade": "" },
+        { "concept": "valid vs invalid arguments / fallacies", "quality": "adequate", "upgrade": "side-by-side modus ponens vs affirming-the-consequent with tables" },
+        { "concept": "proof by cases", "quality": "adequate", "upgrade": "" },
+        { "concept": "strong induction", "quality": "adequate", "upgrade": "in the primes example, justify why composite k+1 factors as ab with 2<=a,b<=k" },
+        { "concept": "functional completeness (NAND/NOR)", "quality": "adequate", "upgrade": "" },
+        { "concept": "DNF/CNF conversion", "quality": "adequate", "upgrade": "" },
+        { "concept": "rules of inference (applying them in a derivation)", "quality": "thin", "upgrade": "worked multi-step derivation (MP then hypothetical syllogism), then verify validity by a tautology check" },
+        { "concept": "proof by contradiction (sqrt2)", "quality": "thin", "upgrade": "inline-prove or lemma-ize 'a^2 even => a even' -- currently the crux is skipped" },
+        { "concept": "mathematical induction", "quality": "thin", "upgrade": "make the inductive-hypothesis substitution explicit (separate the logic from the algebra)" }
+      ]
+    }
+  }
+}
