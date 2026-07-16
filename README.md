@@ -7,6 +7,38 @@ foundations of machine learning research (up to singular learning theory).
 The notes are published as a [Quartz](https://quartz.jzhao.xyz/) site and
 deployed to GitHub Pages on every push to `main`.
 
+## Vision
+
+**The resource you come to for clarity.** Not a course with drills, and not a
+terse formula sheet: the aim is to be the place you reach for *precisely when
+another source lost you at the step that actually confused you*. The
+highest-leverage content here is the **detailed, highly precise worked-example
+walkthrough** — every step shown (including the algebra most sources skip),
+every step justified, every symbol pronounced, and the genuinely confusing
+branch (the sign, the quadrant, the edge case, the "why not the other reading")
+walked explicitly rather than waved past.
+
+Guiding principles:
+
+- **Foundations-first.** Define the basic terms and motivate a concept before any
+  formula; pronounce every symbol at first use (how to read it aloud, not just
+  what it means).
+- **Textbook-level coverage, minus the problem sets.** Everything a standard
+  textbook would cover — theorems, techniques, edge cases — but **no exercises**.
+  Practice problems are abundant elsewhere; a genuinely complete, clear worked
+  example is rare, so that is where the effort goes.
+- **Worked examples are the product.** Prefer one example done exhaustively over
+  three done fast, with the diagram pinned to that same example so picture and
+  steps can never drift.
+- **Clarity is protected by machinery, not vibes.** Every numeric worked example
+  is re-proved from scratch in CI (the arithmetic harness), and the reasoning
+  (definitions, hypotheses, proofs) is checked by a separate resumable review
+  process. See below.
+
+The whole thing is built deliberately toward one destination — the foundations of
+**singular learning theory** for interpretability research — which gives the
+otherwise-broad coverage a spine and a reading order.
+
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
