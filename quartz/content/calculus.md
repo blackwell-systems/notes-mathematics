@@ -1002,13 +1002,13 @@ Geometrically, $\int_a^b f(x) \, dx$ is the signed area between the curve $y = f
 
 This theorem is the central result of calculus. It says that differentiation and integration are inverse operations.
 
-**Part 1:** If $F(x) = \int_a^x f(t) \, dt$, then $F'(x) = f(x)$.
+**Part 1:** If $f$ is continuous on $[a, b]$ and $F(x) = \int_a^x f(t) \, dt$ for $x \in [a, b]$, then $F$ is differentiable and $F'(x) = f(x)$.
 
 In words: the derivative of the integral gives back the original function.
 
 ![The accumulation function A(x) equals the shaded area under f(t) from a to x; as x moves right the area grows at the rate f(x), so differentiating the accumulated area recovers the original function](./media/ftc-accumulation.png)
 
-**Part 2:** If $F$ is any antiderivative of $f$ (meaning $F' = f$), then:
+**Part 2:** If $f$ is continuous on $[a, b]$ and $F$ is any antiderivative of $f$ (meaning $F' = f$), then:
 
 $$
 \int_a^b f(x) \, dx = F(b) - F(a)

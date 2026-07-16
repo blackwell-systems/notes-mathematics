@@ -36,6 +36,8 @@ The picture is the whole idea of a combination in one glance: the $60$ ordered s
 
 $$C(n,r) = \binom{n}{r} = \frac{n!}{r!\,(n-r)!}$$
 
+This is defined for integers with $0 \leq r \leq n$ (you cannot choose more items than the set contains; by convention $\binom{n}{r} = 0$ when $r > n$ or $r < 0$).
+
 Alternate notation: $_nC_r$ or $C_r^n$ or $\binom{n}{r}$
 
 **Where:**
@@ -257,7 +259,7 @@ This means 0 balls in box 1, 5 balls in box 2, 0 balls in box 3.
 
 ### The Formula
 
-The total number of symbols is $n + k - 1$ (that is, $n$ stars and $k-1$ bars). We need to choose positions for the $k-1$ bars (or equivalently, choose positions for the $n$ stars).
+The total number of symbols is $n + k - 1$ (that is, $n$ stars and $k-1$ bars). We need to choose positions for the $k-1$ bars (or equivalently, choose positions for the $n$ stars). Here $k \geq 1$ (there must be at least one bin) and $n \geq 0$.
 
 $$
 \binom{n + k - 1}{k - 1} = \binom{n + k - 1}{n}
@@ -309,7 +311,7 @@ Note that the pigeonhole principle guarantees existence but does not tell us whi
 
 ### Generalized Pigeonhole Principle
 
-If $n$ items are placed into $k$ boxes, then at least one box contains at least $\lceil n/k \rceil$ items, where $\lceil \cdot \rceil$ is the ceiling function.
+If $n$ items are placed into $k$ boxes (with $k \geq 1$), then at least one box contains at least $\lceil n/k \rceil$ items, where $\lceil \cdot \rceil$ is the ceiling function.
 
 **Intuition:** If every box had fewer than $\lceil n/k \rceil$ items, the total would be less than $n$, which is a contradiction.
 

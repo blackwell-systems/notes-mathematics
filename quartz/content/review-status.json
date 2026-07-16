@@ -142,6 +142,122 @@
           "resolution": "Retitled the section to 'Biconditional / Logical Equivalence' and rewrote the intro sentence; it now fills the previously-missing biconditional connective slot, with a pointer to the Associative Laws."
         }
       ]
+    },
+    "algebraic-structures.md": {
+      "contentHash": "sha1:80fc8f94451f5871",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": []
+    },
+    "geometry-trigonometry.md": {
+      "contentHash": "sha1:e215732e3cc298d6",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": []
+    },
+    "order-of-operations.md": {
+      "contentHash": "sha1:b394d4d9bbaf3178",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": []
+    },
+    "predicate-logic-first-order-logic.md": {
+      "contentHash": "sha1:402b5cda46ba8928",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": []
+    },
+    "calculus.md": {
+      "contentHash": "sha1:ba3514c0ac4b8176",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "THM-1",
+          "severity": 2,
+          "quote": "If $F$ is any antiderivative of $f$ (meaning $F' = f$), then ... = F(b) - F(a)",
+          "issue": "FTC (both parts) omitted the hypothesis that f be continuous/integrable on [a,b].",
+          "status": "resolved",
+          "resolution": "Added 'if f is continuous on [a,b]' to both Part 1 and Part 2 (continuity is the standard sufficient hypothesis at this level and implies integrability). Down-triaged from the reviewer's sev-1 to sev-2, since for a continuous f the original statement was correct."
+        }
+      ]
+    },
+    "combination.md": {
+      "contentHash": "sha1:5d7f63b9dd3b471a",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "C(n,r) = n!/(r!(n-r)!)",
+          "issue": "Omitted the constraint 0 <= r <= n.",
+          "status": "resolved",
+          "resolution": "Added 'defined for integers with 0 <= r <= n; by convention C(n,r)=0 when r>n or r<0'. (Same class of gap fixed on permutation.)"
+        },
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "binom(n+k-1, k-1)",
+          "issue": "Stars-and-bars formula did not state k >= 1 (at least one bin).",
+          "status": "resolved",
+          "resolution": "Added 'Here k >= 1 ... and n >= 0.'"
+        },
+        {
+          "id": "THM-1",
+          "severity": 2,
+          "quote": "at least one box contains at least ceil(n/k) items",
+          "issue": "Generalized pigeonhole omitted k >= 1 (ceil(n/k) undefined at k=0).",
+          "status": "resolved",
+          "resolution": "Added '(with k >= 1)'. (Same class fixed on set-theory.)"
+        }
+      ]
+    },
+    "graph-theory.md": {
+      "contentHash": "sha1:078e1deca295fc70",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "DEF-1",
+          "severity": 1,
+          "quote": "Four Color Theorem: Any planar graph can be colored with at most 4 colors.",
+          "issue": "'planar graph' was used without being defined anywhere on the page.",
+          "status": "resolved",
+          "resolution": "Added a definition of planar (drawable in the plane with no crossing edges) immediately before the Four Color Theorem."
+        },
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "Minimum cycle length is 3 (triangle)",
+          "issue": "True only for simple graphs; multigraphs/pseudographs allow length-2/length-1 cycles.",
+          "status": "resolved",
+          "resolution": "Qualified with 'in a simple graph' and noted the multigraph/pseudograph cases."
+        },
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "A tree with $n$ vertices has exactly $n-1$ edges",
+          "issue": "No n >= 1 boundary condition.",
+          "status": "resolved",
+          "resolution": "Changed to 'n >= 1 vertices ... (a single vertex is a tree with 0 edges)'."
+        },
+        {
+          "id": "DEF-4",
+          "severity": 3,
+          "quote": "$K_n$ ... $C_n$ ... $P_n$",
+          "issue": "Named graph-family notations introduced without read-aloud.",
+          "status": "resolved",
+          "resolution": "Added (read \"K-n\"/\"C-n\"/\"P-n\") at first use of each."
+        }
+      ]
     }
   }
 }

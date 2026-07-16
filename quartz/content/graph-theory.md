@@ -374,7 +374,7 @@ graph LR
 
 ### Complete Graph
 
-**Complete Graph ($K_n$):** A graph where every pair of vertices is connected by an edge.
+**Complete Graph ($K_n$, read "K-n"):** A graph where every pair of vertices is connected by an edge.
 
 **$K_3$ (Triangle):**
 
@@ -414,7 +414,7 @@ graph LR
 
 ### Cycle Graph
 
-**Cycle Graph ($C_n$):** A graph forming a single closed loop with $n$ vertices.
+**Cycle Graph ($C_n$, read "C-n"):** A graph forming a single closed loop with $n$ vertices.
 
 **$C_4$:**
 
@@ -440,11 +440,11 @@ graph LR
 **Properties:**
 - $C_n$ has $n$ vertices and $n$ edges
 - Every vertex has degree 2
-- Minimum cycle length is 3 (triangle)
+- Minimum cycle length is 3 (triangle) in a **simple** graph; multigraphs allow length-2 cycles (parallel edges) and pseudographs allow length-1 cycles (self-loops)
 
 ### Path Graph
 
-**Path Graph ($P_n$):** A graph forming a single path with $n$ vertices.
+**Path Graph ($P_n$, read "P-n"):** A graph forming a single path with $n$ vertices.
 
 **$P_4$:**
 
@@ -506,7 +506,7 @@ graph TD
 ```
 
 **Properties:**
-- A tree with $n$ vertices has exactly $n-1$ edges
+- A tree with $n \geq 1$ vertices has exactly $n-1$ edges (a single vertex is a tree with $0$ edges)
 - There is exactly one path between any two vertices
 - Removing any edge disconnects the graph
 - Adding any edge creates exactly one cycle
@@ -1646,6 +1646,8 @@ This triangle needs 3 colors (chromatic number = 3):
 - Sudoku solving
 
 ![Graph with 5 vertices colored using 3 colors such that no adjacent vertices share a color](./media/graph-coloring.png)
+
+A graph is **planar** if it can be drawn in the plane with no two edges crossing (except at shared endpoints).
 
 **Four Color Theorem:** Any planar graph can be colored with at most 4 colors.
 
