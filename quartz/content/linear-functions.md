@@ -74,6 +74,16 @@ $$m = \frac{y_2 - y_1}{x_2 - x_1} = \frac{\Delta y}{\Delta x}$$
 
 Where $(x_1, y_1)$ and $(x_2, y_2)$ are two distinct points on the line. The symbol $\Delta$ (read aloud as "delta") means "change in," so $\Delta y$ ("delta y") is the change in the output and $\Delta x$ ("delta x") is the change in the input. Slope is therefore rise over run: how much the line climbs for each unit it moves to the right.
 
+The **sign** of the slope tells you the line's basic shape at a glance, and there are exactly four possibilities:
+
+![Four small coordinate grids showing the four kinds of slope. The first shows a green line rising from lower-left to upper-right, labeled m greater than 0, rises left to right. The second shows a red line falling from upper-left to lower-right, labeled m less than 0, falls left to right. The third shows a flat blue horizontal line, labeled m equals 0, the horizontal line y equals k. The fourth shows a purple vertical line, labeled m undefined, the vertical line x equals k which is not a function because one input maps to many outputs.](./media/lf-slope-types.png)
+
+A **positive** slope rises, a **negative** slope falls, a **zero** slope is flat (a horizontal line), and a **vertical** line has *undefined* slope because its run $\Delta x$ is zero and you cannot divide by zero. The horizontal and vertical cases get their own section below.
+
+Concretely, rise over run means you count boxes: from any point, go up by the rise and right by the run to land on another point of the line.
+
+![A single line y equals 3x minus 1 with the two points (2, 5) and (4, 11) marked. A green horizontal segment shows the run, delta x equals 4 minus 2 equals 2, and a red vertical segment shows the rise, delta y equals 11 minus 5 equals 6, forming a right triangle under the line. The slope is computed as rise over run equals 6 over 2 equals 3.](./media/lf-slope-two-points.png)
+
 ### Standard Form
 
 **Standard Form:**
@@ -96,6 +106,10 @@ standard form.
 $$y - y_1 = m(x - x_1)$$
 
 Where $(x_1, y_1)$ is a known point on the line and $m$ is the slope.
+
+These three forms are not three different lines: they are three different **costumes** for the *same* line. You convert freely between them, and you pick whichever makes the task at hand easiest.
+
+![One straight line shown on the left as the graph of y equals 3x minus 1, passing through the marked point (2, 5) and crossing the y-axis at negative 1. On the right, three boxes list the same line written three equivalent ways: slope-intercept form y equals 3x minus 1, which makes the slope 3 and y-intercept negative 1 obvious; point-slope form y minus 5 equals 3 times the quantity x minus 2, built from the point (2, 5) and the slope 3; and standard form 3x minus y equals 1, which has integer coefficients and is handy for elimination.](./media/lf-three-forms.png)
 
 ### Domain and Range
 
@@ -220,6 +234,8 @@ $$
 
 Note: a horizontal line ($m = 0$) and a vertical line (undefined slope) are perpendicular, but this case is not captured by the formula above.
 
+![Two panels contrasting parallel and perpendicular lines. The left panel shows two lines, y equals 3x minus 1 and y equals 3x minus 2, running side by side with the same slope 3 so they never meet, labeled both have m equals 3. The right panel shows y equals 2x plus 5 and y equals negative one-half x plus 4 crossing at a right angle, with a small square drawn at the crossing to mark the ninety-degree angle, and the note that the product of the slopes, 2 times negative one-half, equals negative 1.](./media/lf-parallel-perpendicular.png)
+
 ## Horizontal and Vertical Lines
 
 ### Horizontal Lines
@@ -282,6 +298,8 @@ $$
 
 Equivalently, the product $xy = k$ is constant. As $x$ increases, $y$ decreases (and vice versa). The graph is a hyperbola, not a line. See [Rational Functions](./rational-functions) for more on this shape.
 
+![Two panels contrasting the two kinds of variation. The left panel, direct variation y equals kx, shows the straight line y equals 4x passing through the origin with the points (3, 12) and (7, 28) marked, noting that the ratio y over x stays constant at 4. The right panel, inverse variation y equals k over x, shows the curved hyperbola y equals 12 over x sweeping down through the points (2, 6), (3, 4), and (6, 2), noting that the product x times y stays constant at 12 and the graph is a hyperbola, not a line.](./media/lf-direct-inverse-variation.png)
+
 ### Joint and Combined Variation
 
 **Joint Variation:** $z$ varies jointly as $x$ and $y$ means $z = kxy$.
@@ -325,6 +343,10 @@ V(t) = -2500t + 20000
 $$
 
 The slope $-2500$ represents the annual loss in value. Setting $V(t) = 0$ gives $t = 8$, so the machine is fully depreciated after 8 years.
+
+![A downward-sloping line graphing the depreciation model V of t equals negative 2,500 t plus 20,000 over t from 0 to 9 years. The y-intercept at (0, 20,000) is marked in green and labeled the purchase price, a fixed cost. The line falls steadily and reaches the x-intercept at t equals 8, marked in red and labeled fully depreciated. A rotated label along the line reads slope negative 2,500 equals value lost per year, showing how the slope and the two intercepts each carry a real-world meaning.](./media/lf-modeling.png)
+
+Every number in the model has a story: the $y$-intercept is the starting value, the slope is the yearly change, and the $x$-intercept is when the value runs out. Reading those three off a linear model is the whole point of using one.
 
 ### Interpreting Slope and Intercept in Context
 

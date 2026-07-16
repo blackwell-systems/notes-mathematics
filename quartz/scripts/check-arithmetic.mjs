@@ -2081,6 +2081,54 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("x^2 is convex: chord lies on/above graph for sampled points", [[-1.5, 2, 0.5], [0, 3, 0.3], [-2, -0.5, 0.7]].every(([a, b, t]) => convexOK(a, b, t)));
 }
 
+// ================= Linear functions =================
+{
+  // Slope from two points (2,5),(4,11) = 3; line y = 3x - 1.
+  const slope = (x1, y1, x2, y2) => (y2 - y1) / (x2 - x1);
+  eq("slope through (2,5) and (4,11) = 3", slope(2, 5, 4, 11), 3);
+  const line = (x) => 3 * x - 1;
+  check("line y=3x-1 passes through (2,5) and (4,11)", line(2) === 5 && line(4) === 11);
+
+  // Point + slope: m=-2 through (3,7) -> y = -2x + 13.
+  const pl = (x) => -2 * x + 13;
+  check("point-slope: m=-2 through (3,7) gives y=-2x+13", pl(3) === 7 && pl(0) === 13);
+
+  // Parallel to y=3x-1 through (2,4) -> y = 3x - 2 (same slope).
+  const par = (x) => 3 * x - 2;
+  check("parallel line through (2,4) is y=3x-2 (slope 3)", par(2) === 4 && slope(2, par(2), 5, par(5)) === 3);
+
+  // Perpendicular to y=2x+5 through (6,1): slope -1/2, y = -1/2 x + 4, product of slopes = -1.
+  const perp = (x) => -0.5 * x + 4;
+  check("perpendicular line through (6,1) is y=-x/2+4", perp(6) === 1);
+  eq("product of perpendicular slopes 2 * (-1/2) = -1", 2 * -0.5, -1);
+  // the two perpendicular lines meet at (-0.4, 4.2)
+  check("y=2x+5 and y=-x/2+4 intersect at (-0.4, 4.2)", approx(2 * -0.4 + 5, 4.2, 1e-9) && approx(perp(-0.4), 4.2, 1e-9));
+
+  // Intercepts of y=mx+b: x-intercept -b/m, y-intercept b.
+  { const m = 3, b = -1; eq("x-intercept of 3x-1 is 1/3", -b / m, 1 / 3, 1e-9); eq("y-intercept of 3x-1 is -1", b, -1); }
+
+  // Three forms of the same line are equivalent: y=3x-1, y-5=3(x-2), 3x-y=1.
+  const si = (x) => 3 * x - 1, ps = (x) => 3 * (x - 2) + 5, std = (x) => 3 * x - 1; // from 3x - y = 1 => y = 3x - 1
+  check("slope-intercept, point-slope, standard forms agree at several x", [-1, 0, 2, 5].every((x) => approx(si(x), ps(x), 1e-12) && approx(si(x), std(x), 1e-12)));
+
+  // Direct variation: k=12/3=4, y(7)=28.
+  { const k = 12 / 3; eq("direct variation constant k = 4", k, 4); eq("direct variation y(7) = 28", k * 7, 28); }
+  // Inverse variation: xy = 12 constant.
+  check("inverse variation xy=12 constant for (2,6),(3,4),(6,2)", [[2, 6], [3, 4], [6, 2]].every(([x, y]) => x * y === 12));
+
+  // Depreciation model V(t) = -2500 t + 20000: V(0)=20000, V(8)=0.
+  const V = (t) => -2500 * t + 20000;
+  check("depreciation V(0)=20000 (purchase price), V(8)=0 (fully depreciated)", V(0) === 20000 && V(8) === 0);
+
+  // Fahrenheit-Celsius: F = 9/5 C + 32. C=0 -> 32, C=100 -> 212.
+  const FofC = (C) => (9 / 5) * C + 32;
+  check("F = 9/5 C + 32: 0C->32F and 100C->212F", FofC(0) === 32 && FofC(100) === 212);
+
+  // Cost function C(x) = 8x + 500: fixed cost 500, marginal cost 8.
+  const cost = (x) => 8 * x + 500;
+  check("cost C(x)=8x+500: C(0)=500 fixed, each unit adds 8", cost(0) === 500 && cost(10) - cost(9) === 8);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
