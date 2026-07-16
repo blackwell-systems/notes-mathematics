@@ -126,6 +126,23 @@ $$
 
 **Counting.** A set with $n$ elements has $2^n$ subsets in all, of which exactly $2^n - 1$ are proper (every subset except the whole set itself). For example, $\{a, b, c\}$ has $2^3 = 8$ subsets and $7$ proper subsets. (See [Power Set](#power-set).)
 
+### Subset as an Order: the Analogy with $\leq$ and $<$
+
+The pair $\subseteq$ / $\subsetneq$ behaves exactly like $\leq$ / $<$ on numbers. Both are **order relations** (see [partial and total orders](./functions-relations)), and lining them up makes each easier to remember:
+
+| Numbers | Sets | Property |
+|---|---|---|
+| $a \leq a$ | $A \subseteq A$ | reflexive |
+| $a \leq b$ and $b \leq a \Rightarrow a = b$ | $A \subseteq B$ and $B \subseteq A \Rightarrow A = B$ | antisymmetric |
+| $a \leq b$ and $b \leq c \Rightarrow a \leq c$ | $A \subseteq B$ and $B \subseteq C \Rightarrow A \subseteq C$ | transitive |
+| $a < b \iff a \leq b \text{ and } a \neq b$ | $A \subsetneq B \iff A \subseteq B \text{ and } A \neq B$ | strict version |
+
+The antisymmetry row is more than an analogy: showing $A \subseteq B$ **and** $B \subseteq A$ is *the* standard way to prove two sets equal, the double-inclusion method used in [Set Equality](#set-equality) just below.
+
+**One crucial difference.** The relation $\leq$ on numbers is a **total order**: any two numbers are comparable, either $a \leq b$ or $b \leq a$. The subset relation $\subseteq$ is only a **partial order**: two sets can be *incomparable*, with neither a subset of the other. For instance $\{1, 2\}$ and $\{2, 3\}$ satisfy $\{1,2\} \not\subseteq \{2,3\}$ (since $1 \notin \{2,3\}$) and $\{2,3\} \not\subseteq \{1,2\}$ (since $3 \notin \{1,2\}$). On a number line everything lies in a single row; the subsets of a set instead branch into a lattice (the [power set](#power-set)) in which side-by-side elements are incomparable.
+
+![Two panels contrasting a total order and a partial order: on the left a number line with 1, 2, 3, 4 where any two numbers are comparable; on the right the lattice of subsets of the two-element set a, b, ordered by inclusion, in which the singletons set-a and set-b are marked incomparable because neither is a subset of the other](./media/st-subset-order.png)
+
 ## Set Equality
 
 Two sets are **equal** iff they have the **same members**. Formally

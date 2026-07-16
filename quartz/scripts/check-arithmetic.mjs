@@ -1779,6 +1779,12 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("empty set is NOT a proper subset of the empty set", !isProper([], []));
   eq("a 3-element set has 2^3 = 8 subsets", 2 ** 3, 8);
   eq("a 3-element set has 2^3 - 1 = 7 proper subsets", 2 ** 3 - 1, 7);
+  // subset behaves like <=: reflexive, transitive, antisymmetric; incomparable pairs exist (partial, not total)
+  check("subset is reflexive (like a <= a)", isSubset([1, 2, 3], [1, 2, 3]));
+  check("subset is transitive (like <=): {1} in {1,2} in {1,2,3}", isSubset([1], [1, 2]) && isSubset([1, 2], [1, 2, 3]) && isSubset([1], [1, 2, 3]));
+  check("antisymmetry is the double-inclusion proof of equality", (isSubset([1, 2], [2, 1]) && isSubset([2, 1], [1, 2])) === eqSet([1, 2], [2, 1]));
+  check("{1,2} and {2,3} are incomparable (subset is only a partial order)", !isSubset([1, 2], [2, 3]) && !isSubset([2, 3], [1, 2]));
+  check("<= on numbers is a total order: any two compare", [[1, 2], [5, 5], [3, -1]].every(([a, b]) => a <= b || b <= a));
 }
 
 // ================= Exponential Functions (e limit, doubling/half-life) =================
