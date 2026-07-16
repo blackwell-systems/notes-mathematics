@@ -2010,6 +2010,23 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   const hit = new Set();
   for (let n = 0; n <= 20; n++) hit.add(fNZ(n));
   check("N<->Z bijection hits each of -10..10 exactly once (no collisions in 0..20)", hit.size === 21);
+
+  // Schroder-Bernstein, Banach construction on A=B=N with f(n)=g(n)=n+1 (both injective, neither onto).
+  // C0 = A \ g(B) = N \ {1,2,3,...} = {0};  C_{n+1} = g(f(C_n)) = C_n + 2  => C = evens.
+  const N = 40;
+  const C = new Set();
+  { let layer = new Set([0]); for (let k = 0; k < N; k++) { for (const x of layer) C.add(x); layer = new Set([...layer].map((x) => x + 2)); } }
+  check("Banach set C = {0,2,4,...} (the evens) for f(n)=g(n)=n+1", [0, 2, 4, 10].every((e) => C.has(e)) && ![1, 3, 5].some((o) => C.has(o)));
+  // h(x) = f(x)=x+1 if x in C, else g^{-1}(x)=x-1.  This should swap adjacent pairs: 0<->1, 2<->3, ...
+  const hSB = (x) => (C.has(x) ? x + 1 : x - 1);
+  check("SB bijection swaps adjacent pairs: 0->1,1->0,2->3,3->2", hSB(0) === 1 && hSB(1) === 0 && hSB(2) === 3 && hSB(3) === 2);
+  // on the block {0..2m-1} h is a bijection (a permutation of that block)
+  { const m = 8, img = new Set(); for (let x = 0; x < 2 * m; x++) img.add(hSB(x)); check("SB h is a bijection on {0..15} (image is exactly {0..15})", img.size === 2 * m && [...img].every((y) => y >= 0 && y < 2 * m)); }
+
+  // Motivating injections for |[0,1]| = |(0,1)|: f(x)=(x+1)/3 maps [0,1] into (0,1); g = inclusion.
+  const fInt = (x) => (x + 1) / 3;
+  check("f(x)=(x+1)/3 sends [0,1] into the open interval (0,1)", fInt(0) > 0 && fInt(1) < 1 && approx(fInt(0), 1 / 3, 1e-12) && approx(fInt(1), 2 / 3, 1e-12));
+  check("f(x)=(x+1)/3 is injective (strictly increasing) on [0,1]", fInt(0.2) < fInt(0.8));
 }
 
 // ---------- Report ----------

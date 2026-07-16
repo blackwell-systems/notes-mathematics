@@ -1232,16 +1232,45 @@ A one-to-one correspondence between sets **A** and **B** means that **A** and **
 
 The picture makes the counting concrete: walking left to right along the naturals, the outputs bounce $0, -1, +1, -2, +2, -3, \ldots$, sweeping outward so that *every* integer is reached exactly once. A set that can be listed this way (put in bijection with $\mathbb{N}$) is called **countably infinite**.
 
-## **Schröder--Bernstein (Cantor--Bernstein) Theorem**
+## Schröder–Bernstein (Cantor–Bernstein) Theorem
 
-**Statement.**
+**Statement.** If there are injections $f : A \rightarrow B$ and $g : B \rightarrow A$, then there exists a bijection $h : A \rightarrow B$.
 
-If there are injections $f:A \rightarrow B$ and $g:B \rightarrow A$,
-then there exists a bijection $h:A \rightarrow B$
+In cardinality language, $|A| \leq |B|$ means "there is an injection $A \to B$" and $|B| \leq |A|$ means "there is an injection $B \to A$"; the theorem says these two together force $|A| = |B|$. It is the antisymmetry law for [cardinal](#one-to-one-correspondence) sizes, the exact analogue of "$a \leq b$ and $b \leq a$ imply $a = b$" for ordinary numbers, and remarkably it needs **no** Axiom of Choice.
 
-(So $\mid A \mid \leq \mid B \mid $and
-$\mid B \mid \leq \mid A \mid $together imply
-$\mid A \mid = \mid B \mid$. No Choice needed.)
+**Why it is not obvious.** Injections are cheap; bijections are expensive. It is often easy to *squeeze* $A$ into $B$ and $B$ into $A$ without ever seeing a clean one-to-one-and-onto pairing. For example, to prove $|[0,1]| = |(0,1)|$ the two injections are trivial: $g : (0,1) \hookrightarrow [0,1]$ is just inclusion, and $f : [0,1] \to (0,1)$, $f(x) = \frac{x+1}{3}$, lands inside $[\tfrac13, \tfrac23] \subset (0,1)$. Yet writing down an explicit bijection between a closed and an open interval by hand is fiddly. Schröder–Bernstein manufactures one for us.
+
+### Proof (the back-and-forth chains)
+
+The idea: trace each element's **ancestry** and let that dictate how to pair it.
+
+Call $a \in A$ the *parent* of $b \in B$ if $f(a) = b$, and call $b \in B$ the parent of $a \in A$ if $g(b) = a$. Because $f$ and $g$ are injective, each element has **at most one** parent (follow $f^{-1}$ or $g^{-1}$). Starting from any element and walking to parents, then grandparents, and so on, produces a unique **chain** that alternates between $A$ and $B$. Walking the other way (to children, via $f$ then $g$ then $f\ldots$) extends the chain forward forever. Every element sits in exactly one such chain, so the chains **partition** $A \cup B$.
+
+Each chain traced backward does exactly one of three things:
+
+- **A-stopper:** it halts at an element of $A$ with no parent, i.e. an $a \in A \setminus g(B)$ (an "orphan in $A$").
+- **B-stopper:** it halts at an element of $B$ with no parent, i.e. a $b \in B \setminus f(A)$ (an "orphan in $B$").
+- **No stop:** it runs backward forever, or closes into a cycle.
+
+![A two-panel schematic of the Schroder Bernstein proof. The top panel shows an A-stopper chain: blue A-nodes and red B-nodes alternate left to right, connected by f arrows going from A down to B and g arrows going from B up to A; the chain starts at an orphan a0 in A that has no g-preimage, and the bijection h is drawn as the green f arrows pairing a0 with b0, a1 with b1, a2 with b2. The bottom panel shows a B-stopper chain starting at an orphan b0 in B with no f-preimage, where h instead follows the green g arrows backward, pairing each a-node with its g-preimage b-node. The caption explains that choosing f on A-stopper chains and g-inverse on B-stopper chains covers every orphan exactly once, making h a bijection.](./media/fr-schroeder-bernstein.png)
+
+Now define the bijection **one chain at a time**. Within a single chain the $A$-elements and $B$-elements simply alternate, so we can pair each $A$-element either with the $B$-element that $f$ sends it to, or with the $B$-element that $g$ came from. The whole trick is choosing consistently so the orphan gets covered:
+
+$$
+h(a) = \begin{cases} f(a) & \text{if } a \text{ lies on an A-stopper chain, or a no-stop chain,} \\ g^{-1}(a) & \text{if } a \text{ lies on a B-stopper chain.} \end{cases}
+$$
+
+On an A-stopper chain the orphan is in $A$, and following $f$ (the green arrows, top panel) pairs it with the next $B$-element, sweeping the whole chain into a perfect matching. On a B-stopper chain the orphan is in $B$, so we instead run $g^{-1}$ (green arrows, bottom panel), which is defined there because every $A$-element on that chain *does* have a $g$-parent. On a no-stop chain either choice works; we use $f$.
+
+**This $h$ is a bijection.** It is enough to check it chain by chain, since the chains partition everything:
+
+- **Well-defined:** $g^{-1}(a)$ is only used when $a$ is not an orphan in $A$, i.e. $a \in g(B)$, and injectivity of $g$ makes the preimage unique.
+- **Injective:** inside one chain, $h$ walks the alternating elements off in lock-step, so it never repeats. Two different chains have disjoint $A$-parts and disjoint $B$-parts, so outputs from different chains cannot collide either.
+- **Surjective:** take any $b \in B$; it lies on some chain. That chain matches $b$ to whichever adjacent $A$-element $h$ pairs it with (its $f$-parent on A-stopper/no-stop chains, its $g$-image on B-stopper chains), so $b$ is hit. In particular the orphans, the only elements at risk of being missed, are exactly the ones the case split is designed to cover.
+
+Hence $h : A \to B$ is a bijection, and $|A| = |B|$. $\blacksquare$
+
+A clean closed-form version of the same construction (no explicit chains) is **Banach's**: let $C_0 = A \setminus g(B)$ (the orphans in $A$), let $C_{n+1} = g(f(C_n))$, and let $C = \bigcup_{n \geq 0} C_n$ (these are precisely the $A$-elements on A-stopper chains). Then $h(a) = f(a)$ for $a \in C$ and $h(a) = g^{-1}(a)$ for $a \notin C$ is the very same bijection. The [countability](./set-theory#countable-vs-uncountable-sets) results, Cantor's diagonal proof that $\mathbb{R}$ is uncountable, and Cantor's theorem $|X| < |\mathcal{P}(X)|$ live on the [Set Theory](./set-theory) page; Schröder–Bernstein is the tool that lets you prove two infinite sets have equal size without ever exhibiting a bijection directly.
 
 ## Piecewise Functions
 
