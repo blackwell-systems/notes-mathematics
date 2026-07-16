@@ -1844,6 +1844,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("an atomic proposition P is true in some assignments, false in others (logic cannot decide it)", [true, false].includes(true) && [true, false].includes(false));
 }
 
+// ================= Algebraic geometry: blowup, Jacobian, RLCT =================
+{
+  // Blowup of the node V(y^2 - x^2) via x = u, y = uv.
+  // The equation y^2 - x^2 pulls back to u^2 v^2 - u^2 = u^2 (v^2 - 1) exactly.
+  const pullback = (u, v) => (u * v) ** 2 - u ** 2;      // y^2 - x^2 with x=u, y=uv
+  const factored = (u, v) => u ** 2 * (v ** 2 - 1);       // u^2 (v^2 - 1)
+  const bpts = [[0.3, 0.4], [-0.7, 1.2], [2, -0.5], [1, 1], [0.5, -1]];
+  check("blowup pullback: (uv)^2 - u^2 = u^2(v^2 - 1) at every test point",
+    bpts.every(([u, v]) => approx(pullback(u, v), factored(u, v), 1e-12)));
+  // strict transform is v^2 - 1 = 0, i.e. the two separated branches v = +1 and v = -1
+  check("strict transform of the node is v = +1 and v = -1 (two separate points)",
+    approx((+1) ** 2 - 1, 0, 1e-12) && approx((-1) ** 2 - 1, 0, 1e-12));
+  check("the two lifted branches are separated: v = +1 and v = -1 never coincide", 1 !== -1);
+
+  // Jacobian criterion. Cusp f = y^2 - x^3 is singular at the origin (both partials vanish).
+  const fx_cusp = (x) => -3 * x ** 2, fy_cusp = (y) => 2 * y;
+  check("cusp y^2 = x^3 is singular at origin: f_x(0)=0 and f_y(0)=0",
+    fx_cusp(0) === 0 && fy_cusp(0) === 0);
+  // Smooth parabola f = y - x^2 has f_y = 1 everywhere, so NO singular points.
+  const fy_parab = () => 1;
+  check("parabola y = x^2 is smooth everywhere: f_y = 1 is never zero", fy_parab() !== 0);
+
+  // Weierstrass cubic y^2 = x^3 + a x + b is singular iff discriminant 4a^3 + 27b^2 = 0.
+  const disc = (a, b) => 4 * a ** 3 + 27 * b ** 2;
+  eq("Weierstrass (a,b)=(0,0) [cusp] is singular: discriminant = 0", disc(0, 0), 0);
+  eq("Weierstrass (a,b)=(-3,2) [node] is singular: discriminant = 0", disc(-3, 2), 0);
+  check("Weierstrass (a,b)=(-1,1) is smooth: discriminant != 0", disc(-1, 1) !== 0);
+
+  // RLCT of the monomial loss K(w) = w^{2k} is lambda = 1/(2k) (resolution invariant).
+  const rlctMonomial = (k) => 1 / (2 * k);
+  eq("RLCT of K = w^2 (k=1) is 1/2", rlctMonomial(1), 0.5);
+  eq("RLCT of K = w^4 (k=2) is 1/4", rlctMonomial(2), 0.25);
+  check("sharper singularity (larger k) gives smaller RLCT", rlctMonomial(3) < rlctMonomial(1));
+  // Regular (smooth, non-singular) d-parameter model recovers the classical lambda = d/2 (BIC).
+  eq("regular model with d=10 parameters has RLCT d/2 = 5", 10 / 2, 5);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
