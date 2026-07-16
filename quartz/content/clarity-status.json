@@ -241,12 +241,13 @@
       ]
     },
     "functions-relations.md": {
-      "contentHash": "sha1:2b9b949afcae3ac8",
+      "contentHash": "sha1:e7d858b53581d26a",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
+      "phase2At": "2026-07-16",
       "overall": "strong",
-      "summary": "Solid on function properties (injective/surjective/inverse/composition/difference quotient) and excellent on the Schroder-Bernstein proof; relation properties are defined but rarely proved, and fibers/kernel + combined bijective proof lack worked examples.",
+      "summary": "PHASE 2 DONE: added 4 worked proofs closing the relation-property gap -- 'divides' is a partial order (reflexive/antisymmetric/transitive from the definition), congruence mod n is an equivalence relation (all 3 from n|(a-b)), fibers of x^2 (over 4/0/-1, partition argument + kernel/quotient), and a combined bijective proof for x^3 (injective via the a^2+ab+b^2>=0 factorization, surjective via cube root, then inverse cbrt). All 4 independently re-reviewed (returned []); +20 harness assertions. Resolves both 'missing' and both remaining 'thin' items.",
       "inventory": [
         {
           "concept": "transitive closure computation",
@@ -320,23 +321,27 @@
         },
         {
           "concept": "fibers and kernel of a function",
-          "quality": "thin",
-          "upgrade": "compute fibers of x^2 (over 4 -> {-2,2}, over -1 -> empty); show they partition R"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "computed fibers of x^2 over 4 ({-2,2}), 0 ({0}), -1 (empty); partition + kernel + quotient<->range bijection + harness"
         },
         {
           "concept": "proving a function bijective (combined)",
-          "quality": "thin",
-          "upgrade": "one worked proof that a specific f is BOTH injective and surjective, then its inverse"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "x^3 on R: injective via (a-b)(a^2+ab+b^2) with a^2+ab+b^2=(a+b/2)^2+3b^2/4>=0, surjective via cube root, inverse cbrt + harness"
         },
         {
           "concept": "checking reflexive/symmetric/transitive on a concrete relation",
-          "quality": "missing",
-          "upgrade": "prove 'divides' on Z+ is a partial order, checking each property"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "proved 'divides' on Z+ is a partial order from a|b := exists k>0, b=ak; each property proved; not-total via 2,3 + harness"
         },
         {
           "concept": "proving an equivalence relation (all 3 together)",
-          "quality": "missing",
-          "upgrade": "prove 'same age' (or congruence mod n) is reflexive+symmetric+transitive"
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "proved congruence mod n is reflexive+symmetric+transitive from n|(a-b); ties to the n residue classes + harness"
         }
       ]
     },

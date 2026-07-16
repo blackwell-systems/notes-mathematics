@@ -449,6 +449,48 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("floor(2.7) = 2", Math.floor(2.7), 2);
   eq("ceil(2.7) = 3", Math.ceil(2.7), 3);
   check("ceil(x) = -floor(-x)", [2.7, -1.3, 5, -0.5, 3.0001].every((x) => Math.ceil(x) === -Math.floor(-x)));
+
+  // ---- Phase-2 worked examples ----
+
+  // "divides" is a partial order on Z+ (checked over a finite window)
+  const divides = (a, b) => b % a === 0;
+  const POS = Array.from({ length: 12 }, (_, i) => i + 1); // 1..12
+  check("divides is reflexive on Z+", POS.every((a) => divides(a, a)));
+  check("divides is antisymmetric on Z+",
+    POS.every((a) => POS.every((b) => !(divides(a, b) && divides(b, a)) || a === b)));
+  check("divides is transitive on Z+",
+    POS.every((a) => POS.every((b) => POS.every((c) => !(divides(a, b) && divides(b, c)) || divides(a, c)))));
+  check("divides is not total: 2,3 incomparable", !divides(2, 3) && !divides(3, 2));
+  // antisymmetry crux: a|b and b|a => b=ak, a=bm => km=1 => k=m=1 (only positive soln)
+  check("km=1 in Z+ forces k=m=1 (antisymmetry crux)",
+    POS.every((k) => POS.every((mm) => k * mm !== 1 || (k === 1 && mm === 1))));
+  check("2|6 and 6|12 => 2|12 (transitivity instance)", divides(2, 6) && divides(6, 12) && divides(2, 12));
+
+  // congruence mod n is an equivalence relation (checked over a window, n=3)
+  const cong = (n, a, b) => (((a - b) % n) + n) % n === 0;
+  const ZW = Array.from({ length: 21 }, (_, i) => i - 10); // -10..10
+  check("congruence mod 3 is reflexive", ZW.every((a) => cong(3, a, a)));
+  check("congruence mod 3 is symmetric", ZW.every((a) => ZW.every((b) => !cong(3, a, b) || cong(3, b, a))));
+  check("congruence mod 3 is transitive",
+    ZW.every((a) => ZW.every((b) => ZW.every((c) => !(cong(3, a, b) && cong(3, b, c)) || cong(3, a, c)))));
+  check("congruence mod 3 has exactly 3 classes", new Set(ZW.map((a) => ((a % 3) + 3) % 3)).size === 3);
+  check("transitivity instance: 7=1 and 1=4 (mod 3) => 7=4", cong(3, 7, 1) && cong(3, 1, 4) && cong(3, 7, 4));
+
+  // fibers of f(x)=x^2
+  check("fiber of x^2 over 4 is {-2,2}", (-2) ** 2 === 4 && 2 ** 2 === 4);
+  check("fiber of x^2 over 0 is {0}", 0 ** 2 === 0);
+  check("fiber of x^2 over -1 is empty (no real square is -1)", ![...Array(2001)].some((_, i) => ((i - 1000) / 100) ** 2 === -1));
+  check("3 and -3 share the fiber over 9", 3 ** 2 === 9 && (-3) ** 2 === 9);
+
+  // f(x)=x^3 is a bijection on R with inverse cbrt
+  check("x^3 injective factor a^2+ab+b^2 >= 0",
+    [[1, 2], [-3, 5], [2, -7], [0, 4]].every(([a, b]) => a * a + a * b + b * b >= 0));
+  check("a^3=b^3 => a=b (sampled)", [[2, 2], [-3, -3]].every(([a, b]) => a ** 3 !== b ** 3 || a === b));
+  check("(a-b)(a^2+ab+b^2) = a^3-b^3 identity",
+    [[2, 5], [-1, 3]].every(([a, b]) => (a - b) * (a * a + a * b + b * b) === a ** 3 - b ** 3));
+  eq("cube root of -8 = -2 (surjectivity onto negatives)", Math.cbrt(-8), -2);
+  check("x^3 inverse round-trips: cbrt(x^3)=x and (cbrt y)^3=y",
+    [3, -2, 0.5, 10].every((x) => Math.abs(Math.cbrt(x ** 3) - x) < 1e-9 && Math.abs(Math.cbrt(x) ** 3 - x) < 1e-9));
 }
 
 // ================= Set Theory =================

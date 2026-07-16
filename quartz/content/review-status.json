@@ -101,10 +101,11 @@
       ]
     },
     "functions-relations.md": {
-      "contentHash": "sha1:2b9b949afcae3ac8",
+      "contentHash": "sha1:e7d858b53581d26a",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
+      "note": "Phase-2 clarity pass added 4 worked proofs (divides partial order, congruence-mod-n equivalence, fibers of x^2, x^3 bijection+inverse); each independently correctness-reviewed (returned []) and machine-checked (+20 assertions). Hash refreshed to keep the prose-review ledger current.",
       "findings": [
         {
           "id": "DEF-2",

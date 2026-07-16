@@ -256,6 +256,14 @@ Notation: Often written as ≤ or ⊑
 
 **Why "partial"?** Not every pair of elements needs to be comparable. For example, with subset relation, {1,2} and {3,4} are incomparable (neither is a subset of the other).
 
+**Worked example: proving "divides" is a partial order on $\mathbb{Z}^{+}$.** The list above asserts the three properties; here we prove each from the definition. For positive integers $a, b$, write $a \mid b$ (read "$a$ divides $b$") to mean *there exists a positive integer $k$ with $b = ak$*. Everything below uses only that definition.
+
+- **Reflexive.** For any $a$, we have $a = a \cdot 1$, and $1$ is a positive integer, so $a \mid a$. Every element divides itself. $\checkmark$
+- **Antisymmetric.** Suppose $a \mid b$ *and* $b \mid a$. Then $b = ak$ and $a = bm$ for positive integers $k, m$. Substitute the first into the second: $a = bm = (ak)m = a(km)$. Cancelling the positive integer $a$ gives $km = 1$. The only positive integers whose product is $1$ are $k = m = 1$, so $b = a \cdot 1 = a$. Mutual divisibility forces equality. $\checkmark$
+- **Transitive.** Suppose $a \mid b$ *and* $b \mid c$. Then $b = ak$ and $c = bm$ for positive integers $k, m$. Substitute: $c = bm = (ak)m = a(km)$. Since $km$ is a positive integer, $a \mid c$. $\checkmark$
+
+All three hold, so $(\mathbb{Z}^{+}, \mid)$ is a partial order. It is *not* a total order: $2 \nmid 3$ and $3 \nmid 2$, so $2$ and $3$ are incomparable, which is exactly the branching you see in the divisibility Hasse diagrams below. $\blacksquare$
+
 ### Hasse Diagrams
 
 **Hasse Diagram:** A visual representation of a finite partially ordered set (poset) that shows the ordering relationships between elements.
@@ -400,6 +408,14 @@ $$
 
 This means that if a is related to b and b is related to c, then a is
 also related to c.
+
+**Worked example: proving congruence modulo $n$ is an equivalence relation.** Fix a positive integer $n$. For integers $a, b$, define $a \equiv b \pmod{n}$ (read "$a$ is congruent to $b$ modulo $n$") to mean *$n$ divides $a - b$*, that is, $a - b = nk$ for some integer $k$. This is the relation whose classes were drawn earlier for $n = 3$; now we verify all three properties from the definition.
+
+- **Reflexive.** For any $a$, $\ a - a = 0 = n \cdot 0$, and $0$ is an integer, so $n \mid (a - a)$ and $a \equiv a$. $\checkmark$
+- **Symmetric.** Suppose $a \equiv b$, so $a - b = nk$ for some integer $k$. Then $b - a = -(a - b) = n(-k)$, and $-k$ is an integer, so $n \mid (b - a)$ and $b \equiv a$. $\checkmark$
+- **Transitive.** Suppose $a \equiv b$ and $b \equiv c$, so $a - b = nk$ and $b - c = nm$ for integers $k, m$. Add the two equations, and the middle term cancels: $a - c = (a - b) + (b - c) = nk + nm = n(k + m)$. Since $k + m$ is an integer, $n \mid (a - c)$ and $a \equiv c$. $\checkmark$
+
+All three hold, so $\equiv \pmod{n}$ is an equivalence relation. By the partition property below, it splits $\mathbb{Z}$ into the $n$ **residue classes** $[0], [1], \ldots, [n-1]$ (grouped by remainder on division by $n$), recovering the three-box picture for $n = 3$. $\blacksquare$
 
 **Key Concepts and Why They Matter:**
 
@@ -833,6 +849,14 @@ x \sim x' \iff f(x) = f(x'),
 $$
 called the **kernel** of $f$. So *every function silently carves its domain into equivalence classes* (its fibers), and the [quotient set](#quotient-set-set-of-equivalence-classes) $X/{\sim}$ is in bijection with the range of $f$. This is the bridge between the two halves of this page: relations give rise to functions, and every function gives back an equivalence relation. ($f$ is injective exactly when every fiber has at most one element, i.e. its kernel is plain equality.)
 
+**Worked example: the fibers of $f(x) = x^2$.** The fiber over $y$ is $f^{-1}(\{y\}) = \{x \in \mathbb{R} : x^2 = y\}$, so computing a fiber just means solving $x^2 = y$:
+
+- **Over $4$:** $x^2 = 4$ gives $x = \pm 2$, so the fiber is $\{-2, 2\}$, a *two*-element set (this value is hit twice).
+- **Over $0$:** $x^2 = 0$ gives $x = 0$ only, so the fiber is $\{0\}$, a *single* point.
+- **Over $-1$:** $x^2 = -1$ has no real solution, so the fiber is $\varnothing$ (this value is never hit).
+
+These fibers **partition** $\mathbb{R}$: every real $x$ lies in exactly one fiber, the one over $x^2$ (for instance $3$ and $-3$ both live in the fiber over $9$), and no $x$ can lie in two fibers because $x^2$ is a single number. Sweeping $y$ over all of $[0, \infty)$, the nonempty fibers exactly cover $\mathbb{R}$. The kernel relation $x \sim x' \iff x^2 = x'^2$ has these fibers as its classes: two reals are related precisely when $x' = \pm x$. So the quotient $\mathbb{R}/{\sim}$ is in bijection with the range $[0, \infty)$ via $[x] \mapsto x^2$, one class per attained output. $\blacksquare$
+
 ### Injection (one-to-one)
 
 **Injection:** A function is **injective** (also called **one-to-one**) if *different inputs always produce different outputs*, so no output is ever hit twice. Equivalently, in the contrapositive form that is easiest to use in proofs:
@@ -876,6 +900,17 @@ $$
 \underbrace{\forall x_1, x_2\ \big(f(x_1) = f(x_2) \to x_1 = x_2\big)}_{\text{injective}} \quad\wedge\quad \underbrace{\forall y \in Y\ \exists x \in X\ (f(x) = y)}_{\text{surjective}}.
 $$
 A bijection pairs the elements of $X$ and $Y$ perfectly, one-to-one and onto, which is exactly what makes it invertible (next) and what underlies comparing set sizes.
+
+**Worked example: proving a function is bijective, then inverting it.** Show that $f(x) = x^3$ as a map $\mathbb{R} \to \mathbb{R}$ is a bijection, and find its inverse. A bijection needs *both* halves, so we prove each in turn.
+
+- **Injective.** Assume $f(a) = f(b)$, i.e. $a^3 = b^3$. Then $a^3 - b^3 = 0$, which factors as
+$$
+(a - b)(a^2 + ab + b^2) = 0.
+$$
+The second factor is never negative and only vanishes at the origin: completing the square, $a^2 + ab + b^2 = \left(a + \tfrac{b}{2}\right)^2 + \tfrac{3}{4}b^2 \geq 0$, with equality only when $b = 0$ *and* $a + \tfrac{b}{2} = 0$, forcing $a = b = 0$. So the product can be zero only if the *first* factor is zero, giving $a = b$ (the degenerate case $a = b = 0$ also satisfies $a = b$). Equal outputs force equal inputs, so $f$ is injective. $\checkmark$
+- **Surjective.** Take any target $y \in \mathbb{R}$. The real cube root $x = \sqrt[3]{y}$ satisfies $f(x) = \left(\sqrt[3]{y}\right)^3 = y$, and every real number has a real cube root (unlike square roots, cube roots of negatives exist: $\sqrt[3]{-8} = -2$). Every target is hit, so $f$ is surjective. $\checkmark$
+
+Injective and surjective together make $f$ a **bijection**. To find the inverse, solve $y = x^3$ for $x$, giving $x = \sqrt[3]{y}$, so $f^{-1}(y) = \sqrt[3]{y}$. The two round-trip checks confirm it: $f^{-1}(f(x)) = \sqrt[3]{x^3} = x$ and $f(f^{-1}(y)) = \left(\sqrt[3]{y}\right)^3 = y$. $\blacksquare$
 
 ![Four mapping diagrams contrasting injective-not-surjective, surjective-not-injective, bijective, and neither, each drawn as arrows between a domain oval and a codomain oval](./media/fr-inj-surj-bij.png)
 
