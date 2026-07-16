@@ -675,6 +675,13 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   const s1 = addv(se(1), se(10)), s2 = addv(se(5), se(14));
   check("sedenion zero divisor (e1+e10)(e5+e14)=0", !zero(s1) && !zero(s2) && zero(cd(s1, s2)));
 
+  // Bott-Milnor-Kervaire / Hurwitz: division-algebra dims are exactly {1,2,4,8},
+  // and the parallelizable spheres are S^{n-1} for those n, i.e. {0,1,3,7}.
+  const divDims = [1, 2, 4, 8];
+  eq("division-algebra dims are the Cayley-Dickson rungs R,C,H,O",
+    divDims.join(","), "1,2,4,8");
+  eq("parallelizable spheres S^{n-1} for those dims", divDims.map((n) => n - 1).join(","), "0,1,3,7");
+
   // Dual numbers: f(x)=x^3-2x at 2+eps gives 4+10eps, so f'(2)=10
   const dmul = (p, q) => [p[0] * q[0], p[0] * q[1] + p[1] * q[0]];
   const fdual = (p) => { const x2 = dmul(p, p), x3 = dmul(x2, p); return [x3[0] - 2 * p[0], x3[1] - 2 * p[1]]; };

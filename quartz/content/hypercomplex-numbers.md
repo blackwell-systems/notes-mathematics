@@ -71,8 +71,11 @@ Two nonzero numbers multiplying to zero means you can no longer always divide: $
 
 Two classical theorems say the good behavior really does stop where it appears to:
 
-- **Hurwitz's theorem.** The *only* normed division algebras over $\mathbb{R}$ are $\mathbb{R}, \mathbb{C}, \mathbb{H}, \mathbb{O}$, of dimensions $1, 2, 4, 8$. There is no fifth.
-- **Frobenius's theorem.** The only *associative* division algebras over $\mathbb{R}$ are $\mathbb{R}, \mathbb{C}, \mathbb{H}$. Demanding associativity cuts the list off one step earlier.
+- **Hurwitz's theorem (1898).** The *only* normed division algebras over $\mathbb{R}$ are $\mathbb{R}, \mathbb{C}, \mathbb{H}, \mathbb{O}$, of dimensions $1, 2, 4, 8$. There is no fifth.
+- **Frobenius's theorem (1877).** The only *associative* division algebras over $\mathbb{R}$ are $\mathbb{R}, \mathbb{C}, \mathbb{H}$. Demanding associativity cuts the list off one step earlier.
+- **Bott–Milnor and Kervaire (1958).** Drop *every* requirement except division itself: ask only when $\mathbb{R}^n$ can carry *any* bilinear product with no zero divisors (no associativity, no norm, nothing else). The answer is *still* exactly $n = 1, 2, 4, 8$. And this one was proved not by algebra but by **topology**. Such a product forces the sphere $S^{n-1}$ to be **parallelizable** (to admit $n-1$ continuous, everywhere-linearly-independent tangent vector fields, a global "comb the hair flat" condition), and Bott, Milnor, and Kervaire proved the *only* parallelizable spheres are $S^0, S^1, S^3, S^7$. So the magic dimensions $1, 2, 4, 8$ are forced by the shape of spheres, a fact from a branch of mathematics with no visible connection to number systems until you prove the link.
+
+Read together, the three theorems say the tower's abrupt end is a wall approached from three independent directions: normed (Hurwitz), associative (Frobenius), and purely topological (Bott–Milnor–Kervaire). Whichever comfort you refuse to give up, you land on the same short list, and the last one shows the list survives even when you give up *everything* but division.
 
 So the whole tower, and its abrupt end, is captured by a table of what each rung gives up:
 
@@ -83,6 +86,16 @@ So the whole tower, and its abrupt end, is captured by a table of what each rung
 | $\mathbb{H}$ quaternions | 4 | commutativity | associative, division, normed |
 | $\mathbb{O}$ octonions | 8 | associativity | alternative, division, normed |
 | $\mathbb{S}$ sedenions | 16 | division (zero divisors) | power-associative |
+
+Read down the **"Still has"** column and the losses turn out to be anything but random: each rung keeps a strictly *weaker* form of associativity than the last, a graceful descent rather than a collapse. Full associativity ($\mathbb{H}$) weakens to **alternativity** (any *two* elements associate, $\mathbb{O}$), which weakens to **power-associativity** (any *one* element associates with itself, so $x^n$ is unambiguous, $\mathbb{S}$). The structure degrades one notch at a time, never all at once.
+
+And each surrendered law is the *price* of a gain, not pure loss, which answers the natural question "do the higher systems only lose properties?" with a firm no:
+
+- Giving up **order** buys $\mathbb{C}$ its **algebraic closure** (every polynomial factors, the Fundamental Theorem of Algebra) and the geometry of planar rotation.
+- Giving up **commutativity** buys $\mathbb{H}$ its clean algebra of **3D rotations**: the unit quaternions form the sphere $S^3$, which is exactly the group $\mathrm{SU}(2)$ double-covering the rotation group $\mathrm{SO}(3)$.
+- Giving up **associativity** buys $\mathbb{O}$ its link to the **exceptional Lie groups**: the automorphism group of the octonions is precisely $G_2$, the smallest of the five exceptional groups, and the remaining four ($F_4, E_6, E_7, E_8$) arise from $\mathbb{O}$ through the Freudenthal–Tits "magic square."
+
+So the tower is less a story of decay than of *trading* a familiar comfort for rarer, more rigid structure. The algebras themselves are completely classified and hold no remaining surprises; what is still being actively mined is their *meaning*, most visibly the ongoing program (Baez, Furey, and others) arguing that the dimensions $1, 2, 4, 8$ and the exceptional groups are the hidden algebraic skeleton of the Standard Model of particle physics.
 
 ## Sideways Extensions: Changing the Question
 
@@ -132,7 +145,7 @@ The **hyperreal numbers** enlarge $\mathbb{R}$ with genuine **infinitesimals** (
 
 Past $\mathbb{C}$, "bigger" always costs something.
 
-- The **Cayley–Dickson tower** doubles dimension and drops a law each step: $\mathbb{H}$ loses commutativity, $\mathbb{O}$ loses associativity, $\mathbb{S}$ loses division. **Hurwitz** and **Frobenius** prove there is nothing well-behaved past $\mathbb{O}$.
+- The **Cayley–Dickson tower** doubles dimension and drops a law each step: $\mathbb{H}$ loses commutativity, $\mathbb{O}$ loses associativity, $\mathbb{S}$ loses division. **Hurwitz**, **Frobenius**, and **Bott–Milnor–Kervaire** prove from three independent directions (normed, associative, purely topological) that there is nothing well-behaved past $\mathbb{O}$, and that the magic dimensions $1, 2, 4, 8$ are the only ones possible. Each law surrendered is the price of a gain: algebraic closure ($\mathbb{C}$), 3D rotations ($\mathbb{H}$), the exceptional Lie groups ($\mathbb{O}$).
 - **Sideways extensions** keep the algebra small but change the meaning of a number: dual numbers ($\varepsilon^2 = 0$) compute derivatives, split-complex numbers ($j^2 = +1$) do hyperbolic geometry, $p$-adics redefine distance, and hyperreals/surreals add infinitesimals.
 
 The lesson is the one made precise on the [algebraic structures](./algebraic-structures) page: a number system is defined as much by the axioms it *keeps* as by the ones it drops, and every system on this page is a deliberate, useful choice about which law to surrender.
