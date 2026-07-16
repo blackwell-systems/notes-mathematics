@@ -1,0 +1,53 @@
+{
+  "rubricVersion": 1,
+  "pages": {
+    "mathematical-notations.md": {
+      "contentHash": "sha1:eb65908f7388e14e",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+human",
+      "findings": [
+        {
+          "id": "CON-1",
+          "severity": 3,
+          "quote": "$\\sim$ , $\\approx$ | \"is similar to\" / \"is equinumerous with\"",
+          "issue": "The symbol ~ is assigned 'equinumerous with' here and 'approximately equal to' in the Analysis table, without cross-noting the dual use (unlike the page's treatment of ->, (+), ~=).",
+          "status": "resolved",
+          "resolution": "Added a cross-note pointing to the Analysis table's 'approximately equal' use."
+        }
+      ]
+    },
+    "set-theory.md": {
+      "contentHash": "sha1:ffec94363c45e4cf",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "THM-1",
+          "severity": 2,
+          "quote": "Placing $m$ objects into $n$ containers guarantees some container has at least ceil(m/n) objects.",
+          "issue": "Generalized pigeonhole uses ceil(m/n) without stating n > 0, so the statement is undefined at n = 0.",
+          "status": "resolved",
+          "resolution": "Added '(with n >= 1)' to the statement."
+        },
+        {
+          "id": "DEF-4",
+          "severity": 3,
+          "quote": "denoted $A \\triangle B$ or $A \\oplus B$",
+          "issue": "The symbol for symmetric difference is introduced without a read-aloud pronunciation, against the project convention.",
+          "status": "resolved",
+          "resolution": "Added (read \"A triangle B\" or \"A symmetric-difference B\")."
+        },
+        {
+          "id": "CON-1",
+          "severity": 2,
+          "quote": "$A \\setminus B = A \\cap B^c$",
+          "issue": "Reviewer flagged A^c as used before introduction.",
+          "status": "false-positive",
+          "resolution": "Not a defect: line 493 introduces 'the complement A-prime (or A^c)' one line before the first use of B^c at line 498. No change made."
+        }
+      ]
+    }
+  }
+}

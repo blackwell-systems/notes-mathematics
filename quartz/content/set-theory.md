@@ -263,7 +263,7 @@ Contradiction. ∎
 
 **Theorem (Generalized PHP).**
 
-Placing $m$ objects into $n$ containers guarantees some container has
+Placing $m$ objects into $n$ containers (with $n \geq 1$) guarantees some container has
 at least:
 
 $$
@@ -456,7 +456,7 @@ $\forall x\, (x \in A' \leftrightarrow (x \in U \land x \notin A))$
 
 ### Symmetric Difference
 
-**Symmetric Difference:** The symmetric difference of sets $A$ and $B$, denoted $A \triangle B$ or $A \oplus B$, is the set of elements in either $A$ or $B$ but not in both.
+**Symmetric Difference:** The symmetric difference of sets $A$ and $B$, denoted $A \triangle B$ (read "A triangle B" or "A symmetric-difference B") or $A \oplus B$, is the set of elements in either $A$ or $B$ but not in both.
 
 **Definition:** $A \triangle B = (A \cup B) \setminus (A \cap B) = (A \setminus B) \cup (B \setminus A)$
 
