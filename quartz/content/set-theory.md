@@ -275,6 +275,12 @@ objects.
 *Average view.* The average load is $m/n$. Some load is $\geq$the
 average, thus $\geq \lceil m/n\rceil$.
 
+**Worked example (both forms).** Put $m = 5$ balls into $n = 3$ boxes.
+
+- *Basic form.* Since $5 > 3$, at least one box must hold two or more balls. Why: if every box held at most one, the boxes could hold at most $3 \times 1 = 3$ balls in total, but we have $5$. Contradiction, so some box is doubled up.
+- *Generalized form.* More precisely, some box holds at least $\left\lceil \frac{5}{3} \right\rceil = \lceil 1.67 \rceil = 2$ balls. Pushing the counts: with $m = 7$ balls in $n = 3$ boxes, some box holds at least $\left\lceil \frac{7}{3} \right\rceil = 3$, because if every box held at most $2$ the total would be at most $3 \times 2 = 6 < 7$.
+- *A familiar instance.* Among any $13$ people, two share a birth month: the people are the $m = 13$ objects and the $n = 12$ months are the boxes, and $13 > 12$ forces a collision. The principle guarantees *that* two people share a month, without telling us *which* month.
+
 ## Cardinality
 
 **Cardinality:** Let A be a set. then the number of elements in the set
@@ -320,6 +326,13 @@ $$
 
 both injective & surjective; write $A \cong B$ or
 $\mid A \mid = \mid B \mid$
+
+**Worked example (checking a map).** Let $f : \{1, 2\} \to \{a, b, c\}$ be given by $f(1) = a$, $f(2) = b$.
+
+- *Injective?* **Yes.** The two inputs go to different outputs ($a \neq b$), so distinct inputs never collide — exactly the injection condition $x \neq y \Rightarrow f(x) \neq f(y)$.
+- *Surjective?* **No.** The codomain element $c$ is never an output; no input maps to it, so $f$ is not onto.
+
+Since an injection $\{1,2\} \to \{a,b,c\}$ exists, $|\{1,2\}| \leq |\{a,b,c\}|$ (indeed $2 \leq 3$). And no function $\{1,2\} \to \{a,b,c\}$ can be *surjective*: two inputs cannot cover three targets, so at least one target is always missed — which is the pigeonhole principle again, and it confirms $2 \neq 3$ so the two sets are not the same size. (Deciding injectivity/surjectivity of general functions is worked in full on [Functions & Relations](./functions-relations#injection-one-to-one).)
 
 **Size comparisons (all sets):**
 
@@ -964,6 +977,21 @@ $$
 $$
 
 The complement of an intersection is the union of the complements.
+
+**Why the first law holds (proof by element-chasing).** To prove the *sets* $(A \cup B)'$ and $A' \cap B'$ are equal, chase an arbitrary element $x$ through the definitions, keeping every link an "if and only if":
+
+$$
+\begin{aligned}
+x \in (A \cup B)'
+&\iff x \notin A \cup B \\
+&\iff \neg\,(x \in A \ \lor\ x \in B) \\
+&\iff (x \notin A) \ \land\ (x \notin B) \\
+&\iff (x \in A') \ \land\ (x \in B') \\
+&\iff x \in A' \cap B'.
+\end{aligned}
+$$
+
+Reading the steps: line 1 is the definition of complement; line 2 is the definition of union; **line 3 is the whole point** — negating an "or" turns it into an "and" (the confusing step, and the one people skip); lines 4 and 5 re-fold complement and intersection. Because each step is a biconditional, $x$ lies in the left set exactly when it lies in the right set, so the two sets are equal. In fact De Morgan's law for sets is nothing more than [De Morgan's law for logic](./propositional-logic-zeroth-order-logic), $\neg(P \lor Q) \equiv \neg P \land \neg Q$, applied to the statement "$x$ is a member." The second law is proved identically, swapping $\cup \leftrightarrow \cap$ and "or" $\leftrightarrow$ "and."
 
 **Generalized De Morgan's Laws:** For any collection of sets:
 

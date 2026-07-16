@@ -2441,6 +2441,32 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("bracelets from 5 beads = (5-1)!/2 = 12", fac(5 - 1) / 2, 12);
 }
 
+// ================= Set theory (worked examples added in clarity Phase 2) =================
+{
+  // Pigeonhole worked example: 5 balls / 3 boxes.
+  eq("PHP: ceil(5/3) = 2", Math.ceil(5 / 3), 2);
+  check("PHP basic: at most 1 per box gives <= 3 < 5", 3 * 1 < 5);
+  eq("PHP: ceil(7/3) = 3", Math.ceil(7 / 3), 3);
+  check("PHP: 3 boxes at most 2 each = 6 < 7", 3 * 2 < 7);
+  check("PHP birth-month: 13 people > 12 months forces a collision", 13 > 12);
+
+  // Injection/surjection worked example: f:{1,2}->{a,b,c}, 1->a, 2->b.
+  const f = { 1: "a", 2: "b" };
+  check("f is injective: distinct inputs -> distinct outputs", f[1] !== f[2]);
+  check("f is NOT surjective: 'c' is never an output", !["a", "b", "c"].every((y) => Object.values(f).includes(y)));
+  check("|{1,2}| <= |{a,b,c}|: 2 <= 3", 2 <= 3);
+
+  // De Morgan verified on A={1,2,3}, B={3,4,5}, U={1..6}.
+  const U = [1, 2, 3, 4, 5, 6], A = [1, 2, 3], B = [3, 4, 5];
+  const uni = (X, Y) => [...new Set([...X, ...Y])].sort((a, b) => a - b);
+  const inter = (X, Y) => X.filter((x) => Y.includes(x)).sort((a, b) => a - b);
+  const comp = (X) => U.filter((u) => !X.includes(u));
+  const same = (X, Y) => X.slice().sort((a, b) => a - b).join(",") === Y.slice().sort((a, b) => a - b).join(",");
+  check("De Morgan (A∪B)' = A'∩B'", same(comp(uni(A, B)), inter(comp(A), comp(B))));
+  check("De Morgan (A∩B)' = A'∪B'", same(comp(inter(A, B)), uni(comp(A), comp(B))));
+  check("(A∪B)' = {6}", same(comp(uni(A, B)), [6]));
+}
+
 // ================= Euclidean geometry (worked examples) =================
 {
   // Complement / supplement of 37 deg.
