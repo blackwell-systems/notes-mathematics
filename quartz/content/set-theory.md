@@ -368,6 +368,12 @@ Show that $[0, 1]$ and $[0, 2]$ have the same cardinality.
 
 (The explicit bijection is $f(x) = 2x$, but Schröder-Bernstein proves existence without requiring we find it.)
 
+**Comparability of cardinals (a subtlety worth knowing).** The three relations above make $\leq$ behave like an order on sizes: it is *reflexive* ($|A| \leq |A|$ via the identity map), *transitive* (compose two injections), and *antisymmetric* — and that last property is exactly Schröder-Bernstein. So $\leq$ is a **partial order** on cardinalities.
+
+Notice carefully what this does and does not assume. Deciding whether $|A| = |B|$ never requires ranking sizes on a common scale: it is the self-contained question "is there a bijection?", and $\cong$ is an equivalence relation needing no extra axioms. But is the order **total** — given *any* two sets, must at least one inject into the other, so that $|A| \leq |B|$ **or** $|B| \leq |A|$? Remarkably, this **cardinal comparability is equivalent to the [Axiom of Choice](#axiom-of-choice-and-zorns-lemma)**. Without Choice there can exist two sets that are genuinely *incomparable*: no injection runs either way. For such a pair the question "which is bigger?" has no answer, yet "are they the same size?" still does — **no**, since no bijection exists.
+
+This is the same partial-versus-total distinction seen earlier for $\subseteq$ against $\leq$, now one level up, on the sizes of sets themselves: the cardinal order is only *partial* in plain ZF, and the Axiom of Choice is precisely the extra assumption that makes it *total*. (Equivalently, Choice is what lets every set be [well-ordered](#ordinals-and-well-ordering), which is what allows attaching an actual cardinal *number* to each set; the size *relation* needs no such thing.)
+
 #### Finite Set
 
 **Definition (cardinal):**
