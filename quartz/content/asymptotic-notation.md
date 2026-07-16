@@ -70,6 +70,10 @@ $$
 
 **Example:** $3n^2 + 5n + 7 = \Theta(n^2)$ because we showed both $O(n^2)$ and $\Omega(n^2)$ above.
 
+![Three panels defining the asymptotic bounds by comparing f(n) = 3n²+5n+7 (blue) to constant multiples of g(n) = n². The left Big-O panel plots f staying below the red dashed curve 4n² once n passes the threshold n-zero = 7, marking the crossing point; this is the upper bound. The middle Big-Omega panel plots f staying above the green dashed curve 3n² for all n; this is the lower bound. The right Big-Theta panel shows f squeezed inside the shaded band between 3n² and 4n² for n at least 7; this is the tight two-sided bound. Each notation is just f compared to a scaled copy of g, valid past some starting point n-zero.](./media/asymp-bounds-definition.png)
+
+The pictures make the definitions concrete: Big-O pins $f$ *under* a scaled $g$, Big-Omega pins it *above* one, and Big-Theta traps it *between* two. Each holds only "eventually," past the threshold $n_0$ (here the upper bound $4n^2$ only overtakes $f$ from $n = 7$ onward, which is exactly what "for all $n \geq n_0$" allows).
+
 **Summary of the three notations:**
 
 | Notation | Meaning | Analogy |
@@ -141,6 +145,10 @@ $$
 
 More generally, a loop running $O(n)$ times with $O(m)$ work per iteration is $O(nm)$.
 
+![A six by six grid of cells, each labeled with an (i, j) pair from (1,1) to (6,6), representing the iterations of a nested loop. The outer loop index i selects a row and the inner loop index j selects a column, so one cell equals one iteration. The third row is highlighted to show that for each fixed i, the inner loop runs n = 6 times. The whole grid holds 6 times 6 = 36 cells, illustrating that n outer iterations times n inner iterations gives n squared operations.](./media/asymp-nested-loops.png)
+
+Each cell is one iteration: the outer loop picks the row, the inner loop sweeps the columns, and filling the whole $n \times n$ grid takes $n^2$ steps. That is why an $O(n)$ loop nested inside another $O(n)$ loop is $O(n^2)$.
+
 ### 4. Sequential Steps Add
 
 If you do one operation taking $O(n)$ and then another taking $O(n^2)$, the total is:
@@ -185,6 +193,10 @@ Scan through an array of $n$ elements to find a target. In the worst case (targe
 ### Binary Search: $O(\log n)$
 
 Search a sorted array by repeatedly halving the search space. After $k$ steps, the remaining space has size $n / 2^k$. The search ends when $n / 2^k = 1$, so $k = \log_2 n$.
+
+![A stack of six shrinking bars showing binary search on a space of size 32. Step 0 is a full-width bar of size 32 = n. Each subsequent step is half the width of the one above: step 1 is size 16, step 2 is size 8, step 3 is size 4, step 4 is size 2, and step 5 is size 1. A green arrow runs down the left side labeled each step halves the search space. Reaching size 1 takes log base 2 of 32 = 5 steps, which is why binary search runs in O(log n) time.](./media/asymp-binary-search.png)
+
+The number of halvings needed to shrink $n$ down to $1$ is exactly $\log_2 n$, which is why the running time is $O(\log n)$: doubling the array size adds just **one** more step. That is the slowest-growing useful complexity class, and it is why sorted data is so valuable.
 
 ### Sorting
 

@@ -2312,6 +2312,45 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("the juxtaposition reading 6 / (2*(1+2)) = 1", 6 / (2 * (1 + 2)), 1);
 }
 
+// ================= Asymptotic notation =================
+{
+  const f = (n) => 3 * n * n + 5 * n + 7;
+  // Big-O: f(n) <= 15 n^2 for n >= 1 (the page's c=15, n0=1 witness).
+  check("3n^2+5n+7 <= 15n^2 for all n>=1 (Big-O witness c=15)", [1, 2, 5, 100].every((n) => f(n) <= 15 * n * n));
+  // Tighter witness c=4 needs n0=7: fails at n=6, holds from n=7.
+  check("3n^2+5n+7 > 4n^2 at n=6 but <= 4n^2 at n=7 (threshold n0=7)", f(6) > 4 * 36 && f(7) <= 4 * 49);
+  // Big-Omega: f(n) >= 3 n^2 for all n>=1.
+  check("3n^2+5n+7 >= 3n^2 for all n>=1 (Big-Omega witness c=3)", [1, 2, 10, 50].every((n) => f(n) >= 3 * n * n));
+  // Big-Theta: sandwiched between 3n^2 and 4n^2 for n>=7.
+  check("3n^2+5n+7 in [3n^2, 4n^2] for n>=7 (Big-Theta)", [7, 8, 20, 100].every((n) => f(n) >= 3 * n * n && f(n) <= 4 * n * n));
+
+  // Ratio test: (3n^2+5n)/n^2 -> 3, a positive finite constant, so Theta(n^2).
+  check("(3n^2+5n)/n^2 approaches 3", approx((3 * 1e6 * 1e6 + 5 * 1e6) / (1e6 * 1e6), 3, 1e-5));
+
+  // n log n = O(n^2): n log2 n <= n^2 since log2 n <= n.
+  check("n*log2(n) <= n^2 for n>=1", [1, 2, 16, 1000].every((n) => n * Math.log2(n) <= n * n + 1e-9));
+
+  // 2^n is not O(n^k): eventually 2^n exceeds n^5 (e.g., n=30).
+  check("2^30 exceeds 30^5 (exponential beats polynomial)", 2 ** 30 > 30 ** 5);
+  check("n^2 / 2^n -> 0 (n^2 = O(2^n), grows strictly slower)", (30 * 30) / 2 ** 30 < 1e-6);
+
+  // Binary search: log2(32) = 5, and 32 / 2^5 = 1.
+  eq("log2(32) = 5 halvings to reach size 1", Math.log2(32), 5);
+  eq("32 / 2^5 = 1", 32 / 2 ** 5, 1);
+
+  // Nested loops multiply: n outer * n inner = n^2 (n=6 -> 36).
+  eq("nested loops 6 x 6 = 36 iterations", 6 * 6, 36);
+
+  // Log base change is a constant factor: log2 n = ln n / ln 2.
+  check("log2(n) = ln(n)/ln(2) (base change is a constant factor)", approx(Math.log2(1000), Math.log(1000) / Math.log(2), 1e-9));
+
+  // Growth ordering at n=64: log2 < sqrt < n < n log n < n^2 < 2^n.
+  { const n = 64; const seq = [Math.log2(n), Math.sqrt(n), n, n * Math.log2(n), n * n, 2 ** n]; check("growth order log<sqrt<n<nlogn<n^2<2^n at n=64", seq.every((v, i) => i === 0 || seq[i - 1] < v)); }
+
+  // little-o: n = O(n) true, but n = o(n) false; n = o(n^2) true.
+  check("n/n = 1 (not ->0), so n != o(n); but n/n^2 -> 0, so n = o(n^2)", 1 / 1 === 1 && 1e6 / (1e6 * 1e6) < 1e-5);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
