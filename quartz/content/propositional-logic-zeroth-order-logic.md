@@ -91,6 +91,25 @@ based on the meanings of words. Logical truths may overlap with analytic
 truths, but they are more broadly applicable, as they are not tied to
 specific definitions but rather to the logical structure.
 
+#### The Limit of Logic: It Cannot Tell You Which Atomic Facts Are True
+
+A crucial and often-missed point: logic works only on the *form* of statements and the truth-functional relationships between them. It treats every **atomic proposition** (a simple, unbreakable statement such as $P =$ "it is raining") as a sealed box that carries a truth value, but **logic never determines what that value is.**
+
+Whether "it is raining" is true is settled by looking outside, not by any rule of inference. Whether "water boils at 100°C at sea level" is true is settled by experiment. Whether "all bachelors are unmarried" is true is settled by the *definition* of "bachelor." Observation, measurement, and definition supply the truth values of atomic facts, and all of that lies **entirely outside logic.**
+
+What logic *does*, taking those values as inputs, is:
+
+- combine atoms with connectives to compute the truth value of compound statements ($P \land Q$, $P \to Q$, and so on);
+- identify which forms are **valid** (truth-preserving), which are **tautologies** (true under *every* assignment), and which are **contradictions** (true under none).
+
+This is exactly why a [truth table](#truth-function) has *rows*: because logic cannot know which assignment of atomic truth values is the actual one, it enumerates *all* of them. A logical truth like $P \lor \neg P$ comes out true in every row precisely *because* its truth does not depend on whether $P$ itself is true.
+
+![A boundary diagram of the scope of logic: on the left, outside logic, two sources supply the truth of atomic facts, with observation and experiment settling empirical facts and definitions and meanings settling analytic facts; these feed atomic truth values into the logic box on the right, which combines them with connectives, checks validity, and finds tautologies and contradictions, outputting the truth values of compound statements and valid conclusions; a caption notes that logic is truth-preserving, not truth-generating, and never decides whether an atomic fact is true](./media/pl-logic-scope.png)
+
+The sharpest way to put it: **logic is truth-preserving, not truth-generating.** A valid argument guarantees only that *if* its premises are true, *then* its conclusion is true; it transmits truth from premises to conclusion but never manufactures it. Feed a valid form false premises and you can validly derive a falsehood ("garbage in, garbage out"). Establishing that the premises are *actually* true, which turns a merely valid argument into a [sound](#validity-vs-soundness) one, always requires stepping outside logic into the world or into definitions.
+
+So there is a clean division of labor: **logic supplies the form; empirical inquiry and language supply the content.** Mathematics can prove that a conclusion *follows from* its axioms, but whether those axioms actually *hold* of any real system is not a question logic can answer.
+
 ### Necessary Truth
 
 **Necessary Truth:** Necessary truth refers to a statement or

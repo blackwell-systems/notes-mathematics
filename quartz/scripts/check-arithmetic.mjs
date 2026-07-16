@@ -1831,6 +1831,19 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const cLeD = false, dLeC = false; check("diamond poset is not a lattice: {c,d} has no least element", !cLeD && !dLeC); }
 }
 
+// ================= The scope of logic (form vs atomic facts) =================
+{
+  const combos = [[true, true], [true, false], [false, true], [false, false]];
+  // a tautology is true under EVERY assignment: its truth is independent of the atoms' actual values
+  check("tautology P or not P is true in every row (independent of P's actual value)", [true, false].every((p) => p || !p));
+  // truth-preserving, not truth-generating: P -> Q being true does NOT by itself establish Q
+  check("P -> Q can be true while Q is false, so P -> Q alone does not prove Q", combos.some(([p, q]) => (!p || q) && !q));
+  // Q follows only when BOTH P and P -> Q are given true (the atomic input P must come from outside logic)
+  check("Q is forced only when P and P -> Q are both true (need the atomic fact P)", combos.filter(([p, q]) => p && (!p || q)).every(([p, q]) => q));
+  // an atomic proposition's truth value is not fixed by logic: its column contains both T and F
+  check("an atomic proposition P is true in some assignments, false in others (logic cannot decide it)", [true, false].includes(true) && [true, false].includes(false));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
