@@ -352,6 +352,26 @@ A relation **R** on **A** is a total order if it is:
 **Non-example:**
 - Subset relation ($\subseteq$) is NOT a total order because some sets are incomparable
 
+### Lattices, Bounds, and Chains
+
+A partial order comes with a natural vocabulary for "how high or low you can reach."
+
+**Bounds.** Let $S$ be a subset of a poset $(A, \leq)$. An **upper bound** of $S$ is an element $u \in A$ with $s \leq u$ for every $s \in S$; a **lower bound** is defined dually. The **least upper bound** (or **supremum**, or **join**), written $\sup S$ or $\bigvee S$, is the smallest of all the upper bounds, when one exists; the **greatest lower bound** (**infimum**, **meet**), $\inf S$ or $\bigwedge S$, is the largest lower bound. These are the order-theoretic twins of the supremum and infimum from [Real Analysis](./real-analysis): the completeness axiom of $\mathbb{R}$ is exactly the statement that every nonempty subset of $\mathbb{R}$ with an upper bound has a *least* upper bound.
+
+**Lattices.** A **lattice** is a poset in which *every pair* of elements $a, b$ has both a join $a \vee b$ and a meet $a \wedge b$. Not every poset qualifies: two elements can have several upper bounds but no single *least* one.
+
+![Three panels on order structure: first, the lattice of subsets of the set a, b, c ordered by inclusion, with the join of set-a and set-b equal to set a-b (their union) and their meet equal to the empty set (their intersection) highlighted; second, a four-element diamond poset with a and b below two incomparable elements c and d that are both upper bounds of a-and-b with no least one, so it is not a lattice; third, the same subset cube with a green chain running from the empty set up to a-b-c and a red antichain of the three singletons which are pairwise incomparable](./media/fr-lattice-chains.png)
+
+Examples of lattices:
+
+- The **power set** $(\mathcal{P}(X), \subseteq)$, with $A \vee B = A \cup B$ and $A \wedge B = A \cap B$. (This regularity is why the [power-set Hasse diagram](./set-theory#power-set) is so symmetric.)
+- The **divisors** of a number under "divides", with $a \vee b = \operatorname{lcm}(a, b)$ and $a \wedge b = \gcd(a, b)$.
+- The real numbers $(\mathbb{R}, \leq)$, with $a \vee b = \max(a, b)$ and $a \wedge b = \min(a, b)$.
+
+A lattice is **bounded** if it has a greatest element $\top$ and a least element $\bot$, and **complete** if *every* subset (not just every pair) has a join and a meet. Power sets are complete lattices; $\mathbb{R}$ is not, since $\mathbb{R}$ itself has no upper bound.
+
+**Chains and antichains.** A **chain** is a subset that is *totally* ordered (any two of its elements are comparable); in a Hasse diagram it is a path you can walk straight up. An **antichain** is a subset in which *no* two distinct elements are comparable. In the divisibility poset on $\{1, 2, 3, 4, 6, 12\}$, the set $\{1, 2, 4, 12\}$ is a chain (each divides the next), while $\{4, 6\}$ and $\{2, 3\}$ are antichains. Chains are the bridge to **Zorn's Lemma** on the [Set Theory](./set-theory) page: the hypothesis "every chain has an upper bound" is what forces a maximal element to exist, and Zorn's lemma is the workhorse behind existence proofs (a basis for every vector space, maximal ideals, and more).
+
 ### Equivalence Relation
 
 **Equivalence Relation:** An equivalence relation is a way to formally

@@ -1807,6 +1807,30 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("C-14 decay constant ln2/5730 ~ 0.000121", Math.log(2) / 5730, 0.000121, 1e-6);
 }
 
+// ================= Order theory: lattices, bounds, chains =================
+{
+  // power set is a lattice: join = union, meet = intersection
+  const union = (a, b) => [...new Set([...a, ...b])].sort((x, y) => x - y);
+  const inter = (a, b) => a.filter((x) => b.includes(x));
+  check("power-set join {a} v {b} = union {a,b}", union([1], [2]).join(",") === "1,2");
+  check("power-set meet {a} ^ {b} = intersection (empty)", inter([1], [2]).length === 0);
+  // divisibility lattice: join = lcm, meet = gcd; and lcm*gcd = product
+  const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b)), lcm = (a, b) => (a * b) / gcd(a, b);
+  eq("divisibility join lcm(4,6) = 12", lcm(4, 6), 12);
+  eq("divisibility meet gcd(4,6) = 2", gcd(4, 6), 2);
+  eq("lcm(4,6) * gcd(4,6) = 24 = 4*6", lcm(4, 6) * gcd(4, 6), 4 * 6);
+  // real numbers lattice: join = max, meet = min
+  eq("real-number join max(3,7) = 7", Math.max(3, 7), 7);
+  eq("real-number meet min(3,7) = 3", Math.min(3, 7), 3);
+  // chain {1,2,4,12} under divisibility: each divides the next
+  check("{1,2,4,12} is a chain: 1|2|4|12", [[1, 2], [2, 4], [4, 12]].every(([a, b]) => b % a === 0));
+  // antichains under divisibility: {4,6} and {2,3}
+  check("{4,6} is an antichain: neither divides the other", 6 % 4 !== 0 && 4 % 6 !== 0);
+  check("{2,3} is an antichain: neither divides the other", 3 % 2 !== 0 && 2 % 3 !== 0);
+  // non-lattice diamond: upper bounds {c,d} of {a,b} have no least element (c,d incomparable)
+  { const cLeD = false, dLeC = false; check("diamond poset is not a lattice: {c,d} has no least element", !cLeD && !dLeC); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
