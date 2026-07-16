@@ -48,6 +48,100 @@
           "resolution": "Not a defect: line 493 introduces 'the complement A-prime (or A^c)' one line before the first use of B^c at line 498. No change made."
         }
       ]
+    },
+    "euclidean-geometry.md": {
+      "contentHash": "sha1:b669dc5195e0accc",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": []
+    },
+    "number-systems.md": {
+      "contentHash": "sha1:d4730a3b62997e7c",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": []
+    },
+    "permutation.md": {
+      "contentHash": "sha1:6916a6e57413ee0d",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "THM-1",
+          "severity": 2,
+          "quote": "P(n,r) = n!/(n-r)!",
+          "issue": "The permutation formula omits the constraint 0 <= r <= n; for r > n the factor (n-r)! is undefined.",
+          "status": "resolved",
+          "resolution": "Added a sentence stating the formula is defined for integers with 0 <= r <= n."
+        },
+        {
+          "id": "THM-1",
+          "severity": 2,
+          "quote": "n! / (n_1! n_2! ... n_k!)",
+          "issue": "The indistinguishable-objects formula omits the load-bearing constraint that the type counts sum to n.",
+          "status": "resolved",
+          "resolution": "Added a bullet: n_1 + n_2 + ... + n_k = n."
+        },
+        {
+          "id": "DEF-4",
+          "severity": 3,
+          "quote": "**n:** The total number of items in the set; **r:** The number of items to select",
+          "issue": "Reviewer flagged that n and r are not pronounced at their first (formula) use.",
+          "status": "wontfix",
+          "resolution": "n and r are single-letter variables read as their own letter; the convention targets non-obvious symbols, and the page already pronounces them in the widget intro. Adding '(read n)' would add clutter, not clarity."
+        }
+      ]
+    },
+    "functions-relations.md": {
+      "contentHash": "sha1:2b9b949afcae3ac8",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "DEF-2",
+          "severity": 2,
+          "quote": "injective ... each element in the codomain is mapped to from at most one element of the domain",
+          "issue": "Reviewer claimed this characterization of injectivity is 'backwards'.",
+          "status": "false-positive",
+          "resolution": "The statement is correct: injective means every codomain element has at most one preimage, i.e. is 'mapped to from at most one element of the domain'. The reviewer's suggested rewrite is logically identical. No change made."
+        },
+        {
+          "id": "PRF-1",
+          "severity": 3,
+          "quote": "its $g$-image on B-stopper chains), so $b$ is hit",
+          "issue": "The Schroder-Bernstein surjectivity step was terse: 'its g-image' skipped the intermediate h(g(b)) = g^{-1}(g(b)) = b.",
+          "status": "resolved",
+          "resolution": "Rewrote the surjective bullet to spell out both cases explicitly, including h(g(b)) = b on B-stopper chains (also addresses the related SCO-1 flag)."
+        }
+      ]
+    },
+    "propositional-logic-zeroth-order-logic.md": {
+      "contentHash": "sha1:b795841723fb482c",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
+      "findings": [
+        {
+          "id": "THM-4",
+          "severity": 1,
+          "quote": "the contrapositive of $P \\to Q$ is $\\neg Q \\to \\neg P$ | $P$ | $Q$ | $P \\leftrightarrow Q$ |",
+          "issue": "The 'Contrapositive' section showed a biconditional (P<->Q) truth table and the biconditional Venn, neither of which is the contrapositive. Copy-paste error.",
+          "status": "resolved",
+          "resolution": "Replaced with the correct 4-column table showing P->Q and (not Q -> not P) are identical, and removed the wrong biconditional Venn image."
+        },
+        {
+          "id": "CON-1",
+          "severity": 1,
+          "quote": "#### Associative Property / Associativity ... | $P$ | $Q$ | $P \\equiv Q$ |",
+          "issue": "Section titled 'Associative Property / Associativity' actually contained the biconditional / logical-equivalence connective (table, lights example, biconditional Venn); real associativity is covered later under Associative Laws.",
+          "status": "resolved",
+          "resolution": "Retitled the section to 'Biconditional / Logical Equivalence' and rewrote the intro sentence; it now fills the previously-missing biconditional connective slot, with a pointer to the Associative Laws."
+        }
+      ]
     }
   }
 }

@@ -53,6 +53,8 @@ $$
 P(n,r) = \frac{n!}{(n-r)!}
 $$
 
+This is defined for integers with $0 \leq r \leq n$: you cannot select and arrange more items than the set contains (and if $r > n$ the factor $(n-r)!$ would be undefined).
+
 Alternate notation: $_nP_r$ or $P_r^n$
 
 **Where:**
@@ -116,6 +118,7 @@ $$
 Where:
 - **$n$:** Total number of objects
 - **$n_1, n_2, \ldots, n_k$:** Number of each type of identical object
+- The counts must account for every object: $n_1 + n_2 + \cdots + n_k = n$
 
 **Example:** How many distinct arrangements of the letters in "MISSISSIPPI"?
 

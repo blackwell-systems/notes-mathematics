@@ -570,10 +570,9 @@ The negation of one quantifier is the other quantifier ($\neg\forall x\, P(x) \e
 
 **Properties of Binary Operations**
 
-#### Associative Property / Associativity
+#### Biconditional / Logical Equivalence
 
-Associativity refers to the ability to group operations in any order
-without changing the outcome.
+The biconditional $P \leftrightarrow Q$ (written $P \equiv Q$ when we are asserting that the two statements are logically equivalent) is true exactly when $P$ and $Q$ have the **same** truth value: either both true or both false. (Associativity, the grouping property, is a separate idea covered under the [Associative Laws](#logical-equivalences) below.)
 
 | $P$ | $Q$ | $P \equiv Q$ |
 |:---:|:---:|:---:|
@@ -755,14 +754,14 @@ Conditional statement $P \to Q$
 
 In formulas: the contrapositive of $P \to Q$ is $\neg Q \to \neg P$
 
-| $P$ | $Q$ | $P \leftrightarrow Q$ |
-|:---:|:---:|:---:|
-| T | T | T |
-| T | F | F |
-| F | T | F |
-| F | F | T |
+| $P$ | $Q$ | $P \to Q$ | $\neg Q \to \neg P$ |
+|:---:|:---:|:---:|:---:|
+| T | T | T | T |
+| T | F | F | F |
+| F | T | T | T |
+| F | F | T | T |
 
-![Venn diagram for the biconditional P if-and-only-if Q: the overlap lens and the region outside both circles are shaded, the two crescents white](./media/pl-venn-biconditional.png)
+The last two columns are identical, so $P \to Q \equiv \neg Q \to \neg P$: **a conditional and its contrapositive always have the same truth value** (which is exactly why proving the contrapositive proves the original statement).
 
 ### Connective Precedence
 

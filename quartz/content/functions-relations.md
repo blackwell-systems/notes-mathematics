@@ -1266,7 +1266,7 @@ On an A-stopper chain the orphan is in $A$, and following $f$ (the green arrows,
 
 - **Well-defined:** $g^{-1}(a)$ is only used when $a$ is not an orphan in $A$, i.e. $a \in g(B)$, and injectivity of $g$ makes the preimage unique.
 - **Injective:** inside one chain, $h$ walks the alternating elements off in lock-step, so it never repeats. Two different chains have disjoint $A$-parts and disjoint $B$-parts, so outputs from different chains cannot collide either.
-- **Surjective:** take any $b \in B$; it lies on some chain. That chain matches $b$ to whichever adjacent $A$-element $h$ pairs it with (its $f$-parent on A-stopper/no-stop chains, its $g$-image on B-stopper chains), so $b$ is hit. In particular the orphans, the only elements at risk of being missed, are exactly the ones the case split is designed to cover.
+- **Surjective:** take any $b \in B$; it lies on some chain. If that chain is an A-stopper or no-stop chain, then $b$ has an $f$-parent $a$ (the $A$-element with $f(a) = b$), and $h(a) = f(a) = b$. If it is a B-stopper chain, then $a = g(b)$ lies on the chain, and $h(a) = g^{-1}(a) = g^{-1}(g(b)) = b$. Either way some $a$ maps to $b$, so $h$ is onto. In particular the orphans, the only elements at risk of being missed, are exactly the ones the case split is designed to cover.
 
 Hence $h : A \to B$ is a bijection, and $|A| = |B|$. $\blacksquare$
 
