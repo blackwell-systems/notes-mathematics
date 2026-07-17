@@ -480,7 +480,7 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:3dd4685af328a9f1",
+      "contentHash": "sha1:7a9620ac4e5ed1da",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
@@ -549,6 +549,12 @@
           "quality": "strong",
           "upgrade": "",
           "phase2": "neutral structural case study: ontological argument + Kant 'existence is not a predicate' + begging the question; Godel modal argument (Benzmuller-Paleo 2013: original axioms inconsistent, Scott's variant machine-verified valid; modal collapse/Sobel); cosmological (Kalam/Aquinas/Leibniz-PSR) as valid-but-premises-disputed; non-ampliativeness diagnostic; abductive/cumulative-case as the honest register. Web-fact-checked; +harness (begging-the-question tautology)"
+        },
+        {
+          "concept": "case study: when premises acquire power (public reason)",
+          "quality": "strong",
+          "upgrade": "",
+          "phase2": "neutral structural case study on coercion + unfalsifiable premises: validity binds only those who grant premises; public justification as the political analogue of soundness (public reason/Rawls, distinct from Mill's harm principle); laundering at scale; the defect generalizes past religion (Lysenko/dialectical materialism); aim precisely (only law resting SOLELY on non-public premises); remedy procedural not metaphysical. Web-fact-checked (fixed Mill/Rawls conflation, 'atheist'->secular, Lysenko-via-China); +harness (rejecting a premise leaves conclusion unforced)"
         },
         {
           "concept": "proof by cases",

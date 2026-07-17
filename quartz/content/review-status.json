@@ -126,11 +126,11 @@
       ]
     },
     "propositional-logic-zeroth-order-logic.md": {
-      "contentHash": "sha1:3dd4685af328a9f1",
+      "contentHash": "sha1:7a9620ac4e5ed1da",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "note": "Phase-2 clarity pass added a chained inference derivation, lemma-ized the sqrt2 crux, dissected the induction step, added a 'Valid but Not Sound' section, and a neutral 'Arguments for the Existence of God' case study applying validity-vs-soundness. Each independently reviewed (prose + web fact-check) and machine-checked (+16 assertions total). Two real errors caught and fixed: (a) text wrongly said validity 'carries falsehood' forward (refuted by its own primes example); (b) Godel case originally overstated the machine-verification (Benzmuller-Paleo found the ORIGINAL axioms inconsistent; it was Scott's variant that was verified valid) -- corrected. Hash refreshed to keep the prose-review ledger current.",
+      "note": "Phase-2 clarity pass added a chained inference derivation, lemma-ized the sqrt2 crux, dissected the induction step, and a 'Valid but Not Sound' section with two neutral case studies (arguments for God's existence; when premises acquire power / public reason). Each independently reviewed (prose + web fact-check) and machine-checked (+17 assertions total). Four real errors caught and fixed: (a) text wrongly said validity 'carries falsehood' forward; (b) Godel machine-verification overstated (Benzmuller-Paleo found the ORIGINAL axioms inconsistent; Scott's variant was the verified one); (c) conflated Mill's harm principle with Rawls's public reason; (d) 'atheist' governing premise of Lysenkoism -> secular/dialectical-materialist, with the famine link routed via Mao's China. Hash refreshed to keep the prose-review ledger current.",
       "findings": [
         {
           "id": "THM-4",

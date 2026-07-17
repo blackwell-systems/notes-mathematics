@@ -320,6 +320,13 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   // premise 'God-with-existence is the definition' -> conclusion 'God exists' adds nothing
   check("assuming the conclusion makes derivation trivial (God in premise => God in conclusion)",
     B.every((Gexists) => imp(Gexists, Gexists)));
+
+  // Case study (public reason): a valid argument binds only those who grant its premises.
+  // Modus ponens P->C, P |- C does NOT move an agent who rejects P: there is a consistent
+  // world (P=F, C=F) where P->C still holds but C is false. Coercion therefore needs
+  // premises the governed accept, not merely a valid form.
+  check("rejecting a premise leaves the conclusion unforced (P=F,C=F consistent with P->C)",
+    B.some((P) => B.some((C) => !P && !C && imp(P, C))));
 }
 
 // ================= Predicate Logic (finite models) =================
