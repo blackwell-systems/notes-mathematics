@@ -293,6 +293,8 @@ The concept of an "unbiased estimator" comes up repeatedly in statistics. It mea
 
 **Standard deviation:** $s = \sqrt{s^2}$. The standard deviation has the same units as the data (dollars, meters, seconds), making it more interpretable than variance (which has squared units).
 
+In plain terms, the standard deviation is roughly the **typical distance of a data point from the mean**, the average spread of the data around its center. It is not *exactly* the average distance: because we squared the deviations before averaging and then took the square root, $s$ is the **root-mean-square** distance, which weights large deviations more heavily. (The literal average distance is the *mean absolute deviation*; for the dataset below it is $\frac{6 + 3 + 3 + 6}{4} = 4.5$, a bit smaller than $s \approx 5.48$, precisely because squaring inflates the influence of the two points sitting $6$ away.) So reading $s \approx 5.48$ off the example below says: the four values sit, on average, about $5.5$ units from their mean of $10$.
+
 **Example:** Dataset: 4, 7, 13, 16.
 
 $\bar{x} = (4 + 7 + 13 + 16)/4 = 10$
@@ -304,6 +306,10 @@ Squared deviations: $36, 9, 9, 36$
 $s^2 = (36 + 9 + 9 + 36)/(4-1) = 90/3 = 30$
 
 $s = \sqrt{30} \approx 5.48$
+
+![A number line from 0 to 20 showing the four data points 4, 7, 13, 16 as dots, with the mean marked by a vertical line at 10. From the mean, a colored arrow runs to each point labeled with its deviation: minus 6 to the point at 4 and minus 3 to the point at 7 (in red, below the mean), and plus 3 to 13 and plus 6 to 16 (in green, above the mean). A shaded band spans mean minus s to mean plus s, from about 4.52 to 15.48, with a double-headed arrow marking its half-width s approximately 5.48. The title reads: standard deviation is approximately the typical distance of a point from the mean.](./media/stats-standard-deviation.png)
+
+The picture makes the "typical distance" reading concrete: the shaded band is one standard deviation wide on each side of the mean, and its half-width $s \approx 5.48$ sits between the small deviations ($\pm 3$) and the large ones ($\pm 6$), a single number summarizing how far the points typically stray from the center.
 
 ## Data Visualization
 

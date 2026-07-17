@@ -1706,7 +1706,7 @@
       "phase2At": "2026-07-16"
     },
     "statistics.md": {
-      "contentHash": "sha1:9d0ba541f951d46b",
+      "contentHash": "sha1:131976a5dea0cac5",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+5subagents",
@@ -1789,7 +1789,8 @@
           "concept": "standard deviation",
           "quality": "strong",
           "note": "",
-          "upgrade": ""
+          "upgrade": "",
+          "phase2": "added the plain-language 'typical (root-mean-square) distance from the mean' framing, the mean-absolute-deviation contrast (4.5 vs s=5.48), and a diagram (stats-standard-deviation.png) showing the deviations and the mean +/- s band pinned to the 4,7,13,16 example"
         },
         {
           "concept": "z-score / standardization",

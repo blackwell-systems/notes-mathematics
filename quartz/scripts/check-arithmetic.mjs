@@ -131,6 +131,21 @@ function rlct(ks, hs) {
 }
 
 // ================= Statistics =================
+// standard deviation as typical (root-mean-square) distance from the mean: 4,7,13,16
+{
+  const d = [4, 7, 13, 16], mean = d.reduce((a, b) => a + b, 0) / d.length;
+  eq("mean of 4,7,13,16 = 10", mean, 10);
+  const ss = d.reduce((a, x) => a + (x - mean) ** 2, 0);
+  eq("sum of squared deviations = 90", ss, 90);
+  eq("sample variance s^2 = 90/3 = 30", ss / (d.length - 1), 30);
+  const s = Math.sqrt(30);
+  eq("standard deviation s = sqrt(30) ~ 5.48", s, 5.477, 1e-3);
+  const mad = d.reduce((a, x) => a + Math.abs(x - mean), 0) / d.length;
+  eq("mean absolute deviation = (6+3+3+6)/4 = 4.5", mad, 4.5);
+  check("root-mean-square distance s exceeds the mean absolute deviation", s > mad);
+  eq("mean - s ~ 4.52", mean - s, 4.523, 1e-3);
+  eq("mean + s ~ 15.48", mean + s, 15.477, 1e-3);
+}
 // one-proportion z-test (coin: 115/200 vs 0.5)
 {
   const phat = 115 / 200,
