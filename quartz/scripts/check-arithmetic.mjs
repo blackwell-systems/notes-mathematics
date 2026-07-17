@@ -1156,6 +1156,20 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
 // ================= Probability (distributions, Bayes) =================
 {
   const factP = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; };
+
+  // Complement worked example: at least one 6 in four dice rolls
+  eq("5^4 = 625", 5 ** 4, 625);
+  eq("6^4 = 1296", 6 ** 4, 1296);
+  eq("P(no 6 in 4 rolls) = 625/1296 ~ 0.4823", (5 / 6) ** 4, 625 / 1296, 1e-12);
+  eq("1296 - 625 = 671", 1296 - 625, 671);
+  eq("P(at least one 6) = 671/1296 ~ 0.5177", 1 - (5 / 6) ** 4, 671 / 1296, 1e-12);
+  check("P(at least one 6) is just over one half", 1 - (5 / 6) ** 4 > 0.5);
+  // the wrong 'add the probabilities' answer overcounts: 7*(1/6) > 1 is impossible
+  check("adding probabilities fails: 7*(1/6) exceeds 1", 7 * (1 / 6) > 1);
+  // n=4 is the first number of rolls to cross one-half
+  check("n=3 does NOT yet cross 1/2", 1 - (5 / 6) ** 3 < 0.5);
+  check("n=4 is the first n to cross 1/2", 1 - (5 / 6) ** 4 >= 0.5);
+  eq("P(at least one 6 in 1 roll) = 1/6", 1 - (5 / 6) ** 1, 1 / 6, 1e-12);
   { const n = 10, p = 0.3; let sum = 0; for (let k = 0; k <= n; k++) sum += comb(n, k) * p ** k * (1 - p) ** (n - k);
     eq("Binomial(10,0.3) PMF sums to 1", sum, 1, 1e-9); eq("Binomial mean np = 3", n * p, 3, 1e-9); eq("Binomial var np(1-p) = 2.1", n * p * (1 - p), 2.1, 1e-9); }
   { const lam = 4; let sum = 0; for (let k = 0; k <= 40; k++) sum += (Math.exp(-lam) * lam ** k) / factP(k); eq("Poisson(4) PMF sums to 1", sum, 1, 1e-6); eq("Poisson mean = var = 4", lam, 4); }

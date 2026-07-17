@@ -81,12 +81,25 @@ From these axioms, you can derive everything else:
 
 The complement rule is especially useful. If it is hard to compute $P(A)$ directly, compute $P(A^c)$ and subtract from 1.
 
-**Example:** What is the probability of rolling at least one 6 in four dice rolls?
+**Worked example: at least one 6 in four dice rolls.** This is the classic case where the complement rule turns a hard problem into an easy one.
 
-- $P(\text{at least one 6}) = 1 - P(\text{no 6 in four rolls})$
-- $P(\text{no 6 on one roll}) = 5/6$
-- $P(\text{no 6 in four rolls}) = (5/6)^4 = 625/1296 \approx 0.482$
-- $P(\text{at least one 6}) = 1 - 0.482 = 0.518$
+**Why the complement?** "At least one 6" is really four situations bundled together: exactly one 6, exactly two, exactly three, or all four. Computing each and adding them is a lot of bookkeeping. But the *opposite* event, "**no** 6 at all," is a single clean situation, easy to compute and then subtract. Whenever you see "at least one," reach for the complement.
+
+**Step 1: one roll.** A fair die has six equally likely faces, and five of them are not a 6, so
+$$P(\text{no 6 on one roll}) = \frac{5}{6}.$$
+
+**Step 2: four rolls, and why we multiply.** The four rolls are **independent**: the outcome of one die tells you nothing about another. For independent events, the probability that they *all* occur is the *product* of their individual probabilities (the multiplication rule, developed in [Independence](#independence) below). "No 6 in four rolls" means no 6 on the first *and* the second *and* the third *and* the fourth, so
+$$P(\text{no 6 in four rolls}) = \frac{5}{6} \cdot \frac{5}{6} \cdot \frac{5}{6} \cdot \frac{5}{6} = \left(\frac{5}{6}\right)^4 = \frac{5^4}{6^4} = \frac{625}{1296} \approx 0.4823.$$
+
+**Step 3: subtract from 1.** By the complement rule,
+$$P(\text{at least one 6}) = 1 - \frac{625}{1296} = \frac{1296 - 625}{1296} = \frac{671}{1296} \approx 0.5177.$$
+So the chance is about **51.8%**, just over even. That is famously counterintuitive: four rolls, each only a $1/6$ shot, still tip past a coin flip. (This is essentially the wager that launched probability theory, the Chevalier de Méré's dice problem, analyzed by Pascal and Fermat in 1654.)
+
+**The tempting wrong answer.** It is natural to guess $4 \times \tfrac{1}{6} = \tfrac{4}{6} \approx 0.667$, "four chances at $1/6$." That is wrong, and you can see it *must* be: the same reasoning on **seven** rolls would give $7 \times \tfrac{1}{6} = \tfrac{7}{6} > 1$, an impossible probability. Adding double-counts the outcomes where two or more dice show a 6 (each such outcome gets tallied once per 6). The complement avoids the overcount entirely, which is exactly why it is the clean route.
+
+**The general pattern.** The same argument gives, for $n$ rolls,
+$$P(\text{at least one 6 in } n \text{ rolls}) = 1 - \left(\frac{5}{6}\right)^n.$$
+As $n$ grows this climbs toward $1$ but never reaches it: more rolls make a 6 nearly certain, yet never *guaranteed*. At $n = 1$ it is $1/6 \approx 0.167$, and $n = 4$ is where it first crosses one-half.
 
 ## Conditional Probability and Independence
 

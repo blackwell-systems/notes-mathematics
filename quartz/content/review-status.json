@@ -298,7 +298,8 @@
       ]
     },
     "probability.md": {
-      "contentHash": "sha1:8301b627b6b8b3fa",
+      "contentHash": "sha1:006ecaf66d9c3bb9",
+      "note": "Expanded the complement-rule worked example (at least one 6 in 4 rolls) into a full walkthrough: why the complement, the independence/multiplication step, exact 671/1296, the tempting 4/6 wrong answer + why adding overcounts, de Mere history, and the 1-(5/6)^n generalization. Independently reviewed (returned []) and machine-checked (+10 assertions). Hash refreshed.",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
