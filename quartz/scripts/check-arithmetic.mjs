@@ -327,6 +327,21 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   // premises the governed accept, not merely a valid form.
   check("rejecting a premise leaves the conclusion unforced (P=F,C=F consistent with P->C)",
     B.some((P) => B.some((C) => !P && !C && imp(P, C))));
+
+  // {->, false} is functionally complete: not P = P->F ; P or Q = (P->F)->Q
+  const FALSE = false;
+  check("{->,F} completeness: ~P = P->F", B.every((P) => imp(P, FALSE) === !P));
+  check("{->,F} completeness: P v Q = (P->F)->Q",
+    B.every((P) => B.every((Q) => imp(imp(P, FALSE), Q) === (P || Q))));
+  // {->} alone cannot express negation: the all-true valuation always yields true
+  check("{->} alone is not complete (all-true valuation is a fixed point)", imp(true, true) === true);
+
+  // Truth-table 2^n row explosion (why symbolic methods exist)
+  eq("truth table rows n=3 = 8", 2 ** 3, 8);
+  eq("truth table rows n=10 = 1024", 2 ** 10, 1024);
+  eq("truth table rows n=20 = 1048576", 2 ** 20, 1048576);
+  check("2^30 exceeds one billion", 2 ** 30 > 1e9);
+  check("2^64 rows at 1e9/sec exceed 500 years", (2 ** 64) / 1e9 / 3.15576e7 > 500);
 }
 
 // ================= Predicate Logic (finite models) =================

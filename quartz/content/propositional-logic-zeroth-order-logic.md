@@ -480,6 +480,23 @@ You can build the truth table of any formula yourself below. Type a proposition 
 
 <iframe src="/static/interactive/truth-table-generator.html" width="100%" height="620" style="border:none;"></iframe>
 
+### Limitation: the $2^n$ explosion, and why symbolic methods exist
+
+A truth table is completely mechanical and never wrong, but its size is its undoing: $n$ variables force $2^n$ rows, and that growth is brutal rather than gradual.
+
+| variables $n$ | rows $2^n$ |
+|:---:|:---:|
+| 3 | 8 |
+| 5 | 32 |
+| 10 | 1,024 |
+| 20 | 1,048,576 |
+| 30 | over one billion |
+| 64 | more rows than a machine checking a billion per second could finish in 500 years |
+
+So beyond three, four, or five variables a truth table is already unwieldy, and past a few dozen it is physically impossible to write down. This is exactly why the rest of this page develops **symbolic methods** that reason about a formula *without* enumerating its rows: the [logical equivalence laws](#logical-equivalences) (De Morgan, distribution, absorption) that simplify it algebraically, the [normal forms](#normal-forms) that put it in a canonical shape, and the [rules of inference](#rules-of-inference) that derive conclusions by pure symbol-pushing. A three-line algebraic simplification can settle what a truth table would need a million rows to confirm.
+
+The wall is deeper than mere inconvenience. Deciding whether a formula can be made true, the **satisfiability (SAT)** problem, was the very first problem proved **NP-complete** (the Cook–Levin theorem); its mirror image, deciding whether a formula is a *tautology* (true in every row), is the **co-NP-complete** counterpart, believed just as hard. Either way, *no known method* escapes worst-case exponential effort, truth tables included. What symbolic reasoning and modern **SAT solvers** buy is enormous *practical* speed (clever search that prunes almost all of the $2^n$ space), not an escape from the theoretical ceiling. That gap between "always correct but $2^n$" and "usually fast" is precisely why, once the variables pile up, the right move is a symbolic solution rather than a bigger table.
+
 ## Compound Proposition / Statement
 
 **Compound Proposition / Statement:** A compound proposition (or
@@ -999,6 +1016,7 @@ A set of connectives is **functionally complete** (or **adequate**) if every tru
 - $\{\neg, \wedge\}$ is complete: De Morgan recovers disjunction, $P \vee Q \equiv \neg(\neg P \wedge \neg Q)$.
 - $\{\neg, \vee\}$ is complete: symmetrically, $P \wedge Q \equiv \neg(\neg P \vee \neg Q)$.
 - $\{\neg, \to\}$ is complete: $P \vee Q \equiv \neg P \to Q$, and conjunction follows.
+- $\{\to, \bot\}$ is complete: the false constant $\bot$ manufactures negation, $\neg P \equiv P \to \bot$, and then $P \vee Q \equiv (P \to \bot) \to Q$ gives the rest. (Note that $\{\to\}$ *alone* is **not** complete: every formula built from $\to$ only is true when all its variables are true, so it can never express $\neg P$; the constant $\bot$ is exactly what breaks that ceiling.)
 - $\{\wedge, \vee\}$ is **not** complete: without negation every expression is *monotone* (making an input true can never make the output false), so you can never build $\neg P$. Negation, or a connective hiding it, is indispensable.
 
 ### One Connective Is Enough: NAND and NOR
@@ -1023,7 +1041,7 @@ P \vee Q \equiv (P \downarrow Q) \downarrow (P \downarrow Q), \qquad
 P \wedge Q \equiv (P \downarrow P) \downarrow (Q \downarrow Q).
 $$
 
-Once you have $\neg$, $\wedge$, and $\vee$ from a single gate, the DNF construction gives you every other truth function. This is not a curiosity: because a NAND gate is cheap and universal, entire processors are laid out from NAND gates alone.
+Once you have $\neg$, $\wedge$, and $\vee$ from a single gate, the DNF construction gives you every other truth function. This is not a curiosity, it is how digital hardware is actually built. In **CMOS**, the technology behind essentially every modern chip, NAND and NOR are the *natural* gates: they are inverting, so they fall straight out of a single complementary pair of transistor networks, using fewer transistors than AND or OR (which need an extra inverter stage). Functional completeness then means a fabricator can synthesize an entire logic library, and in the limit a whole processor, from copies of **one** universal cell, which is cheaper to design, verify, and manufacture than many gate types. The **NAND flash** memory in every phone and SSD is named for exactly this gate. So the abstract theorem "one connective suffices" cashes out as a concrete engineering principle: the universal gate is the atom of real circuits.
 
 ### The Duality Principle
 
