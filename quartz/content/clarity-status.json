@@ -1861,12 +1861,12 @@
       ]
     },
     "inferential-statistics.md": {
-      "contentHash": "sha1:178d19f2a099f5c8",
+      "contentHash": "sha1:7a19bc23afd2b134",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+5subagents",
-      "overall": "mixed",
-      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Inferential Statistics (estimation, hypothesis testing, ANOVA, nonparametrics). This slice: 17 strong / 5 adequate / 6 thin / 3 missing.",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE. Split out of the former statistics monolith. Added 8 worked examples across the estimation/testing/nonparametric range (MAP coin, KS by hand, two-way ANOVA SS decomposition, Tukey HSD -- which corrected a wrong 'borderline' claim, Wilcoxon with a tie, Mann-Whitney, Kruskal-Wallis with its H formula, Spearman) and regraded multiple-comparisons (audit false negative -> it was already fully worked). All independently reviewed (one W+ summation typo fixed); +27 machine-checked assertions. 26 strong / 5 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "standard error",
@@ -1906,9 +1906,10 @@
         },
         {
           "concept": "MAP estimation",
-          "quality": "missing",
+          "quality": "strong",
           "note": "defined + richly discussed (ridge/lasso) but never computed on numbers",
-          "upgrade": "reuse the coin: Beta(2,2) prior, posterior mode (h+a-1)/(n+a+b-2) = 8/12 = 0.667, contrast with MLE 0.7"
+          "upgrade": "",
+          "phase2": "Beta(2,2) prior on the coin -> posterior Beta(9,5), MAP mode 8/12=0.667 vs MLE 0.7; MAP->MLE with more data (Beta(72,32) mode 0.696) + harness"
         },
         {
           "concept": "one-sample z-test",
@@ -1966,9 +1967,10 @@
         },
         {
           "concept": "multiple comparisons correction",
-          "quality": "missing",
+          "quality": "strong",
           "note": "only a passing research-aside mention; no formula, no example",
-          "upgrade": "define FWER inflation 1-(1-0.05)^m, Bonferroni alpha/m, BH-FDR, run one m=20 example"
+          "upgrade": "",
+          "phase2": "REGRADE: the audit 'missing' was a false negative (the section fell in the seam between two range-scoped auditors); it is fully worked -- FWER 1-(1-.05)^20, Bonferroni alpha/m, and a computed Benjamini-Hochberg 5-test table"
         },
         {
           "concept": "one-tailed vs two-tailed decision",
@@ -1990,9 +1992,10 @@
         },
         {
           "concept": "Kolmogorov-Smirnov / Shapiro-Wilk normality",
-          "quality": "thin",
+          "quality": "strong",
           "note": "both described, neither run on data",
-          "upgrade": "work a small KS: tabulate F_n vs F_0, D=max|diff|, compare to critical; interpret a reported W for SW"
+          "upgrade": "",
+          "phase2": "worked KS by hand: F_n vs F_0=x table for 0.1..0.9 vs Uniform(0,1), D=0.1 < 0.563 + harness"
         },
         {
           "concept": "chi-squared inference for one variance",
@@ -2014,15 +2017,17 @@
         },
         {
           "concept": "two-way ANOVA",
-          "quality": "thin",
+          "quality": "strong",
           "note": "four-way decomposition + F-ratios are formula-only; interaction never a number",
-          "upgrade": "compute a full two-way table (SS_A, SS_B, SS_AB, SSE, df, MS, three F's) from the 2x2 dataset"
+          "upgrade": "",
+          "phase2": "split the cell means 50/50/70/52: SS_A=121, SS_B=81, SS_cells=283, SS_AB=81; noted SSE needs replication + harness"
         },
         {
           "concept": "post-hoc / Tukey HSD",
-          "quality": "thin",
+          "quality": "strong",
           "note": "reasons qualitatively; no q lookup, no HSD threshold computed",
-          "upgrade": "compute HSD = q_{.05,3,12}*sqrt(MSW/n) ~ 6.42 and compare each gap (10,10,20) to it"
+          "upgrade": "",
+          "phase2": "HSD = q*sqrt(MSW/n) = 3.77*sqrt(2.9) ~ 6.43; all three gaps (10,10,20) exceed it -> all significant (corrected the prior WRONG 'borderline') + harness"
         },
         {
           "concept": "sign test",
@@ -2032,29 +2037,34 @@
         },
         {
           "concept": "Wilcoxon signed-rank test",
-          "quality": "thin",
+          "quality": "strong",
           "note": "mechanics described, no worked example",
-          "upgrade": "work a paired set: differences, abs-value ranks (with a tie), signed ranks, W+/W-, decision"
+          "upgrade": "",
+          "phase2": "8 diffs with a tie (two 6s -> rank 5.5); W+=35, W-=1, W=1, reject; normal-approx z=2.38, p~0.017 + harness"
         },
         {
           "concept": "Mann-Whitney U test",
-          "quality": "thin",
+          "quality": "strong",
           "note": "mechanics described, no worked example",
-          "upgrade": "rank the pooled values, compute each rank sum, derive U, compare to critical/normal approx"
+          "upgrade": "",
+          "phase2": "G1 vs G2 pooled-ranked; R1=26, R2=19, U1=16, U2=4, U=4, fail to reject; R and U checks + harness"
         },
         {
           "concept": "Kruskal-Wallis test",
-          "quality": "missing",
+          "quality": "strong",
           "note": "only a qualitative description; no H formula, no numbers",
-          "upgrade": "give the H formula and run it on a small 3-group ranked dataset, compare to chi^2_{k-1}"
+          "upgrade": "",
+          "phase2": "gave the H formula (was omitted) + worked {1,2,3},{4,5,6},{7,8,9}: H=7.2 > chi^2_2=5.991 -> reject + harness"
         },
         {
           "concept": "Spearman rank correlation",
-          "quality": "thin",
+          "quality": "strong",
           "note": "formula given in the nonparametric section but never worked; only a link in the correlation section",
-          "upgrade": "take a paired n=5-6 set, rank both, tabulate d_i^2, plug into rho = 1 - 6*sum d^2/(n(n^2-1)); contrast with Pearson"
+          "upgrade": "",
+          "phase2": "worked x/y ranking, sum d^2=8, rho=0.6; monotone-nonlinear contrast (y=x^2: rho=1 vs Pearson r~0.98) + harness"
         }
-      ]
+      ],
+      "phase2At": "2026-07-17"
     },
     "statistical-learning.md": {
       "contentHash": "sha1:8d1715d64587eb0d",

@@ -233,6 +233,65 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("projectile max height", (v0 * Math.sin(a)) ** 2 / (2 * g), 10.204, 0.005);
 }
 
+// ================= Inferential Statistics (Phase-2 worked examples) =================
+{
+  // MAP: Beta(2,2) prior + 7/10 heads -> Beta(9,5), mode (a-1)/(a+b-2)
+  eq("MAP coin: Beta(9,5) mode = 8/12 = 0.667", (9 - 1) / (9 + 5 - 2), 2 / 3, 1e-12);
+  eq("MLE coin = 0.7", 7 / 10, 0.7);
+  eq("MAP with more data: Beta(72,32) mode = 71/102 ~ 0.696", (72 - 1) / (72 + 32 - 2), 71 / 102, 1e-12);
+  // KS: evenly-spaced 0.1..0.9 vs Uniform(0,1): D = 1/(2n) = 0.1
+  { const d = [0.1, 0.3, 0.5, 0.7, 0.9]; let D = 0;
+    d.forEach((x, i) => { D = Math.max(D, Math.abs(i / 5 - x), Math.abs((i + 1) / 5 - x)); });
+    eq("KS D for evenly-spaced n=5 = 0.1", D, 0.1, 1e-9);
+    check("KS D < critical 0.563 (consistent with Uniform)", D < 0.563); }
+  // Two-way ANOVA SS decomposition on cell means 50,50,70,52
+  { const cells = [50, 50, 70, 52], gm = 55.5;
+    const SSA = 2 * ((50 - gm) ** 2 + (61 - gm) ** 2), SSB = 2 * ((60 - gm) ** 2 + (51 - gm) ** 2);
+    const SScells = cells.reduce((s, c) => s + (c - gm) ** 2, 0), SSAB = SScells - SSA - SSB;
+    eq("two-way SS_A = 121", SSA, 121); eq("two-way SS_B = 81", SSB, 81);
+    eq("two-way SS_cells = 283", SScells, 283); eq("two-way SS_AB = 81", SSAB, 81);
+    check("two-way SS_A + SS_B + SS_AB = SS_cells", SSA + SSB + SSAB === SScells); }
+  // Tukey HSD: q_{.05,3,12}=3.77, MSW=14.5, n=5 -> HSD~6.43; all gaps (10,10,20) significant
+  { const HSD = 3.77 * Math.sqrt(14.5 / 5);
+    eq("Tukey HSD ~ 6.43", HSD, 6.43, 0.02);
+    check("all pairwise gaps 10,10,20 exceed HSD (all significant)", [10, 10, 20].every((g) => g > HSD)); }
+  // rank helper (average ranks for ties)
+  const ranks = (arr) => { const s = arr.map((v, i) => [v, i]).sort((a, b) => a[0] - b[0]); const r = Array(arr.length); let i = 0;
+    while (i < s.length) { let j = i; while (j < s.length && s[j][0] === s[i][0]) j++; const avg = (i + 1 + j) / 2; for (let k = i; k < j; k++) r[s[k][1]] = avg; i = j; } return r; };
+  // Wilcoxon signed-rank: d with a tie -> W+=35, W-=1, z~2.38
+  { const d = [4, 6, 2, 9, 6, 3, 7, -1]; const rk = ranks(d.map(Math.abs));
+    let Wp = 0, Wn = 0; d.forEach((v, k) => { if (v > 0) Wp += rk[k]; else Wn += rk[k]; });
+    eq("Wilcoxon W+ = 35", Wp, 35); eq("Wilcoxon W- = 1", Wn, 1);
+    eq("Wilcoxon W+ + W- = n(n+1)/2 = 36", Wp + Wn, 36);
+    const n = 8, z = (Wp - n * (n + 1) / 4) / Math.sqrt(n * (n + 1) * (2 * n + 1) / 24);
+    eq("Wilcoxon normal-approx z ~ 2.38", z, 2.38, 0.01); }
+  // Mann-Whitney U: G1={12,15,17,20}, G2={10,11,13,14,16}
+  { const g1 = [12, 15, 17, 20], g2 = [10, 11, 13, 14, 16], all = [...g1, ...g2].sort((a, b) => a - b);
+    const rk = (x) => all.indexOf(x) + 1;
+    const R1 = g1.reduce((s, x) => s + rk(x), 0), R2 = g2.reduce((s, x) => s + rk(x), 0);
+    const U1 = R1 - g1.length * (g1.length + 1) / 2, U2 = R2 - g2.length * (g2.length + 1) / 2;
+    eq("Mann-Whitney R1 = 26", R1, 26); eq("R2 = 19", R2, 19);
+    eq("R1 + R2 = N(N+1)/2 = 45", R1 + R2, 45);
+    eq("U1 = 16", U1, 16); eq("U2 = 4", U2, 4); eq("U1 + U2 = n1*n2 = 20", U1 + U2, 20); }
+  // Kruskal-Wallis: {1,2,3},{4,5,6},{7,8,9} -> H = 7.2
+  { const N = 9, R = [6, 15, 24], n = [3, 3, 3];
+    const H = 12 / (N * (N + 1)) * R.reduce((s, r, i) => s + r * r / n[i], 0) - 3 * (N + 1);
+    eq("Kruskal-Wallis H = 7.2", H, 7.2, 1e-9);
+    check("H exceeds chi^2_2 critical 5.991 (reject)", H > 5.991); }
+  // Spearman: x ranks 1..5, y ranks 2,1,4,5,3 -> sum d^2 = 8, rho = 0.6
+  { const dx = [1, 2, 3, 4, 5], dy = [2, 1, 4, 5, 3];
+    const sd2 = dx.reduce((s, r, i) => s + (r - dy[i]) ** 2, 0);
+    eq("Spearman sum d^2 = 8", sd2, 8);
+    eq("Spearman rho = 1 - 6*8/(5*24) = 0.6", 1 - 6 * sd2 / (5 * (25 - 1)), 0.6, 1e-12);
+    // Pearson r on (1..6, x^2) is high but < 1 (monotone but nonlinear)
+    const xs = [1, 2, 3, 4, 5, 6], ys = xs.map((x) => x * x);
+    const mx = 3.5, my = ys.reduce((a, b) => a + b, 0) / 6;
+    const cov = xs.reduce((s, x, i) => s + (x - mx) * (ys[i] - my), 0);
+    const sx = Math.sqrt(xs.reduce((s, x) => s + (x - mx) ** 2, 0)), sy = Math.sqrt(ys.reduce((s, y) => s + (y - my) ** 2, 0));
+    const r = cov / (sx * sy);
+    check("Pearson r on (x, x^2) is ~0.98 but < 1", r > 0.97 && r < 1); }
+}
+
 // ================= Propositional Logic =================
 {
   const B = [true, false];

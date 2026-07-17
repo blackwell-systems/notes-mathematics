@@ -438,6 +438,12 @@ By [Bayes' theorem](./probability#bayes-theorem): the posterior is proportional 
 
 **Where it shows up in ML:** Ridge regression is MAP estimation with a Gaussian prior. Understanding this connection helps explain why regularization works: it is not just a trick to prevent overfitting, it is a principled way to incorporate prior beliefs about parameter values.
 
+**Worked example: MAP for the coin, with a Beta prior.** Recall the [MLE example](#maximum-likelihood-estimation-mle): $7$ heads in $10$ flips gave $\hat{p}_{\text{MLE}} = 0.7$. Suppose we begin with a mild belief that the coin is roughly fair, a $\text{Beta}(2, 2)$ prior on $p$ (a gentle bump centered at $0.5$). Because the Beta prior is *conjugate* to the binomial likelihood, the posterior is again a Beta, with the observed successes and failures simply added to the prior's parameters:
+
+$$p \mid \text{data} \;\sim\; \text{Beta}(\alpha + \text{heads},\ \beta + \text{tails}) = \text{Beta}(2 + 7,\ 2 + 3) = \text{Beta}(9, 5).$$
+
+The MAP estimate is the **mode** of that posterior, $\dfrac{\alpha - 1}{\alpha + \beta - 2} = \dfrac{9 - 1}{9 + 5 - 2} = \dfrac{8}{12} \approx 0.667$. The prior has pulled the estimate from the MLE's $0.7$ down toward the prior's center $0.5$, landing at $0.667$: the "regularization" the section describes, made numeric. With more data the pull fades, exactly as the table above claims: $70$ heads in $100$ flips gives $\text{Beta}(72, 32)$, mode $\frac{71}{102} \approx 0.696$, now almost indistinguishable from the MLE $0.70$.
+
 ## Hypothesis Testing
 
 **Hypothesis testing:** A formal procedure for deciding whether data provides enough evidence to reject a claim about a population.
@@ -960,6 +966,18 @@ where $F_n(x)$ is the empirical CDF (the proportion of data points $\leq x$) and
 
 **Limitation:** The KS test is most sensitive to differences near the center of the distribution and less sensitive to differences in the tails. It also loses validity if you estimate the distribution parameters from the same data you are testing (use the Lilliefors variant in that case).
 
+**Worked example: a KS test by hand.** Test whether the five values $0.1, 0.3, 0.5, 0.7, 0.9$ come from a $\text{Uniform}(0, 1)$ distribution, whose CDF is simply $F_0(x) = x$ on $[0, 1]$. The empirical CDF $F_n$ is a staircase that jumps by $\frac{1}{5}$ at each data point, so at each point we compare $F_0$ against $F_n$ *just before* and *just after* the jump (the max gap can occur on either side):
+
+| $x$ | $F_0(x) = x$ | $F_n$ before | $F_n$ after | max gap here |
+|---|:---:|:---:|:---:|:---:|
+| 0.1 | 0.1 | 0.0 | 0.2 | 0.1 |
+| 0.3 | 0.3 | 0.2 | 0.4 | 0.1 |
+| 0.5 | 0.5 | 0.4 | 0.6 | 0.1 |
+| 0.7 | 0.7 | 0.6 | 0.8 | 0.1 |
+| 0.9 | 0.9 | 0.8 | 1.0 | 0.1 |
+
+The largest vertical gap anywhere is $D = 0.1$. The critical value for $n = 5$ at $\alpha = 0.05$ is about $0.563$, and since $D = 0.1 < 0.563$ we do **not** reject: the data is entirely consistent with $\text{Uniform}(0, 1)$. (These evenly-spaced values are in fact the best-fitting possible for $n = 5$, they give the smallest attainable $D = \frac{1}{2n}$; data clustered near one end would drive $D$ up toward and past the critical value.)
+
 #### Shapiro-Wilk Test
 
 **What it does:** Specifically tests whether data comes from a normal distribution. It is considered the most powerful normality test for small to moderate sample sizes ($n < 5000$).
@@ -1156,7 +1174,17 @@ ANOVA tells you that at least one group is different, but not which one(s). Post
 
 **Bonferroni correction:** Divide $\alpha$ by the number of comparisons. With 3 groups (3 comparisons), use $\alpha/3 = 0.0167$ for each pairwise test. Simple but conservative (it has less power than Tukey's HSD).
 
-**In the example above:** A Tukey HSD would test each of the three pairwise gaps against the studentized-range critical value (using $MSW = 14.5$ and $n = 5$ per group). The $20$-point B-C gap ($90 - 70$) is large relative to that threshold and would be clearly significant. The two $10$-point gaps (B vs. A at $90 - 80$, and A vs. C at $80 - 70$) are borderline: with this within-group spread they sit near the critical value, so whether they reach significance depends on the exact cutoff rather than being a foregone conclusion.
+**Worked example: Tukey's HSD.** The one-way ANOVA above rejected equal means for the three groups (means $A = 80$, $B = 90$, $C = 70$; $MSW = 14.5$; $n = 5$ per group; $df = 12$). *Which* pairs differ? The HSD threshold is
+
+$$\text{HSD} = q_{\alpha,\, k,\, df}\sqrt{\frac{MSW}{n}} = q_{0.05,\, 3,\, 12}\sqrt{\frac{14.5}{5}} = 3.77\sqrt{2.9} \approx 6.43,$$
+
+where $q_{0.05, 3, 12} \approx 3.77$ is the studentized-range critical value ($k = 3$ groups, $12$ error df). Any pair of group means differing by more than $6.43$ is significant. Comparing the three gaps:
+
+- $|\bar{x}_B - \bar{x}_C| = |90 - 70| = 20 > 6.43$, significant;
+- $|\bar{x}_B - \bar{x}_A| = |90 - 80| = 10 > 6.43$, significant;
+- $|\bar{x}_A - \bar{x}_C| = |80 - 70| = 10 > 6.43$, significant.
+
+So **all three** pairwise differences clear the threshold: every group differs significantly from every other. The studentized-range critical value is set precisely so the family-wise error rate across all three comparisons stays at $\alpha = 0.05$, which is why we compare to $6.43$ rather than to the smaller cutoff an unadjusted individual t-test would use.
 
 ### Two-Way ANOVA
 
@@ -1191,6 +1219,16 @@ where $MS_A = SS_A/(a-1)$, $MS_B = SS_B/(b-1)$, and $MS_{AB} = SS_{AB}/[(a-1)(b-
 | **Drug** | 70 | 52 |
 
 For **young** patients the drug raises the score by $70 - 50 = 20$; for **old** patients by only $52 - 50 = 2$. The drug's effect is not a single number; it *depends on age*, so there is an interaction. (If the drug added $20$ points in both groups, the cell means would be $50, 50, 70, 70$ and there would be no interaction, only two main effects.) On an **interaction plot** (cell means with age on the horizontal axis, one line per treatment), no interaction shows as **parallel** lines; here the placebo line is flat while the drug line falls steeply, so the non-parallel lines are the visual signature of the interaction, and a significant $F_{AB}$ is its formal counterpart.
+
+**Worked example: splitting the sums of squares.** Take those four cell means and actually partition the between-cell variability. The grand mean is $\bar{x} = \frac{50 + 50 + 70 + 52}{4} = 55.5$. The factor-level means are: treatment $\bar{x}_{\text{Placebo}} = 50$, $\bar{x}_{\text{Drug}} = 61$; age $\bar{x}_{\text{Young}} = 60$, $\bar{x}_{\text{Old}} = 51$. With one value per cell (so $2$ cells per factor level), the main-effect sums of squares are
+
+$$SS_A = 2\big[(50 - 55.5)^2 + (61 - 55.5)^2\big] = 2(30.25 + 30.25) = 121, \qquad SS_B = 2\big[(60 - 55.5)^2 + (51 - 55.5)^2\big] = 81,$$
+
+the total between-cell variability is $SS_{\text{cells}} = (50 - 55.5)^2 + (50 - 55.5)^2 + (70 - 55.5)^2 + (52 - 55.5)^2 = 283$, and the interaction is whatever it leaves behind:
+
+$$SS_{AB} = SS_{\text{cells}} - SS_A - SS_B = 283 - 121 - 81 = 81.$$
+
+The interaction ($81$) is as large as the entire age main effect ($81$) and two-thirds the treatment effect ($121$), the numeric confirmation that the drug's benefit genuinely *depends on age*, just as the non-parallel plot showed. (A real $F$-test needs the error term $SSE$, which requires **replication**, more than one patient per cell; with a single value per cell $SSE = 0$ and the $F$-ratios are undefined. This decomposition is exactly what a replicated design would then test against the within-cell noise.)
 
 ### Multiple Testing Correction
 
@@ -1292,6 +1330,14 @@ The two-sided p-value is $2 \times 0.0547 \approx 0.109$. Since $0.109 > 0.05$, 
 
 **How it works:** Compute the differences $d_i$ for each pair. Ignore any zero differences. Rank the absolute values of the remaining differences from smallest to largest. Assign each rank the sign of its corresponding difference. Sum the positive ranks ($W^+$) and negative ranks ($W^-$) separately. Under $H_0$, positive and negative ranks should be roughly balanced. A very large or very small $W^+$ indicates a systematic shift.
 
+**Worked example.** Eight subjects are measured before and after a treatment; the differences (after − before) are $+4,\ +6,\ +2,\ +9,\ +6,\ +3,\ +7,\ -1$. Rank the *absolute* differences $1, 2, 3, 4, 6, 6, 7, 9$ from smallest to largest. The two $6$'s tie for ranks $5$ and $6$, so each takes the average rank $5.5$:
+
+| $d$ | $+4$ | $+6$ | $+2$ | $+9$ | $+6$ | $+3$ | $+7$ | $-1$ |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| rank of $\lvert d \rvert$ | 4 | 5.5 | 2 | 8 | 5.5 | 3 | 7 | 1 |
+
+Sum the ranks by sign: $W^+ = 4 + 5.5 + 2 + 8 + 5.5 + 3 + 7 = 35$ and $W^- = 1$ (just the single $-1$). Check: $W^+ + W^- = 36 = \frac{n(n+1)}{2}$ for $n = 8$. The test statistic is $W = \min(W^+, W^-) = 1$. The signed-rank table's two-sided critical value at $n = 8$, $\alpha = 0.05$ is $3$, and since $1 \le 3$ we **reject** $H_0$: a significant positive shift. The normal approximation agrees, with mean $\frac{n(n+1)}{4} = 18$ and standard deviation $\sqrt{\frac{n(n+1)(2n+1)}{24}} = \sqrt{51} \approx 7.14$, $z = \frac{35 - 18}{7.14} \approx 2.38$ gives two-sided $p \approx 0.017$. The [sign test](#sign-test) would have used only the *seven positive versus one negative* directions; ranking by magnitude is what makes the signed-rank test more powerful here.
+
 ### Mann-Whitney U Test
 
 **Nonparametric alternative to:** the two-sample t-test.
@@ -1302,13 +1348,36 @@ The two-sided p-value is $2 \times 0.0547 \approx 0.109$. Since $0.109 > 0.05$, 
 
 **Interpretation:** The Mann-Whitney U test is often described as testing whether one group tends to produce larger values than the other. More precisely, it tests whether a randomly selected observation from Group 1 is equally likely to be larger or smaller than a randomly selected observation from Group 2.
 
+**Worked example.** Compare $G_1 = \{12, 15, 17, 20\}$ ($n_1 = 4$) and $G_2 = \{10, 11, 13, 14, 16\}$ ($n_2 = 5$). Pool all nine values and rank them $1$ (smallest) to $9$:
+
+| value | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 20 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| rank | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+| group | 2 | 2 | **1** | 2 | 2 | **1** | 2 | **1** | **1** |
+
+The rank sums are $R_1 = 3 + 6 + 8 + 9 = 26$ and $R_2 = 1 + 2 + 4 + 5 + 7 = 19$ (check: $R_1 + R_2 = 45 = \frac{N(N+1)}{2}$ for $N = 9$). Convert each to a $U$:
+
+$$U_1 = R_1 - \frac{n_1(n_1 + 1)}{2} = 26 - 10 = 16, \qquad U_2 = R_2 - \frac{n_2(n_2 + 1)}{2} = 19 - 15 = 4,$$
+
+and check $U_1 + U_2 = 20 = n_1 n_2$. The statistic is $U = \min(U_1, U_2) = 4$. The two-sided critical value for $n_1 = 4, n_2 = 5$ at $\alpha = 0.05$ is $1$ (reject if $U \le 1$); since $4 > 1$ we **fail to reject**, group $1$ does trend higher, but four-versus-five observations are too few to establish it. (When values tie, they share the average of the ranks they occupy, e.g. two values in positions $3$ and $4$ each get rank $3.5$.)
+
 ### Kruskal-Wallis Test
 
 **Nonparametric alternative to:** one-way ANOVA.
 
 **When to use:** You want to compare three or more independent groups but cannot assume normality.
 
-**How it works:** Rank all observations across all groups, then compare the mean ranks of each group. The test statistic is based on the variance of the group rank means. Like ANOVA, a significant result tells you that at least one group differs; it does not tell you which one(s). Follow up with pairwise Mann-Whitney tests (with multiple testing correction) to identify specific differences.
+**How it works:** Rank all observations across all groups, then compare the mean ranks of each group. The test statistic is
+
+$$H = \frac{12}{N(N+1)}\sum_{i=1}^{k}\frac{R_i^2}{n_i} - 3(N+1),$$
+
+where $R_i$ is the rank sum of group $i$, $n_i$ its size, and $N$ the total; under $H_0$ it is approximately $\chi^2_{k-1}$. Like ANOVA, a significant result tells you at least one group differs, not which one(s). Follow up with pairwise Mann-Whitney tests (with multiple testing correction) to identify specific differences.
+
+**Worked example.** Three groups of three, $\{1, 2, 3\}$, $\{4, 5, 6\}$, $\{7, 8, 9\}$. Pooled and ranked, the values $1$ through $9$ *are* their own ranks, so the rank sums are $R_1 = 1 + 2 + 3 = 6$, $R_2 = 4 + 5 + 6 = 15$, $R_3 = 7 + 8 + 9 = 24$ (check: $6 + 15 + 24 = 45 = \frac{N(N+1)}{2}$). Then
+
+$$H = \frac{12}{9 \cdot 10}\left(\frac{6^2}{3} + \frac{15^2}{3} + \frac{24^2}{3}\right) - 3(10) = \frac{12}{90}(12 + 75 + 192) - 30 = \frac{12}{90}(279) - 30 = 37.2 - 30 = 7.2.$$
+
+Against $\chi^2_{k-1} = \chi^2_2$ (critical value $5.991$ at $\alpha = 0.05$), $7.2 > 5.991$, so we **reject** $H_0$: at least one group differs, unsurprising here since the groups are perfectly ordered.
 
 ### Spearman Rank Correlation
 
@@ -1323,6 +1392,21 @@ $$
 $$
 
 where $d_i$ is the difference between the ranks of paired observations, and $n$ is the number of pairs. This shortcut formula assumes no tied ranks.
+
+**Worked example.** Five paired observations, $x = (10, 20, 30, 40, 50)$ and $y = (15, 10, 25, 30, 22)$. Rank each variable separately. The $x$'s are already increasing, so rank-$x = (1, 2, 3, 4, 5)$. Sorting the $y$'s ($10, 15, 22, 25, 30$) assigns $15 \to 2$, $10 \to 1$, $25 \to 4$, $30 \to 5$, $22 \to 3$, i.e. rank-$y = (2, 1, 4, 5, 3)$. Tabulate the rank differences:
+
+| pair | 1 | 2 | 3 | 4 | 5 |
+|---|:---:|:---:|:---:|:---:|:---:|
+| rank $x$ | 1 | 2 | 3 | 4 | 5 |
+| rank $y$ | 2 | 1 | 4 | 5 | 3 |
+| $d_i$ | $-1$ | $+1$ | $-1$ | $-1$ | $+2$ |
+| $d_i^2$ | 1 | 1 | 1 | 1 | 4 |
+
+So $\sum d_i^2 = 8$, and
+
+$$\rho_s = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)} = 1 - \frac{6 \cdot 8}{5(25 - 1)} = 1 - \frac{48}{120} = 0.6,$$
+
+a moderate positive *monotonic* association. Spearman's advantage over [Pearson correlation](./statistical-learning#correlation) shows on monotone-but-nonlinear data: for $y = x^2$ with $x = 1, \ldots, 6$ the ranks match perfectly ($\sum d_i^2 = 0$), giving $\rho_s = 1$ even though Pearson's $r \approx 0.98$ falls short of $1$ because the relationship curves.
 
 ### Summary of Nonparametric Alternatives
 
