@@ -343,6 +343,38 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("FD bin count range/width ~ 8", Math.round(range / fdw) === 8); }
 }
 
+// ================= Statistics hub + Statistical Learning (Phase-2 worked examples) =================
+{
+  // Sampling on N=20, n=5
+  const N = 20, n = 5;
+  { const strata = [8, 8, 4];
+    const alloc = strata.map((s) => s / N * n);
+    check("stratified proportional alloc (8,8,4) -> 2,2,1", alloc[0] === 2 && alloc[1] === 2 && alloc[2] === 1);
+    eq("stratified alloc sums to n=5", alloc.reduce((a, b) => a + b), 5);
+    check("strata sizes sum to N=20", strata.reduce((a, b) => a + b) === 20); }
+  { const k = N / n, start = 2, sys = [];
+    for (let i = 0; i < n; i++) sys.push(start + i * k);
+    eq("systematic step k = N/n = 4", k, 4);
+    check("systematic sample {2,6,10,14,18}", sys.join(",") === "2,6,10,14,18" && sys.every((x) => x <= N)); }
+  check("cluster: 4 clusters of 5 partition N=20", 4 * 5 === 20);
+  check("SRS selection probability = n/N = 1/4", n / N === 0.25);
+  // 5-fold CV of predict-train-mean on y=2..20
+  { const y = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+    const tot = y.reduce((a, b) => a + b, 0);
+    eq("CV data total = 110, global mean 11", tot, 110); eq("global mean", tot / 10, 11);
+    const mses = [], means = [];
+    for (let f = 0; f < 5; f++) {
+      const ho = [y[2 * f], y[2 * f + 1]];
+      const tm = (tot - ho[0] - ho[1]) / 8;
+      means.push(tm);
+      mses.push(ho.reduce((a, v) => a + (v - tm) ** 2, 0) / 2);
+    }
+    check("train means per fold = 13,12,11,10,9", means.join(",") === "13,12,11,10,9");
+    check("fold MSEs = 101,26,1,26,101", mses.join(",") === "101,26,1,26,101");
+    eq("5-fold CV score = 255/5 = 51", mses.reduce((a, b) => a + b, 0) / 5, 51);
+    check("outer folds (101) dwarf middle fold (1): single-split is noisy", Math.max(...mses) === 101 && Math.min(...mses) === 1); }
+}
+
 // ================= Graphing Functions (Phase-2 worked examples) =================
 {
   // Even/odd symmetry classification

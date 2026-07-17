@@ -135,9 +135,21 @@ The way you collect a sample determines whether your conclusions are valid. A ba
 
 **Systematic sampling:** Select every $k$th item from an ordered list. For example, survey every 10th customer. Simple to implement, but can be biased if there is a periodic pattern in the list.
 
+**Cluster sampling:** Divide the population into groups (clusters), usually along lines that already exist (city blocks, schools, shipping crates), then randomly choose *whole clusters* and measure everyone inside the chosen ones. It is cheaper than an SRS spread across the whole population, but it only works well when each cluster is itself a small-scale mirror of the population. Note the contrast with stratified sampling: stratified samples *from every* group, while cluster samples *all of a few* groups.
+
 **Convenience sampling:** Sample whoever is easiest to reach. Surveying your friends, using your company's users as "the population." This is the most common method in practice and the most prone to bias.
 
 **Selection bias:** When the sampling method systematically excludes part of the population. Surveying people at a gym about exercise habits will overrepresent active people. This is the single biggest threat to statistical validity.
+
+**Worked example (drawing each method).** Take a concrete population of $N = 20$ units, labeled $1$ through $20$ in order, and suppose we want a sample of size $n = 5$ from each method. Watching *which units* each one selects makes the differences vivid.
+
+- **Simple random sample.** A random number generator picks five labels with no pattern, say $\{3, 7, 11, 14, 19\}$. Every unit had the same $5/20 = 1/4$ chance of being chosen, and no structure is imposed.
+- **Stratified.** Suppose the $20$ units split into three regions: North $= \{1..8\}$, Central $= \{9..16\}$, South $= \{17..20\}$ (sizes $8, 8, 4$). Proportional allocation gives each stratum its population share of the five slots: North $\frac{8}{20}\times 5 = 2$, Central $\frac{8}{20}\times 5 = 2$, South $\frac{4}{20}\times 5 = 1$ (which sums to $5$). Then draw at random *within* each region, e.g. $\{2, 6\}$ from North, $\{10, 13\}$ from Central, $\{18\}$ from South. Every region is guaranteed representation in proportion to its size.
+- **Systematic.** With $n = 5$ from $N = 20$, the step is $k = \frac{20}{5} = 4$. Pick a random start in $\{1, 2, 3, 4\}$, say $2$, then take every $4$th unit: $\{2, 6, 10, 14, 18\}$. Easy to run, but if the list had a period-$4$ pattern this would lock onto it.
+- **Cluster.** Group the units into four clusters of five consecutive labels: $\{1..5\}, \{6..10\}, \{11..15\}, \{16..20\}$. Randomly choose *one whole cluster*, say the third, and take all of it: $\{11, 12, 13, 14, 15\}$. Only one random draw was needed, but the sample is a single contiguous block, so it is representative only if the clusters are internally as varied as the whole population.
+- **Convenience.** Take whoever is easiest, e.g. the first five to reply, $\{1, 2, 3, 4, 5\}$. Note this is entirely inside the North region, so it systematically misses Central and South: a textbook case of the selection bias above.
+
+Compare the five samples: only the SRS and the stratified draw are guaranteed to be free of systematic distortion, the stratified one additionally guaranteeing balance across regions.
 
 **Where it shows up in ML:** Training data is almost always a convenience sample. If your training data does not represent the population you want your model to work on, the model will fail in deployment. This is the root cause of most "AI bias" problems.
 

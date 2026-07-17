@@ -1708,11 +1708,11 @@
       "phase2At": "2026-07-16"
     },
     "statistics.md": {
-      "contentHash": "sha1:6ca06d46d66c2df9",
+      "contentHash": "sha1:2661d7d10b237bf3",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+5subagents",
-      "overall": "mixed",
+      "overall": "strong",
       "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Statistics hub (foundations: data types, populations vs samples, producing good data). This slice: 1 strong / 2 adequate / 0 thin / 1 missing.",
       "inventory": [
         {
@@ -1723,9 +1723,9 @@
         },
         {
           "concept": "sampling methods (SRS/stratified/systematic/cluster)",
-          "quality": "missing",
-          "note": "methods defined + diagram, none drawn on a concrete population",
-          "upgrade": "draw one SRS/stratified/systematic sample from a small numbered frame, listing selected indices"
+          "quality": "strong",
+          "note": "Worked example draws all five methods (SRS/stratified/systematic/cluster/convenience) on a concrete N=20 population, showing the exact units each selects; cluster bullet added to prose.",
+          "upgrade": ""
         },
         {
           "concept": "experimental design / factorial treatment count",
@@ -2067,11 +2067,11 @@
       "phase2At": "2026-07-17"
     },
     "statistical-learning.md": {
-      "contentHash": "sha1:8d1715d64587eb0d",
+      "contentHash": "sha1:904c5aba8035e943",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+5subagents",
-      "overall": "mixed",
+      "overall": "strong",
       "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Statistical Learning (correlation, regression, GLM, bias-variance, CV, bootstrap). This slice: 2 strong / 6 adequate / 1 thin / 0 missing.",
       "inventory": [
         {
@@ -2118,9 +2118,9 @@
         },
         {
           "concept": "cross-validation (k-fold)",
-          "quality": "thin",
-          "note": "procedure + diagram, no fold ever computed",
-          "upgrade": "work a tiny k-fold: 6 points, k=3, three splits, per-fold error, averaged CV score"
+          "quality": "strong",
+          "note": "Full 5-fold CV worked: y=2..20, predict-train-mean, per-fold train means 13/12/11/10/9 and MSEs 101/26/1/26/101, CV score 51, with the single-split-noise contrast.",
+          "upgrade": ""
         },
         {
           "concept": "bootstrapping",

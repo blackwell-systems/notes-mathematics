@@ -445,6 +445,24 @@ $$
 \text{CV Score} = \frac{1}{k}\sum_{i=1}^k \text{Score}_i
 $$
 
+**Worked example (computing a 5-fold CV score).** Take ten data points with target values $y = 2, 4, 6, \ldots, 20$, and use the simplest possible model: *predict the training-set mean*. With $k = 5$ we get five folds of two points each. For each fold we hold out its two points, compute the mean of the other eight (the training set), and score with mean squared error (MSE) on the held-out pair. The whole set sums to $110$, so the global mean is $11$; removing a fold shifts the training mean away from $11$.
+
+| Fold | Held-out | Train mean (of other 8) | Squared errors | Fold MSE |
+|---|---|---|---|---|
+| 1 | $2, 4$ | $104/8 = 13$ | $(2-13)^2 + (4-13)^2 = 121 + 81$ | $202/2 = 101$ |
+| 2 | $6, 8$ | $96/8 = 12$ | $36 + 16$ | $52/2 = 26$ |
+| 3 | $10, 12$ | $88/8 = 11$ | $1 + 1$ | $2/2 = 1$ |
+| 4 | $14, 16$ | $80/8 = 10$ | $16 + 36$ | $52/2 = 26$ |
+| 5 | $18, 20$ | $72/8 = 9$ | $81 + 121$ | $202/2 = 101$ |
+
+Averaging the five fold scores gives the cross-validation estimate:
+
+$$
+\text{CV Score} = \frac{101 + 26 + 1 + 26 + 101}{5} = \frac{255}{5} = 51.
+$$
+
+Two lessons fall out of the table. First, every point is used for validation exactly once and for training four times, so all ten points inform the estimate. Second, the fold scores range from $1$ to $101$: had you done a *single* train/test split and happened to test on the middle pair you would have reported an MSE of $1$, and on an outer pair, $101$. Neither is trustworthy alone; the average, $51$, is the stable estimate. (In practice you would also *shuffle* the data before splitting; here the points were left in sorted order to keep the arithmetic transparent, which is exactly why the outer folds score so badly.)
+
 **Why not just use a train/test split?** A single split is noisy. You might get lucky or unlucky with which data points end up in the test set. Cross-validation uses all the data for both training and testing (just not at the same time), giving a more reliable estimate.
 
 ### Leave-One-Out Cross-Validation (LOOCV)
