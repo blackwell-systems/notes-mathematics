@@ -394,6 +394,18 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const f = (x) => 0.25 * x ** 3;
     eq("concavity inflection f(0)=0", f(0), 0);
     check("0.25x^3 is increasing across the sample", f(-2) < f(-1) && f(-1) < f(1) && f(1) < f(2)); }
+  // inequality region: y<2x+1, test (0,0): 0 < 1 true
+  { const boundary = (x) => 2 * x + 1;
+    eq("boundary 2x+1 at x=0 is 1", boundary(0), 1);
+    check("test (0,0) satisfies y<2x+1 (0<1)", 0 < boundary(0)); }
+  // system: y=x+2 and y=-x cross at (-1,1)
+  { const u = (x) => x + 2, l = (x) => -x;
+    check("system boundaries cross at (-1,1)", u(-1) === 1 && l(-1) === 1); }
+  // piecewise endpoints: continuous join at x=0 (y=2), jump at x=2 (2 -> 1)
+  { const p1 = (x) => x + 2, p2 = () => 2, p3 = (x) => x - 1;
+    check("piecewise continuous join at x=0: p1(0)=p2(0)=2", p1(0) === 2 && p2() === 2);
+    check("piecewise jump at x=2: p2=2 vs p3(2)=1", p2() === 2 && p3(2) === 1);
+    eq("piecewise jump size = 1", p2() - p3(2), 1); }
 }
 
 // ================= Statistics hub + Statistical Learning (Phase-2 worked examples) =================

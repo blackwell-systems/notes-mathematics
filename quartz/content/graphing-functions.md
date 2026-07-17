@@ -364,6 +364,10 @@ As $x \to \pm\infty$ the term $\frac{1}{x+1} \to 0$, so the graph hugs the line 
 
 ![Piecewise function with open and closed circles at the boundary](./media/piecewise-function.png)
 
+The endpoint convention is what makes a piecewise graph unambiguous. A **closed (filled) circle** means the endpoint is included ($\leq$ or $\geq$); an **open (hollow) circle** means it is excluded ($<$ or $>$). Where one piece ends and the next begins at the same height, the two endpoints merge into a single filled dot and the graph is continuous there; where they sit at different heights, you get a jump.
+
+![A three-piece piecewise function on axes through the origin. A rising line comes in from the left and a flat segment at height 2 begins at x = 0, where they meet at a single filled dot, labeled a continuous join because both pieces reach y = 2. At x = 2 the flat segment ends with an open (hollow) circle at (2, 2), marked not included, while a rising line to the right starts with a filled circle at (2, 1), marked included, so the graph jumps down from 2 to 1: a jump discontinuity](./media/gf-piecewise-endpoints.png)
+
 ## Graphing Radical Functions
 
 **Square Root Function:** $f(x) = a\sqrt{x - h} + k$
@@ -398,6 +402,8 @@ As $x \to \pm\infty$ the term $\frac{1}{x+1} \to 0$, so the graph hugs the line 
 - **Closed circle:** $\leq$ or $\geq$ (included)
 - **Shade:** Direction of solution
 
+![Two number lines. The top shows x less than 3: an open (hollow) circle at 3 with the line shaded and arrowed to the left, since 3 itself is not included. The bottom shows x greater than or equal to minus 1: a filled circle at minus 1 with the line shaded and arrowed to the right, since minus 1 is included](./media/gf-inequality-number-line.png)
+
 **Inequality in Two Variables:**
 
 **Steps:**
@@ -414,10 +420,14 @@ As $x \to \pm\infty$ the term $\frac{1}{x+1} \to 0$, so the graph hugs the line 
 - Test $(0, 0)$: $0 < 1$ ✓
 - Shade below the line
 
+![The inequality y less than 2x plus 1 on axes through the origin. The boundary line y equals 2x plus 1 is dashed because the inequality is strict, so the line itself is not included. The test point (0, 0) is marked and the check 0 less than 1 is true, so the half-plane containing the origin, below and to the right of the line, is shaded as the solution](./media/gf-inequality-region.png)
+
 **System of Inequalities:**
 - Graph all boundary lines
 - Shade each inequality
 - Solution region is where all shadings overlap
+
+![A system of two inequalities on axes through the origin. The line y equals x plus 2 is drawn with the region below it lightly shaded blue (y less than or equal to x plus 2), and the line y equals minus x with the region above it lightly shaded green (y greater than or equal to minus x). The two boundary lines cross at (minus 1, 1). The wedge to the right where both shadings overlap is shaded darker purple and labeled the solution region, because only there do both inequalities hold at once](./media/gf-inequality-system.png)
 
 ## Common Transformations Summary
 
