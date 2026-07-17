@@ -2249,12 +2249,12 @@
       ]
     },
     "vector.md": {
-      "contentHash": "sha1:fba11b501b82f0f0",
+      "contentHash": "sha1:2afe23eebc5f029d",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+1subagent",
-      "overall": "mixed",
-      "summary": "Geometric vectors reference: every worked number verified correct by an independent auditor. 14 strong / 4 adequate / 3 thin / 0 missing. Work-list: position vector never computed on concrete points; cross product only trivial ixj with determinant form unexpanded; projection example trivial (axis-unit v) and scalar projection never computed.",
+      "overall": "strong",
+      "summary": "Geometric vectors reference: every worked number verified correct by an independent auditor. Phase-2 closed all three work-list items (position vector on concrete points, general cross product + determinant expansion, non-trivial projection + scalar component). 17 strong / 4 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "scalar vs vector motivation",
@@ -2270,8 +2270,8 @@
         },
         {
           "concept": "position vector computed head-minus-tail on concrete points",
-          "quality": "thin",
-          "note": "Formula AB=<b1-a1,b2-a2> given but never computed on concrete A,B.",
+          "quality": "strong",
+          "note": "Worked: A=(1,2), B=(4,6) -> AB=<3,4>, |AB|=5, with the note that subtraction strips out starting location.",
           "upgrade": ""
         },
         {
@@ -2324,14 +2324,14 @@
         },
         {
           "concept": "cross product beyond i x j + determinant form",
-          "quality": "thin",
-          "note": "Only trivial ixj=k worked; determinant form merely named, never expanded; no mixed-component example.",
+          "quality": "strong",
+          "note": "Determinant form now written as a 3x3 and expanded; general <1,2,3>x<4,5,6>=<-3,6,-3> worked with cofactor minors, -j sign, perpendicularity checks, and |cross|=sqrt54=|u||v|sin(theta).",
           "upgrade": ""
         },
         {
           "concept": "projection onto non-trivial v + scalar projection",
-          "quality": "thin",
-          "note": "Projection example uses axis-unit <1,0> (|v|^2=1 hides the division); scalar projection never computed as a number.",
+          "quality": "strong",
+          "note": "Non-trivial projection <3,4> onto <2,1>: u.v=10, |v|^2=5, proj=2<2,1>=<4,2>; scalar comp=10/sqrt5=2sqrt5~4.47, checked against |<4,2>|.",
           "upgrade": ""
         },
         {

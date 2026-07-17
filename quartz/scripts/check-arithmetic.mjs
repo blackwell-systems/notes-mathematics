@@ -343,6 +343,37 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("FD bin count range/width ~ 8", Math.round(range / fdw) === 8); }
 }
 
+// ================= Vector (Phase-2 worked examples) =================
+{
+  const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);
+  const mag = (a) => Math.sqrt(dot(a, a));
+  // Position vector A=(1,2) B=(4,6) -> <3,4>, mag 5
+  { const A = [1, 2], B = [4, 6]; const AB = [B[0] - A[0], B[1] - A[1]];
+    check("position vector AB = <3,4>", AB[0] === 3 && AB[1] === 4);
+    eq("|AB| = 5", mag(AB), 5); }
+  // General cross product <1,2,3> x <4,5,6> = <-3,6,-3>
+  { const u = [1, 2, 3], v = [4, 5, 6];
+    const cx = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+    check("cross <1,2,3>x<4,5,6> = <-3,6,-3>", cx[0] === -3 && cx[1] === 6 && cx[2] === -3);
+    // 2x2 cofactor terms shown in prose: i-term -3, j-term (after -j) +6, k-term -3
+    eq("cofactor i-term (2*6-3*5)", 2 * 6 - 3 * 5, -3);
+    eq("cofactor j-term -(1*6-3*4)", -(1 * 6 - 3 * 4), 6);
+    eq("cofactor k-term (1*5-2*4)", 1 * 5 - 2 * 4, -3);
+    check("cross perpendicular to both inputs", dot(cx, u) === 0 && dot(cx, v) === 0);
+    eq("|cross| = sqrt(54)", mag(cx), Math.sqrt(54), 1e-12);
+    // magnitude agrees with |u||v|sin(theta)
+    const costh = dot(u, v) / (mag(u) * mag(v)), sinth = Math.sqrt(1 - costh * costh);
+    eq("|cross| = |u||v|sin(theta)", mag(u) * mag(v) * sinth, mag(cx), 1e-9); }
+  // Non-trivial projection u=<3,4> onto v=<2,1>
+  { const u = [3, 4], v = [2, 1]; const d = dot(u, v), vv = dot(v, v);
+    eq("u.v = 10", d, 10); eq("|v|^2 = 5", vv, 5);
+    const proj = [d / vv * v[0], d / vv * v[1]];
+    check("vector projection = <4,2>", proj[0] === 4 && proj[1] === 2);
+    eq("ratio u.v/|v|^2 = 2", d / vv, 2);
+    eq("scalar projection u.v/|v| = 2 sqrt5", d / Math.sqrt(vv), 2 * Math.sqrt(5), 1e-12);
+    eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
+}
+
 // ================= Statistics hub + Statistical Learning (Phase-2 worked examples) =================
 {
   // Sampling on N=20, n=5

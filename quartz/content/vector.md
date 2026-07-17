@@ -75,6 +75,14 @@ $$
 
 The result is the equivalent vector drawn from the origin, so its head lies at $(b_1 - a_1,\; b_2 - a_2)$. When the tail is already the origin, the head's coordinates are the position vector directly.
 
+**Worked example.** Take $A = (1, 2)$ and $B = (4, 6)$. Subtracting the tail from the head component by component,
+
+$$
+\vec{AB} = \langle 4 - 1,\; 6 - 2 \rangle = \langle 3, 4 \rangle.
+$$
+
+So the arrow from $A$ to $B$ is the same magnitude and direction as the position vector $\langle 3, 4 \rangle$ drawn from the origin to the point $(3, 4)$, and its length is $\lVert\vec{AB}\rVert = \sqrt{3^2 + 4^2} = 5$. Notice the subtraction is what strips out the starting location: the two points sit at $(1,2)$ and $(4,6)$, but only the *difference* $\langle 3, 4 \rangle$ survives, because a vector cares about displacement, not where you started.
+
 ![A directed segment from point A to point B and the equal position vector drawn from the origin to (b1 - a1, b2 - a2), shown parallel and the same length](./media/vec-position-vector.png)
 
 ## Unit Vector
@@ -289,7 +297,13 @@ $$
 
 **Result is a vector perpendicular to both u and v.**
 
-**Determinant Form:** Uses determinant with unit vectors $\mathbf{i}$, $\mathbf{j}$, $\mathbf{k}$ in first row
+**Determinant Form:** The formula is easiest to remember as a symbolic $3\times 3$ determinant with the unit vectors $\mathbf{i}, \mathbf{j}, \mathbf{k}$ in the first row, the components of $\mathbf{u}$ in the second, and $\mathbf{v}$ in the third:
+
+$$
+\mathbf{u} \times \mathbf{v} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ u_1 & u_2 & u_3 \\ v_1 & v_2 & v_3 \end{vmatrix}
+$$
+
+Expanding along the top row (with the alternating $+, -, +$ signs) reproduces the component formula: each unit vector is multiplied by the $2\times 2$ determinant of the four entries not in its row or column.
 
 **Magnitude:**
 
@@ -304,6 +318,20 @@ Where $\theta$ is the angle between vectors.
 $= \langle 0(0) - 0(1),\; 0(0) - 1(0),\; 1(1) - 0(0) \rangle = \langle 0, 0, 1 \rangle$
 
 ![Three-dimensional right-hand-rule diagram: i = (1,0,0) and j = (0,1,0) span a unit square of area 1 in the xy-plane, and their cross product i cross j = k = (0,0,1) points straight up, perpendicular to both](./media/vec-cross-product.png)
+
+**Worked example (general cross product).** Compute $\mathbf{u} \times \mathbf{v}$ for $\mathbf{u} = \langle 1, 2, 3 \rangle$ and $\mathbf{v} = \langle 4, 5, 6 \rangle$. Expanding the determinant along the top row, each unit vector picks up the $2\times 2$ determinant of the columns it does *not* sit in:
+
+$$
+\mathbf{u}\times\mathbf{v} = \mathbf{i}\begin{vmatrix}2&3\\5&6\end{vmatrix} - \mathbf{j}\begin{vmatrix}1&3\\4&6\end{vmatrix} + \mathbf{k}\begin{vmatrix}1&2\\4&5\end{vmatrix}
+$$
+
+Each $2\times 2$ determinant is "main diagonal minus anti-diagonal":
+
+$$
+\mathbf{i}(2\cdot 6 - 3\cdot 5) - \mathbf{j}(1\cdot 6 - 3\cdot 4) + \mathbf{k}(1\cdot 5 - 2\cdot 4) = \mathbf{i}(-3) - \mathbf{j}(-6) + \mathbf{k}(-3) = \langle -3,\; 6,\; -3 \rangle.
+$$
+
+(Watch the middle sign: the $-\mathbf{j}$ flips the $-6$ to $+6$.) This matches the component formula directly, and you can confirm the result is perpendicular to both inputs by checking the dot products: $\langle -3,6,-3\rangle\cdot\langle 1,2,3\rangle = -3 + 12 - 9 = 0$ and $\langle -3,6,-3\rangle\cdot\langle 4,5,6\rangle = -12 + 30 - 18 = 0$. Its length, $\lVert\mathbf u\times\mathbf v\rVert = \sqrt{9 + 36 + 9} = \sqrt{54} \approx 7.35$, is the area of the parallelogram spanned by $\mathbf u$ and $\mathbf v$, and it agrees with $\lVert\mathbf u\rVert\,\lVert\mathbf v\rVert\sin\theta$.
 
 **Properties:**
 - **NOT commutative:** $\mathbf{u} \times \mathbf{v} = -(\mathbf{v} \times \mathbf{u})$ (anti-commutative)
@@ -335,6 +363,28 @@ $$
 $\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{3(1) + 4(0)}{1^2 + 0^2} \langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$
 
 ![Projection of u = (3,4) onto v = (1,0): a dashed perpendicular drops from the head of u to the x-axis, and the green projection vector (3,0) is the shadow of u along the direction of v](./media/vec-projection.png)
+
+That first example projected onto $\mathbf{v} = \langle 1, 0 \rangle$, where $|\mathbf v|^2 = 1$, so the denominator did no visible work. Here is a case where it matters.
+
+**Worked example (non-trivial projection).** Project $\mathbf{u} = \langle 3, 4 \rangle$ onto $\mathbf{v} = \langle 2, 1 \rangle$. First the dot product and $|\mathbf v|^2$:
+
+$$
+\mathbf{u}\cdot\mathbf{v} = 3(2) + 4(1) = 10, \qquad |\mathbf v|^2 = 2^2 + 1^2 = 5.
+$$
+
+The **vector projection** scales $\mathbf v$ by the ratio $\frac{\mathbf u\cdot\mathbf v}{|\mathbf v|^2} = \frac{10}{5} = 2$:
+
+$$
+\text{proj}_{\mathbf v}(\mathbf u) = \frac{10}{5}\langle 2, 1\rangle = 2\langle 2, 1\rangle = \langle 4, 2 \rangle.
+$$
+
+This time the ratio is not $1$: the shadow of $\mathbf u$ is *twice* the vector $\mathbf v$, which only came out right because we divided by $|\mathbf v|^2 = 5$ rather than leaving it out. The **scalar projection** (the signed length of that shadow) divides by $|\mathbf v|$ instead of $|\mathbf v|^2$:
+
+$$
+\text{comp}_{\mathbf v}(\mathbf u) = \frac{\mathbf u\cdot\mathbf v}{|\mathbf v|} = \frac{10}{\sqrt 5} = 2\sqrt 5 \approx 4.47.
+$$
+
+As a check, the length of the vector projection is $\lVert\langle 4,2\rangle\rVert = \sqrt{16 + 4} = \sqrt{20} = 2\sqrt 5$, which matches. The two agree here because the angle is acute ($\mathbf u\cdot\mathbf v = 10 > 0$), so the scalar projection comes out positive. In general the scalar projection equals the vector projection's length *in magnitude*; when $\mathbf u\cdot\mathbf v < 0$ (an obtuse angle) it is negative, signalling that the shadow points opposite to $\mathbf v$.
 
 ## Component and Direction Form
 
