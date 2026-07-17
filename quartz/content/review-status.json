@@ -173,11 +173,12 @@
       "findings": []
     },
     "predicate-logic-first-order-logic.md": {
-      "contentHash": "sha1:402b5cda46ba8928",
+      "contentHash": "sha1:35772df9e17c7106",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "findings": []
+      "findings": [],
+      "note": "Reader-requested clarity expansion of the Structures/Interpretations section: a plain-terms reframe plus a fully-worked three-element structure M with three sentences evaluated by hand and a same-formula-different-structure contrast. Independently reviewed (returned []) and machine-checked (+7 assertions). Hash refreshed."
     },
     "calculus.md": {
       "contentHash": "sha1:8d5aba5867919046",

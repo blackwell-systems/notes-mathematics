@@ -1544,12 +1544,12 @@
       "phase2At": "2026-07-16"
     },
     "predicate-logic-first-order-logic.md": {
-      "contentHash": "sha1:402b5cda46ba8928",
+      "contentHash": "sha1:35772df9e17c7106",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
       "overall": "mixed",
-      "summary": "Rich, well-motivated; the two natural-deduction derivations, the prove/disprove pair, quantifier alternation, and negation of nested quantifiers are STRONG. But most semantic content is taught by assertion: quantifier truth values are one-line parentheticals, and the load-bearing machinery (Tarski satisfaction in a finite model, English->FOL build-up, prenex conversion, Skolemization) is defined but never carried through a concrete step-by-step example; finite-model evaluation is punted to the widget.",
+      "summary": "PARTIAL Phase-2 (reader-requested): the Structures/Interpretations section was thin (never wrote out a concrete structure). Added an idiot's-guide expansion -- a plain-terms template/blanks reframe plus a fully-worked three-element structure M read off by hand (three sentences + same-formula-different-structure), machine-checked (+7 assertions), independently reviewed (returned []). Resolves the structures + finite-model-evaluation items. Remaining thin: quantifier truth values (exists!), English->FOL build-up, vacuous truth, validity/satisfiability, prenex, Skolemization (6 items).",
       "inventory": [
         {
           "concept": "predicates and multi-place predicates",
@@ -1565,9 +1565,10 @@
         },
         {
           "concept": "structures / interpretations (models)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "no concrete structure ever fully written out and used",
-          "upgrade": "Fully specify one small finite structure (D={0,1,2}, a constant, successor, <) and evaluate 2-3 sentences by hand."
+          "upgrade": "",
+          "phase2": "built a full three-element structure M (D={0,1,2}, c=0, wrap-successor s, R={(0,1),(0,2),(1,2)}) and a plain-terms template/blanks reframe + harness"
         },
         {
           "concept": "universal/existential/unique-existential quantifier truth values",
@@ -1577,9 +1578,10 @@
         },
         {
           "concept": "evaluating a formula in a finite model (Tarski satisfaction)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "lone {1,2,3} 'is even' expansion; no assignment/binary-relation/nested case in text",
-          "upgrade": "Evaluate forall x exists y R(x,y) and exists y forall x R(x,y) in one fixed structure (D={1,2,3}, R = <), showing s[x->d] and why one is T, one F."
+          "upgrade": "",
+          "phase2": "read three sentences off M by hand: R(c,s(c)) true; forall x R(x,s(x)) false (wrap-around at x=2); exists x forall y (R(x,y) or x=y) true; strict version false; plus same-formula-different-structure (M') + harness"
         },
         {
           "concept": "quantifier order / alternation (dependency)",
@@ -1683,7 +1685,8 @@
           "note": "",
           "upgrade": "Reference/exposition section; not a worked-example target."
         }
-      ]
+      ],
+      "phase2At": "2026-07-16"
     }
   }
 }

@@ -366,6 +366,25 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("exists! for P={2} is true", uniq((x) => x === 2) === true);
   check("exists! for P={2,3} is false", uniq((x) => x === 2 || x === 3) === false);
 
+  // ---- Fully worked structure M: D={0,1,2}, c=0, s=wrap-successor, R={(0,1),(0,2),(1,2)} ----
+  { const D = [0, 1, 2];
+    const all = (f) => D.every(f), some = (f) => D.some(f);
+    const s = (x) => (x + 1) % 3;                       // 0->1->2->0
+    const Rpairs = new Set(["0,1", "0,2", "1,2"]);
+    const R = (x, y) => Rpairs.has(`${x},${y}`);
+    eq("M: successor s wraps 0->1->2->0", [s(0), s(1), s(2)].join(","), "1,2,0");
+    // Sentence 1: R(c, s(c)) with c=0 -> R(0,1) TRUE ; with c=2 (M') -> R(2,0) FALSE
+    check("M: R(c,s(c)) true when c=0", R(0, s(0)) === true);
+    check("M': same sentence R(c,s(c)) false when c=2 (reinterpret the constant)", R(2, s(2)) === false);
+    // Sentence 2: forall x R(x, s(x)) -> false, fails at x=2 (wrap-around)
+    check("M: forall x R(x,s(x)) is false (fails at x=2)", all((x) => R(x, s(x))) === false);
+    check("M: the failing witness is x=2, since R(2,0) is false", R(2, s(2)) === false);
+    // Sentence 3: exists x forall y (R(x,y) or x=y) -> true (x=0 least element); strict version false
+    check("M: exists x forall y (R(x,y) or x=y) is true (x=0 witnesses)",
+      some((x) => all((y) => R(x, y) || x === y)) === true);
+    check("M: strict exists x forall y R(x,y) is false (nothing is R-before itself)",
+      some((x) => all((y) => R(x, y))) === false); }
+
   // De Morgan for quantifiers: not-forall P == exists not-P, over every P on {1,2,3}
   let deMorgan = true;
   for (let m = 0; m < 8; m++) {

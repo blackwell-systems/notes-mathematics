@@ -43,6 +43,41 @@ A structure $\mathcal{M}$ consists of:
    - each $n$-ary function symbol is assigned an actual function $D^n \to D$,
    - each $n$-ary predicate symbol is assigned an actual relation on $D$ (a subset of $D^n$).
 
+**In plainer terms.** A formula like $\forall x\, R(c, x)$ is a *template full of blanks*. Before you can call it true or false you have to answer three questions: what pool of objects does $x$ range over? which specific object does the name $c$ point at? and which pairs of objects does the relation $R$ actually hold between? A **structure** answers all of them at once: it hands you a **domain** (the pool of objects), a **specific object for every name**, a **real function for every function symbol**, and a **real yes/no table for every predicate**. Once every blank is filled in, the template stops being a string of symbols and becomes a definite claim about a definite little world, so it is simply true or false.
+
+### A fully worked tiny structure
+
+Abstract definitions sink in faster on a concrete case, so let us build one structure *completely* and then read a few sentences off it purely by looking things up.
+
+**The structure $\mathcal{M}$.**
+- **Domain:** $D = \{0, 1, 2\}$, just three objects. (Think of them as three dots. The labels $0, 1, 2$ are only names; nothing about ordinary arithmetic is assumed.)
+- **Constant $c$:** interpreted as the object $0$. So everywhere the formula says $c$, read "$0$."
+- **Function $s$ (a one-place "successor"):** interpreted as "step to the next dot, wrapping around at the end," so $s(0) = 1$, $s(1) = 2$, and $s(2) = 0$.
+- **Predicate $R$ (a two-place relation):** interpreted as "comes strictly before," written out as the explicit list of pairs that *are* in the relation:
+$$R = \{(0, 1),\ (0, 2),\ (1, 2)\}.$$
+
+That list *is* the meaning of $R$ here: $R(x, y)$ is true exactly when the pair $(x, y)$ is on it. The whole structure is now nailed down, a pool of three objects plus one named object, one function, and one relation, all concrete.
+
+**Reading sentences off $\mathcal{M}$.** A closed sentence is now decidable by pure mechanical lookup, no cleverness required.
+
+*Sentence 1:* $R\big(c, s(c)\big)$ ("the named object is $R$-before its own successor"). Fill in the blanks: $c$ is $0$, and $s(c) = s(0) = 1$, so the sentence is asking whether $(0, 1) \in R$. It is on the list, so Sentence 1 is **true** in $\mathcal{M}$.
+
+*Sentence 2:* $\forall x\, R\big(x, s(x)\big)$ ("every object is $R$-before its successor"). A "for all" over a three-element domain is just a three-way **and**: check $x = 0, 1, 2$, and *all* must pass.
+- $x = 0$: $R(0, s(0)) = R(0, 1)$, and $(0, 1) \in R$. &nbsp;✓
+- $x = 1$: $R(1, s(1)) = R(1, 2)$, and $(1, 2) \in R$. &nbsp;✓
+- $x = 2$: $R(2, s(2)) = R(2, 0)$, but $(2, 0) \notin R$. &nbsp;✗
+
+One failure is enough to sink a "for all," so Sentence 2 is **false** in $\mathcal{M}$. The culprit is the wrap-around: $s$ sends $2$ back to $0$, and $2$ does not come before $0$. That is the whole personality of a universal quantifier, you must check *every* object, and a single counterexample defeats it.
+
+*Sentence 3:* $\exists x\, \forall y\, \big(R(x, y) \lor x = y\big)$ ("some object is before-or-equal-to everything," i.e. there is a least element). The outer "there exists" is a three-way **or**: it is enough to find *one* $x$ that works. Try $x = 0$, and ask, for every $y$, whether $R(0, y)$ or $0 = y$:
+- $y = 0$: $0 = 0$. &nbsp;✓
+- $y = 1$: $(0, 1) \in R$. &nbsp;✓
+- $y = 2$: $(0, 2) \in R$. &nbsp;✓
+
+All three hold, so $x = 0$ is a witness and Sentence 3 is **true**. (The "$\lor\, x = y$" is doing real work: the strict version $\exists x\, \forall y\, R(x, y)$ would be *false*, because no object comes strictly before itself, so even $x = 0$ fails at $y = 0$.)
+
+**Same formula, different structure.** None of those truth values live in the formula alone, each depended on the interpretation. Keep everything identical but reinterpret the constant $c$ as the object $2$ instead of $0$; call this new structure $\mathcal{M}'$. Now Sentence 1, the *same string* $R(c, s(c))$, asks about $s(2) = 0$, that is, whether $(2, 0) \in R$. It is not, so the very same sentence is **true in $\mathcal{M}$** and **false in $\mathcal{M}'$**, purely because one name was pointed at a different object. A formula's truth value always lives in the *pairing* of formula with structure, never in the formula by itself.
+
 Given a structure, every closed formula becomes either true or false in it. This is what grounds the "Truth value: TRUE/FALSE" claims throughout this page: each such claim is implicitly relative to a chosen domain (usually stated, e.g. $\mathbb{R}$ or $\mathbb{C}$) together with the standard interpretation of the symbols $+$, $<$, $=$, and so on. The same formula can be true in one structure and false in another. For instance, $\exists x\,(x^2 = -1)$ is false when the domain is $\mathbb{R}$ but true when the domain is $\mathbb{C}$, because changing the domain changes which objects are available to witness the existential.
 
 When a structure $\mathcal{M}$ makes a formula $\phi$ true, we say $\mathcal{M}$ is a **model** of $\phi$, written $\mathcal{M} \vDash \phi$ (read "$\mathcal{M}$ models $\phi$", or "$\mathcal{M}$ satisfies $\phi$").
