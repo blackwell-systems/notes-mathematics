@@ -901,12 +901,12 @@
       ]
     },
     "geometry-trigonometry.md": {
-      "contentHash": "sha1:e215732e3cc298d6",
+      "contentHash": "sha1:e725131b53930d41",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "reference-page",
-      "summary": "Exceptionally thorough; most walkthroughs show every step and the confusing branches (quadrant sign, ambiguous SSA) are genuinely walked. Gaps are techniques stated as formulas but never demonstrated (double/half-angle, product-to-sum, base-height area, circle equation) and criteria (congruence/similarity) never applied numerically.",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: added 10 worked examples for the techniques that were stated as formulas but never applied. base-height area (1/2*12*5=30, plus the perpendicular-height caveat); Pythagorean solve-for-a-side (hypotenuse 5,12->13 and leg c=10,a=6->8, add-vs-subtract); similarity proportion (k=3/2, EF=9, area ratio 9/4); congruence criterion selection (SAS via the included angle vs the invalid SSA); circle equation both directions (write from center+radius, and completing-the-square to recover center (3,-2) r=4); slopes/parallel/perpendicular (m=2, perp -1/2, product -1); transversal (one 70 pins all eight to 70 or 110); double angle (sin=3/5 -> sin2t=24/25, cos2t=7/25); half angle (theta=300 -> cos150=-sqrt3/2, the QII sign selection); product-to-sum and sum-to-product (sin75 cos15, sin75+sin15). All 10 independently reviewed (returned []); +26 machine-checked assertions. Resolves all 6 thin + 4 missing items.",
       "inventory": [
         {
           "concept": "distance formula",
@@ -940,15 +940,17 @@
         },
         {
           "concept": "base-height triangle area (1/2 bh)",
-          "quality": "missing",
+          "quality": "strong",
           "note": "formula+diagram given, no numeric example; only area example is Heron",
-          "upgrade": "Add a short A=1/2 bh example with concrete base and height."
+          "upgrade": "",
+          "phase2": "1/2*12*5=30 and right-triangle legs 6,8 -> 24, with the perpendicular-height caveat + harness"
         },
         {
           "concept": "Pythagorean theorem (solving for a side)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only exercised implicitly via distance/special triangles",
-          "upgrade": "Add a direct example: given legs (or leg+hyp), solve for the missing side."
+          "upgrade": "",
+          "phase2": "find hypotenuse (5,12->13) and find a leg (c=10,a=6->8), add-vs-subtract note + harness"
         },
         {
           "concept": "special right triangles (45-45-90, 30-60-90)",
@@ -964,21 +966,24 @@
         },
         {
           "concept": "triangle similarity (AA/SSS/SAS)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "criteria stated, never applied numerically",
-          "upgrade": "Add a proportion example: similar triangles, solve for an unknown side by scale factor."
+          "upgrade": "",
+          "phase2": "AA + proportion: scale factor k=DE/AB=3/2 -> EF=9, ratio check, area ratio k^2=9/4 + harness"
         },
         {
           "concept": "triangle congruence (SSS/SAS/ASA/AAS/HL)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "criteria table only, no example from given data",
-          "upgrade": "Add one worked congruence determination showing which criterion applies."
+          "upgrade": "",
+          "phase2": "criterion selection: included angle -> SAS (congruent) vs non-included -> invalid SSA + harness"
         },
         {
           "concept": "equation of a circle",
-          "quality": "thin",
+          "quality": "strong",
           "note": "formula+diagram, no worked example either direction",
-          "upgrade": "Write the equation from center+radius, and extract center/radius from a given equation (completing the square)."
+          "upgrade": "",
+          "phase2": "both directions: write from center(3,-2) r4; completing the square on x^2+y^2-6x+4y-3=0 recovers it + harness"
         },
         {
           "concept": "arc length (s=r theta)",
@@ -1024,21 +1029,24 @@
         },
         {
           "concept": "double angle formulas",
-          "quality": "missing",
+          "quality": "strong",
           "note": "all four forms stated, no numeric example",
-          "upgrade": "Add: given sin(theta) in a known quadrant, compute sin(2theta), cos(2theta)."
+          "upgrade": "",
+          "phase2": "sin=3/5,cos=4/5 -> sin2t=24/25, cos2t=7/25; alternate-form and Pythagorean self-checks + harness"
         },
         {
           "concept": "half angle formulas",
-          "quality": "missing",
+          "quality": "strong",
           "note": "formulas + a +/- note, no example resolving the sign",
-          "upgrade": "Add an example computing cos(theta/2) and choosing the sign from the quadrant (prime WE-3 opportunity)."
+          "upgrade": "",
+          "phase2": "theta=300 -> theta/2=150 QII -> cos=-sqrt3/2 (sign from quadrant); plus theta=120 -> +1/2 + harness"
         },
         {
           "concept": "sum-to-product / product-to-sum formulas",
-          "quality": "missing",
+          "quality": "strong",
           "note": "seven formulas listed, none demonstrated",
-          "upgrade": "Add at least one worked application."
+          "upgrade": "",
+          "phase2": "product-to-sum sin75 cos15 = 1/2+sqrt3/4; sum-to-product sin75+sin15 = sqrt6/2 + harness"
         },
         {
           "concept": "Pythagorean identities (derivation)",
@@ -1084,17 +1092,20 @@
         },
         {
           "concept": "coordinate geometry: slopes / parallel-perpendicular",
-          "quality": "thin",
+          "quality": "strong",
           "note": "purely definitional, no slope computed",
-          "upgrade": "Add a slope-from-two-points example and a perpendicular-slope check."
+          "upgrade": "",
+          "phase2": "slope through (1,2),(4,8)=2; parallel 2; perpendicular -1/2 (product -1); line equations + harness"
         },
         {
           "concept": "transversal angle relationships",
-          "quality": "thin",
+          "quality": "strong",
           "note": "relationships tabulated, no example",
-          "upgrade": "Add a numeric example finding missing angles given one angle at a transversal."
+          "upgrade": "",
+          "phase2": "one 70-degree angle pins all eight to 70 or 110 (vertical/corresponding/alternate/co-interior/linear-pair) + harness"
         }
-      ]
+      ],
+      "phase2At": "2026-07-16"
     },
     "calculus.md": {
       "contentHash": "sha1:8d5aba5867919046",

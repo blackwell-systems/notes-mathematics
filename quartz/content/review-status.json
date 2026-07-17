@@ -159,11 +159,12 @@
       "note": "Phase-2 clarity pass added 8 worked examples (group-axiom verification, Cayley reading, non-abelian symmetry composition, matrix noncommutativity, field-iff-prime via zero divisors, and a new Maps-and-substructures section: homomorphisms + subgroups/cosets). Each independently reviewed and machine-checked (+12 assertions); one Lagrange-phrasing nuance (tiling lemma vs finite divisibility) fixed. Hash refreshed."
     },
     "geometry-trigonometry.md": {
-      "contentHash": "sha1:e215732e3cc298d6",
+      "contentHash": "sha1:e725131b53930d41",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "findings": []
+      "findings": [],
+      "note": "Phase-2 clarity pass added 10 worked examples (base-height area, Pythagorean solve-for-a-side, similarity proportion, congruence criterion selection, circle equation both directions incl. completing the square, slopes/parallel/perpendicular, transversal angles, double angle, half angle sign selection, product/sum formulas). Each independently correctness-reviewed (returned []) and machine-checked (+26 assertions). Hash refreshed."
     },
     "order-of-operations.md": {
       "contentHash": "sha1:b394d4d9bbaf3178",

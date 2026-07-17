@@ -204,6 +204,8 @@ $$
 
 where $b$ is the base and $h$ is the perpendicular height from the base to the opposite vertex.
 
+**Worked example.** A triangle with base $b = 12$ and perpendicular height $h = 5$ has area $A = \frac{1}{2}(12)(5) = 30$ square units. The load-bearing word is *perpendicular*: $h$ is the straight-up distance from the base to the opposite vertex, not the length of a slanted side. For a right triangle the two legs already meet at $90°$, so either leg can play the base and the other the height, e.g. legs $6$ and $8$ give $A = \frac{1}{2}(6)(8) = 24$. Use $\frac{1}{2}bh$ when you know a base and its height; use Heron's formula (next) when you only know the three side lengths.
+
 **Heron's formula.** When you know all three side lengths $a$, $b$, $c$ but not the height:
 
 $$
@@ -247,6 +249,12 @@ $$
 **Geometric intuition.** The area of the square built on the hypotenuse equals the sum of the areas of the squares built on the two legs.
 
 **Converse.** If a triangle has sides $a$, $b$, $c$ with $a^2 + b^2 = c^2$, then the triangle is a right triangle with hypotenuse $c$.
+
+**Worked example: finding a missing side.** The theorem solves for whichever side is unknown, but you must rearrange correctly.
+
+*Finding the hypotenuse.* Legs $a = 5$, $b = 12$. Then $c^2 = 5^2 + 12^2 = 25 + 144 = 169$, so $c = \sqrt{169} = 13$.
+
+*Finding a leg.* Hypotenuse $c = 10$, one leg $a = 6$. Now isolate the *unknown leg* by subtracting: $b^2 = c^2 - a^2 = 100 - 36 = 64$, so $b = 8$. The common slip is adding when you should subtract, so keep the roles straight: solving for the hypotenuse you *add* the two legs' squares, solving for a leg you *subtract* from the hypotenuse's square. Since the hypotenuse is always the longest side, $c^2 - a^2$ comes out positive, a built-in check that you set it up the right way.
 
 ### Pythagorean Triples
 
@@ -319,6 +327,14 @@ $$
 
 **SAS (Side-Angle-Side) Similarity.** If two pairs of corresponding sides are in the same ratio and the included angles are equal, the triangles are similar.
 
+**Worked example: solving for a side with a proportion.** Suppose $\triangle ABC \sim \triangle DEF$, established by **AA** (say $\angle A = \angle D$ and $\angle B = \angle E$). In the smaller triangle $AB = 4$ and $BC = 6$, and the corresponding side $DE = 6$ in the larger one; find $EF$. First read off the **scale factor** from $ABC$ to $DEF$: $k = \frac{DE}{AB} = \frac{6}{4} = \frac{3}{2}$. Corresponding sides all scale by this same $k$, so
+
+$$
+EF = k \cdot BC = \frac{3}{2}(6) = 9.
+$$
+
+Check that all ratios agree: $\frac{DE}{AB} = \frac{6}{4} = \frac{3}{2}$ and $\frac{EF}{BC} = \frac{9}{6} = \frac{3}{2}$. ✓ (A handy corollary: areas scale by $k^2 = \frac{9}{4}$, so the larger triangle has $\frac{9}{4}$ times the area of the smaller.)
+
 ![Two congruent triangles ABC and DEF: identical in both size and shape](./media/geo-congruent-triangles.png)
 
 ### Congruence
@@ -339,6 +355,8 @@ $$
 
 Note: **SSA** (two sides and a non-included angle) is not a valid congruence criterion because it can produce two different triangles (the "ambiguous case," discussed later under Law of Sines).
 
+**Worked example: which criterion applies?** Two triangles satisfy $AB = DE = 5$, $\angle B = \angle E = 40°$, and $BC = EF = 7$. Are they congruent? Look at *where* the equal angle sits: $\angle B$ is between the two equal sides $AB$ and $BC$ (it is the *included* angle), so this is exactly **SAS**, and the triangles are congruent. Contrast a near-miss: if instead you were given $AB = DE = 5$, $BC = EF = 7$, and the *non-included* angle $\angle A = \angle D = 40°$, that is **SSA**, which is *not* a valid criterion, those measurements can close up into two genuinely different triangles. The moral: for SAS the equal angle must lie *between* the two equal sides; an equal angle off to the side (SSA) proves nothing.
+
 ## Circles
 
 A **circle** is the set of all points in a plane that are a fixed distance (the **radius** $r$) from a fixed point (the **center**).
@@ -357,6 +375,22 @@ $$
 $$
 
 A circle centered at the origin simplifies to $x^2 + y^2 = r^2$.
+
+**Worked example: both directions.** *Writing the equation.* A circle with center $(3, -2)$ and radius $4$ is $(x - 3)^2 + (y - (-2))^2 = 4^2$, that is
+
+$$
+(x - 3)^2 + (y + 2)^2 = 16.
+$$
+
+Watch the sign: the center's $y$-coordinate $-2$ appears as $+2$ inside the square, because the standard form *subtracts* $k$.
+
+*Reading center and radius off a general equation* requires **completing the square**. Given $x^2 + y^2 - 6x + 4y - 3 = 0$, group the $x$- and $y$-terms and move the constant to the right: $(x^2 - 6x) + (y^2 + 4y) = 3$. Complete each square by adding $\left(\frac{6}{2}\right)^2 = 9$ and $\left(\frac{4}{2}\right)^2 = 4$ to *both* sides:
+
+$$
+(x^2 - 6x + 9) + (y^2 + 4y + 4) = 3 + 9 + 4 = 16 \implies (x - 3)^2 + (y + 2)^2 = 16.
+$$
+
+So the center is $(3, -2)$ and the radius is $\sqrt{16} = 4$, exactly the circle we started from, confirming the two directions are inverses.
 
 ### Pi
 
@@ -412,6 +446,14 @@ A **tangent line** touches the circle at exactly one point. At the point of tang
 
 **Parallel lines** never intersect and have the same slope. **Perpendicular lines** intersect at $90°$; their slopes are negative reciprocals ($m_1 \cdot m_2 = -1$).
 
+**Worked example: slopes, parallel, and perpendicular.** The slope of the line through $(1, 2)$ and $(4, 8)$ is
+
+$$
+m = \frac{8 - 2}{4 - 1} = \frac{6}{3} = 2 \quad (\text{rise over run}).
+$$
+
+Any line **parallel** to it also has slope $2$; a line **perpendicular** to it has the *negative reciprocal* slope $-\frac{1}{2}$, and the check is that the product of perpendicular slopes is $-1$: indeed $2 \cdot \left(-\frac{1}{2}\right) = -1$. Concretely, the line through those two points is $y = 2x$ (it passes through the origin, since $2 = 2 \cdot 1$); a parallel line is $y = 2x + 5$ (same slope, shifted up); and a perpendicular line through $(1, 2)$ is $y - 2 = -\frac{1}{2}(x - 1)$, i.e. $y = -\frac{1}{2}x + \frac{5}{2}$.
+
 ### Transversals and Parallel Lines
 
 A **transversal** is a line that crosses two or more other lines. When a transversal crosses two parallel lines, it creates eight angles with special relationships:
@@ -422,6 +464,15 @@ A **transversal** is a line that crosses two or more other lines. When a transve
 | **Alternate interior angles** | Equal (opposite sides of transversal, between parallel lines) |
 | **Alternate exterior angles** | Equal (opposite sides of transversal, outside parallel lines) |
 | **Co-interior (same-side interior) angles** | Supplementary (sum to $180°$) |
+
+**Worked example: one angle pins down all eight.** A transversal crosses two parallel lines, and one of the eight angles measures $70°$. Every other angle is now forced:
+- its **vertical** angle (directly across the same intersection) is also $70°$;
+- its **corresponding** angle at the other parallel line is $70°$ (same position);
+- the **alternate interior** angle is $70°$;
+- its **co-interior (same-side interior)** partner is *supplementary*, $180° - 70° = 110°$;
+- any angle forming a **linear pair** with the $70°$ angle is $180° - 70° = 110°$.
+
+So across all eight angles only two values ever appear, $70°$ and its supplement $110°$, alternating around the two intersections. That is exactly why a single known angle at a transversal determines all the rest.
 
 ---
 
@@ -787,6 +838,14 @@ $$
 \tan 2\theta = \frac{2\tan\theta}{1 - \tan^2\theta}
 $$
 
+**Worked example.** Suppose $\sin\theta = \frac{3}{5}$ with $\theta$ in the first quadrant, so $\cos\theta = \frac{4}{5}$ (from $\sin^2\theta + \cos^2\theta = 1$, taking the positive root because $\theta$ is in QI). Then
+
+$$
+\sin 2\theta = 2\sin\theta\cos\theta = 2 \cdot \frac{3}{5} \cdot \frac{4}{5} = \frac{24}{25}, \qquad \cos 2\theta = \cos^2\theta - \sin^2\theta = \frac{16}{25} - \frac{9}{25} = \frac{7}{25}.
+$$
+
+The alternate form agrees as a self-check: $1 - 2\sin^2\theta = 1 - \frac{18}{25} = \frac{7}{25}$. And $\sin^2 2\theta + \cos^2 2\theta = \frac{576 + 49}{625} = \frac{625}{625} = 1$, as every sine/cosine pair must. (Note $2\theta$ is no longer in QI: $\cos 2\theta > 0$ but you should confirm the quadrant of $2\theta$ before trusting signs in general.)
+
 ### Half Angle Formulas
 
 Solving the double angle formulas for half the angle:
@@ -804,6 +863,14 @@ $$
 $$
 
 The $\pm$ sign depends on the quadrant where $\frac{\theta}{2}$ lies.
+
+**Worked example: the sign is the whole subtlety.** You choose the $\pm$ from the quadrant of $\frac{\theta}{2}$, *not* $\theta$. Take $\theta = 300°$, so $\cos\theta = \frac{1}{2}$. Then $\frac{\theta}{2} = 150°$, which lies in the **second quadrant**, where cosine is *negative*. The formula supplies the magnitude:
+
+$$
+\cos\frac{\theta}{2} = \pm\sqrt{\frac{1 + \cos\theta}{2}} = \pm\sqrt{\frac{1 + \frac{1}{2}}{2}} = \pm\sqrt{\frac{3}{4}} = \pm\frac{\sqrt{3}}{2},
+$$
+
+and the quadrant selects the **minus**, giving $\cos 150° = -\frac{\sqrt{3}}{2}$, which is the known value. Had we instead used $\theta = 120°$ (so $\frac{\theta}{2} = 60°$, in the first quadrant), the same formula with $\cos 120° = -\frac{1}{2}$ would give $+\sqrt{\frac{1 - 1/2}{2}} = +\frac{1}{2} = \cos 60°$, now the *plus* sign. The square root gives the size; the quadrant gives the sign.
 
 ### Sum-to-Product Formulas
 
@@ -836,6 +903,20 @@ $$
 $$
 \sin A \sin B = \frac{1}{2}[\cos(A-B) - \cos(A+B)]
 $$
+
+**Worked example: applying both.** *Product-to-sum,* evaluate $\sin 75° \cos 15°$ exactly. With $A = 75°$, $B = 15°$,
+
+$$
+\sin 75° \cos 15° = \frac{1}{2}\big[\sin(75° + 15°) + \sin(75° - 15°)\big] = \frac{1}{2}[\sin 90° + \sin 60°] = \frac{1}{2}\left[1 + \frac{\sqrt{3}}{2}\right] = \frac{1}{2} + \frac{\sqrt{3}}{4} \approx 0.933.
+$$
+
+*Sum-to-product* runs the other way, turning a sum into a product (which is how you find, for instance, where $\sin A + \sin B = 0$):
+
+$$
+\sin 75° + \sin 15° = 2\sin\!\left(\frac{75° + 15°}{2}\right)\cos\!\left(\frac{75° - 15°}{2}\right) = 2\sin 45° \cos 30° = 2 \cdot \frac{\sqrt{2}}{2} \cdot \frac{\sqrt{3}}{2} = \frac{\sqrt{6}}{2} \approx 1.225.
+$$
+
+These identities are the workhorses behind adding two waves of the same frequency in physics and signal processing, where a sum of sinusoids becomes a single amplitude-modulated product.
 
 ## Proving Trigonometric Identities
 

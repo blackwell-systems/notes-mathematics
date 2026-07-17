@@ -997,6 +997,46 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   // inverse trig worked examples
   eq("arccos(-sqrt3/2) = 150 deg", r2d(Math.acos(-Math.sqrt(3) / 2)), 150, 1e-9);
   eq("sin(arccos(3/5)) = 4/5", Math.sin(Math.acos(3 / 5)), 0.8, 1e-12);
+
+  // ---- Phase-2 worked examples ----
+  // base-height area
+  eq("triangle area 1/2 * 12 * 5 = 30", 0.5 * 12 * 5, 30);
+  eq("right triangle legs 6,8: area = 24", 0.5 * 6 * 8, 24);
+  // Pythagorean: find hypotenuse (5,12->13) and find a leg (c=10,a=6 -> b=8)
+  eq("Pythagorean hypotenuse 5,12 -> 13", Math.sqrt(5 ** 2 + 12 ** 2), 13);
+  eq("Pythagorean leg: c=10,a=6 -> b=8", Math.sqrt(10 ** 2 - 6 ** 2), 8);
+  // similarity: scale factor 6/4 = 3/2, EF = 9, area ratio 9/4
+  eq("similarity scale factor 6/4 = 3/2", 6 / 4, 1.5);
+  eq("similarity EF = (3/2)*6 = 9", 1.5 * 6, 9);
+  eq("similarity area ratio = k^2 = 9/4", 1.5 ** 2, 9 / 4);
+  // circle equation: center (3,-2) r=4 <-> x^2+y^2-6x+4y-3=0 (verify expansion + completing square)
+  { const h = 3, k = -2, r = 4;
+    // (x-h)^2+(y-k)^2 = r^2 expands to x^2+y^2 -2h x -2k y + (h^2+k^2-r^2) = 0
+    eq("circle general form x-coef -2h = -6", -2 * h, -6);
+    eq("circle general form y-coef -2k = 4", -2 * k, 4);
+    eq("circle general form constant h^2+k^2-r^2 = -3", h * h + k * k - r * r, -3);
+    // completing the square recovers center and radius
+    eq("complete square: half of 6 squared = 9", (6 / 2) ** 2, 9);
+    eq("complete square: half of 4 squared = 4", (4 / 2) ** 2, 4);
+    eq("radius^2 = 3+9+4 = 16, r = 4", Math.sqrt(3 + 9 + 4), 4); }
+  // slopes: (8-2)/(4-1)=2; perpendicular slope -1/2; product -1
+  eq("slope through (1,2),(4,8) = 2", (8 - 2) / (4 - 1), 2);
+  eq("perpendicular slope = -1/2", -1 / 2, -0.5);
+  eq("perpendicular slopes multiply to -1", 2 * (-1 / 2), -1);
+  // transversal: supplement of 70 is 110
+  eq("transversal: supplement of 70 = 110", 180 - 70, 110);
+  // double angle: sin=3/5, cos=4/5 -> sin2=24/25, cos2=7/25
+  eq("double angle sin 2t = 24/25", 2 * (3 / 5) * (4 / 5), 24 / 25, 1e-12);
+  eq("double angle cos 2t = 7/25", (4 / 5) ** 2 - (3 / 5) ** 2, 7 / 25, 1e-12);
+  eq("double angle 1-2sin^2 = 7/25", 1 - 2 * (3 / 5) ** 2, 7 / 25, 1e-12);
+  eq("double angle identity sin^2 2t + cos^2 2t = 1", (24 / 25) ** 2 + (7 / 25) ** 2, 1, 1e-12);
+  // half angle: theta=300 -> theta/2=150 in QII, cos = -sqrt3/2
+  eq("half angle magnitude sqrt((1+1/2)/2) = sqrt3/2", Math.sqrt((1 + 0.5) / 2), Math.sqrt(3) / 2, 1e-12);
+  eq("cos 150 = -sqrt3/2 (QII selects minus)", Math.cos(d2r(150)), -Math.sqrt(3) / 2, 1e-12);
+  eq("half angle theta=120: sqrt((1-1/2)/2) = 1/2 = cos 60", Math.sqrt((1 - 0.5) / 2), Math.cos(d2r(60)), 1e-12);
+  // product-to-sum and sum-to-product
+  eq("sin75 cos15 = 1/2(sin90+sin60) = 1/2 + sqrt3/4", Math.sin(d2r(75)) * Math.cos(d2r(15)), 0.5 + Math.sqrt(3) / 4, 1e-12);
+  eq("sin75 + sin15 = 2 sin45 cos30 = sqrt6/2", Math.sin(d2r(75)) + Math.sin(d2r(15)), Math.sqrt(6) / 2, 1e-12);
 }
 
 // ================= Bayesian updating, KL, Taylor, Newton, Vectors =================
