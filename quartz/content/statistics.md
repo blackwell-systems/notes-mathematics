@@ -265,6 +265,8 @@ You need a number that captures how spread out the data is.
 
 ### Measures of Spread
 
+These are also called **measures of dispersion** or **measures of variability**, the standard counterpart to the measures of central tendency above. Central tendency answers *where* the data sits; dispersion answers *how spread out* it is around that center. The two together are the basic numerical summary of any dataset.
+
 ![The dataset 2, 4, 4, 4, 5, 5, 7, 9 shown as a dot plot with three spread measures marked: the range from 2 to 9 equal to 7, the interquartile range box from Q1 equal 4 to Q3 equal 6 (IQR equal 2), and the standard-deviation band of the mean 5 plus or minus 2](./media/stats-measures-of-spread.png)
 
 **Range:** $\text{max} - \text{min}$. For Dataset A: $51 - 49 = 2$. For Dataset B: $90 - 10 = 80$. Simple, but it depends entirely on the two most extreme values.
