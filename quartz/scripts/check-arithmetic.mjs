@@ -1170,6 +1170,13 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("n=3 does NOT yet cross 1/2", 1 - (5 / 6) ** 3 < 0.5);
   check("n=4 is the first n to cross 1/2", 1 - (5 / 6) ** 4 >= 0.5);
   eq("P(at least one 6 in 1 roll) = 1/6", 1 - (5 / 6) ** 1, 1 / 6, 1e-12);
+
+  // Foundational sample-space / event figures
+  eq("P(even on a die) = |E|/|S| = 3/6 = 1/2", 3 / 6, 0.5);
+  eq("P(at least one head in 2 coins) = 3/4", 3 / 4, 0.75);
+  eq("P(2 aces from 52) = C(4,2)/C(52,2) = 6/1326 = 1/221", comb(4, 2) / comb(52, 2), 1 / 221, 1e-12);
+  eq("C(52,2) = 1326", comb(52, 2), 1326);
+  eq("conditional: P(2nd red | 1st red) = 2/4 = 1/2", 2 / 4, 0.5);
   { const n = 10, p = 0.3; let sum = 0; for (let k = 0; k <= n; k++) sum += comb(n, k) * p ** k * (1 - p) ** (n - k);
     eq("Binomial(10,0.3) PMF sums to 1", sum, 1, 1e-9); eq("Binomial mean np = 3", n * p, 3, 1e-9); eq("Binomial var np(1-p) = 2.1", n * p * (1 - p), 2.1, 1e-9); }
   { const lam = 4; let sum = 0; for (let k = 0; k <= 40; k++) sum += (Math.exp(-lam) * lam ** k) / factP(k); eq("Poisson(4) PMF sums to 1", sum, 1, 1e-6); eq("Poisson mean = var = 4", lam, 4); }

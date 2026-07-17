@@ -23,6 +23,8 @@ There are two major interpretations of what probability "means":
 
 Both interpretations use the same math. The difference is philosophical, but it matters when you get to statistics and ML, where Bayesian methods (priors, posteriors) and frequentist methods (p-values, confidence intervals) take different approaches to the same problems.
 
+![A line graph illustrating the frequentist interpretation. The horizontal axis is the number of coin flips n from 1 to 500, and the vertical axis is the proportion of heads so far from 0 to 1. A blue jagged curve starts wildly variable for small n, swinging between roughly 0.2 and 0.6, then settles down and hugs a red dashed line at 0.5 as n grows. Annotations mark early on wildly variable near the left and converges as n grows near the right. The title says the long-run frequency settles toward P of heads equals 0.5.](./media/prob-frequentist-convergence.png)
+
 ## Sample Spaces, Events, and Outcomes
 
 **Experiment:** Any process that produces an uncertain result. Rolling a die, drawing a card, measuring a patient's blood pressure.
@@ -51,6 +53,8 @@ $$
 
 This is where [combinatorics](./combination) connects directly: counting $|E|$ and $|S|$ often requires permutations and combinations.
 
+![Two side-by-side sample-space diagrams. On the left, one die roll: six rounded boxes labelled 1 through 6, with the even outcomes 2, 4, and 6 shaded blue as the event E and the odd outcomes 1, 3, 5 left grey; below it reads S equals the set 1 through 6, E equals the set 2, 4, 6, and P of E equals the size of E over the size of S equals 3 over 6 equals one half. On the right, two coin flips: four boxes HH, HT, TH, TT, with HH, HT, TH shaded green as the event at least one head and TT left grey, giving P of at least one head equals 3 over 4. The caption reads: a probability is the size of an event relative to the whole sample space.](./media/prob-sample-space-event.png)
+
 **Example:** What is the probability of drawing 2 aces from a standard 52-card deck (drawing 2 cards)?
 
 - Total ways to draw 2 cards: $\binom{52}{2} = 1326$ (read "52 choose 2")
@@ -78,6 +82,8 @@ From these axioms, you can derive everything else:
 - $P(\emptyset) = 0$ (the impossible event has probability 0)
 - $P(A^c) = 1 - P(A)$ (the complement rule; $A^c$ means "not $A$")
 - For any two events: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (inclusion-exclusion), where $A \cap B$ (read "A intersect B," or "A and B") is the event that both $A$ and $B$ occur
+
+![Two Venn-style panels illustrating Kolmogorov's axioms. On the left, the complement rule: a grey square is the whole sample space with total area equal to P of S equals 1, a blue ellipse inside it is the event A, and the surrounding grey region is its complement A-complement, with the equation P of A plus P of A-complement equals 1. On the right, additivity for disjoint events: the same square holds two non-overlapping ellipses, a blue A and a red B that cannot both occur, with P of A union B equals P of A plus P of B. The caption notes that areas are non-negative, the whole space has area 1, and disjoint areas add.](./media/prob-axioms-complement.png)
 
 The complement rule is especially useful. If it is hard to compute $P(A)$ directly, compute $P(A^c)$ and subtract from 1.
 
@@ -114,6 +120,8 @@ $$
 Read $P(A|B)$ as "the probability of A given B" (the bar $|$ is read "given").
 
 The intuition: once you know $B$ happened, the sample space shrinks to just the outcomes in $B$. You then ask what fraction of those outcomes also belong to $A$.
+
+![A Venn diagram for conditional probability. Inside a square labelled S for the sample space, a blue circle A on the left overlaps a green circle B on the right, and their overlap is labelled A intersect B. The caption explains that given B, the sample space shrinks to just B, and gives the formula P of A given B equals P of A intersect B over P of B, described as the share of B that also lies in A.](./media/prob-conditional.png)
 
 **Example:** A bag has 3 red and 2 blue marbles. You draw one marble (without replacement), and it is red. What is the probability the second marble is also red?
 
