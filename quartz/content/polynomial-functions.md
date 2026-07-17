@@ -1289,8 +1289,8 @@ Each number is the sum of the two numbers above it.
 
 Polynomials are a recurring tool in machine learning and numerical computing.
 
-- **Polynomial features and regression.** Fitting $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \cdots + \beta_d x^d$ (polynomial regression) is still *linear* regression in the transformed features $1, x, x^2, \ldots, x^d$, so the same [least-squares machinery](./statistics#ordinary-least-squares-ols) applies. Polynomial features let a linear model capture curved relationships.
-- **The bias-variance tradeoff, made visible.** The degree $d$ is a direct knob on model complexity: a low-degree polynomial underfits (high bias), while a high-degree polynomial wiggles through every training point and overfits (high variance). Polynomials are the textbook illustration of the [bias-variance tradeoff](./statistics#bias-variance-tradeoff).
+- **Polynomial features and regression.** Fitting $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \cdots + \beta_d x^d$ (polynomial regression) is still *linear* regression in the transformed features $1, x, x^2, \ldots, x^d$, so the same [least-squares machinery](./statistical-learning#ordinary-least-squares-ols) applies. Polynomial features let a linear model capture curved relationships.
+- **The bias-variance tradeoff, made visible.** The degree $d$ is a direct knob on model complexity: a low-degree polynomial underfits (high bias), while a high-degree polynomial wiggles through every training point and overfits (high variance). Polynomials are the textbook illustration of the [bias-variance tradeoff](./statistical-learning#bias-variance-tradeoff).
 - **Local approximation.** [Taylor's theorem](./calculus#taylor-and-maclaurin-series) approximates any smooth function by a polynomial near a point, which is how nonlinear functions get locally linearized (or quadratically approximated) throughout optimization and analysis.
 - **Basis functions.** Orthogonal polynomial families (Chebyshev, Legendre) provide numerically stable bases for function approximation, avoiding the ill-conditioning of the raw $1, x, x^2, \ldots$ basis.
 

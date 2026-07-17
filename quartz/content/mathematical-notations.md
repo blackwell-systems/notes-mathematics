@@ -227,7 +227,7 @@ Greek letters are used constantly as variable names; often the hard part is just
 | [$X \sim \mathcal{D}$](./probability#normal-gaussian-distribution) | "$X$ is distributed as $\mathcal{D}$" / "$X$ follows $\mathcal{D}$" | e.g. $X \sim \mathcal{N}(\mu, \sigma^2)$ |
 | [$\mid$](./probability#conditional-probability) | "given" (probability) / "divides" (number theory) | $P(A \mid B)$ is "probability of $A$ given $B$"; $a \mid b$ is "$a$ divides $b$" |
 | [$\xrightarrow{d}$](./probability#central-limit-theorem) , $\xrightarrow{p}$ | "converges in distribution / in probability to" | modes of convergence |
-| [$\hat{\theta}$](./statistics#point-estimation) | "theta hat" | an estimator or estimate of parameter $\theta$ |
+| [$\hat{\theta}$](./inferential-statistics#point-estimation) | "theta hat" | an estimator or estimate of parameter $\theta$ |
 | [$\binom{n}{k}$](./combination) | "$n$ choose $k$" | binomial coefficient |
 | [$!$](./permutation) | "factorial" | $n!$ ("$n$ factorial") $= n \cdot (n-1) \cdots 2 \cdot 1$ |
 | [$X \perp\!\!\!\perp Y$](./probability#independence) | "X is independent of Y" | independence of random variables |

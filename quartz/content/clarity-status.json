@@ -2,7 +2,7 @@
   "clarityRubricVersion": 1,
   "pages": {
     "mathematical-notations.md": {
-      "contentHash": "sha1:eb65908f7388e14e",
+      "contentHash": "sha1:30711ba57f527175",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
@@ -14,7 +14,8 @@
           "quality": "strong",
           "upgrade": ""
         }
-      ]
+      ],
+      "note": "Hash refreshed: only an outbound link was repointed (./statistics#point-estimation -> ./inferential-statistics#point-estimation) during the 3-spoke statistics split; no worked-example or prose content changed."
     },
     "set-theory.md": {
       "contentHash": "sha1:204057b56218d940",
@@ -1706,12 +1707,12 @@
       "phase2At": "2026-07-16"
     },
     "statistics.md": {
-      "contentHash": "sha1:131976a5dea0cac5",
+      "contentHash": "sha1:6ca06d46d66c2df9",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+5subagents",
       "overall": "mixed",
-      "summary": "Large page (2337 lines) audited by 5 parallel auditors over disjoint ranges. Strong, exemplary worked examples throughout the CORE inferential machinery: all the t/z tests (one-sample, two-sample Welch, paired, one/two-proportion), chi-squared goodness-of-fit/independence/variance, F-test, one-way ANOVA (full SST=SSB+SSW table), MLE, method of moments, confidence intervals, Pearson r, R^2, Simpson's paradox. The gaps cluster in three places: (1) descriptive statistics that are defined but never computed (mode, quartiles/IQR, five-number summary, population-vs-sample variance side by side, histogram bin-width, z-score); (2) the NONPARAMETRIC family (Wilcoxon, Mann-Whitney, Kruskal-Wallis, Spearman, Tukey HSD, two-way ANOVA) stated as formulas but never run on data; (3) ML-adjacent topics (MAP, cross-validation, bias-variance, regression coefficient inference, multiple-comparisons) that stay conceptual. Tally 27 strong / 18 adequate / 12 thin / 5 missing.",
+      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Statistics hub (foundations: data types, populations vs samples, producing good data). This slice: 1 strong / 2 adequate / 0 thin / 1 missing.",
       "inventory": [
         {
           "concept": "variable/scale classification (nominal/ordinal/interval/ratio)",
@@ -1736,7 +1737,17 @@
           "quality": "strong",
           "note": "",
           "upgrade": ""
-        },
+        }
+      ]
+    },
+    "descriptive-statistics.md": {
+      "contentHash": "sha1:05a8e3d8d1dd5a29",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+5subagents",
+      "overall": "mixed",
+      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Descriptive Statistics (central tendency, spread, visualization). This slice: 7 strong / 5 adequate / 5 thin / 1 missing.",
+      "inventory": [
         {
           "concept": "mean",
           "quality": "strong",
@@ -1845,7 +1856,17 @@
           "quality": "strong",
           "note": "",
           "upgrade": "minor: link the identical stats back to the worked descriptive formulas"
-        },
+        }
+      ]
+    },
+    "inferential-statistics.md": {
+      "contentHash": "sha1:178d19f2a099f5c8",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+5subagents",
+      "overall": "mixed",
+      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Inferential Statistics (estimation, hypothesis testing, ANOVA, nonparametrics). This slice: 17 strong / 5 adequate / 6 thin / 3 missing.",
+      "inventory": [
         {
           "concept": "standard error",
           "quality": "adequate",
@@ -2031,7 +2052,17 @@
           "quality": "thin",
           "note": "formula given in the nonparametric section but never worked; only a link in the correlation section",
           "upgrade": "take a paired n=5-6 set, rank both, tabulate d_i^2, plug into rho = 1 - 6*sum d^2/(n(n^2-1)); contrast with Pearson"
-        },
+        }
+      ]
+    },
+    "statistical-learning.md": {
+      "contentHash": "sha1:8d1715d64587eb0d",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+5subagents",
+      "overall": "mixed",
+      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Statistical Learning (correlation, regression, GLM, bias-variance, CV, bootstrap). This slice: 2 strong / 6 adequate / 1 thin / 0 missing.",
+      "inventory": [
         {
           "concept": "Pearson correlation",
           "quality": "strong",

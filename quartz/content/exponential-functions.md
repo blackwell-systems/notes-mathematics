@@ -437,10 +437,10 @@ Setting $x = 1$ gives a series for $e$ itself: $e = 1 + 1 + \tfrac12 + \tfrac16 
 
 The exponential is one of the most heavily used building blocks in machine learning, because it turns any real number into a positive one and because sums in the exponent become products.
 
-- **Sigmoid (logistic function).** $\sigma(z) = \dfrac{1}{1 + e^{-z}}$ squashes any real number into $(0, 1)$, turning a linear score into a probability. It is the output nonlinearity of [logistic regression](./statistics#logistic-regression-and-generalized-linear-models) and a classic neural-network activation.
+- **Sigmoid (logistic function).** $\sigma(z) = \dfrac{1}{1 + e^{-z}}$ squashes any real number into $(0, 1)$, turning a linear score into a probability. It is the output nonlinearity of [logistic regression](./statistical-learning#logistic-regression-and-generalized-linear-models) and a classic neural-network activation.
 - **Softmax.** $\text{softmax}(z)_i = \dfrac{e^{z_i}}{\sum_j e^{z_j}}$ turns a vector of scores into a probability distribution over classes. The exponential guarantees positivity and accentuates the largest scores; a **temperature** $T$ (using $e^{z_i/T}$) tunes how sharp the distribution is.
 - **The Gaussian.** The normal density $\dfrac{1}{\sqrt{2\pi}\,\sigma}\,e^{-(x-\mu)^2/2\sigma^2}$ is built on $e^{-x^2}$; the exponential decay of its tails is why the normal distribution is so concentrated (see [Probability](./probability#normal-gaussian-distribution)).
-- **The exponential family.** A large class of distributions (normal, Bernoulli, Poisson, gamma, ...) share the form $p(x \mid \theta) \propto e^{\langle \theta,\, T(x)\rangle}$, which is what makes their maximum-likelihood estimation and their use in [generalized linear models](./statistics#logistic-regression-and-generalized-linear-models) so uniform.
+- **The exponential family.** A large class of distributions (normal, Bernoulli, Poisson, gamma, ...) share the form $p(x \mid \theta) \propto e^{\langle \theta,\, T(x)\rangle}$, which is what makes their maximum-likelihood estimation and their use in [generalized linear models](./statistical-learning#logistic-regression-and-generalized-linear-models) so uniform.
 - **Products to sums.** Because $e^{a}e^{b} = e^{a+b}$, working in the exponent turns products into sums, the mirror image of the [log-likelihood trick](./logarithms#logarithms-in-information-theory-and-machine-learning) on the logarithms page.
 
 ## The Exponential-Logarithm Connection

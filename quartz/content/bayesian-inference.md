@@ -1,11 +1,11 @@
 ---
 title: "Bayesian Inference"
-prerequisites: ["probability", "statistics", "information-theory"]
+prerequisites: ["probability", "inferential-statistics", "information-theory"]
 enables: ["singular-learning-theory"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Probability](./probability) · [Statistics](./statistics) · [Information Theory](./information-theory)
+> **Builds on:** [Probability](./probability) · [Inferential Statistics](./inferential-statistics) · [Information Theory](./information-theory)
 > **Leads to:** [Singular Learning Theory](./singular-learning-theory)
 
 

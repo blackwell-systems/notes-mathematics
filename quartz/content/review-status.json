@@ -2,7 +2,7 @@
   "rubricVersion": 1,
   "pages": {
     "mathematical-notations.md": {
-      "contentHash": "sha1:eb65908f7388e14e",
+      "contentHash": "sha1:30711ba57f527175",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+human",
@@ -15,7 +15,8 @@
           "status": "resolved",
           "resolution": "Added a cross-note pointing to the Analysis table's 'approximately equal' use."
         }
-      ]
+      ],
+      "note": "Hash refreshed: only an outbound link was repointed (./statistics#point-estimation -> ./inferential-statistics#point-estimation) during the 3-spoke statistics split; no worked-example or prose content changed."
     },
     "set-theory.md": {
       "contentHash": "sha1:204057b56218d940",

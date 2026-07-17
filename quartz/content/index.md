@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **51 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **54 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -21,7 +21,8 @@ Logic → Set Theory → Number Systems & Foundations → Algebra (start with
 Functions, then work through the function types) → Linear Algebra
 (Foundations first, then Computation)
 → Calculus → Multivariable Calculus → Differential Equations
-→ Probability → Statistics → Bayesian Inference → Optimization
+→ Probability → Statistics (Descriptive → Inferential → Statistical Learning)
+→ Bayesian Inference → Optimization
 → Information Theory → Discrete Math
 → Real Analysis → Measure Theory
 ```
@@ -29,7 +30,7 @@ Functions, then work through the function types) → Linear Algebra
 3. **For ML researchers:** If you already know the basics and want to understand *why* neural networks work at a theoretical level:
    - Linear Algebra Foundations (eigenvalues, SVD)
    - Calculus (chain rule = backpropagation)
-   - Probability → Statistics → Bayesian Inference
+   - Probability → Statistics (Descriptive → Inferential → Statistical Learning) → Bayesian Inference
    - Optimization (gradient descent variants, convexity)
    - Information Theory (cross-entropy loss)
    - Real Analysis → Measure Theory → Algebraic Geometry → [Singular Learning Theory](./singular-learning-theory)
@@ -102,7 +103,10 @@ Functions, then work through the function types) → Linear Algebra
 
 ## Statistics
 
-- [Statistics](./statistics) (estimation, hypothesis testing, regression, bias-variance tradeoff)
+- [Statistics](./statistics) (the hub: data types, populations vs samples, producing good data)
+- [Descriptive Statistics](./descriptive-statistics) (central tendency, spread, visualization)
+- [Inferential Statistics](./inferential-statistics) (estimation, hypothesis testing, ANOVA, nonparametrics)
+- [Statistical Learning](./statistical-learning) (correlation, regression, bias-variance, cross-validation)
 - [Bayesian Inference](./bayesian-inference) (priors, posteriors, MCMC, variational inference, model selection, SLT connection)
 
 ## Optimization

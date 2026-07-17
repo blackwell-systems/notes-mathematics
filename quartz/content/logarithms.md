@@ -605,7 +605,7 @@ Logarithms are woven through information theory and machine learning, which make
 
 - **Information is measured in logs.** The information content (the "surprise") of an outcome with probability $p$ is $-\log_2 p$ **bits**: a rarer event carries more information. Averaging this over a distribution gives the **entropy** $H = -\sum_i p_i \log_2 p_i$, the central quantity of [information theory](./information-theory).
 - **Products become sums.** A model's likelihood of a dataset is a product of many probabilities, $\prod_i p_i$. Multiplying thousands of numbers below 1 underflows to zero on a computer. Taking the **log-likelihood** $\sum_i \log p_i$ turns the product into a numerically stable sum, which is why training objectives are almost always written with logs.
-- **Log-loss is the standard training objective.** Minimizing **cross-entropy** (log-loss), $-\sum_i y_i \log \hat{p}_i$, is exactly maximum-likelihood estimation for a classifier (see [Logistic Regression](./statistics#logistic-regression-and-generalized-linear-models) and [Cross-Entropy](./information-theory#cross-entropy)).
+- **Log-loss is the standard training objective.** Minimizing **cross-entropy** (log-loss), $-\sum_i y_i \log \hat{p}_i$, is exactly maximum-likelihood estimation for a classifier (see [Logistic Regression](./statistical-learning#logistic-regression-and-generalized-linear-models) and [Cross-Entropy](./information-theory#cross-entropy)).
 - **Log scales tame magnitudes.** Learning rates, model sizes, and loss curves are routinely plotted and searched on a log scale, because the interesting behavior spans many orders of magnitude.
 
 ## Calculus of Logarithms

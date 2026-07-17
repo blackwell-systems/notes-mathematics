@@ -39,7 +39,7 @@ SLT is a theory of *Bayesian* learning. Its central object, the free energy, is 
 
 10. [Probability](./probability) — axioms, distributions, Bayes' theorem, and the Central Limit Theorem.
 11. [Information Theory](./information-theory) — the KL divergence $K(w)$ (read "K of w") *is* the loss whose zero set is $W_0$; entropy and cross-entropy are the loss functions being minimized.
-12. [Statistics](./statistics) — estimation, likelihood, the classical Fisher information, and the bias-variance tradeoff that SLT ultimately reframes.
+12. [Inferential Statistics](./inferential-statistics) — estimation, likelihood, and the classical Fisher information; and [Statistical Learning](./statistical-learning) — the bias-variance tradeoff that SLT ultimately reframes. (Both branch from the [Statistics](./statistics) hub.)
 13. [Bayesian Inference](./bayesian-inference) — priors, posteriors, MCMC, model selection, and the SLT estimators WAIC and WBIC. This is the page that hands you directly to the summit.
 
 **What SLT takes from Stage 3:** the free energy as a model-selection criterion, the KL divergence as the loss, and the tempered-posterior estimators that measure the RLCT in practice.
