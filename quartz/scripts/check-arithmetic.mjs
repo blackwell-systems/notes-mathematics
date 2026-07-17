@@ -374,6 +374,28 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Graphing Functions concept diagrams (labeled values) =================
+{
+  // domain-range figure: f(x)=4-(x-1)^2 on [-1,4]
+  { const f = (x) => 4 - (x - 1) ** 2;
+    eq("domain-range max f(1)=4", f(1), 4);
+    eq("domain-range left end f(-1)=0", f(-1), 0);
+    eq("domain-range right end f(4)=-5 (range min)", f(4), -5);
+    check("range is [-5,4] over domain [-1,4]", f(4) === -5 && f(1) === 4); }
+  // intercepts figure: f(x)=(x+2)(x-1)(x-3)/3, roots -2,1,3, y-int 2
+  { const f = (x) => (x + 2) * (x - 1) * (x - 3) / 3;
+    check("intercept roots -2,1,3 give f=0", f(-2) === 0 && f(1) === 0 && f(3) === 0);
+    eq("y-intercept f(0)=2", f(0), 2); }
+  // extrema figure: f(x)=x^3-3x, local max (-1,2), local min (1,-2)
+  { const f = (x) => x ** 3 - 3 * x;
+    eq("extrema local max f(-1)=2", f(-1), 2);
+    eq("extrema local min f(1)=-2", f(1), -2); }
+  // concavity figure: f(x)=0.25x^3 inflection at origin, monotone increasing
+  { const f = (x) => 0.25 * x ** 3;
+    eq("concavity inflection f(0)=0", f(0), 0);
+    check("0.25x^3 is increasing across the sample", f(-2) < f(-1) && f(-1) < f(1) && f(1) < f(2)); }
+}
+
 // ================= Statistics hub + Statistical Learning (Phase-2 worked examples) =================
 {
   // Sampling on N=20, n=5

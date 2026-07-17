@@ -35,14 +35,20 @@ When graphing any function, identify these key features:
 - Domain: All possible $x$-values (horizontal extent)
 - Range: All possible $y$-values (vertical extent)
 
+![A downward-arching curve on axes drawn through the origin. A green double arrow along the x-axis marks the domain, the horizontal extent of the curve from x equals minus 1 to x equals 4. A red double arrow along the y-axis marks the range, the vertical extent of the y-values reached, from minus 5 to 4. Dotted guide lines drop from the curve's highest point at (1, 4) and its endpoints down to the two brackets, showing domain is the shadow on the x-axis and range is the shadow on the y-axis](./media/gf-domain-range.png)
+
 **2. Intercepts**
 - **x-intercept(s):** Points where the graph crosses the x-axis (set $y = 0$)
 - **y-intercept:** Point where the graph crosses the y-axis (set $x = 0$)
+
+![A cubic curve on axes through the origin. Three red dots sit on the x-axis at x equals minus 2, 1, and 3, labeled as the x-intercepts found by setting y equals 0. One purple dot sits on the y-axis at y equals 2, labeled as the y-intercept found by setting x equals 0](./media/gf-intercepts.png)
 
 **3. Asymptotes**
 - **Vertical asymptote:** Line $x = a$ where function approaches $\pm\infty$
 - **Horizontal asymptote:** Line $y = b$ that function approaches as $x \to \pm\infty$
 - **Oblique/Slant asymptote:** Diagonal line that function approaches
+
+![Two panels. Left: a rational curve in two branches with a red dashed vertical asymptote at x equals minus 1 that the curve shoots up and down along, and a green dashed horizontal asymptote at y equals 1 that both branches flatten toward. Right: a curve with the same red dashed vertical asymptote at x equals minus 1 and an amber dashed diagonal line y equals x, the oblique asymptote, that the two branches approach at the far ends](./media/gf-asymptotes.png)
 
 **4. Extrema**
 - **Maximum:** Highest point (locally or globally)
@@ -54,14 +60,20 @@ When graphing any function, identify these key features:
 - **Decreasing:** Function values fall as $x$ increases (left to right downward)
 - **Constant:** Function values remain the same
 
+![A cubic curve whose rising portions are drawn green and whose falling middle portion is drawn red. A black dot marks the local maximum at (minus 1, 2), where the curve stops increasing and starts decreasing, and another marks the local minimum at (1, minus 2), where it stops decreasing and starts increasing. The three stretches are labeled increasing, decreasing, increasing](./media/gf-extrema-monotonic.png)
+
 **6. Concavity**
 - **Concave up:** Graph curves upward (like $\cup$)
 - **Concave down:** Graph curves downward (like $\cap$)
 - **Inflection point:** Where concavity changes
 
+![An always-increasing S-shaped cubic on axes through the origin. Its left half is drawn red and labeled concave down, curving like a cap; its right half is drawn green and labeled concave up, curving like a cup. A purple dot at the origin marks the inflection point where the concavity switches. The curve keeps rising throughout, showing concavity is separate from increasing or decreasing](./media/gf-concavity.png)
+
 **7. Symmetry**
 - **Even function (y-axis symmetry):** $f(-x) = f(x)$
 - **Odd function (origin symmetry):** $f(-x) = -f(x)$
+
+![Two panels. Left, even symmetry: the parabola y equals x squared with a symmetric pair of red points at x equals plus and minus 1.5 joined by a dotted horizontal line, showing the graph is a mirror image across the y-axis, f of minus x equals f of x. Right, odd symmetry: a cubic through the origin with a pair of red points at x equals plus and minus 1.5 joined by a dotted line through the origin, showing a 180 degree rotation about the origin, f of minus x equals minus f of x](./media/gf-symmetry.png)
 
 **Testing for symmetry.** To classify a function, substitute $-x$ for $x$, simplify, and compare the result to the original $f(x)$ and to $-f(x)$. There are three outcomes.
 
@@ -74,6 +86,8 @@ Symmetry is worth checking first because it halves the work: for an even or odd 
 **8. End Behavior**
 - Behavior as $x \to \infty$
 - Behavior as $x \to -\infty$
+
+![Two panels showing how the ends of a polynomial run off. Left, an even-degree curve with a positive leading coefficient: both arms point up, with red arrows and the note that as x goes to minus infinity and to plus infinity, f goes to plus infinity. Right, an odd-degree curve with a positive leading coefficient: the left arm points down (x to minus infinity, f to minus infinity) and the right arm points up (x to plus infinity, f to plus infinity), so the ends go in opposite directions](./media/gf-end-behavior.png)
 
 ## Graphing Linear Functions
 

@@ -2131,12 +2131,12 @@
       ]
     },
     "graphing-functions.md": {
-      "contentHash": "sha1:0e7b3e7e0b7851a3",
+      "contentHash": "sha1:386c39b669920987",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+1subagent",
       "overall": "strong",
-      "summary": "Pre-calc graphing reference: 10 per-family worked examples plus Phase-2 additions closing all four work-list items (even/odd symmetry, rational sign analysis, oblique asymptote via division, concrete transformation trace). 15 strong / 3 adequate / 0 thin / 0 missing.",
+      "summary": "Pre-calc graphing reference with 10 per-family worked examples, Phase-2 worked additions, and a set of 7 foundational concept diagrams for the Key Features taxonomy (domain/range, intercepts, asymptotes, extrema/monotonic, concavity, symmetry, end behavior). 16 strong / 2 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "coordinate plane / quadrants / ordered pairs",
@@ -2152,9 +2152,9 @@
         },
         {
           "concept": "domain/range read-off",
-          "quality": "adequate",
-          "note": "Domain/range stated with justification inside each family example (radical, exponential, log), but never read off a graph as a standalone demo.",
-          "upgrade": "minor: one 'read domain and range off this graph' example tied to the picture"
+          "quality": "strong",
+          "note": "New gf-domain-range diagram reads domain [-1,4] and range [-5,4] off the graph via bracketed extents and projector lines; also stated in each family example.",
+          "upgrade": ""
         },
         {
           "concept": "even/odd symmetry determination",
