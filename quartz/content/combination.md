@@ -64,7 +64,7 @@ Combinations are permutations divided by the number of ways to arrange r items, 
 
 3. **A committee of 4 people must be formed from a group of 12. How many ways?**
 
-   $$C(12,4) = \frac{12!}{4!\,8!} = 495$$
+   $$C(12,4) = \frac{12!}{4!\,8!} = \frac{12 \times 11 \times 10 \times 9}{4 \times 3 \times 2 \times 1} = \frac{11880}{24} = 495$$
 
 ## Properties of Combinations
 
@@ -77,6 +77,10 @@ Choosing r items is the same as choosing which (n-r) items to leave out.
 **Example:** $\binom{5}{2} = \binom{5}{3} = 10$
 
 ![A diagram of the symmetry property of combinations using five people A, B, C, D, E in a row. In an example selection, two of them are colored green and marked chosen with r equal to 2, while the other three are grey and marked left out with n minus r equal to 3. A two-headed correspondence shows that picking which 2 to keep is exactly the same act as picking which 3 to discard, so the two counts match: C of 5,2 equals C of 5,3 equals 10.](./media/comb-symmetry.png)
+
+**Worked example: both sides really are equal.** Compute each directly:
+$$\binom{5}{2} = \frac{5!}{2!\,3!} = \frac{5 \times 4}{2 \times 1} = 10, \qquad \binom{5}{3} = \frac{5!}{3!\,2!} = \frac{5 \times 4 \times 3}{3 \times 2 \times 1} = 10.$$
+The two fractions have the *same* denominator $2!\,3!$, just written in the other order, so the values are forced to match. But the arithmetic is not the real reason; the **bijection** is: from a group of $5$, every choice of the $2$ people to put *on* the team simultaneously names the $3$ people to leave *off*, and vice versa. Choosing whom to include and choosing whom to exclude are the same act, so the two counts cannot differ. This is also why $\binom{n}{0} = \binom{n}{n} = 1$ (one way to take everyone, one way to take no one) and why every row of Pascal's triangle reads the same forwards and backwards.
 
 **Pascal's Identity:**
 
@@ -101,9 +105,21 @@ Explore this interactively below. Hover or tap any cell to see it as $C(n,k)$ ("
 
 <iframe src="/static/interactive/comb-pascal-triangle.html" width="100%" height="600" style="border:none;"></iframe>
 
-**Connection to Binomial Theorem:**
+**Worked example: verifying and explaining Pascal's identity.** Take the highlighted cell $\binom{4}{2}$. Computing the three coefficients directly gives $\binom{4}{2} = 6$, $\binom{3}{1} = 3$, and $\binom{3}{2} = 3$, so the identity $\binom{4}{2} = \binom{3}{1} + \binom{3}{2}$ reads $6 = 3 + 3$. But this is no numerical coincidence; it has a clean combinatorial reason. To choose $2$ people from a group of $4$, single out one particular person, say Alice, and split every possible team by whether she is on it:
+- **Alice is on the team:** you still need $1$ more from the remaining $3$ people, which is $\binom{3}{1} = 3$ ways.
+- **Alice is off the team:** you need all $2$ from the remaining $3$, which is $\binom{3}{2} = 3$ ways.
 
-$\binom{n}{r}$ represents the coefficient of $x^r$ in the expansion of $(1+x)^n$.
+Every team falls into exactly one of these two cases and none is counted twice, so $\binom{4}{2} = \binom{3}{1} + \binom{3}{2}$. The identical "is the singled-out element in or out?" split proves the general identity $\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}$, which is precisely why each entry of Pascal's triangle is the sum of the two directly above it.
+
+### Connection to the Binomial Theorem
+
+The **binomial theorem** says the binomial coefficients are literally the numbers that appear when you expand a power of a sum:
+$$(a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k = \binom{n}{0}a^n + \binom{n}{1}a^{n-1}b + \cdots + \binom{n}{n}b^n.$$
+The reason is again just counting. Expanding $(a+b)^n = (a+b)(a+b)\cdots(a+b)$ means choosing either $a$ or $b$ from each of the $n$ factors; the term $a^{n-k}b^k$ is produced once for every way to pick which $k$ of the $n$ factors contribute a $b$, and there are exactly $\binom{n}{k}$ such choices.
+
+**Worked example: $(1 + x)^4$.** Setting $a = 1$ and $b = x$, the coefficients are row $4$ of Pascal's triangle, $\binom{4}{0}, \binom{4}{1}, \binom{4}{2}, \binom{4}{3}, \binom{4}{4} = 1, 4, 6, 4, 1$:
+$$(1 + x)^4 = 1 + 4x + 6x^2 + 4x^3 + x^4.$$
+The coefficient of $x^2$, namely $6 = \binom{4}{2}$, counts "the ways to pick the two factors that each donate an $x$." Two quick checks confirm it: setting $x = 1$ gives $2^4 = 1 + 4 + 6 + 4 + 1 = 16$ (a row of Pascal's triangle sums to $2^n$, which counts *all* subsets of $n$ items), and setting $x = -1$ gives $0 = 1 - 4 + 6 - 4 + 1$ (the alternating sum is zero for $n \geq 1$, because a set has equally many even-sized and odd-sized subsets).
 
 ## Combinations with Repetition
 
@@ -118,6 +134,10 @@ Where:
 **Example:** How many ways can you select 3 donuts from 5 types if you can choose the same type multiple times?
 
 $$C(5+3-1,\, 3) = C(7,3) = \frac{7!}{3!\,4!} = 35$$
+
+**Why $n + r - 1$? (a stars-and-bars preview.)** That $+\,r-1$ is not arbitrary. Picture a selection of $3$ donuts from $5$ types as $3$ **stars** (the donuts) together with $5 - 1 = 4$ **bars** that divide them into the $5$ type-slots. For example,
+$$\star\,\star \,\mid\; \mid \star \mid\; \mid \qquad \text{means } 2 \text{ of type 1},\ 0 \text{ of type 2},\ 1 \text{ of type 3},\ 0 \text{ of types 4 and 5},$$
+which totals $2 + 0 + 1 + 0 + 0 = 3$ donuts. Every possible order is exactly one such arrangement of $3 + 4 = 7$ symbols, and an arrangement is pinned down by choosing which $3$ of the $7$ positions hold stars, giving $\binom{7}{3} = 35$. In general, $r$ stars and $n - 1$ bars make $n + r - 1$ symbols, and choosing the $r$ star-positions yields $\binom{n + r - 1}{r}$, which is where the formula comes from. (The full method, including minimum-per-type constraints, is developed in [Stars and Bars](#stars-and-bars-distributing-identical-objects) below.)
 
 ## Permutation vs Combination Summary
 

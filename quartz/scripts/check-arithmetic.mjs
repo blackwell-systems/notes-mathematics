@@ -2723,6 +2723,25 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("stars and bars C(13,3) = 286 (10 balls, 4 boxes)", comb(13, 3), 286);
   eq("stars and bars with min 1: C(9,3) = 84 (6 free balls, 4 boxes)", comb(9, 3), 84);
 
+  // ---- Phase-2 worked examples ----
+  // C(12,4) cancellation shown step by step
+  eq("C(12,4) numerator 12*11*10*9 = 11880", 12 * 11 * 10 * 9, 11880);
+  eq("C(12,4) denominator 4! = 24", fact(4), 24);
+  eq("C(12,4) = 11880/24 = 495", (12 * 11 * 10 * 9) / fact(4), 495);
+  // symmetry worked both sides
+  eq("C(5,2) = 10 directly", comb(5, 2), 10);
+  eq("C(5,3) = 10 directly", comb(5, 3), 10);
+  check("C(n,0) = C(n,n) = 1", [3, 5, 8].every((n) => comb(n, 0) === 1 && comb(n, n) === 1));
+  // binomial theorem: (1+x)^4 coefficients are Pascal row 4
+  eq("(1+x)^4 coefficients = 1,4,6,4,1", [0, 1, 2, 3, 4].map((k) => comb(4, k)).join(","), "1,4,6,4,1");
+  check("(1+x)^4 at x=1 gives 2^4 = 16 (row sum)", [0, 1, 2, 3, 4].reduce((s, k) => s + comb(4, k), 0) === 16);
+  check("(1+x)^4 at x=-1 gives 0 (alternating sum)", [0, 1, 2, 3, 4].reduce((s, k) => s + comb(4, k) * (-1) ** k, 0) === 0);
+  // general binomial theorem: sum_k C(n,k) a^{n-k} b^k = (a+b)^n
+  check("binomial theorem: sum C(4,k) 1^{4-k} 2^k = 3^4 = 81",
+    [0, 1, 2, 3, 4].reduce((s, k) => s + comb(4, k) * 1 ** (4 - k) * 2 ** k, 0) === 81);
+  // combinations with repetition via stars and bars: r stars + (n-1) bars = n+r-1 symbols
+  check("donuts: 3 stars + (5-1) bars = 7 symbols, choose 3 = C(7,3)", 3 + (5 - 1) === 7 && comb(7, 3) === 35);
+
   // Inclusion-exclusion divisibility 1..100 by 2,3,5.
   { const f = (d) => Math.floor(100 / d); const answer = f(2) + f(3) + f(5) - f(6) - f(10) - f(15) + f(30); eq("|div by 2,3, or 5 in 1..100| = 74", answer, 74); check("component counts 50,33,20,16,10,6,3", f(2) === 50 && f(3) === 33 && f(5) === 20 && f(6) === 16 && f(10) === 10 && f(15) === 6 && f(30) === 3); }
 

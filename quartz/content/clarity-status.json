@@ -713,12 +713,12 @@
       "phase2At": "2026-07-16"
     },
     "combination.md": {
-      "contentHash": "sha1:5d7f63b9dd3b471a",
+      "contentHash": "sha1:1dd3bcdf8793a85c",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "Strong on the divide-by-r! motivation (pinned to a diagram), stars-and-bars (both variants), inclusion-exclusion, and pigeonhole (basic + unit-square). Thin/missing cluster: the identities (symmetry, Pascal) are asserted with trivial illustrations, the binomial theorem has zero worked expansion, and combinations-with-repetition is computed without deriving why n+r-1.",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: the identities and the binomial theorem were asserted, not worked; now they are. Symmetry C(n,r)=C(n,n-r): both sides computed to 10 + the include/exclude bijection + C(n,0)=C(n,n)=1. Pascal's identity: C(4,2)=C(3,1)+C(3,2)=6 verified in text + the 'single out Alice, is she in or out?' case split proving the general identity. Binomial theorem: full statement (a+b)^n = sum C(n,k) a^{n-k} b^k with the counting justification, worked (1+x)^4=1+4x+6x^2+4x^3+x^4, and two checks (x=1 -> 2^n row sum; x=-1 -> 0 alternating sum). Combinations-with-repetition: an inline stars-and-bars derivation (3 stars + 4 bars -> C(7,3)) explaining WHY n+r-1 at first contact. Plus the C(12,4) cancellation now shown. All independently reviewed (returned []); +11 machine-checked assertions. Resolves all 3 thin + 1 missing.",
       "inventory": [
         {
           "concept": "combinations vs permutations (divide-by-r! motivation)",
@@ -728,9 +728,10 @@
         },
         {
           "concept": "n-choose-r formula C(n,r)=n!/(r!(n-r)!)",
-          "quality": "adequate",
+          "quality": "strong",
           "note": "example 3 jumps from fraction to 495 with no intermediate cancellation",
-          "upgrade": "Show cancellation for C(12,4)=(12*11*10*9)/(4!)=495, matching the fuller style of the books/pizza examples."
+          "upgrade": "",
+          "phase2": "C(12,4) now shows the cancellation 12*11*10*9/24 = 495 to match the fuller examples + harness"
         },
         {
           "concept": "relationship C(n,r)=P(n,r)/r!",
@@ -740,27 +741,31 @@
         },
         {
           "concept": "symmetry property C(n,r)=C(n,n-r)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "bare identity check C(5,2)=C(5,3)=10, no computation shown",
-          "upgrade": "Work both sides to 10, then the 'choose who to leave out' framing with a named example."
+          "upgrade": "",
+          "phase2": "computed both sides to 10 (same 2!3! denominator) + the include=exclude bijection + C(n,0)=C(n,n)=1 + harness"
         },
         {
           "concept": "Pascal's identity C(n,r)=C(n-1,r-1)+C(n-1,r)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only read off the diagram, never verified in prose",
-          "upgrade": "Verify C(4,2)=C(3,1)+C(3,2)=3+3=6 in text plus the 'in-or-out' combinatorial argument."
+          "upgrade": "",
+          "phase2": "verified 6=3+3 in text + the single-out-Alice in/out case split proving the general identity + harness"
         },
         {
           "concept": "binomial theorem / coefficient of x^r in (1+x)^n",
-          "quality": "missing",
+          "quality": "strong",
           "note": "stated in one sentence, no expansion, no diagram",
-          "upgrade": "Work (1+x)^4=1+4x+6x^2+4x^3+x^4, labeling each coefficient as C(4,k), tied to Pascal row 4."
+          "upgrade": "",
+          "phase2": "full theorem + counting justification + worked (1+x)^4 = 1,4,6,4,1 with x=1 (2^n) and x=-1 (0) checks + harness"
         },
         {
           "concept": "combinations with repetition C(n+r-1,r)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "donut C(7,3)=35 computed but WHY n+r-1 not explained at first contact",
-          "upgrade": "Forward-reference stars-and-bars at first use, or add a mini stars-and-bars picture for 3-donuts-from-5-types (2 bars, 3 stars) so n+r-1 is derived."
+          "upgrade": "",
+          "phase2": "inline stars-and-bars derivation at first contact: 3 stars + 4 bars -> choose 3 of 7 = C(7,3), explaining n+r-1 + harness"
         },
         {
           "concept": "stars and bars (distributing identical objects)",
@@ -804,7 +809,8 @@
           "note": "",
           "upgrade": ""
         }
-      ]
+      ],
+      "phase2At": "2026-07-16"
     },
     "order-of-operations.md": {
       "contentHash": "sha1:b394d4d9bbaf3178",

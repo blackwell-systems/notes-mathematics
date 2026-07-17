@@ -196,7 +196,7 @@
       ]
     },
     "combination.md": {
-      "contentHash": "sha1:5d7f63b9dd3b471a",
+      "contentHash": "sha1:1dd3bcdf8793a85c",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
@@ -225,7 +225,8 @@
           "status": "resolved",
           "resolution": "Added '(with k >= 1)'. (Same class fixed on set-theory.)"
         }
-      ]
+      ],
+      "note": "Phase-2 clarity pass added worked examples for the symmetry property, Pascal's identity (in/out case split), the binomial theorem (full statement + (1+x)^4 expansion + 2^n/alternating-sum checks), and an inline stars-and-bars derivation of n+r-1; plus the C(12,4) cancellation. Each independently reviewed (returned []) and machine-checked (+11 assertions). Hash refreshed."
     },
     "graph-theory.md": {
       "contentHash": "sha1:a3d7d2d2c3cb0278",
