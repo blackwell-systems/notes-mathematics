@@ -151,11 +151,12 @@
       ]
     },
     "algebraic-structures.md": {
-      "contentHash": "sha1:80fc8f94451f5871",
+      "contentHash": "sha1:14c3b3af7d5f2c58",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
-      "findings": []
+      "findings": [],
+      "note": "Phase-2 clarity pass added 8 worked examples (group-axiom verification, Cayley reading, non-abelian symmetry composition, matrix noncommutativity, field-iff-prime via zero divisors, and a new Maps-and-substructures section: homomorphisms + subgroups/cosets). Each independently reviewed and machine-checked (+12 assertions); one Lagrange-phrasing nuance (tiling lemma vs finite divisibility) fixed. Hash refreshed."
     },
     "geometry-trigonometry.md": {
       "contentHash": "sha1:e215732e3cc298d6",

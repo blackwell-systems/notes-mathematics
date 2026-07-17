@@ -598,12 +598,12 @@
       ]
     },
     "algebraic-structures.md": {
-      "contentHash": "sha1:80fc8f94451f5871",
+      "contentHash": "sha1:14c3b3af7d5f2c58",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "reference-page",
-      "summary": "Axiomatic reference page. The 'derived rules' theorem walkthroughs (a*0=0, (-1)a=-a, (-1)(-1)=1, cancellation, uniqueness, why 1/0 undefined) are uniformly STRONG. The abstract-algebra half teaches groups/rings/fields by definition + example-lists, not walkthroughs, so its computational techniques are thin-to-missing. Work-list clusters entirely there.",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: the abstract-algebra half was definition + example-lists; added 8 worked examples. Verified (Z/4Z,+) is a group; a Cayley-table reading walkthrough (find inverses, Latin-square); the triangle's non-abelian symmetry composition (rotate-then-reflect fixes corner 2, reflect-then-rotate fixes corner 3); matrix noncommutativity AB=[[2,1],[1,1]] vs BA=[[1,1],[1,2]]; modular inverse hunt in F5 (2^-1=3) contrasted with Z/6 (2 a zero divisor, no inverse) proving field-iff-prime; and a new 'Maps and substructures' section closing the coverage gaps with homomorphisms (reduction mod 4; exp/log isomorphism) and subgroups/cosets (2Z, evens/odds, Lagrange). All 8 independently reviewed (one Lagrange-phrasing nuance fixed); +12 machine-checked assertions. Resolves all 5 thin + 3 missing items.",
       "inventory": [
         {
           "concept": "deriving a*0=0 from axioms",
@@ -655,53 +655,62 @@
         },
         {
           "concept": "modular multiplicative inverse in F_p (inverse of 2 in F5)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only stated in one line; the most computational technique on the page is never walked",
-          "upgrade": "Work it: find 3^{-1} in F5 by testing residues (or extended Euclid), then contrast Z/6Z where 2 has no inverse (prime-modulus branch)."
+          "upgrade": "",
+          "phase2": "hunt for 2^-1 in F5 by scanning residues (=3); contrasted with Z/6 where 2 has no inverse + harness"
         },
         {
           "concept": "verifying the group axioms on a concrete set",
-          "quality": "thin",
+          "quality": "strong",
           "note": "structures listed with identity/inverse named in a phrase, no step-by-step check",
-          "upgrade": "Work one full verification, e.g. (Z/4Z,+): closure/associativity/identity 0/inverse of each element, pinned to a Cayley table."
+          "upgrade": "",
+          "phase2": "verified (Z/4Z,+): associativity, identity 0, all four inverses; abelian order 4 + harness"
         },
         {
           "concept": "reading a Cayley table (identity, inverses, Latin-square)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "diagram exists but the prose never walks reading a table",
-          "upgrade": "Add a 3-4 line walkthrough reading the F5 multiplication table: identity row, read off inverses, connect Latin-square to invertibility."
+          "upgrade": "",
+          "phase2": "walkthrough: identity row, scan a row for the identity to read the inverse (F5: 2->3), Latin-square => unique inverses + harness"
         },
         {
           "concept": "verifying ring axioms / matrix non-commutativity",
-          "quality": "thin",
+          "quality": "strong",
           "note": "'AB!=BA in general' asserted with no example",
-          "upgrade": "Compute AB and BA for two concrete 2x2 matrices to show they differ; note why R[x] is a ring but not a field."
+          "upgrade": "",
+          "phase2": "computed AB=[[2,1],[1,1]] vs BA=[[1,1],[1,2]] entry by entry; noted det-0 and R[x] non-invertibility + harness"
         },
         {
           "concept": "Z/nZ is a field iff n prime",
-          "quality": "thin",
+          "quality": "strong",
           "note": "iff claim stated, composite-modulus trip-up never shown",
-          "upgrade": "Contrast F5 (build inverse list) with Z/6Z (2*0..2*5 never hits 1, and 2*3=0 is a zero divisor), making prime-vs-composite concrete."
+          "upgrade": "",
+          "phase2": "F5 all-invertible vs Z/6 (2*x never hits 1; 2*3=0 zero divisor; zero-divisor => not invertible; composite => zero divisors) + harness"
         },
         {
           "concept": "symmetry group composition (non-abelian)",
-          "quality": "missing",
+          "quality": "strong",
           "note": "non-commutativity described in words + diagram, never computed",
-          "upgrade": "Work one composition: rotate-120 then reflect vs reflect then rotate, tracking vertices, show the two permutations differ; pin to the symmetry-group diagram."
+          "upgrade": "",
+          "phase2": "tracked corners: rotate-then-reflect fixes corner 2, reflect-then-rotate fixes corner 3 => f.r != r.f + harness"
         },
         {
           "concept": "homomorphisms / isomorphisms",
-          "quality": "missing",
+          "quality": "strong",
           "note": "coverage gap; page never introduces structure-preserving maps",
-          "upgrade": "OUT-OF-SCOPE likely: if kept, add one worked map (n |-> n mod 4) checking f(a+b)=f(a)+f(b). Else defer to a dedicated page."
+          "upgrade": "",
+          "phase2": "NEW section: reduction mod 4 as a group hom (phi(a+b)=phi(a)+phi(b)); isomorphism = bijective hom; exp:(R,+)->(R>0,x) with log inverse + harness"
         },
         {
           "concept": "subgroups and cosets",
-          "quality": "missing",
+          "quality": "strong",
           "note": "coverage gap; never mentioned",
-          "upgrade": "OUT-OF-SCOPE likely: if kept, add evens-as-subgroup-of-(Z,+) with its odd coset. Else defer."
+          "upgrade": "",
+          "phase2": "NEW section: 2Z is a subgroup (evens), odds are not; cosets evens/odds partition Z into Z/2Z; Lagrange (finite) stated carefully + harness"
         }
-      ]
+      ],
+      "phase2At": "2026-07-16"
     },
     "combination.md": {
       "contentHash": "sha1:5d7f63b9dd3b471a",

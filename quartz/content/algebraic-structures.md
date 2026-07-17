@@ -98,6 +98,23 @@ Examples:
 
 ![The six symmetries of an equilateral triangle shown as relabelings of its vertices: the identity, rotations by 120 and 240 degrees, and three reflections across axes through a vertex. Together they form a group under composition that is non-abelian, since rotating then flipping gives a different result from flipping then rotating](./media/as-symmetry-group.png)
 
+**Worked example: verifying $(\mathbb{Z}/4\mathbb{Z}, +)$ is a group.** Take the four remainders $\{0, 1, 2, 3\}$ with addition modulo $4$ (so $3 + 2 = 5 \equiv 1$). Check the axioms directly:
+- **Associativity** is inherited from ordinary integer addition, and reducing mod $4$ at the end changes nothing.
+- **Identity:** $0$ works, since $a + 0 = a$ for every element.
+- **Inverses:** each element has exactly one partner summing to $0 \pmod 4$: $\ -0 = 0$, $\ -1 = 3$ (since $1 + 3 = 4 \equiv 0$), $\ -2 = 2$ (since $2 + 2 = 4 \equiv 0$), and $\ -3 = 1$.
+
+All hold, and addition is commutative, so $(\mathbb{Z}/4\mathbb{Z}, +)$ is a finite abelian group of four elements.
+
+**Reading a Cayley table.** The table above lays out the *entire* operation as a grid, one row and column per element, and two features can be read straight off it. The **identity** is the element whose row simply repeats the column headers (the $0$-row for $+$, the $1$-row for $\times$). To find any element's **inverse**, scan along its row for the identity and read the column it lands in: in the $\mathbb{F}_5$ multiplication table, the $2$-row hits $1$ in the $3$-column, so $2^{-1} = 3$. And because every value appears *exactly once* in each row and column (the **Latin-square** property, forced by the group axioms), every element has exactly one inverse, no more and no less.
+
+**Worked example: the triangle's symmetries do not commute.** Label the corners $1, 2, 3$. Let $r$ be the $120°$ rotation ($1 \to 2 \to 3 \to 1$) and $f$ the reflection fixing corner $1$ (so $1 \to 1$ and $2 \leftrightarrow 3$). Composition means "do the first, then the second," and we track where each corner ends up.
+
+*Rotate then reflect* ($f \circ r$): $\ 1 \xrightarrow{r} 2 \xrightarrow{f} 3$, $\ 2 \xrightarrow{r} 3 \xrightarrow{f} 2$, $\ 3 \xrightarrow{r} 1 \xrightarrow{f} 1$. Net effect $1 \to 3,\ 2 \to 2,\ 3 \to 1$: the reflection that *fixes corner 2*.
+
+*Reflect then rotate* ($r \circ f$): $\ 1 \xrightarrow{f} 1 \xrightarrow{r} 2$, $\ 2 \xrightarrow{f} 3 \xrightarrow{r} 1$, $\ 3 \xrightarrow{f} 2 \xrightarrow{r} 3$. Net effect $1 \to 2,\ 2 \to 1,\ 3 \to 3$: the reflection that *fixes corner 3*.
+
+The two orders yield *different* symmetries (one fixes corner 2, the other corner 3), so $f \circ r \neq r \circ f$. That is a concrete witness that the triangle's symmetry group is **non-abelian**: unlike with numbers, here the order of operations genuinely matters.
+
 ### Ring
 
 A **ring** is a set $R$ with *two* operations, $+$ and $\times$, such that $R$ is an abelian group under $+$ (giving $0$, negatives, commutativity of addition), multiplication is associative and has an identity element $1$ (with $1 \cdot a = a \cdot 1 = a$), and multiplication distributes over addition. What a ring does *not* require is multiplicative inverses, or even commutativity of multiplication. So a ring is a field with the multiplicative-inverse axiom (and possibly commutativity of $\times$) dropped.
@@ -108,6 +125,12 @@ Examples:
 - Polynomials with real coefficients, $\mathbb{R}[x]$. Sums and products of polynomials are polynomials, and all the ring axioms hold, but $x$ has no polynomial inverse. See [Polynomial Functions](./polynomial-functions).
 - $n \times n$ matrices over $\mathbb{R}$, under matrix addition and multiplication. This is a ring in which multiplication is *not* commutative ($AB \neq BA$ in general), a natural example of a **noncommutative ring**. See [Matrices](./matrices).
 - $\mathbb{Z}/n\mathbb{Z}$ again, now with both addition and multiplication modulo $n$: a finite commutative ring.
+
+**Worked example: matrix multiplication is not commutative.** The claim "$AB \neq BA$ in general" deserves a concrete witness. Take
+$$A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}, \qquad B = \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}.$$
+Multiplying row-by-column,
+$$AB = \begin{pmatrix} 1\cdot1 + 1\cdot1 & 1\cdot0 + 1\cdot1 \\ 0\cdot1 + 1\cdot1 & 0\cdot0 + 1\cdot1 \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix}, \qquad BA = \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}.$$
+Since $AB \neq BA$, the $2 \times 2$ matrices form a ring whose multiplication is *not* commutative, a **noncommutative ring**. (They also fail to be a field for a second reason: a nonzero matrix with determinant $0$ has no inverse at all. The polynomial ring $\mathbb{R}[x]$ shows the same gap more simply, $x$ is nonzero yet no polynomial times $x$ equals $1$.)
 
 ### Field
 
@@ -120,6 +143,12 @@ Examples:
 - $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$: the familiar number fields.
 - $\mathbb{F}_p = \mathbb{Z}/p\mathbb{Z}$ for a *prime* $p$: a finite field with exactly $p$ elements. When (and only when) the modulus is prime, every nonzero residue has an inverse, so the ring $\mathbb{Z}/p\mathbb{Z}$ becomes a field. For instance in $\mathbb{F}_5$, the inverse of $2$ is $3$, since $2 \cdot 3 = 6 \equiv 1 \pmod 5$.
 
+**Worked example: why $\mathbb{Z}/n\mathbb{Z}$ is a field exactly when $n$ is prime.** The only difference between a ring and a field is whether nonzero elements can be *inverted*, so let us hunt for inverses directly.
+
+In $\mathbb{F}_5 = \mathbb{Z}/5\mathbb{Z}$, inverting $2$ means finding $x$ with $2x \equiv 1 \pmod 5$. Run through the residues: $2\cdot1 = 2$, $2\cdot2 = 4$, $2\cdot3 = 6 \equiv 1$. Found it, $2^{-1} = 3$. (For a small modulus, scanning residues is quickest; for a large one, the [extended Euclidean algorithm](./number-theory) produces the inverse directly.) Every nonzero residue mod $5$ has an inverse this way, so $\mathbb{F}_5$ is a field.
+
+Now try the *composite* modulus $6$. Inverting $2$ in $\mathbb{Z}/6\mathbb{Z}$ would need $2x \equiv 1 \pmod 6$, but the products $2\cdot0, 2\cdot1, \ldots, 2\cdot5$ run $0, 2, 4, 0, 2, 4$ and **never reach $1$**, so $2$ has no inverse and $\mathbb{Z}/6\mathbb{Z}$ is only a ring. The reason is written in that list: $2 \cdot 3 = 6 \equiv 0$ with *neither factor zero*. An element like this is a **zero divisor**, and a zero divisor can never be invertible, because multiplying $2 \cdot 3 = 0$ through by a hypothetical $2^{-1}$ would force $3 = 0$. Zero divisors appear exactly when $n$ is composite (its proper factors multiply to $0$), which is precisely why $\mathbb{Z}/n\mathbb{Z}$ is a field **if and only if $n$ is prime**.
+
 Summary:
 
 | Structure | Operations | Key extra requirement | Examples |
@@ -131,6 +160,26 @@ Summary:
 The three are related, but not all by simple containment. Every field *is* a ring (it satisfies extra axioms: commutative multiplication, and inverses for nonzero elements). A ring, on the other hand, is not a special *kind* of group, because it carries a second operation that a group does not have; what is true is that every ring is an abelian group under its addition alone. So each step inward adds structure: a second operation takes you from a group to a ring, and multiplicative inverses take you from a ring to a field.
 
 ![Groups, rings, and fields drawn as levels of increasing structure: a ring is an abelian group under addition equipped with a second operation, and a field is a ring in which every nonzero element has a multiplicative inverse, with example sets labeled in each level](./media/algebraic-structures-hierarchy.png)
+
+## Maps and substructures
+
+Naming the structures is half the story; the other half is how they relate to one another. Two ideas do most of that work: maps that *preserve* structure, and subsets that *are* structures in their own right.
+
+### Homomorphisms: structure-preserving maps
+
+A **homomorphism** (read "homo-morph-ism," meaning "same shape") is a map $\varphi: G \to H$ between two structures of the same kind that respects the operation:
+$$\varphi(a * b) = \varphi(a) \star \varphi(b),$$
+where $*$ is the operation in $G$ and $\star$ the one in $H$. It carries the *pattern* of $G$ faithfully into $H$: combine-then-map and map-then-combine land in the same place.
+
+**Worked example: reduction modulo $4$.** Define $\varphi: (\mathbb{Z}, +) \to (\mathbb{Z}/4\mathbb{Z}, +)$ by $\varphi(n) = n \bmod 4$. Is it a homomorphism? Check $\varphi(a + b) = \varphi(a) + \varphi(b)$ on $a = 5, b = 6$: the left side is $\varphi(11) = 11 \bmod 4 = 3$, and the right side is $\varphi(5) + \varphi(6) = 1 + 2 = 3$. They agree, and in general $(a + b) \bmod 4 = \big((a \bmod 4) + (b \bmod 4)\big) \bmod 4$, so reduction *is* a homomorphism: it copies the addition of $\mathbb{Z}$ faithfully onto the four-element clock.
+
+A homomorphism that is also a *bijection* is an **isomorphism**, and two isomorphic structures are indistinguishable as far as algebra is concerned, the same object with relabeled elements. A favorite case is $\exp: (\mathbb{R}, +) \to (\mathbb{R}_{>0}, \times)$, since $e^{a+b} = e^a e^b$ turns addition into multiplication; its inverse is the logarithm, which is exactly *why* logarithms convert products into sums.
+
+### Subgroups: structures inside structures
+
+A **subgroup** is a subset $H \subseteq G$ that is itself a group under $G$'s operation: it contains the identity and is closed under both the operation and inverses.
+
+**Worked example: the even integers.** Inside $(\mathbb{Z}, +)$, the even integers $2\mathbb{Z} = \{\ldots, -2, 0, 2, 4, \ldots\}$ form a subgroup, since even $+$ even $=$ even (closed), $0$ is even (identity), and the negative of an even number is even (inverses). The *odd* integers do not: they miss $0$, and odd $+$ odd $=$ even leaks out of the set. Sliding the subgroup over by one, $1 + 2\mathbb{Z} = \{\text{odds}\}$, gives its one other **coset**, and the two cosets, evens and odds, partition $\mathbb{Z}$ into exactly the two elements of $\mathbb{Z}/2\mathbb{Z}$. A subgroup's cosets always partition the group into equal-sized blocks (this holds for any group, finite or not, as the evens/odds split of $\mathbb{Z}$ shows). When the group is *finite*, that tiling forces the subgroup's size to divide the group's, which is **Lagrange's theorem**.
 
 ## Where these structures show up
 

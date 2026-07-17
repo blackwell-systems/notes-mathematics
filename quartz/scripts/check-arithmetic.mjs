@@ -1843,7 +1843,33 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const rho = [1, 2, 0], sig = [0, 2, 1];
     const comp = (p, q) => q.map((_, i) => p[q[i]]);
     check("D3 is non-abelian: rho after sig != sig after rho",
-      JSON.stringify(comp(rho, sig)) !== JSON.stringify(comp(sig, rho))); }
+      JSON.stringify(comp(rho, sig)) !== JSON.stringify(comp(sig, rho)));
+    // r: 1->2->3->1 = [1,2,0]; f fixes corner 1 = [0,2,1] (0-indexed corners 1,2,3)
+    check("rotate-then-reflect (f after r) fixes corner 2", comp(sig, rho)[1] === 1);
+    check("reflect-then-rotate (r after f) fixes corner 3", comp(rho, sig)[2] === 2); }
+
+  // ---- Phase-2 worked examples ----
+  // Z/4 additive inverses: 0->0, 1->3, 2->2, 3->1
+  check("Z/4 additive inverses are 0,3,2,1",
+    [0, 1, 2, 3].map((a) => [0, 1, 2, 3].find((b) => (a + b) % 4 === 0)).join(",") === "0,3,2,1");
+  // F5: scanning residues finds 2^-1 = 3
+  eq("F5: 2*x runs 0,2,4,1,3 for x=0..4", [0, 1, 2, 3, 4].map((x) => (2 * x) % 5).join(","), "0,2,4,1,3");
+  // Z/6: 2 is a zero divisor, 2*3 = 0 with neither factor zero
+  eq("Z/6: 2*x runs 0,2,4,0,2,4 for x=0..5", [0, 1, 2, 3, 4, 5].map((x) => (2 * x) % 6).join(","), "0,2,4,0,2,4");
+  check("Z/6: 2 is a zero divisor (2*3 = 0, 2!=0, 3!=0)", (2 * 3) % 6 === 0 && 2 % 6 !== 0 && 3 % 6 !== 0);
+  // matrix noncommutativity: A=[[1,1],[0,1]], B=[[1,0],[1,1]]
+  { const mm = (A, B) => [[A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]],
+    [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]]];
+    const A = [[1, 1], [0, 1]], B = [[1, 0], [1, 1]];
+    eq("AB = [[2,1],[1,1]]", JSON.stringify(mm(A, B)), "[[2,1],[1,1]]");
+    eq("BA = [[1,1],[1,2]]", JSON.stringify(mm(B, A)), "[[1,1],[1,2]]");
+    check("matrix mult is noncommutative: AB != BA", JSON.stringify(mm(A, B)) !== JSON.stringify(mm(B, A))); }
+  // homomorphism: reduction mod 4 preserves addition
+  check("reduction mod 4 is a homomorphism: (a+b)%4 = ((a%4)+(b%4))%4",
+    [[5, 6], [7, 11], [3, 3], [10, 15]].every(([a, b]) => (a + b) % 4 === ((a % 4) + (b % 4)) % 4));
+  // subgroup: even integers closed; cosets (evens, odds) partition Z into 2 classes
+  check("even integers closed under +", [[2, 4], [-2, 6], [0, 8]].every(([a, b]) => (a + b) % 2 === 0));
+  eq("cosets of 2Z partition Z into 2 classes", new Set([-3, -2, 0, 1, 4, 7].map((n) => ((n % 2) + 2) % 2)).size, 2);
 }
 
 // ================= Set Theory (diagrams) =================
