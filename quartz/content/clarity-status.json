@@ -2247,6 +2247,142 @@
           "upgrade": ""
         }
       ]
+    },
+    "vector.md": {
+      "contentHash": "sha1:fba11b501b82f0f0",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+1subagent",
+      "overall": "mixed",
+      "summary": "Geometric vectors reference: every worked number verified correct by an independent auditor. 14 strong / 4 adequate / 3 thin / 0 missing. Work-list: position vector never computed on concrete points; cross product only trivial ixj with determinant form unexpanded; projection example trivial (axis-unit v) and scalar projection never computed.",
+      "inventory": [
+        {
+          "concept": "scalar vs vector motivation",
+          "quality": "strong",
+          "note": "Airport/wind/force motivation; scalar vs vector clearly contrasted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "vector notation (boldface/arrow/AB/component/standard position)",
+          "quality": "adequate",
+          "note": "All five notations defined; standard position explained but not shown numerically.",
+          "upgrade": ""
+        },
+        {
+          "concept": "position vector computed head-minus-tail on concrete points",
+          "quality": "thin",
+          "note": "Formula AB=<b1-a1,b2-a2> given but never computed on concrete A,B.",
+          "upgrade": ""
+        },
+        {
+          "concept": "unit vector (normalize a concrete vector)",
+          "quality": "strong",
+          "note": "Normalizes <3,4> to <3/5,4/5> with magnitude-1 check.",
+          "upgrade": ""
+        },
+        {
+          "concept": "magnitude 2D/3D",
+          "quality": "strong",
+          "note": "2D and 3D worked: |<3,4>|=5, |<1,2,2>|=3, |<-2,5>|=sqrt29.",
+          "upgrade": ""
+        },
+        {
+          "concept": "vector addition (componentwise + geometric)",
+          "quality": "strong",
+          "note": "Componentwise + tip-to-tail/parallelogram, two examples, diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "vector subtraction",
+          "quality": "strong",
+          "note": "<5,7>-<2,3>=<3,4> with head-to-head geometric description + diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "scalar multiplication",
+          "quality": "strong",
+          "note": "Two examples, effect on magnitude/direction, diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "dot product (component + geometric)",
+          "quality": "strong",
+          "note": "<2,3>.<4,-1>=5 worked; geometric |u||v|cos form stated.",
+          "upgrade": ""
+        },
+        {
+          "concept": "angle between vectors",
+          "quality": "strong",
+          "note": "Angle between <1,0>,<1,1> worked to 45 degrees.",
+          "upgrade": ""
+        },
+        {
+          "concept": "orthogonality (u.v=0)",
+          "quality": "adequate",
+          "note": "Criterion stated; relies on the earlier <1,0>.<0,1>=0, no dedicated example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cross product beyond i x j + determinant form",
+          "quality": "thin",
+          "note": "Only trivial ixj=k worked; determinant form merely named, never expanded; no mixed-component example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "projection onto non-trivial v + scalar projection",
+          "quality": "thin",
+          "note": "Projection example uses axis-unit <1,0> (|v|^2=1 hides the division); scalar projection never computed as a number.",
+          "upgrade": ""
+        },
+        {
+          "concept": "component<->direction form (atan2)",
+          "quality": "strong",
+          "note": "10N at 30deg to components and <3,4> to atan2(4,3)=53.13 both worked + diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "net force by components",
+          "quality": "adequate",
+          "note": "3N east + 4N north = <3,4>, magnitude 5 at 53.13 deg shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "n-dimensional vectors (R^n dot, magnitude)",
+          "quality": "strong",
+          "note": "R^n dot/magnitude formulas plus worked <1,2,3>.<4,5,6>=32.",
+          "upgrade": ""
+        },
+        {
+          "concept": "standard basis vectors",
+          "quality": "adequate",
+          "note": "e_i defined, v as sum of e_i shown, i/j/k tie-in; no standalone example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear combination",
+          "quality": "strong",
+          "note": "Defined and worked: 2<1,0>+3<0,1>=<2,3>.",
+          "upgrade": ""
+        },
+        {
+          "concept": "distance between vectors",
+          "quality": "strong",
+          "note": "Euclidean distance worked: <1,2,2>,<4,6,2> gives d=5.",
+          "upgrade": ""
+        },
+        {
+          "concept": "physics applications (work, torque)",
+          "quality": "strong",
+          "note": "Work=6 J and torque <0,0,6> both fully computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "ML applications (cosine similarity, neuron, normalization)",
+          "quality": "strong",
+          "note": "Cosine 0.707, neuron s=3, normalization all worked.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
