@@ -1555,12 +1555,12 @@
       "phase2At": "2026-07-16"
     },
     "predicate-logic-first-order-logic.md": {
-      "contentHash": "sha1:35772df9e17c7106",
+      "contentHash": "sha1:5d26554a2c673c23",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "PARTIAL Phase-2 (reader-requested): the Structures/Interpretations section was thin (never wrote out a concrete structure). Added an idiot's-guide expansion -- a plain-terms template/blanks reframe plus a fully-worked three-element structure M read off by hand (three sentences + same-formula-different-structure), machine-checked (+7 assertions), independently reviewed (returned []). Resolves the structures + finite-model-evaluation items. Remaining thin: quantifier truth values (exists!), English->FOL build-up, vacuous truth, validity/satisfiability, prenex, Skolemization (6 items).",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE (two passes). First pass: a fully-worked three-element structure M read off by hand + same-formula-different-structure. Second pass closed the remaining six: exists! (existence + uniqueness, with the x^2=4 uniqueness-failure and x^2=0 cases); English->FOL built phrase-by-phrase ('every positive has a smaller positive' -> forall x(x>0 -> exists y(y>0 and y<x)), flagging the ->/and choice); vacuous truth forced by empty conjunction/disjunction + the emptyset-subset instance; validity/satisfiability/entailment via distinguishing structures M1/M2 for exists x exists y(x!=y); prenex conversion line-by-line with the antecedent flip; Skolemization concretely (two-universal function f(x,y) and the leading-existential constant). All independently reviewed (returned []); +19 machine-checked assertions total (incl. a full-model prenex-equivalence check). Resolves all remaining thin items; page mixed -> strong.",
       "inventory": [
         {
           "concept": "predicates and multi-place predicates",
@@ -1583,9 +1583,10 @@
         },
         {
           "concept": "universal/existential/unique-existential quantifier truth values",
-          "quality": "thin",
+          "quality": "strong",
           "note": "every truth value stated with only a parenthetical witness",
-          "upgrade": "For exists! walk existence (x=2 checks) AND uniqueness (x+5=7 & x'+5=7 => x=x')."
+          "upgrade": "",
+          "phase2": "exists! walked as existence + uniqueness; x^2=4 (uniqueness fails) and x^2=0 (unique) contrast + harness"
         },
         {
           "concept": "evaluating a formula in a finite model (Tarski satisfaction)",
@@ -1602,9 +1603,10 @@
         },
         {
           "concept": "translating English to FOL",
-          "quality": "thin",
+          "quality": "strong",
           "note": "finished formulas presented, never derived from English",
-          "upgrade": "Build one nontrivial multi-quantifier sentence phrase by phrase, flagging the ->/AND choice at each quantifier."
+          "upgrade": "",
+          "phase2": "built 'every positive has a smaller positive' phrase-by-phrase, flagging restricted-universal-> vs restricted-existential-and + harness"
         },
         {
           "concept": "negating quantified statements (incl. nested)",
@@ -1644,9 +1646,10 @@
         },
         {
           "concept": "vacuous truth / empty domain",
-          "quality": "thin",
+          "quality": "strong",
           "note": "stated, never connected to the finite conjunction/disjunction it introduced",
-          "upgrade": "Justify via the empty-conjunction (T) / empty-disjunction (F) expansion; add a math instance forall x(x in emptyset -> P(x))."
+          "upgrade": "",
+          "phase2": "forced by empty conjunction (=top) / empty disjunction (=bottom); math instance forall x(x in emptyset -> P) and emptyset subset A + harness"
         },
         {
           "concept": "restricted quantifiers (-> vs AND choice)",
@@ -1656,9 +1659,10 @@
         },
         {
           "concept": "validity / satisfiability / entailment",
-          "quality": "thin",
+          "quality": "strong",
           "note": "one-line examples; no check across structures",
-          "upgrade": "Exhibit the 1-element and 2-element structures for exists x exists y(x!=y) and evaluate in each; a tiny entailment check."
+          "upgrade": "",
+          "phase2": "exhibited M2={0,1} (true) vs M1={0} (false) for exists x exists y(x!=y); forall P->exists P valid on nonempty; {forall P} entails P(c) + harness"
         },
         {
           "concept": "rules of inference (UI/EG/UG/EI) and side conditions",
@@ -1680,15 +1684,17 @@
         },
         {
           "concept": "prenex normal form conversion",
-          "quality": "thin",
+          "quality": "strong",
           "note": "defined, essentially not worked",
-          "upgrade": "Convert one mixed formula to PNF line by line (rename apart, pull each quantifier out, flip the antecedent)."
+          "upgrade": "",
+          "phase2": "converted (forall x P)->(exists y Q) line by line with the antecedent flip -> exists x exists y(P(x)->Q(y)); full-model equivalence check + harness"
         },
         {
           "concept": "Skolemization",
-          "quality": "thin",
+          "quality": "strong",
           "note": "schema given, no multi-quantifier concrete example",
-          "upgrade": "Skolemize a formula with two leading universals (Skolem function of both args) and one with a leading existential (Skolem constant)."
+          "upgrade": "",
+          "phase2": "concrete: forall x y exists z -> f(x,y) (two-argument); leading exists -> Skolem constant; forall x exists y(y=x+1) preserves satisfiability + harness"
         },
         {
           "concept": "metatheory (soundness/completeness/compactness/LS)",

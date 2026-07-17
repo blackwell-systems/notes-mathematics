@@ -415,6 +415,46 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   dom.forEach((x) => (f[x] = dom.find((y) => succ(x, y))));
   const skolem = forAll((x) => f[x] !== undefined && succ(x, f[x]));
   check("Skolem: forall-x exists-y R <=> forall-x R(x,f(x))", holds === true && skolem === true);
+
+  // ---- Phase-2 worked examples ----
+  // exists!: count witnesses by a finite scan
+  const countSol = (P, lo, hi) => { let c = 0; for (let x = lo; x <= hi; x++) if (P(x)) c++; return c; };
+  eq("exists! x (x+5=7): exactly one witness", countSol((x) => x + 5 === 7, -50, 50), 1);
+  eq("exists! x (x^2=4): TWO witnesses, so exists! is false", countSol((x) => x * x === 4, -50, 50), 2);
+  eq("exists! x (x^2=0): exactly one witness", countSol((x) => x * x === 0, -50, 50), 1);
+  // English->FOL: 'every positive has a smaller positive' -- witness y=x/2 works over the reals
+  check("translation witness: x>0 => x/2>0 and x/2<x", [0.5, 3, 100, 0.01].every((x) => x / 2 > 0 && x / 2 < x));
+  // vacuous truth: empty conjunction true, empty disjunction false
+  check("forall over empty domain is true (empty conjunction)", [].every(() => false) === true);
+  check("exists over empty domain is false (empty disjunction)", [].some(() => true) === false);
+  check("forall x (x in emptyset -> P(x)) is vacuously true for any P", [].every(() => false) === true);
+  // validity/satisfiability: exists x exists y (x!=y) is TRUE on {0,1}, FALSE on {0}
+  const neqExists = (D) => D.some((x) => D.some((y) => x !== y));
+  check("exists x exists y (x!=y): TRUE on {0,1} (satisfiable)", neqExists([0, 1]) === true);
+  check("exists x exists y (x!=y): FALSE on {0} (so not valid)", neqExists([0]) === false);
+  // forall x P(x) -> exists x P(x) is valid over every non-empty model
+  { let valid = true;
+    for (const D of [[0], [0, 1], [0, 1, 2]])
+      for (let mm = 0; mm < (1 << D.length); mm++) {
+        const P = (i) => ((mm >> i) & 1) === 1;
+        if (D.every((_, i) => P(i)) && !D.some((_, i) => P(i))) valid = false;
+      }
+    check("forall x P -> exists x P is valid over every non-empty model", valid); }
+  // prenex: (forall x P) -> (exists y Q)  ==  exists x exists y (P(x) -> Q(y))  on {0,1,2}
+  { let equiv = true; const D3 = [0, 1, 2];
+    for (let pm = 0; pm < 8; pm++) for (let qm = 0; qm < 8; qm++) {
+      const P = (x) => ((pm >> x) & 1) === 1, Q = (y) => ((qm >> y) & 1) === 1;
+      const lhs = (!D3.every((x) => P(x))) || D3.some((y) => Q(y));
+      const rhs = D3.some((x) => D3.some((y) => !P(x) || Q(y)));
+      if (lhs !== rhs) equiv = false;
+    }
+    check("prenex equivalence: (forall x P)->(exists y Q) == exists x exists y (P(x)->Q(y))", equiv); }
+  // Skolem with two leading universals: witness z may depend on both x and y
+  { const D2 = [0, 1, 2];
+    const orig = D2.every((x) => D2.every((y) => D2.some((z) => z === (x + y) % 3)));
+    const skolemized = D2.every((x) => D2.every((y) => D2.includes((x + y) % 3)));  // f(x,y)=(x+y)%3
+    check("Skolem 2-universal: forall x forall y exists z R <=> forall x y R(x,y,f(x,y))",
+      orig === true && skolemized === true); }
 }
 
 // ================= Polynomial Functions =================

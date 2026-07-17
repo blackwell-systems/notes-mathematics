@@ -191,6 +191,12 @@ In words: something satisfies $P$, and anything satisfying $P$ *is that same thi
 - Meaning: "There exists exactly one real number $x$ such that $x + 5 = 7$"
 - Truth value: TRUE (only $x = 2$)
 
+**Worked example: proving an $\exists!$ claim (existence *and* uniqueness).** By the equality definition above, $\exists! x\,(x + 5 = 7)$ splits into two obligations, and you discharge both:
+- **Existence:** exhibit a witness. $x = 2$ works, since $2 + 5 = 7$. ✓
+- **Uniqueness:** show no *other* witness exists. Assume $a + 5 = 7$ and $b + 5 = 7$; subtracting $5$ from each gives $a = 2$ and $b = 2$, so $a = b$. Any two solutions coincide. ✓
+
+Both hold, so exactly one $x$ satisfies the equation and $\exists! x\,(x + 5 = 7)$ is **true**. The two ways it can fail are worth seeing: $\exists! x\,(x^2 = 4)$ over $\mathbb{R}$ is **false** because *uniqueness* fails ($x = 2$ and $x = -2$ both work), even though the plain $\exists x\,(x^2 = 4)$ is still true; and $\exists! x\,(x^2 = 0)$ is **true**, since $x = 0$ is the only root. "Exactly one" is strictly stronger than "at least one", it always carries the extra uniqueness half.
+
 ![Two panels over a finite domain of objects: the universal quantifier checks that every object satisfies P, the existential quantifier needs at least one](./media/fol-forall-exists.png)
 
 ## Multiple Quantifiers
@@ -291,6 +297,12 @@ The two quantifier clauses are the heart of it: $\forall$ ranges over *all* ways
 
 Validity is the first-order analog of a propositional tautology, satisfiability of consistency, and entailment of logical consequence. What is *provable* by the inference rules below relates to what is *valid* by the metatheorems in the final section.
 
+**Worked example: exhibiting the distinguishing structures.** The three notions differ by *how many* structures must cooperate, and the way to see it is to actually build the structures. Take $\exists x\, \exists y\,(x \neq y)$, "there are at least two distinct things."
+- In the structure $\mathcal{M}_2$ with domain $D = \{0, 1\}$, choose $x = 0, y = 1$: since $0 \neq 1$, the sentence is **true**. One cooperating structure is all it takes, so the sentence is **satisfiable**.
+- In the structure $\mathcal{M}_1$ with domain $D = \{0\}$, the only choice is $x = y = 0$, and $0 \neq 0$ is false, so the sentence is **false**. A single structure where it fails means it is **not valid**.
+
+So $\exists x\, \exists y\,(x \neq y)$ is satisfiable but not valid, and $\mathcal{M}_1$ versus $\mathcal{M}_2$ is exactly the witness to that gap. By contrast $\forall x\, P(x) \to \exists x\, P(x)$ is **valid**: in *any* non-empty structure, if every element satisfies $P$ then (the domain being non-empty) at least one does, so no structure can make the antecedent true and the consequent false. Finally **entailment**: $\{\forall x\, P(x)\} \vDash P(c)$, because any structure in which *everything* satisfies $P$ in particular has the object named $c$ satisfy $P$, which is the semantic content of the universal-instantiation rule below.
+
 ## Common Patterns
 
 ### "For all... if..., then..."
@@ -309,6 +321,19 @@ Validity is the first-order analog of a propositional tautology, satisfiability 
 - Domain: $\mathbb{R}$
 - Meaning: "There exists a positive real number whose square is 4"
 - Truth value: TRUE ($x = 2$)
+
+### Building a multi-quantifier translation, phrase by phrase
+
+Nested quantifiers are where translation stalls. The trick is to grow the formula *outside-in*, one phrase at a time, choosing $\to$ or $\land$ at each quantifier by the two patterns above. Take **"every positive number has a smaller positive number"** (domain $\mathbb{R}$):
+
+1. *"every positive number ..."*: a universal restricted to positives, so $\forall x\,(x > 0 \to \cdots)$. A restricted **universal uses $\to$** (for *all* $x$, *if* positive, *then* ...).
+2. *"... has a smaller positive number"*: an existential restricted to positives, so $\exists y\,(y > 0 \land \cdots)$. A restricted **existential uses $\land$** (there *is* a $y$ that *is* positive *and* ...).
+3. *"... smaller [than $x$]"*: the innermost relation, $y < x$.
+
+Assembling outside-in:
+$$\forall x\,\Big(x > 0 \to \exists y\,\big(y > 0 \land y < x\big)\Big).$$
+
+The two connective choices are the crux, and they are *not* swappable. Using $\land$ with the universal, $\forall x\,(x > 0 \land \cdots)$, would wrongly assert that *every* real is positive; using $\to$ with the existential, $\exists y\,(y > 0 \to \cdots)$, is vacuously satisfied by any non-positive $y$ and says almost nothing. (The sentence is true over $\mathbb{R}$, witnessed by $y = x/2$, but false over the positive integers, where $1$ has no smaller positive integer, a reminder that the domain is part of the meaning.)
 
 ## Truth Tables for Quantified Statements
 
@@ -409,6 +434,10 @@ $$\forall x \exists y P(x, y) \not\equiv \exists y \forall x P(x, y)$$
 - $\exists x P(x)$ is FALSE when domain is empty
 
 **Example:** "All unicorns are blue" is vacuously true (there are no unicorns)
+
+**Why vacuous truth is forced, not an arbitrary convention.** It falls straight out of the finite conjunction/disjunction reading. Over a domain $\{a_1, \ldots, a_n\}$, $\forall x\, P(x)$ *is* the conjunction $P(a_1) \land \cdots \land P(a_n)$ and $\exists x\, P(x)$ *is* the disjunction $P(a_1) \lor \cdots \lor P(a_n)$. When the domain is **empty** there are no conjuncts and no disjuncts, leaving the *empty conjunction* and *empty disjunction*, whose values are pinned by their identity elements: an empty $\land$ is **true** (the identity of $\land$ is $\top$) and an empty $\lor$ is **false** (the identity of $\lor$ is $\bot$). That is exactly "$\forall$ over nothing is true, $\exists$ over nothing is false."
+
+**A mathematical instance.** The same effect appears whenever a restricted quantifier ranges over an empty set. $\forall x\,(x \in \varnothing \to P(x))$ is **true** for *every* predicate $P$, because the antecedent $x \in \varnothing$ is false for every $x$, making each conditional vacuously true. So "every element of the empty set is prime" and "every element of the empty set is composite" are *both* true at once, harmless precisely because there is no element to exhibit the conflict. This is exactly why the empty set is a subset of every set: $\varnothing \subseteq A$ unfolds to $\forall x\,(x \in \varnothing \to x \in A)$, which holds vacuously.
 
 ### Restricted Quantifiers
 
@@ -548,11 +577,31 @@ Q_1 x_1\, Q_2 x_2\, \cdots\, Q_n x_n\ \; M(x_1, \ldots, x_n), \qquad Q_i \in \{\
 $$
 You reach it by renaming bound variables apart (to avoid capture) and then pulling quantifiers outward with the scope equivalences already listed above, for example $\big(\forall x\, P(x)\big) \to Q \equiv \exists x\,\big(P(x) \to Q\big)$ (note the flip: a universal in the antecedent becomes existential when it moves out). PNF is the standard input format for the algorithms below and for automated theorem provers.
 
+**Worked example: converting to prenex form, line by line.** Put $\big(\forall x\, P(x)\big) \to \big(\exists y\, Q(y)\big)$ into prenex form.
+
+1. **Rename apart.** The bound variables $x$ and $y$ are already different, so nothing needs renaming. (If one letter were bound in two places, you would rename a copy first, to avoid one quantifier accidentally capturing the other's variable.)
+2. **Pull the antecedent's quantifier out.** A universal in the *antecedent* of $\to$ becomes an **existential** as it moves to the front: $\big(\forall x\, P(x)\big) \to R \ \equiv\ \exists x\,\big(P(x) \to R\big)$. With $R = \exists y\, Q(y)$ this gives
+$$\exists x\,\Big(P(x) \to \exists y\, Q(y)\Big).$$
+3. **Pull the consequent's quantifier out.** An existential in the *consequent* stays existential: $R \to \exists y\, Q(y) \ \equiv\ \exists y\,\big(R \to Q(y)\big)$, giving
+$$\exists x\, \exists y\,\big(P(x) \to Q(y)\big).$$
+
+That last line is the prenex form: all quantifiers up front, the quantifier-free matrix $P(x) \to Q(y)$ behind. The one subtlety is the **flip** in step 2, a quantifier crossing the arrow *from the left* reverses ($\forall \leftrightarrow \exists$); crossing *from the right* (step 3) it does not. Forgetting that flip is the classic error.
+
 **Skolemization.** Once in prenex form, we can eliminate existential quantifiers by naming their witnesses. An existential that sits inside some universals is replaced by a **Skolem function** of exactly those universals:
 $$
 \forall x\, \exists y\, R(x, y) \quad\rightsquigarrow\quad \forall x\, R\big(x, f(x)\big),
 $$
 where $f$ is a new **Skolem function** symbol. An existential with no universals in front of it becomes a **Skolem constant** ($\exists y\, \phi \rightsquigarrow \phi[c/y]$). The Skolem function *is* the dependency made explicit: $f(x)$ literally names "the $y$ that works for this $x$," the same dependency the $\forall x\,\exists y$ diagram drew. Skolemization does **not** preserve logical equivalence, but it preserves **satisfiability**, which is all that resolution-based theorem proving needs.
+
+**Worked example: Skolemizing concretely.** Each existential is replaced by a witness depending on exactly the universals in front of it.
+- **An existential behind two universals** takes a *two-argument* Skolem function:
+$$\forall x\, \forall y\, \exists z\, R(x, y, z) \quad\rightsquigarrow\quad \forall x\, \forall y\, R\big(x, y, f(x, y)\big).$$
+Both $x$ and $y$ come first, so the witness $z$ may depend on both, hence $f(x, y)$, not $f(x)$.
+- **A leading existential** (no universals in front) takes a Skolem **constant**:
+$$\exists w\, \forall x\, S(w, x) \quad\rightsquigarrow\quad \forall x\, S(c, x).$$
+Since $w$ was chosen before any $x$, one *fixed* object $c$ must serve for all $x$.
+
+Why only satisfiability survives: take $\forall x\, \exists y\,(y = x + 1)$ over $\mathbb{N}$, which is true. Skolemizing gives $\forall x\,\big(f(x) = x + 1\big)$, and interpreting $f$ as the genuine successor function $f(x) = x + 1$ makes it true, the *same* satisfiability. But the Skolemized formula is not logically *equivalent* to the original: it names a specific witness function $f$ that the original never mentioned. A resolution prover only asks whether *some* satisfying structure exists, so preserving satisfiability is exactly enough.
 
 ## Metatheory: Soundness, Completeness, and the Limits of FOL
 
