@@ -292,6 +292,57 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("Pearson r on (x, x^2) is ~0.98 but < 1", r > 0.97 && r < 1); }
 }
 
+// ================= Descriptive Statistics (Phase-2 worked examples) =================
+{
+  const med = (arr) => { const s = [...arr].sort((a, b) => a - b); const n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; };
+  // Mode: 7,8,8,9,9,9,10 -> 9 (freq 3); bimodal 3,3,5,7,7,9 -> {3,7}
+  { const set = [7, 8, 8, 9, 9, 9, 10]; const freq = {}; set.forEach((v) => freq[v] = (freq[v] || 0) + 1);
+    const max = Math.max(...Object.values(freq));
+    const modes = Object.keys(freq).filter((k) => freq[k] === max).map(Number);
+    check("mode of 7,8,8,9,9,9,10 is 9 (freq 3)", modes.length === 1 && modes[0] === 9 && max === 3);
+    const bi = [3, 3, 5, 7, 7, 9]; const bf = {}; bi.forEach((v) => bf[v] = (bf[v] || 0) + 1);
+    const bmax = Math.max(...Object.values(bf));
+    const bmodes = Object.keys(bf).filter((k) => bf[k] === bmax).map(Number).sort((a, b) => a - b);
+    check("3,3,5,7,7,9 is bimodal with modes 3 and 7", bmax === 2 && bmodes.length === 2 && bmodes[0] === 3 && bmodes[1] === 7); }
+  // Quartiles / IQR / five-number / fences on the carried dataset
+  { const d = [3, 7, 8, 12, 14, 15, 18, 21, 22, 25, 60];
+    const M = med(d); const lower = d.slice(0, 5), upper = d.slice(6);
+    const Q1 = med(lower), Q3 = med(upper), IQR = Q3 - Q1;
+    eq("desc median = 15", M, 15); eq("desc Q1 = 8", Q1, 8); eq("desc Q3 = 22", Q3, 22); eq("desc IQR = 14", IQR, 14);
+    const lf = Q1 - 1.5 * IQR, uf = Q3 + 1.5 * IQR;
+    eq("desc lower fence = -13", lf, -13); eq("desc upper fence = 43", uf, 43);
+    const outliers = d.filter((x) => x < lf || x > uf);
+    check("desc only outlier is 60", outliers.length === 1 && outliers[0] === 60);
+    eq("desc upper whisker = 25 (largest <= 43)", Math.max(...d.filter((x) => x <= uf)), 25);
+    eq("desc lower whisker = 3 (min, >= -13)", Math.min(...d.filter((x) => x >= lf)), 3);
+    // five-number summary
+    check("desc five-number summary = (3,8,15,22,60)", Math.min(...d) === 3 && Q1 === 8 && M === 15 && Q3 === 22 && Math.max(...d) === 60); }
+  // Population variance /N vs sample /(n-1) on 2,4,6,8,10
+  { const p = [2, 4, 6, 8, 10], mu = 6; const ss = p.reduce((s, x) => s + (x - mu) ** 2, 0);
+    eq("desc pop mean = 6", p.reduce((a, b) => a + b, 0) / p.length, 6);
+    eq("desc SS = 40", ss, 40);
+    eq("desc population sigma^2 = SS/N = 8", ss / p.length, 8);
+    eq("desc population sigma = sqrt(8) ~ 2.83", Math.sqrt(ss / p.length), 2.83, 0.005);
+    eq("desc sample s^2 = SS/(n-1) = 10", ss / (p.length - 1), 10);
+    eq("desc sample s = sqrt(10) ~ 3.16", Math.sqrt(ss / (p.length - 1)), 3.16, 0.005);
+    // z-scores off this population
+    const sig = Math.sqrt(ss / p.length);
+    eq("desc z of 10 ~ 1.41", (10 - mu) / sig, 1.4142, 0.001);
+    eq("desc z of 2 ~ -1.41", (2 - mu) / sig, -1.4142, 0.001); }
+  // Cross-scale z comparison: 85 (mean78,sd5) beats 90 (mean85,sd10) in standing
+  { const zX = (85 - 78) / 5, zY = (90 - 85) / 10;
+    eq("cross-scale z_X = 1.4", zX, 1.4); eq("cross-scale z_Y = 0.5", zY, 0.5);
+    check("standardized: the 85 outranks the 90", zX > zY); }
+  // Histogram bin rules: Sturges ~8, Freedman-Diaconis width ~7.76 -> ~8 bins
+  { const n = 100, IQRh = 18, range = 63;
+    const sturges = 1 + Math.log2(n);
+    eq("Sturges k = 1+log2(100) ~ 7.64", sturges, 7.6439, 0.001);
+    check("Sturges rounds to 8 bins", Math.round(sturges) === 8);
+    const fdw = 2 * IQRh * Math.pow(n, -1 / 3);
+    eq("Freedman-Diaconis width ~ 7.76", fdw, 7.756, 0.005);
+    check("FD bin count range/width ~ 8", Math.round(range / fdw) === 8); }
+}
+
 // ================= Propositional Logic =================
 {
   const B = [true, false];

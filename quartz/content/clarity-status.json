@@ -1742,12 +1742,12 @@
       ]
     },
     "descriptive-statistics.md": {
-      "contentHash": "sha1:05a8e3d8d1dd5a29",
+      "contentHash": "sha1:4306a39585d8cfa4",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+5subagents",
-      "overall": "mixed",
-      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Descriptive Statistics (central tendency, spread, visualization). This slice: 7 strong / 5 adequate / 5 thin / 1 missing.",
+      "overall": "strong",
+      "summary": "Phase-2 worked examples added for all former work-list items (mode, quartiles/IQR, population variance, z-scores, five-number summary + fences, histogram bin rules). 13 strong / 5 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "mean",
@@ -1763,8 +1763,8 @@
         },
         {
           "concept": "mode",
-          "quality": "thin",
-          "note": "defined, never computed (salary set has no repeats)",
+          "quality": "strong",
+          "note": "Now computed: 7,8,8,9,9,9,10 -> mode 9; bimodal 3,3,5,7,7,9 -> {3,7}; no-mode salary set; categorical mode blue.",
           "upgrade": "compute a concrete mode (2,4,4,4,5,5,7,9 -> 4, or a categorical tally)"
         },
         {
@@ -1775,8 +1775,8 @@
         },
         {
           "concept": "interquartile range (IQR) / quartile computation",
-          "quality": "thin",
-          "note": "IQR value only in a diagram caption; how Q1/Q3 are found never shown",
+          "quality": "strong",
+          "note": "Quartiles worked on 3,7,8,...,60 via Tukey-hinge convention (stated): median 15, Q1=8, Q3=22, IQR=14.",
           "upgrade": "work Q1/Q3 on 2,4,4,4,5,5,7,9 via median-of-halves -> Q1=4, Q3=6, IQR=2"
         },
         {
@@ -1787,8 +1787,8 @@
         },
         {
           "concept": "variance (population, /N)",
-          "quality": "thin",
-          "note": "the /N branch never produces a number",
+          "quality": "strong",
+          "note": "Population sigma^2 now produces a number: 2,4,6,8,10 -> SS=40, sigma^2=40/5=8, sigma~2.83, contrasted with sample s^2=10.",
           "upgrade": "recompute the 4,7,13,16 example with /N: 90/4=22.5 vs /(n-1)=30 side by side"
         },
         {
@@ -1806,20 +1806,20 @@
         },
         {
           "concept": "z-score / standardization",
-          "quality": "missing",
-          "note": "no standardization formula worked in descriptive stats (used later only implicitly)",
+          "quality": "strong",
+          "note": "New Standardization subsection: z=(x-mu)/sigma worked (z of 10 ~1.41) plus cross-scale comparison (85>90 in standing).",
           "upgrade": "define (x-mu)/sigma and work one (score 85, mean 70, sd 5 -> z=3)"
         },
         {
           "concept": "five-number summary + 1.5*IQR fences",
-          "quality": "thin",
-          "note": "defined in the boxplot section, never computed",
+          "quality": "strong",
+          "note": "Box-plot worked example: five-number (3,8,15,22,60), fences -13/43, outlier 60, whiskers 3 and 25.",
           "upgrade": "reduce one dataset to min/Q1/median/Q3/max and compute the whisker fences, check for outliers"
         },
         {
           "concept": "histogram bin-width rules (Sturges / Freedman-Diaconis)",
-          "quality": "thin",
-          "note": "formulas given, never evaluated",
+          "quality": "strong",
+          "note": "Both rules evaluated numerically: n=100 -> Sturges 7.64~8 bins, FD width~7.76 -> ~8 bins.",
           "upgrade": "plug one n (e.g. 100) into both rules to get a bin count"
         },
         {

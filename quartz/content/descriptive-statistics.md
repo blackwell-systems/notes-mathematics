@@ -34,7 +34,7 @@ For the salaries above: $\bar{x} = (40 + 45 + 50 + 55 + 310)/5 = 100$. The mean 
 
 **Median:** Sort the data and take the middle value. If $n$ is even, average the two middle values. For the salaries: the sorted data is 40, 45, **50**, 55, 310, so the median is 50. The median ignores how extreme the outliers are; it only cares about position.
 
-**Mode:** The most frequently occurring value. A dataset can have multiple modes or no mode. The mode is the only measure of center that works for categorical data (like "red, blue, green").
+**Mode:** The most frequently occurring value. To find it, tally how often each value appears and take the winner. For the quiz scores $7, 8, 8, 9, 9, 9, 10$, the value $9$ appears three times (more than any other), so the mode is $9$. A dataset can have multiple modes: $3, 3, 5, 7, 7, 9$ has two values tied at a count of two, so it is **bimodal** with modes $3$ and $7$. It can also have no mode at all when every value is distinct, which is exactly the case for the five salaries above ($40, 45, 50, 55, 310$ each occur once), so "mode" is silent there. The mode is the only measure of center that works for categorical data: for the colors "red, blue, blue, green" the mode is "blue".
 
 **When to use which:** For symmetric data, the mean and median are close and either works. For skewed data (income, housing prices, website visit durations), the median better represents the "typical" value because it is not pulled by the tail. This is why news reports use "median household income" rather than "mean household income."
 
@@ -54,7 +54,20 @@ These are also called **measures of dispersion** or **measures of variability**,
 
 **Range:** $\text{max} - \text{min}$. For Dataset A: $51 - 49 = 2$. For Dataset B: $90 - 10 = 80$. Simple, but it depends entirely on the two most extreme values.
 
-**Interquartile range (IQR):** $Q_3 - Q_1$, where $Q_1$ is the 25th percentile and $Q_3$ is the 75th percentile. The IQR captures the middle 50% of data and ignores outliers entirely.
+**Interquartile range (IQR):** $Q_3 - Q_1$, where $Q_1$ ("Q-one," the first quartile) is the 25th percentile and $Q_3$ ("Q-three," the third quartile) is the 75th percentile. The IQR captures the middle 50% of data and ignores outliers entirely.
+
+*How to find the quartiles.* Sort the data, split it at the median into a lower half and an upper half, and take the median of each half. (Several conventions exist for how to handle the middle value; this "median of each half" method, sometimes called the Tukey hinges, is the one most intro courses use and the one that matches the box-plot rules below.) Take the sorted dataset
+
+$$
+3,\ 7,\ 8,\ 12,\ 14,\ \underset{\text{median}}{\mathbf{15}},\ 18,\ 21,\ 22,\ 25,\ 60
+$$
+
+There are $n = 11$ values, so the median is the 6th, $15$. With an odd count we leave that middle value out of both halves:
+
+- Lower half: $3, 7, 8, 12, 14$. Its median (the 3rd of five) is $Q_1 = 8$.
+- Upper half: $18, 21, 22, 25, 60$. Its median is $Q_3 = 22$.
+
+So $\text{IQR} = Q_3 - Q_1 = 22 - 8 = 14$: the middle half of the data spans 14 units. Notice the outlier $60$ does not affect $Q_1$, $Q_3$, or the IQR at all, which is exactly the robustness the IQR is prized for. (This same dataset is carried into the box-plot section below, where the quartiles become the box and the $60$ is flagged as an outlier.)
 
 **Variance:** The average squared distance from the mean. The idea: measure how far each data point is from the center, square those distances (so negative and positive deviations do not cancel), and average them.
 
@@ -73,6 +86,14 @@ $$
 **Why $n-1$ instead of $n$?** This is called **Bessel's correction**. The intuition: when you compute the sample variance, you use $\bar{x}$ (the sample mean) instead of $\mu$ (the true mean). The sample mean is calculated from the same data, so it is always closer to the data points than $\mu$ might be. This makes the squared distances smaller on average, so dividing by $n$ would systematically underestimate the true variance. Dividing by $n-1$ corrects for this, making $s^2$ an **unbiased estimator** of $\sigma^2$.
 
 The concept of an "unbiased estimator" comes up repeatedly in statistics. It means that if you repeated the sampling process many times, the average of all your estimates would equal the true parameter.
+
+**Worked example (population vs sample, side by side).** Suppose the five values $2, 4, 6, 8, 10$ are the *entire* population. The mean is $\mu = (2+4+6+8+10)/5 = 6$. The deviations from $\mu$ are $-4, -2, 0, 2, 4$, and their squares are $16, 4, 0, 4, 16$, which sum to $40$. The population variance divides that sum by $N = 5$:
+
+$$
+\sigma^2 = \frac{40}{5} = 8, \qquad \sigma = \sqrt{8} \approx 2.83.
+$$
+
+If instead those same five numbers were a *sample* drawn from a larger population, you would divide by $n - 1 = 4$ (Bessel's correction) and get $s^2 = 40/4 = 10$, $s = \sqrt{10} \approx 3.16$. Same data, larger number, because the sample formula deliberately inflates the estimate to correct for the downward bias described above. Which one you report depends entirely on whether the numbers in hand *are* the whole population ($/N$) or a sample standing in for one ($/(n-1)$).
 
 **Standard deviation:** $s = \sqrt{s^2}$. The standard deviation has the same units as the data (dollars, meters, seconds), making it more interpretable than variance (which has squared units).
 
@@ -93,6 +114,32 @@ $s = \sqrt{30} \approx 5.48$
 ![A number line from 0 to 20 showing the four data points 4, 7, 13, 16 as dots, with the mean marked by a vertical line at 10. From the mean, a colored arrow runs to each point labeled with its deviation: minus 6 to the point at 4 and minus 3 to the point at 7 (in red, below the mean), and plus 3 to 13 and plus 6 to 16 (in green, above the mean). A shaded band spans mean minus s to mean plus s, from about 4.52 to 15.48, with a double-headed arrow marking its half-width s approximately 5.48. The title reads: standard deviation is approximately the typical distance of a point from the mean.](./media/stats-standard-deviation.png)
 
 The picture makes the "typical distance" reading concrete: the shaded band is one standard deviation wide on each side of the mean, and its half-width $s \approx 5.48$ sits between the small deviations ($\pm 3$) and the large ones ($\pm 6$), a single number summarizing how far the points typically stray from the center.
+
+### Standardization: z-scores
+
+Once you have a mean and a standard deviation, you can express any single value as **how many standard deviations it sits from the mean**. That number is the **z-score** (read "zee-score"), and computing it is called **standardizing**:
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
+read as "z equals x minus mu, all over sigma." (For a sample you use $\bar{x}$ and $s$ in place of $\mu$ and $\sigma$.) The subtraction re-centers the data so the mean sits at $z = 0$, and the division rescales it so one standard deviation becomes one unit. A positive $z$ means above the mean, negative means below, and the magnitude is the distance measured in standard deviations: $z = 2$ means "two standard deviations above the mean."
+
+**Worked example.** Take the population $2, 4, 6, 8, 10$ from above, with $\mu = 6$ and $\sigma \approx 2.83$. The value $x = 10$ standardizes to
+
+$$
+z = \frac{10 - 6}{2.83} = \frac{4}{2.83} \approx 1.41,
+$$
+
+so $10$ sits about $1.41$ standard deviations above the mean. By symmetry $x = 2$ gives $z \approx -1.41$, the same distance below.
+
+**Why standardize?** It puts values measured on different scales onto one common ruler so they can be compared. Suppose a student scores $85$ on test X, where the class averaged $78$ with a standard deviation of $5$, and $90$ on test Y, where the class averaged $85$ with a standard deviation of $10$. The raw $90$ looks better than the $85$, but standardized:
+
+$$
+z_X = \frac{85 - 78}{5} = 1.4, \qquad z_Y = \frac{90 - 85}{10} = 0.5.
+$$
+
+Relative to classmates, the $85$ was the stronger result ($1.4$ standard deviations above the mean versus only $0.5$). Z-scores are the foundation of the normal-distribution tables and the test statistics that appear throughout [inferential statistics](./inferential-statistics).
 
 ## Data Visualization
 
@@ -115,7 +162,21 @@ A histogram divides continuous data into equal-width **bins** and shows the freq
 - Taller bars mean more data points in that range
 - Look for: the center (where most data clusters), the spread (how wide the distribution is), the shape (symmetric vs. skewed), and any gaps or outliers
 
-**Bin width matters.** Too few bins hides the shape of the distribution, making everything look uniform. Too many bins creates noise, turning smooth distributions into jagged spikes. There is no single correct bin width; the goal is to reveal the underlying pattern without adding artifacts. Common rules of thumb include Sturges' rule ($k = 1 + \log_2 n$) and the Freedman-Diaconis rule (bin width $= 2 \cdot IQR \cdot n^{-1/3}$).
+**Bin width matters.** Too few bins hides the shape of the distribution, making everything look uniform. Too many bins creates noise, turning smooth distributions into jagged spikes. There is no single correct bin width; the goal is to reveal the underlying pattern without adding artifacts. Common rules of thumb include Sturges' rule ($k = 1 + \log_2 n$, which returns a bin *count*) and the Freedman-Diaconis rule (bin *width* $= 2 \cdot IQR \cdot n^{-1/3}$, which adapts to spread through the IQR and so resists outliers).
+
+**Worked example.** Suppose you have $n = 100$ exam scores spanning a range of $63$ points (from $35$ to $98$), with an interquartile range of $18$. Sturges' rule gives
+
+$$
+k = 1 + \log_2 100 = 1 + 6.64 = 7.64 \approx 8 \text{ bins.}
+$$
+
+Freedman-Diaconis gives a width of
+
+$$
+2 \cdot 18 \cdot 100^{-1/3} = 36 \cdot 0.2154 \approx 7.76,
+$$
+
+and dividing the range by that width, $63 / 7.76 \approx 8.1$, so again about $8$ bins. The two rules agree here (both landing near $8$), which is reassuring, but they need not: Freedman-Diaconis tends to suggest more bins than Sturges for large, heavy-tailed datasets because it keys off the IQR rather than just the count. Treat either number as a starting point, then adjust until the shape reads cleanly.
 
 ![Histogram of approximately normal data with the theoretical normal curve overlaid](./media/histogram-with-curve.png)
 
@@ -134,6 +195,29 @@ A box plot displays the **five-number summary** of a dataset in a single figure:
 - The **whiskers** extend from the box to the most extreme data points within $1.5 \times IQR$ of the box edges. Specifically, the lower whisker reaches to the smallest value $\geq Q_1 - 1.5 \cdot IQR$, and the upper whisker reaches to the largest value $\leq Q_3 + 1.5 \cdot IQR$
 - **Dots beyond the whiskers** are potential outliers
 - If the median line is not centered in the box, the distribution is skewed
+
+**Worked example (five-number summary and fences).** Carry over the sorted dataset from the quartile computation above:
+
+$$
+3,\ 7,\ 8,\ 12,\ 14,\ 15,\ 18,\ 21,\ 22,\ 25,\ 60
+$$
+
+We already found the median $15$, $Q_1 = 8$, and $Q_3 = 22$. The **five-number summary** is therefore
+
+$$
+\text{min} = 3, \quad Q_1 = 8, \quad \text{median} = 15, \quad Q_3 = 22, \quad \text{max} = 60.
+$$
+
+That is the box (from $8$ to $22$, split at $15$) before we place the whiskers. The whiskers do **not** just reach the min and max; they stop at the outlier fences. With $\text{IQR} = 14$:
+
+$$
+\text{lower fence} = Q_1 - 1.5 \cdot \text{IQR} = 8 - 21 = -13,
+$$
+$$
+\text{upper fence} = Q_3 + 1.5 \cdot \text{IQR} = 22 + 21 = 43.
+$$
+
+Now read the whiskers off the data. The lower whisker reaches the smallest value $\geq -13$, which is the min $3$. The upper whisker reaches the largest value $\leq 43$, which is $25$ (not $60$). The remaining point, $60$, lies beyond the upper fence, so it is plotted as an individual **outlier dot**. This is exactly why the whiskers are defined by fences rather than by the extremes: a single stray value like $60$ is isolated as a dot instead of silently stretching the whisker and hiding the outlier.
 
 ![Three box plots side by side showing groups with different medians, spreads, and outliers](./media/boxplot-comparison.png)
 
