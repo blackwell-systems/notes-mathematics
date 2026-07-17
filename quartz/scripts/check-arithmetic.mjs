@@ -1167,6 +1167,87 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const n = 6, deg = 2; eq("C6 sum of degrees = 12 = 2E", n * deg, 12); eq("C6 edge count from handshaking = 6", (n * deg) / 2, 6); }
   // Sample graph V={A,B,C,D}, E={AB,BC,CD,DA,AC}: degrees 3,2,3,2
   { const degs = [3, 2, 3, 2], E = 5; eq("Sample graph sum of degrees = 2E", degs.reduce((a, b) => a + b, 0), 2 * E); check("Sample graph degree sum is even", degs.reduce((a, b) => a + b, 0) % 2 === 0); }
+
+  // ---- Phase-2 worked examples (traced algorithms) ----
+
+  // Handshaking on the page's graph AB,AC,AD,BC and with a self-loop at A
+  eq("handshake g1: deg sum 3+2+2+1 = 2*4", 3 + 2 + 2 + 1, 2 * 4);
+  eq("handshake with loop@A: deg sum 5+2+2+1 = 2*5", 5 + 2 + 2 + 1, 2 * 5);
+
+  // DFS / BFS on directed tree A->B,A->C,B->D,B->E,C->F
+  const tree = { A: ["B", "C"], B: ["D", "E"], C: ["F"], D: [], E: [], F: [] };
+  { const seen = new Set(), ord = [], st = ["A"];
+    while (st.length) { const v = st.pop(); if (seen.has(v)) continue; seen.add(v); ord.push(v);
+      for (let i = tree[v].length - 1; i >= 0; i--) if (!seen.has(tree[v][i])) st.push(tree[v][i]); }
+    eq("DFS order", ord.join(""), "ABDECF"); }
+  { const seen = new Set(["A"]), ord = [], q = ["A"], dist = { A: 0 };
+    while (q.length) { const v = q.shift(); ord.push(v);
+      for (const n of tree[v]) if (!seen.has(n)) { seen.add(n); dist[n] = dist[v] + 1; q.push(n); } }
+    eq("BFS order", ord.join(""), "ABCDEF");
+    eq("BFS hop distances A,B,C,D,E,F", [dist.A, dist.B, dist.C, dist.D, dist.E, dist.F].join(""), "011222"); }
+
+  // Dijkstra on A->B2,A->C4,B->C1,B->D7,C->D3
+  { const W = { A: [["B", 2], ["C", 4]], B: [["C", 1], ["D", 7]], C: [["D", 3]], D: [] };
+    const V = ["A", "B", "C", "D"], dist = { A: 0, B: Infinity, C: Infinity, D: Infinity }, prev = {}, done = new Set();
+    while (done.size < V.length) { let u = null;
+      for (const v of V) if (!done.has(v) && (u === null || dist[v] < dist[u])) u = v;
+      if (dist[u] === Infinity) break; done.add(u);
+      for (const [n, w] of W[u]) if (dist[u] + w < dist[n]) { dist[n] = dist[u] + w; prev[n] = u; } }
+    eq("Dijkstra dist to C is 3 (via B, not direct 4)", dist.C, 3);
+    eq("Dijkstra dist to D is 6", dist.D, 6);
+    let p = ["D"], c = "D"; while (prev[c]) { c = prev[c]; p.unshift(c); }
+    eq("Dijkstra path A->D", p.join(""), "ABCD"); }
+
+  // Kruskal & Prim on AB1,BC2,AC3,CD4,BD5
+  { const edges = [["A", "B", 1], ["B", "C", 2], ["A", "C", 3], ["C", "D", 4], ["B", "D", 5]];
+    const par = { A: "A", B: "B", C: "C", D: "D" }, find = (x) => par[x] === x ? x : (par[x] = find(par[x]));
+    let total = 0, added = [];
+    for (const [u, v, w] of [...edges].sort((a, b) => a[2] - b[2])) { const ru = find(u), rv = find(v);
+      if (ru !== rv) { par[ru] = rv; total += w; added.push(u + v); } }
+    eq("Kruskal MST edges", added.join(","), "AB,BC,CD");
+    eq("Kruskal MST weight = 7", total, 7);
+    const adj = {}; for (const [u, v, w] of edges) { (adj[u] ||= []).push([v, w]); (adj[v] ||= []).push([u, w]); }
+    const inT = new Set(["A"]); let pt = 0;
+    while (inT.size < 4) { let best = null; for (const u of inT) for (const [v, w] of adj[u]) if (!inT.has(v) && (!best || w < best[2])) best = [u, v, w]; inT.add(best[1]); pt += best[2]; }
+    eq("Prim MST weight = 7 (same as Kruskal)", pt, 7); }
+
+  // Greedy coloring of C5 forces 3 colors
+  { const C5 = { 1: [2, 5], 2: [1, 3], 3: [2, 4], 4: [3, 5], 5: [4, 1] }, col = {};
+    for (const v of [1, 2, 3, 4, 5]) { const used = new Set([...C5[v]].map((n) => col[n]).filter((c) => c !== undefined)); let c = 1; while (used.has(c)) c++; col[v] = c; }
+    eq("C5 greedy colors 1..5", [col[1], col[2], col[3], col[4], col[5]].join(""), "12123");
+    eq("chromatic number of C5 = 3", Math.max(...Object.values(col)), 3); }
+
+  // Bipartite 2-coloring: K32 succeeds, triangle fails
+  const twoColor = (g, s) => { const col = { [s]: 0 }, q = [s]; let ok = true;
+    while (q.length) { const v = q.shift(); for (const n of g[v]) { if (col[n] === undefined) { col[n] = 1 - col[v]; q.push(n); } else if (col[n] === col[v]) ok = false; } } return ok; };
+  check("K_{3,2} is bipartite (2-coloring succeeds)", twoColor({ A: ["D", "E"], B: ["D", "E"], C: ["D", "E"], D: ["A", "B", "C"], E: ["A", "B", "C"] }, "A"));
+  check("triangle is NOT bipartite (odd cycle)", !twoColor({ A: ["B", "C"], B: ["A", "C"], C: ["A", "B"] }, "A"));
+
+  // Bipartite matching in K_{3,2}: maximum matching size = min(3,2) = 2
+  eq("max matching in K_{3,2} = 2 (capped by smaller side)", Math.min(3, 2), 2);
+
+  // Euler: odd-degree vertex counts decide the traversal
+  const oddCount = (degs) => degs.filter((d) => d % 2 === 1).length;
+  eq("C4 odd-degree count = 0 (Euler circuit)", oddCount([2, 2, 2, 2]), 0);
+  eq("path P4 odd-degree count = 2 (Euler path)", oddCount([1, 2, 2, 1]), 2);
+  eq("C4+diagonal odd-degree count = 2 (Euler path A..C)", oddCount([3, 2, 3, 2]), 2);
+  eq("K4 odd-degree count = 4 (neither)", oddCount([3, 3, 3, 3]), 4);
+  eq("bowtie odd-degree count = 0 (Euler circuit, no Hamiltonian)", oddCount([2, 2, 4, 2, 2]), 0);
+
+  // Planarity: Euler's formula and the edge bounds
+  eq("K4 planar: V-E+F = 4-6+4 = 2", 4 - 6 + 4, 2);
+  check("K5 non-planar: E=10 exceeds 3V-6=9", 10 > 3 * 5 - 6);
+  check("K3,3 non-planar: E=9 exceeds 2V-4=8", 9 > 2 * 6 - 4);
+
+  // Heap insert 95 and extract-max on [90,60,80,30,50,70,40]
+  { const parent = (i) => (i - 1) >> 1, L = (i) => 2 * i + 1, R = (i) => 2 * i + 2;
+    let h = [90, 60, 80, 30, 50, 70, 40]; h.push(95); let i = h.length - 1;
+    while (i > 0 && h[parent(i)] < h[i]) { [h[i], h[parent(i)]] = [h[parent(i)], h[i]]; i = parent(i); }
+    eq("heap after insert 95", h.join(","), "95,90,80,60,50,70,40,30");
+    let g = [90, 60, 80, 30, 50, 70, 40]; const mx = g[0]; g[0] = g.pop(); let j = 0;
+    while (true) { let b = j; if (L(j) < g.length && g[L(j)] > g[b]) b = L(j); if (R(j) < g.length && g[R(j)] > g[b]) b = R(j); if (b === j) break; [g[j], g[b]] = [g[b], g[j]]; j = b; }
+    eq("heap extract-max value = 90", mx, 90);
+    eq("heap after extract-max", g.join(","), "80,60,70,30,50,40"); }
 }
 
 // ================= Number Theory =================

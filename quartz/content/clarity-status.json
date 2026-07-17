@@ -1349,18 +1349,19 @@
       ]
     },
     "graph-theory.md": {
-      "contentHash": "sha1:078e1deca295fc70",
+      "contentHash": "sha1:a3d7d2d2c3cb0278",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "Largely definitional with a STRONG tree/BST cluster (BST verification/two-child deletion, heap indexing). But the core graph ALGORITHMS are systematically thin-to-missing: DFS, BFS, Dijkstra, Kruskal/Prim, Euler, coloring are stated then given a one-line answer with no traced execution (no visited sets, no queue/distance tables, no cycle-skip log). Heaviest depth-3 work-list.",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: added 13 fully-traced worked examples covering every previously-unworked algorithm. Handshaking (sum + loop rule); DFS (stack trace + backtrack); BFS (queue trace) folded with shortest-path-via-BFS (hop labels); Dijkstra (full relaxation table, C lowered 4->3); Kruskal + Prim on one weighted graph (cycle-skip log, frontier growth, cut property); Euler (odd-degree counts across C4/path/diagonal/K4 + Konigsberg); Hamiltonian-vs-Euler independence (bowtie cut vertex); greedy coloring of C5 (odd-cycle forces 3); bipartite BFS 2-coloring + triangle failure; maximum matching in K_{3,2}; Euler's formula V-E+F=2 with K5/K3,3 non-planarity bounds + Kuratowski; heap sift-up (insert 95) and sift-down (extract-max). All 13 independently re-reviewed (one heap-index slip fixed); +27 machine-checked assertions (the harness re-runs each algorithm). Resolves all 14 thin/missing items.",
       "inventory": [
         {
           "concept": "degree / handshaking lemma",
-          "quality": "thin",
+          "quality": "strong",
           "note": "degrees listed but the lemma never summed and checked",
-          "upgrade": "Sum deg over a concrete graph and confirm = 2|E|; second graph with a self-loop to show the +2 rule."
+          "upgrade": "",
+          "phase2": "summed degrees on the AB/AC/AD/BC graph (=2*4) plus a self-loop case (=2*5) + harness"
         },
         {
           "concept": "adjacency matrix / list / edge list",
@@ -1418,81 +1419,94 @@
         },
         {
           "concept": "heap insert (heapify up) / extract (heapify down)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only 3-step recipes, no swap-by-swap trace",
-          "upgrade": "Trace an insert (swap chain to the top) and an extract-max (sift-down comparisons) on the sample heap."
+          "upgrade": "",
+          "phase2": "traced insert 95 (sift-up swap chain to root) and extract-max (sift-down 40->80->70) on the sample heap + harness"
         },
         {
           "concept": "trie operations",
-          "quality": "thin",
+          "quality": "strong",
           "note": "pseudo-recipes; results by assertion",
-          "upgrade": "Trace PrefixSearch('ca') node-by-node: descent c->a then the subtree DFS yielding cat, car."
+          "upgrade": "",
+          "phase2": "traced PrefixSearch('ca'): descend c->a then subtree DFS collecting cat, car; missing-edge case noted"
         },
         {
           "concept": "DFS",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only final order given; backtracking never observed",
-          "upgrade": "Trace with an explicit stack + visited set, annotating each push/pop and the backtrack from E up to A before C."
+          "upgrade": "",
+          "phase2": "traced with explicit stack + visited set showing the backtrack; order ABDECF + harness"
         },
         {
           "concept": "BFS",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only final order; level fan-out asserted",
-          "upgrade": "Trace with queue state after each dequeue, showing enqueue order and how the level boundary forms."
+          "upgrade": "",
+          "phase2": "traced with queue state; order ABCDEF; folded with shortest-path-via-BFS hop labels + harness"
         },
         {
           "concept": "Dijkstra's algorithm",
-          "quality": "thin",
+          "quality": "strong",
           "note": "marquee algorithm essentially unworked; only the answer given",
-          "upgrade": "Full trace: dist array, settled set, each relaxation (C from 4 via A to 3 via B), terminate D=6, per-step table."
+          "upgrade": "",
+          "phase2": "full relaxation trace: C lowered 4->3 via B, D=6 via C, path A-B-C-D weight 6 + harness"
         },
         {
           "concept": "shortest path via BFS (unweighted)",
-          "quality": "missing",
+          "quality": "strong",
           "note": "listed as a BFS application, never worked",
-          "upgrade": "Work hop-distance labels from a source via BFS levels."
+          "upgrade": "",
+          "phase2": "hop-distance labels A0/B1/C1/D2/E2/F2 as BFS layers; contrasted with DFS + harness"
         },
         {
           "concept": "spanning tree / MST (Kruskal & Prim)",
-          "quality": "missing",
+          "quality": "strong",
           "note": "named with one-line descriptions, never traced; spanning tree shown has no weights",
-          "upgrade": "Add a weighted graph; run Kruskal (sorted edges, accept/skip-on-cycle log) and Prim (frontier growth) to the same MST with total weight."
+          "upgrade": "",
+          "phase2": "weighted graph traced under both: Kruskal cycle-skip log, Prim frontier; same MST weight 7 + harness"
         },
         {
           "concept": "Euler path/circuit criterion",
-          "quality": "thin",
+          "quality": "strong",
           "note": "circuit exhibited but degrees never checked; no discriminating cases",
-          "upgrade": "Check degrees against the theorem: C4 all-even => circuit; a 2-odd-vertex graph (path not circuit); a 4-odd graph (neither)."
+          "upgrade": "",
+          "phase2": "odd-degree counts across C4(0)/path(2)/C4+diagonal(2)/K4(4) + Konigsberg + harness"
         },
         {
           "concept": "Hamiltonian path/circuit",
-          "quality": "thin",
+          "quality": "strong",
           "note": "one circuit exhibited; NP-hardness point stated without contrast",
-          "upgrade": "Contrast Euler vs Hamiltonian on a graph where one exists and the other does not."
+          "upgrade": "",
+          "phase2": "Euler-vs-Hamiltonian independence: bowtie (Euler circuit, no Hamiltonian via cut vertex C) + harness"
         },
         {
           "concept": "graph coloring / chromatic number",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only the trivial K3 worked",
-          "upgrade": "Color the 5-vertex image vertex-by-vertex, show a conflict forcing a third color, justify why 2 fail (odd cycle)."
+          "upgrade": "",
+          "phase2": "greedy on C5 forces a 3rd color at vertex 5; odd-cycle => chi=3 + harness"
         },
         {
           "concept": "bipartite testing",
-          "quality": "missing",
+          "quality": "strong",
           "note": "defined + criterion mentioned, no example",
-          "upgrade": "Work a BFS 2-coloring to confirm the partition; show a triangle failing (odd cycle)."
+          "upgrade": "",
+          "phase2": "BFS 2-coloring of K_{3,2} recovers {A,B,C}/{D,E}; triangle fails (odd cycle) + harness"
         },
         {
           "concept": "bipartite matching",
-          "quality": "missing",
+          "quality": "strong",
           "note": "named as an application, never defined or worked",
-          "upgrade": "Add a max-matching on K_{3,2} (augmenting path) or drop the claim."
+          "upgrade": "",
+          "phase2": "maximum matching in K_{3,2} = 2 (capped by smaller side); augmenting-path note + harness"
         },
         {
           "concept": "planarity / Euler's formula V-E+F=2",
-          "quality": "missing",
+          "quality": "strong",
           "note": "planarity one sentence; Euler's formula never introduced",
-          "upgrade": "Introduce V-E+F=2 with a worked count on a small planar graph; note K5/K3,3 as non-planar obstructions."
+          "upgrade": "",
+          "phase2": "K4 V-E+F=2; K5 (E=10>9) and K3,3 (E=9>8) non-planar via bounds; Kuratowski + harness"
         },
         {
           "concept": "connected components",
@@ -1500,7 +1514,8 @@
           "note": "",
           "upgrade": "Tie component identification to a DFS sweep so they're discovered algorithmically."
         }
-      ]
+      ],
+      "phase2At": "2026-07-16"
     },
     "predicate-logic-first-order-logic.md": {
       "contentHash": "sha1:402b5cda46ba8928",

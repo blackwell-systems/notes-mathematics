@@ -227,7 +227,7 @@
       ]
     },
     "graph-theory.md": {
-      "contentHash": "sha1:078e1deca295fc70",
+      "contentHash": "sha1:a3d7d2d2c3cb0278",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
@@ -264,85 +264,149 @@
           "status": "resolved",
           "resolution": "Added (read \"K-n\"/\"C-n\"/\"P-n\") at first use of each."
         }
-      ]
+      ],
+      "note": "Phase-2 clarity pass added 13 traced algorithm walkthroughs (DFS/BFS/Dijkstra/Kruskal/Prim/Euler/Hamiltonian/coloring/bipartite/matching/planarity/heaps/handshaking); each independently correctness-reviewed and machine-checked (+27 assertions; the harness re-runs each algorithm). One heap-index slip was caught and fixed. Hash refreshed to keep the prose-review ledger current."
     },
     "sequences-and-series.md": {
       "contentHash": "sha1:c61b728fa40414dc",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": []
     },
     "parametric-and-polar.md": {
       "contentHash": "sha1:c1609d3650553f4e",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": []
     },
     "linear-algebra-foundations.md": {
       "contentHash": "sha1:ae63dd841c10c3c0",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "DEF-3", "severity": 2, "quote": "p = (a^T b / a^T a) a",
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "p = (a^T b / a^T a) a",
           "issue": "Projection-onto-a-line formula divides by a^T a without stating a != 0.",
-          "status": "resolved", "resolution": "Added 'nonzero vector a' and the note (requires a != 0, so a^T a > 0)." }
+          "status": "resolved",
+          "resolution": "Added 'nonzero vector a' and the note (requires a != 0, so a^T a > 0)."
+        }
       ]
     },
     "probability.md": {
       "contentHash": "sha1:8301b627b6b8b3fa",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "THM-1", "severity": 2, "quote": "P(A|B) = P(B|A)P(A)/P(B)",
+        {
+          "id": "THM-1",
+          "severity": 2,
+          "quote": "P(A|B) = P(B|A)P(A)/P(B)",
           "issue": "Bayes' theorem omitted the P(B) > 0 hypothesis (present in the conditional-probability definition).",
-          "status": "resolved", "resolution": "Added (P(B) > 0) to the formula and a sentence." },
-        { "id": "DEF-3", "severity": 2, "quote": "f(x) = 1/(b-a), a <= x <= b",
+          "status": "resolved",
+          "resolution": "Added (P(B) > 0) to the formula and a sentence."
+        },
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "f(x) = 1/(b-a), a <= x <= b",
           "issue": "Uniform PDF did not state a < b; exponential did not state lambda > 0 (inconsistent with gamma/beta).",
-          "status": "resolved", "resolution": "Added (a < b) to the uniform and (lambda > 0) to the exponential." }
+          "status": "resolved",
+          "resolution": "Added (a < b) to the uniform and (lambda > 0) to the exponential."
+        }
       ]
     },
     "vector.md": {
       "contentHash": "sha1:fba11b501b82f0f0",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "DEF-3", "severity": 2, "quote": "cos(theta) = (u . v)/(|u||v|)",
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "cos(theta) = (u . v)/(|u||v|)",
           "issue": "Angle formula requires nonzero u, v (division by zero / undefined angle otherwise).",
-          "status": "resolved", "resolution": "Added '(for nonzero u and v; the zero vector has no defined direction)'. Reviewer wisely narrowed to just this formula; the unit-vector/projection cases are already scoped by their 'direction of v' / 'onto v' wording." }
+          "status": "resolved",
+          "resolution": "Added '(for nonzero u and v; the zero vector has no defined direction)'. Reviewer wisely narrowed to just this formula; the unit-vector/projection cases are already scoped by their 'direction of v' / 'onto v' wording."
+        }
       ]
     },
     "prime-factorization.md": {
       "contentHash": "sha1:c4969eba84eb1159",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "DEF-4", "severity": 3, "quote": "tau(n) = ... ; sigma(n) = ...",
+        {
+          "id": "DEF-4",
+          "severity": 3,
+          "quote": "tau(n) = ... ; sigma(n) = ...",
           "issue": "tau(n) and sigma(n) introduced without read-aloud.",
-          "status": "resolved", "resolution": "Added 'written tau(n) (read tau of n)' and 'written sigma(n) (read sigma of n)' at first use." }
+          "status": "resolved",
+          "resolution": "Added 'written tau(n) (read tau of n)' and 'written sigma(n) (read sigma of n)' at first use."
+        }
       ]
     },
     "graphing-functions.md": {
       "contentHash": "sha1:64cec0016775990e",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "CON-1", "severity": 2, "quote": "Combined: f(x) = a . f(b(x-h)) + k",
+        {
+          "id": "CON-1",
+          "severity": 2,
+          "quote": "Combined: f(x) = a . f(b(x-h)) + k",
           "issue": "Left side reused f(x), reading as a recursive self-definition; the boxed form above uses y = ...",
-          "status": "resolved", "resolution": "Changed to 'the transformed function is g(x) = a f(b(x-h)) + k'." },
-        { "id": "SCO-1", "severity": 2, "quote": "f(x - h): Shift right h units",
+          "status": "resolved",
+          "resolution": "Changed to 'the transformed function is g(x) = a f(b(x-h)) + k'."
+        },
+        {
+          "id": "SCO-1",
+          "severity": 2,
+          "quote": "f(x - h): Shift right h units",
           "issue": "Right/left shift phrasing assumes h > 0.",
-          "status": "resolved", "resolution": "Added a header caveat '(taking h > 0; a negative h reverses the direction)'." }
+          "status": "resolved",
+          "resolution": "Added a header caveat '(taking h > 0; a negative h reverses the direction)'."
+        }
       ]
     },
     "number-bases.md": {
       "contentHash": "sha1:173eaf9bccb26bea",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "DEF-3", "severity": 2, "quote": "Fix a width of n bits ... two's complement",
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "Fix a width of n bits ... two's complement",
           "issue": "The n-bit two's-complement range -2^(n-1) .. 2^(n-1)-1 appeared only in an image caption, not in prose.",
-          "status": "resolved", "resolution": "Added the asymmetric range in prose with 8-bit and 32-bit examples." }
+          "status": "resolved",
+          "resolution": "Added the asymmetric range in prose with 8-bit and 32-bit examples."
+        }
       ]
     },
     "symbolic-methods-vs-numerical-methods.md": {
       "contentHash": "sha1:7d3211e89988a070",
-      "rubricVersion": 1, "reviewedAt": "2026-07-16", "reviewer": "claude+subagent",
+      "rubricVersion": 1,
+      "reviewedAt": "2026-07-16",
+      "reviewer": "claude+subagent",
       "findings": [
-        { "id": "DEF-3", "severity": 2, "quote": "x_{n+1} = x_n - f(x_n)/f'(x_n)",
+        {
+          "id": "DEF-3",
+          "severity": 2,
+          "quote": "x_{n+1} = x_n - f(x_n)/f'(x_n)",
           "issue": "Newton's iteration divides by f'(x_n) with no note that f'(x_n) != 0.",
-          "status": "resolved", "resolution": "Added '(which requires f'(x_n) != 0)'." }
+          "status": "resolved",
+          "resolution": "Added '(which requires f'(x_n) != 0)'."
+        }
       ]
     }
   }

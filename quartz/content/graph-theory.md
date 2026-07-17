@@ -354,6 +354,8 @@ $$
 
 **Common pitfall:** Students sometimes forget that loops (edges from a vertex to itself) count twice toward that vertex's degree, because a loop touches the same vertex at both endpoints.
 
+**Worked example: verifying the lemma (and the loop rule).** For the graph above, sum the degrees: $\deg(A) + \deg(B) + \deg(C) + \deg(D) = 3 + 2 + 2 + 1 = 8$. The graph has $4$ edges (AB, AC, AD, BC), and $2|E| = 2 \cdot 4 = 8$. They match. Now add a **self-loop** at $A$. The loop contributes $2$ to $\deg(A)$ (it touches $A$ at both ends), so $\deg(A) = 5$ and the degree sum becomes $5 + 2 + 2 + 1 = 10$; the edge count is now $5$, and $2|E| = 10$ still matches. That is exactly why the loop-counts-twice rule is needed: without it the identity would break.
+
 ### In-degree and Out-degree (Directed Graphs)
 
 **In-degree:** Number of edges pointing into a vertex.
@@ -487,6 +489,19 @@ graph LR
 **Properties:**
 - Bipartite if and only if the graph contains no odd-length cycles
 - Applications: Matching problems, scheduling
+
+**Worked example: testing bipartiteness by 2-coloring.** The "no odd cycle" criterion is checked mechanically by a BFS that $2$-colors as it goes: color the start $0$, color every neighbor the opposite, and watch for a clash. On the graph above (this is $K_{3,2}$, whose two sides we are about to recover):
+
+```
+color A = 0
+  neighbors D, E -> color 1
+    from D: A already 0 (ok), B -> color 0, C -> color 0
+    from E: A, B, C all already 0 (ok, opposite of E's 1)
+```
+
+No edge ever joins two same-colored vertices, so the graph **is** bipartite, and the two colors *are* the partition: $\{A, B, C\}$ (color 0) and $\{D, E\}$ (color 1). Contrast a **triangle** A–B–C: color $A = 0$, $B = 1$, and then $C$ is adjacent to both $A$ (needs $\ne 0$) and $B$ (needs $\ne 1$), an impossible demand, so the $2$-coloring **fails**, confirming the triangle (an odd cycle) is not bipartite.
+
+**Worked example: a maximum matching.** A **matching** is a set of edges no two of which share an endpoint (a set of disjoint pairings). In $K_{3,2}$ above, pair $A$–$D$ and $B$–$E$; these two edges share no vertex, so this is a matching of size $\mathbf{2}$, leaving $C$ unmatched. Can we do better? No: *every* edge uses one of the only two right-hand vertices $\{D, E\}$, so at most $2$ edges can be pairwise disjoint, and the matching size is capped by the smaller side. Size $2$ is therefore **maximum**. (When a matching is not yet maximum you enlarge it along an *augmenting path*, an alternating unmatched–matched–unmatched path between two free vertices; here no such path exists from $C$, which certifies optimality. Maximum matching models assigning jobs to workers, and the bipartite structure is what makes it efficiently solvable.)
 
 ### Tree
 
@@ -1120,6 +1135,32 @@ Tree structure:
 
 **Time:** $O(\log n)$
 
+**Worked example: insert (sift up) and extract-max (sift down).** Start from the sample max-heap `[90, 60, 80, 30, 50, 70, 40]` (indices $0$–$6$; parent of $i$ is $\lfloor (i-1)/2 \rfloor$).
+
+**Insert 95.** Place it at the next free slot, index $7$, then bubble it up while it is larger than its parent:
+
+```
+place 95 at index 7;  parent = index 3 (value 30):  95 > 30 -> swap
+  95 now at index 3;  parent = index 1 (value 60):  95 > 60 -> swap
+  95 now at index 1;  parent = index 0 (value 90):  95 > 90 -> swap
+  95 now at index 0 (root); stop
+result: [95, 90, 80, 60, 50, 70, 40, 30]
+```
+
+The new maximum climbed a single root-to-leaf path in $3$ swaps ($O(\log n)$), and every swap restored the parent-larger-than-child property one level up.
+
+**Extract-max.** Remove the root $90$, move the last element $40$ into the root, then sift it down, each step swapping with the **larger** child until no child is bigger:
+
+```
+remove 90; move last element 40 to the root (index 0)
+  children of index 0: 60 (idx 1), 80 (idx 2); larger is 80 -> 40 < 80, swap
+  40 now at index 2; only child 70 (idx 5) (the heap now spans indices 0-5); 40 < 70, swap
+  40 now at index 5; no children; stop
+result: [80, 60, 70, 30, 50, 40],  extracted max = 90
+```
+
+Sifting *down* toward the larger child is what keeps the biggest remaining element at the root; swapping toward the smaller child would violate the heap property immediately.
+
 **3. Build Heap:**
 Create heap from unsorted array.
 
@@ -1220,6 +1261,20 @@ PrefixSearch("ca"):
     Navigate to node 'a' (following c → a)
     Collect all words in subtree: ["cat", "car"]
 ```
+
+**Worked example (traced on the trie above).** The trie stores `cat, car, dog, dodge`. To find every word beginning with `ca`, first *descend* the prefix one character at a time, then *collect* the whole subtree hanging below where the prefix ends:
+
+```
+descend the prefix "ca":
+  root --c--> node C        (exists)
+  C    --a--> node CA       (exists)   <- prefix "ca" ends here
+collect all end-of-word markers in the subtree rooted at CA (a depth-first sweep):
+  CA --t--> CAT*   -> "cat"
+  CA --r--> CAR*   -> "car"
+result: ["cat", "car"]
+```
+
+The `dog`/`dodge` branch under the root's `D` child is never touched, because the descent left the `C` subtree at the very first character. The prefix walk costs one step per character ($O(m)$ for a length-$m$ prefix), and only the matching subtree is swept, which is exactly why a trie beats scanning a word list for prefix queries. Had the descent hit a missing edge (say prefix `cz`, with no `z` under `CA`), the search would stop right there and return the empty list.
 
 **Trie Advantages:**
 - Faster than hash table for prefix queries
@@ -1487,6 +1542,19 @@ graph TD
 
 DFS starting from A: A → B → D → E → C → F
 
+**Worked example (traced with an explicit stack).** DFS runs on a **stack** (last-in, first-out) plus a **visited** set. Push the start, then repeatedly pop the top, visit it if it is new, and push its unvisited neighbors (here pushed so the alphabetically-first neighbor is processed first):
+
+```
+pop A -> visit A;  push C, B     stack: [C, B]
+pop B -> visit B;  push E, D     stack: [C, E, D]
+pop D -> visit D;  (no children) stack: [C, E]
+pop E -> visit E;  (no children) stack: [C]
+pop C -> visit C;  push F        stack: [F]
+pop F -> visit F;  (no children) stack: []
+```
+
+Visit order: **A → B → D → E → C → F**. Watch the **backtrack**: after D and E dead-end, the stack still holds C, so exploration climbs back up to A's other branch and descends again. That plunge-then-backtrack is the signature of DFS, and it is exactly what the stack encodes.
+
 **Applications:**
 - Finding connected components
 - Detecting cycles
@@ -1507,6 +1575,19 @@ DFS starting from A: A → B → D → E → C → F
 **Example (same graph):**
 
 BFS starting from A: A → B → C → D → E → F
+
+**Worked example (traced with a queue), and shortest paths.** BFS runs on a **queue** (first-in, first-out). Enqueue the start, then repeatedly dequeue a vertex and enqueue its unvisited neighbors, recording each vertex's **hop distance** from A the moment it is first reached:
+
+```
+dequeue A (dist 0) -> enqueue B, C   queue: [B, C]
+dequeue B (dist 1) -> enqueue D, E   queue: [C, D, E]
+dequeue C (dist 1) -> enqueue F      queue: [D, E, F]
+dequeue D (dist 2)                   queue: [E, F]
+dequeue E (dist 2)                   queue: [F]
+dequeue F (dist 2)                   queue: []
+```
+
+Visit order: **A → B → C → D → E → F**. Because BFS fully drains one level before starting the next, the round in which a vertex is first reached *is* its distance from A in edges: $A = 0$; $B, C = 1$; $D, E, F = 2$. This is the **shortest-path-via-BFS** technique for unweighted graphs: the BFS layers are the distance labels, so BFS solves unweighted shortest paths for free. (DFS does not: its order A → B → D → E → C → F reaches C only after a deep detour, which would misreport C's distance as large when it is really $1$. Level-order is what makes BFS, not DFS, the shortest-path tool.)
 
 ![BFS vs DFS traversal order comparison on the same graph](./media/bfs-vs-dfs.png)
 
@@ -1537,6 +1618,18 @@ graph LR
 ```
 
 Shortest path from A to D: A → B → C → D (weight: 2+1+3 = 6)
+
+**Worked example (full relaxation trace).** Dijkstra keeps a tentative **distance** to every vertex ($0$ for the source, $\infty$ for the rest) and repeatedly *settles* the nearest unsettled vertex, then **relaxes** its outgoing edges (if the route through it is shorter, lower the neighbor's distance). Source A:
+
+```
+init:          A=0,  B=inf,  C=inf,  D=inf
+settle A (0):  relax A->B: 0+2=2 (B=2);  A->C: 0+4=4 (C=4)
+settle B (2):  relax B->C: 2+1=3 < 4  => C=3 (via B!);  B->D: 2+7=9 (D=9)
+settle C (3):  relax C->D: 3+3=6 < 9  => D=6 (via C)
+settle D (6):  done
+```
+
+The decisive event is at **settle B**: the direct edge A→C costs $4$, but the detour A→B→C costs only $2 + 1 = 3$, so C's tentative distance is **lowered from 4 to 3**. That is precisely the non-obvious case Dijkstra exists for, the shortest route to C is *not* its direct edge. Following D's back-pointers ($D \leftarrow C \leftarrow B \leftarrow A$) gives the path **A → B → C → D** of weight $2 + 1 + 3 = \mathbf{6}$. Always settling the smallest tentative distance (here in the order A, B, C, D) is what guarantees a distance is final the moment its vertex is settled, and it is why Dijkstra requires non-negative weights: a later negative edge could otherwise undercut an already-settled value.
 
 ### Spanning Tree
 
@@ -1572,6 +1665,40 @@ graph LR
 - **Kruskal's Algorithm:** Add edges in order of increasing weight, skip if creates cycle
 - **Prim's Algorithm:** Grow tree from starting vertex, always add minimum-weight edge
 
+**Worked example: Kruskal and Prim on the same weighted graph.** Take the graph on $\{A, B, C, D\}$ with undirected weighted edges $AB(1)$, $BC(2)$, $AC(3)$, $CD(4)$, $BD(5)$:
+
+```mermaid
+graph LR
+    A ---|1| B
+    B ---|2| C
+    A ---|3| C
+    C ---|4| D
+    B ---|5| D
+```
+
+**Kruskal** sorts every edge by weight and adds each one unless it would close a cycle (tracked with a union-find of which vertices are already joined):
+
+```
+sorted:  AB(1), BC(2), AC(3), CD(4), BD(5)
+AB(1): ADD   tree {AB}         total 1
+BC(2): ADD   tree {AB,BC}      total 3
+AC(3): SKIP  A and C already joined (A-B-C) -> would form a cycle
+CD(4): ADD   tree {AB,BC,CD}   total 7
+BD(5): SKIP  B and D already joined
+```
+
+MST $= \{AB, BC, CD\}$, total weight $\mathbf{7}$, with exactly $n - 1 = 3$ edges as every spanning tree of four vertices must have.
+
+**Prim** instead grows one tree outward from a seed (start at $A$), each step adding the cheapest edge leaving the current tree:
+
+```
+tree {A}:     cheapest leaving edge AB(1) -> add B    total 1
+tree {A,B}:   cheapest leaving edge BC(2) -> add C    total 3   (AC(3), BD(5) cost more)
+tree {A,B,C}: cheapest leaving edge CD(4) -> add D    total 7
+```
+
+Prim reaches the **same** tree and weight $7$ by a different route: Kruskal sorts globally and rejects cycle-closing edges, Prim grows locally from a seed and only ever looks at the frontier. Both are correct for the same reason, the **cut property**: the cheapest edge crossing any partition of the vertices is always safe to include in some MST.
+
 ## Special Properties
 
 ### Eulerian Path and Circuit
@@ -1596,6 +1723,14 @@ Circuit: A → B → C → D → A (visits all 4 edges once)
 - A connected graph has an **Eulerian circuit** if and only if every vertex has even degree
 - A connected graph has an **Eulerian path** if and only if exactly 0 or 2 vertices have odd degree
 
+**Worked example: reading the answer off the degrees.** The theorem converts "does an edge-traversal exist?" into a single count, *how many vertices have odd degree*:
+- **C4** above (A–B–C–D–A): every vertex has degree $2$, so **0** odd vertices → an **Eulerian circuit** exists (the circuit A→B→C→D→A shown).
+- **A path A–B–C–D**: $\deg(A) = \deg(D) = 1$ and $\deg(B) = \deg(C) = 2$, so **2** odd vertices → an **Eulerian path** exists but no circuit, and it must *start and end at the two odd vertices* A and D.
+- **The C4-with-diagonal** (A–B–C–D–A plus A–C, the Hamiltonian example below): $\deg(A) = \deg(C) = 3$, $\deg(B) = \deg(D) = 2$, so **2** odd vertices → an Eulerian path from A to C, still no circuit.
+- **$K_4$** (all six edges present): every vertex has degree $3$, so **4** odd vertices → **neither** an Eulerian path nor a circuit.
+
+The lone number "how many odd-degree vertices" ($0$, $2$, or more) decides the question outright, which is what makes Euler's criterion so sharp. It is exactly the resolution of the **Seven Bridges of Königsberg**: all four land masses had odd degree, so no walk crossing every bridge once can exist.
+
 ### Hamiltonian Path and Circuit
 
 **Hamiltonian Path:** A path that visits every vertex exactly once.
@@ -1616,6 +1751,12 @@ graph LR
 Circuit: A → B → C → D → A (visits all 4 vertices once)
 
 **Note:** No simple theorem exists for determining if a Hamiltonian path/circuit exists (NP-complete problem).
+
+**Worked example: Euler and Hamiltonian are independent.** Neither property implies the other, which is clearest when they come apart on concrete graphs:
+- The **C4-with-diagonal** just above has the Hamiltonian circuit A→B→C→D→A (every *vertex* once), yet because A and C have odd degree it has *no* Eulerian circuit (only an Eulerian path). So: Hamiltonian, but not Euler-circuit.
+- A **"bowtie"**, two triangles A–B–C and C–D–E sharing the single vertex C, has every vertex of even degree ($A, B, D, E$ are $2$; $C$ is $4$), so it *does* have an Eulerian circuit, yet it has **no** Hamiltonian circuit: any cycle through all five vertices would have to pass through the shared vertex C twice, which a Hamiltonian circuit forbids. So: Euler-circuit, but not Hamiltonian.
+
+One property is about *edges* (traverse each once, decided cheaply by a degree count) and the other about *vertices* (visit each once, with no easy criterion, NP-complete). The bowtie's shared vertex C is a **cut vertex**, and a cut vertex is exactly the kind of obstruction that kills a Hamiltonian circuit while leaving the Eulerian one intact.
 
 ![Eulerian circuit traversing every edge once vs Hamiltonian path visiting every vertex once](./media/eulerian-hamiltonian.png)
 
@@ -1639,6 +1780,18 @@ This triangle needs 3 colors (chromatic number = 3):
 - B: Blue  
 - C: Green
 
+**Worked example: greedy coloring, and why an odd cycle forces a third color.** Color a **5-cycle** $C_5$ (vertices 1–2–3–4–5–1) one at a time, always giving each vertex the lowest-numbered color not already used by a colored neighbor:
+
+```
+vertex 1: neighbors colored {}      -> color 1
+vertex 2: neighbor 1 uses {1}       -> color 2
+vertex 3: neighbor 2 uses {2}       -> color 1
+vertex 4: neighbor 3 uses {1}       -> color 2
+vertex 5: neighbors 4,1 use {2,1}   -> color 3   <- third color forced
+```
+
+Vertex $5$ is adjacent to vertex $4$ (color 2) *and* vertex $1$ (color 1), so both existing colors are blocked and a **third** is forced. Two colors genuinely cannot work: a proper $2$-coloring would force the colors to alternate around the cycle, but an **odd** cycle has no consistent alternation (walking $1, 2, 1, 2, \dots$ around five vertices returns to vertex $1$'s neighbor on the wrong color). So $\chi(C_5) = 3$. In general a graph is $2$-colorable if and only if it has no odd cycle, which is precisely the bipartite test.
+
 **Applications:**
 - Scheduling (avoiding conflicts)
 - Register allocation in compilers
@@ -1650,4 +1803,8 @@ This triangle needs 3 colors (chromatic number = 3):
 A graph is **planar** if it can be drawn in the plane with no two edges crossing (except at shared endpoints).
 
 **Four Color Theorem:** Any planar graph can be colored with at most 4 colors.
+
+**Worked example: Euler's formula, and why $K_5$ is not planar.** For any *connected planar* drawing, **Euler's formula** ties together the number of vertices $V$, edges $E$, and faces $F$ (the regions the drawing cuts the plane into, counting the unbounded outer region):
+$$V - E + F = 2.$$
+Draw $K_4$ (four vertices, all six edges) without crossings: it has $V = 4$, $E = 6$, and $F = 4$ (three inner triangular regions plus the outer face), and indeed $4 - 6 + 4 = 2$. Euler's formula also yields a fast **non-planarity test**. Because every face is bounded by at least three edges and each edge borders two faces, any simple planar graph satisfies $E \le 3V - 6$. Test $K_5$: it has $V = 5$ and $E = 10$, but $3V - 6 = 9$, and $10 > 9$, so $K_5$ **cannot** be drawn without crossings. For $K_{3,3}$, which is bipartite (no triangles, so every face needs at least four edges), the sharper bound $E \le 2V - 4$ applies: $V = 6$, $E = 9$, but $2V - 4 = 8$, and $9 > 8$, so $K_{3,3}$ is non-planar as well. These two graphs are the fundamental obstructions: **Kuratowski's theorem** states that a graph is planar if and only if it contains no subdivision of $K_5$ or $K_{3,3}$.
 
