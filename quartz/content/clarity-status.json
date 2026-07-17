@@ -595,6 +595,1054 @@
           "phase2": "added 'separating the logic from the algebra' dissection: one IH substitution vs pure algebra; harness (Gauss sum + step identity)"
         }
       ]
+    },
+    "algebraic-structures.md": {
+      "contentHash": "sha1:80fc8f94451f5871",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "reference-page",
+      "summary": "Axiomatic reference page. The 'derived rules' theorem walkthroughs (a*0=0, (-1)a=-a, (-1)(-1)=1, cancellation, uniqueness, why 1/0 undefined) are uniformly STRONG. The abstract-algebra half teaches groups/rings/fields by definition + example-lists, not walkthroughs, so its computational techniques are thin-to-missing. Work-list clusters entirely there.",
+      "inventory": [
+        {
+          "concept": "deriving a*0=0 from axioms",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "deriving (-1)a=-a",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "deriving (-1)(-1)=1 (neg times neg)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "cancellation law (ab=ac => b=c)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "uniqueness of identities and inverses",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "why division by zero is undefined",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "order axioms / flipping an inequality by a negative",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "distributivity used to expand/factor",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular multiplicative inverse in F_p (inverse of 2 in F5)",
+          "quality": "thin",
+          "note": "only stated in one line; the most computational technique on the page is never walked",
+          "upgrade": "Work it: find 3^{-1} in F5 by testing residues (or extended Euclid), then contrast Z/6Z where 2 has no inverse (prime-modulus branch)."
+        },
+        {
+          "concept": "verifying the group axioms on a concrete set",
+          "quality": "thin",
+          "note": "structures listed with identity/inverse named in a phrase, no step-by-step check",
+          "upgrade": "Work one full verification, e.g. (Z/4Z,+): closure/associativity/identity 0/inverse of each element, pinned to a Cayley table."
+        },
+        {
+          "concept": "reading a Cayley table (identity, inverses, Latin-square)",
+          "quality": "thin",
+          "note": "diagram exists but the prose never walks reading a table",
+          "upgrade": "Add a 3-4 line walkthrough reading the F5 multiplication table: identity row, read off inverses, connect Latin-square to invertibility."
+        },
+        {
+          "concept": "verifying ring axioms / matrix non-commutativity",
+          "quality": "thin",
+          "note": "'AB!=BA in general' asserted with no example",
+          "upgrade": "Compute AB and BA for two concrete 2x2 matrices to show they differ; note why R[x] is a ring but not a field."
+        },
+        {
+          "concept": "Z/nZ is a field iff n prime",
+          "quality": "thin",
+          "note": "iff claim stated, composite-modulus trip-up never shown",
+          "upgrade": "Contrast F5 (build inverse list) with Z/6Z (2*0..2*5 never hits 1, and 2*3=0 is a zero divisor), making prime-vs-composite concrete."
+        },
+        {
+          "concept": "symmetry group composition (non-abelian)",
+          "quality": "missing",
+          "note": "non-commutativity described in words + diagram, never computed",
+          "upgrade": "Work one composition: rotate-120 then reflect vs reflect then rotate, tracking vertices, show the two permutations differ; pin to the symmetry-group diagram."
+        },
+        {
+          "concept": "homomorphisms / isomorphisms",
+          "quality": "missing",
+          "note": "coverage gap; page never introduces structure-preserving maps",
+          "upgrade": "OUT-OF-SCOPE likely: if kept, add one worked map (n |-> n mod 4) checking f(a+b)=f(a)+f(b). Else defer to a dedicated page."
+        },
+        {
+          "concept": "subgroups and cosets",
+          "quality": "missing",
+          "note": "coverage gap; never mentioned",
+          "upgrade": "OUT-OF-SCOPE likely: if kept, add evens-as-subgroup-of-(Z,+) with its odd coset. Else defer."
+        }
+      ]
+    },
+    "combination.md": {
+      "contentHash": "sha1:5d7f63b9dd3b471a",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Strong on the divide-by-r! motivation (pinned to a diagram), stars-and-bars (both variants), inclusion-exclusion, and pigeonhole (basic + unit-square). Thin/missing cluster: the identities (symmetry, Pascal) are asserted with trivial illustrations, the binomial theorem has zero worked expansion, and combinations-with-repetition is computed without deriving why n+r-1.",
+      "inventory": [
+        {
+          "concept": "combinations vs permutations (divide-by-r! motivation)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "n-choose-r formula C(n,r)=n!/(r!(n-r)!)",
+          "quality": "adequate",
+          "note": "example 3 jumps from fraction to 495 with no intermediate cancellation",
+          "upgrade": "Show cancellation for C(12,4)=(12*11*10*9)/(4!)=495, matching the fuller style of the books/pizza examples."
+        },
+        {
+          "concept": "relationship C(n,r)=P(n,r)/r!",
+          "quality": "adequate",
+          "note": "stated but never worked as its own post-formula example",
+          "upgrade": "Add a one-line numeric instance C(5,3)=60/6=10 tying the boxed formula to the opening story."
+        },
+        {
+          "concept": "symmetry property C(n,r)=C(n,n-r)",
+          "quality": "thin",
+          "note": "bare identity check C(5,2)=C(5,3)=10, no computation shown",
+          "upgrade": "Work both sides to 10, then the 'choose who to leave out' framing with a named example."
+        },
+        {
+          "concept": "Pascal's identity C(n,r)=C(n-1,r-1)+C(n-1,r)",
+          "quality": "thin",
+          "note": "only read off the diagram, never verified in prose",
+          "upgrade": "Verify C(4,2)=C(3,1)+C(3,2)=3+3=6 in text plus the 'in-or-out' combinatorial argument."
+        },
+        {
+          "concept": "binomial theorem / coefficient of x^r in (1+x)^n",
+          "quality": "missing",
+          "note": "stated in one sentence, no expansion, no diagram",
+          "upgrade": "Work (1+x)^4=1+4x+6x^2+4x^3+x^4, labeling each coefficient as C(4,k), tied to Pascal row 4."
+        },
+        {
+          "concept": "combinations with repetition C(n+r-1,r)",
+          "quality": "thin",
+          "note": "donut C(7,3)=35 computed but WHY n+r-1 not explained at first contact",
+          "upgrade": "Forward-reference stars-and-bars at first use, or add a mini stars-and-bars picture for 3-donuts-from-5-types (2 bars, 3 stars) so n+r-1 is derived."
+        },
+        {
+          "concept": "stars and bars (distributing identical objects)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "stars and bars with minimum constraints",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "inclusion-exclusion (2,3,general n sets)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "inclusion-exclusion applied to derangements",
+          "quality": "adequate",
+          "note": "stays symbolic; small values listed as answers, never derived",
+          "upgrade": "Numerically walk D_4 = 24-24+12-4+1 = 9 so the alternating sum produces a listed value."
+        },
+        {
+          "concept": "pigeonhole principle (basic form)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "generalized pigeonhole (ceiling form)",
+          "quality": "adequate",
+          "note": "the inequality manipulation is stated, not shown",
+          "upgrade": "Spell out ceil(n/4)>=2 requires n/4>1 i.e. n>4 so n=5."
+        },
+        {
+          "concept": "pigeonhole: points in a unit square",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        }
+      ]
+    },
+    "order-of-operations.md": {
+      "contentHash": "sha1:b394d4d9bbaf3178",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "strong",
+      "summary": "Unusually rich in worked examples: a full multi-stage master example plus dedicated walkthroughs for every tie-breaker and confusing branch (left-to-right MD and AS, nested brackets, fraction bar, radical, -3^2 vs (-3)^2, stacked exponents right-to-left, the viral 6/2(1+2)). ZERO thin/missing: no Phase-2 work. A few adequate items compress steps or lack an independent check.",
+      "inventory": [
+        {
+          "concept": "why a convention is needed (ambiguity motivation)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "PEMDAS/BODMAS precedence (mult before add)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponents before multiplication",
+          "quality": "adequate",
+          "note": "shown only inside the master example, not isolated",
+          "upgrade": "Optional: add a standalone 3*2^3=3*8=24 (not 6^3)."
+        },
+        {
+          "concept": "multiplication/division left-to-right (MD tie-breaker)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "addition/subtraction left-to-right (AS tie-breaker)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "nested grouping (innermost first)",
+          "quality": "adequate",
+          "note": "compressed into two prose sentences",
+          "upgrade": "Optional: break into stacked one-line steps like the master example."
+        },
+        {
+          "concept": "fraction bar as implicit grouping",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "radical as implicit grouping",
+          "quality": "adequate",
+          "note": "clean but single-line/toy",
+          "upgrade": "Optional: note why sqrt distributes over products but not sums."
+        },
+        {
+          "concept": "unary minus vs exponent binding (-3^2 vs (-3)^2)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "stacked exponents right-to-left",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "implicit multiplication next to division (viral 6/2(1+2))",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "result checking / interpretation",
+          "quality": "adequate",
+          "note": "refuted-alternative serves as a check; no independent verification",
+          "upgrade": "Optional: add an explicit 'check' line to the master example."
+        },
+        {
+          "concept": "diagrams pinned to examples",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        }
+      ]
+    },
+    "geometry-trigonometry.md": {
+      "contentHash": "sha1:e215732e3cc298d6",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "reference-page",
+      "summary": "Exceptionally thorough; most walkthroughs show every step and the confusing branches (quadrant sign, ambiguous SSA) are genuinely walked. Gaps are techniques stated as formulas but never demonstrated (double/half-angle, product-to-sum, base-height area, circle equation) and criteria (congruence/similarity) never applied numerically.",
+      "inventory": [
+        {
+          "concept": "distance formula",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "midpoint formula",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "degree-radian conversion",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "Minor: add a DMS-to-decimal example."
+        },
+        {
+          "concept": "reference angles (per-quadrant branch)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "Heron's formula",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Motivate Heron (no height available); optionally a second non-clean-radical case."
+        },
+        {
+          "concept": "base-height triangle area (1/2 bh)",
+          "quality": "missing",
+          "note": "formula+diagram given, no numeric example; only area example is Heron",
+          "upgrade": "Add a short A=1/2 bh example with concrete base and height."
+        },
+        {
+          "concept": "Pythagorean theorem (solving for a side)",
+          "quality": "thin",
+          "note": "only exercised implicitly via distance/special triangles",
+          "upgrade": "Add a direct example: given legs (or leg+hyp), solve for the missing side."
+        },
+        {
+          "concept": "special right triangles (45-45-90, 30-60-90)",
+          "quality": "adequate",
+          "note": "ratios derived but never applied to a concrete triangle",
+          "upgrade": "Add an application: 30-60-90 with short leg 5, find the other two sides."
+        },
+        {
+          "concept": "triangle inequality",
+          "quality": "adequate",
+          "note": "only a counterexample shown",
+          "upgrade": "Add a valid triple checked against all three inequalities."
+        },
+        {
+          "concept": "triangle similarity (AA/SSS/SAS)",
+          "quality": "thin",
+          "note": "criteria stated, never applied numerically",
+          "upgrade": "Add a proportion example: similar triangles, solve for an unknown side by scale factor."
+        },
+        {
+          "concept": "triangle congruence (SSS/SAS/ASA/AAS/HL)",
+          "quality": "thin",
+          "note": "criteria table only, no example from given data",
+          "upgrade": "Add one worked congruence determination showing which criterion applies."
+        },
+        {
+          "concept": "equation of a circle",
+          "quality": "thin",
+          "note": "formula+diagram, no worked example either direction",
+          "upgrade": "Write the equation from center+radius, and extract center/radius from a given equation (completing the square)."
+        },
+        {
+          "concept": "arc length (s=r theta)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "sector area (1/2 r^2 theta)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "six trig ratios (SOH-CAH-TOA)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving right triangles",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "unit circle: deriving standard-angle coordinates",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "evaluating trig via reference angle + quadrant sign",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "Optional: add a second sign-pattern case (cos 300)."
+        },
+        {
+          "concept": "sum/difference formulas",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "double angle formulas",
+          "quality": "missing",
+          "note": "all four forms stated, no numeric example",
+          "upgrade": "Add: given sin(theta) in a known quadrant, compute sin(2theta), cos(2theta)."
+        },
+        {
+          "concept": "half angle formulas",
+          "quality": "missing",
+          "note": "formulas + a +/- note, no example resolving the sign",
+          "upgrade": "Add an example computing cos(theta/2) and choosing the sign from the quadrant (prime WE-3 opportunity)."
+        },
+        {
+          "concept": "sum-to-product / product-to-sum formulas",
+          "quality": "missing",
+          "note": "seven formulas listed, none demonstrated",
+          "upgrade": "Add at least one worked application."
+        },
+        {
+          "concept": "Pythagorean identities (derivation)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "proving trig identities",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "Optional: a second proof exercising factoring or convert-to-sin/cos."
+        },
+        {
+          "concept": "law of sines + ambiguous SSA case",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "law of cosines",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "Add an SSS-to-find-angle case (the second stated use)."
+        },
+        {
+          "concept": "inverse trig evaluation",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "compositions of trig and inverse trig",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving trig equations",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "coordinate geometry: slopes / parallel-perpendicular",
+          "quality": "thin",
+          "note": "purely definitional, no slope computed",
+          "upgrade": "Add a slope-from-two-points example and a perpendicular-slope check."
+        },
+        {
+          "concept": "transversal angle relationships",
+          "quality": "thin",
+          "note": "relationships tabulated, no example",
+          "upgrade": "Add a numeric example finding missing angles given one angle at a transversal."
+        }
+      ]
+    },
+    "calculus.md": {
+      "contentHash": "sha1:ba3514c0ac4b8176",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Thorough coverage; chain rule, L'Hopital, logarithmic differentiation, non-differentiability, improper integrals, average value are exemplary. The clarity gaps are a consistent pattern: several techniques work only the EASIEST case (product/quotient rule as one-liners, integration by parts only the LIATE-trivial case, u-sub only indefinite) or state the method without a numeric run (Riemann sums, numerical integration, Taylor series, MVT). No missing coverage; 9 thin.",
+      "inventory": [
+        {
+          "concept": "limit via factoring / table (0/0)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "one-sided limits (|x|/x)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "infinite limits / vertical asymptote",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "limit by rationalizing (conjugate)",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Name the conjugate trick and why it clears 0/0; interpret 1/4."
+        },
+        {
+          "concept": "piecewise limit",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "trig limit sin(3x)/x rewrite",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Show sin(3x)/x = 3*sin(3x)/(3x) with u=3x named."
+        },
+        {
+          "concept": "squeeze theorem (x^2 sin(1/x))",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "direct substitution limit",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Toy-level; fine as illustration."
+        },
+        {
+          "concept": "IVT root existence",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "derivative from limit definition (x^2)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "non-differentiability (corner/cusp/vertical tangent/oscillation)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "power rule / sum-difference polynomial derivative",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "product rule",
+          "quality": "thin",
+          "note": "one-line answer, no substitution into the formula, toy case",
+          "upgrade": "Plug f=x^2,g=sin x,f',g' into the formula step by step; add a case needing chain rule inside (x^2 sin 3x)."
+        },
+        {
+          "concept": "quotient rule",
+          "quality": "thin",
+          "note": "f,g not labeled, toy case, no interpretation",
+          "upgrade": "Label numerator/denominator and derivatives, map the mnemonic; pick a case where the sign matters."
+        },
+        {
+          "concept": "chain rule",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "derivative of ln/exp composites",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Spell out u=x^2+1 as a labeled chain step."
+        },
+        {
+          "concept": "sec x derivative via quotient rule",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "inverse trig derivative via implicit diff (arcsin)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "higher-order derivatives / concavity",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Optional: a concavity diagram pinned to x^3-3x."
+        },
+        {
+          "concept": "implicit differentiation",
+          "quality": "thin",
+          "note": "2x+2y y'=0 => y'=-x/y in one line; the d/dx(y^2)=2y y' trip-step not shown",
+          "upgrade": "Expand the chain-rule step on y^2 explicitly and evaluate the slope at a point like (3,4)."
+        },
+        {
+          "concept": "logarithmic differentiation",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "first derivative test / extrema",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "second derivative test",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Add a standalone classify-a-point example (f'(c)=0, f''(c)>0 => min)."
+        },
+        {
+          "concept": "optimization (fencing)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "related rates (balloon)",
+          "quality": "thin",
+          "note": "jumps to dV/dt=4pi r^2 dr/dt without the chain-rule differentiation",
+          "upgrade": "Show d/dt of each side of V=4/3 pi r^3, list knowns, substitute last; add a ladder/shadow type."
+        },
+        {
+          "concept": "linear approximation",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "curve sketching (full)",
+          "quality": "adequate",
+          "note": "Step 6 explicitly hides the second-derivative algebra",
+          "upgrade": "Show the f'' computation (currently 'omitting the algebra' on the hardest step); pin a sketch of x^2/(x^2-1)."
+        },
+        {
+          "concept": "differentials",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "Mean Value Theorem / Rolle",
+          "quality": "thin",
+          "note": "stated + used for corollaries, but c never solved for",
+          "upgrade": "Find the guaranteed c for a specific f: f(x)=x^2 on [1,3] gives c=2."
+        },
+        {
+          "concept": "L'Hopital's rule",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "Riemann sums",
+          "quality": "thin",
+          "note": "3-step procedure + widget, no numeric sum carried out",
+          "upgrade": "Work a concrete left sum for x^2 on [0,1], n=4, and show it approaching 1/3."
+        },
+        {
+          "concept": "FTC evaluation",
+          "quality": "adequate",
+          "note": "Part 2 toy; Part 1 has no worked example",
+          "upgrade": "Add a Part-1 example: d/dx integral_0^x sin(t^2) dt = sin(x^2)."
+        },
+        {
+          "concept": "definite integral properties (even/odd, additivity)",
+          "quality": "adequate",
+          "note": "only the odd shortcut gets a mini-example",
+          "upgrade": "Add an even-function example."
+        },
+        {
+          "concept": "basic integration (antiderivative of polynomial)",
+          "quality": "adequate",
+          "note": "one-liner",
+          "upgrade": "Show each term's reverse power rule once."
+        },
+        {
+          "concept": "u-substitution",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "Add one DEFINITE u-sub showing the limits change with the variable."
+        },
+        {
+          "concept": "integration by parts",
+          "quality": "thin",
+          "note": "only x e^x, the easiest LIATE case",
+          "upgrade": "Add integral ln x dx (dv=dx trick) and a cyclic case like integral e^x cos x dx."
+        },
+        {
+          "concept": "improper integrals",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "area between curves",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "average value of a function",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "numerical integration (Trapezoid / Simpson)",
+          "quality": "thin",
+          "note": "rules stated with weights, no numeric application",
+          "upgrade": "Work a concrete trapezoid estimate for integral_0^2 e^{-x^2}, n=4, compare to Simpson."
+        },
+        {
+          "concept": "integration by partial fractions",
+          "quality": "adequate",
+          "note": "decomposition coefficients asserted",
+          "upgrade": "Solve for A,B (or cover-up) to get the +/-1/2, rather than presenting the split."
+        },
+        {
+          "concept": "Taylor / Maclaurin series",
+          "quality": "thin",
+          "note": "formula + key series + widget, no derivation from scratch",
+          "upgrade": "Derive one series from f^{(n)}(a)/n! (e.g. e^x), evaluate a truncation."
+        },
+        {
+          "concept": "Gaussian integral",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Stated as a fact with motivation; derivation appropriately omitted."
+        }
+      ]
+    },
+    "graph-theory.md": {
+      "contentHash": "sha1:078e1deca295fc70",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Largely definitional with a STRONG tree/BST cluster (BST verification/two-child deletion, heap indexing). But the core graph ALGORITHMS are systematically thin-to-missing: DFS, BFS, Dijkstra, Kruskal/Prim, Euler, coloring are stated then given a one-line answer with no traced execution (no visited sets, no queue/distance tables, no cycle-skip log). Heaviest depth-3 work-list.",
+      "inventory": [
+        {
+          "concept": "degree / handshaking lemma",
+          "quality": "thin",
+          "note": "degrees listed but the lemma never summed and checked",
+          "upgrade": "Sum deg over a concrete graph and confirm = 2|E|; second graph with a self-loop to show the +2 rule."
+        },
+        {
+          "concept": "adjacency matrix / list / edge list",
+          "quality": "adequate",
+          "note": "only trivial complete K3",
+          "upgrade": "Redo on a non-complete graph (some non-edges) and add one directed-graph matrix for asymmetry."
+        },
+        {
+          "concept": "complete graph edge count n(n-1)/2",
+          "quality": "adequate",
+          "note": "formula never evaluated numerically",
+          "upgrade": "Plug n=5: 5*4/2=10, count the K5 image's edges."
+        },
+        {
+          "concept": "neighborhood / subgraph / induced subgraph",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "BST property verification",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "BST insertion",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Spell out each comparison/branch decision at 50,30,40 before landing 45."
+        },
+        {
+          "concept": "BST deletion (two-children case)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "tree traversals (pre/in/post/level-order)",
+          "quality": "adequate",
+          "note": "outputs given, recursion not traced",
+          "upgrade": "Trace inorder on the 7-node tree with the recursion/partial-output building up."
+        },
+        {
+          "concept": "AVL rotations (LL/RR/LR/RL)",
+          "quality": "adequate",
+          "note": "LL/RR strong but LR/RL only described as rules",
+          "upgrade": "Work a full LR double-rotation on a concrete zig-zag tree (intermediate left then right, balance factors)."
+        },
+        {
+          "concept": "heap array representation / indexing",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "heap insert (heapify up) / extract (heapify down)",
+          "quality": "thin",
+          "note": "only 3-step recipes, no swap-by-swap trace",
+          "upgrade": "Trace an insert (swap chain to the top) and an extract-max (sift-down comparisons) on the sample heap."
+        },
+        {
+          "concept": "trie operations",
+          "quality": "thin",
+          "note": "pseudo-recipes; results by assertion",
+          "upgrade": "Trace PrefixSearch('ca') node-by-node: descent c->a then the subtree DFS yielding cat, car."
+        },
+        {
+          "concept": "DFS",
+          "quality": "thin",
+          "note": "only final order given; backtracking never observed",
+          "upgrade": "Trace with an explicit stack + visited set, annotating each push/pop and the backtrack from E up to A before C."
+        },
+        {
+          "concept": "BFS",
+          "quality": "thin",
+          "note": "only final order; level fan-out asserted",
+          "upgrade": "Trace with queue state after each dequeue, showing enqueue order and how the level boundary forms."
+        },
+        {
+          "concept": "Dijkstra's algorithm",
+          "quality": "thin",
+          "note": "marquee algorithm essentially unworked; only the answer given",
+          "upgrade": "Full trace: dist array, settled set, each relaxation (C from 4 via A to 3 via B), terminate D=6, per-step table."
+        },
+        {
+          "concept": "shortest path via BFS (unweighted)",
+          "quality": "missing",
+          "note": "listed as a BFS application, never worked",
+          "upgrade": "Work hop-distance labels from a source via BFS levels."
+        },
+        {
+          "concept": "spanning tree / MST (Kruskal & Prim)",
+          "quality": "missing",
+          "note": "named with one-line descriptions, never traced; spanning tree shown has no weights",
+          "upgrade": "Add a weighted graph; run Kruskal (sorted edges, accept/skip-on-cycle log) and Prim (frontier growth) to the same MST with total weight."
+        },
+        {
+          "concept": "Euler path/circuit criterion",
+          "quality": "thin",
+          "note": "circuit exhibited but degrees never checked; no discriminating cases",
+          "upgrade": "Check degrees against the theorem: C4 all-even => circuit; a 2-odd-vertex graph (path not circuit); a 4-odd graph (neither)."
+        },
+        {
+          "concept": "Hamiltonian path/circuit",
+          "quality": "thin",
+          "note": "one circuit exhibited; NP-hardness point stated without contrast",
+          "upgrade": "Contrast Euler vs Hamiltonian on a graph where one exists and the other does not."
+        },
+        {
+          "concept": "graph coloring / chromatic number",
+          "quality": "thin",
+          "note": "only the trivial K3 worked",
+          "upgrade": "Color the 5-vertex image vertex-by-vertex, show a conflict forcing a third color, justify why 2 fail (odd cycle)."
+        },
+        {
+          "concept": "bipartite testing",
+          "quality": "missing",
+          "note": "defined + criterion mentioned, no example",
+          "upgrade": "Work a BFS 2-coloring to confirm the partition; show a triangle failing (odd cycle)."
+        },
+        {
+          "concept": "bipartite matching",
+          "quality": "missing",
+          "note": "named as an application, never defined or worked",
+          "upgrade": "Add a max-matching on K_{3,2} (augmenting path) or drop the claim."
+        },
+        {
+          "concept": "planarity / Euler's formula V-E+F=2",
+          "quality": "missing",
+          "note": "planarity one sentence; Euler's formula never introduced",
+          "upgrade": "Introduce V-E+F=2 with a worked count on a small planar graph; note K5/K3,3 as non-planar obstructions."
+        },
+        {
+          "concept": "connected components",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Tie component identification to a DFS sweep so they're discovered algorithmically."
+        }
+      ]
+    },
+    "predicate-logic-first-order-logic.md": {
+      "contentHash": "sha1:402b5cda46ba8928",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-16",
+      "auditor": "claude+subagent",
+      "overall": "mixed",
+      "summary": "Rich, well-motivated; the two natural-deduction derivations, the prove/disprove pair, quantifier alternation, and negation of nested quantifiers are STRONG. But most semantic content is taught by assertion: quantifier truth values are one-line parentheticals, and the load-bearing machinery (Tarski satisfaction in a finite model, English->FOL build-up, prenex conversion, Skolemization) is defined but never carried through a concrete step-by-step example; finite-model evaluation is punted to the widget.",
+      "inventory": [
+        {
+          "concept": "predicates and multi-place predicates",
+          "quality": "adequate",
+          "note": "just glosses; no formula evaluated",
+          "upgrade": "Evaluate a binary predicate x<y and a 3-place Between(x,y,z) at named domain elements."
+        },
+        {
+          "concept": "terms and the FOL alphabet",
+          "quality": "adequate",
+          "note": "rules stated, no worked parse",
+          "upgrade": "Work one term as an explicit parse tree citing which rule licenses each node, ending in an atomic formula."
+        },
+        {
+          "concept": "structures / interpretations (models)",
+          "quality": "thin",
+          "note": "no concrete structure ever fully written out and used",
+          "upgrade": "Fully specify one small finite structure (D={0,1,2}, a constant, successor, <) and evaluate 2-3 sentences by hand."
+        },
+        {
+          "concept": "universal/existential/unique-existential quantifier truth values",
+          "quality": "thin",
+          "note": "every truth value stated with only a parenthetical witness",
+          "upgrade": "For exists! walk existence (x=2 checks) AND uniqueness (x+5=7 & x'+5=7 => x=x')."
+        },
+        {
+          "concept": "evaluating a formula in a finite model (Tarski satisfaction)",
+          "quality": "thin",
+          "note": "lone {1,2,3} 'is even' expansion; no assignment/binary-relation/nested case in text",
+          "upgrade": "Evaluate forall x exists y R(x,y) and exists y forall x R(x,y) in one fixed structure (D={1,2,3}, R = <), showing s[x->d] and why one is T, one F."
+        },
+        {
+          "concept": "quantifier order / alternation (dependency)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "translating English to FOL",
+          "quality": "thin",
+          "note": "finished formulas presented, never derived from English",
+          "upgrade": "Build one nontrivial multi-quantifier sentence phrase by phrase, flagging the ->/AND choice at each quantifier."
+        },
+        {
+          "concept": "negating quantified statements (incl. nested)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "negating a limit / analysis-level nested negation",
+          "quality": "adequate",
+          "note": "presented as a finished result",
+          "upgrade": "Show the flip of the epsilon-delta definition step by step (mirror the Example-3 outside-in style)."
+        },
+        {
+          "concept": "scope / binding, free vs bound variables",
+          "quality": "adequate",
+          "note": "classification only; free variable's effect not evaluated",
+          "upgrade": "Tie one free-variable formula to an assignment and show its truth flips as the free variable changes."
+        },
+        {
+          "concept": "capture-avoiding substitution ('free for')",
+          "quality": "adequate",
+          "note": "one good case",
+          "upgrade": "Optional: a second substitution into a two-quantifier formula where only one bound variable needs renaming."
+        },
+        {
+          "concept": "quantifier distribution equivalences",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "same-quantifier swapping vs different-quantifier non-swapping",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "vacuous truth / empty domain",
+          "quality": "thin",
+          "note": "stated, never connected to the finite conjunction/disjunction it introduced",
+          "upgrade": "Justify via the empty-conjunction (T) / empty-disjunction (F) expansion; add a math instance forall x(x in emptyset -> P(x))."
+        },
+        {
+          "concept": "restricted quantifiers (-> vs AND choice)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "validity / satisfiability / entailment",
+          "quality": "thin",
+          "note": "one-line examples; no check across structures",
+          "upgrade": "Exhibit the 1-element and 2-element structures for exists x exists y(x!=y) and evaluate in each; a tiny entailment check."
+        },
+        {
+          "concept": "rules of inference (UI/EG/UG/EI) and side conditions",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "proof techniques (prove universal, disprove, prove exists!)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "Minor: add a concrete exists! proof (existence + uniqueness) to close the loop."
+        },
+        {
+          "concept": "formalizing analysis: epsilon-delta & pointwise vs uniform continuity",
+          "quality": "adequate",
+          "note": "described, never run on a concrete function",
+          "upgrade": "Work one concrete epsilon-delta (lim_{x->3} 2x=6, delta=epsilon/2) and one non-uniform-continuity witness."
+        },
+        {
+          "concept": "prenex normal form conversion",
+          "quality": "thin",
+          "note": "defined, essentially not worked",
+          "upgrade": "Convert one mixed formula to PNF line by line (rename apart, pull each quantifier out, flip the antecedent)."
+        },
+        {
+          "concept": "Skolemization",
+          "quality": "thin",
+          "note": "schema given, no multi-quantifier concrete example",
+          "upgrade": "Skolemize a formula with two leading universals (Skolem function of both args) and one with a leading existential (Skolem constant)."
+        },
+        {
+          "concept": "metatheory (soundness/completeness/compactness/LS)",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "Reference/exposition section; not a worked-example target."
+        }
+      ]
     }
   }
 }
