@@ -2129,6 +2129,124 @@
           "upgrade": "show one or two explicit with-replacement resamples of the 12 values and their medians"
         }
       ]
+    },
+    "graphing-functions.md": {
+      "contentHash": "sha1:64cec0016775990e",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+1subagent",
+      "overall": "mixed",
+      "summary": "Pre-calc graphing reference: 10 per-family worked examples (linear through radical) all arithmetically correct and mostly strong. 11 strong / 3 adequate / 3 thin / 1 missing. Work-list: even/odd symmetry never tested (missing), rational sign-analysis never tests a region (thin), oblique asymptote never divided (thin), transformations never traced on concrete numbers (thin).",
+      "inventory": [
+        {
+          "concept": "coordinate plane / quadrants / ordered pairs",
+          "quality": "adequate",
+          "note": "Quadrants, origin, ordered pairs defined with sign conditions + diagram; no single point plotted as a demo.",
+          "upgrade": ""
+        },
+        {
+          "concept": "key-features taxonomy (intercepts/asymptotes/extrema/end behavior)",
+          "quality": "strong",
+          "note": "Full reference list of every feature to identify, each defined.",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain/range read-off",
+          "quality": "adequate",
+          "note": "Domain/range stated with justification inside each family example (radical, exponential, log), but never read off a graph as a standalone demo.",
+          "upgrade": "minor: one 'read domain and range off this graph' example tied to the picture"
+        },
+        {
+          "concept": "even/odd symmetry determination",
+          "quality": "missing",
+          "note": "f(-x)=f(x) and f(-x)=-f(x) defined in the taxonomy but never tested on a concrete function.",
+          "upgrade": ""
+        },
+        {
+          "concept": "concavity / inflection",
+          "quality": "adequate",
+          "note": "Descriptive concave up/down/inflection, level-appropriate for a pre-calc graphing page (no derivatives expected).",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear function graphing (f(x)=2x-3)",
+          "quality": "strong",
+          "note": "Fully worked: y-intercept, slope step to second point, x-intercept.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quadratic function graphing (x^2-4x+3)",
+          "quality": "strong",
+          "note": "Vertex via -b/2a, factoring for roots, y-intercept all shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polynomial graphing ((x+2)(x-1)^2)",
+          "quality": "strong",
+          "note": "Multiplicity crossing vs touching, end behavior, y-intercept all shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rational function sign analysis",
+          "quality": "thin",
+          "note": "The three test regions (x<-1, -1<x<2, x>2) are listed but no point is ever tested in any of them to fix above/below the axis.",
+          "upgrade": ""
+        },
+        {
+          "concept": "horizontal/vertical asymptote determination",
+          "quality": "strong",
+          "note": "Four-case degree-comparison table plus worked VA x=-1 and HA y=1 in the example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "oblique/slant asymptote via polynomial division",
+          "quality": "thin",
+          "note": "Degree condition and division method described in prose, but the division is never actually carried out; the worked rational example has equal degrees so no slant.",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponential graphing (2^x - 1)",
+          "quality": "strong",
+          "note": "Asymptote, y-intercept, five correct points.",
+          "upgrade": ""
+        },
+        {
+          "concept": "logarithmic graphing (log_2 x)",
+          "quality": "strong",
+          "note": "Asymptote, x-intercept, five correct points.",
+          "upgrade": ""
+        },
+        {
+          "concept": "absolute value graphing (|x-2|-1)",
+          "quality": "strong",
+          "note": "Vertex, x-intercepts via |x-2|=1, y-intercept all shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "piecewise graphing (open/closed circles, discontinuity)",
+          "quality": "strong",
+          "note": "Open/closed circles at the boundary, jump discontinuity identified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "radical graphing (sqrt(x+1)-2)",
+          "quality": "strong",
+          "note": "Start point, domain, four correct points.",
+          "upgrade": ""
+        },
+        {
+          "concept": "inequality graphing in two variables",
+          "quality": "strong",
+          "note": "y<2x+1: dashed boundary, test (0,0) gives 0<1, shade below.",
+          "upgrade": "minor: a nonlinear or system example would extend coverage"
+        },
+        {
+          "concept": "transformations: combined sequence a*f(b(x-h))+k",
+          "quality": "thin",
+          "note": "Combined form + ordered step list + interactive widget + four-panel image, but no concrete function traced through with numbers, and why f(b(x-h)) shifts by h (not h/b) is unexplained. Also line 394 'compression by b' phrasing is imprecise (|b|>1 compresses by 1/b).",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
