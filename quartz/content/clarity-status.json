@@ -2131,12 +2131,12 @@
       ]
     },
     "graphing-functions.md": {
-      "contentHash": "sha1:64cec0016775990e",
+      "contentHash": "sha1:0e7b3e7e0b7851a3",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+1subagent",
-      "overall": "mixed",
-      "summary": "Pre-calc graphing reference: 10 per-family worked examples (linear through radical) all arithmetically correct and mostly strong. 11 strong / 3 adequate / 3 thin / 1 missing. Work-list: even/odd symmetry never tested (missing), rational sign-analysis never tests a region (thin), oblique asymptote never divided (thin), transformations never traced on concrete numbers (thin).",
+      "overall": "strong",
+      "summary": "Pre-calc graphing reference: 10 per-family worked examples plus Phase-2 additions closing all four work-list items (even/odd symmetry, rational sign analysis, oblique asymptote via division, concrete transformation trace). 15 strong / 3 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "coordinate plane / quadrants / ordered pairs",
@@ -2158,8 +2158,8 @@
         },
         {
           "concept": "even/odd symmetry determination",
-          "quality": "missing",
-          "note": "f(-x)=f(x) and f(-x)=-f(x) defined in the taxonomy but never tested on a concrete function.",
+          "quality": "strong",
+          "note": "Testing-for-symmetry block: x^4-2x^2 even, x^3-4x odd, x^2+x neither, each substitution shown, plus the halve-the-work reflection payoff.",
           "upgrade": ""
         },
         {
@@ -2188,8 +2188,8 @@
         },
         {
           "concept": "rational function sign analysis",
-          "quality": "thin",
-          "note": "The three test regions (x<-1, -1<x<2, x>2) are listed but no point is ever tested in any of them to fix above/below the axis.",
+          "quality": "strong",
+          "note": "Sign table now tests a point in each of the three regions (x=-2 -> +4, x=0 -> -2, x=3 -> 1/4) with a full branch-behavior read-off.",
           "upgrade": ""
         },
         {
@@ -2200,8 +2200,8 @@
         },
         {
           "concept": "oblique/slant asymptote via polynomial division",
-          "quality": "thin",
-          "note": "Degree condition and division method described in prose, but the division is never actually carried out; the worked rational example has equal degrees so no slant.",
+          "quality": "strong",
+          "note": "New worked example (x^2+x+1)/(x+1): long division carried out (quotient x, remainder 1), f=x+1/(x+1), asymptote y=x with side-of-approach argument.",
           "upgrade": ""
         },
         {
@@ -2242,8 +2242,8 @@
         },
         {
           "concept": "transformations: combined sequence a*f(b(x-h))+k",
-          "quality": "thin",
-          "note": "Combined form + ordered step list + interactive widget + four-panel image, but no concrete function traced through with numbers, and why f(b(x-h)) shifts by h (not h/b) is unexplained. Also line 394 'compression by b' phrasing is imprecise (|b|>1 compresses by 1/b).",
+          "quality": "strong",
+          "note": "Concrete trace of 2*f(3(x-1))-4 on f=x^2: vertex ->(1,-4), (1,1)->(4/3,-2), plus a why-shift-is-h-not-h/b paragraph; line-394 compression phrasing fixed to factor 1/b.",
           "upgrade": ""
         }
       ]

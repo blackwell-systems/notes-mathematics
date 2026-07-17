@@ -343,6 +343,44 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("FD bin count range/width ~ 8", Math.round(range / fdw) === 8); }
 }
 
+// ================= Graphing Functions (Phase-2 worked examples) =================
+{
+  // Even/odd symmetry classification
+  { const even = (x) => x ** 4 - 2 * x ** 2, odd = (x) => x ** 3 - 4 * x, neither = (x) => x ** 2 + x;
+    const xs = [1, 2, 3, 0.5, -1.5];
+    check("x^4-2x^2 is even: f(-x)=f(x) for all test x", xs.every((x) => even(-x) === even(x)));
+    check("x^3-4x is odd: f(-x)=-f(x) for all test x", xs.every((x) => odd(-x) === -odd(x)));
+    check("x^2+x is neither even nor odd", xs.some((x) => neither(-x) !== neither(x)) && xs.some((x) => neither(-x) !== -neither(x))); }
+  // Rational sign analysis of (x-2)/(x+1) in the three regions
+  { const r = (x) => (x - 2) / (x + 1);
+    eq("rational test x=-2 -> 4 (above)", r(-2), 4);
+    eq("rational test x=0 -> -2 (below)", r(0), -2);
+    eq("rational test x=3 -> 1/4 (above)", r(3), 0.25);
+    check("signs are +,-,+ across the three regions", r(-2) > 0 && r(0) < 0 && r(3) > 0);
+    // side of the horizontal asymptote y=1: f(x)-1 = -3/(x+1)
+    check("f-1 = -3/(x+1): right branch below y=1, left branch above", (r(3) - 1) < 0 && (r(-2) - 1) > 0);
+    check("f(x)-1 equals -3/(x+1) identically", [3, 10, -2, -100].every((x) => Math.abs((r(x) - 1) - (-3 / (x + 1))) < 1e-12)); }
+  // Oblique asymptote: (x^2+x+1)/(x+1) = x + 1/(x+1), asymptote y=x
+  { const f = (x) => (x ** 2 + x + 1) / (x + 1), decomp = (x) => x + 1 / (x + 1);
+    // division identity: (x+1)*x + 1 == x^2+x+1
+    check("division check (x+1)*x + 1 = x^2+x+1", [2, 5, -3].every((x) => (x + 1) * x + 1 === x ** 2 + x + 1));
+    check("f(x) = x + 1/(x+1) exactly", [10, -10, 2, 7].every((x) => Math.abs(f(x) - decomp(x)) < 1e-12));
+    eq("at x=100 f ~ 100.0099 (above y=x by 1/101)", f(100) - 100, 1 / 101, 1e-9);
+    check("right branch above y=x (x>-1), left branch below (x<-1)", (f(100) - 100) > 0 && (f(-100) - (-100)) < 0); }
+  // Combined transformation g(x)=2*f(3(x-1))-4 with f=x^2  ->  18(x-1)^2-4
+  { const a = 2, b = 3, h = 1, k = -4;
+    const g = (x) => a * (b * (x - 1)) ** 2 + k, gexp = (x) => 18 * (x - 1) ** 2 - 4;
+    check("g(x) = 18(x-1)^2 - 4", [0, 1, 4 / 3, 2].every((x) => Math.abs(g(x) - gexp(x)) < 1e-9));
+    // vertex (0,0) of f maps to (h, a*0+k) = (1,-4), independent of b
+    eq("vertex new x = h = 1", h + 0 / b, 1); eq("vertex new y = k = -4", a * 0 + k, -4);
+    // point (1,1) of f maps to (h + 1/b, a*1+k) = (4/3, -2)
+    eq("point(1,1) new x = h + 1/b = 4/3", h + 1 / b, 4 / 3, 1e-12);
+    eq("point(1,1) new y = a+k = -2", a * 1 + k, -2);
+    eq("g(4/3) = -2 (confirms trace)", gexp(4 / 3), -2, 1e-9);
+    // shift is h, not h/b: c=b*h so c/b=h
+    eq("expanded anchor c/b equals h", (b * h) / b, h); }
+}
+
 // ================= Propositional Logic =================
 {
   const B = [true, false];

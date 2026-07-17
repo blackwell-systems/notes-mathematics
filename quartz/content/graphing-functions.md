@@ -63,6 +63,14 @@ When graphing any function, identify these key features:
 - **Even function (y-axis symmetry):** $f(-x) = f(x)$
 - **Odd function (origin symmetry):** $f(-x) = -f(x)$
 
+**Testing for symmetry.** To classify a function, substitute $-x$ for $x$, simplify, and compare the result to the original $f(x)$ and to $-f(x)$. There are three outcomes.
+
+- *Even.* Take $f(x) = x^4 - 2x^2$. Then $f(-x) = (-x)^4 - 2(-x)^2 = x^4 - 2x^2 = f(x)$: every term survives unchanged because each power is even, so the graph is a mirror image across the y-axis.
+- *Odd.* Take $f(x) = x^3 - 4x$. Then $f(-x) = (-x)^3 - 4(-x) = -x^3 + 4x = -(x^3 - 4x) = -f(x)$: every term flips sign because each power is odd, so the graph has 180-degree rotational symmetry about the origin.
+- *Neither.* Take $f(x) = x^2 + x$. Then $f(-x) = x^2 - x$, which is neither $f(x) = x^2 + x$ nor $-f(x) = -x^2 - x$ (mixing an even power with an odd power breaks both symmetries). Most functions fall here.
+
+Symmetry is worth checking first because it halves the work: for an even or odd function you only need to plot points for $x \geq 0$ and then reflect (across the y-axis for even, through the origin for odd).
+
 **8. End Behavior**
 - Behavior as $x \to \infty$
 - Behavior as $x \to -\infty$
@@ -203,10 +211,33 @@ When graphing any function, identify these key features:
 - Horizontal asymptote: $y = 1$ (equal degrees, $\frac{1}{1}$)
 - x-intercept: $(2, 0)$
 - y-intercept: $(0, -2)$
-- Test regions: $x < -1$, $-1 < x < 2$, $x > 2$
-- Curve approaches asymptotes but never touches
+
+The vertical asymptote $x = -1$ and the x-intercept $x = 2$ cut the number line into three regions. The function can only change sign at those two spots, so we **test one convenient point inside each region** to learn whether the curve sits above or below the x-axis there:
+
+| Region | Test point | $f(x) = \frac{x-2}{x+1}$ | Sign |
+|---|---|---|---|
+| $x < -1$ | $x = -2$ | $\frac{-2-2}{-2+1} = \frac{-4}{-1} = 4$ | $+$ (above axis) |
+| $-1 < x < 2$ | $x = 0$ | $\frac{0-2}{0+1} = -2$ | $-$ (below axis) |
+| $x > 2$ | $x = 3$ | $\frac{3-2}{3+1} = \frac{1}{4}$ | $+$ (above axis) |
+
+Reading the signs: the left branch ($x < -1$) is positive, rising toward $+\infty$ as it nears the asymptote from the left and flattening toward $y = 1$ from above as $x \to -\infty$. The middle branch is negative, diving to $-\infty$ just right of $x = -1$ and passing through the x-intercept at $(2, 0)$. The right branch is positive, coming up from $0$ at the intercept and settling toward $y = 1$ from below. Which side of the horizontal asymptote each branch hugs follows from $f(x) - 1 = \frac{x - 2}{x + 1} - 1 = \frac{-3}{x + 1}$, which is positive (curve above $y = 1$) when $x < -1$ and negative (curve below $y = 1$) when $x > -1$. The curve approaches both asymptotes but never touches the vertical one.
 
 ![Graph of f(x) = (x-2)/(x+1) showing vertical and horizontal asymptotes](./media/rational-function.png)
+
+**Example (oblique asymptote):** Graph $f(x) = \dfrac{x^2 + x + 1}{x + 1}$.
+
+Here the numerator degree ($2$) is exactly one more than the denominator degree ($1$), so there is a slant asymptote rather than a horizontal one, and we find it by polynomial long division. Divide $x^2 + x + 1$ by $x + 1$:
+
+- $x^2 \div x = x$. Multiply back: $x(x + 1) = x^2 + x$. Subtract: $(x^2 + x + 1) - (x^2 + x) = 1$.
+- The remainder $1$ has degree $0$, which is less than the divisor's degree $1$, so division stops.
+
+The quotient is $x$ with remainder $1$, which means
+
+$$
+f(x) = x + \frac{1}{x + 1}.
+$$
+
+As $x \to \pm\infty$ the term $\frac{1}{x+1} \to 0$, so the graph hugs the line $y = x$: that is the **oblique asymptote**. (Check: at $x = 100$, $f = \frac{10101}{101} \approx 100.0099$, just above $y = x = 100$ by $\frac{1}{101}$.) The remainder's sign tells you which side: $\frac{1}{x+1} > 0$ for $x > -1$, so the right branch approaches $y = x$ from above, and $\frac{1}{x+1} < 0$ for $x < -1$, so the left branch approaches from below. The vertical asymptote is still $x = -1$, where the denominator vanishes.
 
 ## Graphing Exponential Functions
 
@@ -391,7 +422,7 @@ The explorer below lets you pick a base function and drag the parameters $a$ ("a
 **Horizontal Transformations:** (taking $h > 0$; a negative $h$ reverses the direction)
 - $f(x - h)$: Shift right $h$ units
 - $f(x + h)$: Shift left $h$ units
-- $f(bx)$: Horizontal compression by $b$ (if $|b| > 1$) or stretch (if $|b| < 1$)
+- $f(bx)$: Horizontal compression toward the y-axis by a factor of $\frac{1}{b}$ if $|b| > 1$ (points move $b$ times closer to the axis), or a stretch away from it if $|b| < 1$
 - $f(-x)$: Reflect across y-axis
 
 **Combined:** the transformed function is $g(x) = a \cdot f(b(x - h)) + k$
@@ -399,5 +430,13 @@ The explorer below lets you pick a base function and drag the parameters $a$ ("a
 2. Horizontal stretch/compression $b$
 3. Vertical stretch/compression $a$
 4. Vertical shift $k$
+
+**Worked example (tracing a point through a combined transformation).** Start with the parabola $f(x) = x^2$ and build $g(x) = 2 \cdot f\big(3(x - 1)\big) - 4$. Expanding, $g(x) = 2\big(3(x-1)\big)^2 - 4 = 18(x - 1)^2 - 4$, but the power of the combined form is that we can locate the new graph by moving known points of $f$ one parameter at a time. Track two reference points of the base parabola.
+
+*The vertex $(0, 0)$ of $f$.* The vertex is the input where $f$'s argument is $0$. In $g$ that argument is $3(x - 1)$, which equals $0$ exactly when $x = 1$. So the vertex lands at $x = h = 1$, and its height is $a \cdot 0 + k = -4$: the new vertex is $(1, -4)$. Notice it moved to $x = h = 1$ regardless of the stretch factor $b$; that is the point of writing the form factored as $b(x - h)$ rather than expanded.
+
+*The point $(1, 1)$ of $f$* (one unit right of the vertex, since $f(1) = 1$). We need $g$'s inner argument to equal that base input $1$: $3(x - 1) = 1$, so $x - 1 = \frac{1}{3}$ and $x = \frac{4}{3}$. The offset from the anchor shrank from $1$ to $\frac{1}{3}$, a horizontal compression by the factor $\frac{1}{b} = \frac{1}{3}$. The height is $a \cdot 1 + k = 2 - 4 = -2$. So $(1, 1)$ on $f$ maps to $\left(\frac{4}{3}, -2\right)$ on $g$, which checks against the expanded form: $g\left(\frac{4}{3}\right) = 18\left(\frac{1}{3}\right)^2 - 4 = 2 - 4 = -2$.
+
+**Why the shift is $h$ and not $\frac{h}{b}$.** Because the form is written factored as $f\big(b(x - h)\big)$, the inner argument is zero exactly at $x = h$, independent of $b$. If instead you meet the *expanded* version $f(bx - c)$, the anchor sits where $bx - c = 0$, that is $x = \frac{c}{b}$. The two agree because $c = bh$, so $\frac{c}{b} = h$: the factored form simply reads the shift off directly, while the expanded form hides it. Always factor out $b$ before reading the horizontal shift.
 
 ![Four panels showing vertical shifts, horizontal shifts, stretch/compression, and reflections of f(x) = x²](./media/transformations-summary.png)
