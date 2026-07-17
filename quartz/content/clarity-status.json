@@ -242,7 +242,7 @@
       ]
     },
     "functions-relations.md": {
-      "contentHash": "sha1:e7d858b53581d26a",
+      "contentHash": "sha1:9badd6789be91976",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
@@ -344,7 +344,8 @@
           "upgrade": "",
           "phase2": "proved congruence mod n is reflexive+symmetric+transitive from n|(a-b); ties to the n residue classes + harness"
         }
-      ]
+      ],
+      "note": "Hash refreshed: added a 'The Function Family' navigational map (links to the 8 function-type pages) + enables fanout to graphing/linear-functions; no worked-example content changed."
     },
     "euclidean-geometry.md": {
       "contentHash": "sha1:26f6060289bbbdf6",

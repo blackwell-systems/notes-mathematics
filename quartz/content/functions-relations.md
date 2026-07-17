@@ -1,13 +1,28 @@
 ---
 title: "Functions & Relations"
 prerequisites: ["set-theory"]
-enables: ["calculus", "statistics"]
+enables: ["graphing-functions", "linear-functions", "calculus", "statistics"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
 > **Builds on:** [Set Theory](./set-theory)
-> **Leads to:** [Calculus](./calculus) · [Statistics](./statistics)
+> **Leads to:** the [function types](#the-function-family) below (linear, polynomial, rational, ...), then [Calculus](./calculus) · [Statistics](./statistics)
 
+
+## The Function Family
+
+This page develops the **general theory** of functions and relations: the definitions and properties (injective, surjective, composition, inverses, equivalence relations) that hold for *every* function. Each specific *kind* of function then gets its own page, all building on this shared foundation:
+
+- **[Graphing Functions](./graphing-functions)** — the coordinate plane, transformations (shift, stretch, reflect), reading domain and range off a graph.
+- **[Linear Functions](./linear-functions)** — $y = mx + b$: slope, intercepts, the simplest non-constant functions.
+- **[Polynomial Functions](./polynomial-functions)** — sums of power terms: degree, roots, end behavior, the Fundamental Theorem of Algebra.
+- **[Rational Functions](./rational-functions)** — ratios of polynomials: asymptotes, holes, and excluded values.
+- **[Radical Functions](./radical-functions)** — roots and fractional powers, with the domain restrictions that even roots impose.
+- **[Exponential Functions](./exponential-functions)** — $y = a\,b^x$: growth and decay, and the number $e$.
+- **[Logarithms](./logarithms)** — the inverse of exponentials: the log laws and change of base.
+- **[Partial Fraction Decomposition](./partial-fraction-decomposition)** — splitting a rational function into simpler pieces (the key trick for integrating them).
+
+If you already know the general theory and want a specific type, jump straight to its page. Otherwise, read on: everything below is the groundwork those pages assume.
 
 ## Why Study Functions?
 
