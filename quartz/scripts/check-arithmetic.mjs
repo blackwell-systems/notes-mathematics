@@ -869,6 +869,50 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("FTC: integral 3x^2 on [1,2] = 7", integ((x) => 3 * x * x, 1, 2), 7, 1e-6);
   eq("standard limit sin(x)/x -> 1", Math.sin(1e-5) / 1e-5, 1, 1e-8);
   eq("standard limit (1+1/n)^n -> e", Math.pow(1 + 1 / 1e7, 1e7), Math.E, 1e-3);
+
+  // ---- Phase-2 worked examples ----
+  // product rule with a chain rule inside: d/dx[x^2 sin(3x)] = 2x sin3x + 3x^2 cos3x
+  { const analytic = 2 * 1.3 * Math.sin(3 * 1.3) + 3 * 1.3 ** 2 * Math.cos(3 * 1.3);
+    eq("product+chain: d/dx(x^2 sin 3x) at 1.3", ddx((x) => x * x * Math.sin(3 * x), 1.3), analytic, 1e-4); }
+  // quotient rule: d/dx[x^2/(x+1)] = (x^2+2x)/(x+1)^2; at x=1 equals 3/4
+  { const q = (x) => (x * x) / (x + 1);
+    eq("quotient rule: d/dx(x^2/(x+1)) at 1 = 3/4", ddx(q, 1), (1 * 1 + 2 * 1) / (1 + 1) ** 2, 1e-4); }
+  check("quotient example numerator x(x+2) < 0 exactly on -2<x<0", -1 * (-1 + 2) < 0 && 1 * (1 + 2) > 0 && -3 * (-3 + 2) > 0);
+  // implicit diff on circle: at (3,4) dy/dx = -3/4, perpendicular to radius (slope 4/3)
+  eq("point (3,4) on x^2+y^2=25", 3 ** 2 + 4 ** 2, 25);
+  eq("implicit dy/dx at (3,4) = -3/4", -3 / 4, -0.75);
+  eq("tangent perpendicular to radius: (-3/4)(4/3) = -1", (-3 / 4) * (4 / 3), -1, 1e-12);
+  // related rates: balloon dV/dt = 4*pi*25*2 = 200pi ; ladder y'=-0.75 when x=6
+  eq("balloon dV/dt = 4*pi*r^2*dr/dt = 200pi", 4 * Math.PI * 25 * 2, 200 * Math.PI, 1e-9);
+  eq("ladder: wall height at x=6 is sqrt(100-36)=8", Math.sqrt(100 - 36), 8);
+  eq("ladder top speed dy/dt = -(x/y)dx/dt = -0.75", -(6 / 8) * 1, -0.75);
+  // MVT: x^2 on [1,3] gives c=2 ; x^3 on [0,2] gives c=2/sqrt3 (not the midpoint)
+  { const avg = ((3 ** 2) - (1 ** 2)) / (3 - 1); eq("MVT x^2 on [1,3]: avg rate = 4", avg, 4); eq("MVT x^2: 2c=4 -> c=2 in (1,3)", 4 / 2, 2); }
+  { const avg = ((2 ** 3) - 0) / (2 - 0); eq("MVT x^3 on [0,2]: avg rate = 4", avg, 4);
+    eq("MVT x^3: 3c^2=4 -> c=2/sqrt3 ~ 1.155", Math.sqrt(4 / 3), 2 / Math.sqrt(3), 1e-12);
+    check("MVT c=2/sqrt3 is NOT the midpoint 1", Math.abs(2 / Math.sqrt(3) - 1) > 0.1); }
+  // Riemann sums for x^2 on [0,1], n=4: L4=0.21875 < 1/3 < R4=0.46875
+  { const dx = 0.25; let L = 0, R = 0; for (let i = 0; i < 4; i++) { L += (i * dx) ** 2 * dx; R += ((i + 1) * dx) ** 2 * dx; }
+    eq("left Riemann L4 for x^2 on [0,1] = 0.21875", L, 0.21875, 1e-12);
+    eq("right Riemann R4 = 0.46875", R, 0.46875, 1e-12);
+    check("L4 < 1/3 < R4 (brackets the exact area)", L < 1 / 3 && 1 / 3 < R); }
+  // integration by parts (cyclic): d/dx[e^x(cos x + sin x)/2] = e^x cos x
+  { const F = (x) => Math.exp(x) * (Math.cos(x) + Math.sin(x)) / 2;
+    eq("cyclic IBP: d/dx[e^x(cosx+sinx)/2] at 0.7 = e^x cos x", ddx(F, 0.7), Math.exp(0.7) * Math.cos(0.7), 1e-4); }
+  // integration by parts (ln x): d/dx[x ln x - x] = ln x
+  eq("IBP ln x: d/dx[x ln x - x] at 2 = ln 2", ddx((x) => x * Math.log(x) - x, 2), Math.log(2), 1e-4);
+  // numerical integration: Simpson beats trapezoid on integral of e^{-x^2} over [0,2], n=4
+  { const f = (x) => Math.exp(-x * x); const xs = [0, 0.5, 1, 1.5, 2];
+    const T4 = (0.5 / 2) * (f(xs[0]) + 2 * f(xs[1]) + 2 * f(xs[2]) + 2 * f(xs[3]) + f(xs[4]));
+    const S4 = (0.5 / 3) * (f(xs[0]) + 4 * f(xs[1]) + 2 * f(xs[2]) + 4 * f(xs[3]) + f(xs[4]));
+    const exact = integ(f, 0, 2);
+    eq("trapezoid T4 for e^{-x^2} on [0,2] ~ 0.8806", T4, 0.8806, 1e-3);
+    eq("Simpson S4 ~ 0.8818", S4, 0.8818, 1e-3);
+    eq("true value ~ 0.8821", exact, 0.8821, 1e-3);
+    check("Simpson is closer to the true value than trapezoid", Math.abs(S4 - exact) < Math.abs(T4 - exact)); }
+  // Taylor: e^x partial sum through 1/5! is within ~0.0016 of e
+  { const fact = (k) => { let r = 1; for (let i = 2; i <= k; i++) r *= i; return r; }; let s = 0; for (let n = 0; n <= 5; n++) s += 1 / fact(n);
+    check("e^x Maclaurin (6 terms) within ~0.0016 of e", Math.abs(s - Math.E) < 0.0017); }
 }
 
 // ================= Linear Algebra =================

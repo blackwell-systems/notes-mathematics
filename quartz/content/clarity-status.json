@@ -1097,12 +1097,12 @@
       ]
     },
     "calculus.md": {
-      "contentHash": "sha1:ba3514c0ac4b8176",
+      "contentHash": "sha1:8d5aba5867919046",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-16",
       "auditor": "claude+subagent",
-      "overall": "mixed",
-      "summary": "Thorough coverage; chain rule, L'Hopital, logarithmic differentiation, non-differentiability, improper integrals, average value are exemplary. The clarity gaps are a consistent pattern: several techniques work only the EASIEST case (product/quotient rule as one-liners, integration by parts only the LIATE-trivial case, u-sub only indefinite) or state the method without a numeric run (Riemann sums, numerical integration, Taylor series, MVT). No missing coverage; 9 thin.",
+      "overall": "strong",
+      "summary": "PHASE 2 DONE: the recurring gap was 'only the easiest case worked'; now the interesting cases are too. Product rule (f/g labelled + a chain-rule-inside x^2 sin 3x); quotient rule (labelled, sign-asymmetry, sign-check via x(x+2)); implicit diff (the d/dx(y^2)=2y y' trip-step spelled out + evaluated at (3,4) with a perpendicular-to-radius check); related rates (explicit method + surface-area check + a second implicit ladder example); MVT (finds c=2 for x^2 on [1,3], and c=2/sqrt3 for x^3 to show c is not the midpoint); Riemann sums (numeric L4=0.21875 < 1/3 < R4=0.46875); integration by parts (the ln x dv=dx trick + the cyclic e^x cos x solved as an equation); numerical integration (trapezoid vs Simpson on the figure's integral of e^{-x^2}, Simpson ~5x closer); Taylor (e^x derived from scratch + truncation within 0.0016 of e, and the sin derivative cycle). All 9 independently reviewed (returned []); +24 machine-checked assertions. Resolves all 9 thin items.",
       "inventory": [
         {
           "concept": "limit via factoring / table (0/0)",
@@ -1178,15 +1178,17 @@
         },
         {
           "concept": "product rule",
-          "quality": "thin",
+          "quality": "strong",
           "note": "one-line answer, no substitution into the formula, toy case",
-          "upgrade": "Plug f=x^2,g=sin x,f',g' into the formula step by step; add a case needing chain rule inside (x^2 sin 3x)."
+          "upgrade": "",
+          "phase2": "labelled f=x^2,g=sin x; added the chain-inside case x^2 sin 3x -> 2x sin3x + 3x^2 cos3x + harness"
         },
         {
           "concept": "quotient rule",
-          "quality": "thin",
+          "quality": "strong",
           "note": "f,g not labeled, toy case, no interpretation",
-          "upgrade": "Label numerator/denominator and derivatives, map the mnemonic; pick a case where the sign matters."
+          "upgrade": "",
+          "phase2": "labelled high/low; sign-asymmetry noted; sign-check via factored numerator x(x+2) + harness"
         },
         {
           "concept": "chain rule",
@@ -1220,9 +1222,10 @@
         },
         {
           "concept": "implicit differentiation",
-          "quality": "thin",
+          "quality": "strong",
           "note": "2x+2y y'=0 => y'=-x/y in one line; the d/dx(y^2)=2y y' trip-step not shown",
-          "upgrade": "Expand the chain-rule step on y^2 explicitly and evaluate the slope at a point like (3,4)."
+          "upgrade": "",
+          "phase2": "spelled out d/dx(y^2)=2y y' (the trip-step); evaluated at (3,4) = -3/4 with perpendicular-to-radius check + harness"
         },
         {
           "concept": "logarithmic differentiation",
@@ -1250,9 +1253,10 @@
         },
         {
           "concept": "related rates (balloon)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "jumps to dV/dt=4pi r^2 dr/dt without the chain-rule differentiation",
-          "upgrade": "Show d/dt of each side of V=4/3 pi r^3, list knowns, substitute last; add a ladder/shadow type."
+          "upgrade": "",
+          "phase2": "explicit method (differentiate then substitute last); surface-area check; added an implicit ladder example (dy/dt=-0.75) + harness"
         },
         {
           "concept": "linear approximation",
@@ -1274,9 +1278,10 @@
         },
         {
           "concept": "Mean Value Theorem / Rolle",
-          "quality": "thin",
+          "quality": "strong",
           "note": "stated + used for corollaries, but c never solved for",
-          "upgrade": "Find the guaranteed c for a specific f: f(x)=x^2 on [1,3] gives c=2."
+          "upgrade": "",
+          "phase2": "find the guaranteed c: x^2 on [1,3] -> c=2; x^3 on [0,2] -> c=2/sqrt3 (not the midpoint) + harness"
         },
         {
           "concept": "L'Hopital's rule",
@@ -1286,9 +1291,10 @@
         },
         {
           "concept": "Riemann sums",
-          "quality": "thin",
+          "quality": "strong",
           "note": "3-step procedure + widget, no numeric sum carried out",
-          "upgrade": "Work a concrete left sum for x^2 on [0,1], n=4, and show it approaching 1/3."
+          "upgrade": "",
+          "phase2": "numeric left/right sums for x^2 on [0,1], n=4: L4=0.21875 < 1/3 < R4=0.46875 + harness"
         },
         {
           "concept": "FTC evaluation",
@@ -1316,9 +1322,10 @@
         },
         {
           "concept": "integration by parts",
-          "quality": "thin",
+          "quality": "strong",
           "note": "only x e^x, the easiest LIATE case",
-          "upgrade": "Add integral ln x dx (dv=dx trick) and a cyclic case like integral e^x cos x dx."
+          "upgrade": "",
+          "phase2": "added the ln x (dv=dx) trick and the cyclic e^x cos x solved as an equation I=...-I + harness"
         },
         {
           "concept": "improper integrals",
@@ -1340,9 +1347,10 @@
         },
         {
           "concept": "numerical integration (Trapezoid / Simpson)",
-          "quality": "thin",
+          "quality": "strong",
           "note": "rules stated with weights, no numeric application",
-          "upgrade": "Work a concrete trapezoid estimate for integral_0^2 e^{-x^2}, n=4, compare to Simpson."
+          "upgrade": "",
+          "phase2": "trapezoid vs Simpson on the figure's integral of e^{-x^2}, n=4: T4~0.8806, S4~0.8818, true~0.8821, Simpson ~5x closer + harness"
         },
         {
           "concept": "integration by partial fractions",
@@ -1352,9 +1360,10 @@
         },
         {
           "concept": "Taylor / Maclaurin series",
-          "quality": "thin",
+          "quality": "strong",
           "note": "formula + key series + widget, no derivation from scratch",
-          "upgrade": "Derive one series from f^{(n)}(a)/n! (e.g. e^x), evaluate a truncation."
+          "upgrade": "",
+          "phase2": "derived e^x from scratch (all derivatives 1 -> sum x^n/n!) + truncation within 0.0016 of e; sin derivative cycle + harness"
         },
         {
           "concept": "Gaussian integral",
@@ -1362,7 +1371,8 @@
           "note": "",
           "upgrade": "Stated as a fact with motivation; derivation appropriately omitted."
         }
-      ]
+      ],
+      "phase2At": "2026-07-16"
     },
     "graph-theory.md": {
       "contentHash": "sha1:a3d7d2d2c3cb0278",

@@ -180,7 +180,7 @@
       "findings": []
     },
     "calculus.md": {
-      "contentHash": "sha1:ba3514c0ac4b8176",
+      "contentHash": "sha1:8d5aba5867919046",
       "rubricVersion": 1,
       "reviewedAt": "2026-07-16",
       "reviewer": "claude+subagent",
@@ -193,7 +193,8 @@
           "status": "resolved",
           "resolution": "Added 'if f is continuous on [a,b]' to both Part 1 and Part 2 (continuity is the standard sufficient hypothesis at this level and implies integrability). Down-triaged from the reviewer's sev-1 to sev-2, since for a continuous f the original statement was correct."
         }
-      ]
+      ],
+      "note": "Phase-2 clarity pass expanded 9 techniques from their easy case to the interesting case (product+chain, quotient sign-check, implicit-diff trip-step + point eval, related-rates method + ladder, MVT find-c, numeric Riemann sums, IBP ln x + cyclic, trapezoid-vs-Simpson, Taylor e^x from scratch). Each independently correctness-reviewed (returned []) and machine-checked (+24 assertions). Hash refreshed."
     },
     "combination.md": {
       "contentHash": "sha1:1dd3bcdf8793a85c",

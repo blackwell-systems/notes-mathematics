@@ -478,11 +478,24 @@ $$
 
 The derivative of a product is not the product of the derivatives. You must use this rule.
 
-**Worked example:** Find the derivative of $x^2 \sin(x)$.
+**Worked example:** Find the derivative of $x^2 \sin(x)$. Label the two factors and their derivatives, then drop them into the formula:
+
+- $f(x) = x^2$, so $f'(x) = 2x$;
+- $g(x) = \sin x$, so $g'(x) = \cos x$.
+
+Then $(fg)' = f'g + fg'$ gives
 
 $$
-= 2x \cdot \sin(x) + x^2 \cdot \cos(x)
+\frac{d}{dx}[x^2 \sin x] = \underbrace{2x}_{f'} \cdot \underbrace{\sin x}_{g} + \underbrace{x^2}_{f} \cdot \underbrace{\cos x}_{g'} = 2x \sin x + x^2 \cos x.
 $$
+
+**Worked example (product rule with a chain rule inside):** Find the derivative of $x^2 \sin(3x)$. The setup is the same, but now the factor $g(x) = \sin(3x)$ itself needs the [chain rule](#the-chain-rule) to differentiate: $g'(x) = \cos(3x) \cdot 3 = 3\cos(3x)$. With $f = x^2$ and $f' = 2x$,
+
+$$
+\frac{d}{dx}[x^2 \sin(3x)] = 2x \sin(3x) + x^2 \cdot 3\cos(3x) = 2x \sin(3x) + 3x^2 \cos(3x).
+$$
+
+The product and chain rules routinely nest like this; keep them straight by differentiating each factor on its own (with whatever rule *that* factor needs) before assembling the product-rule sum.
 
 ### Quotient Rule
 
@@ -494,11 +507,18 @@ $$
 
 A common mnemonic: "low d-high minus high d-low, over the square of what's below."
 
-**Worked example:** Find the derivative of $\frac{x^2}{x + 1}$.
+**Worked example:** Find the derivative of $\frac{x^2}{x + 1}$. Label numerator and denominator (the mnemonic's "high" and "low"):
+
+- $f(x) = x^2$ (high), so $f'(x) = 2x$;
+- $g(x) = x + 1$ (low), so $g'(x) = 1$.
+
+The rule $\dfrac{f'g - fg'}{g^2}$ ("low d-high minus high d-low, over low squared") gives
 
 $$
-= \frac{2x(x + 1) - x^2(1)}{(x+1)^2} = \frac{2x^2 + 2x - x^2}{(x+1)^2} = \frac{x^2 + 2x}{(x+1)^2}
+\frac{d}{dx}\left[\frac{x^2}{x+1}\right] = \frac{\overbrace{2x}^{f'}(x+1) - \overbrace{x^2}^{f}(1)}{(x+1)^2} = \frac{2x^2 + 2x - x^2}{(x+1)^2} = \frac{x^2 + 2x}{(x+1)^2} = \frac{x(x+2)}{(x+1)^2}.
 $$
+
+The order in the numerator matters: it is $f'g - fg'$, **not** $fg' - f'g$, so unlike the product rule the quotient rule is *not* symmetric in $f$ and $g$ (swapping them flips the sign). As a sanity check, the factored numerator $x(x+2)$ is negative exactly for $-2 < x < 0$, so the function is decreasing on that interval and increasing outside it, which is just what the graph of $x^2/(x+1)$ does.
 
 ### The Chain Rule
 
@@ -639,11 +659,21 @@ At $x = -1$: $f''(-1) = -6 < 0$, so the curve is concave down (hill-shaped) ther
 
 ### Implicit Differentiation
 
-Sometimes you cannot solve for $y$ explicitly. For example, $x^2 + y^2 = 25$ defines a circle, but $y$ is not a single function of $x$. You can still find $\frac{dy}{dx}$ by differentiating both sides with respect to $x$, treating $y$ as a function of $x$ and applying the chain rule whenever you differentiate a $y$ term:
+Sometimes you cannot solve for $y$ explicitly. For example, $x^2 + y^2 = 25$ defines a circle, but $y$ is not a single function of $x$ (each $x$ strictly between $-5$ and $5$ has two $y$-values, one on the top half and one on the bottom). You can still find $\frac{dy}{dx}$ by differentiating both sides with respect to $x$, treating $y$ as an unknown function of $x$ and applying the **chain rule** every time you differentiate a $y$ term.
+
+The step people trip on is $\frac{d}{dx}(y^2)$. Since $y$ is itself a function of $x$, this is a *composite*, and the chain rule gives
 
 $$
-2x + 2y \frac{dy}{dx} = 0 \implies \frac{dy}{dx} = -\frac{x}{y}
+\frac{d}{dx}(y^2) = 2y \cdot \frac{dy}{dx},
 $$
+
+the outer square differentiating to $2y$, times the derivative of the inside, $\frac{dy}{dx}$. It is $2y \, y'$, **not** just $2y$; forgetting that $\frac{dy}{dx}$ factor is the classic mistake. Now differentiate the circle term by term:
+
+$$
+\frac{d}{dx}(x^2) + \frac{d}{dx}(y^2) = \frac{d}{dx}(25) \implies 2x + 2y\frac{dy}{dx} = 0 \implies \frac{dy}{dx} = -\frac{x}{y}.
+$$
+
+The slope depends on *both* coordinates, as it must, since a given $x$ can lie on the upper or lower semicircle. At the point $(3, 4)$ on the circle, $\frac{dy}{dx} = -\frac{3}{4}$: a gentle downward tangent. Sanity check: the radius to $(3, 4)$ has slope $\frac{4}{3}$, and the tangent slope $-\frac{3}{4}$ is its negative reciprocal, so the tangent is perpendicular to the radius, exactly as a circle's tangent should be. At the mirror point $(3, -4)$ the slope flips to $-\frac{3}{-4} = +\frac{3}{4}$.
 
 ### Logarithmic Differentiation
 
@@ -762,15 +792,31 @@ So the maximum area is $A(25) = 25 \cdot 25 = 625$ square meters. The optimal re
 
 ### Related Rates
 
-When two quantities are connected by an equation and both change over time, you can find how fast one changes given how fast the other changes.
+When two quantities are linked by an equation and both change over time, differentiating the equation with respect to time $t$ relates their *rates*. The reliable recipe never varies: **(1)** write the relation between the quantities, **(2)** differentiate both sides with respect to $t$ (every variable is a function of time, so each one picks up the chain rule), and **(3)** substitute the known numbers only at the very end. Plugging numbers in too early is the most common way these problems go wrong.
 
-**Example:** A balloon's radius grows at 2 cm/s. How fast is the volume growing when $r = 5$ cm?
+**Example: an inflating balloon.** A spherical balloon's radius grows at $\frac{dr}{dt} = 2$ cm/s. How fast is the volume growing when $r = 5$ cm?
 
-$V = \frac{4}{3}\pi r^3$. Differentiate both sides with respect to time $t$:
+*Relation:* $V = \frac{4}{3}\pi r^3$. *Differentiate with respect to $t$* (both $V$ and $r$ depend on $t$, so the right side needs the chain rule, $\frac{d}{dt}(r^3) = 3r^2 \frac{dr}{dt}$):
 
 $$
-\frac{dV}{dt} = 4\pi r^2 \frac{dr}{dt} = 4\pi(25)(2) = 200\pi \approx 628 \text{ cm}^3\text{/s}
+\frac{dV}{dt} = \frac{4}{3}\pi \cdot 3r^2 \frac{dr}{dt} = 4\pi r^2 \frac{dr}{dt}.
 $$
+
+*Substitute the knowns last*, $r = 5$ and $\frac{dr}{dt} = 2$:
+
+$$
+\frac{dV}{dt} = 4\pi (5)^2 (2) = 200\pi \approx 628 \text{ cm}^3/\text{s}.
+$$
+
+The coefficient $4\pi r^2$ is exactly the sphere's surface area, so the volume grows as fast as the surface can push outward, a tidy reasonableness check.
+
+**Example: a sliding ladder.** A 10 ft ladder leans against a wall while its base is pulled away at $\frac{dx}{dt} = 1$ ft/s. How fast is the top sliding *down* when the base is $x = 6$ ft from the wall? Now the relation is an *implicit* one, the Pythagorean constraint $x^2 + y^2 = 10^2$. Differentiating with respect to $t$:
+
+$$
+2x\frac{dx}{dt} + 2y\frac{dy}{dt} = 0 \implies \frac{dy}{dt} = -\frac{x}{y}\frac{dx}{dt}.
+$$
+
+When $x = 6$, the height is $y = \sqrt{100 - 36} = 8$, so $\frac{dy}{dt} = -\frac{6}{8}(1) = -0.75$ ft/s. The negative sign says the top moves *down* at $0.75$ ft/s, exactly what should happen as the base slides out.
 
 ### Linear Approximation
 
@@ -890,6 +936,16 @@ Rolle's Theorem is the special case where $f(a) = f(b)$, making the average rate
 
 ![Mean Value Theorem: a curve with secant line from a to b and parallel tangent line at point c](./media/mean-value-theorem.png)
 
+**Worked example: finding the guaranteed $c$.** The theorem promises a $c$ exists; here is how you actually produce it. Take $f(x) = x^2$ on $[1, 3]$. The average rate of change is
+
+$$
+\frac{f(3) - f(1)}{3 - 1} = \frac{9 - 1}{2} = 4,
+$$
+
+so the MVT guarantees some $c \in (1, 3)$ with $f'(c) = 4$. Since $f'(x) = 2x$, solve $2c = 4$ to get $c = 2$, which indeed lies in $(1, 3)$. Geometrically, the tangent line at $x = 2$ (slope $4$) is parallel to the secant joining $(1, 1)$ and $(3, 9)$ (also slope $4$), which is exactly what the picture above shows.
+
+Here $c = 2$ is the midpoint of $[1, 3]$, but that is a special feature of quadratics, not a general rule. For $f(x) = x^3$ on $[0, 2]$ the average rate is $\frac{8 - 0}{2} = 4$, and $f'(c) = 3c^2 = 4$ gives $c = \frac{2}{\sqrt{3}} \approx 1.155$, off-center. The theorem asserts *existence*, not location.
+
 **Why the MVT matters:** It is the theoretical foundation for many calculus results:
 
 - If $f'(x) > 0$ on an interval, then $f$ is increasing. (Proof: for any $a < b$ in the interval, the MVT gives $f(b) - f(a) = f'(c)(b-a) > 0$, so $f(b) > f(a)$.)
@@ -985,6 +1041,20 @@ As you use more and more rectangles, the approximation gets better. In the limit
 Try it below: choose a function and rule (left, right, midpoint, trapezoid) and slide the number of rectangles up to watch the sum converge to the exact integral, with the error shrinking as $n$ grows.
 
 <iframe src="/static/interactive/calc-riemann-sums.html" width="100%" height="640" style="border:none;"></iframe>
+
+**Worked example: a Riemann sum by hand.** Estimate the area under $f(x) = x^2$ on $[0, 1]$ with $n = 4$ rectangles. Each has width $\Delta x = \frac{1 - 0}{4} = 0.25$. Using **left** endpoints $x = 0,\, 0.25,\, 0.5,\, 0.75$, the heights are $f(x) = 0,\, 0.0625,\, 0.25,\, 0.5625$, so
+
+$$
+L_4 = (0 + 0.0625 + 0.25 + 0.5625)(0.25) = 0.875 \times 0.25 = 0.21875.
+$$
+
+This *under*estimates, because $x^2$ is increasing, so each left-endpoint height is the lowest the function reaches on its subinterval. Using **right** endpoints $x = 0.25,\, 0.5,\, 0.75,\, 1$ instead gives heights $0.0625,\, 0.25,\, 0.5625,\, 1$ and
+
+$$
+R_4 = (0.0625 + 0.25 + 0.5625 + 1)(0.25) = 1.875 \times 0.25 = 0.46875,
+$$
+
+an *over*estimate. The true area is sandwiched between them, $0.21875 < \text{area} < 0.46875$, and as $n \to \infty$ the two sums squeeze onto the exact value $\int_0^1 x^2 \, dx = \frac{1}{3} \approx 0.3333$ (which the Fundamental Theorem below confirms in one line). Even at $n = 4$ the pair already brackets it.
 
 ### The Definite Integral
 
@@ -1145,6 +1215,40 @@ $$
 \int x \, e^x \, dx = x \, e^x - \int e^x \, dx = x \, e^x - e^x + C = e^x(x - 1) + C
 $$
 
+**Worked example (the $\int \ln x \, dx$ trick):** There is no visible product here, yet LIATE still applies. Take $u = \ln x$ (logarithmic, first in the list) and let $dv = dx$ be the "leftover" $1 \, dx$. Then $du = \frac{1}{x} \, dx$ and $v = x$, so
+
+$$
+\int \ln x \, dx = \underbrace{x \ln x}_{uv} - \int x \cdot \frac{1}{x} \, dx = x \ln x - \int 1 \, dx = x \ln x - x + C.
+$$
+
+The move worth remembering: a lone function can always be written as (itself) $\times \, dx$, which is what lets integration by parts apply to it at all.
+
+**Worked example (a cyclic integral):** For $\int e^x \cos x \, dx$, parts appears to go in circles, and the fix is to *let* it. Take $u = \cos x$, $dv = e^x \, dx$, so $du = -\sin x \, dx$ and $v = e^x$:
+
+$$
+\int e^x \cos x \, dx = e^x \cos x + \int e^x \sin x \, dx.
+$$
+
+Apply parts *again* to the new integral, with $u = \sin x$, $dv = e^x \, dx$:
+
+$$
+\int e^x \sin x \, dx = e^x \sin x - \int e^x \cos x \, dx.
+$$
+
+Substituting the second line into the first, the original integral $I = \int e^x \cos x \, dx$ reappears on the right:
+
+$$
+I = e^x \cos x + e^x \sin x - I.
+$$
+
+Rather than loop forever, treat this as an *equation* and solve: $2I = e^x(\cos x + \sin x)$, so
+
+$$
+\int e^x \cos x \, dx = \frac{e^x(\cos x + \sin x)}{2} + C.
+$$
+
+When integration by parts regenerates the integral you began with, stop integrating and solve algebraically. (Differentiating the answer returns $e^x \cos x$, confirming it.)
+
 **Where it shows up:** Integration by parts is used in information theory to derive properties of entropy. It also appears when computing expected values of continuous random variables.
 
 ### Common Integrals Reference Table
@@ -1277,6 +1381,26 @@ Simpson's rule requires an even number of subintervals ($n$ must be even). The c
 
 ![Two side-by-side panels approximating the integral of e to the minus x squared from 0 to 2, a function with no elementary antiderivative, using four subintervals. The left panel shows the trapezoid rule: each subinterval is capped by a straight red line connecting adjacent function values, and these straight tops visibly deviate from the blue curve, overshooting where the curve bends. The right panel shows Simpson's rule: each pair of subintervals is capped by a green parabola fitted through three points, and these parabolic tops hug the curve so closely they are almost indistinguishable from it. The visual gap between the two methods illustrates why the trapezoid error is order h squared while Simpson's error is the much smaller order h to the fourth.](./media/calc-numerical-integration.png)
 
+**Worked example: trapezoid and Simpson on the figure's integral.** Estimate $\int_0^2 e^{-x^2} \, dx$ (the integral drawn above, which has no elementary antiderivative) with $n = 4$, so $\Delta x = \frac{2 - 0}{4} = 0.5$ and the nodes are $x = 0, 0.5, 1, 1.5, 2$. The five function values are
+
+$$
+f(0) = 1,\quad f(0.5) = e^{-0.25} \approx 0.7788,\quad f(1) = e^{-1} \approx 0.3679,\quad f(1.5) = e^{-2.25} \approx 0.1054,\quad f(2) = e^{-4} \approx 0.0183.
+$$
+
+**Trapezoid** (endpoint weights $1$, interior weights $2$):
+
+$$
+T_4 = \frac{0.5}{2}\big[1 + 2(0.7788) + 2(0.3679) + 2(0.1054) + 0.0183\big] \approx 0.25 \times 3.5225 \approx 0.8806.
+$$
+
+**Simpson** (weights $1, 4, 2, 4, 1$; note $n = 4$ is even, as the rule requires):
+
+$$
+S_4 = \frac{0.5}{3}\big[1 + 4(0.7788) + 2(0.3679) + 4(0.1054) + 0.0183\big] \approx 0.1667 \times 5.2909 \approx 0.8818.
+$$
+
+The true value is $\approx 0.8821$. So from the *same five function evaluations*, the trapezoid rule is off by about $0.0015$ while Simpson is off by only about $0.0003$, roughly five times closer, exactly the $O(h^2)$-versus-$O(h^4)$ accuracy gap the picture above illustrates.
+
 **Connection to computing:** This is exactly what numerical software (NumPy's `numpy.trapz`, SciPy's `scipy.integrate.quad`) does when computing integrals. The `quad` function uses adaptive versions of these methods, automatically choosing more points where the function changes rapidly.
 
 ### Integration with Partial Fractions
@@ -1322,6 +1446,22 @@ $$
 Slide the degree $N$ below to watch the Taylor polynomial hug the function ever more closely near the center, and for $\ln(1+x)$ and $\frac{1}{1-x}$ see it *fail* to converge outside the interval of convergence no matter how high $N$ goes.
 
 <iframe src="/static/interactive/taylor-series.html" width="100%" height="640" style="border:none;"></iframe>
+
+**Worked example: deriving the series for $e^x$ from scratch.** The Maclaurin recipe needs the values $f(0), f'(0), f''(0), \ldots$ For $f(x) = e^x$ this is as easy as it gets, because $e^x$ is its own derivative: every derivative is $e^x$ again, so at $x = 0$ every one of them equals $e^0 = 1$:
+
+$$
+f(0) = f'(0) = f''(0) = f'''(0) = \cdots = 1.
+$$
+
+Dropping these into $\sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n$, every coefficient becomes $\frac{1}{n!}$:
+
+$$
+e^x = \frac{1}{0!} + \frac{1}{1!}x + \frac{1}{2!}x^2 + \frac{1}{3!}x^3 + \cdots = 1 + x + \frac{x^2}{2} + \frac{x^3}{6} + \cdots = \sum_{n=0}^{\infty} \frac{x^n}{n!}.
+$$
+
+To watch it work numerically, estimate $e = e^1$ by truncating after a few terms: $1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \frac{1}{120} = 2.71\overline{6}$, already within about $0.0016$ of $e \approx 2.71828$. Each additional term shrinks the gap quickly because the factorial denominators blow up.
+
+For a function whose derivatives are less trivial, the same machinery applies: for $\sin x$ the derivatives at $0$ cycle through $\sin 0, \cos 0, -\sin 0, -\cos 0 = 0, 1, 0, -1$ and then repeat, which is precisely why only the odd powers survive, with alternating signs, producing the $\sin x$ series listed just below.
 
 **Key Maclaurin series to know:**
 
