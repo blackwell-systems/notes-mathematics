@@ -43,7 +43,7 @@ In the standard sense, a linear function has degree exactly 1 (a nonzero slope).
 
 When graphed, a linear function will create a straight line.
 
-![The line f(x) = mx + b with b = 1, drawn through its y-intercept at (0, 1), which is marked with a dot. A rise-over-run triangle sits on the line between the points (2, 2) and (4, 3): a green horizontal run of delta x = 2 and a red vertical rise of delta y = 1 meet at a right angle, giving slope m = delta y over delta x = 1/2](./media/linear-slope-intercept.png)
+![The line f(x) = mx + b with b = 1, on axes that cross at the origin so the vertical y-axis is the line x = 0. The line meets that y-axis at height 1, where a dot marks the y-intercept (0, 1). A rise-over-run triangle sits on the line between the points (2, 2) and (4, 3): a green horizontal run of delta x = 2 and a red vertical rise of delta y = 1 meet at a right angle, giving slope m = delta y over delta x = 1/2](./media/linear-slope-intercept.png)
 
 ## Linear Equation Forms
 
