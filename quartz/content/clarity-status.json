@@ -1704,6 +1704,388 @@
         }
       ],
       "phase2At": "2026-07-16"
+    },
+    "statistics.md": {
+      "contentHash": "sha1:9d0ba541f951d46b",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+5subagents",
+      "overall": "mixed",
+      "summary": "Large page (2337 lines) audited by 5 parallel auditors over disjoint ranges. Strong, exemplary worked examples throughout the CORE inferential machinery: all the t/z tests (one-sample, two-sample Welch, paired, one/two-proportion), chi-squared goodness-of-fit/independence/variance, F-test, one-way ANOVA (full SST=SSB+SSW table), MLE, method of moments, confidence intervals, Pearson r, R^2, Simpson's paradox. The gaps cluster in three places: (1) descriptive statistics that are defined but never computed (mode, quartiles/IQR, five-number summary, population-vs-sample variance side by side, histogram bin-width, z-score); (2) the NONPARAMETRIC family (Wilcoxon, Mann-Whitney, Kruskal-Wallis, Spearman, Tukey HSD, two-way ANOVA) stated as formulas but never run on data; (3) ML-adjacent topics (MAP, cross-validation, bias-variance, regression coefficient inference, multiple-comparisons) that stay conceptual. Tally 27 strong / 18 adequate / 12 thin / 5 missing.",
+      "inventory": [
+        {
+          "concept": "variable/scale classification (nominal/ordinal/interval/ratio)",
+          "quality": "adequate",
+          "note": "illustration by table, no step-by-step classification",
+          "upgrade": "walk 3-4 variables through the =,<,+,x tests (Kelvin ratio vs Celsius interval)"
+        },
+        {
+          "concept": "sampling methods (SRS/stratified/systematic/cluster)",
+          "quality": "missing",
+          "note": "methods defined + diagram, none drawn on a concrete population",
+          "upgrade": "draw one SRS/stratified/systematic sample from a small numbered frame, listing selected indices"
+        },
+        {
+          "concept": "experimental design / factorial treatment count",
+          "quality": "adequate",
+          "note": "only the 2x3=6 one-liner",
+          "upgrade": "optionally tabulate the 2x3 design as a 6-cell grid"
+        },
+        {
+          "concept": "Simpson's paradox",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "mean",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "median",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "minor: demo the even-n average-of-two-middle rule on a 4-value set"
+        },
+        {
+          "concept": "mode",
+          "quality": "thin",
+          "note": "defined, never computed (salary set has no repeats)",
+          "upgrade": "compute a concrete mode (2,4,4,4,5,5,7,9 -> 4, or a categorical tally)"
+        },
+        {
+          "concept": "range",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "interquartile range (IQR) / quartile computation",
+          "quality": "thin",
+          "note": "IQR value only in a diagram caption; how Q1/Q3 are found never shown",
+          "upgrade": "work Q1/Q3 on 2,4,4,4,5,5,7,9 via median-of-halves -> Q1=4, Q3=6, IQR=2"
+        },
+        {
+          "concept": "variance (sample, n-1)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "variance (population, /N)",
+          "quality": "thin",
+          "note": "the /N branch never produces a number",
+          "upgrade": "recompute the 4,7,13,16 example with /N: 90/4=22.5 vs /(n-1)=30 side by side"
+        },
+        {
+          "concept": "sample-vs-population variance (why n-1)",
+          "quality": "adequate",
+          "note": "the WHY is walked in prose but never with the two numbers",
+          "upgrade": "show 90/3=30 vs 90/4=22.5 on one dataset so 'divide by n underestimates' is seen"
+        },
+        {
+          "concept": "standard deviation",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "z-score / standardization",
+          "quality": "missing",
+          "note": "no standardization formula worked in descriptive stats (used later only implicitly)",
+          "upgrade": "define (x-mu)/sigma and work one (score 85, mean 70, sd 5 -> z=3)"
+        },
+        {
+          "concept": "five-number summary + 1.5*IQR fences",
+          "quality": "thin",
+          "note": "defined in the boxplot section, never computed",
+          "upgrade": "reduce one dataset to min/Q1/median/Q3/max and compute the whisker fences, check for outliers"
+        },
+        {
+          "concept": "histogram bin-width rules (Sturges / Freedman-Diaconis)",
+          "quality": "thin",
+          "note": "formulas given, never evaluated",
+          "upgrade": "plug one n (e.g. 100) into both rules to get a bin count"
+        },
+        {
+          "concept": "box plot / whiskers construction",
+          "quality": "adequate",
+          "note": "reading how-to complete; figure generic, no construction",
+          "upgrade": "build one box plot from stated numbers (five-number summary + fences)"
+        },
+        {
+          "concept": "stem-and-leaf plot",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "scatter plot / correlation read-off",
+          "quality": "adequate",
+          "note": "r defined but not derived here (Anscombe asserts r)",
+          "upgrade": "compute r once on a tiny (x,y) set, or cross-link to where r is derived"
+        },
+        {
+          "concept": "bar chart vs histogram",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "pie / dot / Q-Q / heat / violin plots",
+          "quality": "adequate",
+          "note": "",
+          "upgrade": "optional: add a dot-plot figure (currently text-only)"
+        },
+        {
+          "concept": "Anscombe's quartet",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "minor: link the identical stats back to the worked descriptive formulas"
+        },
+        {
+          "concept": "standard error",
+          "quality": "adequate",
+          "note": "first numeric SE only appears inside the CI example",
+          "upgrade": "add a standalone SE computation (s=15,n=100 -> 1.5) before reusing it in the CI"
+        },
+        {
+          "concept": "central limit theorem role",
+          "quality": "adequate",
+          "note": "demonstrated interactively, not numerically on the page",
+          "upgrade": "optional static numeric SE-shrinks-1/sqrt(n) illustration alongside the widget"
+        },
+        {
+          "concept": "confidence interval (z-interval)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "z vs t interval",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "maximum likelihood estimation (MLE)",
+          "quality": "strong",
+          "note": "coin MLE fully maximized; Normal MLE is symbols-only",
+          "upgrade": "optional: plug a tiny dataset into the Normal MLE formulas too"
+        },
+        {
+          "concept": "method of moments estimation",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "MAP estimation",
+          "quality": "missing",
+          "note": "defined + richly discussed (ridge/lasso) but never computed on numbers",
+          "upgrade": "reuse the coin: Beta(2,2) prior, posterior mode (h+a-1)/(n+a+b-2) = 8/12 = 0.667, contrast with MLE 0.7"
+        },
+        {
+          "concept": "one-sample z-test",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "one sentence justifying the two-tailed |Z| choice"
+        },
+        {
+          "concept": "one-sample t-test",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "two-sample t-test (Welch)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "show the Welch-Satterthwaite df=46.4 and s_p=11.05 arithmetic (currently asserted)"
+        },
+        {
+          "concept": "paired t-test",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "one-proportion z-test",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "two-proportion z-test",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "p-value computation (statistic -> tail probability)",
+          "quality": "adequate",
+          "note": "tail probabilities appear as asserted lookups, not reproducible by hand",
+          "upgrade": "add one worked normal-table lookup (P(Z>2.121)=0.0170) and note t p-values need software/table"
+        },
+        {
+          "concept": "Type I/II errors and power",
+          "quality": "adequate",
+          "note": "power 0.88 asserted in the figure, never derived",
+          "upgrade": "work one beta/power computation: critical value -> beta=P(fail|H1) -> power, tied to the two-curve figure"
+        },
+        {
+          "concept": "effect size (Cohen's d)",
+          "quality": "adequate",
+          "note": "d computed inside examples but s_p pooling never shown",
+          "upgrade": "show s_p=11.05 so d=-5/11.05=-0.45 is fully derived"
+        },
+        {
+          "concept": "multiple comparisons correction",
+          "quality": "missing",
+          "note": "only a passing research-aside mention; no formula, no example",
+          "upgrade": "define FWER inflation 1-(1-0.05)^m, Bonferroni alpha/m, BH-FDR, run one m=20 example"
+        },
+        {
+          "concept": "one-tailed vs two-tailed decision",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "chi-squared goodness-of-fit",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "chi-squared test of independence",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "Kolmogorov-Smirnov / Shapiro-Wilk normality",
+          "quality": "thin",
+          "note": "both described, neither run on data",
+          "upgrade": "work a small KS: tabulate F_n vs F_0, D=max|diff|, compare to critical; interpret a reported W for SW"
+        },
+        {
+          "concept": "chi-squared inference for one variance",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "optional: add the hypothesis-test companion (chi^2 = (n-1)s^2/sigma_0^2)"
+        },
+        {
+          "concept": "F-test for two variances",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "one-way ANOVA (SST=SSB+SSW table)",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "two-way ANOVA",
+          "quality": "thin",
+          "note": "four-way decomposition + F-ratios are formula-only; interaction never a number",
+          "upgrade": "compute a full two-way table (SS_A, SS_B, SS_AB, SSE, df, MS, three F's) from the 2x2 dataset"
+        },
+        {
+          "concept": "post-hoc / Tukey HSD",
+          "quality": "thin",
+          "note": "reasons qualitatively; no q lookup, no HSD threshold computed",
+          "upgrade": "compute HSD = q_{.05,3,12}*sqrt(MSW/n) ~ 6.42 and compare each gap (10,10,20) to it"
+        },
+        {
+          "concept": "sign test",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "Wilcoxon signed-rank test",
+          "quality": "thin",
+          "note": "mechanics described, no worked example",
+          "upgrade": "work a paired set: differences, abs-value ranks (with a tie), signed ranks, W+/W-, decision"
+        },
+        {
+          "concept": "Mann-Whitney U test",
+          "quality": "thin",
+          "note": "mechanics described, no worked example",
+          "upgrade": "rank the pooled values, compute each rank sum, derive U, compare to critical/normal approx"
+        },
+        {
+          "concept": "Kruskal-Wallis test",
+          "quality": "missing",
+          "note": "only a qualitative description; no H formula, no numbers",
+          "upgrade": "give the H formula and run it on a small 3-group ranked dataset, compare to chi^2_{k-1}"
+        },
+        {
+          "concept": "Spearman rank correlation",
+          "quality": "thin",
+          "note": "formula given in the nonparametric section but never worked; only a link in the correlation section",
+          "upgrade": "take a paired n=5-6 set, rank both, tabulate d_i^2, plug into rho = 1 - 6*sum d^2/(n(n^2-1)); contrast with Pearson"
+        },
+        {
+          "concept": "Pearson correlation",
+          "quality": "strong",
+          "note": "",
+          "upgrade": ""
+        },
+        {
+          "concept": "simple linear regression (slope + intercept)",
+          "quality": "adequate",
+          "note": "slope computed; intercept, fitted line, and prediction never produced; the multiple-reg 'example' just plugs in given coefficients",
+          "upgrade": "finish it: beta_0 = ybar - beta_1 xbar = -0.2, state y-hat=-0.2+1.2x, predict + one residual; optionally a 2x2 normal-equation"
+        },
+        {
+          "concept": "R-squared",
+          "quality": "strong",
+          "note": "",
+          "upgrade": "optional: plug into adjusted-R^2 once"
+        },
+        {
+          "concept": "residual analysis / diagnostics (Cook, VIF)",
+          "quality": "adequate",
+          "note": "quadratic residuals shown; Cook's D and VIF are formula-only",
+          "upgrade": "compute one VIF from a two-predictor toy or one Cook's distance"
+        },
+        {
+          "concept": "regression inference (coefficient SE/t/F)",
+          "quality": "adequate",
+          "note": "correlation inference fully worked; coefficient inference is formula-only",
+          "upgrade": "carry the 5-point regression to RSS -> sigma-hat^2 -> SE(beta_1) -> t and a CI"
+        },
+        {
+          "concept": "logistic regression / GLMs",
+          "quality": "adequate",
+          "note": "coefficient interpretation fully computed; no fit/likelihood step",
+          "upgrade": "optional: one Bernoulli log-likelihood at two beta values on 3-4 labeled points"
+        },
+        {
+          "concept": "bias-variance tradeoff",
+          "quality": "adequate",
+          "note": "decomposition stated, never a number",
+          "upgrade": "instantiate Bias^2 + Var + sigma^2 numerically (constant vs linear over a couple of training sets)"
+        },
+        {
+          "concept": "cross-validation (k-fold)",
+          "quality": "thin",
+          "note": "procedure + diagram, no fold ever computed",
+          "upgrade": "work a tiny k-fold: 6 points, k=3, three splits, per-fold error, averaged CV score"
+        },
+        {
+          "concept": "bootstrapping",
+          "quality": "adequate",
+          "note": "percentile CI endpoints asserted from an unseen simulation",
+          "upgrade": "show one or two explicit with-replacement resamples of the 12 values and their medians"
+        }
+      ]
     }
   }
 }
