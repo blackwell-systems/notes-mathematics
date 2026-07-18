@@ -2655,6 +2655,100 @@
           "upgrade": ""
         }
       ]
+    },
+    "parametric-and-polar.md": {
+      "contentHash": "sha1:62ee73789deb7d67",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-18",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Parametric + polar precalculus reference; every worked number independently verified. Audited and Phase-2'd in one pass: the three thin polar-graph items (off-origin circle, rose value table + negative-r plotting, Archimedean spiral) were filled, plus a Q2 atan2 example. 10 strong / 4 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "parametric idea (curve as a path)",
+          "quality": "strong",
+          "note": "Clock/path idea plus line example with three plotted points at t=0,1,2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "orientation of a parametric curve",
+          "quality": "adequate",
+          "note": "Explained and stated; ellipse shows CCW sweep.",
+          "upgrade": ""
+        },
+        {
+          "concept": "eliminating the parameter",
+          "quality": "strong",
+          "note": "Line by substitution and ellipse via the Pythagorean identity, both worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "projectile motion (time/range/max height)",
+          "quality": "strong",
+          "note": "v0=20 at 45deg: time 2.89s, range 40.8m, max height 10.2m all computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polar coordinate concept (r, theta)",
+          "quality": "strong",
+          "note": "(r,theta) defined, pronounced, worked example (2,60deg) + diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "non-uniqueness of polar coordinates",
+          "quality": "strong",
+          "note": "Full turns and negative r both shown with concrete equalities.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polar <-> rectangular point conversion",
+          "quality": "strong",
+          "note": "Both directions worked, now including a Q2 example (-1,1)->(sqrt2,135deg) exercising the +180 adjustment.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polar graphs r=h(theta) general idea",
+          "quality": "adequate",
+          "note": "General idea stated with a gallery image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "circles/lines in polar incl. off-origin r=2a cos theta",
+          "quality": "strong",
+          "note": "r=2cos theta now converted to (x-1)^2+y^2=1 by completing the square, with check points; sin analog noted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cardioids and limacons",
+          "quality": "strong",
+          "note": "Cardioid r=1+cos theta value table worked at 0, pi/2, pi.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rose curves (petal rule + negative-r plotting)",
+          "quality": "strong",
+          "note": "r=cos(2theta) value table worked; negative r from 45-135deg plotted opposite (petal tips +x,-y,-x,+y), giving 4 petals for even k.",
+          "upgrade": ""
+        },
+        {
+          "concept": "spirals (Archimedean r=a theta)",
+          "quality": "strong",
+          "note": "r=theta value table over one turn; each quarter-turn adds pi/2, equal loop spacing.",
+          "upgrade": ""
+        },
+        {
+          "concept": "how to sketch a polar graph by hand",
+          "quality": "adequate",
+          "note": "Clear procedure (table, r=0, symmetry) given.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connections (complex polar form; calculus slope/arc length/area)",
+          "quality": "adequate",
+          "note": "Forward-reference previews to calculus and complex numbers; those computations live on the linked pages (integration is out of scope here).",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

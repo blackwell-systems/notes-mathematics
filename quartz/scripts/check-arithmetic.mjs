@@ -374,6 +374,33 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Parametric & Polar (Phase-2 worked examples) =================
+{
+  const d2r = (d) => d * Math.PI / 180;
+  // Circle r=2cos t -> (x-1)^2 + y^2 = 1
+  { for (const deg of [0, 60, 90, 120]) { const t = d2r(deg); const r = 2 * Math.cos(t); const x = r * Math.cos(t), y = r * Math.sin(t);
+      eq(`r=2cos t: point at ${deg} lies on (x-1)^2+y^2=1`, (x - 1) ** 2 + y * y, 1, 1e-9); }
+    eq("r=2cos t at t=0 gives r=2 -> (2,0)", 2 * Math.cos(0), 2);
+    check("r=2cos t at t=90 gives r=0 (pole)", Math.abs(2 * Math.cos(d2r(90))) < 1e-12); }
+  // Rose r=cos(2t): value table + negative-r petal directions
+  { const vals = { 0: 1, 45: 0, 60: -0.5, 90: -1, 135: 0, 180: 1 };
+    for (const [deg, want] of Object.entries(vals)) eq(`cos(2*${deg}deg) = ${want}`, Math.cos(2 * d2r(+deg)), want, 1e-9);
+    check("k=2 even -> 2k = 4 petals", 2 * 2 === 4);
+    // negative r at 90deg (-1) plots at 90+180 = 270deg -> straight down (0,-1)
+    { const r = -1, plotAng = d2r(90 + 180); const x = Math.abs(r) * Math.cos(plotAng), y = Math.abs(r) * Math.sin(plotAng);
+      check("r=-1 at 90deg plots at (0,-1) via negative-r rule", Math.abs(x) < 1e-9 && Math.abs(y + 1) < 1e-9); } }
+  // Spiral r=theta: equal spacing pi/2 per quarter turn
+  { const rs = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2, 2 * Math.PI];
+    for (let i = 1; i < rs.length; i++) eq("spiral gap per quarter-turn = pi/2", rs[i] - rs[i - 1], Math.PI / 2, 1e-12);
+    eq("r at 2pi ~ 6.28", 2 * Math.PI, 6.283185, 1e-4); }
+  // atan2 second-quadrant example (-1,1) -> (sqrt2, 135deg)
+  { const x = -1, y = 1; eq("r = sqrt2", Math.hypot(x, y), Math.SQRT2, 1e-12);
+    eq("arctan(-1) = -45deg", Math.atan(y / x) * 180 / Math.PI, -45, 1e-9);
+    eq("after +180 adjustment = 135deg", Math.atan(y / x) * 180 / Math.PI + 180, 135, 1e-9);
+    eq("atan2(1,-1) = 135deg directly", Math.atan2(y, x) * 180 / Math.PI, 135, 1e-9);
+    check("(sqrt2 cos135, sqrt2 sin135) = (-1,1)", Math.abs(Math.SQRT2 * Math.cos(d2r(135)) + 1) < 1e-9 && Math.abs(Math.SQRT2 * Math.sin(d2r(135)) - 1) < 1e-9); }
+}
+
 // ================= Number Bases (Phase-2 worked examples) =================
 {
   // octal <-> binary: 157_8 = 001 101 111_2 = 1101111_2 = 111_10

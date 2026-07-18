@@ -130,6 +130,8 @@ r = \sqrt{1^2 + 1^2} = \sqrt{2} \approx 1.414, \qquad \theta = \arctan\!\left(\t
 $$
 The point is in the first quadrant, so no adjustment is needed: $(1, 1) = \left(\sqrt{2},\ \tfrac{\pi}{4}\right)$.
 
+**Worked example (second quadrant, where the adjustment matters).** Convert $(x, y) = (-1, 1)$. The radius is $r = \sqrt{(-1)^2 + 1^2} = \sqrt{2}$. The plain $\arctan\!\left(\tfrac{1}{-1}\right) = \arctan(-1) = -45°$ points into the *fourth* quadrant, which is wrong: $(-1, 1)$ lies in the second quadrant. Adding $180°$ corrects it to $\theta = -45° + 180° = 135°$, and indeed $\left(\sqrt{2}\cos 135°,\ \sqrt{2}\sin 135°\right) = (-1, 1)$. So $(-1, 1) = \left(\sqrt{2},\ 135°\right)$. (The two-argument $\operatorname{atan2}(1, -1)$ returns $135°$ directly, which is exactly the bookkeeping it exists to handle.)
+
 ### Polar Graphs: Curves as $r = h(\theta)$
 
 A **polar equation** gives $r$ as a function of $\theta$, and its graph is all points $(r, \theta)$ satisfying it as $\theta$ sweeps around. Many curves that are messy in rectangular form are simple in polar form.
@@ -140,6 +142,14 @@ A **polar equation** gives $r$ as a function of $\theta$, and its graph is all p
 - $r = a$ is a **circle** of radius $a$ centered at the pole (every point is distance $a$ from the origin). This is the single simplest reason polar coordinates exist.
 - $\theta = \alpha$ (a constant) is a **line** through the pole at angle $\alpha$.
 - $r = 2a\cos\theta$ is a circle of radius $a$ centered at $(a, 0)$ (passing through the pole), and $r = 2a\sin\theta$ is a circle centered at $(0, a)$.
+
+**Worked example (why $r = 2a\cos\theta$ is that circle).** Take $a = 1$, so $r = 2\cos\theta$. Multiply both sides by $r$ to get $r^2 = 2r\cos\theta$, then use $r^2 = x^2 + y^2$ and $r\cos\theta = x$:
+
+$$
+x^2 + y^2 = 2x \quad\Longrightarrow\quad x^2 - 2x + y^2 = 0 \quad\Longrightarrow\quad (x - 1)^2 + y^2 = 1,
+$$
+
+completing the square. That is exactly the circle of radius $1$ centered at $(1, 0)$. A couple of points confirm it: $\theta = 0$ gives $r = 2$, the point $(2, 0)$; $\theta = \tfrac{\pi}{2}$ gives $r = 0$, the pole $(0, 0)$; both satisfy $(x-1)^2 + y^2 = 1$. The same trick with $r\sin\theta = y$ turns $r = 2a\sin\theta$ into $x^2 + (y - a)^2 = a^2$.
 
 **Cardioids and limaçons.** The family $r = a + b\cos\theta$ (or with $\sin\theta$) gives:
 - a **cardioid** (heart shape) when $|a| = |b|$, e.g. $r = 1 + \cos\theta$;
@@ -154,7 +164,23 @@ A **polar equation** gives $r$ as a function of $\theta$, and its graph is all p
 
 So $r = \cos(3\theta)$ has $3$ petals, while $r = \cos(2\theta)$ has $4$ petals.
 
+**Worked example (a rose, and where negative $r$ earns its keep).** Tabulate $r = \cos(2\theta)$:
+
+| $\theta$ | $0°$ | $45°$ | $60°$ | $90°$ | $135°$ | $180°$ |
+|---|---|---|---|---|---|---|
+| $r = \cos(2\theta)$ | $1$ | $0$ | $-\tfrac{1}{2}$ | $-1$ | $0$ | $1$ |
+
+From $\theta = 0°$ to $45°$, $r$ falls from $1$ to $0$: that traces one petal, tip pointing along the positive $x$-axis. From $45°$ to $135°$, $r$ is **negative**, so by the negative-radius rule each point is plotted in the *opposite* direction: at $\theta = 90°$, $r = -1$ is plotted at $90° + 180° = 270°$, putting a petal tip straight *down*. This is the negative-$r$ convention doing real work. Continuing all the way around, the four petal tips land along $+x$, $-y$, $-x$, $+y$ (at $\theta = 0°, 90°, 180°, 270°$), giving the $4$ petals the rule predicts for even $k$. Without honoring negative $r$, the $-y$ and $+y$ petals would be lost.
+
 **Spirals.** The **Archimedean spiral** $r = a\theta$ grows steadily outward as the angle increases, since the distance from the pole is proportional to the angle turned.
+
+**Worked example (spiral values).** For $r = \theta$ (with $\theta$ in radians), tabulate one full turn:
+
+| $\theta$ | $0$ | $\tfrac{\pi}{2}$ | $\pi$ | $\tfrac{3\pi}{2}$ | $2\pi$ |
+|---|---|---|---|---|---|
+| $r = \theta$ | $0$ | $\approx 1.57$ | $\approx 3.14$ | $\approx 4.71$ | $\approx 6.28$ |
+
+Each quarter-turn adds exactly $\tfrac{\pi}{2} \approx 1.57$ to $r$, so successive loops of the spiral are equally spaced: the hallmark of the Archimedean spiral, and the reason it models things like a coiled rope or a record groove.
 
 **How to sketch a polar graph by hand.** Build a table of $r$ for key angles ($0, \tfrac{\pi}{6}, \tfrac{\pi}{4}, \tfrac{\pi}{3}, \tfrac{\pi}{2}, \ldots$), plot each $(r, \theta)$, watch for where $r = 0$ (the curve touches the pole) and where $r$ is largest, and use symmetry: a curve with only $\cos\theta$ is symmetric about the polar axis, and one with only $\sin\theta$ is symmetric about the vertical line $\theta = \tfrac{\pi}{2}$.
 
