@@ -2383,6 +2383,190 @@
           "upgrade": ""
         }
       ]
+    },
+    "linear-algebra-foundations.md": {
+      "contentHash": "sha1:ae63dd841c10c3c0",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-17",
+      "auditor": "claude+1subagent",
+      "overall": "mixed",
+      "summary": "Comprehensive linear algebra foundations. Every worked number verified correct by an independent auditor. Strong on linear systems and the subspaces first half; the ML-relevant back half (projection, least squares, determinants, eigendecomposition, SVD, low-rank) is largely formula-only. 11 strong / 10 adequate / 6 thin / 2 missing.",
+      "inventory": [
+        {
+          "concept": "row/column vectors + transpose",
+          "quality": "strong",
+          "note": "Shown with concrete numbers, orientation explained.",
+          "upgrade": ""
+        },
+        {
+          "concept": "dot product as u^T v",
+          "quality": "strong",
+          "note": "Shown expanded to u1v1+u2v2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "packaging a system into Ax=b",
+          "quality": "strong",
+          "note": "Step-by-step with boxed coefficients mapping to columns.",
+          "upgrade": ""
+        },
+        {
+          "concept": "row picture (lines intersecting)",
+          "quality": "adequate",
+          "note": "Intersection (1,2) stated with slopes; solving algebra not shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "column picture (Ax as column combination)",
+          "quality": "strong",
+          "note": "1[2,-1]+2[-1,2]=[0,3] fully computed and checked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix picture (A as transformation)",
+          "quality": "adequate",
+          "note": "Explained conceptually; no concrete transformation computed here.",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear combinations",
+          "quality": "strong",
+          "note": "3v1+2v2 and -v1+4v2 computed explicitly.",
+          "upgrade": ""
+        },
+        {
+          "concept": "span",
+          "quality": "adequate",
+          "note": "Defined with geometric examples; no numeric combination computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear independence",
+          "quality": "strong",
+          "note": "v2=3v1 shown; nontrivial 3v1-v2=0 justifies dependence.",
+          "upgrade": ""
+        },
+        {
+          "concept": "vector space axioms",
+          "quality": "adequate",
+          "note": "Eight axioms listed with examples; not verified on an instance.",
+          "upgrade": ""
+        },
+        {
+          "concept": "subspace + zero-vector test",
+          "quality": "strong",
+          "note": "Test plus examples and non-examples with failure reasons.",
+          "upgrade": ""
+        },
+        {
+          "concept": "basis (standard + non-standard, coordinates)",
+          "quality": "strong",
+          "note": "[3,1]=2[1,1]+1[1,-1] coordinates shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "dimension",
+          "quality": "adequate",
+          "note": "Defined with examples; counts read off, not derived.",
+          "upgrade": ""
+        },
+        {
+          "concept": "column space C(A)",
+          "quality": "strong",
+          "note": "C(A) for [[1,3],[2,6]] worked; line through [1,2].",
+          "upgrade": ""
+        },
+        {
+          "concept": "null space N(A)",
+          "quality": "strong",
+          "note": "Solved x1=-3x2, null space multiples of [-3,1].",
+          "upgrade": ""
+        },
+        {
+          "concept": "row space C(A^T)",
+          "quality": "thin",
+          "note": "Defined; no numeric row-space basis computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "left null space N(A^T)",
+          "quality": "missing",
+          "note": "Only defined; no concrete N(A^T) ever computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "fundamental theorem / 4-subspaces + orthogonal complements",
+          "quality": "adequate",
+          "note": "Table + orthogonal-complement statement + dimension check; no numeric instance.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rank + solvability table",
+          "quality": "adequate",
+          "note": "Rank-case table; not tied to a worked matrix.",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear transformations (matrix from basis)",
+          "quality": "adequate",
+          "note": "Rule stated, rotation/reflection matrices given; none derived or applied.",
+          "upgrade": ""
+        },
+        {
+          "concept": "orthogonality (vectors and subspaces)",
+          "quality": "adequate",
+          "note": "Defined via u^T v=0; no numeric orthogonality check.",
+          "upgrade": ""
+        },
+        {
+          "concept": "projection onto a line",
+          "quality": "thin",
+          "note": "Formula only; never computed on numbers.",
+          "upgrade": ""
+        },
+        {
+          "concept": "projection onto subspace / least squares",
+          "quality": "thin",
+          "note": "Least-squares and projection-matrix formulas stated; no numeric example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "determinants (2x2/3x3 + properties)",
+          "quality": "thin",
+          "note": "Formulas, properties, geometry given; no determinant computed on numbers.",
+          "upgrade": ""
+        },
+        {
+          "concept": "eigenvalues/eigenvectors",
+          "quality": "strong",
+          "note": "A=[[4,1],[2,3]] fully worked: char poly, eigenvalues, both eigenvectors.",
+          "upgrade": ""
+        },
+        {
+          "concept": "eigendecomposition A=S Lambda S^-1",
+          "quality": "thin",
+          "note": "Stated with A^k use; S,Lambda never assembled from the worked example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "eigenvalue properties (trace/det/spectral)",
+          "quality": "adequate",
+          "note": "Stated; trace=7,det=10 not explicitly linked back to the example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "SVD",
+          "quality": "missing",
+          "note": "Only defined and related to eigendecomp; never computed on a concrete matrix.",
+          "upgrade": ""
+        },
+        {
+          "concept": "low-rank approximation",
+          "quality": "thin",
+          "note": "Rank-k formula and applications listed; no numeric approximation worked.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
