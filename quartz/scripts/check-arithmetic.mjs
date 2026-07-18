@@ -374,6 +374,69 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Linear Algebra Foundations (Phase-2 worked examples) =================
+{
+  const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);
+  const T = (M) => M[0].map((_, j) => M.map((r) => r[j]));
+  const mul = (A, B) => A.map((r) => B[0].map((_, j) => r.reduce((s, _v, k) => s + A[A.indexOf(r)][k] * B[k][j], 0)));
+  // safer matmul
+  function matmul(A, B) { const n = A.length, m = B[0].length, p = B.length; const C = Array.from({ length: n }, () => Array(m).fill(0)); for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) for (let k = 0; k < p; k++) C[i][j] += A[i][k] * B[k][j]; return C; }
+  // Four subspaces of A=[[1,3],[2,6]]
+  { const A = [[1, 3], [2, 6]];
+    // row space basis [1,3] (row2 = 2*row1)
+    check("row2 = 2*row1", A[1][0] === 2 * A[0][0] && A[1][1] === 2 * A[0][1]);
+    // left null space [-2,1]: y^T A = 0
+    const y = [-2, 1]; const yTA = [y[0] * A[0][0] + y[1] * A[1][0], y[0] * A[0][1] + y[1] * A[1][1]];
+    check("left null [-2,1]: y^T A = [0,0]", yTA[0] === 0 && yTA[1] === 0);
+    // orthogonal complements
+    eq("row space [1,3] . null space [-3,1] = 0", dot([1, 3], [-3, 1]), 0);
+    eq("col space [1,2] . left null [-2,1] = 0", dot([1, 2], [-2, 1]), 0); }
+  // Determinants
+  eq("det 2x2 [[4,1],[2,3]] = 10", 4 * 3 - 1 * 2, 10);
+  eq("det 3x3 [[1,2,3],[4,5,6],[7,8,10]] = -3", 1 * (5 * 10 - 6 * 8) - 2 * (4 * 10 - 6 * 7) + 3 * (4 * 8 - 5 * 7), -3);
+  // Eigendecomposition A = S Lambda S^-1 for A=[[4,1],[2,3]]
+  { const S = [[1, 1], [1, -2]], L = [[5, 0], [0, 2]];
+    const detS = 1 * -2 - 1 * 1; eq("det(S) = -3", detS, -3);
+    const Sinv = [[-2 / detS, -1 / detS], [-1 / detS, 1 / detS]];
+    const rec = matmul(matmul(S, L), Sinv);
+    check("S Lambda S^-1 = [[4,1],[2,3]]", Math.abs(rec[0][0] - 4) < 1e-9 && Math.abs(rec[0][1] - 1) < 1e-9 && Math.abs(rec[1][0] - 2) < 1e-9 && Math.abs(rec[1][1] - 3) < 1e-9);
+    eq("trace 4+3 = sum eigenvalues 5+2", 4 + 3, 5 + 2);
+    eq("det 4*3-1*2 = product eigenvalues 5*2", 4 * 3 - 1 * 2, 5 * 2); }
+  // Projection of b=[4,3] onto a=[1,2]
+  { const a = [1, 2], b = [4, 3]; const c = dot(a, b) / dot(a, a);
+    eq("projection scalar 10/5 = 2", c, 2);
+    const p = a.map((x) => c * x); check("projection p = [2,4]", p[0] === 2 && p[1] === 4);
+    const e = b.map((x, i) => x - p[i]); eq("error e . a = 0 (perpendicular)", dot(e, a), 0); }
+  // Least squares fit y=C+Dt to (0,6),(1,0),(2,0)
+  { const A = [[1, 0], [1, 1], [1, 2]], b = [6, 0, 0];
+    const At = T(A); const AtA = matmul(At, A); const Atb = At.map((r) => dot(r, b));
+    check("A^T A = [[3,3],[3,5]]", AtA[0][0] === 3 && AtA[0][1] === 3 && AtA[1][0] === 3 && AtA[1][1] === 5);
+    check("A^T b = [6,0]", Atb[0] === 6 && Atb[1] === 0);
+    const d = AtA[0][0] * AtA[1][1] - AtA[0][1] * AtA[1][0]; eq("det(A^T A) = 6", d, 6);
+    const C = (AtA[1][1] * Atb[0] - AtA[0][1] * Atb[1]) / d, D = (-AtA[1][0] * Atb[0] + AtA[0][0] * Atb[1]) / d;
+    eq("best-fit C = 5", C, 5); eq("best-fit D = -3", D, -3);
+    const p = A.map((r) => r[0] * C + r[1] * D); const e = b.map((x, i) => x - p[i]);
+    check("residual e = [1,-2,1]", e[0] === 1 && e[1] === -2 && e[2] === 1);
+    eq("residual sums to 0 (perp to ones)", e[0] + e[1] + e[2], 0);
+    eq("residual perp to [0,1,2]", dot(e, [0, 1, 2]), 0); }
+  // SVD of A=[[2,2],[-1,1]]
+  { const A = [[2, 2], [-1, 1]]; const AtA = matmul(T(A), A);
+    check("A^T A = [[5,3],[3,5]]", AtA[0][0] === 5 && AtA[0][1] === 3 && AtA[1][0] === 3 && AtA[1][1] === 5);
+    eq("sigma1 = sqrt(8) = 2 sqrt2", Math.sqrt(8), 2 * Math.SQRT2, 1e-12);
+    eq("sigma2 = sqrt(2)", Math.sqrt(2), Math.SQRT2, 1e-12);
+    // v1=[1,1]/sqrt2 -> Av1=[2sqrt2,0], u1=[1,0]; v2=[1,-1]/sqrt2 -> Av2=[0,-sqrt2], u2=[0,-1]
+    const r2 = Math.SQRT2; const v1 = [1 / r2, 1 / r2], v2 = [1 / r2, -1 / r2];
+    const Av1 = [A[0][0] * v1[0] + A[0][1] * v1[1], A[1][0] * v1[0] + A[1][1] * v1[1]];
+    const Av2 = [A[0][0] * v2[0] + A[0][1] * v2[1], A[1][0] * v2[0] + A[1][1] * v2[1]];
+    const u1 = Av1.map((x) => x / Math.sqrt(8)), u2 = Av2.map((x) => x / Math.sqrt(2));
+    check("u1 = [1,0]", Math.abs(u1[0] - 1) < 1e-9 && Math.abs(u1[1]) < 1e-9);
+    check("u2 = [0,-1]", Math.abs(u2[0]) < 1e-9 && Math.abs(u2[1] + 1) < 1e-9);
+    eq("product of singular values = |det A| = 4", Math.sqrt(8) * Math.sqrt(2), Math.abs(A[0][0] * A[1][1] - A[0][1] * A[1][0]), 1e-9);
+    // rank-1 approx A1 = sigma1 u1 v1^T = [[2,2],[0,0]]
+    const s1 = Math.sqrt(8); const A1 = [[s1 * u1[0] * v1[0], s1 * u1[0] * v1[1]], [s1 * u1[1] * v1[0], s1 * u1[1] * v1[1]]];
+    check("rank-1 approx A1 = [[2,2],[0,0]]", Math.abs(A1[0][0] - 2) < 1e-9 && Math.abs(A1[0][1] - 2) < 1e-9 && Math.abs(A1[1][0]) < 1e-9 && Math.abs(A1[1][1]) < 1e-9); }
+}
+
 // ================= Graphing Functions concept diagrams (labeled values) =================
 {
   // domain-range figure: f(x)=4-(x-1)^2 on [-1,4]

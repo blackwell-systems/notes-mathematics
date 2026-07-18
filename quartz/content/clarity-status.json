@@ -2385,12 +2385,12 @@
       ]
     },
     "linear-algebra-foundations.md": {
-      "contentHash": "sha1:ae63dd841c10c3c0",
+      "contentHash": "sha1:0dff18a21fcb0079",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-17",
       "auditor": "claude+1subagent",
-      "overall": "mixed",
-      "summary": "Comprehensive linear algebra foundations. Every worked number verified correct by an independent auditor. Strong on linear systems and the subspaces first half; the ML-relevant back half (projection, least squares, determinants, eigendecomposition, SVD, low-rank) is largely formula-only. 11 strong / 10 adequate / 6 thin / 2 missing.",
+      "overall": "strong",
+      "summary": "Comprehensive linear algebra foundations, every worked number independently verified. Phase-2 closed all eight work-list items (row space, left null space, four-subspace orthogonality, projection, least squares, determinants, eigendecomposition, SVD, low-rank), chained off shared matrices. 20 strong / 9 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "row/column vectors + transpose",
@@ -2484,20 +2484,20 @@
         },
         {
           "concept": "row space C(A^T)",
-          "quality": "thin",
-          "note": "Defined; no numeric row-space basis computed.",
+          "quality": "strong",
+          "note": "Worked on A=[[1,3],[2,6]]: row2=2*row1 so row space = Span[1,3], dim r=1.",
           "upgrade": ""
         },
         {
           "concept": "left null space N(A^T)",
-          "quality": "missing",
-          "note": "Only defined; no concrete N(A^T) ever computed.",
+          "quality": "strong",
+          "note": "Worked on same A: A^T y=0 -> multiples of [-2,1], dim m-r=1, checked y^T A=[0,0].",
           "upgrade": ""
         },
         {
           "concept": "fundamental theorem / 4-subspaces + orthogonal complements",
-          "quality": "adequate",
-          "note": "Table + orthogonal-complement statement + dimension check; no numeric instance.",
+          "quality": "strong",
+          "note": "Now closed numerically: all four subspaces of A=[[1,3],[2,6]] collected, row-perp-null ([1,3].[-3,1]=0) and col-perp-leftnull ([1,2].[-2,1]=0) checked.",
           "upgrade": ""
         },
         {
@@ -2520,20 +2520,20 @@
         },
         {
           "concept": "projection onto a line",
-          "quality": "thin",
-          "note": "Formula only; never computed on numbers.",
+          "quality": "strong",
+          "note": "Worked: b=[4,3] onto a=[1,2], scalar 10/5=2, p=[2,4], error [2,-1] perpendicular to a.",
           "upgrade": ""
         },
         {
           "concept": "projection onto subspace / least squares",
-          "quality": "thin",
-          "note": "Least-squares and projection-matrix formulas stated; no numeric example.",
+          "quality": "strong",
+          "note": "Worked line fit to (0,6),(1,0),(2,0): normal equations A^T A=[[3,3],[3,5]], solution [C,D]=[5,-3], y=5-3t, residual [1,-2,1] orthogonal to columns.",
           "upgrade": ""
         },
         {
           "concept": "determinants (2x2/3x3 + properties)",
-          "quality": "thin",
-          "note": "Formulas, properties, geometry given; no determinant computed on numbers.",
+          "quality": "strong",
+          "note": "Worked: det[[4,1],[2,3]]=10 (=product of its eigenvalues) and 3x3 [[1,2,3],[4,5,6],[7,8,10]]=-3 via full first-row cofactor expansion.",
           "upgrade": ""
         },
         {
@@ -2544,8 +2544,8 @@
         },
         {
           "concept": "eigendecomposition A=S Lambda S^-1",
-          "quality": "thin",
-          "note": "Stated with A^k use; S,Lambda never assembled from the worked example.",
+          "quality": "strong",
+          "note": "Worked: assembled S,Lambda,S^-1 from the eigen-example and verified S Lambda S^-1 = [[4,1],[2,3]]; closed trace=7 and det=10 loop.",
           "upgrade": ""
         },
         {
@@ -2556,14 +2556,14 @@
         },
         {
           "concept": "SVD",
-          "quality": "missing",
-          "note": "Only defined and related to eigendecomp; never computed on a concrete matrix.",
+          "quality": "strong",
+          "note": "Worked full 2x2 SVD of [[2,2],[-1,1]]: A^T A eigenvalues 8,2 -> sigma 2sqrt2,sqrt2; V from eigenvectors, U from u_i=Av_i/sigma_i; product of sigma = |det|=4.",
           "upgrade": ""
         },
         {
           "concept": "low-rank approximation",
-          "quality": "thin",
-          "note": "Rank-k formula and applications listed; no numeric approximation worked.",
+          "quality": "strong",
+          "note": "Worked rank-1 approx from that SVD: A1=sigma1 u1 v1^T=[[2,2],[0,0]], discarded part [[0,0],[-1,1]] has size sigma2=sqrt2.",
           "upgrade": ""
         }
       ]

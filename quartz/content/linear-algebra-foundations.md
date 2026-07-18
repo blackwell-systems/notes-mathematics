@@ -442,6 +442,8 @@ $$
 
 Row reduction does not change the row space. The nonzero rows of the echelon form give a basis for the row space.
 
+**Example (same $A$ as the column/null space examples).** For $A = \begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$ the two rows are $\begin{bmatrix} 1 & 3 \end{bmatrix}$ and $\begin{bmatrix} 2 & 6 \end{bmatrix}$. Since $\begin{bmatrix} 2 & 6 \end{bmatrix} = 2\begin{bmatrix} 1 & 3 \end{bmatrix}$, the second row adds nothing new, so the row space is the line spanned by $\begin{bmatrix} 1 & 3 \end{bmatrix}$, of dimension $r = 1$ (matching the rank).
+
 ### Left Null Space $N(A^T)$
 
 **Left Null Space:** The set of all vectors $y$ such that $A^T y = 0$, or equivalently $y^T A = 0$.
@@ -451,6 +453,8 @@ N(A^T) = \{y \in \mathbb{R}^m : A^T y = 0\}
 $$
 
 **Dimension:** $\dim(N(A^T)) = m - r$
+
+**Example (same $A$).** With $A = \begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$ we need $y$ with $A^T y = 0$, that is $\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}\begin{bmatrix} y_1 \\ y_2 \end{bmatrix} = 0$. Both rows say the same thing (the second is $3\times$ the first): $y_1 + 2y_2 = 0$, so $y_1 = -2y_2$ and the left null space is all multiples of $\begin{bmatrix} -2 \\ 1 \end{bmatrix}$, of dimension $m - r = 2 - 1 = 1$. Check that it kills $A$ from the left: $y^T A = \begin{bmatrix} -2 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix} = \begin{bmatrix} 0 & 0 \end{bmatrix}$. ✓
 
 ### The Fundamental Theorem of Linear Algebra
 
@@ -471,6 +475,8 @@ For an $m \times n$ matrix $A$ of rank $r$:
 This means $\mathbb{R}^n$ splits cleanly into two perpendicular subspaces: the row space (dimension $r$) and the null space (dimension $n - r$). The matrix $A$ maps the row space onto the column space, and collapses the null space to zero.
 
 **Dimension check:** $r + (n - r) = n$ and $r + (m - r) = m$. The dimensions always add up.
+
+**The orthogonality made concrete.** Collect the four subspaces of $A = \begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$ (rank $1$) worked out above: column space $= \text{Span}\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and left null space $= \text{Span}\begin{bmatrix} -2 \\ 1 \end{bmatrix}$ (both in $\mathbb{R}^2$, the output space); row space $= \text{Span}\begin{bmatrix} 1 \\ 3 \end{bmatrix}$ and null space $= \text{Span}\begin{bmatrix} -3 \\ 1 \end{bmatrix}$ (both in $\mathbb{R}^2$, the input space). The theorem's orthogonal-complement claim is now a one-line check: row space $\perp$ null space, $\begin{bmatrix} 1 \\ 3 \end{bmatrix}\cdot\begin{bmatrix} -3 \\ 1 \end{bmatrix} = -3 + 3 = 0$; and column space $\perp$ left null space, $\begin{bmatrix} 1 \\ 2 \end{bmatrix}\cdot\begin{bmatrix} -2 \\ 1 \end{bmatrix} = -2 + 2 = 0$. ✓
 
 ![Column space and null space as perpendicular subspaces](./media/column-null-space.png)
 
@@ -577,6 +583,8 @@ $$
 
 (This requires $a \neq 0$, so that $a^T a > 0$.)
 
+**Worked example.** Project $b = \begin{bmatrix} 4 \\ 3 \end{bmatrix}$ onto the line through $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$. The scaling factor is $\frac{a^T b}{a^T a} = \frac{(1)(4) + (2)(3)}{1^2 + 2^2} = \frac{10}{5} = 2$, so the projection is $p = 2\begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$. The error $e = b - p = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$ is perpendicular to $a$, exactly as projection guarantees: $e^T a = (2)(1) + (-1)(2) = 0$. ✓
+
 **Projection onto a subspace:** To project $b$ onto the column space of $A$:
 
 $$
@@ -595,6 +603,20 @@ $$
 $$
 
 This is exactly the formula for linear regression.
+
+**Worked example (fitting a line).** Fit $y = C + Dt$ to the three points $(0, 6), (1, 0), (2, 0)$, which lie on no common line. Each point gives one equation $C + Dt = y$, stacking to
+
+$$
+A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}, \qquad b = \begin{bmatrix} 6 \\ 0 \\ 0 \end{bmatrix},
+$$
+
+an overdetermined system with no exact solution. Form the normal equations $A^T A \hat x = A^T b$:
+
+$$
+A^T A = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}, \qquad A^T b = \begin{bmatrix} 6 \\ 0 \end{bmatrix}.
+$$
+
+With $\det(A^T A) = 15 - 9 = 6$, solving gives $\hat x = \begin{bmatrix} C \\ D \end{bmatrix} = \begin{bmatrix} 5 \\ -3 \end{bmatrix}$, so the best-fit line is $y = 5 - 3t$. The fitted values are $A\hat x = \begin{bmatrix} 5 \\ 2 \\ -1 \end{bmatrix}$, and the residual $e = b - A\hat x = \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix}$ is orthogonal to both columns of $A$: it sums to $0$ (orthogonal to the all-ones column) and $e^T \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix} = -2 + 2 = 0$. That orthogonality of the residual to the column space is the defining property of the least-squares fit.
 
 ![Projection of vector b onto line through a, showing the error vector perpendicular to a](./media/projection.png)
 
@@ -628,6 +650,14 @@ $$
 - $\det(A^{-1}) = 1 / \det(A)$
 - $\det(cA) = c^n \det(A)$ for an $n \times n$ matrix
 - $A$ is invertible if and only if $\det(A) \neq 0$
+
+**Worked examples.** For the $2\times 2$ matrix $\begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$, $\det = (4)(3) - (1)(2) = 12 - 2 = 10$. (This is the matrix whose eigenvalues we find below; note $10$ is exactly the product of those eigenvalues, $5 \cdot 2$.) For a $3\times 3$, expand along the first row with the alternating $+, -, +$ signs:
+
+$$
+\det \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 10 \end{bmatrix} = 1(5\cdot 10 - 6\cdot 8) - 2(4\cdot 10 - 6\cdot 7) + 3(4\cdot 8 - 5\cdot 7) = 1(2) - 2(-2) + 3(-3) = 2 + 4 - 9 = -3.
+$$
+
+Both determinants are nonzero, so both matrices are invertible.
 
 ## Eigenvalues and Eigenvectors
 
@@ -703,6 +733,14 @@ Where:
 - $S$ is the matrix whose columns are the eigenvectors
 - $\Lambda$ is the diagonal matrix of eigenvalues
 
+**Worked example (from the eigenvalues found above).** The matrix $A = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$ has eigenvalues $5, 2$ with eigenvectors $\begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ -2 \end{bmatrix}$. Put the eigenvectors in $S$ (as columns) and the eigenvalues in $\Lambda$:
+
+$$
+S = \begin{bmatrix} 1 & 1 \\ 1 & -2 \end{bmatrix}, \quad \Lambda = \begin{bmatrix} 5 & 0 \\ 0 & 2 \end{bmatrix}, \quad S^{-1} = \frac{1}{-3}\begin{bmatrix} -2 & -1 \\ -1 & 1 \end{bmatrix} = \begin{bmatrix} \frac{2}{3} & \frac{1}{3} \\ \frac{1}{3} & -\frac{1}{3} \end{bmatrix}
+$$
+
+(using $\det S = (1)(-2) - (1)(1) = -3$ for the inverse). Multiplying back, $S\Lambda S^{-1} = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix} = A$, which confirms the factorization. Two quick checks on the eigenvalues themselves close the loop: their sum $5 + 2 = 7$ equals the trace $4 + 3$, and their product $5 \cdot 2 = 10$ equals the determinant.
+
 **Power of diagonalization:** $A^k = S \Lambda^k S^{-1}$, and $\Lambda^k$ is trivial to compute (just raise each diagonal entry to the $k$th power).
 
 ### Properties
@@ -746,6 +784,26 @@ Where:
 - The columns of $U$ are eigenvectors of $AA^T$
 - The singular values $\sigma_i = \sqrt{\lambda_i}$ where $\lambda_i$ are eigenvalues of $A^T A$
 
+**Worked example.** Find the SVD of $A = \begin{bmatrix} 2 & 2 \\ -1 & 1 \end{bmatrix}$. First form
+
+$$
+A^T A = \begin{bmatrix} 5 & 3 \\ 3 & 5 \end{bmatrix},
+$$
+
+whose eigenvalues are $5 \pm 3 = 8$ and $2$, so the singular values are $\sigma_1 = \sqrt 8 = 2\sqrt 2$ and $\sigma_2 = \sqrt 2$. The corresponding unit eigenvectors of $A^T A$ are the right singular vectors: $v_1 = \frac{1}{\sqrt 2}\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ (for eigenvalue $8$) and $v_2 = \frac{1}{\sqrt 2}\begin{bmatrix} 1 \\ -1 \end{bmatrix}$ (for $2$). The left singular vectors come from $u_i = \frac{1}{\sigma_i} A v_i$:
+
+$$
+u_1 = \frac{1}{2\sqrt 2}\begin{bmatrix} 2\sqrt 2 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \qquad u_2 = \frac{1}{\sqrt 2}\begin{bmatrix} 0 \\ -\sqrt 2 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \end{bmatrix}.
+$$
+
+So $A = U\Sigma V^T$ with
+
+$$
+U = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}, \quad \Sigma = \begin{bmatrix} 2\sqrt 2 & 0 \\ 0 & \sqrt 2 \end{bmatrix}, \quad V = \frac{1}{\sqrt 2}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
+$$
+
+As a check, the product of the singular values $2\sqrt 2 \cdot \sqrt 2 = 4$ equals $|\det A| = |(2)(1) - (2)(-1)| = 4$.
+
 ### Geometric Interpretation
 
 $A$ acts on a vector in three steps:
@@ -768,6 +826,14 @@ A_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T
 $$
 
 This keeps only the $k$ largest singular values and their associated vectors.
+
+**Worked example (rank-1 approximation).** Using the SVD just computed for $A = \begin{bmatrix} 2 & 2 \\ -1 & 1 \end{bmatrix}$, the best rank-1 approximation keeps only the largest singular value:
+
+$$
+A_1 = \sigma_1 u_1 v_1^T = 2\sqrt 2 \begin{bmatrix} 1 \\ 0 \end{bmatrix} \cdot \frac{1}{\sqrt 2}\begin{bmatrix} 1 & 1 \end{bmatrix} = 2\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix} = \begin{bmatrix} 2 & 2 \\ 0 & 0 \end{bmatrix}.
+$$
+
+The discarded part is $A - A_1 = \begin{bmatrix} 0 & 0 \\ -1 & 1 \end{bmatrix}$, whose only singular value is exactly the dropped $\sigma_2 = \sqrt 2$. So keeping the top singular value captured the dominant structure of $A$, and the small $\sigma_2$ measures precisely what was thrown away.
 
 **Why this matters for ML:**
 - **Dimensionality reduction:** truncated SVD is the mathematical basis for PCA
