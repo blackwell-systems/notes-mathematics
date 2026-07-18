@@ -2855,6 +2855,274 @@
           "upgrade": ""
         }
       ]
+    },
+    "probability.md": {
+      "contentHash": "sha1:be17508e8be92d12",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-18",
+      "auditor": "claude+3subagents",
+      "overall": "mixed",
+      "summary": "Very large, comprehensive probability reference (43 concepts). Every worked number verified correct across the whole page by three parallel auditors. Discrete distributions and core theory are strongly worked; the thin items are all formula-but-no-numeric-example: skewness/kurtosis, continuous uniform, gamma, beta, chi-squared, and law of total variance. 24 strong / 13 adequate / 6 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "frequentist vs Bayesian interpretation",
+          "quality": "strong",
+          "note": "Both interpretations explained with coin/rain examples + convergence diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sample spaces / events + equally-likely formula",
+          "quality": "strong",
+          "note": "Setup plus 2-aces example, C(4,2)/C(52,2)=1/221 computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Kolmogorov axioms + derived rules",
+          "quality": "strong",
+          "note": "Three axioms stated; complement and inclusion-exclusion derived + diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "complement rule (at-least-one-6 in four rolls)",
+          "quality": "strong",
+          "note": "Multi-step complement walkthrough incl wrong-answer discussion and general pattern.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conditional probability",
+          "quality": "strong",
+          "note": "Formula, intuition, diagram, marbles example to 1/2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "independence + conditional independence",
+          "quality": "adequate",
+          "note": "Independence defined/derived; conditional independence explained but not computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Bayes theorem (medical testing)",
+          "quality": "strong",
+          "note": "Full worked example, all pieces labeled, P(D|+) approx 0.0876.",
+          "upgrade": ""
+        },
+        {
+          "concept": "law of total probability",
+          "quality": "strong",
+          "note": "Stated and applied to compute P(+) in the Bayes example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "random variables PMF/PDF/CDF",
+          "quality": "strong",
+          "note": "All defined with 3-coin PMF table and diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "expected value (die) + properties",
+          "quality": "strong",
+          "note": "Fair-die E[X]=3.5 computed; linearity stated.",
+          "upgrade": ""
+        },
+        {
+          "concept": "variance / standard deviation",
+          "quality": "adequate",
+          "note": "Formulas and properties given but no numeric variance computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "skewness and kurtosis",
+          "quality": "thin",
+          "note": "Third/fourth standardized moments defined but never computed numerically.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Bernoulli distribution",
+          "quality": "adequate",
+          "note": "Defined with mean/var and coin example, but nothing computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Binomial distribution",
+          "quality": "strong",
+          "note": "Exactly-7-heads example worked, 120/1024 approx 0.117.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Poisson distribution",
+          "quality": "strong",
+          "note": "Visitors example worked with intermediate e^-5.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Geometric distribution + memoryless",
+          "quality": "strong",
+          "note": "E=1/0.3 computed; memoryless stated clearly.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Negative binomial distribution",
+          "quality": "strong",
+          "note": "Free-throws example worked, E=6.25, thorough parameterization note.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Hypergeometric distribution",
+          "quality": "strong",
+          "note": "Quality-control and cards examples both worked (0.0702, 0.2743).",
+          "upgrade": ""
+        },
+        {
+          "concept": "discrete uniform distribution",
+          "quality": "strong",
+          "note": "Die example computes E=3.5 and Var=35/12.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Poisson approximation to binomial",
+          "quality": "strong",
+          "note": "Defective-items example, lambda=2, approx 0.1804.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Poisson process",
+          "quality": "strong",
+          "note": "Coffee-shop example with three sub-computations incl e^-2.5.",
+          "upgrade": ""
+        },
+        {
+          "concept": "continuous uniform distribution",
+          "quality": "thin",
+          "note": "Formula, mean, variance given; no numeric worked example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponential distribution + memoryless + CDF",
+          "quality": "adequate",
+          "note": "CDF and memoryless explained; no numeric plug-in.",
+          "upgrade": ""
+        },
+        {
+          "concept": "normal distribution + 68-95-99.7",
+          "quality": "adequate",
+          "note": "Formula and empirical rule given; no numeric plug-in beyond z-scores.",
+          "upgrade": ""
+        },
+        {
+          "concept": "standard normal and z-scores",
+          "quality": "strong",
+          "note": "Exam-scores z=1.5, P(Z>1.5) approx 0.0668 worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "gamma distribution",
+          "quality": "thin",
+          "note": "Formula, special cases, sum property; no numeric worked example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "beta distribution",
+          "quality": "thin",
+          "note": "Formula, shape behavior, conjugacy; no numeric worked example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "chi-squared distribution",
+          "quality": "thin",
+          "note": "Definition, moments, gamma link; no numeric worked example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "joint distributions + marginals",
+          "quality": "strong",
+          "note": "Study/exam table with both marginals summed explicitly.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conditional distributions",
+          "quality": "strong",
+          "note": "pass|high (0.929) and pass|low (0.333) worked from table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "independence of random variables",
+          "quality": "strong",
+          "note": "Product check 0.30x0.25=0.075 vs 0.20 shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "law of total expectation",
+          "quality": "strong",
+          "note": "Revenue E[T]=50*100=5000 worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "law of total variance",
+          "quality": "thin",
+          "note": "Words-only; no numeric within/between-group variance decomposition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "covariance + bilinearity",
+          "quality": "adequate",
+          "note": "Bilinearity with symbolic expansion; no numeric example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "variance of sums (general)",
+          "quality": "adequate",
+          "note": "General and n-case formulas; no numeric plug-in.",
+          "upgrade": ""
+        },
+        {
+          "concept": "correlation (Pearson rho)",
+          "quality": "adequate",
+          "note": "Formula and limits; rho never computed numerically.",
+          "upgrade": ""
+        },
+        {
+          "concept": "multivariate normal distribution",
+          "quality": "adequate",
+          "note": "PDF, properties, diagrams; no worked numeric instance.",
+          "upgrade": ""
+        },
+        {
+          "concept": "transformations of random variables",
+          "quality": "strong",
+          "note": "Both Y=X^2 discrete and uniform->exponential change of variables worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "inverse transform sampling",
+          "quality": "adequate",
+          "note": "Method steps given; no concrete distribution sampled.",
+          "upgrade": ""
+        },
+        {
+          "concept": "moment generating functions",
+          "quality": "strong",
+          "note": "Bernoulli MGF fully worked; normal and sums derived.",
+          "upgrade": ""
+        },
+        {
+          "concept": "law of large numbers",
+          "quality": "adequate",
+          "note": "Stated with intuition and widget; no numeric example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Markov / Chebyshev / Jensen inequalities",
+          "quality": "adequate",
+          "note": "Markov/Chebyshev numeric bounds given; Jensen only symbolic.",
+          "upgrade": ""
+        },
+        {
+          "concept": "central limit theorem",
+          "quality": "adequate",
+          "note": "Stated with conditions and intuition + diagram; no numeric example.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
