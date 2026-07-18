@@ -357,7 +357,7 @@ $$
 f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
 $$
 
-Here, $h$ is the tiny gap between $x$ and the nearby point $x + h$. The fraction $\frac{f(x+h) - f(x)}{h}$ is the slope of the secant line. As $h$ shrinks toward 0, this slope approaches the slope of the tangent line.
+Here, $h$ is the tiny gap between $x$ and the nearby point $x + h$. The fraction $\frac{f(x+h) - f(x)}{h}$ is the slope of the secant line; it is called the **difference quotient** (also known as **Newton's quotient** or **Newton's difference quotient**). As $h$ shrinks toward 0, this slope approaches the slope of the tangent line.
 
 **Worked example:** Find the derivative of $f(x) = x^2$.
 
