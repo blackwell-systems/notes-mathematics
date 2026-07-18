@@ -374,6 +374,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Number Bases (Phase-2 worked examples) =================
+{
+  // octal <-> binary: 157_8 = 001 101 111_2 = 1101111_2 = 111_10
+  check("octal digits 1,5,7 -> 3-bit groups 001,101,111", true);
+  eq("157_8 = 1101111_2 = 111", 0b1101111, 111);
+  eq("157_8 decimal check 64+32+8+4+2+1", 64 + 32 + 8 + 4 + 2 + 1, 111);
+  // hex -> binary: D6 -> 1101 0110
+  eq("D=13=1101_2", 0b1101, 13);
+  eq("6=0110_2", 0b0110, 6);
+  eq("D6_16 -> 11010110_2 = 214", 0b11010110, 214);
+  // decimal -> hex by repeated division: 214 -> D6
+  { let n = 214; const digs = []; while (n > 0) { digs.push(n % 16); n = Math.floor(n / 16); }
+    check("214 / 16 = 13 r 6, then 13 / 16 = 0 r 13", digs[0] === 6 && digs[1] === 13);
+    const hex = digs.reverse().map(d => d < 10 ? String(d) : String.fromCharCode(55 + d)).join("");
+    check("214 -> D6 in hex", hex === "D6"); }
+  // twos complement subtraction 7 - 5 = 7 + (-5) in 8-bit
+  { const p7 = 0b00000111, n5 = 0b11111011; const raw = p7 + n5; const res = raw & 0xFF;
+    eq("7 + (-5) raw = 9-bit 100000010", raw, 0b100000010);
+    eq("after dropping overflow = 2 = 7 - 5", res, 2);
+    eq("res equals 7 - 5", res, 7 - 5); }
+  // floating point 0.1 + 0.2
+  eq("0.1 + 0.2 = 0.30000000000000004", 0.1 + 0.2, 0.30000000000000004, 0);
+  check("0.1 + 0.2 !== 0.3 (equality test is false)", (0.1 + 0.2) !== 0.3);
+}
+
 // ================= Linear Algebra Foundations (Phase-2 worked examples) =================
 {
   const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);

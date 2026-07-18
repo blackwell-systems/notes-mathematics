@@ -2569,12 +2569,12 @@
       ]
     },
     "number-bases.md": {
-      "contentHash": "sha1:173eaf9bccb26bea",
+      "contentHash": "sha1:9c2bc6b33e423e6d",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-18",
       "auditor": "claude+1subagent",
-      "overall": "mixed",
-      "summary": "Thorough base-conversion reference; every worked number verified correct by an independent auditor. 8 strong / 3 adequate / 1 thin / 1 missing. Work-list: octal<->binary three-bit grouping never demonstrated (missing); twos-complement subtraction a-b never worked despite being called the whole point (thin).",
+      "overall": "strong",
+      "summary": "Thorough base-conversion reference; every worked number independently verified. Phase-2 closed both work-list items (octal<->binary three-bit grouping, twos-complement subtraction) and folded in the upgrade items (hex->binary direction, decimal->hex division, literal 0.1+0.2 result). 10 strong / 3 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "positional notation / place value (base 10 + general b)",
@@ -2603,19 +2603,19 @@
         {
           "concept": "decimal -> base b by repeated division",
           "quality": "adequate",
-          "note": "75->1001011_2 full division table and verified; only a binary target shown.",
-          "upgrade": "minor: a decimal->hex or decimal->octal repeated-division example"
+          "note": "75->1001011_2 full division table and verified; decimal->hex (214->D6) now worked too.",
+          "upgrade": ""
         },
         {
           "concept": "binary <-> hex fast grouping",
           "quality": "strong",
-          "note": "11010110_2->D6_16 grouping worked and cross-checked through decimal.",
-          "upgrade": "minor: the hex->binary direction (expand a hex digit to 4 bits) is stated but not worked"
+          "note": "11010110_2->D6_16 grouping worked and cross-checked; hex->binary direction (D6->11010110) now worked too.",
+          "upgrade": ""
         },
         {
           "concept": "octal <-> binary grouping (groups of three)",
-          "quality": "missing",
-          "note": "Three-bit grouping stated in the intro but never demonstrated with numbers.",
+          "quality": "strong",
+          "note": "Worked: 157_8 = 001 101 111_2 = 1101111_2 (three bits per octal digit), decimal-checked; the 3-vs-4 bit distinction is called out.",
           "upgrade": ""
         },
         {
@@ -2626,8 +2626,8 @@
         },
         {
           "concept": "subtraction via twos complement (a-b)",
-          "quality": "thin",
-          "note": "'Subtraction becomes addition' claimed as the whole point, but no concrete a-b worked.",
+          "quality": "strong",
+          "note": "Worked: 7-5 as 7+(-5) in 8-bit, 00000111+11111011 = 1 00000010, overflow dropped -> 2.",
           "upgrade": ""
         },
         {
@@ -2651,8 +2651,8 @@
         {
           "concept": "floating-point 0.1 + 0.2 issue",
           "quality": "adequate",
-          "note": "Cause explained clearly but not shown numerically (0.30000000000000004).",
-          "upgrade": "minor: show the actual 0.1+0.2 result numerically"
+          "note": "Cause explained and the literal result shown: 0.1+0.2 = 0.30000000000000004, so the equality test is false.",
+          "upgrade": ""
         }
       ]
     }

@@ -119,7 +119,16 @@ $$
 1001011_2 = 64 + 0 + 0 + 8 + 0 + 2 + 1 = 64 + 8 + 2 + 1 = 75. \checkmark
 $$
 
-### Binary and hexadecimal, the fast way
+The same method targets any base; only the divisor changes. **Convert $214_{10}$ to hexadecimal** by repeated division by $16$:
+
+| Step | Division | Quotient | Remainder |
+|---|---|---|---|
+| 1 | $214 \div 16$ | $13$ | $6$ |
+| 2 | $13 \div 16$  | $0$  | $13 = D$ |
+
+Reading the remainders bottom to top gives $D6_{16}$ (the remainder $13$ becomes the hex digit $D$). This matches the $214 = D6_{16}$ we found by grouping above.
+
+### Binary, octal, and hexadecimal, the fast way
 
 Because $16 = 2^4$, each hex digit corresponds to exactly four bits, and the correspondence is fixed regardless of the surrounding digits. So to convert binary to hex, **group the bits into fours starting from the right** (pad the leftmost group with leading zeros if needed), then translate each group of four bits into its single hex digit. To go from hex to binary, expand each hex digit into its four-bit pattern.
 
@@ -151,6 +160,16 @@ D6_{16} = 13\cdot 16 + 6 = 208 + 6 = 214. \checkmark
 $$
 
 Both give $214_{10}$, so the grouping shortcut agrees with the full conversion.
+
+**The reverse direction (hex to binary)** just expands each hex digit into its four-bit pattern. Taking $D6_{16}$ back the other way: $D = 13 = 1101_2$ and $6 = 0110_2$, so $D6_{16} = 1101\,0110_2 = 11010110_2$, recovering the original numeral.
+
+**Octal works the same way, but with groups of *three* bits**, because $8 = 2^3$. To convert octal to binary, expand each octal digit into three bits; to go the other way, group the bits into threes from the right. For example, take $157_8$ (which we found equals $111_{10}$ above) and expand each digit to three bits using place values $4, 2, 1$:
+
+$$
+1 = 001,\qquad 5 = 101,\qquad 7 = 111,
+$$
+
+so $157_8 = 001\,101\,111_2 = 1101111_2$. Check through decimal: $1101111_2 = 64 + 32 + 8 + 4 + 2 + 1 = 111$. ✓ (Note the two shortcuts use different group sizes: **three** bits per octal digit, **four** bits per hex digit.)
 
 ## Arithmetic in Other Bases
 
@@ -194,7 +213,17 @@ $$
 
 The result is nine bits, but only eight fit in the register, so the leading $1$ is dropped and we are left with $00000000_2 = 0$. That is exactly the behavior we want from $5 + (-5)$.
 
-This "wrap around and discard the overflow" property is the whole point of two's complement: **subtraction becomes addition**. To compute $a - b$, the hardware forms the two's complement of $b$ and simply adds. No separate subtraction circuitry is needed, and there is only one representation of zero (unlike sign-and-magnitude schemes, which waste a pattern on "negative zero"). This is why essentially all modern processors use two's complement for signed integers.
+This "wrap around and discard the overflow" property is the whole point of two's complement: **subtraction becomes addition**. To compute $a - b$, the hardware forms the two's complement of $b$ and simply adds.
+
+**Worked example.** Compute $7 - 5$ in 8-bit as $7 + (-5)$. We have $+7 = 00000111$ and, from above, $-5 = 11111011$. Add them:
+
+$$
+00000111 + 11111011 = 1\,00000010_2.
+$$
+
+Again the sum is nine bits; discarding the overflow leaves $00000010_2 = 2$, which is exactly $7 - 5$. The same adder that computed $5 + (-5) = 0$ handled the subtraction with no special hardware.
+
+No separate subtraction circuitry is needed, and there is only one representation of zero (unlike sign-and-magnitude schemes, which waste a pattern on "negative zero"). This is why essentially all modern processors use two's complement for signed integers.
 
 ## Fractions in Other Bases
 
@@ -214,7 +243,7 @@ $$
 0.1_{10} = 0.0\,\overline{0011}_2 = 0.0001100110011\ldots_2.
 $$
 
-A computer storing $0.1$ in a finite number of bits must therefore truncate or round this repeating expansion, so the stored value is very slightly off. This is the root cause of the notorious floating-point surprise where $0.1 + 0.2$ does not come out exactly equal to $0.3$: none of the three values is representable exactly, and the small rounding errors do not cancel. The number is fine in decimal; the trouble is entirely an artifact of writing it in base 2.
+A computer storing $0.1$ in a finite number of bits must therefore truncate or round this repeating expansion, so the stored value is very slightly off. This is the root cause of the notorious floating-point surprise where $0.1 + 0.2$ does not come out exactly equal to $0.3$: none of the three values is representable exactly, and the small rounding errors do not cancel. Evaluated in standard double precision, $0.1 + 0.2$ returns $0.30000000000000004$, not $0.3$, so a direct equality test $0.1 + 0.2 = 0.3$ is *false*. The number is fine in decimal; the trouble is entirely an artifact of writing it in base 2.
 
 ## Where It Shows Up
 
