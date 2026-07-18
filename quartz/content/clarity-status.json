@@ -2749,6 +2749,112 @@
           "upgrade": ""
         }
       ]
+    },
+    "prime-factorization.md": {
+      "contentHash": "sha1:59e66ffb11567ea8",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-18",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Exceptionally complete prime-factorization reference; every worked number independently verified. Audited and Phase-2'd in one pass: the two thin items (factor-tree prose walkthrough, number-theory connections) were filled, plus a divisibility-by-7 rule. 15 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "prime vs composite definition",
+          "quality": "adequate",
+          "note": "Defined with 12=3x4 example; brief but clear.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Fundamental Theorem of Arithmetic (uniqueness)",
+          "quality": "strong",
+          "note": "Uniqueness stated and shown via 12, 60, 360 fingerprints + image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "canonical (exponent) form",
+          "quality": "strong",
+          "note": "Defined with four worked examples incl 504, 360.",
+          "upgrade": ""
+        },
+        {
+          "concept": "divisibility rules (2,3,4,5,6,7,8,9,10,11)",
+          "quality": "strong",
+          "note": "All rules justified; 3, 7, 9, 11 get numeric examples; 7-rule added with mod justification (504).",
+          "upgrade": ""
+        },
+        {
+          "concept": "factor tree method",
+          "quality": "strong",
+          "note": "Now worked step-by-step in prose for 60, showing the leaves are the same multiset regardless of first split.",
+          "upgrade": ""
+        },
+        {
+          "concept": "trial division method",
+          "quality": "strong",
+          "note": "504 and 360 fully worked, every division shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why trial division stops at sqrt(n)",
+          "quality": "strong",
+          "note": "Explained in prose plus the paired-divisor diagram with n=36.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Sieve of Eratosthenes",
+          "quality": "strong",
+          "note": "Algorithm plus full numeric walkthrough to 30 + image to 100.",
+          "upgrade": ""
+        },
+        {
+          "concept": "GCD via prime factorization",
+          "quality": "strong",
+          "note": "Min-exponent table worked, gcd(360,504)=72.",
+          "upgrade": ""
+        },
+        {
+          "concept": "LCM via prime factorization",
+          "quality": "strong",
+          "note": "Max-exponent table worked, lcm(360,504)=2520.",
+          "upgrade": ""
+        },
+        {
+          "concept": "GCD-LCM identity",
+          "quality": "strong",
+          "note": "72*2520=181440=360*504 verified numerically.",
+          "upgrade": ""
+        },
+        {
+          "concept": "number of divisors tau(n)",
+          "quality": "strong",
+          "note": "tau(360)=24 computed and verified by listing all 24 divisors + grid image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sum of divisors sigma(n)",
+          "quality": "strong",
+          "note": "sigma(360)=15*13*6=1170 fully worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "simplifying fractions via factorization",
+          "quality": "strong",
+          "note": "504/360=7/5 via factorization cancellation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "common denominators via LCM",
+          "quality": "strong",
+          "note": "1/12+5/18=13/36 via lcm=36.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connections to number theory (perfect numbers, totient, RSA)",
+          "quality": "strong",
+          "note": "Perfect numbers now worked (sigma(6)=12, sigma(28)=56, abundant/deficient) and phi(360)=96 computed from the factorization; modular/RSA remain pointers to number-theory.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

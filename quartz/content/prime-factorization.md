@@ -100,6 +100,11 @@ Before diving into factorization methods, it helps to have quick tests for wheth
 **Divisible by 6:** The number is divisible by both 2 and 3.
 *Why:* $6 = 2 \times 3$, and since 2 and 3 are coprime, divisibility by 6 is equivalent to divisibility by both.
 
+**Divisible by 7:** Take the last digit, double it, and subtract it from the number formed by the remaining digits; repeat if needed. The original is divisible by 7 exactly when the result is.
+*Why:* write the number as $10a + d$ where $d$ is the last digit and $a$ is the rest. Then $10a + d \equiv 0 \pmod 7$ means $d \equiv -10a \equiv -3a \pmod 7$, and substituting gives $a - 2d \equiv a - 2(-3a) = 7a \equiv 0 \pmod 7$. So each congruence forces the other: the number is divisible by 7 exactly when $a - 2d$ is. The rule for 7 is more awkward than the others, which is why it is often skipped.
+
+**Example:** Is $504$ divisible by 7? Last digit $4$, doubled is $8$; the remaining digits form $50$; $50 - 8 = 42$. Since $42 = 6 \times 7$ is divisible by 7, so is $504$ (indeed $504 = 7 \times 72$).
+
 **Divisible by 8:** The last three digits form a number divisible by 8.
 *Why:* $1000 = 8 \times 125$, so any multiple of 1000 is divisible by 8. Only the last three digits matter.
 
@@ -134,6 +139,19 @@ method, follow the below steps:
     the composite factors
 
 ![Two factor trees: 60 branching to primes 2, 2, 3, 5 giving 2^2 x 3 x 5, and 282 branching to 2, 3, 47](./media/pf-factor-tree.png)
+
+**Worked example (factor tree for 60).** Start with $60$ at the root and split it into *any* factor pair, say $60 = 6 \times 10$ (the choice does not matter; the tree always ends at the same primes). Now grow a branch from each composite:
+
+- $6$ is composite: $6 = 2 \times 3$. Both $2$ and $3$ are prime, so those branches stop.
+- $10$ is composite: $10 = 2 \times 5$. Both $2$ and $5$ are prime, so those branches stop.
+
+Every leaf of the tree is now prime: $2, 3, 2, 5$. Collecting them and writing in canonical form,
+
+$$
+60 = 2 \times 3 \times 2 \times 5 = 2^2 \cdot 3 \cdot 5.
+$$
+
+Had we started with a different first split, say $60 = 4 \times 15$, the tree would grow differently ($4 = 2 \times 2$, $15 = 3 \times 5$) but the leaves are the same multiset $\{2, 2, 3, 5\}$, exactly as the Fundamental Theorem promises.
 
 ### Try It: Factor Tree and Sieve
 
@@ -412,6 +430,17 @@ $$
 
 So the sum of all 24 positive divisors of 360 is 1170.
 
+### Perfect Numbers
+
+A **perfect number** equals the sum of its *proper* divisors (all divisors except itself), which is the same as saying $\sigma(n) = 2n$ (adding $n$ back to both sides). The sum-of-divisors formula makes this easy to check. The two smallest perfect numbers:
+
+$$
+\sigma(6) = \frac{2^2 - 1}{2 - 1} \cdot \frac{3^2 - 1}{3 - 1} = 3 \cdot 4 = 12 = 2 \cdot 6, \qquad
+\sigma(28) = \frac{2^3 - 1}{2 - 1} \cdot \frac{7^2 - 1}{7 - 1} = 7 \cdot 8 = 56 = 2 \cdot 28,
+$$
+
+using $6 = 2 \cdot 3$ and $28 = 2^2 \cdot 7$. Both satisfy $\sigma(n) = 2n$, so both are perfect. (For contrast, $\sigma(360) = 1170$ exceeds $2 \cdot 360 = 720$, so $360$ is **abundant**: its divisors overshoot. Numbers with $\sigma(n) < 2n$ are **deficient**, and perfect numbers sit exactly on the boundary.)
+
 ## Applications
 
 ### Simplifying Fractions
@@ -447,6 +476,6 @@ $$
 Prime factorization is the foundation of many topics in [Number Theory](./number-theory):
 
 - **Modular arithmetic** uses properties of primes (e.g., Fermat's Little Theorem applies when the modulus is prime)
-- **Euler's totient function** $\phi(n)$ counts integers less than $n$ that are coprime to $n$, and its formula depends on the prime factorization of $n$
+- **Euler's totient function** $\phi(n)$ counts integers less than $n$ that are coprime to $n$; its formula reads the prime factorization directly, $\phi(n) = n\prod_{p \mid n}\left(1 - \tfrac{1}{p}\right)$, one factor per *distinct* prime. For $360 = 2^3 \cdot 3^2 \cdot 5$ the distinct primes are $2, 3, 5$, so $\phi(360) = 360\left(1 - \tfrac{1}{2}\right)\left(1 - \tfrac{1}{3}\right)\left(1 - \tfrac{1}{5}\right) = 360 \cdot \tfrac{1}{2} \cdot \tfrac{2}{3} \cdot \tfrac{4}{5} = 96$
 - **Cryptography** (RSA) relies on the difficulty of factoring large numbers into primes
 - **Perfect numbers** are characterized by the equation $\sigma(n) = 2n$, linking back to the sum of divisors formula

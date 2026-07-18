@@ -374,6 +374,26 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Prime Factorization (Phase-2 worked examples) =================
+{
+  // factor tree for 60: leaves {2,2,3,5} regardless of first split
+  eq("60 = 6*10 = (2*3)*(2*5) = 2^2*3*5", 2 * 2 * 3 * 5, 60);
+  eq("60 = 4*15 = (2*2)*(3*5) gives same primes", 2 * 2 * 3 * 5, 60);
+  // divisibility by 7: 504 -> 50 - 2*4 = 42 = 7*6
+  { const rule = 50 - 2 * 4; eq("504 rule: 50 - 2*4 = 42", rule, 42);
+    check("42 divisible by 7", 42 % 7 === 0); eq("504 / 7 = 72", 504 / 7, 72); }
+  // sigma helper and perfect numbers
+  const sigma = (pf) => pf.reduce((s, [p, a]) => s * ((p ** (a + 1) - 1) / (p - 1)), 1);
+  eq("sigma(6) = 3*4 = 12 = 2*6", sigma([[2, 1], [3, 1]]), 12);
+  check("6 is perfect: sigma(6) = 2*6", sigma([[2, 1], [3, 1]]) === 2 * 6);
+  eq("sigma(28) = 7*8 = 56 = 2*28", sigma([[2, 2], [7, 1]]), 56);
+  check("28 is perfect: sigma(28) = 2*28", sigma([[2, 2], [7, 1]]) === 2 * 28);
+  eq("sigma(360) = 1170", sigma([[2, 3], [3, 2], [5, 1]]), 1170);
+  check("360 is abundant: sigma(360) > 2*360", sigma([[2, 3], [3, 2], [5, 1]]) > 2 * 360);
+  // euler totient phi(360) = 360 * 1/2 * 2/3 * 4/5 = 96
+  eq("phi(360) = 360*(1/2)(2/3)(4/5) = 96", 360 * (1 - 1 / 2) * (1 - 1 / 3) * (1 - 1 / 5), 96, 1e-9);
+}
+
 // ================= Parametric & Polar (Phase-2 worked examples) =================
 {
   const d2r = (d) => d * Math.PI / 180;
