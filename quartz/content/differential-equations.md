@@ -386,6 +386,20 @@ Substitute: $9Ae^{3x} - 9Ae^{3x} + 2Ae^{3x} = 4e^{3x}$, giving $2A = 4$, so $A =
 
 General solution: $y = C_1 e^x + C_2 e^{2x} + 2e^{3x}$.
 
+**Worked example (resonance: when the guess overlaps $y_h$).** Solve $y'' - 3y' + 2y = e^x$. The homogeneous solution is the same as above, $y_h = C_1 e^x + C_2 e^{2x}$. The natural guess $y_p = Ae^x$ now **fails**, because $e^x$ is already a homogeneous solution (it would just give $0 = e^x$). The fix from the note above is to multiply the guess by $x$: try $y_p = Axe^x$. Then
+
+$$
+y_p' = A(1 + x)e^x, \qquad y_p'' = A(2 + x)e^x.
+$$
+
+Substituting and collecting the bracket, $A e^x\big[(2+x) - 3(1+x) + 2x\big] = A e^x(-1) = -Ae^x$. Setting this equal to $e^x$ gives $A = -1$, so $y_p = -xe^x$ and
+
+$$
+y = C_1 e^x + C_2 e^{2x} - xe^x.
+$$
+
+The extra factor of $x$ is exactly the same mechanism as the repeated-root case: when the forcing term resonates with a natural mode of the system, the response picks up a factor of $x$ (a growing amplitude).
+
 ### Connection to Eigenvalues
 
 The characteristic equation $ar^2 + br + c = 0$ is finding the eigenvalues of the system. We can rewrite any second-order ODE $y'' + by' + cy = 0$ as a system of first-order ODEs by setting $y_1 = y$ and $y_2 = y'$:
@@ -425,6 +439,19 @@ $$
 $$
 
 **Why this works:** If $\mathbf{x} = e^{\lambda t} \mathbf{v}$, then $\mathbf{x}' = \lambda e^{\lambda t} \mathbf{v}$ and $A\mathbf{x} = e^{\lambda t} A\mathbf{v} = e^{\lambda t} \lambda \mathbf{v}$. These are equal when $A\mathbf{v} = \lambda \mathbf{v}$, which is the eigenvalue equation. Each eigenvector gives a solution, and the general solution is a linear combination (by linearity of the DE).
+
+**Worked example.** Solve $\mathbf{x}' = A\mathbf{x}$ for $A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$. The characteristic equation is $\det(A - \lambda I) = (1-\lambda)^2 - 4 = 0$, so $1 - \lambda = \pm 2$, giving eigenvalues $\lambda_1 = 3$ and $\lambda_2 = -1$. The eigenvectors follow from $(A - \lambda I)\mathbf{v} = 0$:
+
+- $\lambda_1 = 3$: $\begin{pmatrix} -2 & 2 \\ 2 & -2 \end{pmatrix}\mathbf{v} = 0$ gives $v_1 = v_2$, so $\mathbf{v}_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+- $\lambda_2 = -1$: $\begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix}\mathbf{v} = 0$ gives $v_1 = -v_2$, so $\mathbf{v}_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$.
+
+The general solution is therefore
+
+$$
+\mathbf{x}(t) = C_1 e^{3t}\begin{pmatrix} 1 \\ 1 \end{pmatrix} + C_2 e^{-t}\begin{pmatrix} 1 \\ -1 \end{pmatrix}.
+$$
+
+Because one eigenvalue is positive and the other negative, the origin is a **saddle point** (from the stability table below): trajectories are pulled in along the $\mathbf{v}_2$ direction (the $e^{-t}$ term decays) and pushed out along $\mathbf{v}_1$ (the $e^{3t}$ term grows). By contrast, the matrix $A = \begin{pmatrix} 3 & -2 \\ 1 & 1 \end{pmatrix}$ from above has complex eigenvalues $\lambda = 2 \pm i$ (from $\lambda^2 - 4\lambda + 5 = 0$), which produce an outward *spiral* rather than straight-line motion; the phase-portrait tool below lets you dial in either case.
 
 The eigenvalues also fix the *geometry* of the flow. Set the entries of $A$ below to see the phase portrait and how the fixed point at the origin is classified, a saddle, node, spiral, or center, directly from the sign and type of the eigenvalues (with the real eigenvector directions drawn as invariant lines).
 

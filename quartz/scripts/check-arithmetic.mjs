@@ -374,6 +374,27 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Differential Equations (Phase-2 worked examples) =================
+{
+  // System x'=Ax, A=[[1,2],[2,1]]: eigenvalues 3,-1; eigenvectors [1,1],[1,-1]
+  { const A = [[1, 2], [2, 1]];
+    // characteristic (1-l)^2 - 4 = 0 -> l = 3, -1
+    const disc = (1 - 3) ** 2 - 4, disc2 = (1 - -1) ** 2 - 4;
+    eq("lambda=3 is a root of (1-l)^2-4", disc, 0);
+    eq("lambda=-1 is a root of (1-l)^2-4", disc2, 0);
+    const apply = (A, l, v) => [A[0][0] * v[0] + A[0][1] * v[1] - l * v[0], A[1][0] * v[0] + A[1][1] * v[1] - l * v[1]];
+    check("eigenvector [1,1] for lambda=3", apply(A, 3, [1, 1]).every((x) => x === 0));
+    check("eigenvector [1,-1] for lambda=-1", apply(A, -1, [1, -1]).every((x) => x === 0));
+    check("one positive one negative eigenvalue -> saddle", 3 > 0 && -1 < 0);
+    // page's matrix [[3,-2],[1,1]] has complex eigenvalues 2+-i (char l^2-4l+5)
+    check("[[3,-2],[1,1]] char l^2-4l+5 has complex roots 2+-i", 4 * 4 - 4 * 5 < 0); }
+  // Resonance: y''-3y'+2y=e^x, y_p=-x e^x
+  { const A = -1;
+    const yp = (x) => A * x * Math.exp(x), yp1 = (x) => A * (1 + x) * Math.exp(x), yp2 = (x) => A * (2 + x) * Math.exp(x);
+    check("y_p=-x e^x satisfies y''-3y'+2y=e^x", [0, 0.5, 1, 2].every((x) => Math.abs((yp2(x) - 3 * yp1(x) + 2 * yp(x)) - Math.exp(x)) < 1e-9));
+    eq("bracket (2+x)-3(1+x)+2x = -1", (2 + 5) - 3 * (1 + 5) + 2 * 5, -1); }
+}
+
 // ================= Symbolic vs Numerical Methods (Phase-2 worked examples) =================
 {
   const root = Math.SQRT2, f = (x) => x * x - 2;
