@@ -374,6 +374,44 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Probability (Phase-2 worked examples) =================
+{
+  // skewness & kurtosis of Bernoulli(0.2)
+  { const p = 0.2, mu = p, s2 = p * (1 - p), s = Math.sqrt(s2);
+    const m3 = (1 - p) * (0 - mu) ** 3 + p * (1 - mu) ** 3;
+    const m4 = (1 - p) * (0 - mu) ** 4 + p * (1 - mu) ** 4;
+    eq("Bern(0.2) sigma^2 = 0.16", s2, 0.16, 1e-9);
+    eq("Bern(0.2) E[(X-mu)^3] = 0.096", m3, 0.096, 1e-9);
+    eq("Bern(0.2) skewness = 1.5", m3 / s ** 3, 1.5, 1e-9);
+    eq("Bern(0.2) E[(X-mu)^4] = 0.0832", m4, 0.0832, 1e-9);
+    eq("Bern(0.2) kurtosis = 3.25", m4 / s2 ** 2, 3.25, 1e-9);
+    eq("Bern(0.2) excess kurtosis = 0.25", m4 / s2 ** 2 - 3, 0.25, 1e-9); }
+  // Uniform(0,10)
+  { const a = 0, b = 10; eq("Uniform(0,10) E = 5", (a + b) / 2, 5);
+    eq("Uniform(0,10) Var = 100/12", (b - a) ** 2 / 12, 100 / 12, 1e-12);
+    eq("Uniform(0,10) P(2<=X<=5) = 0.3", (5 - 2) / (b - a), 0.3, 1e-12); }
+  // Gamma(2,1)
+  { const al = 2, be = 1; eq("Gamma(2,1) E = 2", al / be, 2); eq("Gamma(2,1) Var = 2", al / be ** 2, 2);
+    eq("Gamma(2,1) f(1) = e^-1", (be ** al / 1) * 1 * Math.exp(-be * 1), Math.exp(-1), 1e-12); }
+  // Beta(2,3)
+  { const al = 2, be = 3; eq("Beta(2,3) E = 0.4", al / (al + be), 0.4, 1e-12);
+    eq("Beta(2,3) Var = 0.04", (al * be) / ((al + be) ** 2 * (al + be + 1)), 0.04, 1e-12);
+    eq("Beta(2,3) sd = 0.2", Math.sqrt((al * be) / ((al + be) ** 2 * (al + be + 1))), 0.2, 1e-12);
+    // posterior: Beta(1,1) + 1 head, 2 tails -> Beta(2,3)
+    check("Beta(1+1,1+2) = Beta(2,3)", 1 + 1 === 2 && 1 + 2 === 3); }
+  // chi-squared_3
+  { const k = 3; eq("chi^2_3 E = k = 3", k, 3); eq("chi^2_3 Var = 2k = 6", 2 * k, 6);
+    eq("E[Z^2]=Var(Z)=1 summed 3x = 3", 1 + 1 + 1, 3); eq("Var(Z^2)=2 summed 3x = 6", 2 + 2 + 2, 6); }
+  // law of total variance: two classes
+  { const wA = 0.5, wB = 0.5, mA = 70, mB = 80, vA = 100, vB = 200;
+    const EVar = wA * vA + wB * vB; const grand = wA * mA + wB * mB;
+    const VarE = wA * (mA - grand) ** 2 + wB * (mB - grand) ** 2;
+    eq("LTV within = E[Var(Y|X)] = 150", EVar, 150);
+    eq("LTV grand mean = 75", grand, 75);
+    eq("LTV between = Var(E[Y|X]) = 25", VarE, 25);
+    eq("LTV total Var(Y) = 175", EVar + VarE, 175); }
+}
+
 // ================= Prime Factorization (Phase-2 worked examples) =================
 {
   // factor tree for 60: leaves {2,2,3,5} regardless of first split

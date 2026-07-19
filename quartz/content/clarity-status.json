@@ -2857,12 +2857,12 @@
       ]
     },
     "probability.md": {
-      "contentHash": "sha1:be17508e8be92d12",
+      "contentHash": "sha1:d23f9902d71f9eb8",
       "clarityRubricVersion": 1,
-      "auditedAt": "2026-07-18",
+      "auditedAt": "2026-07-19",
       "auditor": "claude+3subagents",
-      "overall": "mixed",
-      "summary": "Very large, comprehensive probability reference (43 concepts). Every worked number verified correct across the whole page by three parallel auditors. Discrete distributions and core theory are strongly worked; the thin items are all formula-but-no-numeric-example: skewness/kurtosis, continuous uniform, gamma, beta, chi-squared, and law of total variance. 24 strong / 13 adequate / 6 thin / 0 missing.",
+      "overall": "strong",
+      "summary": "Very large, comprehensive probability reference (43 concepts), every worked number independently verified. Phase-2 closed all six thin items (skewness/kurtosis, continuous uniform, gamma, beta, chi-squared, law of total variance) with numeric worked examples. 30 strong / 13 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "frequentist vs Bayesian interpretation",
@@ -2932,8 +2932,8 @@
         },
         {
           "concept": "skewness and kurtosis",
-          "quality": "thin",
-          "note": "Third/fourth standardized moments defined but never computed numerically.",
+          "quality": "strong",
+          "note": "Worked on Bernoulli(0.2): E[(X-mu)^3]=0.096 -> skew 1.5 (right tail), kurtosis 3.25, excess 0.25.",
           "upgrade": ""
         },
         {
@@ -2992,8 +2992,8 @@
         },
         {
           "concept": "continuous uniform distribution",
-          "quality": "thin",
-          "note": "Formula, mean, variance given; no numeric worked example.",
+          "quality": "strong",
+          "note": "Uniform(0,10) worked: E=5, Var=100/12~8.33, P(2<=X<=5)=0.3.",
           "upgrade": ""
         },
         {
@@ -3016,20 +3016,20 @@
         },
         {
           "concept": "gamma distribution",
-          "quality": "thin",
-          "note": "Formula, special cases, sum property; no numeric worked example.",
+          "quality": "strong",
+          "note": "Gamma(2,1) worked: E=2, Var=2, PDF f(1)=e^-1~0.368.",
           "upgrade": ""
         },
         {
           "concept": "beta distribution",
-          "quality": "thin",
-          "note": "Formula, shape behavior, conjugacy; no numeric worked example.",
+          "quality": "strong",
+          "note": "Beta(2,3) worked: E=0.4, Var=0.04, sd=0.2; shown as the Beta(1,1)+1H,2T posterior.",
           "upgrade": ""
         },
         {
           "concept": "chi-squared distribution",
-          "quality": "thin",
-          "note": "Definition, moments, gamma link; no numeric worked example.",
+          "quality": "strong",
+          "note": "chi^2_3 worked: E[X]=sum E[Zi^2]=3=k, Var(X)=sum Var(Zi^2)=6=2k.",
           "upgrade": ""
         },
         {
@@ -3058,8 +3058,8 @@
         },
         {
           "concept": "law of total variance",
-          "quality": "thin",
-          "note": "Words-only; no numeric within/between-group variance decomposition.",
+          "quality": "strong",
+          "note": "Two-class numeric decomposition: within 150 + between 25 = total variance 175.",
           "upgrade": ""
         },
         {

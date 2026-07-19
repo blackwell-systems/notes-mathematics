@@ -353,6 +353,23 @@ $$
 - **Excess kurtosis = 0 (mesokurtic):** Same tail weight as the normal.
 - **Excess kurtosis < 0 (platykurtic):** Lighter tails than the normal. Fewer extreme values. Examples: uniform distribution.
 
+**Worked example (skewness and kurtosis of a Bernoulli).** Take $X \sim \text{Bernoulli}(0.2)$: $X = 1$ with probability $0.2$ and $X = 0$ with probability $0.8$. Then $\mu = 0.2$, $\sigma^2 = p(1-p) = 0.16$, and $\sigma = 0.4$. Compute the central moments directly by summing over the two outcomes:
+
+$$
+E[(X-\mu)^3] = 0.8(0 - 0.2)^3 + 0.2(1 - 0.2)^3 = 0.8(-0.008) + 0.2(0.512) = 0.096,
+$$
+$$
+\gamma_1 = \frac{E[(X-\mu)^3]}{\sigma^3} = \frac{0.096}{0.4^3} = \frac{0.096}{0.064} = 1.5.
+$$
+
+The positive skewness confirms the right tail is longer: most of the mass sits at $0$, with the rarer $1$ off to the right. For kurtosis,
+
+$$
+E[(X-\mu)^4] = 0.8(0.2)^4 + 0.2(0.8)^4 = 0.00128 + 0.08192 = 0.0832, \qquad \gamma_2 = \frac{0.0832}{0.16^2} = 3.25,
+$$
+
+so the excess kurtosis is $\gamma_2 - 3 = 0.25$: slightly heavier-tailed than a normal. (A symmetric distribution like the fair die would instead give $\gamma_1 = 0$.)
+
 **Where it shows up:** Financial modeling relies heavily on kurtosis because stock returns have "fat tails" (high kurtosis), meaning extreme events (crashes, spikes) happen more often than a normal distribution predicts. Ignoring kurtosis leads to underestimating risk.
 
 ## Common Discrete Distributions
@@ -572,6 +589,8 @@ $$
 - $E[X] = \frac{a + b}{2}$
 - $\text{Var}(X) = \frac{(b-a)^2}{12}$
 
+**Worked example.** For $X \sim \text{Uniform}(0, 10)$, the density is the constant $f(x) = \frac{1}{10}$ on $[0, 10]$. The mean is $E[X] = \frac{0 + 10}{2} = 5$ and the variance is $\text{Var}(X) = \frac{(10 - 0)^2}{12} = \frac{100}{12} \approx 8.33$. A probability is just a length times the height: $P(2 \leq X \leq 5) = \int_2^5 \frac{1}{10}\,dx = \frac{5 - 2}{10} = 0.3$, since $30\%$ of the interval lies between $2$ and $5$.
+
 **Where it shows up in ML:** Random initialization of neural network weights (before more sophisticated methods were developed), random number generation, and as a non-informative prior in Bayesian statistics.
 
 ### Exponential Distribution
@@ -671,6 +690,14 @@ where $\alpha > 0$ is the **shape** parameter, $\beta > 0$ is the **rate** param
 
 **Sum property:** If $X_1, X_2, \ldots, X_n$ are independent $\text{Exponential}(\beta)$ random variables, then their sum follows a $\text{Gamma}(n, \beta)$ distribution. This makes intuitive sense: if each $X_i$ is the waiting time between events in a Poisson process, then $\sum X_i$ is the total waiting time until the $n$th event.
 
+**Worked example.** Take $\text{Gamma}(\alpha = 2, \beta = 1)$, the waiting time until the *second* event in a rate-$1$ Poisson process. Its mean is $E[X] = \alpha/\beta = 2$ and variance $\text{Var}(X) = \alpha/\beta^2 = 2$ (both equal to $2$ here because $\beta = 1$). Since $\Gamma(2) = 1! = 1$, the density at $x = 1$ is
+
+$$
+f(1) = \frac{\beta^\alpha}{\Gamma(\alpha)}\, x^{\alpha - 1} e^{-\beta x} = \frac{1^2}{1}\cdot 1^{1}\cdot e^{-1} = e^{-1} \approx 0.368.
+$$
+
+The mean $2$ matches the intuition: waiting for two events at an average of one time-unit apart takes about two time-units.
+
 **Where it shows up:** In Bayesian statistics, the gamma distribution is the conjugate prior for the rate parameter of a Poisson distribution. It also appears in modeling insurance claims, rainfall amounts, and network packet inter-arrival times.
 
 ### Beta Distribution
@@ -695,6 +722,8 @@ The shape parameters control the distribution's behavior:
 - $\alpha > \beta$: skewed toward 1
 - $\alpha < \beta$: skewed toward 0
 
+**Worked example.** For $X \sim \text{Beta}(2, 3)$, the mean is $E[X] = \frac{\alpha}{\alpha + \beta} = \frac{2}{5} = 0.4$ and the variance is $\text{Var}(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} = \frac{2 \cdot 3}{5^2 \cdot 6} = \frac{6}{150} = 0.04$, so the standard deviation is $0.2$. Since $\alpha < \beta$, the distribution leans toward $0$, consistent with a mean below $\tfrac{1}{2}$. This is exactly the posterior you get from a $\text{Uniform}(0,1) = \text{Beta}(1,1)$ prior after seeing $1$ head and $2$ tails: $\text{Beta}(1+1,\ 1+2) = \text{Beta}(2,3)$, giving a posterior mean coin-bias estimate of $0.4$.
+
 **Where it shows up:** In Bayesian statistics, the beta distribution is the conjugate prior for the probability parameter of a Bernoulli or binomial distribution. If your prior on a coin's bias is $\text{Beta}(\alpha, \beta)$ and you observe $h$ heads and $t$ tails, the posterior is $\text{Beta}(\alpha + h, \beta + t)$. This makes Bayesian updating with binary data extremely clean.
 
 ### Chi-Squared Distribution
@@ -709,6 +738,14 @@ $$
 - $\text{Var}(X) = 2k$
 
 The chi-squared distribution is a special case of the gamma distribution: $\chi^2_k = \text{Gamma}(k/2, 1/2)$.
+
+**Worked example.** Take $k = 3$: $X = Z_1^2 + Z_2^2 + Z_3^2$ with each $Z_i \sim N(0,1)$. The mean follows from linearity, since $E[Z_i^2] = \text{Var}(Z_i) = 1$ (each standard normal has variance $1$ and mean $0$):
+
+$$
+E[X] = E[Z_1^2] + E[Z_2^2] + E[Z_3^2] = 1 + 1 + 1 = 3 = k.
+$$
+
+For the variance, each $Z_i^2$ has $\text{Var}(Z_i^2) = 2$, and independence lets the variances add: $\text{Var}(X) = 2 + 2 + 2 = 6 = 2k$. So $\chi^2_3$ has mean $3$ and variance $6$, matching the general $E[X] = k$, $\text{Var}(X) = 2k$.
 
 **Where it shows up:** The chi-squared distribution is central to hypothesis testing in statistics:
 
@@ -815,6 +852,13 @@ The first term, $E[\text{Var}(Y \mid X)]$, measures how much $Y$ varies within e
 - $\text{Var}(E[Y \mid X])$ is the variance of the class averages.
 
 The total variance in scores across all students comes from two sources: students within the same class performing differently (within-group), and different classes having different average performance (between-group).
+
+**Worked example (numbers).** Suppose two equally-sized classes ($P(X = A) = P(X = B) = 0.5$). Class $A$ has mean score $70$ with variance $100$; class $B$ has mean $80$ with variance $200$. The two terms:
+
+- **Average within-class variance:** $E[\text{Var}(Y \mid X)] = 0.5(100) + 0.5(200) = 150$.
+- **Between-class variance:** the class means are $70$ and $80$, with grand mean $E[Y] = 0.5(70) + 0.5(80) = 75$, so $\text{Var}(E[Y \mid X]) = 0.5(70 - 75)^2 + 0.5(80 - 75)^2 = 0.5(25) + 0.5(25) = 25$.
+
+Adding them, the total variance of a random student's score is $\text{Var}(Y) = 150 + 25 = 175$. Notice how the pieces answer different questions: within-class spread ($150$) dominates here, but the $25$ from differing class averages is the part ANOVA is built to detect.
 
 **Where it shows up:** This is exactly the decomposition used in **ANOVA** (Analysis of Variance), which tests whether group means differ significantly. It also appears in hierarchical Bayesian models, where variance is decomposed across levels of a hierarchy.
 
