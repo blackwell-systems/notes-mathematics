@@ -374,6 +374,21 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Sequences & Series (Phase-2 worked examples) =================
+{
+  // k^2 and k^3 closed forms checked against hand sums, n=4
+  { const n = 4; let s2 = 0, s3 = 0; for (let k = 1; k <= n; k++) { s2 += k * k; s3 += k ** 3; }
+    eq("sum k^2 (1..4) = 30", s2, 30);
+    eq("k^2 formula n(n+1)(2n+1)/6 = 30", n * (n + 1) * (2 * n + 1) / 6, 30);
+    eq("sum k^3 (1..4) = 100", s3, 100);
+    eq("k^3 formula (n(n+1)/2)^2 = 100", (n * (n + 1) / 2) ** 2, 100);
+    eq("sum of cubes = (sum of k)^2: 10^2 = 100", (n * (n + 1) / 2) ** 2, s3); }
+  // nth-term test: n/(n+1) -> 1 != 0, so the series diverges
+  { const a = (n) => n / (n + 1);
+    check("n/(n+1) increases toward 1", a(1) < a(10) && a(10) < a(100) && a(100) < a(1000));
+    check("limit is 1, not 0 (divergence test applies)", Math.abs(a(100000) - 1) < 1e-4 && a(100000) !== 0); }
+}
+
 // ================= Probability (Phase-2 worked examples) =================
 {
   // skewness & kurtosis of Bernoulli(0.2)

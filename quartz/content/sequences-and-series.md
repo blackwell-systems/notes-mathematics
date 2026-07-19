@@ -286,6 +286,13 @@ $$
 
 Note that the sum of cubes equals the square of the sum of the first $n$ natural numbers.
 
+**Quick check ($n = 4$).** Adding the terms by hand and comparing to each closed form:
+
+- $\sum_{k=1}^{4} k^2 = 1 + 4 + 9 + 16 = 30$, and the formula gives $\frac{4 \cdot 5 \cdot 9}{6} = 30$. ✓
+- $\sum_{k=1}^{4} k^3 = 1 + 8 + 27 + 64 = 100$, and the formula gives $\left(\frac{4 \cdot 5}{2}\right)^2 = 10^2 = 100$. ✓
+
+The second line also makes the "sum of cubes = square of the sum" identity concrete: $\sum k = 10$, and $10^2 = 100 = \sum k^3$.
+
 ## Recursive vs Explicit Definitions
 
 A sequence can be defined in two ways:
@@ -671,6 +678,8 @@ This is the simplest test and often the first one to apply:
 **If $\lim_{n \to \infty} a_n \neq 0$, then $\sum a_n$ diverges.**
 
 The logic: if the terms are not shrinking toward zero, the partial sums cannot stabilize.
+
+**Worked example.** Does $\sum_{n=1}^{\infty} \frac{n}{n+1}$ converge? Check the term limit: $\lim_{n\to\infty} \frac{n}{n+1} = 1$ (the terms run $\tfrac{1}{2}, \tfrac{2}{3}, \tfrac{3}{4}, \ldots \to 1$, not $0$). Since $\lim a_n = 1 \neq 0$, the divergence test applies and the series **diverges**. Intuitively, you are adding numbers that stay close to $1$ forever, so the running total grows without bound.
 
 **Critical warning:** The converse is NOT true. Having $a_n \to 0$ does not guarantee convergence. The harmonic series (below) is the classic counterexample.
 

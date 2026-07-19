@@ -3125,12 +3125,12 @@
       ]
     },
     "sequences-and-series.md": {
-      "contentHash": "sha1:c61b728fa40414dc",
+      "contentHash": "sha1:a97a3f05d0e3fdb1",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-19",
       "auditor": "claude+1subagent",
-      "overall": "mixed",
-      "summary": "Comprehensive sequences/series/recurrences/induction reference; every worked number verified correct by an independent auditor. Strong throughout (arithmetic/geometric series, Tower of Hanoi, Binet, repeated-root, two induction proofs, harmonic divergence, telescoping). Work-list = 2: k^2/k^3 sum formulas never numerically checked (thin), and the nth-term test never applied to a concrete series (thin). Comparison/ratio/integral tests are graded adequate since the page explicitly frames them as a brief overview deferred to calculus. 18 strong / 5 adequate / 2 thin / 0 missing.",
+      "overall": "strong",
+      "summary": "Comprehensive sequences/series/recurrences/induction reference; every worked number independently verified. Phase-2 closed both thin items (k^2/k^3 numeric check; nth-term test applied to Sigma n/(n+1)). Comparison/ratio/integral tests remain adequate (brief overview deferred to calculus by design). 20 strong / 5 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "sequence vs series motivation",
@@ -3182,8 +3182,8 @@
         },
         {
           "concept": "common summation formulas (k, k^2, k^3)",
-          "quality": "thin",
-          "note": "Sum-k proven by induction, but the k^2 and k^3 closed forms are stated and never checked against a numeric sum.",
+          "quality": "strong",
+          "note": "k^2 and k^3 closed forms now checked against hand sums at n=4 (30, 100), making the sum-of-cubes = (sum)^2 identity concrete.",
           "upgrade": ""
         },
         {
@@ -3242,8 +3242,8 @@
         },
         {
           "concept": "nth-term / divergence test",
-          "quality": "thin",
-          "note": "Presented as the simplest first test but never applied to a concrete divergent series.",
+          "quality": "strong",
+          "note": "Now applied to a concrete series: Sigma n/(n+1) diverges since a_n -> 1 != 0.",
           "upgrade": ""
         },
         {
