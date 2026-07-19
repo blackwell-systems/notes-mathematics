@@ -3283,6 +3283,52 @@
           "upgrade": ""
         }
       ]
+    },
+    "symbolic-methods-vs-numerical-methods.md": {
+      "contentHash": "sha1:5e5c1239019e8ab3",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "Symbolic vs numerical methods. Audited and Phase-2'd in one pass: the page had zero worked examples, so all three numerical methods (Newton, bisection, secant) are now run on the shared problem x^2-2=0 (finding sqrt2) with full iteration tables and a log-scale convergence-comparison figure contrasting quadratic/superlinear/linear rates. Every iteration value independently verified. 5 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "symbolic methods (definition, examples, Abel-Ruffini)",
+          "quality": "adequate",
+          "note": "Defined with examples and the Abel-Ruffini limitation; no symbolic solve worked, but those live on their own pages.",
+          "upgrade": ""
+        },
+        {
+          "concept": "numerical methods overview",
+          "quality": "strong",
+          "note": "Defined as approximate/iterative and now anchored by a full three-method worked comparison.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Newton's method",
+          "quality": "strong",
+          "note": "Worked on x^2-2 from x0=1: iteration table to sqrt2, digit-doubling / quadratic convergence shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "bisection method",
+          "quality": "strong",
+          "note": "Worked on [1,2]: six-step bracket table with midpoints, signs, kept intervals, linear-convergence note.",
+          "upgrade": ""
+        },
+        {
+          "concept": "secant method",
+          "quality": "strong",
+          "note": "Worked from x0=1,x1=2: iteration table to sqrt2, superlinear (order ~1.618) note.",
+          "upgrade": ""
+        },
+        {
+          "concept": "symbolic-vs-numerical comparison table",
+          "quality": "strong",
+          "note": "Complete seven-aspect comparison table.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

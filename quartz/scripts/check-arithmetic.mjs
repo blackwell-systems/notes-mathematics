@@ -374,6 +374,32 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Symbolic vs Numerical Methods (Phase-2 worked examples) =================
+{
+  const root = Math.SQRT2, f = (x) => x * x - 2;
+  // Newton x0=1: table values
+  { let x = 1; const seq = [x];
+    for (let i = 0; i < 4; i++) { x = x - (x * x - 2) / (2 * x); seq.push(x); }
+    eq("Newton x1 = 1.5", seq[1], 1.5);
+    eq("Newton x2 = 17/12 = 1.41666667", seq[2], 17 / 12, 1e-8);
+    check("Newton x3 ~ 1.41421569", Math.abs(seq[3] - 1.41421569) < 1e-6);
+    check("Newton reaches sqrt2 by x4", Math.abs(seq[4] - root) < 1e-9);
+    // quadratic: error roughly squares each step
+    check("Newton error shrinks quadratically", Math.abs(seq[2] - root) < Math.abs(seq[1] - root) ** 2 * 2); }
+  // Bisection [1,2]: midpoints and kept intervals
+  { let a = 1, b = 2; const mids = [];
+    for (let i = 0; i < 6; i++) { const m = (a + b) / 2; mids.push(m); if (f(a) * f(m) < 0) b = m; else a = m; }
+    check("bisection midpoints start 1.5,1.25,1.375", mids[0] === 1.5 && mids[1] === 1.25 && mids[2] === 1.375);
+    eq("bisection final bracket half-width after 6 steps = 1/2^7", (b - a) / 2, 1 / 2 ** 7, 1e-12);
+    check("root stays bracketed", (a - root) * (b - root) < 0); }
+  // Secant x0=1,x1=2
+  { let x0 = 1, x1 = 2; const seq = [x0, x1];
+    for (let i = 0; i < 5; i++) { const x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0)); seq.push(x2); x0 = x1; x1 = x2; }
+    eq("secant x2 = 4/3 = 1.33333", seq[2], 4 / 3, 1e-9);
+    eq("secant x3 = 1.4", seq[3], 1.4, 1e-9);
+    check("secant reaches sqrt2 by x6", Math.abs(seq[6] - root) < 1e-9); }
+}
+
 // ================= Sequences & Series (Phase-2 worked examples) =================
 {
   // k^2 and k^3 closed forms checked against hand sums, n=4
