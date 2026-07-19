@@ -374,6 +374,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Linear Algebra for Computation (Phase-2 worked examples) =================
+{
+  // Frobenius, Lp, distance
+  eq("Frobenius [[2,1],[1,3]] = sqrt15", Math.sqrt(4 + 1 + 1 + 9), Math.sqrt(15), 1e-12);
+  eq("L3 [3,-4] = 91^(1/3) ~ 4.50", Math.cbrt(27 + 64), Math.pow(91, 1 / 3), 1e-12);
+  check("norm ordering Linf<=L3<=L2<=L1 for [3,-4]", 4 <= Math.cbrt(91) && Math.cbrt(91) <= 5 && 5 <= 7);
+  eq("distance [1,2]-[4,6] L2 = 5", Math.hypot(-3, -4), 5);
+  eq("distance L1 = 7", 3 + 4, 7);
+  // QR: R = Q^T A from Gram-Schmidt q1,q2
+  { const s2 = Math.SQRT2, s6 = Math.sqrt(6);
+    const q1 = [1 / s2, 1 / s2, 0], q2 = [1 / s6, -1 / s6, 2 / s6];
+    const v1 = [1, 1, 0], v2 = [1, 0, 1], d3 = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    eq("R11 = q1.v1 = sqrt2", d3(q1, v1), Math.sqrt(2), 1e-12);
+    eq("R12 = q1.v2 = 1/sqrt2", d3(q1, v2), 1 / Math.sqrt(2), 1e-12);
+    eq("R21 = q2.v1 = 0 (upper triangular)", d3(q2, v1), 0, 1e-12);
+    eq("R22 = q2.v2 = sqrt(3/2)", d3(q2, v2), Math.sqrt(1.5), 1e-12); }
+  // Cholesky [[2,1],[1,3]] = L L^T
+  { const l11 = Math.sqrt(2), l21 = 1 / l11, l22 = Math.sqrt(3 - l21 * l21);
+    eq("l11 = sqrt2", l11, Math.sqrt(2), 1e-12);
+    eq("l21 = 1/sqrt2", l21, 1 / Math.sqrt(2), 1e-12);
+    eq("l22 = sqrt(5/2)", l22, Math.sqrt(2.5), 1e-12);
+    check("LL^T = [[2,1],[1,3]]", Math.abs(l11 * l11 - 2) < 1e-9 && Math.abs(l11 * l21 - 1) < 1e-9 && Math.abs(l21 * l21 + l22 * l22 - 3) < 1e-9); }
+  // matrix-calculus gradients at x=[1,1]
+  { const A = [[2, 1], [1, 3]], x = [1, 1];
+    const Ax = [A[0][0] * x[0] + A[0][1] * x[1], A[1][0] * x[0] + A[1][1] * x[1]];
+    check("grad x^TAx = 2Ax = [6,8]", 2 * Ax[0] === 6 && 2 * Ax[1] === 8);
+    check("direct partials [4x1+2x2, 2x1+6x2] = [6,8]", (4 + 2) === 6 && (2 + 6) === 8);
+    check("grad x^Tx = 2x = [2,2]", 2 * x[0] === 2 && 2 * x[1] === 2); }
+  // Markov transient from x0=[1,0]
+  { const P = [[0.8, 0.4], [0.2, 0.6]]; let x = [1, 0]; const step = (x) => [P[0][0] * x[0] + P[0][1] * x[1], P[1][0] * x[0] + P[1][1] * x[1]];
+    const x1 = step(x), x2 = step(x1), x3 = step(x2);
+    check("x1 = [0.8,0.2]", Math.abs(x1[0] - 0.8) < 1e-9 && Math.abs(x1[1] - 0.2) < 1e-9);
+    check("x2 = [0.72,0.28]", Math.abs(x2[0] - 0.72) < 1e-9 && Math.abs(x2[1] - 0.28) < 1e-9);
+    check("x3 = [0.688,0.312]", Math.abs(x3[0] - 0.688) < 1e-9 && Math.abs(x3[1] - 0.312) < 1e-9);
+    check("converging toward [2/3,1/3]", Math.abs(x3[0] - 2 / 3) < Math.abs(x[0] - 2 / 3)); }
+}
+
 // ================= Information Theory (Phase-2 worked examples) =================
 {
   const l2 = (x) => Math.log(x) / Math.log(2);

@@ -68,6 +68,8 @@ $$
 - $p = 2$: Euclidean norm
 - $p \to \infty$: Max norm
 
+**Example ($p = 3$).** For $v = \begin{bmatrix} 3 \\ -4 \end{bmatrix}$, $\|v\|_3 = (|3|^3 + |{-4}|^3)^{1/3} = (27 + 64)^{1/3} = 91^{1/3} \approx 4.50$. This sits between $\|v\|_\infty = 4$ and $\|v\|_2 = 5$, illustrating the general ordering $\|v\|_\infty \le \cdots \le \|v\|_2 \le \|v\|_1$ (here $4 \le 4.50 \le 5 \le 7$): larger $p$ weights the biggest component more heavily, shrinking the total toward the max.
+
 ### Comparing Norms Visually
 
 The "unit ball" for each norm (the set of all vectors with $\|v\| \leq 1$) has a different shape in 2D:
@@ -102,6 +104,8 @@ $$
 \|A\|_F = \sqrt{\sum_{i,j} a_{ij}^2} = \sqrt{\text{tr}(A^T A)}
 $$
 
+**Example.** For $A = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$, $\|A\|_F = \sqrt{2^2 + 1^2 + 1^2 + 3^2} = \sqrt{15} \approx 3.87$.
+
 **Where it shows up:** Measuring how "different" two matrices are, regularization on weight matrices in neural networks.
 
 ### Distance Between Vectors
@@ -113,6 +117,8 @@ d(u, v) = \|u - v\|
 $$
 
 Different norms give different distance functions. The L2 distance is Euclidean distance. The L1 distance is Manhattan distance. Choosing the right distance metric matters in ML algorithms like k-nearest neighbors and clustering.
+
+**Example.** For $u = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $v = \begin{bmatrix} 4 \\ 6 \end{bmatrix}$, the difference is $u - v = \begin{bmatrix} -3 \\ -4 \end{bmatrix}$, so the L2 (Euclidean) distance is $\sqrt{9 + 16} = 5$ while the L1 (Manhattan) distance is $3 + 4 = 7$.
 
 ## Change of Basis
 
@@ -323,6 +329,14 @@ This is the **reduced** (or thin) QR factorization. There is also a **full** QR 
 
 **Where it comes from:** Gram-Schmidt orthonormalization applied to the columns of $A$. The $Q$ columns are the orthonormalized columns of $A$, and $R$ records the coefficients.
 
+**Worked example (assembling $Q$ and $R$).** Take $A$ whose columns are the two vectors from the [Gram-Schmidt example above](#gram-schmidt-orthonormalization): $A = \begin{bmatrix} 1 & 1 \\ 1 & 0 \\ 0 & 1 \end{bmatrix}$. Gram-Schmidt already produced the orthonormal columns $q_1 = \frac{1}{\sqrt2}\begin{bmatrix}1\\1\\0\end{bmatrix}$ and $q_2 = \frac{1}{\sqrt6}\begin{bmatrix}1\\-1\\2\end{bmatrix}$, so $Q = \begin{bmatrix} q_1 & q_2 \end{bmatrix}$. Since $Q^TQ = I$, the upper-triangular $R = Q^T A$ is just the projections of $A$'s columns onto the $q$'s:
+
+$$
+R = \begin{bmatrix} q_1^Tv_1 & q_1^Tv_2 \\ 0 & q_2^Tv_2 \end{bmatrix} = \begin{bmatrix} \sqrt2 & \tfrac{1}{\sqrt2} \\ 0 & \sqrt{3/2} \end{bmatrix}.
+$$
+
+The lower-left entry is $0$ because $q_2 \perp v_1$ (that is what Gram-Schmidt guarantees), which is exactly why $R$ comes out upper triangular. Multiplying back, $QR$ reproduces the columns $\begin{bmatrix}1\\1\\0\end{bmatrix}$ and $\begin{bmatrix}1\\0\\1\end{bmatrix}$ of $A$.
+
 **How it solves least squares:** The least squares problem $\min \|Ax - b\|^2$ has the solution:
 
 Using the normal equations: $\hat{x} = (A^T A)^{-1} A^T b$
@@ -350,6 +364,14 @@ $$
 where $L$ is lower triangular.
 
 This is like LU but exploits the symmetry: you only need one triangular factor instead of two different ones.
+
+**Worked example.** Factor the positive definite $A = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$ (the same matrix from the positive-definite section below). Writing $L = \begin{bmatrix} \ell_{11} & 0 \\ \ell_{21} & \ell_{22} \end{bmatrix}$ and matching $LL^T = A$ entry by entry: $\ell_{11}^2 = 2 \Rightarrow \ell_{11} = \sqrt2$; then $\ell_{11}\ell_{21} = 1 \Rightarrow \ell_{21} = \tfrac{1}{\sqrt2}$; and finally $\ell_{21}^2 + \ell_{22}^2 = 3 \Rightarrow \ell_{22} = \sqrt{3 - \tfrac{1}{2}} = \sqrt{5/2}$. So
+
+$$
+L = \begin{bmatrix} \sqrt2 & 0 \\ \tfrac{1}{\sqrt2} & \sqrt{5/2} \end{bmatrix}, \qquad LL^T = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix} = A. \checkmark
+$$
+
+The factorization succeeded (all the square roots were of positive numbers) precisely because $A$ is positive definite; on an indefinite matrix the algorithm hits a negative number under a square root and fails, which is itself a test for positive definiteness.
 
 **Why it matters:** About 2x faster than LU and guaranteed to be numerically stable (no pivoting needed). Used whenever the matrix is symmetric positive definite, which includes:
 
@@ -604,6 +626,14 @@ $$
 
 Setting this to zero: $A^T A x = A^T b$, which are the normal equations. This is how the least squares formula $\hat{x} = (A^T A)^{-1} A^T b$ is derived.
 
+**Worked example (evaluating the formulas).** Take $A = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$ (symmetric), $a = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$, and evaluate the gradients at $x = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$:
+
+- $\nabla(a^Tx) = a = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ (constant, independent of $x$).
+- $\nabla(x^Tx) = 2x = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$.
+- $\nabla(x^TAx) = 2Ax = 2\begin{bmatrix} 2(1)+1(1) \\ 1(1)+3(1) \end{bmatrix} = 2\begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 6 \\ 8 \end{bmatrix}$.
+
+The last one checks against differentiating $x^TAx = 2x_1^2 + 2x_1x_2 + 3x_2^2$ directly: $\frac{\partial}{\partial x_1} = 4x_1 + 2x_2 = 6$ and $\frac{\partial}{\partial x_2} = 2x_1 + 6x_2 = 8$ at $(1,1)$, matching $2Ax = (6, 8)$. ✓
+
 ### The Jacobian
 
 If $f: \mathbb{R}^n \to \mathbb{R}^m$ is a vector-valued function (it takes a vector and returns a vector), the **Jacobian** is the $m \times n$ matrix of all partial derivatives:
@@ -708,6 +738,14 @@ x_k = P^k x_0
 $$
 
 This is just repeated matrix-vector multiplication.
+
+**Worked example (stepping the chain).** Start certain that today is sunny, $x_0 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, and apply the weather matrix $P = \begin{bmatrix} 0.8 & 0.4 \\ 0.2 & 0.6 \end{bmatrix}$ repeatedly:
+
+$$
+x_1 = Px_0 = \begin{bmatrix} 0.8 \\ 0.2 \end{bmatrix}, \quad x_2 = Px_1 = \begin{bmatrix} 0.72 \\ 0.28 \end{bmatrix}, \quad x_3 = Px_2 = \begin{bmatrix} 0.688 \\ 0.312 \end{bmatrix}, \quad \ldots
+$$
+
+The distribution marches toward $\begin{bmatrix} 2/3 \\ 1/3 \end{bmatrix} \approx \begin{bmatrix} 0.667 \\ 0.333 \end{bmatrix}$, the steady state computed next, and it would approach the *same* limit from any starting distribution.
 
 ### Steady State (Stationary Distribution)
 

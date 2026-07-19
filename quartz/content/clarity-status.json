@@ -3571,6 +3571,130 @@
           "upgrade": ""
         }
       ]
+    },
+    "linear-algebra-computation.md": {
+      "contentHash": "sha1:c2976145ea61e2c1",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "Large linear-algebra-for-computation reference (norms, factorizations, positive definiteness, condition number, matrix calculus, Markov chains); every worked number independently verified. Audited and Phase-2'd in one pass: QR was never assembled, Cholesky was never computed (missing), and the Lp/Frobenius/distance/gradient/Markov-transient concepts were formula-only. All now worked, mostly extending existing on-page examples. 14 strong / 5 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "norms L1/L2/Linf",
+          "quality": "strong",
+          "note": "Each worked on concrete vectors.",
+          "upgrade": ""
+        },
+        {
+          "concept": "general Lp norm",
+          "quality": "strong",
+          "note": "Now evaluated: L3 of [3,-4] = 91^(1/3) ~ 4.50, illustrating the p-ordering.",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix norms (Frobenius)",
+          "quality": "strong",
+          "note": "Now computed: ||[[2,1],[1,3]]||_F = sqrt15 ~ 3.87.",
+          "upgrade": ""
+        },
+        {
+          "concept": "distance between vectors",
+          "quality": "strong",
+          "note": "Now computed: d([1,2],[4,6]) = 5 (L2), 7 (L1).",
+          "upgrade": ""
+        },
+        {
+          "concept": "change of basis",
+          "quality": "strong",
+          "note": "[v]_B=[5/2,1/2] fully worked with reconstruction check.",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear transformation change of basis (P^-1 A P)",
+          "quality": "adequate",
+          "note": "Formula stated and identified with diagonalization (worked on the foundations page).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Gram-Schmidt orthonormalization",
+          "quality": "strong",
+          "note": "q1,q2 computed, orthogonality verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "LU factorization",
+          "quality": "strong",
+          "note": "A=[[2,1],[6,4]] factored, LU=A checked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "QR factorization",
+          "quality": "strong",
+          "note": "Now assembled from Gram-Schmidt: Q, R=[[sqrt2,1/sqrt2],[0,sqrt(3/2)]], upper-triangular, reconstructs A.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Cholesky factorization",
+          "quality": "strong",
+          "note": "Now computed: [[2,1],[1,3]] = LL^T with L=[[sqrt2,0],[1/sqrt2,sqrt(5/2)]], verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "positive definite matrices",
+          "quality": "strong",
+          "note": "Eigenvalue test and completing-square both worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "condition number",
+          "quality": "strong",
+          "note": "kappa=1, 1000, ~40000 examples with correct values.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sparse matrices",
+          "quality": "adequate",
+          "note": "Conceptual with memory arithmetic and storage formats.",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix calculus gradients",
+          "quality": "strong",
+          "note": "Now evaluated at x=[1,1]: grad(x^TAx)=2Ax=[6,8] cross-checked via direct partials.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Jacobian",
+          "quality": "adequate",
+          "note": "Defined; symbolic example f(x)=Ax gives J=A.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Hessian (+ positive definiteness)",
+          "quality": "adequate",
+          "note": "Hessian H=2A example and the pos-def connection.",
+          "upgrade": ""
+        },
+        {
+          "concept": "chain rule for vectors / backprop",
+          "quality": "adequate",
+          "note": "Stated as a Jacobian product with the backprop connection.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Markov state evolution / transient",
+          "quality": "strong",
+          "note": "Now stepped: x0=[1,0] -> [0.8,0.2] -> [0.72,0.28] -> [0.688,0.312] toward the steady state.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Markov steady state",
+          "quality": "strong",
+          "note": "Weather steady state solved to [2/3,1/3].",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
