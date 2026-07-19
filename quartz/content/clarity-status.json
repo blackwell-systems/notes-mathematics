@@ -3695,6 +3695,160 @@
           "upgrade": ""
         }
       ]
+    },
+    "linear-functions.md": {
+      "contentHash": "sha1:e8fa8ff5d552222f",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Thorough linear-functions reference (forms, slope, equation-writing, parallel/perpendicular, variation, modeling); every worked number verified. Audited and Phase-2'd in one pass: inverse and joint/combined variation were formula-only and form conversion was image-only, all now worked in prose, plus a numeric temperature conversion. 20 strong / 4 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "why linear / constant rate of change",
+          "quality": "strong",
+          "note": "Highway 60mph example with concrete distances per hour.",
+          "upgrade": ""
+        },
+        {
+          "concept": "definition + degree",
+          "quality": "adequate",
+          "note": "Degree 1 defined; constant-function boundary case discussed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "slope-intercept form",
+          "quality": "strong",
+          "note": "Defined, all symbols pronounced, interactive explorer.",
+          "upgrade": ""
+        },
+        {
+          "concept": "calculating slope from two points",
+          "quality": "strong",
+          "note": "(2,5),(4,11) worked to m=3 with image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sign of slope (four cases)",
+          "quality": "strong",
+          "note": "All four cases stated, prose plus four-grid image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "standard form",
+          "quality": "adequate",
+          "note": "Defined with rationale; conversion now worked (see form-conversion example).",
+          "upgrade": ""
+        },
+        {
+          "concept": "point-slope form",
+          "quality": "strong",
+          "note": "Defined and applied throughout the equation-writing examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "converting between the three forms",
+          "quality": "strong",
+          "note": "Now worked step by step in prose: y=3x-1 to point-slope and to standard 3x-y=1.",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain and range",
+          "quality": "adequate",
+          "note": "Stated clearly (all reals for non-constant).",
+          "upgrade": ""
+        },
+        {
+          "concept": "finding intercepts",
+          "quality": "adequate",
+          "note": "Both intercepts derived symbolically; x=-b/m, y=b.",
+          "upgrade": ""
+        },
+        {
+          "concept": "writing equation from two points",
+          "quality": "strong",
+          "note": "Three-step worked example to y=3x-1.",
+          "upgrade": ""
+        },
+        {
+          "concept": "writing from point and slope",
+          "quality": "strong",
+          "note": "m=-2 through (3,7) fully worked to y=-2x+13.",
+          "upgrade": ""
+        },
+        {
+          "concept": "writing parallel through a point",
+          "quality": "strong",
+          "note": "Parallel through (2,4) worked to y=3x-2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "writing perpendicular through a point",
+          "quality": "strong",
+          "note": "Perpendicular through (6,1) worked, negative reciprocal, y=-1/2x+4.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parallel lines condition",
+          "quality": "strong",
+          "note": "Condition stated, used in worked example, image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "perpendicular lines condition",
+          "quality": "strong",
+          "note": "Negative-reciprocal condition, worked example, image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "horizontal and vertical lines",
+          "quality": "strong",
+          "note": "Both defined with concrete point examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "direct variation",
+          "quality": "strong",
+          "note": "y=12 at x=3 -> k=4, y=4(7)=28 fully worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "inverse variation",
+          "quality": "strong",
+          "note": "Now worked: y=6 at x=2 -> k=12, y=12/x, at x=8 gives 1.5 (product fixed).",
+          "upgrade": ""
+        },
+        {
+          "concept": "joint and combined variation",
+          "quality": "strong",
+          "note": "Now worked: joint z=4xy -> 80 at (4,5); combined z=5x/y -> 10 at (6,3).",
+          "upgrade": ""
+        },
+        {
+          "concept": "modeling: cost function",
+          "quality": "strong",
+          "note": "C(x)=8x+500 with slope/intercept interpreted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modeling: temperature conversion",
+          "quality": "strong",
+          "note": "F=9/5 C+32; now computes 20C=68F and 212F=100C.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modeling: depreciation",
+          "quality": "strong",
+          "note": "V(t)=-2500t+20000, t=8 x-intercept, with image.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interpreting slope/intercept in context",
+          "quality": "strong",
+          "note": "Explicit interpretation guidance with a caveat.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

@@ -111,6 +111,13 @@ These three forms are not three different lines: they are three different **cost
 
 ![One straight line shown on the left as the graph of y equals 3x minus 1, passing through the marked point (2, 5) and crossing the y-axis at negative 1. On the right, three boxes list the same line written three equivalent ways: slope-intercept form y equals 3x minus 1, which makes the slope 3 and y-intercept negative 1 obvious; point-slope form y minus 5 equals 3 times the quantity x minus 2, built from the point (2, 5) and the slope 3; and standard form 3x minus y equals 1, which has integer coefficients and is handy for elimination.](./media/lf-three-forms.png)
 
+**Worked example (converting between forms).** Start with the slope-intercept form $y = 3x - 1$.
+
+- **To point-slope form:** read off the slope $m = 3$ and pick any point on the line, say $(2, 5)$ (since $3(2) - 1 = 5$). Then $y - 5 = 3(x - 2)$.
+- **To standard form:** move the $x$-term to the left. From $y = 3x - 1$, subtract $3x$ and negate to get integer coefficients with $A > 0$: $-3x + y = -1$, i.e. $3x - y = 1$.
+
+All three ($y = 3x - 1$, $\ y - 5 = 3(x - 2)$, $\ 3x - y = 1$) describe the identical line; expanding the point-slope form, $y = 3x - 6 + 5 = 3x - 1$, returns you to where you started.
+
 ### Domain and Range
 
 **Domain and Range of Linear Functions:**
@@ -298,6 +305,12 @@ $$
 
 Equivalently, the product $xy = k$ is constant. As $x$ increases, $y$ decreases (and vice versa). The graph is a hyperbola, not a line. See [Rational Functions](./rational-functions) for more on this shape.
 
+**Worked Example:** If $y$ varies inversely as $x$ and $y = 6$ when $x = 2$, find $y$ when $x = 8$.
+
+**Step 1.** Find $k$ from the constant *product* (not the ratio, as in direct variation): $k = xy = 2 \cdot 6 = 12$, so $y = \dfrac{12}{x}$.
+
+**Step 2.** Substitute $x = 8$: $y = \dfrac{12}{8} = 1.5$. Notice $x$ quadrupled ($2 \to 8$) and $y$ dropped to a quarter ($6 \to 1.5$), keeping the product $xy = 12$ fixed.
+
 ![Two panels contrasting the two kinds of variation. The left panel, direct variation y equals kx, shows the straight line y equals 4x passing through the origin with the points (3, 12) and (7, 28) marked, noting that the ratio y over x stays constant at 4. The right panel, inverse variation y equals k over x, shows the curved hyperbola y equals 12 over x sweeping down through the points (2, 6), (3, 4), and (6, 2), noting that the product x times y stays constant at 12 and the graph is a hyperbola, not a line.](./media/lf-direct-inverse-variation.png)
 
 ### Joint and Combined Variation
@@ -305,6 +318,10 @@ Equivalently, the product $xy = k$ is constant. As $x$ increases, $y$ decreases 
 **Joint Variation:** $z$ varies jointly as $x$ and $y$ means $z = kxy$.
 
 **Combined Variation:** Combines direct and inverse variation. For example, "$z$ varies directly as $x$ and inversely as $y$" means $z = \frac{kx}{y}$.
+
+**Worked example (joint).** Suppose $z$ varies jointly as $x$ and $y$, and $z = 24$ when $x = 2$, $y = 3$. Then $k = \dfrac{z}{xy} = \dfrac{24}{2 \cdot 3} = 4$, so $z = 4xy$. When $x = 4$ and $y = 5$, $z = 4(4)(5) = 80$.
+
+**Worked example (combined).** Suppose $z$ varies directly as $x$ and inversely as $y$, with $z = 10$ when $x = 4$, $y = 2$. Then $k = \dfrac{zy}{x} = \dfrac{10 \cdot 2}{4} = 5$, so $z = \dfrac{5x}{y}$. When $x = 6$, $y = 3$, $z = \dfrac{5(6)}{3} = 10$.
 
 ## Modeling with Linear Functions
 
@@ -330,7 +347,7 @@ $$
 F = \frac{9}{5}C + 32
 $$
 
-The slope $\frac{9}{5}$ means each degree Celsius corresponds to $1.8$ degrees Fahrenheit. The $y$-intercept $32$ means $0°C = 32°F$.
+The slope $\frac{9}{5}$ means each degree Celsius corresponds to $1.8$ degrees Fahrenheit. The $y$-intercept $32$ means $0°C = 32°F$. For example, $20°C$ gives $F = \frac{9}{5}(20) + 32 = 36 + 32 = 68°F$, and inverting the formula, $212°F$ gives $C = \frac{5}{9}(212 - 32) = \frac{5}{9}(180) = 100°C$ (water's boiling point).
 
 ### Depreciation
 

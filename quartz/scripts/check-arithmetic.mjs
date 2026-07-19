@@ -374,6 +374,26 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Linear Functions (Phase-2 worked examples) =================
+{
+  // inverse variation: y=6 at x=2 -> k=12 -> y=12/x
+  eq("inverse k = xy = 12", 2 * 6, 12);
+  eq("y = 12/x at x=8 = 1.5", 12 / 8, 1.5);
+  check("x quadruples, y quarters, product fixed", 8 === 4 * 2 && 1.5 === 6 / 4 && 8 * 1.5 === 12);
+  // joint variation: z=24 at (2,3) -> k=4 -> z at (4,5)
+  eq("joint k = 24/(2*3) = 4", 24 / (2 * 3), 4);
+  eq("z = 4xy at (4,5) = 80", 4 * 4 * 5, 80);
+  // combined variation: z=10 at (4,2) -> k=5 -> z at (6,3)
+  eq("combined k = z*y/x = 10*2/4 = 5", 10 * 2 / 4, 5);
+  eq("z = 5x/y at (6,3) = 10", 5 * 6 / 3, 10);
+  // form conversion y=3x-1 passes (2,5); standard 3x-y=1
+  check("y=3x-1 passes (2,5)", 3 * 2 - 1 === 5);
+  eq("standard 3x-y at (2,5) = 1", 3 * 2 - 5, 1);
+  // temperature 20C->68F, 212F->100C
+  eq("20C -> 68F", 9 / 5 * 20 + 32, 68);
+  eq("212F -> 100C", 5 / 9 * (212 - 32), 100);
+}
+
 // ================= Linear Algebra for Computation (Phase-2 worked examples) =================
 {
   // Frobenius, Lp, distance
