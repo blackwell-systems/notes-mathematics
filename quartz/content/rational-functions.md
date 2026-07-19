@@ -14,7 +14,9 @@ A **rational function** is what you get when you divide one polynomial by anothe
 
 ### Why Dividing Polynomials Creates Interesting Behavior
 
-When you divide two polynomials, something new happens that never occurs with polynomials alone: the denominator can equal zero. At those input values, the function is undefined, and the graph exhibits dramatic behavior. It may shoot off toward infinity (creating a **vertical asymptote**) or it may have a "missing point" (called a **hole**). As $x$ grows very large, the function may level off toward a horizontal line (a **horizontal asymptote**) or grow in a linear fashion (a **slant asymptote**).
+When you divide two polynomials, something new happens that never occurs with polynomials alone: the denominator can equal zero. At those input values, the function is undefined, and the graph exhibits dramatic behavior. It may shoot off toward infinity (creating a **vertical asymptote**) or it may have a "missing point" (called a **hole**). As $x$ grows very large, the function may level off toward a horizontal line (a **horizontal asymptote**) or grow in a linear fashion (a **slant asymptote**). Here are all four behaviors at a glance, each explored in full later on the page:
+
+![Four small preview graphs of the characteristic rational-function behaviors. First, a vertical asymptote: the curve 1/x splits into two branches that shoot up and down along a red dashed vertical line where the denominator is zero. Second, a hole: a straight line with a single open circle marking one missing point. Third, a horizontal asymptote: a curve that dips down and levels back up toward a green dashed horizontal line as x grows large in either direction. Fourth, a slant asymptote: two branches that hug an amber dashed diagonal line as x grows large.](./media/rf-behaviors-preview.png)
 
 ### A Concrete Example
 
