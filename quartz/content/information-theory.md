@@ -216,6 +216,8 @@ $$
 
 Using $\log_2$ instead gives the same expression measured in bits.
 
+**Numeric example.** For a standard normal ($\mu = 0$, $\sigma = 1$), $h(X) = \frac{1}{2}\ln(2\pi e) = \frac{1}{2}\ln(17.08) \approx 1.419$ nats, or equivalently $1.419/\ln 2 \approx 2.047$ bits. Doubling the spread to $\sigma = 2$ adds $\frac{1}{2}\ln(\sigma^2) = \ln 2 \approx 0.693$ nats: a wider distribution is more uncertain, so it has higher differential entropy.
+
 This result has a remarkable consequence: **the normal distribution has the maximum entropy among all distributions with a given mean and variance.** In other words, if all you know about a distribution is its mean and variance, the Gaussian is the "least informative" assumption you can make. It adds no extra structure beyond what the constraints require.
 
 **Connection to ML:** This maximum-entropy property is one reason Gaussian assumptions appear so frequently in machine learning. When a model assumes Gaussian noise or Gaussian priors, it is making the most conservative (least biased) assumption given the known constraints.
@@ -263,6 +265,36 @@ H(X, Y) = H(X) + H(Y)
 $$
 
 The total uncertainty is the sum of the individual uncertainties.
+
+### Worked Example: A Joint Distribution
+
+Take two binary variables with this joint distribution (this same table is reused for mutual information below):
+
+| $p(x,y)$ | $Y = 0$ | $Y = 1$ | $P(X)$ |
+|---|---|---|---|
+| $X = 0$ | $\tfrac{1}{2}$ | $\tfrac{1}{4}$ | $\tfrac{3}{4}$ |
+| $X = 1$ | $0$ | $\tfrac{1}{4}$ | $\tfrac{1}{4}$ |
+| $P(Y)$ | $\tfrac{1}{2}$ | $\tfrac{1}{2}$ | |
+
+The margins come from summing each row and column. Now compute each entropy (using $\log_2$, so answers are in bits):
+
+$$
+H(X) = -\tfrac{3}{4}\log_2\tfrac{3}{4} - \tfrac{1}{4}\log_2\tfrac{1}{4} \approx 0.811, \qquad H(Y) = -\tfrac{1}{2}\log_2\tfrac{1}{2} - \tfrac{1}{2}\log_2\tfrac{1}{2} = 1.
+$$
+
+For the joint entropy, sum $-p\log_2 p$ over the four cells (the empty $p=0$ cell contributes $0$, since $0\log 0 = 0$ by convention):
+
+$$
+H(X, Y) = -\tfrac{1}{2}\log_2\tfrac{1}{2} - \tfrac{1}{4}\log_2\tfrac{1}{4} - \tfrac{1}{4}\log_2\tfrac{1}{4} = \tfrac{1}{2} + \tfrac{1}{2} + \tfrac{1}{2} = 1.5.
+$$
+
+The conditional entropy then follows from the chain rule instead of a separate sum:
+
+$$
+H(Y \mid X) = H(X, Y) - H(X) = 1.5 - 0.811 = 0.689.
+$$
+
+And the chain rule checks out in the other direction: $H(X) + H(Y \mid X) = 0.811 + 0.689 = 1.5 = H(X, Y)$. ✓ Notice $H(Y \mid X) = 0.689 < 1 = H(Y)$: knowing $X$ *reduces* the uncertainty in $Y$, which means the two are not independent (that leftover reduction is exactly the mutual information computed below).
 
 ## KL Divergence (Relative Entropy)
 
@@ -482,6 +514,16 @@ $$
 $$
 H(Y) = H(Y|X) + I(X; Y)
 $$
+
+### Worked Example: Mutual Information
+
+Reuse the joint distribution from the [joint-entropy example above](#worked-example-a-joint-distribution), where we found $H(X) = 0.811$, $H(Y) = 1$, and $H(X, Y) = 1.5$ bits. Mutual information is the overlap in the Venn diagram, most easily computed as
+
+$$
+I(X; Y) = H(X) + H(Y) - H(X, Y) = 0.811 + 1 - 1.5 = 0.311 \text{ bits}.
+$$
+
+Two cross-checks confirm it. First, via conditional entropy: $H(X \mid Y) = H(X, Y) - H(Y) = 1.5 - 1 = 0.5$, so $I(X; Y) = H(X) - H(X \mid Y) = 0.811 - 0.5 = 0.311$. ✓ Second, the Venn identities close: $H(X \mid Y) + I(X; Y) = 0.5 + 0.311 = 0.811 = H(X)$, and $H(Y \mid X) + I(X; Y) = 0.689 + 0.311 = 1 = H(Y)$. ✓ Because $I(X; Y) = 0.311 > 0$, the two variables share information: they are not independent, and observing one removes $0.311$ bits of uncertainty about the other.
 
 ### Connection to ML
 

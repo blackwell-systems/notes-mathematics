@@ -374,6 +374,30 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Information Theory (Phase-2 worked examples) =================
+{
+  const l2 = (x) => Math.log(x) / Math.log(2);
+  const Hd = (ps) => -ps.filter((p) => p > 0).reduce((s, p) => s + p * l2(p), 0);
+  // joint distribution p(0,0)=1/2, p(0,1)=1/4, p(1,0)=0, p(1,1)=1/4
+  { const HX = Hd([0.75, 0.25]), HY = Hd([0.5, 0.5]), HXY = Hd([0.5, 0.25, 0, 0.25]);
+    eq("H(X) = 0.811", HX, 0.8113, 1e-3);
+    eq("H(Y) = 1", HY, 1, 1e-9);
+    eq("H(X,Y) = 1.5", HXY, 1.5, 1e-9);
+    const HYgX = HXY - HX, HXgY = HXY - HY;
+    eq("H(Y|X) = H(X,Y)-H(X) = 0.689", HYgX, 0.6887, 1e-3);
+    eq("chain rule: H(X)+H(Y|X) = H(X,Y)", HX + HYgX, HXY, 1e-9);
+    const I = HX + HY - HXY;
+    eq("I(X;Y) = H(X)+H(Y)-H(X,Y) = 0.311", I, 0.3113, 1e-3);
+    eq("I(X;Y) = H(X)-H(X|Y)", I, HX - HXgY, 1e-9);
+    eq("Venn: H(X|Y)+I = H(X)", HXgY + I, HX, 1e-9);
+    eq("Venn: H(Y|X)+I = H(Y)", HYgX + I, HY, 1e-9); }
+  // normal differential entropy sigma=1
+  { const h1 = 0.5 * Math.log(2 * Math.PI * Math.E);
+    eq("normal h(sigma=1) = 0.5 ln(2 pi e) ~ 1.419 nats", h1, 1.4189, 1e-3);
+    eq("in bits ~ 2.047", h1 / Math.log(2), 2.047, 1e-3);
+    eq("sigma 1->2 adds 0.5 ln(4) = ln2 nats", 0.5 * Math.log(4), Math.log(2), 1e-12); }
+}
+
 // ================= Differential Equations (Phase-2 worked examples) =================
 {
   // System x'=Ax, A=[[1,2],[2,1]]: eigenvalues 3,-1; eigenvectors [1,1],[1,-1]

@@ -3459,6 +3459,118 @@
           "upgrade": ""
         }
       ]
+    },
+    "information-theory.md": {
+      "contentHash": "sha1:5e869176b99c1b47",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "Comprehensive information-theory reference; every worked number independently verified. Audited and Phase-2'd in one pass: joint/conditional entropy, the chain rule, and mutual information were all formula-only (deferred to a widget), now worked on a shared 2x2 joint table (H(X)=0.811, H(X,Y)=1.5, I(X;Y)=0.311, Venn identities checked); normal differential entropy now evaluated numerically. 13 strong / 4 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "information content / surprisal",
+          "quality": "strong",
+          "note": "Coin (fair/biased) and die surprisal all worked with numbers.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why negative log (three axioms)",
+          "quality": "strong",
+          "note": "All three axioms stated with reasoning and the additivity derivation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "entropy definition + worked examples",
+          "quality": "strong",
+          "note": "Coin, biased coin, die entropy all computed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "entropy as compression limit / Huffman source coding",
+          "quality": "strong",
+          "note": "Huffman 4-symbol worked, avg=1.75=entropy, 12.5% savings.",
+          "upgrade": ""
+        },
+        {
+          "concept": "binary entropy function",
+          "quality": "adequate",
+          "note": "Formula plus plot and interactive; peaks at p=0.5.",
+          "upgrade": ""
+        },
+        {
+          "concept": "differential entropy + normal-distribution entropy",
+          "quality": "strong",
+          "note": "Normal entropy now evaluated numerically: sigma=1 gives 1.419 nats / 2.047 bits, and the sigma-doubling delta ln2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "joint entropy",
+          "quality": "strong",
+          "note": "Now computed on a concrete 2x2 joint table: H(X,Y)=1.5 bits.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conditional entropy H(Y|X)",
+          "quality": "strong",
+          "note": "Computed via chain rule on the joint table: H(Y|X)=0.689.",
+          "upgrade": ""
+        },
+        {
+          "concept": "chain rule of entropy",
+          "quality": "strong",
+          "note": "Verified numerically: H(X)+H(Y|X)=1.5=H(X,Y).",
+          "upgrade": ""
+        },
+        {
+          "concept": "KL divergence + worked example (both directions)",
+          "quality": "strong",
+          "note": "Both directions computed, asymmetry shown numerically (0.119 vs 0.126).",
+          "upgrade": ""
+        },
+        {
+          "concept": "forward vs reverse KL",
+          "quality": "adequate",
+          "note": "Mode-covering/seeking explained with figure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cross-entropy definition + decomposition",
+          "quality": "adequate",
+          "note": "Decomposition H(P,Q)=H(P)+D_KL stated and justified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cross-entropy as loss (binary, categorical)",
+          "quality": "strong",
+          "note": "Binary worked both cases (0.322, 2.322); categorical simplification shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "mutual information",
+          "quality": "strong",
+          "note": "Now computed on the same joint table three ways: I(X;Y)=0.311 bits, Venn identities checked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "information Venn diagram relationships",
+          "quality": "strong",
+          "note": "Venn diagram with all six regions and three read-off identities, now numerically instantiated.",
+          "upgrade": ""
+        },
+        {
+          "concept": "data processing inequality",
+          "quality": "adequate",
+          "note": "Stated with Markov chain, tokenization and information-bottleneck examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "summary table",
+          "quality": "strong",
+          "note": "Complete table linking definitions to ML applications.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
