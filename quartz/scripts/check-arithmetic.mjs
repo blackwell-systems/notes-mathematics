@@ -374,6 +374,25 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Multivariable Calculus (Phase-2 worked examples) =================
+{
+  // f=x^3-3x+y^2: critical points and classification
+  const f = (x, y) => x ** 3 - 3 * x + y * y;
+  // grad = [3x^2-3, 2y] = 0 -> x=+-1, y=0
+  check("grad zero at (1,0) and (-1,0)", 3 * 1 - 3 === 0 && 3 * 1 - 3 === 0);
+  eq("f(1,0) = -2 (local min)", f(1, 0), -2);
+  eq("f(-1,0) = 2 (saddle)", f(-1, 0), 2);
+  // Hessian [[6x,0],[0,2]]: eigenvalues at (1,0) = 6,2 (min); at (-1,0) = -6,2 (saddle)
+  check("(1,0) Hessian eigenvalues 6,2 both positive -> min", 6 > 0 && 2 > 0);
+  check("(-1,0) Hessian eigenvalues -6,2 mixed -> saddle", -6 < 0 && 2 > 0);
+  // determinant test det H = fxx*fyy - fxy^2 = 12x
+  eq("det H at (1,0) = 12 > 0 with fxx=6>0 -> min", 6 * 2 - 0, 12);
+  eq("det H at (-1,0) = -12 < 0 -> saddle", -6 * 2 - 0, -12);
+  // convexity via Hessian: x^2+y^2 convex, x^2-y^2 not
+  check("x^2+y^2: H=diag(2,2) PSD -> convex", 2 >= 0 && 2 >= 0);
+  check("x^2-y^2: H=diag(2,-2) indefinite -> not convex", 2 > 0 && -2 < 0);
+}
+
 // ================= Matrices (Phase-2 worked examples) =================
 {
   // non-square multiplication (2x3)(3x2) = (2x2)

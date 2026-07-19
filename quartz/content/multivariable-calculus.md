@@ -266,6 +266,19 @@ For multiple variables, the Hessian plays the same role using the concept of pos
 
 The pattern is the exact multivariable echo of the single-variable second-derivative test: all eigenvalues positive means "curves up in every direction" (a bowl, so a minimum), all negative means "curves down in every direction" (a dome, so a maximum), and mixed signs means it curves up along one axis and down along another (a saddle, neither).
 
+**Worked example (finding and classifying critical points).** Classify the critical points of $f(x, y) = x^3 - 3x + y^2$.
+
+**Step 1: find the critical points.** Set the gradient to zero: $\nabla f = \begin{bmatrix} 3x^2 - 3 \\ 2y \end{bmatrix} = \mathbf{0}$ gives $x^2 = 1$ and $y = 0$, so there are two critical points, $(1, 0)$ and $(-1, 0)$.
+
+**Step 2: build the Hessian.** $H = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix} = \begin{bmatrix} 6x & 0 \\ 0 & 2 \end{bmatrix}$.
+
+**Step 3: classify each point** by the sign of the Hessian's eigenvalues (here $H$ is diagonal, so the eigenvalues are just the diagonal entries):
+
+- At $(1, 0)$: $H = \begin{bmatrix} 6 & 0 \\ 0 & 2 \end{bmatrix}$, eigenvalues $6$ and $2$, both positive, so $H$ is positive definite: a **local minimum**, with $f(1,0) = -2$.
+- At $(-1, 0)$: $H = \begin{bmatrix} -6 & 0 \\ 0 & 2 \end{bmatrix}$, eigenvalues $-6$ and $2$, mixed signs, so $H$ is indefinite: a **saddle point**, with $f(-1,0) = 2$.
+
+For a $2 \times 2$ Hessian you can skip eigenvalues and use the determinant test: $\det H = f_{xx}f_{yy} - f_{xy}^2$. Here $\det H = 12x$, which is $+12 > 0$ with $f_{xx} = 6 > 0$ at $(1,0)$ (minimum), and $-12 < 0$ at $(-1,0)$ (saddle, since a negative determinant always means mixed-sign eigenvalues).
+
 **Where it shows up:** The Hessian matrix appears in Newton's method for optimization, which uses second-order information to converge faster than gradient descent. It also determines whether a critical point of a loss function is a minimum, maximum, or saddle point.
 
 ## Double Integrals
@@ -469,6 +482,8 @@ $$
 ### Testing for Convexity
 
 A twice-differentiable function is convex if and only if its Hessian matrix is **positive semidefinite** everywhere (all eigenvalues are non-negative). This connects to the [positive definiteness](./linear-algebra-computation) discussion in linear algebra.
+
+**Worked test.** For $f(x, y) = x^2 + y^2$, the Hessian is $H = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$ at *every* point, with eigenvalues $2$ and $2$, both $\geq 0$: positive semidefinite everywhere, so $f$ is convex (the paraboloid bowl). Contrast $f(x, y) = x^2 - y^2$, whose Hessian $\begin{bmatrix} 2 & 0 \\ 0 & -2 \end{bmatrix}$ has eigenvalues $2$ and $-2$ (mixed signs, indefinite): *not* positive semidefinite, so this saddle surface is not convex. The Hessian test is what separates the two.
 
 **Examples of convex functions:**
 

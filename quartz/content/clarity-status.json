@@ -3931,6 +3931,130 @@
           "upgrade": ""
         }
       ]
+    },
+    "multivariable-calculus.md": {
+      "contentHash": "sha1:f0476ffc3b8eaea9",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "Comprehensive multivariable-calculus reference (partials, gradient, chain rule, Hessian, integrals, gradient descent, convexity, Lagrange); every worked number independently verified. Audited and Phase-2'd in one pass: the second-derivative test was never assembled (missing) and convexity was never Hessian-tested (thin); both now worked (f=x^3-3x+y^2 -> min + saddle; x^2+y^2 vs x^2-y^2). 13 strong / 6 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "functions of several variables / surfaces and contours",
+          "quality": "strong",
+          "note": "Surface + contour explained with the dual-view reading skill and an ML loss example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "partial derivatives: limit definition",
+          "quality": "strong",
+          "note": "Full limit definition for x, y, and the n-variable case with reasoning.",
+          "upgrade": ""
+        },
+        {
+          "concept": "partial derivatives: computation",
+          "quality": "strong",
+          "note": "Two worked examples incl chain rule and a vanishing partial.",
+          "upgrade": ""
+        },
+        {
+          "concept": "gradient vector",
+          "quality": "strong",
+          "note": "Gradient computed and evaluated at (1,2)=[8,7].",
+          "upgrade": ""
+        },
+        {
+          "concept": "gradient points uphill",
+          "quality": "adequate",
+          "note": "Uphill property asserted geometrically; ties to descent.",
+          "upgrade": ""
+        },
+        {
+          "concept": "directional derivatives",
+          "quality": "strong",
+          "note": "Worked at (1,1) toward origin = -2sqrt2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "multivariable chain rule",
+          "quality": "strong",
+          "note": "z=x^2y with x=cos t, y=sin t fully worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection to backpropagation",
+          "quality": "adequate",
+          "note": "Explained as summed paths; conceptual.",
+          "upgrade": ""
+        },
+        {
+          "concept": "second-order partials / Clairaut",
+          "quality": "strong",
+          "note": "All four second partials worked; f_xy=f_yx=2x confirmed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "the Hessian matrix",
+          "quality": "strong",
+          "note": "Now built numerically in the critical-point example (H=[[6x,0],[0,2]]).",
+          "upgrade": ""
+        },
+        {
+          "concept": "second-derivative test (find + classify critical points)",
+          "quality": "strong",
+          "note": "Now fully worked: f=x^3-3x+y^2 -> (1,0) min, (-1,0) saddle, via eigenvalues and the determinant test.",
+          "upgrade": ""
+        },
+        {
+          "concept": "double integrals",
+          "quality": "strong",
+          "note": "Iterated integral xy over a rectangle worked = 9.",
+          "upgrade": ""
+        },
+        {
+          "concept": "changing order of integration",
+          "quality": "adequate",
+          "note": "Order-swap stated; a second iterated integral worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection to probability (marginalization)",
+          "quality": "adequate",
+          "note": "Marginalization defined with formulas; probability page carries the numeric work.",
+          "upgrade": ""
+        },
+        {
+          "concept": "gradient descent algorithm + worked iterations",
+          "quality": "strong",
+          "note": "Three numeric iterations with contraction-factor analysis.",
+          "upgrade": ""
+        },
+        {
+          "concept": "learning rate / convergence",
+          "quality": "adequate",
+          "note": "Too-large/small discussed, O(1/k) rate stated.",
+          "upgrade": ""
+        },
+        {
+          "concept": "gradient descent variants (SGD, momentum)",
+          "quality": "adequate",
+          "note": "SGD, mini-batch, momentum defined with update formulas.",
+          "upgrade": ""
+        },
+        {
+          "concept": "convexity: definition + Hessian test",
+          "quality": "strong",
+          "note": "Now Hessian-tested: x^2+y^2 (PSD, convex) vs x^2-y^2 (indefinite, not convex).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Lagrange multipliers",
+          "quality": "strong",
+          "note": "xy s.t. x+y=10 fully worked; multiplier meaning (lambda=5) explained.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
