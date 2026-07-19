@@ -3123,6 +3123,166 @@
           "upgrade": ""
         }
       ]
+    },
+    "sequences-and-series.md": {
+      "contentHash": "sha1:c61b728fa40414dc",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+1subagent",
+      "overall": "mixed",
+      "summary": "Comprehensive sequences/series/recurrences/induction reference; every worked number verified correct by an independent auditor. Strong throughout (arithmetic/geometric series, Tower of Hanoi, Binet, repeated-root, two induction proofs, harmonic divergence, telescoping). Work-list = 2: k^2/k^3 sum formulas never numerically checked (thin), and the nth-term test never applied to a concrete series (thin). Comparison/ratio/integral tests are graded adequate since the page explicitly frames them as a brief overview deferred to calculus. 18 strong / 5 adequate / 2 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "sequence vs series motivation",
+          "quality": "strong",
+          "note": "Clear framing with savings example ($100..$400 -> total 1000).",
+          "upgrade": ""
+        },
+        {
+          "concept": "definitions (sequence, term, general term, series)",
+          "quality": "strong",
+          "note": "All four defined with notation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sigma notation + properties",
+          "quality": "strong",
+          "note": "Three worked sums (15, 30, 15) plus constant/factor/sum properties.",
+          "upgrade": ""
+        },
+        {
+          "concept": "arithmetic sequences",
+          "quality": "strong",
+          "note": "Three examples incl solving d=4, a1=1 from a5=17, a12=45.",
+          "upgrade": ""
+        },
+        {
+          "concept": "arithmetic series",
+          "quality": "strong",
+          "note": "Gauss S100=5050 and 3+7+...+99 (n=25, S=1275) both worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "geometric sequences",
+          "quality": "strong",
+          "note": "Three examples: positive, fractional, and alternating ratio.",
+          "upgrade": ""
+        },
+        {
+          "concept": "finite geometric series + derivation",
+          "quality": "strong",
+          "note": "Full multiply-subtract derivation plus worked sum 765.",
+          "upgrade": ""
+        },
+        {
+          "concept": "infinite geometric series",
+          "quality": "strong",
+          "note": "Sum=2, 0.333...=1/3, and divergent case all shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "common summation formulas (k, k^2, k^3)",
+          "quality": "thin",
+          "note": "Sum-k proven by induction, but the k^2 and k^3 closed forms are stated and never checked against a numeric sum.",
+          "upgrade": ""
+        },
+        {
+          "concept": "recursive vs explicit definitions",
+          "quality": "strong",
+          "note": "Explicit vs recursive shown producing the same output sequence.",
+          "upgrade": ""
+        },
+        {
+          "concept": "recurrence relations: linear/order/homogeneity",
+          "quality": "adequate",
+          "note": "Order and homogeneity defined with concrete first/second-order examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving first-order homogeneous recurrence",
+          "quality": "strong",
+          "note": "Unwinding shows a_n = a_0 r^n cleanly.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving first-order non-homogeneous (Tower of Hanoi)",
+          "quality": "strong",
+          "note": "Fully solved to T_n = 2^n - 1 and verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "second-order characteristic equation method",
+          "quality": "strong",
+          "note": "Characteristic equation derived from the r^n guess.",
+          "upgrade": ""
+        },
+        {
+          "concept": "distinct roots (Fibonacci / Binet)",
+          "quality": "strong",
+          "note": "Binet fully derived, A=1/sqrt5, B=-1/sqrt5.",
+          "upgrade": ""
+        },
+        {
+          "concept": "repeated root case",
+          "quality": "strong",
+          "note": "Solved to (1+n)2^n, a_2=12 verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "mathematical induction",
+          "quality": "strong",
+          "note": "Two full proofs (sum formula, 2^n>n) with both steps.",
+          "upgrade": ""
+        },
+        {
+          "concept": "formal definition of series convergence",
+          "quality": "strong",
+          "note": "Partial sums and limit definition given precisely.",
+          "upgrade": ""
+        },
+        {
+          "concept": "nth-term / divergence test",
+          "quality": "thin",
+          "note": "Presented as the simplest first test but never applied to a concrete divergent series.",
+          "upgrade": ""
+        },
+        {
+          "concept": "harmonic series divergence",
+          "quality": "strong",
+          "note": "Grouping argument with 1/2-blocks fully shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "telescoping series",
+          "quality": "strong",
+          "note": "Partial fractions + telescoping sum 1/(n(n+1)) = 1 worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "comparison test",
+          "quality": "adequate",
+          "note": "Stated with intuition; explicitly a brief overview deferred to calculus II.",
+          "upgrade": "a worked comparison would strengthen, but out of the page's stated scope"
+        },
+        {
+          "concept": "ratio test",
+          "quality": "adequate",
+          "note": "Formula and intuition given; brief overview, no L computed (deferred to calculus).",
+          "upgrade": "a worked L (e.g. sum n/2^n or 1/n!) would strengthen"
+        },
+        {
+          "concept": "integral test",
+          "quality": "adequate",
+          "note": "Stated with the sum/integral link; brief overview deferred to calculus.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Fourier series",
+          "quality": "adequate",
+          "note": "Conceptual with the square-wave formula and an interactive decomposer widget.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
