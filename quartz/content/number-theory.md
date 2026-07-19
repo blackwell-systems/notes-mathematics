@@ -209,6 +209,20 @@ Reading the color patterns: in the addition table each value slides one step per
 - To find $a^{-1} \pmod{n}$, use extended Euclidean algorithm to find x, y such that $ax + ny = 1$
 - Then $a^{-1} \equiv x \pmod{n}$
 
+**Worked example:** Find $7^{-1} \pmod{26}$ (trial would mean testing up to 25 values, so the algorithm is the fast route). Run the Euclidean algorithm on $26$ and $7$:
+
+$$
+26 = 7 \times 3 + 5, \qquad 7 = 5 \times 1 + 2, \qquad 5 = 2 \times 2 + 1, \qquad 2 = 1 \times 2 + 0.
+$$
+
+The gcd is $1$ (so the inverse exists). Now back-substitute to write $1$ as a combination of $26$ and $7$:
+
+$$
+1 = 5 - 2\times 2 = 5 - (7 - 5)\times 2 = 5\times 3 - 7\times 2 = (26 - 7\times 3)\times 3 - 7\times 2 = 26\times 3 - 7\times 11.
+$$
+
+So $7\times(-11) + 26\times 3 = 1$, which means $7^{-1} \equiv -11 \equiv 15 \pmod{26}$. Check: $7 \times 15 = 105 = 4\times 26 + 1 \equiv 1 \pmod{26}$. ✓
+
 ### Modular Division
 
 **Modular Division:** To compute $\frac{a}{b} \pmod{n}$, find $b^{-1} \pmod{n}$ and compute $a \times b^{-1} \pmod{n}$.
@@ -376,4 +390,6 @@ $$a^{\phi(n)} \equiv 1 \pmod{n}$$
 
 **Application:** Computing modular inverses when n is not prime. Provided $\gcd(a, n) = 1$ (an inverse of $a$ modulo $n$ exists only when $a$ and $n$ are coprime):
 $$a^{-1} \equiv a^{\phi(n) - 1} \pmod{n}$$
+
+**Worked example:** Take $n = 10$ (composite, so Fermat does not apply). The numbers coprime to $10$ are $1, 3, 7, 9$, so $\phi(10) = 4$. Euler's theorem says $3^{\phi(10)} = 3^4 \equiv 1 \pmod{10}$, and indeed $3^4 = 81 = 8\times 10 + 1 \equiv 1$. ✓ To invert $3$ modulo $10$, use $3^{-1} \equiv 3^{\phi(10) - 1} = 3^3 = 27 \equiv 7 \pmod{10}$. Check: $3 \times 7 = 21 \equiv 1 \pmod{10}$. ✓ This is the composite-modulus generalization of the Fermat trick used above.
 

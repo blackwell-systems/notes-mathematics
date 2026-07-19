@@ -4055,6 +4055,118 @@
           "upgrade": ""
         }
       ]
+    },
+    "number-theory.md": {
+      "contentHash": "sha1:da8dd875bda6f417",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Comprehensive number-theory reference (divisibility, GCD/LCM, modular arithmetic, inverses, Fermat, CRT, totient, Euler); every worked number independently verified. Audited and Phase-2'd in one pass: the extended-Euclidean inverse method and Euler's theorem were both formula-only, now worked (7^-1 mod 26 = 15; 3^-1 mod 10 = 7 via Euler). 17 strong / 0 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "divisibility (definition + properties)",
+          "quality": "strong",
+          "note": "Definition, notation, 5 properties, concrete divides/not-divides examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "GCD definition",
+          "quality": "strong",
+          "note": "Definition, set-builder, gcd(12,18) and coprime example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Euclidean algorithm",
+          "quality": "strong",
+          "note": "gcd(252,105)=21 worked with steps and the geometric square-tiling diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "extended Euclidean (Bezout)",
+          "quality": "strong",
+          "note": "252(-2)+105(5)=21 back-substitution shown line by line.",
+          "upgrade": ""
+        },
+        {
+          "concept": "LCM + gcd*lcm=a*b",
+          "quality": "strong",
+          "note": "lcm(12,18)=36, gcd*lcm=216=12*18 worked with Venn diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular arithmetic / clock intuition",
+          "quality": "strong",
+          "note": "Clock 10+5=3 mod 12, diagram, interactive widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "congruence",
+          "quality": "strong",
+          "note": "Definition n|(a-b) plus three examples incl a negative case.",
+          "upgrade": ""
+        },
+        {
+          "concept": "properties of congruence",
+          "quality": "strong",
+          "note": "Addition and multiplication both checked numerically mod 12.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular addition/multiplication tables (Z_5)",
+          "quality": "strong",
+          "note": "Full Z_5 Cayley tables plus diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular inverses: trial + existence",
+          "quality": "strong",
+          "note": "Trial 3^-1=5 mod 7 worked; existence gcd=1 with reasoning and a no-inverse example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular inverse via extended Euclidean",
+          "quality": "strong",
+          "note": "Now worked: 7^-1 mod 26 via back-substitution (26*3-7*11=1) -> 15, checked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular division",
+          "quality": "strong",
+          "note": "7/3 mod 11 = 6 fully worked via 3^-1=4.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modular exponentiation / square-and-multiply",
+          "quality": "strong",
+          "note": "3^13 mod 7 = 3 worked via binary and the square-and-multiply diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Fermat's little theorem",
+          "quality": "strong",
+          "note": "Theorem, corollary, cycle diagram, 3^-1=3^5=5 mod 7 worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Chinese Remainder Theorem",
+          "quality": "strong",
+          "note": "Three-congruence system x=23 mod 105 worked with full verification.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Euler's totient function",
+          "quality": "strong",
+          "note": "phi(36)=12 worked via the prime-factorization formula plus dial diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Euler's theorem",
+          "quality": "strong",
+          "note": "Now applied numerically: 3^4=1 mod 10 verified, and 3^-1=3^3=7 mod 10 (composite-modulus inverse), checked.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

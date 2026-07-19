@@ -374,6 +374,22 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Number Theory (Phase-2 worked examples) =================
+{
+  const powmod = (a, b, n) => { let r = 1; for (let i = 0; i < b; i++) r = (r * a) % n; return r; };
+  // extended Euclidean inverse 7^-1 mod 26
+  // 26=7*3+5, 7=5*1+2, 5=2*2+1 -> 1 = 26*3 - 7*11
+  eq("Euclid step: 26 = 7*3 + 5", 7 * 3 + 5, 26);
+  eq("Bezout: 26*3 - 7*11 = 1", 26 * 3 - 7 * 11, 1);
+  eq("7^-1 = -11 mod 26 = 15", ((-11) % 26 + 26) % 26, 15);
+  eq("check 7*15 mod 26 = 1", (7 * 15) % 26, 1);
+  // Euler's theorem, n=10: phi=4, 3^4=1, 3^-1=3^3=7
+  check("phi(10)=4 (coprime 1,3,7,9)", [1, 3, 7, 9].length === 4);
+  eq("Euler 3^4 mod 10 = 1", powmod(3, 4, 10), 1);
+  eq("3^-1 = 3^(phi-1) = 3^3 mod 10 = 7", powmod(3, 3, 10), 7);
+  eq("check 3*7 mod 10 = 1", (3 * 7) % 10, 1);
+}
+
 // ================= Multivariable Calculus (Phase-2 worked examples) =================
 {
   // f=x^3-3x+y^2: critical points and classification
