@@ -136,6 +136,14 @@ $$\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 5 & 6 \\ 7 & 8 \e
 - $c_{21} = 3(5) + 4(7) = 15 + 28 = 43$
 - $c_{22} = 3(6) + 4(8) = 18 + 32 = 50$
 
+**A non-square example.** The shapes need not be square, only compatible. Multiplying a $2 \times 3$ by a $3 \times 2$ gives a $2 \times 2$ (inner $3$'s match, outer $2$'s become the result size):
+
+$$
+\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}\begin{bmatrix} 7 & 8 \\ 9 & 10 \\ 11 & 12 \end{bmatrix} = \begin{bmatrix} 1(7)+2(9)+3(11) & 1(8)+2(10)+3(12) \\ 4(7)+5(9)+6(11) & 4(8)+5(10)+6(12) \end{bmatrix} = \begin{bmatrix} 58 & 64 \\ 139 & 154 \end{bmatrix}.
+$$
+
+Each entry still sums three products (one per inner index $k = 1, 2, 3$). Reversing the order here, $(3 \times 2)(2 \times 3)$, is also defined but produces a $3 \times 3$ result: another way to see that $AB \neq BA$.
+
 **Properties:**
 
 - **NOT commutative:** $AB \neq BA$ in general
@@ -244,6 +252,25 @@ $$A^{-1} = \frac{1}{5} \begin{bmatrix} 4 & -3 \\ -1 & 2 \end{bmatrix} = \begin{b
 **Verification:**
 
 $$AA^{-1} = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix} \begin{bmatrix} 0.8 & -0.6 \\ -0.2 & 0.4 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = I$$
+
+**The same inverse via Gauss-Jordan.** The augmented-matrix method reproduces this result without the $2\times 2$ formula, and it is the one that scales to larger matrices. Start with $[A \mid I]$ and row-reduce the left block to $I$:
+
+$$
+\left[\begin{array}{cc|cc} 2 & 3 & 1 & 0 \\ 1 & 4 & 0 & 1 \end{array}\right]
+\xrightarrow{R_1 \to \tfrac{1}{2}R_1}
+\left[\begin{array}{cc|cc} 1 & 1.5 & 0.5 & 0 \\ 1 & 4 & 0 & 1 \end{array}\right]
+\xrightarrow{R_2 \to R_2 - R_1}
+\left[\begin{array}{cc|cc} 1 & 1.5 & 0.5 & 0 \\ 0 & 2.5 & -0.5 & 1 \end{array}\right]
+$$
+
+$$
+\xrightarrow{R_2 \to \tfrac{1}{2.5}R_2}
+\left[\begin{array}{cc|cc} 1 & 1.5 & 0.5 & 0 \\ 0 & 1 & -0.2 & 0.4 \end{array}\right]
+\xrightarrow{R_1 \to R_1 - 1.5R_2}
+\left[\begin{array}{cc|cc} 1 & 0 & 0.8 & -0.6 \\ 0 & 1 & -0.2 & 0.4 \end{array}\right]
+$$
+
+Once the left block is $I$, the right block is $A^{-1} = \begin{bmatrix} 0.8 & -0.6 \\ -0.2 & 0.4 \end{bmatrix}$, exactly matching the formula. For a $3 \times 3$ or larger, where no compact formula exists, these are the *only* steps you need.
 
 ![Three coordinate panels read left to right showing the inverse as an undo operation, for the matrix A equal to [[2,3],[1,4]] with determinant 5. The first panel shows the starting unit square. An arrow labeled times A leads to the second panel, where the square has been transformed into a slanted parallelogram. An arrow labeled times A inverse leads to the third panel, where the parallelogram has been transformed exactly back into the original unit square. The caption states that A inverse of A times x returns x.](./media/mat-inverse-undo.png)
 

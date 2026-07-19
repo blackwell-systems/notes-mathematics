@@ -374,6 +374,28 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Matrices (Phase-2 worked examples) =================
+{
+  // non-square multiplication (2x3)(3x2) = (2x2)
+  { const A = [[1, 2, 3], [4, 5, 6]], B = [[7, 8], [9, 10], [11, 12]];
+    const C = [[0, 0], [0, 0]];
+    for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) for (let k = 0; k < 3; k++) C[i][j] += A[i][k] * B[k][j];
+    check("(2x3)(3x2) = [[58,64],[139,154]]", C[0][0] === 58 && C[0][1] === 64 && C[1][0] === 139 && C[1][1] === 154); }
+  // Gauss-Jordan on A=[[2,3],[1,4]] augmented with I -> A^-1
+  { // R1/2, R2-R1, R2/2.5, R1-1.5R2
+    let m = [[2, 3, 1, 0], [1, 4, 0, 1]];
+    m[0] = m[0].map((v) => v / 2);                       // R1/2
+    m[1] = m[1].map((v, i) => v - m[0][i]);              // R2-R1
+    m[1] = m[1].map((v) => v / m[1][1]);                 // R2/2.5
+    m[0] = m[0].map((v, i) => v - 1.5 * m[1][i]);        // R1-1.5R2
+    const inv = [[m[0][2], m[0][3]], [m[1][2], m[1][3]]];
+    check("Gauss-Jordan gives A^-1 = [[0.8,-0.6],[-0.2,0.4]]",
+      Math.abs(inv[0][0] - 0.8) < 1e-9 && Math.abs(inv[0][1] + 0.6) < 1e-9 && Math.abs(inv[1][0] + 0.2) < 1e-9 && Math.abs(inv[1][1] - 0.4) < 1e-9);
+    // matches the 2x2 formula 1/det [[d,-b],[-c,a]]
+    const det = 2 * 4 - 3 * 1;
+    check("matches formula (1/5)[[4,-3],[-1,2]]", Math.abs(4 / det - 0.8) < 1e-9 && Math.abs(-3 / det + 0.6) < 1e-9); }
+}
+
 // ================= Linear Functions (Phase-2 worked examples) =================
 {
   // inverse variation: y=6 at x=2 -> k=12 -> y=12/x

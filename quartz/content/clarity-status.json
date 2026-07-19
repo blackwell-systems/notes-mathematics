@@ -3849,6 +3849,88 @@
           "upgrade": ""
         }
       ]
+    },
+    "matrices.md": {
+      "contentHash": "sha1:5b1cb49ccc550709",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-19",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Matrix-mechanics reference; every worked number verified. Audited and Phase-2'd in one pass: matrix multiplication was only ever 2x2 (added a non-square (2x3)(3x2) example) and the Gauss-Jordan augmented-matrix inverse was described but never worked (now row-reduced on [[2,3],[1,4]] to reproduce the formula inverse). 11 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "why matrices / system as Ax=b",
+          "quality": "strong",
+          "note": "Concrete 2-eqn system shown as Ax=b with actual coefficients.",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix definition, notation, i,j indexing",
+          "quality": "strong",
+          "note": "Definition, i-then-j indexing with diagram and a_23 example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix addition",
+          "quality": "strong",
+          "note": "Worked on concrete 2x2 numbers.",
+          "upgrade": ""
+        },
+        {
+          "concept": "scalar multiplication",
+          "quality": "strong",
+          "note": "Worked with scalar 3 on concrete 2x2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix multiplication (dimension rule + entry formula)",
+          "quality": "strong",
+          "note": "Dimension rule, step-by-step 2x2, and now a non-square (2x3)(3x2)=[[58,64],[139,154]].",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrices as transformations",
+          "quality": "strong",
+          "note": "Columns as basis-vector landings, diagram, interactive widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "identity matrix",
+          "quality": "strong",
+          "note": "Defined with I_2 and I_3 concrete examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "zero matrix",
+          "quality": "adequate",
+          "note": "Defined with properties; general form only.",
+          "upgrade": ""
+        },
+        {
+          "concept": "transpose",
+          "quality": "strong",
+          "note": "Worked on concrete 2x3 -> 3x2 with diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "inverse: 2x2 formula + verification",
+          "quality": "strong",
+          "note": "2x2 formula, worked example, det, and AA^-1=I verification.",
+          "upgrade": ""
+        },
+        {
+          "concept": "determinant (geometric area meaning)",
+          "quality": "strong",
+          "note": "Determinant as area factor, computed for regular and singular cases.",
+          "upgrade": ""
+        },
+        {
+          "concept": "general n x n inverse via Gauss-Jordan",
+          "quality": "strong",
+          "note": "Now worked: [A|I]->[I|A^-1] row-reduction on [[2,3],[1,4]], reproducing the formula inverse.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
