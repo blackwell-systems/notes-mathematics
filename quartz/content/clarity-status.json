@@ -4659,6 +4659,172 @@
           "upgrade": ""
         }
       ]
+    },
+    "measure-theory.md": {
+      "contentHash": "sha1:b2cfc6f8107d3766",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Thorough measure-theory reference (sigma-algebras, measures, Lebesgue integral, MCT/Fatou/DCT, L^p, Fubini, measure-theoretic probability, SLT connection); every claim independently verified, no math errors found. Audited and Phase-2'd in one pass: the page was strong on definitions/theorems but light on worked numbers. Added four concrete worked examples (simple-function integral = 13; L^p norms of x on [0,1] plus a Cauchy-Schwarz check; Fubini x+y^2 on the unit square = 5/6 both orders; conditional expectation via die+parity with defining-property and tower checks) and tightened the typewriter/escaping-mass counterexamples. 24 strong / 2 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "motivation: Riemann fails on Dirichlet",
+          "quality": "strong",
+          "note": "Clear; the 1*0+0*1=0 preview is concrete; widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Lebesgue idea (partition the range)",
+          "quality": "strong",
+          "note": "Well-motivated with the Dirichlet instance.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why measure theory beyond integration (prob, SLT)",
+          "quality": "strong",
+          "note": "States the free-energy integral; overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "non-measurable sets (Vitali, Banach-Tarski)",
+          "quality": "adequate",
+          "note": "Correctly motivates sigma-algebras; no construction (deliberately brief).",
+          "upgrade": ""
+        },
+        {
+          "concept": "sigma-algebra definition + axioms",
+          "quality": "strong",
+          "note": "Three axioms correct; De Morgan closure derived; coin-flip example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Borel sigma-algebra",
+          "quality": "strong",
+          "note": "Smallest containing open intervals; closure examples listed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "measure definition (axioms)",
+          "quality": "strong",
+          "note": "mu(empty)=0, countable additivity.",
+          "upgrade": ""
+        },
+        {
+          "concept": "measure basic properties (monotonicity/subadd/continuity)",
+          "quality": "strong",
+          "note": "Monotonicity proved; continuity-from-above has the needed finiteness.",
+          "upgrade": ""
+        },
+        {
+          "concept": "key measures (Lebesgue, probability, counting, Dirac)",
+          "quality": "strong",
+          "note": "Each defined; discrete-as-weighted-Diracs noted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "null sets & almost everywhere; mu(Q)=0",
+          "quality": "strong",
+          "note": "Covering argument sum eps/2^k = eps worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "measurable functions definition + equivalences",
+          "quality": "strong",
+          "note": "Four equivalent conditions; RV as measurable function; CDF well-defined.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Lebesgue integral: simple functions",
+          "quality": "strong",
+          "note": "Now a genuine multi-level worked integral: s=2*1+5*2+1*1=13 (was formula-only).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Lebesgue integral: non-negative & general (f+ - f-)",
+          "quality": "strong",
+          "note": "sup-of-simple and positive/negative decomposition; integrability defined.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Lebesgue vs Riemann + Dirichlet integral",
+          "quality": "strong",
+          "note": "Lebesgue criterion (discontinuities measure zero); Dirichlet = 0 worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "convergence theorems (MCT, Fatou, DCT) + escaping spike",
+          "quality": "strong",
+          "note": "All hypotheses correct; f_n=n*1_[0,1/n] counterexample worked; widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "L^p spaces + norms",
+          "quality": "strong",
+          "note": "Now a worked example: ||x||_1=1/2, ||x||_2=1/sqrt3, ||x||_inf=1 with the increasing-in-p ordering.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Holder / Cauchy-Schwarz",
+          "quality": "strong",
+          "note": "Now worked: <x,x^2>=1/4 <= 1/sqrt15, strict, with the equality condition explained.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Minkowski inequality",
+          "quality": "adequate",
+          "note": "Triangle inequality stated; not separately instantiated (the L^p worked example covers norms).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Riesz-Fischer completeness",
+          "quality": "strong",
+          "note": "Correct statement for all p.",
+          "upgrade": ""
+        },
+        {
+          "concept": "product measures",
+          "quality": "strong",
+          "note": "(mu x nu)(A x B)=mu(A)nu(B).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Fubini-Tonelli",
+          "quality": "strong",
+          "note": "Now worked: f=x+y^2 on [0,1]^2 = 5/6 both orders (non-factoring integrand).",
+          "upgrade": ""
+        },
+        {
+          "concept": "measure-theoretic probability dictionary",
+          "quality": "strong",
+          "note": "Correct table; probability space definition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "expectation as integral",
+          "quality": "strong",
+          "note": "E[X]=int X dP and density form.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conditional expectation E[X|G]",
+          "quality": "strong",
+          "note": "Now worked as a function: die + parity, E[X|G]=3 on odds/4 on evens, defining property and tower E[E[X|G]]=E[X]=3.5 checked (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "modes of convergence",
+          "quality": "strong",
+          "note": "Implications correct; typewriter and escaping-mass counterexamples now stated precisely.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection to SLT (free energy, RLCT)",
+          "quality": "strong",
+          "note": "Free-energy asymptotic F_n = nL_n + lambda log n - (m-1) log log n + O_P(1).",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

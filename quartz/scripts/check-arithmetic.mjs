@@ -3752,6 +3752,42 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   }
 }
 
+// ===== Measure theory (Phase-2 worked examples) =====
+{
+  // Simple-function integral: s = 2*1_[0,1) + 5*1_[1,3) + 1*1_[3,4); mu = length.
+  eq("MT: simple-function integral 2(1)+5(2)+1(1) = 13", 2 * 1 + 5 * 2 + 1 * 1, 13);
+
+  // L^p norms of f(x)=x on [0,1]: ||f||_1=1/2, ||f||_2=1/sqrt3, ||f||_inf=1.
+  const L1 = 1 / 2, L2 = Math.sqrt(1 / 3), Linf = 1;
+  eq("MT: ||x||_1 on [0,1] = 1/2", L1, 0.5);
+  eq("MT: ||x||_2 on [0,1] = 1/sqrt(3)", L2, 1 / Math.sqrt(3), 1e-12);
+  eq("MT: ||x||_inf on [0,1] = 1", Linf, 1);
+  check("MT: norms increase with p on a unit-measure space", L1 <= L2 && L2 <= Linf);
+  // Cauchy-Schwarz: f=x, g=x^2 on [0,1]. <f,g>=1/4 <= ||f||_2 ||g||_2 = 1/sqrt15.
+  const inner = 1 / 4, csBound = Math.sqrt(1 / 3) * Math.sqrt(1 / 5);
+  eq("MT: <x, x^2> = int x^3 = 1/4", inner, 0.25);
+  eq("MT: ||x||_2 ||x^2||_2 = 1/sqrt(15)", csBound, 1 / Math.sqrt(15), 1e-12);
+  check("MT: Cauchy-Schwarz holds (strict)", inner < csBound);
+
+  // Fubini: f(x,y)=x+y^2 over [0,1]^2, both orders = 5/6.
+  const fubY = (1 / 2) + (1 / 3);           // int over y first: int_0^1 (x + 1/3) dx = 1/2 + 1/3
+  const fubX = (1 / 2) + (1 / 3);           // int over x first: int_0^1 (1/2 + y^2) dy = 1/2 + 1/3
+  eq("MT: Fubini order dy-first = 5/6", fubY, 5 / 6, 1e-12);
+  eq("MT: Fubini order dx-first = 5/6", fubX, 5 / 6, 1e-12);
+  check("MT: Fubini orders agree", Math.abs(fubY - fubX) < 1e-12);
+
+  // Conditional expectation, die + parity sigma-algebra: E[X|G]=3 on odds, 4 on evens.
+  const eOdd = (1 + 3 + 5) / 3, eEven = (2 + 4 + 6) / 3;
+  eq("MT: E[X|G] on odds = 3", eOdd, 3);
+  eq("MT: E[X|G] on evens = 4", eEven, 4);
+  // Defining property on G={1,3,5}: int_G E[X|G] dP = int_G X dP = 3/2.
+  eq("MT: defining property LHS 3*P(G) = 3/2", eOdd * (1 / 2), 1.5);
+  eq("MT: defining property RHS sum_G X /6 = 3/2", (1 + 3 + 5) / 6, 1.5);
+  // Tower property: E[E[X|G]] = E[X] = 3.5.
+  eq("MT: tower E[E[X|G]] = 3.5", eOdd * 0.5 + eEven * 0.5, 3.5);
+  eq("MT: E[X] for fair die = 3.5", (1 + 2 + 3 + 4 + 5 + 6) / 6, 3.5);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
