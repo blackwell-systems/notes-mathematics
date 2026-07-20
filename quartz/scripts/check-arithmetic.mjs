@@ -4132,6 +4132,30 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const r = n => (3 * n * n + 5 * n) / (n * n); check("ASY: (3n^2+5n)/n^2 -> 3", Math.abs(r(1e6) - 3) < 1e-4); }
 }
 
+// ===== Bayesian inference (Phase-2 worked examples) =====
+{
+  // Medical-test base-rate: prevalence 1%, sensitivity 99%, specificity 95% (FPR 5%).
+  const pD = 0.01, sens = 0.99, fpr = 0.05;
+  const truePos = sens * pD, falsePos = fpr * (1 - pD);
+  eq("BI: true positives = 0.0099", truePos, 0.0099, 1e-12);
+  eq("BI: false positives = 0.0495", falsePos, 0.0495, 1e-12);
+  eq("BI: P(D|+) = 1/6 ~ 0.1667", truePos / (truePos + falsePos), 1 / 6, 1e-9);
+  check("BI: posterior far below sensitivity (base-rate fallacy)", (truePos / (truePos + falsePos)) < 0.2 && sens === 0.99);
+
+  // Beta(9,5): mean 9/14, MAP 2/3, vs MLE 0.7.
+  eq("BI: posterior mean 9/14", 9 / 14, 0.642857, 1e-5);
+  eq("BI: MAP of Beta(9,5) = (9-1)/(9+5-2) = 2/3", (9 - 1) / (9 + 5 - 2), 2 / 3, 1e-12);
+
+  // Bayes factor: fair coin (0.5^10) vs uniform-prior free theta (B(8,4)), data 7/10.
+  const lgamma = z => { const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7]; z -= 1; let x = c[0]; const t = z + 7 + 0.5; for (let i = 1; i < 9; i++) x += c[i] / (z + i); return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x); };
+  const Bfun = (a, b) => Math.exp(lgamma(a) + lgamma(b) - lgamma(a + b));
+  const pM1 = 0.5 ** 10, pM2 = Bfun(8, 4);
+  eq("BI: P(D|M1) prop 0.5^10 = 0.000977", pM1, 0.000977, 1e-5);
+  eq("BI: P(D|M2) prop B(8,4) = 0.000758", pM2, 0.000758, 1e-5);
+  eq("BI: Bayes factor BF_12 ~ 1.29 (favors simple model)", pM1 / pM2, 1.289, 5e-3);
+  check("BI: B(8,4) = 7!3!/11!", Math.abs(Bfun(8, 4) - (5040 * 6) / 39916800) < 1e-9);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

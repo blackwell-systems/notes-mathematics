@@ -6473,6 +6473,190 @@
           "upgrade": ""
         }
       ]
+    },
+    "bayesian-inference.md": {
+      "contentHash": "sha1:52cbade73b84596b",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Comprehensive SLT-adjacent Bayesian-inference reference (priors, conjugacy, posterior computation via grid/Laplace/MCMC/VI, prediction, model selection, Bayesian NNs, SLT free energy/RLCT/WAIC/WBIC); every worked number and all SLT formulas independently verified, no math errors found. Audited and Phase-2'd in one pass: added the canonical medical-test Bayes'-theorem posterior (1/6, base-rate fallacy) that was absent, a worked numeric Bayes factor (fair coin vs free-theta -> BF~1.29 showing Occam's razor), and the Beta(9,5) MAP (2/3); fixed the Laplace-derivation n-scaling double-count (now uses the per-observation Hessian H1) and redirected the MLE/MAP links from the statistics hub to inferential-statistics where the content lives. 25 strong / 4 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "Bayes' theorem review (prior/likelihood/posterior/evidence)",
+          "quality": "strong",
+          "note": "Now with a worked medical-test posterior (P(D|+)=1/6, base-rate fallacy) (was adequate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "point estimates vs distributions (MLE/MAP/Full Bayes)",
+          "quality": "strong",
+          "note": "Comparison table; infinite-data convergence.",
+          "upgrade": ""
+        },
+        {
+          "concept": "informative priors",
+          "quality": "strong",
+          "note": "Concrete N(170,10^2) height example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "non-informative priors (uniform, Jeffreys)",
+          "quality": "strong",
+          "note": "Improper-uniform note; Jeffreys ∝ sqrt(det I); Bernoulli -> Beta(1/2,1/2).",
+          "upgrade": ""
+        },
+        {
+          "concept": "conjugate priors (table of four)",
+          "quality": "strong",
+          "note": "All four posterior updates verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked Beta-Binomial update",
+          "quality": "strong",
+          "note": "Beta(2,2)+7H/3T -> Beta(9,5), mean 9/14, MAP 2/3, vs MLE 0.7; pseudo-count caveat.",
+          "upgrade": ""
+        },
+        {
+          "concept": "empirical Bayes",
+          "quality": "adequate",
+          "note": "Marginal-likelihood maximization stated; brief overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "posterior computation intro / evidence integral",
+          "quality": "strong",
+          "note": "The bottleneck framed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "grid approximation",
+          "quality": "strong",
+          "note": "Curse of dimensionality 100^10=10^20.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Laplace approximation",
+          "quality": "adequate",
+          "note": "Formula + SLT-failure discussion; no numeric Gaussian fit.",
+          "upgrade": ""
+        },
+        {
+          "concept": "MCMC: Metropolis-Hastings",
+          "quality": "adequate",
+          "note": "Algorithm + acceptance ratio; evidence cancels; figure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Gibbs sampling",
+          "quality": "strong",
+          "note": "Full-conditional description.",
+          "upgrade": ""
+        },
+        {
+          "concept": "MCMC practicalities (burn-in, mixing, R-hat, autocorrelation)",
+          "quality": "strong",
+          "note": "Correct incl thinning caveat.",
+          "upgrade": ""
+        },
+        {
+          "concept": "variational inference / ELBO",
+          "quality": "strong",
+          "note": "ELBO decomposition and bound direction correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "mean-field approximation",
+          "quality": "strong",
+          "note": "Factorized family.",
+          "upgrade": ""
+        },
+        {
+          "concept": "VI vs MCMC table",
+          "quality": "strong",
+          "note": "Correct tradeoffs.",
+          "upgrade": ""
+        },
+        {
+          "concept": "posterior predictive distribution",
+          "quality": "strong",
+          "note": "Integral + plug-in contrast.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked predictive (Beta-Binomial)",
+          "quality": "strong",
+          "note": "P(next=H)=9/14.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Bayesian model averaging",
+          "quality": "strong",
+          "note": "Ensembles / MC dropout as approximations.",
+          "upgrade": ""
+        },
+        {
+          "concept": "marginal likelihood / model evidence",
+          "quality": "strong",
+          "note": "Defined per model.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Bayes factor + Occam's razor",
+          "quality": "strong",
+          "note": "Now with a worked numeric BF (fair coin vs free-theta on 7/10 -> BF~1.29) (was adequate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "BIC + Laplace derivation",
+          "quality": "adequate",
+          "note": "BIC correct; Laplace expansion fixed to use per-observation Hessian H1 (removed the n-scaling double-count); no standalone numeric BIC.",
+          "upgrade": ""
+        },
+        {
+          "concept": "where BIC fails / singular models",
+          "quality": "strong",
+          "note": "NN permutation/zero-weight, mixtures, HMMs.",
+          "upgrade": ""
+        },
+        {
+          "concept": "SLT free-energy formula",
+          "quality": "strong",
+          "note": "F_n = nL_n + lambda log n - (m-1) log log n verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "WAIC",
+          "quality": "strong",
+          "note": "Deviance-scale lppd - p_WAIC verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "WBIC",
+          "quality": "strong",
+          "note": "Tempered posterior, beta=1/log n, ~ nL_n + lambda log n verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Bayesian NNs / L2<->Gaussian prior",
+          "quality": "strong",
+          "note": "MAP-with-Gaussian-prior = L2 derivation; L1<->Laplace.",
+          "upgrade": ""
+        },
+        {
+          "concept": "approximate methods (Bayes-by-Backprop, MC Dropout, Laplace)",
+          "quality": "strong",
+          "note": "Overview of the three.",
+          "upgrade": ""
+        },
+        {
+          "concept": "SLT connection (free energy, RLCT, LLC, phase transitions)",
+          "quality": "strong",
+          "note": "F_n=-log Z_n, regular lambda=d/2->BIC, singular lambda<d/2, LLC.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

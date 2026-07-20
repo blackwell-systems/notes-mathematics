@@ -9,7 +9,7 @@ enables: ["singular-learning-theory"]
 > **Leads to:** [Singular Learning Theory](./singular-learning-theory)
 
 
-Bayesian inference is the framework for reasoning about uncertainty by treating unknown quantities as probability distributions rather than fixed values. Instead of asking "what is the best parameter?", Bayesian inference asks "what is the distribution of the parameter given the data?" This page builds on [Bayes' theorem and probability distributions](./probability) and on [MLE and MAP estimation from statistics](./statistics). It provides the foundation for understanding singular learning theory (SLT), which is fundamentally a Bayesian framework.
+Bayesian inference is the framework for reasoning about uncertainty by treating unknown quantities as probability distributions rather than fixed values. Instead of asking "what is the best parameter?", Bayesian inference asks "what is the distribution of the parameter given the data?" This page builds on [Bayes' theorem and probability distributions](./probability) and on [MLE and MAP estimation](./inferential-statistics#maximum-likelihood-estimation-mle). It provides the foundation for understanding singular learning theory (SLT), which is fundamentally a Bayesian framework.
 
 ## The Bayesian Framework
 
@@ -25,7 +25,7 @@ This equation has four components, each with a distinct role:
 
 **Prior** $P(\theta)$: What you believe about the parameter $\theta$ before seeing any data. This encodes existing knowledge, assumptions, or deliberate ignorance. A prior over $\theta$ is a full probability distribution, not a single number.
 
-**Likelihood** $P(D | \theta)$: The probability of observing data $D$ if the parameter value were $\theta$. This is the same likelihood function used in [MLE](./statistics), but now evaluated across all possible values of $\theta$, not just the maximizer.
+**Likelihood** $P(D | \theta)$: The probability of observing data $D$ if the parameter value were $\theta$. This is the same likelihood function used in [MLE](./inferential-statistics#maximum-likelihood-estimation-mle), but now evaluated across all possible values of $\theta$, not just the maximizer.
 
 **Posterior** $P(\theta | D)$: The updated belief about $\theta$ after seeing the data. This is the central object of Bayesian inference. It is a full distribution, not a point estimate.
 
@@ -37,11 +37,19 @@ $$
 
 This acts as a normalizing constant, ensuring the posterior integrates to 1. Computing this integral is usually the hard part of Bayesian inference.
 
+**Worked example (the base-rate fallacy).** A disease affects $1\%$ of a population. A test has $99\%$ sensitivity (it flags $99\%$ of true cases) and $95\%$ specificity (a $5\%$ false-positive rate). You test positive. What is the probability you actually have the disease? Let $D$ be "has disease" and $+$ be "tests positive." Bayes' theorem gives
+
+$$
+P(D \mid +) = \frac{P(+ \mid D)\,P(D)}{P(+ \mid D)\,P(D) + P(+ \mid \neg D)\,P(\neg D)} = \frac{(0.99)(0.01)}{(0.99)(0.01) + (0.05)(0.99)} = \frac{0.0099}{0.0594} = \frac{1}{6} \approx 16.7\%.
+$$
+
+Despite a positive result from a highly accurate test, there is only about a $17\%$ chance of actually having the disease. This is the **base-rate fallacy**: because the disease is rare (the prior $P(D) = 0.01$ is small), the false positives from the $99\%$ healthy majority ($0.05 \times 0.99 = 0.0495$) outnumber the true positives ($0.99 \times 0.01 = 0.0099$) by five to one. The posterior is emphatically not the likelihood: $P(D \mid +) = 16.7\%$ is nowhere near the sensitivity $P(+ \mid D) = 99\%$. Only by folding in the prior does the honest answer emerge.
+
 ### From Point Estimates to Distributions
 
-[MLE](./statistics) finds the single value $\hat{\theta}$ that maximizes $P(D | \theta)$. It ignores the prior entirely.
+[MLE](./inferential-statistics#maximum-likelihood-estimation-mle) finds the single value $\hat{\theta}$ that maximizes $P(D | \theta)$. It ignores the prior entirely.
 
-[MAP estimation](./statistics) finds the single value $\hat{\theta}$ that maximizes $P(\theta | D) \propto P(D | \theta) P(\theta)$. It uses the prior but still returns a point estimate.
+[MAP estimation](./inferential-statistics#map-estimation) finds the single value $\hat{\theta}$ that maximizes $P(\theta | D) \propto P(D | \theta) P(\theta)$. It uses the prior but still returns a point estimate.
 
 Full Bayesian inference keeps the entire posterior distribution $P(\theta | D)$. This is a fundamental shift:
 
@@ -338,6 +346,15 @@ $$
 
 A Bayes factor of 10 means the data is 10 times more probable under $M_1$ than $M_2$.
 
+**Worked example (Occam's razor in numbers).** Return to the coin with $7$ heads in $10$ flips. Compare a **simple** model $M_1$ ("the coin is fair," $\theta = 0.5$ fixed, no free parameters) against a **flexible** model $M_2$ ("$\theta$ is unknown," with a uniform $\text{Beta}(1,1)$ prior). The marginal likelihoods (the shared $\binom{10}{7}$ cancels in the ratio) are
+
+$$
+P(D \mid M_1) \propto 0.5^{10} = 0.000977, \qquad
+P(D \mid M_2) \propto \int_0^1 \theta^7 (1-\theta)^3 \, d\theta = B(8, 4) = \frac{7!\,3!}{11!} = 0.000758.
+$$
+
+So $\text{BF}_{12} = \dfrac{0.000977}{0.000758} \approx 1.29$: the data are about $1.3$ times more probable under the fair-coin model. Even though the flexible model can fit the observed frequency $0.7$ *exactly* (its MLE), it pays for that flexibility by spreading its prior over all of $[0,1]$, and $7/10$ is close enough to $0.5$ that the parsimonious model still wins. This is the Bayes factor's built-in Occam's razor made quantitative: extra parameters must earn their keep.
+
 The Bayes factor has a built-in **Occam's razor** effect. A complex model with many parameters spreads its prior probability thinly over a large parameter space. If the data is consistent with a simple model, the simple model will have higher marginal likelihood because it concentrates its prior probability on the region that actually generates the data. The complex model "wastes" prior probability on parameter configurations that do not match the data.
 
 ### BIC as an Approximation
@@ -353,10 +370,10 @@ where $d$ is the number of parameters and $n$ is the number of data points. The 
 BIC is derived by applying the Laplace approximation to the log marginal likelihood. Specifically:
 
 $$
-\log P(D | M) \approx \log P(D | \hat{\theta}) + \log P(\hat{\theta}) - \frac{d}{2} \log n + \frac{d}{2} \log(2\pi) + \frac{1}{2} \log \det H^{-1}
+\log P(D | M) \approx \log P(D | \hat{\theta}) + \log P(\hat{\theta}) - \frac{d}{2} \log n + \frac{d}{2} \log(2\pi) + \frac{1}{2} \log \det H_1^{-1}
 $$
 
-Dropping the terms that do not grow with $n$ and multiplying by $-2$ gives BIC.
+Here $H_1$ is the *per-observation* Hessian of the negative log-likelihood: the full-sample Hessian is $H = n H_1$, and the factor $\det H^{-1} = n^{-d}\det H_1^{-1}$ is precisely what supplies the $-\frac{d}{2}\log n$ term shown explicitly above (writing it with $H_1$ avoids counting that $n$-dependence twice). Dropping the terms that do not grow with $n$ and multiplying by $-2$ gives BIC.
 
 ### Where BIC Fails: The SLT Connection
 
@@ -436,7 +453,7 @@ $$
 -\log P(w | D) = -\log P(D | w) - \log P(w) + \text{const} = -\log P(D | w) + \frac{\lambda}{2}\|w\|^2 + \text{const}
 $$
 
-So MAP estimation with a Gaussian prior = minimizing L2-regularized loss. Similarly, L1 regularization corresponds to a Laplace prior on the weights. This Bayesian interpretation of regularization (already mentioned in [optimization](./optimization) and [statistics](./statistics)) gains its full meaning here: regularization is not just a computational trick, it is a statement about your prior beliefs.
+So MAP estimation with a Gaussian prior = minimizing L2-regularized loss. Similarly, L1 regularization corresponds to a Laplace prior on the weights. This Bayesian interpretation of regularization (already mentioned in [optimization](./optimization) and [statistics](./inferential-statistics#map-estimation)) gains its full meaning here: regularization is not just a computational trick, it is a statement about your prior beliefs.
 
 ### Approximate Bayesian Methods for Neural Networks
 
