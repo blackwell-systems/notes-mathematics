@@ -608,6 +608,24 @@ Logarithms are woven through information theory and machine learning, which make
 - **Log-loss is the standard training objective.** Minimizing **cross-entropy** (log-loss), $-\sum_i y_i \log \hat{p}_i$, is exactly maximum-likelihood estimation for a classifier (see [Logistic Regression](./statistical-learning#logistic-regression-and-generalized-linear-models) and [Cross-Entropy](./information-theory#cross-entropy)).
 - **Log scales tame magnitudes.** Learning rates, model sizes, and loss curves are routinely plotted and searched on a log scale, because the interesting behavior spans many orders of magnitude.
 
+**Worked example (entropy in bits).** A fair coin has outcomes of probability $\tfrac{1}{2}$ each, so its entropy is
+
+$$
+H = -\left(\tfrac{1}{2}\log_2\tfrac{1}{2} + \tfrac{1}{2}\log_2\tfrac{1}{2}\right) = -\left(\tfrac{1}{2}(-1) + \tfrac{1}{2}(-1)\right) = 1 \text{ bit}.
+$$
+
+One fair coin flip carries exactly one bit, the definition of the unit. A **biased** coin with $p = 0.9$ carries less, because the outcome is more predictable:
+
+$$
+H = -\left(0.9\log_2 0.9 + 0.1\log_2 0.1\right) = -\left(0.9(-0.152) + 0.1(-3.322)\right) \approx 0.469 \text{ bits}.
+$$
+
+The rarer tail ($p = 0.1$) is more surprising, carrying $-\log_2 0.1 \approx 3.32$ bits when it occurs, but it occurs seldom, so the average is low.
+
+**Worked example (bits vs. nats).** The unit depends only on the log base: base 2 gives **bits**, base $e$ gives **nats**. They are related by the change-of-base constant $\ln 2$: since $\log_2 x = \ln x / \ln 2$, one nat $= 1/\ln 2 \approx 1.4427$ bits, and one bit $= \ln 2 \approx 0.6931$ nats. So the fair coin's $1$ bit equals $0.6931$ nats.
+
+**Worked example (cross-entropy of one prediction).** A classifier assigns probability $\hat{p} = 0.8$ to the true class. The cross-entropy loss for that single example is $-\log_2 0.8 \approx 0.322$ bits (or $-\ln 0.8 \approx 0.223$ nats). A perfect prediction $\hat{p} = 1$ would give $-\log 1 = 0$ loss; the further $\hat{p}$ falls below $1$, the larger the penalty, which is what drives the classifier to raise the probability of the correct answer.
+
 ## Calculus of Logarithms
 
 Logarithms are not just an algebraic convenience; the natural logarithm has an especially clean role in calculus, and this is the deepest reason base $e$ is called "natural."
@@ -622,7 +640,9 @@ For a general base, change of base $\log_a x = \dfrac{\ln x}{\ln a}$ gives
 
 $$\frac{d}{dx}\log_a x = \frac{1}{x \ln a}.$$
 
-The extra factor $\ln a$ equals 1 exactly when $a = e$, and that is what singles out $e$: it is the unique base whose logarithm has derivative exactly $1/x$ (equivalently, whose exponential $e^x$ is its own derivative). Every other base drags along the nuisance constant $\ln a$. See [Calculus](./calculus) for the derivative rules and for **logarithmic differentiation**, a technique that uses $\ln$ to differentiate complicated products and powers.
+The extra factor $\ln a$ equals 1 exactly when $a = e$, and that is what singles out $e$: it is the unique base whose logarithm has derivative exactly $1/x$ (equivalently, whose exponential $e^x$ is its own derivative). Every other base drags along the nuisance constant $\ln a$.
+
+**Worked instance.** The slope of $\ln x$ at $x = 2$ is $\tfrac{1}{2}$, while the slope of $\log_2 x$ at $x = 2$ is $\tfrac{1}{2\ln 2} \approx 0.721$. The base-2 curve is steeper by the factor $1/\ln 2 \approx 1.443$, exactly the nuisance constant. See [Calculus](./calculus) for the derivative rules and for **logarithmic differentiation**, a technique that uses $\ln$ to differentiate complicated products and powers.
 
 ### The Integral
 
@@ -631,6 +651,8 @@ The power rule for integration, $\int x^n\,dx = \dfrac{x^{n+1}}{n+1}$, breaks do
 $$\int \frac{1}{x}\,dx = \ln|x| + C.$$
 
 The absolute value covers negative $x$ as well, since $1/x$ is defined there too.
+
+**Worked instance.** $\displaystyle\int_1^e \frac{1}{x}\,dx = \ln e - \ln 1 = 1 - 0 = 1$: the area under $1/x$ from $1$ to $e$ is exactly $1$. This is the integral form of "$\ln e = 1$," and it is the next subsection's viewpoint.
 
 ### The Natural Log as an Area
 
@@ -643,6 +665,24 @@ That is, $\ln x$ is the signed area under the curve $y = 1/t$ from $1$ to $x$.
 ![The curve y = 1/t with the region from t = 1 to t = x shaded, whose area equals the natural logarithm of x](./media/log-integral-area.png)
 
 From this one definition every property follows cleanly: $\ln 1 = 0$ (an empty interval has no area); $\ln$ is increasing (the integrand $1/t$ is positive); the product rule $\ln(ab) = \ln a + \ln b$ falls out of a substitution in the integral; and $e$ can be *defined* as the unique number with $\ln e = 1$ (where the accumulated area first reaches 1). This is the rigorous foundation sitting underneath all the algebra on this page.
+
+### The Taylor Series of ln(1+x)
+
+Near $x = 0$, the natural logarithm has a clean power-series expansion (its Taylor series, see [Calculus](./calculus)):
+
+$$
+\ln(1 + x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots \qquad (-1 < x \le 1).
+$$
+
+It converges for $-1 < x \le 1$; outside that range the series diverges and is useless. For small $x$ the first term alone gives the handy approximation $\ln(1 + x) \approx x$ (so $\ln(1.01) \approx 0.01$).
+
+**Worked example.** Estimate $\ln(1.1)$ using the first three terms with $x = 0.1$:
+
+$$
+\ln(1.1) \approx 0.1 - \frac{0.1^2}{2} + \frac{0.1^3}{3} = 0.1 - 0.005 + 0.000333 = 0.095333.
+$$
+
+The true value is $\ln(1.1) = 0.0953102\ldots$, so three terms already agree to five decimal places. This series is why numerical libraries provide a dedicated `log1p(x)` function for computing $\ln(1 + x)$ accurately when $x$ is tiny: evaluating $\ln(1 + x)$ directly would lose precision as $1 + x$ rounds toward $1$, whereas the series stays accurate.
 
 ## Connection to Exponential Functions
 

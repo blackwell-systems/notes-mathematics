@@ -4189,6 +4189,36 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("HC: split-complex (1+j)(1-j) = 1 - 1 = 0", 1 - 1, 0);
 }
 
+// ===== Logarithms (Phase-2 worked examples) =====
+{
+  const l2 = x => Math.log2(x);
+  // Entropy: fair coin = 1 bit, biased p=0.9 ~ 0.469 bits.
+  eq("LOG: H(fair coin) = 1 bit", -(0.5 * l2(0.5) + 0.5 * l2(0.5)), 1);
+  eq("LOG: H(p=0.9) ~ 0.469 bits", -(0.9 * l2(0.9) + 0.1 * l2(0.1)), 0.469, 1e-3);
+  eq("LOG: surprise of p=0.1 ~ 3.32 bits", -l2(0.1), 3.32, 5e-3);
+  // Bits vs nats.
+  eq("LOG: 1 nat = 1/ln2 ~ 1.4427 bits", 1 / Math.log(2), 1.4427, 1e-4);
+  eq("LOG: 1 bit = ln2 ~ 0.6931 nats", Math.log(2), 0.6931, 1e-4);
+  // Cross-entropy of one prediction p_hat=0.8.
+  eq("LOG: cross-entropy -log2(0.8) ~ 0.322 bits", -l2(0.8), 0.322, 1e-3);
+  eq("LOG: cross-entropy -ln(0.8) ~ 0.223 nats", -Math.log(0.8), 0.223, 1e-3);
+  eq("LOG: perfect prediction -log(1) = 0", -Math.log(1), 0);
+
+  // Derivative instances: d/dx ln x at 2 = 1/2; d/dx log2 x at 2 = 1/(2 ln2).
+  eq("LOG: d/dx ln x at 2 = 0.5", 1 / 2, 0.5);
+  eq("LOG: d/dx log2 x at 2 = 1/(2 ln2) ~ 0.721", 1 / (2 * Math.log(2)), 0.7213, 1e-3);
+  eq("LOG: base-2 slope steeper by 1/ln2 ~ 1.443", (1 / (2 * Math.log(2))) / (1 / 2), 1 / Math.log(2), 1e-9);
+
+  // Integral: int_1^e dx/x = 1.
+  eq("LOG: int_1^e dx/x = ln(e) - ln(1) = 1", Math.log(Math.E) - Math.log(1), 1);
+
+  // Taylor series of ln(1+x) at x=0.1: three terms ~ 0.095333 vs true 0.0953102.
+  const x = 0.1, taylor3 = x - x * x / 2 + x * x * x / 3;
+  eq("LOG: ln(1.1) 3-term Taylor = 0.095333", taylor3, 0.095333, 1e-6);
+  eq("LOG: ln(1.1) true = 0.0953102", Math.log(1.1), 0.0953102, 1e-6);
+  check("LOG: 3-term Taylor agrees to 5 dp", Math.abs(taylor3 - Math.log(1.1)) < 5e-5);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

@@ -6751,6 +6751,202 @@
           "upgrade": ""
         }
       ]
+    },
+    "logarithms.md": {
+      "contentHash": "sha1:8d6e2994bb746fcc",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Unusually thorough logarithms reference (definition, log laws, change of base, expand/condense, solving equations/inequalities with extraneous handling, graphing, applications, calculus); every worked number independently recomputed, no errors found. Audited and Phase-2'd in one pass: filled the ML-relevant tail the audit flagged: information theory now has worked numbers (H(fair)=1 bit, H(0.9)=0.469 bits, bits<->nats via 1/ln2=1.4427, cross-entropy -log2(0.8)=0.322), the derivative and integral got worked instances (slopes at x=2; int_1^e dx/x=1), and the previously-missing Taylor series of ln(1+x) is added (ln(1.1) three-term = 0.095333, with the log1p connection). 28 strong / 3 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "motivation (2^?=8, 10^x=500)",
+          "quality": "strong",
+          "note": "Concrete numeric hook; log10(500)~2.699.",
+          "upgrade": ""
+        },
+        {
+          "concept": "definition (log as inverse of exponential)",
+          "quality": "strong",
+          "note": "Formal domain/codomain + 2^3=8 <=> log2 8=3.",
+          "upgrade": ""
+        },
+        {
+          "concept": "inverse-relationship widget",
+          "quality": "strong",
+          "note": "Interactive overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "natural log (ln, base e)",
+          "quality": "adequate",
+          "note": "Defined; numeric ln use appears later.",
+          "upgrade": ""
+        },
+        {
+          "concept": "common log (base 10)",
+          "quality": "adequate",
+          "note": "Defined; numeric use in pH.",
+          "upgrade": ""
+        },
+        {
+          "concept": "binary log (lg, base 2)",
+          "quality": "strong",
+          "note": "Base-2 numbers worked throughout.",
+          "upgrade": ""
+        },
+        {
+          "concept": "product / quotient / power rules",
+          "quality": "strong",
+          "note": "log2(8*4)=5, log2(8/4)=1, log2(8^2)=6.",
+          "upgrade": ""
+        },
+        {
+          "concept": "change of base",
+          "quality": "strong",
+          "note": "log3 50~3.561, log5 200~3.292 + derivation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "reciprocal & base-swap identities",
+          "quality": "strong",
+          "note": "log2(1/8)=-3, log8 2=1/3.",
+          "upgrade": ""
+        },
+        {
+          "concept": "expanding log expressions",
+          "quality": "strong",
+          "note": "Five worked examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "condensing log expressions",
+          "quality": "strong",
+          "note": "Five worked examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "common mistakes",
+          "quality": "strong",
+          "note": "Non-rules tied to domain/extraneous.",
+          "upgrade": ""
+        },
+        {
+          "concept": "special values (identity, zero, undefined)",
+          "quality": "strong",
+          "note": "Numeric instances.",
+          "upgrade": ""
+        },
+        {
+          "concept": "inverse cancellation identities",
+          "quality": "strong",
+          "note": "log2(2^5)=5, 2^{log2 8}=8.",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain and range",
+          "quality": "strong",
+          "note": "Correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving log equations (Types 1-4)",
+          "quality": "strong",
+          "note": "Multiple worked with checks + extraneous rejection.",
+          "upgrade": ""
+        },
+        {
+          "concept": "natural-log equations (u-sub -> quadratic; multi-ln)",
+          "quality": "strong",
+          "note": "e^{2x}-5e^x+6=0 etc. with domain reasoning.",
+          "upgrade": ""
+        },
+        {
+          "concept": "logarithmic inequalities",
+          "quality": "strong",
+          "note": "Three worked incl base<1 flip and domain trimming.",
+          "upgrade": ""
+        },
+        {
+          "concept": "graph properties + base effects",
+          "quality": "strong",
+          "note": "With diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "graphing with transformations",
+          "quality": "strong",
+          "note": "Point-by-point transform of -2 log3(x-1)+4.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving exponential equations",
+          "quality": "strong",
+          "note": "2^x=10 -> 3.32.",
+          "upgrade": ""
+        },
+        {
+          "concept": "pH scale",
+          "quality": "strong",
+          "note": "pH([H+]=3.2e-4)~3.5 worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Richter scale (amplitude vs energy)",
+          "quality": "strong",
+          "note": "Amplitude 100x, energy 1000x.",
+          "upgrade": ""
+        },
+        {
+          "concept": "decibel scale",
+          "quality": "strong",
+          "note": "Jackhammer 100 dB; doubling adds ~3.01 dB.",
+          "upgrade": ""
+        },
+        {
+          "concept": "growth and decay",
+          "quality": "adequate",
+          "note": "Bulleted; deliberately deferred to exponential-functions.",
+          "upgrade": ""
+        },
+        {
+          "concept": "information theory & ML (entropy, cross-entropy, bits/nats)",
+          "quality": "strong",
+          "note": "Now worked: H(fair)=1 bit, H(0.9)=0.469, 1 nat=1.4427 bits, cross-entropy -log2(0.8)=0.322 (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "derivative of log",
+          "quality": "strong",
+          "note": "Now with a worked instance: slope of ln x and log2 x at x=2 (0.5 vs 0.721) (was adequate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "integral of log",
+          "quality": "strong",
+          "note": "Now with a worked definite integral: int_1^e dx/x = 1 (was adequate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Taylor series of ln(1+x)",
+          "quality": "strong",
+          "note": "Now present: series + ln(1.1) three-term truncation (0.095333) and the log1p connection (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "ln as an area",
+          "quality": "strong",
+          "note": "int_1^x dt/t with diagram; properties derived.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection to exponentials + quick-reference tables",
+          "quality": "strong",
+          "note": "Accurate summary tables.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
