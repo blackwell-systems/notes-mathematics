@@ -4320,6 +4320,33 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("SL: VIF = 1/(1-0.9) = 10", 1 / (1 - 0.9), 10, 1e-9);
 }
 
+// ===== Probability (Phase-3 moment-cluster upgrades) =====
+{
+  // Fair-die variance.
+  const die = [1, 2, 3, 4, 5, 6];
+  const EX = die.reduce((a, b) => a + b, 0) / 6, EX2 = die.reduce((a, b) => a + b * b, 0) / 6;
+  eq("PROB: die E[X] = 3.5", EX, 3.5);
+  eq("PROB: die E[X^2] = 91/6", EX2, 91 / 6, 1e-9);
+  eq("PROB: die Var = 35/12", EX2 - EX * EX, 35 / 12, 1e-9);
+  eq("PROB: die sd = sqrt(35/12) ~ 1.708", Math.sqrt(EX2 - EX * EX), 1.708, 1e-3);
+  eq("PROB: Var(2X+1) = 4 Var = 35/3", 4 * (EX2 - EX * EX), 35 / 3, 1e-9);
+
+  // Joint (X,Y): P(0,0)=.4, P(0,1)=.1, P(1,0)=.2, P(1,1)=.3.
+  const J = { "0,0": 0.4, "0,1": 0.1, "1,0": 0.2, "1,1": 0.3 };
+  let Ex = 0, Ey = 0, Exy = 0, Ex2 = 0, Ey2 = 0, Es2 = 0;
+  for (const k in J) { const [x, y] = k.split(",").map(Number), pp = J[k]; Ex += x * pp; Ey += y * pp; Exy += x * y * pp; Ex2 += x * x * pp; Ey2 += y * y * pp; Es2 += (x + y) ** 2 * pp; }
+  const Vx = Ex2 - Ex * Ex, Vy = Ey2 - Ey * Ey, Cov = Exy - Ex * Ey;
+  eq("PROB: joint E[X]=0.5, E[Y]=0.4", Ex + Ey, 0.9, 1e-12);
+  eq("PROB: joint E[XY] = 0.3", Exy, 0.3, 1e-12);
+  eq("PROB: Cov(X,Y) = 0.1", Cov, 0.1, 1e-12);
+  check("PROB: not independent (P(1,1)=0.3 != 0.5*0.4)", 0.3 !== 0.5 * 0.4);
+  eq("PROB: Var X = 0.25, Var Y = 0.24", Vx + Vy, 0.49, 1e-12);
+  eq("PROB: Var(X+Y) formula = 0.69", Vx + Vy + 2 * Cov, 0.69, 1e-12);
+  eq("PROB: Var(X+Y) direct = 0.69", Es2 - (Ex + Ey) ** 2, 0.69, 1e-12);
+  eq("PROB: rho = Cov/(sx sy) ~ 0.408", Cov / (Math.sqrt(Vx) * Math.sqrt(Vy)), 0.408, 1e-3);
+  check("PROB: rho in [-1,1]", Math.abs(Cov / (Math.sqrt(Vx) * Math.sqrt(Vy))) <= 1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

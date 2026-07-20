@@ -2857,10 +2857,10 @@
       ]
     },
     "probability.md": {
-      "contentHash": "sha1:d23f9902d71f9eb8",
+      "contentHash": "sha1:a0add51ab7ddd3d2",
       "clarityRubricVersion": 1,
-      "auditedAt": "2026-07-19",
-      "auditor": "claude+3subagents",
+      "auditedAt": "2026-07-20",
+      "auditor": "claude (phase-3)",
       "overall": "strong",
       "summary": "Very large, comprehensive probability reference (43 concepts), every worked number independently verified. Phase-2 closed all six thin items (skewness/kurtosis, continuous uniform, gamma, beta, chi-squared, law of total variance) with numeric worked examples. 30 strong / 13 adequate / 0 thin / 0 missing.",
       "inventory": [
@@ -2926,8 +2926,8 @@
         },
         {
           "concept": "variance / standard deviation",
-          "quality": "adequate",
-          "note": "Formulas and properties given but no numeric variance computed.",
+          "quality": "strong",
+          "note": "Now numeric: fair-die Var=35/12~2.917, sd~1.708, and Var(2X+1)=35/3 property check.",
           "upgrade": ""
         },
         {
@@ -3064,20 +3064,20 @@
         },
         {
           "concept": "covariance + bilinearity",
-          "quality": "adequate",
-          "note": "Bilinearity with symbolic expansion; no numeric example.",
+          "quality": "strong",
+          "note": "Now worked on a 2x2 joint pmf: E[XY]=0.3, Cov=0.1>0, shown non-independent.",
           "upgrade": ""
         },
         {
           "concept": "variance of sums (general)",
-          "quality": "adequate",
-          "note": "General and n-case formulas; no numeric plug-in.",
+          "quality": "strong",
+          "note": "Now worked: Var(X+Y)=0.25+0.24+2(0.1)=0.69, verified directly against the distribution of X+Y.",
           "upgrade": ""
         },
         {
           "concept": "correlation (Pearson rho)",
-          "quality": "adequate",
-          "note": "Formula and limits; rho never computed numerically.",
+          "quality": "strong",
+          "note": "Now computed: rho=Cov/(sx sy)=0.1/(0.5*0.490)=0.408 on the joint example.",
           "upgrade": ""
         },
         {

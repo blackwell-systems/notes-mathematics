@@ -319,6 +319,14 @@ The second form ($E[X^2] - (E[X])^2$) is usually easier to compute. It says: the
 - $\text{Var}(aX + b) = a^2 \text{Var}(X)$ (adding a constant does not change spread; scaling by $a$ scales variance by $a^2$)
 - $\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)$ (only if $X$ and $Y$ are independent)
 
+**Worked example (a fair die).** Let $X$ be the result of a fair six-sided die. Its mean is $E[X] = \tfrac{1+2+\cdots+6}{6} = 3.5$, and the average of the squares is $E[X^2] = \tfrac{1+4+9+16+25+36}{6} = \tfrac{91}{6} \approx 15.17$. So
+
+$$
+\text{Var}(X) = E[X^2] - (E[X])^2 = \tfrac{91}{6} - 3.5^2 = 15.17 - 12.25 = \tfrac{35}{12} \approx 2.917,
+$$
+
+and the standard deviation is $\sigma = \sqrt{35/12} \approx 1.708$ (in the same units as $X$, unlike the variance). The scaling property checks out too: doubling the die and shifting, $\text{Var}(2X + 1) = 2^2 \text{Var}(X) = 4 \cdot \tfrac{35}{12} = \tfrac{35}{3} \approx 11.67$, with the $+1$ shift contributing nothing.
+
 ### Skewness and Kurtosis
 
 Variance (the second moment) measures spread, but it says nothing about the shape of a distribution. The third and fourth standardized moments capture two important shape properties: asymmetry and tail heaviness.
@@ -884,6 +892,21 @@ $$
 
 This property is extremely useful for computing the variance of linear combinations. For example, $\text{Cov}(X, X) = \text{Var}(X)$, and $\text{Cov}(X + Y, X + Y)$ expands to $\text{Var}(X) + 2\text{Cov}(X,Y) + \text{Var}(Y)$.
 
+**Worked example.** Let $(X, Y)$ be two indicator variables with the joint distribution
+
+| $P(X, Y)$ | $Y = 0$ | $Y = 1$ |
+|---|---|---|
+| $X = 0$ | $0.4$ | $0.1$ |
+| $X = 1$ | $0.2$ | $0.3$ |
+
+The marginals are $P(X = 1) = 0.2 + 0.3 = 0.5$ and $P(Y = 1) = 0.1 + 0.3 = 0.4$, so $E[X] = 0.5$ and $E[Y] = 0.4$. Only the $(1,1)$ cell contributes to $E[XY]$, giving $E[XY] = 1 \cdot 1 \cdot 0.3 = 0.3$. Therefore
+
+$$
+\text{Cov}(X, Y) = E[XY] - E[X]\,E[Y] = 0.3 - (0.5)(0.4) = 0.1 > 0,
+$$
+
+so $X$ and $Y$ tend to be large together. The positive covariance also confirms they are **not** independent (independence would force $\text{Cov} = 0$; indeed $P(1,1) = 0.3 \neq P(X=1)P(Y=1) = 0.20$).
+
 ### Variance of Sums (General Case)
 
 For any two random variables $X$ and $Y$ (not necessarily independent):
@@ -900,6 +923,14 @@ $$
 \text{Var}\left(\sum_{i=1}^n X_i\right) = \sum_{i=1}^n \text{Var}(X_i) + 2\sum_{i < j} \text{Cov}(X_i, X_j)
 $$
 
+**Worked example (continuing the joint above).** Each indicator has $\text{Var}(X) = 0.5(1 - 0.5) = 0.25$ and $\text{Var}(Y) = 0.4(1 - 0.4) = 0.24$, and we found $\text{Cov}(X, Y) = 0.1$. So
+
+$$
+\text{Var}(X + Y) = 0.25 + 0.24 + 2(0.1) = 0.69.
+$$
+
+Because the positive covariance is included, this exceeds the $0.25 + 0.24 = 0.49$ an independence assumption would have (wrongly) given. Checking directly against the distribution of $S = X + Y$ (which takes value $0$ with probability $0.4$, $1$ with probability $0.3$, and $2$ with probability $0.3$): $E[S] = 0.9$, $E[S^2] = 0.3 + 4(0.3) = 1.5$, so $\text{Var}(S) = 1.5 - 0.9^2 = 0.69$, matching exactly.
+
 ### Correlation
 
 **Correlation (Pearson correlation coefficient):** A normalized version of covariance that always falls between -1 and 1:
@@ -911,6 +942,14 @@ $$
 - $\rho = 1$: perfect positive linear relationship
 - $\rho = -1$: perfect negative linear relationship
 - $\rho = 0$: no linear relationship
+
+**Worked example (continuing the joint above).** With $\text{Cov}(X, Y) = 0.1$, $\sigma_X = \sqrt{0.25} = 0.5$, and $\sigma_Y = \sqrt{0.24} \approx 0.490$,
+
+$$
+\rho(X, Y) = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} = \frac{0.1}{0.5 \times 0.490} \approx 0.408.
+$$
+
+The covariance $0.1$ was hard to interpret on its own (its size depends on the units of $X$ and $Y$), but the correlation $0.408$ immediately reads as a moderate positive association, and it is guaranteed to lie in $[-1, 1]$ regardless of scale.
 
 **Where it shows up in ML:** Feature correlation matters for multicollinearity in regression. The covariance matrix is central to PCA (principal component analysis), which finds the directions of maximum variance in data.
 
