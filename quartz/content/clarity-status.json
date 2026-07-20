@@ -5751,6 +5751,166 @@
           "upgrade": ""
         }
       ]
+    },
+    "exponential-functions.md": {
+      "contentHash": "sha1:856b0c38e0f1aae7",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Very comprehensive exponential-functions reference (growth/decay, e, compound interest, half-life, solving, inequalities, calculus, ML, transformations); every worked number independently verified, no errors found. Audited and Phase-2'd in one pass: continuous compound interest was formula-only (now 1000 e^0.5 = 1648.72 compared to the monthly 1647.01) and the ML section stated sigmoid/softmax symbolically (now worked: sigma(2)=0.881 with the symmetry identity, softmax(2,1,0)=(0.665,0.245,0.090) with the temperature-softening effect). 23 strong / 2 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "what is exponential growth (intro)",
+          "quality": "strong",
+          "note": "Powers-of-2 table to a trillion; concrete framing.",
+          "upgrade": ""
+        },
+        {
+          "concept": "real-world examples",
+          "quality": "adequate",
+          "note": "Bacteria/decay/interest named (motivator, no numbers).",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponential vs polynomial growth",
+          "quality": "adequate",
+          "note": "Correct claim (2^x beats x^100); no explicit crossover point.",
+          "upgrade": ""
+        },
+        {
+          "concept": "definition + general form a b^x + c",
+          "quality": "strong",
+          "note": "All four parameters named.",
+          "upgrade": ""
+        },
+        {
+          "concept": "growth vs decay + rate vs factor",
+          "quality": "strong",
+          "note": "5%/3% cases -> b=1.05/0.97; clean table; widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "the number e (limit definition)",
+          "quality": "strong",
+          "note": "Compounding table n=1..365 -> e, all values correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why e is natural (self-derivative)",
+          "quality": "strong",
+          "note": "d/dx e^x = e^x vs b^x ln b.",
+          "upgrade": ""
+        },
+        {
+          "concept": "two forms b^x vs e^{kx}",
+          "quality": "strong",
+          "note": "5*2^x = 5 e^{0.693x}.",
+          "upgrade": ""
+        },
+        {
+          "concept": "continuous compound interest Pe^{rt}",
+          "quality": "strong",
+          "note": "Now worked: 1000 e^0.5 = 1648.72, compared to the monthly 1647.01 (was formula-only).",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain and range",
+          "quality": "strong",
+          "note": "Complete case analysis.",
+          "upgrade": ""
+        },
+        {
+          "concept": "intercepts (y and x)",
+          "quality": "strong",
+          "note": "3*2^x-1 and 2^x-4 worked to a point.",
+          "upgrade": ""
+        },
+        {
+          "concept": "horizontal asymptote",
+          "quality": "strong",
+          "note": "Full growth/decay limit behavior.",
+          "upgrade": ""
+        },
+        {
+          "concept": "properties of exponents + common mistakes",
+          "quality": "strong",
+          "note": "Complete rule list + concrete counterexamples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "examples 1-4 (growth/decay/shift/compound)",
+          "quality": "strong",
+          "note": "All worked; compound -> 1647.01.",
+          "upgrade": ""
+        },
+        {
+          "concept": "doubling time + Rule of 70",
+          "quality": "strong",
+          "note": "Formula + three worked rates.",
+          "upgrade": ""
+        },
+        {
+          "concept": "half-life (carbon-14)",
+          "quality": "strong",
+          "note": "5730-yr chain 100->50->25->12.5 g.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving: same base",
+          "quality": "strong",
+          "note": "2^{3x}=2^7 and 4^x=8.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving: different bases via log",
+          "quality": "strong",
+          "note": "3^x=20 (2.727) and 1000->5000 at 6% (27.6 yr).",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving: equations with e",
+          "quality": "strong",
+          "note": "e^{2x}=15 -> 1.354.",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponential inequalities",
+          "quality": "strong",
+          "note": "Three worked cases incl direction flip.",
+          "upgrade": ""
+        },
+        {
+          "concept": "calculus (derivative, ODE, integral, series)",
+          "quality": "strong",
+          "note": "Self-derivative, y'=ky, integral, Taylor series (partial sum to 2.708).",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponentials in ML (sigmoid, softmax, Gaussian, exp family)",
+          "quality": "strong",
+          "note": "Now worked numerically: sigma(2)=0.881 with symmetry, softmax(2,1,0)=(0.665,0.245,0.090) plus temperature softening (was symbolic-only).",
+          "upgrade": ""
+        },
+        {
+          "concept": "exp-log connection (inverses)",
+          "quality": "strong",
+          "note": "Four-row correspondence table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "transformations",
+          "quality": "strong",
+          "note": "2^x -> -3*2^{x-1}+5 decomposed step by step.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quick-reference tables",
+          "quality": "strong",
+          "note": "Comprehensive exponent laws, function features, calculus, modeling.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

@@ -158,6 +158,14 @@ $$
 
 Where $P$ = principal, $r$ = annual rate, $t$ = time in years. This is the continuous compounding limit of the discrete formula $A = P(1 + r/n)^{nt}$.
 
+**Worked example (continuous vs monthly).** Take the same numbers as the discrete Example 4 below ($P = 1000$, $r = 0.05$, $t = 10$):
+
+$$
+A = 1000\,e^{0.05 \cdot 10} = 1000\,e^{0.5} \approx \$1648.72
+$$
+
+Compare this with monthly compounding of the same account, \$1647.01 (computed below). Continuous compounding earns slightly more, about \$1.71 over ten years, and it is the ceiling: no compounding frequency, however fine, can beat the continuous limit. The gap between monthly and continuous is small precisely because $(1 + r/n)^{nt}$ is already close to $e^{rt}$ once $n$ is as large as 12.
+
 ## Domain and Range
 
 **Domain:** $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers)
@@ -442,6 +450,22 @@ The exponential is one of the most heavily used building blocks in machine learn
 - **The Gaussian.** The normal density $\dfrac{1}{\sqrt{2\pi}\,\sigma}\,e^{-(x-\mu)^2/2\sigma^2}$ is built on $e^{-x^2}$; the exponential decay of its tails is why the normal distribution is so concentrated (see [Probability](./probability#normal-gaussian-distribution)).
 - **The exponential family.** A large class of distributions (normal, Bernoulli, Poisson, gamma, ...) share the form $p(x \mid \theta) \propto e^{\langle \theta,\, T(x)\rangle}$, which is what makes their maximum-likelihood estimation and their use in [generalized linear models](./statistical-learning#logistic-regression-and-generalized-linear-models) so uniform.
 - **Products to sums.** Because $e^{a}e^{b} = e^{a+b}$, working in the exponent turns products into sums, the mirror image of the [log-likelihood trick](./logarithms#logarithms-in-information-theory-and-machine-learning) on the logarithms page.
+
+**Worked example (sigmoid).** A logistic-regression model outputs a raw score $z = 2$. The predicted probability is
+
+$$
+\sigma(2) = \frac{1}{1 + e^{-2}} = \frac{1}{1 + 0.1353} \approx 0.881
+$$
+
+so the model assigns about an 88% probability to the positive class. At $z = 0$ the score is neutral and $\sigma(0) = \tfrac{1}{1+1} = 0.5$ exactly; at $z = -2$, $\sigma(-2) \approx 0.119$. Notice $\sigma(2) + \sigma(-2) = 1$: the sigmoid is symmetric, $\sigma(-z) = 1 - \sigma(z)$.
+
+**Worked example (softmax and temperature).** Three class scores $z = (2, 1, 0)$ become a probability distribution. Exponentiate each score, then normalize by the sum $e^2 + e^1 + e^0 = 7.389 + 2.718 + 1 = 11.107$:
+
+$$
+\text{softmax}(2,1,0) = \left(\frac{7.389}{11.107},\ \frac{2.718}{11.107},\ \frac{1}{11.107}\right) \approx (0.665,\ 0.245,\ 0.090)
+$$
+
+The three probabilities sum to $1$, and the largest score gets the largest share. Raising the **temperature** to $T = 2$ (dividing each score by $T$ before exponentiating, so the scores become $1, 0.5, 0$) softens the distribution to $\approx (0.506,\ 0.307,\ 0.186)$: still ranked the same way, but closer to uniform. Lowering $T$ toward $0$ would sharpen it toward putting all mass on the top class.
 
 ## The Exponential-Logarithm Connection
 

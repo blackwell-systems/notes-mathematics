@@ -3962,6 +3962,38 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("CONIC: (x+y)^2 = x^2+2xy+y^2 at x=2,y=3", (2 + 3) ** 2, 2 * 2 + 2 * 2 * 3 + 3 * 3);
 }
 
+// ===== Exponential functions (Phase-2 worked examples) =====
+{
+  // Continuous compound interest: 1000 e^{0.5} = 1648.72, vs monthly 1647.01.
+  const cont = 1000 * Math.exp(0.5);
+  const monthly = 1000 * Math.pow(1 + 0.05 / 12, 120);
+  eq("EXP: continuous 1000 e^0.5 = 1648.72", cont, 1648.72, 5e-3);
+  eq("EXP: monthly compound = 1647.01", monthly, 1647.01, 5e-3);
+  check("EXP: continuous exceeds monthly", cont > monthly);
+  eq("EXP: continuous-minus-monthly gap ~ 1.71", cont - monthly, 1.71, 0.02);
+
+  // Sigmoid.
+  const sig = z => 1 / (1 + Math.exp(-z));
+  eq("EXP: sigma(0) = 0.5", sig(0), 0.5);
+  eq("EXP: sigma(2) = 0.881", sig(2), 0.881, 5e-4);
+  eq("EXP: sigma(-2) = 0.119", sig(-2), 0.119, 5e-4);
+  eq("EXP: sigmoid symmetry sigma(-z) = 1 - sigma(z)", sig(-2), 1 - sig(2), 1e-12);
+
+  // Softmax over (2,1,0).
+  const z = [2, 1, 0], ez = z.map(Math.exp), S = ez.reduce((a, b) => a + b, 0);
+  eq("EXP: softmax denom e^2+e^1+e^0 = 11.107", S, 11.107, 1e-3);
+  const sm = ez.map(v => v / S);
+  eq("EXP: softmax(2,1,0)[0] = 0.665", sm[0], 0.665, 1e-3);
+  eq("EXP: softmax(2,1,0)[1] = 0.245", sm[1], 0.245, 1e-3);
+  eq("EXP: softmax(2,1,0)[2] = 0.090", sm[2], 0.090, 1e-3);
+  eq("EXP: softmax probabilities sum to 1", sm.reduce((a, b) => a + b, 0), 1, 1e-12);
+  // Temperature T=2 softens the distribution.
+  const zt = z.map(v => v / 2), ezt = zt.map(Math.exp), St = ezt.reduce((a, b) => a + b, 0);
+  const smt = ezt.map(v => v / St);
+  eq("EXP: softmax T=2 top prob = 0.506 (softer than 0.665)", smt[0], 0.506, 1e-3);
+  check("EXP: temperature T=2 softens the top probability", smt[0] < sm[0]);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
