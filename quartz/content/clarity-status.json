@@ -6657,6 +6657,100 @@
           "upgrade": ""
         }
       ]
+    },
+    "hypercomplex-numbers.md": {
+      "contentHash": "sha1:871b7e2b65371b77",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Thorough hypercomplex-numbers survey (Cayley-Dickson tower, quaternions/octonions/sedenions, the property-loss classification via Hurwitz/Frobenius/Bott-Milnor-Kervaire, dual/split-complex/p-adic/hyperreal sideways extensions); every claim and worked number independently verified, no errors found. Audited and Phase-2'd in one pass: the quaternion section proved non-commutativity abstractly but never multiplied concrete quaternions or rotated a vector, now worked (pq vs qp = 8+12i+10j+/-15k; |1+i+j+k|=2 with inverse; the sandwich product q=(sqrt2/2)(1+k) sending i->j as a 90-degree rotation). 11 strong / 3 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "motivation / algebraic closure of C",
+          "quality": "strong",
+          "note": "Frames C as a stopping point (FTA); trading laws for structure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Cayley-Dickson construction",
+          "quality": "strong",
+          "note": "Multiplication + conjugation formulas, with the R->C reduction verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quaternion definition + Hamilton's relations",
+          "quality": "strong",
+          "note": "i^2=j^2=k^2=ijk=-1, ij=k derived, full cyclic table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "non-commutativity (ij=k, ji=-k)",
+          "quality": "strong",
+          "note": "Concrete with rotation-order intuition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conjugate / norm / inverse / division algebra",
+          "quality": "strong",
+          "note": "Now worked: pq vs qp (non-commutative in k), |1+i+j+k|=2 and its inverse (1-i-j-k)/4 (was adequate/symbolic).",
+          "upgrade": ""
+        },
+        {
+          "concept": "unit quaternions for 3D rotation",
+          "quality": "strong",
+          "note": "Now worked: q=(sqrt2/2)(1+k) rotates i->j, a 90-degree turn about z via the sandwich product (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "octonions / non-associativity",
+          "quality": "strong",
+          "note": "Witness (e1 e2)e4=e7 vs e1(e2 e4)=-e7; alternativity; Fano plane.",
+          "upgrade": ""
+        },
+        {
+          "concept": "higher systems in physics",
+          "quality": "strong",
+          "note": "Complex-QM 2021, SU(2)/Pauli, dims 3/4/6/10, exceptional Jordan algebra; well-hedged.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sedenions / zero divisors / end of the line",
+          "quality": "strong",
+          "note": "(e1+e10)(e5+e14)=0; Hurwitz, Frobenius, Bott-Milnor-Kervaire.",
+          "upgrade": ""
+        },
+        {
+          "concept": "property-loss table + degradation chain",
+          "quality": "strong",
+          "note": "Correct table; associativity->alternativity->power-associativity descent.",
+          "upgrade": ""
+        },
+        {
+          "concept": "dual numbers + autodiff",
+          "quality": "strong",
+          "note": "f(x)=x^3-2x at 2+eps -> 4+10eps, cross-checked f'(2)=10; forward-mode AD.",
+          "upgrade": ""
+        },
+        {
+          "concept": "split-complex numbers",
+          "quality": "adequate",
+          "note": "j^2=+1, zero divisor (1+j)(1-j)=0; brief by design.",
+          "upgrade": ""
+        },
+        {
+          "concept": "p-adic numbers",
+          "quality": "adequate",
+          "note": "Distance-based extension overview; deliberately brief.",
+          "upgrade": ""
+        },
+        {
+          "concept": "hyperreals / surreals",
+          "quality": "adequate",
+          "note": "Infinitesimals overview; deliberately brief.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

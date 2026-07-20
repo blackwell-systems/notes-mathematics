@@ -47,7 +47,35 @@ Here is the first casualty of the tower: $ij = k$ but $ji = -k$. **Quaternion mu
 
 Quaternions otherwise behave beautifully. The **conjugate** is $\bar{q} = a - bi - cj - dk$, the **norm** is $\lvert q \rvert = \sqrt{a^2 + b^2 + c^2 + d^2}$, and every nonzero quaternion has an inverse $q^{-1} = \bar{q}/\lvert q \rvert^2$, so $\mathbb{H}$ is a **division algebra** (you can always divide). The norm is **multiplicative**: $\lvert pq \rvert = \lvert p \rvert\,\lvert q \rvert$, the four-dimensional cousin of the identity that makes complex numbers rotate.
 
+**Worked example (multiplication, norm, inverse).** Multiply $p = 2 + 3i$ and $q = 4 + 5j$ both ways, distributing and using $ij = k$, $ji = -k$:
+
+$$
+pq = (2+3i)(4+5j) = 8 + 10j + 12i + 15\,ij = 8 + 12i + 10j + 15k,
+$$
+$$
+qp = (4+5j)(2+3i) = 8 + 12i + 10j + 15\,ji = 8 + 12i + 10j - 15k.
+$$
+
+The two agree except in the $k$-component, which flips sign: $pq \ne qp$, concretely. For a norm-and-inverse instance, take $q_0 = 1 + i + j + k$. Its norm is $\lvert q_0 \rvert = \sqrt{1 + 1 + 1 + 1} = 2$, so $\lvert q_0 \rvert^2 = 4$ and
+
+$$
+q_0^{-1} = \frac{\bar{q_0}}{\lvert q_0 \rvert^2} = \frac{1 - i - j - k}{4}.
+$$
+
+Multiplying back confirms $q_0\,q_0^{-1} = \tfrac{1}{4}(1+i+j+k)(1-i-j-k) = \tfrac{1}{4}(1 + 1 + 1 + 1) = 1$ (all the cross terms cancel in conjugate pairs).
+
 **Why they matter.** A **unit quaternion** ($\lvert q \rvert = 1$) rotates a 3D vector $v$ (written as a pure quaternion $0 + v_x i + v_y j + v_z k$) by the sandwich product $v \mapsto q\,v\,q^{-1}$. Compared with rotation matrices, quaternions use fewer numbers, compose by simple multiplication, interpolate smoothly (spherical linear interpolation), and avoid *gimbal lock*, which is why they are the standard representation of orientation in graphics engines, robotics, aerospace, and physics simulators.
+
+**Worked example (a 90° rotation).** A rotation by angle $\theta$ about a unit axis $\hat{u}$ uses $q = \cos\tfrac{\theta}{2} + \sin\tfrac{\theta}{2}\,\hat{u}$. For a $90°$ turn about the $z$-axis ($\hat{u} = k$), $\tfrac{\theta}{2} = 45°$, so $q = \tfrac{\sqrt2}{2}(1 + k)$, a unit quaternion with $q^{-1} = \bar{q} = \tfrac{\sqrt2}{2}(1 - k)$. Rotate the $x$-axis vector $v = i$:
+
+$$
+q\,v = \tfrac{\sqrt2}{2}(1+k)\,i = \tfrac{\sqrt2}{2}(i + ki) = \tfrac{\sqrt2}{2}(i + j) \quad (\text{since } ki = j),
+$$
+$$
+(q\,v)\,q^{-1} = \tfrac{\sqrt2}{2}(i+j)\cdot\tfrac{\sqrt2}{2}(1-k) = \tfrac{1}{2}(i + j)(1 - k) = \tfrac{1}{2}(i + j + j - i) = j.
+$$
+
+So $i \mapsto j$: the vector $(1,0,0)$ rotates to $(0,1,0)$, exactly a $90°$ turn about $z$, as expected. (In the last step, $-ik = j$ and $-jk = -i$, so $(i+j)(1-k) = i + j - ik - jk = i + j + j - i = 2j$.)
 
 ## Octonions $\mathbb{O}$: Losing Associativity
 

@@ -4156,6 +4156,39 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("BI: B(8,4) = 7!3!/11!", Math.abs(Bfun(8, 4) - (5040 * 6) / 39916800) < 1e-9);
 }
 
+// ===== Hypercomplex numbers (Phase-2 worked examples) =====
+{
+  // Hamilton product of quaternions [w,x,y,z].
+  const qmul = (p, q) => { const [a, b, c, d] = p, [e, f, g, h] = q; return [a * e - b * f - c * g - d * h, a * f + b * e + c * h - d * g, a * g - b * h + c * e + d * f, a * h + b * g - c * f + d * e]; };
+  const eqv = (label, got, want) => { for (let i = 0; i < 4; i++) eq(`${label}[${i}]`, got[i], want[i], 1e-9); };
+
+  // p=2+3i, q=4+5j: pq=8+12i+10j+15k, qp=8+12i+10j-15k (non-commutative).
+  eqv("HC: pq = 8+12i+10j+15k", qmul([2, 3, 0, 0], [4, 0, 5, 0]), [8, 12, 10, 15]);
+  eqv("HC: qp = 8+12i+10j-15k", qmul([4, 0, 5, 0], [2, 3, 0, 0]), [8, 12, 10, -15]);
+  check("HC: pq != qp (non-commutative in k)", qmul([2, 3, 0, 0], [4, 0, 5, 0])[3] !== qmul([4, 0, 5, 0], [2, 3, 0, 0])[3]);
+
+  // Norm and inverse of q0=1+i+j+k.
+  const q0 = [1, 1, 1, 1];
+  eq("HC: |1+i+j+k| = 2", Math.hypot(...q0), 2);
+  const q0inv = [1 / 4, -1 / 4, -1 / 4, -1 / 4];
+  eqv("HC: q0 q0^-1 = 1", qmul(q0, q0inv), [1, 0, 0, 0]);
+
+  // Rotation: q=(sqrt2/2)(1+k) rotates v=i -> j (90 deg about z).
+  const s = Math.SQRT2 / 2, R = [s, 0, 0, s], Rinv = [s, 0, 0, -s], v = [0, 1, 0, 0];
+  eqv("HC: q i q^-1 = j (90deg about z)", qmul(qmul(R, v), Rinv), [0, 0, 1, 0]);
+  check("HC: q is a unit quaternion", Math.abs(Math.hypot(...R) - 1) < 1e-12);
+
+  // Dual number: f(x)=x^3-2x at 2+eps -> 4 + 10 eps (f(2)=4, f'(2)=10).
+  // (a+b*eps): value + deriv*eps; here (2+eps): cube -> 8+12eps, -2*(2+eps) -> -4-2eps.
+  eq("HC: dual (2+eps)^3 real part = 8", 2 ** 3, 8);
+  eq("HC: dual (2+eps)^3 eps part = 12 (=3*2^2)", 3 * 2 ** 2, 12);
+  eq("HC: f(2+eps) real = 4 = f(2)", 2 ** 3 - 2 * 2, 4);
+  eq("HC: f(2+eps) eps = 10 = f'(2)=3*4-2", 3 * 2 ** 2 - 2, 10);
+
+  // Split-complex zero divisor: (1+j)(1-j) = 1 - j^2 = 0 (j^2=+1).
+  eq("HC: split-complex (1+j)(1-j) = 1 - 1 = 0", 1 - 1, 0);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
