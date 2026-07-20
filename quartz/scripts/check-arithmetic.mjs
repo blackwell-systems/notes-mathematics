@@ -3688,6 +3688,33 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("cube Euler V-E+F = 8-12+6 = 2", 8 - 12 + 6, 2);
 }
 
+// ===== Inequalities (Phase-2 worked examples: systems of inequalities) =====
+{
+  // Example 2: two-variable system  y < 2x+1,  y >= -x+3.
+  // Boundary intersection: 2x+1 = -x+3 -> 3x = 2 -> x = 2/3, y = 7/3.
+  const x2 = 2 / 3, y2 = 7 / 3;
+  eq("two-var system: boundary intersection x = 2/3", x2, 2 / 3, 1e-12);
+  eq("two-var system: at intersection y = 2x+1 = 7/3", 2 * x2 + 1, 7 / 3, 1e-12);
+  eq("two-var system: at intersection y = -x+3 = 7/3", -x2 + 3, 7 / 3, 1e-12);
+  check("two-var: corner lies on the strict line y = 2x+1 (excluded)", approx(y2, 2 * x2 + 1, 1e-12));
+  // Test point (3,3) is inside; origin (0,0) is outside.
+  check("two-var: (3,3) satisfies y < 2x+1  (3 < 7)", 3 < 2 * 3 + 1);
+  check("two-var: (3,3) satisfies y >= -x+3  (3 >= 0)", 3 >= -3 + 3);
+  check("two-var: origin fails y >= -x+3  (0 >= 3 false)", !(0 >= -0 + 3));
+
+  // Example 3: three-variable system x+y<=4, x-y<2, x>=0, y>=0.
+  // Vertices of the feasible quadrilateral.
+  const verts = [[0, 0], [0, 4], [3, 1], [2, 0]];
+  const feasibleClosed = ([x, y]) => (x + y <= 4 + 1e-12) && (x - y <= 2 + 1e-12) && (x >= -1e-12) && (y >= -1e-12);
+  for (const [x, y] of verts) check(`three-var: vertex (${x},${y}) satisfies all constraints`, feasibleClosed([x, y]));
+  // (3,1) is x+y=4 intersect x-y=2:  add -> 2x=6 -> x=3, y=1.
+  eq("three-var: x+y=4 & x-y=2 give x=3", (4 + 2) / 2, 3);
+  eq("three-var: then y = 4 - x = 1", 4 - 3, 1);
+  // (4,0) is the rejected candidate: fails the strict x-y<2 (4-0=4).
+  check("three-var: (4,0) is rejected, 4-0 = 4 not < 2", !(4 - 0 < 2));
+  check("three-var: interior test (1,1) satisfies all", (1 + 1 <= 4) && (1 - 1 < 2) && 1 >= 0 && 1 >= 0);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

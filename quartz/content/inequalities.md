@@ -461,6 +461,15 @@ Steps:
 2. Graph $y = -x + 3$ (solid line, shade above)
 3. Solution is the overlapping shaded region
 
+The two boundary lines meet where $2x + 1 = -x + 3$, i.e. $3x = 2$, so $x = \tfrac{2}{3}$ and $y = 2(\tfrac{2}{3}) + 1 = \tfrac{7}{3}$. That corner point $(\tfrac{2}{3}, \tfrac{7}{3})$ is the tip of the wedge-shaped solution region; because both lines are involved (one strict, one not) the corner itself sits on the dashed line $y = 2x+1$, so it is **excluded**.
+
+To decide which side of each line to keep, test a point. Try $(3, 3)$:
+
+- First inequality $y < 2x + 1$: is $3 < 2(3) + 1 = 7$? Yes.
+- Second inequality $y \geq -x + 3$: is $3 \geq -3 + 3 = 0$? Yes.
+
+Both hold, so $(3, 3)$ lies in the solution region, confirming we shade below $y = 2x+1$ and above $y = -x+3$. (A point like $(0,0)$ fails the second inequality: $0 \geq 3$ is false, so the origin is outside the region.)
+
 **Example 3 (three inequalities):** Solve:
 
 $$
@@ -471,7 +480,14 @@ x \geq 0, y \geq 0
 \end{cases}
 $$
 
-This defines a bounded region in the first quadrant. The solution is the polygon formed by the intersection of all constraints.
+This defines a bounded region in the first quadrant. The solution is the polygon formed by the intersection of all constraints; to find its **vertices**, intersect the boundary lines two at a time and keep only the points that satisfy every constraint.
+
+- $x = 0$ and $y = 0$ (the two axes): vertex $(0, 0)$. Check: $0 + 0 \leq 4$ ✓, $0 - 0 < 2$ ✓.
+- $x = 0$ and $x + y = 4$: gives $(0, 4)$. Check: $0 - 4 = -4 < 2$ ✓, $x \geq 0$ ✓.
+- $x + y = 4$ and $x - y = 2$: add the equations to get $2x = 6$, so $x = 3$, $y = 1$, vertex $(3, 1)$. Check: both boundaries met, $x, y \geq 0$ ✓.
+- $y = 0$ and $x - y = 2$: gives $(2, 0)$. Check: $2 + 0 = 2 \leq 4$ ✓, $x \geq 0$ ✓.
+
+Notice the candidate $x + y = 4$ with $y = 0$ gives $(4, 0)$, but that point fails $x - y < 2$ (since $4 - 0 = 4 \not< 2$), so it is **not** a vertex. The solution region is the quadrilateral with corners $(0,0)$, $(0,4)$, $(3,1)$, $(2,0)$. The edge along $x - y = 2$ (from $(2,0)$ to $(3,1)$) is drawn dashed because that inequality is strict; the other three edges are solid.
 
 ## Interval Notation Summary
 

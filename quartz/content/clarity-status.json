@@ -4381,6 +4381,112 @@
           "upgrade": ""
         }
       ]
+    },
+    "inequalities.md": {
+      "contentHash": "sha1:c9cde810ce471f27",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Thorough inequalities reference (linear through rational, absolute value, systems); every worked number independently verified. Audited and Phase-2'd in one pass: the two- and three-variable systems were step-only, now worked with actual coordinates (boundary corner (2/3,7/3) for the two-variable wedge; polygon vertices (0,0),(0,4),(3,1),(2,0) with the (4,0) candidate rejected for the three-inequality region). 15 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "properties of inequalities (incl sign flip)",
+          "quality": "strong",
+          "note": "Five properties listed; sign-flip on multiply/divide by negative stated with example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "linear inequalities",
+          "quality": "strong",
+          "note": "Worked -3x+7 < 1 -> x > 2 with the sign flip; number-line widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "compound inequalities (and / or)",
+          "quality": "strong",
+          "note": "Both -1 <= 2x+3 < 7 and disjunction worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quadratic inequalities (sign chart)",
+          "quality": "strong",
+          "note": "x^2-x-6>0 factored, sign table, solution set.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polynomial inequalities higher degree",
+          "quality": "strong",
+          "note": "Sign chart across all roots worked with multiplicity behavior.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rational inequalities",
+          "quality": "strong",
+          "note": "Critical points from numerator and denominator, sign analysis, excluded points.",
+          "upgrade": ""
+        },
+        {
+          "concept": "absolute value equations |f|=a",
+          "quality": "strong",
+          "note": "Split into two cases worked numerically.",
+          "upgrade": ""
+        },
+        {
+          "concept": "absolute value equations |f|=|g|",
+          "quality": "strong",
+          "note": "Two-case worked example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "equations with multiple absolute values",
+          "quality": "strong",
+          "note": "Case split across breakpoints worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "absolute value inequalities |x|<a",
+          "quality": "strong",
+          "note": "Rewritten as compound and solved.",
+          "upgrade": ""
+        },
+        {
+          "concept": "absolute value inequalities |x|>a",
+          "quality": "strong",
+          "note": "Rewritten as disjunction and solved.",
+          "upgrade": ""
+        },
+        {
+          "concept": "complex absolute value inequalities",
+          "quality": "adequate",
+          "note": "Worked case, but a brief-overview treatment of the messier nested forms.",
+          "upgrade": ""
+        },
+        {
+          "concept": "systems: one variable",
+          "quality": "strong",
+          "note": "x+3>1 & 2x-5<=7 -> (-2,6] worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "systems: two variables (region + corner)",
+          "quality": "strong",
+          "note": "Now worked: y<2x+1, y>=-x+3, boundary corner (2/3,7/3) excluded, test points (3,3) in / origin out.",
+          "upgrade": ""
+        },
+        {
+          "concept": "systems: three inequalities (polygon vertices)",
+          "quality": "strong",
+          "note": "Now worked: x+y<=4, x-y<2, x,y>=0 -> vertices (0,0),(0,4),(3,1),(2,0); (4,0) rejected; dashed edge identified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interval notation summary",
+          "quality": "strong",
+          "note": "Full reference table of all interval forms.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
