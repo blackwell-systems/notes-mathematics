@@ -153,6 +153,22 @@ The zero product property can be used to solve polynomial equations of
 **any degree** as long as the polynomial can be factored
 into a product of simpler polynomials.
 
+### Adding and Subtracting Polynomials
+
+The simplest polynomial operations are addition and subtraction: combine **like terms** (terms with the same power of $x$) by adding or subtracting their coefficients, leaving the powers untouched. Subtraction distributes the minus sign across every term of the second polynomial before combining.
+
+**Worked example.** With $p(x) = 3x^2 - x + 2$ and $q(x) = x^2 + 4x - 5$:
+
+$$
+p(x) + q(x) = (3 + 1)x^2 + (-1 + 4)x + (2 - 5) = 4x^2 + 3x - 3
+$$
+
+$$
+p(x) - q(x) = (3 - 1)x^2 + (-1 - 4)x + (2 - (-5)) = 2x^2 - 5x + 7
+$$
+
+Notice the constant term of the difference: $2 - (-5) = 7$, not $2 - 5$. Forgetting to distribute the minus sign to every term of $q$ (especially its negative constant) is the most common mistake. Addition and subtraction never raise the degree; the sum or difference has degree at most $\max(\deg p, \deg q)$, and can be lower if the leading terms cancel.
+
 ### Special Products (Multiplying Binomials)
 
 Before factoring, it pays to recognize the products that factoring undoes. A handful of binomial products occur constantly, and knowing them by sight is what lets you factor by pattern instead of by trial.
@@ -1086,7 +1102,7 @@ $x_2 = 2.1 - \frac{0.061}{11.23} \approx 2.1 - 0.0054 \approx 2.0946$
 
 $x_3 \approx 2.09455$ (converged to 5 decimal places)
 
-**Verification:** $f(2.09455) \approx 0.00003$ ✓ (very close to zero)
+**Verification:** $f(2.09455) \approx -0.00002$ ✓ (very close to zero)
 
 **Advantages:**
 
@@ -1284,6 +1300,48 @@ Each number is the sum of the two numbers above it.
 - The sum of all coefficients: $(1 + 1)^n = 2^n = \sum_{k=0}^{n} \binom{n}{k}$
 - The powers of $a$ decrease from $n$ to $0$, while powers of $b$ increase from $0$ to $n$
 - There are always $n + 1$ terms in the expansion
+
+## Polynomial Interpolation
+
+The theorems above start from a polynomial and find its roots. Interpolation runs the other way: start from a set of points and find the polynomial that passes exactly through them. The key fact is a counting match: **through any $n + 1$ points with distinct $x$-values, there is exactly one polynomial of degree at most $n$.** A line ($n = 1$) is pinned down by $2$ points, a parabola ($n = 2$) by $3$ points, and so on. The polynomial has $n + 1$ coefficients, and each point supplies one equation, so the coefficients are determined.
+
+**Method 1: solve the linear system.** Write the unknown polynomial with symbolic coefficients and substitute each point to get one linear equation per point.
+
+**Example.** Find the degree-2 polynomial $p(x) = ax^2 + bx + c$ through $(0, 1)$, $(1, 0)$, and $(2, 5)$.
+
+Substituting each point:
+
+$$
+\begin{aligned}
+x = 0:\quad & a(0) + b(0) + c = 1 &&\Rightarrow\ c = 1 \\
+x = 1:\quad & a + b + c = 0 &&\Rightarrow\ a + b = -1 \\
+x = 2:\quad & 4a + 2b + c = 5 &&\Rightarrow\ 4a + 2b = 4 \ \Rightarrow\ 2a + b = 2
+\end{aligned}
+$$
+
+Subtracting $a + b = -1$ from $2a + b = 2$ gives $a = 3$, and then $b = -1 - a = -4$. So
+
+$$
+p(x) = 3x^2 - 4x + 1
+$$
+
+Checking: $p(0) = 1$, $p(1) = 3 - 4 + 1 = 0$, $p(2) = 12 - 8 + 1 = 5$. All three points are hit exactly. The coefficient matrix here is a **Vandermonde matrix** (rows $[x_i^2, x_i, 1]$), which is invertible precisely because the $x_i$ are distinct, guaranteeing the unique solution.
+
+**Method 2: Lagrange form.** Instead of solving a system, build the answer directly as a weighted sum of **basis polynomials**, one per point. For point $x_i$, the basis polynomial $L_i(x)$ equals $1$ at $x_i$ and $0$ at every other node:
+
+$$
+p(x) = \sum_i y_i\, L_i(x), \qquad L_i(x) = \prod_{j \neq i} \frac{x - x_j}{x_i - x_j}
+$$
+
+For the same three points, only the $y_i \neq 0$ terms contribute ($y_1 = 0$ drops out):
+
+$$
+p(x) = 1 \cdot \frac{(x-1)(x-2)}{(0-1)(0-2)} + 5 \cdot \frac{(x-0)(x-1)}{(2-0)(2-1)} = \frac{(x-1)(x-2)}{2} + \frac{5x(x-1)}{2}
+$$
+
+Factoring out $(x-1)/2$ gives $\frac{(x-1)}{2}\big[(x-2) + 5x\big] = \frac{(x-1)(6x-2)}{2} = (x-1)(3x-1) = 3x^2 - 4x + 1$, the same polynomial. The two methods must agree, because the interpolating polynomial is unique.
+
+**Interpolation vs. regression.** Interpolation forces the curve through *every* point, which is exactly what a high-degree polynomial does when it overfits noisy data. When there are more points than coefficients, you cannot pass through them all, and you instead *fit* (minimize squared error) rather than interpolate: that is [polynomial regression](#where-polynomials-show-up-in-machine-learning), described next.
 
 ## Where Polynomials Show Up in Machine Learning
 

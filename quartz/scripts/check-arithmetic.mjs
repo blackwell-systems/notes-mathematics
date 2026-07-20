@@ -3849,6 +3849,34 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("KKT: dual feasibility mu1,mu2 >= 0", mu1 >= 0 && mu2 >= 0);
 }
 
+// ===== Polynomial functions (Phase-2 worked examples) =====
+{
+  // Adding/subtracting: p=3x^2-x+2, q=x^2+4x-5.
+  eq("POLY: (p+q) x^2 coeff = 4", 3 + 1, 4);
+  eq("POLY: (p+q) x coeff = 3", -1 + 4, 3);
+  eq("POLY: (p+q) constant = -3", 2 + (-5), -3);
+  eq("POLY: (p-q) x^2 coeff = 2", 3 - 1, 2);
+  eq("POLY: (p-q) x coeff = -5", -1 - 4, -5);
+  eq("POLY: (p-q) constant = 7 (mind the double negative)", 2 - (-5), 7);
+
+  // Interpolation through (0,1),(1,0),(2,5): p(x)=3x^2-4x+1.
+  const a = 3, b = -4, c = 1, p = x => a * x * x + b * x + c;
+  eq("POLY: interp c = 1 (from x=0)", c, 1);
+  eq("POLY: interp a = 3", a, 3);
+  eq("POLY: interp b = -4", b, -4);
+  eq("POLY: interp hits (0,1)", p(0), 1);
+  eq("POLY: interp hits (1,0)", p(1), 0);
+  eq("POLY: interp hits (2,5)", p(2), 5);
+  // Lagrange form must agree with the linear-system solution at an off-node point.
+  const L = x => 1 * ((x - 1) * (x - 2)) / ((0 - 1) * (0 - 2)) + 0 + 5 * ((x - 0) * (x - 1)) / ((2 - 0) * (2 - 1));
+  eq("POLY: Lagrange agrees with p at x=5", L(5), p(5), 1e-9);
+  eq("POLY: Lagrange agrees with p at x=-3", L(-3), p(-3), 1e-9);
+
+  // Newton verification value corrected: f(2.09455) ~ -1.65e-5 (negative, tiny).
+  const fpoly = x => x ** 3 - 2 * x - 5;
+  check("POLY: f(2.09455) is negative and ~1e-5 in magnitude", fpoly(2.09455) < 0 && Math.abs(fpoly(2.09455)) < 1e-4);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

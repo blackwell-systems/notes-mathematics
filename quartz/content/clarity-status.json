@@ -5057,6 +5057,226 @@
           "upgrade": ""
         }
       ]
+    },
+    "polynomial-functions.md": {
+      "contentHash": "sha1:1f93394dad6f5d3b",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Very comprehensive polynomial-functions reference (quadratics through numerical root-finding); every worked number independently recomputed and verified. Audited and Phase-2'd in one pass: filled the two gaps the audit found (adding/subtracting polynomials, previously only implicit; and polynomial interpolation, previously absent, now worked two ways with a Vandermonde/Lagrange cross-check and an interpolation-vs-regression bridge to the ML section) and corrected the Newton verification value on the x^3-2x-5 example (was +0.00003, actually ~-0.00002). 33 strong / 2 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "what is a polynomial / why they matter / building up by degree",
+          "quality": "strong",
+          "note": "Overview with constant/linear/quadratic examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "formal definition (summation, domain, degree, roots)",
+          "quality": "strong",
+          "note": "Complete; distinguishes rational/radical functions.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quadratic standard & vertex form; axis of symmetry",
+          "quality": "strong",
+          "note": "Formulas + graph + explorer widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "what it means to solve; Abel-Ruffini caveat",
+          "quality": "strong",
+          "note": "Conceptual framing.",
+          "upgrade": ""
+        },
+        {
+          "concept": "zero product property",
+          "quality": "strong",
+          "note": "x^2-5x+6=(x-2)(x-3), roots 2,3.",
+          "upgrade": ""
+        },
+        {
+          "concept": "adding and subtracting polynomials",
+          "quality": "strong",
+          "note": "Now worked: (3x^2-x+2) +/- (x^2+4x-5) = 4x^2+3x-3 and 2x^2-5x+7, with the minus-sign-distribution caveat (was thin/implicit).",
+          "upgrade": ""
+        },
+        {
+          "concept": "special products (FOIL, square, conjugates, cube)",
+          "quality": "strong",
+          "note": "Four numeric worked examples + area-model diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "special factoring forms (GCF, diff sq, perfect sq, cubes, AC, grouping)",
+          "quality": "strong",
+          "note": "Every form worked and verified by expansion.",
+          "upgrade": ""
+        },
+        {
+          "concept": "factoring by grouping (4 examples)",
+          "quality": "strong",
+          "note": "All four verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "square root property",
+          "quality": "strong",
+          "note": "(x-4)^2=25 -> 9,-1; complex case noted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "completing the square (solve + vertex conversion)",
+          "quality": "strong",
+          "note": "Three worked, all verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quadratic formula + discriminant table",
+          "quality": "strong",
+          "note": "Formula + case table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "the discriminant (3 cases)",
+          "quality": "strong",
+          "note": "Delta>0,=0,<0 all worked incl complex pair.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cubic functions / domain-range / y-intercept",
+          "quality": "adequate",
+          "note": "Definition + parity-of-real-roots; y-intercept not numerically worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Cardano's method",
+          "quality": "strong",
+          "note": "x^3-6x-9=0 -> x=3 verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving higher-degree (quartic, Abel-Ruffini, Galois)",
+          "quality": "strong",
+          "note": "Well-scoped overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polynomial degree / turning points",
+          "quality": "strong",
+          "note": "n-1 rule; quartic root examples verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "end behavior (4 cases)",
+          "quality": "strong",
+          "note": "Four-panel diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "symmetry (even/odd)",
+          "quality": "strong",
+          "note": "Correct examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "factor multiplicity (touch vs cross)",
+          "quality": "strong",
+          "note": "Diagram + grapher widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "fundamental theorem of algebra",
+          "quality": "adequate",
+          "note": "Stated correctly; roots worked in later sections.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polynomial long division",
+          "quality": "strong",
+          "note": "2x^5+x^4-6x+9 / (x^2-3x+1) -> q,r verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "synthetic division",
+          "quality": "strong",
+          "note": "2x^3+3x^2-5x+4 / (x-2) tableau verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "remainder theorem",
+          "quality": "strong",
+          "note": "f(3)=11 both ways.",
+          "upgrade": ""
+        },
+        {
+          "concept": "factor theorem",
+          "quality": "strong",
+          "note": "x^3-6x^2+11x-6=(x-1)(x-2)(x-3).",
+          "upgrade": ""
+        },
+        {
+          "concept": "rational root theorem",
+          "quality": "strong",
+          "note": "2x^3-3x^2-8x+12 full candidate list + roots 2,-2,3/2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conjugate zeros theorem",
+          "quality": "strong",
+          "note": "2+i given -> 2+/-i, 3; verified by expansion.",
+          "upgrade": ""
+        },
+        {
+          "concept": "writing polynomials from zeros",
+          "quality": "strong",
+          "note": "zeros -1,2,3 f(0)=12 -> 2x^3-8x^2+2x+12.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Vieta's formulas",
+          "quality": "strong",
+          "note": "Quadratic/cubic/general + two numeric examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Descartes' rule of signs",
+          "quality": "strong",
+          "note": "x^3-2x-5: 1 positive, 2-or-0 negative.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Newton's method (+ x^(1/3) failure)",
+          "quality": "strong",
+          "note": "Iterations to 2.09455 worked; verification value corrected to ~-2e-5; divergence derivation correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "bisection method (5 iterations + comparison)",
+          "quality": "strong",
+          "note": "All midpoints verified; convergence bound; comparison table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polynomial interpolation",
+          "quality": "strong",
+          "note": "Now present: fit parabola through (0,1),(1,0),(2,5) two ways (linear system -> 3x^2-4x+1 and Lagrange, shown equal); Vandermonde uniqueness; interpolation-vs-regression (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "binomial expansion theorem / Pascal's triangle",
+          "quality": "strong",
+          "note": "Formula, expansions, Pascal rows, properties.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polynomials in ML/SLT",
+          "quality": "strong",
+          "note": "Polynomial regression, bias-variance, Taylor, orthogonal bases.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
