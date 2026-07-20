@@ -2067,12 +2067,12 @@
       "phase2At": "2026-07-17"
     },
     "statistical-learning.md": {
-      "contentHash": "sha1:904c5aba8035e943",
+      "contentHash": "sha1:e83674db386d28d9",
       "clarityRubricVersion": 1,
-      "auditedAt": "2026-07-17",
-      "auditor": "claude+5subagents",
+      "auditedAt": "2026-07-20",
+      "auditor": "claude (phase-3)",
       "overall": "strong",
-      "summary": "Split out of the former monolithic statistics page (3-spoke split into hub + descriptive + inferential + learning). Statistical Learning (correlation, regression, GLM, bias-variance, CV, bootstrap). This slice: 2 strong / 6 adequate / 1 thin / 0 missing.",
+      "summary": "Statistics-to-ML learning page (correlation, regression, OLS, GLMs, bias-variance, CV, bootstrap). Phase-3 pass upgraded five 'adequate' items to worked examples: the simple-regression fit is now completed (intercept, fitted line, R^2 via RSS/TSS, a prediction), coefficient inference is worked (SE, t=2.52, shown equal to the correlation test), logistic regression gains a numeric log-likelihood/cross-entropy, bias-variance gets a three-model numeric decomposition, and the diagnostics section gains leverage + Cook's-distance numbers. Bootstrapping stays adequate (its percentile CI is inherently simulation-based). 8 strong / 1 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "Pearson correlation",
@@ -2082,8 +2082,8 @@
         },
         {
           "concept": "simple linear regression (slope + intercept)",
-          "quality": "adequate",
-          "note": "slope computed; intercept, fitted line, and prediction never produced; the multiple-reg 'example' just plugs in given coefficients",
+          "quality": "strong",
+          "note": "Now completed: intercept b0=-0.2, fitted line yhat=-0.2+1.2x, residuals, R^2=0.679 via RSS/TSS, prediction at x=6 -> 7.0.",
           "upgrade": "finish it: beta_0 = ybar - beta_1 xbar = -0.2, state y-hat=-0.2+1.2x, predict + one residual; optionally a 2x2 normal-equation"
         },
         {
@@ -2094,26 +2094,26 @@
         },
         {
           "concept": "residual analysis / diagnostics (Cook, VIF)",
-          "quality": "adequate",
-          "note": "quadratic residuals shown; Cook's D and VIF are formula-only",
+          "quality": "strong",
+          "note": "Now worked: leverages (0.6,0.3,0.2,0.3,0.6) summing to p+1=2, and Cook's D=2.38 flagging the influential endpoint; VIF=10 at R^2=0.9.",
           "upgrade": "compute one VIF from a two-predictor toy or one Cook's distance"
         },
         {
           "concept": "regression inference (coefficient SE/t/F)",
-          "quality": "adequate",
-          "note": "correlation inference fully worked; coefficient inference is formula-only",
+          "quality": "strong",
+          "note": "Now worked: coefficient SE(b1)=0.476, t=2.52 for the 5-point regression, shown identical to the correlation test.",
           "upgrade": "carry the 5-point regression to RSS -> sigma-hat^2 -> SE(beta_1) -> t and a CI"
         },
         {
           "concept": "logistic regression / GLMs",
-          "quality": "adequate",
-          "note": "coefficient interpretation fully computed; no fit/likelihood step",
+          "quality": "strong",
+          "note": "Now with a fit step: log-likelihood of a 3-point loan model = -1.453 (= binary cross-entropy 0.484/point); odds ratio e^0.7=2.01.",
           "upgrade": "optional: one Bernoulli log-likelihood at two beta values on 3-4 labeled points"
         },
         {
           "concept": "bias-variance tradeoff",
-          "quality": "adequate",
-          "note": "decomposition stated, never a number",
+          "quality": "strong",
+          "note": "Now numeric: three-model decomposition table (totals 5.5/3.0/4.25) showing the balanced model minimizes bias^2+Var+sigma^2.",
           "upgrade": "instantiate Bias^2 + Var + sigma^2 numerically (constant vs linear over a couple of training sets)"
         },
         {

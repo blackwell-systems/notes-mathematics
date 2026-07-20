@@ -4269,6 +4269,57 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("SLT: regular E[G] correction d/(2n) with d=2 -> 1/n", (2 / 2) / 1, 1);
 }
 
+// ===== Statistical learning (Phase-3 adequate->strong upgrades) =====
+{
+  const xs = [1, 2, 3, 4, 5], ys = [2, 1, 4, 3, 7];
+  const xb = 3, yb = 3.4, b1 = 1.2, b0 = yb - b1 * xb;
+  eq("SL: intercept b0 = ybar - b1 xbar = -0.2", b0, -0.2, 1e-12);
+  const yhat = xs.map(x => b0 + b1 * x);
+  eq("SL: fitted value at x=2 = 2.2", yhat[1], 2.2, 1e-12);
+  eq("SL: fitted value at x=5 = 5.8", yhat[4], 5.8, 1e-12);
+  const res = ys.map((y, i) => y - yhat[i]);
+  const RSS = res.reduce((a, r) => a + r * r, 0), TSS = 21.2;
+  eq("SL: RSS = 6.8", RSS, 6.8, 1e-9);
+  eq("SL: R^2 = 1 - RSS/TSS = 0.679", 1 - RSS / TSS, 0.6792, 1e-3);
+  eq("SL: prediction at x=6 = 7.0", b0 + b1 * 6, 7.0, 1e-12);
+
+  // Coefficient inference: SE(b1), t = 2.52 = correlation t.
+  const n = 5, sig2 = RSS / (n - 2), SEb1 = Math.sqrt(sig2) / Math.sqrt(10);
+  eq("SL: sigma^2 = RSS/(n-2) = 2.267", sig2, 2.2667, 1e-3);
+  eq("SL: SE(b1) = 0.476", SEb1, 0.476, 1e-3);
+  eq("SL: t = b1/SE = 2.52 (= correlation t)", b1 / SEb1, 2.52, 5e-3);
+
+  // Bias-variance three-model decomposition: totals 5.5, 3.0, 4.25; min is balanced.
+  const totals = [[4, 0.5, 1], [1, 1, 1], [0.25, 3, 1]].map(([b2, v, s2]) => b2 + v + s2);
+  eq("SL: model A total = 5.5", totals[0], 5.5);
+  eq("SL: model B (balanced) total = 3.0", totals[1], 3.0);
+  eq("SL: model C total = 4.25", totals[2], 4.25);
+  check("SL: balanced model minimizes total error", totals[1] < totals[0] && totals[1] < totals[2]);
+
+  // Logistic log-likelihood, b0=-2, b1=0.7, obs (2,0),(3,1),(4,1).
+  const sig = z => 1 / (1 + Math.exp(-z));
+  eq("SL: p(x=2) = 0.354", sig(-2 + 0.7 * 2), 0.354, 1e-3);
+  eq("SL: p(x=3) = 0.525", sig(-2 + 0.7 * 3), 0.525, 1e-3);
+  eq("SL: p(x=4) = 0.690", sig(-2 + 0.7 * 4), 0.690, 1e-3);
+  const ll = Math.log(1 - sig(-2 + 0.7 * 2)) + Math.log(sig(-2 + 0.7 * 3)) + Math.log(sig(-2 + 0.7 * 4));
+  eq("SL: log-likelihood = -1.453", ll, -1.453, 1e-3);
+  eq("SL: cross-entropy per point = 0.484", -ll / 3, 0.484, 1e-3);
+  eq("SL: odds ratio e^0.7 = 2.01", Math.exp(0.7), 2.01, 5e-3);
+
+  // Leverage + Cook's distance for the 5-point regression.
+  const lev = xs.map(x => 1 / n + (x - xb) ** 2 / 10);
+  eq("SL: leverage at endpoints = 0.6", lev[0], 0.6, 1e-12);
+  eq("SL: leverage at center = 0.2", lev[2], 0.2, 1e-12);
+  eq("SL: leverages sum to p+1 = 2", lev.reduce((a, b) => a + b, 0), 2, 1e-12);
+  const MSE = RSS / (n - 2);
+  const cook = (e, h) => (e * e / (1 * MSE)) * (h / (1 - h) ** 2);
+  eq("SL: Cook's D at x=5 = 2.38", cook(1.2, 0.6), 2.38, 5e-3);
+  eq("SL: Cook's D at x=4 = 0.69", cook(-1.6, 0.3), 0.69, 5e-3);
+  check("SL: x=5 influential (D>4/n=0.8) but x=4 not", cook(1.2, 0.6) > 0.8 && cook(-1.6, 0.3) < 0.8);
+  // VIF numeric (already on page): R^2=0.9 -> VIF=10.
+  eq("SL: VIF = 1/(1-0.9) = 10", 1 / (1 - 0.9), 10, 1e-9);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

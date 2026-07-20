@@ -76,6 +76,7 @@ Correlation and simple linear regression are two views of the same quantity, whi
 
 - **Coefficient of determination.** For simple linear regression, $r^2 = R^2$, the fraction of the variance in $y$ explained by the fitted line. In the example, $r^2 \approx 0.679$, so about $68\%$ of the variation in $y$ is explained by its linear relationship with $x$.
 - **Slope.** The least-squares slope is a rescaled correlation: $\hat{\beta}_1 = r \cdot s_y / s_x$. In the example, $s_x = \sqrt{10/4} \approx 1.581$ and $s_y = \sqrt{21.2/4} \approx 2.302$, giving $\hat{\beta}_1 = 0.824 \times (2.302/1.581) = 1.2$, which matches the direct computation $\sum d_x d_y / \sum d_x^2 = 12.0/10 = 1.2$.
+- **Intercept and fitted line.** The line passes through the point of means $(\bar x, \bar y)$, so $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x} = 3.4 - 1.2(3) = -0.2$. The fitted line is $\hat{y} = -0.2 + 1.2x$, giving fitted values $1.0, 2.2, 3.4, 4.6, 5.8$ and residuals $1.0, -1.2, 0.6, -1.6, 1.2$. Their squared sum is $\text{RSS} = 6.8$, so $R^2 = 1 - \text{RSS}/\text{TSS} = 1 - 6.8/21.2 \approx 0.679$, confirming $R^2 = r^2$ by direct computation. To **predict** at a new input, plug it in: at $x = 6$ the model forecasts $\hat{y} = -0.2 + 1.2(6) = 7.0$.
 
 ### Inference for the Population Correlation $\rho$
 
@@ -207,6 +208,14 @@ $$
 \hat{\beta}_j \pm t^*_{n-p-1} \cdot SE(\hat{\beta}_j)
 $$
 
+**Worked example (simple regression).** For the five-point dataset above ($\hat{\beta}_1 = 1.2$, $\text{RSS} = 6.8$, $\sum d_x^2 = 10$, $n = 5$), the estimated error variance is $\hat{\sigma}^2 = \text{RSS}/(n - 2) = 6.8/3 \approx 2.267$ (here $p = 1$, so $n - p - 1 = n - 2 = 3$ degrees of freedom). The slope's standard error is $SE(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\sum d_x^2} = \sqrt{2.267}/\sqrt{10} \approx 0.476$, and the test statistic is
+
+$$
+t = \frac{\hat{\beta}_1}{SE(\hat{\beta}_1)} = \frac{1.2}{0.476} \approx 2.52.
+$$
+
+This is *identical* to the correlation test statistic computed earlier ($t \approx 2.52$), and that is no accident: for simple linear regression, testing $\beta_1 = 0$ and testing $\rho = 0$ are the same test. Since $|t| = 2.52 < t^*_{0.025,\,3} = 3.182$, the slope is not significant at the $5\%$ level, despite the visibly upward trend, because five points are too few to rule out chance.
+
 **F-test for overall significance:** Tests whether the model as a whole explains a significant amount of variance, i.e., $H_0: \beta_1 = \beta_2 = \cdots = \beta_p = 0$ (all predictors are useless). The test statistic is:
 
 $$
@@ -282,6 +291,20 @@ $$
 
 where $e_i$ is the residual and $MSE$ is the mean squared error. A common rule of thumb: $D_i > 1$ (or $D_i > 4/n$) indicates an influential observation that warrants investigation.
 
+**Worked example.** For the five-point regression above, leverage in simple regression has a clean form, $h_{ii} = \tfrac{1}{n} + \tfrac{(x_i - \bar{x})^2}{\sum (x_j - \bar{x})^2}$. With $\bar{x} = 3$ and $\sum d_x^2 = 10$, the leverages are
+
+$$
+h = \left(0.6,\ 0.3,\ 0.2,\ 0.3,\ 0.6\right),
+$$
+
+largest at the endpoints $x = 1, 5$ (farthest from the mean) and smallest at the center. As a check, they sum to $p + 1 = 2$, the number of fitted parameters. Now combine leverage with residual size via Cook's distance. The endpoint $x = 5$ has residual $e = 1.2$, leverage $h = 0.6$, and $MSE = \hat{\sigma}^2 = 2.267$ ($p = 1$ predictor):
+
+$$
+D_5 = \frac{e^2}{p \cdot MSE} \cdot \frac{h}{(1 - h)^2} = \frac{1.44}{2.267} \cdot \frac{0.6}{0.16} \approx 0.635 \times 3.75 \approx 2.38.
+$$
+
+Since $2.38 > 4/n = 0.8$, this endpoint is flagged as influential, even though its leverage $0.6$ alone stays under the $2(p+1)/n = 0.8$ leverage threshold. That is exactly Cook's distance doing its job: a point can be influential through the *combination* of moderate leverage and a sizable residual, which neither diagnostic catches alone (by contrast, $x = 4$ gives $D_4 \approx 0.69 < 0.8$, not flagged).
+
 #### Multicollinearity
 
 **Multicollinearity** occurs when two or more predictors are highly correlated with each other. It does not bias the coefficient estimates, but it inflates their standard errors, making it hard to determine which predictors are significant.
@@ -351,7 +374,15 @@ $$
 \ell(\beta) = \sum_{i=1}^{n} \big[\, y_i \log p_i + (1 - y_i)\log(1 - p_i) \,\big].
 $$
 
-This is **concave** in $\beta$, with no spurious local maxima, so gradient-based [optimization](./optimization) (gradient ascent, or Newton-type methods such as iteratively reweighted least squares) reliably converges. (The maximum is attained at a unique finite $\hat\beta$ as long as the classes are not perfectly separable; under complete separation the likelihood keeps increasing as the coefficients grow without bound, and a penalty or prior is added to keep them finite.) Crucially, **maximizing this Bernoulli log-likelihood is exactly minimizing the binary cross-entropy loss** (they differ only by a sign), which links to [information theory](./information-theory#cross-entropy) and to how classifiers are trained throughout ML: a neural network with a sigmoid output and cross-entropy loss is performing maximum-likelihood logistic regression on top of learned features.
+**Worked example (evaluating the log-likelihood).** Take the fitted loan model $\hat{\beta}_0 = -2.0$, $\hat{\beta}_1 = 0.7$ and three observations: a default at income $x = 2$ ($y = 0$), and repayments at $x = 3$ and $x = 4$ ($y = 1$). The fitted probabilities are $p = \sigma(-2 + 0.7x)$, namely $\sigma(-0.6) \approx 0.354$, $\sigma(0.1) \approx 0.525$, $\sigma(0.8) \approx 0.690$. The log-likelihood sums each observation's contribution:
+
+$$
+\ell = \underbrace{\log(1 - 0.354)}_{y=0,\ x=2} + \underbrace{\log(0.525)}_{y=1,\ x=3} + \underbrace{\log(0.690)}_{y=1,\ x=4} \approx -0.437 - 0.644 - 0.371 = -1.453.
+$$
+
+Maximum-likelihood fitting adjusts $\beta$ to make this as large as possible (as close to $0$ as the data allow). The negative of this, $-\ell \approx 1.453$, is the total **binary cross-entropy** on these three points ($\approx 0.484$ per point): maximizing the log-likelihood and minimizing cross-entropy are the same optimization.
+
+This objective is **concave** in $\beta$, with no spurious local maxima, so gradient-based [optimization](./optimization) (gradient ascent, or Newton-type methods such as iteratively reweighted least squares) reliably converges. (The maximum is attained at a unique finite $\hat\beta$ as long as the classes are not perfectly separable; under complete separation the likelihood keeps increasing as the coefficients grow without bound, and a penalty or prior is added to keep them finite.) Crucially, **maximizing this Bernoulli log-likelihood is exactly minimizing the binary cross-entropy loss** (they differ only by a sign), which links to [information theory](./information-theory#cross-entropy) and to how classifiers are trained throughout ML: a neural network with a sigmoid output and cross-entropy loss is performing maximum-likelihood logistic regression on top of learned features.
 
 ### Generalized Linear Models (GLMs)
 
@@ -382,6 +413,16 @@ $$
 $$
 
 Here the irreducible error is exactly the noise variance $\sigma^2$: it is present in the fresh target $y$ regardless of the model, so no estimator can drive it below $\sigma^2$.
+
+**Worked example (putting numbers on the decomposition).** Suppose the noise floor is $\sigma^2 = 1$, and consider three models of increasing complexity evaluated at the same input:
+
+| Model | $\text{Bias}^2$ | Variance | $\sigma^2$ | Total error |
+|---|---|---|---|---|
+| A (too simple) | 4.0 | 0.5 | 1.0 | **5.5** |
+| B (balanced) | 1.0 | 1.0 | 1.0 | **3.0** |
+| C (too complex) | 0.25 | 3.0 | 1.0 | **4.25** |
+
+Reading down the total column, error is *not* minimized by the lowest-bias model (C) nor the lowest-variance model (A), but by the balanced model B, whose total $1.0 + 1.0 + 1.0 = 3.0$ beats both. As complexity rises from A to C, bias falls monotonically ($4.0 \to 1.0 \to 0.25$) while variance rises ($0.5 \to 1.0 \to 3.0$); their sum is U-shaped, bottoming out in the middle. No model can beat the irreducible $\sigma^2 = 1$ floor, so the best achievable total here is bounded below by $1$.
 
 ![Bias-variance tradeoff](./media/bias-variance-tradeoff.png)
 
