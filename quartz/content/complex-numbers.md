@@ -171,6 +171,8 @@ $$\bar{z} = a - bi$$
 2. $z + \bar{z} = 2a$
 3. $z - \bar{z} = 2bi$
 
+**Example.** For $z = 3 + 4i$, the conjugate is $\bar{z} = 3 - 4i$, and the three properties give $z \cdot \bar{z} = 3^2 + 4^2 = 25$ (real, and equal to $|z|^2$), $z + \bar{z} = 6 = 2(3)$ (twice the real part), and $z - \bar{z} = 8i = 2(4)i$ (twice the imaginary part, times $i$).
+
 **Use:** Eliminates $i$ from denominators in division.
 
 ## Modulus (Absolute Value)
@@ -214,6 +216,14 @@ Most calculators and programming languages package this rule as the two-argument
 **Polar to Rectangular:**
 1. $a = r\cos\theta$
 2. $b = r\sin\theta$
+
+**Worked example (why the quadrant matters).** Convert $z = -1 + i$ to polar form. The modulus is $r = \sqrt{(-1)^2 + 1^2} = \sqrt{2}$. The point $(-1, 1)$ lies in **quadrant II** ($a < 0$, $b > 0$), so the bare $\arctan$ gives the wrong angle: $\arctan(b/a) = \arctan(1/-1) = \arctan(-1) = -\tfrac{\pi}{4}$, which points into quadrant IV, not II. Applying the quadrant-II rule adds $\pi$:
+
+$$
+\theta = \arctan(-1) + \pi = -\tfrac{\pi}{4} + \pi = \tfrac{3\pi}{4}
+$$
+
+So $z = -1 + i = \sqrt{2}\left(\cos\tfrac{3\pi}{4} + i\sin\tfrac{3\pi}{4}\right) = \sqrt{2}\,e^{i3\pi/4}$. Check: $\sqrt{2}\cos\tfrac{3\pi}{4} = \sqrt{2}\cdot(-\tfrac{\sqrt{2}}{2}) = -1$ and $\sqrt{2}\sin\tfrac{3\pi}{4} = \sqrt{2}\cdot\tfrac{\sqrt{2}}{2} = 1$, recovering $-1 + i$. The two-argument form gives the same answer directly: $\operatorname{atan2}(1, -1) = \tfrac{3\pi}{4}$. (For the quadrant-III point $-1 - i$, $\operatorname{atan2}(-1, -1) = -\tfrac{3\pi}{4}$, the reflection below the real axis.)
 
 ## Euler's Formula
 
@@ -306,6 +316,14 @@ $$[r(\cos\theta + i\sin\theta)]^n = r^n(\cos(n\theta) + i\sin(n\theta))$$
 Convert: $r = \sqrt{2}$, $\theta = \pi/4$
 
 $$(1 + i)^{10} = (\sqrt{2})^{10}(\cos\frac{10\pi}{4} + i\sin\frac{10\pi}{4}) = 32i$$
+
+**Example (a non-45-degree base):** $(\sqrt{3} + i)^6$. First convert the base to polar. The modulus is $r = \sqrt{(\sqrt{3})^2 + 1^2} = \sqrt{4} = 2$, and since $(\sqrt{3}, 1)$ is in quadrant I, the argument is $\theta = \arctan\!\left(\tfrac{1}{\sqrt{3}}\right) = \tfrac{\pi}{6}$. De Moivre with $n = 6$ then gives
+
+$$
+(\sqrt{3} + i)^6 = 2^6\left(\cos\tfrac{6\pi}{6} + i\sin\tfrac{6\pi}{6}\right) = 64(\cos\pi + i\sin\pi) = 64(-1 + 0i) = -64,
+$$
+
+a real number: raising to the 6th power sextupled the angle from $\tfrac{\pi}{6}$ to $\pi$, landing exactly on the negative real axis.
 
 ## nth Roots
 

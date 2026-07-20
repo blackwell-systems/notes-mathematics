@@ -3909,6 +3909,34 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const x = 1 + Math.sqrt(5); eq("SYS: substitution x^2-3 = 2x+1 at x=1+sqrt5", x * x - 3, 2 * x + 1, 1e-9); }
 }
 
+// ===== Complex numbers (Phase-2 worked examples) =====
+{
+  // Rectangular -> polar of z = -1 + i (quadrant II): r=sqrt2, arg=3pi/4.
+  const a = -1, b = 1, r = Math.hypot(a, b);
+  eq("CN: |-1+i| = sqrt(2)", r, Math.SQRT2, 1e-12);
+  eq("CN: arctan(1/-1) = -pi/4", Math.atan(b / a), -Math.PI / 4, 1e-12);
+  eq("CN: quadrant-II adjusted arg = 3pi/4", Math.atan(b / a) + Math.PI, 3 * Math.PI / 4, 1e-12);
+  eq("CN: atan2(1,-1) = 3pi/4 matches", Math.atan2(b, a), 3 * Math.PI / 4, 1e-12);
+  eq("CN: r cos(3pi/4) recovers -1", r * Math.cos(3 * Math.PI / 4), -1, 1e-12);
+  eq("CN: r sin(3pi/4) recovers 1", r * Math.sin(3 * Math.PI / 4), 1, 1e-12);
+  eq("CN: quadrant-III atan2(-1,-1) = -3pi/4", Math.atan2(-1, -1), -3 * Math.PI / 4, 1e-12);
+
+  // Conjugate properties for z = 3 + 4i.
+  eq("CN: z*zbar = 25 (real, = |z|^2)", 3 * 3 + 4 * 4, 25);
+  eq("CN: z+zbar = 6 = 2a", 2 * 3, 6);
+  eq("CN: z-zbar imaginary part = 8 = 2b", 2 * 4, 8);
+
+  // De Moivre non-45deg: (sqrt3 + i)^6 = -64; base polar r=2, theta=pi/6.
+  eq("CN: |sqrt3+i| = 2", Math.hypot(Math.sqrt(3), 1), 2, 1e-12);
+  eq("CN: arg(sqrt3+i) = pi/6", Math.atan(1 / Math.sqrt(3)), Math.PI / 6, 1e-12);
+  {
+    const cmul = (u, v) => [u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0]];
+    let p = [1, 0]; for (let k = 0; k < 6; k++) p = cmul(p, [Math.sqrt(3), 1]);
+    eq("CN: (sqrt3+i)^6 real part = -64", p[0], -64, 1e-9);
+    check("CN: (sqrt3+i)^6 imaginary part ~ 0", Math.abs(p[1]) < 1e-9);
+  }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

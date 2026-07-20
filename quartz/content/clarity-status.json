@@ -5359,6 +5359,184 @@
           "upgrade": ""
         }
       ]
+    },
+    "complex-numbers.md": {
+      "contentHash": "sha1:cc2947e935fb1182",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Comprehensive complex-numbers reference (arithmetic, polar form, Euler, De Moivre, nth roots, complex log, factoring over C); every worked number independently verified, no errors found. Audited and Phase-2'd in one pass: the atan2/quadrant-adjustment rule was stated but never worked (now converts z=-1+i -> sqrt2 e^{i3pi/4}), De Moivre had only the tidy 45-degree case (added (sqrt3+i)^6=-64 with the rect->polar step shown), and the conjugate properties got a numeric instance (z=3+4i). 25 strong / 3 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "motivation (x^2=-1 no real solution)",
+          "quality": "strong",
+          "note": "Foundations-first; builds (2i)^2=-4.",
+          "upgrade": ""
+        },
+        {
+          "concept": "real/imaginary/complex hierarchy",
+          "quality": "strong",
+          "note": "Concrete examples of each; nesting diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "FTA motivation",
+          "quality": "strong",
+          "note": "Stated in intro + Why (slightly redundant, correct).",
+          "upgrade": ""
+        },
+        {
+          "concept": "definition of complex number",
+          "quality": "strong",
+          "note": "(x+1)^2=-9 -> -1+/-3i with verification.",
+          "upgrade": ""
+        },
+        {
+          "concept": "complex plane",
+          "quality": "strong",
+          "note": "Definition + diagram; 2+3i plotted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polar/trig form (intro)",
+          "quality": "adequate",
+          "note": "Descriptive intro + diagram; concrete conversion now worked in the polar-form section.",
+          "upgrade": ""
+        },
+        {
+          "concept": "imaginary unit & sqrt(-c)",
+          "quality": "strong",
+          "note": "sqrt(-9)=3i, sqrt(-5)=i sqrt5; powers-of-i cycle diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "powers of i (positive)",
+          "quality": "strong",
+          "note": "Cycle derived; i^47=-i via remainder.",
+          "upgrade": ""
+        },
+        {
+          "concept": "powers of i (negative)",
+          "quality": "strong",
+          "note": "i^-9=-i two ways; good edge-case coverage.",
+          "upgrade": ""
+        },
+        {
+          "concept": "standard/rectangular form + Re/Im",
+          "quality": "strong",
+          "note": "Four labeled examples incl purely real/imaginary.",
+          "upgrade": ""
+        },
+        {
+          "concept": "addition / subtraction",
+          "quality": "strong",
+          "note": "Four numeric examples incl double-negative.",
+          "upgrade": ""
+        },
+        {
+          "concept": "multiplication",
+          "quality": "strong",
+          "note": "FOIL + two examples (one conjugate product -> real).",
+          "upgrade": ""
+        },
+        {
+          "concept": "division (rectangular)",
+          "quality": "strong",
+          "note": "(2+3i)/(1+2i)=8/5-1/5 i via conjugate.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conjugate + properties",
+          "quality": "strong",
+          "note": "Now with a numeric instance: z=3+4i -> z*zbar=25, z+zbar=6, z-zbar=8i.",
+          "upgrade": ""
+        },
+        {
+          "concept": "modulus",
+          "quality": "strong",
+          "note": "|3+4i|=5, |-2+5i|=sqrt29.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polar form / argument / atan2 quadrant rule",
+          "quality": "strong",
+          "note": "Now worked: z=-1+i (quadrant II) -> sqrt2 e^{i3pi/4} via arctan+pi, matching atan2; quadrant-III note (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Euler's formula + Taylor justification",
+          "quality": "strong",
+          "note": "Series shown and collected into cos/sin.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Euler's identity",
+          "quality": "strong",
+          "note": "e^{i pi}+1=0 with the five constants.",
+          "upgrade": ""
+        },
+        {
+          "concept": "polar form via Euler",
+          "quality": "adequate",
+          "note": "Restatement/bridge, intentionally brief.",
+          "upgrade": ""
+        },
+        {
+          "concept": "multiplication in polar form",
+          "quality": "strong",
+          "note": "3e^{i pi/6}*2e^{i pi/3}=6i, converted back; widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "division in polar form",
+          "quality": "strong",
+          "note": "4e^{i5pi/6}/2e^{i pi/3}=2i.",
+          "upgrade": ""
+        },
+        {
+          "concept": "De Moivre's theorem",
+          "quality": "strong",
+          "note": "Now two examples: (1+i)^10=32i and a non-45deg (sqrt3+i)^6=-64 with the rect->polar step shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "nth roots",
+          "quality": "strong",
+          "note": "Cube roots of 8i in full detail, all three + geometry + check; widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "complex exponential e^z",
+          "quality": "strong",
+          "note": "General form with modulus/argument reading.",
+          "upgrade": ""
+        },
+        {
+          "concept": "complex logarithm (multivalued + principal)",
+          "quality": "strong",
+          "note": "ln(-1)=i pi, Log(2i)=ln2+i pi/2, multivalued set.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conjugate pairs theorem",
+          "quality": "adequate",
+          "note": "Stated + reasoned; illustrated by the later x^3 example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "factoring over C",
+          "quality": "strong",
+          "note": "x^4-1 and x^3-x^2+x-1 factored completely with steps.",
+          "upgrade": ""
+        },
+        {
+          "concept": "applications",
+          "quality": "strong",
+          "note": "Rotation, FFT/roots of unity, waves, ML.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
