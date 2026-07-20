@@ -4408,6 +4408,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("PROB: rho in [-1,1]", Math.abs(Cov / (Math.sqrt(Vx) * Math.sqrt(Vy))) <= 1);
 }
 
+// ===== Real analysis (Phase-3 adequate->strong worked instances) =====
+{
+  // Archimedean: 1/1001 < 0.001.
+  check("RA: Archimedean 1/1001 < 0.001", 1 / 1001 < 0.001 && 1001 > 1 / 0.001);
+  // Density: 3/2 and sqrt(2.5) between sqrt2 and sqrt3.
+  check("RA: 3/2 between sqrt2 and sqrt3", Math.SQRT2 < 1.5 && 1.5 < Math.sqrt(3));
+  check("RA: sqrt(2.5) between sqrt2 and sqrt3", Math.SQRT2 < Math.sqrt(2.5) && Math.sqrt(2.5) < Math.sqrt(3));
+  // Squeeze: sin(n)/n bounded by 1/n.
+  check("RA: |sin(10)/10| <= 1/10", Math.abs(Math.sin(10) / 10) <= 1 / 10);
+  // Ratio test Sigma n/2^n: (n+1)/(2n) -> 1/2.
+  eq("RA: ratio test limit (n+1)/(2n) -> 1/2 at n=1e6", (1e6 + 1) / (2 * 1e6), 0.5, 1e-6);
+  check("RA: ratio 1/2 < 1 (converges)", 0.5 < 1);
+  // IVT: f=x^3-x-1 sign change on [1,2].
+  const f = x => x ** 3 - x - 1;
+  check("RA: IVT sign change f(1)<0<f(2)", f(1) === -1 && f(2) === 5 && f(1) < 0 && f(2) > 0);
+  check("RA: root near 1.3247", Math.abs(f(1.3247)) < 1e-3);
+  // Riemann integral int_0^1 x dx: lower (n-1)/(2n), upper (n+1)/(2n), both -> 1/2.
+  const n = 1e6;
+  eq("RA: lower sum (n-1)/(2n) -> 0.5", (n - 1) / (2 * n), 0.5, 1e-6);
+  eq("RA: upper sum (n+1)/(2n) -> 0.5", (n + 1) / (2 * n), 0.5, 1e-6);
+  // FTC: int_1^3 2x dx = F(3)-F(1) = 9-1 = 8.
+  const F = x => x * x;
+  eq("RA: FTC int_1^3 2x dx = F(3)-F(1) = 8", F(3) - F(1), 8);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

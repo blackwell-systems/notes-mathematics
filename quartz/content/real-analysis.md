@@ -79,6 +79,8 @@ Almost every major theorem in analysis relies on completeness, either directly o
 
 This says the natural numbers are unbounded, or equivalently, that $1/n$ can be made arbitrarily small. It is a consequence of completeness (if $\mathbb{N}$ were bounded above, $\sup \mathbb{N}$ would exist, and $\sup \mathbb{N} - 1$ would not be an upper bound, so some $n > \sup \mathbb{N} - 1$, giving $n + 1 > \sup \mathbb{N}$, a contradiction).
 
+**Concrete instance.** To force $1/n < 0.001$, the property supplies a natural number $n > 1/0.001 = 1000$; the smallest is $n = 1001$, and indeed $1/1001 \approx 0.000999 < 0.001$. However tiny the target $\epsilon$, some $1/n$ slips below it (take any $n > 1/\epsilon$), which is exactly the fact every $\epsilon$-$N$ convergence proof leans on.
+
 ### Density of the Rationals and Irrationals
 
 **Theorem.** Between any two real numbers $a < b$, there exists a rational number $r$ with $a < r < b$, and an irrational number $s$ with $a < s < b$.
@@ -86,6 +88,8 @@ This says the natural numbers are unbounded, or equivalently, that $1/n$ can be 
 **Proof sketch (density of rationals).** We want to find integers $m, n$ with $n > 0$ such that $a < m/n < b$. By the Archimedean property, choose $n$ large enough that $1/n < b - a$. Then the integer multiples of $1/n$ are spaced closer together than the length of $(a, b)$, so at least one of them must land inside.
 
 The rationals are "dense" in $\mathbb{R}$: they are everywhere, filling in every interval. Yet there are also irrationals between every pair of rationals. Both are interwoven throughout the real line, but the irrationals are "more numerous" in a sense that measure theory makes precise.
+
+**Concrete instance.** Between $\sqrt{2} \approx 1.4142$ and $\sqrt{3} \approx 1.7321$ sit the rational $\tfrac{3}{2} = 1.5$ and the irrational $\sqrt{2.5} \approx 1.5811$ (irrational since $2.5$ is not a perfect square). Both land strictly inside the interval, illustrating that every interval, however short, contains numbers of each kind.
 
 ### Nested Interval Property
 
@@ -181,6 +185,8 @@ Once you have established that individual sequences converge, you can combine th
 **Theorem (Squeeze Theorem).** If $a_n \le b_n \le c_n$ for all $n$, and $a_n \to L$ and $c_n \to L$, then $b_n \to L$.
 
 You used the Squeeze Theorem in calculus to evaluate limits. The proof is straightforward from the $\epsilon$-$N$ definition: given $\epsilon > 0$, choose $N$ large enough that both $|a_n - L| < \epsilon$ and $|c_n - L| < \epsilon$. Then $L - \epsilon < a_n \le b_n \le c_n < L + \epsilon$, so $|b_n - L| < \epsilon$.
+
+**Concrete instance.** The sequence $b_n = \dfrac{\sin n}{n}$ has no obvious limit (the numerator oscillates), but $|\sin n| \le 1$ gives the sandwich $-\dfrac{1}{n} \le \dfrac{\sin n}{n} \le \dfrac{1}{n}$. Both bounds $\pm 1/n \to 0$, so the squeeze forces $\dfrac{\sin n}{n} \to 0$. This is the standard way to kill an oscillating-but-bounded numerator: divide by something growing and trap it between two vanishing sequences.
 
 ### Monotone Convergence Theorem
 
@@ -291,6 +297,14 @@ You learned these tests computationally in calculus. Here is the analytic core o
 **Root Test.** If $\lim \sup |a_n|^{1/n} = r < 1$, then $\sum a_n$ converges absolutely. (Same geometric series idea, but sometimes sharper than the ratio test.)
 
 **Alternating Series Test.** If $a_n$ is decreasing and $a_n \to 0$, then $\sum (-1)^{n+1} a_n$ converges. (The partial sums alternately overshoot and undershoot, forming two monotone bounded subsequences that squeeze together.)
+
+**Concrete instance (ratio test).** Does $\sum_{n=1}^{\infty} \dfrac{n}{2^n}$ converge? Form the ratio of consecutive terms:
+
+$$
+\left|\frac{a_{n+1}}{a_n}\right| = \frac{(n+1)/2^{n+1}}{n/2^n} = \frac{n+1}{2n} \longrightarrow \frac{1}{2} < 1,
+$$
+
+so by the ratio test the series converges absolutely. The limit $r = \tfrac{1}{2}$ being strictly below $1$ is what matters: eventually each term is at most about half the previous one, so the tail is dominated by a convergent geometric series (this particular sum is $2$, but the test settles convergence without finding it).
 
 ## Metric Spaces
 
@@ -431,6 +445,8 @@ This is another reason compactness is so important: it automatically upgrades co
 **Theorem.** If $f : [a, b] \to \mathbb{R}$ is continuous and $f(a) < v < f(b)$ (or $f(b) < v < f(a)$), then there exists $c \in (a, b)$ with $f(c) = v$.
 
 You used this in calculus to argue that continuous functions "hit every value in between." The proof requires completeness of $\mathbb{R}$: you define $c = \sup\{x \in [a, b] : f(x) < v\}$ and use continuity to show $f(c) = v$. The theorem fails in $\mathbb{Q}$, because that supremum might not exist.
+
+**Concrete instance (locating a root).** Let $f(x) = x^3 - x - 1$ on $[1, 2]$. It is continuous, and $f(1) = 1 - 1 - 1 = -1 < 0$ while $f(2) = 8 - 2 - 1 = 5 > 0$. Since $0$ lies between $f(1)$ and $f(2)$, the IVT guarantees a $c \in (1, 2)$ with $f(c) = 0$: the cubic has a real root there (numerically $c \approx 1.3247$). This is exactly the existence guarantee that root-finding methods like bisection rely on: a sign change across a continuous function pins a root in between, even before you compute it.
 
 ## Sequences and Series of Functions
 
@@ -607,6 +623,14 @@ $$
 
 and this common value is $\int_a^b f(x) \, dx$.
 
+**Worked example (from the definition).** Compute $\int_0^1 x\,dx$ directly. Partition $[0,1]$ into $n$ equal pieces, $x_i = i/n$. On $[x_{i-1}, x_i]$ the increasing function $f(x) = x$ has $m_i = \tfrac{i-1}{n}$ and $M_i = \tfrac{i}{n}$, so
+
+$$
+L(f, P) = \sum_{i=1}^n \frac{i-1}{n}\cdot\frac{1}{n} = \frac{1}{n^2}\cdot\frac{(n-1)n}{2} = \frac{n-1}{2n}, \qquad U(f, P) = \sum_{i=1}^n \frac{i}{n}\cdot\frac{1}{n} = \frac{n+1}{2n}.
+$$
+
+As $n \to \infty$ both $\tfrac{n-1}{2n}$ and $\tfrac{n+1}{2n}$ converge to $\tfrac{1}{2}$, so $\sup_P L = \inf_P U = \tfrac{1}{2}$ and $\int_0^1 x\,dx = \tfrac{1}{2}$. The upper and lower sums squeezing to the same value is precisely what "Riemann integrable" means, and here they pinch shut on the familiar area of the triangle.
+
 ### When the Riemann Integral Fails
 
 The Riemann integral works well for continuous functions and functions with finitely many discontinuities. But consider the **Dirichlet function**:
@@ -630,6 +654,8 @@ $$
 $$
 
 Notice the hypotheses: Part 1 requires integrability and gives differentiability only at points of continuity. Part 2 requires the existence of an antiderivative. These conditions are automatically satisfied for continuous functions, which is why you never worried about them in calculus.
+
+**Concrete instance.** Part 2 turns the tedious limit-of-sums above into a one-line evaluation. To integrate $f(x) = 2x$ over $[1, 3]$, take the antiderivative $F(x) = x^2$ (indeed $F' = 2x$) and subtract endpoint values: $\int_1^3 2x\,dx = F(3) - F(1) = 9 - 1 = 8$. Compare the effort with the Riemann-sum computation of $\int_0^1 x\,dx$ above: the FTC is what makes integration practical, replacing partitions and suprema with antidifferentiation.
 
 ## Preview: What Comes Next
 

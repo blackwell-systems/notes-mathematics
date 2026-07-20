@@ -4169,7 +4169,7 @@
       ]
     },
     "real-analysis.md": {
-      "contentHash": "sha1:f7fe2d2881fef53b",
+      "contentHash": "sha1:06216d5253502b2f",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-20",
       "auditor": "claude+2subagents",
@@ -4190,14 +4190,14 @@
         },
         {
           "concept": "Archimedean property",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now concrete: 1/1001 < 0.001, the n > 1/eps instance every epsilon-N proof uses.",
           "upgrade": ""
         },
         {
           "concept": "density of rationals/irrationals",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now concrete: 3/2 (rational) and sqrt(2.5) (irrational) both between sqrt2 and sqrt3.",
           "upgrade": ""
         },
         {
@@ -4220,8 +4220,8 @@
         },
         {
           "concept": "limit theorems (algebraic, squeeze)",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now a worked squeeze: sin(n)/n trapped in +/-1/n -> 0.",
           "upgrade": ""
         },
         {
@@ -4262,8 +4262,8 @@
         },
         {
           "concept": "convergence tests (analytic core)",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now a worked ratio test: Sigma n/2^n has ratio (n+1)/(2n) -> 1/2 < 1, converges.",
           "upgrade": ""
         },
         {
@@ -4316,8 +4316,8 @@
         },
         {
           "concept": "intermediate value theorem",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now worked: x^3-x-1 sign-changes on [1,2] (f(1)=-1, f(2)=5), root near 1.3247.",
           "upgrade": ""
         },
         {
@@ -4364,8 +4364,8 @@
         },
         {
           "concept": "Riemann integral formal definition",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now worked from the definition: int_0^1 x dx via lower (n-1)/(2n) and upper (n+1)/(2n) sums pinching to 1/2.",
           "upgrade": ""
         },
         {
@@ -4376,8 +4376,8 @@
         },
         {
           "concept": "FTC rigorous",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now worked: int_1^3 2x dx = F(3)-F(1) = 9-1 = 8 via antiderivative x^2.",
           "upgrade": ""
         }
       ]
