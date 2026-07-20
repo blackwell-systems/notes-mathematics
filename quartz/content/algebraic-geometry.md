@@ -325,7 +325,7 @@ $$
 K(g(u)) = u_1^{2k_1} u_2^{2k_2} \cdots u_d^{2k_d}
 $$
 
-in the new coordinates $u = (u_1, \ldots, u_d)$, where $g$ is the blowup map and $k_1, \ldots, k_d$ are non-negative integers $k_j$ (some may be zero) called the **multiplicities**. (After a monomial resolution these exponents are integers; the ratios $(h_j + 1)/(2k_j)$ that follow are rational.) The Jacobian of the blowup map introduces an additional factor:
+in the new coordinates $u = (u_1, \ldots, u_d)$, where $g$ is the blowup map and $k_1, \ldots, k_d$ are non-negative integers $k_j$ (some may be zero) called the **orders** of the monomial. (We reserve the word *multiplicity* for a different quantity $m$, introduced with Watanabe's theorem below. After a monomial resolution these exponents are integers; the ratios $(h_j + 1)/(2k_j)$ that follow are rational.) The Jacobian of the blowup map introduces an additional factor:
 
 $$
 |J_g(u)| = u_1^{h_1} u_2^{h_2} \cdots u_d^{h_d}
@@ -349,7 +349,7 @@ $$
 \lambda = \min_j \frac{h_j + 1}{2k_j}
 $$
 
-where the minimum is taken over all coordinate directions $j$, across the charts covering the exceptional set of a single resolution. Crucially, the resulting value $\lambda$ is a **resolution invariant**: although the exponents $k_j$ and $h_j$ depend on which resolution you choose, the minimal ratio does not. This invariance is what makes $\lambda$ well-defined. (Equivalently and intrinsically, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z} \varphi(w) \, dw$, a definition that never refers to a resolution at all.)
+where the minimum is taken over all coordinate directions $j$, across the charts covering the exceptional set of a single resolution. A direction in which the loss does not vanish ($k_j = 0$) never enters the minimum: it contributes a formally infinite ratio $(h_j+1)/0$, which is just the statement that a coordinate the loss ignores places no constraint and cannot be the bottleneck. Crucially, the resulting value $\lambda$ is a **resolution invariant**: although the exponents $k_j$ and $h_j$ depend on which resolution you choose, the minimal ratio does not. This invariance is what makes $\lambda$ well-defined. (Equivalently and intrinsically, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z} \varphi(w) \, dw$, a definition that never refers to a resolution at all.)
 
 In simpler terms: after you resolve the singularity and write the integral in normal form, the integral's leading asymptotic behavior as $n \to \infty$ is controlled by the "worst" (smallest) exponent ratio. That smallest ratio is $\lambda$.
 
@@ -440,6 +440,50 @@ Changes in $\hat{\lambda}$ during training correspond to **phase transitions**: 
 
 ## Examples of RLCT Computation
 
+Before the statistical models, it is worth computing $\lambda$ by hand at least once, so the formula $\lambda = \min_j (h_j + 1)/(2k_j)$ stops being abstract. The two examples below are simple enough to do on paper and, together, exhibit both the smooth case ($m = 1$) and a genuinely singular case ($m = 2$).
+
+### Warm-Up: A Single Monomial
+
+Take the one-parameter loss $K(w) = w^{2k}$ on an interval around $w = 0$ with a smooth prior $\varphi$ that is positive at the origin (locally uniform is fine). This is already in normal-crossing form, so no resolution is needed: there is one coordinate direction, with order $k_1 = k$, and a locally-uniform prior contributes Jacobian exponent $h_1 = 0$. The formula gives
+
+$$
+\lambda = \frac{h_1 + 1}{2 k_1} = \frac{0 + 1}{2k} = \frac{1}{2k}, \qquad m = 1
+$$
+
+(only one direction, so it trivially attains the minimum). We can confirm this against the intrinsic zeta-function definition without ever mentioning a resolution. Near the origin,
+
+$$
+\zeta(z) = \int_0^1 (w^{2k})^{-z}\, dw = \int_0^1 w^{-2kz}\, dw = \frac{1}{1 - 2kz} \quad (\text{for } 2kz < 1)
+$$
+
+which continues meromorphically to a function whose only pole sits at $z = \tfrac{1}{2k}$, a **simple** pole. So $\lambda = \tfrac{1}{2k}$ and $m = 1$, matching the formula. For $k = 1$ (an ordinary quadratic minimum) this is $\lambda = \tfrac{1}{2}$, the smooth one-parameter value $d/2 = 1/2$; for $k = 2$ it is $\lambda = \tfrac{1}{4}$; larger $k$ (a flatter, more degenerate minimum) gives a smaller $\lambda$. This is exactly the relationship the interactive above plots as a slope: $F_n = -\log \int e^{-nK}\,dw$ grows like $\lambda \log n = \tfrac{1}{2k}\log n$.
+
+### The Minimal Singular Model: the Product $a \cdot b$
+
+Now a truly singular case, and the smallest one that matters for machine learning. Consider the two-parameter model $y = (a\,b)\,x + \varepsilon$ with independent Gaussian noise, and suppose the true relationship is $y = 0$, i.e. the true product is $a b = 0$. This is the smallest [reduced-rank regression](#reduced-rank-regression) (a $1 \times 1 \times 1$ factorization $ab$) and equally the smallest deep **linear** network (two scalar layers). The KL divergence from the truth works out to
+
+$$
+K(a, b) = \tfrac{1}{2}\, \mathbb{E}[x^2]\,(ab - 0)^2 \;\propto\; a^2 b^2
+$$
+
+a positive constant times the monomial $a^2 b^2$ (the constant does not move the poles, so it does not affect $\lambda$). The true-parameter set is $W_0 = \{ab = 0\}$, which is exactly the union of the two axes $V(ab) = V(a) \cup V(b)$ from the [operations on varieties](#operations-on-varieties) section: two lines crossing at the origin, with a **node singularity** right at $(0,0)$. The RLCT is a local quantity at that most-singular point.
+
+The monomial $a^2 b^2$ is already normal-crossing, so again no resolution is needed. There are two directions, each of order $k_1 = k_2 = 1$, and the uniform prior gives $h_1 = h_2 = 0$. The formula gives
+
+$$
+\lambda = \min\left( \frac{h_1 + 1}{2 k_1},\; \frac{h_2 + 1}{2 k_2} \right) = \min\left( \frac{1}{2},\; \frac{1}{2} \right) = \frac{1}{2}, \qquad m = 2
+$$
+
+and now the multiplicity is $m = 2$ because **both** directions attain the minimum. Confirming against the zeta function, the integral factors:
+
+$$
+\zeta(z) = \int_0^1\!\!\int_0^1 (a^2 b^2)^{-z}\, da\, db = \left( \int_0^1 a^{-2z}\, da \right)\left( \int_0^1 b^{-2z}\, db \right) = \frac{1}{(1 - 2z)^2}
+$$
+
+whose largest pole is at $z = \tfrac{1}{2}$ with order $2$. So $\lambda = \tfrac{1}{2}$, $m = 2$, matching the formula exactly.
+
+The payoff: a *regular* two-parameter model would have $\lambda = d/2 = 1$. The rank-degeneracy of the product $ab$ cuts the effective complexity in half, to $\lambda = \tfrac{1}{2}$, and it does so precisely because the parameterization $(a, b) \mapsto ab$ is singular at the origin (many $(a,b)$ pairs, the whole cross $ab = 0$, map to the same zero function). This one calculation is the seed of every RLCT statement that follows: the singular structure of a parameterization, not the raw parameter count, sets the effective complexity.
+
 ### Linear Regression
 
 **Model:** $y = w^T x + \epsilon$, with $d$ parameters.
@@ -452,11 +496,13 @@ This is the regular (non-singular) case. The Fisher information matrix is positi
 
 ### Reduced Rank Regression
 
-**Model:** $Y = ABX + \epsilon$, where $A$ is $m \times r$ and $B$ is $r \times n$.
+**Model:** $Y = ABX + \epsilon$, where $A$ is $p \times r$ and $B$ is $r \times q$ (using $p, q$ for the matrix sizes to avoid clashing with the multiplicity $m$ above).
 
 **True parameter set:** The set of $(A, B)$ pairs such that $AB = M^*$ (the true matrix). This is a matrix variety defined by rank constraints.
 
 **RLCT:** $\lambda < d/2$, where $d$ is the total number of entries in $A$ and $B$. The exact value depends on the true rank and the dimensions. When the true rank is less than the model rank, the parameter set has singularities (at points where $A$ or $B$ drops rank), and the RLCT reflects this.
+
+The smallest instance is the [product $ab$ worked above](#the-minimal-singular-model-the-product-a-cdot-b): scalar $A = a$, $B = b$, true product zero, giving $\lambda = \tfrac{1}{2}$ against the regular value $d/2 = 1$. For general dimensions the RLCT is known in closed form (Aoyagi and Watanabe, 2005): it is a piecewise-quadratic function of the matrix sizes and the true rank, and it always comes out strictly below the regular $d/2$ whenever the true rank is deficient. The point is that "$\lambda < d/2$" is not a vague inequality here, it is an exactly computable number for every choice of dimensions.
 
 This is a key example because deep linear networks are a special case. The RLCT of a deep linear network depends on the architecture (number and size of layers) and the true rank, providing quantitative predictions about how architecture affects generalization.
 

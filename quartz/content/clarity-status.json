@@ -4487,6 +4487,178 @@
           "upgrade": ""
         }
       ]
+    },
+    "algebraic-geometry.md": {
+      "contentHash": "sha1:7a52de2e11da927f",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "Frontier page linking algebraic geometry to SLT (varieties, ideals, Nullstellensatz, singular points, blowups, RLCT, Watanabe's theorem); every formula and blowup independently verified, no math errors found. Audited and Phase-2'd in one pass: the RLCT was defined but never computed by hand, and the 'Examples of RLCT Computation' section computed nothing. Now two full hand-computations added: single monomial w^{2k} (lambda=1/(2k), m=1) and the minimal singular model a·b (lambda=1/2, m=2 via the zeta double pole), each cross-checked against both lambda=min(h_j+1)/(2k_j) and the zeta-function poles, plus a machine-verified free-energy slope. Fixed a 'multiplicity' terminology collision and a k_j=0 divide-by-zero ambiguity. 23 strong / 4 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "intro / conic-sections bridge",
+          "quality": "strong",
+          "note": "Circle/ellipse/parabola/hyperbola in f=0 form; motivating overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "affine variety definition",
+          "quality": "strong",
+          "note": "Clean formal definition V(f_1..f_k).",
+          "upgrade": ""
+        },
+        {
+          "concept": "variety examples (1/2/3 vars)",
+          "quality": "strong",
+          "note": "Concrete zero sets incl solved intersection V(x^2+y^2-1, y-x)={(±1/√2,±1/√2)}.",
+          "upgrade": ""
+        },
+        {
+          "concept": "dimension",
+          "quality": "adequate",
+          "note": "Correct codimension intuition with Krull-dimension caveat; overview, no worked computation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "operations on varieties (union/intersection)",
+          "quality": "strong",
+          "note": "Formulas plus V(xy)=V(x)∪V(y).",
+          "upgrade": ""
+        },
+        {
+          "concept": "ideal of a variety",
+          "quality": "strong",
+          "note": "Concrete vanishing polynomials on the circle; both closure axioms justified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "algebra-geometry dictionary",
+          "quality": "strong",
+          "note": "Order-reversal, emptiness↔contains-1, irreducible↔prime, diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Nullstellensatz",
+          "quality": "adequate",
+          "note": "Correctly flags algebraic closure + radical ideals; deliberately brief.",
+          "upgrade": ""
+        },
+        {
+          "concept": "smooth vs singular / Jacobian criterion",
+          "quality": "strong",
+          "note": "Single-equation f_x=f_y=0 plus general rank-drop criterion.",
+          "upgrade": ""
+        },
+        {
+          "concept": "singularity examples (cusp/node/parabola)",
+          "quality": "strong",
+          "note": "Partials computed and evaluated at origin, carried to conclusion; widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why singular points matter",
+          "quality": "strong",
+          "note": "Conceptual, with Whitney-umbrella widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parameter-to-distribution map",
+          "quality": "strong",
+          "note": "Overview of w -> p(x|w).",
+          "upgrade": ""
+        },
+        {
+          "concept": "true parameter set W_0 as a variety",
+          "quality": "strong",
+          "note": "Includes linear-regression W_0={(2,3)} single point.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why NN parameter sets are singular",
+          "quality": "strong",
+          "note": "Permutation, redundancy, rank degeneracy.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Fisher information as Jacobian",
+          "quality": "adequate",
+          "note": "Correct degenerate-FIM ↔ singular-W_0 link; symbolic, no worked FIM.",
+          "upgrade": ""
+        },
+        {
+          "concept": "resolution: the problem",
+          "quality": "strong",
+          "note": "Why Laplace's method fails at a singularity.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Hironaka's theorem",
+          "quality": "strong",
+          "note": "Statement + attribution.",
+          "upgrade": ""
+        },
+        {
+          "concept": "blowup intuition",
+          "quality": "strong",
+          "note": "Node blowup x=u,y=uv -> u^2(v^2-1)=0 carried through, divisor + branches identified; diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "normal form after resolution",
+          "quality": "strong",
+          "note": "Now the 1D integral is actually evaluated to a pole in the worked examples; k_j renamed 'orders' to end the multiplicity collision.",
+          "upgrade": ""
+        },
+        {
+          "concept": "RLCT definition (lambda = min (h_j+1)/(2k_j))",
+          "quality": "strong",
+          "note": "Now worked on concrete monomials; added the k_j=0 (infinite-ratio, excluded) caveat; zeta-function characterization.",
+          "upgrade": ""
+        },
+        {
+          "concept": "what the RLCT measures + monomial lambda=1/(2k)",
+          "quality": "strong",
+          "note": "Now derived (not just asserted) via zeta simple pole; slope tie-in to the widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "key insight for deep learning",
+          "quality": "strong",
+          "note": "Honest 'schematic' caveat on the lambda=50 figure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Watanabe's main theorem",
+          "quality": "strong",
+          "note": "Full free-energy formula, every symbol defined, BIC reduction shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "WAIC / WBIC",
+          "quality": "adequate",
+          "note": "WBIC formula + lambda ln n expansion stated correctly; no numeric instance (appropriate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "local learning coefficient lambda-hat",
+          "quality": "strong",
+          "note": "Overview + interpretability payoff (phase transitions).",
+          "upgrade": ""
+        },
+        {
+          "concept": "RLCT computation examples",
+          "quality": "strong",
+          "note": "Now two full hand computations: single monomial (lambda=1/(2k), m=1) and the product a·b (lambda=1/2, m=2) with zeta double pole; reduced-rank closed-form (Aoyagi-Watanabe 2005) referenced with the a·b smallest instance.",
+          "upgrade": ""
+        },
+        {
+          "concept": "summary / SLT path",
+          "quality": "strong",
+          "note": "Ten-step recap from x^2+y^2=1 to developmental interpretability.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

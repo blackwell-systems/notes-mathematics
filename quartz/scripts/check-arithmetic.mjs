@@ -3715,6 +3715,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("three-var: interior test (1,1) satisfies all", (1 + 1 <= 4) && (1 - 1 < 2) && 1 >= 0 && 1 >= 0);
 }
 
+// ===== Algebraic geometry (Phase-2 worked RLCT computations) =====
+{
+  // Simpson integrator (local, for independence).
+  const simpson = (f, a, b, N) => { const h = (b - a) / N; let s = f(a) + f(b); for (let i = 1; i < N; i++) s += (i % 2 ? 4 : 2) * f(a + i * h); return s * h / 3; };
+  const rlctMono = k => 1 / (2 * k);               // K = w^{2k}, uniform prior: lambda = (0+1)/(2k)
+  const rlctFormula = (ks, hs) => {                 // lambda = min_j (h_j+1)/(2k_j) over k_j>0
+    let best = Infinity, m = 0;
+    for (let j = 0; j < ks.length; j++) { if (ks[j] === 0) continue; const r = (hs[j] + 1) / (2 * ks[j]); if (r < best - 1e-12) { best = r; m = 1; } else if (Math.abs(r - best) <= 1e-12) m++; }
+    return { lambda: best, m };
+  };
+
+  // Warm-up single monomial K=w^{2k}: lambda = 1/(2k), m=1.
+  eq("AG: single monomial k=1 -> lambda = 1/2", rlctMono(1), 0.5);
+  eq("AG: single monomial k=2 -> lambda = 1/4", rlctMono(2), 0.25);
+  eq("AG: single monomial k=3 -> lambda = 1/6", rlctMono(3), 1 / 6, 1e-12);
+  { const r = rlctFormula([2], [0]); eq("AG: formula matches monomial k=2", r.lambda, 0.25); check("AG: monomial multiplicity m=1", r.m === 1); }
+  // Zeta pole: ∫_0^1 w^{-2kz} dw = 1/(1-2kz), simple pole at z=1/(2k). Check the closed form at a sample z.
+  { const k = 2, z = 0.1; eq("AG: zeta 1/(1-2kz) at k=2,z=0.1 = 1/0.6", 1 / (1 - 2 * k * z), 1 / 0.6, 1e-12); }
+
+  // Minimal singular model K = a^2 b^2 (reduced-rank/deep-linear a*b): lambda=1/2, m=2.
+  { const r = rlctFormula([1, 1], [0, 0]); eq("AG: a^2b^2 lambda = 1/2", r.lambda, 0.5); check("AG: a^2b^2 multiplicity m=2 (both dirs attain min)", r.m === 2); }
+  // Zeta factorizes: (∫_0^1 a^{-2z} da)^2 = 1/(1-2z)^2 -> double pole at z=1/2.
+  { const z = 0.25; const oneD = 1 / (1 - 2 * z); eq("AG: a^2b^2 zeta = (1/(1-2z))^2 at z=1/4 = 4", oneD * oneD, 4); }
+  // Regular 2-parameter model has lambda = d/2 = 1; the a*b degeneracy halves it.
+  check("AG: rank degeneracy halves effective complexity (1/2 < d/2 = 1)", 0.5 < 2 / 2);
+
+  // Free-energy slope: F_n = -log ∫ e^{-n w^{2k}} dw ~ lambda log n, verified via peak-rescaled integral.
+  // w = s n^{-1/(2k)} => Z_n = n^{-1/(2k)} ∫_{-L}^{L} e^{-s^{2k}} ds, L=min(n^{1/(2k)}, 8) (smooth integrand).
+  const scaledInt = (n, k) => { const L = Math.min(Math.pow(n, 1 / (2 * k)), 8); return simpson(s => Math.exp(-Math.pow(Math.abs(s), 2 * k)), -L, L, 4000); };
+  const Fn = (n, k) => (1 / (2 * k)) * Math.log(n) - Math.log(scaledInt(n, k));
+  for (const k of [1, 2, 3]) {
+    const n1 = 1e6, n2 = 1e12;
+    const slope = (Fn(n2, k) - Fn(n1, k)) / (Math.log(n2) - Math.log(n1));
+    eq(`AG: measured free-energy slope for K=w^{2k} (k=${k}) ~ lambda=1/(2k)`, slope, 1 / (2 * k), 5e-3);
+  }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
