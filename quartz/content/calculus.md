@@ -770,6 +770,13 @@ The **second derivative test** provides a faster way to classify critical points
 
 An **inflection point** is where concavity changes (from concave up to concave down or vice versa). It occurs where $f''(x) = 0$ (and the concavity actually changes).
 
+**Worked example.** Classify the critical points of $f(x) = x^3 - 3x$. The derivatives are $f'(x) = 3x^2 - 3$ and $f''(x) = 6x$. Setting $f'(x) = 0$ gives $x^2 = 1$, so the critical points are $x = 1$ and $x = -1$. Now read off concavity from the second derivative:
+
+- At $x = 1$: $f''(1) = 6 > 0$ (concave up), so $x = 1$ is a **local minimum**, with $f(1) = 1 - 3 = -2$.
+- At $x = -1$: $f''(-1) = -6 < 0$ (concave down), so $x = -1$ is a **local maximum**, with $f(-1) = -1 + 3 = 2$.
+
+The concavity itself flips where $f''(x) = 6x = 0$, i.e. at $x = 0$: to its left $f$ is concave down, to its right concave up, so $(0, 0)$ is an inflection point. One second derivative settled both critical points and located the inflection.
+
 ![A curve that is concave down where the second derivative is negative and concave up where it is positive, with an inflection point marked where the concavity switches](./media/concavity-inflection.png)
 
 ### Optimization
@@ -878,11 +885,13 @@ Critical point: $f'(x) = 0$ when $x = 0$. The denominator $(x^2-1)^2$ is always 
 
 So $x = 0$ is a local maximum with $f(0) = 0$.
 
-**Step 6, Second derivative:** By the quotient rule (omitting the algebra):
+**Step 6, Second derivative:** Differentiate $f'(x) = \dfrac{-2x}{(x^2-1)^2}$ by the quotient rule. With top $-2x$ (derivative $-2$) and bottom $(x^2-1)^2$ (derivative $2(x^2-1)(2x) = 4x(x^2-1)$):
 
 $$
-f''(x) = \frac{2(3x^2 + 1)}{(x^2 - 1)^3}
+f''(x) = \frac{(-2)(x^2-1)^2 - (-2x)\cdot 4x(x^2-1)}{(x^2-1)^4} = \frac{(x^2-1)\big[-2(x^2-1) + 8x^2\big]}{(x^2-1)^4} = \frac{6x^2 + 2}{(x^2-1)^3} = \frac{2(3x^2 + 1)}{(x^2 - 1)^3},
 $$
+
+where a common factor of $(x^2-1)$ cancels and $-2(x^2-1) + 8x^2 = 6x^2 + 2$.
 
 The numerator $2(3x^2 + 1)$ is always positive. The sign of $f''$ depends on $(x^2 - 1)^3$:
 - For $|x| < 1$: $x^2 - 1 < 0$, so $f'' < 0$ (concave down)
@@ -1076,6 +1085,8 @@ This theorem is the central result of calculus. It says that differentiation and
 
 In words: the derivative of the integral gives back the original function.
 
+**Example (Part 1).** Let $F(x) = \int_0^x \cos(t^2)\,dt$. This integral has *no* elementary antiderivative, so you cannot write $F$ in closed form. Yet Part 1 hands you its derivative for free: $F'(x) = \cos(x^2)$. (With a variable inside the upper limit, the chain rule joins in: $\dfrac{d}{dx}\int_0^{x^2} \cos t\,dt = \cos(x^2)\cdot 2x$.) This is Part 1's real power: differentiating an accumulation function without ever evaluating the integral.
+
 ![The accumulation function A(x) equals the shaded area under f(t) from a to x; as x moves right the area grows at the rate f(x), so differentiating the accumulated area recovers the original function](./media/ftc-accumulation.png)
 
 **Part 2:** If $f$ is continuous on $[a, b]$ and $F$ is any antiderivative of $f$ (meaning $F' = f$), then:
@@ -1107,6 +1118,8 @@ $$
 $$
 \int_a^b f(x) \, dx + \int_b^c f(x) \, dx = \int_a^c f(x) \, dx
 $$
+
+For a concrete check with $f(x) = x$ (antiderivative $\tfrac{x^2}{2}$): $\int_0^2 x\,dx = 2$ and $\int_2^5 x\,dx = \tfrac{25}{2} - \tfrac{4}{2} = 10.5$, and their sum $2 + 10.5 = 12.5$ equals $\int_0^5 x\,dx = \tfrac{25}{2} = 12.5$ directly. The even/odd shortcuts below are just special cases of these properties: for the even $f(x) = x^2$, $\int_{-1}^1 x^2\,dx = 2\int_0^1 x^2\,dx = 2\cdot\tfrac{1}{3} = \tfrac{2}{3}$.
 
 **Reversal of limits:** Swapping the limits of integration negates the integral:
 
@@ -1162,6 +1175,8 @@ These are the derivative rules in reverse:
 **Constant multiple:** $\int c \cdot f(x) \, dx = c \int f(x) \, dx$
 
 **Sum/difference:** $\int [f(x) \pm g(x)] \, dx = \int f(x) \, dx \pm \int g(x) \, dx$
+
+**Worked example.** Integrate the polynomial $3x^2 + 2x$ term by term with the power rule: $\int (3x^2 + 2x)\,dx = 3\cdot\tfrac{x^3}{3} + 2\cdot\tfrac{x^2}{2} + C = x^3 + x^2 + C$. As a check, differentiating $x^3 + x^2$ returns $3x^2 + 2x$. Turning it into a definite integral over $[0, 2]$ and applying the Fundamental Theorem: $\int_0^2 (3x^2 + 2x)\,dx = \big[x^3 + x^2\big]_0^2 = (8 + 4) - 0 = 12$.
 
 **Worked example:** $\int (3x^2 + 2x - 5) \, dx = x^3 + x^2 - 5x + C$
 
@@ -1275,7 +1290,13 @@ $$
 
 This integral cannot be solved with any of the techniques above (there is no elementary antiderivative of $e^{-x^2}$). It is evaluated using a clever trick involving polar coordinates. We state it as a fact.
 
-**Why it matters:** The normal distribution (bell curve) is $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-(x - \mu)^2 / (2\sigma^2)}$. The $\sqrt{2\pi}$ in the denominator is there precisely to make the total area under the curve equal 1 (as required for a probability distribution). That normalization constant comes from the Gaussian integral.
+**The scaled version.** Substituting $u = x/(\sigma\sqrt{2})$ (so $dx = \sigma\sqrt{2}\,du$) turns the bell into the standard one and pulls the constants out:
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2/(2\sigma^2)}\,dx = \sigma\sqrt{2}\int_{-\infty}^{\infty} e^{-u^2}\,du = \sigma\sqrt{2}\cdot\sqrt{\pi} = \sigma\sqrt{2\pi}.
+$$
+
+**Why it matters:** The normal distribution (bell curve) is $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-(x - \mu)^2 / (2\sigma^2)}$. The computation just done shows the raw bell $e^{-(x-\mu)^2/(2\sigma^2)}$ has total area $\sigma\sqrt{2\pi}$, so dividing by exactly that constant makes the area $1$ (as required for a probability distribution). That is where the $\sigma\sqrt{2\pi}$ in the denominator comes from.
 
 ### Improper Integrals
 
@@ -1409,7 +1430,7 @@ When integrating a rational function (a polynomial divided by a polynomial), dec
 
 **Example:** Evaluate $\int \frac{1}{x^2-1} \, dx$.
 
-Factor the denominator: $x^2 - 1 = (x-1)(x+1)$. Decompose:
+Factor the denominator: $x^2 - 1 = (x-1)(x+1)$, and write $\dfrac{1}{(x-1)(x+1)} = \dfrac{A}{x-1} + \dfrac{B}{x+1}$. The coefficients come from the cover-up method: multiply through and evaluate at each root. At $x = 1$, $A = \dfrac{1}{x+1}\Big|_{x=1} = \dfrac{1}{2}$; at $x = -1$, $B = \dfrac{1}{x-1}\Big|_{x=-1} = \dfrac{1}{-2} = -\dfrac{1}{2}$. So
 
 $$
 \frac{1}{x^2-1} = \frac{1}{(x-1)(x+1)} = \frac{1}{2}\left(\frac{1}{x-1} - \frac{1}{x+1}\right)

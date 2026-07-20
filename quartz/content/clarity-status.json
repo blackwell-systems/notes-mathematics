@@ -1110,9 +1110,9 @@
       "phase2At": "2026-07-16"
     },
     "calculus.md": {
-      "contentHash": "sha1:28fbc4ffcb528a81",
+      "contentHash": "sha1:4d2e5a99320f9b5b",
       "clarityRubricVersion": 1,
-      "auditedAt": "2026-07-18",
+      "auditedAt": "2026-07-20",
       "auditor": "claude+subagent",
       "overall": "strong",
       "summary": "PHASE 2 DONE: the recurring gap was 'only the easiest case worked'; now the interesting cases are too. Product rule (f/g labelled + a chain-rule-inside x^2 sin 3x); quotient rule (labelled, sign-asymmetry, sign-check via x(x+2)); implicit diff (the d/dx(y^2)=2y y' trip-step spelled out + evaluated at (3,4) with a perpendicular-to-radius check); related rates (explicit method + surface-area check + a second implicit ladder example); MVT (finds c=2 for x^2 on [1,3], and c=2/sqrt3 for x^3 to show c is not the midpoint); Riemann sums (numeric L4=0.21875 < 1/3 < R4=0.46875); integration by parts (the ln x dv=dx trick + the cyclic e^x cos x solved as an equation); numerical integration (trapezoid vs Simpson on the figure's integral of e^{-x^2}, Simpson ~5x closer); Taylor (e^x derived from scratch + truncation within 0.0016 of e, and the sin derivative cycle). All 9 independently reviewed (returned []); +24 machine-checked assertions. Resolves all 9 thin items.",
@@ -1137,8 +1137,8 @@
         },
         {
           "concept": "limit by rationalizing (conjugate)",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Already worked on the page: lim (sqrt(x+4)-2)/x = 1/4 via conjugate (stale grade corrected).",
           "upgrade": "Name the conjugate trick and why it clears 0/0; interpret 1/4."
         },
         {
@@ -1149,8 +1149,8 @@
         },
         {
           "concept": "trig limit sin(3x)/x rewrite",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Already worked: sin(3x)/x rewritten as 3*sin(3x)/(3x) -> 3 (stale grade corrected).",
           "upgrade": "Show sin(3x)/x = 3*sin(3x)/(3x) with u=3x named."
         },
         {
@@ -1161,8 +1161,8 @@
         },
         {
           "concept": "direct substitution limit",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Already worked: lim_{x->3}(x^2+1)=10 (stale grade corrected).",
           "upgrade": "Toy-level; fine as illustration."
         },
         {
@@ -1211,8 +1211,8 @@
         },
         {
           "concept": "derivative of ln/exp composites",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Already worked: d/dx ln(x^2+1)=2x/(x^2+1) via chain rule (stale grade corrected).",
           "upgrade": "Spell out u=x^2+1 as a labeled chain step."
         },
         {
@@ -1229,8 +1229,8 @@
         },
         {
           "concept": "higher-order derivatives / concavity",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now worked via the second-derivative-test example (f=x^3-3x: f,f prime,f double-prime, concavity flip at x=0).",
           "upgrade": "Optional: a concavity diagram pinned to x^3-3x."
         },
         {
@@ -1254,8 +1254,8 @@
         },
         {
           "concept": "second derivative test",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now worked: f=x^3-3x -> crit +-1, f dp(1)=6>0 min (f=-2), f dp(-1)=-6<0 max (f=2), inflection at 0.",
           "upgrade": "Add a standalone classify-a-point example (f'(c)=0, f''(c)>0 => min)."
         },
         {
@@ -1279,8 +1279,8 @@
         },
         {
           "concept": "curve sketching (full)",
-          "quality": "adequate",
-          "note": "Step 6 explicitly hides the second-derivative algebra",
+          "quality": "strong",
+          "note": "Step 6 second-derivative algebra now shown in full (quotient rule -> 2(3x^2+1)/(x^2-1)^3), not omitted.",
           "upgrade": "Show the f'' computation (currently 'omitting the algebra' on the hardest step); pin a sketch of x^2/(x^2-1)."
         },
         {
@@ -1311,20 +1311,20 @@
         },
         {
           "concept": "FTC evaluation",
-          "quality": "adequate",
-          "note": "Part 2 toy; Part 1 has no worked example",
+          "quality": "strong",
+          "note": "Now Part 1 is worked: d/dx int_0^x cos(t^2) dt = cos(x^2), a derivative with no closed-form antiderivative.",
           "upgrade": "Add a Part-1 example: d/dx integral_0^x sin(t^2) dt = sin(x^2)."
         },
         {
           "concept": "definite integral properties (even/odd, additivity)",
-          "quality": "adequate",
-          "note": "only the odd shortcut gets a mini-example",
+          "quality": "strong",
+          "note": "Now additivity worked: int_0^2 x + int_2^5 x = 2+10.5 = 12.5 = int_0^5 x; even x^2 -> 2/3.",
           "upgrade": "Add an even-function example."
         },
         {
           "concept": "basic integration (antiderivative of polynomial)",
-          "quality": "adequate",
-          "note": "one-liner",
+          "quality": "strong",
+          "note": "Now worked: int (3x^2+2x) dx = x^3+x^2+C, definite int_0^2 = 12.",
           "upgrade": "Show each term's reverse power rule once."
         },
         {
@@ -1367,8 +1367,8 @@
         },
         {
           "concept": "integration by partial fractions",
-          "quality": "adequate",
-          "note": "decomposition coefficients asserted",
+          "quality": "strong",
+          "note": "Coefficients now derived by cover-up (A=1/2, B=-1/2), not asserted.",
           "upgrade": "Solve for A,B (or cover-up) to get the +/-1/2, rather than presenting the split."
         },
         {
@@ -1380,8 +1380,8 @@
         },
         {
           "concept": "Gaussian integral",
-          "quality": "adequate",
-          "note": "",
+          "quality": "strong",
+          "note": "Now with the scaled computation: int e^{-x^2/(2 sigma^2)} dx = sigma sqrt(2pi), giving the normal density normalizer.",
           "upgrade": "Stated as a fact with motivation; derivation appropriately omitted."
         }
       ],

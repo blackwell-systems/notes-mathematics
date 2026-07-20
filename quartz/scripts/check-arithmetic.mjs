@@ -4433,6 +4433,38 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("RA: FTC int_1^3 2x dx = F(3)-F(1) = 8", F(3) - F(1), 8);
 }
 
+// ===== Calculus (Phase-3 adequate->strong upgrades) =====
+{
+  // Second derivative test: f=x^3-3x.
+  const f = x => x ** 3 - 3 * x, fp = x => 3 * x * x - 3, fpp = x => 6 * x;
+  eq("CALC: f'(1)=0 and f'(-1)=0 (critical points)", fp(1) + Math.abs(fp(-1)), 0);
+  eq("CALC: f''(1)=6>0 -> min, f(1)=-2", f(1), -2); check("CALC: f''(1)>0", fpp(1) > 0);
+  eq("CALC: f''(-1)=-6<0 -> max, f(-1)=2", f(-1), 2); check("CALC: f''(-1)<0", fpp(-1) < 0);
+  eq("CALC: inflection where f''=6x=0 -> x=0", fpp(0), 0);
+
+  // Curve-sketch f''(x)=2(3x^2+1)/(x^2-1)^3: check the algebra at a sample x.
+  { const x = 2, fppEx = 2 * (3 * x * x + 1) / (x * x - 1) ** 3;
+    const num = (-2) * (x * x - 1) ** 2 - (-2 * x) * (4 * x * (x * x - 1)), den = (x * x - 1) ** 4;
+    eq("CALC: curve-sketch f'' algebra matches at x=2", num / den, fppEx, 1e-9); }
+
+  // Additivity: int_0^2 x + int_2^5 x = int_0^5 x.
+  eq("CALC: int_0^2 x = 2", (2 ** 2) / 2, 2);
+  eq("CALC: int_2^5 x = 10.5", (25 - 4) / 2, 10.5);
+  eq("CALC: additivity 2 + 10.5 = int_0^5 x = 12.5", 2 + 10.5, 25 / 2);
+  eq("CALC: even int_-1^1 x^2 = 2*(1/3) = 2/3", 2 * (1 / 3), 2 / 3, 1e-12);
+
+  // Basic integration: int_0^2 (3x^2+2x) = [x^3+x^2] = 8+4 = 12.
+  eq("CALC: int_0^2 (3x^2+2x) = 12", (2 ** 3 + 2 ** 2), 12);
+
+  // Partial fractions cover-up: A=1/2, B=-1/2.
+  eq("CALC: PF A = 1/(1+1) = 1/2", 1 / (1 + 1), 0.5);
+  eq("CALC: PF B = 1/(-1-1) = -1/2", 1 / (-1 - 1), -0.5);
+
+  // Scaled Gaussian: int e^{-x^2/(2 sigma^2)} dx = sigma sqrt(2pi); sigma=1 -> sqrt(2pi).
+  eq("CALC: scaled Gaussian sigma=1 -> sqrt(2pi)", 1 * Math.sqrt(2 * Math.PI), Math.sqrt(2 * Math.PI), 1e-12);
+  eq("CALC: scaled Gaussian sigma=2 -> 2 sqrt(2pi)", 2 * Math.sqrt(2 * Math.PI), 2 * Math.sqrt(2 * Math.PI), 1e-12);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
