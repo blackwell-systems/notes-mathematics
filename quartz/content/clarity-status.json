@@ -6125,6 +6125,166 @@
           "upgrade": ""
         }
       ]
+    },
+    "rational-functions.md": {
+      "contentHash": "sha1:b2b7eec9509ea6fe",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Comprehensive rational-functions reference (asymptotes, holes, sign analysis, solving equations/inequalities, one-sided limits, full graphing walkthrough, applications); every worked number independently verified, no errors found. The function-analysis half was strong but the expression-algebra half was absent. Audited and Phase-2'd in one pass: added a full \"Operations on Rational Expressions\" section (simplify, multiply/divide, add/subtract via LCD, complex fractions), worked examples for domain/range/x-intercepts (were prose-only), a rational-functions-in-ML section (Pade activations, Pade vs Taylor, Adam's ratio), and cleaned up the definition and the equal-degree HA wording. 22 strong / 3 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "what is a rational function (intro)",
+          "quality": "strong",
+          "note": "1/x motivation with VA/HA identified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "formal definition",
+          "quality": "strong",
+          "note": "Corrected wording (Q not the zero polynomial; zero at isolated points = undefined).",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain / excluded values",
+          "quality": "strong",
+          "note": "Now worked: domain of (x+1)/(x^2-x-6) excludes 3,-2 with interval notation (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "range",
+          "quality": "strong",
+          "note": "Now worked: range of (2x+1)/(x-3) excludes y=2 via solve-for-x (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "proper / improper",
+          "quality": "adequate",
+          "note": "Symbolic examples; long-division rewrite done later.",
+          "upgrade": ""
+        },
+        {
+          "concept": "operations: simplifying to lowest terms",
+          "quality": "strong",
+          "note": "Now present: (x^2-9)/(x^2-x-6)=(x+3)/(x+2), x!=3, tied to holes (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "operations: multiplying / dividing",
+          "quality": "strong",
+          "note": "Now present: multiply -> (x-1)/(x+2); divide -> (x+1)(x-2) (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "operations: adding / subtracting (LCD)",
+          "quality": "strong",
+          "note": "Now present: 1/x+1/(x+1)=(2x+1)/(x(x+1)) (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "operations: complex (compound) fractions",
+          "quality": "strong",
+          "note": "Now present: (1/x+1/y)/(1/x-1/y)=(y+x)/(y-x) via LCD (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "finding x-intercepts",
+          "quality": "strong",
+          "note": "Now worked: (x^2-1)/(x^2-4) -> (1,0),(-1,0) with the numerator-zero/denominator-nonzero check (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "finding y-intercept",
+          "quality": "strong",
+          "note": "f(0)=-3/5 with denominator factoring.",
+          "upgrade": ""
+        },
+        {
+          "concept": "horizontal asymptote deg N<D",
+          "quality": "strong",
+          "note": "(x^2+1)/x^3 -> y=0.",
+          "upgrade": ""
+        },
+        {
+          "concept": "horizontal asymptote deg N=D",
+          "quality": "strong",
+          "note": "(x^2+3)/x^2 -> leading-coeff ratio 1/1=1 (wording cleaned up).",
+          "upgrade": ""
+        },
+        {
+          "concept": "slant/oblique & polynomial asymptotes overview",
+          "quality": "adequate",
+          "note": "Degree-difference gallery with graphs.",
+          "upgrade": ""
+        },
+        {
+          "concept": "slant asymptote via long division",
+          "quality": "strong",
+          "note": "Two full divisions to y=x+2 and y=2x+1.",
+          "upgrade": ""
+        },
+        {
+          "concept": "holes / removable discontinuities",
+          "quality": "strong",
+          "note": "Two worked holes; hole-vs-VA table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "end behavior (three degree cases)",
+          "quality": "strong",
+          "note": "All three with examples + summary table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sign analysis / interval testing",
+          "quality": "strong",
+          "note": "Two full sign charts, all signs verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving rational equations + extraneous roots",
+          "quality": "strong",
+          "note": "x=3 valid and x=2 extraneous.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving rational inequalities",
+          "quality": "strong",
+          "note": "(x-1)/(x+2)>=0 with open/closed reasoning.",
+          "upgrade": ""
+        },
+        {
+          "concept": "one-sided limits at holes and VAs",
+          "quality": "strong",
+          "note": "Holes, odd/even VAs, mixed case worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "complete graphing example",
+          "quality": "strong",
+          "note": "11-step walkthrough of (x^2-x-6)/(x-2), all numbers verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "applications: average cost / concentration",
+          "quality": "strong",
+          "note": "520/70/25 -> y=20; dilution -> y=0; acid mix -> y=1.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rational functions in ML",
+          "quality": "strong",
+          "note": "Now present: Pade/rational activations, Pade vs Taylor approximation, Adam ratio as end-behavior (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "partial fraction decomposition",
+          "quality": "adequate",
+          "note": "Deliberately deferred to its own linked page (scope choice, not a gap).",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

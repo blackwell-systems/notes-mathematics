@@ -33,7 +33,7 @@ A rational function is built from [polynomial functions](./polynomial-functions)
 ## Formal Definition
 
 **Rational Functions:** A rational function is an expression of the form
-$\frac{P(x)}{Q(x)}$, *p,q* are polynomials and q is not 0.
+$\frac{P(x)}{Q(x)}$, where $P(x)$ and $Q(x)$ are polynomials and $Q(x)$ is not the zero polynomial. ($Q$ may still equal zero at isolated points; those points are exactly where the function is undefined.)
 
 $$f(x) =  \frac{a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{1}x^{1}{+ a}_{0}}{b_{m}x^{m} + b_{m - 1}x^{m - 1} + \ldots + b_{1}x^{1}{+ b}_{0}}$$
 
@@ -49,6 +49,8 @@ everywhere except where the denominator is zero.
 
 Those locations where the denominator is zero are responsible for
 creating vertical asymptotes in the graph.
+
+**Worked example.** Find the domain of $f(x) = \dfrac{x + 1}{x^2 - x - 6}$. Set the denominator to zero and factor: $x^2 - x - 6 = (x - 3)(x + 2) = 0$, so $x = 3$ or $x = -2$. These two values are excluded, and the domain is all real numbers except $3$ and $-2$: in interval notation, $(-\infty, -2) \cup (-2, 3) \cup (3, \infty)$. Because the numerator $x + 1$ is nonzero at both excluded points, both are genuine vertical asymptotes rather than holes.
 
 ## Range
 
@@ -87,6 +89,8 @@ rational function:
     function can take. Note if any values are excluded due to asymptotes
     or other factors.
 
+**Worked example.** Find the range of $f(x) = \dfrac{2x + 1}{x - 3}$. The degrees are equal, so there is a horizontal asymptote at $y = \tfrac{2}{1} = 2$. Is $y = 2$ ever actually attained? Set $\dfrac{2x + 1}{x - 3} = 2$ and solve: $2x + 1 = 2(x - 3) = 2x - 6$, which gives $1 = -6$, a contradiction. No $x$ produces $y = 2$, so $2$ is excluded, and the range is all real numbers except $2$: $(-\infty, 2) \cup (2, \infty)$. The general technique is to solve $y = f(x)$ for $x$ in terms of $y$; any $y$ that makes that impossible is not in the range.
+
 ## Proper / Improper Rational Function
 
 **Proper / Improper Rational Function:**
@@ -114,9 +118,65 @@ To work with improper rational functions, one common technique is to use
 polynomial long division to rewrite the function as a polynomial plus a
 proper rational function.
 
+## Operations on Rational Expressions
+
+Before analyzing rational functions graphically, it helps to be fluent in the algebra of rational expressions: simplifying, multiplying, dividing, adding, subtracting, and untangling compound fractions. Every rule is the polynomial version of ordinary fraction arithmetic.
+
+### Simplifying to Lowest Terms
+
+Factor the numerator and denominator completely, then cancel common factors. Cancelling is only valid where the cancelled factor is nonzero, which is exactly why a cancelled factor leaves a **hole** in the graph.
+
+**Example.** Simplify $\dfrac{x^2 - 9}{x^2 - x - 6}$. Factor both:
+
+$$
+\frac{x^2 - 9}{x^2 - x - 6} = \frac{(x - 3)(x + 3)}{(x - 3)(x + 2)} = \frac{x + 3}{x + 2}, \quad x \neq 3
+$$
+
+The cancelled factor $(x - 3)$ means $x = 3$ is excluded from the domain (a hole at that $x$), even though the simplified form $\tfrac{x+3}{x+2}$ looks defined there.
+
+### Multiplying and Dividing
+
+To **multiply**, factor everything, cancel across the two fractions, then multiply straight across. To **divide**, multiply by the reciprocal of the divisor (flip the second fraction) and proceed as with multiplication.
+
+**Example (multiply).** $\dfrac{x^2 - 1}{x^2 + 2x} \cdot \dfrac{x}{x + 1}$. Factor and cancel:
+
+$$
+\frac{(x - 1)(x + 1)}{x(x + 2)} \cdot \frac{x}{x + 1} = \frac{(x - 1)\cancel{(x + 1)}\,\cancel{x}}{\cancel{x}(x + 2)\,\cancel{(x + 1)}} = \frac{x - 1}{x + 2}
+$$
+
+**Example (divide).** $\dfrac{x^2 - 1}{x + 2} \div \dfrac{x - 1}{x^2 - 4}$. Flip the divisor and multiply:
+
+$$
+\frac{x^2 - 1}{x + 2} \cdot \frac{x^2 - 4}{x - 1} = \frac{(x - 1)(x + 1)}{x + 2} \cdot \frac{(x - 2)(x + 2)}{x - 1} = (x + 1)(x - 2)
+$$
+
+### Adding and Subtracting
+
+Rewrite each fraction over the **least common denominator** (LCD), combine the numerators, then simplify. As with numeric fractions, you cannot add numerators until the denominators match.
+
+**Example.** $\dfrac{1}{x} + \dfrac{1}{x + 1}$. The LCD is $x(x + 1)$:
+
+$$
+\frac{1}{x} + \frac{1}{x + 1} = \frac{x + 1}{x(x + 1)} + \frac{x}{x(x + 1)} = \frac{(x + 1) + x}{x(x + 1)} = \frac{2x + 1}{x(x + 1)}
+$$
+
+### Complex (Compound) Fractions
+
+A **complex fraction** has fractions inside its numerator or denominator. The cleanest method is to multiply the top and bottom by the LCD of all the inner fractions, clearing them in one step.
+
+**Example.** Simplify $\dfrac{\tfrac{1}{x} + \tfrac{1}{y}}{\tfrac{1}{x} - \tfrac{1}{y}}$. Multiply numerator and denominator by $xy$:
+
+$$
+\frac{\tfrac{1}{x} + \tfrac{1}{y}}{\tfrac{1}{x} - \tfrac{1}{y}} \cdot \frac{xy}{xy} = \frac{y + x}{y - x}
+$$
+
+Every inner fraction clears at once, leaving a single simple fraction.
+
 ## Finding x-intercepts
 
-**Finding x-intercepts:** Factor numerator and solve for x.
+**Finding x-intercepts:** Factor the numerator and solve for the $x$ that make it zero (an $x$-intercept of a rational function occurs where the numerator is zero *and* the denominator is nonzero).
+
+**Worked example.** Find the $x$-intercepts of $f(x) = \dfrac{x^2 - 1}{x^2 - 4}$. Set the numerator to zero: $x^2 - 1 = (x - 1)(x + 1) = 0$, so $x = 1$ or $x = -1$. Both keep the denominator $x^2 - 4$ nonzero ($1 - 4 = -3$ and $1 - 4 = -3$), so the $x$-intercepts are $(1, 0)$ and $(-1, 0)$. (Had a numerator zero coincided with a denominator zero, it would be a hole, not an intercept.)
 
 ![Graph of f(x) = (x^2-1)/(x^2-4) with dashed vertical asymptotes at x = -2 and x = 2, a dashed horizontal asymptote at y = 1, and x-intercepts at -1 and 1](./media/rf-graph-example.png)
 
@@ -173,9 +233,7 @@ numerator. This produces a horizontal asymptote at ***y = 0***.
 
 ### Numerator = Denominator
 
-Numerator = Denominator
-
-Horizontal asymptote : y = 1/1
+When the degrees are equal, the horizontal asymptote is the ratio of the leading coefficients. For $\dfrac{x^2 + 3}{x^2}$ both leading coefficients are $1$, so the asymptote is $y = \tfrac{1}{1} = 1$.
 
 ![Graph of (x^2+3)/x^2 with a vertical asymptote at x = 0 and a horizontal asymptote y = 1](./media/rf-ha-y1.png)
 
@@ -824,4 +882,12 @@ As $x \to \infty$, $C(x) \to 0$. The horizontal asymptote is $y = 0$: with enoug
 $$C(x) = \frac{0.30(50) + x}{50 + x} = \frac{15 + x}{50 + x}$$
 
 As $x \to \infty$, $C(x) \to 1$ (100% acid). The horizontal asymptote $y = 1$ makes physical sense: adding more and more pure acid makes the solution approach pure acid.
+
+### Rational Functions in Machine Learning
+
+Ratios of polynomials show up in ML wherever a bounded or saturating response is wanted:
+
+- **Rational (Padé) activations.** Some neural networks use learnable rational activation functions $\dfrac{P(x)}{Q(x)}$ (a ratio of two low-degree polynomials, a **Padé approximant**) in place of fixed nonlinearities like ReLU. The horizontal asymptote controls the saturation value, and the extra parameters let the network learn the activation's shape.
+- **Rational approximation.** A Padé approximant often matches a target function far better than a Taylor polynomial of the same total degree, precisely because a denominator lets it capture asymptotes and saturation that a polynomial cannot. This is used to approximate expensive functions (exponentials, special functions) cheaply inside numerical routines.
+- **Ratios in training dynamics.** Many diagnostic quantities are ratios: a signal-to-noise ratio, a loss ratio between two runs, or the adaptive step in optimizers like Adam ($\hat m / (\sqrt{\hat v} + \epsilon)$) is a ratio whose limiting behavior is exactly the end-behavior analysis of this page. Reading such a ratio as a rational function tells you what it saturates to as its inputs grow.
 

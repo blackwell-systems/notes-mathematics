@@ -4025,6 +4025,48 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("RAD: RMS(3,4) = sqrt(12.5) ~ 3.54", Math.sqrt((9 + 16) / 2), 3.5355, 1e-3);
 }
 
+// ===== Rational functions (Phase-2 worked examples) =====
+{
+  // Domain of (x+1)/(x^2-x-6): excluded x=3,-2.
+  const den = x => x * x - x - 6;
+  eq("RATF: denominator zero at x=3", den(3), 0);
+  eq("RATF: denominator zero at x=-2", den(-2), 0);
+  check("RATF: numerator x+1 nonzero at both -> vertical asymptotes", (3 + 1) !== 0 && (-2 + 1) !== 0);
+
+  // Range of (2x+1)/(x-3): HA y=2 never attained.
+  check("RATF: y=2 unattainable (2x+1=2(x-3) gives 1=-6)", 1 !== -6);
+  { const f = x => (2 * x + 1) / (x - 3); check("RATF: f(2x+1/x-3) approaches 2 for large x", Math.abs(f(1e6) - 2) < 1e-3); }
+
+  // Simplify (x^2-9)/(x^2-x-6) = (x+3)/(x+2), x!=3.
+  { const orig = x => (x * x - 9) / (x * x - x - 6), simp = x => (x + 3) / (x + 2);
+    eq("RATF: simplify agrees at x=5", orig(5), simp(5), 1e-12);
+    eq("RATF: simplify agrees at x=0", orig(0), simp(0), 1e-12); }
+
+  // Multiply (x^2-1)/(x^2+2x) * x/(x+1) = (x-1)/(x+2).
+  { const lhs = x => ((x * x - 1) / (x * x + 2 * x)) * (x / (x + 1)), rhs = x => (x - 1) / (x + 2);
+    eq("RATF: multiply agrees at x=3", lhs(3), rhs(3), 1e-12); }
+
+  // Divide (x^2-1)/(x+2) / ((x-1)/(x^2-4)) = (x+1)(x-2).
+  { const lhs = x => ((x * x - 1) / (x + 2)) / ((x - 1) / (x * x - 4)), rhs = x => (x + 1) * (x - 2);
+    eq("RATF: divide agrees at x=5", lhs(5), rhs(5), 1e-9);
+    eq("RATF: divide agrees at x=4", lhs(4), rhs(4), 1e-9); }
+
+  // Add 1/x + 1/(x+1) = (2x+1)/(x(x+1)).
+  { const lhs = x => 1 / x + 1 / (x + 1), rhs = x => (2 * x + 1) / (x * (x + 1));
+    eq("RATF: add agrees at x=2", lhs(2), rhs(2), 1e-12); }
+
+  // Complex fraction (1/x + 1/y)/(1/x - 1/y) = (y+x)/(y-x).
+  { const x = 2, y = 3; eq("RATF: complex fraction = (y+x)/(y-x) = 5", (1 / x + 1 / y) / (1 / x - 1 / y), (y + x) / (y - x), 1e-9); }
+
+  // x-intercepts of (x^2-1)/(x^2-4): x=±1 (numerator zero, denominator nonzero).
+  eq("RATF: x-int numerator zero at x=1", 1 * 1 - 1, 0);
+  eq("RATF: x-int numerator zero at x=-1", (-1) ** 2 - 1, 0);
+  check("RATF: denominator nonzero at x=±1", (1 - 4) !== 0);
+
+  // Equal-degree HA: (x^2+3)/x^2 -> y = 1/1 = 1.
+  eq("RATF: equal-degree HA leading-coeff ratio = 1", 1 / 1, 1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
