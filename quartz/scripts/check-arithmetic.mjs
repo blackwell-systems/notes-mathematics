@@ -3994,6 +3994,37 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("EXP: temperature T=2 softens the top probability", smt[0] < sm[0]);
 }
 
+// ===== Radical functions (Phase-2 worked examples) =====
+{
+  // sqrt(x^2) = |x| subtlety.
+  eq("RAD: sqrt((-5)^2) = 5 = |-5|", Math.sqrt((-5) ** 2), 5);
+  check("RAD: sqrt(x^2)=|x| not x for x=-5", Math.sqrt((-5) ** 2) === Math.abs(-5) && Math.sqrt((-5) ** 2) !== -5);
+  eq("RAD: sqrt(x^4)=x^2 needs no abs (x=-3 -> 9)", Math.sqrt((-3) ** 4), (-3) ** 2);
+  eq("RAD: sqrt(x^6)=|x^3| (x=-2 -> 8)", Math.sqrt((-2) ** 6), Math.abs((-2) ** 3));
+
+  // Distance formula: (1,2) to (4,6) = 5.
+  eq("RAD: distance (1,2)-(4,6) = 5", Math.hypot(4 - 1, 6 - 2), 5);
+  eq("RAD: 3-4-5 right triangle sqrt(9+16)=25 under root", 3 ** 2 + 4 ** 2, 25);
+
+  // L2 norm.
+  eq("RAD: ||(3,4)||_2 = 5", Math.hypot(3, 4), 5);
+  eq("RAD: ||(1,2,2)||_2 = 3", Math.hypot(1, 2, 2), 3);
+
+  // Standard deviation of {2,4,4,4,5,5,7,9}: mean 5, var 4, sd 2.
+  {
+    const data = [2, 4, 4, 4, 5, 5, 7, 9];
+    const mean = data.reduce((a, b) => a + b, 0) / data.length;
+    const varp = data.reduce((a, b) => a + (b - mean) ** 2, 0) / data.length;
+    eq("RAD: dataset mean = 5", mean, 5);
+    eq("RAD: variance = 4", varp, 4);
+    eq("RAD: standard deviation = 2", Math.sqrt(varp), 2);
+    eq("RAD: sum of squared deviations = 32", data.reduce((a, b) => a + (b - mean) ** 2, 0), 32);
+  }
+
+  // RMS of (3,4).
+  eq("RAD: RMS(3,4) = sqrt(12.5) ~ 3.54", Math.sqrt((9 + 16) / 2), 3.5355, 1e-3);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

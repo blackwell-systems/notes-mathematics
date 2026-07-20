@@ -5911,6 +5911,220 @@
           "upgrade": ""
         }
       ]
+    },
+    "radical-functions.md": {
+      "contentHash": "sha1:454bebf2403aee54",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Very comprehensive radical-functions reference (simplifying, operations, rationalizing, graphs/transformations, radical equations with extraneous-root handling, rational exponents); every worked number independently verified, no errors found. Audited and Phase-2'd in one pass: added the sqrt(x^2)=|x| absolute-value rule for even roots of variables (was sidestepped with \"assume x>=0\"), a distance-formula worked example ((1,2)-(4,6)=5, the 3-4-5 triangle, was missing), and a \"Where Radicals Show Up\" ML section (L2 norm, standard deviation, RMS, all worked with numbers, was missing). 32 strong / 2 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "what is a radical; nth root definition",
+          "quality": "strong",
+          "note": "Motivated via x^2=5 area problem.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection to fractional exponents",
+          "quality": "adequate",
+          "note": "Notation correct; numeric instances in the rational-exponents section.",
+          "upgrade": ""
+        },
+        {
+          "concept": "product / quotient rules for radicals",
+          "quality": "adequate",
+          "note": "Stated with exponent justification; used in examples below.",
+          "upgrade": ""
+        },
+        {
+          "concept": "simplifying by extracting perfect powers",
+          "quality": "strong",
+          "note": "Six worked examples incl variable radicands; now with the sqrt(x^2)=|x| absolute-value rule and x^4/x^6 cases (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "simplified-form criteria",
+          "quality": "strong",
+          "note": "Three-point checklist.",
+          "upgrade": ""
+        },
+        {
+          "concept": "adding / subtracting radicals",
+          "quality": "strong",
+          "note": "Four numeric examples incl simplify-then-combine.",
+          "upgrade": ""
+        },
+        {
+          "concept": "multiplying radicals",
+          "quality": "strong",
+          "note": "sqrt3*sqrt6, cbrt4*cbrt10 to results.",
+          "upgrade": ""
+        },
+        {
+          "concept": "multiplication with distribution",
+          "quality": "strong",
+          "note": "Two worked examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "FOIL with radicals",
+          "quality": "strong",
+          "note": "(2+sqrt3)(1-sqrt3), (3+sqrt5)^2 expanded.",
+          "upgrade": ""
+        },
+        {
+          "concept": "conjugates / difference of squares",
+          "quality": "strong",
+          "note": "Pattern + (4+sqrt7)(4-sqrt7)=9.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rationalizing: monomial denominators",
+          "quality": "strong",
+          "note": "Two worked examples.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rationalizing: binomial (conjugate) denominators",
+          "quality": "strong",
+          "note": "Two worked incl two-radical denominator.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rationalizing: higher-index radicals",
+          "quality": "strong",
+          "note": "1/cbrt2, 5/cbrt9 with cube-completion reasoning.",
+          "upgrade": ""
+        },
+        {
+          "concept": "definition + general form of radical function",
+          "quality": "strong",
+          "note": "Addresses the -c/b shift subtlety.",
+          "upgrade": ""
+        },
+        {
+          "concept": "square root parent function + inverse graph",
+          "quality": "strong",
+          "note": "Domain/range/key points, inverse diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain of transformed square root",
+          "quality": "strong",
+          "note": "sqrt(x-3), sqrt(5-2x) worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interactive transformation explorer",
+          "quality": "strong",
+          "note": "Widget with pronunciation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cube root parent function",
+          "quality": "strong",
+          "note": "Domain/range/key points; even-vs-odd note.",
+          "upgrade": ""
+        },
+        {
+          "concept": "nth root function domain/range",
+          "quality": "strong",
+          "note": "Even/odd split.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving radical equations (basic)",
+          "quality": "strong",
+          "note": "Ex1-2 incl extraneous-root identification.",
+          "upgrade": ""
+        },
+        {
+          "concept": "nested/sum radical equation",
+          "quality": "strong",
+          "note": "sqrt(x+1)+sqrt(x-4)=5 fully worked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why extraneous solutions occur",
+          "quality": "strong",
+          "note": "Conceptual + diagram + sqrt(x)=-3 illustration.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cube-root equations",
+          "quality": "strong",
+          "note": "Ex4-5 incl negative-value case.",
+          "upgrade": ""
+        },
+        {
+          "concept": "squaring twice",
+          "quality": "strong",
+          "note": "Ex6-7; Ex7 correctly discards x=0.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rational exponents: definition + x^{m/n}",
+          "quality": "strong",
+          "note": "Four numeric evaluations incl negative exponent.",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponent rules table (fractional)",
+          "quality": "strong",
+          "note": "Every rule with a fractional-exponent example.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rational-exponent worked examples",
+          "quality": "strong",
+          "note": "Four incl negatives and variables.",
+          "upgrade": ""
+        },
+        {
+          "concept": "converting between notations",
+          "quality": "strong",
+          "note": "Conversion table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "graphs: parent functions detail",
+          "quality": "strong",
+          "note": "Full characteristics + reference points.",
+          "upgrade": ""
+        },
+        {
+          "concept": "even vs odd root graphing distinction",
+          "quality": "strong",
+          "note": "Clear conceptual treatment.",
+          "upgrade": ""
+        },
+        {
+          "concept": "transformations of radical functions",
+          "quality": "strong",
+          "note": "Parameter table + 3 worked graphs with verified reference points.",
+          "upgrade": ""
+        },
+        {
+          "concept": "domain/range from the graph",
+          "quality": "strong",
+          "note": "Case analysis by sign of a,b.",
+          "upgrade": ""
+        },
+        {
+          "concept": "distance formula / Pythagorean application",
+          "quality": "strong",
+          "note": "Now present: distance (1,2)-(4,6)=5 (3-4-5 triangle) (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "where radicals show up (ML: L2 norm, std dev, RMS)",
+          "quality": "strong",
+          "note": "Now present: ||(3,4)||=5, ||(1,2,2)||=3, sd of a dataset=2, RMS(3,4)=sqrt12.5 (was missing).",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

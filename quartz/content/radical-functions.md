@@ -88,6 +88,14 @@ $$\sqrt{48x^5} = \sqrt{16x^4 \cdot 3x} = \sqrt{16x^4} \cdot \sqrt{3x} = 4x^2\sqr
 
 The idea with variables is the same: $x^4$ is a perfect square because $x^4 = (x^2)^2$.
 
+**The absolute-value subtlety (even roots of variables).** Example 3 assumed $x \geq 0$. When the sign of the variable is unknown, an even root of an even power needs an absolute value, because the principal square root is never negative. The precise rule is $\sqrt{x^2} = |x|$, not $x$ (for instance $\sqrt{(-5)^2} = \sqrt{25} = 5 = |-5|$, not $-5$). Extending this:
+
+$$
+\sqrt{x^2} = |x|, \qquad \sqrt{x^4} = x^2, \qquad \sqrt{x^6} = |x^3| = |x|^3
+$$
+
+The absolute value is needed exactly when the resulting power is **odd** (so it could be negative): $x^2$ and $x^4$ are already non-negative, so $\sqrt{x^4} = x^2$ needs no bars, but $x$ and $x^3$ can be negative, so $\sqrt{x^2}$ and $\sqrt{x^6}$ do. Odd-index roots never need absolute values, since $\sqrt[3]{x^3} = x$ for every real $x$.
+
 ### Simplifying Higher-Index Radicals
 
 For cube roots, look for perfect cube factors. For fourth roots, look for perfect fourth power factors, and so on.
@@ -669,4 +677,34 @@ For any transformed square root function $f(x) = a\sqrt{b(x - h)} + k$:
 - If $b < 0$: the domain flips direction (extends left from $h$)
 
 For cube root functions, the domain and range are always $(-\infty, \infty)$ regardless of transformations, because no transformation can restrict the inputs or outputs of an odd-index root to a bounded set.
+
+## Where Radicals Show Up
+
+The square root is not just an algebra exercise; it is the operation that turns a sum of squares back into a length. That single role is why it appears throughout geometry, statistics, and machine learning.
+
+### The Distance Formula
+
+The distance between two points $(x_1, y_1)$ and $(x_2, y_2)$ in the plane comes straight from the Pythagorean theorem: the horizontal gap $x_2 - x_1$ and vertical gap $y_2 - y_1$ are the legs of a right triangle, and the distance is the hypotenuse:
+
+$$
+d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+$$
+
+**Example.** The distance between $(1, 2)$ and $(4, 6)$ is
+
+$$
+d = \sqrt{(4 - 1)^2 + (6 - 2)^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5.
+$$
+
+This is the origin of the $3$-$4$-$5$ right triangle, and the square root is exactly what converts "sum of squared gaps" into an actual length.
+
+### Radicals in Machine Learning
+
+The same "square root of a sum of squares" pattern is everywhere in ML:
+
+- **Euclidean ($L^2$) norm.** The length of a vector $v = (v_1, \ldots, v_n)$ is $\|v\|_2 = \sqrt{v_1^2 + \cdots + v_n^2}$, the $n$-dimensional distance formula. For example, $\|(3, 4)\|_2 = \sqrt{9 + 16} = 5$ and $\|(1, 2, 2)\|_2 = \sqrt{1 + 4 + 4} = 3$. This norm underlies $L^2$ regularization, gradient-norm clipping, and Euclidean distances between data points.
+- **Standard deviation.** The spread of a dataset is $\sigma = \sqrt{\frac{1}{n}\sum_i (x_i - \bar{x})^2}$, the square root of the variance. For the data $\{2, 4, 4, 4, 5, 5, 7, 9\}$ with mean $\bar{x} = 5$, the variance is $\frac{1}{8}(9 + 1 + 1 + 1 + 0 + 0 + 4 + 16) = \frac{32}{8} = 4$, so $\sigma = \sqrt{4} = 2$. The square root is what puts the spread back in the original units.
+- **Root mean square (RMS).** Quantities like the RMS of a signal, or the denominator in RMSProp/Adam, take $\sqrt{\text{mean of squares}}$. For the values $(3, 4)$, the RMS is $\sqrt{\frac{9 + 16}{2}} = \sqrt{12.5} \approx 3.54$.
+
+In every case the squaring makes all contributions non-negative and emphasizes large ones, and the final square root restores the original scale, which is precisely the round trip radicals are built for.
 
