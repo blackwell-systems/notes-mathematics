@@ -4320,6 +4320,45 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("SL: VIF = 1/(1-0.9) = 10", 1 / (1 - 0.9), 10, 1e-9);
 }
 
+// ===== Probability (Phase-3 distributions + limits) =====
+{
+  // Bernoulli(0.6): mean 0.6, var 0.24; max var at p=0.5.
+  eq("PROB: Bern(0.6) var = 0.24", 0.6 * 0.4, 0.24);
+  eq("PROB: Bern var max at p=0.5 is 0.25", 0.5 * 0.5, 0.25);
+  check("PROB: 0.24 < 0.25 (fair coin maximizes variance)", 0.6 * 0.4 < 0.5 * 0.5);
+
+  // Exponential lambda=0.5: mean 2, P(X>3)=e^-1.5, memoryless.
+  eq("PROB: Exp(0.5) mean = 2", 1 / 0.5, 2);
+  eq("PROB: P(X>3) = e^-1.5 ~ 0.223", Math.exp(-0.5 * 3), 0.223, 1e-3);
+  eq("PROB: memoryless P(X>5|X>2) = P(X>3)", Math.exp(-0.5 * (5 - 2)), Math.exp(-0.5 * 3), 1e-12);
+
+  // Normal N(100,15): z at 130 = 2; tail ~2.5% (half of the 5% outside 2 sigma).
+  eq("PROB: z=(130-100)/15 = 2", (130 - 100) / 15, 2);
+  eq("PROB: P(X>130) ~ 2.5% (half of 5% outside 2 sigma)", (1 - 0.95) / 2, 0.025);
+
+  // Jensen: g=x^2, X in {1,3} equal prob -> g(E[X])=4 <= E[g(X)]=5, gap = Var = 1.
+  const EXj = (1 + 3) / 2, EgX = (1 * 1 + 3 * 3) / 2;
+  eq("PROB: Jensen g(E[X]) = 4", EXj ** 2, 4);
+  eq("PROB: Jensen E[g(X)] = 5", EgX, 5);
+  check("PROB: Jensen 4 <= 5", EXj ** 2 <= EgX);
+  eq("PROB: Jensen gap = Var(X) = 1", EgX - EXj ** 2, 1);
+
+  // LLN: fair coin, sd(Xbar) = 0.5/sqrt(n): 0.05 at n=100, 0.005 at n=10000.
+  eq("PROB: LLN sd(Xbar) at n=100 = 0.05", 0.5 / Math.sqrt(100), 0.05);
+  eq("PROB: LLN sd(Xbar) at n=10000 = 0.005", 0.5 / Math.sqrt(10000), 0.005);
+
+  // Inverse transform Exp(1): X = -ln(1-U); U=0.5 -> ln2; U=0.9 -> ln10.
+  eq("PROB: inverse-transform U=0.5 -> ln2 ~ 0.693", -Math.log(1 - 0.5), Math.log(2), 1e-9);
+  eq("PROB: inverse-transform U=0.9 -> 2.303", -Math.log(1 - 0.9), 2.3026, 1e-3);
+
+  // CLT: sum of 30 dice -> mean 105, var 87.5, sd 9.35; P(S>120) ~ P(Z>1.6) ~ 0.055.
+  eq("PROB: CLT 30 dice mean = 105", 30 * 3.5, 105);
+  eq("PROB: CLT 30 dice var = 87.5", 30 * 35 / 12, 87.5, 1e-9);
+  eq("PROB: CLT 30 dice sd ~ 9.35", Math.sqrt(87.5), 9.354, 1e-3);
+  eq("PROB: CLT z = (120-105)/9.35 ~ 1.60", (120 - 105) / Math.sqrt(87.5), 1.60, 5e-3);
+  { const Phi = z => 0.5 * (1 + erf(z / Math.SQRT2)); eq("PROB: P(Z>1.60) ~ 0.055", 1 - Phi(1.60), 0.055, 2e-3); }
+}
+
 // ===== Probability (Phase-3 moment-cluster upgrades) =====
 {
   // Fair-die variance.

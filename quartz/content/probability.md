@@ -401,7 +401,7 @@ This compact formula just says two things: $P(X = 1) = p$ (success) and $P(X = 0
 - $E[X] = p$
 - $\text{Var}(X) = p(1-p)$
 
-**Example:** Flipping a coin where $P(\text{heads}) = 0.6$ is Bernoulli with $p = 0.6$.
+**Example:** Flipping a coin where $P(\text{heads}) = 0.6$ is Bernoulli with $p = 0.6$. Then $E[X] = 0.6$ and $\text{Var}(X) = 0.6 \times 0.4 = 0.24$, so $\sigma = \sqrt{0.24} \approx 0.49$. The variance $p(1-p)$ is largest at $p = 0.5$ (a fair coin, variance $0.25$, maximal uncertainty) and shrinks to $0$ as $p \to 0$ or $p \to 1$ (a nearly certain outcome).
 
 **Where it shows up in ML:** Binary classification outputs. A logistic regression model outputs a probability $p$, and the actual label follows a Bernoulli distribution with that probability.
 
@@ -622,6 +622,8 @@ $$
 
 This is useful for computing probabilities directly. For example, the probability that you wait at most $t$ time units is $P(X \leq t) = 1 - e^{-\lambda t}$.
 
+**Worked example.** Buses arrive at rate $\lambda = 0.5$ per minute, so the wait $X$ is exponential with mean $E[X] = 1/\lambda = 2$ minutes. The chance of waiting more than $3$ minutes is $P(X > 3) = e^{-\lambda \cdot 3} = e^{-1.5} \approx 0.223$. Now suppose you have already waited $2$ minutes: the memoryless property says the chance of waiting $3$ more is *unchanged*, $P(X > 5 \mid X > 2) = P(X > 3) = e^{-1.5} \approx 0.223$. The bus is no "more due" for your having waited, the hallmark of the exponential.
+
 ### Normal (Gaussian) Distribution
 
 The **normal distribution** is the most important distribution in all of statistics and machine learning.
@@ -648,6 +650,8 @@ For a normal distribution:
 - **99.7%** of values fall within 3 standard deviations: $\mu \pm 3\sigma$
 
 This means values more than 3 standard deviations from the mean are extremely rare (0.3% of the time).
+
+**Worked example.** IQ scores are modeled as $X \sim N(100, 15^2)$ (mean $100$, standard deviation $15$). The rule reads off probabilities with no integration: about $68\%$ of people score in $100 \pm 15 = [85, 115]$, and about $95\%$ score in $100 \pm 30 = [70, 130]$. By symmetry, the $5\%$ outside $[70, 130]$ splits evenly between the two tails, so $P(X > 130) \approx 2.5\%$: in a group of $1000$ people, roughly $25$ would score above $130$. A score of $130$ sits exactly $2$ standard deviations above the mean ($Z = (130 - 100)/15 = 2$), tying this rule to the z-scores below.
 
 ### Standard Normal and Z-Scores
 
@@ -1038,6 +1042,8 @@ This result is not just a textbook exercise. It is the foundation of **inverse t
 
 Then $X$ has the desired distribution. This works because applying the inverse CDF to a uniform random variable produces the target distribution (a direct application of the change of variables formula).
 
+**Worked example (sampling an exponential).** The exponential with rate $\lambda = 1$ has CDF $F(x) = 1 - e^{-x}$. Inverting, $u = 1 - e^{-x}$ gives $x = -\ln(1 - u)$, so the recipe is $X = -\ln(1 - U)$. Feeding in a uniform draw $U = 0.5$ returns $X = -\ln(0.5) = \ln 2 \approx 0.693$; a larger draw $U = 0.9$ returns $X = -\ln(0.1) \approx 2.303$. Uniform inputs near $1$ map to the long right tail, exactly reproducing the exponential's shape from nothing but uniform noise.
+
 **Why it matters:** Every random number generator on every computer starts with uniform random numbers. Inverse transform sampling (and its generalizations) is how those uniform samples get converted into samples from normal, exponential, gamma, and other distributions. It is also the theoretical basis for quantile functions in statistics.
 
 ## Moment Generating Functions
@@ -1124,6 +1130,8 @@ Watch it happen below: keep adding trials (coin, die, or a skewed source) and se
 
 <iframe src="/static/interactive/prob-lln.html" width="100%" height="640" style="border:none;"></iframe>
 
+**Worked example (the $1/\sqrt{n}$ rate).** For a fair coin ($X_i \in \{0,1\}$, $\mu = 0.5$, $\text{Var}(X_i) = 0.25$), the sample average $\bar{X}_n$ has mean $0.5$ and variance $\text{Var}(\bar{X}_n) = \text{Var}(X_i)/n = 0.25/n$. So its standard deviation is $\sqrt{0.25/n} = 0.5/\sqrt{n}$: about $0.05$ at $n = 100$, and $0.005$ at $n = 10{,}000$. Multiplying $n$ by $100$ shrinks the typical deviation from $0.5$ by a factor of $10$: this is the $1/\sqrt{n}$ law that makes the running average settle down, and it is why cutting the error in half needs four times the data.
+
 **Where it shows up:** This is why more training data generally leads to better ML models. It is the theoretical justification for using sample statistics to estimate population parameters.
 
 ## Probability Inequalities
@@ -1184,6 +1192,8 @@ $$
 
 **Intuition:** A convex function "amplifies" extreme values. Since $E[g(X)]$ accounts for the function applied to each value of $X$ (including extremes), it is larger than the function applied to the single average value $E[X]$.
 
+**Worked example (numbers).** Let $X$ equal $1$ or $3$ with probability $\tfrac{1}{2}$ each, and take the convex $g(x) = x^2$. Then $E[X] = 2$, so $g(E[X]) = 2^2 = 4$, while $E[g(X)] = \tfrac{1}{2}(1^2) + \tfrac{1}{2}(3^2) = \tfrac{1 + 9}{2} = 5$. Jensen's inequality holds: $4 \leq 5$. The gap $E[g(X)] - g(E[X]) = 5 - 4 = 1$ is exactly $\text{Var}(X)$, which is no coincidence for $g(x) = x^2$: $E[X^2] - (E[X])^2 = \text{Var}(X) \geq 0$ is Jensen's inequality for the squaring function.
+
 **Example (variance is non-negative):** Take $g(x) = x^2$, which is convex. Jensen's inequality gives $E[X^2] \geq (E[X])^2$. This means:
 
 $$
@@ -1223,3 +1233,5 @@ where $\xrightarrow{d}$ denotes convergence in distribution. The finite-variance
 3. In ML, stochastic gradient descent averages gradients over mini-batches. By the CLT, these averaged gradients are approximately normal, which helps explain why SGD works well in practice.
 
 **How large is "large enough"?** A common rule of thumb is $n \geq 30$, but this depends on how skewed the original distribution is. For symmetric distributions, even $n = 10$ can be sufficient. For heavily skewed distributions, you may need $n > 100$.
+
+**Worked example (sum of dice).** Roll $n = 30$ fair dice and add them. Each die has mean $3.5$ and variance $\tfrac{35}{12} \approx 2.917$, so the sum $S$ has mean $30 \times 3.5 = 105$ and variance $30 \times \tfrac{35}{12} = 87.5$, giving standard deviation $\sqrt{87.5} \approx 9.35$. The CLT says $S$ is approximately $N(105, 87.5)$, so probabilities follow from z-scores: the chance the total exceeds $120$ is $P(S > 120) \approx P\!\left(Z > \tfrac{120 - 105}{9.35}\right) = P(Z > 1.60) \approx 0.055$. A discrete, bounded, decidedly non-normal summand (a single die) produces an almost perfectly normal total once you add $30$ of them.
