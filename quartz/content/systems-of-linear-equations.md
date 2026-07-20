@@ -254,6 +254,28 @@ This is a contradiction! The system is **inconsistent** (no solution).
 
 The lines are parallel.
 
+## Graphing Method
+
+**Graphing Method:** Put each equation in slope-intercept form, graph both lines, and read off the point where they cross. This is the most visual method and directly shows which of the three solution types you have.
+
+**Example:** Solve the system from the substitution section by graphing:
+
+$$
+\begin{cases}
+x + y = 5 \\
+2x - y = 1
+\end{cases}
+$$
+
+Rewrite each equation as $y = mx + b$:
+
+- $x + y = 5 \implies y = -x + 5$ (slope $-1$, $y$-intercept $5$)
+- $2x - y = 1 \implies y = 2x - 1$ (slope $2$, $y$-intercept $-1$)
+
+The slopes ($-1$ and $2$) are different, so the lines are not parallel and must cross at exactly one point. Setting the two right-hand sides equal locates it: $-x + 5 = 2x - 1 \implies 6 = 3x \implies x = 2$, and then $y = 2(2) - 1 = 3$. The lines cross at $(2, 3)$, matching the substitution answer exactly.
+
+Reading the solution type off the slopes is a useful shortcut: **different slopes** give one solution; **same slope, different intercepts** give parallel lines (no solution); **same slope and same intercept** give one coincident line (infinitely many solutions).
+
 ## Matrix Method (Augmented Matrix)
 
 **Matrix Method:** Represent the system as an augmented matrix and use row operations to solve.
@@ -470,6 +492,58 @@ $$
 
 **Solution:** $x = 1$, $y = 2$ (read directly from RREF)
 
+## Cramer's Rule
+
+**Cramer's Rule:** For a square system, each variable equals a ratio of determinants. For the $2 \times 2$ system
+
+$$
+\begin{cases}
+a_1 x + b_1 y = c_1 \\
+a_2 x + b_2 y = c_2
+\end{cases}
+$$
+
+let $D = \begin{vmatrix} a_1 & b_1 \\ a_2 & b_2 \end{vmatrix} = a_1 b_2 - a_2 b_1$ be the determinant of the coefficient matrix. Replace the $x$-column with the constants to get $D_x$, and the $y$-column to get $D_y$:
+
+$$
+D_x = \begin{vmatrix} c_1 & b_1 \\ c_2 & b_2 \end{vmatrix}, \qquad D_y = \begin{vmatrix} a_1 & c_1 \\ a_2 & c_2 \end{vmatrix}, \qquad x = \frac{D_x}{D}, \quad y = \frac{D_y}{D}.
+$$
+
+If $D = 0$ the rule does not apply: the system is either inconsistent or dependent.
+
+**Example (solving the opening fruit-stand problem).** Recall $3a + 2o = 8$ and $a + 4o = 9$. Here
+
+$$
+D = \begin{vmatrix} 3 & 2 \\ 1 & 4 \end{vmatrix} = 3(4) - 1(2) = 10, \qquad
+D_a = \begin{vmatrix} 8 & 2 \\ 9 & 4 \end{vmatrix} = 8(4) - 9(2) = 14, \qquad
+D_o = \begin{vmatrix} 3 & 8 \\ 1 & 9 \end{vmatrix} = 3(9) - 1(8) = 19.
+$$
+
+So $a = \tfrac{14}{10} = 1.4$ and $o = \tfrac{19}{10} = 1.9$: an apple costs \$1.40 and an orange \$1.90. Check: $3(1.4) + 2(1.9) = 4.2 + 3.8 = 8$ and $1.4 + 4(1.9) = 1.4 + 7.6 = 9$. Cramer's rule extends to $3 \times 3$ and larger systems with the same recipe (one determinant ratio per variable), though for big systems Gaussian elimination is far cheaper than computing all those determinants.
+
+## Matrix Form and the Inverse-Matrix Method
+
+Every linear system can be packaged as a single matrix equation
+
+$$
+A\mathbf{x} = \mathbf{b},
+$$
+
+where $A$ is the **coefficient matrix**, $\mathbf{x}$ is the column vector of unknowns, and $\mathbf{b}$ is the column of constants. The fruit-stand system becomes
+
+$$
+\underbrace{\begin{bmatrix} 3 & 2 \\ 1 & 4 \end{bmatrix}}_{A} \underbrace{\begin{bmatrix} a \\ o \end{bmatrix}}_{\mathbf{x}} = \underbrace{\begin{bmatrix} 8 \\ 9 \end{bmatrix}}_{\mathbf{b}}.
+$$
+
+When $A$ is square and invertible (equivalently $\det A \neq 0$), multiply both sides by $A^{-1}$ to get $\mathbf{x} = A^{-1}\mathbf{b}$. For a $2 \times 2$ matrix, $\begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} = \dfrac{1}{ad - bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$, so here (with $\det A = 10$):
+
+$$
+A^{-1} = \frac{1}{10}\begin{bmatrix} 4 & -2 \\ -1 & 3 \end{bmatrix}, \qquad
+\mathbf{x} = A^{-1}\mathbf{b} = \frac{1}{10}\begin{bmatrix} 4 & -2 \\ -1 & 3 \end{bmatrix}\begin{bmatrix} 8 \\ 9 \end{bmatrix} = \frac{1}{10}\begin{bmatrix} 32 - 18 \\ -8 + 27 \end{bmatrix} = \frac{1}{10}\begin{bmatrix} 14 \\ 19 \end{bmatrix} = \begin{bmatrix} 1.4 \\ 1.9 \end{bmatrix}.
+$$
+
+The same answer as Cramer's rule, which is no coincidence: Cramer's rule is exactly the entrywise formula that $\mathbf{x} = A^{-1}\mathbf{b}$ produces. The inverse-matrix view is the bridge to [linear algebra](./linear-algebra-foundations): a system has a unique solution precisely when $A$ is invertible.
+
 ## Special Cases
 
 **Infinitely Many Solutions:**
@@ -512,4 +586,31 @@ The same methods apply to systems with 3 or more variables:
 - Solutions are points in 3D space (for 3 variables) or higher dimensions
 
 **Example:** Already shown in Gaussian Elimination section above.
+
+## Systems of Linear Equations in Machine Learning
+
+The single most important appearance of linear systems in machine learning is **linear regression**. Fitting a line (or hyperplane) to data means solving a system, and when there are more data points than parameters, the system is **overdetermined** (more equations than unknowns) and usually has no exact solution. Least squares finds the parameters that come closest, and, remarkably, that best fit is itself the solution of a square linear system: the **normal equations**
+
+$$
+A^\top A\, \mathbf{x} = A^\top \mathbf{b},
+$$
+
+where $A$ stacks the inputs (one row per data point) and $\mathbf{b}$ holds the targets. Multiplying by $A^\top$ turns a tall, unsolvable system into a small square one solvable by every method on this page.
+
+**Worked example.** Fit a line $y = mx + b$ to the three points $(0, 1)$, $(1, 3)$, $(2, 4)$, which are not collinear, so no line hits all three. The design matrix and target are
+
+$$
+A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 1 \end{bmatrix}, \qquad \mathbf{b} = \begin{bmatrix} 1 \\ 3 \\ 4 \end{bmatrix}, \qquad \mathbf{x} = \begin{bmatrix} m \\ b \end{bmatrix}.
+$$
+
+Form the normal equations. The two matrix products are
+
+$$
+A^\top A = \begin{bmatrix} 0^2+1^2+2^2 & 0+1+2 \\ 0+1+2 & 1+1+1 \end{bmatrix} = \begin{bmatrix} 5 & 3 \\ 3 & 3 \end{bmatrix}, \qquad
+A^\top \mathbf{b} = \begin{bmatrix} 0(1)+1(3)+2(4) \\ 1+3+4 \end{bmatrix} = \begin{bmatrix} 11 \\ 8 \end{bmatrix}.
+$$
+
+Solving $\begin{bmatrix} 5 & 3 \\ 3 & 3 \end{bmatrix}\begin{bmatrix} m \\ b \end{bmatrix} = \begin{bmatrix} 11 \\ 8 \end{bmatrix}$ (determinant $15 - 9 = 6$) by Cramer's rule gives $m = \tfrac{11(3) - 8(3)}{6} = \tfrac{9}{6} = 1.5$ and $b = \tfrac{5(8) - 3(11)}{6} = \tfrac{7}{6} \approx 1.167$. The best-fit line is $y = 1.5x + \tfrac{7}{6}$; its residuals at the three points are $-\tfrac{1}{6}, +\tfrac{1}{3}, -\tfrac{1}{6}$, which sum to zero, the signature of a least-squares fit with an intercept.
+
+This is the computational core of ordinary least squares (see [Statistical Learning](./statistical-learning#ordinary-least-squares-ols)); every method on this page (elimination, Gaussian elimination, Cramer's rule, the matrix inverse) is a way to solve the resulting square system.
 

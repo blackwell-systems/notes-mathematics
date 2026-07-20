@@ -6285,6 +6285,118 @@
           "upgrade": ""
         }
       ]
+    },
+    "systems-of-linear-equations.md": {
+      "contentHash": "sha1:55cca44b6256677b",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Thorough systems-of-linear-equations reference (substitution, elimination, augmented-matrix/Gaussian/Gauss-Jordan); every worked number independently verified, no errors found. The elimination/matrix half was strong but three promised/standard methods were absent. Audited and Phase-2'd in one pass: added a graphing-method worked example ((2,3)), a Cramer's-rule section (promised in the methods list but never delivered) that solves the opening fruit problem to a=1.4/o=1.9, a matrix-form Ax=b + inverse-matrix section (same problem via x=A^{-1}b), and an ML section working the least-squares normal equations A^T A x = A^T b. 14 strong / 3 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "motivating fruit-stand system",
+          "quality": "strong",
+          "note": "Concrete 2x2 setup; now actually solved later via Cramer's rule (a=1.4, o=1.9), closing the loop.",
+          "upgrade": ""
+        },
+        {
+          "concept": "geometric intuition (lines / 3 outcomes)",
+          "quality": "strong",
+          "note": "Three intersection cases, extended to planes.",
+          "upgrade": ""
+        },
+        {
+          "concept": "general m x n system + subscript notation",
+          "quality": "strong",
+          "note": "Complete definition/notation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "types of solutions (unique/infinite/none)",
+          "quality": "strong",
+          "note": "All three named correctly with diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "methods overview list",
+          "quality": "strong",
+          "note": "Roadmap (now every listed method is actually delivered).",
+          "upgrade": ""
+        },
+        {
+          "concept": "substitution method",
+          "quality": "strong",
+          "note": "Two worked examples, back-checked.",
+          "upgrade": ""
+        },
+        {
+          "concept": "elimination method",
+          "quality": "strong",
+          "note": "Three examples incl an inconsistent case (0=-6).",
+          "upgrade": ""
+        },
+        {
+          "concept": "graphing method",
+          "quality": "strong",
+          "note": "Now worked: x+y=5 & 2x-y=1 -> (2,3) via slope-intercept, with the slope-based solution-type shortcut (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "augmented matrix / row ops / REF / RREF",
+          "quality": "strong",
+          "note": "2x2 carried to RREF with fractions.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Gaussian elimination + widget + 3x3 example",
+          "quality": "strong",
+          "note": "3x3 worked with back-substitution.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Gauss-Jordan elimination",
+          "quality": "strong",
+          "note": "2x2 worked to RREF.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Cramer's rule / determinants",
+          "quality": "strong",
+          "note": "Now present: 2x2 formula (D, Dx, Dy) solving the fruit problem to a=1.4, o=1.9 (was missing, though promised in the methods list).",
+          "upgrade": ""
+        },
+        {
+          "concept": "matrix form Ax=b + inverse-matrix method",
+          "quality": "strong",
+          "note": "Now present: Ax=b framing and x=A^{-1}b on the fruit problem, tied to invertibility (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "special case: infinitely many solutions",
+          "quality": "adequate",
+          "note": "Correct but asserted (same line); no row reduction/parametric form shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "special case: no solution",
+          "quality": "adequate",
+          "note": "Correct but trivial; no row reduction to [0 0 | k].",
+          "upgrade": ""
+        },
+        {
+          "concept": "systems with >2 variables",
+          "quality": "adequate",
+          "note": "Prose + planes diagram; defers to the earlier 3x3.",
+          "upgrade": ""
+        },
+        {
+          "concept": "systems of linear equations in ML (least squares / normal equations)",
+          "quality": "strong",
+          "note": "Now present: normal equations A^T A x = A^T b worked on a 3-point fit (m=1.5, b=7/6, residuals sum to 0) (was missing).",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

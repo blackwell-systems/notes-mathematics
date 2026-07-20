@@ -4067,6 +4067,46 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("RATF: equal-degree HA leading-coeff ratio = 1", 1 / 1, 1);
 }
 
+// ===== Systems of linear equations (Phase-2 worked examples) =====
+{
+  // Graphing method: x+y=5, 2x-y=1 intersect at (2,3).
+  eq("SLE: graph intersection -x+5=2x-1 -> x=2", 6 / 3, 2);
+  eq("SLE: graph intersection y=2(2)-1 = 3", 2 * 2 - 1, 3);
+  check("SLE: different slopes (-1 vs 2) -> unique solution", -1 !== 2);
+
+  // Cramer's rule on fruit problem 3a+2o=8, a+4o=9.
+  const D = 3 * 4 - 1 * 2, Da = 8 * 4 - 9 * 2, Do = 3 * 9 - 1 * 8;
+  eq("SLE: Cramer D = 10", D, 10);
+  eq("SLE: Cramer Da = 14", Da, 14);
+  eq("SLE: Cramer Do = 19", Do, 19);
+  eq("SLE: apple price a = 1.4", Da / D, 1.4);
+  eq("SLE: orange price o = 1.9", Do / D, 1.9);
+  check("SLE: fruit solution checks eq1", Math.abs(3 * 1.4 + 2 * 1.9 - 8) < 1e-12);
+  check("SLE: fruit solution checks eq2", Math.abs(1.4 + 4 * 1.9 - 9) < 1e-12);
+
+  // Inverse-matrix method: A=[[3,2],[1,4]], Ainv=(1/10)[[4,-2],[-1,3]], b=[8,9].
+  const det = 3 * 4 - 2 * 1;
+  eq("SLE: det A = 10", det, 10);
+  const x = (4 * 8 - 2 * 9) / det, y = (-1 * 8 + 3 * 9) / det;
+  eq("SLE: inverse method a = 1.4", x, 1.4);
+  eq("SLE: inverse method o = 1.9", y, 1.9);
+
+  // Least squares normal equations for (0,1),(1,3),(2,4).
+  // A^T A = [[5,3],[3,3]], A^T b = [11,8].
+  eq("SLE: A^T A [0][0] = 5", 0 ** 2 + 1 ** 2 + 2 ** 2, 5);
+  eq("SLE: A^T A off-diagonal = 3", 0 + 1 + 2, 3);
+  eq("SLE: A^T b [0] = 11", 0 * 1 + 1 * 3 + 2 * 4, 11);
+  eq("SLE: A^T b [1] = 8", 1 + 3 + 4, 8);
+  const ndet = 5 * 3 - 3 * 3, m = (11 * 3 - 8 * 3) / ndet, b = (5 * 8 - 3 * 11) / ndet;
+  eq("SLE: normal-eq determinant = 6", ndet, 6);
+  eq("SLE: least-squares slope m = 1.5", m, 1.5);
+  eq("SLE: least-squares intercept b = 7/6", b, 7 / 6, 1e-12);
+  // Residuals sum to zero.
+  const pts = [[0, 1], [1, 3], [2, 4]];
+  const rsum = pts.reduce((a, [px, py]) => a + (py - (m * px + b)), 0);
+  check("SLE: least-squares residuals sum to zero", Math.abs(rsum) < 1e-12);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
