@@ -4465,6 +4465,29 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("CALC: scaled Gaussian sigma=2 -> 2 sqrt(2pi)", 2 * Math.sqrt(2 * Math.PI), 2 * Math.sqrt(2 * Math.PI), 1e-12);
 }
 
+// ===== Linear algebra foundations (Phase-3 upgrades) =====
+{
+  // Row picture: 2x-y=0, -x+2y=3 -> (1,2).
+  eq("LAF: row-picture x = 1", 3 / 3, 1); eq("LAF: row-picture y = 2", 2 * 1, 2);
+  check("LAF: (1,2) satisfies -x+2y=3", -1 + 2 * 2 === 3);
+  // Matrix picture: A=[[2,-1],[-1,2]] on (1,2) -> (0,3).
+  eq("LAF: Ax row1 = 0", 2 * 1 - 1 * 2, 0); eq("LAF: Ax row2 = 3", -1 * 1 + 2 * 2, 3);
+  // Span: (5,3) = 4(1,1) + 1(1,-1).
+  eq("LAF: span c1 = 4", 4, 4); eq("LAF: 4(1)+1(1) = 5", 4 + 1, 5); eq("LAF: 4(1)-1(1) = 3", 4 - 1, 3);
+  // Rank: det[[1,2],[3,4]] = -2 (rank 2); det[[1,2],[2,4]] = 0 (rank 1).
+  eq("LAF: det[[1,2],[3,4]] = -2 (full rank)", 1 * 4 - 2 * 3, -2);
+  eq("LAF: det[[1,2],[2,4]] = 0 (rank 1)", 1 * 4 - 2 * 2, 0);
+  // Rotation 90: R90 on (3,0) -> (0,3); columns from basis (0,1),(-1,0).
+  eq("LAF: cos90 = 0", Math.cos(Math.PI / 2), 0, 1e-12); eq("LAF: sin90 = 1", Math.sin(Math.PI / 2), 1, 1e-12);
+  { const R = [[0, -1], [1, 0]], x = [3, 0]; eq("LAF: R90 (3,0) row1 = 0", R[0][0] * x[0] + R[0][1] * x[1], 0); eq("LAF: R90 (3,0) row2 = 3", R[1][0] * x[0] + R[1][1] * x[1], 3); }
+  // Orthogonality: (1,2).(2,-1)=0; (3,4).(4,3)=24.
+  eq("LAF: (1,2).(2,-1) = 0 (orthogonal)", 1 * 2 + 2 * -1, 0);
+  eq("LAF: (3,4).(4,3) = 24 (not orthogonal)", 3 * 4 + 4 * 3, 24);
+  // Eigenvalue trace/det tie-back (already on page): 5+2=7=trace, 5*2=10=det for [[4,1],[2,3]].
+  eq("LAF: eigenvalue sum 5+2 = trace 4+3 = 7", 5 + 2, 4 + 3);
+  eq("LAF: eigenvalue product 5*2 = det = 10", 5 * 2, 4 * 3 - 1 * 2);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

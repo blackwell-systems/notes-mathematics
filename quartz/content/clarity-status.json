@@ -2385,9 +2385,9 @@
       ]
     },
     "linear-algebra-foundations.md": {
-      "contentHash": "sha1:0dff18a21fcb0079",
+      "contentHash": "sha1:32a1983f84fb89f2",
       "clarityRubricVersion": 1,
-      "auditedAt": "2026-07-17",
+      "auditedAt": "2026-07-20",
       "auditor": "claude+1subagent",
       "overall": "strong",
       "summary": "Comprehensive linear algebra foundations, every worked number independently verified. Phase-2 closed all eight work-list items (row space, left null space, four-subspace orthogonality, projection, least squares, determinants, eigendecomposition, SVD, low-rank), chained off shared matrices. 20 strong / 9 adequate / 0 thin / 0 missing.",
@@ -2412,8 +2412,8 @@
         },
         {
           "concept": "row picture (lines intersecting)",
-          "quality": "adequate",
-          "note": "Intersection (1,2) stated with slopes; solving algebra not shown.",
+          "quality": "strong",
+          "note": "Now the solving algebra is shown: 2x-y=0, -x+2y=3 -> y=2x, 3x=3, (1,2), checked.",
           "upgrade": ""
         },
         {
@@ -2424,8 +2424,8 @@
         },
         {
           "concept": "matrix picture (A as transformation)",
-          "quality": "adequate",
-          "note": "Explained conceptually; no concrete transformation computed here.",
+          "quality": "strong",
+          "note": "Now concrete: A=[[2,-1],[-1,2]] sends (1,2)->(0,3), reverse-reading the row-picture system.",
           "upgrade": ""
         },
         {
@@ -2436,8 +2436,8 @@
         },
         {
           "concept": "span",
-          "quality": "adequate",
-          "note": "Defined with geometric examples; no numeric combination computed.",
+          "quality": "strong",
+          "note": "Now a membership computation: (5,3)=4(1,1)+1(1,-1), so the two non-parallel vectors span R^2.",
           "upgrade": ""
         },
         {
@@ -2502,20 +2502,20 @@
         },
         {
           "concept": "rank + solvability table",
-          "quality": "adequate",
-          "note": "Rank-case table; not tied to a worked matrix.",
+          "quality": "strong",
+          "note": "Now tied to worked matrices: [[1,2],[3,4]] det -2 rank 2 (unique solution) vs [[1,2],[2,4]] det 0 rank 1.",
           "upgrade": ""
         },
         {
           "concept": "linear transformations (matrix from basis)",
-          "quality": "adequate",
-          "note": "Rule stated, rotation/reflection matrices given; none derived or applied.",
+          "quality": "strong",
+          "note": "Now derived from the basis: R90 sends e1->(0,1), e2->(-1,0) giving [[0,-1],[1,0]], applied to (3,0)->(0,3).",
           "upgrade": ""
         },
         {
           "concept": "orthogonality (vectors and subspaces)",
-          "quality": "adequate",
-          "note": "Defined via u^T v=0; no numeric orthogonality check.",
+          "quality": "strong",
+          "note": "Now a numeric check: (1,2).(2,-1)=0 orthogonal; (3,4).(4,3)=24 not.",
           "upgrade": ""
         },
         {
@@ -2550,8 +2550,8 @@
         },
         {
           "concept": "eigenvalue properties (trace/det/spectral)",
-          "quality": "adequate",
-          "note": "Stated; trace=7,det=10 not explicitly linked back to the example.",
+          "quality": "strong",
+          "note": "Already tied back on the page (5+2=7=trace, 5*2=10=det for [[4,1],[2,3]]); stale grade corrected.",
           "upgrade": ""
         },
         {

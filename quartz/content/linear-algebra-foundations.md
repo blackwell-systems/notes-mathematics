@@ -184,7 +184,7 @@ $$
 \end{cases}
 $$
 
-Each equation defines a line in the $xy$-plane. The first line passes through the origin with slope 2. The second line has slope 1/2 and y-intercept 3/2. They intersect at $(1, 2)$.
+Each equation defines a line in the $xy$-plane. The first line passes through the origin with slope 2. The second line has slope 1/2 and y-intercept 3/2. Solve algebraically to find where they cross: the first equation gives $y = 2x$, and substituting into the second, $-x + 2(2x) = 3$, so $3x = 3$ and $x = 1$, hence $y = 2$. They intersect at $(1, 2)$ (check: $-1 + 2(2) = 3$ ✓).
 
 This is how most people first learn to think about systems of equations: draw the lines, find where they cross.
 
@@ -245,6 +245,14 @@ A third perspective: treat $Ax = b$ as a single matrix equation. The matrix $A$ 
 
 Solving the system means finding the input that produces a desired output.
 
+**Concrete instance.** With $A = \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}$, apply it to the input $x = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ by taking each row's dot product with $x$:
+
+$$
+Ax = \begin{bmatrix} 2(1) + (-1)(2) \\ (-1)(1) + 2(2) \end{bmatrix} = \begin{bmatrix} 0 \\ 3 \end{bmatrix}.
+$$
+
+So $A$ *transforms* $(1, 2)$ into $(0, 3)$. Reading this in reverse is exactly the row-picture system above: solving $Ax = \begin{bmatrix} 0 \\ 3 \end{bmatrix}$ recovers the input $(1, 2)$, the intersection point we just found.
+
 This view connects linear algebra to functions, transformations, and ultimately to neural networks, where each layer applies a linear transformation followed by a nonlinearity.
 
 ## Linear Combinations
@@ -279,6 +287,8 @@ $$
 - Two non-parallel vectors in $\mathbb{R}^2$ span all of $\mathbb{R}^2$
 - Two parallel vectors in $\mathbb{R}^2$ only span a line (adding the second vector adds nothing new)
 - Three vectors in $\mathbb{R}^3$ span all of $\mathbb{R}^3$ if they are not coplanar
+
+**Concrete instance (membership).** Do $v_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ and $v_2 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}$ span $\mathbb{R}^2$? Try to hit the target $\begin{bmatrix} 5 \\ 3 \end{bmatrix}$: solving $c_1 v_1 + c_2 v_2 = \begin{bmatrix} c_1 + c_2 \\ c_1 - c_2 \end{bmatrix} = \begin{bmatrix} 5 \\ 3 \end{bmatrix}$ gives $c_1 = 4$, $c_2 = 1$, so $\begin{bmatrix} 5 \\ 3 \end{bmatrix} = 4v_1 + v_2$. Because these two non-parallel vectors reach *any* target this way, their span is all of $\mathbb{R}^2$.
 
 The span of the columns of a matrix $A$ is the column space of $A$. This is the set of all vectors $b$ for which $Ax = b$ has a solution.
 
@@ -501,6 +511,8 @@ The rank equals the number of pivots in the echelon form.
 
 **Full rank:** A matrix has full rank when $r = \min(m, n)$, meaning it has as many pivots as possible.
 
+**Worked example.** Compare two $2 \times 2$ matrices. $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ has $\det A = 1(4) - 2(3) = -2 \neq 0$, so both rows are pivots and $\text{rank}(A) = 2$: this is the $r = m = n$ row of the table, so $Ax = b$ has a unique solution for every $b$. By contrast $B = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has $\det B = 0$ because row 2 is $2 \times$ row 1; row reduction leaves a single pivot, so $\text{rank}(B) = 1 < 2$. That is the $r < n$ case: $Bx = b$ is solvable only when $b$ lies in the column space (a multiple of $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$), and then it has infinitely many solutions.
+
 ## Linear Transformations
 
 **Linear Transformation:** A function $T: V \to W$ between vector spaces is linear if:
@@ -529,6 +541,8 @@ $$
 $$
 R_\theta = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
 $$
+
+**Deriving it from the basis (θ = 90°).** Apply the "rotate by $90°$" rule to each standard basis vector: $e_1 = (1, 0)$ swings to $(0, 1)$, and $e_2 = (0, 1)$ swings to $(-1, 0)$. Those outputs become the columns, giving $R_{90°} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$, which matches the formula since $\cos 90° = 0$ and $\sin 90° = 1$. Applying it to a test vector confirms the action: $R_{90°}\begin{bmatrix} 3 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 3 \end{bmatrix}$, rotating the point $(3, 0)$ a quarter turn to $(0, 3)$.
 
 **Reflection across the x-axis:**
 
@@ -561,6 +575,8 @@ u \cdot v = u^T v = 0
 $$
 
 Orthogonal vectors are perpendicular. They share no component in common.
+
+**Concrete instance.** Are $u = (1, 2)$ and $v = (2, -1)$ orthogonal? Their dot product is $u^T v = (1)(2) + (2)(-1) = 2 - 2 = 0$, so yes, they meet at a right angle. Contrast $(3, 4)$ and $(4, 3)$: their dot product is $(3)(4) + (4)(3) = 24 \neq 0$, so those two are *not* orthogonal (they point in broadly similar directions).
 
 ### Orthogonal Subspaces
 
