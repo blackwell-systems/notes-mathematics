@@ -192,7 +192,7 @@ Scan through an array of $n$ elements to find a target. In the worst case (targe
 
 ### Binary Search: $O(\log n)$
 
-Search a sorted array by repeatedly halving the search space. After $k$ steps, the remaining space has size $n / 2^k$. The search ends when $n / 2^k = 1$, so $k = \log_2 n$.
+Search a sorted array by repeatedly halving the search space. After $k$ steps, the remaining space has size $n / 2^k$. The search ends when $n / 2^k = 1$, so $k = \log_2 n$. For a concrete instance, an array of $n = 32$ elements is halved $32 \to 16 \to 8 \to 4 \to 2 \to 1$, which is $\log_2 32 = 5$ steps.
 
 ![A stack of six shrinking bars showing binary search on a space of size 32. Step 0 is a full-width bar of size 32 = n. Each subsequent step is half the width of the one above: step 1 is size 16, step 2 is size 8, step 3 is size 4, step 4 is size 2, and step 5 is size 1. A green arrow runs down the left side labeled each step halves the search space. Reaching size 1 takes log base 2 of 32 = 5 steps, which is why binary search runs in O(log n) time.](./media/asymp-binary-search.png)
 
@@ -215,7 +215,7 @@ To rigorously prove $f(n) = O(g(n))$, you must exhibit specific constants $c$ an
 
 **Example:** Prove $n \log n = O(n^2)$.
 
-For $n \geq 1$, $\log n \leq n$ (since $n \leq 2^n$ implies $\log n \leq n$). Therefore:
+For $n \geq 1$, $\log_2 n \leq n$ (since $n \leq 2^n$ implies $\log_2 n \leq n$; the base does not affect the conclusion because changing base only rescales by a constant, as shown above). Therefore:
 
 $$
 n \log n \leq n \cdot n = n^2
@@ -269,6 +269,14 @@ For completeness, there are also **strict** asymptotic notations:
 - $f(n) = \omega(g(n))$ means $f$ grows **strictly faster** than $g$: $\lim_{n \to \infty} \frac{f(n)}{g(n)} = \infty$.
 
 The difference: $n = O(n)$ is true (a function is its own upper bound), but $n = o(n)$ is false (a function does not grow strictly slower than itself).
+
+**Worked examples (the limit decides).** Little-o and little-omega are settled by computing a single limit:
+
+- $n = o(n^2)$ because $\displaystyle\lim_{n \to \infty} \frac{n}{n^2} = \lim_{n \to \infty} \frac{1}{n} = 0$. The linear function grows strictly slower than the quadratic.
+- $2n \ne o(n)$ because $\displaystyle\lim_{n \to \infty} \frac{2n}{n} = 2 \ne 0$. Here $2n = O(n)$ and $2n = \Theta(n)$ (same growth rate), but the limit is a nonzero constant, so the growth is *not* strictly slower: little-o fails.
+- $n^2 = \omega(n \log n)$ because $\displaystyle\lim_{n \to \infty} \frac{n^2}{n \log n} = \lim_{n \to \infty} \frac{n}{\log n} = \infty$. The quadratic grows strictly faster than linearithmic.
+
+The pattern: a limit of $0$ means little-o (strictly slower), a limit of $\infty$ means little-omega (strictly faster), and a finite nonzero limit means $\Theta$ (same rate, and therefore *neither* little-o nor little-omega).
 
 ## Where It Shows Up in Machine Learning
 

@@ -4107,6 +4107,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("SLE: least-squares residuals sum to zero", Math.abs(rsum) < 1e-12);
 }
 
+// ===== Asymptotic notation (Phase-2 worked examples) =====
+{
+  // little-o: n = o(n^2), lim n/n^2 = 0.
+  check("ASY: n/n^2 -> 0 (n=o(n^2))", (1e6 / 1e12) < 1e-5 && (1 / 1e6) < 1e-5);
+  // 2n = O(n) but not o(n): lim 2n/n = 2.
+  eq("ASY: lim 2n/n = 2 (nonzero -> not little-o, is Theta)", (2 * 1e6) / 1e6, 2);
+  // little-omega: n^2 = omega(n log n), ratio -> infinity.
+  { const r = n => (n * n) / (n * Math.log2(n)); check("ASY: n^2/(n log n) grows without bound", r(1e6) > r(1e4) && r(1e4) > r(100) && r(1e6) > 1e4); }
+  // n log n = o(n^2): (log n)/n -> 0.
+  check("ASY: (n log n)/n^2 -> 0", (Math.log2(1e6) / 1e6) < 1e-4);
+
+  // Big-O witness for the figure: 3n^2+5n+7 <= 4n^2 for n>=7 but not n=6.
+  const f = n => 3 * n * n + 5 * n + 7;
+  check("ASY: f(6)=145 > 4*36=144 (n0>6)", f(6) === 145 && f(6) > 4 * 36);
+  check("ASY: f(7)=189 <= 4*49=196 (n0=7 works)", f(7) === 189 && f(7) <= 4 * 49);
+  // Original witness c=15,n0=1: 3n^2+5n+7 <= 15n^2 for n>=1.
+  check("ASY: f(1)=15 <= 15*1 (c=15,n0=1)", f(1) === 15 && f(1) <= 15 * 1);
+
+  // Binary search: n=32 -> 5 halvings.
+  eq("ASY: log2(32) = 5 halvings", Math.log2(32), 5);
+
+  // Limit test: (3n^2+5n)/n^2 -> 3.
+  { const r = n => (3 * n * n + 5 * n) / (n * n); check("ASY: (3n^2+5n)/n^2 -> 3", Math.abs(r(1e6) - 3) < 1e-4); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

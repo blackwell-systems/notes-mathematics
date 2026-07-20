@@ -6397,6 +6397,82 @@
           "upgrade": ""
         }
       ]
+    },
+    "asymptotic-notation.md": {
+      "contentHash": "sha1:40694d261bd1c449",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Unusually complete asymptotic-notation reference (O/Omega/Theta with witness pairs, growth ordering, determination rules, formal proofs, limit test, little-o/omega, algorithm analysis, ML); every witness pair and limit independently verified, no errors found. Audited and Phase-2'd in one pass: the little-o/little-omega section had definitions but no worked limits, now worked (n=o(n^2), 2n!=o(n), n^2=omega(n log n) with the 0/finite/inf pattern); also gave binary search a numeric instance (n=32 -> 5 halvings) and made the log base explicit in the n log n=O(n^2) proof. 11 strong / 0 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "why we need asymptotic notation",
+          "quality": "strong",
+          "note": "Motivated with 3n^2+7n+15 framing and O(n log n) beats O(n^2).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Big-O definition + worked proof",
+          "quality": "strong",
+          "note": "3n^2+5n+7=O(n^2) with c=15,n0=1 full derivation; set-membership caveat.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Big-Omega definition + example",
+          "quality": "strong",
+          "note": "Witness c=3,n0=1; sorting lower-bound motivation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Big-Theta definition + example",
+          "quality": "strong",
+          "note": "Two-sided witness; diagram with n0=7 crossing; summary table.",
+          "upgrade": ""
+        },
+        {
+          "concept": "common growth rates + ordering",
+          "quality": "strong",
+          "note": "Full ordering chain, algorithm table, widget, n=10^6 intuition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "rules for determining Big-O",
+          "quality": "strong",
+          "note": "Five rules with instances + worked code-fragment analysis.",
+          "upgrade": ""
+        },
+        {
+          "concept": "analyzing algorithms",
+          "quality": "strong",
+          "note": "Binary search now with a numeric instance (n=32 -> 5 halvings); linear search, sorting lower bound, matrix mult.",
+          "upgrade": ""
+        },
+        {
+          "concept": "formal proofs with Big-O",
+          "quality": "strong",
+          "note": "n log n=O(n^2) with c=1,n0=1 (log base clarified); 2^n != O(n^k) by contradiction.",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection to calculus / limit test",
+          "quality": "strong",
+          "note": "limsup/liminf characterizations with the (2+sin n)n caveat; two worked limits.",
+          "upgrade": ""
+        },
+        {
+          "concept": "little-o and little-omega",
+          "quality": "strong",
+          "note": "Now worked via limits: n=o(n^2), 2n!=o(n) (=Theta), n^2=omega(n log n); the 0/finite/inf pattern (was adequate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "ML connection",
+          "quality": "strong",
+          "note": "SGD O(n), Hessian O(p^2), inversion O(p^3), attention O(n^2 d), kNN.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
