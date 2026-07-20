@@ -100,6 +100,8 @@ $$
 
 Geometrically: the function lies below (or on) the chord connecting any two points on its graph. Equivalently, the region above the graph (the **epigraph**) is a convex set.
 
+**Checking the inequality numerically.** Take $f(x) = x^2$ with $x = 0$, $y = 2$, and $\lambda = \tfrac{1}{2}$ (the midpoint). The left side is $f(\tfrac{1}{2}\cdot 0 + \tfrac{1}{2}\cdot 2) = f(1) = 1$; the right side is $\tfrac{1}{2}f(0) + \tfrac{1}{2}f(2) = \tfrac{1}{2}(0) + \tfrac{1}{2}(4) = 2$. Since $1 \le 2$, the chord lies above the graph, consistent with convexity. Contrast $f(x) = x^3$ at $x = -2$, $y = 1$, $\lambda = \tfrac{1}{2}$: the left side is $f(-0.5) = -0.125$, the right side is $\tfrac{1}{2}(-8) + \tfrac{1}{2}(1) = -3.5$, and $-0.125 \le -3.5$ is **false**. A single violating pair is enough to prove $x^3$ is not convex.
+
 **Strictly convex:** The inequality is strict ($<$ instead of $\leq$) whenever $x \neq y$ and $0 < \lambda < 1$. A strictly convex function has at most one global minimum.
 
 **Strongly convex:** There exists a constant $m > 0$ such that $f(x) - \frac{m}{2}\|x\|^2$ is convex. Equivalently, the Hessian satisfies $H(x) \succeq mI$ everywhere (all eigenvalues $\geq m$). Strong convexity guarantees a unique global minimum and faster convergence of gradient descent.
@@ -193,15 +195,17 @@ $$
 
 This is $O(1/k)$ convergence: to halve the error, you need roughly twice as many iterations.
 
-For **strongly convex** functions with parameter $m$, the convergence is **linear** (exponential). With the optimal constant step size $\alpha = 2/(L + m)$:
+For **strongly convex** functions with parameter $m$, the convergence is **linear** (exponential). With the optimal constant step size $\alpha = 2/(L + m)$, the iterates contract geometrically in distance to the optimum:
 
 $$
-f(x_k) - f(x^*) \leq \left(\frac{L - m}{L + m}\right)^{2k} (f(x_0) - f(x^*))
+\|x_k - x^*\|^2 \leq \left(\frac{L - m}{L + m}\right)^{2k} \|x_0 - x^*\|^2
 $$
 
-The more conservative step $\alpha = 1/L$ still gives linear convergence, at the slower rate $(1 - m/L)^k = (1 - 1/\kappa)^k$.
+The function-value gap $f(x_k) - f(x^*)$ obeys the same geometric rate, up to a constant prefactor of order $\kappa = L/m$ (this prefactor is why the bound is usually stated on the iterate distance, as above). The more conservative step $\alpha = 1/L$ still gives linear convergence, at the slower rate $(1 - m/L)^k = (1 - 1/\kappa)^k$.
 
 The ratio $\kappa = L/m$ is the **condition number** of the problem. When $\kappa$ is large (the function is "elongated" with very different curvatures in different directions), convergence is slow. When $\kappa \approx 1$, convergence is fast. See [condition numbers](./linear-algebra-computation) in linear algebra.
+
+**Putting numbers on it.** With the conservative step $\alpha = 1/L$, the value gap shrinks by a factor $(1 - 1/\kappa)$ each iteration. For a well-conditioned problem with $\kappa = 10$, that factor is $0.9$, so reducing the gap tenfold needs $k$ with $0.9^k = 0.1$, i.e. $k = \ln(0.1)/\ln(0.9) \approx 22$ iterations. For an ill-conditioned $\kappa = 100$, the factor is $0.99$ and the same tenfold reduction needs $k = \ln(0.1)/\ln(0.99) \approx 230$ iterations, more than ten times as many. This is the precise sense in which conditioning controls speed: the iteration count to reach a fixed accuracy scales roughly like $\kappa$. (Newton's method, below, sidesteps this entirely because it is affine-invariant: its convergence does not depend on $\kappa$ at all.)
 
 ### Worked Example: 2D Quadratic
 
@@ -370,6 +374,27 @@ The weight decay term $\lambda x_k$ is applied directly, not through the adaptiv
 | Adam | Yes | Yes | Robust default, fast early | Most deep learning tasks |
 | AdamW | Yes | Yes | Correct weight decay | Large language models, transformers |
 
+### Worked Example: One Parameter, Five Optimizers
+
+To see what these rules actually *do*, feed all five the same gradient sequence for a single parameter and watch the step sizes they produce. Use a base learning rate $\alpha = 0.1$ and the gradient stream $g = 0.1,\ 0.1,\ 0.1,\ 4.0$: three steady steps followed by a sudden **spike** (an outlier mini-batch). The table lists the magnitude of the update $|x_k - x_{k+1}|$ each optimizer applies at each step (standard hyperparameters: momentum $\beta = 0.9$; RMSProp $\gamma = 0.9$; Adam $\beta_1 = 0.9$, $\beta_2 = 0.999$).
+
+| Step (gradient) | SGD | Momentum | AdaGrad | RMSProp | Adam |
+|---|---|---|---|---|---|
+| 1 ($g = 0.1$) | 0.010 | 0.010 | 0.100 | 0.316 | 0.100 |
+| 2 ($g = 0.1$) | 0.010 | 0.019 | 0.071 | 0.229 | 0.100 |
+| 3 ($g = 0.1$) | 0.010 | 0.027 | 0.058 | 0.192 | 0.100 |
+| 4 ($g = 4.0$, spike) | 0.400 | 0.424 | 0.100 | 0.316 | 0.062 |
+
+Read the columns:
+
+- **SGD** just scales the gradient: the update is $\alpha g$, so the spike produces a $0.4$ step, forty times the steady step. This is exactly the exploding-update problem that gradient clipping (below) exists to tame.
+- **Momentum** accumulates velocity, so its updates grow across the three steady steps ($0.010 \to 0.019 \to 0.027$) and it hits the spike *even harder* than SGD ($0.424$), because the spike adds to already-built-up velocity.
+- **AdaGrad** divides by $\sqrt{\text{accumulated } g^2}$. Its very first step is $\alpha \cdot g / \sqrt{g^2} = \alpha = 0.1$ (the gradient magnitude cancels), and thereafter it shrinks as the accumulator grows. The spike barely moves it ($0.100$), because by then $\sqrt{G}$ is large: adaptive scaling has absorbed the outlier.
+- **RMSProp** uses an exponential moving average of $g^2$ instead of a running sum, so it does not decay to zero the way AdaGrad does. Its updates here all exceed $\alpha$; that is because its EMA starts at zero, so early denominators are artificially small. This zero-initialization bias is precisely what Adam's bias correction fixes.
+- **Adam** combines both moments *with* bias correction. On the steady gradients its step is exactly $\alpha = 0.1$ (the bias-corrected ratio $\hat m_k / \sqrt{\hat v_k} = g/|g| = 1$ for a constant gradient), and on the spike it takes a *smaller* step ($0.062$), because the second-moment estimate $\hat v_k$ jumps with the outlier and damps the update. This scale-invariance is why Adam is so robust to gradient-magnitude surprises.
+
+The single cleanest fact to carry away is Adam's first step. With $g_1 = 0.1$, the raw first moment is $m_1 = (1 - \beta_1) g_1 = 0.1 \cdot 0.1 = 0.01$, which badly underestimates the gradient (it is biased toward the zero initialization). Bias correction rescues it exactly: $\hat m_1 = m_1 / (1 - \beta_1) = 0.01 / 0.1 = 0.1 = g_1$. Without that correction, Adam would crawl for the first several steps.
+
 The following interactive visualization shows three optimizers navigating the Rosenbrock loss surface from the same starting point. Rotate the view to see how SGD wanders noisily, momentum builds speed but overshoots, and Adam adapts its step size per-parameter to converge fastest.
 
 <iframe src="/static/interactive/optimizer-comparison.html" width="100%" height="550" style="border:none;"></iframe>
@@ -452,6 +477,20 @@ where $H(x_k) = \nabla^2 f(x_k)$ is the Hessian at $x_k$.
 - Inverting (or solving a linear system with) the Hessian is $O(n^3)$
 - For a neural network with $n = 10^8$ parameters, this is completely infeasible
 - May converge to a saddle point or maximum if the Hessian is not positive definite
+
+**Worked example (one step to the exact minimum).** Apply Newton's method to the same quadratic used for gradient descent above, $f(x, y) = 2x^2 + y^2 - 2xy - 4x$, starting from $(0, 0)$. The gradient there is $\nabla f(0,0) = (-4, 0)$, and the Hessian is constant:
+
+$$
+H = \begin{bmatrix} 4 & -2 \\ -2 & 2 \end{bmatrix}, \qquad H^{-1} = \frac{1}{\det H}\begin{bmatrix} 2 & 2 \\ 2 & 4 \end{bmatrix} = \frac{1}{4}\begin{bmatrix} 2 & 2 \\ 2 & 4 \end{bmatrix}
+$$
+
+(the determinant is $4\cdot 2 - (-2)(-2) = 4$). The Newton step is
+
+$$
+x_1 = \begin{bmatrix} 0 \\ 0 \end{bmatrix} - \frac{1}{4}\begin{bmatrix} 2 & 2 \\ 2 & 4 \end{bmatrix}\begin{bmatrix} -4 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} - \frac{1}{4}\begin{bmatrix} -8 \\ -8 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}
+$$
+
+One step lands exactly on the minimum $(2, 2)$, which gradient descent needed many iterations to crawl toward (after three steps it had only reached $(0.8, 0.192)$). This is not luck: Newton's method minimizes any quadratic in a single step, because its local quadratic model *is* the function. Near a smooth minimum every function looks quadratic, which is the source of Newton's quadratic convergence.
 
 ### Quasi-Newton Methods
 
@@ -547,6 +586,16 @@ The **Karush-Kuhn-Tucker (KKT) conditions** generalize Lagrange multipliers. At 
 4. **Complementary slackness:** $\mu_i g_i(x^*) = 0$ for each $i$
 
 **Complementary slackness** is the key new condition. It says: for each inequality constraint, either the constraint is **active** ($g_i(x^*) = 0$, the constraint is tight) and $\mu_i > 0$, or the constraint is **inactive** ($g_i(x^*) < 0$, there is slack) and $\mu_i = 0$. An inactive constraint does not influence the solution.
+
+**Worked example (one active, one inactive constraint).** Minimize $f(x, y) = x^2 + y^2$ subject to $x + y \geq 2$ and $x \leq 10$. Written in the standard $g_i \leq 0$ form, the constraints are $g_1 = 2 - x - y \leq 0$ and $g_2 = x - 10 \leq 0$.
+
+The unconstrained minimum is $(0,0)$, which violates $g_1$ (there $2 - 0 - 0 = 2 > 0$), so the first constraint must be **active**: $x + y = 2$. By the symmetry of $f$, the closest point on that line to the origin is $x = y = 1$, giving $f = 1^2 + 1^2 = 2$. Now verify the KKT conditions. Stationarity ($\nabla f + \mu_1 \nabla g_1 + \mu_2 \nabla g_2 = 0$) reads
+
+$$
+\begin{bmatrix} 2x \\ 2y \end{bmatrix} + \mu_1 \begin{bmatrix} -1 \\ -1 \end{bmatrix} + \mu_2 \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+$$
+
+At $(1,1)$ the second constraint has slack ($g_2 = 1 - 10 = -9 < 0$), so complementary slackness forces $\mu_2 = 0$. The equations become $2 - \mu_1 = 0$ in both coordinates, giving $\mu_1 = 2 \geq 0$ (dual feasibility holds). Check the two complementary-slackness products: $\mu_1 g_1 = 2 \cdot 0 = 0$ (active constraint, nonzero multiplier) and $\mu_2 g_2 = 0 \cdot (-9) = 0$ (inactive constraint, zero multiplier). Both vanish, as required, and every KKT condition is satisfied at $(1, 1)$. The multiplier $\mu_1 = 2$ says that loosening the requirement $x + y \geq 2$ by a small amount would lower the optimal $f$ at a rate of about $2$ per unit.
 
 For convex problems, the KKT conditions are both necessary and sufficient for optimality.
 

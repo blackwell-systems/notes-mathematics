@@ -3788,6 +3788,67 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("MT: E[X] for fair die = 3.5", (1 + 2 + 3 + 4 + 5 + 6) / 6, 3.5);
 }
 
+// ===== Optimization (Phase-2 worked examples) =====
+{
+  // Convexity chord inequality: f=x^2 at x=0,y=2,lambda=1/2 -> 1 <= 2; f=x^3 at x=-2,y=1,lambda=1/2 violates.
+  const sq = x => x * x, cube = x => x * x * x;
+  eq("OPT: convex check f=x^2 LHS f(1) = 1", sq(0.5 * 0 + 0.5 * 2), 1);
+  eq("OPT: convex check f=x^2 RHS = 2", 0.5 * sq(0) + 0.5 * sq(2), 2);
+  check("OPT: x^2 chord inequality holds (1 <= 2)", sq(1) <= 0.5 * sq(0) + 0.5 * sq(2));
+  eq("OPT: x^3 LHS f(-0.5) = -0.125", cube(0.5 * -2 + 0.5 * 1), -0.125);
+  eq("OPT: x^3 RHS = -3.5", 0.5 * cube(-2) + 0.5 * cube(1), -3.5);
+  check("OPT: x^3 violates convexity (-0.125 <= -3.5 is false)", !(cube(-0.5) <= 0.5 * cube(-2) + 0.5 * cube(1)));
+
+  // Convergence-rate numeric illustration: (1-1/kappa)^k = 0.1 iteration counts.
+  eq("OPT: kappa=10, k = ln(0.1)/ln(0.9) ~ 22", Math.log(0.1) / Math.log(0.9), 22, 0.2);
+  eq("OPT: kappa=100, k = ln(0.1)/ln(0.99) ~ 230", Math.log(0.1) / Math.log(0.99), 230, 1);
+  check("OPT: kappa=100 needs >10x the kappa=10 iterations", (Math.log(0.1) / Math.log(0.99)) > 10 * (Math.log(0.1) / Math.log(0.9)));
+
+  // Five-optimizer update magnitudes for gradient stream g=[0.1,0.1,0.1,4.0], alpha=0.1.
+  const G = [0.1, 0.1, 0.1, 4.0], a = 0.1, eps = 1e-8;
+  const sgd = G.map(g => a * g);
+  eq("OPT: SGD step1 = 0.01", sgd[0], 0.01);
+  eq("OPT: SGD spike step4 = 0.4", sgd[3], 0.4);
+  { let v = 0; const mom = G.map(g => { v = 0.9 * v + g; return a * v; });
+    eq("OPT: momentum step1 = 0.010", mom[0], 0.010, 5e-4);
+    eq("OPT: momentum step2 = 0.019", mom[1], 0.019, 5e-4);
+    eq("OPT: momentum step3 = 0.027", mom[2], 0.027, 5e-4);
+    eq("OPT: momentum spike step4 = 0.424 (amplified beyond SGD)", mom[3], 0.424, 5e-4);
+    check("OPT: momentum spike exceeds SGD spike", mom[3] > sgd[3]); }
+  { let Ga = 0; const ada = G.map(g => { Ga += g * g; return a * g / Math.sqrt(Ga + eps); });
+    eq("OPT: AdaGrad step1 = 0.100 (magnitude cancels)", ada[0], 0.100, 5e-4);
+    eq("OPT: AdaGrad step4 (spike) = 0.100 (absorbed)", ada[3], 0.100, 5e-4); }
+  { let Gr = 0; const rms = G.map(g => { Gr = 0.9 * Gr + 0.1 * g * g; return a * g / Math.sqrt(Gr + eps); });
+    eq("OPT: RMSProp step1 = 0.316 (zero-init EMA bias)", rms[0], 0.316, 1e-3); }
+  { let m = 0, v = 0; const b1 = 0.9, b2 = 0.999;
+    const adam = G.map((g, i) => { const k = i + 1; m = b1 * m + (1 - b1) * g; v = b2 * v + (1 - b2) * g * g; const mh = m / (1 - b1 ** k); const vh = v / (1 - b2 ** k); return a * mh / (Math.sqrt(vh) + eps); });
+    eq("OPT: Adam step1 = 0.100 (bias-corrected)", adam[0], 0.100, 5e-4);
+    eq("OPT: Adam step2 = 0.100 (constant grad -> step ~ alpha)", adam[1], 0.100, 5e-4);
+    eq("OPT: Adam spike step4 = 0.062 (smaller than steady step)", adam[3], 0.062, 1e-3);
+    check("OPT: Adam damps the spike below its steady step", adam[3] < adam[2]); }
+  // Adam first-step bias correction: m1 = 0.01, m_hat1 = m1/(1-beta1) = 0.1 = g1.
+  { const g1 = 0.1, m1 = (1 - 0.9) * g1; eq("OPT: Adam m1 = 0.01", m1, 0.01); eq("OPT: Adam m_hat1 = 0.1 = g1", m1 / (1 - 0.9), 0.1, 1e-12); }
+
+  // Newton one step on f=2x^2+y^2-2xy-4x from (0,0): H^{-1} grad -> (2,2).
+  const Hinv = [[2 / 4, 2 / 4], [2 / 4, 4 / 4]], grad0 = [-4, 0];
+  const nx = 0 - (Hinv[0][0] * grad0[0] + Hinv[0][1] * grad0[1]);
+  const ny = 0 - (Hinv[1][0] * grad0[0] + Hinv[1][1] * grad0[1]);
+  eq("OPT: Newton one step x = 2", nx, 2);
+  eq("OPT: Newton one step y = 2", ny, 2);
+  check("OPT: Hessian [[4,-2],[-2,2]] positive definite (det>0, trace>0)", (4 * 2 - 4) > 0 && (4 + 2) > 0);
+
+  // KKT: min x^2+y^2 s.t. x+y>=2 (g1=2-x-y<=0) and x<=10 (g2=x-10<=0). Solution (1,1).
+  const kx = 1, ky = 1, mu1 = 2, mu2 = 0;
+  eq("KKT: optimal value f(1,1) = 2", kx * kx + ky * ky, 2);
+  eq("KKT: stationarity x-coord 2x - mu1 + mu2 = 0", 2 * kx - mu1 + mu2, 0);
+  eq("KKT: stationarity y-coord 2y - mu1 = 0", 2 * ky - mu1, 0);
+  const g1 = 2 - kx - ky, g2 = kx - 10;
+  eq("KKT: complementary slackness mu1*g1 = 0", mu1 * g1, 0);
+  eq("KKT: complementary slackness mu2*g2 = 0", mu2 * g2, 0);
+  check("KKT: g1 active (=0), g2 inactive (<0)", g1 === 0 && g2 < 0);
+  check("KKT: dual feasibility mu1,mu2 >= 0", mu1 >= 0 && mu2 >= 0);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

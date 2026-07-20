@@ -4825,6 +4825,238 @@
           "upgrade": ""
         }
       ]
+    },
+    "optimization.md": {
+      "contentHash": "sha1:e61e95aae8d00cff",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "Comprehensive optimization reference (convexity, gradient descent + variants, schedules, second-order methods, constrained optimization, regularization, practical training); every worked number independently verified, no math errors found. Audited and Phase-2'd in one pass: the seven optimizer update rules (SGD -> Adam) were formula-only, and Newton, KKT, the convexity inequality, and convergence rates were never worked with numbers. Added a five-optimizer numeric spike-response trace (Adam bias correction displayed), a Newton one-step-to-(2,2) example contrasting the GD iteration, a KKT inequality example with one active/one inactive constraint, a convexity chord check, and a condition-number convergence illustration; fixed the strongly-convex bound to sit on the iterate distance. 29 strong / 8 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "what is optimization (objective/variables/constraints)",
+          "quality": "strong",
+          "note": "Overview; min=max, ML framing.",
+          "upgrade": ""
+        },
+        {
+          "concept": "critical points (three flavors)",
+          "quality": "strong",
+          "note": "Definitional overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "first-order necessary condition",
+          "quality": "strong",
+          "note": "Correct, brief.",
+          "upgrade": ""
+        },
+        {
+          "concept": "second-order conditions (Hessian PD/ND/indefinite)",
+          "quality": "adequate",
+          "note": "Correct rules; classified symbolically (Hessian eigenvalue examples live on other pages).",
+          "upgrade": ""
+        },
+        {
+          "concept": "local vs global minima; convex => local=global",
+          "quality": "strong",
+          "note": "Overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "convex sets",
+          "quality": "strong",
+          "note": "Line-segment definition + intuition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "convex functions (chord inequality)",
+          "quality": "strong",
+          "note": "Now checked numerically: x^2 (1<=2 holds) and x^3 (-0.125<=-3.5 false, non-convex).",
+          "upgrade": ""
+        },
+        {
+          "concept": "strictly / strongly convex",
+          "quality": "adequate",
+          "note": "Correct definitions; strong-convexity Hessian bound stated.",
+          "upgrade": ""
+        },
+        {
+          "concept": "testing for convexity (Hessian PSD)",
+          "quality": "adequate",
+          "note": "Rule stated; MSE Hessian 2X^TX asserted.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why convexity matters",
+          "quality": "strong",
+          "note": "Overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "convexity examples (x^2, x^3, |x|, -log x, e^x, CE, MSE)",
+          "quality": "strong",
+          "note": "Each with the deciding f''.",
+          "upgrade": ""
+        },
+        {
+          "concept": "subgradients (subdifferential of |x|=[-1,1], prox/soft-threshold)",
+          "quality": "strong",
+          "note": "Concrete subdifferential + prox formula.",
+          "upgrade": ""
+        },
+        {
+          "concept": "gradient descent algorithm + learning rate",
+          "quality": "strong",
+          "note": "Update rule; learning-rate regimes with figure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "convergence rates (O(1/k), strongly convex, condition number)",
+          "quality": "strong",
+          "note": "Now numeric: kappa=10 -> ~22 iters, kappa=100 -> ~230 for 10x gap; strongly-convex bound restated on iterate distance with the kappa prefactor note.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked 2D-quadratic gradient descent",
+          "quality": "strong",
+          "note": "Three iterations from (0,0) + minimum (2,2), all verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "batch GD",
+          "quality": "strong",
+          "note": "Overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "SGD / mini-batch SGD",
+          "quality": "strong",
+          "note": "Now applied to numbers in the five-optimizer trace.",
+          "upgrade": ""
+        },
+        {
+          "concept": "momentum",
+          "quality": "strong",
+          "note": "Now traced numerically (accelerates on steady grads, amplifies the spike beyond SGD).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Nesterov accelerated gradient",
+          "quality": "adequate",
+          "note": "Lookahead rule + O(1/k^2) (full-gradient result); not separately traced.",
+          "upgrade": ""
+        },
+        {
+          "concept": "AdaGrad",
+          "quality": "strong",
+          "note": "Now traced: first step = alpha, spike absorbed as accumulator grows.",
+          "upgrade": ""
+        },
+        {
+          "concept": "RMSProp",
+          "quality": "strong",
+          "note": "Now traced; early steps > alpha explained by zero-init EMA bias.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Adam (+ bias correction)",
+          "quality": "strong",
+          "note": "Now traced: steady step = alpha, spike step smaller; bias correction m_hat1 = g1 displayed.",
+          "upgrade": ""
+        },
+        {
+          "concept": "AdamW (decoupled weight decay)",
+          "quality": "adequate",
+          "note": "Rule + correct rationale; symbolic.",
+          "upgrade": ""
+        },
+        {
+          "concept": "optimizer comparison table + worked five-optimizer trace",
+          "quality": "strong",
+          "note": "Table plus the numeric spike-response trace tying all update rules together.",
+          "upgrade": ""
+        },
+        {
+          "concept": "learning-rate schedules",
+          "quality": "adequate",
+          "note": "Formulas + step-decay numeric; cosine/warmup not evaluated at a sample k.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Newton's method",
+          "quality": "strong",
+          "note": "Now worked: one step to exact minimum (2,2) on the 2D quadratic; H^{-1} shown.",
+          "upgrade": ""
+        },
+        {
+          "concept": "quasi-Newton (BFGS, L-BFGS)",
+          "quality": "adequate",
+          "note": "Conceptual overview (appropriate).",
+          "upgrade": ""
+        },
+        {
+          "concept": "when to use second-order methods",
+          "quality": "strong",
+          "note": "Overview by problem size.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Lagrange multipliers (equality) + interpretation",
+          "quality": "strong",
+          "note": "Full method + sensitivity meaning.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked Lagrange rectangle (max area, fixed perimeter)",
+          "quality": "strong",
+          "note": "x=y=5, area 25, lambda=5/2, sensitivity verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "KKT conditions (inequality)",
+          "quality": "strong",
+          "note": "Now worked: min x^2+y^2 s.t. x+y>=2, x<=10 -> (1,1), one active/one inactive constraint, complementary slackness exercised, mu1=2.",
+          "upgrade": ""
+        },
+        {
+          "concept": "regularization-as-constraint (lambda=mu)",
+          "quality": "strong",
+          "note": "KKT derivation complete.",
+          "upgrade": ""
+        },
+        {
+          "concept": "L2 / L1 / elastic net + Bayesian priors",
+          "quality": "strong",
+          "note": "Geometry of sparsity; Gaussian/Laplace MAP connection.",
+          "upgrade": ""
+        },
+        {
+          "concept": "initialization (Xavier/Glorot, He)",
+          "quality": "strong",
+          "note": "Variances given; uniform-variant equivalence.",
+          "upgrade": ""
+        },
+        {
+          "concept": "gradient clipping",
+          "quality": "strong",
+          "note": "Norm-cap rule.",
+          "upgrade": ""
+        },
+        {
+          "concept": "batch normalization",
+          "quality": "adequate",
+          "note": "Conceptual.",
+          "upgrade": ""
+        },
+        {
+          "concept": "saddle points in high dimensions",
+          "quality": "strong",
+          "note": "Eigenvalue-sign argument + dev-interp research connection.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
