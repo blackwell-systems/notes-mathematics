@@ -105,6 +105,7 @@ Since $p > 0$, the parabola opens upward.
 - **Vertex**: $(0, 0)$
 - **Focus**: $(0, \frac{1}{8})$
 - **Directrix**: $y = -\frac{1}{8}$
+- **Latus rectum**: length $|4p| = \frac{1}{2}$, so its endpoints sit $|2p| = \frac{1}{4}$ to each side of the focus, at $\left(\pm\frac{1}{4}, \frac{1}{8}\right)$. These two points plus the vertex give a quick three-point sketch of the curve.
 
 ### Worked Example: Write Equation from Focus and Directrix
 
@@ -397,6 +398,15 @@ When there is no $xy$ term, classification is straightforward:
 | $A$ and $C$ opposite signs | Hyperbola |
 | $A = 0$ or $C = 0$ (not both) | Parabola |
 
+**Worked example (reading the table).** Classify each equation by inspecting $A$ (the $x^2$ coefficient) and $C$ (the $y^2$ coefficient):
+
+- $2x^2 + 2y^2 - 8 = 0$: $A = C = 2$ (equal, both nonzero) $\Rightarrow$ **circle** (indeed $x^2 + y^2 = 4$).
+- $2x^2 + 3y^2 - 6 = 0$: $A = 2$, $C = 3$ (same sign, unequal) $\Rightarrow$ **ellipse**.
+- $3x^2 - 5y^2 - 15 = 0$: $A = 3$, $C = -5$ (opposite signs) $\Rightarrow$ **hyperbola**.
+- $y^2 - 4x = 0$: $A = 0$ (no $x^2$ term), $C = 1$ $\Rightarrow$ **parabola**.
+
+No completing-the-square is needed to name the curve: the signs and equality of $A$ and $C$ settle it immediately.
+
 ### The Discriminant (When $B \neq 0$)
 
 When the equation includes an $xy$ term, the **discriminant** $B^2 - 4AC$ determines the type:
@@ -407,7 +417,13 @@ When the equation includes an $xy$ term, the **discriminant** $B^2 - 4AC$ determ
 | $B^2 - 4AC = 0$ | Parabola |
 | $B^2 - 4AC > 0$ | Hyperbola |
 
-The $xy$ term indicates the conic has been **rotated** from standard position. Removing it requires a rotation of axes, which is typically covered in more advanced courses.
+**Worked example (classifying rotated conics).** The discriminant names the curve even when the $xy$ term makes the axes tilted, without any rotation of coordinates:
+
+- $x^2 + xy + y^2 - 6 = 0$: $A = 1$, $B = 1$, $C = 1$, so $B^2 - 4AC = 1 - 4 = -3 < 0 \Rightarrow$ **ellipse** (a tilted one).
+- $x^2 + 2xy + y^2 + x - y = 0$: $A = 1$, $B = 2$, $C = 1$, so $B^2 - 4AC = 4 - 4 = 0 \Rightarrow$ **parabola** (note $x^2 + 2xy + y^2 = (x+y)^2$, a perfect square, the hallmark of the parabolic case).
+- $xy = 1$, i.e. $xy - 1 = 0$: $A = 0$, $B = 1$, $C = 0$, so $B^2 - 4AC = 1 - 0 = 1 > 0 \Rightarrow$ **hyperbola** (the familiar reciprocal curve $y = 1/x$ is a hyperbola whose axes are the $45^\circ$ lines).
+
+The discriminant is invariant under rotation, which is exactly why it can classify a conic without first straightening it. Removing it requires a rotation of axes, which is typically covered in more advanced courses.
 
 ### Degenerate Conics
 

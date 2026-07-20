@@ -5537,6 +5537,220 @@
           "upgrade": ""
         }
       ]
+    },
+    "conic-sections.md": {
+      "contentHash": "sha1:70b56eaa17a63e3c",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Comprehensive conic-sections reference (parabola/ellipse/hyperbola/circle, general 2nd-degree classification, eccentricity); every worked number independently verified, no errors found. Audited and Phase-2'd in one pass: the classification section's two tables were displayed but never exercised, so added a B=0 worked pass (reading A,C off four equations) and a B^2-4AC discriminant worked example on three rotated conics; also computed the latus rectum in the y=2x^2 example (formula was stated but never turned into a number). 32 strong / 2 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "what are conic sections (cone slicing)",
+          "quality": "strong",
+          "note": "All four slice types; overview diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "why conics matter (applications preview)",
+          "quality": "strong",
+          "note": "Motivating list incl ML/Gaussian hook.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parabola definition (focus/directrix locus)",
+          "quality": "strong",
+          "note": "Equidistance definition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parabola standard forms (both orientations)",
+          "quality": "strong",
+          "note": "Vertex/focus/directrix/opening rules.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parabola key features (vertex, axis, latus rectum)",
+          "quality": "strong",
+          "note": "Latus rectum length |4p| now computed in the y=2x^2 example (=1/2, endpoints (±1/4,1/8)).",
+          "upgrade": ""
+        },
+        {
+          "concept": "connection y=ax^2 <-> a=1/(4p)",
+          "quality": "strong",
+          "note": "Derived symbolically.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parabola graphing procedure",
+          "quality": "strong",
+          "note": "Full step list incl LR endpoints.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: focus/directrix of y=2x^2",
+          "quality": "strong",
+          "note": "Concrete to result + latus rectum.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: equation from focus/directrix",
+          "quality": "strong",
+          "note": "x^2=12y.",
+          "upgrade": ""
+        },
+        {
+          "concept": "ellipse definition (sum of distances)",
+          "quality": "strong",
+          "note": "Locus with 2a.",
+          "upgrade": ""
+        },
+        {
+          "concept": "ellipse standard form + orientation",
+          "quality": "strong",
+          "note": "Both a>b and b>a cases.",
+          "upgrade": ""
+        },
+        {
+          "concept": "relationship c^2=a^2-b^2",
+          "quality": "strong",
+          "note": "With c<a justification.",
+          "upgrade": ""
+        },
+        {
+          "concept": "ellipse eccentricity",
+          "quality": "strong",
+          "note": "Formula + Earth/Pluto anchors.",
+          "upgrade": ""
+        },
+        {
+          "concept": "ellipse graphing procedure",
+          "quality": "strong",
+          "note": "Complete.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: graph x^2/25+y^2/9, foci",
+          "quality": "strong",
+          "note": "a=5,b=3,c=4,e=0.8.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: equation from foci/vertices",
+          "quality": "strong",
+          "note": "x^2/16+y^2/25=1.",
+          "upgrade": ""
+        },
+        {
+          "concept": "ellipse <-> ML (Gaussian contours)",
+          "quality": "strong",
+          "note": "Eigenvalue/eigenvector link.",
+          "upgrade": ""
+        },
+        {
+          "concept": "hyperbola definition (abs difference)",
+          "quality": "strong",
+          "note": "Locus with 2a.",
+          "upgrade": ""
+        },
+        {
+          "concept": "hyperbola standard forms (both axes)",
+          "quality": "strong",
+          "note": "With asymptote forms.",
+          "upgrade": ""
+        },
+        {
+          "concept": "relationship c^2=a^2+b^2",
+          "quality": "strong",
+          "note": "With c>a.",
+          "upgrade": ""
+        },
+        {
+          "concept": "hyperbola eccentricity",
+          "quality": "strong",
+          "note": "Formula + shape interpretation.",
+          "upgrade": ""
+        },
+        {
+          "concept": "asymptotes / box method",
+          "quality": "strong",
+          "note": "Full procedure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: graph x^2/16-y^2/9, asymptotes/foci",
+          "quality": "strong",
+          "note": "a=4,b=3,c=5,e=1.25.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: equation from vertices/foci",
+          "quality": "strong",
+          "note": "y^2/16-x^2/9=1.",
+          "upgrade": ""
+        },
+        {
+          "concept": "circle as special ellipse + standard/general form",
+          "quality": "strong",
+          "note": "Both forms.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: complete-the-square circle",
+          "quality": "strong",
+          "note": "center (3,-2), r=4.",
+          "upgrade": ""
+        },
+        {
+          "concept": "general 2nd-degree equation form",
+          "quality": "strong",
+          "note": "Full Ax^2+Bxy+Cy^2+Dx+Ey+F.",
+          "upgrade": ""
+        },
+        {
+          "concept": "B=0 classification table",
+          "quality": "strong",
+          "note": "Now applied: reads A,C off four equations (circle/ellipse/hyperbola/parabola) (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "B^2-4AC discriminant table (B!=0)",
+          "quality": "strong",
+          "note": "Now worked on rotated conics: x^2+xy+y^2 (-3, ellipse), x^2+2xy+y^2 (0, parabola), xy=1 (1, hyperbola) (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "degenerate conics",
+          "quality": "adequate",
+          "note": "Four cases each with a symbolic example; overview-level.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked: classify/graph 4x^2+9y^2-16x+18y-11=0",
+          "quality": "strong",
+          "note": "Full CTS to ellipse with center/vertices/foci/e.",
+          "upgrade": ""
+        },
+        {
+          "concept": "summary tables (standard forms, eccentricity)",
+          "quality": "strong",
+          "note": "Correct and complete.",
+          "upgrade": ""
+        },
+        {
+          "concept": "unifying focus-directrix / eccentricity view",
+          "quality": "adequate",
+          "note": "Verbal; polar form r=l/(1+e cos) used in the widget.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interactive eccentricity-morph widget",
+          "quality": "strong",
+          "note": "Self-contained; all four types.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

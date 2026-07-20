@@ -3937,6 +3937,31 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   }
 }
 
+// ===== Conic sections (Phase-2 worked examples) =====
+{
+  // Latus rectum of y=2x^2 (p=1/8): |4p|=1/2, endpoints (±1/4, 1/8).
+  const p = 1 / 8;
+  eq("CONIC: latus rectum |4p| = 1/2", Math.abs(4 * p), 0.5);
+  eq("CONIC: latus rectum half-width |2p| = 1/4", Math.abs(2 * p), 0.25);
+  eq("CONIC: latus rectum endpoint y = 1/8 (= focus height)", p, 0.125);
+
+  // B=0 classification (read A,C): circle A=C; ellipse same sign; hyperbola opposite; parabola A=0.
+  check("CONIC: 2x^2+2y^2 -> A=C -> circle", 2 === 2);
+  check("CONIC: 2x^2+3y^2 -> same sign, A!=C -> ellipse", 2 * 3 > 0 && 2 !== 3);
+  check("CONIC: 3x^2-5y^2 -> opposite signs -> hyperbola", 3 * -5 < 0);
+  check("CONIC: y^2-4x -> A=0 -> parabola", 0 === 0 && 1 !== 0);
+
+  // B^2-4AC discriminant for rotated conics.
+  const disc = (A, B, C) => B * B - 4 * A * C;
+  eq("CONIC: x^2+xy+y^2 discriminant = -3 (ellipse)", disc(1, 1, 1), -3);
+  check("CONIC: -3 < 0 -> ellipse", disc(1, 1, 1) < 0);
+  eq("CONIC: x^2+2xy+y^2 discriminant = 0 (parabola)", disc(1, 2, 1), 0);
+  eq("CONIC: xy-1 discriminant = 1 (hyperbola)", disc(0, 1, 0), 1);
+  check("CONIC: 1 > 0 -> hyperbola", disc(0, 1, 0) > 0);
+  // x^2+2xy+y^2 = (x+y)^2 perfect square (parabolic hallmark).
+  eq("CONIC: (x+y)^2 = x^2+2xy+y^2 at x=2,y=3", (2 + 3) ** 2, 2 * 2 + 2 * 2 * 3 + 3 * 3);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
