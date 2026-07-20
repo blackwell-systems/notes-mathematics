@@ -3877,6 +3877,38 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("POLY: f(2.09455) is negative and ~1e-5 in magnitude", fpoly(2.09455) < 0 && Math.abs(fpoly(2.09455)) < 1e-4);
 }
 
+// ===== Systems of equations (Phase-2 corrections + worked examples) =====
+{
+  // Corrected roots of 2^x = x+3.
+  const f = x => 2 ** x - (x + 3);
+  const bisect = (a, b) => { for (let i = 0; i < 80; i++) { const c = (a + b) / 2; if (f(a) * f(c) <= 0) b = c; else a = c; } return (a + b) / 2; };
+  const rp = bisect(2, 3), rn = bisect(-3, -2);
+  eq("SYS: 2^x=x+3 positive root ~ 2.445", rp, 2.445, 1e-3);
+  eq("SYS: 2^x=x+3 negative root ~ -2.862", rn, -2.862, 1e-3);
+  check("SYS: old stated roots 2.675 / -2.690 are NOT roots", Math.abs(f(2.675)) > 0.1 && Math.abs(f(-2.690)) > 0.1);
+  eq("SYS: check 2^2.445 ~ 5.445", 2 ** 2.445, 5.445, 2e-3);
+  eq("SYS: and 2.445 + 3 = 5.445", 2.445 + 3, 5.445);
+
+  // Two-conics verification (1,3): x^2+y^2=10, xy=3.
+  eq("SYS: (1,3) on circle 1+9=10", 1 * 1 + 3 * 3, 10);
+  eq("SYS: (1,3) on hyperbola 1*3=3", 1 * 3, 3);
+
+  // Parabola-line example retro-linked: x^2-x-2=0 has discriminant 9>0 (two intersections).
+  eq("SYS: parabola-line discriminant (-1)^2-4(1)(-2) = 9", (-1) ** 2 - 4 * 1 * -2, 9);
+  // Discriminant tangent example: y=2x+c tangent to y=x^2 when disc 4+4c=0 -> c=-1.
+  const disc = c => 4 + 4 * c;
+  eq("SYS: tangent discriminant zero at c=-1", disc(-1), 0);
+  check("SYS: c=3 gives two intersections (disc>0)", disc(3) === 16 && disc(3) > 0);
+  check("SYS: c=-2 gives no intersection (disc<0)", disc(-2) === -4 && disc(-2) < 0);
+  // At c=-1: x^2-2x+1=(x-1)^2 -> double root x=1, point (1,1).
+  eq("SYS: tangent double root x=1", (1 - 1) ** 2, 0);
+  eq("SYS: tangent point y = x^2 = 1", 1 ** 2, 1);
+  eq("SYS: tangent point y = 2x-1 = 1", 2 * 1 - 1, 1);
+
+  // Spot-check the existing substitution example: x = 1 ± sqrt(5), y = 3 ± 2 sqrt(5).
+  { const x = 1 + Math.sqrt(5); eq("SYS: substitution x^2-3 = 2x+1 at x=1+sqrt5", x * x - 3, 2 * x + 1, 1e-9); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

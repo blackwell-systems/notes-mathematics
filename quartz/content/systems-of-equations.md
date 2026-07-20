@@ -136,6 +136,8 @@ $x = 2$ gives $y = 4$; $x = -1$ gives $y = 1$
 
 **Solutions:** $(2, 4)$ and $(-1, 1)$
 
+The quadratic $x^2 - x - 2 = 0$ has discriminant $b^2 - 4ac = (-1)^2 - 4(1)(-2) = 1 + 8 = 9 > 0$, which is exactly why there are two intersection points (see the [discriminant test](#number-of-solutions) below).
+
 ![Intersection of a parabola and a line showing two solution points](./media/nonlinear-system-parabola-line.png)
 
 ### Two Conics
@@ -172,6 +174,8 @@ Find $y = 3/x$ for each:
 
 **Solutions:** $(1, 3)$, $(-1, -3)$, $(3, 1)$, $(-3, -1)$
 
+**Verification for $(1, 3)$:** $1^2 + 3^2 = 1 + 9 = 10$ and $1 \cdot 3 = 3$, both equations satisfied. The four points are the maximum a circle and hyperbola can share, matching the degree-4 equation we solved.
+
 ### Exponential and Linear
 
 **Example:** Solve $2^x = x + 3$
@@ -190,7 +194,7 @@ Also test negative values:
 
 A second solution exists between $x = -3$ and $x = -2$.
 
-Use bisection or Newton's method to refine: $x \approx 2.675$ and $x \approx -2.690$.
+Use bisection or Newton's method to refine: $x \approx 2.445$ and $x \approx -2.862$. (Check the first: $2^{2.445} \approx 5.445$ and $2.445 + 3 = 5.445$, so the two sides match.)
 
 ## Number of Solutions
 
@@ -210,6 +214,14 @@ The number of solutions to a nonlinear system depends on the geometry of the cur
 - $b^2 - 4ac > 0$: Two real solutions (curves intersect twice)
 - $b^2 - 4ac = 0$: One real solution (curves are tangent)
 - $b^2 - 4ac < 0$: No real solutions (curves do not intersect)
+
+**Worked example (finding the tangent line).** For which value of $c$ is the line $y = 2x + c$ tangent to the parabola $y = x^2$? Setting them equal gives $x^2 = 2x + c$, i.e. $x^2 - 2x - c = 0$, a quadratic with $a = 1$, $b = -2$, and constant term $-c$. Its discriminant is
+
+$$
+b^2 - 4ac = (-2)^2 - 4(1)(-c) = 4 + 4c
+$$
+
+Tangency requires the discriminant to be exactly zero: $4 + 4c = 0$, so $c = -1$. The line $y = 2x - 1$ then meets the parabola where $x^2 - 2x + 1 = (x-1)^2 = 0$, a double root at $x = 1$, touching at the single point $(1, 1)$. For $c > -1$ the discriminant is positive and the line cuts the parabola twice (e.g. $c = 3$ gives $4 + 12 = 16 > 0$); for $c < -1$ it is negative and they never meet (e.g. $c = -2$ gives $4 - 8 = -4 < 0$). The discriminant thus turns "how many intersection points?" into a single sign check.
 
 ### Interactive: Two-Line System Explorer
 

@@ -5277,6 +5277,88 @@
           "upgrade": ""
         }
       ]
+    },
+    "systems-of-equations.md": {
+      "contentHash": "sha1:b0f21499174db157",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Compact systems-of-equations reference (substitution/elimination, nonlinear systems, number-of-solutions/discriminant). Audited and Phase-2'd in one pass: found and corrected a real error (the 2^x=x+3 roots were stated as 2.675/-2.690, actually ~2.445/-2.862, and failed their own plug-in check), worked the previously rule-only discriminant test (tangent line to a parabola at c=-1 with the two-solution and no-solution cases, and retro-linked the parabola-line example's discriminant=9), and added a two-conics plug-in verification. 11 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "definition: system & solution",
+          "quality": "strong",
+          "note": "Complete definition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving methods overview (subst/elim carry from linear)",
+          "quality": "strong",
+          "note": "Frames how eliminating can leave quadratic/quartic/transcendental.",
+          "upgrade": ""
+        },
+        {
+          "concept": "substitution method + algorithm",
+          "quality": "strong",
+          "note": "5-step algorithm + worked y=x^2-3,y=2x+1 -> exact irrational solutions.",
+          "upgrade": ""
+        },
+        {
+          "concept": "elimination method",
+          "quality": "strong",
+          "note": "Worked to three solutions with a plug-in verification for (3,4).",
+          "upgrade": ""
+        },
+        {
+          "concept": "nonlinear systems (definition)",
+          "quality": "adequate",
+          "note": "Brief section-header overview.",
+          "upgrade": ""
+        },
+        {
+          "concept": "parabola and line",
+          "quality": "strong",
+          "note": "Factorable worked example -> (2,4),(-1,1); now retro-linked to discriminant (9>0); diagram.",
+          "upgrade": ""
+        },
+        {
+          "concept": "two conics (circle + hyperbola)",
+          "quality": "strong",
+          "note": "Worked to four solutions; now with a plug-in verification for (1,3).",
+          "upgrade": ""
+        },
+        {
+          "concept": "exponential and linear (2^x=x+3)",
+          "quality": "strong",
+          "note": "IVT bracketing + numerical roots; corrected to x~2.445 and x~-2.862 (were wrong) with a plug-in check.",
+          "upgrade": ""
+        },
+        {
+          "concept": "number of solutions (table)",
+          "quality": "strong",
+          "note": "Reference table of max solutions by system type.",
+          "upgrade": ""
+        },
+        {
+          "concept": "discriminant test (b^2-4ac)",
+          "quality": "strong",
+          "note": "Now worked: tangent line y=2x+c to y=x^2 at c=-1 (disc 4+4c=0, point (1,1)), plus c=3 (two) and c=-2 (none) cases.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interactive: two-line explorer (Cramer's rule)",
+          "quality": "strong",
+          "note": "Determinant classification, symbols pronounced.",
+          "upgrade": ""
+        },
+        {
+          "concept": "where it shows up (applications)",
+          "quality": "strong",
+          "note": "ML, graphics, engineering, optimization.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }
