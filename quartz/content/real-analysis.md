@@ -499,6 +499,14 @@ $$
 
 These theorems say: uniform convergence is the condition you need to legitimately interchange limits with the fundamental operations of calculus.
 
+**Worked example (a swap that succeeds, and one that fails).** Let $f_n(x) = x/n$ on $[0, 1]$. This converges uniformly to $0$, since $\sup_{x \in [0,1]} |x/n - 0| = 1/n \to 0$. The swap is then legitimate, and you can check both sides directly:
+
+$$
+\lim_{n \to \infty} \int_0^1 \frac{x}{n}\,dx = \lim_{n \to \infty} \frac{1}{2n} = 0 = \int_0^1 0\,dx = \int_0^1 \Big(\lim_{n \to \infty} f_n\Big)\,dx.
+$$
+
+Contrast the **moving bump** $g_n$, equal to $n$ on $\left(0, \tfrac{1}{n}\right]$ and $0$ elsewhere. Pointwise $g_n \to 0$ (any fixed $x > 0$ has $g_n(x) = 0$ once $n > 1/x$), yet $\int_0^1 g_n = n \cdot \tfrac{1}{n} = 1$ for every $n$. So $\lim \int g_n = 1 \neq 0 = \int \lim g_n$: the swap **fails**. The culprit is exactly the missing hypothesis, since $\sup_x |g_n(x)| = n \to \infty$, so $g_n$ does *not* converge uniformly. Uniform convergence is precisely what rules out this kind of escaping mass.
+
 ### Power Series and Uniform Convergence
 
 Power series (Taylor series) are series of functions:
@@ -509,11 +517,21 @@ $$
 
 A power series with radius of convergence $R$ converges uniformly on any compact subset of $(a - R, a + R)$. This is why Taylor series behave so well: you can differentiate and integrate them term by term within the radius of convergence.
 
+**Worked example.** The geometric series $\sum_{n=0}^{\infty} x^n = \frac{1}{1 - x}$ has radius of convergence $R = 1$ (centered at $a = 0$). Fix any $r < 1$ and restrict to the compact interval $[-r, r]$. There each term is bounded by a constant: $|x^n| \le r^n = M_n$, and $\sum r^n = \frac{1}{1 - r}$ converges. By the [Weierstrass M-test](#the-weierstrass-m-test) above, the series converges *uniformly* on $[-r, r]$. That uniform convergence on every such interval is exactly what licenses term-by-term differentiation, giving $\sum_{n=1}^{\infty} n x^{n-1} = \frac{1}{(1-x)^2}$ for $|x| < 1$. Note the uniformity is only on $[-r, r]$, not on the full open interval $(-1, 1)$: as $r \to 1$ the bound degrades, which is why the endpoints are delicate.
+
 ### The Weierstrass M-Test
 
 **Theorem.** If $|f_n(x)| \le M_n$ for all $x \in D$ and $\sum M_n$ converges, then $\sum f_n$ converges uniformly on $D$.
 
 This is the standard tool for proving uniform convergence of series of functions: bound each term by a constant, and check that those constants form a convergent series.
+
+**Worked example.** Consider $\sum_{n=1}^{\infty} \frac{\sin(nx)}{n^2}$ on all of $\mathbb{R}$. Since $|\sin(nx)| \le 1$, each term is bounded by a constant independent of $x$:
+
+$$
+\left| \frac{\sin(nx)}{n^2} \right| \le \frac{1}{n^2} = M_n \quad \text{for every } x \in \mathbb{R}.
+$$
+
+The constants sum to $\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$, a convergent $p$-series ($p = 2 > 1$). The M-test therefore gives **uniform** convergence on all of $\mathbb{R}$. That payoff is concrete: because each partial sum is continuous and the convergence is uniform, the [continuity theorem above](#why-uniform-convergence-fixes-everything) makes the limit function continuous everywhere, a conclusion pointwise convergence alone could never deliver (recall $x^n$, whose pointwise limit was discontinuous).
 
 ### Where This Appears in Machine Learning
 
@@ -556,6 +574,14 @@ R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x - a)^{n+1}
 $$
 
 for some $c$ between $a$ and $x$. This gives a precise bound on how well the Taylor polynomial approximates $f$. When $R_n(x) \to 0$ as $n \to \infty$, the Taylor series converges to $f$. When it does not, the Taylor series converges to something else (or diverges).
+
+**Worked example (bounding an error).** Approximate $e^x$ near $a = 0$ by its degree-$2$ Taylor polynomial $1 + x + \tfrac{x^2}{2}$, and bound the error on $[0, 1]$. Here $n = 2$ and $f^{(3)}(x) = e^x$, so
+
+$$
+R_2(x) = \frac{e^c}{3!}x^3 = \frac{e^c}{6}x^3 \quad \text{for some } c \in (0, x).
+$$
+
+On $[0, 1]$ we have $c < 1$, so $e^c < e < 3$, and $x^3 \le 1$; therefore $|R_2(x)| \le \frac{e}{6} \approx 0.453$. This is a *guaranteed* bound before computing anything: at $x = 1$ the true error is $e - (1 + 1 + \tfrac{1}{2}) = e - 2.5 \approx 0.218$, comfortably under the $0.453$ ceiling. Because $\frac{e^c}{(n+1)!} \to 0$ as $n$ grows (factorials outrun the fixed $e^c$), $R_n(x) \to 0$, so the Taylor series of $e^x$ converges to $e^x$ everywhere.
 
 ### The Riemann Integral (Formal Definition)
 

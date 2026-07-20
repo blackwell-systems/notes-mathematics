@@ -374,6 +374,29 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("scalar projection equals |vector projection|", mag(proj), 2 * Math.sqrt(5), 1e-12); }
 }
 
+// ================= Real Analysis (Phase-2 worked examples) =================
+{
+  // M-test: sum 1/n^2 converges (p=2) -> uniform convergence of sum sin(nx)/n^2
+  { let s = 0; for (let n = 1; n <= 200000; n++) s += 1 / (n * n);
+    eq("sum 1/n^2 -> pi^2/6", s, Math.PI ** 2 / 6, 1e-4);
+    check("|sin(nx)/n^2| <= 1/n^2 (M-test bound)", Math.abs(Math.sin(3 * 1) / 1) <= 1); }
+  // limit-swap: f_n=x/n uniform -> integral 1/(2n) -> 0
+  { const integral = (n) => 1 / (2 * n);
+    check("int x/n = 1/(2n) -> 0 = int of limit", integral(1000) < 1e-3 && integral(1) === 0.5);
+    check("moving bump: int g_n = n*(1/n) = 1 for all n", 5 * (1 / 5) === 1 && 100 * (1 / 100) === 1); }
+  // power series geometric: sum r^n = 1/(1-r) for r<1; term-by-term deriv
+  { const r = 0.5; let s = 0; for (let n = 0; n <= 100; n++) s += r ** n;
+    eq("sum (0.5)^n = 1/(1-0.5) = 2", s, 2, 1e-9);
+    // derivative sum n x^{n-1} = 1/(1-x)^2 at x=0.5
+    let d = 0; for (let n = 1; n <= 200; n++) d += n * r ** (n - 1);
+    eq("sum n (0.5)^{n-1} = 1/(1-0.5)^2 = 4", d, 4, 1e-6); }
+  // Taylor remainder: e^x deg-2 at 0, R2(1) bound e/6, actual error e-2.5
+  { const bound = Math.E / 6, actual = Math.E - 2.5;
+    eq("R2(1) bound = e/6 ~ 0.453", bound, 0.4530, 1e-3);
+    eq("actual error e - 2.5 ~ 0.218", actual, 0.2183, 1e-3);
+    check("actual error within the guaranteed bound", actual < bound); }
+}
+
 // ================= Number Theory (Phase-2 worked examples) =================
 {
   const powmod = (a, b, n) => { let r = 1; for (let i = 0; i < b; i++) r = (r * a) % n; return r; };
