@@ -4359,6 +4359,28 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   { const Phi = z => 0.5 * (1 + erf(z / Math.SQRT2)); eq("PROB: P(Z>1.60) ~ 0.055", 1 - Phi(1.60), 0.055, 2e-3); }
 }
 
+// ===== Probability (Phase-3 conditional independence + MVN) =====
+{
+  // Conditional independence: flu drives cough & fever.
+  const pFlu = 0.1, pNo = 0.9, cF = 0.8, fF = 0.7, cN = 0.1, fN = 0.05;
+  const Pc = cF * pFlu + cN * pNo, Pf = fF * pFlu + fN * pNo;
+  const Pcf = (cF * fF) * pFlu + (cN * fN) * pNo;
+  eq("PROB: P(cough) = 0.17", Pc, 0.17, 1e-12);
+  eq("PROB: P(fever) = 0.115", Pf, 0.115, 1e-12);
+  eq("PROB: P(cough,fever) = 0.0605", Pcf, 0.0605, 1e-12);
+  check("PROB: marginally dependent (0.0605 != 0.0196)", Math.abs(Pcf - Pc * Pf) > 1e-6);
+  eq("PROB: cond-indep given flu: 0.8*0.7 = 0.56", cF * fF, 0.56, 1e-12);
+  eq("PROB: cond-indep given no-flu: 0.1*0.05 = 0.005", cN * fN, 0.005, 1e-12);
+
+  // MVN Sigma=[[4,2],[2,3]]: rho, eigenvalues.
+  eq("PROB: MVN rho = 2/sqrt(12) ~ 0.577", 2 / Math.sqrt(12), 0.5774, 1e-3);
+  const tr = 7, det = 12 - 4, disc = Math.sqrt(tr * tr - 4 * det);
+  eq("PROB: MVN eigenvalue+ ~ 5.56", (tr + disc) / 2, 5.5616, 1e-3);
+  eq("PROB: MVN eigenvalue- ~ 1.44", (tr - disc) / 2, 1.4384, 1e-3);
+  eq("PROB: eigenvalues sum to trace = 7", (tr + disc) / 2 + (tr - disc) / 2, 7, 1e-9);
+  eq("PROB: eigenvalues multiply to det = 8", ((tr + disc) / 2) * ((tr - disc) / 2), 8, 1e-9);
+}
+
 // ===== Probability (Phase-3 moment-cluster upgrades) =====
 {
   // Fair-die variance.

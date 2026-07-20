@@ -154,6 +154,8 @@ $$
 
 This is different from regular independence. Two events can be dependent overall but independent once you know $C$. For example, two symptoms (cough, fever) might be correlated in the general population, but given that a patient has the flu, knowing they have a cough tells you nothing extra about whether they have a fever.
 
+**Worked example.** Suppose $10\%$ of people have the flu. Among flu patients, $P(\text{cough}) = 0.8$ and $P(\text{fever}) = 0.7$, and the two symptoms are *conditionally independent given flu*, so $P(\text{cough}, \text{fever} \mid \text{flu}) = 0.8 \times 0.7 = 0.56$. Among the flu-free, $P(\text{cough}) = 0.1$, $P(\text{fever}) = 0.05$, again conditionally independent: $P(\text{cough}, \text{fever} \mid \text{no flu}) = 0.1 \times 0.05 = 0.005$. Averaging over flu status gives the marginals $P(\text{cough}) = 0.8(0.1) + 0.1(0.9) = 0.17$ and $P(\text{fever}) = 0.7(0.1) + 0.05(0.9) = 0.115$, and the joint $P(\text{cough}, \text{fever}) = 0.56(0.1) + 0.005(0.9) = 0.0605$. But $P(\text{cough})\,P(\text{fever}) = 0.17 \times 0.115 \approx 0.0196 \neq 0.0605$, so the symptoms are **marginally dependent** even though they are conditionally independent given flu status. The shared cause (flu) induces a correlation that vanishes once you condition on it: exactly the structure Naive Bayes exploits.
+
 **Where it shows up in ML:** Conditional independence (not regular independence) is the core assumption of the Naive Bayes classifier. It assumes all features are independent given the class label, which simplifies computation enormously. The assumption is almost always wrong in practice, but the classifier still works surprisingly well.
 
 ## Bayes' Theorem
@@ -971,6 +973,14 @@ f(\mathbf{x}) = \frac{1}{(2\pi)^{k/2} |\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\f
 $$
 
 ![Bivariate normal distribution: 3D surface and contour plot](./media/joint-distribution-3d.png)
+
+**Worked example (bivariate).** Take $\boldsymbol{\mu} = (1, 2)$ and covariance matrix $\boldsymbol{\Sigma} = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$. The diagonal entries are the marginal variances, so $X_1 \sim N(1, 4)$ and $X_2 \sim N(2, 3)$ individually, with standard deviations $2$ and $\sqrt{3} \approx 1.73$. The off-diagonal $\text{Cov}(X_1, X_2) = 2$ gives the correlation
+
+$$
+\rho = \frac{2}{\sqrt{4}\sqrt{3}} = \frac{2}{\sqrt{12}} \approx 0.577,
+$$
+
+a moderate positive tilt to the elliptical contours. The **shape** of those contours is set by the eigenvalues of $\boldsymbol{\Sigma}$: with trace $7$ and determinant $8$, they are $\tfrac{7 \pm \sqrt{17}}{2} \approx 5.56$ and $1.44$ (which sum to the trace and multiply to the determinant, a useful check). These are the variances along the ellipse's principal axes, so the cloud is stretched about $\sqrt{5.56/1.44} \approx 2$ times farther along its long axis. This eigen-decomposition of the covariance is exactly what [PCA](./linear-algebra-foundations) computes.
 
 <iframe src="/static/interactive/bivariate-normal.html" width="100%" height="550" style="border:none;"></iframe>
 

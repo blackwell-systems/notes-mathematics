@@ -2857,12 +2857,12 @@
       ]
     },
     "probability.md": {
-      "contentHash": "sha1:7a4ed9c5b8c3034c",
+      "contentHash": "sha1:fe61b46aaff0996f",
       "clarityRubricVersion": 1,
       "auditedAt": "2026-07-20",
       "auditor": "claude (phase-3)",
       "overall": "strong",
-      "summary": "Very large, comprehensive probability reference (43 concepts), every worked number independently verified. Phase-2 closed all six thin items (skewness/kurtosis, continuous uniform, gamma, beta, chi-squared, law of total variance) with numeric worked examples. 30 strong / 13 adequate / 0 thin / 0 missing.",
+      "summary": "Comprehensive probability reference (sample spaces, conditional probability, distributions, moments, joint distributions, inequalities, LLN/CLT, MGFs). Phase-3 pass upgraded all 13 adequate items to worked examples: a fair-die variance, a shared 2x2 joint carried through covariance/variance-of-sums/correlation, distribution plug-ins (Bernoulli/exponential/normal), Jensen/LLN/CLT numbers, inverse-transform sampling, a conditional-independence (flu) example, and a bivariate-normal covariance eigen-decomposition. 43 strong / 0 adequate / 0 thin / 0 missing.",
       "inventory": [
         {
           "concept": "frequentist vs Bayesian interpretation",
@@ -2896,8 +2896,8 @@
         },
         {
           "concept": "independence + conditional independence",
-          "quality": "adequate",
-          "note": "Independence defined/derived; conditional independence explained but not computed.",
+          "quality": "strong",
+          "note": "Now worked: flu drives cough & fever -> conditionally independent given flu (0.56, 0.005) but marginally dependent (0.0605 != 0.0196).",
           "upgrade": ""
         },
         {
@@ -3082,8 +3082,8 @@
         },
         {
           "concept": "multivariate normal distribution",
-          "quality": "adequate",
-          "note": "PDF, properties, diagrams; no worked numeric instance.",
+          "quality": "strong",
+          "note": "Now worked: bivariate N with Sigma=[[4,2],[2,3]] -> marginals N(1,4)/N(2,3), rho=0.577, eigenvalues 5.56/1.44 (the PCA axes).",
           "upgrade": ""
         },
         {
