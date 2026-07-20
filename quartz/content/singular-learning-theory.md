@@ -136,9 +136,21 @@ $$
 m = \#\Big\{\, j : \tfrac{h_j + 1}{2k_j} = \lambda \,\Big\}
 $$
 
-The multiplicity $m$ counts how many coordinate directions achieve that minimum. Although the individual exponents depend on *which* resolution you pick, the minimal ratio $\lambda$ does not: it is a **resolution invariant**. Equivalently, and without ever choosing a resolution, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z}\varphi(w)\,dw$ (read "zeta of z"). That intrinsic definition is what makes $\lambda$ a genuine invariant of the model rather than an artifact of the calculation.
+The multiplicity $m$ counts how many coordinate directions achieve that minimum. Although the individual exponents depend on *which* resolution you pick, the minimal ratio $\lambda$ does not: it is a **resolution invariant**. Equivalently, and without ever choosing a resolution, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z}\varphi(w)\,dw$ (read "zeta of z"), and the multiplicity $m$ is the *order* of that pole. (With this $K^{-z}$ convention the poles sit at positive $z$, the smallest being $\lambda$; Watanabe's original convention writes $\zeta(z) = \int K(w)^{z}\varphi(w)\,dw$, which carries the same information at the pole $z = -\lambda$, the form the figure below uses. The two differ only in the sign of the exponent.) That intrinsic definition is what makes $\lambda$ a genuine invariant of the model rather than an artifact of the calculation.
 
 The RLCT is often called the **effective dimension** or, in interpretability, the **learning coefficient**, because $2\lambda$ plays the role that the parameter count $d$ plays in regular theory.
+
+## Generalization Error: The Other Face of $\lambda$
+
+The free energy tells you which model to *select*; the **generalization error** tells you how well the selected model will *predict* new data. Watanabe's theory pins this down too, and the *same* $\lambda$ governs it. The **Bayes generalization loss** $G_n$ (read "G-sub-n") is the expected log-loss of the posterior predictive distribution on a fresh sample, and its asymptotic is
+
+$$
+\mathbb{E}[G_n] = L_0 + \frac{\lambda}{n} + o\!\left(\frac{1}{n}\right),
+$$
+
+where $L_0 = L(w_0)$ is the irreducible loss (the entropy of the truth, the best any member of the family can achieve). The correction to that floor decays like $\lambda/n$: the very same RLCT that appears as the $\lambda \log n$ complexity penalty in the free energy reappears as the $\lambda/n$ rate at which generalization improves with data. One geometric constant governs both model selection and prediction.
+
+For a regular model $\lambda = d/2$, so $\mathbb{E}[G_n] = L_0 + d/(2n)$, exactly the classical result. For a singular model $\lambda < d/2$, the error falls *faster* than the parameter count would predict. In the worked cross example below ($\lambda = \tfrac12$), generalization error decays like $1/(2n)$: half the coefficient of a regular two-parameter model's $1/n$, so the singular model reaches any given accuracy with about half the data. This is the precise sense in which a singularity *helps*: fewer effective dimensions mean less data is needed to reach a given accuracy. The estimators in the next section, WAIC in particular, are exactly ways to measure this $\mathbb{E}[G_n]$ from a single dataset.
 
 ## Estimating the RLCT: WAIC and WBIC
 

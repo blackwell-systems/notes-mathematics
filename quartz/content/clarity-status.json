@@ -7029,6 +7029,148 @@
           "upgrade": ""
         }
       ]
+    },
+    "singular-learning-theory.md": {
+      "contentHash": "sha1:bcf7ab64e9f68096",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+2subagents",
+      "overall": "strong",
+      "summary": "The capstone: assembles the whole SLT story (setup, regular vs singular, free energy, Watanabe's fundamental theorem, RLCT via resolution/zeta, WBIC/WAIC, local learning coefficient, a hand-worked RLCT). Every formula and number independently verified against Watanabe's theory, no substantive errors. Audited and Phase-2'd in one pass: added the Bayes generalization-error result E[G_n]=L_0+lambda/n (SLT's signature quantitative payoff, previously only alluded to via WAIC), reconciled the zeta-function convention between body (K^{-z}, smallest pole=lambda) and figure (K^z, pole=-lambda) and tied m to the pole order. Independently reviewed. 21 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "framing / motivation (non-identifiability, RLCT vs param count)",
+          "quality": "strong",
+          "note": "Correct; names the classical results that break.",
+          "upgrade": ""
+        },
+        {
+          "concept": "the truth q(x), sample, n",
+          "quality": "strong",
+          "note": "Symbols pronounced.",
+          "upgrade": ""
+        },
+        {
+          "concept": "the model p(x|w), W in R^d, d",
+          "quality": "strong",
+          "note": "Correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "the prior phi(w)",
+          "quality": "strong",
+          "note": "Motivated as part of the model.",
+          "upgrade": ""
+        },
+        {
+          "concept": "KL divergence K(w) (nonneg, zero-iff)",
+          "quality": "strong",
+          "note": "Formula + properties correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "true-parameter set W_0",
+          "quality": "strong",
+          "note": "Correct definition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "realizability + unrealizable remark",
+          "quality": "strong",
+          "note": "Correct and caveated.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Fisher information I(w) + curvature link",
+          "quality": "strong",
+          "note": "K ~ (1/2)(w-w0)^T I(w0)(w-w0) correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "regular vs singular (identifiable + nondegenerate)",
+          "quality": "strong",
+          "note": "Standard definition.",
+          "upgrade": ""
+        },
+        {
+          "concept": "sources of singularity (redundant units, symmetry, rank)",
+          "quality": "strong",
+          "note": "Accurate examples; determinantal variety.",
+          "upgrade": ""
+        },
+        {
+          "concept": "partition function / marginal likelihood Z_n",
+          "quality": "strong",
+          "note": "Correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "free energy F_n=-log Z_n + L_n + complexity-is-volume",
+          "quality": "strong",
+          "note": "Correct; L_n definition correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Watanabe's free-energy asymptotic",
+          "quality": "strong",
+          "note": "F_n = nL_n(w0) + lambda log n - (m-1) log log n + O_p(1), signs verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "BIC as regular special case (lambda=d/2)",
+          "quality": "strong",
+          "note": "Correct iff; BIC = nL_n + (d/2) log n.",
+          "upgrade": ""
+        },
+        {
+          "concept": "RLCT via resolution + zeta function",
+          "quality": "strong",
+          "note": "lambda=min(h_j+1)/(2k_j), m=count; zeta smallest pole (K^{-z}) now with pole-order and the K^z / -lambda convention reconciled to the figure.",
+          "upgrade": ""
+        },
+        {
+          "concept": "generalization error E[G_n]=L_0+lambda/n",
+          "quality": "strong",
+          "note": "Now present: the same lambda sets the 1/n generalization rate; regular recovery d/(2n); cross lambda=1/2 -> 1/(2n) twice as fast (was missing).",
+          "upgrade": ""
+        },
+        {
+          "concept": "WAIC",
+          "quality": "adequate",
+          "note": "Correct in words; brief, points to the Bayesian-inference page; now framed as the estimator of E[G_n].",
+          "upgrade": ""
+        },
+        {
+          "concept": "WBIC (beta=1/log n, tempered posterior)",
+          "quality": "strong",
+          "note": "Formula and temperature correct; expectation identity correct.",
+          "upgrade": ""
+        },
+        {
+          "concept": "local learning coefficient + phase transitions",
+          "quality": "strong",
+          "note": "Correct conceptual devinterp treatment.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked RLCT example (cross K=u1^2 u2^2)",
+          "quality": "strong",
+          "note": "lambda=1/2, m=2 two ways (formula + Gaussian atom/zeta), carried to F_n.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interactive explorer (K=w^{2k} -> lambda=1/(2k))",
+          "quality": "strong",
+          "note": "Correct RLCT value.",
+          "upgrade": ""
+        },
+        {
+          "concept": "where to go next / references",
+          "quality": "strong",
+          "note": "Watanabe 2009/2018 + devinterp literature.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

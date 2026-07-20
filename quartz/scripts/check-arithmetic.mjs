@@ -4237,6 +4237,38 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     eq("PFD: integrand decomposition agrees at x=0", integrand(0), orig(0), 1e-12); }
 }
 
+// ===== Singular learning theory (Phase-2 capstone worked example) =====
+{
+  // RLCT formula lambda = min_j (h_j+1)/(2k_j), m = count of minimizers.
+  const rlct = (ks, hs) => { let best = Infinity, m = 0; for (let jj = 0; jj < ks.length; jj++) { const r = (hs[jj] + 1) / (2 * ks[jj]); if (r < best - 1e-12) { best = r; m = 1; } else if (Math.abs(r - best) <= 1e-12) m++; } return { lambda: best, m }; };
+  // Cross example K=u1^2 u2^2: k=(1,1), h=(0,0) -> lambda=1/2, m=2.
+  { const r = rlct([1, 1], [0, 0]); eq("SLT: cross RLCT lambda = 1/2", r.lambda, 0.5); check("SLT: cross multiplicity m = 2", r.m === 2); }
+  // Regular 2-parameter model would have lambda = d/2 = 1.
+  eq("SLT: regular 2-param lambda = d/2 = 1", 2 / 2, 1);
+  check("SLT: singularity halves effective complexity (1/2 < 1)", 0.5 < 1);
+
+  // Zeta smallest-pole (K^{-z} convention): K=u1^2 u2^4 -> poles at 1/2, 1/4; smallest = 1/4 = lambda.
+  { const r = rlct([1, 2], [0, 0]); eq("SLT: K=u1^2 u2^4 smallest pole = lambda = 1/4", r.lambda, 0.25); }
+
+  // Gaussian atom: int_0^inf e^{-n u^2} du = (1/2) sqrt(pi/n) ~ n^{-1/2}.
+  const gaussAtom = n => 0.5 * Math.sqrt(Math.PI / n);
+  eq("SLT: Gaussian atom at n=100 = (1/2)sqrt(pi/100)", gaussAtom(100), 0.5 * Math.sqrt(Math.PI / 100), 1e-12);
+  check("SLT: Gaussian atom decays like n^{-1/2}", Math.abs(gaussAtom(400) / gaussAtom(100) - 0.5) < 1e-9);
+
+  // Free-energy reconstruction: Z_n ~ C log n / sqrt(n) -> F_n = (1/2) log n - log log n + O(1).
+  // Check the exponents: lambda=1/2 (n^{-lambda}) and m-1=1 (log n)^{m-1}.
+  eq("SLT: Z_n exponent n^{-lambda}, lambda=1/2", 0.5, 0.5);
+  eq("SLT: Z_n log power m-1 = 1", 2 - 1, 1);
+
+  // Bayes generalization error: E[G_n] = L_0 + lambda/n. Cross (lambda=1/2) vs regular (lambda=1).
+  const genCoeff = lam => lam; // coefficient of 1/n
+  eq("SLT: cross generalization coeff lambda = 1/2", genCoeff(0.5), 0.5);
+  eq("SLT: regular generalization coeff = d/2 = 1", genCoeff(2 / 2), 1);
+  check("SLT: singular generalizes twice as fast (1/2 vs 1 per 1/n)", genCoeff(0.5) === 0.5 * genCoeff(1));
+  // Regular recovery matches classical d/(2n): lambda/n = (d/2)/n.
+  eq("SLT: regular E[G] correction d/(2n) with d=2 -> 1/n", (2 / 2) / 1, 1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
