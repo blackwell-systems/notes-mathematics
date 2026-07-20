@@ -6947,6 +6947,88 @@
           "upgrade": ""
         }
       ]
+    },
+    "partial-fraction-decomposition.md": {
+      "contentHash": "sha1:e49103ea534a5240",
+      "clarityRubricVersion": 1,
+      "auditedAt": "2026-07-20",
+      "auditor": "claude+1subagent",
+      "overall": "strong",
+      "summary": "Well-structured partial-fraction reference (all four cases + a mixed example); every decomposition independently verified by recombining, no errors found. Audited and Phase-2'd in one pass: added the previously-absent improper worked example (x^3/(x^2-1), long division first), taught the cover-up (Heaviside) method explicitly with its highest-power-only caveat for repeated factors (previously named only in the widget), converted the calculus application into a worked integral (2/3 ln|x+1| + 13/3 ln|x-2|), and fixed the degenerate Case-3 template. 11 strong / 1 adequate / 0 thin / 0 missing.",
+      "inventory": [
+        {
+          "concept": "definition + inverse-of-common-denominator framing",
+          "quality": "strong",
+          "note": "Clear, correctly motivated; ties to proper/improper.",
+          "upgrade": ""
+        },
+        {
+          "concept": "proper vs improper; long division first",
+          "quality": "strong",
+          "note": "Now worked: x^3/(x^2-1) = x + 1/2/(x-1) + 1/2/(x+1) with the division step (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Case 1: distinct linear factors",
+          "quality": "strong",
+          "note": "(5x+3)/((x+1)(x-2)) worked and verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Case 2: repeated linear factors",
+          "quality": "strong",
+          "note": "(3x+5)/(x-1)^2 worked and verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "Case 3: distinct irreducible quadratic",
+          "quality": "strong",
+          "note": "(2x^2+x+3)/((x+1)(x^2+1)) worked; template fixed to show a quadratic factor alongside a linear one (degree-one-less numerator rule).",
+          "upgrade": ""
+        },
+        {
+          "concept": "Case 4: repeated irreducible quadratic",
+          "quality": "strong",
+          "note": "x^3/(x^2+1)^2 worked and verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "solving for coefficients: substitution vs equating",
+          "quality": "strong",
+          "note": "Both methods described; demonstrated in the cases.",
+          "upgrade": ""
+        },
+        {
+          "concept": "cover-up (Heaviside) method",
+          "quality": "strong",
+          "note": "Now taught explicitly as a named shortcut (13/3 and 2/3 by cover-up) with the repeated-factor caveat (only the highest power) (was thin).",
+          "upgrade": ""
+        },
+        {
+          "concept": "mixed example combining cases",
+          "quality": "strong",
+          "note": "(x^2+2x+3)/((x-1)(x+2)^2) worked and verified.",
+          "upgrade": ""
+        },
+        {
+          "concept": "interactive widget",
+          "quality": "strong",
+          "note": "Walks the distinct-linear case, verifies by recombining.",
+          "upgrade": ""
+        },
+        {
+          "concept": "worked application: integration",
+          "quality": "strong",
+          "note": "Now worked: int (5x+3)/((x+1)(x-2)) dx = 2/3 ln|x+1| + 13/3 ln|x-2| + C, with the case->integral-form map (was bullets-only).",
+          "upgrade": ""
+        },
+        {
+          "concept": "applications (ODE/Laplace/control/signal)",
+          "quality": "adequate",
+          "note": "Bullet list; inverse-Laplace and generating-function instances deferred to differential-equations and other pages.",
+          "upgrade": ""
+        }
+      ]
     }
   }
 }

@@ -4219,6 +4219,24 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("LOG: 3-term Taylor agrees to 5 dp", Math.abs(taylor3 - Math.log(1.1)) < 5e-5);
 }
 
+// ===== Partial fraction decomposition (Phase-2 worked examples) =====
+{
+  // Improper x^3/(x^2-1) = x + 1/2/(x-1) + 1/2/(x+1). Verify long division and decomposition.
+  eq("PFD: long division x^3 = x(x^2-1) + x at x=4", 4 * (16 - 1) + 4, 4 ** 3);
+  { const orig = x => x ** 3 / (x ** 2 - 1), dec = x => x + 0.5 / (x - 1) + 0.5 / (x + 1);
+    eq("PFD: improper decomp agrees at x=3", orig(3), dec(3), 1e-12);
+    eq("PFD: improper decomp agrees at x=5", orig(5), dec(5), 1e-12); }
+  // cover-up: coefficient over (x-2) in (5x+3)/((x+1)(x-2)) = (5*2+3)/(2+1) = 13/3.
+  eq("PFD: cover-up B = (5*2+3)/(2+1) = 13/3", (5 * 2 + 3) / (2 + 1), 13 / 3, 1e-12);
+  eq("PFD: cover-up A = (5*-1+3)/(-1-2) = 2/3", (5 * -1 + 3) / (-1 - 2), 2 / 3, 1e-12);
+  // cover-up repeated: C over (x+2)^2 in mixed example = (x^2+2x+3)/(x-1) at x=-2 = 3/-3 = -1.
+  eq("PFD: cover-up repeated C = ((-2)^2+2(-2)+3)/(-2-1) = -1", ((-2) ** 2 + 2 * -2 + 3) / (-2 - 1), -1);
+  // Integration application: integrand check (2/3)/(x+1)+(13/3)/(x-2) = (5x+3)/((x+1)(x-2)).
+  { const integrand = x => (2 / 3) / (x + 1) + (13 / 3) / (x - 2), orig = x => (5 * x + 3) / ((x + 1) * (x - 2));
+    eq("PFD: integrand decomposition agrees at x=3", integrand(3), orig(3), 1e-12);
+    eq("PFD: integrand decomposition agrees at x=0", integrand(0), orig(0), 1e-12); }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
