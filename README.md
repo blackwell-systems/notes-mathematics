@@ -42,7 +42,7 @@ otherwise-broad coverage a spine and a reading order.
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (50 topic pages, plus a landing page and a guided reading path toward
+per topic (54 topic pages, plus a landing page and a guided reading path toward
 singular learning theory). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
@@ -79,7 +79,7 @@ Every push runs two CI gates before deploy:
   errors, broken internal links or `#anchors`, broken image references, and empty
   image alt text (ratcheted to zero).
 - **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
-  numeric worked example in the notes from scratch (currently 1062 assertions).
+  numeric worked example in the notes from scratch (over 1,000 assertions, including recursive-arithmetic regression checks).
   When you add or change a worked example, add or adjust an assertion so it stays
   machine-verified.
 

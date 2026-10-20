@@ -76,6 +76,26 @@ eq("bin frac 0.101 -> dec", binFrac("0.101"), 0.625);
 eq("1/10 repeating-binary series = 0.1", 1.5 * ((1 / 16) / (1 - 1 / 16)), 0.1, 1e-9);
 eq("byte = 2 hex digits: FF -> 255", parseInt("FF", 16), 255);
 
+// ================= Peano Arithmetic =================
+// Regression checks for the chapter's numeric examples, using recursion
+// rather than JavaScript's built-in addition or multiplication for the operation.
+// These finite checks support the worked examples; they do NOT prove universal laws.
+{
+  const succ = (n) => n + 1;
+  const add = (a, b) => (b === 0 ? a : succ(add(a, b - 1)));
+  const mul = (a, b) => (b === 0 ? 0 : add(mul(a, b - 1), a));
+  eq("Peano 1+1=2", add(1, 1), 2);
+  eq("Peano 2+2=4", add(2, 2), 4);
+  eq("Peano 2*3=6", mul(2, 3), 6);
+  eq("Peano order witness 2+3=5", add(2, 3), 5);
+  check("Peano addition associativity example", add(add(2, 3), 4) === add(2, add(3, 4)));
+  check("Peano addition commutativity example", add(2, 3) === add(3, 2));
+  check("Peano multiplication commutativity example", mul(2, 3) === mul(3, 2));
+  check("Peano multiplication associativity example", mul(mul(2, 3), 4) === mul(2, mul(3, 4)));
+  check("Peano left distributivity example", mul(2, add(3, 4)) === add(mul(2, 3), mul(2, 4)));
+  check("Peano right distributivity example", mul(add(2, 3), 4) === add(mul(2, 4), mul(3, 4)));
+}
+
 // ================= Number Systems =================
 eq("0.3-repeating: 3/9 reduces to 1/3", reduce(3, 9).join("/"), "1/3");
 eq("0.27-repeating: 27/99 reduces to 3/11", reduce(27, 99).join("/"), "3/11");

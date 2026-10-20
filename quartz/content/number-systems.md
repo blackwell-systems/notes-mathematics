@@ -1,11 +1,11 @@
 ---
 title: "Number Systems"
-prerequisites: ["set-theory"]
+prerequisites: ["peano-arithmetic"]
 enables: ["algebraic-structures", "complex-numbers"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Set Theory](./set-theory)
+> **Builds on:** [Peano Arithmetic](./peano-arithmetic) (which in turn builds on Set Theory)
 > **Leads to:** [Algebraic Structures](./algebraic-structures) · [complex-numbers](./complex-numbers)
 
 
@@ -205,7 +205,7 @@ The building-up story above is the *motivation*. But "adjoin a negative" and "ad
 
 ### The naturals, from sets
 
-The naturals are pinned down by the **Peano axioms**: $0$ is a natural number; every $n$ has a **successor** $S(n)$; $0$ is not the successor of anything; $S$ is injective (different numbers have different successors); and **induction** holds (any set containing $0$ and closed under $S$ is all of $\mathbb{N}$). These five conditions determine $\mathbb{N}$ uniquely up to relabeling, and induction is exactly the proof principle developed in [propositional logic](./propositional-logic-zeroth-order-logic).
+The **Peano conditions** specify $0$, a successor operation $S$, the fact that $0$ is not a successor, injectivity of $S$, and an induction principle. Under **full second-order semantics**, with induction ranging over every subset, they characterize the natural-number structure uniquely up to isomorphism (relabeling). The first-order induction schema does **not** have that categoricity property: it permits nonstandard models. [Peano Arithmetic](./peano-arithmetic) explains the distinction and proves how addition, multiplication, associativity, commutativity, and distributivity follow from recursion and induction.
 
 Set theory then supplies concrete objects to *be* the naturals, the **von Neumann encoding**: each number is the set of all smaller numbers.
 $$

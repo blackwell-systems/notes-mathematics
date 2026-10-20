@@ -1,12 +1,12 @@
 ---
 title: "Set Theory"
 prerequisites: ["mathematical-notations"]
-enables: ["functions-relations", "number-systems", "measure-theory"]
+enables: ["functions-relations", "peano-arithmetic", "measure-theory"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
 > **Builds on:** [Mathematical Notations](./mathematical-notations)
-> **Leads to:** [Functions & Relations](./functions-relations) · [Number Systems](./number-systems) · [Measure Theory](./measure-theory)
+> **Leads to:** [Functions & Relations](./functions-relations) · [Peano Arithmetic](./peano-arithmetic) · [Measure Theory](./measure-theory)
 
 
 Sets are the most fundamental building block in all of mathematics: a **set** is simply a collection of distinct objects. We need formal set theory because mathematics requires a precise language for talking about collections, membership, and relationships between groups of objects. Nearly everything else in math, including numbers, functions, sequences, and probability, is built on the concept of a set. Understanding sets first makes every other topic easier to reason about.
