@@ -15,7 +15,7 @@ When you rewrite $2 + 3$ as $3 + 2$, factor $6x + 6y$ into $6(x+y)$, or cancel t
 
 This page does two things. First, it names the small set of properties that ordinary arithmetic silently assumes, the ones the rest of this site takes for granted whenever it rearranges, factors, or cancels. Second, it shows that these same properties reappear on many different sets, and that mathematicians have given names to the recurring patterns: **group**, **ring**, **field**. Learning that vocabulary is worthwhile because it explains *why* algebra works, and because the same handful of laws unify structures you meet in [Linear Algebra Foundations](./linear-algebra-foundations), [Number Theory](./number-theory), and [Set Theory](./set-theory).
 
-We work throughout with the number systems introduced on [Number Systems](./number-systems): the integers $\mathbb{Z}$, rationals $\mathbb{Q}$, reals $\mathbb{R}$, and complex numbers $\mathbb{C}$.
+We work throughout with the number systems introduced on [Number Systems](./number-systems): the integers $\mathbb{Z}$, rationals $\mathbb{Q}$, reals $\mathbb{R}$, and complex numbers $\mathbb{C}$. This chapter **abstracts** arithmetic laws; their detailed constructive derivations appear in [Peano Arithmetic](./peano-arithmetic), [Integers](./construction-of-the-integers), [Rationals](./construction-of-the-rationals), [Reals](./construction-of-the-reals), and [Complex Numbers](./construction-of-the-complex-numbers).
 
 ## The field axioms of the real numbers
 

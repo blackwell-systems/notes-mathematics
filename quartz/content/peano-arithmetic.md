@@ -1,12 +1,12 @@
 ---
 title: "Peano Arithmetic"
 prerequisites: ["set-theory"]
-enables: ["number-systems"]
+enables: ["construction-of-the-integers"]
 ---
 
 > [!abstract] Prerequisites & where this leads
 > **Builds on:** [Set Theory](./set-theory) (sets, functions, relations, induction as a proof method)
-> **Leads to:** [Number Systems](./number-systems) (integers and rationals built from naturals) · [Algebraic Structures](./algebraic-structures) (which arithmetic laws define groups, rings, and fields)
+> **Leads to:** [Construction of the Integers](./construction-of-the-integers) (quotient pairs and additive inverses) · [Number Systems](./number-systems) (overview) · [Algebraic Structures](./algebraic-structures) (structure-level laws)
 
 We use addition every day without wondering why it is associative, why zero is an identity, or why a number cannot have two different immediate successors. These familiar facts are not all assumptions. Many are **theorems**, and the distinction matters when an algebra course asks which properties you are entitled to use.
 
@@ -560,7 +560,7 @@ In the terminology of [Algebraic Structures](./algebraic-structures), $(N,+,0)$ 
 
 It is **not** an additive group: a positive natural $a$ has no natural $b$ with $a+b=0$. We proved above that a sum of two naturals is zero only when both are zero. This is exactly why constructing the integers is a genuine extension, not a change of notation.
 
-For the next construction, an integer may be represented by a pair $(a,b)$ of naturals, intended to stand for $a-b$. The relation
+For the detailed next construction, see [Construction of the Integers](./construction-of-the-integers). An integer may be represented by a pair $(a,b)$ of naturals, intended to stand for $a-b$. The relation
 
 $$
 (a,b)\sim(c,d)\quad\Longleftrightarrow\quad a+d=b+c

@@ -17,7 +17,7 @@ SLT is stated in the language of sets, functions, and logic. You cannot define t
 1. [Mathematical Notations](./mathematical-notations) — the symbols and quantifiers everything else is written in.
 2. [Set Theory](./set-theory) — $W_0 = \{w : K(w) = 0\}$ is a set; you need membership, subsets, and set-builder notation to even write it.
 3. [Functions & Relations](./functions-relations) — a statistical model *is* a function from parameters to distributions; identifiability is the question of whether that function is one-to-one.
-4. [Number Systems](./number-systems) and [Algebraic Structures](./algebraic-structures) — the real numbers and their field/order axioms underlie every inequality and limit. For a proof-level foundations detour, [Peano Arithmetic](./peano-arithmetic) constructs addition and multiplication from successor and induction.
+4. [Number Systems](./number-systems) and [Algebraic Structures](./algebraic-structures) — the real numbers and their field/order axioms underlie every inequality and limit. For the proof-level route, follow [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
 
 **What SLT takes from Stage 1:** the vocabulary to state the learning problem precisely, and the concept of injectivity, whose *failure* defines a singular model.
 

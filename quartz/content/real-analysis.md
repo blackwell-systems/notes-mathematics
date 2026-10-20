@@ -39,6 +39,8 @@ Learning theory is built on analysis. When you prove that a neural network can a
 
 ## The Real Numbers
 
+For a prior, constructive justification of what the reals *are* and why completeness holds, see [Construction of the Reals](./construction-of-the-reals). The results below build on that ordered-field construction.
+
 ### What Are the Reals, Really?
 
 You might think of the real numbers $\mathbb{R}$ as "all the decimals," but that description does not capture what makes them special. The integers $\mathbb{Z}$, the rationals $\mathbb{Q}$, and the reals $\mathbb{R}$ are all number systems, but they have fundamentally different properties. The key property that separates $\mathbb{R}$ from $\mathbb{Q}$ is **completeness**.

@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **55 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **59 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -17,7 +17,8 @@ The aim is to be the place you come to for **clarity**: every topic is built fou
 2. **As a learning path:** The topics build on each other. A suggested reading order for someone starting from scratch:
 
 ```
-Logic → Set Theory → Peano Arithmetic → Number Systems & Foundations → Algebra (start with
+Logic → Set Theory → Peano Arithmetic → Integers → Rationals → Reals
+→ Complex Numbers → Number Systems & Foundations → Algebra (start with
 Functions, then work through the function types) → Linear Algebra
 (Foundations first, then Computation)
 → Calculus → Multivariable Calculus → Differential Equations
@@ -51,6 +52,10 @@ Functions, then work through the function types) → Linear Algebra
 
 - [Order of Operations](./order-of-operations) (PEMDAS/BODMAS, left-to-right tie-breakers, common pitfalls)
 - [Peano Arithmetic](./peano-arithmetic) (successor, induction, recursive arithmetic, complete proofs of the elementary laws)
+- [Construction of the Integers](./construction-of-the-integers) (difference pairs, quotient equality, ring laws, order)
+- [Construction of the Rationals](./construction-of-the-rationals) (fractions, well-defined operations, field and order axioms)
+- [Construction of the Reals](./construction-of-the-reals) (Cauchy completion, field and order laws, proof of completeness)
+- [Construction of the Complex Numbers](./construction-of-the-complex-numbers) (pair arithmetic, inverses, ordering obstruction, algebraic closure)
 - [Number Systems](./number-systems) (naturals through complex, the building-up story, rational/algebraic/transcendental)
 - [Algebraic Structures](./algebraic-structures) (field and order axioms, derived rules, groups/rings/fields)
 - [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) (quaternions, octonions, Cayley-Dickson, dual numbers, p-adics, surreals)

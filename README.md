@@ -42,7 +42,7 @@ otherwise-broad coverage a spine and a reading order.
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (54 topic pages, plus a landing page and a guided reading path toward
+per topic (58 topic pages, plus a landing page and a guided reading path toward
 singular learning theory). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
@@ -54,6 +54,7 @@ Broad areas covered:
 
 - **Logic & Proofs** — propositional and predicate logic, inference, proof techniques
 - **Set Theory** — operations, relations, cardinality, countability
+- **Foundations of number systems** — derivations of the integers, rationals, reals, and complex numbers from natural arithmetic, including well-definedness and completeness
 - **Algebra** — number theory, functions, polynomial/rational/exponential/log/radical functions, complex numbers, sequences and series, conic sections
 - **Linear Algebra** — vector spaces, four fundamental subspaces, eigenvalues, SVD, factorizations, matrix calculus
 - **Geometry & Trigonometry** — Euclidean geometry from points to solids, transformations, trig functions, identities, unit circle, coordinate geometry

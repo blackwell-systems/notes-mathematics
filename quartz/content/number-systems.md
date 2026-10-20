@@ -1,17 +1,17 @@
 ---
 title: "Number Systems"
-prerequisites: ["peano-arithmetic"]
+prerequisites: ["construction-of-the-complex-numbers"]
 enables: ["algebraic-structures", "complex-numbers"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Peano Arithmetic](./peano-arithmetic) (which in turn builds on Set Theory)
+> **Builds on:** [Construction of the Complex Numbers](./construction-of-the-complex-numbers), completing the chain from [Peano Arithmetic](./peano-arithmetic) through integers, rationals, and reals
 > **Leads to:** [Algebraic Structures](./algebraic-structures) · [complex-numbers](./complex-numbers)
 
 
 The numbers we use every day did not arrive all at once. They were built up, one layer at a time, each new layer added to repair a specific limitation of the one before it. You can count with the natural numbers, but you cannot always subtract. You can subtract with the integers, but you cannot always divide. You can divide with the rationals, but you cannot always take a limit. Following this chain of "but you cannot..." is the cleanest way to understand what each number system is *for*.
 
-This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them.
+This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them. It is the **overview**, not the full proof sequence. For derivations of each construction and its laws, follow [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
 
 ## The Building-Up Story
 
@@ -227,6 +227,8 @@ Two promised facts fall straight out. First, $n$ genuinely *has* $n$ elements: $
 
 ### The integers, from pairs of naturals
 
+The complete equivalence, well-definedness, ring, order, and division proofs are in [Construction of the Integers](./construction-of-the-integers).
+
 An integer is meant to be a *difference* $a - b$ of naturals, but subtraction is what we lack. So represent the difference by the **pair** $(a, b)$ and declare two pairs equal when the differences they intend agree, using only addition (which we do have):
 $$
 \mathbb{Z} = (\mathbb{N} \times \mathbb{N}) / {\sim}, \qquad (a, b) \sim (c, d) \iff a + d = b + c.
@@ -237,6 +239,8 @@ The class of $(a, b)$ is the integer "$a - b$": so $(5, 3), (2, 0), (100, 98)$ a
 
 ### The rationals, from pairs of integers
 
+For representative independence, field and order laws, and the rational completeness gap, see [Construction of the Rationals](./construction-of-the-rationals).
+
 A rational is meant to be a quotient $p/q$, so pair a numerator with a nonzero denominator and glue pairs by cross-multiplication (which needs only integer multiplication):
 $$
 \mathbb{Q} = \big(\mathbb{Z} \times (\mathbb{Z} \setminus \{0\})\big) / {\sim}, \qquad (p, q) \sim (r, s) \iff ps = qr.
@@ -246,6 +250,8 @@ The class of $(p, q)$ is the fraction $p/q$, and the equivalence is precisely wh
 **Worked example: when do two fractions match?** The rule $(p, q) \sim (r, s) \iff ps = qr$ is cross-multiplication. Check $(1, 2)$ against $(2, 4)$: it asks $1 \cdot 4 = 2 \cdot 2$, that is $4 = 4$, true, so $\tfrac{1}{2} = \tfrac{2}{4}$ as it must. Check $(1, 2)$ against $(1, 3)$: now $1 \cdot 3 = 2 \cdot 1$ asks $3 = 2$, false, so $\tfrac{1}{2} \neq \tfrac{1}{3}$. The point of phrasing equality this way is that it decides using only integer *products*, never a division we have not yet built.
 
 ### The reals, by completing the rationals
+
+For the Cauchy-sequence quotient, reciprocals, order, and proof of completeness, see [Construction of the Reals](./construction-of-the-reals).
 
 Here the pattern changes: the reals fill *gaps*, and you cannot reach an irrational by any finite pairing of rationals. Two standard constructions both work.
 
@@ -266,6 +272,8 @@ Consecutive terms bunch together fast: the gaps are $|1.4 - 1| = 0.4$, then $|1.
 Both constructions yield the same object up to isomorphism, the unique complete ordered field, as [Real Analysis](./real-analysis) develops.
 
 ### The complex numbers, as a quotient ring
+
+For pair-operation proofs and an analytic argument for algebraic closure, see [Construction of the Complex Numbers](./construction-of-the-complex-numbers).
 
 Finally $\mathbb{C}$ needs no mystical "invent $\sqrt{-1}$." Two equivalent concrete constructions:
 

@@ -96,6 +96,35 @@ eq("byte = 2 hex digits: FF -> 255", parseInt("FF", 16), 255);
   check("Peano right distributivity example", mul(add(2, 3), 4) === add(mul(2, 4), mul(3, 4)));
 }
 
+// ================= Number-System Construction Examples =================
+// Finite regression checks for worked arithmetic, not proofs of universal laws.
+{
+  const eqPair = ([a,b],[c,d]) => a+d===b+c;
+  const zAdd = ([a,b],[c,d]) => [a+c,b+d];
+  const zMul = ([a,b],[c,d]) => [a*c+b*d,a*d+b*c];
+  check("integer (5,3) equivalent to (2,0)",eqPair([5,3],[2,0]));
+  check("integer addition independent of representatives",eqPair(zAdd([5,3],[1,4]),zAdd([2,0],[0,3])));
+  check("integer (-2)*(-3)=6",eqPair(zMul([0,2],[0,3]),[6,0]));
+  eq("integer division -17 = 5*(-4)+3",5*(-4)+3,-17);
+  check("integer Euclidean remainder range",0<=3 && 3<5);
+  const fracEq = ([p,q],[r,t]) => p*t===r*q;
+  const fAdd = ([p,q],[r,t]) => [p*t+r*q,q*t];
+  const fMul = ([p,q],[r,t]) => [p*r,q*t];
+  check("rational 1/2 equals 2/4",fracEq([1,2],[2,4]));
+  check("rational addition 1/2+1/3=5/6",fracEq(fAdd([1,2],[1,3]),[5,6]));
+  check("rational addition independent of representatives",fracEq(fAdd([2,4],[3,9]),[5,6]));
+  check("rational product 2/3 * 3/4 = 1/2",fracEq(fMul([2,3],[3,4]),[1,2]));
+  check("rational order 1/2 < 13/24 < 7/12",1/2<13/24 && 13/24<7/12);
+  check("rational order 7/12 < 5/8 < 2/3",7/12<5/8 && 5/8<2/3);
+  check("sqrt2 bisection 1..2",1**2<2 && 2**2>2);
+  check("sqrt2 bisection 1.375..1.5",1.375**2<2 && 1.5**2>2);
+  check("complex (2+3i)(1+i)=-1+5i",(2*1-3*1)===-1 && (2*1+3*1)===5);
+  eq("complex reciprocal denominator 2+3i",2**2+3**2,13);
+  eq("complex reciprocal real product",2*(2/13)-3*(-3/13),1,1e-12);
+  eq("complex reciprocal imaginary product",2*(-3/13)+3*(2/13),0,1e-12);
+  check("complex polynomial 1+i is root of z^2-2z+2",(1-1-2+2)===0 && (2-2)===0);
+}
+
 // ================= Number Systems =================
 eq("0.3-repeating: 3/9 reduces to 1/3", reduce(3, 9).join("/"), "1/3");
 eq("0.27-repeating: 27/99 reduces to 3/11", reduce(27, 99).join("/"), "3/11");
