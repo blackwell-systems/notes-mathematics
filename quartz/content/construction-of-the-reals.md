@@ -320,7 +320,7 @@ A sequence $(X_k)$ of reals is called Cauchy if, for every positive rational $\v
 
 **Proof, step by step.**
 
-1. For each $k\geq1$, use rational density to choose $q_k\in\mathbb Q$ such that
+1. Fix an explicit enumeration $r_0,r_1,r_2,\ldots$ of the rationals, available from their countability. For each $k\geq1$, use rational density and let $q_k$ be the **first rational in that enumeration** satisfying the inequality below. This defines the sequence without silently requiring a separate countable-choice axiom.
 
    $$
    |X_k-\eta(q_k)|<\frac1k.
@@ -430,6 +430,66 @@ Then $(s-h)^2=s^2-2sh+h^2>2$. Because every $q\in A$ is nonnegative, $q\geq s-h$
 Neither strict inequality is possible. Therefore $s^2=2$. We call the nonnegative solution $s=\sqrt2$ (read "square root of two"). It exists because **we proved completeness**.
 
 **Worked comparison:** the rational bisection chapter gave intervals $[1,2]$, $[1.25,1.5]$, $[1.375,1.5]$, and successively narrower rational intervals surrounding a hypothetical square root. Here their Cauchy class is an actual real object, and its square is proven to be two. Approximation and exact existence have different logical jobs.
+
+## Every nonnegative real has a unique nonnegative square root
+
+The square-root-of-two argument is a special case of a more useful result. **Theorem:** for every real $t\geq0$ there exists a **unique** $s\geq0$ with $s^2=t$.
+
+**Existence when $t=0$.** Take $s=0$. For the remaining proof assume $t>0$.
+
+Define the set of **rational** lower approximations
+
+$
+A_t=\{q\in\mathbb Q:q\geq0,\ q^2<t\}.
+$
+
+This set is nonempty because $0\in A_t$. It is bounded above: $t+1$ is an upper bound, since for any $q\geq t+1>1$,
+
+$
+q^2\geq q\geq t+1>t.
+$
+
+Here we use the established embedding of $\mathbb Q$ into $\mathbb R$ and the real order. By the least-upper-bound theorem we proved above, let $s=\sup A_t$. Since all its members are nonnegative, $s\geq0$.
+
+**First rule out $s^2<t$.** Write $d=t-s^2>0$. Choose a positive rational $h$ sufficiently small that
+
+$
+2sh+h^2<d.
+$
+
+Such an $h$ exists: the Archimedean property supplies arbitrarily small positive rationals, while $s$ is bounded above by a rational. Thus $(s+h)^2<t$. By rational density pick a rational $q$ with $s<q<s+h$. Then $q\geq0$ and
+
+$
+q^2<(s+h)^2<t,
+$
+
+so $q\in A_t$, contradicting that $s$ is an upper bound.
+
+**Now rule out $s^2>t$.** Since $t>0$, this would imply $s>0$. Choose a positive rational $h<s$ so small that
+
+$
+2sh<s^2-t.
+$
+
+Then
+
+$
+(s-h)^2=s^2-2sh+h^2>t.
+$
+
+For any $q\in A_t$, if $q\geq s-h>0$, the order laws would give $q^2\geq(s-h)^2>t$, contradicting membership of $A_t$. Therefore $s-h$ is another upper bound of $A_t$, but $s-h<s$, contradicting the least-upper-bound property.
+
+Neither strict case is possible, so $s^2=t$.
+
+**Uniqueness:** if $u,v\geq0$ and $u^2=v^2=t$, then
+
+$
+0=u^2-v^2=(u-v)(u+v).
+$
+
+Because $\mathbb R$ is a field it has no zero divisors. Either $u=v$ or $u+v=0$. In the latter case the nonnegative-sum law forces $u=v=0$ too. Thus $u=v$ in every case.
+
+We may now **define** $\sqrt t$ (read "the nonnegative square root of t") for *every* $t\geq0$, not only $t=2$. This theorem justifies the later modulus formula $\sqrt{a^2+b^2}$ in [Construction of the Complex Numbers](./construction-of-the-complex-numbers). It also identifies the exact dependency: arbitrary real square roots are consequences of completeness and ordered-field laws, not independent arithmetic axioms.
 
 ## A second construction: Dedekind cuts
 

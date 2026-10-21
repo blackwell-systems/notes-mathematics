@@ -84,6 +84,8 @@ Every push runs two CI gates before deploy:
   When you add or change a worked example, add or adjust an assertion so it stays
   machine-verified.
 
+The five new number-system foundations chapters have a **focused dependency audit** recorded in the review ledger; this is explicitly **not** a completed line-by-line rubric review. `check-review-status.mjs` displays such pages as `partial` and retains their open findings in the review frontier.
+
 ## Prose / proof review
 
 The arithmetic harness guarantees the *numbers*; a separate, resumable process

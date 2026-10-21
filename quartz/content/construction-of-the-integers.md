@@ -406,7 +406,7 @@ $$
 bq'+r'\geq b(q+1)>bq+r,
 $$
 
-contradicting equality. Similarly $q'>q$ is impossible by the symmetric argument. Hence $q=q'$ and then $r=r'$ by additive cancellation.
+contradicting equality. Similarly $q'<q$ is impossible by the symmetric argument. Hence $q=q'$ and then $r=r'$ by additive cancellation.
 
 **Worked example: the negative remainder trap.** For $a=-17$ and $b=5$, write
 
@@ -415,6 +415,128 @@ $$
 $$
 
 The tempting equation $-17=5(-3)-2$ has the correct value but its remainder $-2$ does *not* satisfy the theorem. Both equations are arithmetic identities; only the first is the standard Euclidean division representation.
+
+## Greatest common divisors and the Euclidean algorithm
+
+The division-with-remainder theorem does more than justify quotient notation. It constructs the **greatest common divisor**, proves Bézout's identity, and eventually establishes why prime factorization is unique.
+
+For integers $a,b$ not both zero, a **common divisor** is a positive integer $d$ with $a=du$ and $b=dv$ for some integers $u,v$. Read $d\mid a$ as "d divides a." The **greatest common divisor** $\gcd(a,b)$ (read "g-c-d of a and b") is the greatest positive common divisor. Excluding $(a,b)=(0,0)$ avoids ambiguity about a *greatest positive* common divisor; some conventions additionally define $\gcd(0,0)=0$.
+
+### Bézout's identity from well-ordering
+
+**Theorem:** for integers $a,b$ not both zero there exist integers $x,y$ such that
+
+$
+\boxed{ax+by=\gcd(a,b).}
+$
+
+**Proof.** Let $T$ be the collection of all **positive** integer linear combinations:
+
+$
+T=\{ax+by:x,y\in\mathbb Z,\ ax+by>0\}.
+$
+
+Because at least one of $a,b$ is nonzero and integer additive inverses exist, we can choose a sign to produce a positive multiple. Thus $T$ is nonempty. By well-ordering of the positive integers, it has a least element $d$. By definition, $d=ax_0+by_0$ for some integers $x_0,y_0$.
+
+We claim $d$ divides both $a$ and $b$. Apply division with remainder to $a$ and the **positive** divisor $d$:
+
+$
+a=qd+r,\qquad 0\leq r<d.
+$
+
+But
+
+$
+r=a-q(ax_0+by_0)=a(1-qx_0)+b(-qy_0),
+$
+
+so $r$ is itself an integer linear combination of $a$ and $b$. If $r>0$, then $r\in T$, contradicting the minimality of $d$. Therefore $r=0$, so $d\mid a$. The same argument gives $d\mid b$.
+
+If $c>0$ is **any** common divisor of $a,b$, write $a=cu$, $b=cv$. Then $d=ax_0+by_0=c(ux_0+vy_0)$, so $c\mid d$. Since $d$ is positive, this implies $c\leq d$. Therefore $d$ is the greatest positive common divisor and
+
+$
+d=\gcd(a,b)=ax_0+by_0.
+$
+
+The existence of Bézout coefficients has been **proved from the integer division theorem and well-ordering**, not assumed as another axiom.
+
+### Why the Euclidean algorithm works and terminates
+
+Given integers $a,b$ with $b\ne0$, use positive divisors by replacing inputs with their absolute values, then repeatedly divide:
+
+$
+a=bq+r,\qquad 0\leq r<b.
+$
+
+The common divisors of $a$ and $b$ are exactly the common divisors of $b$ and $r$: if $c$ divides $a,b$ then it divides $r=a-bq$, and if it divides $b,r$ then it divides $a=bq+r$. Thus
+
+$
+\gcd(a,b)=\gcd(b,r)
+$
+
+when $b>0$.
+
+At each nonterminal step, the **new positive remainder is strictly smaller than the previous divisor**. A strictly decreasing sequence of nonnegative integers cannot continue indefinitely: otherwise its set of terms would have a least member followed by an even smaller one. Hence the algorithm terminates at remainder zero. At that point the last nonzero divisor is the gcd.
+
+**Worked example:**
+
+$
+\begin{aligned}
+252&=105\cdot2+42,\\
+105&=42\cdot2+21,\\
+42&=21\cdot2+0.
+\end{aligned}
+$
+
+Therefore $\gcd(252,105)=21$. Reverse the equations:
+
+$
+21=105-2(252-2\cdot105)=5\cdot105-2\cdot252.
+$
+
+This is a concrete Bézout identity. The **extended Euclidean algorithm** simply performs that back-substitution systematically.
+
+## Euclid's lemma and unique prime factorization
+
+Define a **prime** to be a positive integer $p>1$ whose only positive divisors are $1$ and $p$.
+
+### Euclid's lemma
+
+**Theorem:** if a prime $p$ divides a product $ab$, then it divides $a$ or it divides $b$.
+
+**Proof.** If $p\mid a$, the conclusion already holds. Otherwise $\gcd(p,a)=1$, because any positive common divisor of $p$ and $a$ must be either $1$ or $p$, and $p\nmid a$. Bézout's identity supplies integers $x,y$ with
+
+$
+px+ay=1.
+$
+
+Multiply by $b$:
+
+$
+pbx+aby=b.
+$
+
+Both terms on the left are divisible by $p$: the first visibly, the second because $p\mid ab$. Therefore $p\mid b$. This proves the lemma.
+
+By repeated application, if $p$ divides a product of finitely many integers, it divides at least one factor.
+
+### Fundamental theorem of arithmetic
+
+**Theorem:** every positive integer $n>1$ can be written as a product of primes. This factorization is unique up to the ordering of factors.
+
+**Existence, by strong induction.** Suppose every positive integer strictly between $1$ and $n$ is a product of primes. If $n$ is prime, it is already such a product. Otherwise $n$ is composite, so $n=ab$ with integers $1<a<n$ and $1<b<n$. By the strong-induction hypothesis, each of $a,b$ is a product of primes, and multiplying their factorizations gives one for $n$.
+
+**Uniqueness, using Euclid's lemma.** Suppose
+
+$
+n=p_1p_2\cdots p_r=q_1q_2\cdots q_s
+$
+
+with all factors positive primes. Since $p_1$ divides the product on the right, Euclid's lemma says $p_1\mid q_j$ for some $j$. The only positive divisors of the prime $q_j$ are $1$ and $q_j$, so $p_1=q_j$. Reorder the factors to put that match first and **cancel it** using integer multiplication cancellation. Repeat with the remaining products. This must consume both lists: a nonempty product of primes is greater than $1$, so it cannot equal the empty product $1$. Hence $r=s$ and the prime factors agree after reordering.
+
+For a negative integer, factor its positive opposite and prepend the unit $-1$. The only invertible integers (units) are $1$ and $-1$, as follows from their absolute values and the integral-domain order. Thus integer factorizations are unique **up to ordering and multiplication by units**.
+
+These results supply the non-circular foundation for prime factorization, coprimality, modular inverses, and many later [Number Theory](./number-theory) proofs. In particular, rational fractions can be reduced to lowest terms because dividing numerator and denominator by their positive gcd produces an equivalent representation.
 
 ## What has been earned, and what comes next?
 
@@ -429,5 +551,7 @@ The tempting equation $-17=5(-3)-2$ has the correct value but its remainder $-2$
 | Integers have a total compatible order | natural-number order plus ZP |
 | There are no zero divisors | positivity of products |
 | Division with remainder exists and is unique | induction, order, cancellation |
+| Bézout's identity and Euclid's algorithm | well-ordering and division with remainder |
+| Prime factorization exists uniquely | strong induction, Euclid's lemma, and cancellation |
 
 The key distinction is now visible: **the rules of signed arithmetic are consequences of the quotient construction, not prerequisites smuggled into it.** Next, [Construction of the Rationals](./construction-of-the-rationals) takes pairs of integers and performs a new quotient construction to make division by every nonzero element possible.

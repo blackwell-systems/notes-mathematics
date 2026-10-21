@@ -443,7 +443,13 @@ $$
 
 when the initial interval is indexed by $n=0$. Both sequences of endpoints are Cauchy: for $m\geq n$, the later endpoints remain inside $[L_n,U_n]$, so their distance is at most $2^{-n}$.
 
-If $L_n$ converged to a rational $r$, then $U_n$ would converge to the same $r$ because $U_n-L_n\to0$. From $L_n^2<2<U_n^2$ and continuity of multiplication under rational limits, we would obtain $r^2=2$. No such rational exists.
+If $L_n$ converged to a rational $r$, then $U_n$ would converge to the same $r$ because $U_n-L_n\to0$. Both endpoint sequences lie in $[1,2]$, so any rational limit $r$ must also lie in $[1,2]$. For each $n$,
+
+$
+|L_n^2-r^2|=|L_n-r|\,|L_n+r|\leq4|L_n-r|,
+$
+
+and likewise $|U_n^2-r^2|\leq4|U_n-r|$. If both endpoints converged to $r$, both squares would converge to $r^2$. Since $L_n^2<2<U_n^2$ at every stage, the squeeze property for rational limits would give $r^2=2$. One can justify that squeeze step directly: if $r^2<2$, eventually $U_n^2<2$, and if $r^2>2$, eventually $L_n^2>2$. Both contradict the maintained inequalities. No such rational $r$ exists.
 
 Hence these rational Cauchy sequences have **no limit in $\mathbb Q$**. We have constructed a field where every allowed arithmetic operation works, but some Cauchy sequences still have no number to converge to.
 

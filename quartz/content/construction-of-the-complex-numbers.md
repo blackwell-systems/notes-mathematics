@@ -361,6 +361,43 @@ $$
 
 The modulus lets us talk about distance and convergence in $\mathbb C$ even though the complex numbers **cannot** have a field-compatible total ordering.
 
+## Completeness of the complex numbers
+
+We constructed $\mathbb R$ so that every real Cauchy sequence converges. We can now **prove**, without adopting another completeness axiom, that the complex field is Cauchy complete in its modulus metric.
+
+**Theorem:** if $(z_n)$ is a complex Cauchy sequence, there is $z\in\mathbb C$ with $z_n\to z$. Here "Cauchy" means that for every real $\varepsilon>0$ there is $N$ such that $|z_m-z_n|<\varepsilon$ whenever $m,n\geq N$.
+
+**Proof.** Write $z_n=a_n+ib_n$ with real $a_n,b_n$. The modulus gives
+
+$
+|a_m-a_n|\leq |z_m-z_n|,\qquad
+|b_m-b_n|\leq |z_m-z_n|.
+$
+
+Thus $(a_n)$ and $(b_n)$ are both **real Cauchy sequences**. By the completeness theorem in [Construction of the Reals](./construction-of-the-reals), there are real $a,b$ such that $a_n\to a$ and $b_n\to b$.
+
+Set $z=a+ib$. Given $\varepsilon>0$, choose $N$ sufficiently large that, for every $n\geq N$,
+
+$
+|a_n-a|<\frac{\varepsilon}{2},\qquad
+|b_n-b|<\frac{\varepsilon}{2}.
+$
+
+Then
+
+$
+\begin{aligned}
+|z_n-z|^2
+&=(a_n-a)^2+(b_n-b)^2\\
+&<\frac{\varepsilon^2}{4}+\frac{\varepsilon^2}{4}
+=\frac{\varepsilon^2}{2}<\varepsilon^2.
+\end{aligned}
+$
+
+Taking nonnegative square roots shows $|z_n-z|<\varepsilon$. Therefore $z_n\to z$.
+
+The proof used **real completeness and the pair-modulus formula**, not complex algebraic closure or the Fundamental Theorem of Algebra. Consequently $\mathbb C$, equipped with the distance $d(z,w)=|z-w|$, is a complete metric space.
+
 ## Why complex numbers cannot be an ordered field
 
 The real numbers have a total order compatible with addition and multiplication. Could we give $\mathbb C$ a similar order and retain all field laws?
@@ -414,9 +451,35 @@ so $2uv=|b|$. If $b\geq0$, choose $w=u+vi$; if $b<0$, choose $w=u-vi$. In either
 
 Thus every complex number has a square root. The proof used the **real** square-root theorem and pair multiplication; it still does not prove roots exist for polynomials of arbitrary degree.
 
+### The analytic angular lemma used by the algebraic-closure proof
+
+The minimum-modulus proof below needs one non-algebraic input: we must be able to choose **$k$-th roots of arbitrary complex numbers of modulus one**, for each positive natural $k$. This is **not** established merely by proving that all complex numbers have square roots.
+
+An independently established result of real-variable trigonometry is the **unit-circle parametrization theorem**: every complex $v$ with $|v|=1$ can be expressed as
+
+$
+v=\cos\theta+i\sin\theta
+$
+
+for some real angle $\theta$, and the real angle-addition identities give
+
+$
+(\cos t+i\sin t)^k=\cos(kt)+i\sin(kt).
+$
+
+Thus, if $v=\cos\theta+i\sin\theta$ and $k\geq1$, the explicitly constructed complex number
+
+$
+u=\cos(\theta/k)+i\sin(\theta/k)
+$
+
+satisfies $|u|=1$ and $u^k=v$.
+
+**Dependency boundary:** this lemma uses the real theory of sine, cosine, angles, and their addition identities. It does *not* require the Fundamental Theorem of Algebra, but its independent construction from real completeness and analysis is not repeated in this chapter. The angular theorem can be proved from real-variable trigonometry and analysis independently of the Fundamental Theorem of Algebra. [Calculus](./calculus) and [Real Analysis](./real-analysis) contain related analytic foundations. [Geometry & Trigonometry](./geometry-trigonometry) is useful further reading, **not a valid prerequisite in the current page graph**, since it depends on Number Systems, which in turn depends on this construction. A strictly self-contained, acyclic foundations program must supply an independent proof of unit-circle parametrization, including the real trigonometric addition identities.
+
 ### A proof route for the Fundamental Theorem of Algebra
 
-We can connect algebraic closure to the real completeness we already constructed via the **minimum-modulus argument**. The analytic ingredient comes from [Real Analysis](./real-analysis): continuous real-valued functions attain minima on closed bounded subsets of Euclidean space.
+We can connect algebraic closure to the real completeness we already constructed via the **minimum-modulus argument**. The analytic ingredient is the **Extreme Value Theorem**, stated in [Real Analysis](./real-analysis): continuous real-valued functions attain minima on closed bounded subsets of Euclidean space. The theorem itself depends on real compactness and is not derived in the pair-construction steps.
 
 Let $P(z)=a_nz^n+\cdots+a_0$ be a nonconstant complex polynomial with $a_n\ne0$.
 
@@ -438,7 +501,7 @@ Let $P(z)=a_nz^n+\cdots+a_0$ be a nonconstant complex polynomial with $a_n\ne0$.
    \frac{c}{w}u^k=-\left|\frac{c}{w}\right|.
    $$
 
-   Such a $u$ exists by polar coordinates and the existence of complex $k$th roots of unit-modulus numbers, which follow from the real trigonometric parametrization of the unit circle. Set $h=tu$ for a small positive real $t$. Dividing by $w$ gives
+   Such a $u$ exists by the independent angular lemma immediately above: the right-hand side is a unit-modulus complex number, so it has a unit-modulus $k$-th root. Set $h=tu$ for a small positive real $t$. Dividing by $w$ gives
 
    $$
    \frac{P(z_0+tu)}{w}
@@ -459,7 +522,7 @@ Let $P(z)=a_nz^n+\cdots+a_0$ be a nonconstant complex polynomial with $a_n\ne0$.
 
 Therefore $P(z_0)=0$: every nonconstant complex polynomial has a root.
 
-This is an analytic proof of the FTA, with its dependencies made explicit: it uses complex arithmetic, real completeness through the extreme-value theorem, continuity of polynomials, and complex polar roots. It is **not** a statement obtained merely by writing down the pair product.
+This is an analytic proof of the FTA, with its dependencies made explicit: it uses complex arithmetic, real completeness through the extreme-value theorem, continuity of polynomials, and the independently established angular lemma. It is **not** a proof from field axioms alone, and a fully internal foundations chain still needs the analytic lemmas developed at proof level. It is **not** a statement obtained merely by writing down the pair product.
 
 ### From one root to complete factorization
 
@@ -547,9 +610,10 @@ For calculating in polar coordinates, computing complex logarithms, and studying
 | Field associativity and commutativity | component calculations using real laws |
 | Distributivity | coordinate expansion |
 | Every nonzero complex has an inverse | positivity of $a^2+b^2$ in $\mathbb R$ |
-| Modulus and triangle inequality | real square roots, conjugation, real inequalities |
+| Modulus and triangle inequality | general real square-root theorem, conjugation, real inequalities |
+| Cauchy completeness of $\mathbb C$ | coordinate convergence in the already complete $\mathbb R$ |
 | No compatible field order | contradiction from $i^2=-1$ |
-| Every polynomial has a root | FTA, using real compactness and a minimum-modulus contradiction |
+| Every polynomial has a root | FTA, using real compactness, the imported angular lemma, and a minimum-modulus contradiction |
 | Polynomial factorization into linear terms | FTA plus division by $z-\alpha$ and induction |
 
 The original question was "which arithmetic laws am I allowed to assume?" You can now trace each law through a construction, a well-definedness argument if needed, and a proof. The next time [Algebraic Structures](./algebraic-structures) calls $\mathbb Q$ a field or $\mathbb Z$ a ring, those names summarize results whose foundations have been established rather than black-boxed.

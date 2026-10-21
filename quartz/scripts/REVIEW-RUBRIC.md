@@ -19,6 +19,14 @@ passed off as a proof). `3` = polish (undefined term used slightly early, notati
 A build never fails on findings; they are triaged, not gated. Treat "reviewed" as
 "checked against this rubric, findings triaged," **not** "proven correct."
 
+**Focused audits are not full reviews.** To record findings discovered during a
+narrower mathematical dependency audit without falsely certifying a page,
+set `reviewScope: "focused"` in its page record. The review-status script then
+reports `partial`, includes the page on the unfinished frontier, and surfaces
+its open findings. Do not populate `reviewedAt` or claim a completed rubric pass
+for such a record. A later full review must remove this flag, refresh the
+`contentHash`, and apply every rubric check.
+
 **Calibration.** Each check has a ✗ (fails) and ✓ (passes) example so different sessions and
 subagents flag the same things. When in doubt, match the examples, not your own taste.
 

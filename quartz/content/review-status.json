@@ -415,6 +415,76 @@
           "resolution": "Added '(which requires f'(x_n) != 0)'."
         }
       ]
+    },
+    "peano-arithmetic.md": {
+      "reviewScope": "focused",
+      "rubricVersion": 1,
+      "auditedAt": "2026-10-20",
+      "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
+      "note": "Focused review of recursion existence, nonzero products, cancellation, strong induction, and second-order categoricity. Full rubric and mechanized verification remain pending.",
+      "findings": []
+    },
+    "construction-of-the-integers.md": {
+      "reviewScope": "focused",
+      "rubricVersion": 1,
+      "auditedAt": "2026-10-20",
+      "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
+      "note": "Focused review of quotient-representative independence, ordered-ring construction, division uniqueness, Bézout and prime-factorization dependencies. Complete independent rubric review remains pending.",
+      "findings": []
+    },
+    "construction-of-the-rationals.md": {
+      "reviewScope": "focused",
+      "rubricVersion": 1,
+      "auditedAt": "2026-10-20",
+      "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
+      "note": "Focused review of fraction congruence, cross-multiplication, positivity and irrationality argument. Complete independent rubric review remains pending.",
+      "findings": []
+    },
+    "construction-of-the-reals.md": {
+      "reviewScope": "focused",
+      "rubricVersion": 1,
+      "auditedAt": "2026-10-20",
+      "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
+      "note": "Focused review of Cauchy-class construction, explicit rational approximation selection, completeness, and nonnegative square-root existence. Full alternative Dedekind construction is intentionally not established.",
+      "findings": [
+        {
+          "id": "SCO-1",
+          "severity": 2,
+          "quote": "A second construction: Dedekind cuts",
+          "issue": "The alternative cut model introduces cuts and sketches operations, but does not carry out the complete field well-definedness and ordered-completeness proof. Remain explicit that the Cauchy-quotient construction is the proved primary route.",
+          "status": "open"
+        },
+        {
+          "id": "PRF-4",
+          "severity": 2,
+          "quote": "Theorem. Any two complete Archimedean ordered fields are isomorphic",
+          "issue": "Uniqueness is supported by an explicitly labeled proof outline, not a line-by-line proof of all limit-preservation and inverse-map steps. Expand if complete proof closure is required.",
+          "status": "open"
+        }
+      ]
+    },
+    "construction-of-the-complex-numbers.md": {
+      "reviewScope": "focused",
+      "rubricVersion": 1,
+      "auditedAt": "2026-10-20",
+      "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
+      "note": "Focused review of the complex field and metric-completeness proofs. The FTA argument still imports real analytic theorems and an independently established angular lemma.",
+      "findings": [
+        {
+          "id": "PRF-3",
+          "severity": 1,
+          "quote": "The analytic angular lemma used by the algebraic-closure proof",
+          "issue": "To close the foundations dependency DAG, prove the unit-circle parametrization and trigonometric addition identities from real-variable foundations without using a page that depends on the complex construction. The current chapter explicitly marks this as an imported lemma.",
+          "status": "open"
+        },
+        {
+          "id": "PRF-4",
+          "severity": 2,
+          "quote": "By the real extreme-value theorem",
+          "issue": "The FTA proof imports compactness and the Extreme Value Theorem from Real Analysis, which currently states rather than fully derives some of those analytic results. Marked as an imported analytic theorem, pending an independently detailed derivation.",
+          "status": "open"
+        }
+      ]
     }
   }
 }

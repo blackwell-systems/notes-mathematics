@@ -60,6 +60,7 @@ const rows = files.map((f) => {
   const rec = ledger.pages?.[f];
   let status;
   if (!rec) status = NAV.has(f) ? "nav" : "unreviewed";
+  else if (rec.reviewScope === "focused") status = "partial";
   else if (rec.contentHash !== hashes[f]) status = "stale-edited";
   else if ((rec.rubricVersion ?? 0) < RUBRIC) status = "stale-rubric";
   else status = "reviewed";
@@ -68,7 +69,7 @@ const rows = files.map((f) => {
 });
 
 const needs = rows
-  .filter((r) => !r.nav && (r.status === "unreviewed" || r.status.startsWith("stale")))
+  .filter((r) => !r.nav && (r.status === "unreviewed" || r.status === "partial" || r.status.startsWith("stale")))
   .sort((a, b) => a.depth - b.depth || a.page.localeCompare(b.page));
 
 const count = (s) => rows.filter((r) => r.status === s).length;
@@ -81,7 +82,7 @@ if (process.argv.includes("--json")) {
 }
 
 console.log(`\nProse/proof review status  (rubric v${RUBRIC})`);
-console.log(`  reviewed: ${count("reviewed")}   stale: ${count("stale-edited") + count("stale-rubric")}   unreviewed: ${count("unreviewed")}   nav: ${count("nav")}`);
+console.log(`  reviewed: ${count("reviewed")}   partial: ${count("partial")}   stale: ${count("stale-edited") + count("stale-rubric")}   unreviewed: ${count("unreviewed")}   nav: ${count("nav")}`);
 const sevStr = Object.keys(openBySev).length
   ? Object.entries(openBySev).sort().map(([s, n]) => `sev${s}: ${n}`).join(", ")
   : "none";
@@ -90,7 +91,7 @@ console.log(`  open findings: ${sevStr}`);
 console.log(`\nFrontier (lowest foundational depth first):`);
 if (!needs.length) console.log("  all mathematical pages reviewed at the current rubric.");
 for (const r of needs.slice(0, 12)) {
-  const why = r.status === "stale-edited" ? "edited since review" : r.status === "stale-rubric" ? "rubric bumped" : "never reviewed";
+  const why = r.status === "partial" ? "focused audit only, full rubric pending" : r.status === "stale-edited" ? "edited since review" : r.status === "stale-rubric" ? "rubric bumped" : "never reviewed";
   console.log(`  [depth ${r.depth}] ${r.page.padEnd(42)} ${why}`);
 }
 if (needs.length) console.log(`\n  NEXT: ${needs[0].page}  (depth ${needs[0].depth})`);

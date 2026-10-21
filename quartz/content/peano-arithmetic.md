@@ -145,7 +145,18 @@ $$
 
 Induction proves $h(n)=g(n)$ for every $n$, so the functions are equal.
 
-**Why existence is a separate issue.** Uniqueness only rules out two different solutions; it does not create one. In the set-theoretic construction, existence is established by assembling the compatible finite initial segments: start with the assignment $0\mapsto x_0$, extend each finite segment by the rule $S(n)\mapsto f(h(n))$, and take their union. Successor injectivity, zero's lack of a predecessor, and induction make those segments compatible and exhaustive. The set-theoretic recursion theorem formalizes this construction. Merely writing the two equations without this existence result would leave a logical gap.
+**Why existence is a separate issue.** Uniqueness rules out two different solutions; it does not create even one. We can exhibit the construction in the von Neumann model of $N$ using finite approximations.
+
+For every $n\in N$, let $I_n=\{0,1,\ldots,n\}$ denote the finite successor chain **through** $n$ (not the integer interval notation that we will define later). We show by induction that there exists exactly one function $h_n:I_n\to X$ satisfying the initial and successor rules wherever its domain permits them.
+
+- **Base:** $I_0=\{0\}$, so $h_0(0)=x_0$ defines the unique required function.
+- **Step:** given the unique $h_n$, extend it to $I_{S(n)}=I_n\cup\{S(n)\}$ by setting $h_{S(n)}(S(n))=f(h_n(n))$. The new point $S(n)$ does not already lie in $I_n$, so this really defines a function. Any function satisfying the same rules on $I_{S(n)}$ must agree with $h_n$ on $I_n$ by its uniqueness and must assign that specified value to $S(n)$.
+- **Compatibility:** if $m$ occurs before $n$ in the finite successor chain, then $h_n|_{I_m}=h_m$, by uniqueness on $I_m$. The symbol $|$ here means "restriction to the indicated domain."
+- **Union:** because the finite functions agree wherever their domains overlap, their union $h=\bigcup_{n\in N}h_n$ is a function. Its domain is all of $N$ by induction. The set-theoretic axiom schema of Replacement permits forming the set-indexed family of these uniquely determined finite graphs, and Union assembles the graph of $h$.
+
+The base equation holds in $h_0$, and each successor equation holds in $h_{S(n)}$; compatibility carries both into the union. This proves existence, while the preceding induction proved uniqueness. This is a **set-theoretic proof using the constructed standard naturals**, not a claim that first-order PA by itself has a function symbol for every recursively specified function.
+
+In particular, simply displaying the two recursion equations without existence and uniqueness would be an incomplete definition.
 
 We will apply recursion twice, first to addition and then to multiplication. The operations are defined *on the naturals*, not assumed in the primitive Peano language.
 
@@ -541,6 +552,42 @@ Conversely, well-ordering gives an induction argument: if a subset contains zero
 
 With the usual structural assumptions, induction and well-ordering are two ways of expressing that there is no smallest counterexample to a properly established inductive claim.
 
+## Two more consequences used by later number systems
+
+### Nonzero natural numbers have nonzero products
+
+**Theorem:** if $a\neq0$ and $b\neq0$, then $a\cdot b\neq0$.
+
+Our predecessor theorem expresses every nonzero $b$ as $S(t)$. Likewise, $a=S(u)$ for some $u$. The recursive multiplication rule and the addition-successor rule give
+
+$
+a\cdot b
+=a\cdot S(t)
+=a\cdot t+a
+=a\cdot t+S(u)
+=S(a\cdot t+u).
+$
+
+A successor cannot equal zero. Thus $ab\neq0$. In particular, **$\mathbb N$ has no zero divisors**. This short proof is important: the integer construction will use it before it has access to negative numbers or integer multiplication cancellation.
+
+### Strong induction and natural multiplication cancellation
+
+**Strong induction:** suppose a property $P(n)$ has the following feature: for every $n$, assuming $P(m)$ holds for **all** $m<n$ allows us to prove $P(n)$. Then $P(n)$ holds for every natural number.
+
+**Proof:** if not, the set of counterexamples is nonempty. By the well-ordering theorem just proved it has a least member $n$. Every $m<n$ satisfies $P(m)$, so the strong-induction premise establishes $P(n)$, a contradiction. This proves strong induction from well-ordering; it does not require a new axiom.
+
+**Multiplication cancellation:** if $c\neq0$ and $ac=bc$, then $a=b$.
+
+By totality, suppose $a\neq b$; either $a<b$ or $b<a$. In the first case, $b=a+k$ for some **nonzero** $k$ (because equality would force $k=0$). Multiplying by $c$ gives
+
+$
+bc=(a+k)c=ac+kc.
+$
+
+Since $k,c$ are nonzero, $kc\neq0$ by the previous theorem. Natural addition of a nonzero term strictly increases its input: $ac<ac+kc=bc$, contradicting $ac=bc$. The second case is symmetric. Hence $a=b$.
+
+This distinction matters in the number-system ladder: we have proved natural cancellation by positivity and recursion. Later **integer** multiplication cancellation follows from the no-zero-divisor theorem, while **rational** multiplicative inverses make cancellation available by a third route.
+
 ## What structure have we obtained?
 
 Summarize what came from definitions and proofs:
@@ -576,7 +623,7 @@ There is an important qualification to the phrase "the Peano axioms uniquely des
 
 Our induction condition quantified over **every subset** $P\subseteq N$. Under **full second-order semantics**, that quantifier really ranges over all subsets of the domain. With the other Peano conditions, any two such structures are **isomorphic**: there is a bijection carrying zero to zero and preserving successor. An *isomorphism* is a one-to-one, onto correspondence that preserves the named operations.
 
-**Why:** between structures $(N,0,S)$ and $(N',0',S')$, recursion defines a map $f$ by $f(0)=0'$ and $f(S(n))=S'(f(n))$. Injectivity follows by induction, using the zero and successor axioms to peel matching successors back one step. The image of $f$ contains $0'$ and is closed under $S'$, so full induction in $N'$ makes $f$ surjective. Therefore the structures agree up to renaming their elements. This is called **categoricity**.
+**Why:** between structures $(N,0,S)$ and $(N',0',S')$, recursion defines a map $f$ by $f(0)=0'$ and $f(S(n))=S'(f(n))$. For **injectivity**, induct on $a$ to prove that $f(a)=f(b)$ implies $a=b$ for every $b$. If $a=0$, the equality $f(0)=f(b)$ cannot hold for $b=S(k)$ because $f(S(k))=S'(f(k))\neq0'$; every nonzero $b$ is a successor, so $b=0$. In the step, suppose the claim holds for $a$ and assume $f(S(a))=f(b)$. The value on the left is a successor and therefore not $0'$, so $b\neq0$ and $b=S(k)$ for some $k$. Successor injectivity in $N'$ implies $f(a)=f(k)$, the inductive hypothesis gives $a=k$, and therefore $S(a)=b$. The image of $f$ contains $0'$ and is closed under $S'$, so full induction in $N'$ makes $f$ surjective. Therefore the structures agree up to renaming their elements. This is called **categoricity**.
 
 Categoricity does **not** mean that the objects must literally be von Neumann sets: any isomorphic representation has the same natural-number structure.
 
