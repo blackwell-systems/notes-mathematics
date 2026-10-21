@@ -10,6 +10,9 @@ enables: ["real-analysis", "measure-theory"]
 
 Propositional logic can only express complete statements like "it is raining" as true or false. Predicate logic goes further: it can express "it is raining in city x," where the truth value depends on which city x refers to. This lets us make statements about *all* objects or *some* objects, such as "every even number greater than 2 is the sum of two primes." Predicate logic is the language in which mathematical definitions and theorems are formally written.
 
+> [!definition] First-order logic
+> **First-order logic (FOL)** extends propositional logic with objects, terms, predicates, and quantifiers ranging over individual elements of a domain. Its expressions are interpreted in a **structure**.
+
 **Predicate Logic / first-order logic:** An extension of propositional logic that allows reasoning about objects, their properties, and relationships using variables and quantifiers.
 
 ## Terms and the FOL Alphabet
@@ -32,6 +35,10 @@ Propositional logic has only one kind of building block, the atomic proposition.
 So $x$, $0$, $\text{succ}(x)$, and $x + \text{succ}(0)$ are all terms. Terms never have a truth value on their own; they only name objects. A truth value appears only when a predicate is applied to terms, for example $\text{Prime}(x + \text{succ}(0))$. Applying a predicate to terms produces an **atomic formula**, and connectives and quantifiers combine atomic formulas into larger ones.
 
 ## Structures and Interpretations (Models)
+
+> [!definition] Structure / interpretation
+> A first-order **structure** supplies a **nonempty domain**, assigns a domain element to each constant, an actual function to each function symbol, and an actual relation to each predicate symbol. Formula truth is evaluated relative to these choices.
+
 
 A first-order formula by itself is just a string of symbols; it has no truth value until we say what the symbols *mean* and what objects exist. That information is packaged in a **structure** (also called an **interpretation** or a **model**).
 
@@ -134,6 +141,10 @@ In words: something satisfies $P$, and anything satisfying $P$ *is that same thi
 
 ### Universal Quantifier (∀)
 
+> [!definition] Universal quantifier
+> $\forall x\,P(x)$ means $P$ holds for **every** object $x$ in the chosen domain. One genuine counterexample is enough to refute the claim.
+
+
 **Symbol:** $\forall$ (read as "for all" or "for every")
 
 **Meaning:** The statement is true for all elements in the domain.
@@ -157,6 +168,10 @@ In words: something satisfies $P$, and anything satisfying $P$ *is that same thi
 
 ### Existential Quantifier (∃)
 
+> [!definition] Existential quantifier
+> $\exists x\,P(x)$ means **at least one** object in the domain satisfies $P$. A witness proves existence, but not necessarily uniqueness.
+
+
 **Symbol:** $\exists$ (read as "there exists" or "for some")
 
 **Meaning:** The statement is true for at least one element in the domain.
@@ -179,6 +194,10 @@ In words: something satisfies $P$, and anything satisfying $P$ *is that same thi
 - Truth value: TRUE (example: $x = i$)
 
 ### Unique Existential Quantifier (∃!)
+
+> [!distinction] Existence is not uniqueness
+> $\exists!x\,P(x)$ has **two separate obligations**: exhibit a witness, and prove that any two witnesses coincide. A solution without uniqueness does not establish an exactly-one claim.
+
 
 **Symbol:** $\exists!$ (read as "there exists exactly one")
 
@@ -204,6 +223,10 @@ Both hold, so exactly one $x$ satisfies the equation and $\exists! x\,(x + 5 = 7
 A full quantified formula is read left to right, symbol by symbol: $\forall x\, \exists y\, (x < y)$ reads "for all x, there exists a y such that x is less than y".
 
 ### Order Matters
+
+> [!distinction] Switching quantifier order changes the claim
+> $\forall x\,\exists y\,P(x,y)$ allows $y$ to **depend on** $x$. By contrast, $\exists y\,\forall x\,P(x,y)$ requires **one fixed** $y$ to work for every $x$. They are not interchangeable.
+
 
 **Example 1:** $\forall x \exists y (x < y)$
 - Domain: $\mathbb{R}$
@@ -256,6 +279,10 @@ These are the quantifier generalization of the propositional [De Morgan's laws](
 
 ## Bound vs Free Variables
 
+> [!definition] Bound variable vs free variable
+> An occurrence of a variable is **bound** only when it lies inside the scope of a quantifier binding that variable. Other occurrences are **free**, so evaluating the formula also requires an assignment to those variables.
+
+
 **Bound Variable:** A variable that is controlled by a quantifier.
 
 **Free Variable:** A variable that is not controlled by a quantifier.
@@ -275,6 +302,10 @@ A formula with no free variables is called a **sentence** (or closed formula). O
 **Capture-avoiding substitution ("free for"):** Substituting a term $t$ for a free variable $x$ in a formula, written $\phi[t/x]$, is subtle when $t$ itself contains variables. We say $t$ is **free for** $x$ in $\phi$ if no free variable of $t$ becomes bound (gets "captured") after the substitution. For example, substituting $y$ for $x$ in $\exists y\,(x < y)$ would produce $\exists y\,(y < y)$, silently capturing $y$ and changing the meaning. To substitute safely, first rename the bound $y$ to a fresh variable ($\exists w\,(x < w)$), then substitute to get $\exists w\,(y < w)$. Only capture-avoiding substitutions preserve meaning, which is why quantifier instantiation rules require the substituted term to be free for the variable.
 
 ## Formal Semantics: Satisfaction, Validity, and Entailment
+
+> [!distinction] Satisfaction, validity, and entailment
+> **Satisfaction:** a particular structure and assignment make a formula true. **Validity:** every permitted structure and assignment make it true. **Entailment:** every structure satisfying the premises also satisfies the conclusion. These differ in *what must be checked*.
+
 
 The [Structures and Interpretations](#structures-and-interpretations-models) section said informally that a structure makes each sentence true or false. Making this precise is **Tarski's definition of satisfaction**, the semantic backbone of first-order logic. It is the exact analog of the propositional [Syntax and Semantics](./propositional-logic-zeroth-order-logic) section, but now truth must track the *objects* that variables range over.
 
@@ -429,13 +460,17 @@ $$\forall x \exists y P(x, y) \not\equiv \exists y \forall x P(x, y)$$
 
 ### Vacuous Truth
 
-**Empty Domain:**
-- $\forall x P(x)$ is TRUE when domain is empty (vacuously true)
-- $\exists x P(x)$ is FALSE when domain is empty
+> [!distinction] An empty restricted set is not an empty first-order domain
+> The **standard first-order semantics on this page requires a nonempty domain**. Therefore the global domain $D=\varnothing$ is **not** one of our structures. Nevertheless $\forall x\in\varnothing\,P(x)$ is vacuously true and $\exists x\in\varnothing\,P(x)$ is false because the **restriction** has no witnesses, even when the ambient domain is nonempty. Some alternative presentations allow empty domains, but that is a different semantic convention.
 
-**Example:** "All unicorns are blue" is vacuously true (there are no unicorns)
 
-**Why vacuous truth is forced, not an arbitrary convention.** It falls straight out of the finite conjunction/disjunction reading. Over a domain $\{a_1, \ldots, a_n\}$, $\forall x\, P(x)$ *is* the conjunction $P(a_1) \land \cdots \land P(a_n)$ and $\exists x\, P(x)$ *is* the disjunction $P(a_1) \lor \cdots \lor P(a_n)$. When the domain is **empty** there are no conjuncts and no disjuncts, leaving the *empty conjunction* and *empty disjunction*, whose values are pinned by their identity elements: an empty $\land$ is **true** (the identity of $\land$ is $\top$) and an empty $\lor$ is **false** (the identity of $\lor$ is $\bot$). That is exactly "$\forall$ over nothing is true, $\exists$ over nothing is false."
+**Empty-range convention (or the optional empty-domain semantics):**
+- A universal claim over no eligible objects has no counterexample and is true.
+- An existential claim over no eligible objects has no witness and is false.
+
+**Example:** Within a nonempty ambient domain, "all unicorns are blue" is vacuously true if there are no unicorns in the restriction.
+
+**Why vacuous truth is forced, not an arbitrary convention.** It falls straight out of the finite conjunction/disjunction reading. Over a domain $\{a_1, \ldots, a_n\}$, $\forall x\, P(x)$ *is* the conjunction $P(a_1) \land \cdots \land P(a_n)$ and $\exists x\, P(x)$ *is* the disjunction $P(a_1) \lor \cdots \lor P(a_n)$. When the **restricted range** is empty there are no conjuncts and no disjuncts, leaving the *empty conjunction* and *empty disjunction*, whose values are pinned by their identity elements: an empty $\land$ is **true** (the identity of $\land$ is $\top$) and an empty $\lor$ is **false** (the identity of $\lor$ is $\bot$). That is exactly "$\forall$ over nothing is true, $\exists$ over nothing is false."
 
 **A mathematical instance.** The same effect appears whenever a restricted quantifier ranges over an empty set. $\forall x\,(x \in \varnothing \to P(x))$ is **true** for *every* predicate $P$, because the antecedent $x \in \varnothing$ is false for every $x$, making each conditional vacuously true. So "every element of the empty set is prime" and "every element of the empty set is composite" are *both* true at once, harmless precisely because there is no element to exhibit the conflict. This is exactly why the empty set is a subset of every set: $\varnothing \subseteq A$ unfolds to $\forall x\,(x \in \varnothing \to x \in A)$, which holds vacuously.
 
@@ -615,6 +650,10 @@ First-order logic has a proof system (the rules above, plus the propositional ru
 **The decidability gap.** Propositional validity is **decidable**: a truth table (or the [truth-table generator](./propositional-logic-zeroth-order-logic)) always terminates with a yes/no answer. First-order validity is **not**. By the Church–Turing theorem (1936), no algorithm can decide, for an arbitrary first-order sentence, whether it is valid. It is, however, **semi-decidable**: by completeness, a systematic proof search will eventually find a proof *if one exists*, but may run forever when the sentence is invalid. Certain fragments (monadic predicate logic, and others) are decidable; full first-order logic is the boundary where expressive power meets undecidability.
 
 ## First-Order vs Higher-Order Logic
+
+> [!distinction] What quantifiers range over
+> In **first-order logic**, quantifiers range over the **individual objects** in the domain. Higher-order languages can also quantify over properties, relations, or functions, with semantics and proof strength that depend on the chosen higher-order system.
+
 
 The "first" in first-order names a deliberate restriction: quantifiers range only over **objects** of the domain, never over predicates, functions, or sets of objects. You may write $\forall x\,(\ldots)$ for $x$ an element, but not $\forall P\,(\ldots)$ for $P$ a property.
 

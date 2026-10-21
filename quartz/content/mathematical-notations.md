@@ -16,7 +16,15 @@ A useful distinction to keep in mind is between **object-level** symbols, which 
 
 ## Equivalence and Equality Symbols
 
+> [!distinction] The same symbol can mean different things
+> Equality $=$, biconditional $\leftrightarrow$, meta-level equivalence $\iff$, congruence $\equiv$, and definitional equality $:=$ are **not interchangeable**. Their role depends on whether we are naming objects, asserting a formula, talking about logical equivalence, or introducing a definition.
+
+
 ### Equality ( = )
+
+> [!definition] Equality
+> $a=b$ asserts that $a$ and $b$ denote the **same object**, within the relevant mathematical structure. It is stronger than saying two different objects satisfy similar properties.
+
 
 **Type:** Object-level symbol.
 
@@ -25,6 +33,10 @@ A useful distinction to keep in mind is between **object-level** symbols, which 
 **Meaning:** Two mathematical objects are the same (same number, same set, same function).
 
 ### Biconditional / Equivalence ( ⟺ , ↔ )
+
+> [!distinction] Biconditional versus meta-level equivalence
+> Inside propositional syntax, $P\leftrightarrow Q$ is a **formula**. In a mathematical proof, "$P$ if and only if $Q$" is often a **claim about two statements**. Both usages are legitimate, but the surrounding context determines which is intended.
+
 
 **Type:** Both object-level and meta-level, depending on context (see below).
 
@@ -41,6 +53,10 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 
 ### Congruence / Identity ( ≡ )
 
+> [!example] Context determines the meaning of $\equiv$
+> In number theory, $7\equiv1\pmod3$ says $3$ divides $7-1$. In propositional logic, $\neg\neg P\equiv P$ asserts equal truth values under all valuations. This notation alone does not tell the reader which interpretation is in force.
+
+
 **Type:** Varies by context.
 
 **Read aloud:** "is equivalent to" (logic), "is congruent to ... modulo $n$" (number theory), or "is identically equal to" (analysis).
@@ -53,6 +69,10 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 
 ### Definition ( := )
 
+> [!definition] Definitional equality
+> $a:=b$ **introduces** $a$ as a name or expression defined by $b$. It should not be read as an empirical discovery or as an additional theorem needing proof.
+
+
 **Type:** Meta-level notation.
 
 **Read aloud:** "is defined to be" / "is defined as".
@@ -60,6 +80,10 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 **Meaning:** The left side is introduced as a name for the right side, e.g. $(a, b) := \{\{a\}, \{a, b\}\}$. Also written $\stackrel{\text{def}}{=}$ or $\equiv$.
 
 ## Set-Theory Notation
+
+> [!distinction] Subset symbols vary across sources
+> These notes use $\subseteq$ when equality is allowed and $\subsetneq$ when containment must be strict. Some authors use $\subset$ for **either** convention; check their notation before using it in a proof.
+
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
@@ -94,6 +118,10 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | [$\prec$](./functions-relations#partial-order) , [$\succ$](./functions-relations#partial-order) | "precedes" / "succeeds" | a general (partial) order relation |
 
 ## Logic Notation
+
+> [!distinction] Proof and semantic consequence use different symbols
+> $\Gamma\vdash\phi$ says $\phi$ is **derivable by specified proof rules**. $\Gamma\vDash\phi$ says **every interpretation satisfying $\Gamma$ also satisfies $\phi$**. Soundness and completeness relate these notions under explicit hypotheses; they are not identical by definition.
+
 
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|

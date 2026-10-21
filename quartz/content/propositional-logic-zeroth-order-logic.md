@@ -166,6 +166,10 @@ The rest of this chapter concentrates on propositional **form**: how to compute 
 
 ## Proposition
 
+> [!definition] Proposition
+> In classical propositional logic, a **proposition** is a declarative content treated as having a determinate truth value, **true** or **false**. The formal system studies how those values combine, without inspecting the internal structure of each atomic proposition.
+
+
 **Proposition: Propositions** are declarative statements that have a
 truth value, which can either be true or false, but not both.
 
@@ -251,6 +255,10 @@ make decisions based on contingent truths, which are context-dependent
 and require us to consider the specific conditions at hand.
 
 ## Truth Function
+
+> [!definition] Truth function
+> A **truth function** maps a tuple of input truth values to an output truth value. Its output depends only on those inputs, not on which real-world statements the letters happen to describe.
+
 
 **Truth Function**: In logic, a truth function is a function that accepts truth values as input and produces a truth value as output. They play a crucial role in propositional logic by defining how compound statements (or propositions) are constructed from atomic ones.
 
@@ -947,6 +955,10 @@ All of this is one instance of a larger algebraic structure. The equivalence law
 
 ## Syntax and Semantics
 
+> [!distinction] Derivability versus truth in interpretations
+> $\Gamma\vdash\phi$ means $\phi$ can be derived by specified **formal inference rules**. $\Gamma\vDash\phi$ means **every valuation** satisfying the premises also satisfies $\phi$. Soundness and completeness connect them; they are not the same concept by definition.
+
+
 So far we have written formulas and reasoned about when they are true. It is worth separating two questions that are easy to blur together: which strings even *count* as formulas (**syntax**), and what it *means* for a formula to be true (**semantics**). Keeping them apart is what lets us later state precisely how symbolic proof relates to truth.
 
 **Well-formed formula (wff):** A well-formed formula is a string that is grammatically legal in the language of propositional logic. The formation rules are:
@@ -1000,6 +1012,10 @@ Conclusion
 **Notation:** $P_1, P_2, \ldots, P_n \vdash Q$ (the conclusion $Q$ is derivable from the premises). By soundness and completeness (see Syntax and Semantics above), this holds exactly when $P_1, \ldots, P_n \vDash Q$, that is, when every valuation making all premises true also makes $Q$ true.
 
 ### Validity vs Soundness
+
+> [!distinction] A valid argument need not have true premises
+> **Validity** says it is impossible for all the premises to be true and the conclusion false. **Soundness** adds the requirement that the premises actually are true. A valid argument with a false premise is not thereby sound.
+
 
 ![Nested ellipses showing sound arguments as a subset of valid arguments, which are a subset of all arguments: a sound argument is valid with all premises actually true (Socrates is mortal); a valid but unsound argument has correct structure but a false premise (penguins can fly); and an invalid argument has bad structure (all dogs are cats), drawn outside the valid region](./media/pl-validity-soundness.png)
 
@@ -1362,6 +1378,10 @@ The valid-versus-sound distinction can look academic until an argument stops bei
 **The remedy is procedural, not metaphysical.** You do not have to *refute* the premise, which (as the previous section showed) may be impossible. You require instead that coercive law justify itself in public, contestable, evidence-answerable terms. That is the whole content of the separation between the metaphysical and the legal, and it is the burden-of-proof principle applied to power: the positive, coercive claim carries the burden, and neither the validity of its form nor the fervor of its conviction ever discharges it. One can leave every metaphysical question permanently open and still insist, with perfect consistency, that no premise gets to hold a gun until it can answer to the people it is aimed at.
 
 ## Proof Techniques
+
+> [!distinction] Proof method versus established result
+> A proof strategy (direct, contrapositive, contradiction, cases, or induction) is a **method**. To prove a particular theorem, every inference still needs a justified premise, definition, or prior result. A proof strategy alone is not a proof.
+
 
 Mathematical proofs are the foundation of rigorous reasoning in mathematics. A proof is a logical argument that establishes the truth of a statement beyond doubt, using previously established facts, definitions, and logical rules.
 

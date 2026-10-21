@@ -35,6 +35,10 @@ There are 2 primary branches of set theory:
 
 ## Set
 
+> [!definition] Sets and membership
+> A **set** is determined by which objects belong to it. Writing $x\in A$ means $x$ is a member of $A$. Order and repetition in a finite roster do not change its members.
+
+
 **Set:** A set is a collection of "*things*." These ***things*** are
 called elements of the set.
 
@@ -63,6 +67,10 @@ For example, the set of vowels is $\{a, e, i, o, u\}$, and the first five natura
 
 ## Set-Builder Notation
 
+> [!distinction] A property does not automatically define a set
+> The notation $\{x\in A:P(x)\}$ names a **subset of an existing set** $A$ using a property. In ZF/ZFC, unrestricted $\{x:P(x)\}$ is **not** legitimate without a previously justified ambient set: [Russell's paradox](#russells-paradox) shows why.
+
+
 **Set-Builder Notation:** Set-builder notation describes the elements of a set by specifying a
 property or condition that the elements of the set satisfy, rather than
 listing them out.
@@ -88,6 +96,10 @@ Thus $\emptyset \neq \{\emptyset\}$
 
 ## Subset
 
+> [!definition] Subset
+> $A\subseteq B$ means **every** element of $A$ is an element of $B$. Equality of the sets is allowed. This is a universal membership claim, not a comparison of their sizes.
+
+
 **Subset:** A is a subset of B, (denoted $A \subseteq B$, read "A is a subset of B"), if every element of A is also an element of B.
 
 **Formal Definition:** $A \subseteq B \iff \forall x\, (x \in A \to x \in B)$
@@ -107,6 +119,10 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 ![Euler diagram: circle A drawn entirely inside a larger circle B, showing that every element of A is also in B, so A is a subset of B](./media/st-subset-euler.png)
 
 ## Proper Subset
+
+> [!distinction] Subset versus proper subset
+> $A\subseteq B$ permits $A=B$; $A\subsetneq B$ requires $A\ne B$ as well. A set is always a subset of itself, but never a **proper** subset of itself.
+
 
 **Proper Subset:** A is a **proper subset** of B (denoted $A \subsetneq B$, read "A is a proper subset of B") if $A \subseteq B$ **and** $A \neq B$: every element of A is in B, but B contains at least one element that is not in A. The containment is *strict*.
 
@@ -148,6 +164,10 @@ This difference changes what "$\neq$" buys you. For numbers, $a \neq b$ *already
 ![Two panels contrasting a total order and a partial order: on the left a number line with 1, 2, 3, 4 where any two numbers are comparable; on the right the lattice of subsets of the two-element set a, b, ordered by inclusion, in which the singletons set-a and set-b are marked incomparable because neither is a subset of the other](./media/st-subset-order.png)
 
 ## Set Equality
+
+> [!axiom] Extensionality
+> Sets are equal precisely when their **members agree**: $A=B$ if and only if $\forall x\,(x\in A\leftrightarrow x\in B)$. A set's display order and repeated listing do not matter.
+
 
 Two sets are **equal** iff they have the **same members**. Formally
 **(Axiom of Extensionality):**
@@ -208,6 +228,10 @@ Let $A = \{x \in \mathbb{Z} \mid x \text{ is even}\}$ and $B = \{2n \mid n \in \
 Therefore A = B.
 
 ### Proof Techniques for Sets
+
+> [!proof-sketch] Standard double-inclusion strategy
+> To prove $A=B$, establish $A\subseteq B$ and $B\subseteq A$ separately. The element-chasing calculation below carries out both directions; the strategy alone is not a proof of a particular identity.
+
 
 The double-containment method above is the most common way to prove set equalities, but there are several standard proof patterns worth knowing.
 
@@ -561,6 +585,10 @@ Notice that $A \setminus B \neq B \setminus A$. Also observe that $A \triangle B
 
 ## Russell's Paradox
 
+> [!counterexample] Unrestricted comprehension is inconsistent
+> If **every property** defined a set, the object $R=\{x:x\notin x\}$ would satisfy $R\in R$ if and only if $R\notin R$. Restricting comprehension to subsets of a **previously existing** set prevents this contradictory object from being formed.
+
+
 **Russell's Paradox:** A fundamental paradox in naive set theory discovered by Bertrand Russell in 1901. It demonstrates that unrestricted set comprehension (forming sets from any property) leads to contradiction.
 
 **The Paradox:**
@@ -808,6 +836,13 @@ Infinite cardinals can be added and multiplied, but the rules collapse in a way 
 This raises the question Cantor could not settle. Is there any cardinal *strictly between* $\aleph_0$ and $\mathfrak{c} = 2^{\aleph_0}$? Writing $\aleph_1$ for the smallest uncountable cardinal, the question is whether $\aleph_1 = \mathfrak{c}$. The **Continuum Hypothesis (CH)** asserts that it is: no set is larger than $\mathbb{N}$ and smaller than $\mathbb{R}$. Gödel (1940) showed CH cannot be *disproved* from ZFC, and Cohen (1963), inventing the method of *forcing*, showed it cannot be *proved* either. CH is **independent** of the standard axioms: the size of the continuum is genuinely undetermined by them. (The Generalized Continuum Hypothesis extends this to $2^{\aleph_\alpha} = \aleph_{\alpha+1}$ at every level.)
 
 ## Cantor's Theorem
+
+> [!theorem] Cantor's theorem
+> For every set $A$, $|A|<|\mathcal P(A)|$. The map $a\mapsto\{a\}$ is an injection $A\to\mathcal P(A)$, but no map $f:A\to\mathcal P(A)$ can be **surjective**; the diagonal argument below establishes that latter fact.
+
+> [!proof] Diagonal obstruction to surjectivity
+> For an arbitrary $f:A\to\mathcal P(A)$, form $D=\{a\in A:a\notin f(a)\}$. If $D=f(d)$ for some $d\in A$, then $d\in D$ exactly when $d\notin D$, a contradiction. Therefore $D$ is **not in the image** of $f$. Together with the singleton injection, this gives the strict inequality.
+
 
 **Cantor's Theorem:** For any set $A$, the power set $\mathcal{P}(A)$ has strictly greater cardinality than $A$ itself.
 
@@ -1118,6 +1153,10 @@ $$
 In words: the complement of a union is the intersection of complements, and vice versa. These generalize the two-set De Morgan's laws to arbitrarily many sets.
 
 ## Ordered Pairs (Kuratowski's definition)
+
+> [!definition] Ordered pair encoded using sets
+> Kuratowski's construction $(a,b):=\{\{a\},\{a,b\}\}$ encodes order so that $(a,b)=(c,d)$ **exactly when** $a=c$ and $b=d$. An unordered set $\{a,b\}$ alone cannot encode which object is first.
+
 
 **Ordered Pair:** An ordered pair with **first coordinate** *a* and **second coordinate** *b*, usually denoted by **(a, b)**, is a mathematical object where **order matters**.
 

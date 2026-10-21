@@ -83,6 +83,10 @@ These candidate counts are only heuristics. They are **not** inferred certificat
 
 The GitHub Pages workflow runs `--check` **before the site build** and fails when an article is absent from the manifest. The existing build, mathematical notation, link and arithmetic checks still run afterward.
 
+## Migration progress
+
+The first subject batch now has four pilot articles: Mathematical Notations, Set Theory, Propositional Logic and Predicate Logic. Including the two earlier mathematical pilots, **6 of 63 pages** are tagged `pilot`; none is certified `complete`. The remaining 57 are pending, and responsive/diagram statuses are unreviewed. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
+
 ## Recommended migration batches
 
 Each batch should remain reviewable: source change, rendered screenshot, mathematical spot check and status update together.

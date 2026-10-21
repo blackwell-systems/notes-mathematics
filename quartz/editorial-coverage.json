@@ -297,7 +297,7 @@
       "path": "mathematical-notations.md",
       "kind": "topic",
       "track": "logic-and-proofs",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -432,7 +432,7 @@
       "path": "predicate-logic-first-order-logic.md",
       "kind": "topic",
       "track": "logic-and-proofs",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -504,7 +504,7 @@
       "path": "set-theory.md",
       "kind": "topic",
       "track": "set-theory",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
