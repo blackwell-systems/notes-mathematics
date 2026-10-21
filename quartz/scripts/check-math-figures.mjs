@@ -6,6 +6,7 @@ import {readFileSync, existsSync} from "node:fs";
 import {join} from "node:path";
 
 const expected = {
+  "order-theory.md": ["ot-preorder-quotient.svg", "ot-bowtie-nonlattice.svg"],
   "propositional-logic-zeroth-order-logic.md": ["pl-conditional-four-forms.svg"],
   "mathematical-notations.md": ["mn-expression-anatomy.svg","mn-quantifier-scope.svg"],
   "group-theory-foundations.md": [
@@ -80,7 +81,7 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==59)errors.push("Expected 59 illustrative SVGs, got "+total);
+if(total!==61)errors.push("Expected 61 illustrative SVGs, got "+total);
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);

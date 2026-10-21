@@ -168,6 +168,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "equivalence-relations.md",
+      "kind": "topic",
+      "track": "set-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "euclidean-geometry.md",
       "kind": "topic",
       "track": "geometry-and-trigonometry",
@@ -441,6 +450,15 @@
       "path": "order-of-operations.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "order-theory.md",
+      "kind": "topic",
+      "track": "set-theory",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",

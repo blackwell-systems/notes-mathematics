@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **71 topics** across 17 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **73 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -21,7 +21,7 @@ The aim is to be the place you come to for **clarity**: every topic is built fou
 2. **As a learning path:** The topics build on each other. A suggested reading order for someone starting from scratch:
 
 ```
-Logic → Set Theory → Peano Arithmetic → Integers → Rationals → Reals
+Logic → Set Theory → Relations & Order → Peano Arithmetic → Integers → Rationals → Reals
 → Complex Numbers → Number Systems & Foundations → Algebra (start with
 Functions, then work through the function types) → Linear Algebra
 (Foundations first, then Computation)
@@ -52,7 +52,14 @@ The [group-theory branch](./group-theory-foundations) can begin after sets and f
 
 ## Set Theory
 
-- [Set Theory](./set-theory) (operations, relations, cardinality, power sets)
+- [Set Theory](./set-theory) (operations, cardinality, power sets, partitions)
+
+## Relations & Order
+
+Relations define which objects may be identified or compared. These foundational chapters develop the two directions, with worked proofs and counterexamples.
+
+- [Equivalence Relations and Quotients](./equivalence-relations) (classes, partitions, congruence, quotient factorization)
+- [Order Theory: Preorders, Posets, and Lattices](./order-theory) (total and partial orders, Hasse diagrams, bounds, lattices, well-orders, order isomorphisms)
 
 ## Number Systems & Foundations
 

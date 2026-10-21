@@ -1,17 +1,17 @@
 ---
 title: "Functions & Relations"
 prerequisites: ["set-theory"]
-enables: ["graphing-functions", "linear-functions", "calculus", "statistics", "category-theory-foundations"]
+enables: ["equivalence-relations", "order-theory", "graphing-functions", "linear-functions", "calculus", "statistics", "category-theory-foundations"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
 > **Builds on:** [Set Theory](./set-theory)
-> **Leads to:** the [function types](#the-function-family) below (linear, polynomial, rational, ...), then [Calculus](./calculus) · [Statistics](./statistics)
+> **Leads to:** [Equivalence Relations](./equivalence-relations) · [Order Theory](./order-theory) · the [function types](#the-function-family) · [Calculus](./calculus) · [Statistics](./statistics)
 
 
 ## The Function Family
 
-This page develops the **general theory** of functions and relations: the definitions and properties (injective, surjective, composition, inverses, equivalence relations) that hold for *every* function. Each specific *kind* of function then gets its own page, all building on this shared foundation:
+This page develops the **general theory** of functions and relations. The deeper branches now have their own chapters: [Equivalence Relations and Quotients](./equivalence-relations) and [Order Theory](./order-theory). Each specific *kind* of function then gets its own page, all building on this shared foundation:
 
 - **[Graphing Functions](./graphing-functions)** — the coordinate plane, transformations (shift, stretch, reflect), reading domain and range off a graph.
 - **[Linear Functions](./linear-functions)** — $y = mx + b$: slope, intercepts, the simplest non-constant functions.
@@ -250,293 +250,31 @@ An **equivalence relation** is reflexive + symmetric + transitive; a **partial o
 
 ### Partial Order
 
-**Partial Order:** A relation **R** on a set **A** is a **partial order** if it is:
-1. **Reflexive:** Every element is related to itself
-2. **Antisymmetric:** If a R b and b R a, then a = b
-3. **Transitive:** If a R b and b R c, then a R c
-
-Notation: Often written as ≤ or ⊑
-
-**Examples:**
-
-1. **Subset relation** ($\subseteq$) on sets:
-   - Every set is a subset of itself (reflexive)
-   - If $A \subseteq B$ and $B \subseteq A$, then $A = B$ (antisymmetric)
-   - If $A \subseteq B$ and $B \subseteq C$, then $A \subseteq C$ (transitive)
-
-2. **"Divides" relation (|)** on positive integers:
-   - Every number divides itself (reflexive)
-   - If a|b and b|a, then a = b (antisymmetric)
-   - If a|b and b|c, then a|c (transitive)
-
-3. **Less than or equal (≤)** on real numbers
-
-**Partially ordered set (poset):** A set **A** together with a partial order relation is called a poset, denoted (A, ≤).
-
-**Why "partial"?** Not every pair of elements needs to be comparable. For example, with subset relation, {1,2} and {3,4} are incomparable (neither is a subset of the other).
-
-**Worked example: proving "divides" is a partial order on $\mathbb{Z}^{+}$.** The list above asserts the three properties; here we prove each from the definition. For positive integers $a, b$, write $a \mid b$ (read "$a$ divides $b$") to mean *there exists a positive integer $k$ with $b = ak$*. Everything below uses only that definition.
-
-- **Reflexive.** For any $a$, we have $a = a \cdot 1$, and $1$ is a positive integer, so $a \mid a$. Every element divides itself. $\checkmark$
-- **Antisymmetric.** Suppose $a \mid b$ *and* $b \mid a$. Then $b = ak$ and $a = bm$ for positive integers $k, m$. Substitute the first into the second: $a = bm = (ak)m = a(km)$. Cancelling the positive integer $a$ gives $km = 1$. The only positive integers whose product is $1$ are $k = m = 1$, so $b = a \cdot 1 = a$. Mutual divisibility forces equality. $\checkmark$
-- **Transitive.** Suppose $a \mid b$ *and* $b \mid c$. Then $b = ak$ and $c = bm$ for positive integers $k, m$. Substitute: $c = bm = (ak)m = a(km)$. Since $km$ is a positive integer, $a \mid c$. $\checkmark$
-
-All three hold, so $(\mathbb{Z}^{+}, \mid)$ is a partial order. It is *not* a total order: $2 \nmid 3$ and $3 \nmid 2$, so $2$ and $3$ are incomparable, which is exactly the branching you see in the divisibility Hasse diagrams below. $\blacksquare$
+A **partial order** is reflexive, antisymmetric, and transitive. Distinct elements need not be comparable. For proofs and examples, see [Order Theory](./order-theory#from-relations-to-preorders-and-partial-orders).
 
 ### Hasse Diagrams
 
-**Hasse Diagram:** A visual representation of a finite partially ordered set (poset) that shows the ordering relationships between elements.
-
-**Construction Rules:**
-1. Place elements vertically - if a ≤ b, place b above a
-2. Draw a line from a to b if a < b and there is no c such that a < c < b (direct covering)
-3. Omit reflexive loops (implied by definition)
-4. Omit transitive edges (can be inferred)
-
-**Example 1 - Divisibility on {1, 2, 3, 4, 6, 12}:**
-
-![Hasse diagram of the divisibility order on the set 1, 2, 3, 4, 6, 12. The number 1 sits at the bottom as the least element that divides everything; above it are 2 and 3; above those are 4 and 6; and 12 is at the top as the greatest element. Covering lines connect 1 to 2, 1 to 3, 2 to 4, 2 to 6, 3 to 6, 4 to 12, and 6 to 12. There is no line between 4 and 3, and none between 4 and 6, because those pairs are incomparable.](./media/fr-hasse-div12.png)
-
-Reading the diagram:
-- 1 divides everything (bottom)
-- 12 is divisible by everything (top)
-- 2 divides 4 and 6 (connected below)
-- 3 divides 6 (connected below)
-- 4 and 3 are incomparable (no path between them)
-
-**Example 2 - Subset relation on P({a, b}) (power set of {a, b}):**
-
-![Hasse diagram of the subset order on the power set of the set a, b. The empty set is at the bottom, the full set a, b is at the top, and the two singletons a and b sit at the middle level on the left and right, forming a diamond. Covering lines connect the empty set up to a and up to b, and connect a and b each up to the set a, b. The singletons a and b are on the same level with no line between them, marking them as incomparable.](./media/fr-hasse-powerset-ab.png)
-
-Reading the diagram:
-- {} (empty set) is at the bottom (subset of all)
-- {a, b} is at the top (contains all elements)
-- {a} and {b} are incomparable (neither is subset of the other)
-- Transitivity implied: $\{\} \subseteq \{a\} \subseteq \{a, b\}$
-
-**Example 3 - Divisibility on {1, 2, 3, 5, 6, 10, 15, 30}:**
-
-![Hasse diagram of the divisibility order on the set 1, 2, 3, 5, 6, 10, 15, 30, which forms a cube. The number 1 is at the bottom; the three primes 2, 3, 5 sit at the first level; their pairwise products 6, 10, 15 sit at the second level; and 30 is at the top. Covering lines connect 1 up to 2, 3, and 5; connect 2 up to 6 and 10, 3 up to 6 and 15, 5 up to 10 and 15; and connect 6, 10, and 15 each up to 30. The result is the same shape as the power set of a three-element set.](./media/fr-hasse-div30.png)
-
-This eight-element divisibility order has exactly the shape of the power set of $\{2, 3, 5\}$ (send each divisor to its set of prime factors): $1 \leftrightarrow \varnothing$, $6 \leftrightarrow \{2,3\}$, $30 \leftrightarrow \{2,3,5\}$, and so on. Two posets with the same Hasse diagram are called **order-isomorphic**.
-
-**Key Properties:**
-
-1. **Maximal Elements:** Elements with no elements above them
-   - In divisibility example: 12 is maximal
-   - In power set example: {a, b} is maximal
-
-2. **Minimal Elements:** Elements with no elements below them
-   - In divisibility example: 1 is minimal
-   - In power set example: {} is minimal
-
-3. **Greatest Element (Top):** Element greater than or equal to all others
-   - Exists if there's a single maximal element comparable to everything
-   - Example: {a, b} in power set
-
-4. **Least Element (Bottom):** Element less than or equal to all others
-   - Exists if there's a single minimal element comparable to everything
-   - Example: {} in power set, 1 in divisibility
-
-5. **Covering Relation:** In the diagram, a covers b (written a ⋗ b) if a > b and there is no c with a > c > b
-   - Hasse diagrams show only covering relations
-
-**Reading Hasse Diagrams:**
-
-- **Comparable:** Two elements are comparable if there's a path between them (going up or down)
-- **Incomparable:** Two elements are incomparable if there's no path between them
-- **To find a ≤ b:** Check if you can go upward from a to reach b
-
-**Applications:**
-- Visualizing partial orders
-- Finding maximal/minimal elements
-- Identifying chains (totally ordered subsets)
-- Analyzing lattice structures
+A Hasse diagram displays cover relations in a finite poset. Comparability follows an **upward path**, not an arbitrary undirected path. See the [Hasse examples](./order-theory#hasse-diagrams-reconstructing-the-finite-order).
 
 ### Total Order (Linear Order)
 
-**Total Order:** A partial order where **every pair** of elements is comparable.
-
-A relation **R** on **A** is a total order if it is:
-1. Reflexive
-2. Antisymmetric  
-3. Transitive
-4. **Total:** $\forall a,b \in A \, ( R(a,b) \vee R(b,a) )$
-
-**Examples:**
-- ≤ on real numbers (you can always compare two numbers)
-- Alphabetical order on strings
-
-**Non-example:**
-- Subset relation ($\subseteq$) is NOT a total order because some sets are incomparable
+In a **total order**, every two elements are comparable. See [Total orders, chains, and antichains](./order-theory#total-orders-chains-and-antichains).
 
 ### Lattices, Bounds, and Chains
 
-A partial order comes with a natural vocabulary for "how high or low you can reach."
-
-**Bounds.** Let $S$ be a subset of a poset $(A, \leq)$. An **upper bound** of $S$ is an element $u \in A$ with $s \leq u$ for every $s \in S$; a **lower bound** is defined dually. The **least upper bound** (or **supremum**, or **join**), written $\sup S$ or $\bigvee S$, is the smallest of all the upper bounds, when one exists; the **greatest lower bound** (**infimum**, **meet**), $\inf S$ or $\bigwedge S$, is the largest lower bound. These are the order-theoretic twins of the supremum and infimum from [Real Analysis](./real-analysis): the completeness axiom of $\mathbb{R}$ is exactly the statement that every nonempty subset of $\mathbb{R}$ with an upper bound has a *least* upper bound.
-
-**Lattices.** A **lattice** is a poset in which *every pair* of elements $a, b$ has both a join $a \vee b$ and a meet $a \wedge b$. Not every poset qualifies: two elements can have several upper bounds but no single *least* one.
-
-![Three panels on order structure: first, the lattice of subsets of the set a, b, c ordered by inclusion, with the join of set-a and set-b equal to set a-b (their union) and their meet equal to the empty set (their intersection) highlighted; second, a four-element diamond poset with a and b below two incomparable elements c and d that are both upper bounds of a-and-b with no least one, so it is not a lattice; third, the same subset cube with a green chain running from the empty set up to a-b-c and a red antichain of the three singletons which are pairwise incomparable](./media/fr-lattice-chains.png)
-
-Examples of lattices:
-
-- The **power set** $(\mathcal{P}(X), \subseteq)$, with $A \vee B = A \cup B$ and $A \wedge B = A \cap B$. (This regularity is why the [power-set Hasse diagram](./set-theory#power-set) is so symmetric.)
-- The **divisors** of a number under "divides", with $a \vee b = \operatorname{lcm}(a, b)$ and $a \wedge b = \gcd(a, b)$.
-- The real numbers $(\mathbb{R}, \leq)$, with $a \vee b = \max(a, b)$ and $a \wedge b = \min(a, b)$.
-
-A lattice is **bounded** if it has a greatest element $\top$ and a least element $\bot$, and **complete** if *every* subset (not just every pair) has a join and a meet. Power sets are complete lattices; $\mathbb{R}$ is not, since $\mathbb{R}$ itself has no upper bound.
-
-**Chains and antichains.** A **chain** is a subset that is *totally* ordered (any two of its elements are comparable); in a Hasse diagram it is a path you can walk straight up. An **antichain** is a subset in which *no* two distinct elements are comparable. In the divisibility poset on $\{1, 2, 3, 4, 6, 12\}$, the set $\{1, 2, 4, 12\}$ is a chain (each divides the next), while $\{4, 6\}$ and $\{2, 3\}$ are antichains. Chains are the bridge to **Zorn's Lemma** on the [Set Theory](./set-theory) page: the hypothesis "every chain has an upper bound" is what forces a maximal element to exist, and Zorn's lemma is the workhorse behind existence proofs (a basis for every vector space, maximal ideals, and more).
+A lattice has a least upper bound and greatest lower bound for every pair. Minimal and maximal are weaker than least and greatest. See [Bounds](./order-theory#bounds-and-extrema-maximal-is-not-greatest) and [Lattices](./order-theory#joins-meets-and-lattices).
 
 ### Equivalence Relation
 
-> [!definition] Equivalence relation
-> A relation on a set is an **equivalence relation** exactly when it is **reflexive, symmetric and transitive**. Its equivalence classes partition the set.
-
-
-**Equivalence Relation:** An equivalence relation is a way to formally
-define when two elements of a set can be considered "equivalent" or
-"similar" in some sense, according to specific criteria.
-
-Equivalence relations are fundamental in mathematics because they allow
-us to group elements of a set into distinct classes of equivalent items,
-which simplifies the study and understanding of complex structures.
-
-A relation **R** on a set **A** is called an **equivalence relation** if
-it satisfies the following three properties:
-
-1.  **Reflexivity:**
-
-$$
-\forall a \in A : (a,a) \in R
-$$
-
-This means that every element is related to itself.
-
-2.  **Symmetry:**
-
-$$
-\forall a,b \in A \, (R(a,b) \to R(b,a))
-$$
-
-This means that if a is related to b, then b is also related to a.
-
-3.  **Transitivity:**
-
-$$
-\forall a,b,c \in A \, (( R(a,b) \wedge R(b,c) ) \to R(a,c))
-$$
-
-This means that if a is related to b and b is related to c, then a is
-also related to c.
-
-**Worked example: proving congruence modulo $n$ is an equivalence relation.** Fix a positive integer $n$. For integers $a, b$, define $a \equiv b \pmod{n}$ (read "$a$ is congruent to $b$ modulo $n$") to mean *$n$ divides $a - b$*, that is, $a - b = nk$ for some integer $k$. This is the relation whose classes were drawn earlier for $n = 3$; now we verify all three properties from the definition.
-
-- **Reflexive.** For any $a$, $\ a - a = 0 = n \cdot 0$, and $0$ is an integer, so $n \mid (a - a)$ and $a \equiv a$. $\checkmark$
-- **Symmetric.** Suppose $a \equiv b$, so $a - b = nk$ for some integer $k$. Then $b - a = -(a - b) = n(-k)$, and $-k$ is an integer, so $n \mid (b - a)$ and $b \equiv a$. $\checkmark$
-- **Transitive.** Suppose $a \equiv b$ and $b \equiv c$, so $a - b = nk$ and $b - c = nm$ for integers $k, m$. Add the two equations, and the middle term cancels: $a - c = (a - b) + (b - c) = nk + nm = n(k + m)$. Since $k + m$ is an integer, $n \mid (a - c)$ and $a \equiv c$. $\checkmark$
-
-All three hold, so $\equiv \pmod{n}$ is an equivalence relation. By the partition property below, it splits $\mathbb{Z}$ into the $n$ **residue classes** $[0], [1], \ldots, [n-1]$ (grouped by remainder on division by $n$), recovering the three-box picture for $n = 3$. $\blacksquare$
-
-**Key Concepts and Why They Matter:**
-
-**1. Partitioning a Set:**
-
-**Definition:** An equivalence relation partitions a set into
-equivalence classes. Each equivalence class is a subset of the original
-set, containing elements that are all equivalent to each other under the
-given relation.
-
-**Importance:** This partitioning allows us to break down large or
-complex sets into smaller, more manageable subsets. Instead of dealing
-with individual elements, we can work with entire classes, which
-simplifies many problems in mathematics.
-
-**Example:** Consider the set of all integers. The equivalence relation
-"congruence modulo 3" divides this set into three equivalence classes:
-numbers that leave a remainder of 0, 1, or 2 when divided by 3. Instead
-of analyzing each integer separately, we can study the properties of
-these three classes.
-
-**Why Equivalence Relations Matter:**
-
--   **Classification and Simplification:** They provide a systematic way
-    to classify and simplify mathematical objects by grouping elements
-    that share a common property. This is particularly valuable in
-    reducing complexity.
-
--   **Revealing Structure:** Equivalence relations often reveal hidden
-    structure in a set, allowing us to understand it more deeply by
-    studying its equivalence classes rather than individual elements.
-
--   **Generalization:** They generalize the concept of equality,
-    enabling broader comparisons and connections between different
-    mathematical entities.
-
--   **Applications Across Mathematics:** They are fundamental in many
-    areas of mathematics and its applications, from abstract algebra and
-    geometry to computer science and topology.
+An **equivalence relation** is reflexive, symmetric, and transitive. Read the complete treatment in [Equivalence Relations and Quotients](./equivalence-relations).
 
 ### Equivalence Classes
 
-![Nine integers 0 through 8 drawn as dots and partitioned into three disjoint colored boxes by congruence modulo 3: the class of 0 holds 0, 3, 6; the class of 1 holds 1, 4, 7; and the class of 2 holds 2, 5, 8, showing that an equivalence relation partitions a set into disjoint classes](./media/fr-equivalence-classes.png)
-
-**Equivalence Class:** Given an equivalence relation **R** on a set **A** and an element $a \in A$, the equivalence class of **a** is the set of all elements in **A** that are related to **a** under **R**.
-
-**Notation:** $[a]_R$ or simply $[a]$
-
-**Definition:** $[a] = \{x \in A \mid (a,x) \in R\}$ or $[a] = \{x \in A \mid aRx\}$
-
-**Example 1 - Congruence modulo 3:**
-- Let **R** be "congruence modulo 3" on integers: $a R b$ if $3 \mid (a-b)$
-- $[0] = \{\ldots, -6, -3, 0, 3, 6, 9, \ldots\}$ (all multiples of 3)
-- $[1] = \{\ldots, -5, -2, 1, 4, 7, 10, \ldots\}$ (numbers with remainder 1)
-- $[2] = \{\ldots, -4, -1, 2, 5, 8, 11, \ldots\}$ (numbers with remainder 2)
-- Note: $[3] = [0]$, $[4] = [1]$, $[5] = [2]$ (classes repeat)
-
-**Example 2 - Same age relation:**
-- Let **R** be "has the same age" on a set of people
-- $[Alice] = \{\text{all people who are the same age as Alice}\}$
-- If Alice is 25, then $[Alice] = \{\text{all 25-year-olds}\}$
-
-**Properties of Equivalence Classes:**
-
-1. **Non-empty:** Every equivalence class contains at least one element (itself)
-   - $a \in [a]$ (by reflexivity)
-
-2. **Partition property:** Either $[a] = [b]$ or $[a] \cap [b] = \emptyset$
-   - Two equivalence classes are either identical or completely disjoint
-   - No element belongs to more than one equivalence class
-
-3. **Union equals the whole set:** $\bigcup_{a \in A} [a] = A$
-   - Every element belongs to some equivalence class
-
-4. **Representative element:** Any element of an equivalence class can serve as its representative
-   - If $b \in [a]$, then $[b] = [a]$
+The class $[a]$ contains all elements equivalent to $a$. See [Classes and the class equality criterion](./equivalence-relations#equivalence-classes-what-gets-identified).
 
 ### Quotient Set (Set of Equivalence Classes)
 
-**Quotient Set:** The set of all distinct equivalence classes under an equivalence relation **R** on set **A**.
-
-**Notation:** $A/R$ (read as "A modulo R" or "A mod R")
-
-**Definition:** $A/R = \{[a] \mid a \in A\}$
-
-**Example 1 - Integers modulo 3:**
-- $\mathbb{Z}/R = \{[0], [1], [2]\}$
-- Only three distinct equivalence classes
-
-**Example 2 - Rational numbers:**
-- Consider fractions: $(a,b) R (c,d)$ if $ad = bc$ (equivalent fractions)
-- $\mathbb{Z} \times \mathbb{Z}^* / R = \mathbb{Q}$ (the rational numbers)
-- $[(2,3)] = [(4,6)] = [(6,9)] = \ldots$ (all representations of 2/3)
-
-**Example 3 - Points on a circle:**
-- Let **R** be "has the same distance from origin" on $\mathbb{R}^2$
-- Each equivalence class is a circle
-- The quotient set represents all possible distances (all non-negative reals)
+The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes must be independent of representatives. See [Quotient sets and factorization](./equivalence-relations#quotient-sets-classes-become-objects).
 
 ### Composition of Relations
 
