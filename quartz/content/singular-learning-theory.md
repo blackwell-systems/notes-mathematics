@@ -42,6 +42,10 @@ is the **set of true parameters** (read "W-naught" or "W-zero"). It is the geome
 
 ## Regular vs. Singular: The Fork in the Road
 
+> [!distinction] Global identifiability and local curvature
+> Identifiability of the **parameter-to-distribution map** is a global property; full-rank Fisher information is a local regularity property. A discrete parameter symmetry can break identifiability without making every local Hessian degenerate.
+
+
 ![Two loss-landscape contour plots: a regular model with K equal to w1 squared plus w2 squared forming a parabolic bowl whose set of best-fit parameters W-zero is a single point at the origin; and a singular model with K equal to w1 squared, flat along w2, whose W-zero is an entire line, a positive-dimensional flat valley](./media/slt-regular-vs-singular.png)
 
 Everything hinges on the shape of $W_0$ and on one matrix.
@@ -93,9 +97,13 @@ $$
 
 ## Watanabe's Fundamental Theorem
 
+> [!theorem] Free-energy asymptotics need model hypotheses
+> The RLCT formula is derived under specified **analytic**, **statistical**, and **prior** assumptions. It is not unconditional for every model. The regular case yields the familiar $d/2$ penalty; singular behavior can alter the leading coefficient and pole multiplicity.
+
+
 ![A plot of the complexity penalty, the free energy minus the linear energy term, against sample size n on a log scale: the regular BIC penalty grows as d over 2 times log n, while the singular penalty grows only as lambda log n minus the quantity m minus 1 times log log n, staying well below it, with the gap labeled as BIC over-penalizing](./media/slt-free-energy.png)
 
-Here is the central result of the field. Sumio Watanabe proved that as the sample size grows, the free energy of *any* model (regular or singular) obeys a universal asymptotic expansion:
+The central SLT expansion describes Bayesian free energy for a broad class of **analytic statistical models under specified regularity and prior assumptions**, including important regular and singular cases:
 
 $$
 F_n = n\, L_n(w_0) + \lambda \log n - (m - 1)\log\log n + O_p(1)
@@ -114,11 +122,15 @@ $$
 F_n^{\text{BIC}} = n L_n(\hat w) + \frac{d}{2} \log n + O_p(1)
 $$
 
-The two formulas agree if and only if $\lambda = d/2$. And that equality holds *exactly* in the regular case: when $W_0$ is a single nondegenerate point, the RLCT equals half the parameter count. **BIC is the regular special case of Watanabe's formula.** For singular models, $\lambda < d/2$, strictly. The model is *effectively simpler* than its parameter count claims, and BIC over-penalizes it.
+The two formulas agree if and only if $\lambda = d/2$. And that equality holds *exactly* in the regular case: when $W_0$ is a single nondegenerate point, the RLCT equals half the parameter count. **BIC is the regular special case of Watanabe's formula.** For many overparameterized singular models, $\lambda<d/2$, but this strict inequality is **not a universal consequence of merely using the word singular**: it depends on the model, contrast, prior, and local geometry. The model is *effectively simpler* than its parameter count claims, and BIC over-penalizes it.
 
-This single inequality, $\lambda < d/2$, is the mathematical content of "overparameterized networks generalize better than their parameter count suggests." The geometry of the loss landscape, not the raw number of weights, sets the complexity.
+A reduced RLCT in the relevant regime is one mathematical mechanism for a smaller Bayesian complexity penalty than raw parameter counting would suggest; it is **not** a general guarantee that overparameterized networks always generalize better. The geometry of the loss landscape, not the raw number of weights, sets the complexity.
 
 ## What the RLCT Actually Is
+
+> [!definition] RLCT through zeta-function poles
+> The RLCT is associated with the smallest relevant positive pole threshold of $\int K(w)^{-z}\varphi(w)\,dw$, for a nonnegative analytic contrast $K$ with suitable prior weight. The **multiplicity** is the pole order, which need not equal a naïve global count of tied coordinate directions.
+
 
 The RLCT deserves a definition you can compute with, not just admire. Its home is the [algebraic geometry](./algebraic-geometry) page, which derives it via *resolution of singularities* (Hironaka's theorem); the short version:
 
@@ -136,11 +148,15 @@ $$
 m = \#\Big\{\, j : \tfrac{h_j + 1}{2k_j} = \lambda \,\Big\}
 $$
 
-The multiplicity $m$ counts how many coordinate directions achieve that minimum. Although the individual exponents depend on *which* resolution you pick, the minimal ratio $\lambda$ does not: it is a **resolution invariant**. Equivalently, and without ever choosing a resolution, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z}\varphi(w)\,dw$ (read "zeta of z"), and the multiplicity $m$ is the *order* of that pole. (With this $K^{-z}$ convention the poles sit at positive $z$, the smallest being $\lambda$; Watanabe's original convention writes $\zeta(z) = \int K(w)^{z}\varphi(w)\,dw$, which carries the same information at the pole $z = -\lambda$, the form the figure below uses. The two differ only in the sign of the exponent.) That intrinsic definition is what makes $\lambda$ a genuine invariant of the model rather than an artifact of the calculation.
+The multiplicity $m$ is **intrinsically the order of the leading zeta pole**. In a particular resolution chart it may be obtained from tied exponent ratios, but simply counting tied coordinates across all charts is not generally sufficient. Although the individual exponents depend on *which* resolution you pick, the minimal ratio $\lambda$ does not: it is a **resolution invariant**. Equivalently, and without ever choosing a resolution, $\lambda$ is the smallest pole of the zeta function $\zeta(z) = \int K(w)^{-z}\varphi(w)\,dw$ (read "zeta of z"), and the multiplicity $m$ is the *order* of that pole. (With this $K^{-z}$ convention the poles sit at positive $z$, the smallest being $\lambda$; Watanabe's original convention writes $\zeta(z) = \int K(w)^{z}\varphi(w)\,dw$, which carries the same information at the pole $z = -\lambda$, the form the figure below uses. The two differ only in the sign of the exponent.) That intrinsic definition is what makes $\lambda$ a genuine invariant of the model rather than an artifact of the calculation.
 
 The RLCT is often called the **effective dimension** or, in interpretability, the **learning coefficient**, because $2\lambda$ plays the role that the parameter count $d$ plays in regular theory.
 
 ## Generalization Error: The Other Face of $\lambda$
+
+> [!distinction] Bayesian averaging and optimization are not the same guarantee
+> RLCT-based learning-curve coefficients concern specific **Bayesian** predictive and sampling regimes. They do not by themselves certify a trained network's stochastic-gradient trajectory, test accuracy, or data efficiency.
+
 
 The free energy tells you which model to *select*; the **generalization error** tells you how well the selected model will *predict* new data. Watanabe's theory pins this down too, and the *same* $\lambda$ governs it. The **Bayes generalization loss** $G_n$ (read "G-sub-n") is the expected log-loss of the posterior predictive distribution on a fresh sample, and its asymptotic is
 
@@ -153,6 +169,10 @@ where $L_0 = L(w_0)$ is the irreducible loss (the entropy of the truth, the best
 For a regular model $\lambda = d/2$, so $\mathbb{E}[G_n] = L_0 + d/(2n)$, exactly the classical result. For a singular model $\lambda < d/2$, the error falls *faster* than the parameter count would predict. In the worked cross example below ($\lambda = \tfrac12$), generalization error decays like $1/(2n)$: half the coefficient of a regular two-parameter model's $1/n$, so the singular model reaches any given accuracy with about half the data. This is the precise sense in which a singularity *helps*: fewer effective dimensions mean less data is needed to reach a given accuracy. The estimators in the next section, WAIC in particular, are exactly ways to measure this $\mathbb{E}[G_n]$ from a single dataset.
 
 ## Estimating the RLCT: WAIC and WBIC
+
+> [!distinction] WAIC and WBIC estimate different quantities
+> **WAIC** targets Bayesian predictive generalization loss; **WBIC** approximates Bayesian free energy under asymptotic conditions. They are not interchangeable estimators of the same quantity.
+
 
 Watanabe's formula is exact but involves $\lambda$, which we usually cannot compute in closed form for a real network. Two estimators make SLT usable in practice; both are developed on the [Bayesian inference](./bayesian-inference) page.
 

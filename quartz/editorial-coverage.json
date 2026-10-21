@@ -9,7 +9,7 @@
       "path": "algebraic-geometry.md",
       "kind": "topic",
       "track": "advanced-mathematics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -216,7 +216,7 @@
       "path": "hypercomplex-numbers.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -225,7 +225,7 @@
       "path": "index.md",
       "kind": "landing",
       "track": "navigation",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -333,7 +333,7 @@
       "path": "number-bases.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -342,7 +342,7 @@
       "path": "number-systems.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -369,7 +369,7 @@
       "path": "order-of-operations.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -396,7 +396,7 @@
       "path": "path-to-slt.md",
       "kind": "learning-path",
       "track": "navigation",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -513,7 +513,7 @@
       "path": "singular-learning-theory.md",
       "kind": "topic",
       "track": "advanced-mathematics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"

@@ -85,7 +85,7 @@ The GitHub Pages workflow runs `--check` **before the site build** and fails whe
 
 ## Migration progress
 
-Six batches now cover the major logic, algebra, calculus, analysis, probability, statistics, information theory and discrete-mathematics chapters. **55 of 63 pages** are tagged `pilot`; none is certified `complete`. The remaining 8 are pending, and responsive/diagram statuses are still unreviewed. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
+Seven content batches have now given **all 63 Markdown pages** first-pass semantic treatment, including the landing page and guided learning path. Every page is tagged `pilot`; **zero are certified `complete`** because mobile, dark-theme, accessibility, diagram and independent proof review are still outstanding. The next phase is visual/semantic acceptance rather than blanket formatting. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
 
 ## Recommended migration batches
 

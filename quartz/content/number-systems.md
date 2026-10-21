@@ -15,6 +15,10 @@ This page tells that story, shows how the systems nest inside one another, and t
 
 ## The Building-Up Story
 
+> [!distinction] Construction versus containment
+> Each extension repairs a missing operation or completeness property. The symbols $\mathbb N\subseteq\mathbb Z\subseteq\mathbb Q\subseteq\mathbb R\subseteq\mathbb C$ are normally understood via **canonical embeddings**, not literal set inclusion of the underlying quotient-construction objects.
+
+
 ![Four stacked number lines showing how each system extends the previous one: the naturals as discrete dots 0, 1, 2, and so on going one direction; the integers adding negatives in both directions; the rationals filling in densely with fractions but still leaving gaps; and the reals as a continuous line that fills every gap, including irrationals like root two and pi](./media/ns-number-line-buildup.png)
 
 ### Natural numbers $\mathbb{N}$
@@ -43,6 +47,10 @@ The integers are closed under addition, subtraction, and multiplication. In the 
 
 ### Rational numbers $\mathbb{Q}$
 
+> [!definition] Rational numbers
+> Each rational is represented by a fraction of integers with **nonzero denominator**, modulo cross-multiplication equivalence. The same rational may have many numerator-denominator representatives.
+
+
 The symbol $\mathbb{Q}$ is read "the rationals" (from *quotient*). We extend $\mathbb{Z}$ by adjoining a quotient $p/q$ for every pair of integers $p$ and $q$ with $q \neq 0$:
 
 $$\mathbb{Q} = \left\{\, \frac{p}{q} \;\middle|\; p, q \in \mathbb{Z},\; q \neq 0 \,\right\}.$$
@@ -62,6 +70,10 @@ where the bar in $0.\overline{3}$ marks the block of digits that repeats without
 ![A number line near root two showing rational approximations 1.4, 1.41, 1.414 crowding in from both sides toward root two, which is marked as a gap the rationals miss and the reals fill](./media/rational-gaps-numberline.png)
 
 ### Real numbers $\mathbb{R}$
+
+> [!theorem] Completeness is the new property
+> The reals form a **complete ordered field**; in the rational Cauchy-sequence construction, completeness is **proved** for the resulting equivalence classes. It is not inherited from the rationals.
+
 
 The symbol $\mathbb{R}$ is read "the reals." Informally, the reals are all the points on a continuous, gapless number line, the rationals *together with* every irrational number like $\sqrt{2}$, $\pi$, and $e$ that fills the holes.
 
@@ -272,6 +284,10 @@ Consecutive terms bunch together fast: the gaps are $|1.4 - 1| = 0.4$, then $|1.
 Both constructions yield the same object up to isomorphism, the unique complete ordered field, as [Real Analysis](./real-analysis) develops.
 
 ### The complex numbers, as a quotient ring
+
+> [!definition] Complex numbers as an algebraic extension
+> $\mathbb C\cong\mathbb R[x]/(x^2+1)$ because the polynomial $x^2+1$ is irreducible over $\mathbb R$. Quotienting imposes the relation $x^2=-1$ without assuming an imaginary object in advance.
+
 
 For pair-operation proofs and an analytic argument for algebraic closure, see [Construction of the Complex Numbers](./construction-of-the-complex-numbers).
 

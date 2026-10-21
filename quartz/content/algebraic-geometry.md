@@ -40,6 +40,10 @@ The surprise is how much geometry is packed into polynomial equations. A single 
 
 ## Affine Varieties
 
+> [!definition] Algebraic zero set
+> For polynomials $f_1,\ldots,f_k$ over a chosen field, $V(f_1,\ldots,f_k)$ consists of **simultaneous zeros** in that field. Over $\mathbb R$ some equations have no real solutions even when they have complex solutions.
+
+
 ### Definition
 
 The central objects of algebraic geometry are **varieties**: the solution sets of systems of polynomial equations.
@@ -106,6 +110,10 @@ The product $fg$ vanishes wherever $f$ vanishes or $g$ vanishes. For example, $V
 
 ## Ideals and the Algebra-Geometry Dictionary
 
+> [!distinction] The ground field matters
+> The familiar ideal/variety anti-correspondence via **radical ideals** is stated over an **algebraically closed field**. Over $\mathbb R$, real radicals and real algebraic geometry require extra care; do not apply the complex Nullstellensatz without its field hypothesis.
+
+
 ### Polynomials That Vanish on a Variety
 
 Given a variety $V$, many different polynomials vanish on it (evaluate to zero at every point of $V$). For example, the polynomial $x^2 + y^2 - 1$ vanishes on the unit circle, but so does $(x^2 + y^2 - 1)^2$, and so does $x(x^2 + y^2 - 1)$, and so does $(x^2 + y^2 - 1)(3x^5 - 7y + 2)$.
@@ -145,6 +153,10 @@ Reading the table, notice the pattern in the second row: the correspondence is *
 
 ### Hilbert's Nullstellensatz
 
+> [!theorem] Nullstellensatz, algebraically closed case
+> For an ideal $I$ in $k[x_1,\ldots,x_n]$ with **algebraically closed** $k$, the ideal of polynomials vanishing on $V(I)$ is the **radical** $\sqrt I$. This precise statement underlies the variety/radical-ideal dictionary.
+
+
 The formal statement of this correspondence is **Hilbert's Nullstellensatz** ("zero-locus theorem"), one of the foundational results of algebraic geometry.
 
 **Theorem (Nullstellensatz, simplified).** Over an algebraically closed field (like $\mathbb{C}$, but not $\mathbb{R}$), the operations $V(\cdot)$ and $I(\cdot)$ set up a bijection between varieties and radical ideals.
@@ -156,6 +168,10 @@ The technical details (radical ideals, algebraic closure) are important for the 
 This dictionary is what makes algebraic geometry so powerful and so different from differential geometry or topology, where the tools are analytic rather than algebraic.
 
 ## Singular Points
+
+> [!distinction] Singular point versus nonidentifiable parameter
+> A geometrically singular zero set, a parameterization with redundant coordinates, and a degenerate **statistical Fisher information** are related but not interchangeable notions. Their equivalence requires additional local/model hypotheses.
+
 
 ### Smooth vs. Singular
 
@@ -341,6 +357,10 @@ which is a product of one-dimensional integrals, each of which can be evaluated 
 
 ## The Real Log Canonical Threshold (RLCT)
 
+> [!definition] Real log canonical threshold
+> Under the analytic and integrability hypotheses used in singular learning theory, the RLCT is the leading pole threshold of a zeta integral built from a **nonnegative loss** and a **prior weight**. It depends on both the loss and relevant support/prior behavior, not just raw parameter count.
+
+
 ### Definition
 
 The **real log canonical threshold** (RLCT), denoted $\lambda$, is the quantity extracted from the normal form after resolution. It is defined as
@@ -379,6 +399,10 @@ Classical model selection criteria like BIC assume $\lambda = d/2$ (no singulari
 
 ## Watanabe's Main Theorem
 
+> [!theorem] Conditional singular free-energy expansion
+> Under the regularity, analyticity, prior, and data-generating assumptions required by the relevant SLT theorem, free energy has a leading complexity correction involving the **RLCT** $\lambda$ and its pole multiplicity $m$. The expansion is **not a theorem about arbitrary models without hypotheses**.
+
+
 ### Statement
 
 With the RLCT defined, we can state the central result of singular learning theory. The **free energy** $F_n$ (the negative log marginal likelihood) satisfies
@@ -392,7 +416,7 @@ where:
 - $n$ is the number of data points.
 - $L_n(w_0)$ is the training loss at the optimal parameters.
 - $\lambda$ is the RLCT, the effective model complexity.
-- $m$ is the **multiplicity**: the order of the pole of the zeta function at $\lambda$, equal to the number of coordinate directions attaining the minimal ratio.
+- $m$ is the **multiplicity**: the order of the pole of the zeta function at $\lambda$, given intrinsically by the **order of the associated zeta-function pole**. In a chosen resolution chart this can sometimes be read from tied exponents, but not by naively counting such directions across all charts.
 - $O_p(1)$ denotes a term that is bounded in probability.
 
 ### Connection to Classical Theory
@@ -407,7 +431,7 @@ This is the **Bayesian Information Criterion (BIC)**, the standard result from c
 
 ### The WAIC/WBIC Connection
 
-Watanabe also showed that two computable quantities approximate the free energy:
+Two widely applicable Bayesian criteria connect these asymptotics to **different targets**: WAIC estimates predictive generalization loss, while WBIC approximates the **free energy** under suitable hypotheses:
 
 **WAIC** (Widely Applicable Information Criterion): a corrected training loss that estimates the generalization error. Unlike AIC, it is valid even for singular models.
 

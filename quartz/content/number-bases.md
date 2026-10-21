@@ -12,6 +12,10 @@ Every whole number you write down is a coded message. The string `3204` is not t
 
 ## Positional Notation and Place Value
 
+> [!definition] Positional base notation
+> In base $b\ge2$, a digit string represents a sum of **digits times powers of $b$**. The numeral is a representation, not the number itself; each digit must lie between $0$ and $b-1$.
+
+
 We are so used to base 10 that we forget it is a *convention*. When we write $3204$, the position of each digit tells us which power of ten it counts. Reading right to left, the columns are the ones, tens, hundreds, and thousands:
 
 $$
@@ -78,6 +82,10 @@ $$
 So $2A_{16} = 42_{10}$. Remember the $A$ counts as $10$, not as a literal letter.
 
 ## Converting Between Bases
+
+> [!example] Expansion versus repeated division
+> Convert **from** base $b$ by summing digit-weighted powers of $b$; convert a nonnegative integer **to** base $b$ by repeated quotient-and-remainder steps. Both express the same integer in different symbols.
+
 
 There are two directions to handle: into decimal and out of decimal. Between two non-decimal bases you can always route through decimal, but for the binary/hex pair there is a much faster shortcut, given at the end.
 
@@ -189,6 +197,10 @@ Verify in decimal: $1011_2 = 11$ and $0110_2 = 6$, and indeed $11 + 6 = 17$. Che
 
 ## Representing Negative Numbers: Two's Complement
 
+> [!distinction] Two's complement requires a fixed width
+> An $n$-bit two's-complement pattern represents an integer in $[-2^{n-1},2^{n-1}-1]$. Arithmetic wraps modulo $2^n$ at the bit level; whether overflow is permitted, trapped or undefined depends on the programming language or hardware operation.
+
+
 ![A 4-bit two's complement reference table: the sixteen bit patterns 0000 to 1111 with their signed values, where 0000 to 0111 are the nonnegative values 0 to 7 and 1000 to 1111 are the negatives -8 to -1; the leading bit is the sign, and negation means inverting all bits and adding 1, as in 3 equals 0011, invert to 1100, add 1 to get 1101 equals -3](./media/nb-twos-complement.png)
 
 So far every numeral has been non-negative. Hardware, though, works with **fixed-width** registers: a fixed number of bits, say 8 or 32 or 64, and no room for a separate minus sign. The dominant scheme for encoding negatives in a fixed width is **two's complement**.
@@ -226,6 +238,10 @@ Again the sum is nine bits; discarding the overflow leaves $00000010_2 = 2$, whi
 No separate subtraction circuitry is needed, and there is only one representation of zero (unlike sign-and-magnitude schemes, which waste a pattern on "negative zero"). This is why essentially all modern processors use two's complement for signed integers.
 
 ## Fractions in Other Bases
+
+> [!theorem] When a rational expansion terminates
+> A reduced rational $a/q$ has a finite base-$b$ fractional expansion **exactly when** $q$ divides some power of $b$. Equivalently, every prime divisor of $q$ divides $b$.
+
 
 Positional notation extends past the point (the "decimal point" in base 10, more generally the **radix point**). Digits to the *right* of the point count *negative* powers of the base. In base 10, $0.25 = 2\cdot 10^{-1} + 5\cdot 10^{-2} = \tfrac{2}{10} + \tfrac{5}{100}$. The same idea in binary uses negative powers of two:
 

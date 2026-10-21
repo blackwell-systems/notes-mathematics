@@ -2,11 +2,15 @@
 title: "Path to SLT"
 ---
 
-This is a guided reading sequence through these notes with a single destination: [Singular Learning Theory](./singular-learning-theory), the mathematical theory of why overparameterized models generalize. Unlike the general [reading order on the home page](./), which surveys all of mathematics, this path is ruthlessly filtered. Every page listed here exists on the route because SLT genuinely needs it, and each entry says *what* SLT borrows from it. If you only care about reaching the summit, this is the trail.
+This is a guided reading sequence through these notes with a single destination: [Singular Learning Theory](./singular-learning-theory), a mathematical account of Bayesian inference and complexity in singular statistical models. Unlike the general [reading order on the home page](./), which surveys all of mathematics, this path is ruthlessly filtered. Every page listed here exists on the route because SLT genuinely needs it, and each entry says *what* SLT borrows from it. If you only care about reaching the summit, this is the trail.
 
 The route has four stages: the **language** you reason in, the **analysis** that makes limits and integrals rigorous, the **probability** that turns models into distributions, and the **geometry** that measures singularities. SLT sits where all four meet.
 
 ## How to Use This Path
+
+> [!distinction] Reading path versus proof dependencies
+> This page is an **instructional route**. Each linked topic supplies vocabulary or theorems used in SLT, but the order is not a formally minimal dependency graph. The full SLT asymptotics also require assumptions about the statistical model and prior.
+
 
 Read top to bottom. Each stage assumes the ones above it. If a page assumes something you do not have, follow its own "builds on" links backward, then return. You do not need every worked example on every page; you need the concepts flagged below. A reader comfortable with undergraduate math can skim Stages 1-2 and focus on 3-4.
 
@@ -22,6 +26,10 @@ SLT is stated in the language of sets, functions, and logic. You cannot define t
 **What SLT takes from Stage 1:** the vocabulary to state the learning problem precisely, and the concept of injectivity, whose *failure* defines a singular model.
 
 ## Stage 2: Analysis, the Rigor Layer
+
+> [!definition] Why integration matters
+> Bayesian evidence integrates the likelihood over parameter space. Proving its large-sample asymptotics requires **integrability**, carefully controlled limits, and the behavior of the loss near best-fitting parameters.
+
 
 Watanabe's fundamental formula is an asymptotic statement ($n \to \infty$) about an integral. Making it rigorous means controlling limits, swapping limits with integrals, and integrating over sets of complicated geometry. That is exactly what analysis and measure theory provide.
 
@@ -46,18 +54,26 @@ SLT is a theory of *Bayesian* learning. Its central object, the free energy, is 
 
 ## Stage 4: The Geometry of Singularities
 
+> [!distinction] Local singularity is not always a point of a polynomial variety
+> In analytic statistical models, the relevant loss zero set and its **resolved analytic structure** govern the RLCT. Not every statistical model has a globally polynomial parameterization; algebraic geometry provides central techniques but its polynomial examples are a **starting point**.
+
+
 This is the stage that makes the theory *singular* rather than classical. The complexity penalty in the free energy is not the parameter count; it is a geometric invariant of the loss landscape's singularities.
 
-14. [Linear Algebra Foundations](./linear-algebra-foundations) — rank, eigenvalues, and positive definiteness; a model is singular exactly when the Fisher information matrix drops rank.
+14. [Linear Algebra Foundations](./linear-algebra-foundations) — rank, eigenvalues, and positive definiteness; a degenerate Fisher information matrix signals an important local failure of regularity, while global nonidentifiability is a separate issue.
 15. [Optimization](./optimization) — convexity and gradient descent; singular models have non-convex, degenerate loss landscapes, which is *why* classical optimization intuition misleads.
 16. [Algebraic Geometry](./algebraic-geometry) — varieties, singular points, resolution of singularities (Hironaka), and the real log canonical threshold $\lambda$ (read "lambda"). This is where $\lambda$ is defined and computed.
 
-**What SLT takes from Stage 4:** the RLCT $\lambda$ itself, extracted from the resolved normal form of the loss, and the fact that $\lambda < d/2$ for singular models.
+**What SLT takes from Stage 4:** the RLCT $\lambda$ itself, extracted from the resolved normal form of the loss, and how a reduced RLCT can yield a complexity penalty below $d/2$ in important singular models.
 
 ## The Summit
+
+> [!theorem] Scope of the capstone
+> Watanabe-style Bayesian free-energy asymptotics use the **RLCT** and its multiplicity under specific model and prior hypotheses. They generalize regular asymptotics but do not promise better generalization for every trained neural network.
+
 
 17. [Singular Learning Theory](./singular-learning-theory) — everything above assembles here. Watanabe's fundamental formula, the RLCT as effective dimension, WAIC/WBIC, and the local learning coefficient $\hat\lambda$ (read "lambda-hat") that connects the theory to developmental interpretability.
 
 ## The One-Paragraph Version
 
-If you want the throughline in a sentence before committing to the climb: a statistical model is a *function* (Stage 1) from parameters to distributions; its quality is the KL *integral* $K(w)$ (Stages 2-3); the set where that integral is zero is a geometric *variety* whose singularities (Stage 4) are measured by the RLCT $\lambda$; and Watanabe's theorem says $\lambda$, not the parameter count, is the true complexity of the model. Everything else is filling in those four nouns: function, integral, variety, invariant.
+If you want the throughline in a sentence before committing to the climb: a statistical model is a *function* (Stage 1) from parameters to distributions; its quality is the KL *integral* $K(w)$ (Stages 2-3); the set where that integral is zero is a geometric *zero set* whose analytic singularities (Stage 4) are measured by the RLCT $\lambda$; and Watanabe's theorem says $\lambda$ enters the leading Bayesian complexity penalty under the theorem's hypotheses, rather than an unconditional parameter-count rule. Everything else is filling in those four nouns: function, integral, variety, invariant.

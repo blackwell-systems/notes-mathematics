@@ -136,8 +136,33 @@ Regression examples were added for combination counts, degree sums, KL asymmetry
 
 **Coverage after batch 6:** 55 pilot pages, 8 pending, 0 fully reviewed. Mobile, dark-theme and diagram acceptance remain pending; semantic migration is not a substitute for mathematical peer review.
 
+## Batch 7: remaining foundations, advanced chapters and navigation (2026-10-20)
+
+| Article | Semantic work |
+| --- | --- |
+| [Number Bases](./content/number-bases.md) | positional notation, conversions, fixed-width two's complement, terminating base expansions |
+| [Number Systems](./content/number-systems.md) | canonical embeddings, rational quotient representation, real completeness, complex quotient construction |
+| [Order of Operations](./content/order-of-operations.md) | precedence and associativity, undefined operations, ambiguity requiring explicit parentheses |
+| [Hypercomplex Numbers](./content/hypercomplex-numbers.md) | Cayley-Dickson doubling, quaternion noncommutativity, octonion alternativity, sedenion zero divisors |
+| [Algebraic Geometry](./content/algebraic-geometry.md) | zero sets, real versus algebraically closed fields, precise Nullstellensatz, distinctions between geometric and statistical singularity, RLCT hypotheses |
+| [Singular Learning Theory](./content/singular-learning-theory.md) | identifiability versus Fisher rank, assumptions for free-energy asymptotics, RLCT pole multiplicity, Bayesian generalization scope, WAIC versus WBIC |
+| [Mathematics Reference](./content/index.md) | navigation callouts, learning path versus proof dependencies, corrected topic and branch counts |
+| [Path to SLT](./content/path-to-slt.md) | reading route versus formal theorem dependencies, prerequisites for asymptotic integrals, analytic-zero-set caveats, Bayesian scope |
+
+**Substantive corrections:**
+
+- The site contains **61 topic chapters**, plus the landing page and guided SLT path, for **63 total Markdown pages**. The landing page now reports 61 topics and 14 topic branches instead of 62 and 13.
+- The real algebraic-geometric dictionary needs a **ground-field qualifier**. Nullstellensatz's ordinary radical-ideal formulation applies over algebraically closed fields; the real setting needs extra care.
+- SLT expansions are not universal over arbitrary models; they require analytic/model/prior assumptions. The zeta pole's **order** is the intrinsic multiplicity, not a naïve count of tied coordinate directions across all resolution charts. Singularity alone does not automatically justify $\lambda<d/2$ in every context.
+- **WAIC** estimates predictive performance, whereas **WBIC** approximates free energy under asymptotic conditions; describing both as free-energy estimators was misleading.
+- The main guided path now distinguishes the global identifiability and local Fisher-rank notions rather than treating them as identical.
+
+**Coverage after batch 7:** all **63/63 Markdown pages have pilot semantic treatment**. This is **first-pass editorial migration**, not final acceptance. The coverage manifest correctly keeps **0 pages** at \`semanticReview:"complete"\`, with mobile, dark-mode, diagram, and independent mathematical proof review still outstanding.
+
+The arithmetic harness now checks finite-width binary examples, terminating representations and quaternion noncommutativity, plus basic monomial RLCT coefficients.
+
 ## Site-wide baseline
 
-There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 6, **55 pages are pilots**, **8 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 7, **all 63 pages have pilot semantic treatment** and **zero are marked completely reviewed**. Subsequent work must audit and accept mobile/dark-mode rendering, diagrams, accessibility, and proof accuracy. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
-Next batches should cover the remaining number-system overview, number bases, order of operations, advanced algebraic geometry, hypercomplex numbers, singular learning theory and the two navigation pages.
+The next stage is not another wholesale semantic migration: perform **visual regression and accessibility checks**, review the existing diagrams, and complete page-by-page mathematical/editorial acceptance without marking proof review as finished merely because CI passes.

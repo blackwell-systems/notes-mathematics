@@ -14,6 +14,10 @@ So why go further at all? Because dimension and structure are their own reward. 
 
 ## The Cayley–Dickson Construction
 
+> [!definition] Cayley-Dickson doubling
+> Represent a new algebra element by a pair of elements from the previous algebra, with specified multiplication and conjugation. Every doubling increases the real vector-space dimension by a factor of **two**, while changing which algebraic laws survive.
+
+
 There is a single mechanical recipe that generates $\mathbb{C}$ from $\mathbb{R}$, then $\mathbb{H}$ from $\mathbb{C}$, then $\mathbb{O}$ from $\mathbb{H}$, and onward, each time **doubling the dimension**. It is called the **Cayley–Dickson construction**.
 
 Start with an algebra that has a **conjugation** $x \mapsto \bar{x}$ (for the reals, $\bar{x} = x$; for the complex numbers, it flips the sign of the imaginary part). A new element is an ordered **pair** $(a, b)$ of old elements, with multiplication and conjugation defined by
@@ -27,6 +31,10 @@ Applied to $\mathbb{R}$ (where conjugation does nothing), a pair $(a, b)$ behave
 The price of doubling is paid in structure. At each rung a familiar law quietly fails, and the sequence of losses is the real story of this page.
 
 ## Quaternions $\mathbb{H}$: Losing Commutativity
+
+> [!distinction] Invertible does not mean commutative
+> Quaternions are a **noncommutative associative division algebra**. Every nonzero quaternion has an inverse, but $pq$ and $qp$ need not agree.
+
 
 The **quaternions** (read "H", for William Rowan Hamilton, who carved the defining relations into a Dublin bridge in 1843) are four-dimensional numbers
 $$
@@ -79,6 +87,10 @@ So $i \mapsto j$: the vector $(1,0,0)$ rotates to $(0,1,0)$, exactly a $90°$ tu
 
 ## Octonions $\mathbb{O}$: Losing Associativity
 
+> [!distinction] Alternativity is weaker than associativity
+> Octonions satisfy identities such as $(aa)b=a(ab)$, but arbitrary triple products may depend on parentheses. Their normed division structure survives even though full **associativity fails**.
+
+
 Double once more and you reach the eight-dimensional **octonions** (read "O"), with a real part and seven imaginary units $e_1, \ldots, e_7$. They are still a **division algebra** and still **normed** ($\lvert pq \rvert = \lvert p \rvert \lvert q \rvert$), so you can divide and the norm still multiplies. But the next law is gone: **octonion multiplication is not associative**. In general
 $$
 (ab)c \ne a(bc).
@@ -102,6 +114,10 @@ The complex numbers, invented to solve $x^2 + 1 = 0$, turned out to be woven int
 **The honest caveat.** None of the octonion story is confirmed physics. The dimension coincidences are seductive, but decades of octonion-inspired work have not yet produced a *tested* prediction the way complex quantum mechanics now has, and serious physicists are split on whether "dims 3, 4, 6, 10" is a deep clue or a beautiful accident. The very result that ends the tower is itself a caution: the good behavior bottoms out at dimension 8 for the topological reasons the next section makes precise, so the octonions may be the *last* place this magic occurs rather than the first rung of an endless supply. The disciplined stance mirrors the systems themselves: proven fundamental for $\mathbb{C}$, structural but reducible for $\mathbb{H}$, and for $\mathbb{O}$ one of the most intriguing unsettled questions in mathematical physics.
 
 ## Sedenions $\mathbb{S}$ and the End of the Line
+
+> [!counterexample] Zero divisors prevent division
+> Sedenions contain **nonzero** elements $a,b$ with $ab=0$. As a consequence, the ordinary no-zero-divisors argument needed for multiplicative inverses fails, unlike quaternions and octonions.
+
 
 One more doubling gives the sixteen-dimensional **sedenions** (read "S"), and here the tower breaks in a decisive way: **sedenions have zero divisors**. There exist nonzero sedenions whose product is zero, for example (in a standard basis)
 $$

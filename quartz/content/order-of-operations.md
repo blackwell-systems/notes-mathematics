@@ -8,7 +8,7 @@ enables: ["algebraic-structures", "functions-relations"]
 > **Builds on:** [Number Systems](./number-systems)
 > **Leads to:** [Algebraic Structures](./algebraic-structures) · [Functions & Relations](./functions-relations)
 
-An arithmetic expression like $3 + 4 \times 2^2 - (5 - 1)$ (read "three plus four times two squared minus, open paren, five minus one, close paren") is ambiguous until we agree on *which operation to do first*. Do you add $3 + 4$ before multiplying, or multiply first? The two readings give different answers, and only one is correct by convention. The **order of operations** is that convention: a fixed set of priority rules that makes every expression evaluate to exactly one value. It is the grammar of arithmetic. Every later topic, from solving equations to reading a function definition, silently depends on it, which is why it belongs at the very foundation.
+An arithmetic expression like $3 + 4 \times 2^2 - (5 - 1)$ (read "three plus four times two squared minus, open paren, five minus one, close paren") is ambiguous until we agree on *which operation to do first*. Do you add $3 + 4$ before multiplying, or multiply first? The two readings give different answers, and only one is correct by convention. The **order of operations** is a convention for parsing well-formed arithmetic expressions; it does not make undefined operations valid, and unclear notation may still need explicit grouping. It is the grammar of arithmetic. Every later topic, from solving equations to reading a function definition, silently depends on it, which is why it belongs at the very foundation.
 
 This is not a deep theorem; it is an agreement. But it is an agreement mathematicians, calculators, and programming languages all share, so learning it once lets you read any expression unambiguously.
 
@@ -24,6 +24,10 @@ Both are valid arithmetic, but they disagree. If everyone chose freely, the same
 The full convention extends this idea to all the basic operations, ranking them by priority.
 
 ## The Priority Ranking
+
+> [!definition] Expression parsing convention
+> Grouping binds most tightly; exponentiation precedes multiplication/division; addition/subtraction come last. At shared precedence, **multiplication and division** (and likewise addition/subtraction) ordinarily associate left to right. The rule governs **well-formed expressions with defined operations**.
+
 
 Evaluate an expression by handling higher-priority operations first. From highest to lowest:
 
@@ -42,6 +46,10 @@ This ranking is often remembered by an acronym:
 They describe the *same* rule. Note that PEMDAS lists M before D and BODMAS lists D before M; this apparent conflict is resolved by the tie-breaker in the next section.
 
 ## The Two Tie-Breakers That Everyone Forgets
+
+> [!distinction] PEMDAS does not put M ahead of D
+> Multiplication and division share one precedence level. Evaluate an ungrouped chain in the specified associativity order rather than assuming one operation always dominates the other.
+
 
 The acronyms hide two subtleties that cause most real mistakes.
 
@@ -110,6 +118,10 @@ the bar acts like parentheses around the top and the bottom: it means $(6 + 4) \
 **Signs and exponents.** $-3^2$ means $-(3^2) = -9$, because the exponent binds tighter than the negation. To square the negative number, you must write $(-3)^2 = 9$. This distinction matters constantly in algebra.
 
 ## A Note on Ambiguous Notation
+
+> [!counterexample] A convention cannot fix ambiguous writing
+> Juxtaposition, unary minus and exponent towers are not always parsed identically by calculators and authors. When a string admits plausible competing readings, add **explicit parentheses** instead of arguing from acronyms.
+
 
 The order of operations resolves *most* expressions, but a few informal notations remain genuinely ambiguous and are best avoided or clarified with parentheses.
 

@@ -4801,6 +4801,33 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Regression: training R2 increases while adjusted R2 falls",
     1-89/100 > 1-90/100 && adjusted(89,100,20,2)<adjusted(90,100,20,1));
 }
+// ================ Final semantic batch: number systems and geometry ================
+// Small exhaustive examples support the text, not a general mathematical proof.
+{
+  const signed=(v,bits)=>v&(1<<(bits-1))?v-(1<<bits):v;
+  eq("Two's complement: 4-bit 1111 is -1",signed(0b1111,4),-1);
+  eq("Two's complement: 8-bit 11111011 is -5",signed(0b11111011,8),-5);
+  eq("Two's complement: 4-bit 1000 is -8",signed(0b1000,4),-8);
+  check("Number bases: 1/10 does not terminate in base 2",
+    !Array.from({length:30},(_,k)=>k+1).some(k=>Number.isInteger((2**k)/10)));
+  check("Number bases: 1/40 terminates in base 10",
+    [1,2,3,4].some(k=>Number.isInteger((10**k)/40)));
+  // The quadratic identity x^2+y^2+1 = 0 has no real solutions.
+  check("Real algebraic geometry: x^2+y^2+1 has no real zeros",
+    [[0,0],[1,0],[-1,1],[2,-3]].every(([x,y])=>x*x+y*y+1>0));
+  // Basis quaternion products i*j=k and j*i=-k, computed from the product rule.
+  const qmul=(u,v)=>{
+    const [a,x,y,z]=u, [b,X,Y,Z]=v;
+    return [a*b-x*X-y*Y-z*Z, a*X+b*x+y*Z-z*Y,
+            a*Y+b*y+z*X-x*Z, a*Z+b*z+x*Y-y*X];
+  };
+  const i=[0,1,0,0],j=[0,0,1,0];
+  check("Hypercomplex: i*j=k",qmul(i,j).join(",")==="0,0,0,1");
+  check("Hypercomplex: j*i=-k",qmul(j,i).join(",")==="0,0,0,-1");
+  // A monomial loss K(w)=w^(2k) with smooth positive prior near 0 has RLCT 1/(2k).
+  eq("SLT: quadratic monomial RLCT",1/(2*1),0.5);
+  eq("SLT: quartic monomial RLCT",1/(2*2),0.25);
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

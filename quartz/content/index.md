@@ -4,13 +4,17 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **62 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **61 topics** across 14 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
 > **Heading for singular learning theory?** There is a dedicated guided route: [Path to SLT](./path-to-slt) orders every prerequisite from set notation to the [Singular Learning Theory](./singular-learning-theory) capstone, with a note on why each step is needed.
 
 ## How to Use These Notes
+
+> [!distinction] A map is not a prerequisite proof
+> The reading order is **one suggested route**, not a claim that every chapter depends on every earlier chapter. Follow each page's **Builds on** links when you need its formal assumptions; independent branches (such as early group theory) can be studied in parallel.
+
 
 1. **As a reference:** Jump to any topic. Use the search (top left) or explorer (left sidebar) to find what you need.
 
@@ -63,6 +67,10 @@ The [group-theory branch](./group-theory-foundations) can begin after sets and f
 - [Number Bases](./number-bases) (binary, octal, hexadecimal, conversions, two's complement, floating point)
 
 ## Group Theory
+
+> [!example] One independent branch
+> From **sets and functions**, you can study groups, homomorphisms, quotients and actions without first constructing the real or complex number fields. Those branches reconnect when studying rings, fields and linear algebra.
+
 
 - [Group Theory Foundations](./group-theory-foundations) (group axioms, cancellation, subgroups, cyclic groups, cosets, Lagrange, Fermat)
 - [Homomorphisms and Quotient Groups](./group-homomorphisms-quotients) (normality, kernels, quotient well-definedness, isomorphism theorems, direct products)
