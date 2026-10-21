@@ -491,30 +491,135 @@ Because $\mathbb R$ is a field it has no zero divisors. Either $u=v$ or $u+v=0$.
 
 We may now **define** $\sqrt t$ (read "the nonnegative square root of t") for *every* $t\geq0$, not only $t=2$. This theorem justifies the later modulus formula $\sqrt{a^2+b^2}$ in [Construction of the Complex Numbers](./construction-of-the-complex-numbers). It also identifies the exact dependency: arbitrary real square roots are consequences of completeness and ordered-field laws, not independent arithmetic axioms.
 
-## A second construction: Dedekind cuts
+## Dedekind cuts as a second representation
 
-There is another standard way to build $\mathbb R$ from $\mathbb Q$, especially illuminating for order theory.
+The Cauchy quotient is our **independent** construction of $\mathbb R$. Dedekind cuts offer a different set of objects. We will specify their arithmetic and prove that it yields the **same ordered field** by comparison with the reals already constructed. This comparison is rigorous, but it is **not an independent existence proof** of the real numbers.
 
-A **Dedekind cut** is a subset $A\subset\mathbb Q$ that is nonempty, not all of $\mathbb Q$, downward closed, and has no greatest element:
-
-$$
-q\in A,\ p<q\Longrightarrow p\in A,
-$$
-
-and for every $q\in A$ some $r\in A$ satisfies $q<r$.
-
-The real number corresponding to $\sqrt2$ is represented by the cut
+A **Dedekind cut** $A\subseteq\mathbb Q$ is nonempty, proper ($A\ne\mathbb Q$), downward closed, and has no greatest member. Let $D$ be the set of all cuts. A rational $q$ is represented by
 
 $$
-A_{\sqrt2}=
-\{q\in\mathbb Q:q<0\ \text{or}\ q^2<2\}.
+\widehat q=\{r\in\mathbb Q:r<q\}.
 $$
 
-Read $A_{\sqrt2}$ as "the cut at square root two." The negative-rational clause is important: a cut must contain **all** rationals below its boundary, including large negative ones whose squares exceed two.
+The expression $\widehat q$ is read "q-hat." Every such set is a cut, and rational density ensures that different rationals produce different cuts.
 
-Order of cuts is inclusion: $A\leq B$ when $A\subseteq B$. Addition can be defined by taking the downward closure of pairwise sums. Multiplication first uses positive cuts and then signs. Proving that these are well-defined field operations takes substantial additional work, but it leads to the same complete Archimedean ordered field up to a unique order-preserving field isomorphism that fixes $\mathbb Q$.
+### Every cut has a unique real boundary
 
-**Do not conflate the methods:** our primary construction was the Cauchy-sequence quotient, whose field and completeness proofs were given above. Dedekind cuts provide an alternative construction and an especially direct picture of the least-upper-bound property. The claim that they agree is a theorem, not an identity between literally identical sets.
+View $\mathbb Q$ inside the complete field $\mathbb R$ we constructed above. Every cut $A$ has an upper bound: if $t\notin A$, downward closure forces every $a\in A$ to satisfy $a<t$. Thus $A$ has a supremum $x$ in $\mathbb R$.
+
+We claim
+
+$$
+\boxed{A=C_x:=\{q\in\mathbb Q:q<x\}.}\tag{DC}
+$$
+
+Every $a\in A$ satisfies $a\leq x$; equality would make it the greatest member, so $a<x$. Conversely if $q<x$ but $q\notin A$, downward closure forces every element of $A$ to be smaller than $q$. Then $q$ would be an upper bound strictly smaller than $x$, a contradiction. This proves DC.
+
+For every real $x$, the set $C_x$ is a cut: it is nonempty and proper by rational density, downward closed, and has no greatest rational member because another rational lies between any $q<x$ and $x$. Its supremum is $x$, again by density. Therefore
+
+$$
+\Phi:D\to\mathbb R,\qquad \Phi(A):=\sup_{\mathbb R}A
+$$
+
+is a **bijection**, with inverse $x\mapsto C_x$. Read $\Phi$ as "Phi." This identifies all cut objects precisely, not merely by a picture of the number line.
+
+### Cut order and addition
+
+Define $A\leq_D B$ exactly when $A\subseteq B$. By DC, this holds if and only if $\Phi(A)\leq\Phi(B)$: if the latter fails, choose a rational strictly between the two boundaries to disprove the inclusion. Thus the cut order is total and agrees with real order.
+
+Define cut addition by a formula involving only **rational** operations:
+
+$$
+\boxed{
+A\oplus B
+=\{q\in\mathbb Q:\exists a\in A,\exists b\in B,\ q<a+b\}.
+}\tag{DA}
+$$
+
+Let $x=\Phi(A)$, $y=\Phi(B)$. If $q<a+b$ with $a<x$ and $b<y$, then $q<x+y$. Conversely, if $q<x+y$, choose a small positive rational $\varepsilon$ with $2\varepsilon<x+y-q$, and rationals $x-\varepsilon<a<x$ and $y-\varepsilon<b<y$. Then $a\in A$, $b\in B$, and $q<a+b$. Hence
+
+$$
+\boxed{A\oplus B=C_{x+y},\qquad
+\Phi(A\oplus B)=\Phi(A)+\Phi(B).}
+$$
+
+In particular $A\oplus B$ is itself a cut. The additive identity is $\widehat0=C_0$.
+
+For negation define
+
+$$
+\boxed{
+\ominus A
+=\{q\in\mathbb Q:\exists t\in\mathbb Q\setminus A,\ q<-t\}.
+}\tag{DN}
+$$
+
+A rational $t\notin C_x$ satisfies $t\geq x$, so $q<-t$ implies $q<-x$. Conversely if $q<-x$, density gives a rational $t$ with $x\leq t<-q$; then $t\notin A$ and $q<-t$. Therefore $\ominus A=C_{-x}$, establishing inverses without guessing sign rules.
+
+### Cut multiplication and field laws
+
+For **positive** cuts $A=C_x$, $B=C_y$ with $x,y>0$, define
+
+$$
+\boxed{
+A\odot B=
+\{q\in\mathbb Q:q<0\ \text{or}\
+\exists a\in A,\exists b\in B,\ a,b>0,\ q<ab\}.
+}\tag{DM}
+$$
+
+If $q$ satisfies this definition, then $q<xy$, since $0<a<x$ and $0<b<y$. Conversely, if $0\leq q<xy$, choose a sufficiently small rational $\varepsilon>0$ so that
+
+$$
+0<\varepsilon<\min(x,y),\qquad
+(x-\varepsilon)(y-\varepsilon)>q.
+$$
+
+Such a choice exists by the Archimedean property and the identity $(x-\varepsilon)(y-\varepsilon)=xy-\varepsilon(x+y)+\varepsilon^2$. Take positive rationals $a,b$ with $x-\varepsilon<a<x$ and $y-\varepsilon<b<y$. Then $a\in A$, $b\in B$, and $q<ab$. Negative $q$ are included by definition. Thus
+
+$$
+\boxed{A\odot B=C_{xy}\qquad(x,y>0).}
+$$
+
+Extend multiplication to arbitrary signs by requiring the zero cut to annihilate products, negating exactly one product when exactly one factor is negative, and using the positive opposites when both are negative. Every cut has exactly one of the three signs because its boundary is a real number. The preceding product identity and the proved negation formula establish, for **every** pair of cuts,
+
+$$
+\boxed{\Phi(A\odot B)=\Phi(A)\Phi(B).}
+$$
+
+Since $\Phi$ is injective, cut associativity, commutativity, and distributivity now follow from those established real-field laws. For example,
+
+$$
+\begin{aligned}
+\Phi(A\odot(B\oplus C))
+&=\Phi(A)(\Phi(B)+\Phi(C))\\
+&=\Phi(A)\Phi(B)+\Phi(A)\Phi(C)\\
+&=\Phi((A\odot B)\oplus(A\odot C)).
+\end{aligned}
+$$
+
+Hence $A\odot(B\oplus C)=(A\odot B)\oplus(A\odot C)$. Multiplicative identity is $\widehat1=C_1$. For nonzero $A$, define $A^{-1}:=C_{1/\Phi(A)}$; the already proved multiplication identity gives $A\odot A^{-1}=\widehat1$. This reciprocal formula is **explicitly defined through the boundary bijection**, so it should not be mistaken for an independent cut-only existence argument.
+
+Thus $D$ is a field and $\Phi$ is an ordered-field isomorphism. All its operations are well-defined because every output equals the uniquely determined cut at the real result.
+
+### Least-upper-bound completeness is intrinsic to cuts
+
+There is a direct proof of completeness using no real boundary map. Let $\mathcal S\subseteq D$ be nonempty and have an upper bound cut $B$. Set
+
+$$
+U:=\bigcup_{A\in\mathcal S}A.
+$$
+
+The union is nonempty; it is proper because $U\subseteq B\ne\mathbb Q$; it is downward closed; and it has no greatest element because each member belongs to a constituent cut with no greatest element. Thus $U$ is a cut.
+
+Every $A\in\mathcal S$ is contained in $U$, so $U$ is an upper bound. Any other upper bound contains every constituent $A$ and therefore contains their union. Consequently
+
+$$
+\boxed{\sup_D\mathcal S=U.}
+$$
+
+The cut order is **complete directly by set union**. We have supplied the full field and order structure for this **alternative representation**, while clearly exposing the one dependency on our earlier Cauchy completion: the field-law and inverse proofs use $\Phi$.
+
 
 ## Why the complete Archimedean ordered field is unique
 

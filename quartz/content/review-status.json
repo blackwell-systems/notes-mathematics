@@ -445,14 +445,15 @@
       "rubricVersion": 1,
       "auditedAt": "2026-10-20",
       "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
-      "note": "Focused review of Cauchy-class construction, explicit rational approximation selection, completeness, and nonnegative square-root existence. Full alternative Dedekind construction is intentionally not established. Subsequently expanded full uniqueness argument for complete Archimedean ordered fields.",
+      "note": "Focused review of Cauchy-class construction, explicit rational approximation selection, completeness, and nonnegative square-root existence. Full alternative Dedekind construction is intentionally not established. Subsequently expanded full uniqueness argument for complete Archimedean ordered fields. Dedekind-cut representation and cut-order completeness now developed in detail using the previously constructed Cauchy real field; independent alternative existence proof not claimed.",
       "findings": [
         {
           "id": "SCO-1",
           "severity": 2,
           "quote": "A second construction: Dedekind cuts",
           "issue": "The alternative cut model introduces cuts and sketches operations, but does not carry out the complete field well-definedness and ordered-completeness proof. Remain explicit that the Cauchy-quotient construction is the proved primary route.",
-          "status": "open"
+          "status": "resolved",
+          "resolution": "Replaced sketch with a full Dedekind-cut object/boundary bijection, rational cut addition and negation, positive cut multiplication, sign extension, field laws transported through the proved isomorphism, and intrinsic union-based order completeness. Explicitly qualified: alternative representation, not a second independent existence proof."
         },
         {
           "id": "PRF-4",
