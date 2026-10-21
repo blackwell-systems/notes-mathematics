@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+<title id="title">A four-element bow-tie poset without a least upper bound</title>
+<desc id="desc">Two incomparable lower points a and b each have upward cover lines to both upper points c and d. The two upper points are incomparable, so although both are upper bounds for a and b, neither is the least upper bound. Therefore the poset is not a lattice. By contrast a four-element diamond with one upper point and one lower point is a lattice.</desc>
+<rect width="1200" height="480" rx="18" fill="#0c1e30"/>
+<text x="62" y="54" fill="#ebf3fa" font-family="Georgia,serif" font-size="35" font-weight="bold">Two upper bounds, no least upper bound</text>
+<text x="62" y="91" fill="#bbcddd" font-family="Arial,sans-serif" font-size="18">The join a ∨ b does not exist because neither c nor d is below the other.</text>
+<rect x="65" y="114" width="610" height="322" rx="14" fill="#172b40" stroke="#416278" stroke-width="2"/>
+<g stroke="#90b3d2" stroke-width="5">
+<path d="M240 335 L240 211" opacity=".0"/>
+<path d="M205 338 L205 201" opacity=".0"/>
+<path d="M225 333 L216 214" opacity=".0"/>
+<line x1="207" y1="332" x2="209" y2="212"/>
+<line x1="207" y1="332" x2="531" y2="212"/>
+<line x1="531" y1="332" x2="209" y2="212"/>
+<line x1="531" y1="332" x2="531" y2="212"/>
+</g>
+<g font-family="Georgia,serif" font-weight="bold" font-size="35" text-anchor="middle">
+<circle cx="209" cy="194" r="34" fill="#645082" stroke="#cfb0f0" stroke-width="3"/>
+<circle cx="531" cy="194" r="34" fill="#645082" stroke="#cfb0f0" stroke-width="3"/>
+<circle cx="209" cy="350" r="34" fill="#255b64" stroke="#77d0c3" stroke-width="3"/>
+<circle cx="531" cy="350" r="34" fill="#255b64" stroke="#77d0c3" stroke-width="3"/>
+<text x="209" y="204" fill="#ffffff">c</text><text x="531" y="204" fill="#ffffff">d</text>
+<text x="209" y="361" fill="#ffffff">a</text><text x="531" y="361" fill="#ffffff">b</text>
+</g>
+<g font-family="Arial,sans-serif" fill="#c9d6e2">
+<text x="725" y="154" font-size="21" font-weight="bold" fill="#efd099">Both c and d are upper bounds</text>
+<text x="725" y="193" font-size="20">a ≤ c and b ≤ c</text>
+<text x="725" y="225" font-size="20">a ≤ d and b ≤ d</text>
+<line x1="726" y1="251" x2="1110" y2="251" stroke="#51697d" stroke-width="2"/>
+<text x="725" y="298" font-size="21" font-weight="bold" fill="#f0b0b8">Neither is the least one</text>
+<text x="725" y="336" font-size="19">c and d are incomparable.</text>
+<text x="725" y="366" font-size="19">So a ∨ b is undefined.</text>
+<text x="725" y="401" font-size="19" fill="#a2c7e7">Conclusion: not a lattice.</text>
+</g>
+</svg>
