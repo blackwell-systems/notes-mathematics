@@ -15,6 +15,10 @@ This page builds on [Calculus](./calculus) (limits, derivatives, integrals) and 
 
 ## Functions of Several Variables
 
+> [!definition] Scalar field on a multivariable domain
+> A map $f:D\subseteq\mathbb R^n\to\mathbb R$ assigns a scalar output to each **allowed vector input**. Its domain matters for level sets, differentiability, constrained extrema, and integrals.
+
+
 A function of several variables takes multiple inputs and produces one output:
 
 $$
@@ -48,6 +52,10 @@ With one variable, the derivative $f'(x)$ tells you the rate of change. With mul
 Think of it this way: you are standing on a hilly surface. The partial derivative with respect to $x$ tells you how steep the hill is if you walk due east (changing $x$, keeping $y$ fixed). The partial derivative with respect to $y$ tells you how steep the hill is if you walk due north (changing $y$, keeping $x$ fixed).
 
 ### The Limit Definition
+
+> [!definition] Partial derivative
+> A partial derivative varies **one coordinate** while holding the others fixed. Existence of all partial derivatives at a point does **not** alone guarantee continuity or total differentiability there.
+
 
 Just as the single-variable derivative is a limit of a difference quotient, the partial derivative is defined as a limit in which only one input is perturbed. For $f(x, y)$, the partial derivative with respect to $x$, written $\frac{\partial f}{\partial x}$ (read "partial f by partial x"), is:
 
@@ -111,6 +119,10 @@ If you slice the surface $z = f(x, y)$ with a plane that holds $y$ constant, you
 
 ## The Gradient Vector
 
+> [!definition] Gradient
+> For differentiable $f:\mathbb R^n\to\mathbb R$, the gradient collects its partial derivatives. It determines the first-order linear approximation and is the direction of steepest local increase **in the Euclidean norm**.
+
+
 ### Collecting All Partial Derivatives
 
 The **gradient** of a scalar function $f(x_1, x_2, \ldots, x_n)$ is the vector of all its partial derivatives:
@@ -144,6 +156,10 @@ This means $-\nabla f$ points in the direction of steepest decrease. If you want
 The gradient was already introduced in the [matrix calculus section](./linear-algebra-computation) of the linear algebra page. There, it appeared as a row vector following the numerator layout convention. Here we write it as a column vector, which is more common in optimization. The content is the same: the gradient collects all partial derivatives into one object.
 
 ## Directional Derivatives
+
+> [!distinction] Directional derivatives versus differentiability
+> Having directional derivatives in every direction does not automatically produce a **single linear derivative map**. The identity $D_uf=\nabla f\cdot u$ follows when $f$ is differentiable and the direction is appropriately interpreted.
+
 
 The partial derivatives measure rates of change along the coordinate axes ($x$-direction, $y$-direction, etc.). But what if you want the rate of change in some other direction?
 
@@ -365,6 +381,10 @@ This process of integrating out a variable is called **marginalization**, and it
 
 ## Gradient Descent
 
+> [!example] Step size and curvature decide descent
+> $x_{k+1}=x_k-\alpha\nabla f(x_k)$ is not automatically a convergent algorithm. Under a Lipschitz-gradient hypothesis, sufficiently small positive steps give a **descent bound**; convergence to a global minimizer requires further assumptions.
+
+
 ### The Algorithm
 
 Gradient descent is the workhorse optimization algorithm of machine learning. The idea is simple: to minimize a function $f(\mathbf{x})$, start at some point and repeatedly take small steps in the direction of steepest decrease (the negative gradient).
@@ -435,7 +455,7 @@ Each step moves closer to the minimum at $(1, 2)$. Notice that $y$ converges fas
 
 ### Convergence: When Does It Stop?
 
-Gradient descent converges when the gradient is close to zero (meaning you are near a critical point). In practice, you stop when:
+A small gradient is a **stopping criterion**, not a guarantee that the iterates have converged to a minimum: it can also occur near saddles, maxima, or broad plateaus. In practice, common stopping criteria include:
 
 - The gradient norm $\|\nabla f\|$ is below a threshold
 - The change in function value $|f(\mathbf{x}_{n+1}) - f(\mathbf{x}_n)|$ is below a threshold
@@ -465,9 +485,13 @@ Here $\beta$ (typically around 0.9) controls how much of the previous velocity i
 
 ## Convexity
 
+> [!theorem] Convexity removes bad local minima
+> On a **convex domain**, any local minimizer of a convex function is a global minimizer. For twice-differentiable functions on an **open convex** domain, the Hessian is positive semidefinite **everywhere** exactly when the function is convex.
+
+
 ### What Makes Gradient Descent Reliable
 
-Gradient descent finds a local minimum, but that local minimum might not be the global minimum. The good news: for **convex** functions, every local minimum is also the global minimum.
+Gradient descent may approach a local minimum, saddle point, or fail to converge without suitable assumptions; even a local minimum might not be global. The good news: for **convex** functions, every local minimum is also the global minimum.
 
 A function $f$ is **convex** if the line segment between any two points on its graph lies above (or on) the graph. Geometrically, it is "bowl-shaped" with no bumps or valleys.
 
@@ -502,6 +526,10 @@ A twice-differentiable function is convex if and only if its Hessian matrix is *
 Many classical ML models (linear regression, logistic regression, SVMs) have convex loss functions, so gradient descent is guaranteed to find the global optimum. Neural networks have non-convex loss functions, so gradient descent might get stuck in a local minimum or saddle point. Understanding convexity tells you when your optimization is trustworthy.
 
 ## Lagrange Multipliers
+
+> [!distinction] A multiplier equation requires regularity
+> At a constrained interior extremum with a differentiable equality constraint $g(x)=c$, the familiar condition $\nabla f=\lambda\nabla g$ requires $\nabla g\ne0$ at that point. Boundary and singular cases need separate analysis.
+
 
 ### Constrained Optimization
 

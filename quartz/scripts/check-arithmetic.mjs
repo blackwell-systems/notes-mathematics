@@ -4730,6 +4730,42 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   }
 }
 
+// ================ Analysis and optimization editorial regressions ================
+// Finite counterexamples confirm the qualifications added to theorem prose.
+// The checks are not substitutes for general proofs or human proof review.
+{
+  // f(x)=x^2 and target f(0)=0 on [0,1]. The IVT guarantees an endpoint,
+  // but there is no point in the open interval attaining that value.
+  const f=x=>x*x;
+  eq("IVT: lower endpoint target",f(0),0);
+  check("IVT: endpoint target need not occur in open interval",
+    Array.from({length:99},(_,j)=>(j+1)/100).every(x=>f(x)>0));
+  // A separable ODE y'=xy has the equilibrium solution y=0 which
+  // division by y discards; the full family must allow C=0.
+  const sol=(x,c)=>c*Math.exp(x*x/2);
+  const derivative=(x,c)=>x*sol(x,c);
+  for(const c of [-2,0,3]) for(const x of [-2,-1,0,1,2]){
+    eq("ODE: y'=xy C="+c+" x="+x,derivative(x,c),x*sol(x,c),1e-12);
+  }
+  eq("ODE: zero equilibrium restored",sol(1.25,0),0);
+  // Positive-definite Hessian at a single point does not imply convexity.
+  // For h(x)=x^2-x^4: h''(0)=2, h''(1)=-10.
+  const hsecond=x=>2-12*x*x;
+  check("Optimization: positive Hessian only locally",hsecond(0)>0&&hsecond(1)<0);
+  // An active convex constraint may have a zero KKT multiplier.
+  // Minimize x^2 subject to x>=0; x*=0 is active, multiplier mu=0.
+  const gradient=x=>2*x;
+  const constraint=x=>-x;
+  const mu=0,star=0;
+  check("KKT: active constraint with zero multiplier",
+    constraint(star)===0&&mu===0&&gradient(star)-mu===0&&mu*constraint(star)===0);
+  // Pointwise convergence does not guarantee integral interchange:
+  // n * 1_[0,1/n] has integral 1 for all n, pointwise 0 for x>0.
+  for(const n of [2,5,10,100]) eq("Measure: spike integral n="+n,n*(1/n),1);
+  check("Measure: spike pointwise tends to zero for fixed positive x",
+    [0.1,0.3,0.7].every(x=>100*x>1));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

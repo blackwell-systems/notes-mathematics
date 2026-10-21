@@ -47,6 +47,10 @@ This integral is over the parameter space, with respect to Lebesgue measure. Nea
 
 ## Sigma-Algebras
 
+> [!definition] Sigma-algebra
+> A collection $\mathcal F$ of subsets of $\Omega$ is a **sigma-algebra** when it contains $\Omega$ and is closed under complements and **countable** unions. The empty set and countable intersections follow from these axioms.
+
+
 ![A schematic of a sigma-algebra on a sample space Omega: the collection of measurable subsets is closed under taking complements (a set A and its complement both belong) and under countable unions, and always contains Omega and the empty set, with a note that the Borel sigma-algebra is the smallest one containing all open intervals](./media/mt-sigma-algebra.png)
 
 ### Which Sets Can We Measure?
@@ -103,6 +107,10 @@ In practice, you will rarely encounter a set that is not Borel measurable. The n
 The Borel sigma-algebra is what we use for probability on $\mathbb{R}$. When we say "what is the probability that $X$ falls in the interval $[2, 5]$?" we are asking for the measure of a Borel set.
 
 ## Measures
+
+> [!definition] Countably additive measure
+> A measure $\mu:\mathcal F\to[0,\infty]$ satisfies $\mu(\varnothing)=0$ and is **countably additive** on disjoint measurable families. Measurability is specified before assigning sizes; not every subset must belong to $\mathcal F$.
+
 
 ### Assigning Sizes to Sets
 
@@ -172,6 +180,10 @@ Since $\epsilon$ is arbitrary, the rationals can be covered by intervals of arbi
 For example, the Dirichlet function equals 0 almost everywhere (it fails to be 0 only on $\mathbb{Q}$, which has measure zero). Two functions that agree almost everywhere are considered "the same" for the purposes of integration. This is a fundamental principle: measure theory does not care about what happens on sets of measure zero.
 
 ## Measurable Functions
+
+> [!definition] Measurable function
+> A map between measurable spaces is **measurable** when preimages of measurable target sets are measurable in the source. This is the property required to integrate functions against a measure and to treat random variables as measurable maps.
+
 
 ### Functions Compatible with the Sigma-Algebra
 
@@ -308,13 +320,17 @@ $$
 \lim_{n \to \infty} \int f_n \, d\mu \stackrel{?}{=} \int \lim_{n \to \infty} f_n \, d\mu
 $$
 
-This interchange is not always valid (you saw counterexamples in real analysis). The Riemann theory requires *uniform* convergence to swap limits and integrals, which is a very strong condition. The Lebesgue theory provides much weaker, more practical conditions.
+This interchange is not always valid (you saw counterexamples in real analysis). Uniform convergence on a compact interval is a familiar **sufficient** condition for swapping limits and Riemann integrals, not a necessary one. Lebesgue integration provides different, often weaker sufficient conditions.
 
 See exactly when the swap holds below. Slide $n$ and compare $\int f_n$ with $\int \lim f_n$: for the monotone and dominated presets they agree, but for the "escaping spike" $f_n = n\cdot\mathbf{1}_{[0,1/n]}$ the area stays $1$ while the pointwise limit is $0$, so $\int\lim f_n = 0 < 1 = \lim\int f_n$, the failure that Fatou's lemma bounds and that no integrable dominator can rescue.
 
 <iframe src="/static/interactive/mt-convergence.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Monotone Convergence Theorem (MCT)
+
+> [!theorem] Monotone convergence
+> For **nonnegative measurable** $f_n$ increasing pointwise to $f$, the Lebesgue integrals satisfy $\int f_n\,d\mu\uparrow\int f\,d\mu$, allowing an **infinite** value. The nonnegativity and monotonicity hypotheses matter.
+
 
 **Theorem.** Let $f_1, f_2, f_3, \ldots$ be non-negative measurable functions with $f_1 \leq f_2 \leq f_3 \leq \cdots$ (pointwise increasing). Let $f(x) = \lim_{n \to \infty} f_n(x)$. Then:
 
@@ -328,6 +344,10 @@ No extra conditions are needed beyond monotonicity and non-negativity. The limit
 
 ### Fatou's Lemma
 
+> [!theorem] Fatou's lemma
+> For **nonnegative measurable** $f_n$, $\int\liminf f_n\,d\mu\le\liminf\int f_n\,d\mu$. The statement is an **inequality**, not a general equality of limits and integrals.
+
+
 **Theorem.** Let $f_1, f_2, f_3, \ldots$ be non-negative measurable functions. Then:
 
 $$
@@ -338,6 +358,10 @@ This is a one-sided inequality: the integral of the limit is at most the limit o
 
 ### Dominated Convergence Theorem (DCT)
 
+> [!theorem] Dominated convergence
+> If measurable $f_n\to f$ almost everywhere and $|f_n|\le g$ almost everywhere for an **integrable** nonnegative $g$, then $f$ is integrable and $\int f_n\,d\mu\to\int f\,d\mu$. Without a common integrable dominator, the exchange can fail.
+
+
 **Theorem.** Let $f_n$ be measurable functions with $f_n \to f$ pointwise. Suppose there exists an integrable function $g$ (a non-negative $g$ with $\int g \, d\mu < \infty$; equivalently $\int |g| \, d\mu < \infty$) such that $|f_n(x)| \leq g(x)$ for all $n$ and all $x$. Then $f$ is integrable and:
 
 $$
@@ -347,7 +371,7 @@ $$
 **This is the most important theorem in measure theory for applications.** It says: if a sequence of functions converges pointwise and is uniformly bounded by an integrable function, then limits and integrals commute.
 
 Compare the conditions:
-- **Riemann theory:** Needs uniform convergence $f_n \to f$ to swap limit and integral.
+- **Riemann theory:** Uniform convergence of Riemann-integrable functions on a compact interval **suffices** for exchanging limits and integrals; it is not necessary.
 - **Lebesgue theory (DCT):** Needs only pointwise convergence $f_n \to f$, plus a dominating function.
 
 Pointwise convergence is far weaker than uniform convergence. Many natural sequences converge pointwise but not uniformly, so DCT applies in situations where the Riemann theory is helpless.
@@ -355,6 +379,10 @@ Pointwise convergence is far weaker than uniform convergence. Many natural seque
 **Where DCT shows up in ML:** In machine learning, expectations are integrals: $E[f(X)] = \int f \, dP$. When you have a sequence of models (e.g., as sample size $n$ grows, or as a training parameter varies), you often need to interchange a limit with an expectation. DCT is the tool that justifies this. Virtually every convergence proof in statistical learning theory uses DCT or one of its relatives.
 
 ## $L^p$ Spaces
+
+> [!distinction] Elements of $L^p$ are equivalence classes
+> Two functions equal **almost everywhere** represent the same element of $L^p$. The $L^p$ norm is well-defined on these classes; on individual raw functions, the integral expression can vanish for a nonzero function supported on a null set.
+
 
 ### Function Spaces with Finite Norms
 

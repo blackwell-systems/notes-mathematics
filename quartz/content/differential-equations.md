@@ -18,6 +18,10 @@ This page builds on [Calculus](./calculus) (derivatives, integrals), [Multivaria
 
 ## What is a Differential Equation?
 
+> [!definition] Differential equation
+> An **ordinary differential equation** relates an unknown function to derivatives with respect to one independent variable. A **partial differential equation** involves partial derivatives with respect to multiple independent variables.
+
+
 ### The Basic Idea
 
 A **differential equation** (DE) is any equation that contains derivatives of an unknown function. The goal is to find the function itself.
@@ -89,13 +93,17 @@ For an $n$th-order ODE, you need $n$ initial conditions (typically the value of 
 
 ### Separable Equations
 
+> [!distinction] Dividing by a dependent factor can discard solutions
+> When separating $y'=f(x)g(y)$, dividing by $g(y)$ is legal **only where $g(y)\ne0$**. Every constant function $y(x)=c$ with $g(c)=0$ must be checked separately: such equilibrium solutions can disappear from the divided equation.
+
+
 A first-order ODE is **separable** if it can be written as:
 
 $$
 \frac{dy}{dx} = f(x) \cdot g(y)
 $$
 
-The strategy: separate the variables (put all $y$ terms on one side, all $x$ terms on the other), then integrate both sides.
+The strategy: **first check equilibrium solutions** $g(y)=0$, then on intervals where $g(y)\ne0$, separate the variables (put all $y$ terms on one side, all $x$ terms on the other) and integrate.
 
 $$
 \frac{1}{g(y)} \, dy = f(x) \, dx \quad \Rightarrow \quad \int \frac{1}{g(y)} \, dy = \int f(x) \, dx
@@ -121,7 +129,7 @@ $$
 |y| = e^{x^2/2 + C_1} = e^{C_1} \cdot e^{x^2/2}
 $$
 
-Writing $C = \pm e^{C_1}$ (which absorbs the sign and the constant):
+For **nonzero** solutions, write $C=\pm e^{C_1}$. Separating by $y$ excluded the equilibrium $y=0$, which we now **restore** by also allowing $C=0$:
 
 $$
 y = Ce^{x^2/2}
@@ -140,6 +148,10 @@ Apply $y(0) = 2$: $\frac{4}{2} = 0 + C$, so $C = 2$.
 Solution: $y^2 = x^2 + 4$, or $y = \sqrt{x^2 + 4}$ (taking the positive root since $y(0) = 2 > 0$).
 
 ### First-Order Linear Equations
+
+> [!definition] First-order linear ODE
+> A first-order linear equation has the form $y'+P(x)y=Q(x)$ on an interval where the coefficients are suitably regular. An **integrating factor** changes its left side into a product derivative.
+
 
 A **first-order linear ODE** has the standard form:
 
@@ -240,6 +252,10 @@ The interactive plot below shows the slope surface for $y' = x - y$ in 3D (the z
 <iframe src="/static/interactive/direction-field-interactive.html" width="100%" height="550" style="border:none;"></iframe>
 
 ### Euler's Method
+
+> [!example] A numerical step is an approximation
+> Euler's method replaces the tangent-based local behavior by a finite step: $y_{n+1}=y_n+h\,f(x_n,y_n)$. Its accuracy and stability depend on **step size** and properties of $f$; a computed trajectory is not automatically an exact solution.
+
 
 When a DE cannot be solved analytically, we approximate the solution numerically. **Euler's method** is the simplest approach: start at the initial point and take small steps, using the DE to compute the slope at each step.
 
@@ -498,6 +514,10 @@ The eigenvalues of $-H$ (which are the negatives of the Hessian eigenvalues) det
 
 ## Existence and Uniqueness
 
+> [!theorem] Picard-Lindelof: local existence and uniqueness
+> For an initial value problem $y'=f(x,y)$ with $f$ continuous and **locally Lipschitz in $y$** near the initial point, there is a **unique local** solution. This does not, by itself, assert existence for **all time**.
+
+
 ### The Picard-Lindelof Theorem
 
 Not every IVP has a solution, and when it does, the solution might not be unique. The **Picard-Lindelof theorem** (also called the Cauchy-Lipschitz theorem) gives sufficient conditions.
@@ -507,6 +527,10 @@ Not every IVP has a solution, and when it does, the solution might not be unique
 The Lipschitz condition controls how fast $f$ can change with respect to $y$. It prevents $f$ from being so "wild" that multiple solution curves can pass through the same point.
 
 ### When Uniqueness Fails
+
+> [!counterexample] Continuous does not mean unique
+> The IVP $y'=\sqrt{|y|}$, $y(0)=0$ admits the zero solution and solutions which remain zero for a while before rising. The failure of a Lipschitz condition at $y=0$ allows nonuniqueness.
+
 
 **Example:** Consider $y' = \sqrt{|y|}$, with $y(0) = 0$.
 
@@ -527,6 +551,10 @@ Why does uniqueness fail? The function $f(x, y) = \sqrt{|y|}$ is not Lipschitz a
 In ML, the existence of a well-defined gradient flow requires the loss function to satisfy Lipschitz conditions. If $\nabla L(\theta)$ is Lipschitz continuous (meaning the Hessian is bounded), then the gradient flow ODE $\frac{d\theta}{dt} = -\nabla L(\theta)$ has a unique solution trajectory from any starting point. This is why smoothness assumptions on the loss function matter for optimization theory. When the loss landscape has sharp features (non-Lipschitz gradients), training can behave unpredictably.
 
 ## Laplace Transforms
+
+> [!distinction] Transform existence is an assumption
+> $\mathcal L\{f\}(s)=\int_0^\infty e^{-st}f(t)\,dt$ is defined **only where the improper integral converges**. Piecewise continuity and an exponential-order bound provide familiar sufficient conditions in a suitable half-plane.
+
 
 The **Laplace transform** converts a differential equation into an algebraic equation, which is often easier to solve.
 

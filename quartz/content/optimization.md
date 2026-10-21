@@ -35,6 +35,10 @@ The set of all $x$ satisfying the constraints is called the **feasible set** (or
 
 ## Unconstrained Optimization
 
+> [!distinction] Critical points are candidates, not guaranteed minima
+> $\nabla f(x)=0$ is a **necessary** condition for a differentiable unconstrained interior local minimum, but the same equation also holds at maxima and saddles. Inspect higher derivatives or global structure before concluding optimality.
+
+
 ### Critical Points
 
 A **critical point** (or stationary point) is a point where the gradient vanishes:
@@ -92,6 +96,10 @@ Intuition: a set is convex if you can walk in a straight line between any two po
 
 ### Convex Functions
 
+> [!definition] Convex function on a convex domain
+> $f$ is convex if $f(tx+(1-t)y)\le tf(x)+(1-t)f(y)$ for every domain pair and every $t\in[0,1]$. Convexity makes **every local minimum global**, but it does not automatically guarantee that a minimizer **exists**.
+
+
 A function $f: \mathbb{R}^n \to \mathbb{R}$ is **convex** if its domain is a convex set and for all $x, y$ in its domain and all $\lambda \in [0, 1]$:
 
 $$
@@ -104,7 +112,7 @@ Geometrically: the function lies below (or on) the chord connecting any two poin
 
 **Strictly convex:** The inequality is strict ($<$ instead of $\leq$) whenever $x \neq y$ and $0 < \lambda < 1$. A strictly convex function has at most one global minimum.
 
-**Strongly convex:** There exists a constant $m > 0$ such that $f(x) - \frac{m}{2}\|x\|^2$ is convex. Equivalently, the Hessian satisfies $H(x) \succeq mI$ everywhere (all eigenvalues $\geq m$). Strong convexity guarantees a unique global minimum and faster convergence of gradient descent.
+**Strongly convex:** There exists $m>0$ such that $f(x)-\tfrac m2\|x\|^2$ is convex. For twice-differentiable $f$ on a convex open domain, this is equivalent to $H(x)\succeq mI$ throughout that domain. Strong convexity gives **at most one** minimizer and, when a minimizer exists, sharper gradient-descent rates. Existence follows under standard extra hypotheses, such as a proper lower-semicontinuous strongly convex objective on all of $\mathbb R^n$.
 
 ### Testing for Convexity
 
@@ -116,7 +124,7 @@ For a twice-differentiable function, the Hessian test is the standard approach:
 ### Why Convexity Matters
 
 1. **Every local minimum is a global minimum.** You never get trapped in a bad local minimum.
-2. **Gradient descent converges.** For convex functions, gradient descent with appropriate step size is guaranteed to converge to the global minimum.
+2. **Gradient descent has convergence guarantees under additional conditions.** For smooth convex functions with a minimizer and suitable step size, function values approach the global minimum value; iterates and rates require more precise assumptions.
 3. **Efficient algorithms exist.** Convex problems can be solved reliably and efficiently, even in high dimensions.
 
 ### Examples
@@ -150,6 +158,10 @@ A **convex optimization problem** is one where:
 Non-convex problems (like training deep neural networks) are much harder. The loss landscape has many local minima, saddle points, and flat regions. Remarkably, SGD with momentum still works well in practice, partly because most local minima in high-dimensional spaces tend to have similar loss values.
 
 ### Subgradients
+
+> [!definition] Subgradient of a convex function
+> $g$ is a subgradient at $x$ if $f(y)\ge f(x)+g\cdot(y-x)$ for all points $y$ in the convex domain. It gives a **global lower affine support**, even where $f$ is not differentiable.
+
 
 Convex functions need not be differentiable. The absolute value $|x|$ is convex but has a corner at $x = 0$ where no tangent line exists. A **subgradient** generalizes the derivative to such points: $g$ is a subgradient of a convex $f$ at $x$ if the line through $(x, f(x))$ with slope $g$ stays *below* the graph everywhere,
 $$
@@ -187,6 +199,10 @@ The learning rate $\alpha$ controls how far each step moves:
 
 ### Convergence Rate
 
+> [!theorem] Gradient descent rates require smoothness hypotheses
+> For an $L$-smooth convex function with a minimizer, step size $1/L$ gives a standard $O(1/k)$ **function-value** bound. Strong convexity improves this under appropriate assumptions. These guarantees do **not** apply to arbitrary differentiable or nonconvex objectives.
+
+
 For a convex function with Lipschitz-continuous gradient (bounded curvature), gradient descent with step size $\alpha = 1/L$ (where $L$ is the Lipschitz constant of the gradient) achieves:
 
 $$
@@ -205,7 +221,7 @@ The function-value gap $f(x_k) - f(x^*)$ obeys the same geometric rate, up to a 
 
 The ratio $\kappa = L/m$ is the **condition number** of the problem. When $\kappa$ is large (the function is "elongated" with very different curvatures in different directions), convergence is slow. When $\kappa \approx 1$, convergence is fast. See [condition numbers](./linear-algebra-computation) in linear algebra.
 
-**Putting numbers on it.** With the conservative step $\alpha = 1/L$, the value gap shrinks by a factor $(1 - 1/\kappa)$ each iteration. For a well-conditioned problem with $\kappa = 10$, that factor is $0.9$, so reducing the gap tenfold needs $k$ with $0.9^k = 0.1$, i.e. $k = \ln(0.1)/\ln(0.9) \approx 22$ iterations. For an ill-conditioned $\kappa = 100$, the factor is $0.99$ and the same tenfold reduction needs $k = \ln(0.1)/\ln(0.99) \approx 230$ iterations, more than ten times as many. This is the precise sense in which conditioning controls speed: the iteration count to reach a fixed accuracy scales roughly like $\kappa$. (Newton's method, below, sidesteps this entirely because it is affine-invariant: its convergence does not depend on $\kappa$ at all.)
+**Putting numbers on it.** With the conservative step $\alpha = 1/L$, the value gap shrinks by a factor $(1 - 1/\kappa)$ each iteration. For a well-conditioned problem with $\kappa = 10$, that factor is $0.9$, so reducing the gap tenfold needs $k$ with $0.9^k = 0.1$, i.e. $k = \ln(0.1)/\ln(0.9) \approx 22$ iterations. For an ill-conditioned $\kappa = 100$, the factor is $0.99$ and the same tenfold reduction needs $k = \ln(0.1)/\ln(0.99) \approx 230$ iterations, more than ten times as many. This is the precise sense in which conditioning controls speed: the iteration count to reach a fixed accuracy scales roughly like $\kappa$. (Newton's method, below, can improve convergence near a well-behaved optimum, but finite-precision conditioning and global convergence still require care.)
 
 ### Worked Example: 2D Quadratic
 
@@ -457,6 +473,10 @@ Gradient descent uses only first-order information (the gradient). **Second-orde
 
 ### Newton's Method
 
+> [!distinction] Local convergence is not global reliability
+> Newton steps need an **invertible Hessian** (or a carefully regularized substitute), and near-solution quadratic convergence requires additional smoothness and local starting conditions. Numerical conditioning and globalization strategies still matter.
+
+
 Newton's method approximates $f$ locally by a quadratic (its second-order Taylor expansion) and jumps to the minimum of that quadratic:
 
 $$
@@ -572,6 +592,10 @@ The maximum area rectangle with perimeter 20 is a $5 \times 5$ square with area 
 
 ### Inequality Constraints and KKT Conditions
 
+> [!theorem] KKT conditions and constraint qualifications
+> KKT stationarity, primal/dual feasibility and complementary slackness are **necessary at a regular local optimum** under suitable constraint qualifications. For differentiable **convex** problems with appropriate affine equalities, a feasible KKT point is globally optimal; necessity may require a qualification such as Slater's condition.
+
+
 For problems with inequality constraints:
 
 $$
@@ -585,7 +609,7 @@ The **Karush-Kuhn-Tucker (KKT) conditions** generalize Lagrange multipliers. At 
 3. **Dual feasibility:** $\mu_i \geq 0$
 4. **Complementary slackness:** $\mu_i g_i(x^*) = 0$ for each $i$
 
-**Complementary slackness** is the key new condition. It says: for each inequality constraint, either the constraint is **active** ($g_i(x^*) = 0$, the constraint is tight) and $\mu_i > 0$, or the constraint is **inactive** ($g_i(x^*) < 0$, there is slack) and $\mu_i = 0$. An inactive constraint does not influence the solution.
+**Complementary slackness** is the key new condition. An **inactive** constraint ($g_i(x^*)<0$) must have multiplier $\mu_i=0$. An **active** constraint ($g_i(x^*)=0$) may have a **zero or positive** multiplier; strict positivity is **not** required.
 
 **Worked example (one active, one inactive constraint).** Minimize $f(x, y) = x^2 + y^2$ subject to $x + y \geq 2$ and $x \leq 10$. Written in the standard $g_i \leq 0$ form, the constraints are $g_1 = 2 - x - y \leq 0$ and $g_2 = x - 10 \leq 0$.
 
@@ -597,7 +621,7 @@ $$
 
 At $(1,1)$ the second constraint has slack ($g_2 = 1 - 10 = -9 < 0$), so complementary slackness forces $\mu_2 = 0$. The equations become $2 - \mu_1 = 0$ in both coordinates, giving $\mu_1 = 2 \geq 0$ (dual feasibility holds). Check the two complementary-slackness products: $\mu_1 g_1 = 2 \cdot 0 = 0$ (active constraint, nonzero multiplier) and $\mu_2 g_2 = 0 \cdot (-9) = 0$ (inactive constraint, zero multiplier). Both vanish, as required, and every KKT condition is satisfied at $(1, 1)$. The multiplier $\mu_1 = 2$ says that loosening the requirement $x + y \geq 2$ by a small amount would lower the optimal $f$ at a rate of about $2$ per unit.
 
-For convex problems, the KKT conditions are both necessary and sufficient for optimality.
+For differentiable convex problems with convex inequality constraints and affine equality constraints, **a feasible KKT point is globally optimal**. Conversely, existence of KKT multipliers at an optimum generally needs a **constraint qualification** such as Slater's condition.
 
 ### Connection to ML: Regularization as a Constraint
 
@@ -622,6 +646,10 @@ $$
 where $\lambda = \mu$. The constrained formulation (bound the weights) and the penalty formulation (add a regularization term) are two views of the same problem, connected through Lagrange duality.
 
 ## Regularization as Optimization
+
+> [!distinction] Constrained and penalized objectives are not identical by declaration
+> A norm-constrained problem and a norm-penalized problem can be related by Lagrange multipliers **under duality/regularity assumptions**. The penalty weight depends on the active constraint and optimum; an arbitrary weight need not reproduce a specified constraint bound.
+
 
 Regularization adds a penalty term to the objective function that discourages complex models. From an optimization perspective, it modifies the loss landscape.
 

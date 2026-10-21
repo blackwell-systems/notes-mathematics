@@ -86,8 +86,32 @@ These are substantive clarifications, not aesthetic decoration. The ten chapters
 
 **Coverage after batch 4:** 38 pilot pages, 25 pending, 0 fully reviewed. Responsive, dark-theme and diagram reviews remain pending. These editorial markers do not certify proof correctness.
 
+## Batch 5: calculus, analysis, differential equations and optimization (2026-10-20)
+
+| Article | Semantic work |
+| --- | --- |
+| [Calculus](./content/calculus.md) | limits, continuity, derivative, IVT, MVT, FTC, L'Hopital conditions |
+| [Real Analysis](./content/real-analysis.md) | completeness, epsilon-N/epsilon-delta, domain-relative continuity, uniform continuity and convergence, Riemann integrability |
+| [Multivariable Calculus](./content/multivariable-calculus.md) | multivariable domains, partial and directional derivatives, gradient, convexity, gradient descent, multiplier regularity |
+| [Differential Equations](./content/differential-equations.md) | separability and equilibrium solutions, integrating factors, Euler's method, local uniqueness, Laplace domain |
+| [Optimization](./content/optimization.md) | stationary points, convexity, subgradients, convergence hypotheses, Newton limitations, KKT qualifications, regularization |
+| [Measure Theory](./content/measure-theory.md) | sigma-algebras, measure additivity, measurability, convergence theorems, $L^p$ equivalence classes |
+
+**Corrections and scope qualifications:**
+
+- **Intermediate Value Theorem:** a value **strictly** between unequal endpoint values is attained in the **interior**; an endpoint value is only guaranteed on the closed interval, not necessarily at an interior point.
+- **Limits and derivatives:** the quick L'Hopital preview now explicitly depends on the derivative-quotient theorem's hypotheses, while epsilon-delta continuity restricts $x$ to the function's actual domain.
+- **ODE separability:** dividing by $g(y)$ can erase equilibrium solutions with $g(c)=0$. The worked $y'=xy$ family now restores $y=0$ rather than treating division by $y$ as reversible everywhere.
+- **Optimization:** a zero gradient is a critical-point criterion, not proof of a minimum. KKT complementary slackness permits **zero multiplier on an active constraint**, and KKT necessity needs appropriate constraint qualifications. Gradient-descent and Newton convergence statements now include their required regularity, domain and numerical caveats.
+- **Real vs Lebesgue integration:** uniform convergence is a useful **sufficient**, not **necessary**, condition for exchanging limits and Riemann integrals. Monotone and dominated convergence have their own explicit hypotheses.
+- **Measure theory:** $L^p$ elements are equivalence classes modulo almost-everywhere equality, not literal pointwise functions.
+
+The arithmetic harness adds counterexamples for IVT endpoints, separable-equation equilibria, positive Hessian at one point, KKT active-zero multipliers, and concentration of integral mass in a pointwise-convergent spike sequence.
+
+**Coverage after batch 5:** 44 pilot pages, 19 pending, 0 complete. No visual screenshot review or independent proof certification is asserted.
+
 ## Site-wide baseline
 
-There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 4, **38 pages are pilots**, **25 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 5, **44 pages are pilots**, **19 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
-Next batches should cover calculus, analysis, probability/statistics, discrete mathematics, advanced material, and the navigation pages, as documented in [Editorial rollout](./EDITORIAL-ROLLOUT.md).
+Next batches should cover probability/statistics, discrete mathematics, remaining foundations, advanced material and the two navigation pages, as documented in [Editorial rollout](./EDITORIAL-ROLLOUT.md).

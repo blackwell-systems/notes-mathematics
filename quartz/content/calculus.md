@@ -13,6 +13,10 @@ Calculus is the mathematics of change. Where algebra studies fixed relationships
 
 ## Limits
 
+> [!definition] Limit
+> A finite limit $\lim_{x\to a}f(x)=L$ describes what $f(x)$ approaches as $x$ approaches $a$ through values in its **domain**, not necessarily the value of $f(a)$. Formal $\epsilon$-$\delta$ conditions appear in [Real Analysis](./real-analysis).
+
+
 ### What a Limit Is
 
 Imagine you are walking toward a wall. You take a step that covers half the remaining distance. Then another step covering half. Then another. You never actually touch the wall, but you get arbitrarily close. The wall is the **limit** of your position.
@@ -254,15 +258,19 @@ The seven indeterminate forms:
 
 ### L'Hopital's Rule (Preview)
 
-This rule requires derivatives, which we define in the next section. But the idea is simple: if $\lim_{x \to a} \frac{f(x)}{g(x)}$ gives $\frac{0}{0}$ or $\frac{\infty}{\infty}$, then:
+This rule requires derivatives, which we define next. **Under the additional hypotheses of L'Hopital's rule** (appropriate differentiability, $g'(x)\ne0$ near the point, and existence of the derivative-quotient limit), an indeterminate $0/0$ or infinity/infinity limit can be evaluated by:
 
 $$
 \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
 $$
 
-Replace the numerator and denominator with their derivatives, then try the limit again. We will use this after learning what $f'(x)$ means.
+This is a **conditional theorem**, not an instruction to differentiate numerator and denominator for every quotient. The full hypotheses are discussed in the derivatives section.
 
 ### Continuity
+
+> [!definition] Continuity at a point
+> A function is continuous at $a$ when its value agrees with the limit as its input approaches $a$ through its domain. At an **endpoint** or an isolated domain point, use the corresponding domain-relative interpretation of the limit.
+
 
 A function is **continuous** at a point $a$ if three things hold:
 
@@ -304,9 +312,13 @@ The $\frac{|x|}{x}$ example from earlier is also a jump discontinuity at $x = 0$
 
 ### Intermediate Value Theorem
 
+> [!theorem] Intermediate Value Theorem
+> If $f$ is continuous on $[a,b]$, it attains every value **between** $f(a)$ and $f(b)$. A target **strictly between** the endpoint values is attained at some $c\in(a,b)$; an endpoint target is guaranteed at least at an endpoint.
+
+
 The **Intermediate Value Theorem (IVT)** formalizes an intuitive property of continuous functions: they cannot "skip over" values.
 
-**Statement:** If $f$ is continuous on the closed interval $[a,b]$ and $N$ is any number between $f(a)$ and $f(b)$, then there exists at least one $c \in (a,b)$ such that $f(c) = N$.
+**Statement:** If $f$ is continuous on the closed interval $[a,b]$ and $N$ lies between $f(a)$ and $f(b)$ **inclusive**, then some $c\in[a,b]$ satisfies $f(c)=N$. If $N$ is **strictly** between the endpoint values, then $c$ may be chosen in $(a,b)$.
 
 **Intuition:** If you start below sea level and end up above sea level, and you walk continuously (no teleporting), then at some point you must be exactly at sea level. A continuous function that starts at one value and ends at another must hit every value in between.
 
@@ -350,6 +362,10 @@ Explore this limit directly below. Drag the point along the curve to see the tan
 <iframe src="/static/interactive/calc-tangent-explorer.html" width="100%" height="620" style="border:none;"></iframe>
 
 ### The Limit Definition of the Derivative
+
+> [!definition] Derivative at a point
+> $f'(a)=\lim_{h\to0}\big(f(a+h)-f(a)\big)/h$, when this finite limit exists. The limit uses nonzero increments for which $a+h$ is in the domain; differentiability at an interior point implies continuity there.
+
 
 The derivative of $f$ at the point $x$, written $f'(x)$ (read "f prime of x"), is:
 
@@ -925,6 +941,10 @@ Differentials provide the notation that makes substitution in integrals work nat
 
 ### Mean Value Theorem
 
+> [!theorem] Mean Value Theorem
+> If $a<b$, $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then $f'(c)=(f(b)-f(a))/(b-a)$ for **some** $c\in(a,b)$. Both hypotheses matter.
+
+
 The Mean Value Theorem (MVT) is one of the most important theoretical results in calculus. It says that under mild conditions, the instantaneous rate of change must equal the average rate of change at some point.
 
 **Rolle's Theorem (special case):** If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a) = f(b)$, then there exists at least one $c \in (a,b)$ with $f'(c) = 0$.
@@ -962,6 +982,10 @@ Here $c = 2$ is the midpoint of $[1, 3]$, but that is a special feature of quadr
 - Two antiderivatives of the same function differ by a constant. (Their difference has zero derivative, so by the above, it is constant.)
 
 ### L'Hopital's Rule
+
+> [!distinction] Indeterminate form alone is not permission to differentiate
+> L'Hopital's rule requires differentiability and a nonzero denominator derivative on the relevant punctured neighborhood, together with the appropriate $0/0$ or infinity hypotheses. The **derivative quotient must have a limit** (possibly infinite) for the usual conclusion. It is not a general quotient rule for limits.
+
 
 L'Hopital's Rule provides a powerful method for evaluating limits that give indeterminate forms. The preview in the Limits section introduced the idea; here is the full treatment.
 
@@ -1078,6 +1102,10 @@ The whole expression $\int_a^b f(x) \, dx$ is read "the integral from a to b of 
 Geometrically, $\int_a^b f(x) \, dx$ is the signed area between the curve $y = f(x)$ and the $x$-axis. Area above the axis counts as positive; area below counts as negative.
 
 ### The Fundamental Theorem of Calculus
+
+> [!theorem] Fundamental Theorem of Calculus
+> For a continuous real function on $[a,b]$, the accumulation function $F(x)=\int_a^x f(t)\,dt$ differentiates to $f$ at interior points. If $G'=f$ on the interval, then $\int_a^b f(x)\,dx=G(b)-G(a)$. The first assertion at endpoints is understood **one-sidedly**.
+
 
 This theorem is the central result of calculus. It says that differentiation and integration are inverse operations.
 

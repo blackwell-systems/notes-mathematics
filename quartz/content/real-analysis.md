@@ -61,6 +61,10 @@ The crucial characterization: $s = \sup S$ if and only if (1) $s$ is an upper bo
 
 ### The Completeness Axiom
 
+> [!axiom] Least-upper-bound property
+> Every **nonempty** subset of $\mathbb R$ that is **bounded above** has a least upper bound in $\mathbb R$. In the [construction of the reals](./construction-of-the-reals), this property is **proved** from the chosen construction rather than assumed in advance.
+
+
 **Axiom of Completeness.** Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum in $\mathbb{R}$.
 
 This is what makes $\mathbb{R}$ special. The rationals $\mathbb{Q}$ do *not* have this property.
@@ -108,6 +112,10 @@ Note: this fails for open intervals. The intervals $(0, 1/n)$ are nested, but $\
 A **sequence** is a function $a : \mathbb{N} \to \mathbb{R}$. We write it as $(a_n)$ or $(a_1, a_2, a_3, \ldots)$. The key question is: does the sequence settle down to a single value?
 
 ### The Epsilon-N Definition of Convergence
+
+> [!definition] Convergence of a sequence
+> $a_n\to L$ means: for every $\epsilon>0$, there exists $N$ such that **every** $n\geq N$ obeys $|a_n-L|<\epsilon$. The threshold may depend on $\epsilon$, not on the later index $n$.
+
 
 **Definition.** A sequence $(a_n)$ **converges** to a limit $L$, written $a_n \to L$ or $\lim_{n \to \infty} a_n = L$, if:
 
@@ -398,12 +406,16 @@ For now, the metric space framework is sufficient. But the topological viewpoint
 
 ### The Epsilon-Delta Definition
 
+> [!definition] Continuity, including restricted domains
+> For $f:D\to\mathbb R$ and $a\in D$, continuity requires: for every $\epsilon>0$ some $\delta>0$ makes $|f(x)-f(a)|<\epsilon$ whenever **$x\in D$** and $|x-a|<\delta$. Restricting $x$ to the domain is essential at boundaries.
+
+
 In calculus, you may have seen this definition briefly. In analysis, it is the foundation.
 
-**Definition.** A function $f : D \to \mathbb{R}$ is **continuous at** $a \in D$ if:
+**Definition.** A function $f : D \to \mathbb{R}$ is **continuous at** $a \in D$ if (with **$x$ restricted to $D$**):
 
 $$
-\text{For every } \epsilon > 0, \text{ there exists } \delta > 0 \text{ such that } |x - a| < \delta \implies |f(x) - f(a)| < \epsilon.
+\text{For every } \epsilon > 0,\ \exists\delta>0:\ \forall x\in D,\ |x-a|<\delta\implies|f(x)-f(a)|<\epsilon.
 $$
 
 The structure mirrors the $\epsilon$-$N$ definition of sequence convergence. Here $\epsilon$ is how close you want the outputs, and $\delta$ is how close the inputs need to be.
@@ -427,6 +439,10 @@ In a general metric space $(X, d_X)$ and $(Y, d_Y)$: for every $\epsilon > 0$, t
 This equivalence is extremely useful. It means you can use everything you know about sequences to study continuity. It is often easier to prove discontinuity using this characterization: find a single sequence $x_n \to a$ where $f(x_n) \not\to f(a)$.
 
 ### Uniform Continuity
+
+> [!distinction] Uniform versus pointwise control
+> Pointwise continuity permits $\delta$ to depend on the base point. **Uniform** continuity requires a single $\delta$ that works for **all pairs** of points in the domain, once $\epsilon$ is fixed.
+
 
 **Definition.** A function $f$ is **uniformly continuous** on a set $D$ if:
 
@@ -481,6 +497,10 @@ These failures are not pathological edge cases. They arise in natural situations
 
 ### Uniform Convergence: The Fix
 
+> [!definition] Uniform convergence of functions
+> $f_n\to f$ uniformly on $D$ if $\sup_{x\in D}|f_n(x)-f(x)|\to0$. Equivalently, the index threshold $N$ for a requested accuracy works for **every $x\in D$ at once**.
+
+
 **Definition.** $(f_n)$ **converges uniformly** to $f$ on $D$ if:
 
 $$
@@ -504,6 +524,10 @@ $$
 (for every fixed $n$ the supremum is $1$, approached as $x \to 1^-$ but never attained on $[0,1)$). So the sup does not go to zero, and convergence is not uniform. This is why the limit function is discontinuous: pointwise convergence is not strong enough to preserve continuity.
 
 ### Why Uniform Convergence Fixes Everything
+
+> [!theorem] What uniform convergence preserves
+> Uniform limits of **continuous functions** are continuous. On a **compact interval**, uniformly convergent sequences of continuous functions permit interchange of limit and (Riemann) integral. Interchanging derivatives has **additional hypotheses**; uniform convergence of functions alone is not enough.
+
 
 **Theorem.** If each $f_n$ is continuous and $f_n \to f$ uniformly, then $f$ is continuous.
 
@@ -602,6 +626,10 @@ $$
 On $[0, 1]$ we have $c < 1$, so $e^c < e < 3$, and $x^3 \le 1$; therefore $|R_2(x)| \le \frac{e}{6} \approx 0.453$. This is a *guaranteed* bound before computing anything: at $x = 1$ the true error is $e - (1 + 1 + \tfrac{1}{2}) = e - 2.5 \approx 0.218$, comfortably under the $0.453$ ceiling. Because $\frac{e^c}{(n+1)!} \to 0$ as $n$ grows (factorials outrun the fixed $e^c$), $R_n(x) \to 0$, so the Taylor series of $e^x$ converges to $e^x$ everywhere.
 
 ### The Riemann Integral (Formal Definition)
+
+> [!definition] Riemann integrability
+> A bounded function on $[a,b]$ is Riemann integrable when its upper and lower sums approach the **same** number as the partition mesh goes to zero. A formula involving a limiting sum is not a declaration that every function has an integral.
+
 
 In calculus, you thought of the integral as "area under the curve." The formal definition makes this precise.
 

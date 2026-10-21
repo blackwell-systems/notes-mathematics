@@ -45,7 +45,7 @@
       "path": "calculus.md",
       "kind": "topic",
       "track": "calculus",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -126,7 +126,7 @@
       "path": "differential-equations.md",
       "kind": "topic",
       "track": "calculus",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -315,7 +315,7 @@
       "path": "measure-theory.md",
       "kind": "topic",
       "track": "advanced-mathematics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -324,7 +324,7 @@
       "path": "multivariable-calculus.md",
       "kind": "topic",
       "track": "calculus",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -360,7 +360,7 @@
       "path": "optimization.md",
       "kind": "topic",
       "track": "optimization",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -486,7 +486,7 @@
       "path": "real-analysis.md",
       "kind": "topic",
       "track": "advanced-mathematics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
