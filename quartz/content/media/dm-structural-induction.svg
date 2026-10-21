@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
 <title id="title">Recursive construction of full binary trees</title>
-<desc id="desc">On the left a single leaf labeled base constructor. In the center two complete subtrees are joined below a new internal node, labeled recursive constructor. On the right an example binary tree has three internal nodes and four leaves, showing the rule leaves equals internal nodes plus one.</desc>
+<desc id="desc">On the left a single leaf labeled base constructor. In the center two complete subtrees are joined below a new internal node, labeled recursive constructor. On the right an example binary tree has two internal nodes and three leaves, showing the rule leaves equals internal nodes plus one.</desc>
 <rect width="1200" height="470" rx="16" fill="#0d2031"/>
 <g font-family="Arial,sans-serif" font-size="19" fill="#cbdceb" font-weight="700"><text x="72" y="55">BASE CONSTRUCTOR</text><text x="388" y="55">RECURSIVE CONSTRUCTOR</text><text x="846" y="55">WORKED TREE</text></g>
 <rect x="55" y="80" width="280" height="310" rx="12" fill="#172f45" stroke="#3c6077"/>
