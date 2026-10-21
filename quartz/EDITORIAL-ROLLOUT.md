@@ -85,7 +85,7 @@ The GitHub Pages workflow runs `--check` **before the site build** and fails whe
 
 ## Migration progress
 
-Two subject batches now include logic, notation and set theory, the elementary number constructions, group theory, and the algebraic-structures overview. **13 of 63 pages** are tagged `pilot`; none is certified `complete`. The remaining 50 are pending, and responsive/diagram statuses are still unreviewed. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
+Three subject batches now include logic, notation and set theory, number-system constructions, group theory, and ten function/elementary-algebra chapters. **23 of 63 pages** are tagged `pilot`; none is certified `complete`. The remaining 40 are pending, and responsive/diagram statuses are still unreviewed. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
 
 ## Recommended migration batches
 

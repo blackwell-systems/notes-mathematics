@@ -60,6 +60,10 @@ With this intuition in place, we can now state the formal definitions.
 
 ## Relation
 
+> [!definition] Relation
+> A **relation** from $A$ to $B$ is a subset $R\subseteq A\times B$. Unlike a function, it may associate one input with several outputs or with none.
+
+
 **Relation:** A **relation** is a set of ordered pairs, where each pair
 consists of an element from one set, called the **domain**, and an
 element from another set, called the **codomain**.
@@ -388,6 +392,10 @@ A lattice is **bounded** if it has a greatest element $\top$ and a least element
 
 ### Equivalence Relation
 
+> [!definition] Equivalence relation
+> A relation on a set is an **equivalence relation** exactly when it is **reflexive, symmetric and transitive**. Its equivalence classes partition the set.
+
+
 **Equivalence Relation:** An equivalence relation is a way to formally
 define when two elements of a set can be considered "equivalent" or
 "similar" in some sense, according to specific criteria.
@@ -661,6 +669,10 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 
 ## Function
 
+> [!definition] Function, with explicit domain and codomain
+> A function $f:A\to B$ assigns **exactly one** element of $B$ to **every** element of $A$. The domain and codomain are part of the specified map, not details to infer solely from its formula.
+
+
 ### Vertical Line Test
 
 ![Two graphs demonstrating the vertical line test: a parabola y equals x squared where a vertical line meets the curve exactly once, so it is a function; and a sideways parabola x equals y squared where a vertical line meets the curve twice, so it is not a function](./media/fr-vertical-line-test.png)
@@ -874,6 +886,10 @@ These fibers **partition** $\mathbb{R}$: every real $x$ lies in exactly one fibe
 
 ### Injection (one-to-one)
 
+> [!distinction] Injective, surjective and bijective
+> **Injective:** no two different inputs have the same output. **Surjective:** every specified codomain element is hit. **Bijective:** both properties. The same formula may be surjective for one codomain but not another.
+
+
 **Injection:** A function is **injective** (also called **one-to-one**) if *different inputs always produce different outputs*, so no output is ever hit twice. Equivalently, in the contrapositive form that is easiest to use in proofs:
 
 $\forall x_1 \forall x_2 ( (f(x_1) = f(x_2)) \rightarrow (x_1 = x_2) )$
@@ -946,6 +962,10 @@ $\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
 **Important:** A function is invertible if and only if it is bijective (both injective and surjective).
 
 ## Well-Defined Functions
+
+> [!distinction] Representative independence
+> A rule on equivalence classes must yield the **same result** regardless of the representative chosen. Writing a formula on arbitrary representatives is not enough to establish a well-defined function.
+
 
 A rule counts as a **well-defined** function only if it genuinely assigns *one* output to each input, independent of any arbitrary choices made while stating the rule. The issue is easy to miss because most everyday formulas are automatically well-defined, but it becomes central the moment you define a function on a [quotient set](#quotient-set-set-of-equivalence-classes), where each input is an equivalence class named by one of its many representatives.
 

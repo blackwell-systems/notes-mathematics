@@ -144,7 +144,7 @@
       "path": "exponential-functions.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -153,7 +153,7 @@
       "path": "functions-relations.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -180,7 +180,7 @@
       "path": "graphing-functions.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -234,7 +234,7 @@
       "path": "inequalities.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -279,7 +279,7 @@
       "path": "linear-functions.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -288,7 +288,7 @@
       "path": "logarithms.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -423,7 +423,7 @@
       "path": "polynomial-functions.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -468,7 +468,7 @@
       "path": "radical-functions.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -477,7 +477,7 @@
       "path": "rational-functions.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -549,7 +549,7 @@
       "path": "systems-of-equations.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"

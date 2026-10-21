@@ -32,6 +32,10 @@ A rational function is built from [polynomial functions](./polynomial-functions)
 
 ## Formal Definition
 
+> [!definition] Rational function
+> A rational function is $f(x)=P(x)/Q(x)$ for polynomials $P,Q$ with $Q$ not identically zero. Its **original domain** excludes every real input satisfying $Q(x)=0$, even when algebraic factors later cancel.
+
+
 **Rational Functions:** A rational function is an expression of the form
 $\frac{P(x)}{Q(x)}$, where $P(x)$ and $Q(x)$ are polynomials and $Q(x)$ is not the zero polynomial. ($Q$ may still equal zero at isolated points; those points are exactly where the function is undefined.)
 
@@ -41,14 +45,17 @@ Here the numerator has degree $n$ and the denominator has degree $m$; these need
 
 ## Domain
 
+> [!distinction] Excluded point does not always mean vertical asymptote
+> If a zero of the denominator cancels, it may become a **removable hole**. If an uncanceled denominator factor remains, the graph may have a **vertical asymptote**. Analyze the simplified expression while preserving the original exclusions.
+
+
 **Domain:** The domain of a rational function is the set of all real
 numbers (or complex numbers) for which the function is defined.
 
 Since a rational function is a ratio of two polynomials, it is defined
 everywhere except where the denominator is zero.
 
-Those locations where the denominator is zero are responsible for
-creating vertical asymptotes in the graph.
+Zeros of the original denominator are **excluded from the domain**. Some are removable holes when a factor cancels; others produce vertical asymptotes when an uncanceled denominator zero remains.
 
 **Worked example.** Find the domain of $f(x) = \dfrac{x + 1}{x^2 - x - 6}$. Set the denominator to zero and factor: $x^2 - x - 6 = (x - 3)(x + 2) = 0$, so $x = 3$ or $x = -2$. These two values are excluded, and the domain is all real numbers except $3$ and $-2$: in interval notation, $(-\infty, -2) \cup (-2, 3) \cup (3, \infty)$. Because the numerator $x + 1$ is nonzero at both excluded points, both are genuine vertical asymptotes rather than holes.
 
@@ -123,6 +130,10 @@ proper rational function.
 Before analyzing rational functions graphically, it helps to be fluent in the algebra of rational expressions: simplifying, multiplying, dividing, adding, subtracting, and untangling compound fractions. Every rule is the polynomial version of ordinary fraction arithmetic.
 
 ### Simplifying to Lowest Terms
+
+> [!example] Simplifying does not restore a missing input
+> $(x^2-9)/(x^2-x-6)$ simplifies to $(x+3)/(x+2)$ **only** at inputs where the original fraction exists. In particular, $x=3$ remains excluded even though the simplified expression has a value there.
+
 
 Factor the numerator and denominator completely, then cancel common factors. Cancelling is only valid where the cancelled factor is nonzero, which is exactly why a cancelled factor leaves a **hole** in the graph.
 
@@ -298,6 +309,10 @@ Perform Polynomial Long Division
     polynomial retrieved by long division.
 
 ## Hole / Discontinuity / Removable Discontinuity
+
+> [!distinction] Limit value versus function value
+> A cancelled factor can leave a finite **limit** at an excluded input without giving the original function any value there. Filling the hole defines a **new extended function**, not an algebraic equality on the original domain.
+
 
 **Hole / Removable Discontinuity:** A hole occurs in a rational function when there is a common factor between the numerator and the denominator that can be cancelled.
 
@@ -588,6 +603,10 @@ Since $3 \neq 2$, it is in the domain: the solution is $x = 3$.
 Domain: $x \neq 2$. Multiplying by $(x-2)$ gives $x = 2$, but $x = 2$ is *excluded* from the domain. It is extraneous, so the equation has **no solution**. This is exactly why step 4 is non-negotiable.
 
 ## Solving Rational Inequalities
+
+> [!proof-sketch] Sign chart as a justified partition
+> Factor the numerator and denominator. Between consecutive real zeros and poles, each nonzero factor keeps its sign, so the fraction's sign is **constant on each interval**. Test a point from each interval; exclude all original denominator zeros.
+
 
 To solve an inequality such as $\dfrac{x-1}{x+2} \ge 0$, do **not** multiply across by $(x+2)$: its sign is unknown, and multiplying by a negative would flip the inequality. Instead, reuse the [sign analysis](#sign-analysis--interval-testing) machinery.
 

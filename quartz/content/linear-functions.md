@@ -30,6 +30,10 @@ Linear functions are the foundation for almost all of mathematics. Calculus uses
 
 ## Definition
 
+> [!definition] Constant rate of change
+> An affine rule $f(x)=mx+b$ changes by exactly $m\Delta x$ when the input changes by $\Delta x$. In elementary algebra this is often called a **linear function**, although in linear algebra a *linear map* must also satisfy $f(0)=0$.
+
+
 **Linear Functions:** A linear function is a function that can be used
 to express a constant rate of change.
 
@@ -64,6 +68,10 @@ Use the explorer below to build intuition. Drag the sliders for the slope $m$ an
 <iframe src="/static/interactive/slope-intercept-explorer.html" width="100%" height="560" style="border:none;"></iframe>
 
 ### Calculating Slope
+
+> [!distinction] A vertical line has no finite slope
+> The slope between two distinct points is $(y_2-y_1)/(x_2-x_1)$ only when $x_2\ne x_1$. A vertical line has $x_2=x_1$, so this quotient is **undefined**, not infinity.
+
 
 **Calculating Slope:**
 
@@ -233,6 +241,10 @@ Parallel lines never intersect. In a [system of linear equations](./systems-of-l
 
 ## Perpendicular Lines
 
+> [!distinction] Negative reciprocal slopes need nonvertical lines
+> The rule $m_1m_2=-1$ applies to **two nonvertical lines of nonzero slopes**. A horizontal line is perpendicular to a vertical line, for which the usual slope-product calculation is unavailable.
+
+
 **Perpendicular Lines:** Two lines are perpendicular if and only if the product of their slopes is $-1$ (equivalently, their slopes are negative reciprocals of each other).
 
 $$
@@ -244,6 +256,10 @@ Note: a horizontal line ($m = 0$) and a vertical line (undefined slope) are perp
 ![Two panels contrasting parallel and perpendicular lines. The left panel shows two lines, y equals 3x minus 1 and y equals 3x minus 2, running side by side with the same slope 3 so they never meet, labeled both have m equals 3. The right panel shows y equals 2x plus 5 and y equals negative one-half x plus 4 crossing at a right angle, with a small square drawn at the crossing to mark the ninety-degree angle, and the note that the product of the slopes, 2 times negative one-half, equals negative 1.](./media/lf-parallel-perpendicular.png)
 
 ## Horizontal and Vertical Lines
+
+> [!counterexample] Not every straight line is the graph of a function of x
+> The horizontal line $y=k$ assigns one $y$ to every $x$ and is a function. The vertical line $x=k$ contains **many** outputs for the same input $x=k$ and fails the vertical-line test.
+
 
 ### Horizontal Lines
 

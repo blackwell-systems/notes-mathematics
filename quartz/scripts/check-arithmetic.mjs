@@ -4664,6 +4664,35 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("GT: 4 generates a 3-element subgroup of Z/12",subgroup(4,12).size,3);
 }
 
+// ============= Editorial migration: domain and sign correctness =============
+// These assertions check the concrete examples whose sign/domain logic is
+// easy to regress. They are bounded checks, not general algebraic proofs.
+{
+  const quotient=x=>(x*x-4)/(x-3);
+  const inSolution=x=>(x<=-2)||(x>=2&&x<3);
+  for(let quarter=-40;quarter<=40;quarter++){
+    const x=quarter/4;
+    if(x===3)continue; // original rational domain explicitly excludes 3
+    check("Inequalities: rational sign at x="+x,(quotient(x)<=0)===inSolution(x));
+  }
+  check("Inequalities: -2 is included",quotient(-2)===0&&inSolution(-2));
+  check("Inequalities: 0 is not included",quotient(0)>0&&!inSolution(0));
+  check("Inequalities: 2 is included",quotient(2)===0&&inSolution(2));
+  check("Inequalities: 3 excluded from domain",!Number.isFinite(quotient(3)));
+  const original=x=>(x*x-9)/(x*x-x-6);
+  const simplified=x=>(x+3)/(x+2);
+  for(const x of [-5,-4,-3,-1,0,1,2,4,5])
+    check("Rational functions: cancellation preserves values x="+x,approx(original(x),simplified(x),1e-12));
+  check("Rational functions: hole at x=3",!Number.isFinite(original(3))&&Number.isFinite(simplified(3)));
+  check("Rational functions: pole at x=-2",!Number.isFinite(original(-2))&&!Number.isFinite(simplified(-2)));
+  // For base > 1, a negative outer multiplier reverses monotonicity.
+  const transformed=x=>-2*(3**x)+5;
+  check("Exponential functions: negative coefficient reverses growth",transformed(1)<transformed(0));
+  eq("Radical functions: principal square root",Math.sqrt(9),3);
+  eq("Radical functions: sqrt(x^2)=|x|",Math.sqrt((-3)**2),Math.abs(-3));
+  check("Logarithms: nonpositive argument outside real domain",!Number.isFinite(Math.log(-2)));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

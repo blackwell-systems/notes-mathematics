@@ -34,6 +34,10 @@ With that foundation, here is the formal definition.
 
 ## Formal Definition
 
+> [!definition] Polynomial over the reals
+> A polynomial is a **finite** sum $p(x)=\sum_{k=0}^{n}a_kx^k$ with nonnegative **integer** exponents and real coefficients here. Its degree is the largest exponent with a **nonzero coefficient**; the zero polynomial has no finite degree under the usual convention.
+
+
 **Polynomial Functions:**
 
 $$a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{2}x^{2} + a_{1}x^{1} + a_{0}$$
@@ -132,6 +136,10 @@ degree five or higher). In such cases, numerical and graphical methods
 are often used.
 
 ### Zero Product Property
+
+> [!theorem] Zero-product property
+> Over the real numbers, if $ab=0$, then $a=0$ or $b=0$. Factoring a polynomial equation into products uses this **no-zero-divisors** property. It does not justify the same inference in every possible ring.
+
 
 **Zero Product Property:** The Zero Product Property is crucial for
 solving polynomial equations that can be factored. Once a polynomial
@@ -446,6 +454,10 @@ The quantity under the root, $b^2 - 4ac$, is the **discriminant** $\Delta$, and 
 
 ### The Discriminant
 
+> [!distinction] Real roots versus complex roots
+> For a real quadratic $ax^2+bx+c$ with $a\ne0$, the sign of $b^2-4ac$ determines whether it has two distinct real roots, one repeated real root or **two nonreal conjugate roots**.
+
+
 The quadratic formula contains the expression $b^2 - 4ac$ under the square root. This expression, called the **discriminant**, determines the nature of the roots without requiring you to solve the entire equation.
 
 **Discriminant:** For a quadratic equation $ax^2 + bx + c = 0$, the discriminant is:
@@ -641,6 +653,10 @@ A polynomial's symmetry can be read directly from the degrees of its terms:
 
 ## Factor Multiplicity
 
+> [!distinction] Multiplicity is not the number of distinct zeros
+> The polynomial $(x-2)^3$ has **one distinct zero**, at $2$, but its algebraic multiplicity is **three**. Count multiplicity separately when applying root-counting theorems.
+
+
 **Factor Multiplicity:** The multiplicity of a factor determines how the
 graph behaves at the x-intercept.
 
@@ -658,6 +674,10 @@ Build your own polynomial from its roots below. Enter each real root with a mult
 <iframe src="/static/interactive/polynomial-grapher.html" width="100%" height="660" style="border:none;"></iframe>
 
 ## The Fundamental Theorem of Algebra
+
+> [!theorem] Fundamental Theorem of Algebra
+> Every nonconstant polynomial with **complex coefficients** has a complex root. This is an existence theorem, not a guarantee of a rational root or a simple closed-form expression for every root.
+
 
 **The Fundamental Theorem of Algebra:**
 

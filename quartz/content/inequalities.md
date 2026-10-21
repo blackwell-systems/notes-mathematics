@@ -20,6 +20,10 @@ enables: ["optimization", "systems-of-equations"]
 
 ## Properties of Inequalities
 
+> [!distinction] Negative factors reverse order
+> From $a<b$, multiplying by $c>0$ gives $ac<bc$, but multiplying by $c<0$ gives $ac>bc$. Never multiply an inequality by a variable expression **without knowing its sign** or splitting into sign cases.
+
+
 **Addition/Subtraction Property:**
 
 If $a < b$, then $a + c < b + c$ and $a - c < b - c$
@@ -221,6 +225,10 @@ The product is positive in intervals II and IV. Since the inequality is strict (
 
 ## Rational Inequalities
 
+> [!proof-sketch] Sign intervals
+> Split the real line at numerator roots and excluded denominator roots. On each resulting open interval, a polynomial quotient has a constant sign unless another zero or pole lies inside. Sample **one test point per interval**, and add allowed numerator roots only if the comparison includes equality.
+
+
 **Rational Inequality:** An inequality involving a rational expression (fraction with polynomials). Rational inequalities combine the techniques from [Rational Functions](./rational-functions) (finding asymptotes and zeros) with sign analysis.
 
 **General Form:** $\frac{P(x)}{Q(x)} < 0$ (or $>$, $\leq$, $\geq$)
@@ -255,16 +263,20 @@ Factor: $\frac{(x-2)(x+2)}{x-3} \leq 0$
 Critical points: $x = -2, 2$ (zeros), $x = 3$ (excluded)
 
 Test intervals:
-- $x < -2$: negative/negative = positive ✗
-- $-2 < x < 2$: positive/negative = negative ✓
-- $2 < x < 3$: positive/negative = negative ✓
-- $x > 3$: positive/positive = positive ✗
+- $x < -2$: positive numerator / negative denominator = negative ✓
+- $-2 < x < 2$: negative numerator / negative denominator = positive ✗
+- $2 < x < 3$: positive numerator / negative denominator = negative ✓
+- $x > 3$: positive numerator / positive denominator = positive ✗
 
-**Solution:** $x \in [-2, 2] \cup (2, 3)$ which simplifies to $x \in [-2, 3)$
+**Solution:** $x \in (-\infty,-2] \cup [2,3)$. At $x=-2$ and $x=2$, the numerator is zero and the denominator is nonzero, so equality is allowed. The point $x=3$ is excluded.
 
 **Note:** We include $x = -2$ and $x = 2$ (where numerator is zero) but exclude $x = 3$ (where denominator is zero).
 
 ## Absolute Value Equations
+
+> [!definition] Absolute value
+> $|x|$ is the distance from $x$ to $0$ on the real line. Thus $|x|\ge0$, and $|x|=a$ has no real solution for $a<0$. Cases must preserve the signs of every expression involved.
+
 
 **Absolute Value Equation:** An equation involving absolute value. Recall that $|x|$ represents the distance from zero on the number line, so $|x| = a$ means "$x$ is exactly $a$ units from zero."
 
@@ -423,6 +435,10 @@ This case gives: no solution (contradiction)
 **Solution:** $x \in (1.5, \infty)$
 
 ## Systems of Inequalities
+
+> [!distinction] A system means simultaneous constraints
+> A solution to a system lies in the **intersection** of the individual solution sets, not their union. On a graph it is the region satisfying **every** inequality.
+
 
 **System of Inequalities:** Multiple inequalities that must be satisfied simultaneously.
 

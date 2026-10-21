@@ -43,6 +43,10 @@ With that context, here is the formal definition.
 
 ## Definition
 
+> [!definition] Real exponential function
+> For a real base $b>0$ with $b\ne1$, $x\mapsto b^x$ is defined on all real inputs and has **positive outputs**. For $a b^x+c$, the vertical factor $a$ changes scale and may reverse monotonicity; the base $b$ controls the multiplicative factor per unit increase in $x$.
+
+
 **Exponential Functions:** An exponential function is a function where the variable appears in the exponent.
 
 ## General Form
@@ -50,7 +54,7 @@ With that context, here is the formal definition.
 $$f(x) = a \cdot b^x + c$$
 
 Where:
-- **a:** Vertical stretch/compression factor (also affects growth/decay rate)
+- **a:** Vertical scale and reflection factor (when negative); it does not change the per-unit multiplicative factor $b$
 - **b:** Base (must be positive, $b > 0$ and $b \neq 1$)
 - **x:** The exponent (independent variable)
 - **c:** Vertical shift
@@ -59,21 +63,29 @@ Where:
 
 ## Growth vs Decay
 
+> [!distinction] Base growth and decreasing function are different questions
+> $b^x$ **increases** if $b>1$ and **decreases** if $0<b<1$. For $f(x)=a b^x+c$, this direction applies when $a>0$; if $a<0$, the direction **reverses**, and if $a=0$ the function is constant.
+
+
 **Exponential Growth:** When $b > 1$
 
-The function increases as x increases.
+The parent function $b^x$ increases as $x$ increases; $a b^x+c$ does so when $a>0$.
 
 **Example:** $f(x) = 2^x$ doubles for every unit increase in x
 
 **Exponential Decay:** When $0 < b < 1$
 
-The function decreases as x increases.
+The parent function $b^x$ decreases as $x$ increases; $a b^x+c$ does so when $a>0$.
 
 **Example:** $f(x) = \left(\frac{1}{2}\right)^x$ halves for every unit increase in x
 
 **Note:** $\left(\frac{1}{2}\right)^x = 2^{-x}$ (decay can be written with negative exponents)
 
 ### Growth Rate vs Growth Factor
+
+> [!example] Growth factor is not a percentage
+> A **5% increase per period** means multiplying by $1.05$, whereas **5% decay per period** means multiplying by $0.95$. For a factor $b$, the period-to-period relative change is $b-1$, not $b$ itself.
+
 
 This distinction trips people up constantly.
 
@@ -338,6 +350,10 @@ The formula is the same as doubling time because halving and doubling are invers
 The decay function: $A(t) = 100 \cdot (1/2)^{t/5730} = 100 \cdot e^{-0.000121t}$
 
 ## Solving Exponential Equations
+
+> [!distinction] Logarithms require positive arguments
+> Taking a real logarithm of both sides is reversible **only when both sides are positive**. Keep base restrictions and transformed domains visible when solving exponential equations.
+
 
 To solve an equation where the variable is in the exponent, you need [logarithms](./logarithms). The key idea: **a logarithm undoes an exponential**, just like subtraction undoes addition.
 

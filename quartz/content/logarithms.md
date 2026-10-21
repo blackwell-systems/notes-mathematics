@@ -37,6 +37,10 @@ With this motivation, here is the formal definition.
 
 ## Definition
 
+> [!definition] Logarithm as an inverse
+> For $a>0$ and $a\ne1$, the inverse of $x\mapsto a^x$ is $y\mapsto\log_a y$. Its real **domain is $y>0$**, its range is all reals, and $\log_a(a^x)=x$.
+
+
 **Logarithm:** A logarithm is the inverse of an exponential function. It answers the question: "To what exponent must we raise the base to get a certain number?"
 
 Let $a \in \mathbb{R}$, $a > 0$, $a \neq 1$
@@ -82,6 +86,10 @@ $$\lg(x) = \log_2(x)$$
 The binary logarithm is the inverse of $2^x$.
 
 ## Fundamental Properties
+
+> [!distinction] Logarithm laws need positive arguments
+> $\log_a(xy)=\log_a x+\log_a y$ and the quotient rule are valid for **positive** real inputs $x,y$ and an admissible base $a$. They do **not** justify taking logarithms of negative numbers in ordinary real arithmetic.
+
 
 ### Product Rule
 
@@ -241,6 +249,10 @@ $$\frac{1}{2}\left[\ln(x^2+1) - \ln(x^2-1)\right] = \frac{1}{2}\ln\!\left(\frac{
 
 ## Common Mistakes with Logarithms
 
+> [!counterexample] Logarithms do not distribute over addition
+> $\log_{10}(1+9)=1$ but $\log_{10}1+\log_{10}9=\log_{10}9\ne1$. The product rule is **not** a sum rule.
+
+
 The logarithm laws apply to products, quotients, and powers *inside* a single log. Most errors come from trying to stretch them to sums, or to logs of logs.
 
 - **The log of a sum does not split.** $\log_a(x + y) \neq \log_a x + \log_a y$. There is no rule that simplifies $\log(x+y)$; the product rule applies to $\log(xy)$, not $\log(x+y)$.
@@ -298,6 +310,10 @@ For exponential functions and the exp/log connection with graphs, see [Exponenti
 **Range:** $(-\infty, \infty)$ - Logarithms can output any real number.
 
 ## Solving Logarithmic Equations
+
+> [!proof-sketch] Solve in the original domain
+> First require **every logarithm argument to be positive**. Transform the equation, solve for candidates, then substitute into the **original logarithmic equation**. Algebraic manipulation without this last check can admit excluded values.
+
 
 Logarithmic equations require careful technique because not every algebraic solution is valid. The argument of every logarithm must be positive, and this constraint can eliminate solutions that otherwise satisfy the algebra. Always check your answers against the domain.
 

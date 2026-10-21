@@ -12,6 +12,10 @@ A **radical** (or **root**) is the inverse operation of raising a number to a po
 
 ## What Is a Radical?
 
+> [!distinction] The principal root is single-valued
+> Over the reals, $\sqrt{x}$ denotes the **nonnegative** square root for $x\ge0$. The equation $y^2=x$ can have **two** solutions when $x>0$, but the function $y=\sqrt{x}$ selects only the nonnegative one.
+
+
 Radicals undo powers. Squaring sends $3$ to $9$; the square root sends $9$ back to $3$. This section motivates the operation and connects it to fractional exponents before we define radical functions themselves.
 
 ### Why We Need Radicals
@@ -269,6 +273,10 @@ $$\frac{5}{\sqrt[3]{9}} \cdot \frac{\sqrt[3]{3}}{\sqrt[3]{3}} = \frac{5\sqrt[3]{
 
 ## Definition
 
+> [!definition] Radical function and its domain
+> A real radical function includes an expression such as $\sqrt[n]{g(x)}$. If $n$ is **even**, its radicand must be nonnegative. If $n$ is **odd**, the real root is defined for every real radicand, subject to any other constraints in the expression.
+
+
 **Radical Functions:** A radical function is a function that contains a variable under a radical symbol (root). The most common are square root and cube root functions.
 
 ## General Form
@@ -364,6 +372,10 @@ Use the widget below to see how the four parameters reshape a radical graph. It 
 - **Odd n:** $(-\infty, \infty)$
 
 ## Solving Radical Equations
+
+> [!distinction] Squaring preserves consequences, not equivalence
+> From $A=B$ we can conclude $A^2=B^2$, but the reverse implication generally fails because opposite numbers have the same square. Every candidate obtained after squaring must satisfy the **original equation** and its domain restrictions.
+
 
 **Steps for solving radical equations:**
 
@@ -506,6 +518,10 @@ Check $x = 5$: $\sqrt{16} - \sqrt{9} = 4 - 3 = 1$ ✓
 Solution: $x = 5$ only. Notice that squaring twice created two opportunities to introduce extraneous solutions, which is why checking is especially important in these problems.
 
 ## Rational Exponents
+
+> [!example] Conditions matter for fractional-power identities
+> In real arithmetic, $x^{1/2}=\sqrt{x}$ requires $x\ge0$. Algebraic rewrites involving even roots can fail outside their stated domain or without absolute values, for example $\sqrt{x^2}=|x|$, **not** $x$ for every real $x.
+
 
 ### Connection to Radicals
 

@@ -14,9 +14,17 @@ For linear systems, see [Systems of Linear Equations](./systems-of-linear-equati
 
 ## Solving Methods for Two-Variable Systems
 
+> [!definition] Solution to a system
+> A solution is a tuple satisfying **every original equation simultaneously**. Substitution and elimination are tools for finding **candidates**; substitutions involving squaring, division or a restricted domain still require checking the original system.
+
+
 The substitution and elimination methods below are the same techniques introduced in [Systems of Linear Equations](./systems-of-linear-equations), here applied to nonlinear systems. The mechanics carry over unchanged; the difference is that eliminating a variable can now leave a quadratic, quartic, or transcendental equation rather than a single linear one.
 
 ### Substitution Method
+
+> [!example] Eliminate only under justified equivalences
+> Solving one equation for a variable and replacing that variable in another equation preserves the common solutions when the transformation is valid on the stated domain. Verify each recovered pair in **both** original equations.
+
 
 **Substitution Method:** Solve one equation for one variable, then substitute that expression into the other equation.
 
@@ -112,6 +120,10 @@ $$
 
 ## Systems of Nonlinear Equations
 
+> [!distinction] Eliminating a variable may change the equation type
+> A nonlinear system can reduce to a polynomial with multiple roots or a transcendental equation, so unlike a generic nonsingular two-line system there need not be a **single solution**.
+
+
 **Nonlinear System:** A system where at least one equation is not linear. These systems can have zero, one, or multiple solutions, and the number of solutions depends on how the curves intersect.
 
 ### Parabola and Line
@@ -197,6 +209,10 @@ A second solution exists between $x = -3$ and $x = -2$.
 Use bisection or Newton's method to refine: $x \approx 2.445$ and $x \approx -2.862$. (Check the first: $2^{2.445} \approx 5.445$ and $2.445 + 3 = 5.445$, so the two sides match.)
 
 ## Number of Solutions
+
+> [!counterexample] One system need not mean one intersection
+> Two curves can be **disjoint**, tangent at one point, or intersect several times. A graph suggests candidates, but exact substitution determines which points satisfy both equations.
+
 
 The number of solutions to a nonlinear system depends on the geometry of the curves.
 

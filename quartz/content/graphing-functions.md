@@ -12,6 +12,10 @@ enables: ["linear-functions", "polynomial-functions"]
 
 ## The Coordinate Plane
 
+> [!definition] Graph of a real-valued function
+> The graph of $f:A\to\mathbb R$ is the set $\{(x,f(x)):x\in A\}$. A drawing is only a **representation** of that set, and should preserve domain restrictions and excluded points.
+
+
 **Coordinate Plane (Cartesian Plane):** A two-dimensional plane formed by two perpendicular number lines:
 - **x-axis:** Horizontal axis (independent variable)
 - **y-axis:** Vertical axis (dependent variable)
@@ -28,6 +32,10 @@ enables: ["linear-functions", "polynomial-functions"]
 **Ordered Pair:** A point is written as $(x, y)$ where $x$ is the horizontal coordinate and $y$ is the vertical coordinate.
 
 ## Key Features to Identify
+
+> [!distinction] The graph does not replace the domain
+> A hole, excluded endpoint or asymptote can change which $x$ values are **actually allowed**. Read the function's domain from its definition, not only from the visual extent of a curve.
+
 
 When graphing any function, identify these key features:
 
@@ -195,6 +203,10 @@ Symmetry is worth checking first because it halves the work: for an even or odd 
 ![Graph of f(x) = (x+2)(x-1)² showing crossing at odd multiplicity and touching at even multiplicity](./media/polynomial-multiplicity.png)
 
 ## Graphing Rational Functions
+
+> [!distinction] Vertical asymptote versus removable hole
+> A denominator zero can produce an **infinite discontinuity** or a **removable hole** after cancellation. Factor first, preserve the original domain, and do not automatically draw an asymptote at every excluded input.
+
 
 **Rational Function:** $f(x) = \frac{P(x)}{Q(x)}$
 
@@ -430,6 +442,10 @@ The endpoint convention is what makes a piecewise graph unambiguous. A **closed 
 ![A system of two inequalities on axes through the origin. The line y equals x plus 2 is drawn with the region below it lightly shaded blue (y less than or equal to x plus 2), and the line y equals minus x with the region above it lightly shaded green (y greater than or equal to minus x). The two boundary lines cross at (minus 1, 1). The wedge to the right where both shadings overlap is shaded darker purple and labeled the solution region, because only there do both inequalities hold at once](./media/gf-inequality-system.png)
 
 ## Common Transformations Summary
+
+> [!example] Check coordinates rather than memorizing slogans
+> For $g(x)=f(x-h)+k$, the point $(a,f(a))$ on the original graph corresponds to $(a+h,f(a)+k)$ on the new graph, provided the translated inputs are in the intended domain.
+
 
 Starting with parent function $f(x)$ (read "f of x"):
 
