@@ -133,3 +133,8 @@ Two new proof-oriented topic pages raise the current editorial manifest to **75 
 ## Current inventory after discrete mathematics expansion (2026-10-21)
 
 There are **81 Markdown pages** in the editorial manifest: 78 topic articles, the landing page, the Path to SLT, and the Discrete Mathematics Learning Map. New pages are pilot semantic reviews; no new page is marked mathematically or visually accepted. This supersedes older inventory counts in the batch snapshots above.
+
+
+## Topology learning map inventory update (2026-10-21)
+
+The current manifest includes **82 Markdown pages**: 78 topics, one landing page and three guided learning paths (Path to SLT, Discrete Mathematics and Path Through Topology). The topology guide is marked pilot, with independent semantic, responsive and dark-mode reviews still pending. Historical rollout counts above remain snapshots, not current totals.

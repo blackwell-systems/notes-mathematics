@@ -143,8 +143,9 @@ Category theory studies **objects, arrows and universal mapping properties**, br
 
 ## General Topology
 
-Topology generalizes the open sets of real and metric analysis to spaces with **no distance function**. The sequence constructs spaces and then proves what compactness, connectedness and separation actually guarantee.
+Topology generalizes the open sets of real and metric analysis to spaces with **no distance function**. Begin with the [Path Through Topology](./path-to-topology) for two entry routes (metric intuition or abstract axioms) and one interval-to-circle example developed across three chapters.
 
+- **[Path Through Topology](./path-to-topology)** (guided learning map: two entry routes, constructions, global properties, interval-to-circle proof)
 - [General Topology Foundations](./general-topology-foundations) (open sets, bases, closure, continuity, homeomorphisms)
 - [Subspaces, Products and Quotient Topologies](./general-topology-constructions) (universal mapping properties, infinite products, the circle as a quotient)
 - [Compactness, Connectedness and Separation](./general-topology-compactness) (finite subcovers, Hausdorffness, IVT from connectedness)

@@ -528,6 +528,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "path-to-topology.md",
+      "kind": "learning-path",
+      "track": "general-topology",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "peano-arithmetic.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",

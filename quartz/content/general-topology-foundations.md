@@ -1,16 +1,19 @@
 ---
 title: "General Topology Foundations"
-prerequisites: ["set-theory", "functions-relations", "real-analysis"]
+prerequisites: ["set-theory", "functions-relations"]
 enables: ["general-topology-constructions", "general-topology-compactness"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Set Theory](./set-theory), [Functions & Relations](./functions-relations), [Real Analysis](./real-analysis) (metric spaces, limits and openness).
+> **Builds on:** [Set Theory](./set-theory) and [Functions & Relations](./functions-relations). **Recommended, not required:** [Real Analysis](./real-analysis#metric-spaces) for the metric-space route. Start with the [Path Through Topology](./path-to-topology) for either entry route.
 > **Leads to:** [Topological Constructions](./general-topology-constructions) and [Compactness, Connectedness and Separation](./general-topology-compactness).
 
-In calculus, continuity describes what happens when numbers move close together. In metric spaces, closeness comes from distance. **General topology removes distance from the definition**, keeping only the collections of sets in which small movements are allowed.
+In calculus, continuity describes what happens when numbers move close together. In metric spaces, closeness comes from distance. **General topology removes distance from the definition**, keeping only the collections of open subsets that make continuity meaningful.
 
 This makes continuity, connectedness and compactness available for function spaces, geometric quotients, and abstract mathematical structures that may have no natural metric.
+
+> [!distinction] Two ways into topology
+> **Metric route:** start with distance, open balls and limits in [Real Analysis](./real-analysis#metric-spaces), then show that the resulting open sets satisfy the topology axioms. **Abstract route:** start right here from sets and the three open-set axioms, without assuming any metric. Both routes lead to the same definitions. The [topology learning map](./path-to-topology) compares them.
 
 ## Open sets as the primitives
 

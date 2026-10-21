@@ -1,11 +1,11 @@
 ---
 title: "Compactness, Connectedness and Separation"
-prerequisites: ["general-topology-foundations", "general-topology-constructions", "real-analysis"]
+prerequisites: ["general-topology-foundations", "general-topology-constructions"]
 enables: ["measure-theory", "algebraic-geometry"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Topological Spaces](./general-topology-foundations), [Subspaces, Products and Quotients](./general-topology-constructions), [Real Analysis](./real-analysis) (compact intervals and continuity).
+> **Builds on:** [Topological Spaces](./general-topology-foundations) and [Subspaces, Products and Quotients](./general-topology-constructions). **Recommended for real-interval examples:** [Real Analysis](./real-analysis) (completeness and compact intervals). See the [Path Through Topology](./path-to-topology).
 > **Leads to:** continuity and convergence arguments in [Measure Theory](./measure-theory), [Algebraic Geometry](./algebraic-geometry), and later functional analysis or geometry.
 
 What survives under continuous maps when distances are no longer available? Three topological properties answer different versions of that question:
@@ -14,7 +14,7 @@ What survives under continuous maps when distances are no longer available? Thre
 - **Connectedness** prevents a space from splitting into two disjoint nonempty relatively open pieces.
 - **Separation axioms** specify whether points and closed sets can be distinguished by neighborhoods.
 
-These properties are independent enough that confusing them produces common false arguments.
+These properties are independent enough that confusing them produces common false arguments. The abstract definitions and preservation proofs need no metric, but the proofs about *real intervals* later in this chapter use real-analysis results such as completeness and compactness of $[a,b]$. Readers taking the abstract route can learn the definitions first and consult those results when the examples require them.
 
 ## Compactness: every open cover admits a finite subcover
 
@@ -77,7 +77,7 @@ Every metric space is Hausdorff: if $d(x,y)=r>0$, balls of radius $r/3$ centered
 
 **Proof.** For any closed $F\subseteq X$, the closed-subspace theorem makes $F$ compact. Continuous-image compactness makes $f(F)$ compact in $Y$. Hausdorffness makes $f(F)$ **closed** in $Y$. Hence $f$ is a **closed map**. Since $f$ is a bijection, for every closed $F\subseteq X$, $(f^{-1})^{-1}(F)=f(F)$ is closed. Thus $f^{-1}$ is continuous. $\square$
 
-This is the missing step promised in the [interval-to-circle quotient construction](./general-topology-constructions). The quotient of $[0,1]$ with endpoints identified is compact; its induced continuous bijection to the Hausdorff circle is therefore a homeomorphism.
+This is the missing step promised in the [interval-to-circle quotient construction](./general-topology-constructions), followed step by step in the [Topology Learning Map](./path-to-topology). The quotient of $[0,1]$ with endpoints identified is compact; its induced continuous bijection to the Hausdorff circle is therefore a homeomorphism.
 
 > [!distinction] Compact alone does not imply closed
 > Closedness of compact subsets used the **Hausdorff** hypothesis. On a non-Hausdorff space it can fail: in an infinite set with the **indiscrete topology**, every singleton is compact (finite) but not closed.

@@ -6,6 +6,7 @@ import {readFileSync, existsSync} from "node:fs";
 import {join} from "node:path";
 
 const expected = {
+  "path-to-topology.md": ["tp-path-interval-circle.svg"],
   "structural-induction.md": ["dm-structural-induction.svg"],
   "state-machines-invariants.md": ["dm-invariant.svg"],
   "generating-functions.md": ["dm-generating-convolution.svg"],
@@ -85,7 +86,7 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==65)errors.push("Expected 65 illustrative SVGs, got "+total);
+if(total!==66)errors.push("Expected 66 illustrative SVGs, got "+total);
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);

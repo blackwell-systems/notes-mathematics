@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 480" role="img" aria-labelledby="title desc">
+<title id="title">An interval, its endpoint quotient, and the circle</title>
+<desc id="desc">Three stages from left to right: first the closed interval from zero to one with two separate amber endpoints; second the quotient identifying zero and one as one equivalence class, illustrated by two converging curved paths and a shared point; third the circle with one amber point at the seam. Below are the operations subspace topology, quotient topology, and proving a homeomorphism.</desc>
+<rect width="1360" height="480" rx="18" fill="#0c1e30"/>
+<text x="58" y="60" fill="#f1f6fc" font-family="Georgia,serif" font-size="39" font-weight="bold">From an interval to a circle</text>
+<text x="58" y="97" fill="#b8cede" font-family="Arial,sans-serif" font-size="20">One example; three distinct mathematical steps.</text>
+<g font-family="Arial,sans-serif" font-size="17" font-weight="bold" fill="#a7c2d6" text-anchor="middle" letter-spacing="1.1">
+<text x="227" y="155">1  SUBSPACE</text>
+<text x="681" y="155">2  IDENTIFY</text>
+<text x="1135" y="155">3  PROVE</text>
+</g>
+<g>
+<rect x="50" y="177" width="355" height="226" rx="14" fill="#152f46" stroke="#3e617a" stroke-width="2"/>
+<rect x="504" y="177" width="355" height="226" rx="14" fill="#152f46" stroke="#3e617a" stroke-width="2"/>
+<rect x="957" y="177" width="355" height="226" rx="14" fill="#152f46" stroke="#3e617a" stroke-width="2"/>
+</g>
+<g stroke="#83b7d3" stroke-width="6" stroke-linecap="round" fill="none">
+<path d="M110 278 H345"/>
+<path d="M578 278 C598 220 641 218 681 278 C721 338 763 336 784 278"/>
+<circle cx="1135" cy="278" r="65"/>
+</g>
+<g fill="#e3ad68" stroke="#ffdda2" stroke-width="2">
+<circle cx="110" cy="278" r="10"/><circle cx="345" cy="278" r="10"/>
+<circle cx="578" cy="278" r="10"/><circle cx="784" cy="278" r="10"/>
+<circle cx="1135" cy="213" r="11"/>
+</g>
+<g font-family="Arial,sans-serif" font-size="20" fill="#e0eaf2" text-anchor="middle">
+<text x="110" y="317">0</text><text x="345" y="317">1</text>
+<text x="227" y="363">Two different real endpoints</text>
+<text x="681" y="368">[0] = [1] in the quotient</text>
+<text x="1135" y="368">One point at the seam</text>
+</g>
+<g fill="none" stroke="#dfbe82" stroke-width="4" stroke-linecap="round">
+<path d="M422 278 H483"/><path d="M472 266 L484 278 L472 290"/>
+<path d="M877 278 H938"/><path d="M926 266 L939 278 L926 290"/>
+</g>
+<g font-family="Arial,sans-serif" font-size="17" fill="#bdcede" text-anchor="middle">
+<text x="227" y="436">Relatively open subsets</text>
+<text x="681" y="436">Open iff the full preimage is open</text>
+<text x="1135" y="436">Compact → Hausdorff proof</text>
+</g>
+</svg>
