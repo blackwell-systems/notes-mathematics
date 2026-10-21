@@ -55,7 +55,7 @@ jobs:
       - name: Editorial coverage and structure inventory
         run: node scripts/editorial-inventory.mjs --check
 
-      - name: Mathematical figure audit (38 authored diagrams)
+      - name: Mathematical figure audit (56 authored diagrams)
         run: node scripts/check-math-figures.mjs
 
       - name: Build Quartz

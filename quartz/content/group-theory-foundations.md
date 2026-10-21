@@ -1,7 +1,7 @@
 ---
 title: "Group Theory Foundations"
 prerequisites: ["set-theory", "functions-relations"]
-enables: ["group-homomorphisms-quotients", "algebraic-structures", "ring-theory-foundations"]
+enables: ["group-homomorphisms-quotients", "algebraic-structures", "ring-theory-foundations", "category-theory-foundations"]
 ---
 
 > [!abstract] Prerequisites & where this leads

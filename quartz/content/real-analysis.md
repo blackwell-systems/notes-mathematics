@@ -1,7 +1,7 @@
 ---
 title: "Real Analysis"
 prerequisites: ["calculus", "sequences-and-series"]
-enables: ["measure-theory"]
+enables: ["measure-theory", "general-topology-foundations"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
@@ -397,6 +397,9 @@ A set $S$ is **connected** if it cannot be written as the union of two nonempty,
 **In $\mathbb{R}$:** the connected sets are exactly the intervals (including rays and all of $\mathbb{R}$). This is the topological fact underlying the Intermediate Value Theorem: if $f$ is continuous and $f(a) < v < f(b)$, then $f([a,b])$ is a connected subset of $\mathbb{R}$ (since $[a,b]$ is connected and continuous images of connected sets are connected), so $f([a,b])$ is an interval, and $v$ must be in it.
 
 ### Topology: A Glimpse Beyond Metrics
+
+The dedicated sequence [General Topology Foundations](./general-topology-foundations) → [Topological Constructions](./general-topology-constructions) → [Compactness, Connectedness and Separation](./general-topology-compactness) constructs these concepts without assuming a metric, then proves their mapping and compactness theorems.
+
 
 Open sets, closed sets, compactness, and connectedness are really ideas from **topology**, not just metric space theory. A topological space is a set $X$ with a collection of "open sets" satisfying certain axioms (the empty set and $X$ are open; arbitrary unions and finite intersections of open sets are open). Every metric space defines a topology through its open balls, but there are topological spaces with no metric at all.
 

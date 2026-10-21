@@ -5,7 +5,7 @@ enables: ["probability", "singular-learning-theory"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Real Analysis](./real-analysis) · [Set Theory](./set-theory)
+> **Builds on:** [Real Analysis](./real-analysis) · [Set Theory](./set-theory) · optionally [General Topology](./general-topology-foundations) for Borel/open-set foundations
 > **Leads to:** [Probability](./probability) · [Singular Learning Theory](./singular-learning-theory)
 
 

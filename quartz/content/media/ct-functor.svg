@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" width="800" height="540" role="img" aria-labelledby="title desc">
+<title id="title">A functor maps composable arrows</title>
+<desc id="desc">Two columns depict a source category containing an arrow f from A to B and a target category containing F of A and F of B joined by F of f. A functor carries identities and compositions into the target category.</desc>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L0 6 L6 3 Z" fill="#91BFF6"/></marker></defs>
+<rect width="800" height="540" fill="#101A2C"/>
+<text x="40" y="55" font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="800" fill="#F4F5EF">Functors preserve arrows</text>
+<text x="40" y="93" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#C1CDDA">Objects and composition travel together</text>
+<path d="M40 110H760" stroke="#496078" stroke-width="2"/>
+<rect x="65" y="147" width="270" height="310" rx="18" fill="#1C2B40" stroke="#6DD2BD" stroke-width="2"/>
+<rect x="465" y="147" width="270" height="310" rx="18" fill="#1C2B40" stroke="#C7B6F4" stroke-width="2"/>
+<text x="200" y="182" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#6DD2BD">SOURCE CATEGORY C</text>
+<text x="600" y="182" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#C7B6F4">TARGET CATEGORY D</text>
+<circle cx="200" cy="244" r="38" fill="#243850" stroke="#6DD2BD" stroke-width="3"/>
+<circle cx="200" cy="386" r="38" fill="#243850" stroke="#6DD2BD" stroke-width="3"/>
+<circle cx="600" cy="244" r="38" fill="#243850" stroke="#C7B6F4" stroke-width="3"/>
+<circle cx="600" cy="386" r="38" fill="#243850" stroke="#C7B6F4" stroke-width="3"/>
+<g fill="#F4F5EF" font-size="27" font-weight="750" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">
+<text x="200" y="253">A</text><text x="200" y="395">B</text><text x="600" y="253">F(A)</text><text x="600" y="395">F(B)</text>
+</g>
+<g stroke="#91BFF6" stroke-width="3" marker-end="url(#arr)">
+<line x1="200" y1="290" x2="200" y2="338"/><line x1="600" y1="290" x2="600" y2="338"/>
+</g>
+<g fill="#F4C474" font-size="23" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><text x="233" y="326">f</text><text x="651" y="326">F(f)</text><text x="400" y="246">F(A)</text><text x="400" y="387">F(B)</text></g>
+<g stroke="#F4C474" stroke-width="2.5" marker-end="url(#arr)"><line x1="247" y1="244" x2="546" y2="244"/><line x1="247" y1="386" x2="546" y2="386"/></g>
+<text x="40" y="520" fill="#C1CDDA" font-size="15" font-family="Arial,Helvetica,sans-serif">MATHEMATICAL STRUCTURE / MAPPING PROPERTY</text>
+</svg>

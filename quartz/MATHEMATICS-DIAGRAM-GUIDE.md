@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **38 original, source-editable SVG figures** placed directly beside the claims they explain across **11 proof-oriented chapters**.
+This collection contains **56 original, source-editable SVG figures** placed directly beside the claims they explain across **18 proof-oriented chapters**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -20,7 +20,15 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Ideals, Quotient Rings & Homomorphisms](./content/ring-ideals-quotients.md) | 4 | residue cosets; quotient-product well-definedness; prime/maximal ideal quotients; CRT residue mapping |
 | [Field Theory Foundations](./content/field-theory-foundations.md) | 5 | extension tower; adjoining a root; prime-power sizes; cyclic nonzero group; multiplication table of F4 |
 
-The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, and `ft-`.
+The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-` and `tp-`.
+
+| [Category Theory Foundations](./content/category-theory-foundations.md) | 2 | composition and opposite categories |
+| [Functors and Natural Transformations](./content/category-functors-naturality.md) | 3 | functor action, naturality square, Yoneda identity evaluation |
+| [Limits and Colimits](./content/category-limits-colimits.md) | 3 | universal products, pullbacks and pushouts |
+| [Adjunctions and Monads](./content/category-adjunctions-monads.md) | 2 | free monoid universal arrow and list-monad flattening |
+| [General Topology Foundations](./content/general-topology-foundations.md) | 3 | alternate topologies, basis refinement, continuity through inverse images |
+| [Topological Constructions](./content/general-topology-constructions.md) | 2 | product basic open rectangles, endpoint quotient into a circle |
+| [Compactness and Connectedness](./content/general-topology-compactness.md) | 3 | finite subcovers, Hausdorff separation, connectedness |
 
 ## Formal truth behind the pictures
 
@@ -41,7 +49,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **38 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **56 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 

@@ -27,6 +27,9 @@ SLT is stated in the language of sets, functions, and logic. You cannot define t
 
 ## Stage 2: Analysis, the Rigor Layer
 
+**Optional structural detour:** [General Topology Foundations](./general-topology-foundations), [Topological Constructions](./general-topology-constructions), and [Compactness/Connectedness](./general-topology-compactness) provide the abstract reasons continuous images and compactness behave well. This detour is **not a claimed minimal prerequisite** for SLT.
+
+
 > [!definition] Why integration matters
 > Bayesian evidence integrates the likelihood over parameter space. Proving its large-sample asymptotics requires **integrability**, carefully controlled limits, and the behavior of the loss near best-fitting parameters.
 
@@ -53,6 +56,9 @@ SLT is a theory of *Bayesian* learning. Its central object, the free energy, is 
 **What SLT takes from Stage 3:** the free energy as a model-selection criterion, the KL divergence as the loss, and the tempered-posterior estimators that measure the RLCT in practice.
 
 ## Stage 4: The Geometry of Singularities
+
+**Optional abstraction bridge:** [Categories](./category-theory-foundations), [Functors](./category-functors-naturality), and [Universal Properties](./category-limits-colimits) clarify the mappings, quotients and pullback constructions that recur in geometry; this route is **not required** for the SLT results stated here.
+
 
 > [!distinction] Local singularity is not always a point of a polynomial variety
 > In analytic statistical models, the relevant loss zero set and its **resolved analytic structure** govern the RLCT. Not every statistical model has a globally polynomial parameterization; algebraic geometry provides central techniques but its polynomial examples are a **starting point**.

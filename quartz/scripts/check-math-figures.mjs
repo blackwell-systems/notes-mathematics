@@ -39,7 +39,14 @@ const expected = {
   ],
   "construction-of-the-complex-numbers.md": [
     "cx-complex-conjugation.svg","cx-rotation-by-i.svg","cx-polynomial-roots.svg"
-  ]
+  ],
+  "category-theory-foundations.md": ["ct-composition.svg","ct-opposite.svg"],
+  "category-functors-naturality.md": ["ct-functor.svg","ct-naturality.svg","ct-yoneda.svg"],
+  "category-limits-colimits.md": ["ct-product.svg","ct-pullback.svg","ct-pushout.svg"],
+  "category-adjunctions-monads.md": ["ct-adjunction.svg","ct-list-monad.svg"],
+  "general-topology-foundations.md": ["tp-topologies.svg","tp-basis.svg","tp-preimage-continuity.svg"],
+  "general-topology-constructions.md": ["tp-product.svg","tp-quotient-circle.svg"],
+  "general-topology-compactness.md": ["tp-compact-cover.svg","tp-hausdorff.svg","tp-connected.svg"]
 };
 
 const errors=[];
@@ -71,7 +78,7 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==38)errors.push("Expected 38 illustrative SVGs, got "+total);
+if(total!==56)errors.push("Expected 56 illustrative SVGs, got "+total);
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);

@@ -40,6 +40,9 @@ The surprise is how much geometry is packed into polynomial equations. A single 
 
 ## Affine Varieties
 
+For the general topological language behind **open subsets** and **continuous maps**, see [General Topology Foundations](./general-topology-foundations). The Zariski topology is usually much coarser than the Euclidean topology and is used with algebraic rather than metric constructions; [Category Theory](./category-theory-foundations) and [Universal Properties](./category-limits-colimits) explain the mapping viewpoint.
+
+
 > [!definition] Algebraic zero set
 > For polynomials $f_1,\ldots,f_k$ over a chosen field, $V(f_1,\ldots,f_k)$ consists of **simultaneous zeros** in that field. Over $\mathbb R$ some equations have no real solutions even when they have complex solutions.
 

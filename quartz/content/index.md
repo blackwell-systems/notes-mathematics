@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **64 topics** across 15 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **71 topics** across 17 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -42,7 +42,7 @@ Functions, then work through the function types) → Linear Algebra
 
    For a single ordered trail to the last item, follow the [Path to SLT](./path-to-slt).
 
-The [group-theory branch](./group-theory-foundations) can begin after sets and functions, in parallel with the natural-to-complex number-system construction chain. The branches reconnect at [Algebraic Structures](./algebraic-structures). Neither real completeness nor complex algebraic closure is needed to prove the group axioms.
+The [group-theory branch](./group-theory-foundations) can begin after sets and functions, in parallel with the natural-to-complex number-system construction chain. [Category theory](./category-theory-foundations) is most concrete after learning those group and ring examples; [general topology](./general-topology-foundations) extends the metric-space treatment in real analysis. The branches reconnect at [Algebraic Structures](./algebraic-structures). Neither real completeness nor complex algebraic closure is needed to prove the group axioms.
 
 ## Logic & Proofs
 
@@ -85,6 +85,15 @@ The next proof-oriented branch follows the additive group structure into **rings
 - [Ideals, Quotient Rings & Homomorphisms](./ring-ideals-quotients) (well-defined coset multiplication, isomorphism theorems, prime and maximal ideals, Chinese remainder theorem)
 - [Field Theory Foundations](./field-theory-foundations) (fraction fields, extensions, minimal polynomials, splitting fields and finite fields)
 
+## Category Theory
+
+Category theory studies **objects, arrows and universal mapping properties**, bringing the group, ring, function and vector-space branches under a common language. Each step has concrete worked constructions and commutative diagrams.
+
+- [Category Theory Foundations](./category-theory-foundations) (categories, examples, morphisms, isomorphisms, opposites)
+- [Functors, Natural Transformations and Yoneda](./category-functors-naturality) (covariance/contravariance, naturality, representable functors, a proof of Yoneda)
+- [Limits, Colimits and Universal Properties](./category-limits-colimits) (products, coproducts, equalizers, pullbacks, pushouts)
+- [Adjunctions, Free Constructions and Monads](./category-adjunctions-monads) (free monoids, adjoint functors, list monad, Kleisli composition)
+
 ## Algebra
 
 - [Number Theory](./number-theory) (divisibility, modular arithmetic, primes)
@@ -124,6 +133,14 @@ The next proof-oriented branch follows the additive group structure into **rings
 - [Calculus](./calculus) (limits, derivatives, chain rule, integrals, Fundamental Theorem)
 - [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients, gradient descent, convexity)
 - [Differential Equations](./differential-equations) (ODEs, systems, stability, Laplace transforms, neural ODEs)
+
+## General Topology
+
+Topology generalizes the open sets of real and metric analysis to spaces with **no distance function**. The sequence constructs spaces and then proves what compactness, connectedness and separation actually guarantee.
+
+- [General Topology Foundations](./general-topology-foundations) (open sets, bases, closure, continuity, homeomorphisms)
+- [Subspaces, Products and Quotient Topologies](./general-topology-constructions) (universal mapping properties, infinite products, the circle as a quotient)
+- [Compactness, Connectedness and Separation](./general-topology-compactness) (finite subcovers, Hausdorffness, IVT from connectedness)
 
 ## Combinatorics & Probability
 

@@ -1,7 +1,7 @@
 ---
 title: "Functions & Relations"
 prerequisites: ["set-theory"]
-enables: ["graphing-functions", "linear-functions", "calculus", "statistics"]
+enables: ["graphing-functions", "linear-functions", "calculus", "statistics", "category-theory-foundations"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
@@ -962,6 +962,9 @@ $\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
 **Important:** A function is invertible if and only if it is bijective (both injective and surjective).
 
 ## Well-Defined Functions
+
+For an abstract treatment that preserves **composition and identities** without requiring arrows to be set functions, continue to [Category Theory Foundations](./category-theory-foundations). [Functors and Natural Transformations](./category-functors-naturality) then explain how whole families of such maps are related.
+
 
 > [!distinction] Representative independence
 > A rule on equivalence classes must yield the **same result** regardless of the representative chosen. Writing a formula on arbitrary representatives is not enough to establish a well-defined function.

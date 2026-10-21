@@ -4893,6 +4893,63 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("Finite fields: F3 squared has nine elements",3**2,9);
 }
 
+// ================ Category theory and general topology ================
+// Executable finite models test representative examples, not general theorems.
+{
+  // Composition / functoriality of maps between finite sets.
+  const apply=(f,x)=>f[x],compose=(g,f)=>f.map(x=>g[x]);
+  const f=[1,0,1],g=[0,1],h=[1,0];
+  check("Category: associativity of finite function composition",
+    compose(h,compose(g,f)).join(",")===compose(compose(h,g),f).join(","));
+  check("Category: identity on source and target",
+    compose([0,1],f).join(",")===f.join(",") &&
+    compose(f,[0,1,2]).join(",")===f.join(","));
+  // The pullback of maps to two-element C consists of three matching pairs.
+  const A=[0,1,1],B=[0,1];
+  const pairs=A.flatMap((a,i)=>B.flatMap((b,j)=>a===b?[[i,j]]:[]));
+  eq("Category: pullback compatible pairs",pairs.length,3);
+  // Universal pairing recovers either component of the pair.
+  const fx=[0,1,0],gx=[1,1,0];
+  const pairing=fx.map((x,i)=>[x,gx[i]]);
+  check("Category: product projections recover each component",
+    pairing.every(([u,v],i)=>u===fx[i]&&v===gx[i]));
+  // A free monoid map from generators is uniquely determined by its word evaluation.
+  const evalWord=w=>w.reduce((z,c)=>z+(c==="a"?2:5),0);
+  eq("Category: free monoid evaluates aba",evalWord(["a","b","a"]),9);
+  eq("Category: free monoid respects concatenation",
+    evalWord(["a","b"].concat(["a"])),evalWord(["a","b"])+evalWord(["a"]));
+  const flatten=xs=>xs.flat();
+  const nest=[[["a"],["b","c"]],[["d"]]];
+  check("Category: list monad multiplication associative",
+    nest.map(flatten).flat().join(",")===flatten(nest).flat().join(","));
+  check("Category: list monad left and right units",
+    flatten([["a","b"]]).join(",")==="a,b" &&
+    flatten(["a","b"].map(x=>[x])).join(",")==="a,b");
+  // Topology axioms on three points: empty, {a}, {a,b}, and whole X.
+  const X=0b111,topology=[0b000,0b001,0b011,0b111];
+  const has=n=>topology.includes(n);
+  check("Topology: finite nested opens closed under unions/intersections",
+    has(0)&&has(X)&&topology.every(a=>topology.every(b=>
+      has(a|b)&&has(a&b))));
+  // Sierpinski topology is T0 but not T1.
+  const sierpinski=[0b00,0b10,0b11];
+  check("Topology: Sierpinski distinguishes points one way",
+    sierpinski.includes(0b10)&&!sierpinski.includes(0b01));
+  // The quotient topology on a two-point indiscrete target is indiscrete.
+  // f: {a,b,c} to {0,1}, collapsing a and b. Domain indiscrete.
+  const domainOpens=[0b000,0b111],q=[0,0,1];
+  const inv=mask=>q.reduce((acc,y,x)=>acc|((mask&(1<<y))?(1<<x):0),0);
+  const quotientOpens=[0,1,2,3].filter(mask=>domainOpens.includes(inv(mask)));
+  check("Topology: quotient of indiscrete finite space is indiscrete",
+    quotientOpens.join(",")==="0,3");
+  // Preimages of a composition commute with successive preimages.
+  const f2=[0,1,1],g2=[1,0];
+  const inverse=(arr,sub)=>arr.reduce((mask,x,i)=>
+    mask|((sub&(1<<x))?(1<<i):0),0);
+  check("Topology: preimage of composition",
+    [0,1,2,3].every(sub=>inverse(compose(g2,f2),sub)===
+      inverse(f2,inverse(g2,sub))));
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

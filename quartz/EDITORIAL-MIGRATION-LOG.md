@@ -177,8 +177,30 @@ The arithmetic harness now additionally checks modular units, quotient multiplic
 
 **Coverage after batch 8:** **64 topic chapters and 2 navigation pages = 66 Markdown pages**, all at **pilot** semantic status. These are new chapters and embedded figures, **not independent mathematical proof review**. Diagram, mobile, light/dark and accessibility visual-acceptance statuses remain pending until actually checked.
 
+## Batch 9: category theory and general topology (2026-10-21)
+
+**Seven new proof-oriented chapters:**
+
+| Chapter | Main results with complete worked proofs or explicitly marked scope |
+| --- | --- |
+| [Category Theory Foundations](./content/category-theory-foundations.md) | category axioms, identity/inverse uniqueness, categories of groups/rings/sets, posets as categories, mono/epi distinction, opposite categories |
+| [Functors, Naturality and Yoneda](./content/category-functors-naturality.md) | functoriality, contravariance, naturality squares, representables, constructive proof of covariant Yoneda and the fully faithful embedding |
+| [Limits and Colimits](./content/category-limits-colimits.md) | product uniqueness and verification in Set, coproducts, equalizers, coequalizers, a finite worked pullback and construction of pushouts |
+| [Adjunctions and Monads](./content/category-adjunctions-monads.md) | free-monoid universal property, adjunction bijection and naturality, unit/counit triangle identities, list monad laws and Kleisli composition |
+| [General Topology Foundations](./content/general-topology-foundations.md) | open-set axioms, metric topology, generating bases, closure criterion, inverse-image continuity, homeomorphisms |
+| [Topological Constructions](./content/general-topology-constructions.md) | subspace/product/quotient universal properties, distinction from box topology, interval-to-circle quotient, disjoint unions and pushouts |
+| [Compactness, Connectedness and Separation](./content/general-topology-compactness.md) | finite subcover tests, compact/closed image theorems, compact-Hausdorff homeomorphism theorem, T0/T1/T2 examples, interval connectedness, IVT, finite intersection property |
+
+**Visual approach:** 18 new original SVG diagrams show composition, functors, naturality, Yoneda, products, pullbacks, pushouts, adjunctions and monads, plus topological bases, preimages, product opens, circle quotients, compact covers, Hausdorff separation and connectedness. Captions and meaningful alt text accompany each diagram. The dedicated figure-audit CI gate now inventories **56 SVGs across 18 chapters**.
+
+**Mathematical regression:** the finite-example harness checks function composition, pullback pairing, free monoids, list-monad associativity and unit laws, topology axioms for a finite example, Sierpiński T0/T1 behavior, quotient-open sets and preimages of compositions.
+
+**Cross-links:** the homepage adds category theory and general topology branches, while functions/relations, group theory, real analysis, measure theory, algebraic geometry and the optional SLT route link to the corresponding new prerequisites without falsely making optional subjects mandatory.
+
+**Coverage after batch 9:** **71 topic pages and 2 navigation pages = 73 tracked Markdown pages**. All are \`pilot\` semantic reviews; no page is declared fully proof- or visually accepted. Responsive screenshots, dark/light contrasts and mathematical peer review remain distinct acceptance tasks.
+
 ## Site-wide baseline
 
-There are now 66 tracked Markdown pages, including 64 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 8, **all 66 pages have pilot semantic treatment** and **zero are marked completely reviewed**. Subsequent work must audit and accept mobile/dark-mode rendering, diagrams, accessibility, and proof accuracy. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are now 73 tracked Markdown pages, including 71 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 9, **all 73 pages have pilot semantic treatment** and **zero are marked completely reviewed**. Subsequent work must audit and accept mobile/dark-mode rendering, diagrams, accessibility, and proof accuracy. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
 The next stage is not another wholesale semantic migration: perform **visual regression and accessibility checks**, review the existing diagrams, and complete page-by-page mathematical/editorial acceptance without marking proof review as finished merely because CI passes.

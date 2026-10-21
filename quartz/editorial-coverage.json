@@ -51,6 +51,42 @@
       "diagramReview": "pending"
     },
     {
+      "path": "category-adjunctions-monads.md",
+      "kind": "topic",
+      "track": "category-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "category-functors-naturality.md",
+      "kind": "topic",
+      "track": "category-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "category-limits-colimits.md",
+      "kind": "topic",
+      "track": "category-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "category-theory-foundations.md",
+      "kind": "topic",
+      "track": "category-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "combination.md",
       "kind": "topic",
       "track": "combinatorics-and-probability",
@@ -162,6 +198,33 @@
       "path": "functions-relations.md",
       "kind": "topic",
       "track": "algebra",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "general-topology-compactness.md",
+      "kind": "topic",
+      "track": "general-topology",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "general-topology-constructions.md",
+      "kind": "topic",
+      "track": "general-topology",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "general-topology-foundations.md",
+      "kind": "topic",
+      "track": "general-topology",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
