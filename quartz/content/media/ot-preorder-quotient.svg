@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+<title id="title">From a preorder to a partial order by quotienting mutual reachability</title>
+<desc id="desc">On the left a and b have directed arrows both ways, while c and d have directed arrows both ways, and there is an arrow from b to c. On the right two quotient nodes labeled class a-b and class c-d have a one-way order arrow between them. Quotienting mutual reachability removes cycles without losing the ordering of the distinct classes.</desc>
+<rect width="1200" height="440" rx="18" fill="#0c1e30"/>
+<g fill="#c6d5e5" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="1">
+<text x="72" y="60">PREORDER</text>
+<text x="683" y="60">QUOTIENT POSET</text>
+</g>
+<text x="72" y="98" fill="#97acbe" font-size="17" font-family="Arial,sans-serif">Distinct points can precede one another.</text>
+<text x="683" y="98" fill="#97acbe" font-size="17" font-family="Arial,sans-serif">Mutually reachable points become one class.</text>
+<g fill="none" stroke-width="3" stroke-linecap="round">
+<rect x="60" y="132" width="490" height="246" rx="13" stroke="#416278" fill="#152b40"/>
+<rect x="650" y="132" width="490" height="246" rx="13" stroke="#416278" fill="#152b40"/>
+<path d="M185 239 Q242 161 298 239" stroke="#64caba"/>
+<path d="M298 261 Q242 329 185 261" stroke="#64caba"/>
+<path d="M390 239 Q448 161 498 239" stroke="#bea0f1"/>
+<path d="M498 261 Q445 329 390 261" stroke="#bea0f1"/>
+<path d="M315 250 H377" stroke="#e4bd77" stroke-width="5"/>
+<path d="M365 239 L381 250 L365 261" stroke="#e4bd77" stroke-width="4"/>
+<path d="M286 227 L302 242 L281 244 M198 273 L182 257 L203 256" stroke="#64caba"/>
+<path d="M487 227 L503 242 L482 244 M403 273 L387 257 L408 256" stroke="#bea0f1"/>
+<path d="M854 251 H963" stroke="#e4bd77" stroke-width="6"/>
+<path d="M946 236 L969 251 L946 266" stroke="#e4bd77" stroke-width="5"/>
+</g>
+<g font-size="30" font-family="Georgia,serif" font-weight="bold" text-anchor="middle">
+<circle cx="185" cy="250" r="31" fill="#245a64" stroke="#64caba" stroke-width="2"/>
+<circle cx="298" cy="250" r="31" fill="#245a64" stroke="#64caba" stroke-width="2"/>
+<circle cx="390" cy="250" r="31" fill="#5b497c" stroke="#bea0f1" stroke-width="2"/>
+<circle cx="498" cy="250" r="31" fill="#5b497c" stroke="#bea0f1" stroke-width="2"/>
+<text x="185" y="260" fill="#ffffff">a</text><text x="298" y="260" fill="#ffffff">b</text>
+<text x="390" y="260" fill="#ffffff">c</text><text x="498" y="260" fill="#ffffff">d</text>
+<rect x="715" y="206" width="139" height="92" rx="13" fill="#245a64" stroke="#64caba" stroke-width="3"/>
+<rect x="972" y="206" width="139" height="92" rx="13" fill="#5b497c" stroke="#bea0f1" stroke-width="3"/>
+<text x="784" y="260" fill="#ffffff">[a,b]</text><text x="1041" y="260" fill="#ffffff">[c,d]</text>
+</g>
+<text x="600" y="273" font-family="Arial,sans-serif" text-anchor="middle" font-size="37" fill="#cbd8e5">⇒</text>
+<text x="600" y="409" font-family="Arial,sans-serif" font-size="17" fill="#b4c9d7" text-anchor="middle">Keep comparisons between classes; identify points related in both directions.</text>
+</svg>
