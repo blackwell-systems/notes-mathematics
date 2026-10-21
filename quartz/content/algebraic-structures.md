@@ -1,7 +1,7 @@
 ---
 title: "Algebraic Structures"
 prerequisites: ["number-systems", "group-theory-foundations"]
-enables: ["linear-algebra-foundations", "algebraic-geometry"]
+enables: ["linear-algebra-foundations", "ring-theory-foundations", "algebraic-geometry"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
@@ -128,6 +128,9 @@ The two orders yield *different* symmetries (one fixes corner 2, the other corne
 
 ### Ring
 
+For a dedicated derivation of the ring laws, units, zero divisors, cancellation, characteristic and polynomial division, see [Ring Theory Foundations](./ring-theory-foundations). Its sequel [Ideals, Quotient Rings & Homomorphisms](./ring-ideals-quotients) proves which additive cosets support multiplication and develops the ring isomorphism theorems.
+
+
 A **ring** is a set $R$ with *two* operations, $+$ and $\times$, such that $R$ is an abelian group under $+$ (giving $0$, negatives, commutativity of addition), multiplication is associative and has an identity element $1$ (with $1 \cdot a = a \cdot 1 = a$), and multiplication distributes over addition. What a ring does *not* require is multiplicative inverses, or even commutativity of multiplication. So a ring is a field with the multiplicative-inverse axiom (and possibly commutativity of $\times$) dropped.
 
 Examples:
@@ -144,6 +147,9 @@ $$AB = \begin{pmatrix} 1\cdot1 + 1\cdot1 & 1\cdot0 + 1\cdot1 \\ 0\cdot1 + 1\cdot
 Since $AB \neq BA$, the $2 \times 2$ matrices form a ring whose multiplication is *not* commutative, a **noncommutative ring**. (They also fail to be a field for a second reason: a nonzero matrix with determinant $0$ has no inverse at all. The polynomial ring $\mathbb{R}[x]$ shows the same gap more simply, $x$ is nonzero yet no polynomial times $x$ equals $1$.)
 
 ### Field
+
+The full abstract development is [Field Theory Foundations](./field-theory-foundations), including field extensions, irreducible-polynomial quotients, minimal polynomials and fields of prime-power order.
+
 
 ![A structural diagram of a field as two abelian groups glued by distributivity: the whole set under addition is an abelian group with identity 0 and negatives, the nonzero elements under multiplication form an abelian group with identity 1 and reciprocals, and distributivity, a times the quantity b plus c equals ab plus ac, links the two, with examples the rationals, reals, complex numbers, and the prime fields Fp](./media/as-field-structure.png)
 

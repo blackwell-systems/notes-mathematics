@@ -1,11 +1,11 @@
 ---
 title: "Algebraic Geometry"
-prerequisites: ["multivariable-calculus", "algebraic-structures"]
+prerequisites: ["multivariable-calculus", "algebraic-structures", "ring-ideals-quotients", "field-theory-foundations"]
 enables: ["singular-learning-theory"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Multivariable Calculus](./multivariable-calculus) · [Algebraic Structures](./algebraic-structures)
+> **Builds on:** [Multivariable Calculus](./multivariable-calculus) · [Algebraic Structures](./algebraic-structures) · [Ideals & Quotient Rings](./ring-ideals-quotients) · [Field Theory](./field-theory-foundations)
 > **Leads to:** [Singular Learning Theory](./singular-learning-theory)
 
 
@@ -136,6 +136,9 @@ An ideal $I$ has two closure properties:
 These are natural properties. If a polynomial vanishes on a variety, you can add two such polynomials or multiply by anything, and the result still vanishes on the variety.
 
 ### The Fundamental Correspondence
+
+The algebra behind this dictionary is constructed in [Ideals, Quotient Rings & Homomorphisms](./ring-ideals-quotients): ideals are kernels and precisely the subsets for which quotient-ring multiplication is well-defined. [Field Theory Foundations](./field-theory-foundations) explains irreducible polynomial quotients and why the **algebraically closed** ground-field hypothesis matters here.
+
 
 The deepest idea in algebraic geometry is a dictionary between geometry and algebra:
 

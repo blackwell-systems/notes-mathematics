@@ -22,6 +22,7 @@
     "editorial:check": "node scripts/editorial-inventory.mjs --check",
     "editorial:report": "node scripts/editorial-inventory.mjs --json",
     "editorial:sync": "node scripts/editorial-inventory.mjs --write",
+    "figures:check": "node scripts/check-math-figures.mjs",
     "prebuild": "npm run install-plugins"
   },
   "engines": {

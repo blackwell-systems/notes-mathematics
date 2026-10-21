@@ -161,8 +161,24 @@ Regression examples were added for combination counts, degree sums, KL asymmetry
 
 The arithmetic harness now checks finite-width binary examples, terminating representations and quaternion noncommutativity, plus basic monomial RLCT coefficients.
 
+## Batch 8: rigorous rings, ideals, field theory and constructed-number diagrams (2026-10-21)
+
+New proof-oriented content:
+
+| New chapter | What was derived |
+| --- | --- |
+| [Ring Theory Foundations](./content/ring-theory-foundations.md) | full ring axioms, zero and sign laws, units, zero divisors, cancellation, finite-domain field theorem, characteristic, polynomial rings and division |
+| [Ideals, Quotient Rings & Homomorphisms](./content/ring-ideals-quotients.md) | ideals as two-sided absorbing subgroups, quotient multiplication well-definedness and necessity, three ring isomorphism theorems, correspondence, prime/maximal ideals and CRT |
+| [Field Theory Foundations](./content/field-theory-foundations.md) | fraction fields, prime subfields, field extensions, tower law, minimal polynomials, root-adjoining quotients, splitting field existence and finite fields |
+
+**Visual extension requested during implementation:** the construction chapters [Peano Arithmetic](./content/peano-arithmetic.md), [Integers](./content/construction-of-the-integers.md), [Rationals](./content/construction-of-the-rationals.md), [Reals](./content/construction-of-the-reals.md), and [Complex Numbers](./content/construction-of-the-complex-numbers.md), all created on October 20–21, received **three purpose-built conceptual diagrams each**. The three existing group-theory chapters received **ten figures**; the new ring/ideal/field chapters received **13 figures**. Total: **38 original SVGs across 11 chapters**. Each figure is accompanied by math-specific alt text and a caption, and its original SVG has title and description metadata. See [Mathematics diagram guide](./MATHEMATICS-DIAGRAM-GUIDE.md).
+
+The arithmetic harness now additionally checks modular units, quotient multiplication independence, the Chinese remainder correspondence, representative field arithmetic in $\mathbb F_4$ and $\mathbb F_9$, and field-extension examples. The dedicated [figure audit](./scripts/check-math-figures.mjs) verifies all 38 assets are present and connected to the right chapters.
+
+**Coverage after batch 8:** **64 topic chapters and 2 navigation pages = 66 Markdown pages**, all at **pilot** semantic status. These are new chapters and embedded figures, **not independent mathematical proof review**. Diagram, mobile, light/dark and accessibility visual-acceptance statuses remain pending until actually checked.
+
 ## Site-wide baseline
 
-There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 7, **all 63 pages have pilot semantic treatment** and **zero are marked completely reviewed**. Subsequent work must audit and accept mobile/dark-mode rendering, diagrams, accessibility, and proof accuracy. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are now 66 tracked Markdown pages, including 64 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 8, **all 66 pages have pilot semantic treatment** and **zero are marked completely reviewed**. Subsequent work must audit and accept mobile/dark-mode rendering, diagrams, accessibility, and proof accuracy. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
 The next stage is not another wholesale semantic migration: perform **visual regression and accessibility checks**, review the existing diagrams, and complete page-by-page mathematical/editorial acceptance without marking proof review as finished merely because CI passes.

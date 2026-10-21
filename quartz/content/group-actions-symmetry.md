@@ -123,6 +123,11 @@ The conceptual payoff is that abstract groups are genuinely made of **reversible
 
 ## Orbits and stabilizers
 
+![A square with four vertices and D4 symmetry group; orbit size four, vertex stabilizer size two.](./media/gr-square-orbit-stabilizer.svg)
+
+*Figure: Eight symmetries distribute as four possible images of a vertex times two symmetries fixing it.*
+
+
 For $x\in X$, define its **orbit**
 
 $$
@@ -189,6 +194,11 @@ This is the **orbit-stabilizer theorem**. The size of an orbit times the size of
 **Worked example: triangle vertices.** The six symmetries of an equilateral triangle act on its three vertices. The orbit of any vertex has size three: the rotations move it to all three positions. Exactly two symmetries fix a chosen vertex, the identity and reflection through that vertex. Orbit-stabilizer gives $3\cdot2=6$.
 
 ## Dihedral groups: rotations and reflections
+
+![Four square rotations at zero, ninety, one hundred eighty and two hundred seventy degrees, plus four reflections.](./media/gr-dihedral-symmetries.svg)
+
+*Figure: Rotations alone account for only half the symmetries of a square.*
+
 
 Consider a regular $n$-gon, with $n\geq3$. Label its vertices by residues $k\in\mathbb Z/n\mathbb Z$. Define two bijections
 
@@ -308,6 +318,11 @@ Therefore $G$ would be abelian, giving $Z(G)=G$, contradicting $|Z(G)|=p$. Thus 
 This theorem illustrates how **cosets, quotient groups, Lagrange, orbit-stabilizer, and conjugation** combine to prove a structural fact about groups.
 
 ## Burnside's lemma: count objects up to symmetry
+
+![Four-bar fixed-coloring chart with counts 16, 2, 4, 2 for four rotations of two-colored four-corner configurations.](./media/gr-burnside-rotation-count.svg)
+
+*Figure: Averaging the fixed-coloring counts yields six distinct colorings up to rotation.*
+
 
 > [!theorem] Burnside's lemma
 > For finite $G$ acting on finite $X$, the number of orbits equals the **average number of fixed points**: $|X/G|=|G|^{-1}\sum_{g\in G}|\operatorname{Fix}(g)|$. The proof counts the same set of pairs in two ways.

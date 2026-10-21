@@ -20,6 +20,11 @@ Read $\ker(f)$ as "the kernel of f," $\operatorname{im}(f)$ as "the image of f,"
 
 ## Homomorphisms: preserving multiplication, not necessarily elements
 
+![Map from Z modulo six to Z modulo three with fibers {0,3}, {1,4}, and {2,5}.](./media/gr-homomorphism-fibers.svg)
+
+*Figure: Different inputs can have the same image while the group operation remains preserved.*
+
+
 > [!definition] Group homomorphism
 > A map $f:G\to H$ is a **homomorphism** when $f(ab)=f(a)f(b)$ for all group elements. This preserves the operation, **not necessarily distinctness**: different elements may share an image.
 
@@ -256,6 +261,11 @@ Here the reverse direction is the proved fact that kernels are normal.
 
 ## The First Isomorphism Theorem
 
+![Triangle showing G maps to its image through the quotient by its kernel.](./media/gr-first-isomorphism.svg)
+
+*Figure: First quotient out what the map loses; the remaining information is precisely the image.*
+
+
 > [!theorem] First Isomorphism Theorem
 > Every group homomorphism factors through the quotient by its kernel: $G/\ker(f)\cong\operatorname{im}(f)$. The proof constructs the induced map and verifies **well-definedness, homomorphism, injectivity, and surjectivity**.
 
@@ -347,6 +357,11 @@ $$
 **Worked example:** take $G=\mathbb Z$, $N=12\mathbb Z$, and $K=4\mathbb Z$. The intermediate quotient $G/N$ has twelve elements, while $K/N$ has three: the classes of $0,4,8$. Quotienting those out leaves four elements, matching $\mathbb Z/4\mathbb Z$. In other words, modding out by twelve and then by the subgroup of multiples of four has the same final structure as modding out by four directly.
 
 ## Correspondence theorem: all subgroups above the kernel
+
+![The subgroup lattice above H={0,3} in Z modulo six corresponds to the two subgroups of Z modulo three.](./media/gr-correspondence-lattice.svg)
+
+*Figure: Subgroup inclusion survives the passage to the quotient.*
+
 
 Let $N\trianglelefteq G$ with canonical map $\pi:G\to G/N$. There is a one-to-one correspondence
 

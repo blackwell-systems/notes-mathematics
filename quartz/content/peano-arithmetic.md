@@ -16,6 +16,11 @@ We take ordinary [logic](./predicate-logic-first-order-logic), [sets](./set-theo
 
 ## The primitive language: zero and successor
 
+![The successor chain 0, 1, 2, 3, 4 shows that a natural number's successor comes after it.](./media/pa-successor-chain.svg)
+
+*Figure: Zero and successor are primitive here; addition is derived later.*
+
+
 Before defining addition, multiplication, or even the relation "less than," consider a structure
 
 $$
@@ -117,6 +122,11 @@ The usual set-theoretic construction proves that zero is not a successor, that s
 
 ## Induction: a theorem engine, not a repeated calculation
 
+![Induction takes a base case P(0) and a successor-preservation step P(n) implies P(S(n)), yielding P(n) for every natural n.](./media/pa-induction-engine.svg)
+
+*Figure: Induction proves closure over the entire number system, not merely the first few examples.*
+
+
 To prove a statement $P(n)$ for every natural $n$, full induction gives a standard method:
 
 - **Base case:** prove $P(0)$.
@@ -169,6 +179,11 @@ In particular, simply displaying the two recursion equations without existence a
 We will apply recursion twice, first to addition and then to multiplication. The operations are defined *on the naturals*, not assumed in the primitive Peano language.
 
 ## Defining addition and checking the first examples
+
+![The recursive addition laws a+0=a and a+S(n)=S(a+n), with 3+2=5.](./media/pa-recursive-addition.svg)
+
+*Figure: Addition is constructed from the successor operation.*
+
 
 Fix a natural $a$. Apply the recursion theorem with $X=N$, starting value $a$, and step function $f=S$. Call the resulting function of $b$ by the notation $a+b$ (read "a plus b"). This gives the **definitions**
 

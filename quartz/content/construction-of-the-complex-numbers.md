@@ -16,6 +16,11 @@ This time the new objects are simpler than equivalence classes: each complex num
 
 ## Build the underlying set and operations
 
+![Vectors at (3,2) and (3,-2) represent conjugate complex numbers 3+2i and 3-2i.](./media/cx-complex-conjugation.svg)
+
+*Figure: The complex plane identifies addition with vector addition, while conjugation reflects across the real axis.*
+
+
 > [!definition] Complex numbers as ordered pairs
 > Construct $\mathbb C$ as $\mathbb R^2$ with **componentwise addition** and a deliberately defined multiplication. The special product is what makes $(0,1)^2=(-1,0)$ possible.
 
@@ -57,6 +62,11 @@ $$
 This is a design choice that produces the desired equation. We must now check that the design also preserves the familiar algebraic laws.
 
 ## The real-number embedding and the imaginary unit
+
+![Multiplication by i cycles 1, i, negative one, negative i, and back to one.](./media/cx-rotation-by-i.svg)
+
+*Figure: Complex multiplication by the imaginary unit corresponds to a quarter-turn in the plane.*
+
 
 Embed the reals via
 
@@ -430,6 +440,11 @@ This is more precise than "imaginary numbers cannot be compared." You can impose
 
 ## Roots, polynomial equations, and what has *not* been proved yet
 
+![The polynomial x squared plus one has no real roots and complex roots plus i and minus i.](./media/cx-polynomial-roots.svg)
+
+*Figure: Passing to a larger field creates roots of equations not solvable in the smaller field.*
+
+
 Constructing $i$ solves $x^2+1=0$. It does **not**, by itself, prove that every complex polynomial equation has a solution.
 
 For example, we can solve
@@ -734,7 +749,7 @@ $$
 
 exactly our pair-multiplication rule. Since $x^2+1$ is irreducible over $\mathbb R$ (it has no real root), the quotient is a field.
 
-This quotient-ring view uses more abstract algebra than the pair construction, but it shows the larger pattern: adjoining a root is a **structural construction**, not just a symbol-writing trick.
+This quotient-ring view is justified systematically in [Ideals, Quotient Rings & Homomorphisms](./ring-ideals-quotients) and [Field Theory Foundations](./field-theory-foundations). In particular, quotient multiplication requires an ideal, and an irreducible polynomial generates a maximal ideal whose quotient is a field. Adjoining a root is thus a **structural construction**, not just a symbol-writing trick.
 
 ## Why the familiar tower stops being ordered
 

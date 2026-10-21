@@ -20,6 +20,11 @@ The essential warning is that **completeness cannot be presumed halfway through 
 
 ## The input: rational Cauchy sequences
 
+![Rational approximations 1.4, 1.41, 1.414, and 1.4142 become closer and approach square root of two.](./media/re-cauchy-convergence.svg)
+
+*Figure: The completed real system represents the limit using an equivalence class of rational Cauchy sequences.*
+
+
 A **sequence of rationals** is a function $x:\mathbb N\to\mathbb Q$. We write $x_n$ for its value at index $n$, read "x sub n." Starting the index at zero or one does not affect the construction.
 
 > [!definition] Rational Cauchy sequence
@@ -406,6 +411,11 @@ We have now constructed an **ordered field satisfying the least-upper-bound prop
 
 ## Building the square root of two inside the new field
 
+![Nested rational bounds approach the square root of two.](./media/re-nested-real-intervals.svg)
+
+*Figure: Rational intervals can bracket the newly constructed real with increasing precision.*
+
+
 > [!example] Where completion adds something
 > Rational approximations to $\sqrt{2}$ get arbitrarily close to one another, but there is **no rational** whose square is $2$. Their new Cauchy equivalence class has a real limit; the construction supplies the missing object.
 
@@ -507,6 +517,11 @@ Because $\mathbb R$ is a field it has no zero divisors. Either $u=v$ or $u+v=0$.
 We may now **define** $\sqrt t$ (read "the nonnegative square root of t") for *every* $t\geq0$, not only $t=2$. This theorem justifies the later modulus formula $\sqrt{a^2+b^2}$ in [Construction of the Complex Numbers](./construction-of-the-complex-numbers). It also identifies the exact dependency: arbitrary real square roots are consequences of completeness and ordered-field laws, not independent arithmetic axioms.
 
 ## Dedekind cuts as a second representation
+
+![A Dedekind cut at the square root of two separates the rationals below it from those at or above it.](./media/re-dedekind-cut-boundary.svg)
+
+*Figure: A cut determines a real boundary, even though that boundary need not be rational.*
+
 
 > [!proof] Keep the dependency visible
 > We prove that the cuts represent the same complete ordered field using the **Cauchy-constructed reals**. The cut order also has an intrinsic union-based completeness proof. This section is an alternative **representation**, not a second logically independent field-existence proof.

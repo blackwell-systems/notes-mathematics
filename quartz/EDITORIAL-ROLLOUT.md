@@ -85,7 +85,7 @@ The GitHub Pages workflow runs `--check` **before the site build** and fails whe
 
 ## Migration progress
 
-Seven content batches have now given **all 63 Markdown pages** first-pass semantic treatment, including the landing page and guided learning path. Every page is tagged `pilot`; **zero are certified `complete`** because mobile, dark-theme, accessibility, diagram and independent proof review are still outstanding. The next phase is visual/semantic acceptance rather than blanket formatting. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
+Seven editorial migration batches, followed by three new proof-oriented ring/field chapters, have given **all 66 Markdown pages** first-pass semantic treatment, including the landing page and guided learning path. Every page is tagged `pilot`; **zero are certified `complete`** because mobile, dark-theme, accessibility, diagram and independent proof review are still outstanding. The next phase is visual/semantic acceptance rather than blanket formatting. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
 
 ## Recommended migration batches
 
@@ -120,6 +120,6 @@ Diagrams require their own status; a page can pass semantic review while its dia
 
 ## Rollout completion gate
 
-All 63 Markdown pages must be present in the coverage manifest, and all review fields must be `complete` or valid `not-applicable`, with no blocking render, accessibility or mathematical regression. The global typography rollout alone does not satisfy this gate.
+All 66 Markdown pages must be present in the coverage manifest, and all review fields must be `complete` or valid `not-applicable`, with no blocking render, accessibility or mathematical regression. The global typography rollout alone does not satisfy this gate.
 
 **Next implementation work:** migrate the content group by group, add screenshot and accessibility checks as separate CI jobs, and only then mark individual pages complete. The manifest makes progress explicit rather than assuming that deployment means editorial approval.

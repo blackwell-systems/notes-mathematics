@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **61 topics** across 14 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **64 topics** across 15 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -76,6 +76,14 @@ The [group-theory branch](./group-theory-foundations) can begin after sets and f
 - [Homomorphisms and Quotient Groups](./group-homomorphisms-quotients) (normality, kernels, quotient well-definedness, isomorphism theorems, direct products)
 - [Group Actions and Symmetry](./group-actions-symmetry) (permutations, Cayley, orbit-stabilizer, dihedral groups, conjugacy, Burnside)
 - [Algebraic Structures](./algebraic-structures) (group, ring, and field laws; bridge from constructions to abstractions)
+
+## Ring & Field Theory
+
+The next proof-oriented branch follows the additive group structure into **rings**, identifies which subsets permit quotient multiplication, and then constructs **field extensions** and finite fields.
+
+- [Ring Theory Foundations](./ring-theory-foundations) (axioms, units, zero divisors, cancellation, integral domains, characteristic, polynomial division)
+- [Ideals, Quotient Rings & Homomorphisms](./ring-ideals-quotients) (well-defined coset multiplication, isomorphism theorems, prime and maximal ideals, Chinese remainder theorem)
+- [Field Theory Foundations](./field-theory-foundations) (fraction fields, extensions, minimal polynomials, splitting fields and finite fields)
 
 ## Algebra
 

@@ -27,6 +27,11 @@ When we cite any of these properties, we are using a **previously proved theorem
 
 ## A pair is a proposed difference, not yet an integer
 
+![Pairs (3,1), (4,2), and (5,3) all represent the integer 2 under the equivalence relation on natural-number pairs.](./media/zi-equivalent-differences.svg)
+
+*Figure: Different pairs can represent one integer; they are identified only after proving equivalence.*
+
+
 > [!definition] Differences before subtraction exists
 > A natural pair $(a,b)$ stands for the intended difference $a-b$, but **does not rely on preexisting integer subtraction**. The equivalence relation defines when two such pairs represent the same integer.
 
@@ -337,6 +342,11 @@ This equation is now valid because integer subtraction was defined above.
 
 ## Constructing the integer order
 
+![Positive, zero, and negative integer classes represented by (4,1), (2,2), and (1,4).](./media/zi-signed-integer-pairs.svg)
+
+*Figure: Signs and order emerge from comparing coordinates of the representing pairs.*
+
+
 Define order on integer classes using only natural order:
 
 $$
@@ -431,6 +441,11 @@ $$
 The tempting equation $-17=5(-3)-2$ has the correct value but its remainder $-2$ does *not* satisfy the theorem. Both equations are arithmetic identities; only the first is the standard Euclidean division representation.
 
 ## Greatest common divisors and the Euclidean algorithm
+
+![Successive remainders in Euclid's algorithm for 107 and 30 descend through 17, 13, 4, 1, and 0.](./media/zi-euclidean-remainders.svg)
+
+*Figure: The strictly decreasing remainders prove termination; the last nonzero remainder is the gcd.*
+
 
 > [!example] Why repeated remainders matter
 > The Euclidean algorithm replaces $(a,b)$ by $(b,r)$ with $a=bq+r$. The **set of common divisors stays the same** while the nonnegative remainder decreases, which is why the method terminates.

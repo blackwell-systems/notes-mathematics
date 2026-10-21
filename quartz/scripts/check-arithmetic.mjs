@@ -4828,6 +4828,71 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("SLT: quadratic monomial RLCT",1/(2*1),0.5);
   eq("SLT: quartic monomial RLCT",1/(2*2),0.25);
 }
+// ==================== Rings, quotients and finite fields ====================
+// Independent, finite worked-example regressions for the new chapters.
+// These checks support the examples; they are not universal proof certificates.
+{
+  const mod=(a,n)=>((a%n)+n)%n;
+  const units=n=>Array.from({length:n},(_,i)=>i).filter(a=>
+    Array.from({length:n},(_,b)=>b).some(b=>mod(a*b,n)===1));
+  check("Rings: only 1 and 5 are units mod 6",units(6).join(",")==="1,5");
+  check("Rings: Z/7 has six nonzero units",units(7).join(",")==="1,2,3,4,5,6");
+  check("Rings: nonzero zero divisors mod 6",mod(2*3,6)===0);
+  check("Rings: cancellation fails in Z/6",
+    mod(2*1,6)===mod(2*4,6)&&1!==4);
+  check("Quotients: product independent of representatives",
+    Array.from({length:6},(_,a)=>Array.from({length:6},(_,b)=>
+      [-2,-1,0,1,2].every(k=>[-2,-1,0,1,2].every(l=>
+        mod((a+6*k)*(b+6*l),6)===mod(a*b,6))))).every(row=>row.every(Boolean)));
+  eq("Ideals: gcd(6,10)=2",gcd(6,10),2);
+  const crt=Array.from({length:6},(_,a)=>[mod(a,2),mod(a,3)].join(","));
+  check("CRT: six residue classes map to six distinct pairs",new Set(crt).size===6);
+  check("CRT: ring operations preserved",
+    Array.from({length:6},(_,a)=>Array.from({length:6},(_,b)=>
+      [2,3].every(n=>
+        mod(mod(a+b,6),n)===mod(mod(a,n)+mod(b,n),n) &&
+        mod(mod(a*b,6),n)===mod(mod(a,n)*mod(b,n),n))
+    )).every(row=>row.every(Boolean)));
+  // Polynomial division in F5: 2x^2+x+3 = (x+1)(2x+4)+4.
+  check("Polynomial division: F5 quotient and remainder",
+    Array.from({length:5},(_,x)=>x).every(x=>
+      mod(2*x*x+x+3,5)===mod((x+1)*(2*x+4)+4,5)));
+  // Field Q(sqrt 2): (3+2a)(3-2a)=1 when a^2=2.
+  const quadratic=([a,b],[c,d])=>[a*c+2*b*d,a*d+b*c];
+  check("Field extension: inverse of 3+2sqrt2",
+    quadratic([3,2],[3,-2]).join(",")==="1,0");
+  // Field F4 with alpha^2=alpha+1; binary bits represent a+b alpha.
+  const f4mul=(u,v)=>{
+    const a=u&1,b=(u>>1)&1,c=v&1,d=(v>>1)&1;
+    return ((a*c+b*d)&1) | (((a*d+b*c+b*d)&1)<<1);
+  };
+  check("Field F4: defining x^2+x+1 has no root in F2",
+    [0,1].every(x=>mod(x*x+x+1,2)!==0));
+  eq("Field F4: alpha squared",f4mul(2,2),3);
+  eq("Field F4: alpha times alpha+1",f4mul(2,3),1);
+  eq("Field F4: alpha cubed",f4mul(f4mul(2,2),2),1);
+  check("Field F4: each nonzero element invertible",
+    [1,2,3].every(a=>[1,2,3].some(b=>f4mul(a,b)===1)));
+  check("Field F4: distributivity",
+    [0,1,2,3].every(a=>[0,1,2,3].every(b=>[0,1,2,3].every(c=>
+      f4mul(a,b^c)===(f4mul(a,b)^f4mul(a,c))))));
+  // Field F9 represented as F3[beta]/(beta^2+1), beta^2=-1.
+  const f9mul=(u,v)=>{
+    const a=u%3,b=Math.floor(u/3),c=v%3,d=Math.floor(v/3);
+    return mod(a*c-b*d,3)+3*mod(a*d+b*c,3);
+  };
+  check("Field F9: x^2+1 irreducible over F3",
+    [0,1,2].every(x=>mod(x*x+1,3)!==0));
+  check("Field F9: every nonzero element invertible",
+    Array.from({length:8},(_,i)=>i+1).every(a=>
+      Array.from({length:8},(_,i)=>i+1).some(b=>f9mul(a,b)===1)));
+  const f9pow=(a,n)=>{let x=1;for(let i=0;i<n;i++)x=f9mul(x,a);return x;};
+  check("Field F9: 1+beta has order eight",
+    f9pow(4,8)===1 && Array.from({length:7},(_,i)=>i+1).every(n=>f9pow(4,n)!==1));
+  eq("Finite fields: F2 squared has four elements",2**2,4);
+  eq("Finite fields: F3 squared has nine elements",3**2,9);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

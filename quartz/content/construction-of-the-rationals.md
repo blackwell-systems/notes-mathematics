@@ -6,7 +6,7 @@ enables: ["construction-of-the-reals"]
 
 > [!abstract] Prerequisites & where this leads
 > **Builds on:** [Construction of the Integers](./construction-of-the-integers), especially the integral-domain, order, and cancellation theorems
-> **Leads to:** [Construction of the Reals](./construction-of-the-reals) · [Number Systems](./number-systems) · [Algebraic Structures](./algebraic-structures)
+> **Leads to:** [Construction of the Reals](./construction-of-the-reals) · [Number Systems](./number-systems) · [Algebraic Structures](./algebraic-structures) · [Field Theory Foundations](./field-theory-foundations)
 
 We proved that integers have addition, subtraction, multiplication, and a compatible total order. What integers lack is division by an arbitrary **nonzero** integer. For example, $2x=1$ cannot be solved inside $\mathbb Z$.
 
@@ -22,9 +22,14 @@ We use facts already proved in [Construction of the Integers](./construction-of-
 - Integer order is total and compatible with addition and multiplication by nonnegative elements.
 - There is an additive inverse $-a$ for every integer $a$.
 
-The phrase **integral domain** means a commutative ring with identity $1\ne0$ and no zero divisors. That no-zero-divisor fact is essential: it keeps denominators nonzero when fractions are combined and licenses cancellation during equivalence proofs.
+The phrase **integral domain** means a commutative ring with identity $1\ne0$ and no zero divisors. The generalization from rational fractions of integers to fractions of *any* domain is proved in [Field Theory Foundations](./field-theory-foundations). That no-zero-divisor fact is essential: it keeps denominators nonzero when fractions are combined and licenses cancellation during equivalence proofs.
 
 ## A fraction begins as a pair
+
+![Fractions 1/2, 2/4, and 3/6 denote the same rational via cross-multiplication.](./media/qr-fraction-equivalence.svg)
+
+*Figure: Rationals are equivalence classes of pairs, not particular textual fraction forms.*
+
 
 > [!definition] Rational fractions as classes of pairs
 > Start with integer pairs $(a,b)$ where $b\ne0$. Define $(a,b)\sim(c,d)$ by $ad=bc$. A rational number is an **equivalence class**, not the literal pair chosen to represent it.
@@ -104,6 +109,11 @@ These are different: $0/1=1/1$ would require $0\cdot1=1\cdot1$, contradicting $0
 **Sign normalization.** If $q<0$, then $(p,q)\sim(-p,-q)$ because $p(-q)=(-p)q$. Therefore every rational has a representative with **positive denominator**. This convention is convenient for proving order laws, but it is not an additional identity rule.
 
 ## Fraction addition, including well-definedness
+
+![One half plus one third is five sixths; one half multiplied by one third is one sixth.](./media/qr-fraction-operations.svg)
+
+*Figure: Fraction operations must produce the same rational class regardless of the chosen representatives.*
+
 
 > [!distinction] Different fractions can name one rational
 > The representatives $(1,2)$ and $(2,4)$ denote the same rational. Any formula for **addition** must give an equivalent result no matter which representative is used. The following proof discharges that obligation.
@@ -412,6 +422,11 @@ For a positive-denominator representation $x=p/q$, $q\geq1$, choose a natural nu
 The Archimedean property says that ordinary natural numbers eventually exceed any given rational. It is not the same as completeness: the next section shows $\mathbb Q$ has the first property but lacks the second.
 
 ## The fundamental limitation: rationals have gaps
+
+![The square root of two lies between 1.4 and 1.5, between 1.41 and 1.42, and between 1.414 and 1.415.](./media/qr-sqrt2-rational-bounds.svg)
+
+*Figure: Arbitrarily accurate rational approximations do not put the irrational limit in the rational field.*
+
 
 > [!counterexample] Being an ordered field is not being complete
 > The rationals support exact arithmetic and order, yet no rational has square $2$. Rational approximations to $\sqrt{2}$ can be Cauchy without converging **inside $\mathbb Q$**. This motivates real completion.

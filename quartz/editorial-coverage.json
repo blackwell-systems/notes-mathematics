@@ -150,6 +150,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "field-theory-foundations.md",
+      "kind": "topic",
+      "track": "ring-and-field-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "functions-relations.md",
       "kind": "topic",
       "track": "algebra",
@@ -486,6 +495,24 @@
       "path": "real-analysis.md",
       "kind": "topic",
       "track": "advanced-mathematics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "ring-ideals-quotients.md",
+      "kind": "topic",
+      "track": "ring-and-field-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "ring-theory-foundations.md",
+      "kind": "topic",
+      "track": "ring-and-field-theory",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
