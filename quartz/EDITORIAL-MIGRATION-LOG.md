@@ -204,3 +204,8 @@ The arithmetic harness now additionally checks modular units, quotient multiplic
 There are now 73 tracked Markdown pages, including 71 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 9, **all 73 pages have pilot semantic treatment** and **zero are marked completely reviewed**. Subsequent work must audit and accept mobile/dark-mode rendering, diagrams, accessibility, and proof accuracy. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
 The next stage is not another wholesale semantic migration: perform **visual regression and accessibility checks**, review the existing diagrams, and complete page-by-page mathematical/editorial acceptance without marking proof review as finished merely because CI passes.
+
+
+## Notation unit: foundations-first reading layer (2026-10-21)
+
+[Mathematical Notations](./content/mathematical-notations.md) now begins with an expression anatomy walkthrough, a grammar sequence from names to closed statements, scope and grouping examples, quantifier-order counterexamples, a symbol-overloading comparison, and a fully narrated set-builder example. Existing topical symbol tables remain available as a reference. Two accessible SVGs are registered with the figure quality gate, raising the audited total to **58 diagrams across 19 chapters**. A new same-origin, keyboard-operable expression reader supports four formulas and self-sizes its iframe. The existing review status remains **pilot**, not complete: responsive visual inspection, dark-mode checking, and independent mathematical review are still pending.

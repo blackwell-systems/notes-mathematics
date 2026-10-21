@@ -4,15 +4,164 @@ enables: ["set-theory", "real-analysis"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** nothing earlier — this is a starting point.
+> **Builds on:** nothing earlier. This is a starting point.
 > **Leads to:** [Set Theory](./set-theory) · [Real Analysis](./real-analysis)
 
+<div class="notation-lede">
+  <p class="notation-lede__eyebrow">THE LANGUAGE OF MATHEMATICS / START HERE</p>
+  <p class="notation-lede__headline">A formula is a sentence you can learn to read.</p>
+  <p>Mathematical notation compresses ideas. The goal is not to memorize every symbol before proceeding, but to recognize what each part does, how those parts fit together, and exactly what the complete statement claims.</p>
+</div>
 
-Mathematical writing relies on a compact symbolic vocabulary. This page collects the symbols used throughout these notes, grouped by area, with how to **read each one aloud** and a one-line meaning. Knowing the spoken form makes notation usable in speech and lectures and reinforces what each symbol means. The page also flags a few symbols whose meaning shifts with context, since those are a common source of confusion.
+This chapter has **two uses**. Read the first sections in order if you are learning mathematical language. Return to the [symbol reference](#equivalence-and-equality-symbols) when you encounter an unfamiliar mark elsewhere. Every reference entry gives a pronunciation and meaning, and many link to the full chapter where the idea is derived.
 
-Most symbols link to the section where they are defined and worked through; **hover a linked symbol to preview that section** without leaving this page.
+The most important habit is to read an entire expression, not translate one symbol at a time and stop. A symbol gets its meaning from its **position**, its **scope**, and its **context**.
 
-A useful distinction to keep in mind is between **object-level** symbols, which appear inside the formulas being studied (for example $\land$ inside $P \land Q$), and **meta-level** symbols, which we use to talk *about* formulas or objects (for example $\iff$ in "$A \subseteq B \iff \forall x\,(x \in A \to x \in B)$"). Some symbols, such as $\iff$, are used at both levels depending on context.
+## First, read a complete statement
+
+Consider a sentence written almost entirely in symbols:
+
+$$
+\forall x\in\mathbb R,\qquad x^2\geq 0.
+$$
+
+Read it aloud: **"For every real number x, x squared is greater than or equal to zero."** This is a complete claim about all real numbers, not a recipe for a calculation with one particular value of $x$.
+
+![Annotated statement: the quantifier for all, its bound variable x, the real-number domain, and the condition x squared is nonnegative are separately labeled and connected in reading order.](./media/mn-expression-anatomy.svg)
+
+*Figure: The symbols play different roles. Read from the quantifier through the domain to the assertion.*
+
+Here is the full interpretation, with no silent steps:
+
+1. **$\forall$** (read "for all" or "for every") introduces a claim about every permitted choice.
+2. **$x$** (read "x") names the changing object. The quantifier binds this occurrence of $x$ and the occurrences in its scope.
+3. **$\in\mathbb R$** (read "is in the real numbers") restricts which values of $x$ we are discussing.
+4. **$x^2\geq 0$** (read "x squared is greater than or equal to zero") states the property each such $x$ must satisfy.
+
+The notation $\forall x\in\mathbb R,\ P(x)$ is conventional shorthand for $\forall x\,(x\in\mathbb R\to P(x))$. We have not defined formal logic yet; for now, the distinction is between **who is being discussed** and **what is being claimed about them**.
+
+> [!distinction] Reading is not the same as proving
+> We have translated the claim, but not established its truth merely by reading it. Its proof uses the order properties of real numbers: if $x\geq 0$, then $x^2\geq 0$; if $x<0$, then $-x>0$ and $x^2=(-x)^2\geq 0$. A later chapter develops those facts rigorously.
+
+### Explore the parts of an expression
+
+Choose an expression, then select its highlighted parts. For each part, the reader gives its role, pronunciation, and contribution to the whole. The examples move from quantified statements to sets, functions, and sums.
+
+<iframe src="/static/interactive/notation-expression-reader.html" title="Interactive reader for mathematical expressions, showing symbols, their pronunciation, and their role" width="100%" height="590" style="border:none;"></iframe>
+
+## The grammar behind the symbols
+
+Mathematical writing has structure much like ordinary language. A **name** refers to an object; an **expression** denotes a value or object; a **relation** compares objects; a **statement** makes an assertion. These are different jobs even when they use the same letters.
+
+| Written form | What it is | How to read it |
+|---|---|---|
+| $x$ | Variable or name | "x" |
+| $x+1$ | Expression | "x plus one"; its value depends on $x$ |
+| $x+1>2$ | Open formula or condition | "x plus one is greater than two"; not yet a closed true-or-false claim until $x$ is fixed or quantified |
+| $\forall x\in\mathbb R,\ x+1>x$ | Closed statement | "For every real x, x plus one is greater than x" |
+
+> [!definition] Free and bound variables
+> A variable is **free** when its value is still an input to the expression or condition. A quantifier such as $\forall x$ (for every x) or $\exists x$ (there exists an x) **binds** the occurrences of $x$ in its scope. A formula with no free variables is called a **sentence** in formal logic, and has a truth value under an interpretation.
+
+**Example: same letters, different jobs.** In $x^2+1$, the symbol $x$ is an input. In $x^2+1=5$, we have a condition on that input. In $\exists x\in\mathbb R\,(x^2+1=5)$, pronounced "there exists a real x such that x squared plus one equals five," the quantified formula asserts that at least one such value exists.
+
+Do not interpret every mathematical line as a proposition. $2+3$ denotes a number, $f:A\to B$ specifies a function's domain and codomain, and $a:=b$ introduces a definition. The page on [propositional logic](./propositional-logic-zeroth-order-logic) makes the distinction between syntax, interpretation, and truth more formal.
+
+## Scope, grouping, and reading order
+
+Small marks can completely change what a formula says. Parentheses are not decoration: they specify which operation or condition is inside another.
+
+Compare $-(x+1)$ ("the negative of x plus one") with $-x+1$ ("negative x, then plus one"). For $x=2$ the expressions give $-3$ and $-1$, respectively. The same symbols appear, but their grouping changes the result.
+
+### Superscripts and subscripts
+
+- $x^2$ is "x squared," whereas $x_2$ is "x sub two," usually a labeled component, not a square.
+- $a_{n+1}$ is "a sub n plus one," with the whole $n+1$ in the subscript. It need not mean $a_n+1$.
+- $f(x)$ is "f of x," the value of a function at the input $x$. It is not generally a product $f\cdot x$.
+- $f^{-1}(y)$ can be the value of an inverse function **when such a function exists**. In set notation, $f^{-1}(S)$ can instead mean the **preimage of a set**, even when $f$ has no inverse function.
+
+### A quantifier changes the scope of the claim
+
+These two sentences contain the same words and symbols, but their order changes the claim:
+
+$$
+\underbrace{\forall x\in\mathbb R\ \exists y\in\mathbb R\ (y>x)}_{\text{true: y may depend on x}}
+$$
+
+Read: **"For every real x, there exists a real y greater than x."** Given any $x$, choose $y=x+1$.
+
+$$
+\underbrace{\exists y\in\mathbb R\ \forall x\in\mathbb R\ (y>x)}_{\text{false: one y must work for all x}}
+$$
+
+Read: **"There exists a real y greater than every real x."** For any proposed $y$, choosing $x=y+1$ defeats the claim.
+
+![Side-by-side quantifier-scope comparison: on the left each x can be followed by a larger y, while on the right a single proposed y cannot exceed every x on the unbounded real number line.](./media/mn-quantifier-scope.svg)
+
+*Figure: In the first statement, y can be chosen after x. In the second, y must be fixed before considering all x.*
+
+> [!distinction] Moving a quantifier changes its promise
+> $\forall x\,\exists y$ permits **a different y for each x**. $\exists y\,\forall x$ demands **one y that works for every x**. Never swap them merely because the same symbols are present. The detailed rules are developed in [Predicate Logic](./predicate-logic-first-order-logic).
+
+## Context decides what a symbol means
+
+Many symbols are **overloaded**: their meaning depends on the type of objects around them and the subject being discussed. A reference is a dictionary, not a universal promise that every printed mark has only one meaning.
+
+| Mark | In one context | In another |
+|---|---|---|
+| $|x|$ | Absolute value of a real number | $|A|$ is a set's cardinality |
+| $a\mid b$ | "a divides b" in number theory | $\mathbb P(A\mid B)$ reads "probability of A given B" |
+| $\to$ | $A\to B$ may describe a function's domain and codomain | $x\to a$ means x approaches a in a limit |
+| $\sim$ | $X\sim\mathcal N(0,1)$ denotes a distribution | $a\sim b$ may be an equivalence relation |
+| $\oplus$ | Exclusive or in logic | Direct sum in linear algebra |
+| $\approx$ | Approximately equal in numerical contexts | Some authors use it for an isomorphism or other equivalence |
+
+A useful reading procedure is: **identify the objects first**, then the operation or relation connecting them, then any quantifiers or conditions governing the whole statement. In an unfamiliar subject, check the author's definitions before assuming a familiar symbol keeps its old meaning.
+
+## Definitions, equalities, and proof claims
+
+The signs $=$, $:=$, $\leftrightarrow$, $\iff$, and $\equiv$ can look interchangeable when skimmed. They are not.
+
+| Form | Read aloud | What the writing is doing |
+|---|---|---|
+| $a=b$ | "a equals b" | Claims that two expressions denote the same object |
+| $a:=b$ | "a is defined to be b" | Introduces a name or notation by definition |
+| $P\leftrightarrow Q$ | "P if and only if Q" | A biconditional formula in propositional logic |
+| $P\iff Q$ | "P if and only if Q" | Often used to assert an equivalence between statements in a derivation |
+| $a\equiv b\pmod n$ | "a is congruent to b modulo n" | A relation in modular arithmetic; meaning depends on context |
+
+For example, if $A$ and $B$ are sets, then
+
+$$
+A\subseteq B\quad\iff\quad \forall x\,(x\in A\to x\in B).
+$$
+
+Read: **"A is a subset of B if and only if, for every x, membership in A implies membership in B."** We have written the criterion for one set to be a subset of another. The biconditional here connects two ways of expressing that fact; it does not say $A$ and $B$ are equal.
+
+A proof adds one more distinction: a **hypothesis** is something temporarily assumed, a **conclusion** is what we aim to establish, and a **definition** licenses a substitution because we have stipulated a term's meaning. Later we distinguish a formula's **provability** ($\vdash$, pronounced "proves") from its **semantic consequence** ($\vDash$, pronounced "entails"). The [logic chapters](./propositional-logic-zeroth-order-logic) develop both ideas.
+
+## Worked reading: from a formula back to plain language
+
+Here is an expression that combines several conventions:
+
+$$
+S:=\{n\in\mathbb Z\mid -2\leq n\leq 2\}.
+$$
+
+Read aloud: **"S is defined to be the set of integers n such that n is at least negative two and at most two."**
+
+1. $S:=$ introduces the name $S$, not an equation awaiting a solution.
+2. Curly braces $\{\ldots\}$ indicate a set. The variable $n$ describes a possible member.
+3. $n\in\mathbb Z$ restricts the candidates to integers ("n is in Z," meaning the integers).
+4. The bar $\mid$ is pronounced "such that" *here*. It is not divisibility or conditional probability.
+5. $-2\leq n\leq 2$ abbreviates **two** conditions: $-2\leq n$ **and** $n\leq 2$.
+
+Consequently, $S=\{-2,-1,0,1,2\}$. The endpoint values are included because the inequalities are non-strict. This final roster is a way of **checking the interpretation**, not an alternate definition of what the bar or the braces mean.
+
+> [!example] What would change the set?
+> Replacing $\leq$ by $<$ on both sides excludes the endpoints. Replacing $\mathbb Z$ by $\mathbb R$ includes non-integer real numbers between the same endpoints. Both edits are small; neither is a mere typographical difference.
+
+The rest of this chapter is the comprehensive **symbol reference**. Read it by topic rather than in order, and follow the links for the mathematics behind each definition.
 
 ## Equivalence and Equality Symbols
 
@@ -158,7 +307,7 @@ Greek letters are used constantly as variable names; often the hard part is just
 |--------|------------|-------------|
 | $\alpha$ | "alpha" | significance level, learning rate, an angle |
 | $\beta$ | "beta" | regression coefficients, Type II error rate, momentum |
-| $\gamma$ , $\Gamma$ | "gamma" | discount factor, an angle; $\Gamma$ is the gamma function |
+| $\gamma$ , $\Gamma$ | "gamma" / "capital gamma" | discount factor or angle; $\Gamma(z)$ is the gamma function, while capital $\Gamma$ is also used for contexts or sets of premises |
 | $\delta$ , $\Delta$ | "delta" | a small quantity; $\Delta$ a change or a discriminant |
 | $\epsilon$ , $\varepsilon$ | "epsilon" | an arbitrarily small positive number, an error term |
 | $\zeta$ | "zeta" (say "zay-ta") | the Riemann zeta function |
@@ -197,11 +346,11 @@ Greek letters are used constantly as variable names; often the hard part is just
 | [$f: A \to B$](./functions-relations#function) | "$f$ from $A$ to $B$" / "$f$ maps $A$ to $B$" | $f$ is a function from domain $A$ to codomain $B$ |
 | [$\mapsto$](./functions-relations#function) | "maps to" | describes where an element goes, e.g. $x \mapsto x^2$ |
 | [$\circ$](./functions-relations#composition-of-functions) | "composed with" / "after" / "ring" | function composition: $(g \circ f)(x) = g(f(x))$ |
-| [$f^{-1}$](./functions-relations#inverse-functions) | "$f$ inverse" | inverse function (or preimage of a set under $f$) |
+| [$f^{-1}$](./functions-relations#inverse-functions) | "$f$ inverse" | inverse function when it exists; $f^{-1}(S)$ can also mean a set preimage without invertibility |
 | [$\hookrightarrow$](./functions-relations#injection-one-to-one) | "injects into" / "embeds into" | an injection (one-to-one map), or an inclusion/embedding |
 | [$\twoheadrightarrow$](./functions-relations#bijection-injective-and-surjective) | "surjects onto" | a surjection (onto map) |
 | [$\cong$](./functions-relations#bijection-injective-and-surjective) | "is isomorphic to" / "is congruent to" | isomorphism (a structure-preserving bijection); also geometric congruence, e.g. $\triangle ABC \cong \triangle DEF$ |
-| [$\sim$](./functions-relations#one-to-one-correspondence) , $\approx$ | "is similar to" / "is equinumerous with" | for cardinality of plain sets, $A \sim B$ (or $\lvert A \rvert = \lvert B \rvert$) means a bijection exists. (The same $\approx$ also denotes "approximately equal" in the [Analysis](#analysis-and-calculus) table below, a context-dependent use.) |
+| [$\sim$](./functions-relations#one-to-one-correspondence) , $\approx$ | "is related to" / "is equinumerous with" in set-cardinality contexts | for cardinality of plain sets, $A \sim B$ (or $\lvert A \rvert = \lvert B \rvert$) means a bijection exists. (The same $\approx$ also denotes "approximately equal" in the [Analysis](#analysis-and-calculus) table below, a context-dependent use.) |
 
 ## Linear Algebra
 
@@ -209,13 +358,13 @@ Greek letters are used constantly as variable names; often the hard part is just
 |--------|------------|---------|
 | [$\mathbf{v}$](./linear-algebra-foundations#vector-space) , $\vec{v}$ | "vector v" | a vector (written bold, or with an arrow) |
 | [$A^{T}$](./linear-algebra-foundations#transpose-flipping-between-them) | "A transpose" | flips the rows and columns of $A$ |
-| [$A^{-1}$](./matrices) | "A inverse" | the matrix with $A A^{-1} = I$ (exists iff $\det A \neq 0$) |
+| [$A^{-1}$](./matrices) | "A inverse" | inverse of a square matrix $A$, satisfying $AA^{-1}=A^{-1}A=I$ when it exists; equivalent to $\det A\ne0$ for square matrices over a field |
 | [$\det(A)$](./linear-algebra-foundations#determinants) | "the determinant of A" | scalar measuring how $A$ scales volume; $0$ iff $A$ is singular |
 | [$\operatorname{rank}(A)$](./linear-algebra-foundations#rank) | "the rank of A" | number of linearly independent columns (or rows) |
 | $\operatorname{tr}(A)$ | "the trace of A" | sum of the diagonal entries (equals the sum of eigenvalues) |
 | [$u \cdot v$](./vector#dot-product-scalar-product) , $\langle u, v\rangle$ | "u dot v" / "the inner product of u and v" | $\sum_i u_i v_i$; measures alignment |
 | [$u \times v$](./vector#cross-product-vector-product) | "u cross v" | cross product: a vector perpendicular to both (in 3D) |
-| [$\hat{v}$](./vector#unit-vector) | "v hat" | the unit vector in the direction of $v$ |
+| [$\hat{v}$](./vector#unit-vector) | "v hat" | often the unit vector in the direction of $v$, but a hat can mark an estimate or other designated quantity in a different subject |
 | [$\dim(V)$](./linear-algebra-foundations#dimension) | "the dimension of V" | number of vectors in a basis of $V$ |
 | [$\lambda$](./linear-algebra-foundations#eigenvalues-and-eigenvectors) | "lambda" | an eigenvalue: $A v = \lambda v$ for some nonzero $v$ |
 | $I$ , $I_n$ | "the identity matrix" | $1$s on the diagonal, $0$s elsewhere; $I v = v$ |

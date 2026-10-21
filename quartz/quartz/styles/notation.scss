@@ -1,0 +1,56 @@
+// Mathematics notation: authored teaching components on the opening chapter.
+// Uses site theme tokens; never colors every mathematical symbol automatically.
+.notation-lede {
+  margin: 1.15rem 0 1.6rem;
+  padding: clamp(1.1rem, 3.3vw, 2.1rem);
+  border: 1px solid color-mix(in srgb, var(--darkgray) 20%, transparent);
+  border-left: 4px solid var(--ed-logic, #6b91bf);
+  border-radius: 0.5rem;
+  background: linear-gradient(132deg, color-mix(in srgb, var(--lightgray) 68%, var(--light)), var(--light));
+  color: var(--dark);
+
+  .notation-lede__eyebrow {
+    margin: 0 0 0.55rem;
+    font-family: var(--codeFont), monospace;
+    font-size: clamp(0.59rem, 1.5vw, 0.72rem);
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    color: var(--secondary);
+  }
+
+  .notation-lede__headline {
+    margin: 0 0 0.65rem;
+    max-width: 22ch;
+    font-size: clamp(1.45rem, 3.4vw, 2.15rem);
+    font-weight: 770;
+    line-height: 1.1;
+    letter-spacing: -0.042em;
+    text-wrap: balance;
+    color: var(--dark);
+  }
+
+  p:last-child {
+    max-width: 65ch;
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+article img[src*="mn-expression-anatomy.svg"],
+article img[src*="mn-quantifier-scope.svg"] {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--darkgray) 18%, transparent);
+  margin-block: 1.15rem 0.5rem;
+}
+
+article iframe[src*="notation-expression-reader.html"] {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  border-radius: 0.4rem;
+  margin: 1rem 0 1.15rem;
+  background: transparent;
+}

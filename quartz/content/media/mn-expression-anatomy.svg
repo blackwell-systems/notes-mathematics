@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 382">
+<title id="title">How to read a quantified mathematical statement</title>
+<desc id="desc">A left-to-right decomposition of for all x in the reals, x squared is nonnegative. Sections are labeled quantifier, variable, domain, and assertion. The bottom row reads the full sentence aloud.</desc>
+<rect width="1200" height="382" rx="16" fill="#0b1e30"/>
+<text x="48" y="44" fill="#b9cbda" font-size="18" font-family="Arial, sans-serif" font-weight="bold" letter-spacing="2">ONE STATEMENT, FOUR ROLES</text>
+<g font-family="Georgia, serif" font-size="52" text-anchor="middle" font-weight="bold">
+<rect x="42" y="77" width="222" height="133" rx="12" fill="#263953" stroke="#81afe6" stroke-width="2"/>
+<text x="152" y="161" fill="#d8ebff">∀</text>
+<rect x="277" y="77" width="222" height="133" rx="12" fill="#213f40" stroke="#6fc6b3" stroke-width="2"/>
+<text x="388" y="161" fill="#c7fff1">x</text>
+<rect x="512" y="77" width="270" height="133" rx="12" fill="#3a3149" stroke="#b39cd5" stroke-width="2"/>
+<text x="647" y="161" fill="#f0e6ff">∈ ℝ</text>
+<rect x="795" y="77" width="360" height="133" rx="12" fill="#443723" stroke="#efba78" stroke-width="2"/>
+<text x="975" y="161" fill="#ffedc7">x² ≥ 0</text>
+</g>
+<g font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+<text x="152" y="244" fill="#b9d9ff">QUANTIFIER</text>
+<text x="388" y="244" fill="#a6dfd3">BOUND VARIABLE</text>
+<text x="647" y="244" fill="#d2c1f0">DOMAIN</text>
+<text x="975" y="244" fill="#f5cc93">ASSERTION</text>
+</g>
+<line x1="47" y1="272" x2="1153" y2="272" stroke="#42576b"/>
+<text x="58" y="312" font-size="19" font-family="Arial, sans-serif" font-weight="bold" fill="#bdccd8">READ ALOUD</text>
+<text x="58" y="347" font-size="24" font-family="Arial, sans-serif" fill="#f2f6fa">For every real number x, x squared is greater than or equal to zero.</text>
+</svg>

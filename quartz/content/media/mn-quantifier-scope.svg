@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 440">
+<title id="title">Changing the order of quantifiers changes the meaning</title>
+<desc id="desc">Two parallel panels compare for every real x there exists a larger real y, which is true and permits choosing y after x, with there exists one real y larger than every x, which is false because any candidate y can be exceeded.</desc>
+<rect width="1200" height="440" rx="16" fill="#0b1e30"/>
+<text x="40" y="43" font-size="18" font-family="Arial, sans-serif" fill="#c2d1df" font-weight="bold" letter-spacing="2">ORDER CHANGES THE CLAIM</text>
+<rect x="40" y="67" width="546" height="342" rx="15" fill="#19313a" stroke="#64bba9" stroke-width="2"/>
+<rect x="614" y="67" width="546" height="342" rx="15" fill="#352c32" stroke="#d5a078" stroke-width="2"/>
+<g font-family="Arial, sans-serif">
+<text x="68" y="107" font-size="20" fill="#a6e0d2" font-weight="bold">TRUE</text>
+<text x="642" y="107" font-size="20" fill="#f1c3a0" font-weight="bold">FALSE</text>
+<text x="68" y="153" font-family="Georgia,serif" font-size="28" fill="#f1f8fb">∀x ∈ ℝ  ∃y ∈ ℝ : y &gt; x</text>
+<text x="642" y="153" font-family="Georgia,serif" font-size="28" fill="#f1f8fb">∃y ∈ ℝ  ∀x ∈ ℝ : y &gt; x</text>
+<text x="68" y="197" font-size="18" fill="#c9dae0">Choose x first, then choose y.</text>
+<text x="642" y="197" font-size="18" fill="#e0cfd1">Choose one y before every x.</text>
+<line x1="92" y1="282" x2="532" y2="282" stroke="#b0c8d4" stroke-width="3"/>
+<path d="M527 276 L540 282 L527 288" fill="none" stroke="#b0c8d4" stroke-width="3"/>
+<circle cx="214" cy="282" r="10" fill="#86d8c4"/>
+<circle cx="389" cy="282" r="10" fill="#f5bc77"/>
+<path d="M230 247 Q301 213 372 247" fill="none" stroke="#bce7d6" stroke-width="2.5"/>
+<path d="M364 235 L375 249 L357 251" fill="none" stroke="#bce7d6" stroke-width="2.5"/>
+<text x="214" y="315" font-size="18" text-anchor="middle" fill="#b9e7dc">x</text>
+<text x="389" y="315" font-size="18" text-anchor="middle" fill="#f5d3a7">y</text>
+<text x="89" y="367" font-size="17" fill="#d3ece6">A larger y exists for each x.</text>
+<line x1="666" y1="282" x2="1102" y2="282" stroke="#b0c8d4" stroke-width="3"/>
+<path d="M1097 276 L1110 282 L1097 288" fill="none" stroke="#b0c8d4" stroke-width="3"/>
+<circle cx="835" cy="282" r="10" fill="#f5bc77"/>
+<circle cx="1048" cy="282" r="10" fill="#86d8c4"/>
+<text x="835" y="315" font-size="18" text-anchor="middle" fill="#f5d3a7">y</text>
+<text x="1048" y="315" font-size="18" text-anchor="middle" fill="#b9e7dc">x = y + 1</text>
+<text x="663" y="367" font-size="17" fill="#f1d7d5">A larger x defeats any fixed y.</text>
+</g>
+</svg>

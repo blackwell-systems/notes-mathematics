@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mathematical expression reader</title>
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#f8fafc;--panel:#fff;--ink:#182836;--muted:#4b5c6c;--line:#cbd5df;
+  --accent:#2b659c;--accent-bg:#e7f1fa;--chip:#ecf2f7;--focus:#c16b20
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#17232e;--panel:#202f3a;--ink:#eff4f8;--muted:#c0ceda;--line:#4e6476;--accent:#8bc4fc;--accent-bg:#253f54;--chip:#293d4d;--focus:#ffcd72}
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.52 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:900px;margin:0 auto;padding:20px clamp(12px,3vw,24px) 24px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;color:var(--muted)}
+h1{font-size:1.16rem;margin:3px 0 5px;line-height:1.3}
+.intro{font-size:.88rem;color:var(--muted);margin:0 0 18px}
+.chooser{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chooser button{font:inherit;font-size:.82rem;font-weight:650;padding:8px 11px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);cursor:pointer}
+.chooser button[aria-pressed="true"]{background:var(--accent-bg);border-color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+button:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.reader{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:clamp(14px,3vw,25px)}
+.reader__headline{display:flex;gap:8px;justify-content:space-between;align-items:baseline;flex-wrap:wrap}
+.reader__headline h2{font-size:.96rem;margin:0}
+#counter{color:var(--muted);font-size:.76rem}
+.formula{margin:17px 0;padding:14px 6px 18px;display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;min-height:96px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.part{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:clamp(1.55rem,4.5vw,2.35rem);line-height:1.5;padding:2px 5px;background:transparent;color:var(--ink);border:2px solid transparent;border-radius:7px;cursor:pointer}
+.part:hover{background:var(--chip)}
+.part[aria-pressed="true"]{background:var(--accent-bg);border-color:var(--accent);color:var(--ink)}
+.part sup,.part sub{font-size:.58em;line-height:0}
+.part .normal{font-style:normal}
+.read{margin:0 0 14px}
+.read strong{font-size:.78rem;letter-spacing:.035em;color:var(--muted);display:block;margin-bottom:3px}
+.read p{margin:0;font-size:.92rem}
+.card{border-left:3px solid var(--accent);background:var(--accent-bg);padding:13px 16px;border-radius:0 8px 8px 0;min-height:126px}
+.type{font-size:.69rem;letter-spacing:.11em;font-weight:800;text-transform:uppercase;color:var(--accent)}
+.card h3{font-size:1.04rem;margin:4px 0}
+.card p{font-size:.88rem;line-height:1.48;margin:5px 0}
+.controls{display:flex;gap:8px;justify-content:space-between;margin:13px 0 0}
+.controls button{font:inherit;font-size:.81rem;padding:8px 11px;border:1px solid var(--line);border-radius:7px;color:var(--ink);background:var(--panel);cursor:pointer}
+.controls button:disabled{opacity:.5;cursor:not-allowed}
+.takeaway{margin:13px 0 0;padding:0 2px;font-size:.86rem;color:var(--muted)}
+@media(max-width:480px){.formula{justify-content:flex-start;min-height:86px}.part{font-size:clamp(1.25rem,7vw,1.65rem)}.reader{padding:12px}.chooser button{flex:1 1 auto}.card{min-height:146px}}
+@media(prefers-reduced-motion:no-preference){.part,.chooser button{transition:background .12s,border-color .12s}}
+</style>
+</head>
+<body>
+<main>
+<div class="eyebrow">INTERACTIVE / EXPRESSION ANATOMY</div>
+<h1>Read a formula, one meaningful part at a time</h1>
+<p class="intro">Choose a statement or expression, then click or Tab to one of its parts. Each selection explains both how to say it and what it does.</p>
+<nav class="chooser" aria-label="Select an example" id="chooser"></nav>
+<section class="reader" aria-label="Expression detail">
+<div class="reader__headline"><h2 id="formula-title"></h2><span id="counter"></span></div>
+<div class="formula" id="formula" role="group" aria-label="Clickable symbols of the selected expression"></div>
+<div class="read"><strong>READ THE WHOLE EXPRESSION</strong><p id="sentence"></p></div>
+<div class="card" aria-live="polite" aria-atomic="true">
+  <div class="type" id="role"></div><h3 id="name"></h3>
+  <p><strong>Say:</strong> <span id="say"></span></p>
+  <p id="meaning"></p>
+</div>
+<div class="controls"><button id="previous" type="button">← Previous part</button><button id="next" type="button">Next part →</button></div>
+</section>
+<p class="takeaway" id="takeaway"></p>
+</main>
+<script>
+"use strict";
+const examples=[
+ {title:"A quantified statement",button:"For every",whole:"For every real number x, x squared is greater than or equal to zero.",takeaway:"The quantifier binds x; the restriction tells us which x values count; the last part is the asserted condition.",parts:[
+  ["∀","Quantifier","For all; for every","Claims that the following condition holds for every eligible value of x."],
+  ["x","Bound variable","x","Names the arbitrary real number. This x is governed by the quantifier."],
+  ["∈ ℝ","Domain restriction","Is in the real numbers","Restricts the quantifier to real numbers, rather than all mathematical objects."],
+  [",","Separator","Such that; followed by","Separates the quantifier phrase from the condition it governs."],
+  ["x² ≥ 0","Assertion","x squared is greater than or equal to zero","The property that must hold for every x in the domain."]
+ ]},
+ {title:"Set-builder notation",button:"A defined set",whole:"S is defined to be the set of integers n such that n is at least negative two and at most two.",takeaway:"The bar here means 'such that', not 'divides' or 'given'. The domain and two inequalities jointly specify which numbers belong.",parts:[
+  ["S :=","Definition","S is defined to be","Introduces S as a new name, rather than stating a theorem to be proved."],
+  ["{","Set delimiter","The set of","Opens the description of a set's elements."],
+  ["n ∈ ℤ","Candidate and domain","Integers n","Candidates are integers; other real numbers are excluded."],
+  ["|","Condition separator","Such that","Introduces the property required of every included integer."],
+  ["−2 ≤ n ≤ 2","Membership condition","n is between negative two and two, inclusive","Shorthand for both −2 ≤ n and n ≤ 2. The endpoints are included."],
+  ["}","Set delimiter","End of the set","Closes the set-builder expression."]
+ ]},
+ {title:"A function description",button:"A function",whole:"f maps the integers to the integers, assigning each x its square.",takeaway:"The arrow in f: ℤ → ℤ describes domain and codomain; the arrow x ↦ x² gives the rule. Neither arrow means a numerical limit here.",parts:[
+  ["f:","Function name","f from","Names the function being described."],
+  ["ℤ → ℤ","Domain and codomain","The integers to the integers","States that each integer input is assigned an integer output."],
+  [",","Separator","With the rule","Separates the type of the function from the input-output rule."],
+  ["x ↦ x²","Mapping rule","x maps to x squared","Explains what the function does to each input x."]
+ ]},
+ {title:"A finite sum",button:"A summation",whole:"The sum, for i from one to four, of i, equals ten.",takeaway:"The sigma symbol does not tell you the range alone: the lower and upper limits specify which terms are added.",parts:[
+  ["∑","Sum operator","The sum of","Calls for addition across an indexed collection of terms."],
+  ["ᵢ₌₁","Lower limit","Starting at i equals one","Introduces the summation index and its first value."],
+  ["⁴","Upper limit","Through four","Specifies the final value of the index."],
+  ["i","Summand","i","The expression evaluated at each index: 1, then 2, then 3, then 4."],
+  ["= 10","Equality claim","Equals ten","Asserts that the complete sum evaluates to ten."]
+ ]}
+];
+const $=id=>document.getElementById(id);
+const chooser=$("chooser"),formula=$("formula");let selectedExample=0,selectedPart=0;
+examples.forEach((ex,i)=>{
+ const button=document.createElement("button");button.type="button";button.textContent=ex.button;
+ button.addEventListener("click",()=>{selectedExample=i;selectedPart=0;render()});
+ chooser.appendChild(button);
+});
+function render(){
+ const ex=examples[selectedExample];
+ chooser.querySelectorAll("button").forEach((b,i)=>b.setAttribute("aria-pressed",String(i===selectedExample)));
+ $("formula-title").textContent=ex.title;
+ $("sentence").textContent=ex.whole;
+ $("takeaway").textContent="Reading insight: "+ex.takeaway;
+ formula.replaceChildren();
+ ex.parts.forEach((part,i)=>{
+  const b=document.createElement("button");b.type="button";b.className="part";
+  b.textContent=part[0];b.setAttribute("aria-label",part[1]+": "+part[0]);
+  b.setAttribute("aria-pressed",String(i===selectedPart));
+  b.addEventListener("click",()=>{selectedPart=i;updateSelection()});
+  formula.appendChild(b);
+ });
+ updateSelection();
+}
+function updateSelection(){
+ const ex=examples[selectedExample],part=ex.parts[selectedPart];
+ formula.querySelectorAll("button").forEach((b,i)=>b.setAttribute("aria-pressed",String(i===selectedPart)));
+ $("counter").textContent="Part "+(selectedPart+1)+" of "+ex.parts.length;
+ $("role").textContent=part[1];
+ $("name").textContent=part[0];
+ $("say").textContent=part[2];
+ $("meaning").textContent=part[3];
+ $("previous").disabled=selectedPart===0;
+ $("next").disabled=selectedPart===ex.parts.length-1;
+}
+$("previous").addEventListener("click",()=>{if(selectedPart>0){selectedPart--;updateSelection();formula.children[selectedPart].focus()}});
+$("next").addEventListener("click",()=>{if(selectedPart<examples[selectedExample].parts.length-1){selectedPart++;updateSelection();formula.children[selectedPart].focus()}});
+render();
+</script>
+<script>/* AUTOFIT-INJECTED: size own iframe to content, no scrollbar */
+(function () {
+  var last = 0;
+  function fit() {
+    try {
+      var fe = window.frameElement;
+      if (!fe) return;
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement.scrollHeight
+      );
+      if (h && Math.abs(h - last) > 2) { last = h; fe.style.height = h + "px"; }
+    } catch (e) { /* cross-origin or detached: leave the hardcoded height */ }
+  }
+  window.addEventListener("load", function () { fit(); setTimeout(fit, 150); setTimeout(fit, 600); });
+  window.addEventListener("resize", fit);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(fit).observe(document.body); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

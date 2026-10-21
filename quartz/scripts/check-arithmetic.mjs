@@ -59,6 +59,13 @@ function cpow(re, im, n) {
   return [r, i];
 }
 
+// ================= Mathematical Notations =================
+// Recheck examples introduced by the opening notation reader.
+eq("notation grouped -(2+1)",-(2+1),-3);
+eq("notation ungrouped -2+1",-2+1,-1);
+check("notation bounded set roster",[-3,-2,-1,0,1,2,3].filter(n=>n>=-2&&n<=2).join(",")==="-2,-1,0,1,2");
+eq("notation sigma 1 through 4",[1,2,3,4].reduce((a,b)=>a+b,0),10);
+
 // ================= Number Bases =================
 eq("bin 1011 -> dec", parseInt("1011", 2), 11);
 eq("dec 75 -> bin", (75).toString(2), "1001011");
