@@ -39,6 +39,10 @@ The whole thing is built deliberately toward one destination — the foundations
 **singular learning theory** for interpretability research — which gives the
 otherwise-broad coverage a spine and a reading order.
 
+## Typography and concept-map prototype
+
+The [Truth section of Propositional Logic](./quartz/content/propositional-logic-zeroth-order-logic.md#truth) demonstrates a semantic-color vocabulary, an explanatory diagram, more expressive heading hierarchy and comparison cards. See [Editorial keyword styling prototype](./quartz/EDITORIAL-STYLE-PROTOTYPE.md) for tokens, implementation details and accessibility requirements before considering a site-wide rollout.
+
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file

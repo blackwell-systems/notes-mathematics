@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1010" role="img" aria-labelledby="title desc">
+  <title id="title">Three independent questions about a true statement</title>
+  <desc id="desc">A classification chart with three horizontal pairs: modality asks whether a statement could have been false, necessary versus contingent; meaning asks whether truth is settled by definitions, analytic versus synthetic; justification asks how the claim can be known, a priori versus a posteriori. Logical truth is a special notion of truth due to valid logical form, not a fourth competing pair. Different labels can apply to the same claim.</desc>
+  <defs>
+    <style>
+      .bg{fill:#111923}.panel{fill:#182331;stroke:#344153;stroke-width:1.5}.line{stroke:#425063;stroke-width:2}
+      .title{fill:#f3f4ed;font:700 46px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-1.4px}
+      .body{fill:#b9c5d1;font:400 23px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .over{fill:#8da0b5;font:700 17px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:3px}
+      .lane{fill:#edf1f5;font:650 25px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .question{fill:#9daebf;font:400 20px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .term{fill:#f9fafb;font:650 27px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .definition{fill:#b8c5d1;font:400 19px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .foot{fill:#c6d1de;font:400 19px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .num{fill:#8d9aab;font:650 22px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    </style>
+  </defs>
+  <rect width="1200" height="1010" rx="22" class="bg"/>
+  <path d="M50 62H1150" class="line" opacity=".7"/>
+  <text x="60" y="101" class="over">CONCEPT MAP / EPISTEMOLOGY &amp; LOGIC</text>
+  <text x="60" y="171" class="title">One statement. Three questions.</text>
+  <text x="60" y="211" class="body">Not a hierarchy: a claim may carry a label from each row.</text>
+  <g transform="translate(60 260)">
+    <text x="0" y="45" class="num">01</text>
+    <text x="51" y="45" class="lane">MODALITY</text>
+    <text x="51" y="76" class="question">Could it have been false?</text>
+    <rect x="404" y="0" width="326" height="127" rx="15" fill="#302842" stroke="#9275ca" stroke-width="1.6"/>
+    <rect x="748" y="0" width="326" height="127" rx="15" class="panel"/>
+    <rect x="404" y="0" width="7" height="127" rx="3.5" fill="#ad8ef0"/>
+    <text x="430" y="49" class="term">Necessary</text>
+    <text x="430" y="83" class="definition">True in every possible world</text>
+    <text x="774" y="49" class="term">Contingent</text>
+    <text x="774" y="83" class="definition">Could have been false</text>
+    <path d="M60 147H1074" class="line" opacity=".5"/>
+  </g>
+  <g transform="translate(60 436)">
+    <text x="0" y="45" class="num">02</text>
+    <text x="51" y="45" class="lane">MEANING</text>
+    <text x="51" y="76" class="question">What makes it true?</text>
+    <rect x="404" y="0" width="326" height="127" rx="15" fill="#173a39" stroke="#55aca2" stroke-width="1.6"/>
+    <rect x="748" y="0" width="326" height="127" rx="15" class="panel"/>
+    <rect x="404" y="0" width="7" height="127" rx="3.5" fill="#62d0be"/>
+    <text x="430" y="49" class="term">Analytic</text>
+    <text x="430" y="83" class="definition">By meaning or definition</text>
+    <text x="774" y="49" class="term">Synthetic</text>
+    <text x="774" y="83" class="definition">Not by meaning alone</text>
+    <path d="M60 147H1074" class="line" opacity=".5"/>
+  </g>
+  <g transform="translate(60 612)">
+    <text x="0" y="45" class="num">03</text>
+    <text x="51" y="45" class="lane">KNOWLEDGE</text>
+    <text x="51" y="76" class="question">How is it justified?</text>
+    <rect x="404" y="0" width="326" height="127" rx="15" fill="#41321e" stroke="#daab65" stroke-width="1.6"/>
+    <rect x="748" y="0" width="326" height="127" rx="15" class="panel"/>
+    <rect x="404" y="0" width="7" height="127" rx="3.5" fill="#e8b676"/>
+    <text x="430" y="49" class="term">A priori</text>
+    <text x="430" y="83" class="definition">Without empirical evidence</text>
+    <text x="774" y="49" class="term">A posteriori</text>
+    <text x="774" y="83" class="definition">Through experience or evidence</text>
+  </g>
+  <rect x="60" y="797" width="1080" height="139" rx="16" fill="#1c2938" stroke="#597b9a" stroke-width="1.5"/>
+  <circle cx="98" cy="841" r="8" fill="#82b5e0"/>
+  <text x="121" y="851" class="lane">LOGICAL TRUTH</text>
+  <text x="390" y="850" class="definition">A special form-based notion, not a fourth axis</text>
+  <path d="M90 874H1110" stroke="#415368" stroke-width="1"/>
+  <text x="90" y="904" class="foot">Example: P OR NOT P is true under every assignment to P.</text>
+  <text x="60" y="975" class="body">Classifications overlap. Their philosophical relationships are debated.</text>
+</svg>

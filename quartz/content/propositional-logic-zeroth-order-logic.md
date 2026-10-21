@@ -33,30 +33,55 @@ classical truth-functional propositional logic
 
 ## Truth
 
-When studying logic and mathematics, it is important to understand what
-truth is and what forms of truth exist.
+<div class="truth-lede">
+  <div class="truth-lede__eyebrow">A VISUAL FIELD GUIDE / 01</div>
+  <p class="truth-lede__headline">Truth is not a single ladder of categories.</p>
+  <p>There are different questions to ask about a statement that is true. The answers can overlap because each distinction measures <strong>something different</strong>. The same proposition can be necessary, synthetic, and known a posteriori.</p>
+</div>
 
-Philosophers describe truth using several classifications. It is tempting to list them as a flat catalog of "types," but the standard terms actually come in pairs, each drawing a different distinction along a separate **axis**. A single true statement is usually classified on more than one axis at once. The three classical axes are:
+![Three parallel classifications of truth. Modality distinguishes necessary from contingent truth; meaning distinguishes analytic from synthetic truth; justification distinguishes a priori from a posteriori knowledge. Logical truth is a special form-based notion, not another competing axis.](./media/pl-truth-axes.svg)
 
-- **Modal axis (necessary vs. contingent):** Is the statement true in *all* possible worlds, or only in *some*?
-  - **Necessary Truth:** true in every possible world; it could not have been false (e.g. "$2 + 2 = 4$").
-  - **Contingent Truth:** true in the actual world but false in some other possible world; it could have been otherwise (e.g. "the Eiffel Tower is in Paris").
+*Figure: three independent questions, not three levels of a hierarchy. The diagram is a reading aid for the distinctions below, not a claim that their philosophical relationships are settled.*
 
-- **Epistemic/semantic axis (analytic vs. synthetic):** Does the statement's truth follow from the meanings of its words alone, or does it also depend on how the world is?
-  - **Analytic Truth:** true purely by virtue of the meanings of the terms (e.g. "all bachelors are unmarried").
-  - **Synthetic Truth:** true partly because of how the world is, not by meaning alone (e.g. "the cat is on the mat").
+The three questions are:
 
-- **Source-of-knowledge axis (logical/a priori vs. empirical):** How do we come to know it?
-  - **Logical Truth:** true solely in virtue of logical form, knowable without observing the world (e.g. "$P \lor \neg P$").
-  - **Empirical Truth:** known through observation or experiment (e.g. "water boils at 100°C at sea level").
+- **Could it have been false?** This is the <span class="truth-term truth-term--modal">modal</span> distinction: <span class="truth-term truth-term--modal">necessary</span> versus <span class="truth-term truth-term--modal">contingent</span>. A necessary truth holds across the relevant possible worlds; a contingent truth holds in the actual world but could have failed elsewhere.
+- **What makes it true?** This is the <span class="truth-term truth-term--meaning">semantic</span> distinction: <span class="truth-term truth-term--meaning">analytic</span> versus <span class="truth-term truth-term--meaning">synthetic</span>. Analytic truth is fixed by meaning or definitions; synthetic truth is not guaranteed by meanings alone.
+- **How can we know it?** This is the <span class="truth-term truth-term--knowledge">epistemic</span> distinction: <span class="truth-term truth-term--knowledge">a priori</span> versus <span class="truth-term truth-term--knowledge">a posteriori</span>. The distinction concerns justification without empirical investigation versus justification that depends on experience or evidence.
 
-Because these axes are separate, one statement can be labeled on each: "the Eiffel Tower is in Paris" is contingent, synthetic, and empirical, whereas "$2 + 2 = 4$" is necessary, and (on the traditional view) analytic and logical. The relationships between the axes are themselves philosophically contested (for example, whether every necessary truth is analytic), so these labels should be read as a map of distinctions rather than a settled hierarchy.
+<span class="truth-term truth-term--logic">Logical truth</span> is a narrower, formal notion: a formula that is true because of its logical form, regardless of the interpretation or truth assignment to its nonlogical parts. For example, $P\lor\neg P$ (read "P or not P") is true under every classical propositional valuation. **Logical** is not a synonym for **a priori**, and **empirical** is not the opposite of **necessary**.
 
-In propositional and first-order logic we are concerned only with **logical truths** and **necessary truths**, since logic studies what follows from form alone, independent of contingent empirical facts.
+<div class="truth-examples" aria-label="Examples of overlapping classifications">
+  <div class="truth-example">
+    <div class="truth-example__eyebrow">EXAMPLE / 01</div>
+    <div class="truth-example__claim">The Eiffel Tower is in Paris.</div>
+    <div class="truth-example__tags">
+      <span class="truth-example__tag truth-example__tag--modal">Contingent</span>
+      <span class="truth-example__tag truth-example__tag--meaning">Synthetic</span>
+      <span class="truth-example__tag truth-example__tag--knowledge">A posteriori</span>
+    </div>
+    <p>A statement about the actual world, established through evidence, that could have been false.</p>
+  </div>
+  <div class="truth-example">
+    <div class="truth-example__eyebrow">EXAMPLE / 02</div>
+    <div class="truth-example__claim">All bachelors are unmarried.</div>
+    <div class="truth-example__tags">
+      <span class="truth-example__tag truth-example__tag--modal">Necessary*</span>
+      <span class="truth-example__tag truth-example__tag--meaning">Analytic</span>
+      <span class="truth-example__tag truth-example__tag--knowledge">A priori</span>
+    </div>
+    <p>Within the conventional definitions, no observation of individual bachelors is needed.</p>
+  </div>
+</div>
+
+<small class="truth-example-note">*The examples use familiar philosophical interpretations of meaning, knowledge, and possibility. Whether these distinctions align in every case is disputed. “Water is H₂O,” for example, is often discussed as a <em>necessary a posteriori</em> identity under Kripkean assumptions.</small>
+
+Propositional logic primarily studies which formulae are true **under every assignment** and which inferences preserve truth. It can describe contingent formulas, but it cannot establish whether a given atomic empirical claim is true. The next section makes that boundary precise.
+
 
 ### Logical Truth
 
-**Logical Truth:** Logical truth refers to a statement or proposition
+<span class="truth-term truth-term--logic">Logical truth</span> refers to a statement or proposition
 that is true in all possible scenarios, purely based on its logical
 structure rather than any specific facts or content about the
 world. It is a foundational concept in formal logic,
@@ -86,10 +111,7 @@ concepts involved, such as "All bachelors are unmarried."
 **Logical truths, on the other hand, are true due to their logical
 form.**
 
-**Versus Analytic Truth:** Analytic truths are true by definition or
-based on the meanings of words. Logical truths may overlap with analytic
-truths, but they are more broadly applicable, as they are not tied to
-specific definitions but rather to the logical structure.
+**Versus Analytic Truth:** Analytic claims depend on the meanings of specific terms. A logical truth is true under every admissible assignment to its nonlogical components. Logical truths are commonly classed as analytic in a broad sense, but **analytic** and **logical** are not interchangeable: “all bachelors are unmarried” depends on a nonlogical definition, whereas $P\lor\neg P$ does not.
 
 #### The Limit of Logic: It Cannot Tell You Which Atomic Facts Are True
 
@@ -112,7 +134,7 @@ So there is a clean division of labor: **logic supplies the form; empirical inqu
 
 ### Necessary Truth
 
-**Necessary Truth:** Necessary truth refers to a statement or
+<span class="truth-term truth-term--modal">Necessary truth</span> refers to a statement or
 proposition that must be true in all possible worlds or under any
 conceivable circumstances. Unlike contingent truths, which are true only
 under certain conditions, necessary truths hold universally and cannot
@@ -120,11 +142,9 @@ be false. They are true by necessity, meaning their truth is not
 dependent on specific facts or conditions in the world but on the nature
 of the concepts or relationships they describe.
 
-**Necessary Truths encompass both analytic and synthetic truths.**
+**Necessity and analyticity are different distinctions.** Philosophers debate which necessary truths are analytic, and whether synthetic necessary truths exist.
 
-In the traditional framework, necessary truths are divided into analytic
-(true by definition) and synthetic (true by virtue of the way the world
-is) truths. **These two categories are often considered exhaustive.**
+In influential accounts, necessary truths can be **analytic** or **synthetic**. These labels answer a different question from necessity itself; the classification of particular examples depends on the philosophical framework.
 
 #### Analytic Necessary Truths
 
@@ -149,16 +169,11 @@ facts.
 
 Example: "Water is H2O."
 
-Explanation: This is a necessary truth because, in any possible world
-where water exists, it must be composed of H2O. However, this truth is
-not analytic because it is not true by definition; it was discovered
-through empirical investigation.
+Explanation: In a Kripkean account with **water** and **H₂O** treated as rigid designators, the actual identity was discovered empirically but is necessary across the relevant worlds where that substance exists. This is an influential philosophical analysis, not a claim established by propositional logic alone.
 
 ### Analytic Truth
 
-**Analytic Truth:** Analytic truths are inherently true because the
-predicate is contained within the subject, making them tautological in
-nature.
+<span class="truth-term truth-term--meaning">Analytic truth</span> is traditionally truth grounded in meaning or conceptual relations. The older description “the predicate is contained in the subject” captures some analytic examples but is not a definition of logical tautology.
 
 **Analytic truths** are true by definition. The truth of the statement
 is guaranteed by the meanings of the words used.
@@ -168,27 +183,19 @@ known independently of any experience. You do not need to observe or
 investigate the world to know that an analytic truth is true;
 understanding the meanings of the words is sufficient.
 
-**Analytic truths** are often tautological, meaning they are statements
-that repeat the same idea in different words. Because of this, they are
-considered true in a trivial sense.
+**Analytic truths** need not be propositional tautologies. “All bachelors are unmarried” depends on the meanings of words; $P\lor\neg P$ is a tautology because of its **logical form**. Neither claim implies that analyticity is philosophically uncontroversial or intellectually trivial.
 
 **Distinction from Synthetic Truth:**
 
-The real crux of the difference between these two types of truths lies
-in how we come to know them. With analytic truths, all you
-need is a good understanding of the concepts or definitions involved.
+The analytic/synthetic distinction is primarily about **what makes a claim true**, not simply the method by which someone happened to discover it. With standard analytic examples, understanding the definitions is enough for justification.
 You can figure them out just by thinking about the meanings of the
 words; no need to step outside and check the world.
 
-But synthetic truths are more tied to reality. They aren't true just
-because of the way we define words; they're true because that's the way
-things actually are in the world. To know these truths, you have to
-engage with the world, gather evidence, and sometimes, even conduct
-experiments.
+Synthetic claims are **not settled by meaning alone**. Many are established through observations and experiments, but a synthetic claim need not be contingent or empirically knowable under every philosophical account.
 
 ### Synthetic Truth
 
-**Synthetic Truth:** A synthetic truth is a statement whose truth depends on how the world actually is, not on the meanings of its words alone. Where an analytic truth can be verified just by understanding the terms, a synthetic statement adds genuine information about reality, so confirming it requires looking beyond the definitions.
+<span class="truth-term truth-term--meaning">Synthetic truth</span> is a statement whose truth depends on how the world actually is, not on the meanings of its words alone. Where an analytic truth can be verified just by understanding the terms, a synthetic statement adds genuine information about reality, so confirming it requires looking beyond the definitions.
 
 Example: "The cat is on the mat." Understanding the words "cat," "on," and "mat" is not enough to tell whether the statement is true; you have to check the actual situation.
 
@@ -198,13 +205,11 @@ Example: "The cat is on the mat." Understanding the words "cat," "on," and "mat"
 
 ### Empirical Truth
 
-**Empirical Truth:** Empirical truth refers to statements or
+<span class="truth-term truth-term--knowledge">Empirical truth</span> refers to statements or
 propositions that are true because they accurately describe the way the
 world is, based on observation, experience, or experiment.
 
-**Unlike analytic truths, which are true by definition, or necessary
-truths, which hold in all possible worlds, empirical truths are
-contingent on the actual state of affairs.**
+**Empirical** describes the role of observation and evidence in justification; it is not, by definition, equivalent to **contingent**. Most ordinary empirical reports are contingent, but philosophers also discuss necessary truths known a posteriori, such as some scientific identity claims.
 
 While empirical truths are vital for understanding the world, they have
 their limits. Since they depend on observation and experience, they can
@@ -215,7 +220,7 @@ empirical truths are often provisional, pending further research.
 
 ### Contingent Truth
 
-**Contingent Truth**: Contingent truth refers to a type of truth that is
+<span class="truth-term truth-term--modal">Contingent truth</span> refers to a type of truth that is
 dependent on the way the world actually is, rather than being true in
 all possible worlds or by definition. In other words, a contingent truth
 is a statement that could have been false if circumstances were
