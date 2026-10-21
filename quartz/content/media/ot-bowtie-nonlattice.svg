@@ -29,7 +29,7 @@
 <line x1="726" y1="251" x2="1110" y2="251" stroke="#51697d" stroke-width="2"/>
 <text x="725" y="298" font-size="21" font-weight="bold" fill="#f0b0b8">Neither is the least one</text>
 <text x="725" y="336" font-size="19">c and d are incomparable.</text>
-<text x="725" y="366" font-size="19">So a ∨ b is undefined.</text>
+<text x="725" y="366" font-size="19">So a ∨ b does not exist.</text>
 <text x="725" y="401" font-size="19" fill="#a2c7e7">Conclusion: not a lattice.</text>
 </g>
 </svg>
