@@ -26,6 +26,10 @@ The phrase **integral domain** means a commutative ring with identity $1\ne0$ an
 
 ## A fraction begins as a pair
 
+> [!definition] Rational fractions as classes of pairs
+> Start with integer pairs $(a,b)$ where $b\ne0$. Define $(a,b)\sim(c,d)$ by $ad=bc$. A rational number is an **equivalence class**, not the literal pair chosen to represent it.
+
+
 Let
 
 $$
@@ -100,6 +104,10 @@ These are different: $0/1=1/1$ would require $0\cdot1=1\cdot1$, contradicting $0
 **Sign normalization.** If $q<0$, then $(p,q)\sim(-p,-q)$ because $p(-q)=(-p)q$. Therefore every rational has a representative with **positive denominator**. This convention is convenient for proving order laws, but it is not an additional identity rule.
 
 ## Fraction addition, including well-definedness
+
+> [!distinction] Different fractions can name one rational
+> The representatives $(1,2)$ and $(2,4)$ denote the same rational. Any formula for **addition** must give an equivalent result no matter which representative is used. The following proof discharges that obligation.
+
 
 Define addition by the rule
 
@@ -229,6 +237,10 @@ $$
 The multiplicative identity is $1/1$, because $(p/q)(1/1)=p/q$.
 
 ### Every nonzero rational has a reciprocal
+
+> [!theorem] Reciprocal for each nonzero rational
+> If a rational is represented by $(a,b)$ with **both** $a\ne0$ and $b\ne0$, its reciprocal is represented by $(b,a)$. The construction must prove this is independent of representatives and multiplies to the identity.
+
 
 First identify which fraction represents zero:
 
@@ -400,6 +412,10 @@ For a positive-denominator representation $x=p/q$, $q\geq1$, choose a natural nu
 The Archimedean property says that ordinary natural numbers eventually exceed any given rational. It is not the same as completeness: the next section shows $\mathbb Q$ has the first property but lacks the second.
 
 ## The fundamental limitation: rationals have gaps
+
+> [!counterexample] Being an ordered field is not being complete
+> The rationals support exact arithmetic and order, yet no rational has square $2$. Rational approximations to $\sqrt{2}$ can be Cauchy without converging **inside $\mathbb Q$**. This motivates real completion.
+
 
 To prove that $\mathbb Q$ is not complete, we need a rigorous rational Cauchy sequence that does **not** converge to a rational. A **Cauchy sequence** is one whose terms become arbitrarily close to each other: for every rational $\varepsilon>0$, there is $N$ such that $|x_m-x_n|<\varepsilon$ whenever $m,n\geq N$. Read $\varepsilon$ as "epsilon," a positive tolerance.
 

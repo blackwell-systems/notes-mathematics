@@ -14,6 +14,10 @@ We will not treat familiar pictures as substitutes for proofs. Every action need
 
 ## What exactly is a group action?
 
+> [!definition] Left group action
+> An action $G\times X\to X$ must satisfy $e\cdot x=x$ and $(gh)\cdot x=g\cdot(h\cdot x)$. It describes how abstract group elements act as **reversible transformations** of a set.
+
+
 Let $G$ be a group with identity $e$, and let $X$ be a set. A **left action** of $G$ on $X$ is a function
 
 $$
@@ -93,6 +97,10 @@ Thus $rs$ exchanges $1$ and $3$, fixing $2$. In the other order, $sr$ exchanges 
 
 ## Cayley's theorem: every group is a permutation group
 
+> [!theorem] Cayley's theorem
+> Every group embeds into the permutation group of its underlying set, via **left multiplication**. The proof uses the fact that $g\mapsto(x\mapsto gx)$ is a homomorphism with a trivial kernel.
+
+
 **Theorem (Cayley).** Every group $G$ is isomorphic to a subgroup of $S_G$, the bijections of its underlying set.
 
 **Proof.** Let $G$ act on itself by **left multiplication**:
@@ -150,6 +158,10 @@ Define $x\sim y$ if some $g\in G$ satisfies $y=g\cdot x$. This relation is:
 Therefore $\sim$ is an equivalence relation, and its equivalence classes are precisely the orbits. **Distinct orbits do not overlap**; every point belongs to one orbit.
 
 ## Orbit-stabilizer theorem: a bijection, not a formula guessed from counting
+
+> [!theorem] Orbit-stabilizer
+> In a finite group action, $|G\cdot x|=|G|/|G_x|$. The proof constructs a bijection between the orbit and **left cosets of the stabilizer**. The stabilizer need not be normal.
+
 
 For a fixed $x\in X$, consider the left cosets of $G_x$. Define
 
@@ -296,6 +308,10 @@ Therefore $G$ would be abelian, giving $Z(G)=G$, contradicting $|Z(G)|=p$. Thus 
 This theorem illustrates how **cosets, quotient groups, Lagrange, orbit-stabilizer, and conjugation** combine to prove a structural fact about groups.
 
 ## Burnside's lemma: count objects up to symmetry
+
+> [!theorem] Burnside's lemma
+> For finite $G$ acting on finite $X$, the number of orbits equals the **average number of fixed points**: $|X/G|=|G|^{-1}\sum_{g\in G}|\operatorname{Fix}(g)|$. The proof counts the same set of pairs in two ways.
+
 
 For a finite group $G$ acting on a finite set $X$, define the **fixed-point set**
 

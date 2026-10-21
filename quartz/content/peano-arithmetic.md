@@ -37,6 +37,10 @@ The question is: which conditions force this structure to behave like the counti
 
 ## The Peano conditions and what each excludes
 
+> [!axiom] Peano-style axioms specify a structure
+> The successor and induction conditions say **which properties a natural-number system must satisfy**. Familiar arithmetic laws such as associativity, commutativity, and cancellation are derived later, not smuggled into the definition.
+
+
 Here is a common second-order presentation. The first two lines specify the kind of objects and function we work with; some textbooks count only the remaining axioms, and conventions for the number of "Peano axioms" vary.
 
 1. **Distinguished zero:** $0\in N$.
@@ -124,6 +128,10 @@ The phrase **inductive hypothesis** means the temporary assumption $P(n)$ inside
 **Worked example: no successor equals zero.** This is not an application of induction at all: it is an axiom. In contrast, "every number is zero or a successor" was a theorem proved by induction. Being able to label a line **axiom**, **definition**, or **derived result** is part of following a rigorous proof.
 
 ## The recursion theorem: why operations can be defined
+
+> [!theorem] Recursion makes arithmetic operations legitimate
+> The recursion theorem supplies a **unique function** with a prescribed value at zero and a successor step. Addition and multiplication are then defined by recursion rather than assumed in advance.
+
 
 A pair of recursive equations looks like a definition, but we must justify that it determines an actual function on *every* natural number.
 
@@ -471,6 +479,10 @@ Now both operations are associative and commutative, but they were proved in a d
 
 ## Defining order instead of assuming a number line
 
+> [!definition] Natural-number order
+> Define $a\leq b$ when $b=a+k$ for some natural $k$. This uses **constructed addition** and does not depend on a picture of a number line.
+
+
 We have not taken "$a$ is less than $b$" as primitive. We can define it through addition:
 
 $$
@@ -642,6 +654,10 @@ $$
 (read $\sim$ as "is equivalent to") uses **only addition that we have now justified**. Its equivalence classes give the integers, where additive inverses finally exist. [Number Systems](./number-systems) develops this construction and then builds rationals from integer pairs.
 
 ## First-order arithmetic versus full second-order induction
+
+> [!distinction] Two kinds of induction semantics
+> Full second-order induction quantifies over **all subsets** of the domain, whereas a first-order induction **schema** supplies one axiom instance for each expressible formula. They have different model-theoretic consequences.
+
 
 There is an important qualification to the phrase "the Peano axioms uniquely describe the natural numbers."
 

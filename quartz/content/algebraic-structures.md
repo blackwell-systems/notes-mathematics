@@ -19,6 +19,10 @@ We work throughout with the number systems introduced on [Number Systems](./numb
 
 ## The field axioms of the real numbers
 
+> [!axiom] Axioms versus derived laws
+> Field axioms specify addition and multiplication laws. Familiar algebraic identities must be **deduced** from those axioms instead of assumed as independent rules.
+
+
 The real numbers come equipped with two operations, addition ($+$, read "plus") and multiplication ($\times$ or $\cdot$, read "times"). Every rule of high-school algebra is a consequence of a short list of axioms these operations obey. An **axiom** is a property we take as a starting assumption rather than prove.
 
 Let $a$, $b$, $c$ be any real numbers. The axioms come in matched pairs, one for each operation.
@@ -78,6 +82,10 @@ Now add the additive inverse $-(a\cdot 0)$ to both sides. The left side becomes 
 **Why division by zero is undefined.** Division by $a$ means multiplication by the inverse $1/a$, the element satisfying $a \cdot (1/a) = 1$. For $a = 0$ we would need some $x$ with $0 \cdot x = 1$. But we just proved $0 \cdot x = 0$ for every $x$, and $0 \neq 1$ in any field. No such $x$ exists, so $1/0$ names nothing. Division by zero is left undefined not by fiat but because the axioms make the required element impossible.
 
 ## A bridge to abstract algebra
+
+> [!distinction] Group, ring, and field are different commitments
+> A **group** requires one operation and inverses; a **ring** combines addition and multiplication with distributivity; a **field** additionally provides division by every nonzero element. These are progressively different structural assumptions.
+
 
 Look again at what we actually used. The derivations above never mentioned that $a$ was a *number*. They used only associativity, identities, inverses, and distributivity. So the same reasoning must work on *any* set whose operations obey those laws, whether the elements are numbers, matrices, functions, or symmetries. This is the central move of abstract algebra: instead of proving a fact over and over on each new set, name the pattern once and prove things about the pattern.
 
@@ -169,6 +177,10 @@ The three are related, but not all by simple containment. Every field *is* a rin
 Naming the structures is half the story; the other half is how they relate to one another. Two ideas do most of that work: maps that *preserve* structure, and subsets that *are* structures in their own right.
 
 ### Homomorphisms: structure-preserving maps
+
+> [!definition] Structure-preserving map
+> A homomorphism preserves the operation(s) under discussion. **Injectivity is a separate property**: in group theory, a homomorphism is injective precisely when its kernel is trivial.
+
 
 A **homomorphism** (read "homo-morph-ism," meaning "same shape") is a map $\varphi: G \to H$ between two structures of the same kind that respects the operation:
 $$\varphi(a * b) = \varphi(a) \star \varphi(b),$$

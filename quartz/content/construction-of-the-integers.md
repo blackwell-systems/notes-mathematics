@@ -27,6 +27,10 @@ When we cite any of these properties, we are using a **previously proved theorem
 
 ## A pair is a proposed difference, not yet an integer
 
+> [!definition] Differences before subtraction exists
+> A natural pair $(a,b)$ stands for the intended difference $a-b$, but **does not rely on preexisting integer subtraction**. The equivalence relation defines when two such pairs represent the same integer.
+
+
 Let
 
 $$
@@ -100,6 +104,10 @@ We write $0_{\mathbb Z}:=[(0,0)]$ and $1_{\mathbb Z}:=[(1,0)]$. The notation "$-
 **Worked example: an entire equivalence class.** The integer $[(2,0)]$ also contains $(3,1)$, $(4,2)$, $(5,3)$, and every $(2+k,k)$. It represents a single object with infinitely many encodings. Operations must return the same integer regardless of which encoding is used.
 
 ## Defining addition and proving independence of representatives
+
+> [!distinction] A formula on representatives is not yet an operation on classes
+> After proposing addition for pairs, prove that **equivalent input pairs always produce equivalent output pairs**. Without that well-definedness step, the purported integer operation depends on arbitrary representatives.
+
 
 For classes $x=[(a,b)]$ and $y=[(c,d)]$, propose
 
@@ -382,6 +390,10 @@ Integers form a ring and an integral domain, **not a field**. The next construct
 
 ## Division with remainder, from well-ordering
 
+> [!theorem] Integer division with remainder
+> Given integers $a$ and positive $b$, there are **unique** integers $q,r$ with $a=bq+r$ and $0\leq r<b$. Existence and uniqueness need proof; the well-ordering argument below supplies it.
+
+
 Although not every division has an *integer* result, division with remainder is available.
 
 **Division algorithm.** For any integer $a$ and positive integer $b$, there exist unique integers $q,r$ such that
@@ -419,6 +431,10 @@ $$
 The tempting equation $-17=5(-3)-2$ has the correct value but its remainder $-2$ does *not* satisfy the theorem. Both equations are arithmetic identities; only the first is the standard Euclidean division representation.
 
 ## Greatest common divisors and the Euclidean algorithm
+
+> [!example] Why repeated remainders matter
+> The Euclidean algorithm replaces $(a,b)$ by $(b,r)$ with $a=bq+r$. The **set of common divisors stays the same** while the nonnegative remainder decreases, which is why the method terminates.
+
 
 The division-with-remainder theorem does more than justify quotient notation. It constructs the **greatest common divisor**, proves Bézout's identity, and eventually establishes why prime factorization is unique.
 

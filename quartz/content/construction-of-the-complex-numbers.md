@@ -16,6 +16,10 @@ This time the new objects are simpler than equivalence classes: each complex num
 
 ## Build the underlying set and operations
 
+> [!definition] Complex numbers as ordered pairs
+> Construct $\mathbb C$ as $\mathbb R^2$ with **componentwise addition** and a deliberately defined multiplication. The special product is what makes $(0,1)^2=(-1,0)$ possible.
+
+
 Define
 
 $$
@@ -206,6 +210,10 @@ The coordinates agree by real arithmetic, so $x(y+z)=xy+xz$. Right distributivit
 This completes the ring laws. To obtain a **field**, we must still prove nonzero complex numbers have multiplicative inverses.
 
 ## Conjugation, norm, and the inverse theorem
+
+> [!theorem] Multiplicative inverses come from the norm
+> For nonzero $z=a+bi$, the positive real $a^2+b^2$ gives $z^{-1}=(a-bi)/(a^2+b^2)$. The proof must establish both **positivity** and the product identity.
+
 
 Define the **complex conjugate** of $z=(a,b)$ by
 
@@ -400,6 +408,10 @@ The proof used **real completeness and the pair-modulus formula**, not complex a
 
 ## Why complex numbers cannot be an ordered field
 
+> [!distinction] Algebraic closure does not imply compatibility with order
+> An ordered field cannot contain an element whose square is $-1$, because squares are nonnegative. In $\mathbb C$, $i^2=-1$. Therefore no field order compatible with these operations exists.
+
+
 The real numbers have a total order compatible with addition and multiplication. Could we give $\mathbb C$ a similar order and retain all field laws?
 
 **No.** In any ordered field, every square is nonnegative. If $x\geq0$, multiplying $x\geq0$ by $x$ gives $x^2\geq0$. If $x<0$, then $-x>0$, so $x^2=(-x)^2\geq0$.
@@ -593,6 +605,10 @@ Thus every polynomial is continuous on each disk, and the reverse triangle inequ
 
 
 ### A proof route for the Fundamental Theorem of Algebra
+
+> [!theorem] Fundamental Theorem of Algebra
+> Every nonconstant polynomial with **complex coefficients** has at least one complex root, and hence factors into linear terms over $\mathbb C$. The detailed analytic and algebraic arguments below are the actual proof obligations; this summary is not a replacement for them.
+
 
 We can connect algebraic closure to the real completeness we already constructed via the **minimum-modulus argument**. The analytic ingredients are now established above: the angular-root theorem CR and the minimum lemma for continuous real-valued functions on closed disks.
 

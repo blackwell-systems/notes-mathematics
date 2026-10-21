@@ -17,8 +17,24 @@ This log records **content-design migrations**, not independent proof certificat
 
 **Scope:** all four articles are tagged `semanticReview: "pilot"` in `editorial-coverage.json`. Mathematical proof correctness has **not** been independently certified. Mobile, dark-mode and diagram statuses remain pending because no screenshot/accessibility visual acceptance review was performed.
 
+## Batch 2: number constructions and abstract groups (2026-10-20)
+
+| Article | Semantic work |
+| --- | --- |
+| [Peano Arithmetic](./content/peano-arithmetic.md) | Axioms, recursion, natural-number order and first- vs second-order induction |
+| [Construction of the Integers](./content/construction-of-the-integers.md) | Difference pairs, representative independence, division with remainder and the Euclidean algorithm |
+| [Construction of the Rationals](./content/construction-of-the-rationals.md) | Equivalence classes of fractions, well-defined arithmetic, reciprocals and rational incompleteness |
+| [Construction of the Complex Numbers](./content/construction-of-the-complex-numbers.md) | Pair construction, inverse theorem, ordering obstruction and Fundamental Theorem of Algebra |
+| [Homomorphisms and Quotient Groups](./content/group-homomorphisms-quotients.md) | Homomorphism, kernel/image, quotient normality and first isomorphism theorem |
+| [Group Actions and Symmetry](./content/group-actions-symmetry.md) | Group actions, Cayley's theorem, orbit-stabilizer and Burnside's lemma |
+| [Algebraic Structures](./content/algebraic-structures.md) | Field axioms, group/ring/field distinctions, injectivity versus operation preservation |
+
+The original theorem statements and detailed proofs remain in place. These additions are **semantic cues and proof-obligation summaries**, not independent theorem certifications. Each article now has \`semanticReview:"pilot"\`. Visual and mathematical acceptance remain pending.
+
+**Coverage after batch 2:** 13 pilot pages, 50 pending, 0 marked complete.
+
 ## Site-wide baseline
 
-There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After this batch, **six pages are pilots**, **57 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 and 2, **13 pages are pilots**, **50 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
 Next batches should proceed through number constructions and abstract algebra, then functions, analysis, linear algebra, geometry, probability/statistics and advanced material, as documented in [Editorial rollout](./EDITORIAL-ROLLOUT.md).

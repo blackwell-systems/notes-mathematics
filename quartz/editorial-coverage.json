@@ -18,7 +18,7 @@
       "path": "algebraic-structures.md",
       "kind": "topic",
       "track": "group-theory",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -81,7 +81,7 @@
       "path": "construction-of-the-complex-numbers.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -90,7 +90,7 @@
       "path": "construction-of-the-integers.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -99,7 +99,7 @@
       "path": "construction-of-the-rationals.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -189,7 +189,7 @@
       "path": "group-actions-symmetry.md",
       "kind": "topic",
       "track": "group-theory",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -198,7 +198,7 @@
       "path": "group-homomorphisms-quotients.md",
       "kind": "topic",
       "track": "group-theory",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -405,7 +405,7 @@
       "path": "peano-arithmetic.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"

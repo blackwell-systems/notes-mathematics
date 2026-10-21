@@ -20,6 +20,10 @@ Read $\ker(f)$ as "the kernel of f," $\operatorname{im}(f)$ as "the image of f,"
 
 ## Homomorphisms: preserving multiplication, not necessarily elements
 
+> [!definition] Group homomorphism
+> A map $f:G\to H$ is a **homomorphism** when $f(ab)=f(a)f(b)$ for all group elements. This preserves the operation, **not necessarily distinctness**: different elements may share an image.
+
+
 Let $(G,\cdot)$ and $(H,*)$ be groups. A **group homomorphism** $f:G\to H$ is a function satisfying
 
 $$
@@ -55,6 +59,10 @@ The reversed product similarly equals $e_H$, so uniqueness of inverses gives $f(
 By induction, $f(a^n)=f(a)^n$ for every integer $n$, including negative exponents by H2.
 
 ## Kernel and image: what is lost, what survives
+
+> [!definition] Kernel and image
+> The **kernel** consists of inputs mapping to the identity of $H$. The **image** consists of outputs actually reached. Both are subgroups, but only the kernel lives in $G$.
+
 
 Define
 
@@ -142,6 +150,10 @@ $$
 Thus $N$ is a subgroup but **not normal**. Its left and right cosets differ, and naively multiplying left cosets cannot yield a well-defined group operation.
 
 ## Quotient groups: proving well-definedness first
+
+> [!distinction] A coset product requires normality
+> Writing $(aN)(bN)=abN$ does not yet define an operation: it must be **independent of representatives**. The calculation below proves that happens exactly when $N$ is normal.
+
 
 Assume $N\trianglelefteq G$. Define the *set of left cosets*
 
@@ -243,6 +255,10 @@ $$
 Here the reverse direction is the proved fact that kernels are normal.
 
 ## The First Isomorphism Theorem
+
+> [!theorem] First Isomorphism Theorem
+> Every group homomorphism factors through the quotient by its kernel: $G/\ker(f)\cong\operatorname{im}(f)$. The proof constructs the induced map and verifies **well-definedness, homomorphism, injectivity, and surjectivity**.
+
 
 **Theorem.** For every group homomorphism $f:G\to H$,
 
