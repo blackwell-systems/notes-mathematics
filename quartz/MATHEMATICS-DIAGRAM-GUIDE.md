@@ -9,8 +9,6 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | Chapter | Figures | What they show |
 | --- | ---: | --- |
 | [Mathematical Notations](./content/mathematical-notations.md) | 2 | anatomy of a quantified statement; why quantifier order changes meaning |
-
-
 | [Peano Arithmetic](./content/peano-arithmetic.md) | 3 | successor chain; proof by induction; recursive addition |
 | [Construction of the Integers](./content/construction-of-the-integers.md) | 3 | equivalence classes of pairs; signs from representatives; descending Euclidean remainders |
 | [Construction of the Rationals](./content/construction-of-the-rationals.md) | 3 | equivalent fractions; fraction operations; rational bounds for square root of two |
@@ -23,7 +21,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Ideals, Quotient Rings & Homomorphisms](./content/ring-ideals-quotients.md) | 4 | residue cosets; quotient-product well-definedness; prime/maximal ideal quotients; CRT residue mapping |
 | [Field Theory Foundations](./content/field-theory-foundations.md) | 5 | extension tower; adjoining a root; prime-power sizes; cyclic nonzero group; multiplication table of F4 |
 
-The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-` and `tp-`.
+The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-` and `mn-`.
 
 | [Category Theory Foundations](./content/category-theory-foundations.md) | 2 | composition and opposite categories |
 | [Functors and Natural Transformations](./content/category-functors-naturality.md) | 3 | functor action, naturality square, Yoneda identity evaluation |
