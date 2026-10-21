@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+<title id="title">Failure of Hall's marriage condition</title>
+<desc id="desc">Students A B and C on the left connect to projects one two and three on the right. Both students A and B connect only to project one, while student C connects to projects two and three. A and B have two members but only one neighbor, so a matching assigning every student a different project is impossible.</desc>
+<rect width="1200" height="470" rx="16" fill="#0d2031"/>
+<text x="55" y="55" fill="#eaf0fa" font-family="Georgia,serif" font-size="35" font-weight="bold">Two students, one available project</text>
+<g font-family="Arial,sans-serif" font-size="21" fill="#cbd9e6" font-weight="700"><text x="168" y="104">STUDENTS</text><text x="860" y="104">PROJECTS</text></g>
+<rect x="105" y="126" width="300" height="219" rx="22" fill="#452d3c" stroke="#e6a1a7" stroke-width="3"/>
+<g stroke-width="4" fill="none">
+<line x1="290" y1="173" x2="881" y2="173" stroke="#edb37c"/>
+<line x1="290" y1="262" x2="881" y2="173" stroke="#edb37c"/>
+<line x1="290" y1="381" x2="881" y2="280" stroke="#81c4e4"/>
+<line x1="290" y1="381" x2="881" y2="381" stroke="#81c4e4"/>
+</g>
+<g font-family="Georgia,serif" font-size="30" font-weight="bold" text-anchor="middle">
+<circle cx="265" cy="173" r="32" fill="#6e4255" stroke="#e8adb4" stroke-width="3"/><text x="265" y="183" fill="#ffffff">A</text>
+<circle cx="265" cy="262" r="32" fill="#6e4255" stroke="#e8adb4" stroke-width="3"/><text x="265" y="272" fill="#ffffff">B</text>
+<circle cx="265" cy="381" r="32" fill="#285567" stroke="#91c4e8" stroke-width="3"/><text x="265" y="391" fill="#ffffff">C</text>
+<circle cx="915" cy="173" r="34" fill="#775631" stroke="#f1c98e" stroke-width="3"/><text x="915" y="184" fill="#ffffff">1</text>
+<circle cx="915" cy="280" r="34" fill="#285567" stroke="#91c4e8" stroke-width="3"/><text x="915" y="290" fill="#ffffff">2</text>
+<circle cx="915" cy="381" r="34" fill="#285567" stroke="#91c4e8" stroke-width="3"/><text x="915" y="391" fill="#ffffff">3</text>
+</g>
+<text x="1070" y="210" text-anchor="middle" fill="#f0b5b8" font-family="Arial,sans-serif" font-size="23" font-weight="700">|N({A,B})| = 1</text>
+<text x="1070" y="247" text-anchor="middle" fill="#f0b5b8" font-family="Arial,sans-serif" font-size="23" font-weight="700">|{A,B}| = 2</text>
+<text x="610" y="434" text-anchor="middle" fill="#c5d5e1" font-family="Arial,sans-serif" font-size="18">Hall's condition fails for the subset {A,B}: two distinct partners cannot be chosen.</text>
+</svg>

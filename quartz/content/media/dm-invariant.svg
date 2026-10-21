@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 425" role="img" aria-labelledby="title desc">
+<title id="title">Safety invariant as a closed region of reachable states</title>
+<desc id="desc">Inside a teal outlined region are states s zero through s three connected by transition arrows. An initial arrow enters state s zero; arrows stay within the safe region. Outside the region is a red state marked forbidden with no transition from the safe region, illustrating initialization and preservation.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#a1d4e9"/></marker></defs>
+<rect width="1200" height="425" rx="16" fill="#0d2031"/>
+<text x="60" y="50" font-family="Arial,sans-serif" font-size="19" fill="#c9d9e8" font-weight="700">INDUCTIVE INVARIANT: INITIALIZE + PRESERVE</text>
+<rect x="160" y="98" width="800" height="245" rx="30" fill="#173d42" stroke="#65c9ba" stroke-width="5"/>
+<text x="189" y="135" fill="#8ce3d6" font-family="Arial,sans-serif" font-size="21" font-weight="700">J(s) holds</text>
+<g fill="none" stroke="#a1d4e9" stroke-width="4" marker-end="url(#arr)">
+<line x1="76" y1="219" x2="230" y2="219"/>
+<line x1="307" y1="219" x2="421" y2="219"/>
+<line x1="496" y1="219" x2="610" y2="219"/>
+<line x1="686" y1="219" x2="800" y2="219"/>
+</g>
+<g font-family="Georgia,serif" font-size="28" font-weight="bold" text-anchor="middle">
+<circle cx="265" cy="219" r="40" fill="#285c64" stroke="#88e2d5" stroke-width="3"/><text x="265" y="229" fill="#ffffff">s₀</text>
+<circle cx="455" cy="219" r="40" fill="#285c64" stroke="#88e2d5" stroke-width="3"/><text x="455" y="229" fill="#ffffff">s₁</text>
+<circle cx="645" cy="219" r="40" fill="#285c64" stroke="#88e2d5" stroke-width="3"/><text x="645" y="229" fill="#ffffff">s₂</text>
+<circle cx="835" cy="219" r="40" fill="#285c64" stroke="#88e2d5" stroke-width="3"/><text x="835" y="229" fill="#ffffff">s₃</text>
+<circle cx="1080" cy="219" r="48" fill="#593947" stroke="#f0a5a5" stroke-width="3"/><text x="1080" y="228" fill="#fff7f7" font-size="22">bad</text>
+</g>
+<text x="1078" y="300" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#f3b9ba">Outside J</text>
+<text x="560" y="389" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#bbccdb">Every permitted transition starting inside J must end inside J.</text>
+</svg>

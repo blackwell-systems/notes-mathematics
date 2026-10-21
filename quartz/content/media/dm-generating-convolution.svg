@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 445" role="img" aria-labelledby="title desc">
+<title id="title">Convolution gathers degree pairs for one coefficient</title>
+<desc id="desc">Four pairs of terms from sequences a and b are shown: a zero times b three, a one times b two, a two times b one, and a three times b zero. Four arrows converge into the coefficient of x cubed in the product A times B, showing the sum over all pairs whose degrees total three.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#c5b4ef"/></marker></defs>
+<rect width="1200" height="445" rx="16" fill="#0d2031"/>
+<text x="60" y="55" fill="#e6eff9" font-family="Georgia,serif" font-size="33" font-weight="bold">Multiplication gathers every split of degree 3</text>
+<g font-family="Arial,sans-serif" font-size="28" text-anchor="middle" fill="#dce7ef">
+<rect x="60" y="111" width="235" height="87" rx="12" fill="#245d63" stroke="#78d6c7"/><text x="178" y="164">a₀ · b₃</text>
+<rect x="338" y="111" width="235" height="87" rx="12" fill="#245d63" stroke="#78d6c7"/><text x="455" y="164">a₁ · b₂</text>
+<rect x="617" y="111" width="235" height="87" rx="12" fill="#245d63" stroke="#78d6c7"/><text x="734" y="164">a₂ · b₁</text>
+<rect x="895" y="111" width="235" height="87" rx="12" fill="#245d63" stroke="#78d6c7"/><text x="1013" y="164">a₃ · b₀</text>
+</g>
+<g stroke="#c5b4ef" stroke-width="3" fill="none" marker-end="url(#arr)">
+<path d="M178 199 L505 287"/><path d="M455 199 L557 287"/><path d="M734 199 L647 287"/><path d="M1013 199 L695 287"/>
+</g>
+<rect x="320" y="294" width="560" height="81" rx="12" fill="#564777" stroke="#bba5ec" stroke-width="3"/>
+<text x="600" y="344" text-anchor="middle" fill="#ffffff" font-family="Georgia,serif" font-size="31">[x³](A · B) = a₀b₃ + a₁b₂ + a₂b₁ + a₃b₀</text>
+<text x="600" y="412" fill="#b9cddd" font-family="Arial,sans-serif" font-size="19" text-anchor="middle">For a fixed degree, only finitely many term pairs contribute.</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+<title id="title">Recursive construction of full binary trees</title>
+<desc id="desc">On the left a single leaf labeled base constructor. In the center two complete subtrees are joined below a new internal node, labeled recursive constructor. On the right an example binary tree has three internal nodes and four leaves, showing the rule leaves equals internal nodes plus one.</desc>
+<rect width="1200" height="470" rx="16" fill="#0d2031"/>
+<g font-family="Arial,sans-serif" font-size="19" fill="#cbdceb" font-weight="700"><text x="72" y="55">BASE CONSTRUCTOR</text><text x="388" y="55">RECURSIVE CONSTRUCTOR</text><text x="846" y="55">WORKED TREE</text></g>
+<rect x="55" y="80" width="280" height="310" rx="12" fill="#172f45" stroke="#3c6077"/>
+<rect x="364" y="80" width="426" height="310" rx="12" fill="#172f45" stroke="#3c6077"/>
+<rect x="818" y="80" width="326" height="310" rx="12" fill="#172f45" stroke="#3c6077"/>
+<g fill="none" stroke="#83b3d0" stroke-width="4">
+<path d="M576 169 L482 275 M576 169 L682 275"/>
+<path d="M972 149 L903 238 M972 149 L1041 238 M1041 238 L1001 322 M1041 238 L1082 322"/>
+</g>
+<g font-family="Georgia,serif" font-size="29" font-weight="bold" text-anchor="middle">
+<circle cx="195" cy="225" r="35" fill="#246257" stroke="#76d9c4" stroke-width="3"/><text x="195" y="235" fill="#f2fff9">L</text>
+<circle cx="576" cy="158" r="34" fill="#725a31" stroke="#e4b96e" stroke-width="3"/><text x="576" y="169" fill="#ffeed6">N</text>
+<circle cx="482" cy="287" r="33" fill="#246257" stroke="#76d9c4" stroke-width="3"/><text x="482" y="297" fill="#f2fff9">L</text>
+<circle cx="682" cy="287" r="33" fill="#246257" stroke="#76d9c4" stroke-width="3"/><text x="682" y="297" fill="#f2fff9">L</text>
+<circle cx="972" cy="143" r="28" fill="#725a31" stroke="#e4b96e" stroke-width="3"/><text x="972" y="153" fill="#ffeed6">N</text>
+<circle cx="1041" cy="239" r="28" fill="#725a31" stroke="#e4b96e" stroke-width="3"/><text x="1041" y="249" fill="#ffeed6">N</text>
+<circle cx="903" cy="239" r="28" fill="#246257" stroke="#76d9c4" stroke-width="3"/><text x="903" y="249" fill="#f2fff9">L</text>
+<circle cx="1001" cy="323" r="28" fill="#246257" stroke="#76d9c4" stroke-width="3"/><text x="1001" y="333" fill="#f2fff9">L</text>
+<circle cx="1082" cy="323" r="28" fill="#246257" stroke="#76d9c4" stroke-width="3"/><text x="1082" y="333" fill="#f2fff9">L</text>
+</g>
+<g font-family="Arial,sans-serif" fill="#c8d9e6" font-size="18" text-anchor="middle">
+<text x="195" y="355">Leaf</text><text x="576" y="355">Node(left, right)</text><text x="972" y="370">2 internal nodes, 3 leaves</text>
+<text x="600" y="435">Each internal node joins two already-constructed trees.</text>
+</g>
+</svg>

@@ -59,14 +59,14 @@ Consequently $a=b$ is an invariant. This does **not** establish termination: the
 
 Consider this algorithm for a natural number $n$:
 
-<CodeBlock language="text" editable={false}>
+```text
 s := 0
 i := 0
 while i < n:
     i := i + 1
     s := s + i
 return s
-</CodeBlock>
+```
 
 We want to prove the result is $n(n+1)/2$ and that the loop terminates.
 
