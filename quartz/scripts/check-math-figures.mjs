@@ -52,9 +52,9 @@ const expected = {
   "category-functors-naturality.md": ["ct-functor.svg","ct-naturality.svg","ct-yoneda.svg"],
   "category-limits-colimits.md": ["ct-product.svg","ct-pullback.svg","ct-pushout.svg"],
   "category-adjunctions-monads.md": ["ct-adjunction.svg","ct-list-monad.svg"],
-  "general-topology-foundations.md": ["tp-topologies.svg","tp-basis.svg","tp-preimage-continuity.svg"],
-  "general-topology-constructions.md": ["tp-product.svg","tp-quotient-circle.svg"],
-  "general-topology-compactness.md": ["tp-compact-cover.svg","tp-hausdorff.svg","tp-connected.svg"]
+  "general-topology-foundations.md": ["tp-topologies.svg","tp-basis.svg","tp-basis-refinement-expanded.svg","tp-preimage-continuity.svg"],
+  "general-topology-constructions.md": ["tp-subspace-relative-open.svg","tp-product.svg","tp-product-coordinate-test.svg","tp-quotient-circle.svg","tp-quotient-seam-preimage.svg"],
+  "general-topology-compactness.md": ["tp-compact-cover.svg","tp-compact-finite-selection.svg","tp-hausdorff.svg","tp-connected.svg","tp-connected-hausdorff-contrast.svg"]
 };
 
 const errors=[];
@@ -86,7 +86,7 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==66)errors.push("Expected 66 illustrative SVGs, got "+total);
+if(total!==72)errors.push("Expected 72 illustrative SVGs, got "+total);
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);

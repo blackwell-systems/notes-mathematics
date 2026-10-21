@@ -30,6 +30,10 @@ The cover may be **infinite**. A finite subcover may depend on that cover; the d
 ![An open cover of a compact interval, with a finite selection still covering it.](./media/tp-compact-cover.svg)
 
 *Figure: Compactness turns an arbitrary open covering requirement into a finite selection.*
+![A closed interval is shown with several overlapping ambient open intervals, then three selected overlapping open intervals extending beyond the endpoints and still covering the entire closed interval.](./media/tp-compact-finite-selection.svg)
+
+*Figure: This particular cover has a three-set subcover. The compactness theorem asserts that **every** open cover has *some* finite subcover; the picture illustrates the condition but does not prove it.*
+
 
 ### Worked example: every finite space is compact
 
@@ -106,6 +110,10 @@ The cofinite example shows why merely knowing that all points are closed does no
 ![One connected interval and a disconnected union of two separated pieces.](./media/tp-connected.svg)
 
 *Figure: A connected space cannot be split into two nonempty relatively open components.*
+![An interval cannot be separated into two relatively open subsets because a proposed division omits the midpoint, while two distinct real points can be placed in disjoint open neighborhoods, illustrating Hausdorffness.](./media/tp-connected-hausdorff-contrast.svg)
+
+*Figure: Connectedness forbids a separation **of the whole space**. Hausdorffness only requires disjoint neighborhoods **around each pair of distinct points**.*
+
 
 > [!theorem] Continuous images preserve connectedness
 > If $X$ is connected and $f:X\to Y$ continuous, then $f(X)$ is connected.

@@ -86,6 +86,10 @@ The topology forgets numerical distances while retaining information about conti
 ![Nested open neighborhoods of a point and a finer basis element inside their intersection.](./media/tp-basis.svg)
 
 *Figure: The basis-intersection axiom says every common point has an even smaller basis neighborhood.*
+![Two overlapping basis neighborhoods B1 and B2 contain a common point x, and a smaller basis neighborhood B3 sits wholly inside their intersection surrounding x.](./media/tp-basis-refinement-expanded.svg)
+
+*Figure: An explicit local refinement: $x\in B_3\subseteq B_1\cap B_2$. This is the overlap condition for a basis, not a claim that all overlaps are themselves single basis elements.*
+
 
 ## Closed sets, interiors, closures and boundaries
 

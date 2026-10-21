@@ -37,6 +37,10 @@ is open in $Z$. Hence $f$ is continuous. $\square$
 
 > [!example] Intervals inherit openness relatively
 > In $A=[0,1]\subset\mathbb R$, the set $[0,\tfrac12)$ is **open in $A$**, since it equals $A\cap(-1,\tfrac12)$. It is **not open in $\mathbb R$**. Always name the ambient topology.
+![Three real-number lines show closed subspace A equal to zero through one, the ambient open interval from minus one to one half, and their intersection from zero inclusive to one half exclusive, which is open only relative to A.](./media/tp-subspace-relative-open.svg)
+
+*Figure: The endpoint $0$ may belong to a relatively open set in $[0,1]$. Openness depends on the **ambient space**, not on whether a drawn endpoint is filled.*
+
 
 ## The product topology: coordinate maps decide openness
 
@@ -56,6 +60,10 @@ a **finite intersection** of open sets. Every open set is a union of such rectan
 ![Open rectangle U×V inside a product X×Y, with coordinate projections.](./media/tp-product.svg)
 
 *Figure: The product topology is exactly what makes coordinatewise continuity equivalent to continuity of the paired map.*
+![A coordinate diagram highlights an open rectangle U times V inside the product X times Y, and a mapping diagram shows h from Z into the product, followed by projections to the X and Y coordinates.](./media/tp-product-coordinate-test.svg)
+
+*Figure: Basic product-open rectangles correspond to coordinate conditions. Checking both $p_X\circ h$ and $p_Y\circ h$ is enough to prove $h$ continuous.*
+
 
 ### Infinite products and the box-topology trap
 
@@ -99,6 +107,10 @@ Let $X=[0,1]$, identify $0\sim1$ and no other distinct points, and let $Q=X/{\si
 Define $p:[0,1]\to S^1$ by $p(t)=(\cos 2\pi t,\sin2\pi t)$. It is continuous, surjective, and satisfies $p(0)=p(1)$, so it factors as $\bar p:Q\to S^1$. It is a **bijection**, because points with equal angles in $[0,1]$ differ only at the endpoints.
 
 To prove $\bar p$ is a **homeomorphism**, we need one further fact: a continuous bijection from a **compact** space to a **Hausdorff** space is a homeomorphism. We prove that theorem in the [next chapter](./general-topology-compactness). $Q$ is compact as a continuous image of $[0,1]$, and $S^1$ is Hausdorff as a subspace of $\mathbb R^2$. This finishes the claim once those theorems are established.
+![Two ends of a closed interval are identified into a single point on a circle; an open arc around that seam pulls back to relatively open neighborhoods near zero and near one in the original interval.](./media/tp-quotient-seam-preimage.svg)
+
+*Figure: Near the glued point, one open circle neighborhood has a preimage in **both** ends of $[0,1]$. The quotient topology tests openness using the complete preimage.*
+
 
 > [!distinction] Surjective and continuous does not automatically mean quotient
 > A surjective continuous map may fail the quotient equivalence: openness of $q^{-1}(U)$ need not force openness of $U$. The quotient condition is an **additional assertion**, not mere surjectivity plus continuity.

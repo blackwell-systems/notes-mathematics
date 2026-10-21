@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **66 original, source-editable SVG figures** placed directly beside the claims they explain across **26 proof-oriented chapters and reading maps**.
+This collection contains **72 original, source-editable SVG figures** placed directly beside the claims they explain across **26 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -34,9 +34,9 @@ The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, 
 | [Functors and Natural Transformations](./content/category-functors-naturality.md) | 3 | functor action, naturality square, Yoneda identity evaluation |
 | [Limits and Colimits](./content/category-limits-colimits.md) | 3 | universal products, pullbacks and pushouts |
 | [Adjunctions and Monads](./content/category-adjunctions-monads.md) | 2 | free monoid universal arrow and list-monad flattening |
-| [General Topology Foundations](./content/general-topology-foundations.md) | 3 | alternate topologies, basis refinement, continuity through inverse images |
-| [Topological Constructions](./content/general-topology-constructions.md) | 2 | product basic open rectangles, endpoint quotient into a circle |
-| [Compactness and Connectedness](./content/general-topology-compactness.md) | 3 | finite subcovers, Hausdorff separation, connectedness |
+| [General Topology Foundations](./content/general-topology-foundations.md) | 4 | alternate topologies, two forms of basis refinement, continuity through inverse images |
+| [Topological Constructions](./content/general-topology-constructions.md) | 5 | relative openness of a subspace, product rectangles and projection continuity, quotient circle and seam preimages |
+| [Compactness and Connectedness](./content/general-topology-compactness.md) | 5 | open covers and finite subcover selection, Hausdorff neighborhoods, connectedness and their distinction |
 
 ## Formal truth behind the pictures
 
@@ -57,7 +57,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **66 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **72 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 
