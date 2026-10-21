@@ -4766,6 +4766,41 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     [0.1,0.3,0.7].every(x=>100*x>1));
 }
 
+// ============ Statistics and discrete mathematics editorial regressions ============
+// Bounded numerical checks support examples and counterexamples, not universal proofs.
+{
+  const choose=(n,k)=>{let v=1;for(let i=1;i<=k;i++)v=v*(n+1-i)/i;return Math.round(v)};
+  eq("Combinations: choose 5 3",choose(5,3),10);
+  eq("Stars and bars: 10 identical into 4 labeled boxes",choose(13,3),286);
+  eq("Permutation: P(5,3)",5*4*3,60);
+  eq("Graph: handshaking four edges",3+2+2+1,2*4);
+  // Differential entropy scales with units: standard normal vs 2X.
+  const hNormal=sigma=>0.5*Math.log(2*Math.PI*Math.E*sigma*sigma);
+  check("Information: differential entropy shifts under scaling",
+    approx(hNormal(2)-hNormal(1),Math.log(2),1e-12));
+  // An active inequality constraint may have a zero KKT multiplier
+  // (already covered in the optimization batch). Here an independent
+  // counterexample establishes that equal inclusion probabilities need
+  // not mean equal sample-subset probabilities.
+  const design=new Map([["1,2",0.5],["3,4",0.5]]);
+  const inclusion=[1,2,3,4].map(i=>
+    [...design.entries()].reduce((sum,[pair,p])=>sum+(pair.split(",").map(Number).includes(i)?p:0),0));
+  check("Sampling: equal individual inclusion can hide nonuniform subsets",
+    inclusion.every(p=>p===0.5)&&design.size<choose(4,2));
+  // KL divergence is asymmetric for this pair of discrete distributions.
+  const kl=(p,q)=>p.reduce((sum,v,i)=>sum+v*Math.log(v/q[i]),0);
+  const P=[0.8,0.2],Q=[0.5,0.5];
+  check("Information: KL is nonnegative and asymmetric",
+    kl(P,Q)>0&&kl(Q,P)>0&&!approx(kl(P,Q),kl(Q,P),1e-9));
+  // f(n)=3n^2+5n+7 is eventually at most 15 n^2.
+  check("Asymptotics: 3n2+5n+7 <= 15n2 for n>=1",
+    Array.from({length:200},(_,i)=>i+1).every(n=>3*n*n+5*n+7<=15*n*n));
+  // Adding an OLS regressor can reduce training RSS and still harm
+  // adjusted R^2 if the improvement is too small.
+  const adjusted=(rss,tss,n,p)=>1-(rss/tss)*((n-1)/(n-p-1));
+  check("Regression: training R2 increases while adjusted R2 falls",
+    1-89/100 > 1-90/100 && adjusted(89,100,20,2)<adjusted(90,100,20,1));
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

@@ -12,6 +12,10 @@ Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to cho
 
 ## Why Combinations?
 
+> [!definition] Unordered choices
+> For $0\le r\le n$, the number of size-$r$ subsets of an $n$-element set is $\binom nr=n!/[r!(n-r)!]$. It counts **subsets**, not ordered sequences.
+
+
 Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to choose 3 of them to form a team. How many different teams are possible?
 
 At first, you might count ordered selections. Using [permutations](permutation.md), there are $P(5,3) = 5 \times 4 \times 3 = 60$ ways to pick 3 people in order. But a team is not an ordered arrangement. The team {Alice, Bob, Carol} is the same team as {Carol, Alice, Bob}; the order you list them does not matter.
@@ -123,6 +127,10 @@ The coefficient of $x^2$, namely $6 = \binom{4}{2}$, counts "the ways to pick th
 
 ## Combinations with Repetition
 
+> [!distinction] Repetition and ordering are independent questions
+> Choosing an unordered multiset of size $r$ from $n$ types allows repeated types but **does not** record an order. Its count differs from both $n^r$ and $\binom nr$.
+
+
 **Formula:** When items can be selected more than once:
 
 $$C(n+r-1,\, r) = \binom{n+r-1}{r} = \frac{(n+r-1)!}{r!\,(n-1)!}$$
@@ -154,6 +162,10 @@ which totals $2 + 0 + 1 + 0 + 0 = 3$ donuts. Every possible order is exactly one
 - **No** → Use Combination
 
 ## Inclusion-Exclusion Principle
+
+> [!theorem] Inclusion-exclusion
+> Alternating intersections corrects double counting in the size of a union: **add singles, subtract pairs, add triples**, and so on. It is a finite identity for overlapping sets.
+
 
 When counting elements that belong to at least one of several sets, simply adding the set sizes overcounts elements that belong to more than one set. The **inclusion-exclusion principle** corrects for this overcounting.
 
@@ -251,6 +263,10 @@ For large $n$, the sum approaches $e^{-1}$, so $D_n \approx n!/e$. Roughly $1/e 
 
 ## Stars and Bars (Distributing Identical Objects)
 
+> [!example] Stars and bars
+> $n$ **identical** items in $k\ge1$ **labeled** bins, empties allowed, are counted by $\binom{n+k-1}{k-1}$. Requiring a positive count in every bin first uses up one item per bin.
+
+
 ### The Problem
 
 How many ways can you distribute $n$ identical items into $k$ distinct bins (where bins can be empty)?
@@ -314,6 +330,10 @@ More generally, if each of $k$ bins must have at least $m_i$ items, first place 
 Note that stars and bars gives the same formula as combinations with repetition (discussed earlier). Choosing $r$ items from $n$ types with repetition is the same as distributing $r$ identical selections among $n$ categories.
 
 ## Pigeonhole Principle
+
+> [!theorem] Pigeonhole principle
+> Placing more than $k$ objects into $k$ bins forces some bin to contain **at least two** objects. For $n$ objects and $k>0$ bins, some bin holds at least $\lceil n/k\rceil$.
+
 
 The **pigeonhole principle** states: if you place more than $n$ items into $n$ containers, at least one container holds more than one item. Despite its simplicity, this principle is surprisingly powerful for proving existence results.
 

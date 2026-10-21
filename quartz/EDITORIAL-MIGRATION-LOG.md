@@ -110,8 +110,34 @@ The arithmetic harness adds counterexamples for IVT endpoints, separable-equatio
 
 **Coverage after batch 5:** 44 pilot pages, 19 pending, 0 complete. No visual screenshot review or independent proof certification is asserted.
 
+## Batch 6: probability, statistics, information theory and discrete mathematics (2026-10-20)
+
+| Article | Semantic focus |
+| --- | --- |
+| [Probability](./content/probability.md) | probability axioms, conditional independence, law of large numbers, central limit theorem |
+| [Statistics](./content/statistics.md) | population versus sample, simple random sampling, observational versus experimental claims |
+| [Descriptive Statistics](./content/descriptive-statistics.md) | center, spread, standardization, histogram interpretation |
+| [Inferential Statistics](./content/inferential-statistics.md) | confidence intervals, null-conditional p-values, error rates, multiplicity |
+| [Bayesian Inference](./content/bayesian-inference.md) | priors, likelihood, proper posteriors, conjugacy, predictive distribution, singular BIC failure |
+| [Information Theory](./content/information-theory.md) | coordinate-dependent differential entropy, KL, cross-entropy, mutual information and data processing |
+| [Statistical Learning](./content/statistical-learning.md) | OLS rank conditions, adjusted $R^2$, causality, cross-validation leakage, bootstrap assumptions |
+| [Combinations](./content/combination.md) | subsets, repetition, inclusion-exclusion, stars and bars, pigeonhole principle |
+| [Permutations](./content/permutation.md) | ordered arrangements, repetition, indistinguishable objects, circular symmetry |
+| [Graph Theory](./content/graph-theory.md) | graph conventions, handshaking lemma, trees, paths, shortest-path hypotheses, Eulerian/Hamiltonian distinctions |
+| [Asymptotic Notation](./content/asymptotic-notation.md) | eventual Big-O, Big-Omega, Theta and strict little-o/little-omega growth |
+
+**Substantive corrections:**
+
+- **Sampling:** equal per-unit inclusion probabilities do **not** suffice to define a simple random sample. For a fixed-size SRS without replacement, all subsets of that size have equal probability. Neither SRS nor stratification guarantees that one realized sample perfectly represents a population.
+- **Information theory:** differential entropy and even its numerical differences can change under separate transformations of variables. The blanket claim that entropy differences are always meaningful was removed.
+- **Statistical learning:** the **normal equations** remain valid even with rank-deficient predictors, although the explicit inverse solution requires full column rank. An increase in adjusted $R^2$ does not prove a new feature has genuine predictive value.
+
+Regression examples were added for combination counts, degree sums, KL asymmetry, differential-entropy scaling, equal inclusion probabilities with nonuniform subsets, Big-O bounds and the distinction between training $R^2$ and adjusted $R^2$.
+
+**Coverage after batch 6:** 55 pilot pages, 8 pending, 0 fully reviewed. Mobile, dark-theme and diagram acceptance remain pending; semantic migration is not a substitute for mathematical peer review.
+
 ## Site-wide baseline
 
-There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 5, **44 pages are pilots**, **19 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 6, **55 pages are pilots**, **8 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
-Next batches should cover probability/statistics, discrete mathematics, remaining foundations, advanced material and the two navigation pages, as documented in [Editorial rollout](./EDITORIAL-ROLLOUT.md).
+Next batches should cover the remaining number-system overview, number bases, order of operations, advanced algebraic geometry, hypercomplex numbers, singular learning theory and the two navigation pages.

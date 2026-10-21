@@ -85,7 +85,7 @@ The GitHub Pages workflow runs `--check` **before the site build** and fails whe
 
 ## Migration progress
 
-Five batches now cover logic, numbers, groups, algebra, geometry, calculus, real analysis, differential equations, optimization and measure theory. **44 of 63 pages** are tagged `pilot`; none is certified `complete`. The remaining 19 are pending, and responsive/diagram statuses are still unreviewed. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
+Six batches now cover the major logic, algebra, calculus, analysis, probability, statistics, information theory and discrete-mathematics chapters. **55 of 63 pages** are tagged `pilot`; none is certified `complete`. The remaining 8 are pending, and responsive/diagram statuses are still unreviewed. See [Editorial migration log](./EDITORIAL-MIGRATION-LOG.md) for the precise content-level changes and substantive clarifications.
 
 ## Recommended migration batches
 

@@ -198,6 +198,10 @@ Explore entropy directly below: slide $p$ along the binary entropy curve, or swi
 
 ### Differential Entropy (Continuous Case)
 
+> [!distinction] Differential entropy changes with coordinates
+> Differential entropy can be negative, and $h(aX)=h(X)+\log|a|$ for nonzero $a$. **Differences** are not automatically invariant when the variables undergo different transformations. Mutual information and KL have their own invariance properties.
+
+
 For a continuous random variable $X$ with probability density function $p(x)$, we replace the sum with an integral. This gives **differential entropy**:
 
 $$
@@ -206,7 +210,7 @@ $$
 
 > If integrals are unfamiliar, see [Calculus](./calculus). The integral $\int p(x) \log p(x) \, dx$ is the continuous analog of the sum $\sum p(x) \log p(x)$.
 
-Differential entropy can be negative (unlike discrete entropy), which makes it slightly less intuitive. However, differences in differential entropy are always meaningful.
+Differential entropy can be negative (unlike discrete entropy), which makes it slightly less intuitive. Even differences in differential entropy are **not automatically invariant** under separate changes of coordinates or units.
 
 **Entropy of the normal distribution.** For a Gaussian $X \sim \mathcal{N}(\mu, \sigma^2)$, using the natural log (so the answer is in nats, matching the base of the definition above):
 
@@ -298,6 +302,10 @@ And the chain rule checks out in the other direction: $H(X) + H(Y \mid X) = 0.81
 
 ## KL Divergence (Relative Entropy)
 
+> [!definition] KL divergence
+> $D_{\mathrm{KL}}(P\|Q)$ is **nonnegative** and generally **asymmetric**, and can be infinite when the required absolute continuity fails. It is not a metric.
+
+
 ### Definition
 
 **Kullback-Leibler divergence** (also called **relative entropy**) measures how one probability distribution differs from another:
@@ -386,6 +394,10 @@ In machine learning, we typically have a true data distribution $P_{\text{data}}
 
 ## Cross-Entropy
 
+> [!distinction] Cross-entropy and KL
+> For a fixed discrete target $P$, $H(P,Q)=H(P)+D_{\mathrm{KL}}(P\|Q)$ when well-defined. Optimizing cross-entropy in $Q$ matches optimizing forward KL **only while $P$ remains fixed**.
+
+
 ### Definition
 
 **Cross-entropy** between a true distribution $P$ and a model distribution $Q$:
@@ -447,6 +459,10 @@ This example uses $\log_2$ so the loss reads in bits, but ML frameworks compute 
 **Connection to the rest of the site:** Cross-entropy loss is discussed from the perspective of maximum likelihood estimation on the [Statistics](./statistics) page. The derivation here shows why MLE and cross-entropy minimization are the same thing: both minimize $D_{\text{KL}}(P_{\text{data}} \| Q_\theta)$.
 
 ## Mutual Information
+
+> [!definition] Mutual information
+> $I(X;Y)$ is the KL divergence of the **joint law** from the product of its marginals. It vanishes precisely for **independent** random variables.
+
 
 ### Definition
 
@@ -536,6 +552,10 @@ Mutual information is used throughout machine learning:
 - **Clustering evaluation.** Normalized mutual information can measure how well a clustering matches ground truth labels, without depending on the specific label assignments.
 
 ## Data Processing Inequality
+
+> [!theorem] Data processing
+> If $X\to Y\to Z$ forms a Markov chain, then $I(X;Z)\le I(X;Y)$. Processing $Y$ without additional information about $X$ cannot increase their mutual information.
+
 
 ### Statement
 

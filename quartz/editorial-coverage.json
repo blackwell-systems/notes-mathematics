@@ -27,7 +27,7 @@
       "path": "asymptotic-notation.md",
       "kind": "topic",
       "track": "discrete-mathematics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -36,7 +36,7 @@
       "path": "bayesian-inference.md",
       "kind": "topic",
       "track": "statistics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -54,7 +54,7 @@
       "path": "combination.md",
       "kind": "topic",
       "track": "combinatorics-and-probability",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -117,7 +117,7 @@
       "path": "descriptive-statistics.md",
       "kind": "topic",
       "track": "statistics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -171,7 +171,7 @@
       "path": "graph-theory.md",
       "kind": "topic",
       "track": "discrete-mathematics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -243,7 +243,7 @@
       "path": "inferential-statistics.md",
       "kind": "topic",
       "track": "statistics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -252,7 +252,7 @@
       "path": "information-theory.md",
       "kind": "topic",
       "track": "information-theory",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -414,7 +414,7 @@
       "path": "permutation.md",
       "kind": "topic",
       "track": "combinatorics-and-probability",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -450,7 +450,7 @@
       "path": "probability.md",
       "kind": "topic",
       "track": "combinatorics-and-probability",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -522,7 +522,7 @@
       "path": "statistical-learning.md",
       "kind": "topic",
       "track": "statistics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -531,7 +531,7 @@
       "path": "statistics.md",
       "kind": "topic",
       "track": "statistics",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"

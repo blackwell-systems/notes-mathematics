@@ -15,6 +15,10 @@ Bayesian inference is the framework for reasoning about uncertainty by treating 
 
 ### Review: Bayes' Theorem
 
+> [!definition] Prior, likelihood and posterior
+> Bayesian updating weights a **prior** by the **likelihood** and normalizes by marginal evidence when finite and positive. Posterior probabilities are not frequentist confidence coverage.
+
+
 Recall from [probability](./probability) that Bayes' theorem relates conditional probabilities:
 
 $$
@@ -81,6 +85,10 @@ This rules out absurd values (negative heights, heights of 500 cm) and concentra
 
 ### Non-informative (Diffuse) Priors
 
+> [!distinction] Diffuse is not assumption-free
+> A flat prior depends on parameterization; an **improper prior** is usable for posterior inference only if the resulting posterior is **proper**.
+
+
 A non-informative prior tries to encode ignorance, letting the data speak for itself.
 
 **Uniform prior:** Assign equal probability to all values. For a parameter on $[0, 1]$, use $P(\theta) = 1$. For an unbounded parameter, a uniform prior is improper (it does not integrate to a finite value), but the posterior may still be proper if the likelihood is strong enough.
@@ -111,6 +119,10 @@ Explore Beta-Binomial updating below: set a Beta prior, feed in coin-flip data, 
 <iframe src="/static/interactive/bayes-updating.html" width="100%" height="640" style="border:none;"></iframe>
 
 ### Worked Example: Beta-Binomial
+
+> [!example] Conjugate updating
+> A $\mathrm{Beta}(\alpha,\beta)$ prior and $s$ successes, $f$ failures give a $\mathrm{Beta}(\alpha+s,\beta+f)$ posterior under the assumed binomial sampling model.
+
 
 ![Four Beta densities over the probability theta showing conjugate Bayesian updating: a nearly flat Beta(2,2) prior, then Beta(9,5) after 10 flips, Beta(37,17) after 50, and a tall narrow Beta(142,62) after 200 flips, the posterior concentrating around the true rate 0.7 as data accumulates, with the posterior mean 9/14 marked](./media/bi-conjugate-updating.png)
 
@@ -292,6 +304,10 @@ In practice, VI is preferred for large-scale ML problems (topic models, variatio
 
 ### Posterior Predictive Distribution
 
+> [!definition] Posterior prediction
+> Predict new observations by averaging their sampling distribution over the **posterior**, not by silently substituting one point estimate.
+
+
 Once you have the posterior $P(\theta | D)$, you can make predictions for new data $x_{\text{new}}$ by averaging over all plausible parameter values:
 
 $$
@@ -376,6 +392,10 @@ $$
 Here $H_1$ is the *per-observation* Hessian of the negative log-likelihood: the full-sample Hessian is $H = n H_1$, and the factor $\det H^{-1} = n^{-d}\det H_1^{-1}$ is precisely what supplies the $-\frac{d}{2}\log n$ term shown explicitly above (writing it with $H_1$ avoids counting that $n$-dependence twice). Dropping the terms that do not grow with $n$ and multiplying by $-2$ gives BIC.
 
 ### Where BIC Fails: The SLT Connection
+
+> [!distinction] Singular models violate regular BIC assumptions
+> Standard BIC asymptotics depend on model regularity and identifiability; mixtures and many neural networks can require **singular learning** asymptotics instead.
+
 
 BIC assumes the posterior is approximately Gaussian, which requires:
 

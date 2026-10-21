@@ -34,6 +34,10 @@ In each case, we have objects and pairwise relationships between them. By stripp
 
 ## Formal Definition
 
+> [!definition] Graph
+> A graph consists of vertices and edges together with an incidence relation (or suitable endpoint map). Whether **loops**, **parallel edges**, or **direction** are allowed must be specified, because theorems depend on these conventions.
+
+
 **Graph Theory:** The mathematical study of graphs, which are structures used to model pairwise relations between objects. Graphs consist of vertices (nodes) connected by edges (links).
 
 **Applications:**
@@ -319,6 +323,10 @@ Vertices A, C, and D are pendant vertices (each has degree 1)
 
 ### Degree
 
+> [!theorem] Handshaking lemma
+> For a finite undirected graph, $\sum_{v\in V}\deg(v)=2|E|$ when a loop contributes **two** to degree. Every edge contributes exactly two endpoints to the count.
+
+
 **Degree of a Vertex:** The number of edges connected to a vertex.
 
 **Notation:** $\deg(v)$ or $d(v)$
@@ -504,6 +512,10 @@ No edge ever joins two same-colored vertices, so the graph **is** bipartite, and
 **Worked example: a maximum matching.** A **matching** is a set of edges no two of which share an endpoint (a set of disjoint pairings). In $K_{3,2}$ above, pair $A$–$D$ and $B$–$E$; these two edges share no vertex, so this is a matching of size $\mathbf{2}$, leaving $C$ unmatched. Can we do better? No: *every* edge uses one of the only two right-hand vertices $\{D, E\}$, so at most $2$ edges can be pairwise disjoint, and the matching size is capped by the smaller side. Size $2$ is therefore **maximum**. (When a matching is not yet maximum you enlarge it along an *augmenting path*, an alternating unmatched–matched–unmatched path between two free vertices; here no such path exists from $C$, which certifies optimality. Maximum matching models assigning jobs to workers, and the bipartite structure is what makes it efficiently solvable.)
 
 ### Tree
+
+> [!definition] Tree
+> A finite undirected **tree** is a connected acyclic graph. Equivalently, between every pair of vertices there is a **unique simple path**. The finite condition matters for familiar edge-count results.
+
 
 **Tree:** A connected graph with no cycles.
 
@@ -1403,6 +1415,10 @@ graph LR
 
 ### Path
 
+> [!distinction] Walk, trail, path
+> A **walk** may repeat edges and vertices; a **trail** does not repeat an edge; a **simple path** does not repeat a vertex. Terminology varies, so a theorem should state its convention.
+
+
 **Path:** A sequence of vertices where each consecutive pair is connected by an edge, with no repeated vertices.
 
 **Example:**
@@ -1602,6 +1618,10 @@ Visit order: **A → B → C → D → E → F**. Because BFS fully drains one l
 
 ### Shortest Path
 
+> [!distinction] Nonnegative weights matter
+> Dijkstra's algorithm needs **nonnegative edge weights**. When negative edges occur, other algorithms or hypotheses are required; a reachable **negative cycle** can make a finite shortest-path value undefined.
+
+
 **Shortest Path Problem:** Find the path with minimum total edge weight between two vertices.
 
 **Dijkstra's Algorithm:** Finds shortest paths from a source vertex to all other vertices (non-negative weights only).
@@ -1702,6 +1722,10 @@ Prim reaches the **same** tree and weight $7$ by a different route: Kruskal sort
 ## Special Properties
 
 ### Eulerian Path and Circuit
+
+> [!theorem] Eulerian versus Hamiltonian
+> An **Eulerian trail** uses every edge exactly once; a **Hamiltonian path** visits every vertex exactly once. These are fundamentally different obligations, and their existence criteria differ.
+
 
 **Eulerian Path:** A path that visits every edge exactly once.
 

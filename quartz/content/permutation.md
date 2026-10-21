@@ -10,6 +10,10 @@ enables: ["combination", "probability"]
 
 ## Why Permutations?
 
+> [!definition] Permutations count ordered arrangements
+> Selecting $r$ **distinct** objects from $n$ distinct objects **with order** gives $P(n,r)=n!/(n-r)!$, for $0\le r\le n$. If order does not matter, use a combination instead.
+
+
 Imagine you have 3 people (Alice, Bob, and Carol) and 3 chairs in a row. How many different ways can they sit down?
 
 - For the **first chair**, you can choose any of the 3 people.
@@ -91,6 +95,10 @@ Pick $n$ (read "n", the size of the pool) and $r$ (read "r", how many you arrang
 
 ## Permutations with Repetition
 
+> [!distinction] Replacement changes the count
+> With $r$ independent positions and $n$ available choices **at each position**, repetition allowed, the number of sequences is $n^r$. This differs from selection **without** repetition.
+
+
 **Permutations with Repetition:** When elements can be repeated, the formula changes.
 
 **Formula:**
@@ -108,6 +116,10 @@ Where:
 $$10^4 = 10000 \text{ possible codes}$$
 
 ## Permutations with Indistinguishable Objects
+
+> [!theorem] Multinomial arrangement count
+> For $n$ positions containing indistinguishable groups of sizes $a_1,\ldots,a_k$ with $\sum a_i=n$, the count is $n!/(a_1!\cdots a_k!)$. Divide only by permutations **within each identical group**.
+
 
 **Formula:** When you have $n$ objects where some are identical:
 
@@ -130,6 +142,10 @@ $$\frac{11!}{1! \, 4! \, 4! \, 2!} = \frac{39916800}{1 \times 24 \times 24 \time
 ![The word MISSISSIPPI shown as eleven letter tiles in order, color-coded by letter: the single M in one color, the four I tiles in another, the four S tiles in a third, and the two P tiles in a fourth, with a legend giving the counts M times 1, I times 4, S times 4, P times 2. The reasoning below explains that there are 11 factorial orderings of the eleven tiles, but permuting the four identical I tiles among themselves, in 4 factorial ways, does not change the word, and likewise for the four S tiles and the two P tiles, so those are divided out. The formula reads 11 factorial divided by the product 1 factorial times 4 factorial times 4 factorial times 2 factorial equals 34650.](./media/perm-mississippi.png)
 
 ## Circular Permutations
+
+> [!distinction] Rotation versus reflection
+> $(n-1)!$ counts $n$ distinct objects around a circle when arrangements differing **only by rotation** are identified. Identifying mirror images too is a different equivalence relation and usually changes the count.
+
 
 The formulas above count arrangements **in a row**, where there is a first position, a second position, and so on. But sometimes we arrange objects **around a circle**, such as people seated at a round table. On a circle there is no fixed starting seat: rotating everyone one seat to the left gives the same arrangement, because each person still has the same neighbors.
 

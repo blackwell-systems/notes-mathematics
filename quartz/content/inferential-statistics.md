@@ -131,6 +131,10 @@ where $t = \sum_{i=1}^n x_i$ is the total number of successes (the exponents add
 
 ### Confidence Intervals
 
+> [!definition] Confidence coverage
+> A 95% confidence procedure covers the fixed parameter in **95% of repetitions** under its assumptions; it is not a 95% posterior probability for the realized interval.
+
+
 **Confidence interval (CI):** A range of values that is likely to contain the true population parameter. A 95% confidence interval means: if you repeated this process many times, about 95% of the intervals you construct would contain the true parameter.
 
 For the mean (when $n$ is large or population is normal):
@@ -450,6 +454,10 @@ The MAP estimate is the **mode** of that posterior, $\dfrac{\alpha - 1}{\alpha +
 
 ### The Framework
 
+> [!distinction] A p-value is not a posterior probability
+> A p-value measures the extremeness of a statistic **under a stipulated null distribution**, not the probability that the null hypothesis is true after seeing the data.
+
+
 1. **Null hypothesis ($H_0$):** The default claim, usually "no effect" or "no difference." Example: "the coin is fair" ($p = 0.5$).
 2. **Alternative hypothesis ($H_1$ or $H_a$):** What you believe might be true instead. Example: "the coin is biased" ($p \neq 0.5$).
 3. **Test statistic:** A number computed from data that measures how far the observed result is from what $H_0$ predicts.
@@ -457,6 +465,10 @@ The MAP estimate is the **mode** of that posterior, $\dfrac{\alpha - 1}{\alpha +
 5. **Decision:** If the p-value is below a threshold $\alpha$ (typically 0.05), reject $H_0$.
 
 ### Type I and Type II Errors
+
+> [!definition] Error rates and power
+> Type I error rejects a true null; Type II error fails to reject a false null. Power is one minus the Type II rate for a **specified alternative and design**.
+
 
 | | $H_0$ is true | $H_0$ is false |
 |---|---|---|
@@ -1231,6 +1243,10 @@ $$SS_{AB} = SS_{\text{cells}} - SS_A - SS_B = 283 - 121 - 81 = 81.$$
 The interaction ($81$) is as large as the entire age main effect ($81$) and two-thirds the treatment effect ($121$), the numeric confirmation that the drug's benefit genuinely *depends on age*, just as the non-parallel plot showed. (A real $F$-test needs the error term $SSE$, which requires **replication**, more than one patient per cell; with a single value per cell $SSE = 0$ and the $F$-ratios are undefined. This decomposition is exactly what a replicated design would then test against the within-cell noise.)
 
 ### Multiple Testing Correction
+
+> [!distinction] Familywise error versus false discovery rate
+> Bonferroni targets **any** false rejection in a family; Benjamini-Hochberg targets the expected **proportion** of false discoveries under its conditions.
+
 
 **The problem:** When you perform many hypothesis tests simultaneously, the probability of at least one false positive grows rapidly, even if every null hypothesis is true. If you run 20 independent tests at $\alpha = 0.05$, the expected number of false positives is $20 \times 0.05 = 1$. The probability of at least one false positive is:
 

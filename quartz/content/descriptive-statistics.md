@@ -22,6 +22,10 @@ The average is 100. But four of the five people earn less than half the average,
 
 ### Measures of Central Tendency
 
+> [!definition] Mean, median, mode
+> The **mean** averages magnitudes, the **median** depends on ordered position, and the **mode** counts frequency. They emphasize different aspects of the same data.
+
+
 ![A right-skewed distribution with three vertical lines showing that for right-skewed data the mode sits at the peak, the median is to its right, and the mean is furthest right, pulled out by the long tail, so mode is less than median is less than mean](./media/stats-central-tendency.png)
 
 **Mean (arithmetic average):** Add up all values and divide by the count:
@@ -47,6 +51,10 @@ Two datasets can have the same mean but look completely different. Consider:
 You need a number that captures how spread out the data is.
 
 ### Measures of Spread
+
+> [!distinction] Variance estimators have different denominators
+> Population variance divides by the population size; the usual unbiased sample-variance estimator divides by **$n-1$** under i.i.d. finite-variance sampling.
+
 
 These are also called **measures of dispersion** or **measures of variability**, the standard counterpart to the measures of central tendency above. Central tendency answers *where* the data sits; dispersion answers *how spread out* it is around that center. The two together are the basic numerical summary of any dataset.
 
@@ -117,6 +125,10 @@ The picture makes the "typical distance" reading concrete: the shaded band is on
 
 ### Standardization: z-scores
 
+> [!definition] Standard score
+> A $z$-score measures displacement in units of a **nonzero** standard deviation. Standardization does **not** turn arbitrary data into a normal distribution.
+
+
 Once you have a mean and a standard deviation, you can express any single value as **how many standard deviations it sits from the mean**. That number is the **z-score** (read "zee-score"), and computing it is called **standardizing**:
 
 $$
@@ -148,6 +160,10 @@ Visualization is how you explore data before doing any analysis. A chart can rev
 The classic demonstration of this is **Anscombe's quartet**: four datasets with nearly identical means, variances, correlations, and regression lines that look completely different when plotted. The lesson is simple: always plot your data. Summary statistics alone can be deeply misleading.
 
 ### Histogram
+
+> [!distinction] Binning changes appearance
+> A histogram depends on bin edges and widths. When widths vary, **density rather than height-as-frequency** is needed if bar area represents total frequency.
+
 
 A histogram divides continuous data into equal-width **bins** and shows the frequency (or density) of observations in each bin. It is the most common way to visualize the **shape of a distribution**.
 

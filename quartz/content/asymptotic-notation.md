@@ -18,6 +18,10 @@ This abstraction is powerful because it lets us compare algorithms meaningfully.
 
 ## Big-O Notation (Upper Bound)
 
+> [!definition] Eventual upper bound
+> For eventually nonnegative functions $f,g$, $f\in O(g)$ means some $c>0,n_0$ satisfy $f(n)\le c\,g(n)$ for every $n\ge n_0$. For signed functions, the more general version bounds **absolute values**.
+
+
 **Definition:** We say $f(n) = O(g(n))$ if there exist positive constants $c$ and $n_0$ such that:
 
 $$
@@ -44,6 +48,10 @@ Choosing $c = 15$ and $n_0 = 1$ satisfies the definition. Therefore $3n^2 + 5n +
 
 ## Big-Omega Notation (Lower Bound)
 
+> [!definition] Eventual lower bound
+> $f\in\Omega(g)$ means $f(n)\ge c\,g(n)$ eventually for some **positive** $c$ (under the nonnegative-function convention). It does not say $f$ is bounded below at *every* input.
+
+
 **Definition:** We say $f(n) = \Omega(g(n))$ if there exist positive constants $c$ and $n_0$ such that:
 
 $$
@@ -57,6 +65,10 @@ $$
 Big-Omega is particularly useful for stating that a problem **requires** at least a certain amount of work. For instance, any comparison-based sorting algorithm must make $\Omega(n \log n)$ comparisons in the worst case.
 
 ## Big-Theta Notation (Tight Bound)
+
+> [!definition] Tight asymptotic bound
+> $\Theta(g)$ requires **both** eventual upper and lower positive constant-factor bounds. Writing "$f=O(g)$" is common shorthand for **membership** in a function class, not ordinary numeric equality.
+
 
 **Definition:** We say $f(n) = \Theta(g(n))$ if $f(n) = O(g(n))$ **and** $f(n) = \Omega(g(n))$.
 
@@ -262,6 +274,10 @@ $$
 This confirms $n^2 = O(2^n)$ (and that $n^2$ grows strictly slower than $2^n$).
 
 ## Little-o and Little-omega
+
+> [!distinction] Strict versus non-strict growth comparison
+> Under suitable positivity assumptions, $f=o(g)$ means $f/g\to0$, whereas $f=O(g)$ only asserts bounded ratio eventually. Similarly $\omega$ denotes strict asymptotic growth, not merely a lower bound.
+
 
 For completeness, there are also **strict** asymptotic notations:
 

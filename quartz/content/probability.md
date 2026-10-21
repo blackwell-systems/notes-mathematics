@@ -63,6 +63,10 @@ This is where [combinatorics](./combination) connects directly: counting $|E|$ a
 
 ## Axioms of Probability (Kolmogorov)
 
+> [!axiom] Probability measure
+> Probabilities are **nonnegative**, give total mass one to the sample space, and are **countably additive** over disjoint events.
+
+
 All of probability theory is built on three axioms, proposed by Andrey Kolmogorov in 1933. Every rule, theorem, and formula in probability can be derived from these.
 
 **Axiom 1 (Non-negativity):** For any event $A$, $P(A) \geq 0$. Probabilities are never negative.
@@ -111,6 +115,10 @@ As $n$ grows this climbs toward $1$ but never reaches it: more rolls make a 6 ne
 
 ### Conditional Probability
 
+> [!definition] Conditioning requires positive probability
+> $P(A\mid B)=P(A\cap B)/P(B)$ requires $P(B)>0$. Conditioning on a null event requires a different construction.
+
+
 **Conditional probability:** The probability of event $A$ given that event $B$ has occurred:
 
 $$
@@ -129,6 +137,10 @@ The intuition: once you know $B$ happened, the sample space shrinks to just the 
 - $P(\text{2nd red} | \text{1st red}) = 2/4 = 1/2$
 
 ### Independence
+
+> [!distinction] Independence and conditional independence differ
+> $P(A\cap B)=P(A)P(B)$ defines independence. Conditioning on a third event can create or destroy it.
+
 
 **Independent events:** Two events $A$ and $B$ are independent if their joint probability factors into the product of their individual probabilities:
 
@@ -1126,6 +1138,10 @@ This is the MGF of $N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$, confirming that 
 
 ## Law of Large Numbers
 
+> [!theorem] Strong law
+> For i.i.d. random variables with **finite absolute mean**, sample averages converge **almost surely** to their expected value; finite variance is not required.
+
+
 **Law of large numbers (LLN):** As the number of independent trials increases, the sample average converges to the expected value.
 
 If $X_1, X_2, \ldots, X_n$ are independent with the same distribution (i.i.d.) and mean $\mu$, then:
@@ -1221,6 +1237,10 @@ Variance can never be negative, which follows directly from Jensen's inequality.
 - **Information theory.** Many fundamental inequalities in information theory (e.g., mutual information is non-negative) follow from Jensen's inequality.
 
 ## Central Limit Theorem
+
+> [!theorem] Classical central limit theorem
+> For i.i.d. summands with finite mean and positive finite variance, **standardized sums** converge **in distribution** to a standard normal; the summands themselves do not turn normal.
+
 
 **Central Limit Theorem (CLT):** The sum (or average) of many independent random variables is approximately normally distributed, regardless of the original distribution, as long as the sample size is large enough.
 

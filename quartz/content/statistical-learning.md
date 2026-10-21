@@ -68,6 +68,10 @@ a fairly strong positive linear association. (Note $r^2 \approx 0.679$; we retur
 
 ### Correlation Is Not Causation
 
+> [!counterexample] Correlation need not be causal
+> Common causes, selection effects and coincidental association can produce a correlation without the corresponding intervention effect. Causality needs additional structural assumptions or a suitable experimental design.
+
+
 A large $|r|$ says two variables move together; it says nothing about *why*. The association may arise because a **confounder** drives both. Across days of the year, ice cream sales and drowning deaths are strongly positively correlated, but ice cream does not cause drowning: both are driven by **temperature**. As discussed under [experimental design](./statistics#producing-data-and-experimental-design), only a randomized experiment breaks the link between a treatment and its confounders; observational correlation, however strong, cannot substitute for it.
 
 ### Relationship to Regression
@@ -118,6 +122,10 @@ For multiple features: $y = X\beta + \epsilon$, where $X$ is the design matrix a
 
 ### Ordinary Least Squares (OLS)
 
+> [!distinction] Normal equations do not imply an inverse exists
+> $X^\top X\hat\beta=X^\top y$ is valid for least-squares minimizers even when $X^\top X$ is **singular**. The explicit inverse formula needs **full column rank**; otherwise minimizers can be nonunique.
+
+
 **Objective:** Minimize the sum of squared residuals:
 
 $$
@@ -134,11 +142,15 @@ $$
 \hat{\beta} = (X^T X)^{-1} X^T y
 $$
 
-This is the **normal equation**. It was derived in [Linear Algebra Foundations](./linear-algebra-foundations) from the projection formula: when $Ax = b$ has no exact solution, the best approximation projects $b$ onto the column space of $A$. The normal equation is that projection. The matrix $X^T X$ must be invertible, which fails when features are perfectly correlated (multicollinearity).
+This is the **normal equation**. It was derived in [Linear Algebra Foundations](./linear-algebra-foundations) from the projection formula: when $Ax = b$ has no exact solution, the best approximation projects $b$ onto the column space of $A$. The normal equation is that projection. The **explicit inverse solution** requires $X^TX$ to be invertible; the **normal equations themselves** remain valid even if columns are linearly dependent.
 
 **Connection to MLE:** If the errors $\epsilon$ are normally distributed, the OLS solution is also the MLE. Minimizing squared error is equivalent to maximizing the Gaussian log-likelihood.
 
 ### $R^2$: How Good Is the Fit?
+
+> [!distinction] Fit metrics are not proof of predictive value
+> $R^2$ can be negative on new/test data (and on training data without an intercept). Adding regressors never decreases *training* $R^2$ in nested ordinary least squares, but adjusted $R^2$ is a **penalized descriptive score**, not a significance test or out-of-sample guarantee.
+
 
 **Coefficient of determination ($R^2$):** The proportion of variance in $y$ that is explained by the model:
 
@@ -150,7 +162,7 @@ $$
 - $R^2 = 0$: the model explains no more variance than simply predicting the mean
 - $R^2$ can be negative for models that are worse than predicting the mean
 
-**Adjusted $R^2$:** Penalizes adding more features. Regular $R^2$ always increases when you add features (even useless ones). Adjusted $R^2$ accounts for the number of predictors and only increases if the new feature genuinely improves the model:
+**Adjusted $R^2$:** Penalizes adding more features. Regular $R^2$ always increases when you add features (even useless ones). Adjusted $R^2$ accounts for the number of predictors and rises only when the reduction in training residual error is large enough to offset its degrees-of-freedom penalty. That does **not** prove the feature genuinely improves prediction:
 
 $$
 R^2_{adj} = 1 - \frac{(1 - R^2)(n - 1)}{n - p - 1}
@@ -470,6 +482,10 @@ The optimal model balances these two forces. This is why you cannot just "add mo
 
 ## Cross-Validation
 
+> [!distinction] Avoid training-data leakage
+> Choose preprocessing, feature selection and model tuning **inside** the training portion of each fold. Fitting these on the full dataset before cross-validation leaks information from validation examples and biases the estimated performance.
+
+
 **Cross-validation:** A method for estimating how well a model will perform on unseen data, without needing a separate test set.
 
 ### k-Fold Cross-Validation
@@ -523,6 +539,10 @@ For classification problems, each fold maintains the same class proportions as t
 The reason cross-validation matters so deeply: it is the practical answer to the bias-variance tradeoff. You cannot directly measure bias and variance on real data, but cross-validation lets you detect their effects by measuring generalization performance.
 
 ## Bootstrapping
+
+> [!definition] Bootstrap
+> A bootstrap approximates a sampling distribution through repeated resampling from the observed data. The usual nonparametric i.i.d. bootstrap has **assumptions and failure cases**; dependence, heavy tails and nonsmooth estimators may need different methods.
+
 
 ![A schematic of the bootstrap: an original sample of eight values, arrows to three resamples drawn with replacement so some values repeat and others are dropped, each yielding a computed statistic such as the mean, which together build up the bootstrap distribution of that statistic](./media/stats-bootstrapping.png)
 

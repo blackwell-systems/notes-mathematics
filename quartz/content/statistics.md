@@ -101,6 +101,10 @@ Everything on this page flows from this one problem. Descriptive statistics summ
 
 ## Populations and Samples
 
+> [!definition] Population, sample, statistic
+> A statistic is computed from a **sample**; a parameter describes the target **population**. Their variability and roles are different.
+
+
 ![A large population circle of dots labeled with the fixed unknown parameters mu and sigma, from which a small sample is drawn via a sampling arrow, and an inference arrow back showing that the sample statistics x-bar and s estimate the population parameters](./media/stats-population-sample.png)
 
 These two concepts must be clear before anything else.
@@ -125,11 +129,15 @@ The central question of statistics: **how well does a statistic estimate the cor
 
 ### How Samples Are Collected
 
+> [!distinction] Simple random samples require equiprobable subsets
+> For fixed-size sampling without replacement, **every subset of the specified size** must be equally likely. Equal individual inclusion probabilities alone are **not sufficient**.
+
+
 ![Four probability sampling methods illustrated on a population of dots: simple random (a random handful), stratified (a proportional few from each of three strata), cluster (a few whole clusters chosen), and systematic (every fourth unit in order)](./media/stats-sampling-methods.png)
 
 The way you collect a sample determines whether your conclusions are valid. A bad sample can give completely misleading results, no matter how sophisticated your analysis.
 
-**Simple random sample (SRS):** Every member of the population has an equal chance of being selected. This is the gold standard. Drawing names from a hat, using a random number generator to select rows from a database.
+**Simple random sample (SRS):** For fixed-size sampling without replacement, every subset of that size has the same selection probability; this implies equal individual inclusion probabilities, but the converse is false. This is the gold standard. Drawing names from a hat, using a random number generator to select rows from a database.
 
 **Stratified sampling:** Divide the population into subgroups (strata) based on a characteristic (age group, region, income bracket), then take a random sample from each stratum. This ensures representation from every subgroup.
 
@@ -149,7 +157,7 @@ The way you collect a sample determines whether your conclusions are valid. A ba
 - **Cluster.** Group the units into four clusters of five consecutive labels: $\{1..5\}, \{6..10\}, \{11..15\}, \{16..20\}$. Randomly choose *one whole cluster*, say the third, and take all of it: $\{11, 12, 13, 14, 15\}$. Only one random draw was needed, but the sample is a single contiguous block, so it is representative only if the clusters are internally as varied as the whole population.
 - **Convenience.** Take whoever is easiest, e.g. the first five to reply, $\{1, 2, 3, 4, 5\}$. Note this is entirely inside the North region, so it systematically misses Central and South: a textbook case of the selection bias above.
 
-Compare the five samples: only the SRS and the stratified draw are guaranteed to be free of systematic distortion, the stratified one additionally guaranteeing balance across regions.
+Compare the five designs: SRS and stratified sampling give known selection probabilities, but neither guarantees a representative realized sample. Stratification ensures sample inclusion from each selected stratum; sampling-frame defects, nonresponse and measurement error can still cause bias.
 
 **Where it shows up in ML:** Training data is almost always a convenience sample. If your training data does not represent the population you want your model to work on, the model will fail in deployment. This is the root cause of most "AI bias" problems.
 
@@ -158,6 +166,10 @@ Compare the five samples: only the SRS and the stratified draw are guaranteed to
 Everything a statistical analysis can tell you is limited by how the data were produced. A [section above](#how-samples-are-collected) covered how to *select* units from a population (simple random, stratified, systematic, and convenience sampling, and the selection bias that arises when the sample is not representative). This section covers the other half of producing data: what you *do* to the units once you have them, and why the design of that intervention determines whether you can make a causal claim at all.
 
 ### Observational studies vs designed experiments
+
+> [!distinction] Association is not random assignment
+> Randomization addresses treatment assignment and confounding **under design assumptions**. Neither observation nor randomization excuses nonresponse, measurement bias, or careless causal extrapolation.
+
 
 There are two broad ways to produce data about a relationship between variables.
 
