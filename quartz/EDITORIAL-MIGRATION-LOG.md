@@ -209,3 +209,8 @@ The next stage is not another wholesale semantic migration: perform **visual reg
 ## Notation unit: foundations-first reading layer (2026-10-21)
 
 [Mathematical Notations](./content/mathematical-notations.md) now begins with an expression anatomy walkthrough, a grammar sequence from names to closed statements, scope and grouping examples, quantifier-order counterexamples, a symbol-overloading comparison, and a fully narrated set-builder example. Existing topical symbol tables remain available as a reference. Two accessible SVGs are registered with the figure quality gate, raising the audited total to **58 diagrams across 19 chapters**. A new same-origin, keyboard-operable expression reader supports four formulas and self-sizes its iframe. The existing review status remains **pilot**, not complete: responsive visual inspection, dark-mode checking, and independent mathematical review are still pending.
+
+
+## Conditional-logic four-form diagram (2026-10-21)
+
+The [Propositional Logic](./content/propositional-logic-zeroth-order-logic.md) conditional section now includes a new source-editable SVG linking implication to contrapositive and converse to inverse. The figure uses a universal divisibility example with an explicit witness (`n=2`) for both non-equivalent forms. The truth table now compares all four conditionals, and the prose corrects the misleading suggestion that the inverse follows from the original statement. The figure audit inventories 59 diagrams across 20 chapters. The arithmetic gate has bounded checks of the example. Visual and independent logical reviews remain pending.

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1040" role="img" aria-labelledby="title desc">
+<title id="title">Implication, converse, inverse, and contrapositive</title>
+<desc id="desc">Four conditional forms are arranged in a two-by-two grid: implication P implies Q at top left, converse Q implies P at top right, inverse not P implies not Q at bottom left, and contrapositive not Q implies not P at bottom right. Teal and violet diagonal double-headed arrows show the two equivalence pairs: implication with contrapositive, and converse with inverse. Side labels say other neighboring forms are not generally equivalent. The worked example uses an integer n, P meaning n is divisible by four and Q meaning n is even. The universal implication and contrapositive are true, but the universal converse and inverse are false, with n equals two as a counterexample.</desc>
+<defs>
+<linearGradient id="bg" x2="0" y2="1"><stop stop-color="#0b1c2e"/><stop offset="1" stop-color="#142b43"/></linearGradient>
+<linearGradient id="panel" x2="0" y2="1"><stop stop-color="#132b44"/><stop offset="1" stop-color="#0b2035"/></linearGradient>
+<marker id="teal-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#64d2c3"/></marker>
+<marker id="violet-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bb9cf3"/></marker>
+</defs>
+<rect width="1400" height="1040" rx="20" fill="url(#bg)"/>
+<text x="700" y="62" font-family="Georgia,serif" fill="#f2f5fb" font-size="42" text-anchor="middle" font-weight="bold">Four forms of a conditional statement</text>
+<text x="700" y="105" font-family="Arial,sans-serif" fill="#afc2d5" font-size="22" text-anchor="middle">Reversing or negating changes the claim. Contraposition preserves it.</text>
+<!-- Panels: fixed coordinates keep everything readable at 1400px wide -->
+<g>
+<rect x="65" y="160" width="540" height="230" rx="12" fill="url(#panel)" stroke="#55cbbb" stroke-width="3"/>
+<path d="M77 160 H593 A12 12 0 0 1 605 172 V221 H65 V172 A12 12 0 0 1 77 160" fill="#206a70"/>
+<text x="335" y="205" fill="#ffffff" font-family="Georgia,serif" font-size="34" text-anchor="middle" font-weight="bold">Implication</text>
+<text x="335" y="304" fill="#f8f7fc" font-family="Georgia,serif" font-size="62" text-anchor="middle" font-style="italic">P → Q</text>
+<text x="335" y="357" fill="#d1deeb" font-family="Georgia,serif" font-size="26" text-anchor="middle">If P, then Q</text>
+
+<rect x="795" y="160" width="540" height="230" rx="12" fill="url(#panel)" stroke="#b894ed" stroke-width="3"/>
+<path d="M807 160 H1323 A12 12 0 0 1 1335 172 V221 H795 V172 A12 12 0 0 1 807 160" fill="#564487"/>
+<text x="1065" y="205" fill="#ffffff" font-family="Georgia,serif" font-size="34" text-anchor="middle" font-weight="bold">Converse</text>
+<text x="1065" y="304" fill="#f8f7fc" font-family="Georgia,serif" font-size="62" text-anchor="middle" font-style="italic">Q → P</text>
+<text x="1065" y="357" fill="#d1deeb" font-family="Georgia,serif" font-size="26" text-anchor="middle">If Q, then P</text>
+
+<rect x="65" y="570" width="540" height="230" rx="12" fill="url(#panel)" stroke="#dfb365" stroke-width="3"/>
+<path d="M77 570 H593 A12 12 0 0 1 605 582 V631 H65 V582 A12 12 0 0 1 77 570" fill="#81602b"/>
+<text x="335" y="615" fill="#ffffff" font-family="Georgia,serif" font-size="34" text-anchor="middle" font-weight="bold">Inverse</text>
+<text x="335" y="712" fill="#f8f7fc" font-family="Georgia,serif" font-size="56" text-anchor="middle" font-style="italic">¬P → ¬Q</text>
+<text x="335" y="766" fill="#d1deeb" font-family="Georgia,serif" font-size="26" text-anchor="middle">If not P, then not Q</text>
+
+<rect x="795" y="570" width="540" height="230" rx="12" fill="url(#panel)" stroke="#62adf5" stroke-width="3"/>
+<path d="M807 570 H1323 A12 12 0 0 1 1335 582 V631 H795 V582 A12 12 0 0 1 807 570" fill="#285a90"/>
+<text x="1065" y="615" fill="#ffffff" font-family="Georgia,serif" font-size="34" text-anchor="middle" font-weight="bold">Contrapositive</text>
+<text x="1065" y="712" fill="#f8f7fc" font-family="Georgia,serif" font-size="56" text-anchor="middle" font-style="italic">¬Q → ¬P</text>
+<text x="1065" y="766" fill="#d1deeb" font-family="Georgia,serif" font-size="26" text-anchor="middle">If not Q, then not P</text>
+</g>
+<!-- Diagonals are the only general equivalences. Their labels are outside the crossing. -->
+<line x1="624" y1="408" x2="777" y2="555" stroke="#64d2c3" stroke-width="7" marker-start="url(#teal-arrow)" marker-end="url(#teal-arrow)"/>
+<line x1="776" y1="408" x2="624" y2="555" stroke="#bb9cf3" stroke-width="7" marker-start="url(#violet-arrow)" marker-end="url(#violet-arrow)"/>
+<rect x="512" y="452" width="172" height="50" rx="7" fill="#10263a" stroke="#64d2c3" stroke-width="2"/>
+<text x="598" y="474" fill="#8de8da" font-family="Arial,sans-serif" font-size="16" font-weight="bold" text-anchor="middle">IMPLICATION ↔</text>
+<text x="598" y="493" fill="#8de8da" font-family="Arial,sans-serif" font-size="16" font-weight="bold" text-anchor="middle">CONTRAPOSITIVE</text>
+<rect x="718" y="452" width="180" height="50" rx="7" fill="#10263a" stroke="#bb9cf3" stroke-width="2"/>
+<text x="808" y="474" fill="#d1bafd" font-family="Arial,sans-serif" font-size="16" font-weight="bold" text-anchor="middle">CONVERSE ↔</text>
+<text x="808" y="493" fill="#d1bafd" font-family="Arial,sans-serif" font-size="16" font-weight="bold" text-anchor="middle">INVERSE</text>
+<!-- Non-equivalence bands between neighboring panels -->
+<path d="M613 270 H783" stroke="#a6b4c5" stroke-width="2" stroke-dasharray="7 7"/>
+<text x="700" y="248" text-anchor="middle" font-family="Arial,sans-serif" fill="#c1cbda" font-size="16">Not equivalent</text>
+<path d="M345 400 V557" stroke="#a6b4c5" stroke-width="2" stroke-dasharray="7 7" opacity=".72"/>
+<path d="M1055 400 V557" stroke="#a6b4c5" stroke-width="2" stroke-dasharray="7 7" opacity=".72"/>
+<path d="M613 690 H783" stroke="#a6b4c5" stroke-width="2" stroke-dasharray="7 7"/>
+<text x="700" y="666" text-anchor="middle" font-family="Arial,sans-serif" fill="#c1cbda" font-size="16">Not equivalent</text>
+<text x="700" y="829" text-anchor="middle" fill="#b8cbdc" font-family="Arial,sans-serif" font-size="18">Dashed connections: not equivalent in general. Diagonals: always logically equivalent.</text>
+<!-- Worked example: all implications are statements over every integer n -->
+<rect x="40" y="853" width="1320" height="162" rx="12" fill="#0d2136" stroke="#365773" stroke-width="2"/>
+<text x="70" y="883" fill="#b4c8dc" font-family="Arial,sans-serif" font-size="18">EXAMPLE, FOR ALL INTEGERS n: P = “4 divides n”; Q = “n is even”</text>
+<line x1="370" y1="901" x2="370" y2="1002" stroke="#365773"/>
+<line x1="700" y1="901" x2="700" y2="1002" stroke="#365773"/>
+<line x1="1030" y1="901" x2="1030" y2="1002" stroke="#365773"/>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<text x="205" y="930" fill="#8de8da" font-size="22" font-weight="bold">Implication</text>
+<text x="535" y="930" fill="#d1bafd" font-size="22" font-weight="bold">Converse</text>
+<text x="865" y="930" fill="#f0cb8c" font-size="22" font-weight="bold">Inverse</text>
+<text x="1195" y="930" fill="#a1d0ff" font-size="22" font-weight="bold">Contrapositive</text>
+<text x="205" y="975" fill="#9bf5d4" font-size="27" font-weight="bold">TRUE ✓</text>
+<text x="535" y="975" fill="#ffb2b8" font-size="27" font-weight="bold">FALSE ✕</text>
+<text x="865" y="975" fill="#ffb2b8" font-size="27" font-weight="bold">FALSE ✕</text>
+<text x="1195" y="975" fill="#9bf5d4" font-size="27" font-weight="bold">TRUE ✓</text>
+</g>
+</svg>

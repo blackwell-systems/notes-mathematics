@@ -59,6 +59,19 @@ function cpow(re, im, n) {
   return [r, i];
 }
 
+// ============= Conditional forms: implication, converse, inverse, contrapositive =============
+// Exhaustive finite regression for the pedagogical divisibility example, not a proof of universality.
+{
+  const implies=(p,q)=>!p||q;
+  for(let n=-100;n<=100;n++){
+    const p=n%4===0, q=n%2===0;
+    check("conditional equals contrapositive at n="+n,implies(p,q)===implies(!q,!p));
+    check("converse equals inverse at n="+n,implies(q,p)===implies(!p,!q));
+    check("multiple of four is even n="+n,implies(p,q));
+  }
+  check("converse false: two is even but not divisible by four",!implies(2%2===0,2%4===0));
+  check("inverse false: two is not divisible by four but is even",!implies(!(2%4===0),!(2%2===0)));
+}
 // ================= Mathematical Notations =================
 // Recheck examples introduced by the opening notation reader.
 eq("notation grouped -(2+1)",-(2+1),-3);

@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **58 original, source-editable SVG figures** placed directly beside the claims they explain across **19 proof-oriented chapters**.
+This collection contains **59 original, source-editable SVG figures** placed directly beside the claims they explain across **20 proof-oriented chapters**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -9,6 +9,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | Chapter | Figures | What they show |
 | --- | ---: | --- |
 | [Mathematical Notations](./content/mathematical-notations.md) | 2 | anatomy of a quantified statement; why quantifier order changes meaning |
+| [Propositional Logic](./content/propositional-logic-zeroth-order-logic.md) | 1 | conditional implication, converse, inverse and contrapositive, with exactly two equivalence pairs |
 | [Peano Arithmetic](./content/peano-arithmetic.md) | 3 | successor chain; proof by induction; recursive addition |
 | [Construction of the Integers](./content/construction-of-the-integers.md) | 3 | equivalence classes of pairs; signs from representatives; descending Euclidean remainders |
 | [Construction of the Rationals](./content/construction-of-the-rationals.md) | 3 | equivalent fractions; fraction operations; rational bounds for square root of two |
@@ -21,7 +22,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Ideals, Quotient Rings & Homomorphisms](./content/ring-ideals-quotients.md) | 4 | residue cosets; quotient-product well-definedness; prime/maximal ideal quotients; CRT residue mapping |
 | [Field Theory Foundations](./content/field-theory-foundations.md) | 5 | extension tower; adjoining a root; prime-power sizes; cyclic nonzero group; multiplication table of F4 |
 
-The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-` and `mn-`.
+The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-`, `mn-` and `pl-`.
 
 | [Category Theory Foundations](./content/category-theory-foundations.md) | 2 | composition and opposite categories |
 | [Functors and Natural Transformations](./content/category-functors-naturality.md) | 3 | functor action, naturality square, Yoneda identity evaluation |
@@ -50,7 +51,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **58 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **59 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 

@@ -642,11 +642,7 @@ respective (typically false or absurd) proposition.
 
 ##### Inverse
 
-**Inverse:** In logic, an inverse is a type of conditional sentence
-which is an immediate inference made from another conditional sentence.
-
-Given a conditional sentence of the form $P \to Q$, the inverse refers
-to the sentence $\neg P \to \neg Q$
+**Inverse:** Negate the antecedent and the consequent without switching their positions. Given $P \to Q$, the inverse is $\neg P \to \neg Q$ (read "if not P, then not Q"). The inverse is not generally a logical consequence of the original conditional.
 
 For example, substituting propositions in natural language for logical
 variables, the inverse of the following conditional proposition
@@ -666,21 +662,37 @@ For the implication $P \to Q$, the converse is $Q \to P$.
 
 ##### Contrapositive
 
-**T**he contrapositive of a statement has its antecedent and consequent
-inverted and flipped.
+**Contrapositive:** Reverse the antecedent and consequent **and negate both**. Unlike the converse or inverse, the contrapositive is logically equivalent to the original conditional.
 
 Conditional statement $P \to Q$
 
 In formulas: the contrapositive of $P \to Q$ is $\neg Q \to \neg P$
 
-| $P$ | $Q$ | $P \to Q$ | $\neg Q \to \neg P$ |
-|:---:|:---:|:---:|:---:|
-| T | T | T | T |
-| T | F | F | F |
-| F | T | T | T |
-| F | F | T | T |
 
-The last two columns are identical, so $P \to Q \equiv \neg Q \to \neg P$: **a conditional and its contrapositive always have the same truth value** (which is exactly why proving the contrapositive proves the original statement).
+> [!distinction] Four forms, two logical-equivalence pairs
+> Starting from $P\to Q$ (read "if P, then Q"), the **converse** $Q\to P$ reverses the clauses, the **inverse** $\neg P\to\neg Q$ negates them, and the **contrapositive** $\neg Q\to\neg P$ does both. **A conditional is always equivalent to its contrapositive; the converse is always equivalent to the inverse.** The other pairings are not logically equivalent in general.
+
+![A four-panel conditional-logic diagram shows implication P implies Q, converse Q implies P, inverse not P implies not Q, and contrapositive not Q implies not P. Diagonal connectors mark implication with contrapositive and converse with inverse as logically equivalent. Over all integers, if P means divisible by four and Q means even, only implication and contrapositive are universally true.](./media/pl-conditional-four-forms.svg)
+
+*Figure: Exactly two equivalence pairs. Reversing and negating can change the truth of a universal claim, but contraposition preserves it.*
+
+**Worked example.** Let the universe be the integers. Let $P(n)$ mean "$n$ is divisible by $4$" and $Q(n)$ mean "$n$ is even." Then:
+
+1. **Implication:** For every integer $n$, if $4\mid n$, then $2\mid n$. **True:** if $n=4k$, then $n=2(2k)$.
+2. **Converse:** For every integer $n$, if $2\mid n$, then $4\mid n$. **False:** $n=2$ is even but not divisible by $4$.
+3. **Inverse:** For every integer $n$, if $4\nmid n$, then $2\nmid n$. **False:** the same $n=2$ is not divisible by $4$ but is even.
+4. **Contrapositive:** For every integer $n$, if $2\nmid n$, then $4\nmid n$. **True:** its logical equivalence to the implication guarantees this, and any multiple of $4$ would necessarily be even.
+
+A single example cannot prove a universal statement. Here $n=2$ is a **counterexample** to both false universal claims; the short divisibility argument proves the original implication, and logical equivalence proves its contrapositive.
+
+| $P$ | $Q$ | $P \to Q$ | $Q \to P$ | $\neg P \to \neg Q$ | $\neg Q \to \neg P$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| T | T | T | T | T | T |
+| T | F | F | T | T | F |
+| F | T | T | F | F | T |
+| F | F | T | T | T | T |
+
+The truth-table columns match in two pairs: $P \to Q \equiv \neg Q \to \neg P$ and $Q \to P \equiv \neg P \to \neg Q$. These equivalences hold for **every** truth assignment, not just for the divisibility example. Neither the inverse nor the converse follows from the original conditional without extra assumptions.
 
 ### Connective Precedence
 
