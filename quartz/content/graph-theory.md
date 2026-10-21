@@ -1719,6 +1719,8 @@ tree {A,B,C}: cheapest leaving edge CD(4) -> add D    total 7
 
 Prim reaches the **same** tree and weight $7$ by a different route: Kruskal sorts globally and rejects cycle-closing edges, Prim grows locally from a seed and only ever looks at the frontier. Both are correct for the same reason, the **cut property**: the cheapest edge crossing any partition of the vertices is always safe to include in some MST.
 
+For the deeper theory of topological ordering, strongly connected components, Hall's matching theorem, augmenting paths, and max-flow/min-cut, continue with [Advanced Graph Theory](./advanced-graph-theory).
+
 ## Special Properties
 
 ### Eulerian Path and Circuit

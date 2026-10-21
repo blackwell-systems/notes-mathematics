@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **61 original, source-editable SVG figures** placed directly beside the claims they explain across **21 proof-oriented chapters**.
+This collection contains **65 original, source-editable SVG figures** placed directly beside the claims they explain across **25 proof-oriented chapters**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -9,6 +9,10 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | Chapter | Figures | What they show |
 | --- | ---: | --- |
 | [Mathematical Notations](./content/mathematical-notations.md) | 2 | anatomy of a quantified statement; why quantifier order changes meaning |
+| [Structural Induction](./content/structural-induction.md) | 1 | constructors of full binary trees and leaf/internal-node counting |
+| [State Machines and Invariants](./content/state-machines-invariants.md) | 1 | safe-state invariants and transition closure |
+| [Generating Functions](./content/generating-functions.md) | 1 | coefficient convolution from degree-splitting pairs |
+| [Advanced Graph Theory](./content/advanced-graph-theory.md) | 1 | Hall's deficient-neighborhood matching obstruction |
 | [Order Theory](./content/order-theory.md) | 2 | preorder quotient and a non-lattice bow-tie counterexample |
 | [Propositional Logic](./content/propositional-logic-zeroth-order-logic.md) | 1 | conditional implication, converse, inverse and contrapositive, with exactly two equivalence pairs |
 | [Peano Arithmetic](./content/peano-arithmetic.md) | 3 | successor chain; proof by induction; recursive addition |
@@ -52,7 +56,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **61 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **65 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 

@@ -6,6 +6,15 @@
   },
   "pages": [
     {
+      "path": "advanced-graph-theory.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "algebraic-geometry.md",
       "kind": "topic",
       "track": "advanced-mathematics",
@@ -96,6 +105,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "combinatorial-reasoning.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "complex-numbers.md",
       "kind": "topic",
       "track": "algebra",
@@ -168,6 +186,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "discrete-mathematics.md",
+      "kind": "learning-path",
+      "track": "discrete-mathematics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "equivalence-relations.md",
       "kind": "topic",
       "track": "set-theory",
@@ -234,6 +261,15 @@
       "path": "general-topology-foundations.md",
       "kind": "topic",
       "track": "general-topology",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "generating-functions.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
@@ -627,6 +663,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "state-machines-invariants.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "statistical-learning.md",
       "kind": "topic",
       "track": "statistics",
@@ -639,6 +684,15 @@
       "path": "statistics.md",
       "kind": "topic",
       "track": "statistics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "structural-induction.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",

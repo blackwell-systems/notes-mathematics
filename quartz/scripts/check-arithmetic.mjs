@@ -91,6 +91,51 @@ function cpow(re, im, n) {
   check("nonlattice bow-tie has no least upper bound",bounds.length===2&&!R.c.includes("d")&&!R.d.includes("c"));
 }
 
+// ============= Discrete Mathematics expansion: worked-example regressions =============
+// Concrete checks exercise examples; universal proofs remain in the chapters.
+{
+  const node=(left,right)=>({kind:"node",left,right});
+  const leaf={kind:"leaf"};
+  const leaves=t=>t.kind==="leaf"?1:leaves(t.left)+leaves(t.right);
+  const internal=t=>t.kind==="leaf"?0:1+internal(t.left)+internal(t.right);
+  const trees=[leaf,node(leaf,leaf),node(leaf,node(leaf,leaf)),node(node(leaf,leaf),node(leaf,leaf))];
+  trees.forEach((t,i)=>check("structural induction leaf/internal example "+i,leaves(t)===internal(t)+1));
+
+  for(let n=0;n<=20;n++){
+    let i=0,s=0;
+    while(i<n){i++;s+=i;check("loop invariant n="+n+", i="+i,s===i*(i+1)/2);}
+    eq("loop postcondition n="+n,s,n*(n+1)/2);
+  }
+  const g=(a,b)=>b===0?a:g(b,a%b);
+  const euclid=[[48,18],[18,12],[12,6],[6,0]];
+  euclid.forEach(([a,b],i)=>eq("gcd invariant at step "+i,g(a,b),6));
+  check("euclid ranking 18 12 6 0",[18,12,6,0].every((v,i,vs)=>i===0||v<vs[i-1]));
+
+  eq("choose red/blue committees Vandermonde",comb(5,2),comb(3,0)*comb(2,2)+comb(3,1)*comb(2,1)+comb(3,2)*comb(2,0));
+  const catalan=[1];
+  for(let n=1;n<=6;n++){let z=0;for(let k=0;k<n;k++)z+=catalan[k]*catalan[n-1-k];catalan.push(z);}
+  check("Catalan coefficients up to 5",catalan.slice(0,6).join(",")==="1,1,2,5,14,42");
+  const stirling=Array.from({length:5},()=>Array(5).fill(0));
+  stirling[0][0]=1;
+  for(let n=1;n<=4;n++)for(let k=1;k<=n;k++)
+    stirling[n][k]=stirling[n-1][k-1]+k*stirling[n-1][k];
+  eq("Stirling S(3,2)",stirling[3][2],3);
+  eq("Bell B3",stirling[3].reduce((x,y)=>x+y,0),5);
+
+  const fib=[0,1];for(let i=2;i<=7;i++)fib.push(fib[i-1]+fib[i-2]);
+  check("Fibonacci formal GF first coefficients",fib.slice(0,7).join(",")==="0,1,1,2,3,5,8");
+  for(let n=0;n<=8;n++){
+    let ways=0;for(let twos=0;2*twos<=n;twos++)ways++;
+    eq("coin GF x^"+n,ways,Math.floor(n/2)+1);
+  }
+  const flow={"sa":3,"sb":2,"at":2,"ab":1,"bt":3};
+  check("example network capacities",flow.sa<=3&&flow.sb<=2&&flow.at<=2&&flow.ab<=1&&flow.bt<=3);
+  eq("flow conservation at a",flow.sa,flow.at+flow.ab);
+  eq("flow conservation at b",flow.sb+flow.ab,flow.bt);
+  eq("flow equals source cut capacity",flow.sa+flow.sb,5);
+  check("Hall obstruction two people one neighbor",new Set([1,1]).size<2);
+}
+
 // ================= Mathematical Notations =================
 // Recheck examples introduced by the opening notation reader.
 eq("notation grouped -(2+1)",-(2+1),-3);

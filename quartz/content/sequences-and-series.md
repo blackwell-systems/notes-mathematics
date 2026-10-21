@@ -576,6 +576,8 @@ $a_1 = 4$: $(1 + B) \cdot 2 = 4$, so $B = 1$.
 - **Finance:** Compound interest with regular deposits or payments leads to first-order linear recurrences. The balance $B_n = (1+r)B_{n-1} + D$ where $r$ is the interest rate and $D$ is the regular deposit.
 - **Combinatorics:** Many counting problems yield recurrences. The number of ways to tile a $2 \times n$ board with dominoes satisfies the Fibonacci recurrence.
 
+To solve recurrences using **formal generating functions** rather than characteristic roots alone, see [Generating Functions](./generating-functions). Its Fibonacci and Catalan examples connect these recurrence methods to algebraic power series.
+
 ## Mathematical Induction
 
 **Mathematical Induction:** A proof technique used to establish that a statement $P(n)$ is true for all natural numbers $n \geq 1$ (or for all integers from some starting point onward).

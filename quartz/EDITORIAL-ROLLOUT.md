@@ -128,3 +128,8 @@ All 73 Markdown pages must be present in the coverage manifest, and all review f
 ## Current inventory after relations/order additions (2026-10-21)
 
 Two new proof-oriented topic pages raise the current editorial manifest to **75 tracked pages**, including **73 topic pages**, all remaining at pilot semantic status. The diagram catalog now audits **61 SVGs across 21 chapters**. These counts supersede earlier batch snapshots above without declaring mathematical or responsive acceptance complete.
+
+
+## Current inventory after discrete mathematics expansion (2026-10-21)
+
+There are **81 Markdown pages** in the editorial manifest: 78 topic articles, the landing page, the Path to SLT, and the Discrete Mathematics Learning Map. New pages are pilot semantic reviews; no new page is marked mathematically or visually accepted. This supersedes older inventory counts in the batch snapshots above.

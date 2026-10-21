@@ -329,6 +329,8 @@ More generally, if each of $k$ bins must have at least $m_i$ items, first place 
 
 Note that stars and bars gives the same formula as combinations with repetition (discussed earlier). Choosing $r$ items from $n$ types with repetition is the same as distributing $r$ identical selections among $n$ categories.
 
+For combinatorial proofs that count the same objects in two ways, and for Catalan, Stirling, and Bell numbers, continue with [Combinatorial Reasoning](./combinatorial-reasoning). For encoding an entire counting sequence as a formal power series, see [Generating Functions](./generating-functions).
+
 ## Pigeonhole Principle
 
 > [!theorem] Pigeonhole principle

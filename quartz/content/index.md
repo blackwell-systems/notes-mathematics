@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **73 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **78 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -173,8 +173,15 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 
 ## Discrete Mathematics
 
+> **Start with the [Discrete Mathematics Learning Map](./discrete-mathematics).** It combines existing logic, sets, number theory, relations, counting, probability, and graph chapters with the deeper discrete mathematics sequence below. The map is a route, not a claim that every topic requires every earlier one.
+
+- [Structural Induction and Recursive Definitions](./structural-induction) (inductive trees and lists, recursion on constructors, structural proofs)
+- [State Machines, Invariants, and Termination](./state-machines-invariants) (reachable states, loop invariants, ranking functions, Euclid's algorithm)
+- [Combinatorial Reasoning and Counting Identities](./combinatorial-reasoning) (bijections, double counting, Catalan and Stirling numbers)
+- [Generating Functions](./generating-functions) (formal power series, convolution, recurrence solutions, coin counting)
+- [Graph Theory](./graph-theory) (paths, trees, traversals, shortest paths, spanning trees)
+- [Advanced Graph Theory](./advanced-graph-theory) (DAGs, topological sorts, matching, Hall's theorem, max-flow/min-cut)
 - [Asymptotic Notation](./asymptotic-notation) (Big-O, Big-Theta, Big-Omega, growth rates)
-- [Graph Theory](./graph-theory) (paths, trees, connectivity, algorithms)
 
 ## Advanced Mathematics
 

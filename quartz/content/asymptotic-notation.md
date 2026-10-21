@@ -8,6 +8,8 @@ enables: ["real-analysis", "graph-theory"]
 > **Builds on:** [Functions & Relations](./functions-relations) · [Exponential Functions](./exponential-functions)
 > **Leads to:** [Real Analysis](./real-analysis) · [Graph Theory](./graph-theory)
 
+Algorithm **complexity** is different from algorithm **correctness** or **termination**. The [State Machines and Invariants](./state-machines-invariants) chapter proves that a process stays safe and finishes; this chapter measures how resource use grows. For a coherent route through all these topics, see the [Discrete Mathematics Learning Map](./discrete-mathematics).
+
 ## Why We Need Asymptotic Notation
 
 How long does an algorithm take to run? The exact answer depends on the hardware, programming language, compiler optimizations, and many other factors that have nothing to do with the algorithm itself. If we measure wall-clock time, the same algorithm might take 2 seconds on one machine and 0.5 seconds on another.
