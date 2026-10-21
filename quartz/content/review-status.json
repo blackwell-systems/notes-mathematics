@@ -421,31 +421,66 @@
       "rubricVersion": 1,
       "auditedAt": "2026-10-20",
       "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
-      "note": "Focused review of recursion existence, nonzero products, cancellation, strong induction, and second-order categoricity. Full rubric and mechanized verification remain pending. Expanded categoricity injectivity argument in earlier focused audit.",
-      "findings": []
+      "note": "Focused review of recursion existence, nonzero products, cancellation, strong induction, and second-order categoricity. Full rubric and mechanized verification remain pending. Expanded categoricity injectivity argument in earlier focused audit. Second pass checked recursion, addition/multiplication, induction, order, and categoricity. Moved successor strict/discreteness proofs earlier so well-ordering cannot rely on an unproved gap lemma. Added exact successor/strict-order argument and corrected display math.",
+      "findings": [
+        {
+          "id": "PRF-3",
+          "severity": 1,
+          "quote": "Well-ordering and its relation to induction",
+          "issue": "The well-ordering argument originally appealed to S(n) having no intervening natural before proving successor discreteness; this was a missing prerequisite.",
+          "status": "resolved",
+          "resolution": "Proved successor strictness and discreteness before well-ordering and explicitly cited Lemma 3 in the induction step."
+        },
+        {
+          "id": "PRF-1",
+          "severity": 2,
+          "quote": "Natural addition of a nonzero term strictly increases its input",
+          "issue": "Multiplication cancellation relied on strict positive addition without proving that the added term is strictly positive.",
+          "status": "resolved",
+          "resolution": "Added a two-step lemma proving a<S(a), then a<a+k for k nonzero from the recursive addition laws."
+        }
+      ],
+      "latestSelfReview": {
+        "date": "2026-10-20",
+        "scope": "selected theorem-by-theorem second pass",
+        "reviewer": "GPT-6 (same assistant, not an independent peer reviewer)",
+        "remaining": "Full external/independent line-by-line validation is still pending."
+      }
     },
     "construction-of-the-integers.md": {
       "reviewScope": "focused",
       "rubricVersion": 1,
       "auditedAt": "2026-10-20",
       "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
-      "note": "Focused review of quotient-representative independence, ordered-ring construction, division uniqueness, Bézout and prime-factorization dependencies. Complete independent rubric review remains pending. Rechecked product congruence algebra; clarified combination of two natural-number equalities.",
-      "findings": []
+      "note": "Focused review of quotient-representative independence, ordered-ring construction, division uniqueness, Bézout and prime-factorization dependencies. Complete independent rubric review remains pending. Rechecked product congruence algebra; clarified combination of two natural-number equalities. Second pass checked quotient transitivity, addition/multiplication well-definedness, embedding and order, Euclidean division, Bézout and prime uniqueness. Checked 12,544 representative pairings in the arithmetic harness. Corrected 24 standalone single-dollar display delimiters.",
+      "findings": [],
+      "latestSelfReview": {
+        "date": "2026-10-20",
+        "scope": "selected theorem-by-theorem second pass",
+        "reviewer": "GPT-6 (same assistant, not an independent peer reviewer)",
+        "remaining": "Full external/independent line-by-line validation is still pending."
+      }
     },
     "construction-of-the-rationals.md": {
       "reviewScope": "focused",
       "rubricVersion": 1,
       "auditedAt": "2026-10-20",
       "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
-      "note": "Focused review of fraction congruence, cross-multiplication, positivity and irrationality argument. Complete independent rubric review remains pending.",
-      "findings": []
+      "note": "Focused review of fraction congruence, cross-multiplication, positivity and irrationality argument. Complete independent rubric review remains pending. Second pass checked cross-product equivalence, operation congruences, ordering with normalized positive denominators, and the Cauchy irrationality witness. Checked 3,600 representative pairings. Corrected display math.",
+      "findings": [],
+      "latestSelfReview": {
+        "date": "2026-10-20",
+        "scope": "selected theorem-by-theorem second pass",
+        "reviewer": "GPT-6 (same assistant, not an independent peer reviewer)",
+        "remaining": "Full external/independent line-by-line validation is still pending."
+      }
     },
     "construction-of-the-reals.md": {
       "reviewScope": "focused",
       "rubricVersion": 1,
       "auditedAt": "2026-10-20",
       "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
-      "note": "Focused review of Cauchy-class construction, explicit rational approximation selection, completeness, and nonnegative square-root existence. Full alternative Dedekind construction is intentionally not established. Subsequently expanded full uniqueness argument for complete Archimedean ordered fields. Dedekind-cut representation and cut-order completeness now developed in detail using the previously constructed Cauchy real field; independent alternative existence proof not claimed.",
+      "note": "Focused review of Cauchy-class construction, explicit rational approximation selection, completeness, and nonnegative square-root existence. Full alternative Dedekind construction is intentionally not established. Subsequently expanded full uniqueness argument for complete Archimedean ordered fields. Dedekind-cut representation and cut-order completeness now developed in detail using the previously constructed Cauchy real field; independent alternative existence proof not claimed. Second pass examined the reciprocal lemma, strict positivity, Cauchy completeness, LUB bisection, Dedekind representation, and uniqueness theorem. Corrected 14 standalone single-dollar display delimiters.",
       "findings": [
         {
           "id": "SCO-1",
@@ -463,14 +498,20 @@
           "status": "resolved",
           "resolution": "Replaced outline with explicit rational-density, canonical approximation-map, operation-preservation, order, surjectivity, and uniqueness proofs."
         }
-      ]
+      ],
+      "latestSelfReview": {
+        "date": "2026-10-20",
+        "scope": "selected theorem-by-theorem second pass",
+        "reviewer": "GPT-6 (same assistant, not an independent peer reviewer)",
+        "remaining": "Full external/independent line-by-line validation is still pending."
+      }
     },
     "construction-of-the-complex-numbers.md": {
       "reviewScope": "focused",
       "rubricVersion": 1,
       "auditedAt": "2026-10-20",
       "reviewer": "GPT-6 focused foundations dependency audit (not full rubric review)",
-      "note": "Focused review of the complex field and metric-completeness proofs. The FTA argument still imports real analytic theorems and an independently established angular lemma. Subsequently supplied independent exponential-series angular root and disk-minimum proofs used by FTA; full independent review still pending.",
+      "note": "Focused review of the complex field and metric-completeness proofs. The FTA argument still imports real analytic theorems and an independently established angular lemma. Subsequently supplied independent exponential-series angular root and disk-minimum proofs used by FTA; full independent review still pending. Second pass examined field, modulus, completeness, trigonometric root lemma, compactness minimum lemma, and FTA dependencies. Corrected 6 standalone single-dollar display delimiters.",
       "findings": [
         {
           "id": "PRF-3",
@@ -488,7 +529,13 @@
           "status": "resolved",
           "resolution": "Proved bounded real/complex subsequence lemmas and continuous disk minimum attainment from real completeness; FTA proof now uses these internal lemmas."
         }
-      ]
+      ],
+      "latestSelfReview": {
+        "date": "2026-10-20",
+        "scope": "selected theorem-by-theorem second pass",
+        "reviewer": "GPT-6 (same assistant, not an independent peer reviewer)",
+        "remaining": "Full external/independent line-by-line validation is still pending."
+      }
     }
   }
 }

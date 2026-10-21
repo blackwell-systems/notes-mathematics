@@ -544,9 +544,33 @@ so $S(b)\leq a$. This completes induction and proves comparability.
 
 **Order respects arithmetic.** If $a\leq b$ via $a+k=b$, then addition yields $(a+c)+k=b+c$ (after rearranging with the proven laws), so $a+c\leq b+c$. Multiplying by $c$ gives $ac+kc=bc$ by distributivity, so $ac\leq bc$. These are *derived compatibility laws*, not extra axioms.
 
+## Successor and the strict natural order
+
+The order defined above makes $S(a)$ the immediate successor of $a$. This is a **theorem**, not a property hidden inside the successor notation.
+
+**Lemma 1:** $a<S(a)$ for every $a$. By the addition recursion rules,
+
+$$
+a+1=a+S(0)=S(a+0)=S(a).
+$$
+
+Thus $a\leq S(a)$, witnessed by $1$. Equality would give $a+1=a$, contradicting the previously proved lemma that $a+k=a$ forces $k=0$, since $1=S(0)\neq0$.
+
+**Lemma 2:** if $k\neq0$, then $a<a+k$. The predecessor theorem gives $k=S(t)$ for some $t$. By recursive addition,
+
+$$
+a+k=a+S(t)=S(a+t).
+$$
+
+Since $a\leq a+t$ by the definition of order, and $a+t<S(a+t)$ by Lemma 1, we have $a<S(a+t)=a+k$. The required strict/weak transitivity follows from the established partial order: if $a\leq b<b'$ but $a=b'$, then $b'\leq b$, contradicting $b<b'$.
+
+**Lemma 3:** there is no natural $b$ strictly between $a$ and $S(a)$. If $a<b$, then $b=a+S(t)=S(a+t)$ for some $t$. From $a\leq a+t$, adding $1$ preserves order, yielding $S(a)\leq S(a+t)=b$. Thus $b<S(a)$ is impossible.
+
+These lemmas justify the later uses of "positive successor step," "no integer between consecutive naturals," and "adding a nonzero natural strictly increases its input."
+
 ### Well-ordering and its relation to induction
 
-A set with an order is **well-ordered** if every nonempty subset has a least element. With the order just defined, $N$ is well-ordered. Otherwise take a nonempty subset with no least element. By induction, zero is not in it, and if none of the numbers up through $n$ belong, neither can $S(n)$ (it would be its least member). Thus no element belongs, a contradiction.
+A set with an order is **well-ordered** if every nonempty subset has a least element. With the order just defined, $N$ is well-ordered. Suppose a nonempty subset $A$ has no least element. We prove by induction that no $n$ lies in $A$. Zero cannot belong to $A$, since $0\leq b$ for every natural $b$. Assume no element of $A$ is at most $n$. If $S(n)$ belonged to $A$, then by **Lemma 3** above, every $b<S(n)$ would satisfy $b\leq n$, and therefore could not belong to $A$. Hence $S(n)$ would be the least element of $A$, a contradiction. Thus $S(n)\notin A$. Induction shows $A$ is empty, contradicting nonemptiness.
 
 Conversely, well-ordering gives an induction argument: if a subset contains zero and is successor-closed but misses some natural, choose the *least* missing one. It cannot be zero. It is $S(k)$ for some $k$, and $k<S(k)$ must be present, so successor closure puts $S(k)$ back in. Contradiction.
 
@@ -560,13 +584,15 @@ With the usual structural assumptions, induction and well-ordering are two ways 
 
 Our predecessor theorem expresses every nonzero $b$ as $S(t)$. Likewise, $a=S(u)$ for some $u$. The recursive multiplication rule and the addition-successor rule give
 
-$
+$$
+\begin{aligned}
 a\cdot b
-=a\cdot S(t)
-=a\cdot t+a
-=a\cdot t+S(u)
-=S(a\cdot t+u).
-$
+&=a\cdot S(t)\\
+&=a\cdot t+a\\
+&=a\cdot t+S(u)\\
+&=S(a\cdot t+u).
+\end{aligned}
+$$
 
 A successor cannot equal zero. Thus $ab\neq0$. In particular, **$\mathbb N$ has no zero divisors**. This short proof is important: the integer construction will use it before it has access to negative numbers or integer multiplication cancellation.
 
@@ -580,9 +606,9 @@ A successor cannot equal zero. Thus $ab\neq0$. In particular, **$\mathbb N$ has 
 
 By totality, suppose $a\neq b$; either $a<b$ or $b<a$. In the first case, $b=a+k$ for some **nonzero** $k$ (because equality would force $k=0$). Multiplying by $c$ gives
 
-$
+$$
 bc=(a+k)c=ac+kc.
-$
+$$
 
 Since $k,c$ are nonzero, $kc\neq0$ by the previous theorem. Natural addition of a nonzero term strictly increases its input: $ac<ac+kc=bc$, contradicting $ac=bc$. The second case is symmetric. Hence $a=b$.
 

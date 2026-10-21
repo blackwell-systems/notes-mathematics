@@ -369,30 +369,30 @@ We constructed $\mathbb R$ so that every real Cauchy sequence converges. We can 
 
 **Proof.** Write $z_n=a_n+ib_n$ with real $a_n,b_n$. The modulus gives
 
-$
+$$
 |a_m-a_n|\leq |z_m-z_n|,\qquad
 |b_m-b_n|\leq |z_m-z_n|.
-$
+$$
 
 Thus $(a_n)$ and $(b_n)$ are both **real Cauchy sequences**. By the completeness theorem in [Construction of the Reals](./construction-of-the-reals), there are real $a,b$ such that $a_n\to a$ and $b_n\to b$.
 
 Set $z=a+ib$. Given $\varepsilon>0$, choose $N$ sufficiently large that, for every $n\geq N$,
 
-$
+$$
 |a_n-a|<\frac{\varepsilon}{2},\qquad
 |b_n-b|<\frac{\varepsilon}{2}.
-$
+$$
 
 Then
 
-$
+$$
 \begin{aligned}
 |z_n-z|^2
 &=(a_n-a)^2+(b_n-b)^2\\
 &<\frac{\varepsilon^2}{4}+\frac{\varepsilon^2}{4}
 =\frac{\varepsilon^2}{2}<\varepsilon^2.
 \end{aligned}
-$
+$$
 
 Taking nonnegative square roots shows $|z_n-z|<\varepsilon$. Therefore $z_n\to z$.
 

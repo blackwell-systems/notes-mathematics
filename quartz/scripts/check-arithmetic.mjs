@@ -125,6 +125,59 @@ eq("byte = 2 hex digits: FF -> 255", parseInt("FF", 16), 255);
   check("complex polynomial 1+i is root of z^2-2z+2",(1-1-2+2)===0 && (2-2)===0);
 }
 
+// ============= Exhaustive bounded quotient-congruence checks =============
+// Finite model testing is an error-finding tool, not a proof of universal laws.
+// Enumerate multiple representations for each selected integer/rational and
+// require operations/order to return equivalent answers for every pairing.
+{
+  const zEq = ([a,b],[c,d]) => a+d===b+c;
+  const zAdd = ([a,b],[c,d]) => [a+c,b+d];
+  const zMul = ([a,b],[c,d]) => [a*c+b*d,a*d+b*c];
+  const zLE = ([a,b],[c,d]) => a+d<=b+c;
+  let zAddition=true,zMultiplication=true,zOrder=true,integerCases=0;
+  for(let x=-3;x<=3;x++){
+    const X=Array.from({length:4},(_,k)=>[Math.max(0,x)+k,Math.max(0,-x)+k]);
+    for(let y=-3;y<=3;y++){
+      const Y=Array.from({length:4},(_,k)=>[Math.max(0,y)+k,Math.max(0,-y)+k]);
+      for(const x1 of X)for(const x2 of X)for(const y1 of Y)for(const y2 of Y){
+        zAddition &&= zEq(zAdd(x1,y1),zAdd(x2,y2));
+        zMultiplication &&= zEq(zMul(x1,y1),zMul(x2,y2));
+        zOrder &&= zLE(x1,y1)===zLE(x2,y2);
+        integerCases++;
+      }
+    }
+  }
+  check("bounded exhaustive integer addition respects equivalence",zAddition);
+  check("bounded exhaustive integer multiplication respects equivalence",zMultiplication);
+  check("bounded exhaustive integer order respects equivalence",zOrder);
+  eq("integer congruence comparisons exercised",integerCases,12544);
+
+  const qEq=([a,b],[c,d])=>a*d===b*c;
+  const qAdd=([a,b],[c,d])=>[a*d+c*b,b*d];
+  const qMul=([a,b],[c,d])=>[a*c,b*d];
+  const qLE=([a,b],[c,d])=>a*d<=c*b; // only when b,d>0
+  let qAddition=true,qMultiplication=true,qOrder=true,rationalCases=0;
+  for(let a=-2;a<=2;a++)for(let b=1;b<=3;b++){
+    const X=[[a,b],[2*a,2*b],[-a,-b],[3*a,3*b]];
+    for(let c=-2;c<=2;c++)for(let d=1;d<=3;d++){
+      const Y=[[c,d],[2*c,2*d],[-c,-d],[3*c,3*d]];
+      const expected=a*d<=c*b;
+      for(const x of X)for(const y of Y){
+        qAddition &&= qEq(qAdd(x,y),qAdd([a,b],[c,d]));
+        qMultiplication &&= qEq(qMul(x,y),qMul([a,b],[c,d]));
+        const xp=x[1]>0?x:[-x[0],-x[1]];
+        const yp=y[1]>0?y:[-y[0],-y[1]];
+        qOrder &&= qLE(xp,yp)===expected;
+        rationalCases++;
+      }
+    }
+  }
+  check("bounded exhaustive rational addition respects equivalence",qAddition);
+  check("bounded exhaustive rational multiplication respects equivalence",qMultiplication);
+  check("bounded exhaustive rational order respects equivalence",qOrder);
+  eq("rational congruence comparisons exercised",rationalCases,3600);
+}
+
 // ================= Number Systems =================
 eq("0.3-repeating: 3/9 reduces to 1/3", reduce(3, 9).join("/"), "1/3");
 eq("0.27-repeating: 27/99 reduces to 3/11", reduce(27, 99).join("/"), "3/11");

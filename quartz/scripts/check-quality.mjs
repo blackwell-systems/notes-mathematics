@@ -30,6 +30,31 @@ if (htmlFiles.length === 0) {
   process.exit(2);
 }
 
+// ---------- Foundation pages: display math delimiter consistency ----------
+// Rendered-HTML checks can miss expressions Markdown did not parse at all.
+const FOUNDATION_PAGES = new Set([
+  "peano-arithmetic.md",
+  "construction-of-the-integers.md",
+  "construction-of-the-rationals.md",
+  "construction-of-the-reals.md",
+  "construction-of-the-complex-numbers.md",
+]);
+for (const f of mdFiles) {
+  if (!FOUNDATION_PAGES.has(f)) continue;
+  const lines = readFileSync(join(CONTENT, f), "utf8").split("\n");
+  const standaloneDollar = [];
+  let displayCount = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed === "$") standaloneDollar.push(i + 1);
+    if (trimmed === "$") displayCount++;
+  }
+  if (standaloneDollar.length)
+    errors.push(f + ": standalone $ at line(s) " + standaloneDollar.join(", ") + "; use $ for display math");
+  if (displayCount % 2 !== 0)
+    errors.push(f + ": odd number of standalone $ display-math delimiters (" + displayCount + ")");
+}
+
 // ---------- 1. KaTeX render errors (from emitted HTML) ----------
 for (const f of htmlFiles) {
   const html = readFileSync(join(PUBLIC, f), "utf8");

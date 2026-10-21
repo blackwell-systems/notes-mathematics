@@ -428,37 +428,37 @@ For integers $a,b$ not both zero, a **common divisor** is a positive integer $d$
 
 **Theorem:** for integers $a,b$ not both zero there exist integers $x,y$ such that
 
-$
+$$
 \boxed{ax+by=\gcd(a,b).}
-$
+$$
 
 **Proof.** Let $T$ be the collection of all **positive** integer linear combinations:
 
-$
+$$
 T=\{ax+by:x,y\in\mathbb Z,\ ax+by>0\}.
-$
+$$
 
 Because at least one of $a,b$ is nonzero and integer additive inverses exist, we can choose a sign to produce a positive multiple. Thus $T$ is nonempty. By well-ordering of the positive integers, it has a least element $d$. By definition, $d=ax_0+by_0$ for some integers $x_0,y_0$.
 
 We claim $d$ divides both $a$ and $b$. Apply division with remainder to $a$ and the **positive** divisor $d$:
 
-$
+$$
 a=qd+r,\qquad 0\leq r<d.
-$
+$$
 
 But
 
-$
+$$
 r=a-q(ax_0+by_0)=a(1-qx_0)+b(-qy_0),
-$
+$$
 
 so $r$ is itself an integer linear combination of $a$ and $b$. If $r>0$, then $r\in T$, contradicting the minimality of $d$. Therefore $r=0$, so $d\mid a$. The same argument gives $d\mid b$.
 
 If $c>0$ is **any** common divisor of $a,b$, write $a=cu$, $b=cv$. Then $d=ax_0+by_0=c(ux_0+vy_0)$, so $c\mid d$. Since $d$ is positive, this implies $c\leq d$. Therefore $d$ is the greatest positive common divisor and
 
-$
+$$
 d=\gcd(a,b)=ax_0+by_0.
-$
+$$
 
 The existence of Bézout coefficients has been **proved from the integer division theorem and well-ordering**, not assumed as another axiom.
 
@@ -466,15 +466,15 @@ The existence of Bézout coefficients has been **proved from the integer divisio
 
 Given integers $a,b$ with $b\ne0$, use positive divisors by replacing inputs with their absolute values, then repeatedly divide:
 
-$
+$$
 a=bq+r,\qquad 0\leq r<b.
-$
+$$
 
 The common divisors of $a$ and $b$ are exactly the common divisors of $b$ and $r$: if $c$ divides $a,b$ then it divides $r=a-bq$, and if it divides $b,r$ then it divides $a=bq+r$. Thus
 
-$
+$$
 \gcd(a,b)=\gcd(b,r)
-$
+$$
 
 when $b>0$.
 
@@ -482,19 +482,19 @@ At each nonterminal step, the **new positive remainder is strictly smaller than 
 
 **Worked example:**
 
-$
+$$
 \begin{aligned}
 252&=105\cdot2+42,\\
 105&=42\cdot2+21,\\
 42&=21\cdot2+0.
 \end{aligned}
-$
+$$
 
 Therefore $\gcd(252,105)=21$. Reverse the equations:
 
-$
+$$
 21=105-2(252-2\cdot105)=5\cdot105-2\cdot252.
-$
+$$
 
 This is a concrete Bézout identity. The **extended Euclidean algorithm** simply performs that back-substitution systematically.
 
@@ -508,15 +508,15 @@ Define a **prime** to be a positive integer $p>1$ whose only positive divisors a
 
 **Proof.** If $p\mid a$, the conclusion already holds. Otherwise $\gcd(p,a)=1$, because any positive common divisor of $p$ and $a$ must be either $1$ or $p$, and $p\nmid a$. Bézout's identity supplies integers $x,y$ with
 
-$
+$$
 px+ay=1.
-$
+$$
 
 Multiply by $b$:
 
-$
+$$
 pbx+aby=b.
-$
+$$
 
 Both terms on the left are divisible by $p$: the first visibly, the second because $p\mid ab$. Therefore $p\mid b$. This proves the lemma.
 
@@ -530,9 +530,9 @@ By repeated application, if $p$ divides a product of finitely many integers, it 
 
 **Uniqueness, using Euclid's lemma.** Suppose
 
-$
+$$
 n=p_1p_2\cdots p_r=q_1q_2\cdots q_s
-$
+$$
 
 with all factors positive primes. Since $p_1$ divides the product on the right, Euclid's lemma says $p_1\mid q_j$ for some $j$. The only positive divisors of the prime $q_j$ are $1$ and $q_j$, so $p_1=q_j$. Reorder the factors to put that match first and **cancel it** using integer multiplication cancellation. Repeat with the remaining products. This must consume both lists: a nonempty product of primes is greater than $1$, so it cannot equal the empty product $1$. Hence $r=s$ and the prime factors agree after reordering.
 
