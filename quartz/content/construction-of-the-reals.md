@@ -516,13 +516,141 @@ Order of cuts is inclusion: $A\leq B$ when $A\subseteq B$. Addition can be defin
 
 **Do not conflate the methods:** our primary construction was the Cauchy-sequence quotient, whose field and completeness proofs were given above. Dedekind cuts provide an alternative construction and an especially direct picture of the least-upper-bound property. The claim that they agree is a theorem, not an identity between literally identical sets.
 
-## Why the result is unique up to isomorphism
+## Why the complete Archimedean ordered field is unique
 
-**Theorem.** Any two **complete Archimedean ordered fields** are isomorphic by a unique order-preserving field isomorphism fixing the rational numbers.
+**Theorem.** If $F$ and $G$ are any two **Cauchy-complete Archimedean ordered fields**, there is a unique order-preserving field isomorphism $T:F\to G$ which sends their distinguished $1$ to each other. Read $T$ as "the structure-preserving correspondence." A field homomorphism already preserves $1$ by our convention; the statement makes that requirement explicit.
 
-**Proof outline with the decisive steps.** Both fields contain a unique ordered copy of $\mathbb Q$ because $1$ generates the integers and their reciprocals generate the rationals. For any $x$ in the first field, choose a rational Cauchy sequence converging to $x$, possible by rational density. Map $x$ to the limit of the same rational sequence in the second field. Cauchy completeness guarantees existence there. If two rational sequences approach the same $x$, their difference approaches zero, so their images have the same limit: the map is well-defined. Rational approximations and limit laws show that it preserves addition, multiplication, and order. Constructing the map in the opposite direction shows it is bijective, and density forces uniqueness.
+This strengthens the construction result: different encodings of the real numbers have precisely the same field, order, and limit structure, even when the underlying sets are not literally equal.
 
-The **Archimedean** qualifier matters. There exist non-Archimedean ordered fields, including fields containing elements larger than every natural number. Least-upper-bound completeness rules those out, but when comparing alternative formulations of metric completeness one must not simply omit the Archimedean hypothesis.
+### Step 1: identify the rational subfields
+
+In any ordered field, repeated addition of $1$ gives distinct embedded naturals, taking additive inverses gives integers, and taking nonzero multiplicative inverses gives rationals. All arithmetic in this subfield is forced by the field laws, and the order on it agrees with the usual order on $\mathbb Q$. So $F$ and $G$ each contain an identifiable copy of the **same ordered rational field**.
+
+### Step 2: rational density in any Archimedean ordered field
+
+Fix $x<y$ in an Archimedean ordered field $F$. By the Archimedean property, choose a positive natural $n$ with
+
+$$
+n(y-x)>1.
+$$
+
+The embedded integers are unbounded above and below in $F$. Choose the **smallest integer** $m$ satisfying $m>nx$: such an integer exists because all sufficiently large integers work and every nonempty set of integers bounded below has a least member, inherited from natural well-ordering after translation. Its predecessor $m-1$ does not exceed $nx$, so
+
+$$
+m-1\leq nx<m.
+$$
+
+Consequently $m<nx+1<ny$, and dividing by positive $n$ yields
+
+$$
+\boxed{x<\frac mn<y.}
+$$
+
+Thus the rational subfield is **dense** in every Archimedean ordered field. This did not assume the result about uniqueness that we are proving.
+
+### Step 3: define the map by rational approximation
+
+Enumerate $\mathbb Q$ once as $r_0,r_1,\ldots$. For each $x\in F$ and positive integer $n$, select the **first** rational $q_n$ in this enumeration satisfying
+
+$$
+|x-q_n|<\frac1n.
+$$
+
+Such a rational exists by density; selecting the first makes the approximation deterministic.
+
+The rational sequence $(q_n)$ is Cauchy, because for large $m,n$,
+
+$$
+|q_m-q_n|
+\leq|q_m-x|+|x-q_n|
+<\frac1m+\frac1n.
+$$
+
+This inequality involves only rational quantities on the left and rational bounds on the right, so it also holds in the rational subfield of $G$. By **Cauchy completeness in $G$**, $(q_n)$ has a limit there. Define
+
+$$
+\boxed{T(x):=\lim_{n\to\infty}^{G}q_n.}\tag{RU}
+$$
+
+The superscript $G$ indicates that the limit is taken **inside $G$**. It is important that no map from $F$ to $G$ was presumed before this definition.
+
+**Independence of approximation choices.** If $(p_n)$ is another rational sequence with $|x-p_n|<1/n$, then $|p_n-q_n|<2/n$. This bound is rational, so the sequences have equal limits in $G$. Thus the definition of $T(x)$ does not depend on the chosen approximating sequence or enumeration.
+
+The same bound also proves that $(q_n)\to x$ in $F$.
+
+### Step 4: prove the map preserves arithmetic
+
+Let $q_n\to x$ and $r_n\to y$ be rational approximations in $F$. By the triangle inequality,
+
+$$
+(q_n+r_n)\to x+y
+$$
+
+in $F$. Their rational sums also converge in $G$ to $T(x)+T(y)$, since addition is continuous in every ordered field:
+
+$$
+|(q_n+r_n)-(T(x)+T(y))|
+\leq|q_n-T(x)|+|r_n-T(y)|.
+$$
+
+By independence of approximations in RU, this identifies $T(x+y)$ with that same limit. Therefore
+
+$$
+\boxed{T(x+y)=T(x)+T(y).}
+$$
+
+For multiplication, first note that every convergent sequence is bounded: once its terms are within $1$ of its limit, all later terms are bounded, and the finitely many earlier ones have a common bound. With bounds $|q_n|\leq M$ and $|r_n|\leq K$, the identity
+
+$$
+q_nr_n-xy=q_n(r_n-y)+y(q_n-x)
+$$
+
+and its analogue in $G$ show continuity of multiplication. Hence $q_nr_n$ converges to $xy$ in $F$, and to $T(x)T(y)$ in $G$. As before, RU then yields
+
+$$
+\boxed{T(xy)=T(x)T(y).}
+$$
+
+Constant rational sequences show $T(0)=0$, $T(1)=1$, and $T(q)=q$ for every rational $q$ under the canonical identification. Consequently $T$ preserves additive inverses and, for nonzero arguments, multiplicative inverses as well.
+
+### Step 5: prove the map preserves strict order
+
+Suppose $x<y$ in $F$. By rational density choose rationals $r,s$ with
+
+$$
+x<r<s<y.
+$$
+
+Because any rational sequence approaching $x$ eventually lies strictly below $r$, its limit $T(x)$ in $G$ satisfies $T(x)\leq r$: if $T(x)>r$, convergence would force sufficiently late rational terms above $r$, a contradiction. Similarly, $T(y)\geq s$. Therefore
+
+$$
+T(x)\leq r<s\leq T(y),
+$$
+
+so $T(x)<T(y)$. Thus $T$ is **strictly order-preserving**, hence injective.
+
+### Step 6: prove surjectivity
+
+Take any $y\in G$. Use rational density in $G$ to choose a rational sequence $(q_n)$ with $|y-q_n|<1/n$. Because the Cauchy inequalities between its rational terms are identical in $F$ and $G$, the sequence is Cauchy in $F$. Completeness in $F$ gives $x=\lim^F q_n$. The definition of RU, including its independence of representatives, implies
+
+$$
+T(x)=\lim^G q_n=y.
+$$
+
+Thus $T$ is surjective and therefore an **ordered-field isomorphism**.
+
+### Step 7: prove uniqueness
+
+Let $U:F\to G$ be any other order-preserving field homomorphism taking $1$ to $1$. It fixes each rational by the field operations. If rational numbers $r<x<s$ in $F$, then order preservation gives
+
+$$
+r=U(r)<U(x)<U(s)=s.
+$$
+
+Using arbitrarily close rational upper and lower bounds for $x$ shows that $U(x)$ and $T(x)$ lie between the same rational bounds of arbitrarily small width. If $U(x)\neq T(x)$, rational density in $G$ would place a rational **strictly between** them, impossible because their defining rational cuts are identical. Hence $U(x)=T(x)$ for all $x$.
+
+This proves existence, field-law preservation, order preservation, bijectivity, and uniqueness of the correspondence. **Cauchy completeness plus the Archimedean property** is essential here: without Archimedeanness, the rational approximation step need not approximate arbitrary field elements.
+
 
 ## What we can now assume in real analysis
 

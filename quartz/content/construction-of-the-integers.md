@@ -212,11 +212,13 @@ $$
 ac+b'c=bc+a'c,\qquad ad+b'd=bd+a'd.
 $$
 
-Add these equalities and rearrange:
+Use the first equality together with the **reverse** of the second equality, adding the matching sides and rearranging terms:
 
 $$
 (ac+bd)+(a'd+b'c)=(ad+bc)+(a'c+b'd).
 $$
+
+This is a sum of two valid natural-number equalities, with the second read in reverse. Ordinary multiplication by a formal difference $c-d$ has **not** been used.
 
 This is the equivalence condition between
 

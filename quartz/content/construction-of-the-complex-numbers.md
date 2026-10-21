@@ -451,41 +451,163 @@ so $2uv=|b|$. If $b\geq0$, choose $w=u+vi$; if $b<0$, choose $w=u-vi$. In either
 
 Thus every complex number has a square root. The proof used the **real** square-root theorem and pair multiplication; it still does not prove roots exist for polynomials of arbitrary degree.
 
-### The analytic angular lemma used by the algebraic-closure proof
+### Analytic lemmas for algebraic closure
 
-The minimum-modulus proof below needs one non-algebraic input: we must be able to choose **$k$-th roots of arbitrary complex numbers of modulus one**, for each positive natural $k$. This is **not** established merely by proving that all complex numbers have square roots.
+The minimum-modulus proof of the Fundamental Theorem of Algebra (FTA) requires **roots of arbitrary order on the unit circle** and **minimum attainment on a closed disk**. These are analytic theorems, not consequences of the complex field axioms. We derive both here from the already constructed reals and complexes, without assuming the FTA.
 
-An independently established result of real-variable trigonometry is the **unit-circle parametrization theorem**: every complex $v$ with $|v|=1$ can be expressed as
+#### Absolutely convergent series
 
-$
-v=\cos\theta+i\sin\theta
-$
+If $\sum_{n\geq0}|a_n|$ converges for complex terms $a_n$, then $\sum a_n$ converges: by the triangle inequality,
 
-for some real angle $\theta$, and the real angle-addition identities give
+$$
+\left|\sum_{n=p}^{q}a_n\right|
+\leq\sum_{n=p}^{q}|a_n|,
+$$
 
-$
-(\cos t+i\sin t)^k=\cos(kt)+i\sin(kt).
-$
+so its partial sums are Cauchy; **complex completeness**, proved earlier, supplies their limit. The same estimate justifies the **Cauchy product rule** for absolutely convergent series:
 
-Thus, if $v=\cos\theta+i\sin\theta$ and $k\geq1$, the explicitly constructed complex number
+$$
+\left(\sum_{j\geq0}a_j\right)\left(\sum_{k\geq0}b_k\right)
+=\sum_{n\geq0}\sum_{j=0}^{n}a_jb_{n-j}.
+$$
 
-$
-u=\cos(\theta/k)+i\sin(\theta/k)
-$
+Indeed, the total absolute sum over pairs $(j,k)$ is bounded by $(\sum|a_j|)(\sum|b_k|)$. Restricting to a finite rectangle and then enlarging it changes the sum by arbitrarily small absolute tails, so grouping pairs by $j+k=n$ has the same limit.
 
-satisfies $|u|=1$ and $u^k=v$.
+Define $n!$ (read "n factorial") as $1\cdot2\cdots n$, with $0!=1$. The **exponential power series**
 
-**Dependency boundary:** this lemma uses the real theory of sine, cosine, angles, and their addition identities. It does *not* require the Fundamental Theorem of Algebra, but its independent construction from real completeness and analysis is not repeated in this chapter. The angular theorem can be proved from real-variable trigonometry and analysis independently of the Fundamental Theorem of Algebra. [Calculus](./calculus) and [Real Analysis](./real-analysis) contain related analytic foundations. [Geometry & Trigonometry](./geometry-trigonometry) is useful further reading, **not a valid prerequisite in the current page graph**, since it depends on Number Systems, which in turn depends on this construction. A strictly self-contained, acyclic foundations program must supply an independent proof of unit-circle parametrization, including the real trigonometric addition identities.
+$$
+\boxed{E(w):=\sum_{n=0}^{\infty}\frac{w^n}{n!}}\tag{CE}
+$$
+
+converges absolutely for every complex $w$: once $n+1>2|w|$, successive absolute terms have ratio below $1/2$, and the remaining tail is bounded by a geometric series.
+
+Apply the Cauchy product rule and the **binomial identity** (itself proved by induction using distributivity),
+
+$$
+(v+w)^n=\sum_{j=0}^{n}\binom njv^jw^{n-j},
+\qquad \binom nj=\frac{n!}{j!(n-j)!},
+$$
+
+to get
+
+$$
+\begin{aligned}
+E(v)E(w)
+&=\sum_{n\geq0}\sum_{j=0}^{n}
+\frac{v^jw^{n-j}}{j!(n-j)!}\\
+&=\sum_{n\geq0}\frac{(v+w)^n}{n!}
+=E(v+w).
+\end{aligned}
+$$
+
+Read $\binom nj$ as "n choose j." All division by factorials is valid in the real and complex fields already constructed.
+
+#### Trigonometry built from real series, not from polynomial roots
+
+For real $t$, separate the even and odd terms of $E(it)$ and **define**
+
+$$
+\boxed{
+\begin{aligned}
+\cos t&:=\sum_{n\geq0}\frac{(-1)^nt^{2n}}{(2n)!},\\
+\sin t&:=\sum_{n\geq0}\frac{(-1)^nt^{2n+1}}{(2n+1)!}.
+\end{aligned}}\tag{CS}
+$$
+
+Read $\cos$ as "cosine" and $\sin$ as "sine." These are real-valued series because each partial sum is real and $\mathbb R$ is complete. The definitions imply $E(it)=\cos t+i\sin t$.
+
+Comparing real and imaginary parts in $E(iv)E(iw)=E(i(v+w))$ proves the addition identities
+
+$$
+\begin{aligned}
+\cos(v+w)&=\cos v\cos w-\sin v\sin w,\\
+\sin(v+w)&=\sin v\cos w+\cos v\sin w.
+\end{aligned}
+$$
+
+Since conjugation commutes with limits of the partial sums, $\overline{E(it)}=E(-it)$. Therefore
+
+$$
+(\cos t)^2+(\sin t)^2=E(it)E(-it)=E(0)=1.
+$$
+
+These identities are **derived from convergent series**. They do not assume complex polar form, Euler's formula, or the FTA.
+
+The series converge uniformly on each bounded real interval: on $|t|\leq M$, all absolute tails are bounded by the tails of $\sum M^n/n!$. The finite polynomial partial sums are continuous, and a uniformly small tail plus continuity of one fixed partial sum proves that $\sin$ and $\cos$ are continuous.
+
+We now construct a **quarter-turn angle**. From CS, $\cos0=1$ and
+
+$$
+\cos2=1-2+\frac23-\frac4{45}+\cdots<-\frac13<0.
+$$
+
+After the positive term $2/3$, the alternating tail starts negative and has decreasing absolute terms, so it is negative. Also, for $0<t\leq2$, the alternating sine series gives
+
+$$
+\sin t\geq t-\frac{t^3}{6}
+=t\left(1-\frac{t^2}{6}\right)>0.
+$$
+
+For these $t$, the remaining paired terms after the cubic term are nonnegative. By the intermediate-value argument there is $\alpha\in(0,2)$ with $\cos\alpha=0$. That argument follows from **real completeness**: bisect $[0,2]$ repeatedly, each time retaining an interval with opposite signs of cosine at its endpoints; the nested endpoint sequences converge to one common $\alpha$, and continuity forces $\cos\alpha=0$.
+
+Since $\sin\alpha>0$ and $\cos^2\alpha+\sin^2\alpha=1$, we have $\sin\alpha=1$, hence
+
+$$
+\boxed{E(i\alpha)=i.}\tag{CQ}
+$$
+
+**Every unit complex number has an angle.** Suppose $v=x+iy$ has $|v|=1$ with $x,y\geq0$. Continuity of $\cos$ and its endpoint values $1$ and $0$ on $[0,\alpha]$ supply $t\in[0,\alpha]$ with $\cos t=x$. Since $\sin t\geq0$ and $\sin^2t=1-x^2=y^2$, we get $\sin t=y$. Thus $v=E(it)$.
+
+An arbitrary unit complex number can be multiplied by one of $1,i,-1,-i$ to move it into the nonnegative quadrant. If $i^{-j}v=E(it)$ for $j\in\{0,1,2,3\}$, then the exponential addition rule and CQ give
+
+$$
+v=i^jE(it)=E(i(t+j\alpha)).
+$$
+
+So $v=E(i\theta)$ for some real $\theta$; this is **proved**, not imported from polar coordinates. For every positive integer $k$, set $u=E(i\theta/k)$. Then
+
+$$
+\boxed{|u|=1,\qquad u^k=v.}\tag{CR}
+$$
+
+This establishes the angular-root lemma **independently of the FTA**.
+
+#### Minimum attainment from sequential compactness
+
+**Bounded real subsequence lemma.** Put a bounded real sequence inside $[A,B]$. Repeatedly bisect this interval, retaining a closed half containing infinitely many sequence terms. Choose strictly increasing indices $n_j$ whose terms lie in the $j$th retained half. Those halves are nested and their lengths $(B-A)/2^j$ approach zero. Their endpoints form Cauchy sequences with a common real limit $L$, and $x_{n_j}\to L$. This proves that every bounded real sequence has a convergent subsequence without invoking a compactness theorem.
+
+**Bounded complex subsequence lemma.** A bounded complex sequence $z_n=a_n+ib_n$ has bounded real and imaginary coordinate sequences. Choose a subsequence on which $a_n$ converges, and from it a further subsequence on which $b_n$ converges. Both coordinates converge along the final subsequence, so the complex sequence converges by the modulus formula. If $|z_n|\leq R$ throughout, the limit lies in the closed disk $D_R=\{z:|z|\leq R\}$ because $||z|-|w||\leq|z-w|$.
+
+**Minimum lemma.** Let $g:D_R\to\mathbb R$ be continuous. It is bounded below: otherwise select points $z_n$ with $g(z_n)<-n$, extract a subsequence converging inside $D_R$, and contradict continuity at the limit. Let $m=\inf g(D_R)$, which exists by the real least-upper-bound property. For each positive integer $n$, choose $z_n$ with $m\leq g(z_n)<m+1/n$. A convergent subsequence has limit $z_0\in D_R$; continuity yields $g(z_0)=m$. Therefore every continuous real-valued function on a closed complex disk **attains its minimum**.
+
+The choice of near-minimizers can be made without an additional choice axiom: the disk has an explicit countable dense set of complex rational-coordinate points, and continuity guarantees that a point from this set meets each strict upper bound $m+1/n$; choose its first occurrence in an enumeration.
+
+Finally, complex polynomials are continuous. For $|z|,|w|\leq R$,
+
+$$
+z^k-w^k=(z-w)\sum_{j=0}^{k-1}z^{k-1-j}w^j,
+\qquad |z^k-w^k|\leq kR^{k-1}|z-w|.
+$$
+
+Thus every polynomial is continuous on each disk, and the reverse triangle inequality makes $z\mapsto|P(z)|$ continuous. The required minimization theorem is established, **not merely named**.
+
 
 ### A proof route for the Fundamental Theorem of Algebra
 
-We can connect algebraic closure to the real completeness we already constructed via the **minimum-modulus argument**. The analytic ingredient is the **Extreme Value Theorem**, stated in [Real Analysis](./real-analysis): continuous real-valued functions attain minima on closed bounded subsets of Euclidean space. The theorem itself depends on real compactness and is not derived in the pair-construction steps.
+We can connect algebraic closure to the real completeness we already constructed via the **minimum-modulus argument**. The analytic ingredients are now established above: the angular-root theorem CR and the minimum lemma for continuous real-valued functions on closed disks.
 
 Let $P(z)=a_nz^n+\cdots+a_0$ be a nonconstant complex polynomial with $a_n\ne0$.
 
-1. **Large inputs force large modulus.** By the triangle inequality and the leading term, $|P(z)|\to\infty$ as $|z|\to\infty$. Concretely, beyond a large radius the leading term $|a_n||z|^n$ dominates the sum of all lower-degree terms.
+1. **Large inputs force large modulus.** Put $C=\sum_{j=0}^{n-1}|a_j|$. For $|z|=r\geq1$, the triangle inequality gives
 
-2. **A global minimum exists.** The function $z\mapsto|P(z)|$ is continuous. Choose a closed disk outside which $|P(z)|$ exceeds, say, $|P(0)|+1$. By the real extreme-value theorem, $|P(z)|$ attains a minimum on that compact disk, hence globally. Let a minimizer be $z_0$.
+   $$
+   |P(z)|\geq |a_n|r^n-\sum_{j=0}^{n-1}|a_j|r^j
+   \geq r^{n-1}(|a_n|r-C).
+   $$
+
+   Choose $r$ large enough that $|a_n|r-C\geq |a_n|r/2$. Then $|P(z)|\geq |a_n|r^n/2$, which grows without bound because $a_n\neq0$ and $n\geq1$. Hence $|P(z)|\to\infty$ as $|z|\to\infty$.
+
+2. **A global minimum exists.** The function $z\mapsto|P(z)|$ is continuous by the polynomial estimate above. Choose a closed disk outside which $|P(z)|>|P(0)|+1$, possible by Step 1. By the **minimum lemma proved above**, $|P|$ attains a minimum on that disk. Its minimum is at most $|P(0)|$, while every exterior value exceeds $|P(0)|+1$, so the minimizer $z_0$ is also a global minimizer.
 
 3. **Suppose the minimum is nonzero.** Write $w=P(z_0)\ne0$. Because $P$ is nonconstant, its expansion about $z_0$ has a first nonzero higher-order term:
 
@@ -501,16 +623,16 @@ Let $P(z)=a_nz^n+\cdots+a_0$ be a nonconstant complex polynomial with $a_n\ne0$.
    \frac{c}{w}u^k=-\left|\frac{c}{w}\right|.
    $$
 
-   Such a $u$ exists by the independent angular lemma immediately above: the right-hand side is a unit-modulus complex number, so it has a unit-modulus $k$-th root. Set $h=tu$ for a small positive real $t$. Dividing by $w$ gives
+   Such a $u$ exists because the required equation is $u^k=-|c/w|/(c/w)$; this right-hand side has modulus one, and CR gives a unit-modulus $k$-th root. Set $h=tu$ for a small positive real $t$. Dividing by $w$ gives
 
    $$
    \frac{P(z_0+tu)}{w}
-   =1-\alpha t^k+t^{k+1}E(t),
+   =1-\alpha t^k+t^{k+1}H(t),
    $$
 
-   where $\alpha=|c/w|>0$ and $E(t)$ remains bounded for small $t$.
+   where $\alpha=|c/w|>0$ and $H(t):=u^{k+1}R(tu)/w$ remains bounded for small $t$, since $R$ is a polynomial.
 
-5. **Contradict minimality.** For small enough $t>0$, the $t^{k+1}E(t)$ term has modulus less than $\alpha t^k/2$, and also $\alpha t^k<1$. The triangle inequality then gives
+5. **Contradict minimality.** For small enough $t>0$, the $t^{k+1}H(t)$ term has modulus less than $\alpha t^k/2$, and also $\alpha t^k<1$. The triangle inequality then gives
 
    $$
    \left|\frac{P(z_0+tu)}{w}\right|
@@ -522,17 +644,30 @@ Let $P(z)=a_nz^n+\cdots+a_0$ be a nonconstant complex polynomial with $a_n\ne0$.
 
 Therefore $P(z_0)=0$: every nonconstant complex polynomial has a root.
 
-This is an analytic proof of the FTA, with its dependencies made explicit: it uses complex arithmetic, real completeness through the extreme-value theorem, continuity of polynomials, and the independently established angular lemma. It is **not** a proof from field axioms alone, and a fully internal foundations chain still needs the analytic lemmas developed at proof level. It is **not** a statement obtained merely by writing down the pair product.
+This is an analytic proof of the FTA, not a consequence of field axioms alone. Its analytic ingredients, the convergent exponential series, angular roots, and closed-disk minimization, were proved above from real and complex completeness. It is **not** a statement obtained merely by writing down the pair product.
 
 ### From one root to complete factorization
 
-Once $P(\alpha)=0$, polynomial division (over any field) shows
+Once $P(\alpha)=0$, write $P(z)=\sum_{j=0}^n a_jz^j$ and subtract $P(\alpha)=0$:
 
 $$
-P(z)=(z-\alpha)Q(z)
+P(z)=P(z)-P(\alpha)=\sum_{j=1}^na_j(z^j-\alpha^j).
 $$
 
-for some polynomial $Q$ of degree one less. Reapply the FTA to $Q$ if its degree is positive. Induction on degree yields
+For each positive integer $j$ the finite factorization
+
+$$
+z^j-\alpha^j=(z-\alpha)
+\sum_{k=0}^{j-1}z^{j-1-k}\alpha^k
+$$
+
+is verified by multiplying out and cancelling adjacent terms. Thus $P(z)=(z-\alpha)Q(z)$ for the explicit polynomial
+
+$$
+Q(z)=\sum_{j=1}^n a_j\sum_{k=0}^{j-1}z^{j-1-k}\alpha^k,
+$$
+
+which has degree $n-1$ because $a_n\neq0$. This proves the factor theorem here instead of importing polynomial division. Reapply the FTA to $Q$ if its degree is positive. Induction on degree yields
 
 $$
 P(z)=a_n\prod_{j=1}^n(z-\alpha_j),
@@ -613,7 +748,7 @@ For calculating in polar coordinates, computing complex logarithms, and studying
 | Modulus and triangle inequality | general real square-root theorem, conjugation, real inequalities |
 | Cauchy completeness of $\mathbb C$ | coordinate convergence in the already complete $\mathbb R$ |
 | No compatible field order | contradiction from $i^2=-1$ |
-| Every polynomial has a root | FTA, using real compactness, the imported angular lemma, and a minimum-modulus contradiction |
+| Every polynomial has a root | FTA, using proved series/angle lemmas, disk minimization, and a minimum-modulus contradiction |
 | Polynomial factorization into linear terms | FTA plus division by $z-\alpha$ and induction |
 
 The original question was "which arithmetic laws am I allowed to assume?" You can now trace each law through a construction, a well-definedness argument if needed, and a proof. The next time [Algebraic Structures](./algebraic-structures) calls $\mathbb Q$ a field or $\mathbb Z$ a ring, those names summarize results whose foundations have been established rather than black-boxed.
