@@ -16,6 +16,10 @@ This technique requires understanding [Rational Functions](./rational-functions)
 
 ## First Step: Make It Proper
 
+> [!distinction] Divide before decomposing
+> A rational expression is **proper** if the numerator degree is **strictly smaller** than the denominator degree. Polynomial long division reduces improper expressions to a polynomial plus a proper rational remainder.
+
+
 **Worked example (improper input).** Decompose $\dfrac{x^3}{x^2 - 1}$. The numerator has degree $3 \geq 2$, so the fraction is improper and partial fractions do not apply directly. Divide first: since $x^3 = x(x^2 - 1) + x$,
 
 $$
@@ -37,6 +41,10 @@ $$
 Skipping the division step is the most common mistake: partial fractions applied to an improper fraction silently give wrong coefficients.
 
 ## The Four Cases
+
+> [!definition] Partial fraction decomposition
+> Over the reals, a proper rational function decomposes using powers of **linear factors** and **irreducible quadratics** in its denominator. Repeated factors require **every power** through the multiplicity, not just the highest one.
+
 
 ### Case 1: Distinct Linear Factors
 
@@ -91,6 +99,10 @@ Compare $x$ coefficients: $3 = A$
 **Result:** $\frac{3x + 5}{(x - 1)^2} = \frac{3}{x - 1} + \frac{8}{(x - 1)^2}$
 
 ### Case 3: Distinct Irreducible Quadratic Factors
+
+> [!distinction] Quadratic factors need linear numerators
+> An irreducible real quadratic contributes a numerator of degree **at most one**, $Ax+B$. A constant alone is not the general form, because the numerator must have degree below that factor.
+
 
 If the denominator contains an irreducible quadratic factor (one that cannot be factored over the reals), that factor's partial fraction gets a **linear** numerator $Ax + B$, not just a constant. For example, alongside a linear factor $(x - r)$:
 

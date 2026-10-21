@@ -10,6 +10,10 @@ enables: ["parametric-and-polar"]
 
 ## What Are Conic Sections?
 
+> [!definition] Conic sections
+> Intersecting a plane with a double cone can produce a **circle, ellipse, parabola or hyperbola**, depending on the cut. Algebraically, general conics satisfy a quadratic equation in two coordinates, possibly with a mixed term.
+
+
 A **conic section** is the curve formed when a plane intersects a double-napped cone (two identical cones joined at their tips). By varying the angle and position of the slicing plane, we get four distinct curves:
 
 1. **Circle**: the plane cuts perpendicular to the cone's axis
@@ -381,6 +385,10 @@ $$
 
 ## The General Second-Degree Equation
 
+> [!distinction] Quadratic type is not proof of a nondegenerate curve
+> For $Ax^2+Bxy+Cy^2+Dx+Ey+F=0$, the sign of $B^2-4AC$ classifies the **quadratic part**. It does not by itself guarantee a real, nondegenerate ellipse, parabola or hyperbola. Check for **empty sets, points, and pairs of lines** before assigning a geometric type.
+
+
 Every conic section (including degenerate cases) can be written in the form:
 
 $$
@@ -389,7 +397,7 @@ $$
 
 ### Identifying the Conic (When $B = 0$)
 
-When there is no $xy$ term, classification is straightforward:
+When there is no $xy$ term, the **quadratic part** gives a first classification. These cases describe **nondegenerate real conics** only after the remaining coefficients and the real solution set have been checked:
 
 | Condition | Conic |
 |---|---|
@@ -405,11 +413,11 @@ When there is no $xy$ term, classification is straightforward:
 - $3x^2 - 5y^2 - 15 = 0$: $A = 3$, $C = -5$ (opposite signs) $\Rightarrow$ **hyperbola**.
 - $y^2 - 4x = 0$: $A = 0$ (no $x^2$ term), $C = 1$ $\Rightarrow$ **parabola**.
 
-No completing-the-square is needed to name the curve: the signs and equality of $A$ and $C$ settle it immediately.
+In these **nondegenerate examples**, the coefficient signs already distinguish the curves. In general, completing the square or reducing the quadratic form may be necessary to check whether real points exist.
 
 ### The Discriminant (When $B \neq 0$)
 
-When the equation includes an $xy$ term, the **discriminant** $B^2 - 4AC$ determines the type:
+When the equation includes an $xy$ term, the **discriminant** $B^2-4AC$ classifies the type of the quadratic part. The familiar geometric names below assume the resulting conic is **real and nondegenerate**:
 
 | Discriminant | Conic |
 |---|---|
@@ -423,9 +431,13 @@ When the equation includes an $xy$ term, the **discriminant** $B^2 - 4AC$ determ
 - $x^2 + 2xy + y^2 + x - y = 0$: $A = 1$, $B = 2$, $C = 1$, so $B^2 - 4AC = 4 - 4 = 0 \Rightarrow$ **parabola** (note $x^2 + 2xy + y^2 = (x+y)^2$, a perfect square, the hallmark of the parabolic case).
 - $xy = 1$, i.e. $xy - 1 = 0$: $A = 0$, $B = 1$, $C = 0$, so $B^2 - 4AC = 1 - 0 = 1 > 0 \Rightarrow$ **hyperbola** (the familiar reciprocal curve $y = 1/x$ is a hyperbola whose axes are the $45^\circ$ lines).
 
-The discriminant is invariant under rotation, which is exactly why it can classify a conic without first straightening it. Removing it requires a rotation of axes, which is typically covered in more advanced courses.
+The discriminant is invariant under rotation, which is why it classifies the **quadratic part** without first straightening the axes. Degenerate or empty cases still need a separate check. Removing it requires a rotation of axes, which is typically covered in more advanced courses.
 
 ### Degenerate Conics
+
+> [!counterexample] Negative discriminant can describe a point or no real curve
+> $x^2+y^2=0$ has discriminant $-4$ but only the **origin** is a solution. $x^2+y^2+1=0$ also has discriminant $-4$ but **no real points**. Neither is an ordinary ellipse.
+
 
 Sometimes the general equation does not produce a curve at all. These **degenerate cases** occur when the plane passes through the apex of the cone:
 

@@ -4693,6 +4693,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Logarithms: nonpositive argument outside real domain",!Number.isFinite(Math.log(-2)));
 }
 
+// ================ Geometry and linear systems editorial audit ================
+// A few counterexamples guard the substantive corrections made during the
+// semantic migration. These checks are evidence for examples, not full proofs.
+{
+  const det2=(a,b,c,d)=>a*d-b*c;
+  // Both quadratic expressions have discriminant -4 but are not ellipses.
+  eq("Conics: x^2+y^2=0 discriminant",0-4*1*1,-4);
+  check("Conics: x^2+y^2=0 real solution only at origin",
+    [[0,0],[1,0],[0,1],[-1,1]].filter(([x,y])=>x*x+y*y===0).length===1);
+  check("Conics: x^2+y^2+1=0 has no real solutions",
+    Array.from({length:31},(_,k)=>(k-15)/3).every(x=>
+      Array.from({length:31},(_,k)=>(k-15)/3).every(y=>x*x+y*y+1>0)));
+  // A zero row need not imply a free variable: both are equivalent to x=2.
+  const rowA=[1,1,2],rowB=[0,1,2]; // rowB is 0*x+1*y=2.
+  const rowC=[1,0,2],rowD=[0,0,0]; // one free variable in two unknowns.
+  check("Linear systems: two pivots give unique solution",
+    det2(rowA[0],rowA[1],rowB[0],rowB[1])!==0);
+  check("Linear systems: consistent singular system has free variable",
+    det2(rowC[0],rowC[1],rowD[0],rowD[1])===0 && rowD[2]===0);
+  check("Linear systems: 0=1 is inconsistent",![0,0,1].slice(0,2).some(Boolean)&&[0,0,1][2]!==0);
+  // Positive definite Hessian at one point does not force global convexity.
+  // f(x)=x^2-x^4 has f''(0)=2, but f''(1)=-10.
+  const f2=x=>2-12*x*x;
+  check("Optimization: locally positive Hessian, not globally convex",
+    f2(0)>0&&f2(1)<0);
+  // Condition number one also holds for a nonorthogonal scalar multiple I.
+  const diagonal=[3,3],ratio=Math.max(...diagonal)/Math.min(...diagonal);
+  eq("Condition number: 3I has kappa2=1",ratio,1);
+  check("Condition number: 3I is not orthogonal",3*3!==1);
+  // The complex log has infinitely many values because exp(2π i k)=1.
+  for(const k of [-2,-1,0,1,2]){
+    check("Complex logarithm: e^(2pi i k)=1 k="+k,
+      approx(Math.cos(2*Math.PI*k),1,1e-12) &&
+      approx(Math.sin(2*Math.PI*k),0,1e-12));
+  }
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

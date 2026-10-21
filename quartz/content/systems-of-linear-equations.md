@@ -65,6 +65,10 @@ multiplies *x*~2~.
 
 ## Types of Solutions
 
+> [!distinction] Consistency and uniqueness are separate questions
+> A system can be **inconsistent** (no solution), **consistent with one solution**, or **consistent with free variables** (infinitely many solutions over $\mathbb R$). A zero row by itself does not decide which case occurs.
+
+
 A system of linear equations can have:
 
 **1. Exactly one solution (consistent and independent)**
@@ -369,6 +373,10 @@ $$
 
 ## Gaussian Elimination
 
+> [!proof-sketch] Why row operations preserve solutions
+> Swapping equations, multiplying an equation by a **nonzero** scalar, or adding a multiple of one equation to another preserves the system's solution set. The word **nonzero** matters: multiplying an equation by zero can destroy information.
+
+
 **Gaussian Elimination:** A systematic matrix method using forward elimination followed by back-substitution.
 
 **Process:**
@@ -494,6 +502,10 @@ $$
 
 ## Cramer's Rule
 
+> [!theorem] Cramer's rule applies only to invertible square systems
+> For a square coefficient matrix $A$ with $\det A\ne0$, each solution coordinate is a determinant ratio. When $\det A=0$, the rule is **not applicable**, but that alone does **not** decide whether the system is inconsistent or dependent.
+
+
 **Cramer's Rule:** For a square system, each variable equals a ratio of determinants. For the $2 \times 2$ system
 
 $$
@@ -523,6 +535,10 @@ So $a = \tfrac{14}{10} = 1.4$ and $o = \tfrac{19}{10} = 1.9$: an apple costs \$1
 
 ## Matrix Form and the Inverse-Matrix Method
 
+> [!distinction] The inverse formula requires a square nonsingular matrix
+> $x=A^{-1}b$ applies only when $A$ is **square and invertible**. Rectangular systems and singular systems require rank and consistency analysis rather than division by a matrix.
+
+
 Every linear system can be packaged as a single matrix equation
 
 $$
@@ -548,7 +564,7 @@ The same answer as Cramer's rule, which is no coincidence: Cramer's rule is exac
 
 **Infinitely Many Solutions:**
 
-If row operations produce a row of all zeros (like [0 0 | 0]), the system has infinitely many solutions.
+A row of all zeros (like [0 0 | 0]) expresses a **redundant equation**, not automatically infinitely many solutions. The system has infinitely many solutions over the reals **only if it is consistent and at least one variable remains free**. A contradictory row such as [0 0 | 1] instead means no solutions.
 
 **Example:**
 $$

@@ -6,6 +6,10 @@ enables: ["linear-algebra-foundations", "systems-of-linear-equations"]
 
 ## Why Matrices?
 
+> [!definition] Matrix
+> An $m\times n$ matrix is a rectangular family of entries with **$m$ rows and $n$ columns**. The shape determines which addition, multiplication and linear-map interpretations are valid.
+
+
 Whenever you organize numbers into a grid, you are already thinking in matrices. A spreadsheet of monthly sales figures for five products is a matrix with 12 columns (months) and 5 rows (products). A digital photo is a matrix of pixel values. Any time information has two natural indices (row and column, input and output, equation and variable), a matrix is the right container.
 
 The most important early use case is **systems of equations**. Suppose you need to solve:
@@ -114,6 +118,10 @@ $$3 \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} = \begin{bmatrix} 3 & 6 \\ 9 & 
 
 ## Matrix Multiplication
 
+> [!distinction] Inner dimensions must agree
+> The product $(m\times n)(n\times p)$ is defined and yields an $m\times p$ matrix. The reverse product may have a **different shape** or not exist at all, so matrix multiplication is generally **not commutative**.
+
+
 **Matrix Multiplication:** To multiply matrices $A$ (size $m \times n$) and $B$ (size $n \times p$), the **number of columns in A must equal the number of rows in B**.
 
 The result is a matrix $C$ of size $m \times p$.
@@ -216,6 +224,10 @@ $$A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \Rightarrow A^T = \be
 - $(cA)^T = cA^T$
 
 ## Inverse Matrix
+
+> [!theorem] Invertibility of a square matrix
+> A square matrix has an inverse exactly when it has **full rank**, equivalently a **nonzero determinant** over a field. Row reduction to the identity provides a constructive inversion test.
+
 
 **Inverse Matrix:** For a square matrix $A$, the inverse $A^{-1}$ (if it exists) satisfies:
 

@@ -63,7 +63,7 @@
       "path": "complex-numbers.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -72,7 +72,7 @@
       "path": "conic-sections.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -135,7 +135,7 @@
       "path": "euclidean-geometry.md",
       "kind": "topic",
       "track": "geometry-and-trigonometry",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -162,7 +162,7 @@
       "path": "geometry-trigonometry.md",
       "kind": "topic",
       "track": "geometry-and-trigonometry",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -261,7 +261,7 @@
       "path": "linear-algebra-computation.md",
       "kind": "topic",
       "track": "linear-algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -270,7 +270,7 @@
       "path": "linear-algebra-foundations.md",
       "kind": "topic",
       "track": "linear-algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -306,7 +306,7 @@
       "path": "matrices.md",
       "kind": "topic",
       "track": "linear-algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -351,7 +351,7 @@
       "path": "number-theory.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -378,7 +378,7 @@
       "path": "parametric-and-polar.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -387,7 +387,7 @@
       "path": "partial-fraction-decomposition.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -441,7 +441,7 @@
       "path": "prime-factorization.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -495,7 +495,7 @@
       "path": "sequences-and-series.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -540,7 +540,7 @@
       "path": "symbolic-methods-vs-numerical-methods.md",
       "kind": "topic",
       "track": "algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -558,7 +558,7 @@
       "path": "systems-of-linear-equations.md",
       "kind": "topic",
       "track": "linear-algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
@@ -567,7 +567,7 @@
       "path": "vector.md",
       "kind": "topic",
       "track": "linear-algebra",
-      "semanticReview": "pending",
+      "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"

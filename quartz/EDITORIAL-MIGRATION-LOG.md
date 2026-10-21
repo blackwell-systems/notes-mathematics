@@ -58,8 +58,36 @@ These are substantive clarifications, not aesthetic decoration. The ten chapters
 
 **Coverage after batch 3:** 23 pilot pages, 40 pending, 0 complete.
 
+## Batch 4: remaining elementary algebra, linear algebra and geometry (2026-10-20)
+
+| Article | Semantic emphasis |
+| --- | --- |
+| [Complex Numbers](./content/complex-numbers.md) | rectangular form, conjugation, multivalued complex logarithms |
+| [Conic Sections](./content/conic-sections.md) | conic definition, discriminant caveat, degenerate conics and empty real loci |
+| [Number Theory](./content/number-theory.md) | divisibility, congruence, inverses modulo n, element orders in Fermat's theorem |
+| [Prime Factorization](./content/prime-factorization.md) | primality, factorization uniqueness, gcd exponents |
+| [Partial Fraction Decomposition](./content/partial-fraction-decomposition.md) | proper fractions, repeated factors, irreducible quadratic numerators |
+| [Parametric & Polar](./content/parametric-and-polar.md) | curve orientation, parameter restrictions, nonunique polar coordinates |
+| [Sequences & Series](./content/sequences-and-series.md) | partial-sum convergence, the term test and harmonic divergence |
+| [Symbolic vs Numerical Methods](./content/symbolic-methods-vs-numerical-methods.md) | exact answers versus approximation, roundoff versus algorithmic error |
+| [Linear Algebra Foundations](./content/linear-algebra-foundations.md) | linear combinations, independence, vector-space axioms, four subspaces, eigenvectors |
+| [Linear Algebra for Computation](./content/linear-algebra-computation.md) | norms, basis changes, definiteness, condition numbers, factorizations |
+| [Matrices](./content/matrices.md) | shapes, products, inverse criteria |
+| [Vectors](./content/vector.md) | coordinate vectors, dot/cross products, projection restrictions |
+| [Systems of Linear Equations](./content/systems-of-linear-equations.md) | consistency versus uniqueness, elementary row operations, Cramer's rule |
+| [Euclidean Geometry](./content/euclidean-geometry.md) | primitive objects, parallel axiom, similarity versus congruence, isometries |
+| [Geometry & Trigonometry](./content/geometry-trigonometry.md) | radians, Pythagorean hypotheses, the unit circle, identity domains |
+
+**Substantive corrections:**
+
+- The [Conic Sections](./content/conic-sections.md) table now distinguishes **classification of the quadratic part** from an actual real, nondegenerate conic. $x^2+y^2=0$ gives a point and $x^2+y^2+1=0$ gives no real points despite the same negative quadratic discriminant.
+- [Systems of Linear Equations](./content/systems-of-linear-equations.md) no longer treats any all-zero row as evidence of infinitely many solutions. **Consistency plus at least one free variable** are both necessary for infinitely many solutions over the reals.
+- [Linear Algebra for Computation](./content/linear-algebra-computation.md) now distinguishes a positive-definite Hessian **at one point** from positive-semidefinite Hessians **throughout a convex domain**, and distinguishes matrix condition number one from the narrower class of orthogonal matrices. Numerical regression checks cover counterexamples.
+
+**Coverage after batch 4:** 38 pilot pages, 25 pending, 0 fully reviewed. Responsive, dark-theme and diagram reviews remain pending. These editorial markers do not certify proof correctness.
+
 ## Site-wide baseline
 
-There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 3, **23 pages are pilots**, **40 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
+There are 63 tracked Markdown pages, including 61 topic articles, the index, and the guided learning path. All receive global layout and typographic styling. After batches 1 through 4, **38 pages are pilots**, **25 await semantic migration**, and **zero are marked completely reviewed**. The parser-based inventory can be regenerated with `npm run editorial:report`; its counts represent structural candidates, not certified mathematical results.
 
-Next batches should proceed through the remaining algebra topics, analysis, linear algebra, geometry, probability/statistics and advanced material, as documented in [Editorial rollout](./EDITORIAL-ROLLOUT.md).
+Next batches should cover calculus, analysis, probability/statistics, discrete mathematics, advanced material, and the navigation pages, as documented in [Editorial rollout](./EDITORIAL-ROLLOUT.md).

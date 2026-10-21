@@ -10,6 +10,10 @@ enables: ["differential-equations", "optimization"]
 
 ## Symbolic Methods
 
+> [!definition] Symbolic method
+> A symbolic method transforms formulas to produce an **exact expression**, when one can be found. Exact representation is not the same as a guarantee that evaluating it is numerically stable.
+
+
 **Symbolic Methods:** Symbolic methods involve manipulating mathematical
 expressions algebraically to find exact solutions. These methods rely on
 **symbolic computation**, where the results are expressed in terms of
@@ -44,6 +48,10 @@ Ex:
 
 ## Numerical Methods
 
+> [!definition] Numerical method
+> A numerical method produces a **numerical approximation** using finite computational steps. Accuracy, convergence and error bounds are separate mathematical obligations.
+
+
 **Numerical Methods:** Numerical methods involve approximating solutions
 through iterative algorithms and numerical computations. The results are
 given as approximate numerical values.
@@ -69,6 +77,10 @@ Ex:
     convergence.
 
 ## Worked Example: Three Methods Find $\sqrt{2}$
+
+> [!distinction] Approximation error versus representation error
+> A numerical result can differ from the target because the algorithm has not converged fully or because finite-precision arithmetic introduces **roundoff**. Track both instead of treating the number of displayed digits as a guarantee of accuracy.
+
 
 Nothing shows the difference between these methods like running all three on the *same* problem. We solve $f(x) = x^2 - 2 = 0$, whose positive root is $\sqrt{2} = 1.41421356\ldots$ (an [irrational number](./number-systems) with no finite decimal, so a numerical method is genuinely needed).
 

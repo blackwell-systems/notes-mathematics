@@ -14,6 +14,10 @@ Number theory is about understanding the patterns and structure hidden in the wh
 
 ## Divisibility
 
+> [!definition] Divisibility in the integers
+> For integers $a,b$, $a\mid b$ means that **some integer $k$** satisfies $b=ak$. It is not an assertion that a fractional quotient is an integer without proof.
+
+
 **Divisibility:** An integer **a** is divisible by an integer **b** (where $b \neq 0$) if there exists an integer **k** such that $a = bk$.
 
 **Notation:** $b \mid a$ (read as "b divides a")
@@ -96,6 +100,10 @@ $$\gcd(a, b) \times \text{lcm}(a, b) = a \times b$$
 The picture explains the identity $\gcd \times \operatorname{lcm} = a \times b$: the gcd collects the prime factors *shared* by both numbers (the overlap), the lcm collects *every* prime factor that appears in either (the union), and multiplying them counts every prime factor of $a$ and of $b$ exactly once each, which is just $a \times b$.
 
 ## Modular Arithmetic
+
+> [!definition] Congruence modulo n
+> For $n>0$, $a\equiv b\pmod n$ means $n\mid(a-b)$. Congruence describes **equivalence classes of integers**, and addition and multiplication respect this relation.
+
 
 **Modular Arithmetic:** A system of arithmetic for integers where numbers "wrap around" after reaching a certain value (the modulus). Modular arithmetic is the foundation of modern cryptography (RSA) and hash functions in computer science.
 
@@ -187,6 +195,10 @@ Reading the color patterns: in the addition table each value slides one step per
 
 ### Modular Inverses
 
+> [!theorem] Criterion for a modular inverse
+> The residue of $a$ has a multiplicative inverse modulo $n$ **if and only if** $\gcd(a,n)=1$. Bézout's identity supplies the inverse when the gcd is one.
+
+
 **Modular Inverse:** An integer **a** has a multiplicative inverse modulo **n** if there exists an integer **x** such that $ax \equiv 1 \pmod{n}$.
 
 **Notation:** $a^{-1} \pmod{n}$
@@ -264,6 +276,10 @@ The trick is that the binary digits of the exponent tell you exactly which squar
 **Why it is efficient:** Square-and-multiply performs one squaring per bit of the exponent, so it uses $O(\log b)$ modular multiplications, versus $O(b)$ for the naive approach of multiplying by $a$ one factor at a time. This exponential speedup is what makes cryptosystems like RSA practical, since they raise numbers to exponents with hundreds of digits.
 
 ### Fermat's Little Theorem
+
+> [!distinction] Group order is not necessarily element order
+> For prime $p$, every nonzero residue has a multiplicative order dividing $p-1$. It **need not generate every residue**. Lagrange's theorem yields $a^{p-1}\equiv1\pmod p$ without assuming full-period cycles.
+
 
 **Fermat's Little Theorem:** If **p** is prime and $\gcd(a, p) = 1$, then:
 $$a^{p-1} \equiv 1 \pmod{p}$$

@@ -34,6 +34,10 @@ direction.
 
 ## Writing Vectors
 
+> [!definition] Vector in a coordinate space
+> A vector in $\mathbb R^n$ is an ordered $n$-tuple of real components. In abstract linear algebra, vectors need not be arrows in physical space; they are elements of any vector space.
+
+
 **Writing Vectors:**
 
 -   **Boldface notation:** **v**, **u**, **w**
@@ -236,6 +240,10 @@ Check: $|\hat{\mathbf{v}}| = \sqrt{\left(\frac{3}{5}\right)^2 + \left(\frac{4}{5
 
 ### Dot Product (Scalar Product)
 
+> [!definition] Dot product
+> In $\mathbb R^n$, $u\cdot v=\sum_i u_i v_i$ is a **scalar**. For nonzero vectors, $u\cdot v=\|u\|\|v\|\cos\theta$ relates it to their angle.
+
+
 **Meaning first:** The dot product measures how much two vectors align, since $\mathbf{a} \cdot \mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta$. It is positive when the vectors point in similar directions, zero when they are perpendicular, and negative when they point in opposing directions.
 
 Drag the two vectors below to build intuition for all the operations at once: sum, difference, dot product, the angle between them, the projection of one onto the other, and the 2D cross product (the signed area of the parallelogram they span).
@@ -288,6 +296,10 @@ $$
 $$
 
 ### Cross Product (Vector Product)
+
+> [!distinction] Cross product is not a generic operation on all vectors
+> The familiar vector-valued cross product is defined for **three-dimensional Euclidean vectors**. Its direction depends on the orientation convention, and $u\times v$ is generally **not** equal to $v\times u$.
+
 
 **Cross Product:** For 3D vectors $\mathbf{u} = \langle u_1, u_2, u_3 \rangle$ and $\mathbf{v} = \langle v_1, v_2, v_3 \rangle$:
 
@@ -345,6 +357,10 @@ $$
 - Torque in physics
 
 ### Projection
+
+> [!distinction] Projection onto a zero vector is undefined in the usual formula
+> $\operatorname{proj}_v(u)=(u\cdot v)/(v\cdot v)\,v$ requires **$v\ne0$**. Projecting onto a subspace is a more general operation, but division by $\|v\|^2$ cannot be used for a zero direction.
+
 
 **Vector Projection:** The projection of **u** onto **v** is:
 

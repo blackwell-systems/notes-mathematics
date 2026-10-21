@@ -17,6 +17,10 @@ Both are standard precalculus capstones, and both feed directly into [calculus](
 
 ## Part 1: Parametric Equations
 
+> [!definition] Parametric curve
+> A parametrization assigns a point $(x(t),y(t))$ to **each allowed parameter value** $t$. A parametrized curve carries **orientation and multiplicity of traversal**, data which may be lost when eliminating $t$.
+
+
 ### The Idea: A Curve as a Path
 
 Instead of relating $y$ to $x$ directly, introduce a **parameter** $t$ (read "tee", almost always thought of as time) and give *both* coordinates as functions of it:
@@ -34,6 +38,10 @@ As $t$ runs over its allowed values, the point $(x, y) = (f(t), g(t))$ traces ou
 A crucial feature that $y = f(x)$ lacks: a parametric curve is **oriented**. Because $t$ increases, the curve is traced in a definite direction, usually shown with an arrow. The same geometric curve can be parametrized in many ways, with different speeds and directions. This extra information (which way, how fast) is exactly what makes parametric form the natural language for *motion*.
 
 ### Eliminating the Parameter
+
+> [!distinction] Cartesian equation may describe extra points
+> Eliminating $t$ can produce an implicit equation with **more points** than the actual parameter range traces. Preserve parameter restrictions and check whether the path covers the full implicit curve.
+
 
 To see the underlying curve as a relation between $x$ and $y$, solve for $t$ in one equation and substitute into the other, or use an identity to cancel $t$.
 
@@ -92,6 +100,10 @@ read "r comma theta", where $r$ (read "r", the **radius** or radial distance) is
 **Example.** The point $(r, \theta) = (2, 60°)$ sits $2$ units from the pole along the ray pointing $60°$ counterclockwise from the polar axis.
 
 ### Polar Coordinates Are Not Unique
+
+> [!example] Different polar pairs can represent one point
+> $(r,\theta)$ and $(r,\theta+2\pi k)$ describe the same point for integer $k$. Also $(-r,\theta+\pi)$ describes the same point as $(r,\theta)$. Polar coordinates are **not unique labels** of geometric points.
+
 
 Unlike Cartesian coordinates, a single point has *infinitely many* polar names. Two conventions cause this:
 

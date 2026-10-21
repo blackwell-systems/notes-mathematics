@@ -31,6 +31,10 @@ Studying sequences helps us understand patterns. Studying series helps us comput
 
 ## Definitions
 
+> [!definition] Sequence versus series
+> A **sequence** is an ordered family of terms $a_n$. A **series** is the formal sum $\sum a_n$, whose convergence is determined by the **sequence of partial sums**, not merely by individual terms shrinking.
+
+
 **Sequence:** An ordered list of numbers following a pattern or rule. Each number in the sequence is called a **term**. A sequence can be finite or infinite.
 
 **Notation:** A sequence is written as $\{a_n\}$ or $(a_1, a_2, a_3, \ldots)$, where $a_n$ is the **general term** (also called the **nth term formula**) that defines the value at position $n$.
@@ -655,6 +659,10 @@ By induction, $2^n > n$ for all $n \geq 1$. $\blacksquare$
 
 ## Formal Definition of Series Convergence
 
+> [!definition] Convergence of an infinite series
+> The series $\sum_{n=1}^\infty a_n$ converges to $L$ when its partial sums $S_N=\sum_{n=1}^{N}a_n$ satisfy $S_N\to L$ as $N\to\infty$.
+
+
 The infinite geometric series section above showed that some infinite sums have finite values. Here we make this idea precise for any series, not just geometric ones.
 
 **Partial Sum:** The $n$th partial sum of a series is the sum of the first $n$ terms:
@@ -673,6 +681,10 @@ $$
 
 ### The $n$th Term Test (Divergence Test)
 
+> [!distinction] Terms tending to zero is necessary, not sufficient
+> If a series converges, its terms satisfy $a_n\to0$. But $\sum_{n=1}^\infty1/n$ **diverges** even though $1/n\to0$. The term test can establish divergence, never convergence on its own.
+
+
 This is the simplest test and often the first one to apply:
 
 **If $\lim_{n \to \infty} a_n \neq 0$, then $\sum a_n$ diverges.**
@@ -684,6 +696,10 @@ The logic: if the terms are not shrinking toward zero, the partial sums cannot s
 **Critical warning:** The converse is NOT true. Having $a_n \to 0$ does not guarantee convergence. The harmonic series (below) is the classic counterexample.
 
 ## Harmonic Series
+
+> [!counterexample] Vanishing terms but divergent sum
+> The harmonic series demonstrates why **small terms** do not guarantee a finite accumulated total. Grouping its terms into blocks produces infinitely many contributions of at least $1/2$.
+
 
 **Harmonic Series:**
 

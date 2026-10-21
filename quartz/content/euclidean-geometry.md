@@ -12,6 +12,10 @@ Geometry is the study of shape, size, position, and space. This page builds the 
 
 ## The Building Blocks: Point, Line, Plane
 
+> [!definition] Primitive objects of Euclidean geometry
+> Axiomatic geometry starts with **points, lines, planes and incidence relationships**. They need not be identified with coordinates until a model is introduced.
+
+
 Every mathematical system has to start somewhere. If you try to define every term using earlier terms, you eventually run in a circle or never stop. Euclidean geometry breaks the regress by leaving three terms **undefined**, describing them only by how they behave. These are the primitive notions from which everything else is built.
 
 - A **point** has a location but no size: no length, width, or thickness. It marks a position. We label points with capital letters: $A$, $B$, $P$.
@@ -79,6 +83,10 @@ Check each: $37° + 53° = 90°$ ✓ and $37° + 143° = 180°$ ✓. Notice the 
 The four angles are $110°, 70°, 110°, 70°$, sweeping once around the crossing point. Check they total a full turn: $110° + 70° + 110° + 70° = 360°$ ✓.
 
 ## Euclid's Postulates
+
+> [!axiom] The parallel postulate is a choice of geometry
+> Euclidean geometry includes an assumption about parallels that is **not derivable** from the remaining standard incidence and congruence axioms. Changing that condition leads to non-Euclidean geometries.
+
 
 Euclid organized geometry into theorems proved from a short list of **postulates** (assumptions taken as true without proof) and **common notions** (general logical truths, such as "things equal to the same thing are equal to each other"). His five postulates are:
 
@@ -155,6 +163,10 @@ $$ 540° - 100° - 120° - 95° - 110° = 115°. $$
 Check: $100° + 120° + 95° + 110° + 115° = 540°$ ✓. (This pentagon is *not* regular — its angles differ — but the total is fixed regardless.)
 
 ## Triangles
+
+> [!distinction] Congruence versus similarity
+> **Congruent** triangles match in corresponding lengths and angles; **similar** triangles match in angles with side lengths related by a common scale. Similarity does not generally imply equal size.
+
 
 The triangle is the simplest polygon and the foundation of the rest of geometry, because every polygon can be cut into triangles.
 
@@ -283,6 +295,10 @@ where $V$ is the number of vertices, $E$ the number of edges, and $F$ the number
 A cube has $V = 8$, $E = 12$, $F = 6$, and indeed $8 - 12 + 6 = 2$. There are exactly **five** regular convex polyhedra, the **Platonic solids**: the tetrahedron, cube, octahedron, dodecahedron, and icosahedron. Other common solids include **prisms** (two parallel congruent bases joined by rectangles), **pyramids** (a base and a single apex), **cylinders**, **cones**, and **spheres**.
 
 ## Transformations and Symmetry
+
+> [!example] Isometries preserve distance
+> Translations, rotations and reflections preserve **Euclidean distances** and hence angles. General scaling preserves angles but usually **changes distances**, so it is a similarity rather than an isometry.
+
 
 A **transformation** moves or resizes a figure. A **rigid motion** (or **isometry**) preserves distance, so the image is congruent to the original. There are three basic rigid motions, plus a fourth that combines two of them:
 

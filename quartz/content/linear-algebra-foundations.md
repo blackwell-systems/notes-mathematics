@@ -257,6 +257,10 @@ This view connects linear algebra to functions, transformations, and ultimately 
 
 ## Linear Combinations
 
+> [!definition] Linear combination
+> A **linear combination** of vectors $v_1,\ldots,v_k$ is $\sum_{i=1}^k c_i v_i$ with scalar coefficients $c_i$. The **span** is the set of all these combinations.
+
+
 **Linear Combination:** A linear combination of vectors $v_1, v_2, \ldots, v_n$ is any expression of the form:
 
 $$
@@ -294,6 +298,10 @@ The span of the columns of a matrix $A$ is the column space of $A$. This is the 
 
 ## Linear Independence
 
+> [!definition] Linear independence
+> Vectors $v_1,\ldots,v_k$ are linearly independent when $\sum c_i v_i=0$ forces **every coefficient** $c_i=0$. Independence is a property of the **collection**, not the size of any one vector.
+
+
 **Linear Independence:** Vectors $v_1, v_2, \ldots, v_n$ are linearly independent if the only solution to:
 
 $$
@@ -319,6 +327,10 @@ No. $v_2 = 3v_1$, so $3v_1 - v_2 = 0$ gives a nontrivial solution. They are depe
 ![Independent vectors span all of R², dependent vectors only span a line](./media/linear-independence.png)
 
 ## Vector Spaces and Subspaces
+
+> [!axiom] Vector-space structure
+> Vector addition forms an **abelian group** and scalar multiplication obeys compatibility, unit and distributivity laws. A subspace inherits all axioms once it contains zero and is closed under addition and scalar multiplication.
+
 
 ### Vector Space
 
@@ -467,6 +479,10 @@ $$
 **Example (same $A$).** With $A = \begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$ we need $y$ with $A^T y = 0$, that is $\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}\begin{bmatrix} y_1 \\ y_2 \end{bmatrix} = 0$. Both rows say the same thing (the second is $3\times$ the first): $y_1 + 2y_2 = 0$, so $y_1 = -2y_2$ and the left null space is all multiples of $\begin{bmatrix} -2 \\ 1 \end{bmatrix}$, of dimension $m - r = 2 - 1 = 1$. Check that it kills $A$ from the left: $y^T A = \begin{bmatrix} -2 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix} = \begin{bmatrix} 0 & 0 \end{bmatrix}$. ✓
 
 ### The Fundamental Theorem of Linear Algebra
+
+> [!theorem] Four fundamental subspaces
+> For an $m\times n$ matrix of rank $r$, the row and column spaces have dimension $r$, while the null and left-null spaces have dimensions $n-r$ and $m-r$. Their **orthogonal-complement relations** explain solvability and nonuniqueness.
+
 
 For an $m \times n$ matrix $A$ of rank $r$:
 
@@ -676,6 +692,10 @@ $$
 Both determinants are nonzero, so both matrices are invertible.
 
 ## Eigenvalues and Eigenvectors
+
+> [!definition] Eigenvector and eigenvalue
+> A **nonzero** vector $v$ is an eigenvector of $A$ with eigenvalue $\lambda$ if $Av=\lambda v$. The zero vector is deliberately excluded because it would satisfy this equation for every $\lambda$.
+
 
 ### The Core Idea
 

@@ -12,6 +12,10 @@ This page builds on [Linear Algebra Foundations](./linear-algebra-foundations) a
 
 ## Norms: Measuring Size
 
+> [!definition] Norm
+> A norm is **nonnegative**, zero **only** at the zero vector, **absolutely homogeneous**, and satisfies the **triangle inequality**. Formulas called norms must meet every axiom.
+
+
 We already know how to compute the length of a vector using the distance formula: $\|v\| = \sqrt{v_1^2 + v_2^2}$. A **norm** generalizes this idea. It is any function that takes a vector and returns a single non-negative number representing the vector's "size."
 
 Why do we need more than one way to measure size? Because different problems care about different things. Sometimes you care about the straight-line distance. Sometimes you care about how many components are nonzero. Sometimes you care about the largest component.
@@ -121,6 +125,10 @@ Different norms give different distance functions. The L2 distance is Euclidean 
 **Example.** For $u = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $v = \begin{bmatrix} 4 \\ 6 \end{bmatrix}$, the difference is $u - v = \begin{bmatrix} -3 \\ -4 \end{bmatrix}$, so the L2 (Euclidean) distance is $\sqrt{9 + 16} = 5$ while the L1 (Manhattan) distance is $3 + 4 = 7$.
 
 ## Change of Basis
+
+> [!distinction] Changing coordinates is not moving the vector
+> A change of basis replaces the **coordinate description** of a fixed vector or linear map. It need not rotate or move the geometric object itself.
+
 
 ### The Idea
 
@@ -263,6 +271,10 @@ Gram-Schmidt is not just a procedure. It is the key idea behind QR factorization
 
 ## Matrix Factorizations
 
+> [!example] Match the factorization to the matrix
+> LU handles suitable elimination with pivoting; QR is valuable for least squares; Cholesky requires a **symmetric positive definite** matrix. Checking the factorization's hypotheses is as important as using its formula.
+
+
 Matrix factorizations (also called decompositions) break a matrix into a product of simpler matrices. This is how linear algebra is actually done on computers. You almost never compute $A^{-1}$ directly; instead, you factor $A$ and use the factors to solve problems efficiently.
 
 ### LU Factorization
@@ -394,6 +406,10 @@ The factorization succeeded (all the square roots were of positive numbers) prec
 
 ## Positive Definite Matrices
 
+> [!definition] Positive definiteness
+> For a **real symmetric** matrix $A$, positive definiteness means $x^TAx>0$ for every nonzero $x$. The symmetry hypothesis is essential to the familiar eigenvalue and Cholesky equivalences.
+
+
 ### What They Are
 
 A symmetric matrix $A$ is **positive definite** if for every nonzero vector $x$:
@@ -415,7 +431,7 @@ Think of the quadratic form $f(x) = x^T A x$ as a surface over $\mathbb{R}^n$.
 - **Indefinite:** The surface is a saddle. It curves up in some directions and down in others.
 - **Positive semidefinite:** A bowl that is flat along some directions (a valley bottom rather than a point bottom).
 
-This directly connects to optimization: a function with a positive definite Hessian is convex (bowl-shaped), so gradient descent will find the global minimum.
+This connects to optimization: if the Hessian is **positive semidefinite everywhere on a convex domain**, a twice-differentiable function is convex. Positive definiteness at **one point** alone only gives local information; it does not guarantee a global minimum or convergence of an arbitrary gradient-descent procedure.
 
 ### Equivalent Conditions
 
@@ -423,7 +439,7 @@ A symmetric matrix $A$ is positive definite if and only if any one of these hold
 
 1. $x^T A x > 0$ for all nonzero $x$
 2. All eigenvalues of $A$ are positive: $\lambda_i > 0$
-3. All pivots in elimination are positive
+3. All pivots in **Gaussian elimination without row exchanges** are positive
 4. $A$ has a Cholesky factorization $A = LL^T$
 5. $A = B^T B$ for some matrix $B$ with independent columns
 
@@ -461,6 +477,10 @@ Can this ever be zero (for nonzero $x$)? Completing the square: $2(x_1 + \frac{1
 
 ## Condition Number
 
+> [!distinction] Sensitivity is not the same as a solver's error
+> A condition number describes how a mathematical problem can amplify relative input changes. **Algorithmic stability** is a separate question: a numerically unstable implementation can lose accuracy even for a well-conditioned problem.
+
+
 ### The Problem
 
 Not all systems $Ax = b$ are equally easy to solve numerically. Some matrices amplify small errors in $b$ into large errors in $x$. Others keep errors under control. The condition number quantifies this.
@@ -489,7 +509,7 @@ $$
 \frac{\|\Delta x\|}{\|x\|} \leq \kappa(A) \cdot \frac{\|\Delta b\|}{\|b\|}
 $$
 
-- $\kappa(A) = 1$: Perfect. Orthogonal matrices. Errors in $b$ are not amplified at all.
+- $\kappa(A) = 1$: Best possible relative sensitivity for a nonsingular matrix in the 2-norm. This includes **nonzero scalar multiples of orthogonal matrices**, not just orthogonal matrices themselves.
 - $\kappa(A) \approx 1$: Well-conditioned. Safe to solve numerically.
 - $\kappa(A) = 10^k$: You lose about $k$ digits of precision when solving. If you have 16 digits of floating-point precision and $\kappa = 10^8$, your answer is only accurate to about 8 digits.
 - $\kappa(A) = \infty$: Singular matrix. No unique solution exists.

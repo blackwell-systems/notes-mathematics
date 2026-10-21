@@ -12,6 +12,10 @@ Prime factorization is a core tool in [Number Theory](./number-theory), where it
 
 ## What Are Prime Numbers?
 
+> [!definition] Prime number
+> An integer $p>1$ is prime when its only positive divisors are $1$ and $p$. The number $1$ is **not prime**, a convention needed for a unique factorization.
+
+
 **Prime number:** A whole number greater than 1 that is divisible only by 1 and itself. The first several primes are $2, 3, 5, 7, 11, 13, 17, 19, 23, \ldots$
 
 A number that is not prime (and is greater than 1) is called a **composite number**. For example, $12$ is composite because $12 = 3 \times 4$.
@@ -61,6 +65,10 @@ Because every composite number has a unique prime factorization, there
 is only one way to reduce a composite number into a product of primes.
 
 ## Canonical Form
+
+> [!theorem] Uniqueness of prime factorization
+> Each integer $n>1$ has a prime factorization unique **up to the order of its factors**. Ordering the distinct primes and grouping repetitions into exponents supplies a canonical form.
+
 
 When writing prime factorizations, we use **canonical form** (also called standard form): group repeated primes using exponents and list the prime bases in increasing order.
 
@@ -273,6 +281,10 @@ The same three steps shown above for numbers up to 30 extend to 100 in the pictu
 Every composite number $n$ has a prime factor $p \leq \sqrt{n}$. So by the time we have crossed out multiples of all primes up to $\sqrt{n}$, every composite has been eliminated. What remains must be prime.
 
 ## GCD via Prime Factorization
+
+> [!example] Use the smaller exponents for a gcd
+> If $a=\prod p^{\alpha_p}$ and $b=\prod p^{\beta_p}$ over all primes appearing in either number, then $\gcd(a,b)=\prod p^{\min(\alpha_p,\beta_p)}$. A missing prime contributes exponent zero.
+
 
 The **greatest common divisor (GCD)** of two numbers can be found by comparing their prime factorizations. For each prime that appears in both factorizations, take the **minimum** exponent.
 

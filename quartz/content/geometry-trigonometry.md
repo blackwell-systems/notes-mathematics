@@ -68,6 +68,10 @@ $$
 
 ## Angles
 
+> [!definition] Angle measure and radians
+> A radian is defined by **arc length divided by radius** on a circle. Angles measured in radians make trigonometric derivatives and periodicity formulas work in their simplest form.
+
+
 ### What is an Angle?
 
 An **angle** is formed by two rays (called **arms** or **sides**) that share a common endpoint called the **vertex**. The measure of an angle describes the amount of rotation from one ray to the other.
@@ -239,6 +243,10 @@ $$
 An **oblique triangle** is any triangle that does not contain a right angle (so it is either acute or obtuse).
 
 ### The Pythagorean Theorem
+
+> [!theorem] Pythagorean theorem
+> In a **right triangle**, the square of the hypotenuse length equals the **sum** of the squares of the leg lengths: $c^2=a^2+b^2$. The right-angle hypothesis is essential.
+
 
 For a right triangle with legs $a$ and $b$ and hypotenuse $c$:
 
@@ -542,6 +550,10 @@ $$
 
 ## The Unit Circle
 
+> [!definition] Unit-circle trigonometry
+> The point at angle $\theta$ on the unit circle has coordinates $(\cos\theta,\sin\theta)$. This extends sine and cosine to **all real angles**, not just acute angles in right triangles.
+
+
 Drag the point around the circle below to see how sine, cosine, and tangent are read directly off the coordinates, in both degrees and radians:
 
 <iframe src="/static/interactive/unit-circle-explorer.html" width="100%" height="560" style="border:none;"></iframe>
@@ -737,6 +749,10 @@ $$
 - $\tan(-\theta) = -\tan\theta$ (tangent is **odd**)
 
 ## Trigonometric Identities
+
+> [!distinction] An identity is not a universally defined expression
+> Identities like $\tan\theta=\sin\theta/\cos\theta$ hold **where the denominator is nonzero**. A claimed equality cannot silently extend through an input at which one side is undefined.
+
 
 ### Pythagorean Identities
 

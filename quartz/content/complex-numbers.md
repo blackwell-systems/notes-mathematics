@@ -36,6 +36,10 @@ The primary motivation was the **Fundamental Theorem of Algebra**: every polynom
 
 ## Definition
 
+> [!definition] Complex numbers in rectangular form
+> A complex number is $z=a+bi$ with $a,b\in\mathbb R$ and $i^2=-1$. Its real and imaginary parts are **real numbers**; $bi$ is not a separate kind of arithmetic.
+
+
 **Complex number:** A complex number is a combination of a real number and an imaginary number, written in the form $a + bi$ where $a$ and $b$ are real and $i^2 = -1$. The real number $a$ is the **real part** and the real number $b$ is the **imaginary part**.
 
 Complex numbers allow solutions to all polynomial equations, even those that have no solutions among the real numbers.
@@ -162,6 +166,10 @@ $$\frac{a + bi}{c + di} = \frac{a + bi}{c + di} \cdot \frac{c - di}{c - di}$$
 $$= \frac{(2 + 3i)(1 - 2i)}{(1 + 2i)(1 - 2i)} = \frac{8 - i}{5} = \frac{8}{5} - \frac{1}{5}i$$
 
 ## Complex Conjugate
+
+> [!definition] Complex conjugation
+> For $z=a+bi$, the conjugate is $\overline z=a-bi$. Their product $z\overline z=a^2+b^2$ is a **nonnegative real**, giving a route to inverses when $z\ne0$.
+
 
 **Complex Conjugate:** The conjugate of $z = a + bi$ is:
 
@@ -368,6 +376,10 @@ Explore this yourself: change the number $z$ and the root order $n$ below and wa
 <iframe src="/static/interactive/complex-nth-roots.html" width="100%" height="600" style="border:none;"></iframe>
 
 ## The Complex Exponential and Logarithm
+
+> [!distinction] The complex logarithm is multivalued
+> The periodicity $e^{i(\theta+2\pi k)}=e^{i\theta}$ means a nonzero complex number has logarithm values differing by $2\pi i k$. A **principal branch** chooses one value after making a branch convention.
+
 
 Euler's formula extends the exponential to any complex input. Writing $z = x + iy$,
 
