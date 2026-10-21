@@ -373,7 +373,7 @@ article:has(.ed-opt-in) {
 
 // Switch between distinct diagram layouts rather than shrinking desktop text.
 // Both variants have meaningful alternative text and contain the same facts.
-article p:has(> img[src*="pl-truth-axes-mobile.svg"]) {
+article p:has(img[src*="pl-truth-axes-mobile.svg"]) {
   display: none;
 }
 
@@ -385,11 +385,11 @@ article img[src*="pl-truth-axes-mobile.svg"] {
 }
 
 @media screen and (max-width: 760px) {
-  article p:has(> img[src*="pl-truth-axes.svg"]) {
+  article p:has(img[src*="pl-truth-axes.svg"]) {
     display: none;
   }
 
-  article p:has(> img[src*="pl-truth-axes-mobile.svg"]) {
+  article p:has(img[src*="pl-truth-axes-mobile.svg"]) {
     display: block;
     margin-block: 1rem 0.6rem;
   }
