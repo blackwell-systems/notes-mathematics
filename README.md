@@ -51,7 +51,7 @@ singular learning theory). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently
-366 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
+368 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
 a page's own worked example so the figure and the prose cannot drift apart.
 
 Broad areas covered:
@@ -77,7 +77,7 @@ Broad areas covered:
 Most pages embed self-contained interactive widgets (vanilla JS + `<canvas>`, no
 external dependencies) that live in
 [`quartz/quartz/static/interactive/`](./quartz/quartz/static/interactive/):
-**73 widgets across 43 pages**, including a Gaussian-elimination stepper, an
+**74 widgets across 44 pages**, including a Gaussian-elimination stepper, an
 eccentricity morph for conic sections, a BFS/DFS graph explorer, and growth-rate
 comparisons. Each widget sizes its own frame to its content, so nothing needs a
 scrollbar.
@@ -87,8 +87,8 @@ Every push runs two CI gates before deploy:
 - **Quality gate** (`quartz/scripts/check-quality.mjs`) — fails on KaTeX render
   errors, broken internal links or `#anchors`, broken image references, and empty
   image alt text (ratcheted to zero).
-- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 56 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
-  - [**Diagram guide and complete 38-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
+- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 58 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
+  - [**Diagram guide and complete 58-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
 - **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
   numeric worked example in the notes from scratch (over 1,000 assertions, including recursive-arithmetic regression checks).
   When you add or change a worked example, add or adjust an assertion so it stays
@@ -125,7 +125,7 @@ notes-mathematics/
 │   │   ├── index.md         # Landing page + reading-order guide
 │   │   ├── set-theory.md
 │   │   ├── ...
-│   │   ├── media/           # Images and diagrams (~366 figures)
+│   │   ├── media/           # Images and diagrams (~368 figures)
 │   │   └── review-status.json  # Prose/proof review ledger
 │   ├── quartz/static/interactive/  # Self-contained interactive widgets
 │   ├── scripts/             # CI gates (quality + arithmetic), review tooling, build injectors

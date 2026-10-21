@@ -47,7 +47,7 @@ The notation $\forall x\in\mathbb R,\ P(x)$ is conventional shorthand for $\fora
 
 Choose an expression, then select its highlighted parts. For each part, the reader gives its role, pronunciation, and contribution to the whole. The examples move from quantified statements to sets, functions, and sums.
 
-<iframe src="/static/interactive/notation-expression-reader.html" title="Interactive reader for mathematical expressions, showing symbols, their pronunciation, and their role" width="100%" height="590" style="border:none;"></iframe>
+<iframe src="./static/interactive/notation-expression-reader.html" title="Interactive reader for mathematical expressions, showing symbols, their pronunciation, and their role" width="100%" height="590" style="border:none;"></iframe>
 
 ## The grammar behind the symbols
 
