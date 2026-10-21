@@ -4590,6 +4590,80 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("LAF: eigenvalue product 5*2 = det = 10", 5 * 2, 4 * 3 - 1 * 2);
 }
 
+// ================ Group theory worked examples ================
+// Finite exhaustive checks are useful for discovering counterexamples; the
+// universal proofs are in the three group-theory chapters.
+{
+  const compose=(p,q)=>p.map((_,i)=>p[q[i]]); // p after q
+  const identity=[0,1,2];
+  const key=p=>p.join(",");
+  const same=(a,b)=>key(a)===key(b);
+  const perms=[];
+  for(let a=0;a<3;a++)for(let b=0;b<3;b++)for(let c=0;c<3;c++)
+    if(new Set([a,b,c]).size===3)perms.push([a,b,c]);
+  eq("GT: S3 has 6 permutations",perms.length,6);
+  const inverse=p=>perms.find(q=>same(compose(p,q),identity)&&same(compose(q,p),identity));
+  let associative=true,invertible=true,closure=true,triples=0;
+  const all=new Set(perms.map(key));
+  for(const p of perms) {
+    invertible &&= !!inverse(p);
+    for(const q of perms) {
+      closure &&= all.has(key(compose(p,q)));
+      for(const t of perms) {
+        associative &&= same(compose(compose(p,q),t),compose(p,compose(q,t)));
+        triples++;
+      }
+    }
+  }
+  check("GT: composition closed in S3",closure);
+  check("GT: each S3 permutation has inverse",invertible);
+  check("GT: all S3 associativity cases",associative);
+  eq("GT: triple cases checked",triples,216);
+  const rotation=[1,2,0],reflection=[1,0,2],rot2=compose(rotation,rotation);
+  check("GT: S3 is nonabelian",!same(compose(rotation,reflection),compose(reflection,rotation)));
+  const N=[identity,rotation,rot2]; // normal rotation subgroup
+  const coset=g=>N.map(n=>key(compose(g,n))).sort().join("|");
+  let normalCosetsWellDefined=true;
+  let representativeChecks=0;
+  for(const p of perms)for(const q of perms)for(const n1 of N)for(const n2 of N){
+    const original=coset(compose(p,q));
+    const changed=coset(compose(compose(p,n1),compose(q,n2)));
+    normalCosetsWellDefined &&= original===changed;
+    representativeChecks++;
+  }
+  check("GT: normal-subgroup quotient multiplication is representative-independent",normalCosetsWellDefined);
+  eq("GT: quotient representative comparisons",representativeChecks,324);
+  const reflectSubgroup=[identity,reflection];
+  const reflCoset=g=>reflectSubgroup.map(h=>key(compose(g,h))).sort().join("|");
+  check("GT: nonnormal subgroup coset operation fails",reflCoset(compose(reflection,rotation))!==reflCoset(rotation));
+  const vertexOrbit=new Set(perms.map(p=>p[0]));
+  const vertexStabilizer=perms.filter(p=>p[0]===0);
+  eq("GT: S3 vertex orbit size",vertexOrbit.size,3);
+  eq("GT: S3 vertex stabilizer size",vertexStabilizer.length,2);
+  eq("GT: orbit-stabilizer product",vertexOrbit.size*vertexStabilizer.length,6);
+  const conj=(g,x)=>compose(compose(g,x),inverse(g));
+  const conjugacy=perms.map(x=>new Set(perms.map(g=>key(conj(g,x)))).size);
+  check("GT: S3 conjugacy class sizes are 1,2,3",conjugacy.includes(1)&&conjugacy.includes(2)&&conjugacy.includes(3));
+  const rotationFixedCounts=[0,1,2,3].map(k=>{
+    let fixed=0;
+    for(let mask=0;mask<16;mask++){
+      let allFixed=true;
+      for(let i=0;i<4;i++)if(((mask>>i)&1)!==((mask>>((i+k)%4))&1))allFixed=false;
+      if(allFixed)fixed++;
+    }
+    return fixed;
+  });
+  check("GT: square rotation fixed-coloring counts",rotationFixedCounts.join(",")==="16,2,4,2");
+  eq("GT: Burnside square two-color orbits",rotationFixedCounts.reduce((a,b)=>a+b,0)/4,6);
+  const modPow=(a,n,p)=>{let result=1;for(let i=0;i<n;i++)result=result*a%p;return result;};
+  eq("GT: 2 has multiplicative order 3 mod 7",modPow(2,3,7),1);
+  eq("GT: 2 squared mod 7",modPow(2,2,7),4);
+  for(let a=1;a<7;a++)check("GT: Fermat a="+a+" mod 7",modPow(a,6,7)===1);
+  const subgroup=(a,n)=>new Set(Array.from({length:n},(_,k)=>k*a%n));
+  eq("GT: 5 generates Z/12",subgroup(5,12).size,12);
+  eq("GT: 4 generates a 3-element subgroup of Z/12",subgroup(4,12).size,3);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

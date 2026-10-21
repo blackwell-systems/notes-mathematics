@@ -1,11 +1,11 @@
 ---
 title: "Algebraic Structures"
-prerequisites: ["number-systems"]
+prerequisites: ["number-systems", "group-theory-foundations"]
 enables: ["linear-algebra-foundations", "algebraic-geometry"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Number Systems](./number-systems)
+> **Builds on:** [Number Systems](./number-systems) · [Group Theory Foundations](./group-theory-foundations)
 > **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Algebraic Geometry](./algebraic-geometry)
 
 
@@ -84,6 +84,9 @@ Look again at what we actually used. The derivations above never mentioned that 
 The three patterns you meet first are the group, the ring, and the field. Each is just a set together with operations satisfying a prescribed subset of the axioms above.
 
 ### Group
+
+For full derivations of group properties, subgroup tests, cyclic groups, cosets and Lagrange's theorem, begin with [Group Theory Foundations](./group-theory-foundations). Normal subgroups, well-defined quotient operations and the isomorphism theorems follow in [Homomorphisms and Quotient Groups](./group-homomorphisms-quotients); geometric and permutation examples are developed in [Group Actions and Symmetry](./group-actions-symmetry).
+
 
 ![Two Cayley tables, each showing a finite group's entire operation as a grid: the integers modulo 4 under addition, and the nonzero elements of the field F5 under multiplication modulo 5. The identity is highlighted, and because each value appears exactly once in every row and column (a Latin square) every element has a unique inverse; in F5, 2 times 3 equals 1, so the inverse of 2 is 3](./media/as-group-cayley-table.png)
 
@@ -169,7 +172,7 @@ Naming the structures is half the story; the other half is how they relate to on
 
 A **homomorphism** (read "homo-morph-ism," meaning "same shape") is a map $\varphi: G \to H$ between two structures of the same kind that respects the operation:
 $$\varphi(a * b) = \varphi(a) \star \varphi(b),$$
-where $*$ is the operation in $G$ and $\star$ the one in $H$. It carries the *pattern* of $G$ faithfully into $H$: combine-then-map and map-then-combine land in the same place.
+where $*$ is the operation in $G$ and $\star$ the one in $H$. It preserves the **operation**, but need not preserve distinct elements: combine-then-map and map-then-combine land in the same place. A homomorphism is *faithful* (injective) only when its kernel is trivial, as proved in [Homomorphisms and Quotient Groups](./group-homomorphisms-quotients).
 
 **Worked example: reduction modulo $4$.** Define $\varphi: (\mathbb{Z}, +) \to (\mathbb{Z}/4\mathbb{Z}, +)$ by $\varphi(n) = n \bmod 4$. Is it a homomorphism? Check $\varphi(a + b) = \varphi(a) + \varphi(b)$ on $a = 5, b = 6$: the left side is $\varphi(11) = 11 \bmod 4 = 3$, and the right side is $\varphi(5) + \varphi(6) = 1 + 2 = 3$. They agree, and in general $(a + b) \bmod 4 = \big((a \bmod 4) + (b \bmod 4)\big) \bmod 4$, so reduction *is* a homomorphism: it copies the addition of $\mathbb{Z}$ faithfully onto the four-element clock.
 
@@ -179,7 +182,7 @@ A homomorphism that is also a *bijection* is an **isomorphism**, and two isomorp
 
 A **subgroup** is a subset $H \subseteq G$ that is itself a group under $G$'s operation: it contains the identity and is closed under both the operation and inverses.
 
-**Worked example: the even integers.** Inside $(\mathbb{Z}, +)$, the even integers $2\mathbb{Z} = \{\ldots, -2, 0, 2, 4, \ldots\}$ form a subgroup, since even $+$ even $=$ even (closed), $0$ is even (identity), and the negative of an even number is even (inverses). The *odd* integers do not: they miss $0$, and odd $+$ odd $=$ even leaks out of the set. Sliding the subgroup over by one, $1 + 2\mathbb{Z} = \{\text{odds}\}$, gives its one other **coset**, and the two cosets, evens and odds, partition $\mathbb{Z}$ into exactly the two elements of $\mathbb{Z}/2\mathbb{Z}$. A subgroup's cosets always partition the group into equal-sized blocks (this holds for any group, finite or not, as the evens/odds split of $\mathbb{Z}$ shows). When the group is *finite*, that tiling forces the subgroup's size to divide the group's, which is **Lagrange's theorem**.
+**Worked example: the even integers.** Inside $(\mathbb{Z}, +)$, the even integers $2\mathbb{Z} = \{\ldots, -2, 0, 2, 4, \ldots\}$ form a subgroup, since even $+$ even $=$ even (closed), $0$ is even (identity), and the negative of an even number is even (inverses). The *odd* integers do not: they miss $0$, and odd $+$ odd $=$ even leaks out of the set. Sliding the subgroup over by one, $1 + 2\mathbb{Z} = \{\text{odds}\}$, gives its one other **coset**, and the two cosets, evens and odds, partition $\mathbb{Z}$ into exactly the two elements of $\mathbb{Z}/2\mathbb{Z}$. A subgroup's cosets always partition the group into equal-sized blocks (this holds for any group, finite or not, as the evens/odds split of $\mathbb{Z}$ shows). When the group is *finite*, that tiling forces the subgroup's size to divide the group's, which is **Lagrange's theorem**, proved by counting equal-size cosets in [Group Theory Foundations](./group-theory-foundations).
 
 ## Where these structures show up
 

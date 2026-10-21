@@ -272,7 +272,7 @@ $$a^{p-1} \equiv 1 \pmod{p}$$
 
 ![A directed cycle illustrating Fermat's little theorem for base 3 modulo 7. Six nodes, the nonzero residues, are arranged on a circle in the order the powers of 3 visit them: 3, then 2, then 6, then 4, then 5, then 1, and an arrow back to 3. Each arrow is labeled times 3, and each node carries the power that produces it, so 3 is 3 to the 1, 2 is 3 squared, 6 is 3 cubed, 4 is 3 to the 4th, 5 is 3 to the 5th, and 1 is 3 to the 6th. The node 1 is highlighted, marking that after six multiplications the cycle returns to 1.](./media/nt-fermat-cycle.png)
 
-The picture is the theorem: repeatedly multiplying by $3$ modulo $7$ marches through all six nonzero residues and lands back on $1$ after exactly $p-1 = 6$ steps, which is precisely the statement $3^{6} \equiv 1 \pmod 7$. Because every $a$ coprime to $p$ generates such a returning walk, $a^{p-1} \equiv 1 \pmod p$ in general.
+The picture is the theorem: repeatedly multiplying by $3$ modulo $7$ marches through all six nonzero residues and lands back on $1$ after exactly $p-1 = 6$ steps, which is precisely the statement $3^{6} \equiv 1 \pmod 7$. The element $3$ happens to generate all six nonzero residues modulo $7$. Not every nonzero residue does: the powers of $2$ are $2,4,1$, repeating after just three steps. The correct general reason is [Lagrange's theorem](./group-theory-foundations): the multiplicative order of **any** nonzero residue modulo prime $p$ divides the size $p-1$ of the nonzero-residue group. Therefore $a^{p-1}\equiv1\pmod p$ even when $a$ does not generate all nonzero residues.
 
 **Application - Computing modular inverses:**
 If p is prime and $\gcd(a, p) = 1$, then:

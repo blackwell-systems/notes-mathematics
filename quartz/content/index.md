@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **59 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **62 topics** across 13 branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -38,6 +38,8 @@ Functions, then work through the function types) → Linear Algebra
 
    For a single ordered trail to the last item, follow the [Path to SLT](./path-to-slt).
 
+The [group-theory branch](./group-theory-foundations) can begin after sets and functions, in parallel with the natural-to-complex number-system construction chain. The branches reconnect at [Algebraic Structures](./algebraic-structures). Neither real completeness nor complex algebraic closure is needed to prove the group axioms.
+
 ## Logic & Proofs
 
 - [Mathematical Notations](./mathematical-notations) (symbols, conventions, proof notation)
@@ -57,9 +59,15 @@ Functions, then work through the function types) → Linear Algebra
 - [Construction of the Reals](./construction-of-the-reals) (Cauchy completion, field and order laws, proof of completeness)
 - [Construction of the Complex Numbers](./construction-of-the-complex-numbers) (pair arithmetic, inverses, ordering obstruction, algebraic closure)
 - [Number Systems](./number-systems) (naturals through complex, the building-up story, rational/algebraic/transcendental)
-- [Algebraic Structures](./algebraic-structures) (field and order axioms, derived rules, groups/rings/fields)
 - [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) (quaternions, octonions, Cayley-Dickson, dual numbers, p-adics, surreals)
 - [Number Bases](./number-bases) (binary, octal, hexadecimal, conversions, two's complement, floating point)
+
+## Group Theory
+
+- [Group Theory Foundations](./group-theory-foundations) (group axioms, cancellation, subgroups, cyclic groups, cosets, Lagrange, Fermat)
+- [Homomorphisms and Quotient Groups](./group-homomorphisms-quotients) (normality, kernels, quotient well-definedness, isomorphism theorems, direct products)
+- [Group Actions and Symmetry](./group-actions-symmetry) (permutations, Cayley, orbit-stabilizer, dihedral groups, conjugacy, Burnside)
+- [Algebraic Structures](./algebraic-structures) (group, ring, and field laws; bridge from constructions to abstractions)
 
 ## Algebra
 

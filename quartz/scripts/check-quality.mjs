@@ -38,6 +38,9 @@ const FOUNDATION_PAGES = new Set([
   "construction-of-the-rationals.md",
   "construction-of-the-reals.md",
   "construction-of-the-complex-numbers.md",
+  "group-theory-foundations.md",
+  "group-homomorphisms-quotients.md",
+  "group-actions-symmetry.md",
 ]);
 for (const f of mdFiles) {
   if (!FOUNDATION_PAGES.has(f)) continue;
