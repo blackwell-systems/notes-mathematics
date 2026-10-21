@@ -189,7 +189,7 @@ An algebraic extension need not have *finite overall degree*; the theorem only a
 
 ## Adjoining a root without assuming it exists
 
-![Polynomial ring K[x] quotiented by an irreducible polynomial f; the class of x becomes a root in a field.](./media/ft-adjoin-polynomial-root.svg)
+![A polynomial ring over field K quotiented by an irreducible polynomial f; the class of the variable x becomes a root in the resulting field.](./media/ft-adjoin-polynomial-root.svg)
 
 *Figure: A root is constructed by a quotient rather than being assumed to exist in the original field.*
 
