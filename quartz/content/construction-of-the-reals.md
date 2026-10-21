@@ -8,15 +8,23 @@ enables: ["construction-of-the-complex-numbers", "real-analysis"]
 > **Builds on:** [Construction of the Rationals](./construction-of-the-rationals), the ordered-field laws and the rational Cauchy criterion
 > **Leads to:** [Construction of the Complex Numbers](./construction-of-the-complex-numbers) · [Real Analysis](./real-analysis) · [Number Systems](./number-systems)
 
+<div class="ed-opt-in" aria-hidden="true"></div>
+
 The rationals form an ordered field: addition, subtraction, multiplication, and nonzero division work correctly. But being able to calculate every **finite fraction** does not guarantee that a sequence of improving approximations converges to a number in the same system. The rational bisections around a hypothetical square root of two are Cauchy, yet no rational number can be their limit.
 
-Our next goal is to construct a field in which **every Cauchy sequence converges**. We will use *only rationals* to build it. Then we will prove that this new field has the order, completeness, and familiar real-number properties needed for analysis.
+Our next goal is to construct a field in which <span class="ed-term ed-term--theorem">every Cauchy sequence converges</span>. We will use *only rationals* to build it. Then we will prove that this new field has the order, completeness, and familiar real-number properties needed for analysis.
+
+> [!distinction] Avoid a circular construction
+> **Completeness is what we are building, not a premise we may borrow.** Before the reals exist, statements about limits must use only rational inequalities and rational tolerances. Every later completeness claim must be derived from that construction.
 
 The essential warning is that **completeness cannot be presumed halfway through its own construction**. Every appearance of a limit before the real numbers exist must be a definition involving rational tolerances, not a hidden invocation of real analysis.
 
 ## The input: rational Cauchy sequences
 
 A **sequence of rationals** is a function $x:\mathbb N\to\mathbb Q$. We write $x_n$ for its value at index $n$, read "x sub n." Starting the index at zero or one does not affect the construction.
+
+> [!definition] Rational Cauchy sequence
+> A rational sequence is **Cauchy** when its sufficiently late terms become arbitrarily close **to one another**. This definition does *not* require us to name a limit in $\mathbb R$.
 
 A rational sequence $(x_n)$ is **Cauchy** if
 
@@ -47,7 +55,7 @@ $$
 
 Read $x\sim y$ as "x is equivalent to y." The condition says "$x_n-y_n$ tends to zero" **in the rational epsilon sense**; it does not claim the sequence has a pre-existing real limit.
 
-This is an equivalence relation:
+This is an <span class="ed-term ed-term--definition">equivalence relation</span>:
 
 - **Reflexive:** $|x_n-x_n|=0<\varepsilon$ for any positive $\varepsilon$.
 - **Symmetric:** $|x_n-y_n|=|y_n-x_n|$.
@@ -312,6 +320,10 @@ Thus every real can be approximated arbitrarily closely by a rational. We did no
 
 ## Proving completeness: the central result
 
+> [!theorem] Completeness of the constructed real field
+> Every Cauchy sequence of **real equivalence classes** converges to a real equivalence class. This is proved from our rational-sequence construction rather than assumed as an axiom.
+
+
 Up to this point we have proved that $\mathbb R$ is an Archimedean ordered field. Now we justify the defining reason for constructing it: **every real Cauchy sequence converges to a real**.
 
 A sequence $(X_k)$ of reals is called Cauchy if, for every positive rational $\varepsilon$, there is $K$ such that $|X_m-X_n|<\varepsilon$ for all $m,n\geq K$. Rational tolerances suffice because positive rationals can be found smaller than any positive real, using rational density.
@@ -394,6 +406,10 @@ Therefore $L=\sup A$.
 We have now constructed an **ordered field satisfying the least-upper-bound property**, rather than writing a completeness axiom and leaving its justification at an intuitive "number line without gaps."
 
 ## Building the square root of two inside the new field
+
+> [!example] Where completion adds something
+> Rational approximations to $\sqrt{2}$ get arbitrarily close to one another, but there is **no rational** whose square is $2$. Their new Cauchy equivalence class has a real limit; the construction supplies the missing object.
+
 
 Let
 
@@ -492,6 +508,10 @@ Because $\mathbb R$ is a field it has no zero divisors. Either $u=v$ or $u+v=0$.
 We may now **define** $\sqrt t$ (read "the nonnegative square root of t") for *every* $t\geq0$, not only $t=2$. This theorem justifies the later modulus formula $\sqrt{a^2+b^2}$ in [Construction of the Complex Numbers](./construction-of-the-complex-numbers). It also identifies the exact dependency: arbitrary real square roots are consequences of completeness and ordered-field laws, not independent arithmetic axioms.
 
 ## Dedekind cuts as a second representation
+
+> [!proof] Keep the dependency visible
+> We prove that the cuts represent the same complete ordered field using the **Cauchy-constructed reals**. The cut order also has an intrinsic union-based completeness proof. This section is an alternative **representation**, not a second logically independent field-existence proof.
+
 
 The Cauchy quotient is our **independent** construction of $\mathbb R$. Dedekind cuts offer a different set of objects. We will specify their arithmetic and prove that it yields the **same ordered field** by comparison with the reals already constructed. This comparison is rigorous, but it is **not an independent existence proof** of the real numbers.
 

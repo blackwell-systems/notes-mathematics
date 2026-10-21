@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 1510" role="img" aria-labelledby="title desc">
+<title id="title">Three independent distinctions used to classify truths</title>
+<desc id="desc">Portrait diagram. Modality: necessary or contingent, what could have been different? Meaning: analytic or synthetic, what makes the claim true? Knowledge: a priori or a posteriori, how can it be justified? Logical truth is a narrower form-based property, not a fourth competing axis. These labels may overlap.</desc>
+<defs>
+<style>
+.bg{fill:#111923}.line{stroke:#3d4b5b;stroke-width:2}
+.over{font:700 21px system-ui,sans-serif;letter-spacing:3px;fill:#a5b5c7}
+.title{font:750 42px system-ui,sans-serif;fill:#f2f3f0;letter-spacing:-1.1px}
+.subtitle{font:400 27px system-ui,sans-serif;fill:#c3cfdd}
+.index{font:700 25px system-ui,sans-serif;fill:#8da0b5}
+.lane{font:720 35px system-ui,sans-serif;fill:#f0f3f7}
+.question{font:400 27px system-ui,sans-serif;fill:#bbcad9}
+.term{font:680 32px system-ui,sans-serif;fill:#fcfcfb}
+.def{font:400 24px system-ui,sans-serif;fill:#d4dce5}
+.info{font:400 25px system-ui,sans-serif;fill:#d9e4ee}
+</style>
+</defs>
+<rect width="680" height="1510" rx="23" class="bg"/>
+<path d="M39 50H641" class="line"/>
+<text x="43" y="99" class="over">TRUTH / CONCEPT MAP</text>
+<text x="43" y="166" class="title">Three different questions.</text>
+<text x="43" y="210" class="subtitle">Not three kinds on one ladder.</text>
+<g transform="translate(39 266)">
+  <text x="5" y="29" class="index">01</text>
+  <text x="62" y="29" class="lane">MODALITY</text>
+  <text x="5" y="70" class="question">Could the claim have been false?</text>
+  <rect x="5" y="94" width="290" height="157" rx="14" fill="#342b49" stroke="#aa8be0" stroke-width="2"/>
+  <rect x="313" y="94" width="290" height="157" rx="14" fill="#222d3b" stroke="#687a90" stroke-width="2"/>
+  <text x="25" y="155" class="term">Necessary</text>
+  <text x="25" y="195" class="def">True in all relevant</text><text x="25" y="225" class="def">possible worlds</text>
+  <text x="333" y="155" class="term">Contingent</text>
+  <text x="333" y="195" class="def">Could have</text><text x="333" y="225" class="def">been false</text>
+</g>
+<path d="M44 550H636" class="line"/>
+<g transform="translate(39 585)">
+  <text x="5" y="29" class="index">02</text>
+  <text x="62" y="29" class="lane">MEANING</text>
+  <text x="5" y="70" class="question">What makes the claim true?</text>
+  <rect x="5" y="94" width="290" height="157" rx="14" fill="#193b39" stroke="#6acbbb" stroke-width="2"/>
+  <rect x="313" y="94" width="290" height="157" rx="14" fill="#222d3b" stroke="#687a90" stroke-width="2"/>
+  <text x="25" y="155" class="term">Analytic</text>
+  <text x="25" y="195" class="def">By meaning</text><text x="25" y="225" class="def">or definition</text>
+  <text x="333" y="155" class="term">Synthetic</text>
+  <text x="333" y="195" class="def">Not from</text><text x="333" y="225" class="def">meaning alone</text>
+</g>
+<path d="M44 869H636" class="line"/>
+<g transform="translate(39 904)">
+  <text x="5" y="29" class="index">03</text>
+  <text x="62" y="29" class="lane">KNOWLEDGE</text>
+  <text x="5" y="70" class="question">How is the claim justified?</text>
+  <rect x="5" y="94" width="290" height="157" rx="14" fill="#43331f" stroke="#e6b975" stroke-width="2"/>
+  <rect x="313" y="94" width="290" height="157" rx="14" fill="#222d3b" stroke="#687a90" stroke-width="2"/>
+  <text x="25" y="155" class="term">A priori</text>
+  <text x="25" y="195" class="def">Without empirical</text><text x="25" y="225" class="def">investigation</text>
+  <text x="333" y="155" class="term">A posteriori</text>
+  <text x="333" y="195" class="def">Grounded in</text><text x="333" y="225" class="def">experience</text>
+</g>
+<rect x="44" y="1196" width="592" height="215" rx="15" fill="#213344" stroke="#83afe0" stroke-width="2"/>
+<circle cx="76" cy="1247" r="10" fill="#87b9e7"/>
+<text x="105" y="1261" class="lane">LOGICAL TRUTH</text>
+<text x="70" y="1313" class="info">True because of logical form:</text>
+<text x="70" y="1350" class="info">P or not P, for every truth value of P.</text>
+<path d="M44 1448H636" class="line"/>
+<text x="44" y="1484" class="subtitle">The distinctions overlap and are debated.</text>
+</svg>

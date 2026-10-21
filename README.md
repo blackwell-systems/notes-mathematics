@@ -39,9 +39,9 @@ The whole thing is built deliberately toward one destination — the foundations
 **singular learning theory** for interpretability research — which gives the
 otherwise-broad coverage a spine and a reading order.
 
-## Typography and concept-map prototype
+## Editorial design pilot
 
-The [Truth section of Propositional Logic](./quartz/content/propositional-logic-zeroth-order-logic.md#truth) demonstrates a semantic-color vocabulary, an explanatory diagram, more expressive heading hierarchy and comparison cards. See [Editorial keyword styling prototype](./quartz/EDITORIAL-STYLE-PROTOTYPE.md) for tokens, implementation details and accessibility requirements before considering a site-wide rollout.
+Three articles now opt into a reusable visual language for **definitions, theorems, proof ideas, distinctions, and examples**: [Propositional Logic: Truth](./quartz/content/propositional-logic-zeroth-order-logic.md#truth), [Group Theory Foundations](./quartz/content/group-theory-foundations.md), and [Construction of the Reals](./quartz/content/construction-of-the-reals.md). The Truth diagram has separate wide-screen and phone layouts. See [Editorial design pilot](./quartz/EDITORIAL-STYLE-PROTOTYPE.md) for implementation, semantics, and accessibility criteria before considering site-wide rollout.
 
 ## Content
 

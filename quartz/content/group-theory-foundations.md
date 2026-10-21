@@ -8,7 +8,9 @@ enables: ["group-homomorphisms-quotients", "algebraic-structures"]
 > **Builds on:** [Set Theory](./set-theory) (sets, subsets, partitions) · [Functions & Relations](./functions-relations) (maps, composition, bijections)
 > **Leads to:** [Homomorphisms & Quotient Groups](./group-homomorphisms-quotients) · [Algebraic Structures](./algebraic-structures)
 
-A group captures one kind of reversible behavior: combining actions in an associative way, having an action that does nothing, and being able to undo every action. The objects can be numbers, geometric transformations, permutations, matrices, or operations on a program state. None of these must commute.
+<div class="ed-opt-in" aria-hidden="true"></div>
+
+<span class="ed-term ed-term--definition">A group</span> captures one kind of reversible behavior: combining actions in an associative way, having an action that does nothing, and being able to undo every action. The objects can be numbers, geometric transformations, permutations, matrices, or operations on a program state. None of these must commute.
 
 This chapter starts with the **axioms** and derives the elementary theorems before studying subgroups, cyclic groups, cosets, and Lagrange's theorem. It does not require real-number completeness, complex numbers, or algebraic closure. Examples involving integers use the construction already developed in [Construction of the Integers](./construction-of-the-integers), but **the group axioms themselves require only sets, functions, and equality**.
 
@@ -22,6 +24,9 @@ $$
 
 Read $*$ as "the group operation" and $\times$ here as the Cartesian product. The codomain $G$ makes **closure** explicit: whenever $a,b\in G$, the result $a*b$ is in $G$. We often write $ab$ instead of $a*b$, but that juxtaposition need not mean ordinary multiplication.
 
+> [!definition] Group
+> A **group** is a set $G$ with a binary operation $*:G\times G\to G$ that is **associative**, has a two-sided **identity**, and gives every element a two-sided **inverse**. These are axioms; the cancellation rules and other familiar properties must be proved.
+
 A **group** $(G,*)$ satisfies three further conditions:
 
 1. **Associativity:** $(ab)c=a(bc)$ for every $a,b,c\in G$.
@@ -29,6 +34,9 @@ A **group** $(G,*)$ satisfies three further conditions:
 3. **Inverses:** for each $a\in G$ there is a $b\in G$ such that $ab=ba=e$.
 
 The symbol $e$ denotes the identity. The inverse will be written $a^{-1}$, read "a inverse," once uniqueness has been proved.
+
+> [!distinction] Associativity is not commutativity
+> **Associativity** permits regrouping: $(ab)c=a(bc)$. **Commutativity** permits reordering: $ab=ba$. Every group is associative, but only an **abelian group** is commutative. Those are different laws.
 
 The operation need not be commutative. A group satisfying $ab=ba$ for all $a,b$ is called **abelian**. The group axioms deliberately distinguish associativity, which is mandatory, from commutativity, which is optional.
 
@@ -78,6 +86,10 @@ $$
 and, in the other order, $(b^{-1}a^{-1})(ab)=e$. Uniqueness proves the formula. The order **reverses** when an entire product is inverted. Also $(a^{-1})^{-1}=a$ and $e^{-1}=e$ by inverse uniqueness.
 
 ### Cancellation is a theorem
+
+> [!proof] Derive cancellation from inverses
+> If $ab=ac$, **left-multiply** by $a^{-1}$ and regroup using associativity. Since $a^{-1}a=e$, both leading factors disappear and $b=c$. The hypothesis that $a$ belongs to a group supplies the inverse; cancellation is **not** an independent axiom.
+
 
 If $ab=ac$, multiply on the **left** by $a^{-1}$:
 
@@ -198,6 +210,10 @@ Two left cosets are either identical or disjoint. If $x\in aH\cap bH$, write $x=
 
 ### Lagrange's theorem, completely proved
 
+> [!theorem] Lagrange's theorem
+> For a **finite** group $G$ and subgroup $H$, the index of $H$ counts equal-sized left cosets, giving $|G|=[G:H]|H|$. In particular, the order of a subgroup divides the order of the group.
+
+
 For finite $G$, left multiplication $h\mapsto gh$ is a bijection $H\to gH$, with inverse $x\mapsto g^{-1}x$. Thus **every coset has exactly $|H|$ elements**. Here $|H|$ denotes the cardinality, read "the number of elements of H."
 
 Let $[G:H]$ (read "the index of H in G") be the number of distinct left cosets. The cosets partition $G$ into $[G:H]$ disjoint blocks of size $|H|$. Hence
@@ -206,7 +222,7 @@ $$
 \boxed{|G|=[G:H]\,|H|.}
 $$
 
-This is **Lagrange's theorem**. In particular, $|H|$ divides $|G|$.
+This is <span class="ed-term ed-term--theorem">Lagrange's theorem</span>. In particular, $|H|$ divides $|G|.
 
 Take $H=\langle a\rangle$. Its size is $\operatorname{ord}(a)$, so every element's order divides $|G|$. Consequently, for every $a$ in a finite group,
 
@@ -230,7 +246,8 @@ $$
 
 This is **Fermat's little theorem**, and it does **not** say every nonzero residue has order $p-1$. It only says its order **divides** $p-1$.
 
-**Worked counterexample:** modulo $7$, the powers of $2$ are $2,4,1$, so $\operatorname{ord}(2)=3$, yet $2^6=(2^3)^2\equiv1$. This distinction is the group-theoretic explanation behind the theorem.
+> [!example] Element order is not always group order
+> Modulo $7$, the powers of $2$ are $2,4,1$, so $\operatorname{ord}(2)=3$, yet $2^6=(2^3)^2\equiv1$. Lagrange establishes **divisibility of the order**, not that every nonidentity element generates the full group.
 
 ## What has been proved and what comes next?
 

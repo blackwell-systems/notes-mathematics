@@ -1,24 +1,108 @@
-# Editorial keyword styling prototype
+# Editorial design pilot: mathematics as a readable reference
 
-The **Truth** section of [Propositional Logic](./content/propositional-logic-zeroth-order-logic.md#truth) is the opt-in visual-language experiment for the site. It introduces an explanatory concept map, semantic emphasis for high-value terms, paired example cards, and deliberate heading hierarchy.
+The first rollout runs on **three deliberately different pages**, not the entire site:
 
-## The reusable pattern
+| Page | What it tests |
+| --- | --- |
+| [Propositional Logic: Truth](./content/propositional-logic-zeroth-order-logic.md#truth) | conceptual distinctions, mobile and desktop diagrams, definitions, comparative examples |
+| [Group Theory Foundations](./content/group-theory-foundations.md) | definitions, axioms, theorems, proof ideas, worked counterexamples |
+| [Construction of the Reals](./content/construction-of-the-reals.md) | long technical proofs, math display, explicit circularity warnings, dependencies |
 
-1. **Lead with a relationship, not a glossary.** Present a conceptual diagram showing which distinctions are orthogonal. Use prose underneath to state examples and qualifications.
-2. **Meaningful accent colors.** Use violet for modality (necessary/contingent), teal for meaning (analytic/synthetic), ochre for justification (a priori/a posteriori), and blue for logical form. A keyword must remain readable **without color**; its text always names the concept.
-3. **Editorial hierarchy.** A small uppercase overline introduces the diagram, an expressive sentence-style headline explains the main insight, and quieter descriptive text supplies limitations. Prefer tracking and type scale over decorating every heading.
-4. **Keyword annotation.** Use `<span class="truth-term truth-term--modal">necessary</span>` for a term carrying the modal accent, with analogous `--meaning`, `--knowledge`, and `--logic` modifiers. Inline highlighting should be sparse: first references, distinctions and important conceptual contrasts, not every occurrence.
-5. **Paired worked examples.** Use `truth-examples`, `truth-example` and their child classes for a side-by-side comparison that reflows to one column on narrow screens. Every accent is also spelled out as a label.
-6. **Accessibility and theme compatibility.** The diagram has a substantive alt description; the source is an SVG for crisp rendering, and the essential classification is also available in text. Cards use existing Quartz theme variables rather than forcing light-mode colors. Keyword accents use subtle backgrounds and underlines, not colored text alone.
+The pilot's changes are **opt-in** and should not recolor the rest of the site.
+
+## Content is the organizing principle
+
+Every visual emphasis must answer a question for the reader:
+
+| Content role | Visual role | Accent |
+| --- | --- | --- |
+| **Definition** | clean label, concise statement, later prose provides derivation | muted teal |
+| **Theorem** | identifiable claim, all hypotheses visible | muted violet |
+| **Proof idea** | neutral presentation separating claim from reasoning | quiet blue |
+| **Important distinction** | two easily confused things are different | ochre |
+| **Worked example** | context, computation, conclusion clearly distinguished | quiet blue |
+| **Key term in flowing prose** | small underline and faint fill, never color-only | role-specific |
+
+Color is a **secondary channel** to textual labels. It should never be used to encode truth, validity, correctness, or proof status without an explicit label.
+
+### Available Markdown notation
+
+These are native Quartz callouts; content remains Markdown so math, internal links, and code continue to render in the normal pipeline.
+
+~~~md
+> [!definition] Group
+> A **group** consists of a set, associative operation, identity and inverses.
+
+> [!theorem] Lagrange's theorem
+> For a **finite** group and a subgroup, the subgroup's order divides the group's order.
+
+> [!proof] Why cancellation follows
+> Use the inverse on the correct side and regroup using associativity.
+
+> [!distinction] Necessary is not analytic
+> **Necessary** concerns modal possibility; **analytic** concerns meaning.
+
+> [!example] Order of an element
+> The powers of 2 modulo 7 are 2, 4, 1, so the element has order 3.
+~~~
+
+The actual formal proof **must still appear** near a theorem; a labeled proof idea is not a certificate that a mathematical argument has been supplied.
+
+### Scope and typographic scale
+
+Each pilot page includes a tiny inert HTML marker:
+
+~~~html
+<div class="ed-opt-in" aria-hidden="true"></div>
+~~~
+
+In \`quartz/styles/custom.scss\`, the layout rules use \`article:has(.ed-opt-in)\` and only style this subset. Reusable callout styles depend on the native \`data-callout\` attribute and are scoped under the same selector. Inline \`ed-term\` annotations must be added intentionally in the source text.
+
+The scale is intentionally editorial rather than decorative:
+
+- **H2:** large, tightly tracked section titles and subtle dividers.
+- **H3:** strong but smaller subsection titles with extra whitespace.
+- **H4:** small independent subsection level, not another oversized headline.
+- **Overline:** a small uppercase label announcing a role.
+- **Body:** inherited Quartz reading font and color.
+- **Math:** retain full normal font size and allow narrow-view horizontal scrolling for wide displays.
+
+No new fonts or font downloads are introduced.
+
+## Truth concept map: mobile treatment
+
+The Truth section now supplies **two SVGs with the same content**:
+
+- \`content/media/pl-truth-axes.svg\`: wide desktop view of three axes.
+- \`content/media/pl-truth-axes-mobile.svg\`: portrait mobile view with larger, reflowed category labels.
+
+The media query at **760 px** swaps entire paragraph/image pairs, not merely an image dimension. Each SVG has a descriptive alternative text. It is important that **both** textual explanations below the image convey the distinctions for nonvisual users. The two variants are both ordinary Markdown images, not scripts or browser-dependent data.
+
+Semantic palettes used on this figure:
+
+- **Violet**, modality: necessary / contingent.
+- **Teal**, meaning: analytic / synthetic.
+- **Ochre**, justification: a priori / a posteriori.
+- **Blue**, logical form, which is *not* a fourth alternative pair.
+
+The diagram is **not** a taxonomy claiming that philosophers agree these relationships are fixed. The page explicitly distinguishes accepted logical definitions from philosophically contested classifications.
+
+## Before a site-wide rollout
+
+Verify these six things on the pilot pages before moving the opt-in marker to additional topics:
+
+1. **Light and dark theme:** contrast for terms, callout outlines, title labels, and normal links.
+2. **320, 390, 768 and desktop widths:** no horizontal viewport overflow; SVG labels can be read without zooming.
+3. **Accessibility:** every diagram has an accurate alt description; labels survive monochrome rendering; callouts are not distinguished by color alone.
+4. **Math:** long displayed formulas remain readable; no KaTeX parsing errors; the actual theorems are not silently replaced by summaries.
+5. **Reading pace:** the distinctive callouts should be rare enough that body text still carries the chapter. Do not turn every paragraph into a card.
+6. **Proof-review ledger:** cosmetic changes and proof revisions should be differentiated. A successful CI build checks renderability and examples, **not** theorem correctness.
+
+After user review, either generalize the \`ed-*\` classes into a design-system module or trim them back. **Do not** flip a global selector that styles every bold word, every heading or every callout until the pilot is evaluated.
 
 ## Files
 
-- `content/propositional-logic-zeroth-order-logic.md`: prototype content, semantic classes, and accessible examples.
-- `content/media/pl-truth-axes.svg`: editable conceptual diagram.
-- `quartz/styles/custom.scss`: intentionally opt-in typography and component styles. Existing site typography remains unchanged.
-
-## Criteria for a site-wide rollout
-
-Review the prototype at desktop and phone widths, in light and dark themes, and with keyboard and screen-reader navigation. Check contrast, legibility of SVG labels on small screens, KaTeX rendering, and the existing quality gate. If adopted, rename the `truth-*` classes into generic design-system primitives and migrate pages selectively based on conceptual payoff. **Do not automatically color every bold word**: ordinary emphasis, technical definitions, warnings and mathematical assumptions have different roles.
-
-This is a **visual and copywriting prototype**, not approval to apply colors across every page without review. The underlying truth-classification terminology itself is philosophically disputed in places; design must display those qualifications rather than imply a settled taxonomy.
+- \`content/propositional-logic-zeroth-order-logic.md\`, \`content/group-theory-foundations.md\`, \`content/construction-of-the-reals.md\`: opted-in examples.
+- \`content/media/pl-truth-axes.svg\` and \`content/media/pl-truth-axes-mobile.svg\`: desktop/phone diagrams.
+- \`quartz/styles/custom.scss\`: intentionally scoped presentation rules.
+- \`scripts/check-quality.mjs\`: existing KaTeX/link/media guard, with the project arithmetic harness.
