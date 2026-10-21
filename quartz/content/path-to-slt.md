@@ -23,6 +23,8 @@ SLT is stated in the language of sets, functions, and logic. You cannot define t
 3. [Functions & Relations](./functions-relations) — a statistical model *is* a function from parameters to distributions; identifiability is the question of whether that function is one-to-one.
 4. [Number Systems](./number-systems) and [Algebraic Structures](./algebraic-structures) — the real numbers and their field/order axioms underlie every inequality and limit. The optional deeper algebra route is [Ring Theory Foundations](./ring-theory-foundations) → [Ideals & Quotient Rings](./ring-ideals-quotients) → [Field Theory Foundations](./field-theory-foundations), particularly useful before algebraic geometry. For the proof-level route, follow [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
 
+**Optional structural detour:** [Equivalence Relations](./equivalence-relations) develops classes, partitions, and quotients; [Order Theory](./order-theory) develops posets, lattices, and well-orders. These chapters deepen the general foundations but are not claimed as additional minimal SLT prerequisites.
+
 **What SLT takes from Stage 1:** the vocabulary to state the learning problem precisely, and the concept of injectivity, whose *failure* defines a singular model.
 
 ## Stage 2: Analysis, the Rigor Layer

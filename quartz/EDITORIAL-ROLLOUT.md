@@ -123,3 +123,8 @@ Diagrams require their own status; a page can pass semantic review while its dia
 All 73 Markdown pages must be present in the coverage manifest, and all review fields must be `complete` or valid `not-applicable`, with no blocking render, accessibility or mathematical regression. The global typography rollout alone does not satisfy this gate.
 
 **Next implementation work:** migrate the content group by group, add screenshot and accessibility checks as separate CI jobs, and only then mark individual pages complete. The manifest makes progress explicit rather than assuming that deployment means editorial approval.
+
+
+## Current inventory after relations/order additions (2026-10-21)
+
+Two new proof-oriented topic pages raise the current editorial manifest to **75 tracked pages**, including **73 topic pages**, all remaining at pilot semantic status. The diagram catalog now audits **61 SVGs across 21 chapters**. These counts supersede earlier batch snapshots above without declaring mathematical or responsive acceptance complete.

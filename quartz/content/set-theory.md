@@ -144,7 +144,7 @@ $$
 
 ### Subset as an Order: the Analogy with $\leq$ and $<$
 
-The pair $\subseteq$ / $\subsetneq$ behaves exactly like $\leq$ / $<$ on numbers. Both are **order relations** (see [partial and total orders](./functions-relations)), and lining them up makes each easier to remember:
+The pair $\subseteq$ / $\subsetneq$ behaves exactly like $\leq$ / $<$ on numbers. Both are **order relations** (see [partial and total orders](./order-theory)), and lining them up makes each easier to remember:
 
 | Numbers | Sets | Property |
 |---|---|---|
@@ -694,7 +694,7 @@ Formally: $\forall i, j : i \neq j \Rightarrow A_i \cap A_j = \varnothing$
 
 **Connection to Equivalence Relations:**
 
-Every equivalence relation on a set **A** induces a partition of **A** (the equivalence classes), and every partition of **A** induces an equivalence relation on **A**.
+Every equivalence relation on a set **A** induces a partition of **A** (its classes), and every partition induces an equivalence relation. See the two complete proofs in [Equivalence Relations and Quotients](./equivalence-relations#equivalence-relations-correspond-to-partitions).
 
 ## Countable vs Uncountable Sets
 

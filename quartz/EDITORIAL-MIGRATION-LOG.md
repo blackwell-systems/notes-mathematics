@@ -214,3 +214,10 @@ The next stage is not another wholesale semantic migration: perform **visual reg
 ## Conditional-logic four-form diagram (2026-10-21)
 
 The [Propositional Logic](./content/propositional-logic-zeroth-order-logic.md) conditional section now includes a new source-editable SVG linking implication to contrapositive and converse to inverse. The figure uses a universal divisibility example with an explicit witness (`n=2`) for both non-equivalent forms. The truth table now compares all four conditionals, and the prose corrects the misleading suggestion that the inverse follows from the original statement. The figure audit inventories 59 diagrams across 20 chapters. The arithmetic gate has bounded checks of the example. Visual and independent logical reviews remain pending.
+
+
+## Dedicated equivalence and order theory foundations (2026-10-21)
+
+Two full foundational chapters were added: [Equivalence Relations and Quotients](./content/equivalence-relations.md) and [Order Theory](./content/order-theory.md). The first proves class equality, the equivalence-partition correspondence in both directions, congruence, the induced equivalence relation of a function, and unique factorization through a quotient. The second proves the preorder quotient theorem, strict/non-strict order correspondence, divisibility as a poset, finite unique-maximal theorem, and an explicit order isomorphism. Maximal versus greatest, and the distinction between a four-element diamond lattice and a four-element bow-tie non-lattice, receive counterexamples.
+
+The original order and equivalence headings in [Functions & Relations](./content/functions-relations.md) remain as link-preserving signposts, while its generic relation properties and function treatment remain in place. Existing Hasse and class images are reused, and two new source-editable diagrams were registered. The review manifest now tracks **75 pages** and the original SVG audit tracks **61 diagrams across 21 chapters**. All new pages remain **pilot**, with mobile and dark-theme review pending.

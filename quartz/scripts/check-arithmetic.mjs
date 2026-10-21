@@ -72,6 +72,25 @@ function cpow(re, im, n) {
   check("converse false: two is even but not divisible by four",!implies(2%2===0,2%4===0));
   check("inverse false: two is not divisible by four but is even",!implies(!(2%4===0),!(2%2===0)));
 }
+// ============= Equivalence and Order Theory: bounded witnesses =============
+// These finite checks validate examples, not universal mathematical proofs.
+{
+  const mod=(x,n)=>((x%n)+n)%n;
+  for(let a=-9;a<=9;a++)for(let b=-9;b<=9;b++){
+    check("mod-three class agrees with divisibility",((a-b)%3===0)===(mod(a,3)===mod(b,3)));
+    check("mod-three squares respect class", ((a-b)%3!==0)||mod(a*a,3)===mod(b*b,3));
+  }
+  check("tolerance relation is nontransitive",Math.abs(0-0.6)<1&&Math.abs(0.6-1.2)<1&&!(Math.abs(0-1.2)<1));
+  const ds=[1,2,3,5,6,10,15,30],ps=[2,3,5],F=n=>ps.filter(p=>n%p===0);
+  check("divisors of 30 give eight subsets",new Set(ds.map(n=>F(n).join(","))).size===8);
+  for(const x of ds)for(const y of ds)
+    check("divisibility embeds into power set: "+x+","+y,(y%x===0)===F(x).every(p=>F(y).includes(p)));
+  check("divisibility 2 and 3 incomparable",3%2!==0&&2%3!==0);
+  const R={a:["a","c","d"],b:["b","c","d"],c:["c"],d:["d"]};
+  const bounds=Object.keys(R).filter(x=>R.a.includes(x)&&R.b.includes(x));
+  check("nonlattice bow-tie has no least upper bound",bounds.length===2&&!R.c.includes("d")&&!R.d.includes("c"));
+}
+
 // ================= Mathematical Notations =================
 // Recheck examples introduced by the opening notation reader.
 eq("notation grouped -(2+1)",-(2+1),-3);

@@ -70,6 +70,8 @@ So their composite is again a homomorphism. The identity function also preserves
 
 ### A partial order is a category
 
+The proofs for posets, preorders, and quotient orders are given in [Order Theory](./order-theory).
+
 For a partially ordered set $(P,\le)$, create one object per element and **exactly one morphism** $a\to b$ when $a\le b$, with no morphism otherwise. Reflexivity supplies identities. Transitivity supplies composition. Because there is at most one arrow between any two objects, associativity is automatic.
 
 This example is useful because an isomorphism $a\cong b$ requires both $a\le b$ and $b\le a$; antisymmetry then gives $a=b$. In a poset category, **isomorphic objects are equal**.
