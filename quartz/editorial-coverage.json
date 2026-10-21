@@ -1,0 +1,576 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "globalTypography": true,
+    "proofReviewIndependent": true
+  },
+  "pages": [
+    {
+      "path": "algebraic-geometry.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "algebraic-structures.md",
+      "kind": "topic",
+      "track": "group-theory",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "asymptotic-notation.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "bayesian-inference.md",
+      "kind": "topic",
+      "track": "statistics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "calculus.md",
+      "kind": "topic",
+      "track": "calculus",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "combination.md",
+      "kind": "topic",
+      "track": "combinatorics-and-probability",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "complex-numbers.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "conic-sections.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "construction-of-the-complex-numbers.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "construction-of-the-integers.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "construction-of-the-rationals.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "construction-of-the-reals.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "descriptive-statistics.md",
+      "kind": "topic",
+      "track": "statistics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "differential-equations.md",
+      "kind": "topic",
+      "track": "calculus",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "euclidean-geometry.md",
+      "kind": "topic",
+      "track": "geometry-and-trigonometry",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "exponential-functions.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "functions-relations.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "geometry-trigonometry.md",
+      "kind": "topic",
+      "track": "geometry-and-trigonometry",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "graph-theory.md",
+      "kind": "topic",
+      "track": "discrete-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "graphing-functions.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "group-actions-symmetry.md",
+      "kind": "topic",
+      "track": "group-theory",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "group-homomorphisms-quotients.md",
+      "kind": "topic",
+      "track": "group-theory",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "group-theory-foundations.md",
+      "kind": "topic",
+      "track": "group-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "hypercomplex-numbers.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "index.md",
+      "kind": "landing",
+      "track": "navigation",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "inequalities.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "inferential-statistics.md",
+      "kind": "topic",
+      "track": "statistics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "information-theory.md",
+      "kind": "topic",
+      "track": "information-theory",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "linear-algebra-computation.md",
+      "kind": "topic",
+      "track": "linear-algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "linear-algebra-foundations.md",
+      "kind": "topic",
+      "track": "linear-algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "linear-functions.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "logarithms.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "mathematical-notations.md",
+      "kind": "topic",
+      "track": "logic-and-proofs",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "matrices.md",
+      "kind": "topic",
+      "track": "linear-algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "measure-theory.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "multivariable-calculus.md",
+      "kind": "topic",
+      "track": "calculus",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "number-bases.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "number-systems.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "number-theory.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "optimization.md",
+      "kind": "topic",
+      "track": "optimization",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "order-of-operations.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "parametric-and-polar.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "partial-fraction-decomposition.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "path-to-slt.md",
+      "kind": "learning-path",
+      "track": "navigation",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "peano-arithmetic.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "permutation.md",
+      "kind": "topic",
+      "track": "combinatorics-and-probability",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "polynomial-functions.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "predicate-logic-first-order-logic.md",
+      "kind": "topic",
+      "track": "logic-and-proofs",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "prime-factorization.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "probability.md",
+      "kind": "topic",
+      "track": "combinatorics-and-probability",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "propositional-logic-zeroth-order-logic.md",
+      "kind": "topic",
+      "track": "logic-and-proofs",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "radical-functions.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "rational-functions.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "real-analysis.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "sequences-and-series.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "set-theory.md",
+      "kind": "topic",
+      "track": "set-theory",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "singular-learning-theory.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "statistical-learning.md",
+      "kind": "topic",
+      "track": "statistics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "statistics.md",
+      "kind": "topic",
+      "track": "statistics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "symbolic-methods-vs-numerical-methods.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "systems-of-equations.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "systems-of-linear-equations.md",
+      "kind": "topic",
+      "track": "linear-algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "vector.md",
+      "kind": "topic",
+      "track": "linear-algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    }
+  ]
+}

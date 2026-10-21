@@ -8,7 +8,6 @@ enables: ["group-homomorphisms-quotients", "algebraic-structures"]
 > **Builds on:** [Set Theory](./set-theory) (sets, subsets, partitions) · [Functions & Relations](./functions-relations) (maps, composition, bijections)
 > **Leads to:** [Homomorphisms & Quotient Groups](./group-homomorphisms-quotients) · [Algebraic Structures](./algebraic-structures)
 
-<div class="ed-opt-in" aria-hidden="true"></div>
 
 <span class="ed-term ed-term--definition">A group</span> captures one kind of reversible behavior: combining actions in an associative way, having an action that does nothing, and being able to undo every action. The objects can be numbers, geometric transformations, permutations, matrices, or operations on a program state. None of these must commute.
 

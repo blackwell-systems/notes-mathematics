@@ -52,6 +52,9 @@ jobs:
       - name: Install Quartz plugins
         run: npx quartz plugin install
 
+      - name: Editorial coverage and structure inventory
+        run: node scripts/editorial-inventory.mjs --check
+
       - name: Build Quartz
         run: npx quartz build
 

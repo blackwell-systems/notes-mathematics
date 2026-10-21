@@ -33,7 +33,6 @@ classical truth-functional propositional logic
 
 ## Truth
 
-<div class="ed-opt-in" aria-hidden="true"></div>
 
 <div class="truth-lede">
   <div class="truth-lede__eyebrow">CONCEPT MAP / LOGIC AND EPISTEMOLOGY</div>

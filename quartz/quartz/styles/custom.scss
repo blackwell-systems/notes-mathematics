@@ -1,4 +1,5 @@
 @use "./variables.scss" as *;
+@use "./editorial.scss";
 
 // put your custom CSS here!
 
@@ -70,26 +71,6 @@ article h2#truth {
   strong {
     font-weight: 740;
   }
-}
-
-// Keywords act as quiet inline annotations rather than full-width callouts.
-// The color indicates which conceptual distinction the term belongs to.
-.truth-term {
-  --truth-accent: #628fc2;
-  display: inline;
-  padding: 0.04em 0.14em;
-  border-radius: 0.12em;
-  font-weight: 740;
-  color: var(--dark);
-  background: color-mix(in srgb, var(--truth-accent) 13%, transparent);
-  box-shadow: inset 0 -0.12em 0 color-mix(in srgb, var(--truth-accent) 43%, transparent);
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-
-  &.truth-term--modal { --truth-accent: #a083cf; }
-  &.truth-term--meaning { --truth-accent: #439c96; }
-  &.truth-term--knowledge { --truth-accent: #bc904c; }
-  &.truth-term--logic { --truth-accent: #628fc2; }
 }
 
 article img[src*="pl-truth-axes.svg"] {
@@ -230,147 +211,6 @@ article h3#empirical-truth {
 }
 
 
-// -------------------------------------------------------------------------
-// Editorial design pilot: opt-in on three pages via .ed-opt-in.
-// Scope all layout/callout refinements to those articles; future rollout
-// changes the opt-in list, not the semantics or colors of ordinary bold text.
-// -------------------------------------------------------------------------
-.ed-opt-in { display: none; }
-
-// Semantic inline emphasis stays readable without its accent color.
-.ed-term {
-  --ed-term-accent: #648db5;
-  font-weight: 730;
-  color: var(--dark);
-  padding: 0.02em 0.13em;
-  border-radius: 0.13em;
-  background: color-mix(in srgb, var(--ed-term-accent) 12%, transparent);
-  box-shadow: inset 0 -0.11em 0 color-mix(in srgb, var(--ed-term-accent) 42%, transparent);
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-
-  &.ed-term--modal { --ed-term-accent: #a083cf; }
-  &.ed-term--meaning { --ed-term-accent: #439c96; }
-  &.ed-term--knowledge { --ed-term-accent: #bc904c; }
-  &.ed-term--logic { --ed-term-accent: #648db5; }
-  &.ed-term--definition { --ed-term-accent: #439c96; }
-  &.ed-term--theorem { --ed-term-accent: #a083cf; }
-  &.ed-term--distinction { --ed-term-accent: #bc904c; }
-}
-
-article:has(.ed-opt-in) {
-  // Quartz provides the body font; hierarchy comes from sizing, tracking,
-  // measure, and white space rather than introducing another font file.
-  line-height: 1.65;
-
-  > h2 {
-    font-size: clamp(1.53rem, 2.7vw, 2.06rem);
-    font-weight: 750;
-    line-height: 1.13;
-    letter-spacing: -0.039em;
-    margin: 2.2rem 0 0.8rem;
-    padding-bottom: 0.35rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--darkgray) 15%, transparent);
-  }
-
-  > h3 {
-    font-size: clamp(1.1rem, 1.9vw, 1.35rem);
-    line-height: 1.25;
-    letter-spacing: -0.026em;
-    font-weight: 710;
-    margin-top: 1.85rem;
-  }
-
-  > h4 {
-    font-size: 1.03rem;
-    font-weight: 700;
-    letter-spacing: -0.016em;
-    margin-top: 1.45rem;
-  }
-
-  // Proofs may be very long; avoid shrinking math and avoid horizontal
-  // scrolling of the entire page when a displayed expression is wide.
-  .math-display {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0.22rem 0;
-  }
-
-  // Native Quartz callouts retain Markdown and KaTeX rendering.
-  .callout[data-callout="definition"],
-  .callout[data-callout="theorem"],
-  .callout[data-callout="proof"],
-  .callout[data-callout="distinction"],
-  .callout[data-callout="example"] {
-    --ed-accent: #648db5;
-    --color: var(--darkgray);
-    --border: color-mix(in srgb, var(--darkgray) 15%, transparent);
-    --bg: color-mix(in srgb, var(--lightgray) 37%, var(--light));
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--ed-accent);
-    border-radius: 0.24rem;
-    padding: 0.15rem 0.86rem 0.22rem;
-    margin-block: 1.25rem;
-    box-shadow: none;
-
-    > .callout-title {
-      padding: 0.72rem 0 0.5rem;
-      gap: 0;
-
-      > .callout-icon {
-        display: none;
-      }
-      > .callout-title-inner {
-        font-size: 1.03rem;
-        line-height: 1.24;
-        font-weight: 720;
-        letter-spacing: -0.018em;
-
-        &::before {
-          content: "CONCEPT";
-          display: block;
-          margin: 0 0 0.32rem;
-          font-size: 0.62rem;
-          letter-spacing: 0.135em;
-          line-height: 1.3;
-          font-weight: 790;
-          color: var(--ed-accent);
-        }
-      }
-    }
-
-    > .callout-content {
-      line-height: 1.57;
-      font-size: 0.92rem;
-
-      p, li { line-height: 1.57; }
-      .math-display { font-size: 1rem; }
-    }
-  }
-
-  .callout[data-callout="definition"] {
-    --ed-accent: #439c96;
-    .callout-title-inner::before { content: "DEFINITION"; }
-  }
-  .callout[data-callout="theorem"] {
-    --ed-accent: #a083cf;
-    .callout-title-inner::before { content: "THEOREM"; }
-  }
-  .callout[data-callout="proof"] {
-    --ed-accent: #648db5;
-    --bg: var(--light);
-    .callout-title-inner::before { content: "PROOF IDEA"; }
-  }
-  .callout[data-callout="distinction"] {
-    --ed-accent: #bc904c;
-    .callout-title-inner::before { content: "IMPORTANT DISTINCTION"; }
-  }
-  .callout[data-callout="example"] {
-    --ed-accent: #648db5;
-    .callout-title-inner::before { content: "WORKED EXAMPLE"; }
-  }
-}
-
 // Switch between distinct diagram layouts rather than shrinking desktop text.
 // Both variants have meaningful alternative text and contain the same facts.
 article p:has(img[src*="pl-truth-axes-mobile.svg"]) {
@@ -394,8 +234,4 @@ article img[src*="pl-truth-axes-mobile.svg"] {
     margin-block: 1rem 0.6rem;
   }
 
-  article:has(.ed-opt-in) {
-    > h2 { margin-top: 1.85rem; }
-    .callout[data-callout] { padding-inline: 0.7rem; }
-  }
 }

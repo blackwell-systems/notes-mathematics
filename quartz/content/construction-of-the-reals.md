@@ -8,7 +8,6 @@ enables: ["construction-of-the-complex-numbers", "real-analysis"]
 > **Builds on:** [Construction of the Rationals](./construction-of-the-rationals), the ordered-field laws and the rational Cauchy criterion
 > **Leads to:** [Construction of the Complex Numbers](./construction-of-the-complex-numbers) · [Real Analysis](./real-analysis) · [Number Systems](./number-systems)
 
-<div class="ed-opt-in" aria-hidden="true"></div>
 
 The rationals form an ordered field: addition, subtraction, multiplication, and nonzero division work correctly. But being able to calculate every **finite fraction** does not guarantee that a sequence of improving approximations converges to a number in the same system. The rational bisections around a hypothetical square root of two are Cauchy, yet no rational number can be their limit.
 

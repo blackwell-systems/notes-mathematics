@@ -50,12 +50,12 @@ for (const f of mdFiles) {
   for (let i = 0; i < lines.length; i++) {
     const trimmed = lines[i].trim();
     if (trimmed === "$") standaloneDollar.push(i + 1);
-    if (trimmed === "$") displayCount++;
+    if (trimmed === "$$") displayCount++;
   }
   if (standaloneDollar.length)
-    errors.push(f + ": standalone $ at line(s) " + standaloneDollar.join(", ") + "; use $ for display math");
+    errors.push(f + ": standalone $ at line(s) " + standaloneDollar.join(", ") + "; use $$ for display math");
   if (displayCount % 2 !== 0)
-    errors.push(f + ": odd number of standalone $ display-math delimiters (" + displayCount + ")");
+    errors.push(f + ": odd number of standalone $$ display-math delimiters (" + displayCount + ")");
 }
 
 // ---------- 1. KaTeX render errors (from emitted HTML) ----------
