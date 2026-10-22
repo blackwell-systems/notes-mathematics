@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **72 original, source-editable SVG figures** placed directly beside the claims they explain across **26 proof-oriented chapters and reading maps**.
+This collection contains **76 original, source-editable SVG figures** placed directly beside the claims they explain across **30 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -9,6 +9,10 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | Chapter | Figures | What they show |
 | --- | ---: | --- |
 | [Mathematical Notations](./content/mathematical-notations.md) | 2 | anatomy of a quantified statement; why quantifier order changes meaning |
+| [Functional Analysis](./content/functional-analysis.md) | 1 | vanishing integral error versus persistent maximum error |
+| [Complex Analysis](./content/complex-analysis.md) | 1 | contour winding around a pole and its effect on integrals |
+| [Commutative Algebra](./content/commutative-algebra.md) | 1 | selecting denominators allowed in a local ring |
+| [Information Geometry](./content/information-geometry.md) | 1 | quadratic versus isolated quartic minima and Fisher degeneracy |
 | [Path Through Topology](./content/path-to-topology.md) | 1 | subspace interval, identification of endpoints and quotient-circle homeomorphism |
 | [Structural Induction](./content/structural-induction.md) | 1 | constructors of full binary trees and leaf/internal-node counting |
 | [State Machines and Invariants](./content/state-machines-invariants.md) | 1 | safe-state invariants and transition closure |
@@ -28,8 +32,6 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Ideals, Quotient Rings & Homomorphisms](./content/ring-ideals-quotients.md) | 4 | residue cosets; quotient-product well-definedness; prime/maximal ideal quotients; CRT residue mapping |
 | [Field Theory Foundations](./content/field-theory-foundations.md) | 5 | extension tower; adjoining a root; prime-power sizes; cyclic nonzero group; multiplication table of F4 |
 
-The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-`, `mn-` and `pl-`.
-
 | [Category Theory Foundations](./content/category-theory-foundations.md) | 2 | composition and opposite categories |
 | [Functors and Natural Transformations](./content/category-functors-naturality.md) | 3 | functor action, naturality square, Yoneda identity evaluation |
 | [Limits and Colimits](./content/category-limits-colimits.md) | 3 | universal products, pullbacks and pushouts |
@@ -37,6 +39,9 @@ The diagrams use these prefix families in `content/media`: `pa-`, `zi-`, `qr-`, 
 | [General Topology Foundations](./content/general-topology-foundations.md) | 4 | alternate topologies, two forms of basis refinement, continuity through inverse images |
 | [Topological Constructions](./content/general-topology-constructions.md) | 5 | relative openness of a subspace, product rectangles and projection continuity, quotient circle and seam preimages |
 | [Compactness and Connectedness](./content/general-topology-compactness.md) | 5 | open covers and finite subcover selection, Hausdorff neighborhoods, connectedness and their distinction |
+
+
+The diagram file families are named with `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-`, `mn-`, `pl-`, `fa-`, `ca-`, `co-`, `ig-` and other topic prefixes; every image is linked from its teaching chapter.
 
 ## Formal truth behind the pictures
 
@@ -57,7 +62,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **72 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **76 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 

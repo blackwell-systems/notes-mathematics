@@ -6,6 +6,10 @@ import {readFileSync, existsSync} from "node:fs";
 import {join} from "node:path";
 
 const expected = {
+  "functional-analysis.md": ["fa-two-notions-of-convergence.svg"],
+  "complex-analysis.md": ["ca-contour-pole.svg"],
+  "commutative-algebra.md": ["co-localization-zoom.svg"],
+  "information-geometry.md": ["ig-quadratic-quartic.svg"],
   "path-to-topology.md": ["tp-path-interval-circle.svg"],
   "structural-induction.md": ["dm-structural-induction.svg"],
   "state-machines-invariants.md": ["dm-invariant.svg"],
@@ -86,7 +90,7 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==72)errors.push("Expected 72 illustrative SVGs, got "+total);
+if(total!==76)errors.push("Expected 76 illustrative SVGs, got "+total);
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);

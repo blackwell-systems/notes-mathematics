@@ -138,3 +138,8 @@ There are **81 Markdown pages** in the editorial manifest: 78 topic articles, th
 ## Topology learning map inventory update (2026-10-21)
 
 The current manifest includes **82 Markdown pages**: 78 topics, one landing page and three guided learning paths (Path to SLT, Discrete Mathematics and Path Through Topology). The topology guide is marked pilot, with independent semantic, responsive and dark-mode reviews still pending. Historical rollout counts above remain snapshots, not current totals.
+
+
+## Analysis/algebra bridge inventory (2026-10-21)
+
+There are now **88 Markdown pages** (82 topics, 5 learning paths and the landing page). All additions are pilot rather than independently accepted. Mathematical diagram coverage rises to **76 source-editable SVGs**. The original per-page mobile/dark/diagram completion checklist is unchanged; build and audit checks do not substitute for those reviews.

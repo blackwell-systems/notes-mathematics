@@ -21,7 +21,7 @@ import { dirname, join } from "node:path";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CONTENT = join(HERE, "..", "content");
 const LEDGER = join(CONTENT, "clarity-status.json");
-const NAV = new Set(["index.md", "path-to-slt.md"]);
+const NAV = new Set(["index.md", "path-to-slt.md", "discrete-mathematics.md", "path-to-topology.md", "path-through-algebra.md", "path-through-analysis.md"]);
 
 const files = readdirSync(CONTENT).filter((f) => f.endsWith(".md"));
 

@@ -114,6 +114,24 @@
       "diagramReview": "pending"
     },
     {
+      "path": "commutative-algebra.md",
+      "kind": "topic",
+      "track": "ring-and-field-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "complex-analysis.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "complex-numbers.md",
       "kind": "topic",
       "track": "algebra",
@@ -225,6 +243,15 @@
       "path": "field-theory-foundations.md",
       "kind": "topic",
       "track": "ring-and-field-theory",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "functional-analysis.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
@@ -358,6 +385,15 @@
     },
     {
       "path": "inferential-statistics.md",
+      "kind": "topic",
+      "track": "statistics",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "information-geometry.md",
       "kind": "topic",
       "track": "statistics",
       "semanticReview": "pilot",
@@ -513,6 +549,24 @@
       "path": "partial-fraction-decomposition.md",
       "kind": "topic",
       "track": "algebra",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "path-through-algebra.md",
+      "kind": "learning-path",
+      "track": "algebra",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
+      "path": "path-through-analysis.md",
+      "kind": "learning-path",
+      "track": "advanced-mathematics",
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",

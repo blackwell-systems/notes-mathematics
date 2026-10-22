@@ -21,7 +21,7 @@ const CONTENT = join(HERE, "..", "content");
 const LEDGER = join(CONTENT, "review-status.json");
 
 // Nav / non-mathematical pages: tracked but low priority (no proofs to review).
-const NAV = new Set(["index.md", "path-to-slt.md"]);
+const NAV = new Set(["index.md", "path-to-slt.md", "discrete-mathematics.md", "path-to-topology.md", "path-through-algebra.md", "path-through-analysis.md"]);
 
 const files = readdirSync(CONTENT).filter((f) => f.endsWith(".md"));
 
