@@ -5,7 +5,7 @@ enables: ["singular-learning-theory"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Multivariable Calculus](./multivariable-calculus) · [Algebraic Structures](./algebraic-structures) · [Ideals & Quotient Rings](./ring-ideals-quotients) · [Field Theory](./field-theory-foundations)
+> **Builds on:** [Multivariable Calculus](./multivariable-calculus) · [Algebraic Structures](./algebraic-structures) · [Ideals & Quotient Rings](./ring-ideals-quotients) · [Field Theory](./field-theory-foundations). **Recommended:** [Commutative Algebra](./commutative-algebra) for local rings and localization.
 > **Leads to:** [Singular Learning Theory](./singular-learning-theory)
 
 

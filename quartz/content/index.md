@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **78 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **82 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -42,7 +42,7 @@ Functions, then work through the function types) → Linear Algebra
 
    For a single ordered trail to the last item, follow the [Path to SLT](./path-to-slt).
 
-The [group-theory branch](./group-theory-foundations) can begin after sets and functions, in parallel with the natural-to-complex number-system construction chain. [Category theory](./category-theory-foundations) is most concrete after learning those group and ring examples; [general topology](./general-topology-foundations) extends the metric-space treatment in real analysis. The branches reconnect at [Algebraic Structures](./algebraic-structures). Neither real completeness nor complex algebraic closure is needed to prove the group axioms.
+The [group-theory branch](./group-theory-foundations) can begin after sets and functions, in parallel with the natural-to-complex number-system construction chain. [Category theory](./category-theory-foundations) is most concrete after learning those group and ring examples; [general topology](./general-topology-foundations) can be entered through metric-space intuition or direct open-set axioms; see the [Topology map](./path-to-topology). The branches reconnect at [Algebraic Structures](./algebraic-structures). Neither real completeness nor complex algebraic closure is needed to prove the group axioms.
 
 ## Logic & Proofs
 
@@ -73,6 +73,10 @@ Relations define which objects may be identified or compared. These foundational
 - [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) (quaternions, octonions, Cayley-Dickson, dual numbers, p-adics, surreals)
 - [Number Bases](./number-bases) (binary, octal, hexadecimal, conversions, two's complement, floating point)
 
+## Path Through Algebra
+
+The [Path Through Algebra](./path-through-algebra) connects constructions of number systems, groups, quotient rings, field extensions, local rings and algebraic geometry without assuming that every subject depends on every earlier one.
+
 ## Group Theory
 
 > [!example] One independent branch
@@ -90,6 +94,7 @@ The next proof-oriented branch follows the additive group structure into **rings
 
 - [Ring Theory Foundations](./ring-theory-foundations) (axioms, units, zero divisors, cancellation, integral domains, characteristic, polynomial division)
 - [Ideals, Quotient Rings & Homomorphisms](./ring-ideals-quotients) (well-defined coset multiplication, isomorphism theorems, prime and maximal ideals, Chinese remainder theorem)
+- [Commutative Algebra](./commutative-algebra) (localization, local rings, modules, finite constraints)
 - [Field Theory Foundations](./field-theory-foundations) (fraction fields, extensions, minimal polynomials, splitting fields and finite fields)
 
 ## Category Theory
@@ -135,11 +140,17 @@ Category theory studies **objects, arrows and universal mapping properties**, br
 - [Euclidean Geometry](./euclidean-geometry) (points, lines, angles, postulates, polygons, triangles, quadrilaterals, circles, solids, transformations)
 - [Geometry & Trigonometry](./geometry-trigonometry) (trig functions, identities, unit circle, coordinate geometry)
 
+## Path Through Analysis
+
+The [Path Through Analysis](./path-through-analysis) follows limits through function-space convergence, integration, complex contours and Fisher geometry. Its real and complex branches can be studied in parallel.
+
 ## Calculus
 
 - [Calculus](./calculus) (limits, derivatives, chain rule, integrals, Fundamental Theorem)
 - [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients, gradient descent, convexity)
 - [Differential Equations](./differential-equations) (ODEs, systems, stability, Laplace transforms, neural ODEs)
+- [Functional Analysis](./functional-analysis) (Banach/Hilbert spaces, operators, weak convergence)
+- [Complex Analysis](./complex-analysis) (holomorphicity, contours, residues)
 
 ## General Topology
 
@@ -162,6 +173,7 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 - [Descriptive Statistics](./descriptive-statistics) (central tendency, spread, visualization)
 - [Inferential Statistics](./inferential-statistics) (estimation, hypothesis testing, ANOVA, nonparametrics)
 - [Statistical Learning](./statistical-learning) (correlation, regression, bias-variance, cross-validation)
+- [Information Geometry](./information-geometry) (KL divergence, Fisher curvature, isolated singular model)
 - [Bayesian Inference](./bayesian-inference) (priors, posteriors, MCMC, variational inference, model selection, SLT connection)
 
 ## Optimization

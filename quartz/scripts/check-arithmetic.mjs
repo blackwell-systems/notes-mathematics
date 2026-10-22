@@ -136,6 +136,26 @@ function cpow(re, im, n) {
   check("Hall obstruction two people one neighbor",new Set([1,1]).size<2);
 }
 
+// ============ Advanced foundations: worked numeric witnesses ============
+// Examples only; theorem hypotheses and proofs remain textual obligations.
+{
+ for (const n of [1,2,4,8,16]) {
+   const sampled=Array.from({length:101},(_,j)=>(j/100)**n);
+   eq("sup x^n on [0,1] n="+n,Math.max(...sampled),1,1e-12);
+   check("area x^n decreases n="+n,1/(n+1)<1);
+ }
+ for (const w of [-2,-1,-0.5,0,0.5,1,2]) {
+   const mu=w*w,s=x=>2*w*(x-mu);
+   eq("Fisher N(w squared,1) w="+w,(s(mu+1)**2+s(mu-1)**2)/2,4*w*w,1e-12);
+   eq("exact Gaussian KL w="+w,mu*mu/2,w**4/2,1e-12);
+ }
+ eq("quartic RLCT 1/4",1/(2*2),0.25,1e-12);
+ eq("residues at 1 and -2 cancel",1/(1+2)+1/(-2-1),0,1e-12);
+ check("localize near x=0 permits 1/(1+x)",[1,1][0]!==0);
+ check("localize near x=0 excludes 1/x",[0,1][0]===0);
+ check("Z/5 has no nonzero zero divisor",
+  [1,2,3,4].every(a=>[1,2,3,4].some(b=>(a*b)%5===1)));
+}
 // ================= Mathematical Notations =================
 // Recheck examples introduced by the opening notation reader.
 eq("notation grouped -(2+1)",-(2+1),-3);

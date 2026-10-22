@@ -1,12 +1,12 @@
 ---
 title: "Real Analysis"
 prerequisites: ["calculus", "sequences-and-series"]
-enables: ["measure-theory", "general-topology-foundations"]
+enables: ["measure-theory", "functional-analysis", "complex-analysis", "general-topology-foundations"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
 > **Builds on:** [Calculus](./calculus) · [Sequences & Series](./sequences-and-series)
-> **Leads to:** [Measure Theory](./measure-theory)
+> **Leads to:** [Measure Theory](./measure-theory) · [Functional Analysis](./functional-analysis) · [Complex Analysis](./complex-analysis) · [Path Through Analysis](./path-through-analysis)
 
 
 Real analysis is what happens when you ask calculus to justify itself. In calculus, you learned to compute derivatives, evaluate integrals, and work with infinite series. You developed powerful intuition about continuity, convergence, and limits. Real analysis takes every one of those ideas and asks: *why does this actually work? When does it break?*

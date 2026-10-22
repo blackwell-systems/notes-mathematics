@@ -1,12 +1,12 @@
 ---
 title: "Complex Numbers"
 prerequisites: ["construction-of-the-complex-numbers", "polynomial-functions"]
-enables: ["hypercomplex-numbers", "geometry-trigonometry"]
+enables: ["hypercomplex-numbers", "geometry-trigonometry", "complex-analysis"]
 ---
 
 > [!abstract] Prerequisites & where this leads
 > **Builds on:** [Construction of the Complex Numbers](./construction-of-the-complex-numbers) · [Polynomial Functions](./polynomial-functions)
-> **Leads to:** [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) · [Geometry & Trigonometry](./geometry-trigonometry)
+> **Leads to:** [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) · [Complex Analysis](./complex-analysis) · [Geometry & Trigonometry](./geometry-trigonometry)
 
 For a proof-level foundation before computing with complex numbers, [Construction of the Complex Numbers](./construction-of-the-complex-numbers) develops them as real pairs and proves their field laws, inverses, ordering obstruction, and algebraic closure.
 

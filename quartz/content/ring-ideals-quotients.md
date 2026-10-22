@@ -1,12 +1,12 @@
 ---
 title: "Ideals, Quotient Rings and Homomorphisms"
 prerequisites: ["ring-theory-foundations", "group-homomorphisms-quotients"]
-enables: ["field-theory-foundations", "algebraic-geometry"]
+enables: ["field-theory-foundations", "commutative-algebra", "algebraic-geometry"]
 ---
 
 > [!abstract] Prerequisites & where this leads
 > **Builds on:** [Ring Theory Foundations](./ring-theory-foundations) (ring axioms, domains, polynomial division) · [Homomorphisms and Quotient Groups](./group-homomorphisms-quotients) (kernels, additive cosets, quotient reasoning)
-> **Leads to:** [Field Theory Foundations](./field-theory-foundations) (irreducible polynomial quotients) · [Algebraic Geometry](./algebraic-geometry) (polynomial ideals and zero sets)
+> **Leads to:** [Field Theory Foundations](./field-theory-foundations) (irreducible polynomial quotients) · [Commutative Algebra](./commutative-algebra) (localization) · [Algebraic Geometry](./algebraic-geometry) (polynomial ideals and zero sets)
 
 Group quotients collapse a normal subgroup while preserving multiplication. A ring has *two* operations: quotienting its additive group is easy, but we also need the product of two cosets to be independent of their representatives. **Ideals are exactly the additive subgroups that make this work.**
 

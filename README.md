@@ -41,16 +41,16 @@ otherwise-broad coverage a spine and a reading order.
 
 ## Editorial design system
 
-A shared typography system now styles **every Markdown page**, while semantic labels for definitions, theorems, proofs, proof sketches, distinctions, examples, and counterexamples are added deliberately during a separate editorial review. The original test pages are [Propositional Logic: Truth](./quartz/content/propositional-logic-zeroth-order-logic.md#truth), [Group Theory Foundations](./quartz/content/group-theory-foundations.md), and [Construction of the Reals](./quartz/content/construction-of-the-reals.md). The full 82-page coverage manifest and parser-backed inventory are described in the [Editorial rollout guide](./quartz/EDITORIAL-ROLLOUT.md). [Editorial migration log](./quartz/EDITORIAL-MIGRATION-LOG.md) records which subjects have actually received authored semantic treatment and which still await visual review. CI checks that the manifest remains complete; semantic and responsive reviews are not falsely marked finished.
+A shared typography system now styles **every Markdown page**, while semantic labels for definitions, theorems, proofs, proof sketches, distinctions, examples, and counterexamples are added deliberately during a separate editorial review. The original test pages are [Propositional Logic: Truth](./quartz/content/propositional-logic-zeroth-order-logic.md#truth), [Group Theory Foundations](./quartz/content/group-theory-foundations.md), and [Construction of the Reals](./quartz/content/construction-of-the-reals.md). The full 88-page coverage manifest and parser-backed inventory are described in the [Editorial rollout guide](./quartz/EDITORIAL-ROLLOUT.md). [Editorial migration log](./quartz/EDITORIAL-MIGRATION-LOG.md) records which subjects have actually received authored semantic treatment and which still await visual review. CI checks that the manifest remains complete; semantic and responsive reviews are not falsely marked finished.
 
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (78 topic pages, a landing page, and three guided learning paths: discrete mathematics, topology, and singular learning theory). The landing page and reading-order guide are in
+per topic (82 topic pages, a landing page, and five guided learning paths: discrete mathematics, topology, algebra, analysis, and singular learning theory). The landing page and reading-order guide are in
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently
-382 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
+386 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
 a page's own worked example so the figure and the prose cannot drift apart.
 
 Broad areas covered:
@@ -63,6 +63,9 @@ Broad areas covered:
 - **Group theory foundations** — groups from the axioms, cyclic groups and Lagrange's theorem, homomorphisms and quotients, group actions, orbit-stabilizer, Cayley, and Burnside
 - **Ring and field theory** — ring axioms, zero divisors, ideals and quotient rings, first/second/third isomorphism theorems, prime/maximal ideals, fractions of domains, field extensions, splitting fields and finite fields
 - **Category theory** — objects and morphisms, functors, natural transformations, Yoneda, universal properties, adjunctions and list monads
+- **Functional and complex analysis** — [Path Through Analysis](./quartz/content/path-through-analysis.md), Banach/Hilbert spaces and contour integrals
+- **Commutative algebra** — [Path Through Algebra](./quartz/content/path-through-algebra.md), localization, local rings, modules
+- **Information geometry** — Fisher information and KL curvature
 - **General topology** — [Path Through Topology](./quartz/content/path-to-topology.md), topology axioms and bases, continuity, subspaces, products, quotients, compactness, connectedness and separation
 - **Algebra** — number theory, functions, polynomial/rational/exponential/log/radical functions, complex numbers, sequences and series, conic sections
 - **Linear Algebra** — vector spaces, four fundamental subspaces, eigenvalues, SVD, factorizations, matrix calculus
@@ -88,8 +91,8 @@ Every push runs two CI gates before deploy:
 - **Quality gate** (`quartz/scripts/check-quality.mjs`) — fails on KaTeX render
   errors, broken internal links or `#anchors`, broken image references, and empty
   image alt text (ratcheted to zero).
-- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 72 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
-  - [**Diagram guide and complete 72-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
+- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 76 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
+  - [**Diagram guide and complete 76-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
 - **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
   numeric worked example in the notes from scratch (over 1,000 assertions, including recursive-arithmetic regression checks).
   When you add or change a worked example, add or adjust an assertion so it stays
@@ -126,7 +129,7 @@ notes-mathematics/
 │   │   ├── index.md         # Landing page + reading-order guide
 │   │   ├── set-theory.md
 │   │   ├── ...
-│   │   ├── media/           # Images and diagrams (~382 figures)
+│   │   ├── media/           # Images and diagrams (~386 figures)
 │   │   └── review-status.json  # Prose/proof review ledger
 │   ├── quartz/static/interactive/  # Self-contained interactive widgets
 │   ├── scripts/             # CI gates (quality + arithmetic), review tooling, build injectors

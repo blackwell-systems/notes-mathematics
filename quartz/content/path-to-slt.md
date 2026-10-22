@@ -57,6 +57,8 @@ SLT is a theory of *Bayesian* learning. Its central object, the free energy, is 
 
 **What SLT takes from Stage 3:** the free energy as a model-selection criterion, the KL divergence as the loss, and the tempered-posterior estimators that measure the RLCT in practice.
 
+**Optional advanced bridges:** [Information Geometry](./information-geometry) explains Fisher curvature through an exact singular normal example; [Complex Analysis](./complex-analysis) introduces poles and residues; [Functional Analysis](./functional-analysis) gives function-space convergence; and [Commutative Algebra](./commutative-algebra) explains localization. The [Analysis](./path-through-analysis) and [Algebra](./path-through-algebra) maps connect these branches. These are not claimed as minimal SLT prerequisites.
+
 ## Stage 4: The Geometry of Singularities
 
 **Optional abstraction bridge:** [Categories](./category-theory-foundations), [Functors](./category-functors-naturality), and [Universal Properties](./category-limits-colimits) clarify the mappings, quotients and pullback constructions that recur in geometry; this route is **not required** for the SLT results stated here.
