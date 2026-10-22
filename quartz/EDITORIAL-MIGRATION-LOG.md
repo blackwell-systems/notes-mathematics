@@ -240,3 +240,8 @@ Formal prerequisite metadata no longer requires all Real Analysis for the first 
 ## Expanded topology visual explanations (2026-10-21)
 
 Added six native, accessible and source-editable SVGs to the three existing topology chapters: explicit overlap refinement for basis elements, relative openness in a subspace, product coordinates and continuity, preimages of neighborhoods around an identified quotient seam, selection of a finite subcover, and the distinction between connectedness and Hausdorffness. All figures are placed next to the claims they illustrate and have prose captions and independent alt descriptions. Existing diagrams remain available. The math-figure audit increases from 66 to 72 SVGs, still across 26 chapters and learning maps. Responsive, color-contrast, accessibility lightbox and independent mathematical diagram reviews remain pending despite automated asset checks.
+
+
+## Targeted mathematical correction pass (2026-10-21)
+
+The SLT and algebraic-geometry chapters were corrected to distinguish global identifiability, local Fisher curvature and zero-set dimension; to define Fisher information as an expectation of score outer products rather than calling it a Jacobian; to keep the exponential and prior/Jacobian weight in resolved Laplace integrals; and to distinguish the empirical negative log-likelihood from a vanishing excess population contrast. The isolated example K(w)=w^4 versus K(w)=w^2 exposes the different RLCTs without asserting a positive-dimensional zero set. These are mathematically motivated corrections, not a claim of complete independent certification of both advanced chapters.

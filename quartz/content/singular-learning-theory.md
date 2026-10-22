@@ -12,7 +12,7 @@ Singular learning theory (SLT) is the mathematical theory of what happens when y
 
 This page is the summit of these notes. It assembles pieces developed elsewhere: the [free energy as a Lebesgue integral](./measure-theory), the [geometry of singularities and the RLCT](./algebraic-geometry), and the [Bayesian machinery of posteriors and model selection](./bayesian-inference). If you have not read those, the [Path to SLT](./path-to-slt) lays out the full prerequisite sequence. Here we tell the whole story start to finish, define every symbol as it appears, and end with a worked RLCT calculation you can check by hand.
 
-Why should you care? For [mechanistic and developmental interpretability](./bayesian-inference), SLT is not an analogy but the governing theory. The quantity it produces, the **local learning coefficient** $\hat\lambda$ (read "lambda-hat"), can be estimated during training and tracks *phase transitions*: the discrete moments when a network reorganizes what it has learned. SLT is the bridge from "loss went down" to "the model's internal structure changed."
+Why should you care? For [mechanistic and developmental interpretability](./bayesian-inference), SLT is not an analogy but the governing theory. The theory motivates estimating a **local learning coefficient** (often written $\hat\lambda$, read "lambda-hat") around trained parameters. Empirical work investigates whether changes in these estimates correspond to changes in learned structure, but that correspondence is **not a general theorem** for arbitrary training runs. SLT offers a geometric lens on such observations; it does not by itself certify a phase transition.
 
 ## The Learning Problem, Stated Precisely
 
@@ -63,10 +63,10 @@ A statistical model is **regular** if two conditions hold:
 1. **Identifiability.** The map $w \mapsto p(\cdot \mid w)$ is one-to-one, so $W_0$ is a single point.
 2. **Nondegeneracy.** The Fisher information $I(w_0)$ is positive definite (full rank) at that point.
 
-A model that fails either condition is **singular**. When $I(w_0)$ is degenerate (has a zero eigenvalue), $K(w)$ does *not* look like a nice quadratic bowl near $W_0$; it flattens out along some directions, and $W_0$ becomes a positive-dimensional variety with corners, crossings, and cusps. This is not an exotic edge case:
+A model that fails a relevant regularity assumption may be **singular**. A degenerate Fisher matrix means the *quadratic approximation* to $K$ is not positive definite; it does **not** prove that the zero set $W_0$ has positive dimension. For example, the elementary analytic toy loss $K(w)=w^4$ has only one zero, $w=0$, although its Hessian there is zero. In contrast, $K(u,v)=u^2$ has a whole line of zeros. Those are different degeneracies with different geometry. In a general model the zero set may consist of isolated points, positive-dimensional components, crossings, or more complicated structures. See [Information Geometry](./information-geometry#what-a-singular-fisher-matrix-does-and-does-not-tell-us) for the precise distinction.
 
 - **Redundant units.** Set a hidden neuron's outgoing weight to zero and its incoming weights become invisible to the output. Every such setting sits in $W_0$ (if the truth uses fewer units), forming a whole subvariety of true parameters.
-- **Symmetry.** Permuting hidden units, or flipping signs in matched pairs, leaves the function unchanged. $W_0$ inherits these symmetries as self-intersections.
+- **Symmetry.** Permuting hidden units can leave a function unchanged. This can create multiple distinct parameter representatives of one distribution, but a *discrete symmetry by itself* does not force a locally degenerate Fisher matrix or a self-intersection.
 - **Rank degeneracy.** In models with matrix products (deep linear networks, attention), the set where a product drops rank is a *determinantal variety*, singular by classical algebraic geometry.
 
 Neural networks, mixture models, hidden Markov models, and Bayesian networks are all singular. **The models we care about are exactly the ones classical theory excludes.** The consequences of the degeneracy, and the tools that repair it, are developed geometrically on the [algebraic geometry](./algebraic-geometry) page; here we track what it does to inference.
@@ -122,7 +122,7 @@ $$
 F_n^{\text{BIC}} = n L_n(\hat w) + \frac{d}{2} \log n + O_p(1)
 $$
 
-The two formulas agree if and only if $\lambda = d/2$. And that equality holds *exactly* in the regular case: when $W_0$ is a single nondegenerate point, the RLCT equals half the parameter count. **BIC is the regular special case of Watanabe's formula.** For many overparameterized singular models, $\lambda<d/2$, but this strict inequality is **not a universal consequence of merely using the word singular**: it depends on the model, contrast, prior, and local geometry. The model is *effectively simpler* than its parameter count claims, and BIC over-penalizes it.
+The leading **logarithmic penalties** agree when $\lambda=d/2$ and the pole multiplicity is $m=1$. Under the usual regular-model hypotheses the RLCT is $d/2$ and $m=1$; the use of $L_n(w_0)$ versus $L_n(\hat w)$ also requires the appropriate stochastic comparison. Thus BIC emerges in the regular regime, rather than as a literal identity between the two displayed expressions. In many singular models $\lambda<d/2$, but neither a strict inequality nor a better predictive performance follows merely from the label *singular*: contrast, model, parameter space, and prior all matter.
 
 A reduced RLCT in the relevant regime is one mathematical mechanism for a smaller Bayesian complexity penalty than raw parameter counting would suggest; it is **not** a general guarantee that overparameterized networks always generalize better. The geometry of the loss landscape, not the raw number of weights, sets the complexity.
 

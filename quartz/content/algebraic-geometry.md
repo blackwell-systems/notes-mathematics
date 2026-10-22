@@ -209,7 +209,7 @@ $$
 J(x) = \begin{pmatrix} \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\ \vdots & \ddots & \vdots \\ \frac{\partial f_k}{\partial x_1} & \cdots & \frac{\partial f_k}{\partial x_n} \end{pmatrix}
 $$
 
-A point $x_0$ on the variety is **singular** if the Jacobian matrix has rank less than the expected rank (which is the codimension of the variety: $n$ minus the dimension). At a smooth point, the Jacobian has full expected rank, and the variety looks like flat space locally (by the implicit function theorem from [multivariable calculus](./multivariable-calculus)).
+A Jacobian-rank test can certify that a zero set is locally a smooth manifold when the chosen equations have **independent** gradients and the implicit-function theorem applies. But an arbitrary or redundant generating list of equations may have a rank-deficient Jacobian even at a smooth point; identifying the singular locus of a variety requires the appropriate local ideal and dimension hypotheses. See [Commutative Algebra](./commutative-algebra) for the role of local rings and ideals.
 
 ### Examples of Singularities
 
@@ -292,26 +292,24 @@ For neural networks, $W_0$ is typically not a single point but a complicated var
 The **Fisher information matrix** at a parameter $w$ is
 
 $$
-I(w) = \int q(x) \left( \frac{\partial}{\partial w} \log p(x|w) \right) \left( \frac{\partial}{\partial w} \log p(x|w) \right)^T dx
+I(w) = \int p(x\mid w) \left( \frac{\partial}{\partial w} \log p(x\mid w) \right) \left( \frac{\partial}{\partial w} \log p(x\mid w) \right)^T dx
 $$
 
-This matrix plays the role of the Jacobian for the parameter-to-distribution map. At a smooth point of $W_0$, the Fisher information matrix is positive definite (full rank). At a singular point, it becomes degenerate (not full rank).
+The Fisher information is **not itself the Jacobian**: it is a matrix of inner products of score vectors, calculated under the model distribution $p(x\mid w)$. Under suitable differentiability and well-specified-model assumptions, it coincides with the local Hessian of the KL contrast at a true parameter. Positivity is a local condition about distinguishable parameter directions. A smooth positive-dimensional minimizer set can have a degenerate Fisher matrix, while an isolated minimum can have zero Hessian—for example the analytic toy loss $K(w)=w^4$. Conversely, a discrete global parameter symmetry can destroy global identifiability without forcing degeneracy at every local representative.
 
-Classical statistics (the theory behind BIC, asymptotic normality of the MLE, and standard confidence intervals) assumes the Fisher information matrix is nondegenerate. This assumption is equivalent to assuming that $W_0$ is a smooth point of the statistical model. For neural networks, this assumption fails, and classical statistics breaks down.
-
-This is the central problem that SLT solves: how to do statistical inference when the Fisher information is degenerate, i.e., when the true parameter set has singularities.
+Regular classical likelihood asymptotics require an appropriate collection of hypotheses (identifiability locally, a nonsingular Fisher matrix, smoothness, and suitable sampling/parameter conditions); being a *smooth point* of a zero set is not equivalent to that whole list. Singular learning theory analyzes important models where classical regular approximations are inadequate. See [Information Geometry](./information-geometry#fisher-information-as-local-curvature) for a worked derivation with the assumptions visible.
 
 ## Resolution of Singularities
 
 ### The Problem
 
-The free energy integral in SLT is
+A typical Bayesian evidence integral is
 
-$$
-Z_n = \int \exp(-nL_n(w)) \varphi(w) \, dw
-$$
+$
+Z_n = \int_W \exp(-nL_n(w))\,\varphi(w)\,dw,
+$
 
-where $L_n(w)$ is the empirical loss function and $\varphi(w)$ is the prior density. Near a singular point $w_0 \in W_0$, the loss function $L_n(w)$ vanishes in a complicated way that depends on the geometry of the singularity. Standard techniques (like Laplace's method, which approximates the integral using a Taylor expansion) require the loss to vanish quadratically, like $(w - w_0)^T A (w - w_0)$ for a positive definite matrix $A$. At a singularity, the loss vanishes in a more complex pattern, and these standard techniques fail.
+where $L_n$ is the empirical negative log-likelihood **per observation**, and $\varphi$ is the prior density. The empirical loss itself generally **does not vanish** at the true parameter. For geometric RLCT calculations, one instead studies a **nonnegative excess population loss** such as $K(w)=\operatorname{KL}(q\Vert p_w)$ in the realizable case (or a suitably shifted contrast). Standard techniques (like Laplace's method, which approximates the integral using a Taylor expansion) require the loss to vanish quadratically, like $(w - w_0)^T A (w - w_0)$ for a positive definite matrix $A$. At a singularity, the loss vanishes in a more complex pattern, and these standard techniques fail.
 
 To analyze the integral, we need to transform the singularity into something tractable. This is what resolution of singularities does.
 
@@ -353,13 +351,23 @@ $$
 |J_g(u)| = u_1^{h_1} u_2^{h_2} \cdots u_d^{h_d}
 $$
 
-The integral near the singularity then becomes
+**The exponentials must remain in the transformed integral.** In a resolution chart where $K(g(u))=u_1^{2k_1}\cdots u_d^{2k_d}$ and the transformed prior-weighted volume is $b(u)\prod_j|u_j|^{h_j}\,du$, a *population-loss Laplace integral* takes the local form
 
-$$
-\int u_1^{2k_1 + h_1} u_2^{2k_2 + h_2} \cdots u_d^{2k_d + h_d} \, du
-$$
+$
+\int_{U}\exp\!\left(-n\prod_j u_j^{2k_j}\right)
+\,b(u)\prod_j|u_j|^{h_j}\,du.
+$
 
-which is a product of one-dimensional integrals, each of which can be evaluated explicitly. This is the technical heart of SLT: resolution of singularities transforms an intractable integral into a tractable one.
+It is **not** simply $\int\prod_j u_j^{2k_j+h_j}\,du$; multiplying the powers in that fashion discards the $n$-dependent exponential and would give the wrong asymptotics. For the associated zeta integral, the same chart has the form
+
+$
+\zeta_U(z)=\int_U b(u)\prod_j |u_j|^{h_j-2k_j z}\,du,
+$
+
+which makes the critical ratios $(h_j+1)/(2k_j)$ visible for $k_j>0$. The global RLCT is selected across the relevant charts and support. Factors $b(u)$ and integrability hypotheses matter, and the pole multiplicity is **not** always a naive count of tied exponents across charts.
+
+> [!example] An isolated degenerate minimum has a different rate
+> For $K(w)=w^4$ on $[-1,1]$ with a positive smooth prior near zero, the integral $\int_{-1}^1e^{-nw^4}\varphi(w)\,dw$ is of order $n^{-1/4}$ by the substitution $u=n^{1/4}w$, hence $\lambda=1/4$. Its zero set is just $\{0\}$, not a positive-dimensional variety. Compare the regular quadratic loss $w^2$, whose analogous integral is of order $n^{-1/2}$ and has $\lambda=1/2$.
 
 ## The Real Log Canonical Threshold (RLCT)
 
@@ -383,13 +391,13 @@ In simpler terms: after you resolve the singularity and write the integral in no
 
 The RLCT measures how "sharp" or "severe" a singularity is. It controls the rate at which the posterior distribution concentrates around $W_0$ as the sample size $n$ increases.
 
-**No singularity (smooth point).** When $W_0$ is a single smooth point (as in linear regression), $\lambda = d/2$, where $d$ is the number of parameters. This is the classical case.
+**Regular model.** Under the full regular statistical hypotheses—local identifiability, positive-definite Fisher information and a suitable prior—$\lambda=d/2$, with $m=1$. A merely *isolated smooth point* of a zero set does not by itself establish all these assumptions.
 
 **Mild singularity.** When $W_0$ has a mild singularity (a simple symmetry or a small amount of redundancy), $\lambda$ is slightly less than $d/2$.
 
 **Severe singularity.** When $W_0$ has a severe singularity (many symmetries, highly redundant parameterization), $\lambda \ll d/2$. The model is effectively much simpler than its parameter count suggests.
 
-The RLCT is sometimes called the **learning coefficient** because it controls the learning behavior of the model. A smaller $\lambda$ means the model's effective complexity is lower, which means it generalizes better (all else being equal).
+The RLCT is sometimes called the **learning coefficient** because it controls the learning behavior of the model. A smaller $\lambda$ changes a leading asymptotic term under the relevant hypotheses; it does **not**, on its own, establish better prediction in every model or finite-sample setting.
 
 The interactive below makes this concrete. For the monomial loss $K(w) = w^{2k}$, the RLCT is $\lambda = \tfrac{1}{2k}$; drag $k$ and see the free energy $F_n = -\log \int e^{-nK}\,dw$ grow with slope exactly $\lambda$, confirming numerically that a sharper singularity (larger $k$) yields a smaller learning coefficient.
 
