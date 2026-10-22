@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Arithmetic harness: re-proves the worked examples in the notes on every run.
-// Each assertion recomputes a value from scratch and checks it against the
-// answer written in the docs. Fails (exit 1) on any mismatch.
+// Arithmetic harness: checks explicitly registered worked-example calculations.
+// These are reproducible numeric regression checks, not theorem proving or
+// a guarantee that every prose claim and example has been independently audited.
+// A failed assertion exits with an error; proof review is a separate process.
 //
 // Usage: node scripts/check-arithmetic.mjs   (from the quartz/ directory)
 //

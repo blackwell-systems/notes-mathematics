@@ -250,3 +250,8 @@ The SLT and algebraic-geometry chapters were corrected to distinguish global ide
 ## Analysis and algebra integration (2026-10-21)
 
 New proof-oriented bridges: [Functional Analysis](./content/functional-analysis.md), [Complex Analysis](./content/complex-analysis.md), [Commutative Algebra](./content/commutative-algebra.md), [Information Geometry](./content/information-geometry.md). Guided maps: [Path Through Analysis](./content/path-through-analysis.md) and [Path Through Algebra](./content/path-through-algebra.md). The four chapters explicitly separate demonstrated claims, proof sketches, and advanced theorems stated without proof. Fisher information is tested against a realizable Gaussian mean model with mean w², which has an isolated true parameter and zero Fisher information at that parameter. Four accessible original diagrams accompany these concepts. The source-editorial inventory contains **88 pages** (82 topics, 5 learning maps, 1 landing page) and the SVG audit contains **76 diagrams across 30 chapters/maps**. The status remains pilot and pending for independent visual and mathematical acceptance.
+
+
+## Quality-gate wording and limitations (2026-10-21)
+
+Renamed outdated figure and arithmetic CI job labels to avoid implying fixed historical figure counts or that executing examples proves all theorems. The arithmetic harness checks explicitly registered numerical examples; the editorial manifest's pilot status and the separate proof-review process are the authoritative indicator of unfinished mathematical certification.

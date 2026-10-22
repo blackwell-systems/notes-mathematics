@@ -30,10 +30,10 @@ Guiding principles:
 - **Worked examples are the product.** Prefer one example done exhaustively over
   three done fast, with the diagram pinned to that same example so picture and
   steps can never drift.
-- **Clarity is enforced by tooling.** Every numeric worked example
-  is re-proved from scratch in CI (the arithmetic harness), and the reasoning
-  (definitions, hypotheses, proofs) is checked by a separate resumable review
-  process. See below.
+- **Clarity is supported by tooling and editorial review.** Registered numeric examples
+  have executable regression checks in CI; not every numerical illustration or mathematical
+  theorem is thereby proved. Definitions, hypotheses and proofs have a separate resumable
+  review process with explicit incomplete-review status. See below.
 
 The whole thing is built deliberately toward one destination — the foundations of
 **singular learning theory** for interpretability research — which gives the
@@ -45,8 +45,9 @@ A shared typography system now styles **every Markdown page**, while semantic la
 
 ## Content
 
-All content lives in [`quartz/content/`](./quartz/content/) as one Markdown file
-per topic (82 topic pages, a landing page, and five guided learning paths: discrete mathematics, topology, algebra, analysis, and singular learning theory). The landing page and reading-order guide are in
+All content lives in [`quartz/content/`](./quartz/content/) as Markdown files:
+82 topic chapters, a landing page, and five guided reading maps covering discrete mathematics,
+topology, algebra, analysis, and singular learning theory. The homepage is
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently
