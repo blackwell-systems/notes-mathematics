@@ -77,7 +77,7 @@ All three have the **same underlying set**. They are different mathematical obje
 > [!distinction] Structure is not the same as a property
 > A topology, order, or metric is **data that we specify**. *Compactness*, for example, is a **property** that a topology may or may not satisfy, not an additional collection of data by itself. Neither property nor structure is determined solely by the elements of an arbitrary set.
 
-**The progression:** [Sets](#set) provide elements; [functions and relations](./functions-relations) describe mappings and comparisons; [topology](./general-topology-foundations) adds open subsets. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) compares many more structures and shows which can be derived from others.
+**The progression:** [Sets](#set) provide elements; [functions and relations](./functions-relations) describe mappings and comparisons; [topology](./general-topology-foundations) adds open subsets. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) compares many more structures and shows which can be derived from others. For a worked example of how equivalence on a set becomes a linear-algebra quotient, visit [Cross-Disciplinary Bridges](./cross-disciplinary-bridges#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces).
 
 ## Roster Notation
 
