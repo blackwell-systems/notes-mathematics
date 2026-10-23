@@ -27,6 +27,8 @@ These properties are independent enough that confusing them produces common fals
 
 The cover may be **infinite**. A finite subcover may depend on that cover; the definition does not say $X$ contains finitely many points.
 
+**Example of an infinite cover that succeeds.** On $[0,1]$, take all intervals $U_n=(-1/n,1-1/n)$ for $n\ge2$, together with $V=(1/2,2)$. This is an **infinite** open cover, and just the **two original sets** $U_4=(-1/4,3/4)$ and $V=(1/2,2)$ cover $[0,1]$. Compare this with the infinite cover of $(0,1)$ below, from which no finite selection works.
+
 ![An open cover of a compact interval, with a finite selection still covering it.](./media/tp-compact-cover.svg)
 
 *Figure: The closed interval is covered by five open intervals. U₁, U₂ and U₃ belong to the given cover and already suffice to cover the interval, including both endpoints.*
@@ -327,5 +329,8 @@ The category-theory connection is precise: **Top** has products and coproducts a
 | Interval connected | supremum completeness of reals |
 | IVT | continuous images of connected intervals |
 | Closed-set intersection property | complements and De Morgan's laws |
+| Heine–Borel in Euclidean space | least-upper-bound completeness, finite products, closed subsets, Hausdorffness |
+| Metric compactness $\Leftrightarrow$ sequential compactness | total boundedness and an open-cover Lebesgue-number argument |
+| Extreme-value theorem | continuous image of compact, Heine–Borel in $\mathbb R$ |
 
-**External reference:** [Homeomorphisms](https://encyclopediaofmath.org/wiki/Homeomorphism) (Encyclopedia of Mathematics). This completes the introductory general-topology branch.
+**External reference:** [Homeomorphisms](https://encyclopediaofmath.org/wiki/Homeomorphism) (Encyclopedia of Mathematics). These results complete the core compactness branch; arbitrary product compactness (Tychonoff), nets, filters, and compactness in weaker topologies are important further topics.

@@ -379,7 +379,7 @@ In $\mathbb{R}$, an open ball is just an open interval $(x - r, x + r)$.
 
 This definition looks abstract, but it captures a powerful idea: compact sets are "small enough" that infinite processes can be reduced to finite ones.
 
-**Theorem (Heine-Borel).** A subset of $\mathbb{R}^n$ is compact if and only if it is **closed and bounded**.
+**Theorem (Heine–Borel).** A subset of $\mathbb{R}^n$ is compact if and only if it is **closed and bounded**. See the [full open-cover proof](./general-topology-compactness#step-1-closed-real-intervals-are-compact), which starts from real-number completeness, proves finite-product compactness, and derives both directions.
 
 So in $\mathbb{R}^n$, compactness is easy to check. The closed interval $[0, 1]$ is compact. The open interval $(0, 1)$ is not (it is bounded but not closed). The set $\mathbb{R}$ is not (it is closed but not bounded).
 
@@ -387,8 +387,8 @@ So in $\mathbb{R}^n$, compactness is easy to check. The closed interval $[0, 1]$
 
 - **Extreme Value Theorem:** A continuous function on a compact set achieves its maximum and minimum. (Without compactness: $f(x) = x$ on $(0, 1)$ has no maximum.)
 - **Uniform continuity:** A continuous function on a compact set is uniformly continuous (defined below).
-- **Bolzano-Weierstrass:** Every sequence in a compact set has a convergent subsequence whose limit is in the set.
-- In optimization, compactness guarantees that optimal solutions exist.
+- **Bolzano–Weierstrass:** Every sequence in a compact metric space has a convergent subsequence whose limit remains in that space. This and the converse are [proved in the metric compactness section](./general-topology-compactness#metric-compactness-and-convergent-subsequences).
+- In optimization, a **continuous** real-valued objective on a **nonempty compact** feasible set attains an optimum; see the [extreme-value proof](./general-topology-compactness#a-payoff-continuous-functions-attain-maxima-and-minima).
 
 ### Connectedness
 

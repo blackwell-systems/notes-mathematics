@@ -255,3 +255,10 @@ New proof-oriented bridges: [Functional Analysis](./content/functional-analysis.
 ## Quality-gate wording and limitations (2026-10-21)
 
 Renamed outdated figure and arithmetic CI job labels to avoid implying fixed historical figure counts or that executing examples proves all theorems. The arithmetic harness checks explicitly registered numerical examples; the editorial manifest's pilot status and the separate proof-review process are the authoritative indicator of unfinished mathematical certification.
+
+
+## Compactness proof and figure overhaul (2026-10-22)
+
+Repaired both formerly incorrect compactness SVGs. Their illustrated open intervals now cover the closed interval including its endpoints, and the selected lower subcover consists of exactly the original intervals with unchanged coordinates. Three additional editable SVGs illustrate a noncompact interval's infinite cover, compact subsets being closed in Hausdorff spaces, and the open-cover/finite-intersection-property duality. Captions distinguish a sampled picture from a universal proof.
+
+Added a direct least-upper-bound proof that every closed real interval is compact, a finite-product compactness proof, and both directions of Heine–Borel in R^n. Also proved the equivalence with sequential compactness in metric spaces via total boundedness and a Lebesgue-number argument, established the extreme-value theorem and included the infinite-dimensional closed-unit-ball counterexample in l². Crosslinks in Real Analysis, Functional Analysis and Path Through Topology now point to these proofs rather than claiming their existence without giving them. The audited SVG inventory is 79 diagrams across 30 chapters/maps. Independent mathematical and responsive/contrast reviews remain pending.

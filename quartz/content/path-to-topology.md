@@ -117,7 +117,7 @@ $$
 
 The quotient-topology rule makes $\bar p$ continuous because $p=\bar p\circ q$ is continuous. But **continuous bijection** does not automatically mean **homeomorphism**: we still need continuity of the inverse.
 
-Here the next chapter completes the argument. $[0,1]$ is compact in its usual topology (a real-analysis fact, e.g. Heine–Borel), hence $Q$, its continuous image under $q$, is compact. The unit circle is Hausdorff, since it is a metric subspace of $\mathbb R^2$. The [compact-to-Hausdorff homeomorphism theorem](./general-topology-compactness) now guarantees that the inverse of $\bar p$ is continuous. Therefore
+Here the next chapter completes the argument. $[0,1]$ is compact in its usual topology (now proved directly from completeness in [Heine–Borel's first step](./general-topology-compactness#step-1-closed-real-intervals-are-compact)), hence $Q$, its continuous image under $q$, is compact. The unit circle is Hausdorff, since it is a metric subspace of $\mathbb R^2$. The [compact-to-Hausdorff homeomorphism theorem](./general-topology-compactness) now guarantees that the inverse of $\bar p$ is continuous. Therefore
 
 $$
 \boxed{[0,1]/{(0\sim1)}\ \cong\ S^1}
@@ -146,7 +146,7 @@ Disjoint unions and gluing along an interface extend these ideas. The chapter pr
 
 In [Compactness, Connectedness and Separation](./general-topology-compactness), do not memorize these as three synonyms for "nice space." They answer separate questions:
 
-- **Compactness:** Does every open cover contain a **finite** subcover? A continuous image of a compact space is compact.
+- **Compactness:** Does every open cover contain a **finite** subcover? A continuous image of a compact space is compact. The chapter proves [Heine–Borel](./general-topology-compactness#step-1-closed-real-intervals-are-compact), the [metric sequential criterion](./general-topology-compactness#metric-compactness-and-convergent-subsequences), and a counterexample in Hilbert space.
 - **Connectedness:** Can the space be split into two disjoint nonempty relatively open subsets? Continuous images of connected spaces are connected.
 - **Hausdorff separation:** Can two distinct points be separated by disjoint open neighborhoods? In a Hausdorff space, every compact subset is closed.
 

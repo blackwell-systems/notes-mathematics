@@ -136,7 +136,7 @@ The full infinite-dimensional theorem additionally requires completeness and a c
 Three particularly useful distinctions connect this chapter to later work:
 
 - **Norm convergence** controls $\|x_n-x\|$. **Weak convergence** instead asks whether every continuous linear functional satisfies $L(x_n)\to L(x)$. Weak convergence need not imply norm convergence: the standard unit vectors $e_n$ in $\ell^2$ satisfy $\langle e_n,y\rangle=y_n\to0$ for every $y\in\ell^2$, while $\|e_n\|=1$.
-- **Compactness** behaves differently. The unit ball is compact in a finite-dimensional normed space, but not in an infinite-dimensional normed space in norm topology. The vectors $e_n$ are pairwise distance $\sqrt2$, so the unit ball of $\ell^2$ has no convergent subsequence of that sequence.
+- **Compactness** behaves differently. The unit ball is compact in a finite-dimensional normed space, but not in an infinite-dimensional normed space in norm topology. The vectors $e_n$ are pairwise distance $\sqrt2$, so the unit ball of $\ell^2$ has no convergent subsequence. The [metric sequential-compactness theorem](./general-topology-compactness#metric-compactness-and-convergent-subsequences) now makes the argument rigorous, and the same chapter proves [Heine–Borel](./general-topology-compactness#step-1-closed-real-intervals-are-compact).
 - **Operators** have spectra, not merely finite lists of eigenvalues. The bounded unilateral right shift on $\ell^2$ sends $(x_1,x_2,\ldots)$ to $(0,x_1,x_2,\ldots)$ and has no nonzero eigenvector, although its operator theory is far from trivial.
 
 > [!distinction] What is proved versus introduced
