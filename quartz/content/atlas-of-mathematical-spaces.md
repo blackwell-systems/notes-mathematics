@@ -7,7 +7,7 @@ enables: ["path-to-topology", "path-through-algebra", "path-through-analysis", "
 > [!abstract] A conceptual map of mathematical structure
 > **Begin with:** [Sets](./set-theory), [Functions and Relations](./functions-relations).
 > **Use alongside:** [Path Through Topology](./path-to-topology), [Path Through Algebra](./path-through-algebra), and [Path Through Analysis](./path-through-analysis).
-> **Advanced destinations:** [Functional Analysis](./functional-analysis), [Measure Theory](./measure-theory), [Information Geometry](./information-geometry), [Algebraic Geometry](./algebraic-geometry), [Category Theory](./category-theory-foundations).
+> **Advanced destinations:** [Functional Analysis](./functional-analysis), [Measure Theory](./measure-theory), [Differential Geometry](./differential-geometry), [Algebraic Topology](./algebraic-topology), [Sheaf Theory](./sheaf-theory), [Information Geometry](./information-geometry), [Algebraic Geometry](./algebraic-geometry), and [Category Theory](./category-theory-foundations).
 >
 > This is an **atlas**, not an assertion that all mathematical spaces sit in one chain. We will repeatedly distinguish **added structure**, **a property of an existing structure**, and **a map that preserves it**.
 
@@ -489,7 +489,7 @@ A **smooth manifold** carries a compatible collection of smooth coordinate chart
 | Smooth manifold | Compatible smooth charts | Differentiable functions and tangent vectors |
 | Riemannian manifold | Smooth positive-definite inner product at each tangent space | Angles, lengths, geodesics, induced distance |
 
-**Precise limitation:** Our existing [Topology](./general-topology-foundations), [Multivariable Calculus](./multivariable-calculus), and [Euclidean Geometry](./euclidean-geometry) chapters supply background, but the site does **not yet contain a full standalone manifold theory** (coordinate transition proofs, tangent bundles, differential forms, etc.). The definitions here are a structured orientation, not a claim that those results have already been covered.
+**Continue the subject:** [Differential Geometry](./differential-geometry) now develops the first substantial manifold treatment: smooth charts and transition functions, tangent planes, covectors, differential forms, Riemannian metrics, and curvature, with explicit examples. It is an introduction rather than a full treatment of tangent bundles, covariant differentiation, and curvature tensors. The global behavior of loops and surfaces belongs to [Algebraic Topology](./algebraic-topology), and compatible local descriptions are the subject of [Sheaf Theory](./sheaf-theory).
 
 ## 10. Intersections of branches: the spaces mathematicians actually use
 
@@ -848,11 +848,13 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 | Measurable space | Sigma-algebra | Measurable sets and functions | [Measure Theory](./measure-theory) |
 | Measure space | Countably additive size of measurable sets | Integration, almost-everywhere claims | [Measure Theory](./measure-theory) |
 | Probability space | Measure with total mass one | Random variables and expectations | [Probability](./probability) |
-| Topological manifold | Hausdorff, second-countable, locally Euclidean | Local coordinates | **Atlas introduction** |
-| Smooth manifold | Compatible smooth charts | Differentiation on spaces | **Atlas introduction** |
-| Riemannian manifold | Smooth inner product on tangent spaces | Angles, geodesic lengths | **Atlas introduction** |
+| Topological manifold | Hausdorff, second-countable, locally Euclidean | Local coordinates | [Differential Geometry](./differential-geometry) |
+| Smooth manifold | Compatible smooth charts | Differentiation on spaces | [Differential Geometry](./differential-geometry) |
+| Riemannian manifold | Smooth inner product on tangent spaces | Angles, geodesic lengths | [Differential Geometry](./differential-geometry) |
 | Algebraic variety | Polynomial constraints, algebraic topology | Geometry of solution sets | [Algebraic Geometry](./algebraic-geometry) |
 | Category of spaces | Objects **and** chosen morphisms | Functors, universal properties and adjunctions | [Category Theory](./category-theory-foundations) |
+| Sheaf of sections | Restrictions on opens; unique gluing of compatible local data | Construct global sections from agreeing local pieces | [Sheaf Theory](./sheaf-theory) |
+| Topological invariant | Loops, chains and homotopy or homology classes | Detect global holes without coordinates or metrics | [Algebraic Topology](./algebraic-topology) |
 
 ## 16. Choose the branch from the question, not from an imaginary rank
 
@@ -863,7 +865,9 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 - **Can we compare elements or identify duplicates?** Ask for an order or an equivalence relation. Read [Order Theory](./order-theory) and [Equivalence Relations](./equivalence-relations).
 - **Are points geometric positions, or vectors?** Use an **affine space** if differences are meaningful but no point is distinguished as the origin; use a **projective space** if you want to study lines and directions up to scaling.
 - **Do Cauchy sequences or uniform continuity matter without a particular distance formula?** Look for a **uniformity**; do not try to derive a unique one from the topology alone.
-- **Does the space curve or have local coordinates?** Ask whether it is a topological, smooth, or Riemannian manifold. Use [Topology](./general-topology-foundations) and [Multivariable Calculus](./multivariable-calculus) as foundations.
+- **Does the space curve or have local coordinates?** Ask whether it is a topological, smooth, or Riemannian manifold. Use [Topology](./general-topology-foundations) and [Multivariable Calculus](./multivariable-calculus) as foundations, then [Differential Geometry](./differential-geometry).
+- **Do loops reveal global holes?** Ask about homotopy, the fundamental group or homology. See [Algebraic Topology](./algebraic-topology).
+- **Can compatible descriptions from overlapping regions be assembled?** Ask what restrictions and overlap conditions are available, then check the [sheaf gluing axioms](./sheaf-theory). Mere local existence is not enough.
 - **Does a statistical model have degenerate local directions?** Ask about the parameter-to-distribution map, Fisher information and the vanishing order of KL divergence. The [Information Geometry](./information-geometry) chapter distinguishes these.
 
 ## 17. Self-check: have you learned the relationships?
@@ -922,15 +926,15 @@ This table is a set of **mathematical motivations**, not a sequence of historica
 | Normed, Banach, Hilbert and function spaces | Multiple definitions and proofs; specialist chapter linked | Operator algebras, Sobolev and Fréchet spaces |
 | Fixed-point principles | Comparative statements and explicit examples; full theorem proofs linked to broader subjects | Proofs of Brouwer, Schauder and Knaster–Tarski; constructive fixed-point methods |
 | Measures and probability | Measurable-space versus measure-space distinctions | Regular measures, stochastic processes |
-| Manifolds | Definitions and relationship diagram | Transition-map proofs, tangent bundles and differential forms |
-| Categories, functors and free constructions | Concrete functors, quotient factorization and adjunction proofs | Higher categories, sheaves, topoi and schemes |
-| **Categorical topology and locales** | Sierpiński classifier proof, $D\dashv U\dashv I$, frame-of-opens construction | Sober spaces, locale duality, sheaves and Grothendieck topoi |
+| Manifolds | Definitions and relationship diagram; [introductory chapter](./differential-geometry) with charts, tangent computations and forms | General tangent bundles, connections, curvature tensors |
+| Categories, functors and free constructions | Concrete functors, quotient factorization and adjunction proofs; [introductory sheaf chapter](./sheaf-theory) | Higher categories, topoi, schemes and sheaf cohomology |
+| **Categorical topology and locales** | Sierpiński classifier proof, $D\dashv U\dashv I$, frame-of-opens construction | Sober spaces, locale duality and Grothendieck topoi |
 
 The audit intentionally separates **topics introduced to orient the reader** from subjects comprehensively developed elsewhere on the site. A new row does not mean an entire field has been covered.
 
 ## 18. Where the atlas stops
 
-This atlas makes many fundamental relationships explicit, including a categorical perspective on **spaces and their permitted maps**, and proves selected implications and counterexamples. It does **not** claim to be a complete graduate treatment of all mathematical space theories. Important further families include locally convex spaces and Fréchet spaces, Sobolev spaces, distributions, symplectic manifolds, fiber bundles, sheaves, schemes and derived or higher-categorical structures. Uniform, affine and projective spaces receive **substantial introductions** above but do not yet have complete standalone chapters.
+This atlas makes many fundamental relationships explicit, including a categorical perspective on **spaces and their permitted maps**, and proves selected implications and counterexamples. It does **not** claim to be a complete graduate treatment of all mathematical space theories. Important further families include locally convex and Fréchet spaces, Sobolev spaces, distributions, symplectic manifolds, fiber bundles, schemes, advanced sheaf cohomology and derived or higher-categorical structures. The new [Differential Geometry](./differential-geometry), [Algebraic Topology](./algebraic-topology), and [Sheaf Theory](./sheaf-theory) chapters introduce those subjects but do not exhaust them. Uniform, affine and projective spaces receive **substantial introductions** in this atlas but do not yet have complete standalone chapters.
 
 That limitation is intentional: the objective is a **correct reusable framework**, one in which every new kind of space can be understood by the questions “What objects? What structure? What axioms? What maps? What properties? Which theorems?” Follow the linked full chapters whenever a named theorem needs a proof beyond what appears here.
 
