@@ -1,12 +1,12 @@
 ---
 title: "Multivariable Calculus"
 prerequisites: ["calculus", "linear-algebra-foundations"]
-enables: ["optimization", "algebraic-geometry"]
+enables: ["optimization", "algebraic-geometry", "multivariable-integration", "vector-calculus"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
 > **Builds on:** [Calculus](./calculus) · [Linear Algebra Foundations](./linear-algebra-foundations)
-> **Leads to:** [Optimization](./optimization) · [Algebraic Geometry](./algebraic-geometry)
+> **Leads to:** [Optimization](./optimization) · [Algebraic Geometry](./algebraic-geometry) · [Multivariable Integration](./multivariable-integration) · [Vector Calculus](./vector-calculus)
 
 
 Single-variable calculus studies functions with one input and one output: $f(x) = x^2$. But most real problems involve many variables. A house's price depends on square footage, location, age, and number of bedrooms. A neural network's loss depends on thousands (or millions) of parameters. **Multivariable calculus** extends derivatives and integrals to functions of several variables.
@@ -231,6 +231,76 @@ In a neural network, the output (loss) depends on the final layer's weights, whi
 
 The [matrix calculus section](./linear-algebra-computation) expresses this in matrix form: the chain rule becomes multiplication of Jacobian matrices.
 
+## Differentiability: one linear approximation, not just separate slopes
+
+A partial derivative changes **one coordinate at a time**. But a true multivariable derivative must describe how the function responds when **all input coordinates change together**.
+
+For $f:\mathbb R^n\to\mathbb R^m$, **differentiability at a point** $a$ means there is a linear map $L:\mathbb R^n\to\mathbb R^m$ such that
+
+$$
+f(a+h)=f(a)+L(h)+r(h),
+\qquad
+\lim_{h\to0}\frac{\|r(h)\|}{\|h\|}=0.
+$$
+
+Read $r(h)$ as the **remainder**: its size becomes negligible compared with the size of the input step $h$. The linear map $L$ is the **total derivative** $Df(a)$, and in standard coordinates its matrix is the **Jacobian** $J_f(a)$.
+
+This is a stronger promise than the existence of partial derivatives. The approximation works **no matter which direction the small step takes**.
+
+> [!counterexample] Two partial derivatives exist, but continuity fails
+> Let
+>
+> $$
+> f(x,y)=\begin{cases}\dfrac{xy}{x^2+y^2},&(x,y)\ne(0,0),\\0,&(x,y)=(0,0).\end{cases}
+> $$
+>
+> Along the $x$-axis and $y$-axis the function is identically zero. Both partial derivatives at the origin exist and equal zero. But along $y=x\ne0$, $f(x,x)=1/2$, so the function is **not even continuous** at the origin. It cannot be differentiable there.
+
+A practical sufficient criterion is that all first partial derivatives exist and are **continuous on an open neighborhood** of the point. That guarantees differentiability. It is sufficient, not necessary.
+
+### Why the chain rule is matrix multiplication
+
+If $g:\mathbb R^n\to\mathbb R^m$ and $f:\mathbb R^m\to\mathbb R^p$ are differentiable at the relevant points, then small changes first pass through $Dg$, then through $Df$:
+
+$$
+D(f\circ g)(x)=Df(g(x))\circ Dg(x).
+$$
+
+In standard coordinates, composition of linear maps becomes matrix multiplication,
+
+$$
+J_{f\circ g}(x)=J_f(g(x))J_g(x).
+$$
+
+The **order** matters: the rightmost Jacobian acts first. This extends the one-variable rule $(f\circ g)'(x)=f'(g(x))g'(x)$ without treating multivariable differentiation as a collection of unrelated tricks.
+
+### Second-order approximation: what the Hessian is for
+
+For a twice continuously differentiable real-valued function, with a small displacement $h$,
+
+$$
+f(a+h)=f(a)+\nabla f(a)^Th+\frac12h^TH_f(a)h+o(\|h\|^2).
+$$
+
+The gradient gives the **best first-order local linear prediction**. The Hessian gives the **leading quadratic correction**, describing curvature in every direction. A positive-definite Hessian **at a critical point** is sufficient for a strict local minimum; positive definiteness away from a critical point does not alone establish an extremum.
+
+### Inverse and implicit function theorems: local solvability
+
+The **inverse function theorem** says that for a continuously differentiable map $F:\mathbb R^n\to\mathbb R^n$, if $\det J_F(a)\ne0$, then $F$ has a continuously differentiable inverse between suitable **neighborhoods** of $a$ and $F(a)$. This is a *local* statement: a map can be locally invertible at every point without having a global inverse.
+
+The **implicit function theorem** says that if an equation $G(x,y)=0$ has sufficiently regular derivatives and the partial derivative with respect to $y$ is nonzero at a solution, then nearby we can describe $y$ as a differentiable function of $x$.
+
+> [!example] Solve a circle locally, not globally
+> For $G(x,y)=x^2+y^2-1$, at $(0,1)$ we have $G_y=2y=2\ne0$. Near that point, the circle is the graph $y=\sqrt{1-x^2}$, and implicit differentiation gives
+>
+> $$
+> \frac{dy}{dx}=-\frac{G_x}{G_y}=-\frac{x}{y}.
+> $$
+>
+> At $(1,0)$, however, $G_y=0$ and we **cannot** solve for $y$ as a differentiable function of $x$ near the point. We can instead solve for $x$ as a differentiable function of $y$. This is a coordinate issue, not a singularity in the circle.
+
+Theorems here are stated with their necessary local hypotheses; their full proofs use the deeper tools of [Real Analysis](./real-analysis) and lead directly to [Differential Geometry](./differential-geometry).
+
 ## Second-Order Partial Derivatives and the Hessian
 
 ### Second Partial Derivatives
@@ -265,12 +335,12 @@ $$
 H = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix}
 $$
 
-For a function of $n$ variables, the Hessian is an $n \times n$ symmetric matrix (symmetric because $f_{x_i x_j} = f_{x_j x_i}$).
+For a function with **continuous second-order partial derivatives** near the point, the Hessian is symmetric by equality of mixed partials. Without suitable regularity, the two mixed partials need not agree, so symmetry should not be assumed.
 
 The Hessian is the multivariable analog of the second derivative. In single-variable calculus:
 
-- $f''(a) > 0$ means concave up (local minimum)
-- $f''(a) < 0$ means concave down (local maximum)
+- **At a critical point** ($f'(a)=0$), $f''(a)>0$ guarantees a strict local minimum.
+- **At a critical point**, $f''(a)<0$ guarantees a strict local maximum.
 
 For multiple variables, the Hessian plays the same role using the concept of positive definiteness from [linear algebra](./linear-algebra-computation):
 
@@ -301,7 +371,7 @@ For a $2 \times 2$ Hessian you can skip eigenvalues and use the determinant test
 
 ### Extending Integration to Two Dimensions
 
-A single integral $\int_a^b f(x) \, dx$ computes the area under a curve. A **double integral** computes the volume under a surface:
+A single integral can represent signed area or accumulation along an interval. A **double integral** accumulates a scalar over a two-dimensional region; when $f(x,y)\geq0$, it gives the volume under the surface $z=f(x,y)$, but for signed integrands its meaning is **signed volume** rather than ordinary geometric volume:
 
 $$
 \iint_R f(x, y) \, dA
@@ -315,7 +385,7 @@ The picture explains the iterated-integral recipe below: freeze $x$, integrate o
 
 ### Computing Double Integrals
 
-You evaluate a double integral as two nested single integrals (called an **iterated integral**):
+For a **continuous function on a rectangular region**, a double integral can be evaluated using two nested single integrals (an **iterated integral**). Other regions require variable limits, and more general functions require an integration-order theorem such as Fubini's or Tonelli's:
 
 $$
 \iint_R f(x, y) \, dA = \int_a^b \left( \int_c^d f(x, y) \, dy \right) dx
@@ -333,7 +403,7 @@ $$
 
 ### Changing the Order of Integration
 
-For a rectangular region, you can integrate in either order:
+For a **continuous** function on a rectangular region, you can integrate in either order:
 
 $$
 \int_a^b \int_c^d f(x, y) \, dy \, dx = \int_c^d \int_a^b f(x, y) \, dx \, dy
@@ -407,14 +477,14 @@ In words: compute the gradient at your current position, scale it by the learnin
 
 ### Why It Works
 
-Since $-\nabla f$ points in the direction of steepest decrease, each step reduces the value of $f$ (provided the learning rate is small enough). Over many steps, you approach a minimum.
+For a differentiable function, $-\nabla f$ is the direction of steepest **first-order** decrease in the Euclidean metric. If the gradient is $L$-Lipschitz and $0<\alpha<2/L$, the descent lemma guarantees a decrease in objective value unless the gradient vanishes. **Decreasing values do not alone guarantee convergence of the iterates to a minimum**: a stationary point can be a saddle, and further assumptions are needed for convergence to a global minimizer.
 
 ### The Learning Rate
 
 The learning rate $\alpha$ controls step size:
 
 - **Too large:** Steps overshoot the minimum. The algorithm may bounce around or diverge.
-- **Too small:** Steps are tiny. The algorithm converges, but painfully slowly.
+- **Too small:** Steps are tiny and progress may be painfully slow; convergence still depends on the function and the algorithm's other hypotheses.
 - **Just right:** Steady progress toward the minimum.
 
 Choosing a good learning rate is a practical challenge in machine learning.
@@ -582,6 +652,15 @@ Constrained optimization is everywhere in ML. A **hard-margin support vector mac
 For inequality constraints ($g(\mathbf{x}) \leq c$), the multipliers must be non-negative and the condition generalizes to the **Karush-Kuhn-Tucker (KKT) conditions**, which the [optimization page](./optimization) treats in full, including the SVM dual.
 
 ---
+
+## Where the integration story continues
+
+This chapter develops partial derivatives, optimization and **rectangular double integrals**. The next two chapters complete the mathematical side often called Calculus III:
+
+- [Multivariable Integration](./multivariable-integration) explains nonrectangular regions, triple integrals, cylindrical and spherical coordinates, Jacobian determinants, and change of variables.
+- [Vector Calculus](./vector-calculus) explains vector fields, work along paths, flux through surfaces, divergence and curl, and the integral theorems that relate interior change to boundary accumulation.
+
+The conceptual progression is **differentiate locally, integrate globally, then understand what is measured on the boundary**. Differential geometry later explains this pattern without assuming the region fits in one global Euclidean coordinate system.
 
 ## Summary: How Everything Connects
 
