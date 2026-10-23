@@ -206,6 +206,9 @@ Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class 
 
 Both counterexamples show why the three axioms matter. "Similar enough" is not automatically a mathematically valid equivalence.
 
+> [!connection] One construction, several fields
+> Once you can form equivalence classes, you can ask what a function *forgets*. The [worked linear-map bridge](./cross-disciplinary-bridges#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces) starts with $(x,y)\sim(u,v)$ iff $x+y=u+v$, then derives a kernel and the corresponding quotient vector space. It also explains why algebraic and topological quotients need additional checks.
+
 ## Where to go next
 
 - **[Order Theory](./order-theory):** a preorder's mutually comparable elements can be identified and quotient into a genuine poset.
