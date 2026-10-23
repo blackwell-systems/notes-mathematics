@@ -354,7 +354,100 @@ $$
 
 The expectation rule generalizes to $\mathbb E[A]=\operatorname{tr}(\rho A)$ (read "trace of rho A"). A full treatment of mixed-state entanglement and quantum channels is beyond this introduction.
 
-## 9. Quantum states as an optimization problem
+## 9. Experimental evidence: why the mathematics earns physical trust
+
+So far, we have described a mathematical framework. **Why should we believe it describes the world?** Because quantum theory predicts observable patterns and numerical relationships that experiments can check, and many demanding tests agree with those predictions.
+
+> [!distinction] Three different meanings of "proved"
+> **Mathematical:** Theorems such as the variational bound follow deductively from stated axioms.
+>
+> **Empirical:** Experiments test whether a model's predictions match observed frequencies, correlations and measured quantities. Repeated success provides strong evidence, not a logical proof that nature must obey these axioms in every untested regime.
+>
+> **Interpretive:** Questions such as what a wavefunction *fundamentally is*, or whether collapse represents a physical process, are not automatically answered by matching ordinary quantum predictions.
+
+Here are four independently useful examples. The mathematical claims and the experimental results are deliberately kept separate.
+
+### A. Individual detections accumulate into an interference pattern
+
+**Prediction:** When coherent alternatives contribute amplitudes $a_1$ and $a_2$ to the same detection location, the probability is
+
+$$
+P\propto |a_1+a_2|^2
+=|a_1|^2+|a_2|^2+2\operatorname{Re}(a_1^*a_2).
+$$
+
+The last term is the **interference term**. It is absent when we simply add independent classical path probabilities, and it can be positive or negative depending on the relative phase.
+
+**Test:** Tonomura and collaborators reported the buildup of an electron interference pattern from **individually detected electrons** in 1989. Their setup used an **electron biprism**, an electron-optical analogue of two-path interference, rather than literally two mechanical slits. Each event registered as a localized detection; many events accumulated into the interference distribution.
+
+**What is established:** The measured pattern supports coherent quantum amplitudes and the Born-rule account of detection probabilities. A classical mixture over two incoherent paths does not produce the same interference term.
+
+**Primary source:** [Tonomura et al., *Demonstration of single-electron buildup of an interference pattern*, American Journal of Physics 57 (1989), 117-120](https://doi.org/10.1119/1.16104).
+
+### B. Individual quantum systems can be prepared, controlled and measured
+
+**Prediction:** A unitary operation can change the amplitudes and relative phase of a qubit while preserving normalization. Preparing the same state and measuring in different bases gives the specific outcome frequencies predicted by the Born rule.
+
+**Test:** Experiments with trapped ions and photons demonstrated controlled preparation, manipulation and measurement of **individual** quantum systems, rather than only large ensembles. This body of experimental work led to the [2012 Nobel Prize in Physics](https://www.nobelprize.org/prizes/physics/2012/summary/) for Serge Haroche and David Wineland. Ion-trap experiments, for example, can use laser pulses to prepare and interrogate superpositions of internal energy levels.
+
+**What is established:** Superposition and controlled quantum evolution are operationally testable, not merely mathematical stories about microscopic objects. The ideal matrix gates used earlier in this chapter are simplified models of experimentally implementable controls, with real errors and decoherence.
+
+**Sources:** [Nobel Committee's scientific background, *Measuring and Manipulating Individual Quantum Systems*](https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2012-1.pdf); [NIST profile of David Wineland](https://www.nist.gov/nist-and-nobel/dave-wineland).
+
+### C. Bell tests distinguish quantum correlations from local hidden-variable predictions
+
+**Prediction:** Consider two separated observers, each choosing between two binary measurements. Write their outcomes as $A_0,A_1,B_0,B_1\in\{-1,+1\}$, and denote the measured **correlation** at settings $i,j$ by $E_{ij}$. Under the standard Bell-local model, with measurement settings independent of the hidden variables, the **CHSH inequality** is
+
+$$
+\boxed{S=|E_{00}+E_{01}+E_{10}-E_{11}|\leq2.}
+$$
+
+Why $2$? For any fixed assignment of local outcomes, the quantity
+
+$$
+A_0(B_0+B_1)+A_1(B_0-B_1)
+$$
+
+equals $+2$ or $-2$: if $B_0$ and $B_1$ agree, the first bracket has magnitude $2$ and the second vanishes; otherwise the roles reverse. Averaging over such assignments cannot make the absolute value exceed $2$.
+
+For suitable **entangled quantum states** and measurement settings, quantum mechanics predicts
+
+$$
+S=2\sqrt2\approx2.828,
+$$
+
+which exceeds the Bell-local bound.
+
+**Test:** Bell-inequality experiments with entangled photons have repeatedly observed violations. In 2015, experiments closed the most significant detection and locality loopholes in their designs; for example, NIST researchers reported a strong rejection of local realism while maintaining spacelike separation of relevant events. Alain Aspect, John Clauser and Anton Zeilinger received the [2022 Nobel Prize in Physics](https://www.nobelprize.org/prizes/physics/2022/summary/) for pioneering experiments establishing Bell-inequality violations.
+
+**What is established:** Under the experiments' stated assumptions, the observed correlations are incompatible with the corresponding **Bell-local hidden-variable models**. This does **not** mean researchers demonstrated controllable faster-than-light communication. It also does not by itself settle every interpretation of quantum mechanics. Bell tests constrain particular combinations of assumptions, including locality and independence of measurement choices.
+
+**Primary sources:** [Shalm et al., *A Strong Loophole-Free Test of Local Realism*, Physical Review Letters 115 (2015)](https://doi.org/10.1103/PhysRevLett.115.250402); [Giustina et al., *A Significant-Loophole-Free Test of Bell's Theorem with Entangled Photons*, Physical Review Letters 115 (2015)](https://doi.org/10.1103/PhysRevLett.115.250401); [NIST experiment summary](https://www.nist.gov/news-events/news/2015/11/nist-team-proves-spooky-action-distance-really-real).
+
+### D. Precision quantum electrodynamics: calculations face numerical tests
+
+**Prediction:** Quantum electrodynamics (QED), the relativistic quantum theory of electromagnetic interactions, makes extremely precise predictions about quantities including the electron's magnetic moment. This is **beyond** the two-dimensional qubit model developed here; it is an example of the larger quantum-theoretic framework put to demanding quantitative tests.
+
+**Test:** Fan, Myers, Sukra and Gabrielse reported an electron magnetic-moment measurement in 2023 with **0.13 parts-per-trillion relative experimental uncertainty**. They describe a test of the relevant Standard Model prediction at roughly **one part in $10^{12}$**, with the comparison limited partly by independent determinations of the fine-structure constant $\alpha$.
+
+**What is established:** Quantum field-theoretic calculations and extremely sensitive measurements can be compared at a precision far beyond qualitative claims about "strange quantum behavior." The **measurement precision** must not be confused with an unconditional guarantee that every theoretical calculation or input parameter has the same uncertainty.
+
+**Primary source:** [Fan et al., *Measurement of the Electron Magnetic Moment*, Physical Review Letters 130 (2023), 071801](https://doi.org/10.1103/PhysRevLett.130.071801). See also [NIST, *Tests of Fundamental Physics*](https://www.nist.gov/publications/tests-fundamental-physics).
+
+### What the experiments validate, and what they do not
+
+| Mathematical idea | Measurable consequence | What is not thereby proved |
+| --- | --- | --- |
+| Complex amplitudes and interference | Single-particle detections build interference patterns | One unique metaphysical meaning of the wavefunction |
+| State preparation, unitary gates and measurement | Repeatable outcome frequencies after controlled operations | Every real device is perfectly isolated and unitary |
+| Entangled joint states and Bell correlations | Correlations violating Bell-local inequalities | Faster-than-light signalling or a unique interpretation |
+| Quantum field-theoretic calculations | Precision magnetic-moment and spectroscopic predictions | That every regime or proposed extension of quantum theory is settled |
+
+**Why this belongs in a mathematics reference:** Here, abstraction has a concrete test. A model built from complex vector spaces, operators, inner products and probability rules can predict **numbers that laboratories measure**. That is powerful evidence that the structure is physically useful, while the distinction between mathematical deduction and empirical inference remains essential.
+
+**Bridge to optimization:** Nothing in these experiments establishes that a [quantum natural-gradient](#10-quantum-states-as-an-optimization-problem) algorithm will outperform classical neural-network training. Its update rule can be mathematically well-defined while claims about speed, sample efficiency and hardware advantage require separate experiments.
+
+## 10. Quantum states as an optimization problem
 
 Here is the bridge to [Gradient Descent](./multivariable-calculus#gradient-descent), [Optimization](./optimization), and [Information Geometry](./information-geometry).
 
@@ -469,7 +562,7 @@ The energy cannot increase; equality occurs for a state supported within a singl
 
 This is a mathematical evolution used in simulation and theory, **not ordinary physical time evolution**. Its resemblance to gradient flow is exact in appropriate geometric formulations, but not an argument that classical neural networks secretly obey quantum mechanics.
 
-## 10. What actually transfers to classical model training?
+## 11. What actually transfers to classical model training?
 
 | Quantum setting | Classical training analogue | Important difference |
 | --- | --- | --- |
@@ -482,7 +575,7 @@ This is a mathematical evolution used in simulation and theory, **not ordinary p
 
 The intersection is **geometry-aware optimization of parameterized objects**. Classical backpropagation remains a classical chain-rule algorithm; no quantum mechanics is required for ordinary neural-network training.
 
-## 11. Self-check: separate the claims
+## 12. Self-check: separate the claims
 
 1. **Can a normalized qubit vector have complex amplitudes?** Yes. Normalization constrains the *sum of squared magnitudes*, not each coefficient's phase.
 2. **Does $\langle+|Z|+\rangle=0$ mean that Z can measure $0$?** No. Its possible measurement outcomes are the eigenvalues $+1$ and $-1$.
@@ -492,7 +585,7 @@ The intersection is **geometry-aware optimization of parameterized objects**. Cl
 6. **Does a zero energy gradient mean a minimum?** No. $E(\theta)=\cos\theta$ has a maximum at $\theta=0$ and minimum at $\theta=\pi$.
 7. **Is imaginary-time evolution identical to ordinary quantum time evolution?** No. Ordinary closed-system evolution is unitary; imaginary-time evolution acts as an energy-filtering construction.
 
-## 12. How far this chapter goes
+## 13. How far this chapter goes
 
 This is an **introductory mathematical framework**, not a full quantum-mechanics text. Important next topics include Schrödinger wavefunctions in $L^2(\mathbb R^n)$, unbounded self-adjoint operators and domains, canonical position/momentum commutation, continuous spectra, spin and angular momentum coupling, open systems and quantum channels, decoherence, Bell inequalities, and the physical approximations behind actual experiments.
 
