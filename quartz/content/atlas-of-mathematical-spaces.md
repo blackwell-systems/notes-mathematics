@@ -68,7 +68,12 @@ None is uniquely forced by the underlying elements. Different choices make diffe
 
 ### Relations, quotients, and orders
 
-An [equivalence relation](./equivalence-relations) declares when elements count as *the same for a chosen purpose*. Its quotient $X/{\sim}$ has **equivalence classes as points**; a quotient is not simply the original set with a changed label.
+An [equivalence relation](./equivalence-relations) declares when elements count as *the same for a chosen purpose*. For each $x\in X$, its **equivalence class** is $[x]=\{y\in X:y\sim x\}$: all elements considered equivalent to $x$. The **[quotient set](./equivalence-relations#quotient-sets-classes-become-objects)** $X/{\sim}=\{[x]:x\in X\}$ takes those **classes, rather than the original elements, as its points**. The quotient map $q:X\to X/{\sim}$ sends $x$ to $[x]$.
+
+> [!example] What actually changes in a quotient?
+> On $X=\{1,2,3,4\}$, define $a\sim b$ when $a$ and $b$ have the same parity. The quotient is $X/{\sim}=\{\{1,3\},\{2,4\}\}$: **two elements**, each itself a set of original elements. For instance, $q(1)=q(3)=\{1,3\}$. We have replaced individual numbers with their equivalence classes—not merely renamed the numbers.
+
+The construction and its [well-defined mapping property](./equivalence-relations#when-does-a-function-descend-to-classes) are developed in **Equivalence Relations and Quotients**.
 
 A [partial order](./order-theory) $\,\leq\,$ is reflexive, antisymmetric, and transitive. It makes “at most” or “precedes” meaningful without assigning a distance. A **lattice** is a poset in which every pair has a greatest lower bound (meet) and least upper bound (join). A **complete lattice** has meets and joins of **all subsets**, including the empty subset.
 
