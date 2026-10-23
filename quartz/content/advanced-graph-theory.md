@@ -32,7 +32,7 @@ The equivalence classes are called **strongly connected components** (SCCs). Col
 
 This theorem is the graph version of [quotienting a preorder into a poset](./order-theory#turning-a-preorder-into-a-poset).
 
-> [!connection] A different kind of cycle obstruction
+> [!bridge] A different kind of cycle obstruction
 > Directed SCCs concern **mutual reachability**. An **undirected constraint cycle** can obstruct a global solution even in a graph with no directed cycles. [The XOR triangle bridge](./cross-disciplinary-bridges#bridge-3-an-inconsistent-cycle-is-a-cohomological-obstruction) proves an exact cycle-consistency criterion and connects it to first cohomology. These are different notions of a cycle; do not infer dynamical nonconvergence from constraint inconsistency alone.
 
 ## Topological ordering of dependencies
