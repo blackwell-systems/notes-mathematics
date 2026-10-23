@@ -21,14 +21,15 @@ The goal of this guide is to learn to look at an unfamiliar space and ask:
 4. **Morphisms:** Which maps preserve the data?
 5. **Properties:** Which further conditions, such as completeness or compactness, happen to hold?
 6. **Limits:** Which familiar implications fail if a hypothesis is removed?
+7. **Categories:** What if we consider all such spaces at once, together with the maps we permit between them?
 
 These questions let you navigate from elementary sets to the spaces of modern analysis and geometry without confusing one kind of structure with another.
 
 ## 1. Read the map correctly: a network, not a ladder
 
-![A network branches from sets through order, topology, linear and measurable spaces. A metric refines topological structure, and completeness of that metric is an additional condition. Normed, Banach and Hilbert spaces combine linear structure with additional requirements, while measures lead to probability; manifolds appear separately.](./media/sp-structure-atlas.svg)
+![An upper network branches from sets into ordered, topological, vector, and measurable spaces. The lower analytic subgraph distinguishes normed spaces, Banach spaces requiring completeness, inner-product spaces carrying extra inner-product data, and Hilbert spaces at their intersection.](./media/sp-structure-atlas.svg)
 
-*Figure: Each arrow points toward a structure or condition that **adds requirements**. Most branches are not comparable; for example, a probability space need not have a metric, and a vector space need not have a topology.*
+*Figure: The upper branches show independent kinds of structure; the lower subgraph makes the **Banach and inner-product branches distinct** and joins them at Hilbert spaces. Downward arrows indicate additional compatible data or a stricter condition, not canonical enrichments or generally reversible implications.*
 
 The most important distinction is between **data** and **properties**.
 
@@ -350,7 +351,140 @@ A linear map in infinite dimensions need **not** be continuous (see differentiat
 
 **Never write "isomorphic" without specifying what is preserved.** Two sets may be bijective, two topological spaces homeomorphic, two metric spaces isometric, or two vector spaces linearly isomorphic, and these are different claims.
 
-## 13. A working catalog of spaces and their theorems
+## 13. Categories: the structure of mathematical structures
+
+The previous sections studied **structure inside an object**: openness, a norm, an order, a measure. Category theory asks a second question: **Which structured objects may be related by which maps—and what patterns persist when maps are composed?**
+
+A category is **not an extra rung above Hilbert or Riemannian spaces**. It is a different level of description. Some categories have mathematical spaces as objects; other categories have objects that need not be sets at all.
+
+> [!definition] A category
+> A category $\mathcal C$ has a collection of **objects**, a collection of morphisms $\operatorname{Hom}_{\mathcal C}(A,B)$ for each pair of objects, associative composition $g\circ f$, and identity morphisms $1_A$ satisfying $1_B\circ f=f=f\circ1_A$. The choice of *which morphisms count* is part of the definition.
+>
+> In common concrete examples, objects are structured sets and morphisms are functions preserving particular structure. This is a useful starting intuition, **not** a restriction on the abstract definition of category.
+
+### A category is determined by objects **and** arrows
+
+| Category | Objects | Morphisms | An isomorphism means |
+| --- | --- | --- | --- |
+| $\mathbf{Set}$ | Sets | All functions | Bijection |
+| $\mathbf{Top}$ | Topological spaces | Continuous maps | Homeomorphism |
+| $\mathbf{Vect}_{\mathbb R}$ | Real vector spaces | Linear maps | Linear isomorphism |
+| $\mathbf{Ban}$ | Banach spaces | Bounded linear maps | Invertible bounded linear map with bounded inverse |
+| $\mathbf{Hilb}$ | Hilbert spaces | Bounded linear maps | Invertible bounded linear map with bounded inverse |
+
+**Crucial distinction:** An isomorphism in this chosen $\mathbf{Hilb}$ is **not necessarily an isometry** or a unitary operator. For example, $T:\mathbb R\to\mathbb R$, $T(x)=2x$, is a bounded linear isomorphism with bounded inverse, but doubles lengths. A different category with the *same Hilbert-space objects* and **unitary morphisms** has a different notion of isomorphism. This is why diagrams must **name the arrows**, not just the objects.
+
+![A chain of forgetful functors from Hilbert spaces with bounded linear maps to Banach spaces, then topological spaces, then sets, plus a separate functor from real vector spaces to sets, showing a bounded linear operator viewed progressively as a continuous map and ordinary function.](./media/sp-categorical-forgetful.svg)
+
+*Figure: These are **functors between categories**, not inclusion arrows within one category. Each functor maps objects **and** morphisms. The chosen bounded-linear-map categories let the displayed $\mathbf{Hilb}\to\mathbf{Ban}\to\mathbf{Top}\to\mathbf{Set}$ sequence retain valid morphisms.*
+
+### Functors: systematically forget information
+
+> [!definition] Functor
+> A functor $F:\mathcal C\to\mathcal D$ assigns objects to objects and morphisms to morphisms, preserving identities and composition:
+> $
+> F(1_A)=1_{F(A)},\qquad F(g\circ f)=F(g)\circ F(f).
+> $
+
+The functor $U:\mathbf{Vect}_{\mathbb R}\to\mathbf{Set}$ retains the **underlying set** of each vector space and treats every linear map as its underlying function. It forgets addition and scalar multiplication. The functor $\mathbf{Ban}\to\mathbf{Top}$ retains the norm-induced topology and regards a bounded linear map as continuous. The functor $\mathbf{Hilb}\to\mathbf{Ban}$ retains the Hilbert norm and forgets which inner product produced it.
+
+> [!proof] Why forgetting the vector operations is a functor
+> The identity linear map $1_V$ is the identity function on the underlying set, so $U(1_V)=1_{U(V)}$. If $T:V\to W$ and $S:W\to Z$ are linear, the underlying function of $S\circ T$ is literally the composite of the underlying functions $U(S)\circ U(T)$. Both functor equations follow.
+
+> [!distinction] Forgetting structure is not declaring objects identical
+> Two different structures can sit on the same underlying set. Forgetful functors generally lose information and need not be invertible or give equivalences of categories. Even the word **subcategory** must be used carefully: preserving fewer operations on objects is not the same as retaining the same allowable morphisms.
+
+### Free constructions: add structure without arbitrary choices
+
+Going from a vector space to its underlying set is easy: **forget** the operations. Going from a set $S$ to *the* vector space containing $S$ appears impossible, because many different vector-space structures could be added. Category theory identifies a canonical answer to a **specific universal mapping question**.
+
+> [!definition] Free real vector space on a set
+> $F(S)$ consists of **formal finite linear combinations** $\sum_{s\in S}a_s e_s$, where all but finitely many real coefficients $a_s$ are zero. Equivalently it is the vector space of finitely supported functions $S\to\mathbb R$.
+>
+> Each $s\in S$ corresponds to a basis vector $e_s$. The generator function $\eta_S:S\to U(F(S))$ sends $s$ to $e_s$. Here $U$ is the underlying-set functor.
+
+![A set S with two elements a and b maps to the underlying set of a vector space V. Below it the free vector space F(S) of finite formal combinations of e_a and e_b maps by a unique linear extension to V. The diagram includes a worked evaluation of three e_a plus four e_b with generator images two and negative one.](./media/sp-free-vector-universal.svg)
+
+*Figure: The function $g:S\to U(V)$ determines **exactly one linear map** $\widehat g:F(S)\to V$ satisfying $\widehat g(e_s)=g(s)$. The diagram distinguishes the set-level generator map from the vector-level linear extension.*
+
+> [!theorem] Universal property of the free vector space
+> Given **any** real vector space $V$ and function $g:S\to U(V)$, there is a **unique** real-linear map $\widehat g:F(S)\to V$ for which $\widehat g\circ\eta_S=g$ (interpreting the composite as a function to the underlying set $U(V)$).
+>
+> Equivalently, $\operatorname{Hom}_{\mathbf{Vect}_{\mathbb R}}(F(S),V)\cong\operatorname{Hom}_{\mathbf{Set}}(S,U(V))$, naturally in both $S$ and $V$.
+
+> [!proof] Build the extension and show that no other choice is possible
+> Define
+> $
+> \widehat g\!\left(\sum_{s\in S}a_s e_s\right)
+> :=\sum_{s\in S}a_s g(s).
+> $
+> The sums are **finite**, so the right side always exists in $V$. Every element of $F(S)$ has unique coefficients relative to its formal basis, so the formula is well-defined. Distributivity makes it linear. On one basis vector $e_s$, the formula gives exactly $g(s)$.
+>
+> Conversely, any linear map $h:F(S)\to V$ satisfying $h(e_s)=g(s)$ must take a finite sum to $\sum_s a_s h(e_s)=\sum_s a_s g(s)$, by linearity. Therefore $h=\widehat g$ and the extension is unique. $\square$
+
+**Numerical example.** Take $S=\{a,b\}$, $V=\mathbb R$, with $g(a)=2$ and $g(b)=-1$. Then
+
+$
+\widehat g(3e_a+4e_b)=3g(a)+4g(b)=6-4=2.
+$
+
+That is not simply a clever representation: the universal property specifies how **every** assignment of values to the generators extends, with **no extra equations or accidental identifications**. It is the vector-space counterpart of the free-monoid construction in [Adjunctions and Monads](./category-adjunctions-monads).
+
+### Adjunctions: how free and forgetful fit together
+
+The natural correspondence above is written
+
+$
+F\dashv U,\qquad
+F:\mathbf{Set}\to\mathbf{Vect}_{\mathbb R},
+\quad U:\mathbf{Vect}_{\mathbb R}\to\mathbf{Set}.
+$
+
+Read $F\dashv U$ as “$F$ is **left adjoint** to $U$.” A left adjoint is **not** an inverse. It adds freely generated structure, whereas a forgetful functor discards structure. The naturality requirement says the hom-set correspondence respects functions between generating sets and linear maps between destination vector spaces.
+
+> [!example] A concrete naturality check
+> Let $h:S\to T$ be a function. It induces a linear map $F(h):F(S)\to F(T)$ by the rule $F(h)(e_s)=e_{h(s)}$. If two elements of $S$ map to the same element of $T$, the coefficients of those basis vectors simply **add** under $F(h)$.
+>
+> For any linear $\ell:F(T)\to V$, the two routes from a generator $s\in S$ give the same answer:
+> $
+> (\ell\circ F(h))(e_s)=\ell(e_{h(s)}).
+> $
+> This is why the extension is **natural**, not merely a bijection invented separately for each pair $(S,V)$.
+
+**From here:** [Category Theory Foundations](./category-theory-foundations) proves the categorical axioms, [Functors and Naturality](./category-functors-naturality) develops maps between categories, [Limits and Colimits](./category-limits-colimits) explains universal products and quotients, and [Adjunctions and Monads](./category-adjunctions-monads) develops the general free–forgetful pattern.
+
+## 14. Four objects, several possible structures
+
+A single object should be examined through **multiple structural lenses** rather than assigned one permanent rank in a hierarchy. These four profiles deliberately name the structure and the relevant maps instead of saying merely “this object is a space.”
+
+| Underlying object | Structures available | What becomes true | Important distinction |
+| --- | --- | --- | --- |
+| $\mathbb R$ | Total order, field, usual topology, Euclidean metric, one-dimensional real vector space, Lebesgue measure | Metric complete; Banach/Hilbert with usual inner product; locally Euclidean smooth manifold | The **same set** with the arctangent metric has the usual topology but is **not** complete in that metric |
+| $C([0,1],\mathbb R)$ | Pointwise vector operations, sup norm, induced topology; separately an integral norm | **Banach** under sup norm, with bounded evaluation maps | Under integral norm, it is **incomplete**; with sup norm, its norm does **not** come from an inner product |
+| $\ell^2$ | Sequence vector operations, square-summable inner product, induced norm and topology | Infinite-dimensional **Hilbert** space, thus Banach; unit vectors converge weakly to zero | Its closed unit ball is **not norm compact**, even though it is closed and bounded |
+| $S^1$ | Subspace topology from $\mathbb R^2$, circle metric, smooth one-manifold, standard Riemannian metric, circle-group multiplication | Compact and connected; smooth **Lie group**; Riemannian arc length | Topologically a circle, but not homeomorphic to the real line; no preferred global single Euclidean chart |
+
+### The real line is not just “a complete metric space”
+
+When you see $\mathbb R$, **name which structure matters**. As an ordered field it supports inequalities and multiplication. As a metric space with $|x-y|$ it supports Cauchy sequences and completeness. As a probability sample space it needs **a sigma-algebra and a particular probability measure**, not just the fact that it is a set of real numbers. As an object of $\mathbf{Top}$, its morphisms are continuous functions, most of which are not linear. As an object of $\mathbf{Vect}_{\mathbb R}$, the morphisms $\mathbb R\to\mathbb R$ are exactly functions $x\mapsto cx$.
+
+### Continuous function spaces and the choice of morphisms
+
+The same $C([0,1])$ supports many maps. Evaluation at $0$, $E(f)=f(0)$, is **linear and bounded in sup norm**:
+
+$
+|E(f)|=|f(0)|\leq\|f\|_\infty.
+$
+
+In the category of normed spaces with bounded linear maps it is a morphism. With the integral norm $\|f\|_1$, it is still algebraically **linear** but is no longer **bounded**, as the spike example above shows. Changing the **norm** changes which arrows belong to the relevant bounded-operator category, not merely which sets are considered open.
+
+### Same set, different categories
+
+For the unit circle, any homeomorphism $S^1\to S^1$ is an isomorphism in $\mathbf{Top}$. An arbitrary homeomorphism need not preserve the circle-group multiplication, nor must it preserve the Riemannian distance. In a category of topological groups its inverse must also be a group homomorphism; in a metric category with isometries as arrows it must preserve lengths exactly.
+
+The four examples show that asking “What sort of space is it?” is only the first half of the question. The second is **“Which maps, invariants, and theorems matter for the problem?”**
+
+## 15. A working catalog of spaces and their theorems
 
 The matrix below is a compact reference. “Learn here” points to **developed** treatments; an atlas-only entry signals that the full subject needs its own chapter.
 
@@ -375,8 +509,9 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 | Smooth manifold | Compatible smooth charts | Differentiation on spaces | **Atlas introduction** |
 | Riemannian manifold | Smooth inner product on tangent spaces | Angles, geodesic lengths | **Atlas introduction** |
 | Algebraic variety | Polynomial constraints, algebraic topology | Geometry of solution sets | [Algebraic Geometry](./algebraic-geometry) |
+| Category of spaces | Objects **and** chosen morphisms | Functors, universal properties and adjunctions | [Category Theory](./category-theory-foundations) |
 
-## 14. Choose the branch from the question, not from an imaginary rank
+## 16. Choose the branch from the question, not from an imaginary rank
 
 - **Can this limit escape?** Ask for a topology, metric, and a **specific completeness or compactness hypothesis**. [Topology](./path-to-topology) and [Analysis](./path-through-analysis) give different entry routes.
 - **Can we add or differentiate these functions?** Ask for a vector space and an appropriate compatible norm, topology, or smooth structure. [Functional Analysis](./functional-analysis) describes many infinite-dimensional examples.
@@ -385,7 +520,7 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 - **Does the space curve or have local coordinates?** Ask whether it is a topological, smooth, or Riemannian manifold. Use [Topology](./general-topology-foundations) and [Multivariable Calculus](./multivariable-calculus) as foundations.
 - **Does a statistical model have degenerate local directions?** Ask about the parameter-to-distribution map, Fisher information and the vanishing order of KL divergence. The [Information Geometry](./information-geometry) chapter distinguishes these.
 
-## 15. Self-check: have you learned the relationships?
+## 17. Self-check: have you learned the relationships?
 
 Try to answer *before* expanding the linked definitions:
 
@@ -399,10 +534,12 @@ Try to answer *before* expanding the linked definitions:
 8. **Does an infinite-dimensional closed bounded set have to be compact?** No. The closed unit ball of $\ell^2$ is a counterexample; see the [metric compactness proof](./general-topology-compactness).
 9. **Can identical underlying points produce compact and noncompact spaces?** Yes: $\mathbb C$ with Zariski versus Euclidean topology.
 10. **What changed when we replaced continuous functions by $L^2$ elements?** We enlarged the class of integrable representatives and **identified functions equal almost everywhere**; the underlying elements are equivalence classes.
+11. **Is an invertible bounded linear map of Hilbert spaces automatically an isometry?** No: scalar multiplication by $2$ on $\mathbb R$ is an isomorphism in the category with bounded linear maps, but not an isometry.
+12. **Why does a function $S\to U(V)$ extend uniquely to a linear map $F(S)\to V$?** The image of each formal basis vector is fixed, and linearity determines every finite linear combination.
 
-## 16. Where the atlas stops
+## 18. Where the atlas stops
 
-This atlas makes many fundamental relationships explicit and proves selected implications and counterexamples. It does **not** claim to be a complete graduate treatment of all mathematical space theories. Important further families include uniform spaces, locally convex spaces and Fréchet spaces, Sobolev spaces, distributions, symplectic manifolds, fiber bundles, sheaves, schemes and derived or higher-categorical structures.
+This atlas makes many fundamental relationships explicit, including a categorical perspective on **spaces and their permitted maps**, and proves selected implications and counterexamples. It does **not** claim to be a complete graduate treatment of all mathematical space theories. Important further families include uniform spaces, locally convex spaces and Fréchet spaces, Sobolev spaces, distributions, symplectic manifolds, fiber bundles, sheaves, schemes and derived or higher-categorical structures.
 
 That limitation is intentional: the objective is a **correct reusable framework**, one in which every new kind of space can be understood by the questions “What objects? What structure? What axioms? What maps? What properties? Which theorems?” Follow the linked full chapters whenever a named theorem needs a proof beyond what appears here.
 
