@@ -9,13 +9,29 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 > **Leads to:** [Multivariable Calculus](./multivariable-calculus) · [Optimization](./optimization) · [Algebraic Geometry](./algebraic-geometry)
 
 
-Linear algebra is the study of vectors, vector spaces, and linear transformations. It provides the language and tools for understanding systems of linear equations, data transformations, and optimization, making it the mathematical backbone of machine learning.
+**Linear algebra is the mathematics of vector spaces and linear maps between them.** Matrices and systems of equations are important tools and applications, but they are not the fundamental objects.
 
-## The big picture: preserving combinations
+## The fundamental setting: vector spaces, not matrices
 
-A vector is not necessarily an arrow. It is an element of a collection where **addition** and **scaling by a number** are defined and obey the vector-space rules. An arrow, a list of measurements, a polynomial and a function can all be vectors in different spaces. [Vectors](./vector) develops the geometric picture; here we discover what those examples share.
+A **vector space** is a set $V$ equipped with addition and scalar multiplication by elements of a field (often $\mathbb R$ or $\mathbb C$), obeying the vector-space axioms. Its elements are called **vectors**, but they need not be geometric arrows. The same axioms can hold for lists of numbers, polynomials, functions, and matrices of a fixed size. [Vectors](./vector) develops the arrow picture; the [formal axioms and examples](#vector-spaces-and-subspaces) appear below.
 
-The central operation is a **linear combination** $au+bv$. A **linear transformation** is a function $T$ that preserves every such combination:
+Keep three different things distinct:
+
+| Object | What it is | Example |
+| --- | --- | --- |
+| **Vector space** | The collection of objects together with permitted addition and scaling | $\mathbb R^2$ or the space of real polynomials |
+| **Linear map** | A function between vector spaces that respects those operations | $D(p)=p'$, differentiation of polynomials |
+| **Matrix** | A representation of a linear map after choosing bases | The matrix of $D$ depends on the chosen polynomial bases |
+
+**An example with no arrows:** Real polynomials form a vector space. Differentiation is a *linear map* from that space to itself because
+
+$
+D(ap+bq)=aD(p)+bD(q)
+$
+
+for any polynomials $p,q$ and real scalars $a,b$. Thus differentiation can be studied using linear algebra even though its inputs are functions, not points or arrows. A matrix appears only when we choose bases to represent that map.
+
+The central operation is a **linear combination** $au+bv$. A **linear transformation** $T:V\to W$ preserves every such combination:
 
 $$
 T(au+bv)=aT(u)+bT(v).
