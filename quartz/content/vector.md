@@ -12,7 +12,7 @@ enables: ["linear-algebra-foundations", "multivariable-calculus"]
 
 If someone tells you "the airport is 5 miles away," you still cannot get there: you need to know *which direction*. "5 miles northeast" gives you everything you need. The same is true for wind speed ("20 mph from the northwest"), forces ("10 newtons to the right"), and velocity ("60 km/h due south"). In each case, a single number (the magnitude) is incomplete without a direction.
 
-A plain number that has size but no direction is called a **scalar**. Temperature, mass, and speed are scalars. A **vector** bundles a magnitude and a direction into one object. Displacement, velocity, force, and acceleration are vectors.
+A plain number used as a scaling factor is called a **scalar**. For the *geometric vectors* on this page, an arrow represents a displacement with magnitude and direction (except the zero vector, which has no direction). Displacement, velocity, force and acceleration are familiar examples. **In abstract linear algebra, vectors need not be arrows or have a notion of magnitude**: polynomials and functions can also be vectors, because addition and scaling obey the same rules.
 
 **The key insight:** a vector packages both "how much" and "which way" into a single mathematical object, and the rules for adding and scaling vectors mirror the way these quantities combine in the physical world. Two forces acting on a box produce a single net force; adding the two force vectors gives you that result.
 
@@ -20,17 +20,26 @@ A plain number that has size but no direction is called a **scalar**. Temperatur
 
 ---
 
-**Vector:** A vector is a geometric object that has **magnitude
-(length/size)** and **direction**.
+**Geometric vector:** Think of a displacement as a **change of position**, not as a position itself. A drawn arrow has a tail and a head, but moving that arrow without rotating or stretching it still represents the **same free vector**. Its magnitude is its length; a nonzero vector also has a direction. The zero vector has length zero but no preferred direction.
 
-It has an **initial point**, where it begins, and a **terminal point**,
-where it ends.
-
-Geometrically, we can picture a vector as a directed line segment, whose
-length is the magnitude of the vector and with an arrow indicating the
-direction.
+A free vector is illustrated by a directed line segment; its start and end points belong to the drawing, not to the abstract vector. Other vector spaces may have no spatial arrows or lengths at all.
 
 ![A vector as a directed line segment: an arrow from its initial point A to its terminal point B, with the length labeled magnitude and the arrowhead indicating direction](./media/vec-directed-segment.png)
+
+### Why vectors describe changes rather than locations
+
+Suppose you walk from $A=(1,2)$ to $B=(4,6)$. Your displacement is
+
+$$
+\overrightarrow{AB}=B-A=(3,4).
+$$
+
+Walking from $C=(10,20)$ to $D=(13,24)$ gives **the very same displacement** $(3,4)$, even though the starting and ending places differ. This is why we may draw the same geometric vector anywhere on the page.
+
+> [!intuition] Points and displacements are different kinds of things
+> Subtracting two points gives a displacement; adding a displacement to a point gives a new point. Adding two displacements also makes sense. Adding two *positions* as though they were free vectors requires choosing an origin first. [Affine spaces](./atlas-of-mathematical-spaces#affine-spaces-geometry-with-no-distinguished-origin) formalize this distinction.
+
+In **standard position**, we choose the origin as the tail of the arrow purely for convenience. The ordered pair $(3,4)$ describes the displacement's components relative to the chosen axes—not a permanent starting location.
 
 ## Writing Vectors
 
@@ -48,7 +57,7 @@ direction.
 
 -   **Component notation:** Given an initial point $(0,0)$ and terminal point $(a,b)$, a vector may be represented as $\langle a, b \rangle$
 
-    -   The symbol $\langle a, b \rangle$ has special significance. It is called the **standard position**. A vector in standard position has initial point $(0,0)$ and terminal point $(a,b)$
+    -   The coordinates $\langle a,b\rangle$ state how far the displacement runs along the chosen axes. **Standard position** means drawing a representative arrow from $(0,0)$ to $(a,b)$; the notation itself does not require a physical starting point.$
 
 ## Position Vector
 
@@ -452,7 +461,7 @@ Such a vector lives in $\mathbb{R}^n$ (read "R-n"), the set of all ordered lists
 - **Dot product:** $\mathbf u \cdot \mathbf v = \sum_{i=1}^{n} u_i v_i$ (read "the sum over $i$ of $u_i$ times $v_i$").
 - **Magnitude:** $\lVert \mathbf v \rVert = \sqrt{\sum_{i=1}^{n} v_i^2}$.
 
-The cross product is the exception: it is defined only in three dimensions. The dot product, by contrast, works in every dimension, which is why it does so much of the heavy lifting later.
+The familiar **vector-valued cross product** on this page is the standard construction in three dimensions. Generalizations in other dimensions require additional machinery or conventions. By contrast, the ordinary coordinate dot product extends directly to every finite dimension, which is why it is so useful later.
 
 **Standard basis vectors.** In $\mathbb{R}^n$ the standard basis is $\mathbf e_1 = \langle 1,0,\dots,0\rangle,\ \mathbf e_2 = \langle 0,1,0,\dots,0\rangle,\ \dots,\ \mathbf e_n$ (each $\mathbf e_i$, read "e-sub-i," has a $1$ in slot $i$ and $0$ elsewhere). Any vector is the sum of its components times these basis vectors: $\mathbf v = v_1\mathbf e_1 + \dots + v_n\mathbf e_n$. In three dimensions these are the familiar $\mathbf i, \mathbf j, \mathbf k$.
 
