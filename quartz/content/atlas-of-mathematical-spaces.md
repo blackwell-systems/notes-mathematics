@@ -578,6 +578,40 @@ A linear map in infinite dimensions need **not** be continuous (see differentiat
 
 **Never write "isomorphic" without specifying what is preserved.** Two sets may be bijective, two topological spaces homeomorphic, two metric spaces isometric, or two vector spaces linearly isomorphic, and these are different claims.
 
+### Fixed points: when structure guarantees stability
+
+A **fixed point** of a self-map $f:X\to X$ is an element that the map leaves unchanged:
+
+$
+f(x)=x.
+$
+
+Think of repeatedly applying a rule to a state. A fixed point is a state where **one more application changes nothing**. But three questions must be kept separate: **Does a fixed point exist? Is it unique? Will repeated application reach it?** Different theorems answer different combinations of these questions.
+
+> [!example] A fixed point that iteration does not approach
+> On $[0,1]$, let $f(x)=1-x$. The unique fixed point is $x=1/2$, since $x=1-x$ implies $2x=1$. But starting at $0$ gives $0\to1\to0\to1\to\cdots$. **Existence and uniqueness do not imply convergence of iteration.**
+
+Here is what additional structure can guarantee:
+
+| Theorem | Space and hypotheses | What is guaranteed |
+| --- | --- | --- |
+| **Banach contraction principle** | A **nonempty complete metric space** and a self-map satisfying $d(f(x),f(y))\leq q\,d(x,y)$ for some fixed $0\leq q<1$ | **Exactly one** fixed point; iteration from **any** starting point converges to it |
+| **Brouwer fixed-point theorem** | A **continuous** self-map of a closed ball in $\mathbb R^n$ (more generally, a nonempty compact convex subset of $\mathbb R^n$) | **At least one** fixed point, not necessarily unique or reached by iteration |
+| **Schauder fixed-point theorem** | A **continuous** self-map of a nonempty **compact convex** subset of a normed vector space, including suitable infinite-dimensional settings | **At least one** fixed point; no general uniqueness or iteration guarantee |
+| **Knaster–Tarski theorem** | A **monotone** self-map of a **complete lattice** | Its fixed points form a complete lattice; in particular there is a **least** and a **greatest** fixed point |
+
+These are not four names for the same proof. They draw on **different resources**: numerical distances and completeness for Banach; continuity, compactness and convexity for Brouwer and Schauder; order and arbitrary meets/joins for Knaster–Tarski. The order-theoretic result needs **no metric at all**.
+
+> [!example] Two concrete routes to a stable state
+> **Metric route:** On $[0,1]$, $f(x)=(x+1)/2$ is a contraction with factor $1/2$. Its sole fixed point is $1$, and $f^n(x)\to1$ from every starting point.
+>
+> **Order route:** Take the complete lattice $\mathcal P(\{a,b\})$, ordered by inclusion, and $F(S)=S\cup\{a\}$. The map is monotone. Its fixed points are $\{a\}$ and $\{a,b\}$; the first is least, the second greatest. We obtained fixed points by **order**, not by measuring distance.
+
+> [!warning] Hypotheses are doing the work
+> Continuity by itself does **not** guarantee a fixed point: $f(x)=x+1$ is continuous on $\mathbb R$ and has none. Nor can we drop completeness from Banach's theorem: $f(x)=(x+1)/2$ is a contraction on the *incomplete* space $(0,1)$, but its only candidate fixed point, $1$, lies outside the space. And although $f(x)=1-x$ on $[0,1]$ satisfies Brouwer's hypotheses, its iterates usually oscillate.
+
+**The organizing insight:** A fixed point is defined using only a **set and a self-map**. To *guarantee* one, we need additional hypotheses about the map and its space. To *compute one by iteration*, we often need stronger hypotheses still. That is exactly why the distinctions among [Order Theory](./order-theory), [Topology](./general-topology-foundations), [Real Analysis](./real-analysis) and [Functional Analysis](./functional-analysis) matter.
+
 ## 13. Categories: the structure of mathematical structures
 
 The previous sections studied **structure inside an object**: openness, a norm, an order, a measure. Category theory asks a second question: **Which structured objects may be related by which maps—and what patterns persist when maps are composed?**
@@ -798,10 +832,11 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 | Set | Elements and membership | Functions, subsets, relations | [Set Theory](./set-theory) |
 | Equivalence/quotient | Reflexive, symmetric, transitive relation | Classes and well-defined factorization | [Equivalence Relations](./equivalence-relations) |
 | Poset / lattice | Order; pairwise meets and joins | Bounds and order-preserving maps | [Order Theory](./order-theory) |
+| Complete lattice | Meets and joins of every subset | Least and greatest fixed points of monotone self-maps (Knaster–Tarski) | [Order Theory](./order-theory) |
 | Topological space | Open-set axioms | Continuity, compactness, connectedness | [Topology](./general-topology-foundations) |
 | Uniform space | Compatible entourages of near-pairs, no distance required | Uniform continuity, Cauchy filters, completeness | **Atlas introduction** |
 | Metric space | Numerical distance satisfying four axioms | Cauchy sequences, Lipschitz bounds | [Real Analysis](./real-analysis) |
-| Complete metric space | Every metric Cauchy sequence converges | Completeness tools | [Real Analysis](./real-analysis) |
+| Complete metric space | Every metric Cauchy sequence converges | Banach contraction theorem: unique fixed points and convergent iteration | [Real Analysis](./real-analysis) |
 | Vector space | Addition, scalar multiplication | Linear combinations and maps | [Linear Algebra](./linear-algebra-foundations) |
 | Affine space | Points acted on freely and transitively by vectors | Displacements, affine combinations without an origin | **Atlas introduction**; [Linear Algebra](./linear-algebra-foundations) |
 | Projective space | Nonzero vectors modulo nonzero scaling | Directions as points, projective incidence | **Atlas introduction**; [Algebraic Geometry](./algebraic-geometry) |
@@ -822,6 +857,7 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 ## 16. Choose the branch from the question, not from an imaginary rank
 
 - **Can this limit escape?** Ask for a topology, metric, and a **specific completeness or compactness hypothesis**. [Topology](./path-to-topology) and [Analysis](./path-through-analysis) give different entry routes.
+- **Must an update rule have a stable state? Will iteration reach it?** Ask whether you have a contraction on a complete metric space, a continuous map on a compact convex set, or a monotone map on a complete lattice; these yield different fixed-point guarantees.
 - **Can we add or differentiate these functions?** Ask for a vector space and an appropriate compatible norm, topology, or smooth structure. [Functional Analysis](./functional-analysis) describes many infinite-dimensional examples.
 - **Can we integrate or assign probabilities?** Ask which sets are measurable, what measure is present, and which convergence theorem licenses an exchange of limits. Read [Measure Theory](./measure-theory).
 - **Can we compare elements or identify duplicates?** Ask for an order or an equivalence relation. Read [Order Theory](./order-theory) and [Equivalence Relations](./equivalence-relations).
@@ -853,6 +889,8 @@ Try to answer *before* expanding the linked definitions:
 17. **What changed when we replaced continuous functions by $L^2$ elements?** We enlarged the class of integrable representatives and **identified functions equal almost everywhere**; the underlying elements are equivalence classes.
 18. **Is an invertible bounded linear map of Hilbert spaces automatically an isometry?** No: scalar multiplication by $2$ on $\mathbb R$ is an isomorphism in the category with bounded linear maps, but not an isometry.
 19. **Why does a function $S\to U(V)$ extend uniquely to a linear map $F(S)\to V$?** The image of each formal basis vector is fixed, and linearity determines every finite linear combination.
+20. **Does every continuous self-map have a fixed point?** No: $f(x)=x+1$ on $\mathbb R$ has none. Brouwer requires a suitable domain, such as a closed ball.
+21. **Does a unique fixed point mean simple iteration converges to it?** No: $f(x)=1-x$ on $[0,1]$ has only $1/2$ as a fixed point, yet starting at $0$ alternates between $0$ and $1$.
 
 ### Why different abstractions appeared
 
@@ -867,6 +905,7 @@ The arrows in our diagrams are *logical* relationships, not a claim about the **
 | Limits and continuity must make sense for more than real-number distances | **Topological spaces** axiomatize open neighborhoods | What remains continuous without numerical lengths? |
 | Topology alone cannot express uniform continuity or Cauchy behavior | **Uniform spaces** organize coherent near-pair relations | Can we discuss uniform approximation without fixing a metric? |
 | A function or sequence is itself a useful mathematical point | **Normed, Banach and Hilbert spaces** support size, limits and orthogonality of functions | Which infinite-dimensional arguments require completeness? |
+| A stable solution to an update rule may or may not exist or be approachable | **Fixed-point theorems** turn completeness, compactness, convexity or order structure into existence and convergence guarantees | Which assumptions guarantee a fixed point, and which guarantee that iteration finds it? |
 | Assigning sizes to arbitrary events requires more than open neighborhoods | **Sigma-algebras and measures** organize measurable sets and countably additive size | Which integrals and probabilities are well-defined? |
 
 This table is a set of **mathematical motivations**, not a sequence of historical priority claims or an assertion that one field replaced another. A fuller historical survey and alternative taxonomies appear in [*Space (mathematics)*](https://en.wikipedia.org/wiki/Space_%28mathematics%29); the proofs, examples and distinctions here are developed independently for this atlas.
@@ -881,6 +920,7 @@ This table is a set of **mathematical motivations**, not a sequence of historica
 | **Affine spaces** | Precise action, midpoint, affine combinations and subspaces | Affine transformations, torsors and affine duality |
 | **Projective spaces** | Quotient construction, homogeneous coordinates and projective-line intersection | Projective transformations, incidence axioms and varieties |
 | Normed, Banach, Hilbert and function spaces | Multiple definitions and proofs; specialist chapter linked | Operator algebras, Sobolev and Fréchet spaces |
+| Fixed-point principles | Comparative statements and explicit examples; full theorem proofs linked to broader subjects | Proofs of Brouwer, Schauder and Knaster–Tarski; constructive fixed-point methods |
 | Measures and probability | Measurable-space versus measure-space distinctions | Regular measures, stochastic processes |
 | Manifolds | Definitions and relationship diagram | Transition-map proofs, tangent bundles and differential forms |
 | Categories, functors and free constructions | Concrete functors, quotient factorization and adjunction proofs | Higher categories, sheaves, topoi and schemes |
