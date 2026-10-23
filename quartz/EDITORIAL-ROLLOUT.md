@@ -70,7 +70,7 @@ Keep these passages **short, local, and mathematically testable**. Do not equate
 
 The [Cross-Disciplinary Bridges](./content/cross-disciplinary-bridges.md) guide provides worked translations for recurring ideas. The source chapters should remain **self-contained**: the bridge is an optional payoff, not another mandatory prerequisite.
 
-Use an authored \`> [!bridge]\` callout only where a relationship materially changes what a reader can *understand, prove, or compute*. The editorial CSS labels it **CROSS-SUBJECT BRIDGE** without implying that the referred-to result has undergone independent proof certification.
+Use an authored `> [!bridge]` callout only where a relationship materially changes what a reader can *understand, prove, or compute*. The editorial CSS labels it **CROSS-SUBJECT BRIDGE** without implying that the referred-to result has undergone independent proof certification.
 
 A good bridge explains four things in a short passage:
 
