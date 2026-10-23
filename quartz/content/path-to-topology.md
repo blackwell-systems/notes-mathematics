@@ -156,7 +156,7 @@ The compact–Hausdorff homeomorphism theorem brings these distinctions together
 
 ### What this path does not yet cover
 
-These notes **do cover** the open-set foundations, main constructions, and core compactness/connectedness/separation proofs. They do **not yet offer full standalone treatments** of nets and filters, paracompactness, covering-space theory, homotopy and fundamental groups, or homology. Those would belong to deeper point-set or algebraic topology branches, not be implied by this map.
+These notes **do cover** the open-set foundations, main constructions, and core compactness/connectedness/separation proofs. A new [Algebraic Topology](./algebraic-topology) chapter develops the first substantial treatment of homotopy, loops, the fundamental group, homology and Euler characteristic. It does **not yet** supply a full covering-space proof sequence or all the advanced algebraic-topological theorems. Nets and filters, paracompactness, and general covering-space theory also remain beyond this point-set topology path.
 
 ## A compact mental model
 
