@@ -305,6 +305,17 @@ $
 
 **Intuition:** If you repeated the experiment many times and averaged all the outcomes, you would get close to $E[X]$.
 
+> [!bridge] An average is a geometric projection
+> When $X$ has a finite second moment, its expected value is also the **best constant predictor under squared-error loss**. For any number $c$,
+>
+> $
+> \mathbb E[(X-c)^2]
+> =
+> \mathbb E[(X-\mathbb E[X])^2]+(c-\mathbb E[X])^2.
+> $
+>
+> Therefore the error is smallest at $c=\mathbb E[X]$. Geometrically, this is an orthogonal projection onto the space of constant random variables. When we allow predictions to depend on observed information, the same construction becomes **conditional expectation**. See [the worked mean-to-projection bridge](./cross-disciplinary-bridges#bridge-6-conditional-expectation-is-orthogonal-projection).
+
 **Properties of expected value:**
 
 - $E[aX + b] = aE[X] + b$ (linearity)
