@@ -32,11 +32,11 @@ That's the complete vector-space requirement, grouped by idea rather than memori
 
 **See one rule work.** In $\mathbb R^2$, let $u=(1,2)$, $v=(3,4)$, and $a=2$. Distributivity says
 
-$
+$$
 2(u+v)=2(4,6)=(8,12)
 \quad\text{and}\quad
 2u+2v=(2,4)+(6,8)=(8,12).
-$
+$$
 
 This checks one rule for one example, **not a proof** that every axiom holds for all vectors. As a contrasting nonexample, the set of strictly positive real numbers with ordinary addition and scalar multiplication by **all** real numbers is *not* a vector space: zero and negatives are missing, and scaling by a negative number leaves the set.
 
@@ -52,9 +52,9 @@ Keep three different things distinct:
 
 **An example with no arrows:** Real polynomials form a vector space. Differentiation is a *linear map* from that space to itself because
 
-$
+$$
 D(ap+bq)=aD(p)+bD(q)
-$
+$$
 
 for any polynomials $p,q$ and real scalars $a,b$. Thus differentiation can be studied using linear algebra even though its inputs are functions, not points or arrows. A matrix appears only when we choose bases to represent that map.
 
@@ -68,21 +68,21 @@ for any polynomials $p,q$ and real scalars $a,b$. Thus differentiation can be st
 
 In the particular space $\mathbb R^2$, we can write the two vectors as
 
-$
+$$
 u=(u_1,u_2),\qquad v=(v_1,v_2).
-$
+$$
 
 Here **$u_1,u_2$ are the components of $u$**, and **$v_1,v_2$ are the components of $v$**. The letters $u$ and $v$ themselves name entire vectors. Addition and scaling happen component by component:
 
-$
+$$
 au+bv=(au_1+bv_1,\;au_2+bv_2).
-$
+$$
 
 For example, $u=(2,1)$, $v=(0,3)$, $a=2$, and $b=3$ give
 
-$
+$$
 2u+3v=2(2,1)+3(0,3)=(4,11).
-$
+$$
 
 In a different notation, $T(x,y)=(x+y,0)$, **$x$ and $y$ *are* the two components of a single input vector $(x,y)$**. That is a different use of letters from $T(au+bv)$, where $u$ and $v$ are whole input vectors. The [Linear Combinations](#linear-combinations) section develops this operation further.
 
