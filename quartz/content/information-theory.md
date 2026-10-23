@@ -418,6 +418,9 @@ $$
 
 Since $H(P)$ is the entropy of the true distribution (a fixed constant that does not depend on the model), **minimizing cross-entropy with respect to $Q$ is exactly the same as minimizing KL divergence.** This is why cross-entropy works as a loss function: it drives the model distribution toward the true data distribution.
 
+> [!connection] One minimizer, three subject languages
+> In [a fully worked ten-observation Bernoulli example](./cross-disciplinary-bridges#bridge-4-likelihood-cross-entropy-and-kl-divergence-are-one-calculation), maximizing likelihood, minimizing empirical cross-entropy, and minimizing empirical KL divergence select **exactly the same** parameter. The bridge uses probability, logarithms, calculus, and optimization—and distinguishes the empirical distribution from the unknown true distribution.
+
 ### Cross-Entropy as a Loss Function in ML
 
 Cross-entropy is **the** standard loss function for classification in machine learning. Here is why it works and how it appears in practice.
