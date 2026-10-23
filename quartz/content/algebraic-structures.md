@@ -89,7 +89,7 @@ Now add the additive inverse $-(a\cdot 0)$ to both sides. The left side becomes 
 
 Look again at what we actually used. The derivations above never mentioned that $a$ was a *number*. They used only associativity, identities, inverses, and distributivity. So the same reasoning must work on *any* set whose operations obey those laws, whether the elements are numbers, matrices, functions, or symmetries. This is the central move of abstract algebra: instead of proving a fact over and over on each new set, name the pattern once and prove things about the pattern.
 
-The three patterns you meet first are the group, the ring, and the field. Each is just a set together with operations satisfying a prescribed subset of the axioms above.
+The three patterns you meet first are the group, the ring, and the field. Each is a set together with operations satisfying specified axioms. **You can learn their definitions here without any other framework**; if you're wondering how algebraic structures compare with topological, metric, and vector spaces, use the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) as an optional map of the bigger picture.
 
 ### Group
 
