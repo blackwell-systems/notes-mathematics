@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **85 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **87 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -122,7 +122,9 @@ The [Path Through Analysis](./path-through-analysis) follows limits through func
 ## Calculus
 
 - [Calculus](./calculus) (limits, derivatives, chain rule, integrals, Fundamental Theorem)
-- [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients, gradient descent, convexity)
+- [Multivariable Calculus](./multivariable-calculus) (partial derivatives, total differentiability, Jacobians, Hessians, optimization)
+- [Multivariable Integration](./multivariable-integration) **(new)** (regions, double and triple integrals, polar/cylindrical/spherical coordinates, Jacobians)
+- [Vector Calculus](./vector-calculus) **(new)** (line and surface integrals, divergence, curl, Green's, Stokes', and divergence theorems)
 - [Differential Equations](./differential-equations) (ODEs, systems, stability, Laplace transforms, neural ODEs)
 - [Functional Analysis](./functional-analysis) (Banach/Hilbert spaces, operators, weak convergence)
 - [Complex Analysis](./complex-analysis) (holomorphicity, contours, residues)
@@ -180,6 +182,8 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 ### Advanced analysis and operators
 
 - [Real Analysis](./real-analysis) (rigorous limits, continuity, metric spaces, function sequences)
+- [Multivariable Integration](./multivariable-integration) (coordinate changes and geometric integration)
+- [Vector Calculus](./vector-calculus) (fields, work, flux, circulation, boundary integral theorems)
 - [Measure Theory](./measure-theory) (sigma-algebras, Lebesgue integration, convergence, $L^p$ spaces)
 - [Complex Analysis](./complex-analysis) (holomorphic functions, contour integrals, residues)
 - [Functional Analysis](./functional-analysis) (Banach and Hilbert spaces, bounded operators, weak convergence)
