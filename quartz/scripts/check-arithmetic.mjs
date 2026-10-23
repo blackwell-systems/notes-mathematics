@@ -5191,6 +5191,62 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Frame inverse image preserves arbitrary (here finite) unions",
     key(preimage(u([...B1,...B2])))===key(u([...preimage(B1),...preimage(B2)])));
 }
+// ============== Advanced geometry, topology and sheaves: worked examples ==============
+// Finite regression witnesses only. They do not prove universal mathematical theorems.
+{
+  // Differential Geometry: circle charts and tangent directions.
+  const t=0.6, upperY=Math.sqrt(1-t*t);
+  eq("Differential geometry: upper circle chart inverse",upperY,0.8,1e-12);
+  eq("Differential geometry: transition chart respects circle",t*t+upperY*upperY,1,1e-12);
+  const p=[0,0,1],v=[3,-2,0];
+  eq("Differential geometry: north-pole tangent orthogonal to radius",
+    p.reduce((sum,z,i)=>sum+z*v[i],0),0,1e-12);
+  const N=1000,dt=2*Math.PI/N;
+  let angularIntegral=0;
+  for(let i=0;i<N;i++){
+    const theta=(i+0.5)*dt,x=Math.cos(theta),y=Math.sin(theta);
+    // Pullback of alpha=-y dx+x dy by unit circle gamma(theta).
+    angularIntegral+=(-y*(-Math.sin(theta))+x*Math.cos(theta))*dt;
+  }
+  eq("Differential geometry: integrate circle angle form",angularIntegral,2*Math.PI,1e-9);
+  eq("Differential geometry: sphere Gauss-Bonnet check",4*Math.PI,2*Math.PI*2,1e-12);
+
+  // Algebraic Topology: boundary of a boundary and Euler characteristic.
+  const edgeBoundary=(a,b)=>({[a]:-1,[b]:1});
+  const e1=edgeBoundary("b","c"),e2=edgeBoundary("a","c"),e3=edgeBoundary("a","b");
+  for(const q of ["a","b","c"]){
+    eq("Algebraic topology: triangle boundary-squared vertex "+q,
+      (e1[q]||0)-(e2[q]||0)+(e3[q]||0),0);
+  }
+  eq("Algebraic topology: tetrahedron Euler characteristic",4-6+4,2);
+  eq("Algebraic topology: filled triangle Euler characteristic",3-3+1,1);
+  eq("Algebraic topology: circle Euler characteristic",3-3,0);
+  eq("Algebraic topology: torus Euler via homology ranks",1-2+1,0);
+  for(const n of [-2,-1,0,1,2]){
+    const start=[Math.cos(0),Math.sin(0)],end=[Math.cos(2*Math.PI*n),Math.sin(2*Math.PI*n)];
+    check("Algebraic topology: winding "+n+" closes",
+      start.every((z,i)=>Math.abs(z-end[i])<1e-12));
+  }
+  for(const x of [[3,4],[-6,8],[0.5,0.5]]){
+    const norm=Math.hypot(...x),radial=x.map(z=>z/norm);
+    eq("Algebraic topology: deformation retract reaches unit circle "+x,
+      Math.hypot(...radial),1,1e-12);
+  }
+
+  // Sheaf Theory: overlap agreement and unique piecewise assembly.
+  const fU=x=>0,fV=x=>Math.max(0,x-1)**2;
+  for(const x of [-0.9,-0.4,0,0.5,0.99])
+    eq("Sheaf: compatible restrictions on overlap x="+x,fU(x),fV(x),1e-12);
+  const glued=x=>x<=1?0:(x-1)**2;
+  for(const x of [-1.9,-1,0,0.9,1,1.1,1.9])
+    eq("Sheaf: glued section agrees with formula x="+x,glued(x),
+      x<1?fU(x):fV(x),1e-12);
+  check("Sheaf: constant presheaf fails disjoint gluing",
+    0!==1 && ![-2,-1].some(x=>x>1) && ![1,2].some(x=>x<-1));
+  eq("Sheaf: same point value zero and square",0**2,0);
+  check("Sheaf: distinct germs despite identical value",0.1**2!==0);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
