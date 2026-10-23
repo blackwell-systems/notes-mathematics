@@ -5355,6 +5355,18 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   const tau=1e-5,weighted0=p*Math.exp(-2*tau*E0),weighted1=(1-p)*Math.exp(-2*tau*E1);
   const after=(weighted0*E0+weighted1*E1)/(weighted0+weighted1);
   eq("Quantum: imaginary-time derivative = -2 variance",(after-mean)/tau,-2,0.00005);
+  // Experimental-evidence chapter: interference and CHSH theoretical bounds.
+  // These checks validate the worked equations; experimental claims link to primary sources.
+  const a1=0.5,a2=-0.5;
+  eq("Quantum evidence: destructive interference amplitude cancellation",Math.abs(a1+a2)**2,0,1e-12);
+  eq("Quantum evidence: interference term",-0.5,2*a1*a2,1e-12);
+  const localAssignments=[-1,1];
+  for(const A0 of localAssignments)for(const A1 of localAssignments)
+    for(const B0 of localAssignments)for(const B1 of localAssignments){
+      const value=A0*(B0+B1)+A1*(B0-B1);
+      eq("Quantum evidence: CHSH local deterministic bound",Math.abs(value),2,1e-12);
+    }
+  eq("Quantum evidence: maximal CHSH quantum value",2*Math.sqrt(2),2.8284271247461903,1e-12);
   const bellAmplitudes=[1/sqrt2,0,0,1/sqrt2];
   eq("Quantum: Bell state normalized",norm2(bellAmplitudes),1,1e-12);
   eq("Quantum: Bell measurement P00",bellAmplitudes[0]**2,0.5,1e-12);
