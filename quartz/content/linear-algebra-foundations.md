@@ -885,6 +885,17 @@ $$
 
 **Power of diagonalization:** $A^k = S \Lambda^k S^{-1}$, and $\Lambda^k$ is trivial to compute (just raise each diagonal entry to the $k$th power).
 
+### Why not every matrix can be diagonalized
+
+An $n\times n$ matrix is diagonalizable only if there are **$n$ independent eigenvectors** over the field being used. Merely counting $n$ eigenvalues with multiplicity does not suffice.
+
+> [!counterexample] One eigenvalue, too few eigenvectors
+> Let $J=\begin{bmatrix}1&1\\0&1\end{bmatrix}$. The characteristic polynomial is $(1-\lambda)^2$, so $1$ is a repeated eigenvalue. But $(J-I)v=0$ forces the second coordinate to vanish. All eigenvectors are multiples of $(1,0)$, so there is only **one independent eigenvector**, and $J$ is not diagonalizable.
+>
+> Repeated application reveals the difference: $J^k=\begin{bmatrix}1&k\\0&1\end{bmatrix}$. The map develops a shear instead of independent scaling along two axes.
+
+The **spectral theorem** gives a stronger conclusion for real symmetric matrices: they always have an orthonormal eigenbasis, $A=Q\Lambda Q^T$. General matrices may fail to be diagonalizable, but *every* finite real matrix still has an [SVD](#singular-value-decomposition-svd), whose input and output bases may differ.
+
 ### Properties
 
 - The sum of eigenvalues equals the trace: $\lambda_1 + \lambda_2 + \cdots + \lambda_n = \text{tr}(A)$
@@ -983,3 +994,15 @@ The discarded part is $A - A_1 = \begin{bmatrix} 0 & 0 \\ -1 & 1 \end{bmatrix}$,
 - **Image compression:** keep only the top singular values to compress an image
 - **Noise reduction:** small singular values often correspond to noise; discarding them denoises the data
 - **Pseudoinverse:** $A^+ = V \Sigma^+ U^T$ generalizes the inverse to non-square and singular matrices
+
+## Concept checks: see the structure, not just the formulas
+
+1. **Does $T(x,y)=(x+y,0)$ have an inverse?** No: distinct inputs such as $(1,0)$ and $(0,1)$ have the same output.
+2. **Is $T(x)=2x+3$ linear?** No: $T(0)=3$, whereas a linear map sends zero to zero. The rule is affine.
+3. **Does changing basis move the vector?** No. It changes only the coordinate description.
+4. **Does $\det A\ne0$ guarantee numerical stability?** No. It guarantees invertibility of a square matrix, not good [conditioning](./linear-algebra-computation#condition-number).
+5. **If $Ax=b$ has a solution, when is it unique?** Exactly when $\ker A=\{0\}$, since two solutions differ by an element of the kernel.
+6. **Can a real matrix have no real eigenvectors?** Yes: a $90^\circ$ planar rotation has eigenvalues $\pm i$.
+7. **Why can SVD work without diagonalization?** It permits different orthonormal input and output bases rather than demanding an eigenbasis of a square map.
+
+**Continue with:** [Linear Algebra for Computation](./linear-algebra-computation) for norms, factorizations, numerical accuracy and iteration; [Functional Analysis](./functional-analysis) for infinite-dimensional spaces; and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) for how linear algebra connects to other structures.
