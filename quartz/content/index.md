@@ -17,7 +17,7 @@ These notes support several ways of reading mathematics. There is **no required 
 - **Subject-guided paths:** [Topology](./path-to-topology), [Algebra](./path-through-algebra), [Analysis](./path-through-analysis), and [Discrete Mathematics](./discrete-mathematics) connect chapters into focused reading routes.
 - **Toward singular learning theory:** The [Path to SLT](./path-to-slt) traces a research-oriented route through the relevant foundations to [Singular Learning Theory](./singular-learning-theory).
 
-The atlas is a **cross-subject overview**, not an alternative to working through a chapter's definitions and proofs. Learning maps suggest useful sequences; they do not create prerequisites where the underlying mathematics has none.
+**Use the chapters for definitions and worked proofs; use the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) when you want the bigger picture.** For example: why is a set not automatically a topological space, how does a metric induce a topology, and what changes when we add algebraic operations? You can consult the atlas at any point; it is **optional reading**, not a prerequisite. Learning maps suggest useful sequences without creating mathematical prerequisites that do not exist.
 
 ## Logic & Proofs
 
