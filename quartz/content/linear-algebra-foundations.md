@@ -13,7 +13,34 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 ## The fundamental setting: vector spaces, not matrices
 
-A **vector space** is a set $V$ equipped with addition and scalar multiplication by elements of a field (often $\mathbb R$ or $\mathbb C$), obeying the vector-space axioms. Its elements are called **vectors**, but they need not be geometric arrows. The same axioms can hold for lists of numbers, polynomials, functions, and matrices of a fixed size. [Vectors](./vector) develops the arrow picture; the [formal axioms and examples](#vector-spaces-and-subspaces) appear below.
+A **vector space** is a collection $V$ of objects (called **vectors**) on which we can **add two vectors** and **multiply a vector by a scalar**. A *scalar* belongs to a specified **field** $F$, most often the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field is a number system where the usual addition, subtraction, multiplication, and division by nonzero elements obey the field laws.
+
+### The vector-space axioms: the actual rules
+
+Merely calling something a vector does not make it one. For $V$ to be a vector space over $F$, its two operations must obey **all** the following rules. Here $u,v,w$ are **whole vectors in $V$**; $a,b$ are **scalars in $F$**; $0_V$ is the zero vector, distinct in meaning from the scalar $0$.
+
+| Rule | What must hold | Meaning |
+| --- | --- | --- |
+| **Closure** | $u+v\in V$ and $au\in V$ | Adding or scaling cannot take us outside the space. |
+| **Order of addition** | $u+v=v+u$ | Reordering a sum does not change it. |
+| **Grouping of addition** | $(u+v)+w=u+(v+w)$ | Regrouping a sum does not change it. |
+| **Zero and negatives** | There is $0_V\in V$ with $u+0_V=u$; every $u$ has $-u$ with $u+(-u)=0_V$ | We can add nothing and undo addition. |
+| **Compatible scaling** | $a(bu)=(ab)u$ and $1u=u$ | Successive scalings combine as expected; scaling by one changes nothing. |
+| **Distributivity (two kinds)** | $a(u+v)=au+av$ and $(a+b)u=au+bu$ | Scaling distributes over vector addition **and** scalar addition. |
+
+That's the complete vector-space requirement, grouped by idea rather than memorized as separate formulas. Some books list **eight** axioms, counting scalar identity, scalar associativity, and the two distributive laws separately and treating closure as part of defining the operations; the mathematical content is the same.
+
+**See one rule work.** In $\mathbb R^2$, let $u=(1,2)$, $v=(3,4)$, and $a=2$. Distributivity says
+
+$
+2(u+v)=2(4,6)=(8,12)
+\quad\text{and}\quad
+2u+2v=(2,4)+(6,8)=(8,12).
+$
+
+This checks one rule for one example, **not a proof** that every axiom holds for all vectors. As a contrasting nonexample, the set of strictly positive real numbers with ordinary addition and scalar multiplication by **all** real numbers is *not* a vector space: zero and negatives are missing, and scaling by a negative number leaves the set.
+
+Vectors need not be geometric arrows: lists of numbers, polynomials, functions, and matrices of a fixed size can all obey these same rules. [Vectors](./vector) develops the arrow picture; [Vector Spaces and Subspaces](#vector-spaces-and-subspaces) revisits the axioms formally and supplies more examples.
 
 Keep three different things distinct:
 
