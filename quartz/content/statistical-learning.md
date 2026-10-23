@@ -144,6 +144,9 @@ $$
 
 This is the **normal equation**. It was derived in [Linear Algebra Foundations](./linear-algebra-foundations) from the projection formula: when $Ax = b$ has no exact solution, the best approximation projects $b$ onto the column space of $A$. The normal equation is that projection. The **explicit inverse solution** requires $X^TX$ to be invertible; the **normal equations themselves** remain valid even if columns are linearly dependent.
 
+> [!bridge] Regression and conditional expectation share projection geometry
+> Under squared-error loss, ordinary least squares projects onto the span of the chosen feature columns. Conditional expectation $\mathbb E[Y\mid X]$ projects onto **all** square-integrable functions of the information carried by $X$. A linear model need not contain that conditional mean; the two agree only under appropriate model-class assumptions (in a population setting). [Follow the finite worked example from mean to conditional expectation](./cross-disciplinary-bridges#bridge-6-conditional-expectation-is-orthogonal-projection).
+
 **Connection to MLE:** If the errors $\epsilon$ are normally distributed, the OLS solution is also the MLE. Minimizing squared error is equivalent to maximizing the Gaussian log-likelihood.
 
 ### $R^2$: How Good Is the Fit?
