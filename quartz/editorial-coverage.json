@@ -474,6 +474,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "mathematical-foundations-of-quantum-mechanics.md",
+      "kind": "topic",
+      "track": "mathematical-physics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "mathematical-notations.md",
       "kind": "topic",
       "track": "logic-and-proofs",
