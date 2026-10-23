@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **82 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **85 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -173,8 +173,38 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 
 ## Advanced Mathematics
 
-- [Real Analysis](./real-analysis) (sequences, series, metric spaces, uniform convergence, rigorous calculus)
-- [Measure Theory](./measure-theory) (sigma-algebras, Lebesgue integral, convergence theorems, $L^p$ spaces, measure-theoretic probability)
-- [Algebraic Geometry](./algebraic-geometry) (varieties, singularities, resolution of singularities, RLCT, connection to SLT)
-- [Singular Learning Theory](./singular-learning-theory) (free energy, Watanabe's formula, RLCT as effective dimension, WAIC/WBIC, local learning coefficient) — the capstone
-- [Path to SLT](./path-to-slt) (the guided prerequisite sequence to the capstone)
+**A continuation of the foundations, not a ladder of prestige.** These subjects overlap: geometry uses analysis; topology creates algebraic invariants; sheaves organize local information; algebraic geometry uses rings and topology. The entries below link to developed chapters, including subjects that also appear in their original branches above.
+
+**A useful conceptual route:** [Differential Geometry](./differential-geometry) asks how to calculate without one global grid; [Algebraic Topology](./algebraic-topology) asks which properties survive deformation; [Sheaf Theory](./sheaf-theory) asks exactly when compatible local information determines global information. These are connections, **not mandatory prerequisites** for one another.
+
+### Advanced analysis and operators
+
+- [Real Analysis](./real-analysis) (rigorous limits, continuity, metric spaces, function sequences)
+- [Measure Theory](./measure-theory) (sigma-algebras, Lebesgue integration, convergence, $L^p$ spaces)
+- [Complex Analysis](./complex-analysis) (holomorphic functions, contour integrals, residues)
+- [Functional Analysis](./functional-analysis) (Banach and Hilbert spaces, bounded operators, weak convergence)
+- [Differential Equations](./differential-equations) (ordinary differential equations, systems, existence and stability; partial differential equations are **not** developed as a standalone chapter yet)
+
+### Geometry and topology
+
+- [General Topology](./general-topology-foundations) (open sets, continuity, quotient spaces and compactness)
+- [Differential Geometry](./differential-geometry) **(new)** (local coordinates, smooth manifolds, tangent spaces, differential forms, curvature)
+- [Algebraic Topology](./algebraic-topology) **(new)** (fundamental groups, winding numbers, cycles, homology and Euler characteristic)
+- [Algebraic Geometry](./algebraic-geometry) (polynomial varieties, singularities, resolution and RLCT)
+
+### Algebra, abstraction and local-to-global structure
+
+- [Commutative Algebra](./commutative-algebra) (ideals, modules, localization and local rings)
+- [Category Theory](./category-theory-foundations) (categories, maps and universal constructions); continue with [Functors and Yoneda](./category-functors-naturality), [Limits and Colimits](./category-limits-colimits), and [Adjunctions and Monads](./category-adjunctions-monads)
+- [Sheaf Theory](./sheaf-theory) **(new)** (local data, restrictions, sheaf gluing, stalks and global obstructions)
+
+### Dynamics, probability and mathematics of learning
+
+- [Optimization](./optimization) (convexity, gradient methods, constraints and convergence)
+- [Information Geometry](./information-geometry) (Fisher information, KL divergence and singular statistical models)
+- [Bayesian Inference](./bayesian-inference) (posterior updates, approximate inference, asymptotic model selection)
+- [Singular Learning Theory](./singular-learning-theory) (free energy, RLCT, WAIC/WBIC, local learning coefficients)
+
+**Guided route:** [Path to Singular Learning Theory](./path-to-slt) joins the relevant prerequisites in a deliberate sequence and culminates in SLT. It is a reading path, **not another branch of mathematics**.
+
+**Further gaps, honestly labeled:** Full introductions to scheme theory, homological algebra, Galois theory, stochastic processes, partial differential equations and advanced proof/model theory remain to be developed. Existing chapters may preview some of their ideas; this list does not claim they are covered.
