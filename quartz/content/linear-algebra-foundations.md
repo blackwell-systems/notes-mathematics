@@ -352,6 +352,8 @@ No. $v_2 = 3v_1$, so $3v_1 - v_2 = 0$ gives a nontrivial solution. They are depe
 - The set of all polynomials of degree $\leq n$
 - The set of all continuous functions on an interval
 
+**Beyond the abstract vector:** [Affine spaces](./atlas-of-mathematical-spaces#affine-spaces-geometry-with-no-distinguished-origin) distinguish *points* from *displacement vectors*, so geometry does not depend on a preferred origin. [Projective spaces](./atlas-of-mathematical-spaces#projective-spaces-directions-become-points) turn one-dimensional subspaces into projective points and connect linear algebra to geometry. These are **different constructions**, not new axioms added to every vector space.
+
 ### Subspace
 
 **Subspace:** A subspace is a subset of a vector space that is itself a vector space. A subset $S$ of $V$ is a subspace if and only if:

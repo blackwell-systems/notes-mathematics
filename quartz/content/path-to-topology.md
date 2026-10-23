@@ -13,7 +13,7 @@ Topology begins with a deceptively simple question: **what does it mean for poin
 
 This is a **guided path across existing chapters**, not an extra general topology textbook. It distinguishes a helpful way to *learn* an idea from a formally required assumption in a proof. You can begin with geometric intuition or directly with the axioms.
 
-To see how topologies compare with order, vector, measure, metric, Banach and manifold structure, consult the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces).
+To see how topologies compare with order, vector, measure, metric, **uniform**, Banach and manifold structure, consult the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces). Uniform structures are especially useful for separating **Cauchy behavior** from purely topological continuity.
 
 ## Two entrances to the same subject
 

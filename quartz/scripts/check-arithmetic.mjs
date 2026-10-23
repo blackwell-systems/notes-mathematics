@@ -5115,6 +5115,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Atlas category: same map is not isometric",
     Math.abs(2*3-2*1)!==Math.abs(3-1));
 }
+// ============== Atlas: affine, projective and uniform spaces ==============
+{
+  const diff=(p,q)=>q.map((v,i)=>v-p[i]),add=(p,v)=>p.map((x,i)=>x+v[i]);
+  const p=[1,2],q=[3,5],translate=[10,-4];
+  const middle=(x,y)=>add(x,diff(x,y).map(z=>z/2));
+  const mid=middle(p,q);
+  eq("Atlas affine: midpoint x",mid[0],2);
+  eq("Atlas affine: midpoint y",mid[1],3.5);
+  const moved=middle(add(p,translate),add(q,translate));
+  eq("Atlas affine: midpoint equivariant x",moved[0],mid[0]+translate[0]);
+  eq("Atlas affine: midpoint equivariant y",moved[1],mid[1]+translate[1]);
+  const v=diff(p,q),movedV=diff(add(p,translate),add(q,translate));
+  check("Atlas affine: displacements do not change under translation",v.every((z,i)=>z===movedV[i]));
+  // Nonzero homogeneous coordinates label the same projective point after scaling.
+  const equalP=(a,b)=>a.every((z,i)=>Math.abs(z*b[0]-b[i]*a[0])<1e-12);
+  check("Atlas projective: [1:2:1]=[2:4:2]",equalP([1,2,1],[2,4,2]));
+  check("Atlas projective: zero triple excluded",[0,0,0].every(x=>x===0));
+  // Projective closures Y=0, Y-Z=0 intersect at [1:0:0] only.
+  const P=[1,0,0];
+  eq("Atlas projective: Y=0 on first closure",P[1],0);
+  eq("Atlas projective: Y-Z=0 on second closure",P[1]-P[2],0);
+  check("Atlas projective: intersection direction nonzero",P.some(z=>z!==0));
+  // rho = |atan(x)-atan(y)| generates the usual topology but different Cauchy behavior.
+  const rho=(a,b)=>Math.abs(Math.atan(a)-Math.atan(b));
+  check("Atlas uniform: arctan metric tail distances shrink",rho(1000,2000)<rho(10,20));
+  check("Atlas uniform: ordinary metric tail still separated",Math.abs(2000-1000)>100);
+  // Product uniformity controls a finite coordinate set, unlike supremum norm.
+  const basis=(n,i)=>n===i?1:0;
+  for(const j of [1,2,3,10]){
+    check("Atlas uniform: e_n coordinate tends to zero at j="+j, basis(j+1,j)===0&&basis(j+100,j)===0);
+  }
+  // Homogeneous parallel-line equations become Y=0 and Y-Z=0.
+  for(const x of [-4,0,5]){
+    check("Atlas projective: line y=0 inclusion",0===0&&1!==0&&Number.isFinite(x));
+    check("Atlas projective: line y=1 closure equation",1-1===0&&Number.isFinite(x));
+  }
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

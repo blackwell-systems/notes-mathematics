@@ -13,7 +13,7 @@ The aim is to be the place you come to for **clarity**: every topic is built fou
 These notes support several ways of reading mathematics. There is **no required entry point** or single prerequisite chain; the appropriate route depends on the concept you're trying to understand.
 
 - **Individual topics:** Browse the subject sections below or use search and the sidebar. Each chapter identifies its actual prerequisites and links to related ideas.
-- **Mathematical structures:** The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) connects sets, orders, topology, metric and function spaces, measures, manifolds, and **categories of spaces**. It illustrates what additional structure makes possible and which familiar converses fail.
+- **Mathematical structures:** The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) connects sets, orders, topology, metric and function spaces, **affine and projective geometry**, uniform spaces, measures, manifolds, and **categories of spaces**. It illustrates what additional structure makes possible and which familiar converses fail.
 - **Subject-guided paths:** [Topology](./path-to-topology), [Algebra](./path-through-algebra), [Analysis](./path-through-analysis), and [Discrete Mathematics](./discrete-mathematics) connect chapters into focused reading routes.
 - **Toward singular learning theory:** The [Path to SLT](./path-to-slt) traces a research-oriented route through the relevant foundations to [Singular Learning Theory](./singular-learning-theory).
 

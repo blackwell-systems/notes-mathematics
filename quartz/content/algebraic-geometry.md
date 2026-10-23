@@ -11,6 +11,8 @@ enables: ["singular-learning-theory"]
 
 Algebraic geometry studies the shapes defined by polynomial equations. If you have worked through [conic sections](./conic-sections), you already know several examples: a circle is the set of points satisfying $x^2 + y^2 = 1$, a parabola satisfies $y = x^2$, and a hyperbola satisfies $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$. Algebraic geometry takes this idea and runs with it: what can we say about the shapes defined by *any* system of polynomial equations, in any number of variables, in any dimension?
 
+For the geometric link between linear subspaces, **homogeneous coordinates** and points at infinity, see the [projective-space construction in the Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#projective-spaces-directions-become-points). This is an introduction to the projective viewpoint, not a replacement for the algebraic treatment of projective varieties.
+
 This page builds the path from polynomial equations to the **real log canonical threshold (RLCT)**, the central quantity in singular learning theory (SLT). The route is: polynomial equations define geometric shapes (varieties), those shapes can have singular points where the geometry is irregular, and the severity of those singularities is measured by the RLCT, which controls how well a neural network generalizes.
 
 ## From Conic Sections to Algebraic Geometry

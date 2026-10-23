@@ -169,3 +169,8 @@ There are now **89 Markdown pages**: 82 topic chapters, six guided learning maps
 ## Atlas categorical edition (2026-10-23)
 
 Atlas remains one of six optional learning maps, not a default entry point. Ten original SVG figures are now audited for atlas placement, bringing the total to **89 source-editable mathematics figures across 31 chapters/maps**. Existing 89 pages and pilot/pending review status are unchanged. The two categorical diagrams still require actual responsive, light/dark, and mathematical figure review beyond structural checks.
+
+
+## Atlas space-family structural audit (2026-10-23)
+
+The atlas now includes **affine, projective and uniform spaces**, an explicit three-question taxonomy, and a formal coverage/deferred-topic table. Diagram audit: **92 original SVG figures across 31 pages**, 13 in the atlas. The site still has 89 Markdown pages. SVG metadata and executable examples are checked automatically; device screenshots and independent proof acceptance remain pending.
