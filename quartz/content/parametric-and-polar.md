@@ -1,7 +1,7 @@
 ---
 title: "Parametric & Polar"
 prerequisites: ["functions-relations", "geometry-trigonometry"]
-enables: ["calculus", "complex-numbers"]
+enables: ["calculus", "complex-numbers", "multivariable-integration", "vector-calculus"]
 ---
 
 > [!abstract] Prerequisites & where this leads
@@ -201,6 +201,95 @@ Each quarter-turn adds exactly $\tfrac{\pi}{2} \approx 1.57$ to $r$, so successi
 Switch between parametric and polar mode, choose a preset, adjust the parameters, and press play to watch the point trace the curve. The moving dot makes the role of the parameter (the "clock" $t$, or the sweeping angle $\theta$) visible in a way a static graph cannot.
 
 <iframe src="/static/interactive/parametric-polar-plotter.html" width="100%" height="600" style="border:none;"></iframe>
+
+## Calculus with parametric and polar curves
+
+[Calculus](./calculus) begins with a function given as $y=f(x)$. Parametric curves instead give $x=x(t)$ and $y=y(t)$, and polar curves give $r=r(\theta)$. The key move is always the same: **differentiate or integrate with respect to the coordinate actually describing the motion**.
+
+### Tangent slope for a parametrized curve
+
+Let $\mathbf r(t)=(x(t),y(t))$ be differentiable. When $x'(t)\ne0$, the chain rule gives
+
+$$
+\boxed{\frac{dy}{dx}=\frac{dy/dt}{dx/dt}.}
+$$
+
+This does **not** mean $dy/dx$ is always defined if both derivatives exist: a vanishing $x'(t)$ may correspond to a vertical tangent, a stationary point, or a singular parametrization. Inspect the actual curve.
+
+> [!example] A circle has a vertical tangent
+> For $x(t)=\cos t$, $y(t)=\sin t$, the slope is
+>
+> $$
+> \frac{dy}{dx}=\frac{\cos t}{-\sin t}=-\cot t
+> $$
+>
+> wherever $\sin t\ne0$. At $t=0$, the derivative $x'(0)=0$ while $y'(0)=1$, so the tangent is **vertical** there, not undefined as a geometric line.
+
+### Arc length: sum speed rather than coordinate increments
+
+For a continuously differentiable regular parametrized curve traced once for $a\leq t\leq b$,
+
+$$
+\boxed{L=\int_a^b\sqrt{x'(t)^2+y'(t)^2}\,dt.}
+$$
+
+The quantity under the radical is the square of **speed**. For the unit circle, $x'=-\sin t$ and $y'=\cos t$, so the speed is $1$ and the full circumference is
+
+$$
+L=\int_0^{2\pi}1\,dt=2\pi.
+$$
+
+The same geometric circle may be traversed twice by a different parametrization, in which case the integral counts the distance traveled **twice**. Parameterization and orientation encode motion, not merely a point set.
+
+### Area of a polar region
+
+For a region described by $0\leq r\leq R(\theta)$ over an angle range where the radial slices trace the desired region without overlap, each narrow sector contributes approximately
+
+$$
+\Delta A\approx \frac12R(\theta)^2\Delta\theta.
+$$
+
+Thus
+
+$$
+\boxed{A=\frac12\int_\alpha^\beta R(\theta)^2\,d\theta.}
+$$
+
+> [!example] The disk formula from sectors
+> A disk of radius $a$ has $R(\theta)=a$ for $0\leq\theta\leq2\pi$. Its area is
+>
+> $$
+> A=\frac12\int_0^{2\pi}a^2\,d\theta=\pi a^2.
+> $$
+
+This formula and the Jacobian in [Multivariable Integration](./multivariable-integration#3-polar-coordinates-why-an-extra-factor-appears) agree: integrating the polar area element $r\,dr\,d\theta$ from $r=0$ to $R(\theta)$ gives $\tfrac12R(\theta)^2d\theta$.
+
+### Arc length in polar form
+
+If $r=R(\theta)$ is continuously differentiable, set
+
+$$
+x(\theta)=R(\theta)\cos\theta,\quad
+y(\theta)=R(\theta)\sin\theta.
+$$
+
+Differentiating both coordinates and adding squares produces the cancellation
+
+$$
+x'(\theta)^2+y'(\theta)^2=R'(\theta)^2+R(\theta)^2.
+$$
+
+Therefore
+
+$$
+L=\int_\alpha^\beta\sqrt{R(\theta)^2+R'(\theta)^2}\,d\theta.
+$$
+
+Again, the integral counts **distance along the parametrized path**; if the polar description repeats part of the curve, it also repeats that portion of length.
+
+### Why this matters beyond calculus
+
+Parametric curves are the input to [line integrals](./vector-calculus#3-line-integrals-work-along-a-path), where orientation and tangent vectors become central. Polar coordinates are also a change of variables in area integrals, requiring the factor $r$ in $dA=r\,dr\,d\theta$.
 
 ## Connections
 
