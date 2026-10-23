@@ -574,6 +574,113 @@ $$
 E\big[E[X \mid \mathcal{G}]\big] = 3 \cdot \tfrac{1}{2} + 4 \cdot \tfrac{1}{2} = \tfrac{7}{2} = 3.5 = \frac{1+2+3+4+5+6}{6} = E[X]
 $$
 
+### Conditional expectation is an orthogonal projection
+
+Here is the connection to [geometric projection](./vector#projection), [linear algebra](./linear-algebra-foundations#projection-onto-a-subspace), and [least-squares regression](./statistical-learning#ordinary-least-squares-ols): **conditional expectation is the closest squared-error approximation using only the information we are allowed to observe.** In the square-integrable setting, this is literally an **orthogonal projection**.
+
+**Step 1: Treat a random variable as a vector.** On our six equally likely die outcomes, the face value is the vector
+
+$
+X=(1,2,3,4,5,6).
+$
+
+For two such vectors $U,V$, use the probability-weighted inner product
+
+$
+\langle U,V\rangle=\mathbb E[UV]=\frac16\sum_{i=1}^{6}U_iV_i.
+$
+
+Its squared distance is $\|U-V\|^2=\mathbb E[(U-V)^2]$: **mean squared error**. If we are restricted to predicting one constant, the nearest constant vector is
+
+$
+\operatorname{proj}_{\text{constants}}X
+=(3.5,3.5,3.5,3.5,3.5,3.5),
+$
+
+because $\mathbb E[X]=3.5$ minimizes $\mathbb E[(X-c)^2]$ over all constants $c$.
+
+**Step 2: Allow a prediction to depend on parity.** Knowing whether the die roll is odd or even permits vectors of the form
+
+$
+Z=(a,b,a,b,a,b).
+$
+
+These vectors form a two-dimensional subspace $M$ of $\mathbb R^6$. The conditional expectation already calculated above is
+
+$
+p=\mathbb E[X\mid\mathcal G]=(3,4,3,4,3,4)\in M.
+$
+
+The **residual** (the information the parity-only prediction cannot retain) is
+
+$
+r=X-p=(-2,-2,0,0,2,2).
+$
+
+For **every** $Z=(a,b,a,b,a,b)\in M$,
+
+$
+\langle r,Z\rangle
+=\frac16(-2a-2b+2a+2b)=0.
+$
+
+Therefore the residual is orthogonal to the entire allowed subspace. That proves $p$ is the **orthogonal projection** of $X$ onto $M$, not merely an intuitively sensible average.
+
+**Step 3: Compare the errors.** With only a constant prediction,
+
+$
+\mathbb E[(X-3.5)^2]=\frac{35}{12}.
+$
+
+With the parity-aware projection,
+
+$
+\mathbb E[(X-p)^2]=\frac83.
+$
+
+The improvement is $35/12-8/3=1/4$. By the Pythagorean theorem for these orthogonal components,
+
+$
+\underbrace{\mathbb E[(X-3.5)^2]}_{\text{constant predictor}}
+=
+\underbrace{\mathbb E[(X-p)^2]}_{\text{unexplained error}}
++
+\underbrace{\mathbb E[(p-3.5)^2]}_{\text{gain from parity}}
+=\frac83+\frac14.
+$
+
+We have moved from projecting onto the **one-dimensional space of constants** to projecting onto the **larger space of parity-dependent predictions**.
+
+> [!theorem] The general $L^2$ projection statement
+> Let $Y\in L^2(\Omega,\mathcal F,P)$ be real-valued and let $\mathcal G\subseteq\mathcal F$ be a sub-$\sigma$-algebra. The space
+>
+> $
+> L^2(\mathcal G)=\{Z\in L^2(\mathcal F):Z\text{ is }\mathcal G\text{-measurable}\}
+> $
+>
+> is a **closed linear subspace** of the Hilbert space $L^2(\mathcal F)$ (whose elements identify random variables equal almost surely). Its orthogonal projection is $P_{\mathcal G}Y=\mathbb E[Y\mid\mathcal G]$. Equivalently, for every $Z\in L^2(\mathcal G)$,
+>
+> $
+> \mathbb E[(Y-\mathbb E[Y\mid\mathcal G])Z]=0.
+> $
+>
+> Hence, for every such $Z$,
+>
+> $
+> \mathbb E[(Y-Z)^2]
+> =
+> \mathbb E[(Y-\mathbb E[Y\mid\mathcal G])^2]
+> +
+> \mathbb E[(\mathbb E[Y\mid\mathcal G]-Z)^2].
+> $
+>
+> **Why orthogonality follows:** The defining integral identity gives zero residual expectation against each indicator $1_G$ for $G\in\mathcal G$. By linearity it holds for $\mathcal G$-measurable simple functions; approximation in $L^2$ and Cauchy–Schwarz extend it to every $Z\in L^2(\mathcal G)$. The full Hilbert-space projection theorem and closedness argument lie beyond this finite worked example; see [Functional Analysis](./functional-analysis#an-explicit-orthogonal-projection).
+
+> [!distinction] The conditions matter
+> Conditional expectation exists already for **integrable** ($L^1$) random variables, but a squared-error **orthogonal projection** requires $L^2$. The optimality statement uses **squared-error loss**, not every possible prediction loss. Ordinary least squares also projects, but only onto the span of its chosen features; unless that span contains $\mathbb E[Y\mid X]$, its linear prediction need **not** equal the full conditional expectation.
+
+To see the same construction starting from a numerical mean, continue to [Cross-Disciplinary Bridges: average $\to$ projection $\to$ conditional expectation](./cross-disciplinary-bridges#bridge-6-conditional-expectation-is-orthogonal-projection).
+
 Conditional expectation is the foundation of martingale theory, which is central to stochastic processes, mathematical finance, and the analysis of sequential learning algorithms.
 
 ### Modes of Convergence
