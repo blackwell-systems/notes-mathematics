@@ -54,6 +54,25 @@ $$
 > [!counterexample] Arbitrary union is required, not just finite union
 > A proposed family closed under finite unions but not arbitrary ones may fail to be a topology. For example, on an infinite set, the collection of **finite subsets plus the whole space** is closed under finite unions, but an infinite union of finite sets may be infinite and proper, and thus not open.
 
+### Neighborhoods: what does "around a point" mean?
+
+> [!definition] Neighborhood and open neighborhood
+> In a topological space $(X,\tau)$, a set $N\subseteq X$ is a **neighborhood of $x$** if some open set $U\in\tau$ satisfies
+>
+> $$
+> x\in U\subseteq N.
+> $$
+>
+> An **open neighborhood** of $x$ is simply an open set containing $x$.
+
+A neighborhood need not itself be open: it merely needs to **contain an open set around the point**.
+
+For the three-point topology above, $\{a,c\}$ is a **neighborhood of $a$** because it contains the open set $\{a\}$. Nevertheless $\{a,c\}$ is **not open**. The only open neighborhood of $c$ is $X$.
+
+In the usual topology on $\mathbb R$, the closed interval $[-1,1]$ is a neighborhood of $0$ because it contains the open interval $(-1,1)$.
+
+**What to retain:** the topology specifies what counts as locally around a point, without supplying distances or shapes.
+
 ### Discrete, indiscrete, and cofinite examples
 
 - The **discrete topology** $\mathcal P(X)$ declares every subset open.
@@ -62,7 +81,7 @@ $$
 
 For cofinite topology, arbitrary unions are open because the complement of a nonempty union is an intersection of finite complements (hence finite); a finite intersection of cofinite sets is cofinite because its complement is a finite union of finite sets.
 
-A topology $\tau_2$ is **finer** than $\tau_1$ when $\tau_1\subseteq\tau_2$: $\tau_2$ declares **at least as many** subsets open.
+A topology $\tau_2$ is **finer** than $\tau_1$ when $\tau_1\subseteq\tau_2$: $\tau_2$ declares **at least as many** subsets open. Equivalently, $\tau_1$ is **coarser** than $\tau_2$. If the inclusion is strict, say *strictly finer* or *strictly coarser*. The underlying set remains unchanged.
 
 ## Recovering metric spaces
 
@@ -79,6 +98,17 @@ $$
 
 The topology forgets numerical distances while retaining information about continuity and convergence. Different metrics can generate **the same topology**.
 
+> [!distinction] Open relative to which space?
+> A subset may be open **relative to a subspace** without being open in its ambient space. For example, $[0,1)$ is **not** open in $\mathbb R$, but it **is** open in $[0,2]$ with its subspace topology, because
+>
+> $$
+> [0,1)=(-1,1)\cap[0,2].
+> $$
+>
+> In general, for $A\subseteq X$, the subspace topology on $A$ consists of sets $U\cap A$ for $U$ open in $X$. See [Topological Constructions](./general-topology-constructions) for the full development.
+
+The labels *open* and *closed* are always relative to the specified topological space, not just to the picture or whether numerical endpoints are included.
+
 ## Bases: a small collection generating all opens
 
 > [!definition] Basis
@@ -92,6 +122,19 @@ The topology forgets numerical distances while retaining information about conti
 
 > [!example] Rational-endpoint intervals generate the usual topology on R
 > Let $\mathcal B=\{(p,q):p,q\in\mathbb Q,\ p<q\}$. It is countable, covers $\mathbb R$, and for any $x$ in the intersection of two such intervals one can find rational $p',q'$ with $x\in(p',q')$ inside that intersection. Therefore it is a basis for the usual Euclidean topology, showing that $\mathbb R$ is **second countable**.
+
+A space is **second countable** when it has a **countable basis**. This does not mean the space itself is countable: $\mathbb R$ is uncountable but second countable.
+
+> [!definition] Local basis (neighborhood basis)
+> A **local basis at $x$** is a family $\mathcal B_x$ of open neighborhoods of $x$ such that every open neighborhood $U$ of $x$ contains at least one member $B\in\mathcal B_x$:
+>
+> $$
+> x\in B\subseteq U.
+> $$
+>
+> It is enough to work with these smaller basic neighborhoods when testing a property stated for **every** open neighborhood.
+
+For example, $\{(x-1/n,x+1/n):n=1,2,\ldots\}$ is a countable local basis at $x\in\mathbb R$. A space with a countable local basis at **every** point is **first countable**; second countability implies first countability, but not conversely.
 
 ![Nested open neighborhoods of a point and a finer basis element inside their intersection.](./media/tp-basis.svg)
 
@@ -115,7 +158,16 @@ The **interior** $\operatorname{int}(A)$ is the union of all open subsets of $A$
 
 **Proof.** If some open $U$ contains $x$ and is disjoint from $A$, then $X\setminus U$ is a closed superset of $A$ omitting $x$; hence $x\notin\overline A$. Conversely, if $x\notin\overline A$, the open set $X\setminus\overline A$ is a neighborhood of $x$ disjoint from $A$. The two implications are contrapositives. $\square$
 
-The **boundary** is $\partial A=\overline A\setminus\operatorname{int}(A)$.
+The **boundary** is $\partial A=\overline A\setminus\operatorname{int}(A)$: the points in the closure but not in the interior. In $\mathbb R$, for example, the boundary of $(0,1)$ is $\{0,1\}$, but boundaries in arbitrary spaces need not look like interval endpoints.
+
+> [!definition] Limit point, isolated point, and dense subset
+> A point $x$ is a **limit point** (or **accumulation point**) of $A\subseteq X$ if every open neighborhood $U$ of $x$ intersects $A\setminus\{x\}$. Unlike the closure test, this excludes the point itself.
+>
+> A point $x\in A$ is **isolated in $A$** if some open neighborhood $U$ of $x$ satisfies $U\cap A=\{x\}$.
+>
+> A subset $A$ is **dense in $X$** when $\overline A=X$, equivalently when every nonempty open subset of $X$ intersects $A$.
+
+Every point of $\overline A$ either belongs to $A$ or is a limit point of $A$. These notions are distinct: the singleton $\{0\}\subseteq\mathbb R$ is closed, but $0$ is isolated in it; by contrast, $0$ is a limit point of $\{1/n:n=1,2,\ldots\}$ without belonging to that set.
 
 > [!example] Rational numbers are dense in the real line
 > In the usual topology of $\mathbb R$, each nonempty open interval contains a rational; thus every neighborhood of every real meets $\mathbb Q$. Hence $\overline{\mathbb Q}=\mathbb R$ while $\operatorname{int}(\mathbb Q)=\varnothing$. Dense need not mean "mostly all points."
@@ -161,9 +213,23 @@ A homeomorphism preserves openness, closedness, connectedness and compactness be
 
 This is why a bijective continuous map is **not automatically** a homeomorphism.
 
-## A preview of topology without metric sequences
+## Convergence from neighborhoods, without a distance
 
-In metric spaces, sequences describe closure. In a general topological space, sequences need not detect every closed set. **Nets** and **filters** generalize convergence to arbitrary topological spaces. This branch develops open sets and universal constructions first; a full chapter on nets/filters can be added after compactness.
+> [!definition] Convergence of a sequence
+> A sequence $(x_n)$ **converges to $x$** if, for every open neighborhood $U$ of $x$, there is an index $n_0$ such that
+>
+> $$
+> n\geq n_0\quad\Longrightarrow\quad x_n\in U.
+> $$
+>
+> In words: eventually every term stays inside any prescribed open neighborhood of the proposed limit.
+
+In $\mathbb R$ with its usual topology this agrees with ordinary metric sequence convergence. No numerical distance is needed for the general definition.
+
+> [!counterexample] A sequence can have more than one limit
+> In our earlier three-point topology $X=\{a,b,c\}$, $\tau=\{\varnothing,\{a\},\{a,b\},X\}$, the constant sequence $x_n=a$ converges to **all three points**: every nonempty open set contains $a$. Sequence limits are unique in a **Hausdorff** space; see [Separation Axioms](./general-topology-compactness#hausdorff-separation).
+
+In metric spaces, sequences also suffice to characterize closure. **In arbitrary topological spaces they do not**: a point may be in $\overline A$ without being the limit of any sequence from $A$. **Nets** and **filters** extend convergence to arbitrary topological spaces. A full development of those ideas is beyond this introductory chapter.
 
 ## Dependency audit
 
