@@ -32,7 +32,7 @@ Nearly everything on this page answers one of three questions:
 >
 > This one example will return in [kernel and image](#the-four-fundamental-subspaces), [rank-nullity](#why-rank-nullity-must-be-true), and [quotient spaces](#the-first-isomorphism-theorem-what-survives-information-loss).
 
-**Why the word "linear" can be confusing.** School algebra calls $y=mx+b$ a *linear function* because its graph is a straight line. In linear algebra, $x\mapsto mx+b$ is **linear only when $b=0$**: every linear map sends zero to zero. With a nonzero $b$ it is an **affine map** (linear followed by translation).
+**Why the word "linear" can be confusing.** School algebra calls $y=mx+b$ a *linear function* because its graph is a straight line. In linear algebra, $x\mapsto mx+b$ is **linear only when $b=0$**: every linear map sends zero to zero. With a nonzero $b$ it is an **affine map** (linear followed by translation). Sending zero to zero is necessary but **not sufficient** for linearity: $f(x)=x^2$ also sends zero to zero, yet $f(2x)=4x^2\ne2f(x)$ in general, so it fails to preserve scaling.
 
 **Keep the object separate from its description.** A matrix describes a linear transformation only *after choosing bases*. Changing the coordinates can change the matrix without changing the rule.
 
@@ -583,7 +583,7 @@ $$
 
 The rank equals the number of pivots in the echelon form.
 
-**Rank tells you everything about solvability:**
+**Rank determines the possible solution patterns:** for a specific target $b$, also check whether $b$ belongs to the column space.
 
 | Condition | Meaning |
 |---|---|
@@ -966,7 +966,7 @@ $A$ acts on a vector in three steps:
 
 Any real finite-dimensional linear map thus factors into **orthogonal coordinate changes and axis scaling**. An orthogonal transformation need not be a pure rotation.
 
-![SVD decomposes a transformation into rotate, stretch, rotate: unit circle becomes an ellipse](./media/svd-geometry.png)
+![SVD decomposes a linear map into orthogonal input and output changes plus axis scaling: the unit circle becomes an ellipse](./media/svd-geometry.png)
 
 <iframe src="/static/interactive/svd-sphere-to-ellipsoid.html" width="100%" height="550" style="border:none;"></iframe>
 
