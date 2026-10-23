@@ -723,24 +723,24 @@ $$
 
 **Worked example.** Project $b = \begin{bmatrix} 4 \\ 3 \end{bmatrix}$ onto the line through $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$. The scaling factor is $\frac{a^T b}{a^T a} = \frac{(1)(4) + (2)(3)}{1^2 + 2^2} = \frac{10}{5} = 2$, so the projection is $p = 2\begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$. The error $e = b - p = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$ is perpendicular to $a$, exactly as projection guarantees: $e^T a = (2)(1) + (-1)(2) = 0$. ✓
 
-**Projection onto a subspace:** To project $b$ onto the column space of $A$:
+**Projection onto a subspace:** To project $b$ onto the column space of $A$, first assume that its columns are **linearly independent** (full column rank). Under this assumption:
 
 $$
 p = A(A^T A)^{-1} A^T b
 $$
 
-The matrix $P = A(A^T A)^{-1} A^T$ is the **projection matrix**. It has the properties:
+The matrix $P=A(A^TA)^{-1}A^T$ is then the **orthogonal projection matrix**. For rank-deficient $A$, the inverse does not exist; the general formula uses the [pseudoinverse](#singular-value-decomposition-svd), $P=AA^+$. In both cases:
 
 - $P^2 = P$ (projecting twice gives the same result)
 - $P^T = P$ (symmetric)
 
-**Why this matters for ML:** When $Ax = b$ has no solution (the usual case with real data, where you have more equations than unknowns), the best approximation is to project $b$ onto the column space and solve $Ax = Pb$ instead. This gives the **least squares** solution:
+**Why this matters for ML:** When $Ax = b$ has no solution (the usual case with real data, where you have more equations than unknowns), the best approximation is to project $b$ onto the column space and solve $Ax = Pb$ instead. When $A$ has full column rank, this gives the **unique least-squares** coefficients:
 
 $$
-\hat{x} = (A^T A)^{-1} A^T b
+\hat{x}=(A^TA)^{-1}A^Tb.
 $$
 
-This is exactly the formula for linear regression.
+When $A$ is rank-deficient, the coefficients may not be unique, although the fitted prediction $A\hat{x}$ is. The **minimum-norm** least-squares solution is $\hat{x}=A^+b$. Numerically, [QR or SVD](./linear-algebra-computation#matrix-factorizations) is generally preferable to explicitly forming $A^TA$ and inverting it. This is the geometry underlying linear regression.
 
 **Worked example (fitting a line).** Fit $y = C + Dt$ to the three points $(0, 6), (1, 0), (2, 0)$, which lie on no common line. Each point gives one equation $C + Dt = y$, stacking to
 
@@ -813,7 +813,7 @@ $$
 
 The scalar $\lambda$ (read "lambda") is the corresponding **eigenvalue**.
 
-Most vectors change direction when multiplied by a matrix. Eigenvectors are special: they keep pointing in the same direction (or flip 180° if $\lambda < 0$). The matrix only stretches or shrinks them.
+Most vectors change direction when multiplied by a matrix. Eigenvectors are special: their images lie on the same line, possibly reversing direction for $\lambda<0$ or collapsing to zero for $\lambda=0$. The transformation acts on these directions by scalar multiplication.
 
 ### Finding Eigenvalues
 
@@ -823,7 +823,7 @@ $$
 \det(A - \lambda I) = 0
 $$
 
-This is the **characteristic equation**. It is a polynomial of degree $n$ in $\lambda$, so an $n \times n$ matrix has $n$ eigenvalues (counting multiplicity, possibly complex).
+This is the **characteristic equation**. It has degree $n$, so an $n\times n$ matrix has $n$ **complex** eigenvalues counted with algebraic multiplicity. A real matrix need not have any real eigenvalues.
 
 ### Finding Eigenvectors
 
@@ -949,11 +949,11 @@ As a check, the product of the singular values $2\sqrt 2 \cdot \sqrt 2 = 4$ equa
 ### Geometric Interpretation
 
 $A$ acts on a vector in three steps:
-1. $V^T$ rotates the input (change of basis)
-2. $\Sigma$ stretches along each axis by the singular values
-3. $U$ rotates the output (another change of basis)
+1. $V^T$ expresses the input in orthonormal **right-singular directions** (possibly involving reflection).
+2. $\Sigma$ stretches or collapses those coordinates by nonnegative singular values; a rectangular matrix may change their number.
+3. $U$ expresses the result in orthonormal **left-singular directions** (again possibly involving reflection).
 
-Every linear transformation is a rotation, followed by a stretch, followed by another rotation.
+Any real finite-dimensional linear map thus factors into **orthogonal coordinate changes and axis scaling**. An orthogonal transformation need not be a pure rotation.
 
 ![SVD decomposes a transformation into rotate, stretch, rotate: unit circle becomes an ellipse](./media/svd-geometry.png)
 
