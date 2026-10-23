@@ -152,7 +152,8 @@
   [data-callout="proof-sketch"],
   [data-callout="distinction"],
   [data-callout="example"],
-  [data-callout="counterexample"]
+  [data-callout="counterexample"],
+  [data-callout="bridge"]
 ) {
   --ed-accent: var(--ed-logic);
   --color: var(--ed-ink);
@@ -244,6 +245,10 @@
   .callout[data-callout="counterexample"] {
     --ed-accent: var(--ed-knowledge);
     .callout-title-inner::before { content: "COUNTEREXAMPLE"; }
+  }
+  .callout[data-callout="bridge"] {
+    --ed-accent: var(--ed-logic);
+    .callout-title-inner::before { content: "CROSS-SUBJECT BRIDGE"; }
   }
 }
 
