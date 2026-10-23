@@ -60,6 +60,25 @@ extraneous.
 
 So $\{1, 1, 2\}$ and $\{1, 2\}$ denote the *same* set: repetition and order carry no information about membership.
 
+## From sets to mathematical spaces
+
+A **set** tells us which elements belong to a collection, but membership alone does not specify which elements are near one another, how they are ordered, or what operations we can perform on them. In many branches of mathematics, a **space** is an underlying set together with specified **additional structure**. This is a useful pattern, not a universal formal definition of the word *space*.
+
+Take the same set $X=\{a,b,c\}$. We can equip it with different structures:
+
+| What we specify in addition to $X$ | Structured mathematical object | New questions we can ask |
+| --- | --- | --- |
+| An order $a<b<c$ | **Ordered set** $(X,\leq)$ | Which elements come before others? |
+| A family $\tau=\{\varnothing,\{a\},\{a,b\},X\}$ of open subsets | **Topological space** $(X,\tau)$ | Which subsets are open, and which maps are continuous? |
+| A distance $d$ with $d(x,y)=0$ if $x=y$ and $1$ otherwise | **Metric space** $(X,d)$ | How far apart are two elements? |
+
+All three have the **same underlying set**. They are different mathematical objects because the extra structure is different; it must also satisfy the axioms for that kind of space.
+
+> [!distinction] Structure is not the same as a property
+> A topology, order, or metric is **data that we specify**. *Compactness*, for example, is a **property** that a topology may or may not satisfy, not an additional collection of data by itself. Neither property nor structure is determined solely by the elements of an arbitrary set.
+
+**The progression:** [Sets](#set) provide elements; [functions and relations](./functions-relations) describe mappings and comparisons; [topology](./general-topology-foundations) adds open subsets. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) compares many more structures and shows which can be derived from others.
+
 ## Roster Notation
 
 Roster notation (also known as **enumeration notation**) involves
