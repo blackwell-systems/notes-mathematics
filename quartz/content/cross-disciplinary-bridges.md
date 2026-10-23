@@ -19,8 +19,9 @@ The most useful mathematical connections are not merely that two chapters use si
 | **Local constraints must agree globally** | [Graph cycles](./graph-theory), [equations over sets](./functions-relations) | [Cohomology](./algebraic-topology), [sheaf gluing](./sheaf-theory#6-local-solutions-do-not-imply-a-global-solution) | Can every local equation hold while no global assignment exists? |
 | **Turn products into sums using logarithms** | [Logarithms](./logarithms) | [Likelihood](./statistical-learning), [cross-entropy and KL](./information-theory) | Which optimization problems are really the same objective? |
 | **Replace a sum by a weighted integral** | [Expected value](./probability#expected-value) | [Measure-theoretic integration](./measure-theory), [linear functionals](./functional-analysis) | Which properties of expectation survive beyond finite outcomes? |
+| **Find the best approximation given limited information** | [Vector projections](./vector#projection), [least squares](./linear-algebra-foundations#projection-onto-a-subspace) | [Conditional expectation](./measure-theory#conditional-expectation-is-an-orthogonal-projection), [regression](./statistical-learning#ordinary-least-squares-ols) | Why is averaging a geometric operation? |
 
-The table is a map, **not a prerequisite list**. The worked bridges below make four of these connections exact.
+The table is a map, **not a prerequisite list**. The worked bridges below make the translations explicit through concrete calculations and the conditions under which they hold.
 
 ## Bridge 1. Equivalence classes become kernels and quotient spaces
 
@@ -245,6 +246,83 @@ $$
 $$
 
 for integrable $f,g$. This creates a bridge from [Probability](./probability#expected-value) to [Measure Theory](./measure-theory) and, with the right normed function space and boundedness hypotheses, to [Functional Analysis](./functional-analysis).
+
+## Bridge 6. Conditional expectation is orthogonal projection
+
+**Seeds:** A [vector projection](./vector#projection) keeps the part of a vector lying in a chosen direction. [Linear Algebra Foundations](./linear-algebra-foundations#projection-onto-a-subspace) generalizes this to the nearest vector in a subspace. [Probability](./probability#expected-value) describes expectation as an average.
+
+**First surprise: an average is a projection.** Consider the five observations
+
+$
+y=(2,4,4,6,9).
+$
+
+Imagine choosing a *constant* prediction: one number $c$ used for all five observations. The possible prediction vectors form a line,
+
+$
+M_0=\{(c,c,c,c,c):c\in\mathbb R\}.
+$
+
+Which point on that line is closest to $y$? Minimize the sum of squared errors:
+
+$
+S(c)=(2-c)^2+(4-c)^2+(4-c)^2+(6-c)^2+(9-c)^2.
+$
+
+Differentiating, $S'(c)=10c-50$. Thus $c=5$ is the unique minimum, and
+
+$
+\boxed{\operatorname{proj}_{M_0}y=(5,5,5,5,5).}
+$
+
+The familiar **arithmetic mean** is the coordinate of the orthogonal projection onto the constant-vector subspace.
+
+**Second surprise: conditional expectation is projection onto a bigger subspace.** Roll a fair die, with $X$ equal to the face value. Imagine you are told *only whether it is odd or even*. Your predictions can now have **two** values: $a$ on odd rolls and $b$ on even rolls.
+
+The possible prediction vectors are exactly
+
+$
+M=\{(a,b,a,b,a,b):a,b\in\mathbb R\}.
+$
+
+The closest such prediction to $X=(1,2,3,4,5,6)$ is
+
+$
+p=(3,4,3,4,3,4),
+$
+
+because the odd outcomes average to $3$ and the even outcomes average to $4$. This is the conditional expectation $\mathbb E[X\mid\text{parity}]$.
+
+**Why is it really an orthogonal projection?** The residual is
+
+$
+r=X-p=(-2,-2,0,0,2,2).
+$
+
+For *any* parity-based prediction $z=(a,b,a,b,a,b)$, its dot product with the residual is
+
+$
+r\cdot z=-2a-2b+2a+2b=0.
+$
+
+Thus $r$ is perpendicular to the entire subspace $M$. With the probability-weighted inner product, the same statement is $\mathbb E[rz]=0$.
+
+The error decreases when we use the extra information:
+
+| Allowed information | Best prediction | Mean squared error |
+| --- | --- | --- |
+| No information beyond a constant | $(3.5,3.5,3.5,3.5,3.5,3.5)$ | $35/12$ |
+| Parity of the outcome | $(3,4,3,4,3,4)$ | $8/3$ |
+| Full observed outcome | $(1,2,3,4,5,6)$ | $0$ |
+
+Enlarging the set of admissible predictions cannot make the *best attainable* squared error worse. Here, each enlargement corresponds to a larger linear subspace.
+
+**The general theorem:** For $Y\in L^2$, conditional expectation $\mathbb E[Y\mid\mathcal G]$ is the **orthogonal projection** of $Y$ onto the closed subspace of $\mathcal G$-measurable square-integrable random variables. The [Measure Theory chapter](./measure-theory#conditional-expectation-is-an-orthogonal-projection) derives the exact orthogonality and Pythagorean squared-error identities.
+
+**Transfer to regression:** Least squares projects observed outcomes onto the span of the chosen feature columns. Conditional expectation projects onto **all** square-integrable predictions measurable from the available information. Same Hilbert-space geometry; different choices of allowed subspace.
+
+> [!distinction] An exact theorem with a scope
+> The geometric formulation assumes **square integrability** and **squared-error loss**. Conditional expectation itself is defined for integrable $L^1$ random variables too, but without square integrability the orthogonal-projection argument need not apply. A linear regression fit generally does **not** equal $\mathbb E[Y\mid X]$: its model class can be much smaller than the space of all functions of $X$.
 
 ## How to explore another bridge yourself
 
