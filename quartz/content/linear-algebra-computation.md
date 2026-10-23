@@ -429,6 +429,15 @@ The factorization succeeded (all the square roots were of positive numbers) prec
 | Eigendecomposition | Square | Understanding transformations, PCA |
 | SVD | Any shape, any rank | Low-rank approximation, pseudoinverse, PCA |
 
+### Why solving a system is not the same as computing an inverse
+
+You will often see $Ax=b$ rearranged as $x=A^{-1}b$. That formula describes the unique answer **when $A$ is square and invertible**, but it does **not** mean a computer should first calculate every entry of $A^{-1}$.
+
+To solve $Ax=b$ you need **one vector** $x$, not an entire inverse matrix. Elimination or an LU factorization can obtain it directly. If you have many different targets $b$ with the same $A$, you can reuse the factorization. For least squares, QR or SVD typically avoids magnifying numerical error through $A^TA$. When a large matrix is sparse, iterative solvers can exploit that structure.
+
+> [!intuition] Ask for the operation you actually need
+> A mathematical inverse establishes that recovery is possible; a **solver** is a procedure for doing it efficiently and accurately. They answer related but different questions. The same distinction applies to many areas of numerical mathematics: existence of an answer is not an algorithm for finding it.
+
 ## Positive Definite Matrices
 
 > [!definition] Positive definiteness
@@ -840,3 +849,15 @@ This makes the distinction between **having a stable state** and **converging to
 **MCMC (Markov Chain Monte Carlo):** Construct a Markov chain whose steady state is a desired probability distribution. Used for sampling from complex distributions in Bayesian ML.
 
 **Reinforcement learning:** State transitions in an environment are often modeled as Markov chains (or Markov decision processes when actions are involved).
+
+
+## Concept checks: computation versus mathematics
+
+1. **If $\det A\ne0$, will solving $Ax=b$ necessarily be numerically easy?** No. A nonzero determinant ensures an exact inverse for a square matrix, but the problem may be ill-conditioned.
+2. **Can a matrix be symmetric and positive definite yet poorly conditioned?** Yes: $\operatorname{diag}(1,10^{-12})$ is an example.
+3. **Why prefer QR to the normal equations in many least-squares problems?** Forming $A^TA$ squares the $2$-norm condition number of a full-column-rank matrix and can lose precision.
+4. **Why do orthonormal coordinate changes help?** They preserve Euclidean lengths and angles, so their $2$-norm condition number is $1$ (although floating-point operations still have roundoff).
+5. **Does $P\pi=\pi$ guarantee $P^np\to\pi$ for every starting distribution?** No. A periodic chain can have a stationary distribution but oscillate indefinitely.
+6. **What should determine the algorithm?** The matrix's shape, rank, symmetry, sparsity, conditioning and the accuracy the problem requires—not only the formal equation.
+
+**Next:** [Optimization](./optimization) uses these tools to study objective functions and convergence. [Functional Analysis](./functional-analysis) shows what changes when the spaces or operators become infinite-dimensional.
