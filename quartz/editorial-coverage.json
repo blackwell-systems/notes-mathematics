@@ -33,6 +33,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "algebraic-topology.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "asymptotic-notation.md",
       "kind": "topic",
       "track": "discrete-mathematics",
@@ -211,6 +220,15 @@
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
+    },
+    {
+      "path": "differential-geometry.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
     },
     {
       "path": "discrete-mathematics.md",
@@ -724,6 +742,15 @@
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
+    },
+    {
+      "path": "sheaf-theory.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
     },
     {
       "path": "singular-learning-theory.md",
