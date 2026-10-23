@@ -202,7 +202,7 @@ when $I$ is invertible. It transforms appropriately under smooth coordinate chan
 
 ### Quantum geometry as a nearby, but different, application
 
-The [Mathematical Foundations of Quantum Mechanics](./mathematical-foundations-of-quantum-mechanics#9-quantum-states-as-an-optimization-problem) chapter develops another way to make gradient updates geometry-aware. **Classical natural gradient** uses the Fisher metric of a parameterized probability model. **Quantum natural gradient** can use the Fubini–Study metric, induced by the quantum geometric tensor on a family of pure quantum states.
+The [Mathematical Foundations of Quantum Mechanics](./mathematical-foundations-of-quantum-mechanics#10-quantum-states-as-an-optimization-problem) chapter develops another way to make gradient updates geometry-aware. **Classical natural gradient** uses the Fisher metric of a parameterized probability model. **Quantum natural gradient** can use the Fubini–Study metric, induced by the quantum geometric tensor on a family of pure quantum states.
 
 The mathematical pattern is similar: instead of treating each parameter coordinate as equally meaningful, use a metric that reflects changes in the **represented object**. But a measurement-dependent classical Fisher matrix and the intrinsic quantum-state metric are not automatically equal. Their relationship requires specifying the quantum state family, measurement model, and metric convention. This is a conceptual bridge, **not** a claim that classical machine-learning training requires quantum mechanics.
 
