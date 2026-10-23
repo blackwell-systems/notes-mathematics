@@ -737,6 +737,10 @@ The matrix $P=A(A^TA)^{-1}A^T$ is then the **orthogonal projection matrix**. For
 - $P^2 = P$ (projecting twice gives the same result)
 - $P^T = P$ (symmetric)
 
+
+> [!bridge] Projection turns into conditional expectation
+> Projecting observations onto the subspace of **constant** vectors gives their arithmetic mean. Projecting a square-integrable random variable onto the subspace of predictions determined by specified information gives its **conditional expectation**. [Work through both projections on actual numbers](./cross-disciplinary-bridges#bridge-6-conditional-expectation-is-orthogonal-projection). Linear regression uses the same geometry with a **smaller chosen span of features**; it need not recover the full conditional expectation.
+
 **Why this matters for ML:** When $Ax = b$ has no solution (the usual case with real data, where you have more equations than unknowns), the best approximation is to project $b$ onto the column space and solve $Ax = Pb$ instead. When $A$ has full column rank, this gives the **unique least-squares** coefficients:
 
 $$
