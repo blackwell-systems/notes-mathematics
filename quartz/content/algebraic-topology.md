@@ -111,6 +111,9 @@ A two-dimensional sphere $S^2$ is simply connected, even though it surrounds a t
 
 Higher **homotopy groups** $\pi_n$ study maps from higher-dimensional spheres rather than just loops. Their definition and computation are a further subject. A related, often more computable family of invariants comes from **homology**.
 
+> [!connection] A finite graph already has a cohomological obstruction
+> Before studying higher-dimensional holes, [solve the XOR constraints on a triangle](./cross-disciplinary-bridges#bridge-3-an-inconsistent-cycle-is-a-cohomological-obstruction). The exact criterion—edge labels XOR to zero on every cycle—has both a spanning-tree algorithm and a first-cohomology interpretation. This uses cochains over $\mathbb Z_2$, whereas the chain groups below initially use integer coefficients.
+
 ## 4. Chains, cycles and boundaries
 
 The fundamental group studies loops and their deformations. Homology begins by making formal **sums of oriented pieces**: vertices, edges, triangles, and their higher-dimensional analogues.
