@@ -8,6 +8,8 @@ enables: ["optimization", "singular-learning-theory"]
 > **Builds on:** [Vector spaces](./linear-algebra-foundations#vector-spaces-and-subspaces), [Cauchy sequences and completeness](./real-analysis#cauchy-sequences), [integration and Lp spaces](./measure-theory#lp-spaces).
 > **Leads to:** infinite-dimensional optimization, operator equations, spectral theory and the analytical background of statistical learning. The [Path Through Analysis](./path-through-analysis) gives the surrounding route.
 
+For a cross-subject picture of where Banach, inner-product, Hilbert and general topological vector spaces fit, see the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces).
+
 Linear algebra studies vectors and linear maps. Analysis studies limits. **Functional analysis asks what survives when vectors themselves are functions or infinite sequences**, and whether limiting processes are compatible with linear operations. The central words are *norm*, *complete*, *bounded operator*, and *Hilbert space*. Each imposes a mathematically distinct requirement.
 
 ## Why an infinite-dimensional vector needs more structure

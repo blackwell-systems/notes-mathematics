@@ -5055,6 +5055,35 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     [0,1,2,3].every(sub=>inverse(compose(g2,f2),sub)===
       inverse(f2,inverse(g2,sub))));
 }
+// ========== Mathematical spaces atlas: independently recomputed witnesses ==========
+// Finite checks support selected worked examples. They do not prove general theorems.
+{
+ const weights=[1/2,1/3,1/6];
+ eq("Atlas: three-point probability normalizes",weights.reduce((a,b)=>a+b,0),1,1e-12);
+ check("Atlas: weights are nonnegative",weights.every(w=>w>=0));
+ const x=[1,0],y=[0,1];
+ const add=(a,b)=>a.map((v,i)=>v+b[i]),sub=(a,b)=>a.map((v,i)=>v-b[i]);
+ const norm1=v=>v.reduce((s,z)=>s+Math.abs(z),0);
+ const norm2sq=v=>v.reduce((s,z)=>s+z*z,0);
+ eq("Atlas: taxicab parallelogram left",norm1(add(x,y))**2+norm1(sub(x,y))**2,8);
+ eq("Atlas: taxicab parallelogram right",2*norm1(x)**2+2*norm1(y)**2,4);
+ eq("Atlas: Euclidean parallelogram left",norm2sq(add(x,y))+norm2sq(sub(x,y)),4);
+ eq("Atlas: Euclidean parallelogram right",2*norm2sq(x)+2*norm2sq(y),4);
+ for(const n of [2,4,8,16]){
+   const height=1,base=1/n;
+   eq("Atlas: triangular bump integral n="+n,base*height/2,1/(2*n),1e-12);
+   eq("Atlas: triangular bump maximum n="+n,height,1,1e-12);
+ }
+ const rho=(a,b)=>Math.abs(Math.atan(a)-Math.atan(b));
+ check("Atlas: arctangent Cauchy tails become close",
+   rho(10000,20000)<rho(1000,2000)&&rho(1000,2000)<rho(10,20));
+ eq("Atlas: arctangent metric radius for (-1,1)",rho(0,1),Math.PI/4,1e-12);
+ const f=t=>Math.max(1-4*t,0),g=t=>Math.max(4*t-3,0);
+ const points=Array.from({length:401},(_,i)=>i/400);
+ const sup=h=>Math.max(...points.map(t=>Math.abs(h(t))));
+ eq("Atlas: disjoint continuous bumps plus sup",sup(t=>f(t)+g(t)),1);
+ eq("Atlas: disjoint continuous bumps minus sup",sup(t=>f(t)-g(t)),1);
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

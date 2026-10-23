@@ -9,6 +9,8 @@ enables: ["probability", "functional-analysis", "singular-learning-theory"]
 > **Leads to:** [Probability](./probability) · [Functional Analysis](./functional-analysis) · [Singular Learning Theory](./singular-learning-theory)
 
 
+The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) distinguishes measurable spaces, measures and probability spaces from topological and metric spaces, including the Borel construction.
+
 Measure theory rebuilds integration from the ground up. In [real analysis](./real-analysis), you saw that the Riemann integral works well for continuous functions but breaks down for functions with too many discontinuities. The Dirichlet function (which is 1 on the rationals and 0 on the irrationals) is not Riemann integrable, even though its "values are mostly 0." Measure theory provides the Lebesgue integral, which handles such functions effortlessly, and in doing so gives us the convergence theorems that power all of modern analysis, probability, and learning theory.
 
 ## Why Measure Theory?

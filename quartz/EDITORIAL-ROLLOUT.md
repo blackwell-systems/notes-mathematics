@@ -143,3 +143,8 @@ The current manifest includes **82 Markdown pages**: 78 topics, one landing page
 ## Analysis/algebra bridge inventory (2026-10-21)
 
 There are now **88 Markdown pages** (82 topics, 5 learning paths and the landing page). All additions are pilot rather than independently accepted. Mathematical diagram coverage rises to **76 source-editable SVGs**. The original per-page mobile/dark/diagram completion checklist is unchanged; build and audit checks do not substitute for those reviews.
+
+
+## Flagship space-atlas inventory (2026-10-23)
+
+There are now **89 Markdown pages**: 82 topic chapters, six guided learning maps including the [Atlas of Mathematical Spaces](./content/atlas-of-mathematical-spaces.md), and one landing page. The diagrams audit includes **87 original SVGs across 31 chapters/maps**. The atlas is a semantic pilot, with mobile, dark-theme and diagram visual review pending.

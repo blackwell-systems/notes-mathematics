@@ -7,6 +7,8 @@ enables: ["real-analysis", "measure-theory", "functional-analysis", "complex-ana
 > [!abstract] Two branches from limits
 > **Start with:** [Calculus](./calculus) and [Sequences and Series](./sequences-and-series). **Branch toward:** [Functional Analysis](./functional-analysis), [Complex Analysis](./complex-analysis), [Measure Theory](./measure-theory) and [Information Geometry](./information-geometry). This is a suggested study route, not a claim that every destination needs every preceding chapter.
 
+The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) places normed/Banach/Hilbert spaces, topological vector spaces and measure spaces into one structural map.
+
 Analysis turns the intuitive idea of **approaching a value** into precise statements. The most useful question to ask at every step is: *What converges, in what sense, and which operations are legal to perform on that limit?*
 
 ## Stage 1: Limits and completeness

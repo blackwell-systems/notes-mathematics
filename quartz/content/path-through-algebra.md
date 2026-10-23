@@ -11,6 +11,8 @@ Algebra becomes much easier to understand when a **single question** is carried 
 
 This map connects existing chapters to [Commutative Algebra](./commutative-algebra). It does not claim that every route must go through every intermediate subject.
 
+The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) explains the differences among order, algebra, topology, metric, and measure structures before these branches intersect.
+
 ## Stage 1: Build the arithmetic objects
 
 Start with [Peano Arithmetic](./peano-arithmetic) for recursive addition and multiplication on the natural numbers; then [Integers](./construction-of-the-integers), [Rationals](./construction-of-the-rationals), and [Real Numbers](./construction-of-the-reals). The construction story demonstrates the importance of **equivalence relations**: integers can be represented by difference pairs, rationals by fraction pairs, and neither construction works unless operations are independent of representatives.
