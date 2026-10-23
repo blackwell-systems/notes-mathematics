@@ -573,6 +573,9 @@ $$
 
 **Meaning:** after identifying precisely those inputs the transformation cannot distinguish, what is left is structurally the image. See [equivalence relations and quotient sets](./equivalence-relations#quotient-sets-classes-become-objects). A kernel is not just a way to solve $Tx=0$; it describes exactly what a linear map forgets.
 
+> [!connection] Seed → payoff
+> In [this explicit quotient calculation](./cross-disciplinary-bridges#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces), $T(x,y)=x+y$ turns entire lines into single observable outputs. The same identification pattern later appears in quotient topology and category theory, though their structure-preservation requirements differ.
+
 ## Rank
 
 **Rank:** The rank of a matrix is the dimension of its column space (equivalently, the dimension of its row space).
