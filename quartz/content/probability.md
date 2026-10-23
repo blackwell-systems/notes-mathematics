@@ -300,7 +300,7 @@ $
 E[X] = \int_{-\infty}^{\infty} x \cdot f(x) \, dx
 $
 
-> [!connection] The unifying operation is integration
+> [!bridge] The unifying operation is integration
 > Both the discrete sum and the density integral are instances of $\mathbb E[X]=\int X\,dP$, where $P$ is a probability measure; this formulation also covers distributions with **no density**. [Follow the expectation-to-measure bridge](./cross-disciplinary-bridges#a-fifth-bridge-to-notice-expectation-is-integration), then continue to [Measure Theory](./measure-theory) for the formal construction.
 
 **Intuition:** If you repeated the experiment many times and averaged all the outcomes, you would get close to $E[X]$.
