@@ -11,6 +11,31 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 Linear algebra is the study of vectors, vector spaces, and linear transformations. It provides the language and tools for understanding systems of linear equations, data transformations, and optimization, making it the mathematical backbone of machine learning.
 
+## The big picture: preserving combinations
+
+A vector is not necessarily an arrow. It is an element of a collection where **addition** and **scaling by a number** are defined and obey the vector-space rules. An arrow, a list of measurements, a polynomial and a function can all be vectors in different spaces. [Vectors](./vector) develops the geometric picture; here we discover what those examples share.
+
+The central operation is a **linear combination** $au+bv$. A **linear transformation** is a function $T$ that preserves every such combination:
+
+$
+T(au+bv)=aT(u)+bT(v).
+$
+
+Nearly everything on this page answers one of three questions:
+
+1. **What outputs are possible?** Span and the image (column space).
+2. **Can distinct inputs have identical outputs?** Independence and the kernel (null space).
+3. **How can we describe the same operation more simply?** Bases, matrices, eigenvectors and SVD.
+
+> [!example] One rule that keeps information and loses information
+> Let $T(x,y)=(x+y,0)$. It is linear: scale and add the inputs, or transform them first and then scale and add, and you get the same output. Yet $T(2,1)=T(0,3)=(3,0)$. The rule **remembers the total** and **forgets how the total was divided**. Every output lies on one line; changes of the form $(t,-t)$ disappear.
+>
+> This one example will return in [kernel and image](#the-four-fundamental-subspaces), [rank-nullity](#why-rank-nullity-must-be-true), and [quotient spaces](#the-first-isomorphism-theorem-what-survives-information-loss).
+
+**Why the word "linear" can be confusing.** School algebra calls $y=mx+b$ a *linear function* because its graph is a straight line. In linear algebra, $x\mapsto mx+b$ is **linear only when $b=0$**: every linear map sends zero to zero. With a nonzero $b$ it is an **affine map** (linear followed by translation).
+
+**Keep the object separate from its description.** A matrix describes a linear transformation only *after choosing bases*. Changing the coordinates can change the matrix without changing the rule.
+
 ## Row Vectors vs Column Vectors
 
 Before diving in, one convention to get straight. A vector can be written two ways:
@@ -19,7 +44,7 @@ Before diving in, one convention to get straight. A vector can be written two wa
 
 **Row vector** (horizontal): $\begin{bmatrix} 2 & -1 & 3 \end{bmatrix}$ . This is 1 row and 3 columns.
 
-Same numbers, same order. The difference is orientation, and orientation determines how the vector interacts with matrices.
+The entries are the same, but the **roles** differ. A column ordinarily gives an input; a row can encode a linear **measurement** of an input. The usual dot product lets us associate the two by transposing, but this is not merely typography: see [dual spaces](#dual-spaces-vectors-and-linear-measurements).
 
 ### Matrices Are Made of Both
 
@@ -261,7 +286,7 @@ This view connects linear algebra to functions, transformations, and ultimately 
 > A **linear combination** of vectors $v_1,\ldots,v_k$ is $\sum_{i=1}^k c_i v_i$ with scalar coefficients $c_i$. The **span** is the set of all these combinations.
 
 
-**Linear Combination:** A linear combination of vectors $v_1, v_2, \ldots, v_n$ is any expression of the form:
+**In words:** choose some vectors, stretch or reverse them by scalar amounts, then add. Algebraically:
 
 $$
 c_1 v_1 + c_2 v_2 + \cdots + c_n v_n
@@ -302,13 +327,7 @@ The span of the columns of a matrix $A$ is the column space of $A$. This is the 
 > Vectors $v_1,\ldots,v_k$ are linearly independent when $\sum c_i v_i=0$ forces **every coefficient** $c_i=0$. Independence is a property of the **collection**, not the size of any one vector.
 
 
-**Linear Independence:** Vectors $v_1, v_2, \ldots, v_n$ are linearly independent if the only solution to:
-
-$$
-c_1 v_1 + c_2 v_2 + \cdots + c_n v_n = 0
-$$
-
-is the trivial solution $c_1 = c_2 = \cdots = c_n = 0$.
+**In words:** no nontrivial combination of the listed vectors can cancel to zero. Each vector contributes something you cannot reconstruct from the others. The equation in the definition above is the precise test.
 
 If any nontrivial solution exists (some $c_i \neq 0$), the vectors are **linearly dependent**, meaning at least one vector can be written as a combination of the others.
 
@@ -407,6 +426,20 @@ Every vector in $\mathbb{R}^2$ can be uniquely expressed as a combination: $\beg
 - $\{0\}$ has dimension 0
 
 **Key theorem:** Every basis for a given vector space has the same number of vectors.
+
+### Why a basis gives unique coordinates
+
+A basis is both a set that **reaches every vector** and a set that does so **without redundancy**. Suppose two different lists of coefficients described the same vector:
+
+$
+a_1b_1+\cdots+a_nb_n=c_1b_1+\cdots+c_nb_n.
+$
+
+Subtract: $(a_1-c_1)b_1+\cdots+(a_n-c_n)b_n=0$. Independence forces each coefficient difference to vanish, so $a_i=c_i$ for every $i$. The coordinates are **unique**.
+
+Why must two finite bases have equal size? The **exchange principle** says that if a list of $m$ vectors spans a space, then any independent list has at most $m$ members: each new independent vector can replace one spanning vector while preserving the span, but you cannot make more than $m$ replacements. Apply this principle in both directions to two bases. Thus dimension is an intrinsic count of independent directions, not a property of an arbitrary coordinate list.
+
+This is why a basis is a **reversible encoding**, not just a handy set of arrows. The same vector gets different coordinates under a different basis: see [Change of Basis](./linear-algebra-computation#change-of-basis).
 
 ## The Four Fundamental Subspaces
 
@@ -507,6 +540,776 @@ This means $\mathbb{R}^n$ splits cleanly into two perpendicular subspaces: the r
 **The orthogonality made concrete.** Collect the four subspaces of $A = \begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$ (rank $1$) worked out above: column space $= \text{Span}\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and left null space $= \text{Span}\begin{bmatrix} -2 \\ 1 \end{bmatrix}$ (both in $\mathbb{R}^2$, the output space); row space $= \text{Span}\begin{bmatrix} 1 \\ 3 \end{bmatrix}$ and null space $= \text{Span}\begin{bmatrix} -3 \\ 1 \end{bmatrix}$ (both in $\mathbb{R}^2$, the input space). The theorem's orthogonal-complement claim is now a one-line check: row space $\perp$ null space, $\begin{bmatrix} 1 \\ 3 \end{bmatrix}\cdot\begin{bmatrix} -3 \\ 1 \end{bmatrix} = -3 + 3 = 0$; and column space $\perp$ left null space, $\begin{bmatrix} 1 \\ 2 \end{bmatrix}\cdot\begin{bmatrix} -2 \\ 1 \end{bmatrix} = -2 + 2 = 0$. ✓
 
 ![Column space and null space as perpendicular subspaces](./media/column-null-space.png)
+
+### Why rank-nullity must be true
+
+For a linear map $T:V\to W$ with **finite-dimensional** $V$, the rank-nullity formula
+
+$
+\dim(V)=\dim(\ker T)+\dim(\operatorname{im}T)
+$
+
+expresses exactly how many independent input directions survive and how many are lost. Here's the proof.
+
+1. Choose a basis $k_1,\ldots,k_s$ of $\ker T$ (directions that disappear).
+2. Extend it to a basis $k_1,\ldots,k_s,v_1,\ldots,v_r$ of $V$.
+3. The images $T(v_1),\ldots,T(v_r)$ **span** $\operatorname{im}T$: every input is a combination of the $k The rank of a matrix is the dimension of its column space (equivalently, the dimension of its row space).
+
+$$
+\text{rank}(A) = \dim(C(A)) = \dim(C(A^T))
+$$
+
+The rank equals the number of pivots in the echelon form.
+
+**Rank tells you everything about solvability:**
+
+| Condition | Meaning |
+|---|---|
+| $r = m = n$ | $A$ is invertible, $Ax = b$ has exactly one solution for every $b$ |
+| $r = m < n$ | Every $b$ has a solution (infinitely many, since null space is nontrivial) |
+| $r = n < m$ | $Ax = b$ has at most one solution (zero or one, depending on $b$) |
+| $r < m$ and $r < n$ | Not every $b$ has a solution, and when one exists there are infinitely many |
+
+**Full rank:** A matrix has full rank when $r = \min(m, n)$, meaning it has as many pivots as possible.
+
+**Worked example.** Compare two $2 \times 2$ matrices. $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ has $\det A = 1(4) - 2(3) = -2 \neq 0$, so both rows are pivots and $\text{rank}(A) = 2$: this is the $r = m = n$ row of the table, so $Ax = b$ has a unique solution for every $b$. By contrast $B = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has $\det B = 0$ because row 2 is $2 \times$ row 1; row reduction leaves a single pivot, so $\text{rank}(B) = 1 < 2$. That is the $r < n$ case: $Bx = b$ is solvable only when $b$ lies in the column space (a multiple of $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$), and then it has infinitely many solutions.
+
+## Linear Transformations
+
+**Linear Transformation:** A function $T: V \to W$ between vector spaces is linear if:
+
+1. $T(u + v) = T(u) + T(v)$ for all $u, v \in V$
+2. $T(cv) = cT(v)$ for all $c \in \mathbb{R}$, $v \in V$
+
+Equivalently: $T(c_1 v_1 + c_2 v_2) = c_1 T(v_1) + c_2 T(v_2)$
+
+**Every linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$ can be represented as multiplication by an $m \times n$ matrix.**
+
+To find the matrix: apply $T$ to each standard basis vector. The outputs become the columns of the matrix.
+
+See this directly below: set the entries of a $2\times 2$ matrix and watch it transform the grid and the unit square, with the determinant shown as the area-scaling factor and the (real) eigenvectors drawn as invariant directions.
+
+<iframe src="/static/interactive/linear-transformation-2d.html" width="100%" height="660" style="border:none;"></iframe>
+
+$$
+A = \begin{bmatrix} T(e_1) & T(e_2) & \cdots & T(e_n) \end{bmatrix}
+$$
+
+**Examples of linear transformations in $\mathbb{R}^2$:**
+
+**Rotation by angle $\theta$:**
+
+$$
+R_\theta = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
+$$
+
+**Deriving it from the basis (θ = 90°).** Apply the "rotate by $90°$" rule to each standard basis vector: $e_1 = (1, 0)$ swings to $(0, 1)$, and $e_2 = (0, 1)$ swings to $(-1, 0)$. Those outputs become the columns, giving $R_{90°} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$, which matches the formula since $\cos 90° = 0$ and $\sin 90° = 1$. Applying it to a test vector confirms the action: $R_{90°}\begin{bmatrix} 3 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 3 \end{bmatrix}$, rotating the point $(3, 0)$ a quarter turn to $(0, 3)$.
+
+**Reflection across the x-axis:**
+
+$$
+\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
+$$
+
+**Scaling by factor $k$:**
+
+$$
+\begin{bmatrix} k & 0 \\ 0 & k \end{bmatrix}
+$$
+
+**Projection onto the x-axis:**
+
+$$
+\begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}
+$$
+
+**Why this matters for ML:** A neural network layer computes $\sigma(Wx + b)$, where $W$ is a matrix (linear transformation), $b$ is a bias (translation), and $\sigma$ is a nonlinear activation. Without the nonlinearity, stacking layers would just be matrix multiplication: $W_2(W_1 x) = (W_2 W_1)x$, which collapses to a single linear transformation. The nonlinearity is what gives depth its power.
+
+## Orthogonality
+
+### Orthogonal Vectors
+
+Two vectors $u$ and $v$ are **orthogonal** if their dot product is zero:
+
+$$
+u \cdot v = u^T v = 0
+$$
+
+Orthogonal vectors are perpendicular. They share no component in common.
+
+**Concrete instance.** Are $u = (1, 2)$ and $v = (2, -1)$ orthogonal? Their dot product is $u^T v = (1)(2) + (2)(-1) = 2 - 2 = 0$, so yes, they meet at a right angle. Contrast $(3, 4)$ and $(4, 3)$: their dot product is $(3)(4) + (4)(3) = 24 \neq 0$, so those two are *not* orthogonal (they point in broadly similar directions).
+
+### Orthogonal Subspaces
+
+Two subspaces $S$ and $T$ are orthogonal if every vector in $S$ is orthogonal to every vector in $T$.
+
+The four fundamental subspaces give two pairs of orthogonal subspaces:
+
+- Row space $\perp$ Null space (in $\mathbb{R}^n$)
+- Column space $\perp$ Left null space (in $\mathbb{R}^m$)
+
+### Projection onto a Subspace
+
+**Projection** is the operation of finding the closest point in a subspace to a given vector.
+
+**Projection onto a line (1D subspace):** To project vector $b$ onto the line through a nonzero vector $a$:
+
+$$
+p = \frac{a^T b}{a^T a} a
+$$
+
+(This requires $a \neq 0$, so that $a^T a > 0$.)
+
+**Worked example.** Project $b = \begin{bmatrix} 4 \\ 3 \end{bmatrix}$ onto the line through $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$. The scaling factor is $\frac{a^T b}{a^T a} = \frac{(1)(4) + (2)(3)}{1^2 + 2^2} = \frac{10}{5} = 2$, so the projection is $p = 2\begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$. The error $e = b - p = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$ is perpendicular to $a$, exactly as projection guarantees: $e^T a = (2)(1) + (-1)(2) = 0$. ✓
+
+**Projection onto a subspace:** To project $b$ onto the column space of $A$:
+
+$$
+p = A(A^T A)^{-1} A^T b
+$$
+
+The matrix $P = A(A^T A)^{-1} A^T$ is the **projection matrix**. It has the properties:
+
+- $P^2 = P$ (projecting twice gives the same result)
+- $P^T = P$ (symmetric)
+
+**Why this matters for ML:** When $Ax = b$ has no solution (the usual case with real data, where you have more equations than unknowns), the best approximation is to project $b$ onto the column space and solve $Ax = Pb$ instead. This gives the **least squares** solution:
+
+$$
+\hat{x} = (A^T A)^{-1} A^T b
+$$
+
+This is exactly the formula for linear regression.
+
+**Worked example (fitting a line).** Fit $y = C + Dt$ to the three points $(0, 6), (1, 0), (2, 0)$, which lie on no common line. Each point gives one equation $C + Dt = y$, stacking to
+
+$$
+A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}, \qquad b = \begin{bmatrix} 6 \\ 0 \\ 0 \end{bmatrix},
+$$
+
+an overdetermined system with no exact solution. Form the normal equations $A^T A \hat x = A^T b$:
+
+$$
+A^T A = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}, \qquad A^T b = \begin{bmatrix} 6 \\ 0 \end{bmatrix}.
+$$
+
+With $\det(A^T A) = 15 - 9 = 6$, solving gives $\hat x = \begin{bmatrix} C \\ D \end{bmatrix} = \begin{bmatrix} 5 \\ -3 \end{bmatrix}$, so the best-fit line is $y = 5 - 3t$. The fitted values are $A\hat x = \begin{bmatrix} 5 \\ 2 \\ -1 \end{bmatrix}$, and the residual $e = b - A\hat x = \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix}$ is orthogonal to both columns of $A$: it sums to $0$ (orthogonal to the all-ones column) and $e^T \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix} = -2 + 2 = 0$. That orthogonality of the residual to the column space is the defining property of the least-squares fit.
+
+![Projection of vector b onto line through a, showing the error vector perpendicular to a](./media/projection.png)
+
+## Determinants
+
+**Determinant:** The determinant of a square matrix $A$, written $\det(A)$ (read "the determinant of A"), is a scalar that encodes whether the matrix is invertible and how it scales volumes.
+
+**For 2×2:**
+
+$$
+\det \begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc
+$$
+
+**For 3×3 (cofactor expansion along first row):**
+
+$$
+\det \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix} = a(ei - fh) - b(di - fg) + c(dh - eg)
+$$
+
+**Geometric interpretation:**
+
+- In 2D: $|\det(A)|$ is the area of the parallelogram formed by the column vectors
+- In 3D: $|\det(A)|$ is the volume of the parallelepiped formed by the column vectors
+- If $\det(A) < 0$, the transformation reverses orientation (like a mirror reflection)
+- If $\det(A) = 0$, the transformation collapses space into a lower dimension
+
+**Key properties:**
+
+- $\det(AB) = \det(A) \cdot \det(B)$
+- $\det(A^T) = \det(A)$
+- $\det(A^{-1}) = 1 / \det(A)$
+- $\det(cA) = c^n \det(A)$ for an $n \times n$ matrix
+- $A$ is invertible if and only if $\det(A) \neq 0$
+
+**Worked examples.** For the $2\times 2$ matrix $\begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$, $\det = (4)(3) - (1)(2) = 12 - 2 = 10$. (This is the matrix whose eigenvalues we find below; note $10$ is exactly the product of those eigenvalues, $5 \cdot 2$.) For a $3\times 3$, expand along the first row with the alternating $+, -, +$ signs:
+
+$$
+\det \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 10 \end{bmatrix} = 1(5\cdot 10 - 6\cdot 8) - 2(4\cdot 10 - 6\cdot 7) + 3(4\cdot 8 - 5\cdot 7) = 1(2) - 2(-2) + 3(-3) = 2 + 4 - 9 = -3.
+$$
+
+Both determinants are nonzero, so both matrices are invertible.
+
+## Eigenvalues and Eigenvectors
+
+> [!definition] Eigenvector and eigenvalue
+> A **nonzero** vector $v$ is an eigenvector of $A$ with eigenvalue $\lambda$ if $Av=\lambda v$. The zero vector is deliberately excluded because it would satisfy this equation for every $\lambda$.
+
+
+### The Core Idea
+
+**Eigenvector:** A nonzero vector $v$ is an eigenvector of matrix $A$ if $A$ acts on it by simply scaling it:
+
+$$
+Av = \lambda v
+$$
+
+The scalar $\lambda$ (read "lambda") is the corresponding **eigenvalue**.
+
+Most vectors change direction when multiplied by a matrix. Eigenvectors are special: they keep pointing in the same direction (or flip 180° if $\lambda < 0$). The matrix only stretches or shrinks them.
+
+### Finding Eigenvalues
+
+Rearrange $Av = \lambda v$ to $(A - \lambda I)v = 0$. For a nonzero $v$ to exist, the matrix $(A - \lambda I)$ must be singular:
+
+$$
+\det(A - \lambda I) = 0
+$$
+
+This is the **characteristic equation**. It is a polynomial of degree $n$ in $\lambda$, so an $n \times n$ matrix has $n$ eigenvalues (counting multiplicity, possibly complex).
+
+### Finding Eigenvectors
+
+For each eigenvalue $\lambda$, find the null space of $(A - \lambda I)$. The nonzero vectors in this null space are the eigenvectors.
+
+### Example
+
+$$
+A = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}
+$$
+
+**Step 1:** Characteristic equation:
+
+$$
+\det(A - \lambda I) = \det \begin{bmatrix} 4-\lambda & 1 \\ 2 & 3-\lambda \end{bmatrix} = (4-\lambda)(3-\lambda) - 2 = \lambda^2 - 7\lambda + 10 = 0
+$$
+
+$$
+(\lambda - 5)(\lambda - 2) = 0
+$$
+
+Eigenvalues: $\lambda_1 = 5$, $\lambda_2 = 2$
+
+**Step 2:** Eigenvector for $\lambda_1 = 5$:
+
+$$
+(A - 5I)v = \begin{bmatrix} -1 & 1 \\ 2 & -2 \end{bmatrix}v = 0
+$$
+
+This gives $v_1 = v_2$, so $v_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ (or any scalar multiple).
+
+**Step 3:** Eigenvector for $\lambda_2 = 2$:
+
+$$
+(A - 2I)v = \begin{bmatrix} 2 & 1 \\ 2 & 1 \end{bmatrix}v = 0
+$$
+
+This gives $2v_1 + v_2 = 0$, so $v_2 = \begin{bmatrix} 1 \\ -2 \end{bmatrix}$.
+
+### Eigendecomposition (Diagonalization)
+
+If $A$ has $n$ linearly independent eigenvectors, it can be factored as:
+
+$$
+A = S \Lambda S^{-1}
+$$
+
+Where:
+- $S$ is the matrix whose columns are the eigenvectors
+- $\Lambda$ is the diagonal matrix of eigenvalues
+
+**Worked example (from the eigenvalues found above).** The matrix $A = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$ has eigenvalues $5, 2$ with eigenvectors $\begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ -2 \end{bmatrix}$. Put the eigenvectors in $S$ (as columns) and the eigenvalues in $\Lambda$:
+
+$$
+S = \begin{bmatrix} 1 & 1 \\ 1 & -2 \end{bmatrix}, \quad \Lambda = \begin{bmatrix} 5 & 0 \\ 0 & 2 \end{bmatrix}, \quad S^{-1} = \frac{1}{-3}\begin{bmatrix} -2 & -1 \\ -1 & 1 \end{bmatrix} = \begin{bmatrix} \frac{2}{3} & \frac{1}{3} \\ \frac{1}{3} & -\frac{1}{3} \end{bmatrix}
+$$
+
+(using $\det S = (1)(-2) - (1)(1) = -3$ for the inverse). Multiplying back, $S\Lambda S^{-1} = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix} = A$, which confirms the factorization. Two quick checks on the eigenvalues themselves close the loop: their sum $5 + 2 = 7$ equals the trace $4 + 3$, and their product $5 \cdot 2 = 10$ equals the determinant.
+
+**Power of diagonalization:** $A^k = S \Lambda^k S^{-1}$, and $\Lambda^k$ is trivial to compute (just raise each diagonal entry to the $k$th power).
+
+### Properties
+
+- The sum of eigenvalues equals the trace: $\lambda_1 + \lambda_2 + \cdots + \lambda_n = \text{tr}(A)$
+- The product of eigenvalues equals the determinant: $\lambda_1 \cdot \lambda_2 \cdots \lambda_n = \det(A)$
+- Real symmetric matrices always have real eigenvalues and orthogonal eigenvectors
+- If $A$ is symmetric, $A = Q \Lambda Q^T$ where $Q$ is orthogonal ($Q^{-1} = Q^T$), known as the **spectral theorem**
+
+![Eigenvectors maintain their direction under transformation A, while regular vectors change direction](./media/eigenvectors.png)
+
+The interactive plot below shows a grid of points (blue) and the same grid after multiplication by the matrix $A = \begin{bmatrix} 3 & 1 \\ 1 & 2 \end{bmatrix}$ (red). The thick colored lines are the eigenvectors: directions along which the matrix only stretches, never rotates. The dotted unit circle transforms into an ellipse whose axes align with the eigenvectors.
+
+<iframe src="/static/interactive/eigenvalue-transform.html" width="100%" height="550" style="border:none;"></iframe>
+
+### Why Eigenvalues Matter for ML
+
+- **Principal Component Analysis (PCA):** Find the eigenvectors of the covariance matrix. The eigenvectors with the largest eigenvalues are the directions of greatest variance in the data. Project onto those directions to reduce dimensionality.
+- **Google PageRank:** The ranking vector is the dominant eigenvector of the web link matrix.
+- **Stability of dynamical systems:** Eigenvalues determine whether a system converges, diverges, or oscillates.
+- **Singular Value Decomposition (SVD):** Generalizes eigendecomposition to non-square matrices.
+
+**Research connection:** The eigenvalue spectrum of attention weight matrices reveals head specialization. In developmental interpretability research, tracking how eigenvalue distributions change across training checkpoints shows when heads differentiate into specialized roles (delimiter heads, spacing heads, induction heads) versus when they collapse into attention sinks.
+
+## Singular Value Decomposition (SVD)
+
+**SVD:** Every $m \times n$ matrix $A$ (any shape, any rank) can be factored as:
+
+$$
+A = U \Sigma V^T
+$$
+
+Where:
+- $U$ is $m \times m$ orthogonal (columns are left singular vectors)
+- $\Sigma$ is $m \times n$ diagonal (entries are singular values $\sigma_1 \geq \sigma_2 \geq \cdots \geq 0$)
+- $V$ is $n \times n$ orthogonal (columns are right singular vectors)
+
+### Relationship to Eigendecomposition
+
+- The columns of $V$ are eigenvectors of $A^T A$
+- The columns of $U$ are eigenvectors of $AA^T$
+- The singular values $\sigma_i = \sqrt{\lambda_i}$ where $\lambda_i$ are eigenvalues of $A^T A$
+
+**Worked example.** Find the SVD of $A = \begin{bmatrix} 2 & 2 \\ -1 & 1 \end{bmatrix}$. First form
+
+$$
+A^T A = \begin{bmatrix} 5 & 3 \\ 3 & 5 \end{bmatrix},
+$$
+
+whose eigenvalues are $5 \pm 3 = 8$ and $2$, so the singular values are $\sigma_1 = \sqrt 8 = 2\sqrt 2$ and $\sigma_2 = \sqrt 2$. The corresponding unit eigenvectors of $A^T A$ are the right singular vectors: $v_1 = \frac{1}{\sqrt 2}\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ (for eigenvalue $8$) and $v_2 = \frac{1}{\sqrt 2}\begin{bmatrix} 1 \\ -1 \end{bmatrix}$ (for $2$). The left singular vectors come from $u_i = \frac{1}{\sigma_i} A v_i$:
+
+$$
+u_1 = \frac{1}{2\sqrt 2}\begin{bmatrix} 2\sqrt 2 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \qquad u_2 = \frac{1}{\sqrt 2}\begin{bmatrix} 0 \\ -\sqrt 2 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \end{bmatrix}.
+$$
+
+So $A = U\Sigma V^T$ with
+
+$$
+U = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}, \quad \Sigma = \begin{bmatrix} 2\sqrt 2 & 0 \\ 0 & \sqrt 2 \end{bmatrix}, \quad V = \frac{1}{\sqrt 2}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
+$$
+
+As a check, the product of the singular values $2\sqrt 2 \cdot \sqrt 2 = 4$ equals $|\det A| = |(2)(1) - (2)(-1)| = 4$.
+
+### Geometric Interpretation
+
+$A$ acts on a vector in three steps:
+1. $V^T$ rotates the input (change of basis)
+2. $\Sigma$ stretches along each axis by the singular values
+3. $U$ rotates the output (another change of basis)
+
+Every linear transformation is a rotation, followed by a stretch, followed by another rotation.
+
+![SVD decomposes a transformation into rotate, stretch, rotate: unit circle becomes an ellipse](./media/svd-geometry.png)
+
+<iframe src="/static/interactive/svd-sphere-to-ellipsoid.html" width="100%" height="550" style="border:none;"></iframe>
+
+### Low-Rank Approximation
+
+The SVD reveals the "importance" of each component. The best rank-$k$ approximation to $A$ is:
+
+$$
+A_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T
+$$
+
+This keeps only the $k$ largest singular values and their associated vectors.
+
+**Worked example (rank-1 approximation).** Using the SVD just computed for $A = \begin{bmatrix} 2 & 2 \\ -1 & 1 \end{bmatrix}$, the best rank-1 approximation keeps only the largest singular value:
+
+$$
+A_1 = \sigma_1 u_1 v_1^T = 2\sqrt 2 \begin{bmatrix} 1 \\ 0 \end{bmatrix} \cdot \frac{1}{\sqrt 2}\begin{bmatrix} 1 & 1 \end{bmatrix} = 2\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix} = \begin{bmatrix} 2 & 2 \\ 0 & 0 \end{bmatrix}.
+$$
+
+The discarded part is $A - A_1 = \begin{bmatrix} 0 & 0 \\ -1 & 1 \end{bmatrix}$, whose only singular value is exactly the dropped $\sigma_2 = \sqrt 2$. So keeping the top singular value captured the dominant structure of $A$, and the small $\sigma_2$ measures precisely what was thrown away.
+
+**Why this matters for ML:**
+- **Dimensionality reduction:** truncated SVD is the mathematical basis for PCA
+- **Recommendation systems:** approximate a sparse user-item matrix with a low-rank factorization
+- **Image compression:** keep only the top singular values to compress an image
+- **Noise reduction:** small singular values often correspond to noise; discarding them denoises the data
+- **Pseudoinverse:** $A^+ = V \Sigma^+ U^T$ generalizes the inverse to non-square and singular matrices
+s and $v The rank of a matrix is the dimension of its column space (equivalently, the dimension of its row space).
+
+$$
+\text{rank}(A) = \dim(C(A)) = \dim(C(A^T))
+$$
+
+The rank equals the number of pivots in the echelon form.
+
+**Rank tells you everything about solvability:**
+
+| Condition | Meaning |
+|---|---|
+| $r = m = n$ | $A$ is invertible, $Ax = b$ has exactly one solution for every $b$ |
+| $r = m < n$ | Every $b$ has a solution (infinitely many, since null space is nontrivial) |
+| $r = n < m$ | $Ax = b$ has at most one solution (zero or one, depending on $b$) |
+| $r < m$ and $r < n$ | Not every $b$ has a solution, and when one exists there are infinitely many |
+
+**Full rank:** A matrix has full rank when $r = \min(m, n)$, meaning it has as many pivots as possible.
+
+**Worked example.** Compare two $2 \times 2$ matrices. $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ has $\det A = 1(4) - 2(3) = -2 \neq 0$, so both rows are pivots and $\text{rank}(A) = 2$: this is the $r = m = n$ row of the table, so $Ax = b$ has a unique solution for every $b$. By contrast $B = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has $\det B = 0$ because row 2 is $2 \times$ row 1; row reduction leaves a single pivot, so $\text{rank}(B) = 1 < 2$. That is the $r < n$ case: $Bx = b$ is solvable only when $b$ lies in the column space (a multiple of $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$), and then it has infinitely many solutions.
+
+## Linear Transformations
+
+**Linear Transformation:** A function $T: V \to W$ between vector spaces is linear if:
+
+1. $T(u + v) = T(u) + T(v)$ for all $u, v \in V$
+2. $T(cv) = cT(v)$ for all $c \in \mathbb{R}$, $v \in V$
+
+Equivalently: $T(c_1 v_1 + c_2 v_2) = c_1 T(v_1) + c_2 T(v_2)$
+
+**Every linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$ can be represented as multiplication by an $m \times n$ matrix.**
+
+To find the matrix: apply $T$ to each standard basis vector. The outputs become the columns of the matrix.
+
+See this directly below: set the entries of a $2\times 2$ matrix and watch it transform the grid and the unit square, with the determinant shown as the area-scaling factor and the (real) eigenvectors drawn as invariant directions.
+
+<iframe src="/static/interactive/linear-transformation-2d.html" width="100%" height="660" style="border:none;"></iframe>
+
+$$
+A = \begin{bmatrix} T(e_1) & T(e_2) & \cdots & T(e_n) \end{bmatrix}
+$$
+
+**Examples of linear transformations in $\mathbb{R}^2$:**
+
+**Rotation by angle $\theta$:**
+
+$$
+R_\theta = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
+$$
+
+**Deriving it from the basis (θ = 90°).** Apply the "rotate by $90°$" rule to each standard basis vector: $e_1 = (1, 0)$ swings to $(0, 1)$, and $e_2 = (0, 1)$ swings to $(-1, 0)$. Those outputs become the columns, giving $R_{90°} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$, which matches the formula since $\cos 90° = 0$ and $\sin 90° = 1$. Applying it to a test vector confirms the action: $R_{90°}\begin{bmatrix} 3 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 3 \end{bmatrix}$, rotating the point $(3, 0)$ a quarter turn to $(0, 3)$.
+
+**Reflection across the x-axis:**
+
+$$
+\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
+$$
+
+**Scaling by factor $k$:**
+
+$$
+\begin{bmatrix} k & 0 \\ 0 & k \end{bmatrix}
+$$
+
+**Projection onto the x-axis:**
+
+$$
+\begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}
+$$
+
+**Why this matters for ML:** A neural network layer computes $\sigma(Wx + b)$, where $W$ is a matrix (linear transformation), $b$ is a bias (translation), and $\sigma$ is a nonlinear activation. Without the nonlinearity, stacking layers would just be matrix multiplication: $W_2(W_1 x) = (W_2 W_1)x$, which collapses to a single linear transformation. The nonlinearity is what gives depth its power.
+
+## Orthogonality
+
+### Orthogonal Vectors
+
+Two vectors $u$ and $v$ are **orthogonal** if their dot product is zero:
+
+$$
+u \cdot v = u^T v = 0
+$$
+
+Orthogonal vectors are perpendicular. They share no component in common.
+
+**Concrete instance.** Are $u = (1, 2)$ and $v = (2, -1)$ orthogonal? Their dot product is $u^T v = (1)(2) + (2)(-1) = 2 - 2 = 0$, so yes, they meet at a right angle. Contrast $(3, 4)$ and $(4, 3)$: their dot product is $(3)(4) + (4)(3) = 24 \neq 0$, so those two are *not* orthogonal (they point in broadly similar directions).
+
+### Orthogonal Subspaces
+
+Two subspaces $S$ and $T$ are orthogonal if every vector in $S$ is orthogonal to every vector in $T$.
+
+The four fundamental subspaces give two pairs of orthogonal subspaces:
+
+- Row space $\perp$ Null space (in $\mathbb{R}^n$)
+- Column space $\perp$ Left null space (in $\mathbb{R}^m$)
+
+### Projection onto a Subspace
+
+**Projection** is the operation of finding the closest point in a subspace to a given vector.
+
+**Projection onto a line (1D subspace):** To project vector $b$ onto the line through a nonzero vector $a$:
+
+$$
+p = \frac{a^T b}{a^T a} a
+$$
+
+(This requires $a \neq 0$, so that $a^T a > 0$.)
+
+**Worked example.** Project $b = \begin{bmatrix} 4 \\ 3 \end{bmatrix}$ onto the line through $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$. The scaling factor is $\frac{a^T b}{a^T a} = \frac{(1)(4) + (2)(3)}{1^2 + 2^2} = \frac{10}{5} = 2$, so the projection is $p = 2\begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$. The error $e = b - p = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$ is perpendicular to $a$, exactly as projection guarantees: $e^T a = (2)(1) + (-1)(2) = 0$. ✓
+
+**Projection onto a subspace:** To project $b$ onto the column space of $A$:
+
+$$
+p = A(A^T A)^{-1} A^T b
+$$
+
+The matrix $P = A(A^T A)^{-1} A^T$ is the **projection matrix**. It has the properties:
+
+- $P^2 = P$ (projecting twice gives the same result)
+- $P^T = P$ (symmetric)
+
+**Why this matters for ML:** When $Ax = b$ has no solution (the usual case with real data, where you have more equations than unknowns), the best approximation is to project $b$ onto the column space and solve $Ax = Pb$ instead. This gives the **least squares** solution:
+
+$$
+\hat{x} = (A^T A)^{-1} A^T b
+$$
+
+This is exactly the formula for linear regression.
+
+**Worked example (fitting a line).** Fit $y = C + Dt$ to the three points $(0, 6), (1, 0), (2, 0)$, which lie on no common line. Each point gives one equation $C + Dt = y$, stacking to
+
+$$
+A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}, \qquad b = \begin{bmatrix} 6 \\ 0 \\ 0 \end{bmatrix},
+$$
+
+an overdetermined system with no exact solution. Form the normal equations $A^T A \hat x = A^T b$:
+
+$$
+A^T A = \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}, \qquad A^T b = \begin{bmatrix} 6 \\ 0 \end{bmatrix}.
+$$
+
+With $\det(A^T A) = 15 - 9 = 6$, solving gives $\hat x = \begin{bmatrix} C \\ D \end{bmatrix} = \begin{bmatrix} 5 \\ -3 \end{bmatrix}$, so the best-fit line is $y = 5 - 3t$. The fitted values are $A\hat x = \begin{bmatrix} 5 \\ 2 \\ -1 \end{bmatrix}$, and the residual $e = b - A\hat x = \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix}$ is orthogonal to both columns of $A$: it sums to $0$ (orthogonal to the all-ones column) and $e^T \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix} = -2 + 2 = 0$. That orthogonality of the residual to the column space is the defining property of the least-squares fit.
+
+![Projection of vector b onto line through a, showing the error vector perpendicular to a](./media/projection.png)
+
+## Determinants
+
+**Determinant:** The determinant of a square matrix $A$, written $\det(A)$ (read "the determinant of A"), is a scalar that encodes whether the matrix is invertible and how it scales volumes.
+
+**For 2×2:**
+
+$$
+\det \begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc
+$$
+
+**For 3×3 (cofactor expansion along first row):**
+
+$$
+\det \begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix} = a(ei - fh) - b(di - fg) + c(dh - eg)
+$$
+
+**Geometric interpretation:**
+
+- In 2D: $|\det(A)|$ is the area of the parallelogram formed by the column vectors
+- In 3D: $|\det(A)|$ is the volume of the parallelepiped formed by the column vectors
+- If $\det(A) < 0$, the transformation reverses orientation (like a mirror reflection)
+- If $\det(A) = 0$, the transformation collapses space into a lower dimension
+
+**Key properties:**
+
+- $\det(AB) = \det(A) \cdot \det(B)$
+- $\det(A^T) = \det(A)$
+- $\det(A^{-1}) = 1 / \det(A)$
+- $\det(cA) = c^n \det(A)$ for an $n \times n$ matrix
+- $A$ is invertible if and only if $\det(A) \neq 0$
+
+**Worked examples.** For the $2\times 2$ matrix $\begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$, $\det = (4)(3) - (1)(2) = 12 - 2 = 10$. (This is the matrix whose eigenvalues we find below; note $10$ is exactly the product of those eigenvalues, $5 \cdot 2$.) For a $3\times 3$, expand along the first row with the alternating $+, -, +$ signs:
+
+$$
+\det \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 10 \end{bmatrix} = 1(5\cdot 10 - 6\cdot 8) - 2(4\cdot 10 - 6\cdot 7) + 3(4\cdot 8 - 5\cdot 7) = 1(2) - 2(-2) + 3(-3) = 2 + 4 - 9 = -3.
+$$
+
+Both determinants are nonzero, so both matrices are invertible.
+
+## Eigenvalues and Eigenvectors
+
+> [!definition] Eigenvector and eigenvalue
+> A **nonzero** vector $v$ is an eigenvector of $A$ with eigenvalue $\lambda$ if $Av=\lambda v$. The zero vector is deliberately excluded because it would satisfy this equation for every $\lambda$.
+
+
+### The Core Idea
+
+**Eigenvector:** A nonzero vector $v$ is an eigenvector of matrix $A$ if $A$ acts on it by simply scaling it:
+
+$$
+Av = \lambda v
+$$
+
+The scalar $\lambda$ (read "lambda") is the corresponding **eigenvalue**.
+
+Most vectors change direction when multiplied by a matrix. Eigenvectors are special: they keep pointing in the same direction (or flip 180° if $\lambda < 0$). The matrix only stretches or shrinks them.
+
+### Finding Eigenvalues
+
+Rearrange $Av = \lambda v$ to $(A - \lambda I)v = 0$. For a nonzero $v$ to exist, the matrix $(A - \lambda I)$ must be singular:
+
+$$
+\det(A - \lambda I) = 0
+$$
+
+This is the **characteristic equation**. It is a polynomial of degree $n$ in $\lambda$, so an $n \times n$ matrix has $n$ eigenvalues (counting multiplicity, possibly complex).
+
+### Finding Eigenvectors
+
+For each eigenvalue $\lambda$, find the null space of $(A - \lambda I)$. The nonzero vectors in this null space are the eigenvectors.
+
+### Example
+
+$$
+A = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}
+$$
+
+**Step 1:** Characteristic equation:
+
+$$
+\det(A - \lambda I) = \det \begin{bmatrix} 4-\lambda & 1 \\ 2 & 3-\lambda \end{bmatrix} = (4-\lambda)(3-\lambda) - 2 = \lambda^2 - 7\lambda + 10 = 0
+$$
+
+$$
+(\lambda - 5)(\lambda - 2) = 0
+$$
+
+Eigenvalues: $\lambda_1 = 5$, $\lambda_2 = 2$
+
+**Step 2:** Eigenvector for $\lambda_1 = 5$:
+
+$$
+(A - 5I)v = \begin{bmatrix} -1 & 1 \\ 2 & -2 \end{bmatrix}v = 0
+$$
+
+This gives $v_1 = v_2$, so $v_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ (or any scalar multiple).
+
+**Step 3:** Eigenvector for $\lambda_2 = 2$:
+
+$$
+(A - 2I)v = \begin{bmatrix} 2 & 1 \\ 2 & 1 \end{bmatrix}v = 0
+$$
+
+This gives $2v_1 + v_2 = 0$, so $v_2 = \begin{bmatrix} 1 \\ -2 \end{bmatrix}$.
+
+### Eigendecomposition (Diagonalization)
+
+If $A$ has $n$ linearly independent eigenvectors, it can be factored as:
+
+$$
+A = S \Lambda S^{-1}
+$$
+
+Where:
+- $S$ is the matrix whose columns are the eigenvectors
+- $\Lambda$ is the diagonal matrix of eigenvalues
+
+**Worked example (from the eigenvalues found above).** The matrix $A = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$ has eigenvalues $5, 2$ with eigenvectors $\begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ -2 \end{bmatrix}$. Put the eigenvectors in $S$ (as columns) and the eigenvalues in $\Lambda$:
+
+$$
+S = \begin{bmatrix} 1 & 1 \\ 1 & -2 \end{bmatrix}, \quad \Lambda = \begin{bmatrix} 5 & 0 \\ 0 & 2 \end{bmatrix}, \quad S^{-1} = \frac{1}{-3}\begin{bmatrix} -2 & -1 \\ -1 & 1 \end{bmatrix} = \begin{bmatrix} \frac{2}{3} & \frac{1}{3} \\ \frac{1}{3} & -\frac{1}{3} \end{bmatrix}
+$$
+
+(using $\det S = (1)(-2) - (1)(1) = -3$ for the inverse). Multiplying back, $S\Lambda S^{-1} = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix} = A$, which confirms the factorization. Two quick checks on the eigenvalues themselves close the loop: their sum $5 + 2 = 7$ equals the trace $4 + 3$, and their product $5 \cdot 2 = 10$ equals the determinant.
+
+**Power of diagonalization:** $A^k = S \Lambda^k S^{-1}$, and $\Lambda^k$ is trivial to compute (just raise each diagonal entry to the $k$th power).
+
+### Properties
+
+- The sum of eigenvalues equals the trace: $\lambda_1 + \lambda_2 + \cdots + \lambda_n = \text{tr}(A)$
+- The product of eigenvalues equals the determinant: $\lambda_1 \cdot \lambda_2 \cdots \lambda_n = \det(A)$
+- Real symmetric matrices always have real eigenvalues and orthogonal eigenvectors
+- If $A$ is symmetric, $A = Q \Lambda Q^T$ where $Q$ is orthogonal ($Q^{-1} = Q^T$), known as the **spectral theorem**
+
+![Eigenvectors maintain their direction under transformation A, while regular vectors change direction](./media/eigenvectors.png)
+
+The interactive plot below shows a grid of points (blue) and the same grid after multiplication by the matrix $A = \begin{bmatrix} 3 & 1 \\ 1 & 2 \end{bmatrix}$ (red). The thick colored lines are the eigenvectors: directions along which the matrix only stretches, never rotates. The dotted unit circle transforms into an ellipse whose axes align with the eigenvectors.
+
+<iframe src="/static/interactive/eigenvalue-transform.html" width="100%" height="550" style="border:none;"></iframe>
+
+### Why Eigenvalues Matter for ML
+
+- **Principal Component Analysis (PCA):** Find the eigenvectors of the covariance matrix. The eigenvectors with the largest eigenvalues are the directions of greatest variance in the data. Project onto those directions to reduce dimensionality.
+- **Google PageRank:** The ranking vector is the dominant eigenvector of the web link matrix.
+- **Stability of dynamical systems:** Eigenvalues determine whether a system converges, diverges, or oscillates.
+- **Singular Value Decomposition (SVD):** Generalizes eigendecomposition to non-square matrices.
+
+**Research connection:** The eigenvalue spectrum of attention weight matrices reveals head specialization. In developmental interpretability research, tracking how eigenvalue distributions change across training checkpoints shows when heads differentiate into specialized roles (delimiter heads, spacing heads, induction heads) versus when they collapse into attention sinks.
+
+## Singular Value Decomposition (SVD)
+
+**SVD:** Every $m \times n$ matrix $A$ (any shape, any rank) can be factored as:
+
+$$
+A = U \Sigma V^T
+$$
+
+Where:
+- $U$ is $m \times m$ orthogonal (columns are left singular vectors)
+- $\Sigma$ is $m \times n$ diagonal (entries are singular values $\sigma_1 \geq \sigma_2 \geq \cdots \geq 0$)
+- $V$ is $n \times n$ orthogonal (columns are right singular vectors)
+
+### Relationship to Eigendecomposition
+
+- The columns of $V$ are eigenvectors of $A^T A$
+- The columns of $U$ are eigenvectors of $AA^T$
+- The singular values $\sigma_i = \sqrt{\lambda_i}$ where $\lambda_i$ are eigenvalues of $A^T A$
+
+**Worked example.** Find the SVD of $A = \begin{bmatrix} 2 & 2 \\ -1 & 1 \end{bmatrix}$. First form
+
+$$
+A^T A = \begin{bmatrix} 5 & 3 \\ 3 & 5 \end{bmatrix},
+$$
+
+whose eigenvalues are $5 \pm 3 = 8$ and $2$, so the singular values are $\sigma_1 = \sqrt 8 = 2\sqrt 2$ and $\sigma_2 = \sqrt 2$. The corresponding unit eigenvectors of $A^T A$ are the right singular vectors: $v_1 = \frac{1}{\sqrt 2}\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ (for eigenvalue $8$) and $v_2 = \frac{1}{\sqrt 2}\begin{bmatrix} 1 \\ -1 \end{bmatrix}$ (for $2$). The left singular vectors come from $u_i = \frac{1}{\sigma_i} A v_i$:
+
+$$
+u_1 = \frac{1}{2\sqrt 2}\begin{bmatrix} 2\sqrt 2 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \qquad u_2 = \frac{1}{\sqrt 2}\begin{bmatrix} 0 \\ -\sqrt 2 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \end{bmatrix}.
+$$
+
+So $A = U\Sigma V^T$ with
+
+$$
+U = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}, \quad \Sigma = \begin{bmatrix} 2\sqrt 2 & 0 \\ 0 & \sqrt 2 \end{bmatrix}, \quad V = \frac{1}{\sqrt 2}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
+$$
+
+As a check, the product of the singular values $2\sqrt 2 \cdot \sqrt 2 = 4$ equals $|\det A| = |(2)(1) - (2)(-1)| = 4$.
+
+### Geometric Interpretation
+
+$A$ acts on a vector in three steps:
+1. $V^T$ rotates the input (change of basis)
+2. $\Sigma$ stretches along each axis by the singular values
+3. $U$ rotates the output (another change of basis)
+
+Every linear transformation is a rotation, followed by a stretch, followed by another rotation.
+
+![SVD decomposes a transformation into rotate, stretch, rotate: unit circle becomes an ellipse](./media/svd-geometry.png)
+
+<iframe src="/static/interactive/svd-sphere-to-ellipsoid.html" width="100%" height="550" style="border:none;"></iframe>
+
+### Low-Rank Approximation
+
+The SVD reveals the "importance" of each component. The best rank-$k$ approximation to $A$ is:
+
+$$
+A_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T
+$$
+
+This keeps only the $k$ largest singular values and their associated vectors.
+
+**Worked example (rank-1 approximation).** Using the SVD just computed for $A = \begin{bmatrix} 2 & 2 \\ -1 & 1 \end{bmatrix}$, the best rank-1 approximation keeps only the largest singular value:
+
+$$
+A_1 = \sigma_1 u_1 v_1^T = 2\sqrt 2 \begin{bmatrix} 1 \\ 0 \end{bmatrix} \cdot \frac{1}{\sqrt 2}\begin{bmatrix} 1 & 1 \end{bmatrix} = 2\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix} = \begin{bmatrix} 2 & 2 \\ 0 & 0 \end{bmatrix}.
+$$
+
+The discarded part is $A - A_1 = \begin{bmatrix} 0 & 0 \\ -1 & 1 \end{bmatrix}$, whose only singular value is exactly the dropped $\sigma_2 = \sqrt 2$. So keeping the top singular value captured the dominant structure of $A$, and the small $\sigma_2$ measures precisely what was thrown away.
+
+**Why this matters for ML:**
+- **Dimensionality reduction:** truncated SVD is the mathematical basis for PCA
+- **Recommendation systems:** approximate a sparse user-item matrix with a low-rank factorization
+- **Image compression:** keep only the top singular values to compress an image
+- **Noise reduction:** small singular values often correspond to noise; discarding them denoises the data
+- **Pseudoinverse:** $A^+ = V \Sigma^+ U^T$ generalizes the inverse to non-square and singular matrices
+s, and each $T(k_i)=0$.
+4. Those images are also **independent**. If $\sum a_iT(v_i)=0$, then $\sum a_iv_i$ lies in the kernel, so it is a combination of the $k_j$. Independence of the full basis forces all $a_i=0$.
+
+Therefore the image has dimension $r$, the kernel dimension $s$, and $\dim(V)=r+s$.
+
+> [!example] Count what's left after forgetting a direction
+> For $T(x,y)=(x+y,0)$, $\ker T=\operatorname{span}\{(1,-1)\}$ has dimension $1$, while $\operatorname{im}T=\operatorname{span}\{(1,0)\}$ also has dimension $1$. The two-dimensional input is **one retained degree of freedom plus one lost degree of freedom**.
+
+### The first isomorphism theorem: what survives information loss
+
+Two inputs $u,v$ are indistinguishable to $T$ precisely when $T(u)=T(v)$, or $u-v\in\ker T$. The kernel tells us **which distinctions to discard**.
+
+The quotient vector space $V/\ker T$ consists of classes $v+\ker T$. Sending a class $[v]$ to its image $T(v)$ is well-defined because every member of the class produces the same output. The induced map is linear, one-to-one and onto $\operatorname{im}T$. Therefore
+
+$
+\boxed{V/\ker T\cong\operatorname{im}T}.
+$
+
+**Meaning:** once we identify precisely the inputs that the transformation cannot distinguish, the remaining information has exactly the structure of the output space. See [equivalence relations and quotients](./equivalence-relations#quotient-sets-classes-become-objects). A kernel is not merely a collection of zero solutions; it is a complete account of what a linear map forgets.
 
 ## Rank
 
