@@ -754,13 +754,13 @@ This is much cleaner than applying the product and quotient rules directly to th
 
 ### Finding Maxima and Minima
 
-A function can have a maximum or minimum only where its derivative equals zero (or where the derivative does not exist). These points are called **critical points**.
+An **interior local extremum** of a function can occur only at a point where its derivative is zero or fails to exist (provided that point is in the domain). Those are candidates, not automatic extrema. **Absolute extrema on a closed interval may also occur at endpoints**, so check both endpoints as well as interior candidates.
 
 **First derivative test:** Find where $f'(x) = 0$. Check the sign of $f'$ on either side:
 
 - If $f'$ changes from positive to negative: local maximum
 - If $f'$ changes from negative to positive: local minimum
-- If $f'$ does not change sign: neither (an inflection point)
+- If $f'$ does not change sign: neither a strict local maximum nor a strict local minimum follows from this sign test. **This does not by itself imply an inflection point**; that requires concavity to change.
 
 **Worked example:** Find the extrema of $f(x) = x^3 - 3x$.
 
@@ -784,7 +784,7 @@ The **second derivative test** provides a faster way to classify critical points
 - If $f'(c) = 0$ and $f''(c) < 0$: local maximum (concave down, hill-shaped)
 - If $f'(c) = 0$ and $f''(c) = 0$: the test is inconclusive
 
-An **inflection point** is where concavity changes (from concave up to concave down or vice versa). It occurs where $f''(x) = 0$ (and the concavity actually changes).
+An **inflection point** is a point at which concavity changes. A zero second derivative can be a **candidate**, but is neither required in all settings nor sufficient: $f(x)=x^4$ has $f''(0)=0$ without changing concavity.
 
 **Worked example.** Classify the critical points of $f(x) = x^3 - 3x$. The derivatives are $f'(x) = 3x^2 - 3$ and $f''(x) = 6x$. Setting $f'(x) = 0$ gives $x^2 = 1$, so the critical points are $x = 1$ and $x = -1$. Now read off concavity from the second derivative:
 
@@ -1294,6 +1294,63 @@ When integration by parts regenerates the integral you began with, stop integrat
 
 **Where it shows up:** Integration by parts is used in information theory to derive properties of entropy. It also appears when computing expected values of continuous random variables.
 
+### Trigonometric integrals: use identities to reveal substitutions
+
+Trigonometric powers are often easier after using identities, instead of searching for an antiderivative directly.
+
+**Worked example:** Integrate $\sin^3x\cos x$. The factor $\cos x\,dx$ is the derivative of $\sin x$. Set $u=\sin x$:
+
+$$
+\int\sin^3x\cos x\,dx
+=\int u^3\,du
+=\frac{u^4}{4}+C
+=\frac{\sin^4x}{4}+C.
+$$
+
+For $\sin^2x$ there is no leftover sine or cosine factor for that substitution, so the **power-reduction identity** helps:
+
+$$
+\sin^2x=\frac{1-\cos2x}{2},
+\qquad
+\int\sin^2x\,dx=\frac{x}{2}-\frac{\sin2x}{4}+C.
+$$
+
+This is a method-selection principle, not an arbitrary list of formulas: **look for a derivative factor first; otherwise rewrite the integrand using identities**.
+
+### Trigonometric substitution: replace a square root by geometry
+
+Expressions with $\sqrt{a^2-x^2}$, for $a>0$, suggest the Pythagorean identity $1-\sin^2\theta=\cos^2\theta$.
+
+For example, on $-a<x<a$ take $x=a\sin\theta$, with $\theta\in(-\pi/2,\pi/2)$. Then
+
+$$
+dx=a\cos\theta\,d\theta,\qquad
+\sqrt{a^2-x^2}=a\cos\theta,
+$$
+
+where the chosen angle range makes $\cos\theta$ nonnegative. Thus
+
+$$
+\int\frac{dx}{\sqrt{a^2-x^2}}
+=\int d\theta
+=\arcsin(x/a)+C.
+$$
+
+Other familiar patterns are $\sqrt{a^2+x^2}$ (try $x=a\tan\theta$) and $\sqrt{x^2-a^2}$ on a suitable domain (try $x=a\sec\theta$). **Always record the substitution's domain and signs** when converting back.
+
+### Which integration technique should I try?
+
+| Shape of the integrand | First question |
+| --- | --- |
+| A composition multiplied by its inner derivative | Will [$u$-substitution](#u-substitution) simplify it? |
+| A product where differentiating one factor helps | Does [integration by parts](#integration-by-parts) reduce complexity? |
+| A rational function of polynomials | Would [partial fractions](#integration-with-partial-fractions) work after division? |
+| Powers or products of sine and cosine | Can identities isolate a derivative factor? |
+| Square roots of quadratic expressions | Does trigonometric substitution simplify the radical? |
+| No useful elementary antiderivative | Is [numerical integration](#numerical-integration) or a special-function representation appropriate? |
+
+No algorithm guarantees an elementary antiderivative for every elementary integrand. **Integration is partly recognizing structure and partly recognizing when symbolic simplification has reached its limit.**
+
 ### Common Integrals Reference Table
 
 | Integral | Result |
@@ -1472,16 +1529,85 @@ $$
 
 Partial fractions turn a difficult rational integral into a sum of simple logarithmic or arctangent integrals.
 
-### Taylor and Maclaurin Series
+### Solids of revolution: a sum of thin pieces
 
-A smooth function can be approximated by polynomials of increasing degree. The **Taylor series** provides the best polynomial approximation of any desired degree near a given point.
+A solid formed by revolving a region around an axis can be divided into thin cross-sections. The integral adds their volumes, not just areas under a curve.
 
-**Motivation:** We already saw that linear approximation uses the tangent line to approximate a function near a point. But a straight line only captures the slope, not the curvature. A quadratic approximation (parabola) would capture the curvature too. A cubic would capture even more. The Taylor series takes this idea to its logical conclusion: use a polynomial of infinite degree for a perfect representation.
-
-**Taylor series of $f(x)$ centered at $a$:**
+**Disks:** Rotate the region below $y=f(x)\geq0$, from $x=a$ to $x=b$, around the $x$-axis. The cross-section at $x$ is a disk of radius $f(x)$:
 
 $$
-f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots
+V=\pi\int_a^b f(x)^2\,dx.
+$$
+
+**Worked example:** Revolve $y=x$, $0\leq x\leq2$, around the $x$-axis.
+
+$$
+V=\pi\int_0^2x^2\,dx=\frac{8\pi}{3}.
+$$
+
+**Washers:** If the region lies between outer radius $R(x)$ and inner radius $r(x)$, both measured from the same axis, subtract the central hole:
+
+$$
+V=\pi\int_a^b\bigl(R(x)^2-r(x)^2\bigr)\,dx.
+$$
+
+**Cylindrical shells:** Revolve a vertical strip of height $h(x)$ and radius $x\geq0$ around the $y$-axis. Its thin cylindrical shell has volume approximately $2\pi xh(x)\,\Delta x$, giving
+
+$$
+V=2\pi\int_a^b xh(x)\,dx\qquad(0\leq a<b).
+$$
+
+> [!intuition] Pick the slice that is simplest
+> A disk/washer uses cross-sections **perpendicular** to the rotation axis; a shell uses strips **parallel** to it. Neither method is universally superior. Draw a representative slice and identify radius, height, thickness, and any hole before choosing the integral.
+
+### Arc length: accumulate tiny displacements
+
+For a differentiable curve given by $y=f(x)$ on $[a,b]$ with continuous derivative, a small horizontal step $dx$ produces vertical change approximately $f'(x)\,dx$. Pythagoras suggests a tiny length
+
+$$
+ds=\sqrt{1+f'(x)^2}\,dx.
+$$
+
+Adding the lengths and passing to the limit gives
+
+$$
+L=\int_a^b\sqrt{1+f'(x)^2}\,dx.
+$$
+
+For the straight line $f(x)=3x$ from $x=0$ to $x=2$,
+
+$$
+L=\int_0^2\sqrt{1+9}\,dx=2\sqrt{10}.
+$$
+
+The answer agrees with the distance between $(0,0)$ and $(2,6)$. This is also the starting point for length of a [parametric curve](./parametric-and-polar#calculus-with-parametric-and-polar-curves) and [line integrals](./vector-calculus).
+
+### Work: force is a rate of energy transfer over distance
+
+If a force $F(x)$ acts **along the direction of motion** at position $x$, an infinitesimal displacement transfers approximately $F(x)\,dx$ of work. Integrate to add it up:
+
+$$
+W=\int_a^bF(x)\,dx.
+$$
+
+If a spring follows Hooke's law with restoring-force magnitude $kx$, the work needed to stretch it from rest to extension $A$ is
+
+$$
+W=\int_0^A kx\,dx=\frac{kA^2}{2}.
+$$
+
+For $k=100$ newtons per meter and $A=0.2$ meters, $W=2$ joules. In more than one dimension, forces have directions, so work becomes the [line integral](./vector-calculus#3-line-integrals-work-along-a-path) $\int_C\mathbf F\cdot d\mathbf r$.
+
+### Taylor and Maclaurin Series
+
+A sufficiently differentiable function can be approximated **locally** by its Taylor polynomials, with accuracy controlled by a remainder theorem. The degree-$n$ Taylor polynomial is the unique polynomial of degree at most $n$ matching the function's derivatives through order $n$ at the center. Calling it the universally **best** polynomial approximation is misleading: 'best' depends on the chosen error measure and interval.
+
+**Motivation:** We already saw that linear approximation uses the tangent line to approximate a function near a point. But a straight line only captures the slope, not the curvature. A quadratic approximation (parabola) would capture the curvature too. A cubic would capture even more. The Taylor *series* is the formal infinite expression suggested by this pattern. **It represents the function only when the Taylor remainders tend to zero.** Smoothness alone does not ensure that.
+
+**Taylor series of $f(x)$ centered at $a$ (equal to $f(x)$ only where justified):**
+
+$$
+T_a(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots
 $$
 
 Each term uses the $n$th derivative of $f$ at $a$, divided by $n!$ (the factorial), multiplied by $(x - a)^n$. The factorials ensure the $n$th derivative of the Taylor polynomial matches the $n$th derivative of $f$ at the center $a$.
@@ -1489,7 +1615,7 @@ Each term uses the $n$th derivative of $f$ at $a$, divided by $n!$ (the factoria
 A **Maclaurin series** is the special case where $a = 0$:
 
 $$
-f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n
+T_0(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n
 $$
 
 Slide the degree $N$ below to watch the Taylor polynomial hug the function ever more closely near the center, and for $\ln(1+x)$ and $\frac{1}{1-x}$ see it *fail* to converge outside the interval of convergence no matter how high $N$ goes.
@@ -1531,8 +1657,41 @@ $$
 $$
 
 $$
-\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots = \sum_{n=1}^{\infty} \frac{(-1)^{n+1} x^n}{n} \quad \text{(converges for } |x| \leq 1\text{)}
+\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots = \sum_{n=1}^{\infty} \frac{(-1)^{n+1} x^n}{n} \quad \text{(for } -1<x\leq1\text{)}
 $$
+
+### Smooth is not the same as analytic: when Taylor fails
+
+> [!counterexample] Every derivative can agree while the functions differ
+> Define
+>
+> $$
+> h(x)=\begin{cases}e^{-1/x^2},&x\ne0,\\0,&x=0.\end{cases}
+> $$
+>
+> This function is infinitely differentiable. Every derivative of $h$ at $0$ is $0$, so its Taylor series centered at $0$ is the **zero series**. But $h(x)>0$ whenever $x\ne0$. The Taylor series converges perfectly (to $0$ everywhere), yet fails to equal $h$ at every nonzero point.
+
+A function that agrees with its Taylor series throughout some neighborhood of the center is called **real analytic** there. Every analytic function is smooth; the converse is false.
+
+Taylor's theorem with remainder tells us what is *actually* justified for a degree-$n$ polynomial:
+
+$$
+f(x)=T_n(x)+R_n(x).
+$$
+
+Under the usual $n+1$ times differentiability hypotheses on the interval, the Lagrange remainder has the form
+
+$$
+R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}
+$$
+
+for some $c$ between $a$ and $x$. If $|f^{(n+1)}(t)|\leq M$ between them, this yields a useful bound
+
+$$
+|R_n(x)|\leq \frac{M|x-a|^{n+1}}{(n+1)!}.
+$$
+
+The **finite** approximation is meaningful without assuming the **infinite** Taylor series recovers the function. See [Real Analysis: Taylor's Theorem](./real-analysis#taylors-theorem-with-remainder) for the precise conditions.
 
 **Taylor polynomials as approximations:** In practice, we truncate the series at degree $n$ to get the $n$th-degree Taylor polynomial $T_n(x)$. The linear approximation $f(x) \approx f(a) + f'(a)(x-a)$ is the degree-1 Taylor polynomial. Higher degrees give more accuracy over a wider range.
 
@@ -1546,7 +1705,7 @@ $$
 L(\theta) \approx L(\theta_0) + \nabla L(\theta_0)^T (\theta - \theta_0) + \frac{1}{2}(\theta - \theta_0)^T H (\theta - \theta_0)
 $$
 
-where $H$ is the Hessian matrix (matrix of second derivatives). Minimizing this quadratic approximation gives Newton's method for optimization. Standard gradient descent uses only the first-order term; methods like Adam and L-BFGS incorporate second-order information for faster convergence.
+where $H$ is the Hessian matrix (matrix of second derivatives). Minimizing this quadratic approximation gives Newton's method for optimization. Standard gradient descent uses only the first-order term; **Newton's method** uses the Hessian, while **L-BFGS** approximates curvature using changes in gradients. **Adam** uses running first and second *moments of gradients*, not second derivatives or the Hessian; its squared-gradient moment is not 'second-order calculus'.
 
 ---
 
