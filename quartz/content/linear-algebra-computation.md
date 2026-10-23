@@ -10,6 +10,31 @@ enables: ["optimization", "statistics"]
 
 This page builds on [Linear Algebra Foundations](./linear-algebra-foundations) and covers the topics that bridge theory to actual computation: how to measure vectors, how to change perspectives, how to factor matrices for efficient solving, and how to take derivatives of matrix expressions. Each section uses ideas from the ones before it.
 
+## What computation adds to linear algebra
+
+The foundations chapter asks **which transformations are possible**. Numerical linear algebra asks a further question: **can we calculate the answer reliably with finite time and imperfect numbers?** These are different problems.
+
+- **Existence:** Does $Ax=b$ have a solution?
+- **Uniqueness:** Is there exactly one solution, or a whole family?
+- **Sensitivity:** Could a tiny change in the data make the answer very different?
+- **Algorithm:** Can we compute a useful answer without magnifying rounding errors or doing needless work?
+
+> [!example] Exact algebra versus a sensitive computation
+> For $A=\begin{bmatrix}1&1\\1&1.000001\end{bmatrix}$, the determinant is $0.000001$, so $A$ is mathematically **invertible**. But the rows are nearly identical: subtracting them leaves a tiny coefficient. Measurements rounded even slightly can change the recovered input substantially. **Invertible does not mean numerically safe.**
+
+One recurring strategy is to represent an operation in coordinates that make its structure visible: an orthonormal basis, a triangular factorization, or singular directions. We are not changing the mathematical problem; we are changing the description or the computation so that the answer is easier to obtain.
+
+### Why matrix multiplication is ordered
+
+If $A$ and $B$ are transformations, $ABx$ means **apply $B$ first, then $A$**. In general, $AB\ne BA$: the order of operations can change the result.
+
+Take a horizontal stretch $S(x,y)=(2x,y)$ and a quarter-turn $R(x,y)=(-y,x)$. Starting from $(1,0)$:
+
+- Stretch and *then* rotate: $RS(1,0)=R(2,0)=(0,2)$.
+- Rotate and *then* stretch: $SR(1,0)=S(0,1)=(0,1)$.
+
+The difference is geometric, not a quirk of notation. Matrix multiplication is composition of operations; its order records **what happens first**.
+
 ## Norms: Measuring Size
 
 > [!definition] Norm
@@ -18,7 +43,7 @@ This page builds on [Linear Algebra Foundations](./linear-algebra-foundations) a
 
 We already know how to compute the length of a vector using the distance formula: $\|v\| = \sqrt{v_1^2 + v_2^2}$. A **norm** generalizes this idea. It is any function that takes a vector and returns a single non-negative number representing the vector's "size."
 
-Why do we need more than one way to measure size? Because different problems care about different things. Sometimes you care about the straight-line distance. Sometimes you care about how many components are nonzero. Sometimes you care about the largest component.
+Why do we need more than one way to measure size? Because different problems care about different things. Sometimes you care about straight-line distance, sometimes the total absolute deviation, and sometimes only the largest component. Counting nonzero components is useful too, but that count is **not a norm**.
 
 ### The $L^2$ Norm (Euclidean Norm)
 
@@ -62,7 +87,7 @@ $$
 
 ### The General $L^p$ Norm
 
-All three norms above are special cases of the $L^p$ norm:
+All three norms above arise from the $\ell^p$ family (with $p=\infty$ understood as a limit). For a genuine $p$-norm, take **$p\geq1$**:
 
 $$
 \|v\|_p = \left(\sum_{i=1}^{n} |v_i|^p\right)^{1/p}
@@ -197,11 +222,11 @@ This is exactly the formula for diagonalization: $\Lambda = S^{-1} A S$. Diagona
 
 ### Orthogonal Change of Basis
 
-When the new basis vectors are orthonormal (orthogonal and unit length), $P$ is an **orthogonal matrix**: $P^{-1} = P^T$. This makes everything simpler and numerically stable, because:
+When the new basis vectors are orthonormal (orthogonal and unit length), $P$ is an **orthogonal matrix**: $P^{-1} = P^T$. This makes coordinate changes especially well-conditioned in the Euclidean ($2$-)norm:
 
 - You do not need to compute an inverse (just transpose)
 - Lengths and angles are preserved
-- No numerical error amplification
+- The transformation has $2$-norm condition number $1$: it does not amplify relative errors from the coordinate change itself, although **floating-point roundoff still exists**
 
 This is why orthonormal bases are preferred in practice, which leads to the next topic.
 
