@@ -5084,6 +5084,37 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
  eq("Atlas: disjoint continuous bumps plus sup",sup(t=>f(t)+g(t)),1);
  eq("Atlas: disjoint continuous bumps minus sup",sup(t=>f(t)-g(t)),1);
 }
+// ============== Atlas: free vector-space universal property ==============
+{
+  // Formal basis vectors of F({a,b}) are coordinates of R^2.
+  const extension=(coeff,images)=>coeff.reduce((sum,a,i)=>sum+a*images[i],0);
+  const g=[2,-1],v=[3,4];
+  eq("Atlas free vector: worked linear extension",extension(v,g),2);
+  const add=(a,b)=>a.map((x,i)=>x+b[i]);
+  const scale=(lambda,a)=>a.map(x=>lambda*x);
+  for(const x of [[1,0],[0,1],[2,-3],[-4,5]]) {
+    for(const y of [[0,2],[1,-1]]) {
+      eq("Atlas free vector: preserves addition "+x+","+y,
+        extension(add(x,y),g),extension(x,g)+extension(y,g),1e-12);
+      eq("Atlas free vector: preserves scaling "+x,
+        extension(scale(3,x),g),3*extension(x,g),1e-12);
+    }
+  }
+  // Naturality in S: h sends both a,b to the same generator c of F({c}).
+  const Fh=coeff=>[coeff[0]+coeff[1]];
+  const imageOfC=[5];
+  eq("Atlas free vector: naturality in generators",
+    extension(Fh(v),imageOfC),extension(v,[5,5]),1e-12);
+  // Naturality in V: applying a linear k to the extension equals extending k ∘ g.
+  const k=x=>7*x;
+  eq("Atlas free vector: naturality in target",
+    k(extension(v,g)),extension(v,g.map(k)),1e-12);
+  // A category with bounded linear maps does not require all isomorphisms to be isometries.
+  eq("Atlas category: bounded linear isomorphism doubles distances",
+    Math.abs(2*3-2*1),4);
+  check("Atlas category: same map is not isometric",
+    Math.abs(2*3-2*1)!==Math.abs(3-1));
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

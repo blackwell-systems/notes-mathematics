@@ -449,7 +449,16 @@ Read $F\dashv U$ as “$F$ is **left adjoint** to $U$.” A left adjoint is **no
 > $
 > (\ell\circ F(h))(e_s)=\ell(e_{h(s)}).
 > $
-> This is why the extension is **natural**, not merely a bijection invented separately for each pair $(S,V)$.
+> For naturality in the **destination**, let $k:V\to W$ be linear. On each generator,
+$
+(k\circ\widehat g)(e_s)=k(g(s)).
+$
+By the uniqueness just proved, $k\circ\widehat g$ is exactly the linear extension of $k\circ g:S\to U(W)$. Thus the correspondence is compatible with maps in **both** arguments, not merely with one worked input.
+
+> [!example] The empty generating set
+> When $S=\varnothing$, the free vector space $F(S)$ is the zero vector space: its only finite sum is the empty sum, equal to $0$. There is exactly one function from $\varnothing$ to any underlying set and exactly one linear map from the zero vector space to any vector space. So the universal property also holds at this boundary case.
+
+This is why the extension is **natural**, not merely a bijection invented separately for each pair $(S,V)$.
 
 **From here:** [Category Theory Foundations](./category-theory-foundations) proves the categorical axioms, [Functors and Naturality](./category-functors-naturality) develops maps between categories, [Limits and Colimits](./category-limits-colimits) explains universal products and quotients, and [Adjunctions and Monads](./category-adjunctions-monads) develops the general free–forgetful pattern.
 
