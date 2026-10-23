@@ -11,6 +11,19 @@ The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) places normed
 
 Analysis turns the intuitive idea of **approaching a value** into precise statements. The most useful question to ask at every step is: *What converges, in what sense, and which operations are legal to perform on that limit?*
 
+## Before advanced analysis: finish calculus across dimensions
+
+The core calculus route has three conceptual steps:
+
+1. [Calculus](./calculus) establishes derivative as **local change** and integral as **accumulation**, linked by the Fundamental Theorem.
+2. [Multivariable Calculus](./multivariable-calculus) extends derivatives to multiple inputs and explains why the true derivative is a **linear map**, with a Jacobian as its coordinate representation.
+3. [Multivariable Integration](./multivariable-integration) explains the geometry of multidimensional accumulation and coordinate changes; [Vector Calculus](./vector-calculus) connects interior derivatives to boundary circulation and flux through Green's, Stokes', and divergence theorems.
+
+An optional bridge to [Differential Geometry](./differential-geometry) removes the dependence on one global Euclidean coordinate grid.
+
+> [!intuition] One pattern across four dimensions of reasoning
+> **Differentiate locally, accumulate globally, and check the boundary and coordinate assumptions.** The Fundamental Theorem of Calculus is the starting case, not the end of this idea.
+
 ## Stage 1: Limits and completeness
 
 [Calculus](./calculus) introduces derivatives and integrals; [Real Analysis](./real-analysis) asks why their rules are correct. Work carefully through Cauchy sequences, completeness, convergence theorems and $\varepsilon$–$\delta$ continuity.
