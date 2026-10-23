@@ -5247,6 +5247,62 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Sheaf: distinct germs despite identical value",0.1**2!==0);
 }
 
+// ============== Calculus expansion: geometric and vector integral witnesses ==============
+// Arithmetic tests of worked numerical examples, not proofs of general integral theorems.
+{
+  const close=(x,y,eps=1e-10)=>Math.abs(x-y)<eps;
+  // Calculus II: revolution by disks, work, and arc length.
+  eq("Calculus II: x-axis revolution of y=x, x in [0,2]",Math.PI*8/3,8*Math.PI/3,1e-12);
+  eq("Calculus II: straight line y=3x length x in [0,2]",2*Math.hypot(1,3),2*Math.sqrt(10),1e-12);
+  eq("Calculus II: Hooke spring work k=100 A=0.2",0.5*100*(0.2**2),2,1e-12);
+  eq("Calculus II: trig substitution sin^3 x cos x derivative at x=0.4",
+    (Math.sin(0.4)**3)*Math.cos(0.4),
+    (Math.sin(0.4)**3)*Math.cos(0.4),1e-12);
+  check("Taylor nonanalytic witness: e^{-1/x^2} positive for x nonzero",
+    Math.exp(-1/0.2**2)>0);
+  // Parametric and polar: circle speed, circle area, polar arc length.
+  const v=t=>Math.hypot(-Math.sin(t),Math.cos(t));
+  for(const t of [0,0.25,1,2,Math.PI])
+    eq("Parametric arc length: unit circle unit speed t="+t,v(t),1,1e-12);
+  eq("Polar sector area: radius 3 disk",0.5*(3**2)*2*Math.PI,9*Math.PI,1e-12);
+  // Multivariable calculus: differentiability counterexample.
+  const bad=(x,y)=>(x===0&&y===0)?0:(x*y)/(x*x+y*y);
+  eq("Multivariable partial derivatives: function zero on x-axis",bad(0.1,0),0);
+  eq("Multivariable partial derivatives: function zero on y-axis",bad(0,0.1),0);
+  eq("Multivariable partial derivatives: discontinuity along diagonal",bad(0.1,0.1),0.5,1e-12);
+  // Nonrectangular regions: two integration orders on triangle.
+  const midpoint=(f,a,b,n=2000)=>{let sum=0,h=(b-a)/n;for(let i=0;i<n;i++)sum+=f(a+(i+0.5)*h);return sum*h;};
+  eq("Multivariable integration: triangular area vertical",midpoint(x=>x,0,2),2,1e-9);
+  eq("Multivariable integration: triangular area horizontal",midpoint(y=>2-y,0,2),2,1e-9);
+  eq("Multivariable integration: triangle density x+y mass",midpoint(x=>1.5*x*x,0,2),4,1e-6);
+  // Jacobian and polar integrals.
+  const determinant=(a,b,c,d)=>a*d-b*c;
+  eq("Polar coordinate Jacobian r=3 theta=0.6",
+    determinant(Math.cos(0.6),-3*Math.sin(0.6),Math.sin(0.6),3*Math.cos(0.6)),3,1e-12);
+  eq("Ellipse area using x=3u y=2v",Math.abs(determinant(3,0,0,2))*Math.PI,6*Math.PI,1e-12);
+  eq("Double Gaussian polar integral",2*Math.PI*0.5,Math.PI,1e-12);
+  // Cylindrical and spherical volume; variable density center of mass.
+  eq("Cylinder volume a=2 h=3",Math.PI*2*2*3,12*Math.PI,1e-12);
+  eq("Ball volume a=3",4*Math.PI*3**3/3,36*Math.PI,1e-12);
+  eq("Box density 1+x: total mass",midpoint(x=>1+x,0,2),4,1e-9);
+  eq("Box density 1+x: x center of mass",
+    (2+8/3)/4,7/6,1e-12);
+  // Vector line integration and Green's theorem.
+  eq("Vector calculus: line work F=(y,x) on (t,t^2)",
+    midpoint(t=>3*t*t,0,1),1,1e-7);
+  const F=t=>[-Math.sin(t)/2,Math.cos(t)/2];
+  const dR=t=>[-Math.sin(t),Math.cos(t)];
+  eq("Vector calculus: circulation unit circle",
+    midpoint(t=>F(t)[0]*dR(t)[0]+F(t)[1]*dR(t)[1],0,2*Math.PI),Math.PI,1e-10);
+  eq("Vector calculus: circle planar curl of (-y/2,x/2)",0.5-(-0.5),1,1e-12);
+  // Work integral of angular field around punctured plane.
+  eq("Vector calculus: punctured plane angular form unit-circle circulation",
+    midpoint(t=>Math.sin(t)**2+Math.cos(t)**2,0,2*Math.PI),2*Math.PI,1e-10);
+  // Flux through square, and divergence theorem through unit sphere.
+  eq("Vector calculus: upward flux through unit square F=(0,0,3)",3*1,3);
+  eq("Vector calculus: divergence theorem ball volume route",3*(4*Math.PI/3),4*Math.PI,1e-12);
+  eq("Vector calculus: divergence theorem sphere area route",4*Math.PI,4*Math.PI,1e-12);
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
