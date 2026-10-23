@@ -42,6 +42,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "atlas-of-mathematical-spaces.md",
+      "kind": "learning-path",
+      "track": "navigation",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "bayesian-inference.md",
       "kind": "topic",
       "track": "statistics",

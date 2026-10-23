@@ -10,6 +10,13 @@ The aim is to be the place you come to for **clarity**: every topic is built fou
 
 > **Heading for singular learning theory?** There is a dedicated guided route: [Path to SLT](./path-to-slt) orders every prerequisite from set notation to the [Singular Learning Theory](./singular-learning-theory) capstone, with a note on why each step is needed.
 
+## Atlas of Mathematical Spaces
+
+> [!important] **[Start with the Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces)**
+> Explore the entire network of mathematical spaces, from sets through order, topology, metrics, vector and Hilbert spaces, measure and probability, and manifolds. The atlas uses **eight original diagrams**, structural proofs, counterexamples, and a continuous-function example to distinguish what each additional structure means.
+
+The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) explains which mathematical structures are independent, which theorems need extra hypotheses, and which maps preserve the structure being studied. For subject-by-subject paths, follow [Topology](./path-to-topology), [Analysis](./path-through-analysis), [Algebra](./path-through-algebra), [Discrete Mathematics](./discrete-mathematics), or the [Path to SLT](./path-to-slt).
+
 ## How to Use These Notes
 
 > [!distinction] A map is not a prerequisite proof

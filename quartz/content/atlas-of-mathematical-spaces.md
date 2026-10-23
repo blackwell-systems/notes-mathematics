@@ -26,7 +26,7 @@ These questions let you navigate from elementary sets to the spaces of modern an
 
 ## 1. Read the map correctly: a network, not a ladder
 
-![A network of structures branching from sets through order, topology, vector and measurable spaces. Metric and normed structures connect topology with linear algebra. Banach and inner-product structures meet at Hilbert spaces; measure leads to probability, while topological manifolds lead to smooth and Riemannian manifolds.](./media/sp-structure-atlas.svg)
+![A network branches from sets through order, topology, linear and measurable spaces. A metric refines topological structure, and completeness of that metric is an additional condition. Normed, Banach and Hilbert spaces combine linear structure with additional requirements, while measures lead to probability; manifolds appear separately.](./media/sp-structure-atlas.svg)
 
 *Figure: Each arrow points toward a structure or condition that **adds requirements**. Most branches are not comparable; for example, a probability space need not have a metric, and a vector space need not have a topology.*
 
