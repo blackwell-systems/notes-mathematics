@@ -17,9 +17,9 @@ A vector is not necessarily an arrow. It is an element of a collection where **a
 
 The central operation is a **linear combination** $au+bv$. A **linear transformation** is a function $T$ that preserves every such combination:
 
-$
+$$
 T(au+bv)=aT(u)+bT(v).
-$
+$$
 
 Nearly everything on this page answers one of three questions:
 
@@ -431,9 +431,9 @@ Every vector in $\mathbb{R}^2$ can be uniquely expressed as a combination: $\beg
 
 A basis is both a set that **reaches every vector** and a set that does so **without redundancy**. Suppose two different lists of coefficients described the same vector:
 
-$
+$$
 a_1b_1+\cdots+a_nb_n=c_1b_1+\cdots+c_nb_n.
-$
+$$
 
 Subtract: $(a_1-c_1)b_1+\cdots+(a_n-c_n)b_n=0$. Independence forces each coefficient difference to vanish, so $a_i=c_i$ for every $i$. The coordinates are **unique**.
 
