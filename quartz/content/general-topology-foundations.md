@@ -203,6 +203,9 @@ Let $X,Y$ be metric spaces with their induced topologies. Suppose $f$ is $\varep
 
 Conversely, suppose every open preimage is open. For $x$ and $\varepsilon>0$, the set $f^{-1}(B_\varepsilon(f(x)))$ is an open neighborhood of $x$, so it contains a $\delta$-ball about $x$. This is the $\varepsilon$-$\delta$ condition. Thus the definitions agree.
 
+> [!connection] When quotients cross disciplines
+> An equivalence relation forms a set of classes, but specifying a **topological quotient** also requires a topology on those classes. See the [worked equivalence-to-kernel bridge](./cross-disciplinary-bridges#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces) for the common construction and the distinct proof obligations; [Topological Constructions](./general-topology-constructions) supplies the quotient topology itself.
+
 ## Homeomorphisms and topological invariants
 
 > [!definition] Homeomorphism
