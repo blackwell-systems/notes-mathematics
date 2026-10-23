@@ -44,6 +44,27 @@ The most important distinction is between **data** and **properties**.
 | Compatible combination | Normed vector space | Vector operations and a norm satisfy specified compatibility rules |
 | Structure-preserving map | Continuous function | Inverse images of open sets are open |
 
+### Three classification questions, not three ranks of sophistication
+
+One useful way to organize the immense variety of spaces is to keep three **different questions** separate:
+
+![Three independent classification questions for a mathematical space: what data and operations are specified, what properties can be proved, and which structure-preserving isomorphisms identify different descriptions of the same structured object.](./media/sp-taxonomy-three-questions.svg)
+
+*Figure: Structure, properties and classification up to isomorphism are complementary ways to study spaces. They are **not** three levels through which a space progresses.*
+
+| Question | What varies | Example |
+| --- | --- | --- |
+| **Which structure?** | The specified operations, topology, relation, metric, or measure | Is the underlying set $\mathbb R$ being treated as a field, ordered set, vector space, metric space, or measurable space? |
+| **Which properties?** | Additional conditions **within** a kind of structure | Is this topology compact? Is this metric complete? Is this vector space finite-dimensional? |
+| **Same up to which maps?** | An explicitly chosen notion of structure-preserving isomorphism | Are two spaces bijective, homeomorphic, isometric, or linearly isomorphic? |
+
+For example, the open interval $(0,1)$ and the real line $\mathbb R$ are **homeomorphic**: the function $f(t)=\tan(\pi(t-\tfrac12))$ is a continuous bijection with continuous inverse. Yet they are **not isometric with their ordinary Euclidean metrics**, because $(0,1)$ has bounded diameter, whereas $\mathbb R$ has infinite diameter. Changing the kind of morphism changes what counts as the “same space.”
+
+By contrast, completeness, connectedness, compactness, and dimension are **conditions or invariants**, not further operations introduced automatically. A single underlying set can be given different structures and therefore satisfy different properties.
+
+> [!distinction] A taxonomy is not a proof
+> Classifying a space as “compact” or “Hilbert” makes claims requiring hypotheses. Calling two spaces “isomorphic” is incomplete until the allowed morphisms have been stated. A chart with arrows is helpful only insofar as every arrow has a mathematically valid interpretation.
+
 Saying “Banach space” adds **no new operation** beyond the normed vector-space operations: it demands the extra **property of norm completeness**. Saying “inner-product space,” by contrast, asks for extra **data**—an inner product generating a norm. The Hilbert condition combines these features.
 
 > [!distinction] Two meanings of an arrow
@@ -136,6 +157,61 @@ Because $\arctan:\mathbb R\to(-\pi/2,\pi/2)$ is a homeomorphism (with usual Eucl
 
 **Lesson:** even among metrizable spaces, changing the **specific compatible metric** can change metric completeness without changing topology. (The property *admitting at least one compatible complete metric* is a separate topological question.)
 
+### Uniform spaces: Cauchy behavior without numbers for distance
+
+**First intuition.** A topology says which sets surround each *individual* point. But ordinary continuous functions and **uniformly** continuous functions behave differently: to control a uniformly continuous map, we need one notion of “sufficiently close” that works **throughout** the space, not a separate tolerance at each point.
+
+A metric gives this through comparisons $d(x,y)<\varepsilon$. What if we want the pattern of **uniform nearness** without ever measuring a numerical distance?
+
+> [!definition] Uniform space (entourage formulation)
+> A **uniformity** $\mathcal U$ on a set $X$ is a family of subsets of $X\times X$ called **entourages**—permitted sets of pairs regarded as uniformly close. It satisfies:
+> 1. Every entourage contains the diagonal $\Delta=\{(x,x):x\in X\}$.
+> 2. If $U\in\mathcal U$ and $U\subseteq W\subseteq X\times X$, then $W\in\mathcal U$; and the intersection of finitely many entourages is an entourage.
+> 3. If $U$ is an entourage, then $U^{-1}=\{(y,x):(x,y)\in U\}$ is an entourage.
+> 4. For every entourage $U$, some entourage $V$ obeys $V\circ V\subseteq U$, where $(x,z)\in V\circ V$ means that for some $y$, both $(x,y)\in V$ and $(y,z)\in V$.
+>
+> The pair $(X,\mathcal U)$ is a **uniform space**. No distance function is part of this definition.
+
+![An entourage is depicted as a band of pairs around the diagonal in a metric product space, while a second panel shows local neighborhoods; a uniformity constrains closeness of pairs consistently across the entire set without assigning numerical distances.](./media/sp-uniform-entourages.svg)
+
+*Figure: A metric supplies entourages $U_\varepsilon=\{(x,y):d(x,y)<\varepsilon\}$. A uniformity abstracts the **coherent family of near-pair relations** behind these bands. The induced topology remembers local neighborhoods but may forget which uniformity generated them.*
+
+### Why the axioms are chosen
+
+For a metric space $(X,d)$, let $\mathcal U_d$ consist of all supersets of some $U_\varepsilon$. The diagonal and symmetry conditions follow from metric definiteness and symmetry. The **composition axiom** comes from the triangle inequality: two pairs each within $\varepsilon/2$ of one another yield an outer pair within $\varepsilon$. Thus **every metric generates a uniformity**, and **every uniformity generates a topology** using neighborhoods $U[x]=\{y:(x,y)\in U\}$.
+
+This yields a genuine structure-forgetting chain
+
+$
+\text{metric space}\longrightarrow\text{uniform space}
+\longrightarrow\text{topological space}.
+$
+
+The arrows retain less information; they do **not** say that every topology is uniformizable, nor that every uniformity comes from one metric. A uniformity induces a **completely regular** topology if the uniformity is separated (Hausdorff); even non-Hausdorff uniformizable topologies have restrictions, so an arbitrary topology need not arise this way.
+
+> [!theorem] Metric entourages satisfy the composition requirement
+> Fix $\varepsilon>0$ and choose $V=U_{\varepsilon/3}$, not merely an arbitrary near-pair relation. If $(x,y),(y,z)\in V$, then
+> $
+> d(x,z)\le d(x,y)+d(y,z)<\varepsilon/3+\varepsilon/3<\varepsilon.
+> $
+> Thus $V\circ V\subseteq U_\varepsilon$. Intersecting entourages and taking supersets extends the claim to the uniformity generated by the metric balls.
+
+**What becomes possible:** uniform continuity asks for each entourage $W$ in the *codomain* to have an entourage $U$ in the domain such that $(x,y)\in U$ implies $(f(x),f(y))\in W$. A sequence is uniformly **Cauchy** when, for every entourage, all sufficiently late pairs of terms belong to it. For arbitrary uniform spaces, the general notion of completeness is formulated using **Cauchy filters or nets**, not merely sequences; this distinction becomes important beyond metrizable spaces.
+
+**Worked counterexample: a topology doesn't determine its uniformity.** Recall the two metrics on $\mathbb R$:
+
+$
+d(x,y)=|x-y|,\qquad
+\rho(x,y)=|\arctan x-\arctan y|.
+$
+
+They induce the **same open sets** but different uniformities. The sequence $x_n=n$ is $\rho$-Cauchy yet not $d$-Cauchy (its tail contains points arbitrarily far apart in ordinary distance). If the induced uniformities were equal, their Cauchy sequences would coincide. They do not.
+
+> [!example] Coordinatewise nearness versus a uniform error bound
+> On the vector space of all real sequences $\mathbb R^{\mathbb N}$, the **product uniformity** allows us to compare sequences on a chosen finite set of coordinates to prescribed tolerances. The vectors $e_n$, each with a single $1$ in the $n$-th position and zeros elsewhere, converge to the zero sequence **coordinatewise** and are Cauchy for that product uniformity: every finite set of coordinates is eventually zero. Yet $\|e_n\|_\infty=1$ for every $n$, so they do **not** converge in the supremum norm on bounded sequences. This illustrates why “close” must be attached to a *specified structure*.
+
+**Where the intuition stops:** “every point has a neighborhood” describes topology, whereas “all pairs can be compared at a uniform scale” is extra information. A uniform space is not the same as a *uniform probability distribution*; the identical English word refers to unrelated mathematical notions.
+
 ## 5. Vector spaces: addition and scaling, independently of distance
 
 > [!definition] Vector space
@@ -147,6 +223,98 @@ A map $T:V\to W$ is **linear** when $T(ax+by)=aT(x)+bT(y)$. Linear maps preserve
 
 > [!counterexample] Linear need not mean continuous in infinite-dimensional normed spaces
 > Let $P$ be the space of real polynomials on $[0,1]$ with the sup norm. Differentiation $D:P\to P$ is linear. But for $f_n(t)=t^n$, $\|f_n\|_\infty=1$, while $\|Df_n\|_\infty=n$. Thus $D$ is **unbounded**, and consequently not continuous in that norm. Every linear map between finite-dimensional normed spaces is continuous; this counterexample is genuinely infinite-dimensional.
+
+### Affine spaces: geometry with no distinguished origin
+
+**First intuition.** On a sheet of paper, choosing the point labeled $(0,0)$ is a **convention**. Moving the paper does not change which points lie on a straight line, which points are midpoints, or the displacement between two marked positions. We should be able to study these facts without first choosing an origin.
+
+A vector space has a distinguished zero vector $0$; an **affine space** keeps points and displacements but no **preferred zero point**.
+
+> [!definition] Affine space modeled on a vector space
+> An affine space $A$ over a field such as $\mathbb R$ is a nonempty set of **points** equipped with an action $A\times V\to A$, written $p+v$, of a vector space $V$, satisfying
+> $
+> p+0=p,\qquad(p+u)+v=p+(u+v),
+> $
+> and, for every $p,q\in A$, there is a **unique** $v\in V$ such that $p+v=q$. This is a *free and transitive* action of the additive vector group.
+>
+> We write that unique displacement as $q-p\in V$. **Points cannot in general be added to points**, but a point can be translated by a vector.
+
+If we temporarily choose an origin $o\in A$, the map $p\mapsto p-o$ identifies $A$ with $V$. Choosing a **different** origin changes these coordinates but not the affine geometry. A vector space itself can be regarded as an affine space, but this viewpoint deliberately **forgets** which point was originally called zero.
+
+**A worked example.** In the familiar coordinate model of the plane, let $p=(1,2)$ and $q=(3,5)$. Their displacement is $q-p=(2,3)$. The midpoint is
+
+$
+m=p+\tfrac12(q-p)=(2,\tfrac72).
+$
+
+Under the translation $T(x,y)=(x+10,y-4)$, we have $T(p)=(11,-2)$ and $T(q)=(13,1)$. Their midpoint is $(12,-\tfrac12)=T(m)$ and their displacement is **still** $(2,3)$. No privileged origin was needed to establish this relationship.
+
+More generally, **affine combinations** of points have coefficients summing to $1$:
+
+$
+p=a_1p_1+\cdots+a_kp_k,\qquad \sum_i a_i=1.
+$
+
+This expression is well-defined independent of the coordinate origin: when the origin changes by $t$, the terms change collectively by $(\sum_i a_i)t=t$, exactly the same shift as the resulting point. A linear combination with coefficients summing to $0$ instead describes a **displacement vector**, not a point.
+
+**An affine subspace** of a vector space has the form $p+W$ for a linear subspace $W$. It need not contain the origin: for example, $\{(x,y):y=1\}$ is an affine line but not a linear subspace of $\mathbb R^2$.
+
+> [!distinction] Affine is not Euclidean
+> Affine structure retains straight lines, parallelism, affine ratios and midpoints. It does **not** choose angles, lengths or an inner product. A shear $(x,y)\mapsto(x+y,y)$ preserves affine geometry but does not preserve Euclidean lengths. Calling affine space “vector space with its origin forgotten” is a helpful intuition, but the precise definition uses a free, transitive action.
+
+### Projective spaces: directions become points
+
+**Problem left by affine geometry:** distinct parallel lines in an affine plane never intersect there. But perspective drawings make parallel lines appear to converge toward a common direction. Could directions themselves become legitimate objects?
+
+> [!definition] Projective space constructed from a vector space
+> Given a real vector space $V$ of dimension $n+1$, define an equivalence relation on its **nonzero** vectors:
+> $
+> v\sim w\quad\Longleftrightarrow\quad
+> w=\lambda v\text{ for some nonzero }\lambda\in\mathbb R.
+> $
+> The **real projective space** is
+> $
+> \mathbb P(V)=(V\setminus\{0\})/{\sim}.
+> $
+> Its elements are **one-dimensional linear subspaces of $V$**, or, equivalently, equivalence classes of nonzero vectors under nonzero scaling.
+
+The real projective plane $\mathbb{RP}^2$ arises from $V=\mathbb R^3$. Write a projective point in **homogeneous coordinates** as
+
+$
+[x:y:z]=[\lambda x:\lambda y:\lambda z]\qquad(\lambda\ne0).
+$
+
+Here $[1:2:1]=[2:4:2]$: both coordinate triples represent the **same projective point**. The all-zero triple is forbidden.
+
+![Three contrasting mathematical viewpoints: a vector space with a chosen zero, an affine plane with distinct points and an origin-independent displacement, and a projective plane in which two parallel affine lines share a point at infinity representing their common direction.](./media/sp-affine-projective.svg)
+
+*Figure: Affine geometry forgets the privileged origin, while projectivization creates **new points** by quotienting nonzero vectors under scaling. These are different constructions, not simply two successive amounts of structure on the same underlying set.*
+
+### A projective point at infinity, computed rather than assumed
+
+There is a natural affine chart in $\mathbb{RP}^2$ consisting of points with $z\ne0$. Divide homogeneous coordinates by $z$ to write every such point uniquely as $[x:y:1]$; this identifies that chart with the ordinary affine plane $\mathbb R^2$. The projective points with $z=0$ form the **line at infinity**.
+
+Consider two parallel affine lines
+
+$
+L_0:y=0,\qquad L_1:y=1.
+$
+
+Under the affine-chart embedding, their projective closures obey the homogeneous linear equations
+
+$
+\overline{L_0}:Y=0,\qquad
+\overline{L_1}:Y-Z=0.
+$
+
+A common projective point therefore has $Y=0$ and $Z=0$. Since projective coordinates cannot all vanish, it is **precisely** the point $[1:0:0]$. So the two projective lines intersect at a common point at infinity even though their affine portions are disjoint.
+
+> [!distinction] Projective intersection is not an ordinary Euclidean intersection
+> We have **enlarged the point set and changed the geometry**. There is no newly discovered Euclidean point where $y=0$ and $y=1$ cross. Their *projective closures* intersect because each contains the same direction-class $[1:0:0]$.
+
+**What projective geometry buys us:** a coordinate-independent treatment of incidence (which points lie on which lines), perspective and homogeneous polynomial equations. It does **not** carry a preferred Euclidean distance or angle, and a projective plane is not naturally a vector space. It connects the [Linear Algebra Foundations](./linear-algebra-foundations) chapter's one-dimensional subspaces to [Algebraic Geometry](./algebraic-geometry), where homogeneous equations and projective varieties matter.
+
+These two geometric constructions illustrate a general warning: **an affine space can be modeled on a vector space, and a projective space can be *built from* a vector space, but neither description means that affine or projective spaces are simply successive stages in one nested hierarchy.**
 
 ## 6. Normed spaces, Banach spaces, and inner products
 
@@ -508,9 +676,12 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 | Equivalence/quotient | Reflexive, symmetric, transitive relation | Classes and well-defined factorization | [Equivalence Relations](./equivalence-relations) |
 | Poset / lattice | Order; pairwise meets and joins | Bounds and order-preserving maps | [Order Theory](./order-theory) |
 | Topological space | Open-set axioms | Continuity, compactness, connectedness | [Topology](./general-topology-foundations) |
+| Uniform space | Compatible entourages of near-pairs, no distance required | Uniform continuity, Cauchy filters, completeness | **Atlas introduction** |
 | Metric space | Numerical distance satisfying four axioms | Cauchy sequences, Lipschitz bounds | [Real Analysis](./real-analysis) |
 | Complete metric space | Every metric Cauchy sequence converges | Completeness tools | [Real Analysis](./real-analysis) |
 | Vector space | Addition, scalar multiplication | Linear combinations and maps | [Linear Algebra](./linear-algebra-foundations) |
+| Affine space | Points acted on freely and transitively by vectors | Displacements, affine combinations without an origin | **Atlas introduction**; [Linear Algebra](./linear-algebra-foundations) |
+| Projective space | Nonzero vectors modulo nonzero scaling | Directions as points, projective incidence | **Atlas introduction**; [Algebraic Geometry](./algebraic-geometry) |
 | Normed space | Compatible norm | Quantitative convergence, bounded maps | [Functional Analysis](./functional-analysis) |
 | Banach space | Norm completeness | Complete function-space setting | [Functional Analysis](./functional-analysis) |
 | Inner-product space | Positive inner product | Orthogonality and angles | [Functional Analysis](./functional-analysis) |
@@ -531,6 +702,8 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 - **Can we add or differentiate these functions?** Ask for a vector space and an appropriate compatible norm, topology, or smooth structure. [Functional Analysis](./functional-analysis) describes many infinite-dimensional examples.
 - **Can we integrate or assign probabilities?** Ask which sets are measurable, what measure is present, and which convergence theorem licenses an exchange of limits. Read [Measure Theory](./measure-theory).
 - **Can we compare elements or identify duplicates?** Ask for an order or an equivalence relation. Read [Order Theory](./order-theory) and [Equivalence Relations](./equivalence-relations).
+- **Are points geometric positions, or vectors?** Use an **affine space** if differences are meaningful but no point is distinguished as the origin; use a **projective space** if you want to study lines and directions up to scaling.
+- **Do Cauchy sequences or uniform continuity matter without a particular distance formula?** Look for a **uniformity**; do not try to derive a unique one from the topology alone.
 - **Does the space curve or have local coordinates?** Ask whether it is a topological, smooth, or Riemannian manifold. Use [Topology](./general-topology-foundations) and [Multivariable Calculus](./multivariable-calculus) as foundations.
 - **Does a statistical model have degenerate local directions?** Ask about the parameter-to-distribution map, Fisher information and the vanishing order of KL divergence. The [Information Geometry](./information-geometry) chapter distinguishes these.
 
@@ -547,13 +720,49 @@ Try to answer *before* expanding the linked definitions:
 7. **Does a continuous bijection preserve every structural distinction?** No. It need not be a homeomorphism, isometry or linear map.
 8. **Does an infinite-dimensional closed bounded set have to be compact?** No. The closed unit ball of $\ell^2$ is a counterexample; see the [metric compactness proof](./general-topology-compactness).
 9. **Can identical underlying points produce compact and noncompact spaces?** Yes: $\mathbb C$ with Zariski versus Euclidean topology.
+10. **Could a topology alone tell us which sequences are uniformly Cauchy?** No. The usual real topology comes from both $|x-y|$ and $|\arctan x-\arctan y|$, but the sequence $n$ is Cauchy only in the second metric's uniformity.
+11. **Is an affine midpoint just an average of vectors from an agreed origin?** You *may compute* it that way after choosing coordinates, but it is defined intrinsically using displacements and affine combinations whose coefficients sum to $1$.
+12. **What exactly is a point of $\mathbb{RP}^2$?** A one-dimensional linear subspace of $\mathbb R^3$, or an equivalence class $[x:y:z]$ of nonzero triples under common nonzero scaling.
+13. **What is the new projective intersection of the affine lines $y=0$ and $y=1$?** Their projective closures meet at $[1:0:0]$, a point at infinity representing their common horizontal direction.
 10. **What changed when we replaced continuous functions by $L^2$ elements?** We enlarged the class of integrable representatives and **identified functions equal almost everywhere**; the underlying elements are equivalence classes.
 11. **Is an invertible bounded linear map of Hilbert spaces automatically an isometry?** No: scalar multiplication by $2$ on $\mathbb R$ is an isomorphism in the category with bounded linear maps, but not an isometry.
 12. **Why does a function $S\to U(V)$ extend uniquely to a linear map $F(S)\to V$?** The image of each formal basis vector is fixed, and linearity determines every finite linear combination.
 
+### Why different abstractions appeared
+
+The arrows in our diagrams are *logical* relationships, not a claim about the **chronological order** in which mathematicians discovered ideas. Still, one powerful historical question is: **what problem becomes easier to express when we change structure?**
+
+| What was difficult to say in the earlier language? | Structural response | New kind of question |
+| --- | --- | --- |
+| Geometric constructions seemed tied to one choice of coordinate axes and origin | **Affine geometry** separates points from displacement vectors | Which statements survive translations and shear transformations? |
+| Parallel affine lines have no common point, although they share a direction | **Projective geometry** treats direction classes as points | Can incidence and perspective be stated uniformly using homogeneous coordinates? |
+| Different coordinate models describe seemingly different geometric worlds | **Structure-preserving maps and categories** specify a relevant notion of sameness | Which properties survive homeomorphism, isometry or linear isomorphism? |
+| Limits and continuity must make sense for more than real-number distances | **Topological spaces** axiomatize open neighborhoods | What remains continuous without numerical lengths? |
+| Topology alone cannot express uniform continuity or Cauchy behavior | **Uniform spaces** organize coherent near-pair relations | Can we discuss uniform approximation without fixing a metric? |
+| A function or sequence is itself a useful mathematical point | **Normed, Banach and Hilbert spaces** support size, limits and orthogonality of functions | Which infinite-dimensional arguments require completeness? |
+| Assigning sizes to arbitrary events requires more than open neighborhoods | **Sigma-algebras and measures** organize measurable sets and countably additive size | Which integrals and probabilities are well-defined? |
+
+This table is a set of **mathematical motivations**, not a sequence of historical priority claims or an assertion that one field replaced another. A fuller historical survey and alternative taxonomies appear in [*Space (mathematics)*](https://en.wikipedia.org/wiki/Space_%28mathematics%29); the proofs, examples and distinctions here are developed independently for this atlas.
+
+### Coverage audit: what is developed and what is only introduced
+
+| Branch or construction | Coverage here | Next meaningful extension |
+| --- | --- | --- |
+| Sets, relations, orders and lattices | Linked to developed chapters with proofs | More general order-enriched categories |
+| Topology, metrics, compactness | Definitions and key proofs, linked to full chapters | Complete metrization and dimension theories |
+| **Uniform spaces** | Entourage axioms, metric construction, Cauchy counterexample | Filters, nets, completion, product-uniformity proof |
+| **Affine spaces** | Precise action, midpoint, affine combinations and subspaces | Affine transformations, torsors and affine duality |
+| **Projective spaces** | Quotient construction, homogeneous coordinates and projective-line intersection | Projective transformations, incidence axioms and varieties |
+| Normed, Banach, Hilbert and function spaces | Multiple definitions and proofs; specialist chapter linked | Operator algebras, Sobolev and Fréchet spaces |
+| Measures and probability | Measurable-space versus measure-space distinctions | Regular measures, stochastic processes |
+| Manifolds | Definitions and relationship diagram | Transition-map proofs, tangent bundles and differential forms |
+| Categories, functors and free constructions | Concrete functors and a proved universal property | Higher categories, sheaves, topoi and schemes |
+
+The audit intentionally separates **topics introduced to orient the reader** from subjects comprehensively developed elsewhere on the site. A new row does not mean an entire field has been covered.
+
 ## 18. Where the atlas stops
 
-This atlas makes many fundamental relationships explicit, including a categorical perspective on **spaces and their permitted maps**, and proves selected implications and counterexamples. It does **not** claim to be a complete graduate treatment of all mathematical space theories. Important further families include uniform spaces, locally convex spaces and Fréchet spaces, Sobolev spaces, distributions, symplectic manifolds, fiber bundles, sheaves, schemes and derived or higher-categorical structures.
+This atlas makes many fundamental relationships explicit, including a categorical perspective on **spaces and their permitted maps**, and proves selected implications and counterexamples. It does **not** claim to be a complete graduate treatment of all mathematical space theories. Important further families include locally convex spaces and Fréchet spaces, Sobolev spaces, distributions, symplectic manifolds, fiber bundles, sheaves, schemes and derived or higher-categorical structures. Uniform, affine and projective spaces receive **substantial introductions** above but do not yet have complete standalone chapters.
 
 That limitation is intentional: the objective is a **correct reusable framework**, one in which every new kind of space can be understood by the questions “What objects? What structure? What axioms? What maps? What properties? Which theorems?” Follow the linked full chapters whenever a named theorem needs a proof beyond what appears here.
 
