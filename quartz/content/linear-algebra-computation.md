@@ -492,13 +492,13 @@ Can this ever be zero (for nonzero $x$)? Completing the square: $2(x_1 + \frac{1
 
 ### Why Positive Definiteness Matters
 
-**Optimization:** If the Hessian matrix (matrix of second derivatives) is positive definite at a point, that point is a local minimum. If positive definite everywhere, the function is convex and has a unique global minimum. This is the condition that makes gradient descent work reliably.
+**Optimization:** If the Hessian is positive definite **at a stationary point** (where the gradient is zero), that point is a strict local minimum. If a twice-differentiable function has a positive-definite Hessian everywhere on a convex domain, the function is strictly convex and has **at most one** global minimizer; existence is a separate question. Positive curvature helps optimization, but does not by itself guarantee that every gradient-descent configuration converges.
 
 **Covariance matrices:** The covariance matrix of any dataset is always positive semidefinite. Variance cannot be negative. When it is strictly positive definite, no feature is a perfect linear combination of the others.
 
-**Kernel methods:** A valid kernel function must produce positive semidefinite Gram matrices. This is Mercer's condition, and it guarantees that the kernel corresponds to an inner product in some feature space.
+**Kernel methods:** A positive-semidefinite kernel produces positive-semidefinite Gram matrices for every finite selection of inputs. This is the central algebraic condition behind its feature-space interpretation; **Mercer's theorem** adds extra hypotheses for a particular eigenfunction expansion, and is not simply the name of the Gram-matrix test.
 
-**Numerical stability:** Positive definite matrices are well-behaved numerically. They always have a Cholesky factorization, their eigenvalues are bounded away from zero, and solving systems with them is fast and stable.
+**Numerical computation:** Positive-definite matrices admit Cholesky factorization, which can be efficient and stable to compute. But positive definiteness **does not imply a small condition number**: a matrix with eigenvalues $1$ and $10^{-12}$ is positive definite yet highly sensitive to perturbations. Always separate the theorem that a factorization exists from the question of numerical conditioning.
 
 ## Condition Number
 
@@ -820,7 +820,16 @@ For a stochastic matrix:
 
 - There is always an eigenvalue $\lambda = 1$
 - All other eigenvalues satisfy $|\lambda| \leq 1$
-- The rate of convergence to steady state depends on the second-largest eigenvalue $|\lambda_2|$. Smaller $|\lambda_2|$ means faster convergence.
+- For a **finite irreducible, aperiodic, reversible** chain, the largest eigenvalue modulus below $1$ (the *second-largest eigenvalue modulus*) controls asymptotic convergence toward the unique stationary distribution. Eigenvalues alone require more care for general nonreversible or defective matrices.
+
+### A fixed point need not be reached by iteration
+
+A stationary distribution is a **fixed point** of the update $p\mapsto Pp$. But its existence does not guarantee that repeated updates converge to it.
+
+> [!counterexample] A chain that alternates forever
+> Let $P=\begin{bmatrix}0&1\\1&0\end{bmatrix}$: each step swaps the two states. The probability vector $\pi=(1/2,1/2)^T$ is stationary because $P\pi=\pi$. Yet, starting from $(1,0)^T$, the chain oscillates between $(1,0)^T$ and $(0,1)^T$ forever. The second eigenvalue is $-1$, so that oscillating component is never damped.
+
+This makes the distinction between **having a stable state** and **converging to one** concrete. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#fixed-points-when-structure-guarantees-stability) develops the same issue across metric, topological and ordered spaces.
 
 ### Where Markov Chains Show Up
 
