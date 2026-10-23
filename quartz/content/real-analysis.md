@@ -335,7 +335,9 @@ Everything so far has been about $\mathbb{R}$. But analysis needs to work in hig
 - $\mathbb{R}^n$ with the max metric $d(\mathbf{x}, \mathbf{y}) = \max_i |x_i - y_i|$. Different metric, same set.
 - The space $C[0,1]$ of continuous functions on $[0,1]$ with $d(f, g) = \sup_{x \in [0,1]} |f(x) - g(x)|$. This is the **supremum metric** and connects directly to uniform convergence.
 
-The point: once you have a metric, you can talk about convergence, continuity, and limits in exactly the same way. A sequence $(x_n)$ in a metric space converges to $x$ if $d(x_n, x) \to 0$. Continuity, Cauchy sequences, and everything else carry over.
+The point: once you have a metric, you can talk about convergence, continuity, and limits in exactly the same way. A sequence $(x_n)$ in a metric space converges to $x$ if $d(x_n, x) \to 0$. Continuity and Cauchy sequences can now be defined using this distance, and the basic methods of analysis carry over.
+
+**Optional connection:** A metric is *structure added to a set*. It determines a topology, but the topology does not generally recover the numerical distances. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#4-metric-spaces-a-number-for-the-separation) compares metric, topological, and uniform spaces; you can continue this chapter without that detour.
 
 ### Completeness in Metric Spaces
 
