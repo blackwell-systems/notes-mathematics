@@ -25,6 +25,8 @@ Imagine trying to describe a surface without first drawing an $x$–$y$ grid on 
 
 **Where the picture breaks:** a topology **does not put points onto a surface** or prescribe where they sit. We begin with a set $X$ that may consist of numbers, functions, or even three named objects. Then we **specify which subsets are open**; those choices determine the available open neighborhoods. They are not arbitrary in the sense of unrestricted: their collection must obey three rules.
 
+**From a set to a space:** The underlying set $X$ answers "which elements exist?" A topology $\tau$ answers "which subsets of $X$ count as open?" **Together**, $(X,\tau)$ is a *topological space*. The same $X$ can support different choices of $\tau$, so the topology is extra structure, not an inherent shape or arrangement of the points. See [From Sets to Mathematical Spaces](./set-theory#from-sets-to-mathematical-spaces) for how this fits a broader pattern.
+
 The formal definition says exactly which choices are permitted.
 
 > [!definition] Topological space
