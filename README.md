@@ -41,12 +41,12 @@ otherwise-broad coverage a spine and a reading order.
 
 ## Editorial design system
 
-A shared typography system now styles **every Markdown page**, while semantic labels for definitions, theorems, proofs, proof sketches, distinctions, examples, and counterexamples are added deliberately during a separate editorial review. The original test pages are [Propositional Logic: Truth](./quartz/content/propositional-logic-zeroth-order-logic.md#truth), [Group Theory Foundations](./quartz/content/group-theory-foundations.md), and [Construction of the Reals](./quartz/content/construction-of-the-reals.md). The full 92-page coverage manifest and parser-backed inventory are described in the [Editorial rollout guide](./quartz/EDITORIAL-ROLLOUT.md). [Editorial migration log](./quartz/EDITORIAL-MIGRATION-LOG.md) records which subjects have actually received authored semantic treatment and which still await visual review. CI checks that the manifest remains complete; semantic and responsive reviews are not falsely marked finished.
+A shared typography system now styles **every Markdown page**, while semantic labels for definitions, theorems, proofs, proof sketches, distinctions, examples, and counterexamples are added deliberately during a separate editorial review. The original test pages are [Propositional Logic: Truth](./quartz/content/propositional-logic-zeroth-order-logic.md#truth), [Group Theory Foundations](./quartz/content/group-theory-foundations.md), and [Construction of the Reals](./quartz/content/construction-of-the-reals.md). The full 94-page coverage manifest and parser-backed inventory are described in the [Editorial rollout guide](./quartz/EDITORIAL-ROLLOUT.md). [Editorial migration log](./quartz/EDITORIAL-MIGRATION-LOG.md) records which subjects have actually received authored semantic treatment and which still await visual review. CI checks that the manifest remains complete; semantic and responsive reviews are not falsely marked finished.
 
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as Markdown files:
-85 topic chapters, a landing page, and six guided maps: the atlas of mathematical spaces, discrete mathematics, topology, algebra, analysis, and singular learning theory. The homepage is
+87 topic chapters, a landing page, and six guided maps: the atlas of mathematical spaces, discrete mathematics, topology, algebra, analysis, and singular learning theory. The homepage is
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently
