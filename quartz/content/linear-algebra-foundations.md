@@ -617,6 +617,27 @@ $$
 A = \begin{bmatrix} T(e_1) & T(e_2) & \cdots & T(e_n) \end{bmatrix}
 $$
 
+### A transformation exists independently of its matrix
+
+Why do the columns of a matrix determine the entire transformation? Every input can be expressed as $x=x_1e_1+\cdots+x_ne_n$. Linearity forces
+
+$$
+T(x)=x_1T(e_1)+\cdots+x_nT(e_n).
+$$
+
+Knowing **where the basis vectors go** therefore determines the rule everywhere. Those outputs are exactly the matrix's columns.
+
+> [!example] One map, two coordinate descriptions
+> Let $T(x,y)=(2x,3y)$. Its standard matrix is $A=\begin{bmatrix}2&0\\0&3\end{bmatrix}$. Now choose the basis $b_1=(1,1)$ and $b_2=(1,-1)$, with $P=\begin{bmatrix}1&1\\1&-1\end{bmatrix}$. The **same** transformation has matrix
+>
+> $$
+> [T]_B=P^{-1}AP=\begin{bmatrix}5/2&-1/2\\-1/2&5/2\end{bmatrix}.
+> $$
+>
+> The matrix entries changed, but the action $T$ did not. Rank and eigenvalues remain unchanged under this *similarity transformation*.
+
+See [Change of Basis](./linear-algebra-computation#change-of-basis) for the procedure. Diagonalization is the attempt to find coordinates where a transformation looks especially simple.
+
 **Examples of linear transformations in $\mathbb{R}^2$:**
 
 **Rotation by angle $\theta$:**
@@ -646,6 +667,24 @@ $$
 $$
 
 **Why this matters for ML:** A neural network layer computes $\sigma(Wx + b)$, where $W$ is a matrix (linear transformation), $b$ is a bias (translation), and $\sigma$ is a nonlinear activation. Without the nonlinearity, stacking layers would just be matrix multiplication: $W_2(W_1 x) = (W_2 W_1)x$, which collapses to a single linear transformation. The nonlinearity is what gives depth its power.
+
+## Dual spaces: vectors and linear measurements
+
+A vector is an object we can **transform**. A **linear functional** is a rule that takes a vector and produces a scalar while preserving linear combinations. All linear functionals on $V$ form its **dual space**, written $V^*$.
+
+For example, $\ell(x,y)=2x-y$ is a linear functional. The column is its input; a row represents the measurement:
+
+$$
+\ell\!\left(\begin{bmatrix}3\\4\end{bmatrix}\right)
+=\begin{bmatrix}2&-1\end{bmatrix}\begin{bmatrix}3\\4\end{bmatrix}=2.
+$$
+
+**Why does the transpose show up?** A linear map $A:V\to W$ moves vectors **forward**. But it pulls measurements **backward**: measuring $Av$ with a row $r$ is the same as measuring $v$ with $rA$. As columns, the corresponding rule uses $A^T$. This is the *dual map*.
+
+> [!distinction] Row and column are not interchangeable in every setting
+> The Euclidean dot product allows us to associate a functional $\ell(v)=a^Tv$ with the column $a$. But a general vector space has no preferred inner product, so no automatic identification of $V$ and $V^*$. Linear measurements still make sense without lengths and angles.
+
+This connects to covectors and tensors in geometry and the [continuous dual](./functional-analysis#riesz-representation-and-the-dual) in functional analysis.
 
 ## Orthogonality
 
