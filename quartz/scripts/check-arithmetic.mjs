@@ -5303,6 +5303,66 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   eq("Vector calculus: divergence theorem ball volume route",3*(4*Math.PI/3),4*Math.PI,1e-12);
   eq("Vector calculus: divergence theorem sphere area route",4*Math.PI,4*Math.PI,1e-12);
 }
+// ============== Quantum mechanics: qubit and optimization worked examples ==============
+// Finite numerical regression checks on the chapter's examples, not a proof of the postulates.
+{
+  const sqrt2=Math.sqrt(2), plus=[1/sqrt2,1/sqrt2], minus=[1/sqrt2,-1/sqrt2];
+  const dot=(a,b)=>a.reduce((t,x,i)=>t+x*b[i],0);
+  const matVec=(a,v)=>a.map(row=>dot(row,v));
+  const Z=[[1,0],[0,-1]],X=[[0,1],[1,0]];
+  const H=[[1/sqrt2,1/sqrt2],[1/sqrt2,-1/sqrt2]];
+  const norm2=v=>dot(v,v);
+  eq("Quantum: plus-state normalized",norm2(plus),1,1e-12);
+  eq("Quantum: plus computational basis P0",plus[0]**2,0.5,1e-12);
+  eq("Quantum: plus computational basis P1",plus[1]**2,0.5,1e-12);
+  eq("Quantum: plus Pauli-Z expectation",dot(plus,matVec(Z,plus)),0,1e-12);
+  eq("Quantum: plus Pauli-X expectation",dot(plus,matVec(X,plus)),1,1e-12);
+  const hadamardPlus=matVec(H,plus),hadamardMinus=matVec(H,minus);
+  eq("Quantum: Hadamard plus amplitude0",hadamardPlus[0],1,1e-12);
+  eq("Quantum: Hadamard plus amplitude1",hadamardPlus[1],0,1e-12);
+  eq("Quantum: Hadamard normalized minus",norm2(hadamardMinus),1,1e-12);
+  const zero=[1,0],one=[0,1];
+  eq("Quantum: Hadamard classical mixture P0",(
+    matVec(H,zero)[0]**2+matVec(H,one)[0]**2)/2,0.5,1e-12);
+  eq("Quantum: Hadamard classical mixture P1",(
+    matVec(H,zero)[1]**2+matVec(H,one)[1]**2)/2,0.5,1e-12);
+  eq("Quantum: Pauli X and Z anti-commute, first coordinate",
+    matVec(X,matVec(Z,plus))[0]+matVec(Z,matVec(X,plus))[0],0,1e-12);
+  eq("Quantum: Pauli X and Z anti-commute, second coordinate",
+    matVec(X,matVec(Z,plus))[1]+matVec(Z,matVec(X,plus))[1],0,1e-12);
+  const theta=0.9,phi=1.2;
+  const bloch=[Math.sin(theta)*Math.cos(phi),Math.sin(theta)*Math.sin(phi),Math.cos(theta)];
+  eq("Quantum: pure Bloch vector lies on sphere",norm2(bloch),1,1e-12);
+  const state=t=>[Math.cos(t/2),Math.sin(t/2)];
+  for(const t of [0,0.2,0.7,Math.PI,2*Math.PI]){
+    const v=state(t);
+    eq("Quantum: variational state normalized at theta="+t,norm2(v),1,1e-12);
+    eq("Quantum: Z energy matches cos theta at "+t,dot(v,matVec(Z,v)),Math.cos(t),1e-12);
+  }
+  const t=0.7,eps=0.00001;
+  const energy=x=>dot(state(x),matVec(Z,state(x)));
+  eq("Quantum: energy gradient -sin(theta)",
+    (energy(t+eps)-energy(t-eps))/(2*eps),-Math.sin(t),1e-8);
+  const tnext=t+0.2*Math.sin(t);
+  check("Quantum: gradient step lowers energy inside basin",energy(tnext)<energy(t));
+  const derivative=t=>[-0.5*Math.sin(t/2),0.5*Math.cos(t/2)];
+  const psi=state(t),dpsi=derivative(t);
+  const fubiniStudy=dot(dpsi,dpsi)-dot(dpsi,psi)**2;
+  eq("Quantum: one-angle Fubini-Study metric",fubiniStudy,0.25,1e-12);
+  const p=0.5,E0=1,E1=-1;
+  const mean=p*E0+(1-p)*E1,meanSquare=p*E0*E0+(1-p)*E1*E1;
+  eq("Quantum: imaginary-time energy variance",meanSquare-mean*mean,1,1e-12);
+  const tau=1e-5,weighted0=p*Math.exp(-2*tau*E0),weighted1=(1-p)*Math.exp(-2*tau*E1);
+  const after=(weighted0*E0+weighted1*E1)/(weighted0+weighted1);
+  eq("Quantum: imaginary-time derivative = -2 variance",(after-mean)/tau,-2,0.00005);
+  const bellAmplitudes=[1/sqrt2,0,0,1/sqrt2];
+  eq("Quantum: Bell state normalized",norm2(bellAmplitudes),1,1e-12);
+  eq("Quantum: Bell measurement P00",bellAmplitudes[0]**2,0.5,1e-12);
+  eq("Quantum: Bell measurement P11",bellAmplitudes[3]**2,0.5,1e-12);
+  check("Quantum: Bell state cannot factor into product (determinant)",
+    Math.abs(bellAmplitudes[0]*bellAmplitudes[3]-bellAmplitudes[1]*bellAmplitudes[2])>0.49);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
