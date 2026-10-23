@@ -25,7 +25,7 @@ The goal of this guide is to learn to look at an unfamiliar space and ask:
 
 These questions let you navigate from elementary sets to the spaces of modern analysis and geometry without confusing one kind of structure with another.
 
-**Want to transfer a specific idea between fields?** The companion [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) works through four exact examples—including quotients, Lyapunov-style descent, cohomological cycle obstructions, and cross-entropy—and explains which parts of each analogy really carry over. This atlas classifies **structures**; the bridges page tracks **reusable constructions and proofs**.
+**Want to transfer a specific idea between fields?** The companion [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) works through explicit examples—including quotients, Lyapunov-style descent, cohomological cycle obstructions, cross-entropy, and **conditional expectation as orthogonal projection**—and explains which parts of each analogy really carry over. This atlas classifies **structures**; the bridges page tracks **reusable constructions and proofs**.
 
 ## 1. Read the map correctly: a network, not a ladder
 
