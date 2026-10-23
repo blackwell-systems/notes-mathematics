@@ -105,7 +105,9 @@ Category theory studies **objects, arrows and universal mapping properties**, br
 
 ## Linear Algebra
 
-- [Linear Algebra Foundations](./linear-algebra-foundations) (vector spaces, four fundamental subspaces, eigenvalues, SVD)
+**Linear algebra is the study of vector spaces and linear transformations between them—not fundamentally the manipulation of matrices.** A *vector* can be an arrow, a polynomial, a function, or any other element of a vector space. A *matrix* is a coordinate representation of a linear map once bases have been chosen. Start with [what a vector space is and why it matters](./linear-algebra-foundations#the-fundamental-setting-vector-spaces-not-matrices), then see how the same ideas apply to very different objects.
+
+- [Linear Algebra Foundations](./linear-algebra-foundations) (**vector spaces and linear maps first**; then bases, kernels, images, eigenvectors, and SVD)
 - [Linear Algebra for Computation](./linear-algebra-computation) (norms, factorizations, positive definiteness, matrix calculus)
 - [Matrices](./matrices) (operations, determinants, inverses)
 - [Systems of Linear Equations](./systems-of-linear-equations) (Gaussian elimination, row reduction)
