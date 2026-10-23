@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **76 original, source-editable SVG figures** placed directly beside the claims they explain across **30 proof-oriented chapters and reading maps**.
+This collection contains **79 original, source-editable SVG figures** placed directly beside the claims they explain across **30 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -38,7 +38,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Adjunctions and Monads](./content/category-adjunctions-monads.md) | 2 | free monoid universal arrow and list-monad flattening |
 | [General Topology Foundations](./content/general-topology-foundations.md) | 4 | alternate topologies, two forms of basis refinement, continuity through inverse images |
 | [Topological Constructions](./content/general-topology-constructions.md) | 5 | relative openness of a subspace, product rectangles and projection continuity, quotient circle and seam preimages |
-| [Compactness and Connectedness](./content/general-topology-compactness.md) | 5 | open covers and finite subcover selection, Hausdorff neighborhoods, connectedness and their distinction |
+| [Compactness and Connectedness](./content/general-topology-compactness.md) | 8 | corrected subcover diagrams, noncompactness, compact–Hausdorff proof, connectedness and finite-intersection duality |
 
 
 The diagram file families are named with `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-`, `mn-`, `pl-`, `fa-`, `ca-`, `co-`, `ig-` and other topic prefixes; every image is linked from its teaching chapter.
@@ -62,7 +62,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **76 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **79 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 

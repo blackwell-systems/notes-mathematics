@@ -29,10 +29,13 @@ The cover may be **infinite**. A finite subcover may depend on that cover; the d
 
 ![An open cover of a compact interval, with a finite selection still covering it.](./media/tp-compact-cover.svg)
 
-*Figure: Compactness turns an arbitrary open covering requirement into a finite selection.*
+*Figure: The closed interval is covered by five open intervals. U₁, U₂ and U₃ belong to the given cover and already suffice to cover the interval, including both endpoints.*
 ![A closed interval is shown with several overlapping ambient open intervals, then three selected overlapping open intervals extending beyond the endpoints and still covering the entire closed interval.](./media/tp-compact-finite-selection.svg)
 
-*Figure: This particular cover has a three-set subcover. The compactness theorem asserts that **every** open cover has *some* finite subcover; the picture illustrates the condition but does not prove it.*
+*Figure: The lower intervals have **identical endpoints to the upper U₁, U₂, U₃**. A subcover selects **the same original sets**, rather than adding new sets.
+
+> [!distinction] Do not confuse the picture with the definition
+> The claim is "**for every** open cover, **there exists** a finite subcover." An illustration displays only one cover, not a proof of that universal property. An infinite cover can also have a finite subcover; what matters is that every open cover does.*
 
 
 ### Worked example: every finite space is compact
@@ -41,6 +44,12 @@ Let $X=\{x_1,\ldots,x_n\}$ with **any** topology. Given an open cover, choose on
 
 > [!counterexample] The open interval (0,1) is not compact
 > In the subspace topology on $(0,1)$, the sets $U_n=(1/n,1)$ for $n\ge2$ are open and cover $(0,1)$: every $x>0$ eventually exceeds $1/n$. But any **finite** selection has a largest index $N$; its union is $(1/N,1)$, which misses points near zero. No finite subcover exists.
+
+![Nested open intervals U2, U4, U8, and U16 approach the left endpoint without including it. The finite selection U2, U4 and U8 misses the point one sixteenth, explicitly marked in the uncovered gap.](./media/tp-open-interval-no-finite-subcover.svg)
+
+*Figure: This **infinite** open cover of $(0,1)$ has no finite subcover. Only four members are drawn; the argument works for every finite selection.*
+
+For any finite choice $U_{n_1},\ldots,U_{n_k}$, let $N=\max(n_1,\ldots,n_k)$. These sets are nested, so their union is exactly $(1/N,1)$. The point $1/(2N)$ lies in $(0,1)$ but remains **uncovered**.
 
 ## Continuous images preserve compactness
 
@@ -73,6 +82,10 @@ Every metric space is Hausdorff: if $d(x,y)=r>0$, balls of radius $r/3$ centered
 > If $K\subseteq X$ is compact and $X$ Hausdorff, then $X\setminus K$ is open.
 
 **Proof.** Fix $x\notin K$. For each $y\in K$, choose disjoint open neighborhoods $U_y\ni x$ and $V_y\ni y$. The $V_y$ cover $K$; compactness gives $y_1,\ldots,y_n$ whose $V_{y_j}$ cover $K$. Let $U=\bigcap_{j=1}^n U_{y_j}$. It is an **open neighborhood of $x$** because the intersection is finite, and it is disjoint from every $V_{y_j}$, hence from all of $K$. Thus every $x\notin K$ has an open neighborhood in the complement; the complement is open. $\square$
+
+![A point x outside compact K has three surrounding open U-neighborhoods, each disjoint from a corresponding V-neighborhood covering part of K. Finitely many V-neighborhoods cover K, so intersecting the matched U-neighborhoods leaves an open neighborhood of x missing K.](./media/tp-compact-hausdorff-closed-proof.svg)
+
+*Figure: Compactness reduces separation from infinitely many points of $K$ to **finitely many** pairs of Hausdorff neighborhoods. Their corresponding $U$-neighborhoods have a **finite open intersection**; an arbitrary infinite intersection would not generally be open.*
 
 ### The compact–Hausdorff homeomorphism theorem
 
@@ -160,6 +173,10 @@ This is a special fact about finite-dimensional Euclidean spaces, not the defini
 **Proof.** Suppose $X$ compact and $(F_i)$ has the finite intersection property, but $\bigcap_i F_i=\varnothing$. Then $(X\setminus F_i)$ is an **open cover**. A finite subcover would force the corresponding finite closed intersection to be empty, contradiction.
 
 Conversely, if $X$ were not compact, some open cover would have no finite subcover. Take complements of all sets in that cover. Every finite intersection is nonempty, but the total intersection is empty. This contradicts the proposed property. $\square$
+
+![The open-cover statement X equals a union of U_i sets is paired with the closed-complement statement that the intersection of F_i sets is empty, showing the finite-subcover and finite-intersection equivalence.](./media/tp-compact-fip-duality.svg)
+
+*Figure: Open covers and intersections of their closed complements are equivalent through **De Morgan's laws**. Finite selection on one side corresponds to finite intersection on the other.*
 
 ## Why topology matters to abstract mathematics
 

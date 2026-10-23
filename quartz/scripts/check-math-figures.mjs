@@ -58,7 +58,7 @@ const expected = {
   "category-adjunctions-monads.md": ["ct-adjunction.svg","ct-list-monad.svg"],
   "general-topology-foundations.md": ["tp-topologies.svg","tp-basis.svg","tp-basis-refinement-expanded.svg","tp-preimage-continuity.svg"],
   "general-topology-constructions.md": ["tp-subspace-relative-open.svg","tp-product.svg","tp-product-coordinate-test.svg","tp-quotient-circle.svg","tp-quotient-seam-preimage.svg"],
-  "general-topology-compactness.md": ["tp-compact-cover.svg","tp-compact-finite-selection.svg","tp-hausdorff.svg","tp-connected.svg","tp-connected-hausdorff-contrast.svg"]
+  "general-topology-compactness.md": ["tp-compact-cover.svg","tp-compact-finite-selection.svg","tp-open-interval-no-finite-subcover.svg","tp-hausdorff.svg","tp-compact-hausdorff-closed-proof.svg","tp-connected.svg","tp-connected-hausdorff-contrast.svg","tp-compact-fip-duality.svg"]
 };
 
 const errors=[];
@@ -90,7 +90,7 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==76)errors.push("Expected 76 illustrative SVGs, got "+total);
+if(total!==79)errors.push("Expected 79 illustrative SVGs, got "+total);
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);

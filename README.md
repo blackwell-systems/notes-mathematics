@@ -51,7 +51,7 @@ topology, algebra, analysis, and singular learning theory. The homepage is
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently
-386 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
+389 figures in [`quartz/content/media/`](./quartz/content/media/)), each pinned to
 a page's own worked example so the figure and the prose cannot drift apart.
 
 Broad areas covered:
@@ -92,8 +92,8 @@ Every push runs two CI gates before deploy:
 - **Quality gate** (`quartz/scripts/check-quality.mjs`) — fails on KaTeX render
   errors, broken internal links or `#anchors`, broken image references, and empty
   image alt text (ratcheted to zero).
-- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 76 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
-  - [**Diagram guide and complete 76-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
+- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 79 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
+  - [**Diagram guide and complete 79-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
 - **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
   numeric worked example in the notes from scratch (over 1,000 assertions, including recursive-arithmetic regression checks).
   When you add or change a worked example, add or adjust an assertion so it stays
@@ -130,7 +130,7 @@ notes-mathematics/
 │   │   ├── index.md         # Landing page + reading-order guide
 │   │   ├── set-theory.md
 │   │   ├── ...
-│   │   ├── media/           # Images and diagrams (~386 figures)
+│   │   ├── media/           # Images and diagrams (~389 figures)
 │   │   └── review-status.json  # Prose/proof review ledger
 │   ├── quartz/static/interactive/  # Self-contained interactive widgets
 │   ├── scripts/             # CI gates (quality + arithmetic), review tooling, build injectors
