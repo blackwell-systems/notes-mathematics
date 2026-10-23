@@ -111,7 +111,7 @@ Because the natural numbers have no infinite strictly descending sequence, an in
 
 An algorithm's *termination* is different from its *time complexity*: a loop can terminate yet take exponentially many steps. See [Asymptotic Notation](./asymptotic-notation).
 
-> [!connection] Discrete termination → continuous stability
+> [!bridge] Discrete termination → continuous stability
 > A ranking function and a Lyapunov potential both organize trajectories through a decreasing quantity, but they prove **different** properties. [Work through the same progress idea in a finite machine and a differential equation](./cross-disciplinary-bridges#bridge-2-a-ranking-function-is-related-to-but-stronger-than-a-decreasing-potential): one reaches zero in finitely many steps, while the other can approach zero forever.
 
 ## A deeper invariant: Euclid's greatest-common-divisor algorithm
