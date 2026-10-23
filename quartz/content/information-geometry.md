@@ -200,6 +200,12 @@ $$
 
 when $I$ is invertible. It transforms appropriately under smooth coordinate changes. At a singular point such as $w=0$ above, the inverse does not exist; using a pseudoinverse or damping creates an **additional modeling choice**, not a theorem that all singularities disappear.
 
+### Quantum geometry as a nearby, but different, application
+
+The [Mathematical Foundations of Quantum Mechanics](./mathematical-foundations-of-quantum-mechanics#9-quantum-states-as-an-optimization-problem) chapter develops another way to make gradient updates geometry-aware. **Classical natural gradient** uses the Fisher metric of a parameterized probability model. **Quantum natural gradient** can use the Fubini–Study metric, induced by the quantum geometric tensor on a family of pure quantum states.
+
+The mathematical pattern is similar: instead of treating each parameter coordinate as equally meaningful, use a metric that reflects changes in the **represented object**. But a measurement-dependent classical Fisher matrix and the intrinsic quantum-state metric are not automatically equal. Their relationship requires specifying the quantum state family, measurement model, and metric convention. This is a conceptual bridge, **not** a claim that classical machine-learning training requires quantum mechanics.
+
 ## Cramér–Rao and the meaning of information
 
 In a regular scalar parameter family, for an unbiased estimator $\hat\theta$ from $n$ i.i.d. observations under appropriate differentiability and variance conditions, the **Cramér–Rao inequality** is
