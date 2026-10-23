@@ -8,48 +8,16 @@ Currently covering **82 topics** across 18 topic branches of mathematics, from b
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
-> **Heading for singular learning theory?** There is a dedicated guided route: [Path to SLT](./path-to-slt) orders every prerequisite from set notation to the [Singular Learning Theory](./singular-learning-theory) capstone, with a note on why each step is needed.
+## Explore the reference
 
-## Atlas of Mathematical Spaces
+These notes support several ways of reading mathematics. There is **no required entry point** or single prerequisite chain; the appropriate route depends on the concept you're trying to understand.
 
-> [!important] **[Start with the Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces)**
-> Explore the entire network of mathematical spaces, from sets through order, topology, metrics, vector and Hilbert spaces, measure and probability, and manifolds. The atlas uses **eight original diagrams**, structural proofs, counterexamples, and a continuous-function example to distinguish what each additional structure means.
+- **Individual topics:** Browse the subject sections below or use search and the sidebar. Each chapter identifies its actual prerequisites and links to related ideas.
+- **Mathematical structures:** The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) connects sets, orders, topology, metric and function spaces, measures, manifolds, and **categories of spaces**. It illustrates what additional structure makes possible and which familiar converses fail.
+- **Subject-guided paths:** [Topology](./path-to-topology), [Algebra](./path-through-algebra), [Analysis](./path-through-analysis), and [Discrete Mathematics](./discrete-mathematics) connect chapters into focused reading routes.
+- **Toward singular learning theory:** The [Path to SLT](./path-to-slt) traces a research-oriented route through the relevant foundations to [Singular Learning Theory](./singular-learning-theory).
 
-The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) explains which mathematical structures are independent, which theorems need extra hypotheses, and which maps preserve the structure being studied. For subject-by-subject paths, follow [Topology](./path-to-topology), [Analysis](./path-through-analysis), [Algebra](./path-through-algebra), [Discrete Mathematics](./discrete-mathematics), or the [Path to SLT](./path-to-slt).
-
-## How to Use These Notes
-
-> [!distinction] A map is not a prerequisite proof
-> The reading order is **one suggested route**, not a claim that every chapter depends on every earlier chapter. Follow each page's **Builds on** links when you need its formal assumptions; independent branches (such as early group theory) can be studied in parallel.
-
-
-1. **As a reference:** Jump to any topic. Use the search (top left) or explorer (left sidebar) to find what you need.
-
-2. **As a learning path:** The topics build on each other. A suggested reading order for someone starting from scratch:
-
-```
-Logic → Set Theory → Relations & Order → Peano Arithmetic → Integers → Rationals → Reals
-→ Complex Numbers → Number Systems & Foundations → Algebra (start with
-Functions, then work through the function types) → Linear Algebra
-(Foundations first, then Computation)
-→ Calculus → Multivariable Calculus → Differential Equations
-→ Probability → Statistics (Descriptive → Inferential → Statistical Learning)
-→ Bayesian Inference → Optimization
-→ Information Theory → Discrete Math
-→ Real Analysis → Measure Theory
-```
-
-3. **For ML researchers:** If you already know the basics and want to understand *why* neural networks work at a theoretical level:
-   - Linear Algebra Foundations (eigenvalues, SVD)
-   - Calculus (chain rule = backpropagation)
-   - Probability → Statistics (Descriptive → Inferential → Statistical Learning) → Bayesian Inference
-   - Optimization (gradient descent variants, convexity)
-   - Information Theory (cross-entropy loss)
-   - Real Analysis → Measure Theory → Algebraic Geometry → [Singular Learning Theory](./singular-learning-theory)
-
-   For a single ordered trail to the last item, follow the [Path to SLT](./path-to-slt).
-
-The [group-theory branch](./group-theory-foundations) can begin after sets and functions, in parallel with the natural-to-complex number-system construction chain. [Category theory](./category-theory-foundations) is most concrete after learning those group and ring examples; [general topology](./general-topology-foundations) can be entered through metric-space intuition or direct open-set axioms; see the [Topology map](./path-to-topology). The branches reconnect at [Algebraic Structures](./algebraic-structures). Neither real completeness nor complex algebraic closure is needed to prove the group axioms.
+The atlas is a **cross-subject overview**, not an alternative to working through a chapter's definitions and proofs. Learning maps suggest useful sequences; they do not create prerequisites where the underlying mathematics has none.
 
 ## Logic & Proofs
 
@@ -193,7 +161,7 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 
 ## Discrete Mathematics
 
-> **Start with the [Discrete Mathematics Learning Map](./discrete-mathematics).** It combines existing logic, sets, number theory, relations, counting, probability, and graph chapters with the deeper discrete mathematics sequence below. The map is a route, not a claim that every topic requires every earlier one.
+> The [Discrete Mathematics Learning Map](./discrete-mathematics) connects logic, sets, number theory, relations, counting, probability and graphs with the deeper discrete mathematics chapters below. It is a possible route through the material, not a list of mandatory prerequisites.
 
 - [Structural Induction and Recursive Definitions](./structural-induction) (inductive trees and lists, recursion on constructors, structural proofs)
 - [State Machines, Invariants, and Termination](./state-machines-invariants) (reachable states, loop invariants, ranking functions, Euclid's algorithm)

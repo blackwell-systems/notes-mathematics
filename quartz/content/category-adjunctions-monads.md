@@ -10,6 +10,8 @@ enables: ["general-topology-constructions"]
 
 A forgetful functor removes structure. A **free construction** adds exactly enough structure to support a universal mapping rule. An **adjunction** states that this correspondence is natural in both inputs. A **monad** records the reusable operation of adding, then flattening, such structure.
 
+Alongside the free monoid here, the [Mathematical Spaces Atlas](./atlas-of-mathematical-spaces#13-categories-the-structure-of-mathematical-structures) proves the analogous **free vector-space** construction and displays its universal mapping diagram.
+
 ## A free monoid you can build by hand
 
 For a set $A$, let $A^*$ be the set of all **finite lists** (words) of elements of $A$, including the empty list $[]$. Define multiplication by concatenation and identity by the empty list.

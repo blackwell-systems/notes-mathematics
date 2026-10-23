@@ -10,6 +10,8 @@ enables: ["category-functors-naturality", "category-limits-colimits", "category-
 
 The same pattern keeps appearing: sets have functions, groups have group homomorphisms, rings have ring homomorphisms, and topological spaces have continuous maps. In each case a map can be followed by another map, and there is an identity map that changes nothing. **Category theory isolates exactly this reusable structure.**
 
+The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#13-categories-the-structure-of-mathematical-structures) gives a concrete cross-subject example: categories of spaces, their selected morphisms, forgetful functors, and a free vector-space universal property.
+
 ## Objects, morphisms and the axioms
 
 > [!definition] Category

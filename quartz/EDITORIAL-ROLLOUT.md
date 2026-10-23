@@ -148,3 +148,8 @@ There are now **88 Markdown pages** (82 topics, 5 learning paths and the landing
 ## Flagship space-atlas inventory (2026-10-23)
 
 There are now **89 Markdown pages**: 82 topic chapters, six guided learning maps including the [Atlas of Mathematical Spaces](./content/atlas-of-mathematical-spaces.md), and one landing page. The diagrams audit includes **87 original SVGs across 31 chapters/maps**. The atlas is a semantic pilot, with mobile, dark-theme and diagram visual review pending.
+
+
+## Atlas categorical edition (2026-10-23)
+
+Atlas remains one of six optional learning maps, not a default entry point. Ten original SVG figures are now audited for atlas placement, bringing the total to **89 source-editable mathematics figures across 31 chapters/maps**. Existing 89 pages and pilot/pending review status are unchanged. The two categorical diagrams still require actual responsive, light/dark, and mathematical figure review beyond structural checks.

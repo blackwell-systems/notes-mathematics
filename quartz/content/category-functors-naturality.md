@@ -8,7 +8,7 @@ enables: ["category-limits-colimits", "category-adjunctions-monads"]
 > **Builds on:** [Categories and Morphisms](./category-theory-foundations), [functions and composition](./functions-relations).
 > **Leads to:** [Universal Properties](./category-limits-colimits) and [Adjunctions and Monads](./category-adjunctions-monads).
 
-A category describes structure *inside* one mathematical world. A **functor** describes how to translate the entire world—objects **and** arrows—into another without destroying composition.
+A category records objects and composable morphisms in one mathematical world. A **functor** translates that world—objects **and** arrows—into another without destroying composition. The [Mathematical Spaces Atlas](./atlas-of-mathematical-spaces#13-categories-the-structure-of-mathematical-structures) illustrates concrete forgetful functors from Hilbert and Banach spaces through topology to underlying sets.
 
 ## Functors preserve the laws of mapping
 
