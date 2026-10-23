@@ -51,6 +51,21 @@ Use Markdown so KaTeX, links, and normal Quartz conversion still work:
 
 **Proof integrity:** a `[!proof]` callout must contain an actual proof. A `[!proof-sketch]` callout should never appear to close a theorem's full proof obligation. The existing mathematical proof-review ledger remains the source of record for rigorous proof review. No green badge, style class or CI check is a proof certificate.
 
+### Intuition-first definitions (three-chapter editorial pilot)
+
+Some abstractions benefit from a short **First intuition** subsection immediately before their first formal definition. This is an **optional authored teaching technique**, not a new mathematical claim, mandatory wrapper, or new Markdown callout type.
+
+A good passage moves through four clearly distinguishable steps:
+
+1. **First intuition:** state a plausible, welcoming picture that a reader could naturally invent in plain language.
+2. **What this gets right:** identify the aspect that corresponds to the mathematical structure.
+3. **Where the picture breaks:** name a *specific* missing hypothesis or counterexample; do not ridicule the initial picture.
+4. **Formal definition:** state the precise object and axioms, preserving all quantifiers and hypotheses. Subsequent examples and proofs must not depend on an intuition as if it were a theorem.
+
+Keep these passages **short, local, and mathematically testable**. Do not equate a quotient set with arithmetic division, a topological space with an embedded surface, or compactness with numerical boundedness. Explicitly distinguish optional mental models from universal definitions. Use ordinary H3 headings and bold labels rather than introducing colorful semantic badges or misclassifying intuition as a proof.
+
+**Pilot pages:** [General Topology Foundations](./content/general-topology-foundations.md#first-intuition-geometry-without-a-coordinate-grid), [Equivalence Relations and Quotients](./content/equivalence-relations.md#first-intuition-dividing-a-set-into-groups), and [Compactness, Connectedness and Separation](./content/general-topology-compactness.md#first-intuition-nothing-gets-left-behind-by-an-open-cover). Evaluate whether the convention actually reduces misunderstandings before applying it broadly. Avoid repetitive boilerplate where a worked example already conveys the right intuition.
+
 ### C. Content-specific diagrams
 
 Diagrams must communicate mathematical relationships (e.g., the distinct axes of truth), not merely decorate pages. Preserve good existing figures. Review each figure for mathematical accuracy, readable labels, meaningful alternatives, and whether a separate small-screen version is necessary.
@@ -111,6 +126,7 @@ A page may be changed to `semanticReview:"complete"` only after:
 - The visual treatment is deliberately selective and does not turn every paragraph into a callout.
 - Formal theorem hypotheses and full derivations remain intact. No proof has been replaced by a summary.
 - No term is styled based on a guess about its mathematical role.
+- Where a **First intuition** passage is used, its valid scope and concrete failure point are stated, and the following definition remains fully rigorous. This is a **quality check**, not a requirement that every page include such a passage.
 - Links, references and inline/displayed math render.
 - Every diagram is correctly described, readable and mathematically aligned with its prose.
 

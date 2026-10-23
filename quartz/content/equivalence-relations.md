@@ -12,6 +12,20 @@ An equivalence relation lets us treat **different objects as the same for a stat
 
 ## From relations to equivalence
 
+### First intuition: dividing a set into groups
+
+The word **quotient** may suggest division, and that is useful. Imagine the set $A=\{1,2,3,4\}$. If our only concern is whether a number is odd or even, we can group its elements into
+
+$
+\{1,3\}\qquad\text{and}\qquad\{2,4\}.
+$
+
+Instead of treating each number as a separate answer, we can treat each **group as one new object**. The resulting [quotient set](#quotient-sets-classes-become-objects) will have **two elements**, namely those two groups.
+
+**What this gets right:** a quotient *divides the original collection into groups* by forgetting distinctions we have deliberately chosen not to track. The original numbers do not become equal; they belong to the same group for this purpose.
+
+**Where the picture breaks:** this is **not arithmetic division** like $12\div3=4$. Nor can groups overlap arbitrarily. An equivalence relation guarantees that every original element belongs to **exactly one** class: the groups form a *partition*. We will establish the rules and prove this rather than take the grouping picture on faith.
+
 A binary relation $R$ on a set $A$ is a subset of $A\times A$ (read "A cross A"). We write $aRb$ (read "a is R-related to b") when $(a,b)\in R$. In this chapter, the elements belong to the **same underlying set** $A$.
 
 > [!definition] Equivalence relation
@@ -119,7 +133,15 @@ This theorem gives two equivalent ways to describe the same structure: specify r
 
 ## Quotient sets: classes become objects
 
-The **quotient set** (read "A modulo equivalence") is
+Return to the odd/even intuition above: with $A=\{1,2,3,4\}$ and $a\sim b$ when $a,b$ have the same parity, the quotient is
+
+$
+A/{\sim}=\big\{\{1,3\},\{2,4\}\big\}.
+$
+
+It has **two elements**, each of which is itself a set. This is why a quotient is not just an ordinary division result or a relabeling of the four original numbers.
+
+In general, the **quotient set** (read "A modulo equivalence") is
 
 $$
 A/{\sim}=\{[a]:a\in A\}.

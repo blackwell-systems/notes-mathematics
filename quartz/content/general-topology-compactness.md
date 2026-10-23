@@ -18,6 +18,16 @@ These properties are independent enough that confusing them produces common fals
 
 ## Compactness: every open cover admits a finite subcover
 
+### First intuition: nothing gets left behind by an open cover
+
+Imagine covering every point of a space with open patches. You might use hundreds, infinitely many, or an oddly overlapping collection. Compactness suggests a strong kind of **finite control**: however those open patches are chosen, as long as they cover the whole space, **some finite selection of the original patches** still covers it.
+
+**What this gets right:** compactness converts an *arbitrary* open-covering problem into a finite one. A closed interval $[0,1]$ has this property, even though it has infinitely many points. The selected patches do not have to be the same for different covers.
+
+**Where the picture breaks:** compactness does **not** mean the space contains finitely many points, nor does it simply mean "not too big" or "bounded." The interval $(0,1)$ is bounded but **not compact**: some of its open covers inevitably leave points uncovered whenever only finitely many members are chosen. And topology needs no distance at all, so numerical boundedness cannot serve as the general definition.
+
+Now we can state the precise condition, including the crucial **for every cover / there exists a finite selection** order of quantifiers.
+
 > [!definition] Compact topological space
 > A space $X$ is **compact** if for every family of open sets $(U_i)_{i\in I}$ with $X=\bigcup_{i\in I}U_i$, there are finitely many indices $i_1,\ldots,i_n$ such that
 >
@@ -34,10 +44,10 @@ The cover may be **infinite**. A finite subcover may depend on that cover; the d
 *Figure: The closed interval is covered by five open intervals. U₁, U₂ and U₃ belong to the given cover and already suffice to cover the interval, including both endpoints.*
 ![A closed interval is shown with several overlapping ambient open intervals, then three selected overlapping open intervals extending beyond the endpoints and still covering the entire closed interval.](./media/tp-compact-finite-selection.svg)
 
-*Figure: The lower intervals have **identical endpoints to the upper U₁, U₂, U₃**. A subcover selects **the same original sets**, rather than adding new sets.
+*Figure: The lower intervals have **identical endpoints to the upper U₁, U₂, U₃**. A subcover selects **the same original sets**, rather than adding new sets.*
 
 > [!distinction] Do not confuse the picture with the definition
-> The claim is "**for every** open cover, **there exists** a finite subcover." An illustration displays only one cover, not a proof of that universal property. An infinite cover can also have a finite subcover; what matters is that every open cover does.*
+> The claim is "**for every** open cover, **there exists** a finite subcover." An illustration displays only one cover, not a proof of that universal property. An infinite cover can also have a finite subcover; what matters is that every open cover does.
 
 
 ### Worked example: every finite space is compact

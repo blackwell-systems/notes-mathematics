@@ -17,6 +17,16 @@ This makes continuity, connectedness and compactness available for function spac
 
 ## Open sets as the primitives
 
+### First intuition: geometry without a coordinate grid
+
+Imagine trying to describe a surface without first drawing an $x$–$y$ grid on it. You still want to talk about **small regions around points**, whether a function moves points continuously, and whether the space holds together. Perhaps we can keep the idea of neighborhoods while discarding coordinates, distances, and angles.
+
+**What this gets right:** topology does let us talk about neighborhoods and continuity without choosing a Euclidean grid or assigning numerical distances. On a sphere or torus, we can study the pattern of overlapping neighborhoods without treating any one coordinate system as fundamental.
+
+**Where the picture breaks:** a topology **does not put points onto a surface** or prescribe where they sit. We begin with a set $X$ that may consist of numbers, functions, or even three named objects. Then we **specify which subsets are open**; those choices determine the available open neighborhoods. They are not arbitrary in the sense of unrestricted: their collection must obey three rules.
+
+The formal definition says exactly which choices are permitted.
+
 > [!definition] Topological space
 > A **topology** $\tau$ on a set $X$ is a collection of subsets (called **open sets**) satisfying:
 > 1. $\varnothing,X\in\tau$;
