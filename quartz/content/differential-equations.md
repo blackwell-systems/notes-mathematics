@@ -489,7 +489,7 @@ For the linear system $\dot{\mathbf x}=A\mathbf x$, eigenvalues give the main st
 
 In particular, "all eigenvalues have nonpositive real part" **does not by itself imply stability**: the matrix $\begin{pmatrix}0&1\\0&0\end{pmatrix}$ has only zero eigenvalues, yet a solution starting at $(0,1)$ evolves as $(t,1)$ and becomes unbounded.
 
-> [!connection] A shared idea of progress, but different conclusions
+> [!bridge] A shared idea of progress, but different conclusions
 > In [Cross-Disciplinary Bridges](./cross-disciplinary-bridges#bridge-2-a-ranking-function-is-related-to-but-stronger-than-a-decreasing-potential), the finite transition $n\mapsto\max(n-1,0)$ and the flow $\dot x=-x$ both admit decreasing quantities. The first reaches zero after finitely many active steps; the second approaches zero **asymptotically**. Strict decrease alone is not enough to equate them.
 
 ### Phase Portraits
