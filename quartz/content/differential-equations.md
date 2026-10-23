@@ -477,14 +477,20 @@ The eigenvalues also fix the *geometry* of the flow. Set the entries of $A$ belo
 
 ![A stability diagram for the logistic equation dy/dt = y(1-y): the function f(y) crosses zero at the equilibria y=0 and y=1, and a phase line shows the flow pointing away from the unstable equilibrium at y=0 and toward the stable equilibrium at y=1, with solution curves converging to y=1](./media/de-stability.png)
 
-The eigenvalues of $A$ completely determine the long-term behavior:
+For the linear system $\dot{\mathbf x}=A\mathbf x$, eigenvalues give the main stability cases, but **Jordan blocks also matter** when an eigenvalue has real part zero:
 
-| Eigenvalue condition | Behavior | Name |
+| Eigenvalue and Jordan-block condition | Behavior | Name |
 |---------------------|----------|------|
-| All $\text{Re}(\lambda_i) < 0$ | All solutions decay to zero | **Asymptotically stable** |
-| Some $\text{Re}(\lambda_i) > 0$ | Some solutions grow without bound | **Unstable** |
-| All $\text{Re}(\lambda_i) \leq 0$, some $= 0$ | Solutions stay bounded but may not decay | **Marginally stable** |
-| $\text{Re}(\lambda_i) = 0$ (purely imaginary) | Solutions oscillate forever | **Center** |
+| Every $\operatorname{Re}(\lambda_i)<0$ | Every solution approaches the origin | **Asymptotically stable** |
+| Some $\operatorname{Re}(\lambda_i)>0$ | Some solutions grow without bound | **Unstable** |
+| Every $\operatorname{Re}(\lambda_i)\leq0$ and every eigenvalue on the imaginary axis is **semisimple** (no nontrivial Jordan block) | Solutions stay bounded; they need not approach zero | **Lyapunov stable, not necessarily asymptotically stable** |
+| Some eigenvalue on the imaginary axis has a **nontrivial Jordan block** | Certain solutions grow polynomially in time | **Unstable** |
+| In a real $2\times2$ system, eigenvalues are $\pm i\omega$ with $\omega\ne0$ | Nonzero trajectories are closed ellipses around the origin | **Center** |
+
+In particular, "all eigenvalues have nonpositive real part" **does not by itself imply stability**: the matrix $\begin{pmatrix}0&1\\0&0\end{pmatrix}$ has only zero eigenvalues, yet a solution starting at $(0,1)$ evolves as $(t,1)$ and becomes unbounded.
+
+> [!connection] A shared idea of progress, but different conclusions
+> In [Cross-Disciplinary Bridges](./cross-disciplinary-bridges#bridge-2-a-ranking-function-is-related-to-but-stronger-than-a-decreasing-potential), the finite transition $n\mapsto\max(n-1,0)$ and the flow $\dot x=-x$ both admit decreasing quantities. The first reaches zero after finitely many active steps; the second approaches zero **asymptotically**. Strict decrease alone is not enough to equate them.
 
 ### Phase Portraits
 
