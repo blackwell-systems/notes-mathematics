@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **87 topics** across 18 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **88 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -172,6 +172,14 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 - [Graph Theory](./graph-theory) (paths, trees, traversals, shortest paths, spanning trees)
 - [Advanced Graph Theory](./advanced-graph-theory) (DAGs, topological sorts, matching, Hall's theorem, max-flow/min-cut)
 - [Asymptotic Notation](./asymptotic-notation) (Big-O, Big-Theta, Big-Omega, growth rates)
+
+## Mathematical Physics
+
+Mathematical physics puts abstract tools to work by asking what mathematical structure a physical state needs and what its operations can predict.
+
+- **[Mathematical Foundations of Quantum Mechanics](./mathematical-foundations-of-quantum-mechanics)** (complex states, measurement, interference, unitary evolution, entanglement, and an introductory bridge to gradient descent and quantum state geometry)
+
+**Suggested prerequisites:** [Complex Numbers](./complex-numbers), [Linear Algebra Foundations](./linear-algebra-foundations), [Probability](./probability), and [Calculus](./calculus). The chapter starts with a single qubit and carefully distinguishes ordinary statistical training from quantum-state optimization.
 
 ## Advanced Mathematics
 
