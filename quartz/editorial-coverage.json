@@ -204,6 +204,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "cross-disciplinary-bridges.md",
+      "kind": "learning-path",
+      "track": "navigation",
+      "semanticReview": "pilot",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "descriptive-statistics.md",
       "kind": "topic",
       "track": "statistics",
