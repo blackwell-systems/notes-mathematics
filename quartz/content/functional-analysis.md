@@ -96,6 +96,9 @@ with equality **only** when $a=3$. Thus $(3,0)$ is the unique closest point of $
 
 This becomes the **projection theorem** in a Hilbert space: every nonempty **closed convex** subset has a unique nearest point. For a closed linear subspace, the error is orthogonal to that subspace. Closedness matters: the open interval $(0,1)$ has no closest point to $2$ even though the infimum distance is $1$.
 
+> [!bridge] Conditional expectation is a projection in function space
+> In the Hilbert space $L^2$ of square-integrable random variables, the closed subspace of predictions measurable from available information $\mathcal G$ plays the role of the horizontal axis. Projecting $Y$ onto this subspace gives $\mathbb E[Y\mid\mathcal G]$. The residual is orthogonal to every permitted prediction. See the [worked mean-to-conditional-expectation bridge](./cross-disciplinary-bridges#bridge-6-conditional-expectation-is-orthogonal-projection) and [the general $L^2$ statement](./measure-theory#conditional-expectation-is-an-orthogonal-projection).
+
 ## Bounded linear operators
 
 A linear function $T:X\to Y$ between normed spaces is **bounded** if some $M\geq0$ satisfies $\|Tx\|_Y\leq M\|x\|_X$ for every $x$. Its operator norm is
