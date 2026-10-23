@@ -66,6 +66,25 @@ Keep these passages **short, local, and mathematically testable**. Do not equate
 
 **Pilot pages:** [General Topology Foundations](./content/general-topology-foundations.md#first-intuition-geometry-without-a-coordinate-grid), [Equivalence Relations and Quotients](./content/equivalence-relations.md#first-intuition-dividing-a-set-into-groups), and [Compactness, Connectedness and Separation](./content/general-topology-compactness.md#first-intuition-nothing-gets-left-behind-by-an-open-cover). Evaluate whether the convention actually reduces misunderstandings before applying it broadly. Avoid repetitive boilerplate where a worked example already conveys the right intuition.
 
+### Cross-subject seeding: make the transfer testable
+
+The [Cross-Disciplinary Bridges](./content/cross-disciplinary-bridges.md) guide provides worked translations for recurring ideas. The source chapters should remain **self-contained**: the bridge is an optional payoff, not another mandatory prerequisite.
+
+Use an authored \`> [!bridge]\` callout only where a relationship materially changes what a reader can *understand, prove, or compute*. The editorial CSS labels it **CROSS-SUBJECT BRIDGE** without implying that the referred-to result has undergone independent proof certification.
+
+A good bridge explains four things in a short passage:
+
+1. **Seed:** which object or theorem did the reader just learn?
+2. **Mechanism:** what exact map, equivalence, invariant, or identity carries that idea over?
+3. **Payoff:** what new calculation or proof becomes available in the destination subject?
+4. **Boundary:** which additional hypotheses matter, or what familiar-sounding implication is false?
+
+**Use honest labels:** *exactly equivalent* requires a demonstrated equivalence; *special case* requires inclusion and appropriate hypotheses; *analogy* is not a theorem. Distinguish a directed dependency cycle from a periodic orbit, a ranking into naturals from a decreasing real potential, and a set quotient from an algebraic or topological quotient.
+
+**Navigation rule:** where feasible, link **both directions**—a short seed where the concept is first taught and an exact worked transfer in the receiving chapter or bridge guide. Do not manufacture a dependency between subjects merely because a bridge exists. Prefer one well-motivated connection at the concept's first useful appearance over repeating the same boilerplate throughout a page.
+
+**Editorial audit:** on a chapter revision, check whether an important concept is seeded elsewhere, whether an existing bridge link still targets its worked proof, and whether the mechanism and limitations are explicitly justified. Site link validation catches invalid targets; it does **not** certify the mathematical comparison.
+
 ### C. Content-specific diagrams
 
 Diagrams must communicate mathematical relationships (e.g., the distinct axes of truth), not merely decorate pages. Preserve good existing figures. Review each figure for mathematical accuracy, readable labels, meaningful alternatives, and whether a separate small-screen version is necessary.
