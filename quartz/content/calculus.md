@@ -11,6 +11,35 @@ enables: ["multivariable-calculus", "sequences-and-series", "real-analysis"]
 
 Calculus is the mathematics of change. Where algebra studies fixed relationships (what is $y$ when $x = 3$?), calculus asks: how fast is $y$ changing as $x$ changes? And if we know how fast something is changing, can we figure out how much total change has accumulated? These two questions give rise to the two halves of calculus: **derivatives** (rates of change) and **integrals** (accumulated totals). Both are built on a single foundational idea: the **limit**.
 
+
+## The organizing idea: local change, global accumulation
+
+The most useful intuition for calculus is not a table of differentiation rules. It is **two ways of asking what happens to a changing quantity**:
+
+- **Derivative:** Zoom in until a smooth curve looks almost straight. What linear rate best describes a tiny change in input?
+- **Integral:** Break an interval into tiny pieces. How much change accumulates when the pieces are added?
+
+The two questions connect through the **Fundamental Theorem of Calculus**, under appropriate continuity or integrability hypotheses:
+
+$$
+F(x)=\int_a^x f(t)\,dt
+\quad\Longrightarrow\quad
+F'(x)=f(x)
+$$
+
+when $f$ is continuous near $x$; and if $G'=f$ on an interval, then
+
+$$
+\int_a^b f(x)\,dx=G(b)-G(a).
+$$
+
+**What must not be conflated:** A derivative is a **local** approximation. An integral collects information over a **region**. Neither theorem gives permission to differentiate every function, integrate every expression, or interchange limits without checking assumptions.
+
+> [!example] The same quantity has two descriptions
+> Suppose a tank receives water at rate $q(t)=2t$ liters per minute for $t\geq0$. Between minute $0$ and minute $3$, the added volume is $\int_0^3 2t\,dt=9$ liters. The cumulative volume is $V(t)=t^2$, and its instantaneous rate is $V'(t)=2t$. Differentiation recovers the rate; integration recovers the accumulated change.
+
+After this chapter, [Multivariable Calculus](./multivariable-calculus) extends the local linear approximation to several variables, [Multivariable Integration](./multivariable-integration) measures multidimensional accumulation, and [Vector Calculus](./vector-calculus) connects changes throughout a region to quantities measured at its boundary.
+
 ## Limits
 
 > [!definition] Limit
@@ -1693,7 +1722,7 @@ $$
 
 The **finite** approximation is meaningful without assuming the **infinite** Taylor series recovers the function. See [Real Analysis: Taylor's Theorem](./real-analysis#taylors-theorem-with-remainder) for the precise conditions.
 
-**Taylor polynomials as approximations:** In practice, we truncate the series at degree $n$ to get the $n$th-degree Taylor polynomial $T_n(x)$. The linear approximation $f(x) \approx f(a) + f'(a)(x-a)$ is the degree-1 Taylor polynomial. Higher degrees give more accuracy over a wider range.
+**Taylor polynomials as approximations:** In practice, we truncate the series at degree $n$ to get the $n$th-degree Taylor polynomial $T_n(x)$. The linear approximation $f(x) \approx f(a) + f'(a)(x-a)$ is the degree-1 Taylor polynomial. Higher degrees can improve the approximation near the center, but **not always monotonically or on a wider interval**. Accuracy depends on the function, the interval and the remainder term.
 
 Notice the pattern: the first-degree Taylor polynomial is the tangent line. The second-degree polynomial adds a parabolic correction for curvature. Each additional term refines the approximation further.
 
