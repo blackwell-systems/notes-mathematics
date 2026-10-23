@@ -240,6 +240,62 @@ $
 The reverse direction uses the Hausdorff property and a very specific increasing open cover. The proof is about **Euclidean space**, not every space with a notion of distance.
 
 
+## Metric compactness and convergent subsequences
+
+Open-cover compactness makes sense in any topological space. In **metric spaces**, we can characterize the same property by what happens to *every sequence*.
+
+> [!definition] Sequential compactness
+> A space is **sequentially compact** if every sequence $(x_n)$ has a subsequence $(x_{n_k})$ converging to a limit **inside the space**.
+
+> [!theorem] Compactness and sequential compactness agree in metric spaces
+> A metric space $(X,d)$ is compact if and only if every sequence in $X$ has a subsequence converging in $X$.
+
+> [!proof] Compact $\Rightarrow$ sequentially compact
+> Given a sequence $(x_n)$, for each $N\geq1$ let $F_N$ be the **closure in $X$** of its tail $\{x_n:n\geq N\}$. These sets are nonempty, closed, and nested: $F_{N+1}\subseteq F_N$. Every finite intersection is therefore nonempty.
+>
+> By the [finite intersection property](#a-useful-compactness-reformulation), some $x\in X$ belongs to **every** $F_N$. For each positive integer $k$, the open ball $B(x,1/k)$ therefore meets every sufficiently late tail. We can choose indices $n_1<n_2<\cdots$ with $d(x_{n_k},x)<1/k$. Hence $x_{n_k}\to x$.
+
+> [!proof] Sequentially compact $\Rightarrow$ compact
+> The empty space is immediate, so assume $X$ nonempty. We establish two claims.
+>
+> **1. Every fixed radius admits a finite ball cover.** Given $\varepsilon>0$, suppose no finite family of $\varepsilon$-balls covers $X$. Choose $x_1$, then $x_2$ outside $B(x_1,\varepsilon)$, then $x_3$ outside the balls around both earlier choices, and continue. The resulting points satisfy $d(x_i,x_j)\geq\varepsilon$ whenever $i\ne j$. No subsequence can be Cauchy, hence none converges. Contradiction. This property is called **total boundedness**.
+>
+> **2. Every open cover admits one sufficiently small ball radius.** Let $\mathcal U$ be an arbitrary open cover of $X$. If no $\delta>0$ worked, then for every $n$ we could choose $x_n\in X$ whose ball $B(x_n,1/n)$ fits inside **no** member of $\mathcal U$.
+>
+> Sequential compactness gives a subsequence $x_{n_k}\to x$. Choose $U\in\mathcal U$ containing $x$ and then $r>0$ so $B(x,2r)\subseteq U$. For sufficiently large $k$, both $d(x_{n_k},x)<r$ and $1/n_k<r$. By the triangle inequality,
+> $
+> B(x_{n_k},1/n_k)\subseteq B(x,2r)\subseteq U,
+> $
+> contradicting our choice. Therefore some $\delta>0$ has the property that **every** ball $B(x,\delta)$ is contained in a member of the cover. This is the **Lebesgue-number property** for metric open covers.
+>
+> Now use Claim 1 to cover $X$ by finitely many balls $B(c_1,\delta/2),\ldots,B(c_m,\delta/2)$. Claim 2 lets us select, for each $c_j$, an original cover-member $U_j\in\mathcal U$ containing $B(c_j,\delta)$. These finitely many $U_j$ cover $X$. Because $\mathcal U$ was arbitrary, $X$ is compact. $\square$
+
+> [!distinction] Metric assumption required
+> Sequences need not characterize compactness in **arbitrary nonmetric topological spaces**. Nets and filters provide convergence notions suited to general topology. Conversely, in Euclidean spaces and all metric spaces, the two definitions are equivalent by the theorem just proved.
+
+### Why the infinite-dimensional unit ball is not compact
+
+> [!counterexample] Closed and bounded is not sufficient in $\ell^2$
+> In the Hilbert space $\ell^2$ from [Functional Analysis](./functional-analysis), take its closed unit ball
+> $
+> B=\{x\in\ell^2:\|x\|_2\leq1\}.
+> $
+> This is closed and bounded, but it contains the standard unit vectors $e_1,e_2,\ldots$. For every $m\ne n$,
+> $
+> \|e_m-e_n\|_2=\sqrt2.
+> $
+> No subsequence of $(e_n)$ can be Cauchy, so no subsequence converges in norm. By the metric theorem above, $B$ is **not compact**. This pinpoints why the "closed and bounded" test is specific to finite-dimensional Euclidean spaces.
+
+### A payoff: continuous functions attain maxima and minima
+
+> [!theorem] Extreme-value theorem from compactness
+> A continuous function $f:X\to\mathbb R$ on a **nonempty compact** space $X$ attains a maximum and a minimum.
+
+> [!proof] A compact image in the real line contains its bounds
+> Continuity makes $f(X)$ compact, and it is nonempty. Heine–Borel makes $f(X)$ **closed and bounded** in $\mathbb R$. Its supremum $M$ and infimum $m$ exist and belong to $f(X)$ because $f(X)$ is closed. Thus some $x_M,x_m\in X$ satisfy $f(x_M)=M$ and $f(x_m)=m$.
+
+This explains an important role of compactness in optimization: on nonempty compact feasible sets, a continuous objective has **actual optimizers**, not merely an infimum or supremum that might be approached but never attained.
+
 ## A useful compactness reformulation
 
 > [!theorem] Finite intersection property
