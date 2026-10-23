@@ -124,7 +124,7 @@ Terminal objects and products are limits of empty and discrete-shaped diagrams. 
 
 Products of topological spaces are not given an arbitrary topology: the **product topology** makes coordinate projections continuous and is characterized by the same universal mapping property as a product in Top. Likewise quotient topologies formalize what it means for a function that identifies points to induce continuous maps from the quotient.
 
-We prove those details in [Subspaces, Products and Quotients](./general-topology-constructions).
+We prove those details in [Subspaces, Products and Quotients](./general-topology-constructions). The atlas also [proves quotient factorization](./atlas-of-mathematical-spaces#quotient-spaces-are-determined-by-the-maps-they-permit), realizes quotients as **coequalizers** in $\mathbf{Top}$, and explains the [discrete/indiscrete adjunctions](./atlas-of-mathematical-spaces#topology-has-two-canonical-extremes-an-adjunction-on-each-side).
 
 ## Dependency audit
 

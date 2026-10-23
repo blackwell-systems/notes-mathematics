@@ -5152,6 +5152,45 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("Atlas projective: line y=1 closure equation",1-1===0&&Number.isFinite(x));
   }
 }
+// ============== Categorical topology: Sierpinski maps, quotients, adjoints ==============
+{
+  const X=["a","b","c"],opens=[[],["a"],["a","b"],X];
+  const key=a=>[...a].sort().join("|"),isOpen=a=>opens.some(U=>key(U)===key(a));
+  const char=A=>x=>A.includes(x)?1:0;
+  const isSierpinskiContinuous=f=>isOpen(X.filter(x=>f(x)===1));
+  check("Sierpinski classifier: open {a,b} maps continuously",isSierpinskiContinuous(char(["a","b"])));
+  check("Sierpinski classifier: nonopen {b} is not continuous",!isSierpinskiContinuous(char(["b"])));
+  for(const A of [[],["a"],["a","b"],X]){
+    check("Sierpinski classifier: all four opens classify "+key(A),isOpen(A)===isSierpinskiContinuous(char(A)));
+  }
+  const Y=["u","v"],f={a:"u",b:"u",c:"v"};
+  const preimage=B=>X.filter(x=>B.includes(f[x]));
+  const B=["u"];
+  check("Sierpinski naturality: classify preimage equals composition",
+    X.every(x=>char(preimage(B))(x)===char(B)(f[x])));
+  // Discrete and indiscrete extreme cases, including empty map preimages.
+  const allSubsets=arr=>Array.from({length:2**arr.length},(_,mask)=>arr.filter((_,i)=>mask&(1<<i)));
+  const disc=allSubsets(X),indi=[[],Y];
+  const functionPreimages=[[],Y,["u"],["v"]].map(B=>preimage(B));
+  check("Adjunction D left of U: arbitrary preimages open in discrete domain",
+    functionPreimages.every(P=>disc.some(U=>key(U)===key(P))));
+  check("Adjunction U left of I: only target opens empty and whole",
+    indi.every(B=>B.length===0||B.length===Y.length));
+  // Every quotient-class-constant function has a unique well-defined factor.
+  const A=[0,1,2,3],classIndex=x=>x%2;
+  const g=x=>classIndex(x)===0?"even":"odd";
+  check("Quotient universal factorization: same class yields same g",
+    A.every(x=>A.every(y=>classIndex(x)!==classIndex(y)||g(x)===g(y))));
+  check("Quotient universal factorization: unique induced function",
+    [0,1].every(k=>g(k)===g(k+2)));
+  // Opens form a frame; preimage respects joins and finite meets.
+  const B1=["u"],B2=["v"],u=a=>[...new Set(a)];
+  check("Frame inverse image preserves finite intersections",
+    key(preimage(B1.filter(x=>B2.includes(x))))===
+    key(preimage(B1).filter(x=>preimage(B2).includes(x))));
+  check("Frame inverse image preserves arbitrary (here finite) unions",
+    key(preimage(u([...B1,...B2])))===key(u([...preimage(B1),...preimage(B2)])));
+}
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

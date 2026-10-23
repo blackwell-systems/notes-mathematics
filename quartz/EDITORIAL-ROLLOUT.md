@@ -174,3 +174,8 @@ Atlas remains one of six optional learning maps, not a default entry point. Ten 
 ## Atlas space-family structural audit (2026-10-23)
 
 The atlas now includes **affine, projective and uniform spaces**, an explicit three-question taxonomy, and a formal coverage/deferred-topic table. Diagram audit: **92 original SVG figures across 31 pages**, 13 in the atlas. The site still has 89 Markdown pages. SVG metadata and executable examples are checked automatically; device screenshots and independent proof acceptance remain pending.
+
+
+## Categorical topology bridge (2026-10-23)
+
+The spaces atlas now includes the Sierpiński classifier proof, topology's two adjoints to the underlying-set functor, topological quotient coequalizers, and a point-free frame/locale introduction. Atlas SVG figure count is **14**, and the site-wide source-editable mathematics SVG audit is **93 across 31 pages**. New figure structure and executable finite cases are covered by the existing gates. Independent device visual reviews and full proof certification remain pending.

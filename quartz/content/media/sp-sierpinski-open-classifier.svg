@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 620" role="img" aria-labelledby="title desc">
+<title id="title">Sierpiński space detects open sets through continuity</title>
+<desc id="desc">A topological space X with open sets empty, a, a-b, and X has three points a, b, c. In the left panel a and b are mapped to one and c to zero; the preimage of the open singleton one is the open set a-b and the characteristic map is continuous. In the right panel only b maps to one, so the preimage b is not open and the characteristic map is not continuous. Sierpiński space has exactly the opens empty, singleton one, and all of S.</desc>
+<rect width="1320" height="620" rx="20" fill="#0C1E30"/>
+<text x="45" y="55" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#F2F7FC">One two-point target reveals the open sets of X</text>
+<path d="M45 81 H1274" stroke="#496779" stroke-width="2"/>
+<rect x="42" y="110" width="598" height="405" rx="18" fill="#112739" stroke="#72D4C0" stroke-width="2"/>
+<rect x="680" y="110" width="598" height="405" rx="18" fill="#112739" stroke="#F1A5A7" stroke-width="2"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="75" y="153" font-size="25" fill="#72D4C0" font-weight="700">CONTINUOUS</text>
+<text x="714" y="153" font-size="25" fill="#F1A5A7" font-weight="700">NOT CONTINUOUS</text>
+<text x="74" y="188" font-size="18" fill="#C0D0DF">U = {a, b} is open in X</text>
+<text x="714" y="188" font-size="18" fill="#C0D0DF">U = {b} is not open in X</text>
+<text x="160" y="252" font-size="19" fill="#F2F7FC" font-weight="700">X</text>
+<text x="500" y="252" font-size="19" fill="#F2F7FC" font-weight="700">S</text>
+<text x="796" y="252" font-size="19" fill="#F2F7FC" font-weight="700">X</text>
+<text x="1136" y="252" font-size="19" fill="#F2F7FC" font-weight="700">S</text>
+</g>
+<ellipse cx="168" cy="330" rx="88" ry="66" fill="#72D4C0" fill-opacity=".16" stroke="#72D4C0" stroke-width="2"/>
+<circle cx="142" cy="308" r="14" fill="#72D4C0"/><circle cx="198" cy="342" r="14" fill="#72D4C0"/><circle cx="149" cy="439" r="14" fill="#F1A5A7"/>
+<circle cx="510" cy="309" r="19" fill="#72D4C0"/><circle cx="510" cy="437" r="19" fill="#F1A5A7"/>
+<ellipse cx="802" cy="343" rx="38" ry="36" fill="#F1A5A7" fill-opacity=".12" stroke="#F1A5A7" stroke-width="2"/>
+<circle cx="772" cy="309" r="14" fill="#C0D0DF"/><circle cx="802" cy="343" r="14" fill="#F1A5A7"/><circle cx="780" cy="438" r="14" fill="#C0D0DF"/>
+<circle cx="1146" cy="309" r="19" fill="#72D4C0"/><circle cx="1146" cy="437" r="19" fill="#F1A5A7"/>
+<g font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#F2F7FC" text-anchor="middle">
+<text x="142" y="314">a</text><text x="198" y="349">b</text><text x="149" y="446">c</text>
+<text x="510" y="316" fill="#0C1E30">1</text><text x="510" y="444" fill="#0C1E30">0</text>
+<text x="772" y="316" fill="#0C1E30">a</text><text x="802" y="349" fill="#0C1E30">b</text><text x="780" y="445" fill="#0C1E30">c</text>
+<text x="1146" y="316" fill="#0C1E30">1</text><text x="1146" y="444" fill="#0C1E30">0</text>
+</g>
+<g fill="none" stroke-width="2.5" stroke-linecap="round">
+<path d="M223 304 C319 260 385 289 488 309" stroke="#72D4C0"/>
+<path d="M223 343 C300 376 382 332 488 314" stroke="#72D4C0"/>
+<path d="M173 440 C299 481 400 449 488 438" stroke="#F1A5A7"/>
+<path d="M793 307 C908 403 1027 446 1123 438" stroke="#9BAFBE"/>
+<path d="M826 344 C952 264 1031 300 1123 309" stroke="#F1A5A7"/>
+<path d="M802 440 C918 470 1020 447 1123 438" stroke="#9BAFBE"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" text-anchor="middle">
+<text x="341" y="479" font-size="18" fill="#72D4C0">χ_U maps U to 1</text>
+<text x="967" y="479" font-size="18" fill="#F1A5A7">χ_U maps {b} to 1</text>
+<text x="660" y="568" font-size="21" fill="#F2F7FC" font-weight="700">χ_U is continuous  ⇔  U is open</text>
+<text x="660" y="596" font-size="17" fill="#C0D0DF">The target topology is {∅, {1}, {0,1}} in both panels.</text>
+</g>
+</svg>

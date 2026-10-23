@@ -41,6 +41,24 @@ The identities $(g\circ f)^{-1}=f^{-1}\circ g^{-1}$ and $1_A^{-1}=1_{\mathcal P(
 > [!distinction] Direct image and inverse image behave differently
 > Direct image $f[S]$ transports subsets **forward**; inverse image $f^{-1}[T]$ transports them **backward**. The latter is always compatible with finite intersections and complements, a property topology exploits in defining continuity.
 
+### A topological example: inverse images of opens as a functor
+
+For a topological space $X$, let $\mathcal O(X)$ be its set of open subsets. A continuous $f:X\to Y$ induces
+
+$
+\mathcal O(f):\mathcal O(Y)\to\mathcal O(X),\qquad V\mapsto f^{-1}(V).
+$
+
+Composition gives $\mathcal O(g\circ f)=\mathcal O(f)\circ\mathcal O(g)$ and the identity map induces the identity on open sets. Thus $\mathcal O:\mathbf{Top}^{op}\to\mathbf{Set}$ is a **contravariant functor**.
+
+There is an unexpectedly concrete representation of this functor: if $S=\{0,1\}$ has the [Sierpiński topology](./atlas-of-mathematical-spaces#a-remarkable-two-point-space-open-sets-are-continuous-maps), then
+
+$
+\mathcal O(X)\cong\operatorname{Hom}_{\mathbf{Top}}(X,S)
+$
+
+*naturally in $X$*. The complete proof and a finite counterexample are in the [mathematical spaces atlas](./atlas-of-mathematical-spaces#a-remarkable-two-point-space-open-sets-are-continuous-maps). This prepares the representable-functor viewpoint that follows.
+
 ## Natural transformations: a compatible family of maps
 
 > [!definition] Natural transformation
