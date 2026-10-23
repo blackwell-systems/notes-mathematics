@@ -31,7 +31,35 @@ $
 
 for any polynomials $p,q$ and real scalars $a,b$. Thus differentiation can be studied using linear algebra even though its inputs are functions, not points or arrows. A matrix appears only when we choose bases to represent that map.
 
-The central operation is a **linear combination** $au+bv$. A **linear transformation** $T:V\to W$ preserves every such combination:
+### What the letters mean: whole vectors versus components
+
+> [!distinction] In $au+bv$, $u$ and $v$ are **whole vectors**, not two components of one vector.
+> - $V$ is the **vector space**, the collection in which the vectors live.
+> - $u,v\in V$ are **two vectors** (each may have many coordinates, or may be a polynomial or function).
+> - $a,b$ are **scalars**, numbers used to scale those vectors.
+> - $au+bv$ is a **new vector**, obtained by scaling each vector and adding the results.
+
+In the particular space $\mathbb R^2$, we can write the two vectors as
+
+$
+u=(u_1,u_2),\qquad v=(v_1,v_2).
+$
+
+Here **$u_1,u_2$ are the components of $u$**, and **$v_1,v_2$ are the components of $v$**. The letters $u$ and $v$ themselves name entire vectors. Addition and scaling happen component by component:
+
+$
+au+bv=(au_1+bv_1,\;au_2+bv_2).
+$
+
+For example, $u=(2,1)$, $v=(0,3)$, $a=2$, and $b=3$ give
+
+$
+2u+3v=2(2,1)+3(0,3)=(4,11).
+$
+
+In a different notation, $T(x,y)=(x+y,0)$, **$x$ and $y$ *are* the two components of a single input vector $(x,y)$**. That is a different use of letters from $T(au+bv)$, where $u$ and $v$ are whole input vectors. The [Linear Combinations](#linear-combinations) section develops this operation further.
+
+The central operation is thus a **linear combination** $au+bv$. A **linear transformation** $T:V\to W$ preserves every such combination:
 
 $$
 T(au+bv)=aT(u)+bT(v).
@@ -302,7 +330,7 @@ This view connects linear algebra to functions, transformations, and ultimately 
 > A **linear combination** of vectors $v_1,\ldots,v_k$ is $\sum_{i=1}^k c_i v_i$ with scalar coefficients $c_i$. The **span** is the set of all these combinations.
 
 
-**In words:** choose some vectors, stretch or reverse them by scalar amounts, then add. Algebraically:
+**In words:** choose some **whole vectors** ($v_1,v_2,\ldots$), stretch or reverse them by scalar coefficients ($c_1,c_2,\ldots$), then add. The subscript in $v_1$ means "first vector in our list," **not** "first component of a vector"; a component would be something like $(v_1)_j$. Algebraically:
 
 $$
 c_1 v_1 + c_2 v_2 + \cdots + c_n v_n
