@@ -9,7 +9,7 @@ enables: ["functions-relations", "peano-arithmetic", "measure-theory"]
 > **Leads to:** [Functions & Relations](./functions-relations) · [Peano Arithmetic](./peano-arithmetic) · [Measure Theory](./measure-theory)
 
 
-For a conceptual diagram of the different mathematical structures that can be placed **on the same set**, see the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces).
+**Want the bigger picture?** The optional [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) shows how the same underlying set can support different structures. You do **not** need to read the atlas to follow the definitions below.
 
 Sets are the most fundamental building block in all of mathematics: a **set** is simply a collection of distinct objects. We need formal set theory because mathematics requires a precise language for talking about collections, membership, and relationships between groups of objects. Nearly everything else in math, including numbers, functions, sequences, and probability, is built on the concept of a set. Understanding sets first makes every other topic easier to reason about.
 
