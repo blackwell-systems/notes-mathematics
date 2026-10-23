@@ -160,10 +160,85 @@ Let $f:[a,b]\to\mathbb R$ be continuous. The interval is connected, so its image
 
 For the infinite **indiscrete** example, every open cover contains the whole space as a member, hence compactness; the only opens are $\varnothing$ and $X$, hence connectedness. Failure of Hausdorffness is immediate.
 
-> [!theorem] Heine–Borel (specialized statement)
-> In Euclidean $\mathbb R^n$, a set is compact exactly when it is **closed and bounded**.
+> [!theorem] Heine–Borel theorem
+> For $K\subseteq\mathbb R^n$ with $n\geq1$, **open-cover compactness** is equivalent to being **closed and bounded** in the Euclidean metric.
 
-This is a special fact about finite-dimensional Euclidean spaces, not the definition of compactness. We use it to establish compactness of $[0,1]$ and finite-dimensional closed bounded examples. The full proof in $\mathbb R^n$ proceeds through coordinatewise boundedness, a convergent-subsequence theorem, and equivalence of open-cover and sequential compactness for metric spaces; it is developed more deeply in [Real Analysis](./real-analysis).
+This is **not the definition of compactness** and does **not** hold in arbitrary metric spaces. We can derive it from completeness of the real numbers and the elementary topology already developed.
+
+### Step 1: closed real intervals are compact
+
+> [!theorem] The finite-subcover property of a closed interval
+> Every open cover of $[a,b]\subseteq\mathbb R$, with $a\leq b$, admits a finite subcover.
+
+> [!proof] The supremum of finitely coverable endpoints
+> Let $\mathcal U$ be **any** open cover of $[a,b]$. If the sets are only relatively open in $[a,b]$, represent each as the intersection with an ambient real open set; this changes none of the covering choices.
+>
+> Define
+> $
+> S=\{t\in[a,b]:[a,t]\text{ can be covered by finitely many members of }\mathcal U\}.
+> $
+> **Start:** $a\in S$, because at least one set of the cover contains $a$, and that one set covers $[a,a]$. So $S$ is nonempty and bounded above by $b$.
+>
+> **Boundary:** by the least-upper-bound property of $\mathbb R$, $s=\sup S$ exists in $[a,b]$. Some member $U$ of the cover contains $s$. By relative openness, for some $\varepsilon>0$,
+> $
+> (s-\varepsilon,s+\varepsilon)\cap[a,b]\subseteq U.
+> $
+> Because $s=\sup S$, choose $t\in S$ with $t>s-\varepsilon/2$ (when $s=a$, take $t=a$). Finitely many sets from $\mathcal U$ already cover $[a,t]$. Add **one** further member, $U$. Together they cover
+> $
+> [a,\min(b,s+\varepsilon/2)].
+> $
+> There is no gap: $t>s-\varepsilon/2>s-\varepsilon$, and $U$ covers every interval point between $t$ and $\min(b,s+\varepsilon/2)$.
+>
+> **Finish:** if $s<b$, the new right endpoint exceeds $s$, producing a member of $S$ larger than its supremum. Thus $s=b$. The same construction at $s=b$ covers all of $[a,b]$ by finitely many original sets. $\square$
+
+The proof does not select from a fixed *example* cover. It works for an **arbitrary** cover and uses real-number completeness to rule out an inaccessible last point.
+
+### Step 2: finite products of compact spaces are compact
+
+> [!theorem] Two-factor product compactness
+> If $X$ and $Y$ are compact, then $X\times Y$ with the **product topology** is compact.
+
+> [!proof] Cover vertical slices and then cover their horizontal neighborhoods
+> Empty factors are trivial. Let $\mathcal U$ be an arbitrary open cover of $X\times Y$. For each $(x,y)$ choose a covering member $U_{x,y}\in\mathcal U$. Since **open rectangles form a basis** in the product topology, choose open neighborhoods $A_{x,y}\ni x$ and $B_{x,y}\ni y$ satisfying
+> $
+> A_{x,y}\times B_{x,y}\subseteq U_{x,y}.
+> $
+> Fix $x\in X$. The sets $B_{x,y}$ cover $Y$. Compactness of $Y$ gives finitely many $y_1,\ldots,y_m$ whose $B_{x,y_j}$ cover all of $Y$. The intersection
+> $
+> A_x=\bigcap_{j=1}^{m}A_{x,y_j}
+> $
+> is **open** and contains $x$. Moreover, the whole strip $A_x\times Y$ is covered by the **finite** collection $(U_{x,y_j})$: every second coordinate lies in at least one selected $B_{x,y_j}$.
+>
+> Now the open sets $A_x$ cover $X$. Compactness of $X$ gives finitely many of them, say $A_{x_1},\ldots,A_{x_k}$. For each selected $x_i$ we already obtained finitely many original $U$-sets covering $A_{x_i}\times Y$. Combining these finite selections covers $X\times Y$. $\square$
+
+Inductively, finite products of compact spaces are compact. Hence every Euclidean cube $[-M,M]^n$ is compact, because each factor is a compact interval.
+
+> [!distinction] Finite products are not the whole story
+> This argument proves **finite** product compactness. The compactness of arbitrary products in the product topology is **Tychonoff's theorem**, a deeper result with set-theoretic choice principles. We have not proved that theorem here.
+
+### Step 3: closed and bounded implies compact
+
+> [!proof] Put the set inside a compact cube
+> If $K\subseteq\mathbb R^n$ is bounded, it lies in a cube $[-M,M]^n$ for some $M>0$. Step 2 proves this cube is compact. If $K$ is also closed in $\mathbb R^n$, then $K$ is **closed within that compact cube**. By the [closed-subspace compactness theorem](#closed-subspace-inheritance) proved earlier, $K$ is compact.
+
+### Step 4: compact implies closed and bounded
+
+> [!proof] Use Hausdorffness and an explicit open cover
+> Euclidean space is Hausdorff, so the [compact-subsets-are-closed theorem](#hausdorff-separation) proved earlier makes $K$ closed.
+>
+> The open balls $B(0,1),B(0,2),B(0,3),\ldots$ cover $\mathbb R^n$. By compactness, finitely many already cover $K$. Taking the ball with the **largest radius** among this finite choice shows $K\subseteq B(0,N)$ for some integer $N$. Hence $K$ is bounded. The empty set also satisfies both conclusions.
+
+We have now proved **both directions** of Heine–Borel. In outline,
+
+$
+\text{real completeness}
+\Longrightarrow [a,b]\text{ compact}
+\Longrightarrow [-M,M]^n\text{ compact}
+\Longrightarrow \text{closed bounded subsets compact}.
+$
+
+The reverse direction uses the Hausdorff property and a very specific increasing open cover. The proof is about **Euclidean space**, not every space with a notion of distance.
+
 
 ## A useful compactness reformulation
 
