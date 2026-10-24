@@ -98,16 +98,17 @@ For example, the set of vowels is $\{a, e, i, o, u\}$, and the first five natura
 property or condition that the elements of the set satisfy, rather than
 listing them out.
 
-**General Form:** $\{x \mid P(x)\}$ or $\{x : P(x)\}$
-
-Read as "the set of all x such that P(x) is true"
+**General form for a subset of an existing set:** $\{x\in A\mid P(x)\}$, read "the elements of $A$ for which $P(x)$ is true." An informal shorthand such as $\{x:P(x)\}$ needs a **specified domain of discourse**; in ZF it is not permission to collect every object satisfying any property.
 
 **Examples:**
 
-- $\{x \mid x > 0\}$ = the set of all positive numbers
-- $\{x \in \mathbb{Z} \mid x \text{ is even}\}$ = the set of all even integers
-- $\{x^2 \mid x \in \mathbb{N}\}$ = {0, 1, 4, 9, 16, 25, ...} (perfect squares)
-- $\{x \in \mathbb{R} \mid x^2 < 4\}$ = $(-2, 2)$ (interval notation)
+- $\{x\in\mathbb R\mid x>0\}$ = the positive **real** numbers
+- $\{x\in\mathbb Z\mid x\text{ is even}\}$ = the even integers
+- $\{x^2\mid x\in\mathbb N\}=\{0,1,4,9,16,25,\ldots\}$ = the perfect squares; this is the **image of a set under a function**, justified by Replacement, rather than unrestricted comprehension
+- $\{x\in\mathbb R\mid x^2<4\}=(-2,2)$ (interval notation)
+
+> [!distinction] Specifying the domain matters
+> $\{x\in\mathbb R:x>0\}$ and $\{x\in\mathbb Q:x>0\}$ are different sets, even though both may be informally called "positive numbers." A condition does not tell us which mathematical objects are under consideration unless we specify the underlying set.
 
 ## Empty Set
 
