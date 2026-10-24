@@ -11,6 +11,8 @@ enables: ["functions-relations", "peano-arithmetic", "measure-theory"]
 
 **Want the bigger picture?** The optional [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) shows how the same underlying set can support different structures. You do **not** need to read the atlas to follow the definitions below.
 
+**Three structural discoveries in this chapter:** [A power set is a space of yes/no functions](#a-power-set-is-a-space-of-yesno-functions); [infinity does not determine boundedness or discreteness](#infinity-does-not-mean-unbounded-or-infinitely-subdividable); and [the cumulative hierarchy builds sets through transfinite stages](#the-cumulative-hierarchy-how-sets-are-built-in-stages). These reveal why set theory connects to logic, topology, and mathematical foundations—not merely how to perform set operations.
+
 Sets are the most fundamental building block in all of mathematics: a **set** is simply a collection of distinct objects. We need formal set theory because mathematics requires a precise language for talking about collections, membership, and relationships between groups of objects. Nearly everything else in math, including numbers, functions, sequences, and probability, is built on the concept of a set. Understanding sets first makes every other topic easier to reason about.
 
 **Set Theory:** Set theory is the branch of mathematical logic that
@@ -174,7 +176,7 @@ The pair $\subseteq$ / $\subsetneq$ behaves exactly like $\leq$ / $<$ on numbers
 | $a \leq b$ and $b \leq c \Rightarrow a \leq c$ | $A \subseteq B$ and $B \subseteq C \Rightarrow A \subseteq C$ | transitive |
 | $a < b \iff a \leq b \text{ and } a \neq b$ | $A \subsetneq B \iff A \subseteq B \text{ and } A \neq B$ | strict version |
 
-The quickest way to remember the last row: **a proper subset is "$\subseteq$ but not equal," exactly as $<$ is "$\leq$ but not equal."** Read $A \subsetneq B$ as "$A$ is contained in $B$ and strictly smaller," just like $a < b$ is "$a$ is at most $b$ and strictly less."
+The quickest way to remember the last row: **a proper subset is "$\subseteq$ but not equal," exactly as $<$ is "$\leq$ but not equal."** Read $A \subsetneq B$ as "$A$ is *strictly contained* in $B$," not necessarily "has fewer elements." Infinite sets can be bijective with proper subsets: $\mathbb N\subsetneq\mathbb Z$ yet $|\mathbb N|=|\mathbb Z|$. The analogy with $<$ is about **order of inclusion**, not always **cardinal size**.
 
 The antisymmetry row is more than an analogy: showing $A \subseteq B$ **and** $B \subseteq A$ is *the* standard way to prove two sets equal, the double-inclusion method used in [Set Equality](#set-equality) just below.
 
@@ -809,7 +811,7 @@ Every equivalence relation on a set **A** induces a partition of **A** (its clas
 
 **Countable Set:** A set is countable if its elements can be put in one-to-one correspondence with the natural numbers $\mathbb{N} = \{0, 1, 2, 3, \ldots\}$, or if it is finite.
 
-**Definition (Formal):** A set $S$ is countable if there exists an injection $f:S\to\mathbb N$. For **nonempty** $S$ this is equivalent to a surjection $g:\mathbb N\to S$: enumerate the points of $S$ in the increasing order of their injected natural-number labels, repeating a chosen element when necessary. The empty set is countable too, but no function from nonempty $\mathbb N$ onto $\varnothing$ exists.
+**Definition (Formal):** A set $S$ is countable if there exists an injection $f:S\to\mathbb N$. For **nonempty** $S$ this is equivalent to a surjection $g:\mathbb N\to S$: given an injection $f:S\to\mathbb N$, send $n$ back to $f^{-1}(n)$ when $n$ is in the image of $f$, and otherwise send it to one fixed $s_0\in S$. The empty set is countable too, but no function from nonempty $\mathbb N$ onto $\varnothing$ exists.
 
 **Two Types of Countable:**
 
