@@ -387,9 +387,9 @@ Since an injection $\{1,2\} \to \{a,b,c\}$ exists, $|\{1,2\}| \leq |\{a,b,c\}|$ 
   - Intuition: A is "no larger than" B if we can inject A into B without collisions
   - Example: $|\{1, 2\}| \leq |\{a, b, c\}|$ (we can map $1 \mapsto a$, $2 \mapsto b$)
 
-- $|A| \geq |B|$ iff there exists an **injection** $B \rightarrow A$ (equivalently, a surjection $A \rightarrow B$)
+- $|A| \geq |B|$ iff there exists an **injection** $B \rightarrow A$
   - Intuition: A is "at least as large as" B
-  - Surjection equivalence: If we can map A onto B (covering all of B), then $|A| \geq |B|$
+  - **Choice caveat:** When $B$ is nonempty, an injection $B\to A$ gives a surjection $A\to B$: map points outside the injection's image to one fixed $b_0\in B$. The reverse implication—arbitrary surjections $A\to B$ yield injections $B\to A$—requires a choice principle and is not generally a theorem of bare ZF. For $B=\varnothing$, a surjection $A\to B$ exists only when $A=\varnothing$, so that edge case must be handled separately.
 
 - $|A| = |B|$ iff there exists a **bijection** $A \cong B$
   - Intuition: A and B have the same size (one-to-one correspondence)
@@ -451,7 +451,7 @@ $\mid S \mid = n$.
 
 A set $S$ is **infinite** if it is not finite. That is, there is no natural number $n$ such that $S$ can be bijected with $\{0, 1, \ldots, n-1\}$.
 
-Equivalently, a set is infinite if there exists a bijection between the set and a proper subset of itself.
+A set that can be put in bijection with a **proper subset of itself** is called **Dedekind-infinite**. Every Dedekind-infinite set is infinite. The converse—every infinite set is Dedekind-infinite—holds with the **Axiom of Choice**, but it cannot be proved in bare ZF. Thus the definition "not finite" is the more general one.
 
 **Examples:**
 
@@ -470,6 +470,37 @@ Examples: $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$
 Example: $\mathbb{R}$ (proven by Cantor's diagonal argument)
 
 These sizes form a strict hierarchy, $|\mathbb{N}| < |\mathbb{R}| < |\mathcal{P}(\mathbb{R})| < \cdots$, developed in full under [Countable vs Uncountable Sets](#hierarchy-of-infinities) below.
+
+### Infinity does not mean unbounded or infinitely subdividable
+
+> [!distinction] Cardinality, order, metric, and topology ask different questions
+> **Infinite** is a property of a set's *cardinality*. **Unbounded** requires a specified way to measure size or distance (for example, a metric, or an order for order-boundedness). **Densely ordered** means there is an element strictly between every two distinct ordered elements. **Topologically discrete** means every singleton is open. None of those structures comes for free from knowing that a set is infinite.
+
+Using the **usual numerical order and absolute-distance metric** on these familiar number systems:
+
+| Set | Cardinality | Dense numerical order? | Isolated points in its usual subspace topology? | Bounded in its usual metric? |
+| --- | --- | --- | --- | --- |
+| $\mathbb Z$ | Countably infinite | No: nothing lies strictly between $1$ and $2$ | Every integer is isolated | No |
+| $\mathbb Q$ | Countably infinite | Yes: between any $a<b$ lies $(a+b)/2$ | None | No |
+| $\mathbb R$ | Uncountably infinite | Yes | None | No |
+
+These facts show that **$\mathbb Z$ and $\mathbb Q$ have the same cardinality but very different order and topological behavior**. Even a bounded interval such as $(1,2)$ contains uncountably many real numbers. Boundedness does not bound the number of points.
+
+For a stronger counterexample, let
+
+$
+X=\left\{1,\frac12,\frac13,\ldots\right\}\subset(0,1].
+$
+
+With the metric inherited from $\mathbb R$, $X$ is **infinite, bounded, and topologically discrete**: every $1/n$ has a neighborhood in $X$ containing only that point. The points accumulate at $0$ in the *surrounding* real line, but $0\notin X$. Discrete does **not** mean that one uniform positive distance separates *all* distinct points.
+
+Conversely, put the **discrete metric** on the integers:
+
+$
+d(m,n)=\begin{cases}0&m=n,\\1&m\ne n.\end{cases}
+$
+
+This gives the same discrete topology as the usual metric $|m-n|$ on $\mathbb Z$, yet the space is now **bounded**. Thus *metric boundedness is not determined by topology alone*. See [Metric Spaces](./real-analysis#metric-spaces), [General Topology](./general-topology-foundations#discrete-indiscrete-and-cofinite-examples), and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#metric-spaces-a-number-for-the-separation).
 
 ## Universal Set
 
@@ -778,7 +809,7 @@ Every equivalence relation on a set **A** induces a partition of **A** (its clas
 
 **Countable Set:** A set is countable if its elements can be put in one-to-one correspondence with the natural numbers $\mathbb{N} = \{0, 1, 2, 3, \ldots\}$, or if it is finite.
 
-**Definition (Formal):** A set S is countable if there exists an injection $f: S \to \mathbb{N}$, or equivalently, if there exists a surjection $g: \mathbb{N} \to S$.
+**Definition (Formal):** A set $S$ is countable if there exists an injection $f:S\to\mathbb N$. For **nonempty** $S$ this is equivalent to a surjection $g:\mathbb N\to S$: enumerate the points of $S$ in the increasing order of their injected natural-number labels, repeating a chosen element when necessary. The empty set is countable too, but no function from nonempty $\mathbb N$ onto $\varnothing$ exists.
 
 **Two Types of Countable:**
 
@@ -889,7 +920,7 @@ Where:
 
 **Key Properties:**
 
-1. **Closure:** The union of countably many countable sets is countable
+1. **Countable unions (with a choice hypothesis):** In ZFC, a countable union of countable sets is countable. In bare ZF this can fail: choosing enumerations for an arbitrary sequence of countable sets requires some choice. Do not confuse the theorem in ZFC with a theorem requiring no additional assumptions.
 2. **Cartesian Product:** $\mathbb{N} \times \mathbb{N}$ is countable (can be enumerated diagonally)
 3. **Subsets:** Any subset of a countable set is countable
 4. **Complements:** If A is countable and B is uncountable, then B - A is uncountable
@@ -907,9 +938,9 @@ Infinite cardinals can be added and multiplied, but the rules collapse in a way 
 
 - $\aleph_0 + \aleph_0 = \aleph_0$: two countable sets union to a countable set (interleave their enumerations).
 - $\aleph_0 \cdot \aleph_0 = \aleph_0$: the grid $\mathbb{N} \times \mathbb{N}$ is countable (enumerate it along diagonals).
-- More generally, for any infinite cardinal $\kappa$, $\kappa + \kappa = \kappa \cdot \kappa = \kappa$ (using the Axiom of Choice). Addition and multiplication of infinite cardinals are trivial: the larger one simply wins.
+- More generally, in ZFC, for any infinite cardinal $\kappa$, $\kappa+\kappa=\kappa\cdot\kappa=\kappa$. If two cardinalities are **nonzero** and at least one is infinite, their cardinal sum and product are the larger cardinal under Choice. This rule need not hold without Choice.
 
-**Exponentiation is the only operation that grows.** By Cantor's theorem, $2^{\aleph_0} = |\mathcal{P}(\mathbb{N})| = |\mathbb{R}| = \mathfrak{c}$, strictly bigger than $\aleph_0$. So the continuum $\mathfrak{c}$ is "two to the countable."
+**Power sets always produce strictly larger cardinalities.** By Cantor's theorem, $2^{\aleph_0} = |\mathcal{P}(\mathbb{N})| = |\mathbb{R}| = \mathfrak{c}$, strictly bigger than $\aleph_0$. So the continuum $\mathfrak{c}$ is "two to the countable."
 
 This raises the question Cantor could not settle. Is there any cardinal *strictly between* $\aleph_0$ and $\mathfrak{c} = 2^{\aleph_0}$? Writing $\aleph_1$ for the smallest uncountable cardinal, the question is whether $\aleph_1 = \mathfrak{c}$. The **Continuum Hypothesis (CH)** asserts that it is: no set is larger than $\mathbb{N}$ and smaller than $\mathbb{R}$. Gödel (1940) showed CH cannot be *disproved* from ZFC, and Cohen (1963), inventing the method of *forcing*, showed it cannot be *proved* either. CH is **independent** of the standard axioms: the size of the continuum is genuinely undetermined by them. (The Generalized Continuum Hypothesis extends this to $2^{\aleph_\alpha} = \aleph_{\alpha+1}$ at every level.)
 
@@ -1019,7 +1050,7 @@ This sounds obvious for finite collections (just pick one from each), but for in
 
 **Why AC is controversial:** It implies the existence of objects that cannot be explicitly constructed. Two notable consequences:
 
-- **Non-measurable sets:** There exist subsets of $\mathbb{R}$ that cannot be assigned a consistent "length" (Lebesgue measure). These sets exist only because of AC.
+- **Non-measurable sets:** AC suffices to construct sets such as Vitali sets, which are not Lebesgue measurable. Some **weaker choice principles** also suffice; saying that the *full* Axiom of Choice is logically necessary would overstate the result.
 - **Banach-Tarski Paradox:** A solid ball in $\mathbb{R}^3$ can be decomposed into finitely many pieces and reassembled (using only rotations and translations) into two balls identical to the original. The "pieces" are non-measurable sets whose existence requires AC.
 
 **Zorn's Lemma:** If every chain (totally ordered subset) in a partially ordered set $P$ has an upper bound in $P$, then $P$ has at least one maximal element.
@@ -1029,7 +1060,7 @@ Zorn's Lemma is equivalent to the Axiom of Choice: assuming either one, you can 
 **Where these show up:**
 
 - Every vector space has a basis (requires AC/Zorn's Lemma for infinite-dimensional spaces)
-- Every ring with unity has a maximal ideal (Zorn's Lemma)
+- Every **nonzero commutative ring with unity** has a maximal ideal (Zorn's Lemma)
 - Tychonoff's theorem: any product of compact spaces is compact (equivalent to AC)
 
 ## Ordinals and Well-Ordering
