@@ -873,12 +873,12 @@ Skipping duplicates (like 2/2 = 1/1) gives a bijection $\mathbb{N} \to \mathbb{Q
 
 **Cantor's Diagonal Argument (Proof that $\mathbb{R}$ is Uncountable):**
 
-**Theorem:** The real numbers in the interval (0, 1) are uncountable.
+**Theorem:** The real numbers in the interval $(0,1)$ are uncountable.
 
 **Proof (by contradiction):**
 
-1. Assume (0, 1) is countable
-2. Then we can list all real numbers in (0, 1) as r₁, r₂, r₃, ... in decimal form:
+1. **Assume a complete list exists.** Suppose every real number in $(0,1)$ appears somewhere in an enumeration $r_1,r_2,r_3,\ldots$. Write each one in its **canonical decimal expansion**: when a number has two expansions (such as $0.5000\ldots=0.4999\ldots$), choose the one **not eventually all 9s**.
+2. Arrange the decimal digits $a_{ij}$, where $a_{ij}$ is the $j$th digit of the $i$th listed number:
 
 ```
 r₁ = 0.a₁₁ a₁₂ a₁₃ a₁₄ ...
@@ -888,16 +888,21 @@ r₄ = 0.a₄₁ a₄₂ a₄₃ a₄₄ ...
 ...
 ```
 
-3. Construct a new number d = 0.d₁d₂d₃d₄... where:
-   - d₁ ≠ a₁₁ (differs from r₁ in the 1st decimal place)
-   - d₂ ≠ a₂₂ (differs from r₂ in the 2nd decimal place)
-   - d₃ ≠ a₃₃ (differs from r₃ in the 3rd decimal place)
-   - dₙ ≠ aₙₙ (differs from rₙ in the nth decimal place)
+3. **Construct a missing number.** Let $d=0.d_1d_2d_3\ldots$ by choosing
 
-4. The number d is in (0, 1) but differs from every rₙ in at least one decimal place
-5. Therefore d is not in our "complete" list
-6. **Contradiction:** Our list was supposed to contain all real numbers in (0, 1)
-7. Therefore (0, 1) cannot be countable
+   $$
+   d_n=\begin{cases}
+   2 & \text{if }a_{nn}=1,\\
+   1 & \text{if }a_{nn}\ne1.
+   \end{cases}
+   $$
+
+   Every digit of $d$ is **1 or 2**. Therefore $d\in(0,1)$ and its decimal expansion never ends in repeating 9s; it is unambiguous.
+4. **Show that $d$ is absent.** For each list position $n$, the $n$th digit of $d$ differs from the $n$th digit of $r_n$. Because both are written without an eventually-all-9s expansion, different digits imply different real numbers. So $d\ne r_n$ for **every** $n$.
+5. **Contradiction.** $d$ is a real number in $(0,1)$ but not on the supposedly complete list. Therefore no enumeration exists, and $(0,1)$ is uncountable.
+
+> [!distinction] Why choosing only 1 and 2 matters
+> Decimal notation is **not unique**: $0.5000\ldots$ and $0.4999\ldots$ are the same real number. A diagonal proof that merely changes one digit without controlling the representation can leave a gap. Restricting the newly chosen digits to $1$ and $2$—and using canonical expansions for the listed numbers—closes it.
 
 ![Cantor's diagonal argument: a numbered list of reals with each number's diagonal digit highlighted, and a constructed number whose every digit differs from the diagonal, so it cannot appear anywhere in the list](./media/st-cantor-diagonal.png)
 
