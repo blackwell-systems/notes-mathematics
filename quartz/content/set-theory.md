@@ -1040,7 +1040,60 @@ For infinite sets, this generalizes: if $|A| = \kappa$, then $|\mathcal{P}(A)| =
 8. **Foundation (Regularity).** Every nonempty set has an $\in$-minimal element. Consequently no set is a member of itself, and there are no infinite descending chains $\cdots \in x_2 \in x_1 \in x_0$.
 9. **Choice.** From any collection of nonempty sets, one can simultaneously pick an element from each, developed in the next section.
 
-The linchpin is **Separation** replacing naive comprehension: sets are always carved *out of* sets that already exist, so the paradoxical "set of all sets that do not contain themselves" never gets off the ground.
+**Technical accuracy:** Separation and Replacement are *axiom schemas*: each allowed first-order formula gives an instance, so "nine axioms" is a useful organizational list, not a literal count of nine individual sentences. The empty set's existence is derivable from the listed ZF axioms. The linchpin is **Separation** replacing unrestricted comprehension: sets are carved *out of* sets that already exist, so the paradoxical "set of all sets that do not contain themselves" never gets off the ground.
+
+### The cumulative hierarchy: how sets are built in stages
+
+The axioms are not just a checklist of permitted operations. They suggest a remarkable **iterative picture of the entire set-theoretic universe**: begin with the empty set, repeatedly form power sets, and at limit stages collect everything built earlier.
+
+The stages are called the **cumulative hierarchy** and written $V_\alpha$, indexed by **ordinals** (introduced below):
+
+$
+\boxed{
+\begin{aligned}
+V_0&=\varnothing,\\
+V_{\alpha+1}&=\mathcal P(V_\alpha),\\
+V_\lambda&=\bigcup_{\beta<\lambda}V_\beta
+&&\text{if }\lambda\text{ is a nonzero limit ordinal}.
+\end{aligned}
+}
+$
+
+At the first few stages:
+
+| Stage | What's available? |
+| --- | --- |
+| $V_0=\varnothing$ | No sets as elements of the stage |
+| $V_1=\{\varnothing\}$ | The empty set |
+| $V_2=\{\varnothing,\{\varnothing\}\}$ | The empty set and its singleton |
+| $V_3=\mathcal P(V_2)$ | Four sets, formed as subsets of $V_2$ |
+| $V_\omega=\bigcup_{n<\omega}V_n$ | All **hereditarily finite sets** |
+
+The set $\omega=\{0,1,2,\ldots\}$, in the [von Neumann encoding](#ordinals-and-well-ordering), is **not in $V_\omega$**: every element of $V_\omega$ is hereditarily finite. It first belongs to $V_{\omega+1}$, because $\omega\subseteq V_\omega$.
+
+**Why this matters:** Under ZF's Foundation and the other axioms, **every set belongs to some $V_\alpha$**. Yet the union over *all* ordinal stages, conventionally written $V$, is not itself a set: it is a **proper class**. We therefore get a picture of *all sets* without contradicting [Russell's paradox](#russells-paradox) or [Cantor's theorem](#cantors-theorem). Think of $V$ as the entire universe being described, not one more set inside it.
+
+> [!distinction] A stage is a set; the entire hierarchy is not
+> For each **particular ordinal** $\alpha$, $V_\alpha$ is a set. Writing $V=\bigcup_{\alpha\in\mathrm{Ord}}V_\alpha$ uses **class notation**: $\mathrm{Ord}$ is the proper class of all ordinals, not a set that can serve as an ordinary union's index set in ZF.
+
+### Transfinite induction: ordinary induction without an end
+
+Natural-number induction proves a claim at $0$, then carries it from $n$ to $n+1$. An ordinal can also be a **limit stage**, with no immediate predecessor—for example $\omega$, the first infinite ordinal. So induction through *all* ordinals must handle more than successor steps.
+
+The **transfinite induction principle** is:
+
+> [!theorem] Transfinite induction
+> To prove a property $P(\alpha)$ for **every ordinal** $\alpha$, it is enough to establish for an arbitrary ordinal $\alpha$:
+>
+> $
+> \left(\forall\beta<\alpha,\;P(\beta)\right)\Longrightarrow P(\alpha).
+> $
+>
+> This single formulation handles the base case, successor stages, and limit stages: at $\alpha=0$ there are no predecessors; at a successor you may use all earlier cases; at a limit you may use **every** earlier stage.
+
+**Why the proof works:** Suppose some ordinal violates $P$. Among the ordinals violating it, choose the **least** one, say $\alpha$. (To avoid treating this collection as a set, first take one counterexample $\gamma$ and then inspect the *set* of counterexamples below or equal to $\gamma$.) Every $\beta<\alpha$ satisfies $P$, so the displayed implication forces $P(\alpha)$ as well—a contradiction.
+
+**What induction buys us:** The same [well-founded reasoning](./order-theory#well-foundedness-and-well-ordering) that proves facts about natural numbers also proves claims about structures that extend beyond any finite sequence of stages. **Transfinite recursion** uses the same progression to **define** objects stage by stage, with a rule for successor and limit stages—as the construction of $V_\alpha$ itself illustrates. A fully formal recursion theorem requires further work than this introductory construction.
 
 ## Axiom of Choice and Zorn's Lemma
 
