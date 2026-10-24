@@ -685,6 +685,63 @@ This is why the power set is sometimes written as $2^A$.
 - $|\mathcal{P}(\{a, b\})| = 2^2 = 4$
 - $|\mathcal{P}(\{a, b, c\})| = 2^3 = 8$
 
+## A power set is a space of yes/no functions
+
+> [!bridge] Subsets are functions in disguise
+> Choosing a subset $S\subseteq A$ is exactly the same information as assigning **yes or no** to each element of $A$. This connects power sets to [functions](./functions-relations#function), [Boolean logic](./propositional-logic-zeroth-order-logic), and, later, [indicator functions in measure theory](./measure-theory).
+
+For each subset $S\subseteq A$, define its **characteristic function** (also called its *indicator function*):
+
+$
+\chi_S:A\longrightarrow\{0,1\},
+\qquad
+\chi_S(x)=
+\begin{cases}
+1 & \text{if }x\in S,\\
+0 & \text{if }x\notin S.
+\end{cases}
+$
+
+**One worked example.** Let $A=\{a,b,c\}$ and $S=\{a,c\}$. The function $\chi_S$ records
+
+| Input $x$ | $a$ | $b$ | $c$ |
+| --- | --- | --- | --- |
+| Is $x$ in $S$? | Yes | No | Yes |
+| $\chi_S(x)$ | $1$ | $0$ | $1$ |
+
+Conversely, given *any* function $f:A\to\{0,1\}$, recover its subset as
+
+$
+S_f=\{x\in A:f(x)=1\}.
+$
+
+These two conversions undo one another: $S_{\chi_S}=S$ and $\chi_{S_f}=f$. We therefore have an **explicit bijection**
+
+$
+\boxed{\mathcal P(A)\;\cong\;\{0,1\}^A,}
+$
+
+where $\{0,1\}^A$ means the **set of all functions** from $A$ to $\{0,1\}$—not division or ordinary numerical exponentiation. For a finite $A$ with $n$ elements, each element has two independent yes/no choices, recovering $|\mathcal P(A)|=2^n$. The bijection itself works for **infinite** sets as well.
+
+Even the operations on subsets translate into operations on their indicator functions, **point by point**. Fix a universe $A$ and let $S,T\subseteq A$:
+
+| Set operation | At an element $x\in A$ | Function operation |
+| --- | --- | --- |
+| Intersection $S\cap T$ | Both memberships must be true | $\chi_{S\cap T}(x)=\chi_S(x)\chi_T(x)$ |
+| Union $S\cup T$ | At least one membership must be true | $\chi_{S\cup T}(x)=\max(\chi_S(x),\chi_T(x))$ |
+| Complement $A\setminus S$ | Reverse yes and no | $\chi_{A\setminus S}(x)=1-\chi_S(x)$ |
+| Symmetric difference $S\triangle T$ | Exactly one membership must be true | $\chi_{S\triangle T}(x)=\chi_S(x)\oplus\chi_T(x)$ |
+
+Here $\oplus$ is exclusive-or, equivalent to addition modulo $2$ on $\{0,1\}$. **For instance**, if $S=\{a,c\}$ and $T=\{b,c\}$, then
+
+$
+\chi_S=(1,0,1),\qquad
+\chi_T=(0,1,1),\qquad
+\chi_{S\cap T}=(0,0,1).
+$
+
+This is not merely a resemblance between set operations and logic. It is an **exact translation**: every statement about membership can be recast as a statement about a $\{0,1\}$-valued function. Later, [measurability](./measure-theory) asks when such indicator functions are measurable, and [probability](./probability) uses their expectations as event probabilities.
+
 ## Disjoint Sets
 
 **Disjoint Sets:** Two sets **A** and **B** are disjoint if they have no elements in common.
