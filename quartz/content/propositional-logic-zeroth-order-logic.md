@@ -299,7 +299,31 @@ The negation function $f(P) = \neg P$ maps:
 | F | T | F | T | T | F | T |
 | F | F | F | F | T | T | F |
 
-Each column defines a different binary truth function.
+Each column defines a different binary truth function. The symbols are easier to understand when the input statements mean something concrete.
+
+> [!example] Five truth functions applied to the same two statements
+> Let $P(n)$ mean **"$n$ is even"** and $Q(n)$ mean **"$n$ is divisible by 3"**. Choose four integers that make the inputs take all four possible combinations:
+>
+> | $n$ | $P(n)$: even? | $Q(n)$: divisible by 3? |
+> | --- | :---: | :---: |
+> | $6$ | T | T |
+> | $4$ | T | F |
+> | $9$ | F | T |
+> | $5$ | F | F |
+>
+> Now treat each connective as a *different function of those same two truth values*:
+>
+> | Function | What it says about $n$ | True for these example values |
+> | --- | --- | --- |
+> | **AND** ($P\wedge Q$) | "$n$ is even **and** divisible by 3." Both conditions must hold. | $6$ |
+> | **OR** ($P\vee Q$) | "$n$ is even **or** divisible by 3 (or both)." At least one must hold. | $4, 6, 9$ |
+> | **Implication** ($P\to Q$) | "**If** $n$ is even, **then** it is divisible by 3." False only when the first part is true and the second false. | $5, 6, 9$ |
+> | **Biconditional** ($P\leftrightarrow Q$) | "$n$ is even **if and only if** it is divisible by 3." The two conditions must have the same truth value. | $5, 6$ |
+> | **XOR** ($P\oplus Q$) | "**Exactly one** is true: $n$ is even or $n$ is divisible by 3, but not both." | $4, 9$ |
+>
+> For instance, **$n=4$** makes $P=T$ and $Q=F$: AND is false, OR is true, implication is false, biconditional is false, and XOR is true. These are exactly the outputs in the second row of the truth table above.
+>
+> The surprising case is **$n=5$**: both inputs are false, yet $P\to Q$ and $P\leftrightarrow Q$ are **true**. A material implication is defined as false only when $P=T$ and $Q=F$; it does *not* assert that one fact causes the other. Similarly, a biconditional checks agreement in **truth value**, not whether the two sentences have the same meaning.
 
 **Total Number of Truth Functions:**
 
