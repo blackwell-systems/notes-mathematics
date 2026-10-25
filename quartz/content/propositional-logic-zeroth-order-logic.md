@@ -81,7 +81,7 @@ The map separates three axes:
 
 ### Practice: classify a claim along all three axes
 
-The distinctions become clearer when you apply all three to **the same statement**. Choose one answer for each axis, then check your reasoning. The examples progress from definitions and empirical facts to Kripkean identity statements and framework-dependent philosophical cases.
+The distinctions become clearer when you apply all three to **the same statement**. In **Mixed** practice, you'll classify claims, find examples that match a classification, and spot an incorrectly assigned label. Examples with different answers are interleaved rather than grouped into predictable runs. Switch the exercise selector to practice just one format; filter by topic if you want a focused review. Philosophically contested classifications state the framework being used.
 
 <div class="truth-practice" data-truth-practice aria-label="Practice classifying truths">
   <p><strong>Three Lenses · guided practice</strong></p>
