@@ -109,57 +109,115 @@
     });
   }
 
+  // The six lens labels are intentionally fixed; the reasoning is not.
+  // Mix classifications with reverse-matching and error-spotting exercises.
+  function signature(c) { return c.answers.join("|"); }
+  function shuffle(items) {
+    var a = items.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var v = a[i]; a[i] = a[j]; a[j] = v;
+    }
+    return a;
+  }
+
+  function balancedDeck(pool) {
+    // Interleave answer patterns rather than asking 14 definition questions,
+    // then 20 world facts, then 10 rigid-identity questions in a row.
+    var buckets = new Map();
+    shuffle(pool).forEach(function (c) {
+      var key = signature(c);
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(c.id);
+    });
+    var deck = [], last = null;
+    while (deck.length < pool.length) {
+      var candidates = Array.from(buckets.entries()).filter(function (entry) { return entry[1].length; });
+      candidates.sort(function (a, b) { return b[1].length - a[1].length; });
+      var next = candidates.find(function (entry) { return entry[0] !== last; }) || candidates[0];
+      deck.push(next[1].pop());
+      last = next[0];
+    }
+    return deck;
+  }
+
   function start(el) {
     if (el.dataset.practiceReady) return;
     el.dataset.practiceReady = "true";
-    var group = "all";
-    var order = cases.map(function (c) { return c.id; });
-    var index = 0, picks = [null, null, null], revealed = false, showHint = false;
+    var category = "all", mode = "mixed";
+    var order = [], index = 0, picks = [null, null, null], revealed = false, showHint = false;
     var attempts = new Map(), mistakes = new Set(), review = false;
 
-    function activeCase() { return cases[order[index] - 1]; }
-    function answered() { return picks.every(function (p) { return p !== null; }); }
+    function activeCase() { return index < order.length ? cases[order[index] - 1] : null; }
+    function kind() {
+      if (review || mode === "classify") return "classify";
+      if (mode === "match") return "match";
+      if (mode === "spot") return "spot";
+      return index % 5 === 2 ? "match" : index % 5 === 4 ? "spot" : "classify";
+    }
+    function answered() { return kind() === "classify" ? picks.every(function (p) { return p !== null; }) : picks[0] !== null; }
     function totalCorrect() {
-      var n = 0;
-      attempts.forEach(function (a) { n += a.correct; });
-      return n;
+      var n = 0; attempts.forEach(function (a) { n += a.correct; }); return n;
+    }
+    function totalJudged() {
+      var n = 0; attempts.forEach(function (a) { n += a.max; }); return n;
+    }
+    function mistakeIndex(c) { return (c.id + index) % axes.length; }
+    function wrongLabel(i, c, wrong) {
+      return wrong === i ? axes[i].values.find(function (v) { return v !== c.answers[i]; }) : c.answers[i];
     }
 
-    function render() {
-      var c = activeCase();
-      var total = order.length;
-      var completed = attempts.size;
-      if (!c) {
-        el.innerHTML = '<div class="truth-practice__done"><strong>Set complete.</strong><p>You attempted ' + completed +
-          ' examples and classified ' + totalCorrect() + ' out of ' + (completed * 3) +
-          ' axes correctly. ' + mistakes.size + ' examples need review.</p><div class="truth-practice__actions">' +
-          (mistakes.size ? '<button type="button" data-action="review">Review mistakes</button>' : '') +
-          '<button type="button" data-action="reset">Start again</button></div></div>';
-        return;
-      }
-      var selected = picks.slice();
-      var head = '<div class="truth-practice__head"><div><span class="truth-practice__eyebrow">GUIDED PRACTICE · THREE LENSES</span>' +
-        '<p class="truth-practice__intro">Classify the same claim along three independent axes.</p></div>' +
-        '<div class="truth-practice__count" aria-live="polite">' + (index + 1) + ' / ' + total + '</div></div>' +
-        '<div class="truth-practice__track"><span style="width:' + (((index + 1) / total) * 100).toFixed(2) + '%"></span></div>' +
-        '<div class="truth-practice__tools">' +
-          '<label>Examples <select aria-label="Example category" data-category>' +
-            [['all', 'All 50'], ['foundations', 'Foundations'], ['world', 'The world'], ['identity', 'Identity & essence'], ['philosophy', 'Philosophy lab']].map(function (pair) {
-              return '<option value="' + pair[0] + '"' + (group === pair[0] && !review ? ' selected' : '') + '>' + pair[1] + '</option>';
-            }).join('') +
-          '</select></label>' +
-          '<button type="button" class="truth-practice__utility" data-action="shuffle">Shuffle</button>' +
-          '<span class="truth-practice__score">Scored axes: ' + totalCorrect() + ' / ' + (completed * 3) + '</span>' +
-        '</div>' +
-        '<div class="truth-practice__item"><span class="truth-practice__category">' + escapeHTML(groups[c.group].label) +
-          (review ? ' · review' : '') + '</span>' +
-          '<p class="truth-practice__claim">' + escapeHTML(c.statement) + '</p>' +
-          '<p class="truth-practice__context">' + escapeHTML(c.context) + '</p></div>';
+    function matchChoices(c) {
+      // Exactly one example for each available answer combination.
+      // Distractors are genuine contrasting cases, not superficial variants
+      // of the target, and all named frameworks remain visible in context.
+      var seen = new Set([signature(c)]);
+      var others = shuffle(cases.filter(function (other) { return signature(other) !== signature(c); }));
+      var options = [c];
+      others.forEach(function (other) {
+        var sig = signature(other);
+        if (!seen.has(sig) && options.length < 4) {
+          seen.add(sig); options.push(other);
+        }
+      });
+      // Stable ordering while selecting/revealing, but varied answer position.
+      var shift = (c.id + index) % options.length;
+      return options.slice(shift).concat(options.slice(0, shift));
+    }
 
-      var sections = axes.map(function (axis, i) {
-        var result = revealed && selected[i] === c.answers[i];
+    function questionHead(c, type) {
+      if (type === "match") {
+        return '<div class="truth-practice__item truth-practice__item--challenge">' +
+          '<span class="truth-practice__category">REVERSE THE LENSES</span>' +
+          '<p class="truth-practice__claim">Which claim fits all three labels?</p>' +
+          '<div class="truth-practice__target">' +
+          '<span class="truth-practice__target--modal">' + escapeHTML(c.answers[0]) + '</span>' +
+          '<span class="truth-practice__target--meaning">' + escapeHTML(c.answers[1]) + '</span>' +
+          '<span class="truth-practice__target--knowledge">' + escapeHTML(c.answers[2]) + '</span></div>' +
+          '<p class="truth-practice__context">Treat the named Kantian or Kripkean examples using the framework stated beneath them.</p></div>';
+      }
+      if (type === "spot") {
+        return '<div class="truth-practice__item truth-practice__item--challenge">' +
+          '<span class="truth-practice__category">SPOT THE ERROR · ' + escapeHTML(groups[c.group].label) + '</span>' +
+          '<p class="truth-practice__claim">' + escapeHTML(c.statement) + '</p>' +
+          '<p class="truth-practice__context">' + escapeHTML(c.context) + '</p>' +
+          '<p class="truth-practice__challenge-intro">Exactly one classification below is wrong. Which lens?</p>' +
+          '<div class="truth-practice__target">' + axes.map(function (axis, i) {
+            return '<span class="truth-practice__target--' + axis.key + '">' +
+              escapeHTML(wrongLabel(i, c, mistakeIndex(c))) + '</span>';
+          }).join('') + '</div></div>';
+      }
+      return '<div class="truth-practice__item"><span class="truth-practice__category">' +
+        escapeHTML(groups[c.group].label) + (review ? ' · review' : '') + '</span>' +
+        '<p class="truth-practice__claim">' + escapeHTML(c.statement) + '</p>' +
+        '<p class="truth-practice__context">' + escapeHTML(c.context) + '</p></div>';
+    }
+
+    function classificationUI(c) {
+      return axes.map(function (axis, i) {
+        var result = revealed && picks[i] === c.answers[i];
         var choices = axis.values.map(function (val) {
-          var chosen = selected[i] === val;
+          var chosen = picks[i] === val;
           var correct = revealed && c.answers[i] === val;
           var cls = 'truth-practice__choice' + (chosen ? ' is-selected' : '') +
             (revealed && correct ? ' is-correct' : '') + (revealed && chosen && !correct ? ' is-wrong' : '');
@@ -174,35 +232,115 @@
             '<strong>' + (result ? 'Correct.' : 'Not quite. ' + escapeHTML(c.answers[i]) + '.') + '</strong> ' +
             escapeHTML(c.why[i]) + '</p>' : '') + '</fieldset>';
       }).join('');
+    }
+
+    function matchUI(c) {
+      var options = matchChoices(c);
+      var buttons = options.map(function (candidate) {
+        var id = String(candidate.id), chosen = picks[0] === id, correct = candidate.id === c.id;
+        var cls = 'truth-practice__match-option truth-practice__choice' +
+          (chosen ? ' is-selected' : '') +
+          (revealed && correct ? ' is-correct' : '') +
+          (revealed && chosen && !correct ? ' is-wrong' : '');
+        var framework = candidate.group === "philosophy"
+          ? candidate.context
+          : candidate.group === "identity"
+            ? "Under Kripkean rigid designation."
+            : "";
+        return '<button type="button" class="' + cls + '" data-pick="' + id +
+          '" aria-pressed="' + chosen + '"' + (revealed ? ' disabled' : '') + '>' +
+          '<span>' + escapeHTML(candidate.statement) + '</span>' +
+          (framework ? '<small>' + escapeHTML(framework) + '</small>' : '') + '</button>';
+      }).join('');
+      return '<div class="truth-practice__challenge-options" role="group" aria-label="Choose the matching claim">' + buttons + '</div>' +
+        (revealed ? '<div class="truth-practice__feedback ' + (picks[0] === String(c.id) ? 'is-correct' : 'is-wrong') + '">' +
+          '<strong>' + (picks[0] === String(c.id) ? 'Exactly.' : 'The matching claim is: ' + escapeHTML(c.statement)) + '</strong> ' +
+          escapeHTML(c.why.join(' ')) + '</div>' : '');
+    }
+
+    function spotUI(c) {
+      var wrong = mistakeIndex(c);
+      var options = axes.map(function (axis, i) {
+        var chosen = picks[0] === String(i), correct = i === wrong;
+        return '<button type="button" class="truth-practice__choice' +
+          (chosen ? ' is-selected' : '') + (revealed && correct ? ' is-correct' : '') +
+          (revealed && chosen && !correct ? ' is-wrong' : '') +
+          '" data-pick="' + i + '" aria-pressed="' + chosen + '"' + (revealed ? ' disabled' : '') +
+          '>' + escapeHTML(axis.label) + '</button>';
+      }).join('');
+      return '<div class="truth-practice__spot-options" role="group" aria-label="Choose the incorrectly labelled axis">' +
+        options + '</div>' +
+        (revealed ? '<div class="truth-practice__feedback ' + (picks[0] === String(wrong) ? 'is-correct' : 'is-wrong') + '">' +
+          '<strong>' + escapeHTML(axes[wrong].label) + ' should be ' + escapeHTML(c.answers[wrong]) + '.</strong> ' +
+          escapeHTML(c.why[wrong]) + '</div>' : '');
+    }
+
+    function render() {
+      var c = activeCase();
+      if (!c) {
+        var scored = Array.from(attempts.values()).filter(function (a) { return a.max > 0; }).length;
+        el.innerHTML = '<div class="truth-practice__done"><strong>Set complete.</strong><p>You made ' +
+          totalCorrect() + ' correct classifications out of ' + totalJudged() + ' decisions across ' + scored +
+          ' checked examples. ' + mistakes.size + ' examples remain for review.</p><div class="truth-practice__actions">' +
+          (mistakes.size ? '<button type="button" data-action="review">Review mistakes</button>' : '') +
+          '<button type="button" data-action="reset">Start again</button></div></div>';
+        return;
+      }
+      var type = kind(), n = order.length;
+      var head = '<div class="truth-practice__head"><div><span class="truth-practice__eyebrow">GUIDED PRACTICE · THREE LENSES</span>' +
+        '<p class="truth-practice__intro">Classify, match, and spot incorrect classifications.</p></div>' +
+        '<div class="truth-practice__count" aria-live="polite">' + (index + 1) + ' / ' + n + '</div></div>' +
+        '<div class="truth-practice__track"><span style="width:' + (((index + 1) / n) * 100).toFixed(2) + '%"></span></div>' +
+        '<div class="truth-practice__tools"><label>Examples <select aria-label="Example category" data-category>' +
+          [['all', 'All 50'], ['foundations', 'Foundations'], ['world', 'The world'], ['identity', 'Identity & essence'], ['philosophy', 'Philosophy lab']].map(function (entry) {
+            return '<option value="' + entry[0] + '"' + (category === entry[0] && !review ? ' selected' : '') + '>' + entry[1] + '</option>';
+          }).join('') + '</select></label>' +
+          '<label>Exercise <select aria-label="Exercise format" data-mode>' +
+          [['mixed', 'Mixed'], ['classify', 'Classify all three'], ['match', 'Find the claim'], ['spot', 'Spot the error']].map(function (entry) {
+            return '<option value="' + entry[0] + '"' + (mode === entry[0] ? ' selected' : '') + '>' + entry[1] + '</option>';
+          }).join('') + '</select></label>' +
+          '<button type="button" class="truth-practice__utility" data-action="shuffle">Reshuffle</button>' +
+          '<span class="truth-practice__score">Correct: ' + totalCorrect() + ' / ' + totalJudged() + '</span></div>';
+
+      var exercise = type === "match" ? matchUI(c) : type === "spot" ? spotUI(c) : classificationUI(c);
+      var hintText = type === "match"
+        ? "Look for a statement whose modal force, relation to meanings, and route to justification all match—not merely one of them."
+        : type === "spot"
+          ? "Check each proposed label independently; one conflicts with the statement under the named assumptions."
+          : groups[c.group].hint;
 
       var actions = '<div class="truth-practice__actions">' +
         (revealed
           ? '<button type="button" class="truth-practice__primary" data-action="next">' +
-            (index === order.length - 1 ? 'See results' : 'Next example') + ' →</button>'
-          : '<button type="button" class="truth-practice__primary" data-action="check"' + (answered() ? '' : ' disabled') + '>Check answers</button>' +
+            (index === n - 1 ? 'See results' : 'Next example') + ' →</button>'
+          : '<button type="button" class="truth-practice__primary" data-action="check"' +
+            (answered() ? '' : ' disabled') + '>Check answers</button>' +
             '<button type="button" data-action="hint">' + (showHint ? 'Hide hint' : 'Show hint') + '</button>' +
             '<button type="button" data-action="skip">Skip</button>') +
-        (mistakes.size && !review ? '<button type="button" class="truth-practice__utility" data-action="review">Review mistakes (' + mistakes.size + ')</button>' : '') +
-        '</div>';
+        (mistakes.size && !review ? '<button type="button" class="truth-practice__utility" data-action="review">Review mistakes (' +
+          mistakes.size + ')</button>' : '') + '</div>';
       var hint = showHint && !revealed ? '<p class="truth-practice__hint"><strong>Hint:</strong> ' +
-        escapeHTML(groups[c.group].hint) + '</p>' : '';
+        escapeHTML(hintText) + '</p>' : '';
       var insight = revealed ? '<div class="truth-practice__insight"><strong>Takeaway.</strong> ' +
         escapeHTML(c.insight) + '</div>' : '';
-      el.innerHTML = head + sections + hint + insight + actions +
-        '<p class="truth-practice__disclaimer">Framework-sensitive cases are labelled. Analytic/synthetic is a traditional distinction, not an uncontested philosophical fact.</p>';
+      el.innerHTML = head + questionHead(c, type) + exercise + hint + insight + actions +
+        '<p class="truth-practice__disclaimer">Framework-sensitive cases are labelled. The analytic/synthetic distinction is philosophically contested; keys follow the stated framework.</p>';
     }
 
     function rebuildOrder() {
-      order = cases.filter(function (c) { return group === "all" || c.group === group; })
-        .map(function (c) { return c.id; });
+      var pool = cases.filter(function (c) { return category === "all" || c.group === category; });
+      order = balancedDeck(pool);
       index = 0; picks = [null, null, null]; revealed = false; showHint = false; review = false;
+      attempts.clear(); mistakes.clear();
       render();
     }
 
     el.addEventListener("change", function (event) {
-      if (!event.target.matches("select[data-category]")) return;
-      group = event.target.value;
-      rebuildOrder();
+      if (event.target.matches("select[data-category]")) {
+        category = event.target.value; rebuildOrder();
+      } else if (event.target.matches("select[data-mode]")) {
+        mode = event.target.value; rebuildOrder();
+      }
     });
 
     el.addEventListener("click", function (event) {
@@ -210,44 +348,40 @@
       if (!btn || !el.contains(btn)) return;
       var axis = btn.getAttribute("data-axis");
       if (axis !== null && !revealed) {
-        picks[Number(axis)] = btn.getAttribute("data-value");
-        render();
-        return;
+        picks[Number(axis)] = btn.getAttribute("data-value"); render(); return;
+      }
+      var pick = btn.getAttribute("data-pick");
+      if (pick !== null && !revealed) {
+        picks[0] = pick; render(); return;
       }
       switch (btn.getAttribute("data-action")) {
         case "hint": showHint = !showHint; render(); break;
         case "check":
           if (!answered() || revealed) return;
-          var c = activeCase();
-          var correct = picks.filter(function (p, i) { return p === c.answers[i]; }).length;
-          attempts.set(c.id, { correct: correct });
-          if (correct < 3) mistakes.add(c.id);
-          else mistakes.delete(c.id);
-          revealed = true;
-          render();
-          break;
+          var c = activeCase(), type = kind();
+          var max = type === "classify" ? 3 : 1;
+          var correct = type === "classify"
+            ? picks.filter(function (p, i) { return p === c.answers[i]; }).length
+            : type === "match" ? Number(picks[0] === String(c.id))
+            : Number(picks[0] === String(mistakeIndex(c)));
+          attempts.set(c.id, { correct: correct, max: max });
+          if (correct < max) mistakes.add(c.id); else mistakes.delete(c.id);
+          revealed = true; render(); break;
         case "skip":
         case "next":
           index++; picks = [null, null, null]; revealed = false; showHint = false; render(); break;
-        case "shuffle":
-          // Shuffle only the active subset, then start a new pass.
-          for (var i = order.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = order[i]; order[i] = order[j]; order[j] = temp;
-          }
-          index = 0; picks = [null, null, null]; revealed = false; showHint = false; render();
-          break;
+        case "shuffle": rebuildOrder(); break;
         case "review":
           if (!mistakes.size) return;
-          order = Array.from(mistakes);
-          group = "all"; review = true;
-          index = 0; picks = [null, null, null]; revealed = false; showHint = false; render();
-          break;
+          order = balancedDeck(cases.filter(function (c) { return mistakes.has(c.id); }));
+          review = true; mode = "classify";
+          index = 0; picks = [null, null, null]; revealed = false; showHint = false; render(); break;
         case "reset":
-          attempts.clear(); mistakes.clear(); group = "all"; rebuildOrder(); break;
+          category = "all"; mode = "mixed"; rebuildOrder(); break;
       }
     });
-    render();
+
+    rebuildOrder();
   }
 
   function mount() {
