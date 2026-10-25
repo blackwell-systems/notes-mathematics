@@ -79,6 +79,17 @@ The map separates three axes:
 
 <small class="truth-example-note">*These classifications assume conventional meanings and a familiar account of possible worlds. Whether necessity, analyticity, and a priori knowledge coincide is disputed. The diagram is an orientation, not a complete theory of truth.</small>
 
+### Practice: classify a claim along all three axes
+
+The distinctions become clearer when you apply all three to **the same statement**. Choose one answer for each axis, then check your reasoning. The examples progress from definitions and empirical facts to Kripkean identity statements and framework-dependent philosophical cases.
+
+<div class="truth-practice" data-truth-practice aria-label="Practice classifying truths">
+  <p><strong>Three Lenses · guided practice</strong></p>
+  <p>50 short examples with feedback on modality, meaning, and justification. Enable JavaScript to use the interactive exercise.</p>
+</div>
+
+
+
 ### Logical Truth
 
 > [!definition] Logical truth
