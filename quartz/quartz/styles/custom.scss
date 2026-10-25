@@ -339,6 +339,47 @@ article img[src*="pl-truth-axes-mobile.svg"] {
     &.is-wrong { border-left-color: var(--ed-modal); }
     strong { color: var(--dark); }
   }
+  .truth-practice__target {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: .35rem; margin: .65rem 0 .4rem;
+    span {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--tp-line); border-radius: .22rem;
+      padding: .26rem .42rem; font-size: .73rem; font-weight: 720;
+      background: var(--light);
+    }
+    .truth-practice__target--modal {
+      border-color: color-mix(in srgb, var(--ed-modal) 47%, transparent);
+      background: color-mix(in srgb, var(--ed-modal) 11%, var(--light));
+    }
+    .truth-practice__target--meaning {
+      border-color: color-mix(in srgb, var(--ed-meaning) 47%, transparent);
+      background: color-mix(in srgb, var(--ed-meaning) 11%, var(--light));
+    }
+    .truth-practice__target--knowledge {
+      border-color: color-mix(in srgb, var(--ed-knowledge) 47%, transparent);
+      background: color-mix(in srgb, var(--ed-knowledge) 11%, var(--light));
+    }
+  }
+  .truth-practice__challenge-intro {
+    font-size: .76rem; font-weight: 700; margin: .75rem 0 .15rem;
+  }
+  .truth-practice__challenge-options {
+    display: grid; gap: .4rem; grid-template-columns: 1fr;
+    margin: .2rem 0 .72rem;
+  }
+  .truth-practice__match-option {
+    display: flex; text-align: left; align-items: start; flex-direction: column;
+    gap: .25rem; min-height: 2.5rem; width: 100%;
+    line-height: 1.38; white-space: normal;
+    small { display: block; color: var(--darkgray); font-size: .66rem; font-weight: 400; }
+  }
+  .truth-practice__spot-options {
+    display: flex; flex-wrap: wrap; gap: .4rem; margin: .2rem 0 .72rem;
+  }
+  .truth-practice__item--challenge {
+    border-left: 3px solid var(--ed-logic);
+  }
   .truth-practice__actions { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .85rem; }
   .truth-practice__actions button {
     background: var(--light); border: 1px solid var(--tp-line); border-radius: .28rem;
