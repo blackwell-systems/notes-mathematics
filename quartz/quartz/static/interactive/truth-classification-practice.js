@@ -147,6 +147,7 @@
     var category = "all", mode = "mixed";
     var order = [], index = 0, picks = [null, null, null], revealed = false, showHint = false;
     var attempts = new Map(), mistakes = new Set(), review = false;
+    var matchCache = new Map();
 
     function activeCase() { return index < order.length ? cases[order[index] - 1] : null; }
     function kind() {
@@ -168,6 +169,7 @@
     }
 
     function matchChoices(c) {
+      if (matchCache.has(c.id)) return matchCache.get(c.id);
       // Exactly one example for each available answer combination.
       // Distractors are genuine contrasting cases, not superficial variants
       // of the target, and all named frameworks remain visible in context.
@@ -182,7 +184,9 @@
       });
       // Stable ordering while selecting/revealing, but varied answer position.
       var shift = (c.id + index) % options.length;
-      return options.slice(shift).concat(options.slice(0, shift));
+      var stable = options.slice(shift).concat(options.slice(0, shift));
+      matchCache.set(c.id, stable);
+      return stable;
     }
 
     function questionHead(c, type) {
@@ -331,7 +335,7 @@
       var pool = cases.filter(function (c) { return category === "all" || c.group === category; });
       order = balancedDeck(pool);
       index = 0; picks = [null, null, null]; revealed = false; showHint = false; review = false;
-      attempts.clear(); mistakes.clear();
+      attempts.clear(); mistakes.clear(); matchCache.clear();
       render();
     }
 
