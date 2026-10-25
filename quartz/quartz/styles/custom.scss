@@ -236,3 +236,137 @@ article img[src*="pl-truth-axes-mobile.svg"] {
   }
 
 }
+
+
+// Truth chapter: inline classification practice. Uses editorial color tokens,
+// Quartz light/dark variables and the same semantic axes as the figure above.
+.truth-practice {
+  --tp-line: var(--ed-hairline);
+  font-family: inherit;
+  color: var(--dark);
+  background: color-mix(in srgb, var(--lightgray) 19%, var(--light));
+  border: 1px solid var(--tp-line);
+  border-radius: .46rem;
+  padding: clamp(.85rem, 2.2vw, 1.35rem);
+  margin: 1.2rem 0 1.8rem;
+  min-width: 0;
+  font-size: .85rem;
+  line-height: 1.45;
+
+  button, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  button:disabled { opacity: .55; cursor: default; }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--secondary); outline-offset: 3px; }
+
+  .truth-practice__head {
+    display: flex; align-items: start; justify-content: space-between; gap: .75rem;
+  }
+  .truth-practice__eyebrow {
+    display: block; color: var(--secondary); font-size: .61rem;
+    font-weight: 760; letter-spacing: .1em;
+  }
+  .truth-practice__intro { margin: .25rem 0 .5rem; font-size: .86rem; }
+  .truth-practice__count {
+    font-family: var(--codeFont, monospace); color: var(--darkgray);
+    white-space: nowrap; font-size: .73rem; padding-top: .12rem;
+  }
+  .truth-practice__track {
+    width: 100%; height: 3px; background: var(--lightgray); border-radius: 2px; overflow: hidden;
+    margin-bottom: .8rem;
+    span { display: block; height: 100%; background: var(--secondary); transition: width .18s ease; }
+  }
+  .truth-practice__tools {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .55rem .8rem;
+    margin-bottom: .9rem; color: var(--darkgray); font-size: .72rem;
+  }
+  .truth-practice__tools label { display: inline-flex; align-items: center; gap: .4rem; }
+  .truth-practice__tools select, .truth-practice__utility {
+    border: 1px solid var(--tp-line); border-radius: .26rem;
+    background: var(--light); padding: .32rem .45rem; font-size: .72rem;
+  }
+  .truth-practice__score { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .truth-practice__item {
+    padding: .8rem .85rem; border: 1px solid var(--tp-line);
+    background: var(--light); border-radius: .35rem; margin-bottom: .85rem;
+  }
+  .truth-practice__category {
+    color: var(--secondary); text-transform: uppercase; letter-spacing: .07em;
+    font-size: .59rem; font-weight: 770;
+  }
+  .truth-practice__claim {
+    font-size: clamp(1.04rem, 2vw, 1.28rem); line-height: 1.32;
+    letter-spacing: -.022em; font-weight: 720; margin: .38rem 0 .35rem;
+  }
+  .truth-practice__context { font-size: .73rem; line-height: 1.52; color: var(--darkgray); margin: 0; }
+  .truth-practice__axis {
+    border: 0; border-top: 1px solid var(--tp-line);
+    padding: .73rem 0 .62rem; margin: 0; min-width: 0;
+    --tp-accent: var(--ed-logic);
+  }
+  .truth-practice__axis--modal { --tp-accent: var(--ed-modal); }
+  .truth-practice__axis--meaning { --tp-accent: var(--ed-meaning); }
+  .truth-practice__axis--knowledge { --tp-accent: var(--ed-knowledge); }
+  .truth-practice__axis legend {
+    float: left; width: 100%; box-sizing: border-box;
+    font-weight: 730; font-size: .86rem; padding: 0; margin: 0 0 .24rem;
+  }
+  .truth-practice__axis-index {
+    color: var(--tp-accent); font-family: var(--codeFont, monospace); font-size: .72rem;
+    margin-right: .32rem;
+  }
+  .truth-practice__question { clear: both; color: var(--darkgray); font-size: .72rem; margin: .14rem 0 .48rem; }
+  .truth-practice__choices { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .truth-practice__choice {
+    border: 1px solid var(--tp-line); border-radius: .25rem; padding: .38rem .62rem;
+    background: var(--light); font-size: .77rem; line-height: 1.2; min-height: 2.05rem;
+  }
+  .truth-practice__choice:hover:not(:disabled), .truth-practice__choice.is-selected {
+    border-color: var(--tp-accent);
+    background: color-mix(in srgb, var(--tp-accent) 14%, var(--light));
+  }
+  .truth-practice__choice.is-selected { box-shadow: inset 0 0 0 1px var(--tp-accent); font-weight: 700; }
+  .truth-practice__choice.is-correct {
+    border-color: var(--ed-meaning);
+    background: color-mix(in srgb, var(--ed-meaning) 13%, var(--light));
+  }
+  .truth-practice__choice.is-wrong {
+    text-decoration: line-through; text-decoration-thickness: 1px;
+    opacity: .7;
+  }
+  .truth-practice__feedback {
+    margin: .62rem 0 0; font-size: .76rem; line-height: 1.54; color: var(--darkgray);
+    border-left: 2px solid var(--ed-meaning); padding-left: .65rem;
+    &.is-wrong { border-left-color: var(--ed-modal); }
+    strong { color: var(--dark); }
+  }
+  .truth-practice__actions { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .85rem; }
+  .truth-practice__actions button {
+    background: var(--light); border: 1px solid var(--tp-line); border-radius: .28rem;
+    padding: .43rem .68rem; font-size: .76rem;
+  }
+  .truth-practice__actions .truth-practice__primary {
+    background: var(--secondary); color: var(--light);
+    border-color: var(--secondary); font-weight: 700;
+  }
+  .truth-practice__hint, .truth-practice__insight {
+    margin: .68rem 0 0; padding: .62rem .75rem; border-radius: .26rem;
+    background: color-mix(in srgb, var(--lightgray) 52%, var(--light));
+    font-size: .75rem; line-height: 1.56;
+  }
+  .truth-practice__insight { border-left: 3px solid var(--ed-logic); }
+  .truth-practice__disclaimer {
+    margin: .83rem 0 0; font-size: .67rem; color: var(--darkgray); line-height: 1.5;
+  }
+  .truth-practice__done { padding: .3rem 0; }
+  .truth-practice__done p { font-size: .83rem; }
+  @media (max-width: 500px) {
+    padding: .8rem .7rem;
+    .truth-practice__tools { gap: .4rem; }
+    .truth-practice__score { flex-basis: 100%; margin: 0; }
+    .truth-practice__choices { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .truth-practice__choice { padding-inline: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .truth-practice__track span { transition: none; }
+  }
+}
