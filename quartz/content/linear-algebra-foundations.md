@@ -15,11 +15,13 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 A **vector space** is a collection $V$ of objects (called **vectors**) on which we can **add two vectors** and **multiply a vector by a scalar**. A *scalar* belongs to a specified **field** $F$, most often the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field is a number system where the usual addition, subtraction, multiplication, and division by nonzero elements obey the field laws.
 
-**The picture to keep in mind:** the vector space is the setting, its vectors are the objects, and scalars tell us how to combine them. A linear map acts on those objects; only after choosing bases do we describe that map with a matrix.
+**Start with one concrete picture.** In $V=\mathbb R^2$ (read "V equals R squared"), $u=(2,1)$ and $v=(0,3)$ are **two whole vectors**, not two coordinates of one vector. Adding them gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$.
 
-![An introductory map of linear algebra showing the vector space V with whole vectors u and v and a linear combination au plus bv, a linear map T taking vectors from V to W while preserving combinations, and a matrix A appearing only when bases are chosen.](./media/la-objects-before-coordinates.svg)
+![A coordinated three-stage illustration: in the vector space R squared, whole vectors u equals (2,1) and v equals (0,3) combine into u plus v equals (2,4), the linear map T(x,y) equals (x+y,0) sends u to (3,0), and the matrix with rows (1,1) and (0,0) represents that map in the standard bases.](./media/la-objects-before-coordinates.svg)
 
-*Figure: The objects come first. A vector space supplies addition and scaling; a linear map preserves both; a matrix is a coordinate-dependent representation of the map. The arrows in the left panel are just one example of vectors, not the definition of a vector.*
+*Figure: One example, three different things. A vector space contains whole vectors and supports addition and scaling. A linear map acts on those vectors. A matrix expresses the map after choosing bases. The arrows illustrate vectors in $\mathbb R^2$; vectors can also be polynomials, functions, and other objects.*
+
+For this example, $T(x,y)=(x+y,0)$ (read "T of x, y equals x plus y, zero") is the **linear map**. It sends $u=(2,1)$ to $T(u)=(3,0)$. In the standard bases, the matrix $\begin{bmatrix}1&1\\0&0\end{bmatrix}$ describes the *same* map in coordinates. The matrix is not the vector space itself.
 
 
 

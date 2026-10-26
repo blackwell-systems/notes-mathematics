@@ -60,6 +60,25 @@ function cpow(re, im, n) {
   return [r, i];
 }
 
+// ============= Introductory vector-space / linear-map diagram =============
+// Finite arithmetic checks for the labelled example, not a proof of the axioms.
+{
+  const u=[2,1], v=[0,3];
+  const sum=[u[0]+v[0],u[1]+v[1]], twice=[2*u[0],2*u[1]];
+  const T=([x,y])=>[x+y,0];
+  const A=[[1,1],[0,0]];
+  eq("linear opening: u+v first coordinate",sum[0],2);
+  eq("linear opening: u+v second coordinate",sum[1],4);
+  eq("linear opening: 2u first coordinate",twice[0],4);
+  eq("linear opening: 2u second coordinate",twice[1],2);
+  eq("linear opening: T(u) first coordinate",T(u)[0],3);
+  eq("linear opening: T(u) second coordinate",T(u)[1],0);
+  eq("linear opening: matrix row 1",A[0][0]*u[0]+A[0][1]*u[1],T(u)[0]);
+  eq("linear opening: matrix row 2",A[1][0]*u[0]+A[1][1]*u[1],T(u)[1]);
+  eq("linear opening: T respects addition first coordinate",T(sum)[0],T(u)[0]+T(v)[0]);
+  eq("linear opening: T respects addition second coordinate",T(sum)[1],T(u)[1]+T(v)[1]);
+}
+
 // ============= Conditional forms: implication, converse, inverse, contrapositive =============
 // Exhaustive finite regression for the pedagogical divisibility example, not a proof of universality.
 {
