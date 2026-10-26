@@ -97,9 +97,9 @@ if(total!==99)errors.push("Expected 99 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
-const asymmetricEdges=[...asymmetricSource.matchAll(/data-edge="(\\d+)-(\\d+)"/g)]
+const asymmetricEdges=[...asymmetricSource.matchAll(/data-edge="(\d+)-(\d+)"/g)]
   .map(([,from,to])=>from+","+to);
-const asymmetricCells=new Map([...asymmetricSource.matchAll(/data-cell="(\\d+)-(\\d+)" data-value="([01])"/g)]
+const asymmetricCells=new Map([...asymmetricSource.matchAll(/data-cell="(\d+)-(\d+)" data-value="([01])"/g)]
   .map(([,row,col,value])=>[row+","+col,Number(value)]));
 if(asymmetricEdges.length!==3 || new Set(asymmetricEdges).size!==3 ||
    asymmetricCells.size!==9)errors.push("Asymmetric figure: expected 3 distinct arrows and 9 matrix entries");
