@@ -67,6 +67,9 @@ jobs:
       - name: Arithmetic regression checks for worked examples
         run: node scripts/check-arithmetic.mjs
 
+      - name: Check truth practice interactions
+        run: node scripts/check-truth-practice.mjs
+
       - name: Inject image lightbox (click-to-zoom)
         run: node scripts/inject-lightbox.mjs
 
