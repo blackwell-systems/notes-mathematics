@@ -7,7 +7,7 @@ import {join} from "node:path";
 
 const expected = {
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
-  "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg"],
+  "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"],
   "linear-algebra-foundations.md": ["la-objects-before-coordinates.svg"],
   "functional-analysis.md": ["fa-two-notions-of-convergence.svg"],
   "complex-analysis.md": ["ca-contour-pole.svg"],
@@ -93,7 +93,26 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-if(total!==98)errors.push("Expected 98 illustrative SVGs, got "+total);
+if(total!==99)errors.push("Expected 99 illustrative SVGs, got "+total);
+// The asymmetric graph's labeled arrows must agree with its entire adjacency
+// matrix. Explicitly verify the one-way and no-self-loop conditions.
+const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
+const asymmetricEdges=[...asymmetricSource.matchAll(/data-edge="(\\d+)-(\\d+)"/g)]
+  .map(([,from,to])=>from+","+to);
+const asymmetricCells=new Map([...asymmetricSource.matchAll(/data-cell="(\\d+)-(\\d+)" data-value="([01])"/g)]
+  .map(([,row,col,value])=>[row+","+col,Number(value)]));
+if(asymmetricEdges.length!==3 || new Set(asymmetricEdges).size!==3 ||
+   asymmetricCells.size!==9)errors.push("Asymmetric figure: expected 3 distinct arrows and 9 matrix entries");
+for(const edge of asymmetricEdges){
+  if(asymmetricCells.get(edge)!==1)errors.push("Asymmetric figure: missing matrix one for "+edge);
+}
+for(const [key,value] of asymmetricCells){
+  const [row,col]=key.split(",");
+  if((row===col && value!==0) ||
+     (value===1 && (asymmetricCells.get(col+","+row)!==0 || !asymmetricEdges.includes(key))))
+    errors.push("Asymmetric figure: invalid self-loop or reverse arrow at "+key);
+}
+
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){
   const entry=tracked.pages.find(item=>item.path===page);
