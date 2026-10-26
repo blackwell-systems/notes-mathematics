@@ -146,7 +146,7 @@
     el.dataset.practiceReady = "true";
     var category = "all", mode = "mixed";
     var order = [], index = 0, picks = [null, null, null], revealed = false, showHint = false;
-    var attempts = new Map(), mistakes = new Set(), review = false;
+    var attempts = new Map(), mistakes = new Set(), skipped = new Set(), review = false;
     var matchCache = new Map();
 
     function activeCase() { return index < order.length ? cases[order[index] - 1] : null; }
@@ -163,6 +163,15 @@
     function totalJudged() {
       var n = 0; attempts.forEach(function (a) { n += a.max; }); return n;
     }
+    function focusAfterRender(selector) {
+      var target = el.querySelector(selector);
+      if (target) target.focus({ preventScroll: true });
+    }
+    function renderAndFocus(selector) {
+      render();
+      focusAfterRender(selector);
+    }
+
     function mistakeIndex(c) { return (c.id + index) % axes.length; }
     function wrongLabel(i, c, wrong) {
       return wrong === i ? axes[i].values.find(function (v) { return v !== c.answers[i]; }) : c.answers[i];
@@ -193,7 +202,7 @@
       if (type === "match") {
         return '<div class="truth-practice__item truth-practice__item--challenge">' +
           '<span class="truth-practice__category">REVERSE THE LENSES</span>' +
-          '<p class="truth-practice__claim">Which claim fits all three labels?</p>' +
+          '<p class="truth-practice__claim" tabindex="-1">Which claim fits all three labels?</p>' +
           '<div class="truth-practice__target">' +
           '<span class="truth-practice__target--modal">' + escapeHTML(c.answers[0]) + '</span>' +
           '<span class="truth-practice__target--meaning">' + escapeHTML(c.answers[1]) + '</span>' +
@@ -203,7 +212,7 @@
       if (type === "spot") {
         return '<div class="truth-practice__item truth-practice__item--challenge">' +
           '<span class="truth-practice__category">SPOT THE ERROR · ' + escapeHTML(groups[c.group].label) + '</span>' +
-          '<p class="truth-practice__claim">' + escapeHTML(c.statement) + '</p>' +
+          '<p class="truth-practice__claim" tabindex="-1">' + escapeHTML(c.statement) + '</p>' +
           '<p class="truth-practice__context">' + escapeHTML(c.context) + '</p>' +
           '<p class="truth-practice__challenge-intro">Exactly one classification below is wrong. Which lens?</p>' +
           '<div class="truth-practice__target">' + axes.map(function (axis, i) {
@@ -213,7 +222,7 @@
       }
       return '<div class="truth-practice__item"><span class="truth-practice__category">' +
         escapeHTML(groups[c.group].label) + (review ? ' · review' : '') + '</span>' +
-        '<p class="truth-practice__claim">' + escapeHTML(c.statement) + '</p>' +
+        '<p class="truth-practice__claim" tabindex="-1">' + escapeHTML(c.statement) + '</p>' +
         '<p class="truth-practice__context">' + escapeHTML(c.context) + '</p></div>';
     }
 
@@ -283,16 +292,18 @@
       var c = activeCase();
       if (!c) {
         var scored = Array.from(attempts.values()).filter(function (a) { return a.max > 0; }).length;
-        el.innerHTML = '<div class="truth-practice__done"><strong>Set complete.</strong><p>You made ' +
-          totalCorrect() + ' correct classifications out of ' + totalJudged() + ' decisions across ' + scored +
-          ' checked examples. ' + mistakes.size + ' examples remain for review.</p><div class="truth-practice__actions">' +
+        el.innerHTML = '<div class="truth-practice__done" tabindex="-1"><strong>' +
+          (review ? 'Review complete.' : 'Set complete.') + '</strong><p>First pass: ' +
+          totalCorrect() + ' correct decisions out of ' + totalJudged() + ' across ' + scored +
+          ' checked examples. ' + skipped.size + ' skipped on the first pass. ' +
+          mistakes.size + ' examples still need review.</p><div class="truth-practice__actions">' +
           (mistakes.size ? '<button type="button" data-action="review">Review mistakes</button>' : '') +
           '<button type="button" data-action="reset">Start again</button></div></div>';
         return;
       }
       var type = kind(), n = order.length;
       var head = '<div class="truth-practice__head"><div><span class="truth-practice__eyebrow">GUIDED PRACTICE · THREE LENSES</span>' +
-        '<p class="truth-practice__intro">Classify, match, and spot incorrect classifications.</p></div>' +
+        '<p class="truth-practice__intro">' + (review ? 'Revisit missed and skipped examples. Your first-pass score stays unchanged.' : 'Classify, match, and spot incorrect classifications.') + '</p></div>' +
         '<div class="truth-practice__count" aria-live="polite">' + (index + 1) + ' / ' + n + '</div></div>' +
         '<div class="truth-practice__track"><span style="width:' + (((index + 1) / n) * 100).toFixed(2) + '%"></span></div>' +
         '<div class="truth-practice__tools"><label>Examples <select aria-label="Example category" data-category>' +
@@ -304,7 +315,7 @@
             return '<option value="' + entry[0] + '"' + (mode === entry[0] ? ' selected' : '') + '>' + entry[1] + '</option>';
           }).join('') + '</select></label>' +
           '<button type="button" class="truth-practice__utility" data-action="shuffle">Reshuffle</button>' +
-          '<span class="truth-practice__score">Correct: ' + totalCorrect() + ' / ' + totalJudged() + '</span></div>';
+          '<span class="truth-practice__score" aria-live="polite">First pass: ' + totalCorrect() + ' / ' + totalJudged() + '</span></div>';
 
       var exercise = type === "match" ? matchUI(c) : type === "spot" ? spotUI(c) : classificationUI(c);
       var hintText = type === "match"
@@ -321,11 +332,10 @@
             (answered() ? '' : ' disabled') + '>Check answers</button>' +
             '<button type="button" data-action="hint">' + (showHint ? 'Hide hint' : 'Show hint') + '</button>' +
             '<button type="button" data-action="skip">Skip</button>') +
-        (mistakes.size && !review ? '<button type="button" class="truth-practice__utility" data-action="review">Review mistakes (' +
-          mistakes.size + ')</button>' : '') + '</div>';
+        '</div>';
       var hint = showHint && !revealed ? '<p class="truth-practice__hint"><strong>Hint:</strong> ' +
         escapeHTML(hintText) + '</p>' : '';
-      var insight = revealed ? '<div class="truth-practice__insight"><strong>Takeaway.</strong> ' +
+      var insight = revealed ? '<div class="truth-practice__insight" tabindex="-1"><strong>Takeaway.</strong> ' +
         escapeHTML(c.insight) + '</div>' : '';
       el.innerHTML = head + questionHead(c, type) + exercise + hint + insight + actions +
         '<p class="truth-practice__disclaimer">Framework-sensitive cases are labelled. The analytic/synthetic distinction is philosophically contested; keys follow the stated framework.</p>';
@@ -335,15 +345,15 @@
       var pool = cases.filter(function (c) { return category === "all" || c.group === category; });
       order = balancedDeck(pool);
       index = 0; picks = [null, null, null]; revealed = false; showHint = false; review = false;
-      attempts.clear(); mistakes.clear(); matchCache.clear();
+      attempts.clear(); mistakes.clear(); skipped.clear(); matchCache.clear();
       render();
     }
 
     el.addEventListener("change", function (event) {
       if (event.target.matches("select[data-category]")) {
-        category = event.target.value; rebuildOrder();
+        category = event.target.value; rebuildOrder(); focusAfterRender('select[data-category]');
       } else if (event.target.matches("select[data-mode]")) {
-        mode = event.target.value; rebuildOrder();
+        mode = event.target.value; rebuildOrder(); focusAfterRender('select[data-mode]');
       }
     });
 
@@ -352,14 +362,15 @@
       if (!btn || !el.contains(btn)) return;
       var axis = btn.getAttribute("data-axis");
       if (axis !== null && !revealed) {
-        picks[Number(axis)] = btn.getAttribute("data-value"); render(); return;
+        picks[Number(axis)] = btn.getAttribute("data-value");
+        renderAndFocus('button[data-axis="' + axis + '"][data-value="' + btn.getAttribute("data-value") + '"]'); return;
       }
       var pick = btn.getAttribute("data-pick");
       if (pick !== null && !revealed) {
-        picks[0] = pick; render(); return;
+        picks[0] = pick; renderAndFocus('button[data-pick="' + pick + '"]'); return;
       }
       switch (btn.getAttribute("data-action")) {
-        case "hint": showHint = !showHint; render(); break;
+        case "hint": showHint = !showHint; renderAndFocus('button[data-action="hint"]'); break;
         case "check":
           if (!answered() || revealed) return;
           var c = activeCase(), type = kind();
@@ -368,20 +379,25 @@
             ? picks.filter(function (p, i) { return p === c.answers[i]; }).length
             : type === "match" ? Number(picks[0] === String(c.id))
             : Number(picks[0] === String(mistakeIndex(c)));
-          attempts.set(c.id, { correct: correct, max: max });
+          if (!review) attempts.set(c.id, { correct: correct, max: max });
           if (correct < max) mistakes.add(c.id); else mistakes.delete(c.id);
-          revealed = true; render(); break;
+          revealed = true; renderAndFocus('.truth-practice__insight'); break;
         case "skip":
+          if (!review) { skipped.add(activeCase().id); mistakes.add(activeCase().id); }
+          index++; picks = [null, null, null]; revealed = false; showHint = false;
+          renderAndFocus('.truth-practice__claim, .truth-practice__done'); break;
         case "next":
-          index++; picks = [null, null, null]; revealed = false; showHint = false; render(); break;
-        case "shuffle": rebuildOrder(); break;
+          index++; picks = [null, null, null]; revealed = false; showHint = false;
+          renderAndFocus('.truth-practice__claim, .truth-practice__done'); break;
+        case "shuffle": rebuildOrder(); focusAfterRender('.truth-practice__claim'); break;
         case "review":
           if (!mistakes.size) return;
           order = balancedDeck(cases.filter(function (c) { return mistakes.has(c.id); }));
           review = true; mode = "classify";
-          index = 0; picks = [null, null, null]; revealed = false; showHint = false; render(); break;
+          index = 0; picks = [null, null, null]; revealed = false; showHint = false;
+          renderAndFocus('.truth-practice__claim'); break;
         case "reset":
-          category = "all"; mode = "mixed"; rebuildOrder(); break;
+          category = "all"; mode = "mixed"; rebuildOrder(); focusAfterRender('.truth-practice__claim'); break;
       }
     });
 
