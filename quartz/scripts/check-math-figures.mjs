@@ -4,6 +4,7 @@
 // human light/dark/mobile visual review remains a separate acceptance gate.
 import {readFileSync, existsSync} from "node:fs";
 import {join} from "node:path";
+import {spawnSync} from "node:child_process";
 
 const expected = {
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
@@ -66,6 +67,7 @@ const expected = {
 
 const errors=[];
 const observed=new Set();
+const svgXmlPaths=[];
 let total=0;
 for(const [page,filenames] of Object.entries(expected)){
   const filePath=join("content",page);
@@ -77,6 +79,7 @@ for(const [page,filenames] of Object.entries(expected)){
     observed.add(name);
     const source=join("content","media",name);
     if(!existsSync(source)){errors.push("Missing SVG: "+source);continue;}
+    svgXmlPaths.push(source);
     const svg=readFileSync(source,"utf8");
     if(!/<svg\b/.test(svg)||!/<\/svg>\s*$/.test(svg))errors.push(name+": missing SVG root/end");
     if(!/viewBox="0 0 \d+ \d+"/.test(svg))errors.push(name+": missing diagram viewBox");
@@ -93,6 +96,30 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
+// Validate actual XML syntax, not only the presence of <svg> and </svg>.
+// XML parsers reject duplicate attributes, broken entities and unclosed tags.
+// One Python process checks the entire catalog using the standard library.
+const xmlCheck = [
+  "import sys",
+  "import xml.etree.ElementTree as ET",
+  "failed = False",
+  "for path in sys.argv[1:]:",
+  "    try:",
+  "        ET.parse(path)",
+  "    except ET.ParseError as exc:",
+  "        print(f'{path}: {exc}', file=sys.stderr)",
+  "        failed = True",
+  "sys.exit(1 if failed else 0)",
+].join("\n");
+const xmlRun = spawnSync("python3", ["-c", xmlCheck, ...svgXmlPaths], {
+  encoding: "utf8",
+});
+if (xmlRun.error) {
+  errors.push("SVG XML validation could not start python3: " + xmlRun.error.message);
+} else if (xmlRun.status !== 0) {
+  errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
+}
+
 if(total!==99)errors.push("Expected 99 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
