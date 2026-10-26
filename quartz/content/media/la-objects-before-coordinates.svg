@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 700" role="img" aria-labelledby="title desc">
+<title id="title">Vector spaces, linear maps, and matrices are three different kinds of thing</title>
+<desc id="desc">Left: a vector space V contains whole vectors u and v. Scalars from a field F scale these vectors and their sum stays in V. Center: a linear map T sends whole vectors from V to W and preserves every linear combination. Right: after choosing a basis for V and W, a matrix A represents T in coordinates; it is not the map itself.</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#87B8EE"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#66C4B4"/></marker>
+</defs>
+<rect width="1250" height="700" rx="16" fill="#101A2C"/>
+<text x="54" y="62" font-family="Georgia,serif" font-size="40" font-weight="bold" fill="#F4F3ED">The objects come before the coordinates</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#BCCAD9">A vector space has operations. A linear map respects them. A matrix records the map once bases are chosen.</text>
+<line x1="54" y1="122" x2="1196" y2="122" stroke="#40536B" stroke-width="2"/>
+<rect x="48" y="154" width="550" height="405" rx="16" fill="#17283C" stroke="#66C4B4" stroke-width="2.5"/>
+<text x="75" y="194" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.7" fill="#66C4B4">01  VECTOR SPACE  V</text>
+<text x="75" y="231" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#F4F3ED">A collection of whole vectors</text>
+<rect x="82" y="259" width="476" height="232" rx="13" fill="#102438" stroke="#4E667B" stroke-width="1.5"/>
+<path d="M136 434 H505 M168 463 V287" stroke="#5F7184" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M168 434 L301 343" stroke="#87B8EE" stroke-width="5" marker-end="url(#arrow-blue)"/>
+<path d="M168 434 L221 304" stroke="#BCA8EC" stroke-width="5" stroke-linecap="round"/>
+<path d="M168 434 L446 319" stroke="#66C4B4" stroke-width="5" marker-end="url(#arrow-teal)"/>
+<text x="305" y="341" fill="#87B8EE" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="bold">u</text>
+<text x="219" y="296" fill="#BCA8EC" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="bold">v</text>
+<text x="393" y="296" fill="#66C4B4" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="bold">au + bv</text>
+<text x="97" y="480" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#BCCAD9">Schematic: each arrow represents an entire vector.</text>
+<text x="77" y="533" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#F4F3ED">Scalars  a, b  belong to field  F.</text>
+<rect x="649" y="154" width="554" height="405" rx="16" fill="#17283C" stroke="#87B8EE" stroke-width="2.5"/>
+<text x="677" y="194" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="1.7" fill="#87B8EE">02  LINEAR MAP  T : V → W</text>
+<text x="677" y="231" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#F4F3ED">A rule between vector spaces</text>
+<rect x="679" y="261" width="210" height="200" rx="13" fill="#102438" stroke="#4E667B" stroke-width="1.7"/>
+<rect x="960" y="261" width="210" height="200" rx="13" fill="#102438" stroke="#4E667B" stroke-width="1.7"/>
+<text x="784" y="306" fill="#BCCAD9" font-family="Arial,Helvetica,sans-serif" font-size="23" text-anchor="middle">input in  V</text>
+<text x="1065" y="306" fill="#BCCAD9" font-family="Arial,Helvetica,sans-serif" font-size="23" text-anchor="middle">output in  W</text>
+<text x="784" y="391" fill="#66C4B4" font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="700" text-anchor="middle">au + bv</text>
+<text x="1065" y="377" fill="#66C4B4" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" text-anchor="middle">aT(u) + bT(v)</text>
+<path d="M894 355 H951" stroke="#87B8EE" stroke-width="5" marker-end="url(#arrow-blue)"/>
+<text x="924" y="339" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#87B8EE" text-anchor="middle">T</text>
+<text x="675" y="520" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#F4F3ED">T(au + bv) = aT(u) + bT(v)</text>
+<rect x="48" y="584" width="1155" height="82" rx="13" fill="#203148" stroke="#EDB86D" stroke-width="2"/>
+<text x="74" y="618" fill="#EDB86D" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="750" letter-spacing="1.2">03  MATRIX  A</text>
+<text x="74" y="647" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="22">Choose bases for V and W → write T in coordinates → obtain A.</text>
+<text x="1192" y="646" fill="#BCCAD9" font-family="Arial,Helvetica,sans-serif" font-size="17" text-anchor="end">Different bases, different matrix. Same map.</text>
+</svg>

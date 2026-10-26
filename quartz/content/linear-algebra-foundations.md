@@ -15,6 +15,14 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 A **vector space** is a collection $V$ of objects (called **vectors**) on which we can **add two vectors** and **multiply a vector by a scalar**. A *scalar* belongs to a specified **field** $F$, most often the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field is a number system where the usual addition, subtraction, multiplication, and division by nonzero elements obey the field laws.
 
+**The picture to keep in mind:** the vector space is the setting, its vectors are the objects, and scalars tell us how to combine them. A linear map acts on those objects; only after choosing bases do we describe that map with a matrix.
+
+![An introductory map of linear algebra showing the vector space V with whole vectors u and v and a linear combination au plus bv, a linear map T taking vectors from V to W while preserving combinations, and a matrix A appearing only when bases are chosen.](./media/la-objects-before-coordinates.svg)
+
+*Figure: The objects come first. A vector space supplies addition and scaling; a linear map preserves both; a matrix is a coordinate-dependent representation of the map. The arrows in the left panel are just one example of vectors, not the definition of a vector.*
+
+
+
 ### The vector-space axioms: the actual rules
 
 Merely calling something a vector does not make it one. For $V$ to be a vector space over $F$, its two operations must obey **all** the following rules. Here $u,v,w$ are **whole vectors in $V$**; $a,b$ are **scalars in $F$**; $0_V$ is the zero vector, distinct in meaning from the scalar $0$.

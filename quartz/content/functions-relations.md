@@ -152,14 +152,11 @@ $$
 \forall a \in A \, (a \in A \to R(a, a))
 $$
 
-The reflexive property of relations can be understood from a directed
-graph by looking for a loop on each element going back to itself.
+For the set $A=\{1,2,3\}$, consider $R=\{(1,1),(2,2),(3,3),(1,2),(2,3)\}$. The graph has a loop on **every** vertex. In the adjacency matrix, that means every diagonal entry is $1$; the other entries are free to be $0$ or $1$.
 
-The reflexive property of relations can be understood from a matrix by
-looking for a diagonal connecting from top left corner to bottom right
-corner
+![Each of the three vertices has its own self-loop. In the matching adjacency matrix, all three diagonal entries are highlighted ones, while arrows from 1 to 2 and 2 to 3 are optional extra edges.](./media/fr-reflexive-graph-matrix.svg)
 
-![A relation on {1,2,3} drawn as a directed graph with a self-loop at each node plus arrows 1 to 2 and 2 to 3, next to its adjacency matrix whose all-ones diagonal marks it reflexive](./media/fr-relation-digraph.png)
+*Figure: Reflexivity requires all diagonal entries to be 1. The other entries can vary.*
 
 #### Symmetric Property
 
@@ -172,9 +169,15 @@ to **a**.
 In other words, if $(a,b) \in R$, then $(b,a)$ must
 also be in $R$.
 
-$$
+$
 \forall a,b \in A \, ( R(a,b) \to R(b,a) )
-$$
+$
+
+For $A=\{1,2,3\}$, take $R=\{(1,2),(2,1),(2,3),(3,2)\}$. Every arrow between distinct elements has a reverse arrow. The matrix is symmetric across its main diagonal: the entry in row $i$, column $j$ equals the entry in row $j$, column $i$. Self-loops are optional.
+
+![Two pairs of opposing arrows connect 1 with 2 and 2 with 3. In the adjacency matrix, each off-diagonal one has a matching one reflected across the main diagonal; all diagonal entries happen to be zero but are not constrained by symmetry.](./media/fr-symmetric-graph-matrix.svg)
+
+*Figure: Symmetry mirrors each relation across the matrix diagonal. Self-loops are permitted but not required.*
 
 #### Transitive Property
 
@@ -187,9 +190,15 @@ related to an element **c**, then **a** must also be related to **c**.
 In other words, if $(a,b) \in R$ and $(b,c) \in R$ then $(a,c)$ must
 also be in $R$.
 
-$$
+$
 \forall a,b,c \in A \, ( ( R(a,b) \wedge R(b,c) ) \to R(a,c) )
-$$
+$
+
+On $A=\{1,2,3\}$, let $R=\{(1,2),(2,3),(1,3)\}$. Since $1\,R\,2$ and $2\,R\,3$, transitivity demands $1\,R\,3$. That shortcut is present (highlighted in gold). No other two-step paths introduce further requirements, so this finite relation really is transitive.
+
+![Two blue directed arrows, 1 to 2 and 2 to 3, are accompanied by a gold shortcut arrow 1 to 3. The matrix highlights the one entries in row 1 column 2, row 2 column 3, and row 1 column 3, showing that the two-step route has its required shortcut.](./media/fr-transitive-graph-matrix.svg)
+
+*Figure: The route 1 → 2 → 3 forces the shortcut 1 → 3. These three edges make the displayed relation transitive.*
 
 #### Antisymmetric Property
 
@@ -229,7 +238,13 @@ $$
 **Example:** The "less than" relation (<) on real numbers is irreflexive:
 - No number is less than itself
 
-**Note:** Irreflexive is NOT the same as "not reflexive." A relation can be neither reflexive nor irreflexive.
+For $A=\{1,2,3\}$, take $R=\{(1,2),(2,3)\}$. The graph has no loops, and all three diagonal entries of the adjacency matrix are $0$.
+
+![Directed graph on the vertices 1, 2 and 3 with arrows from 1 to 2 and 2 to 3 but no self-loops. In its adjacency matrix, the three diagonal zeros are highlighted.](./media/fr-irreflexive-graph-matrix.svg)
+
+*Figure: Irreflexivity requires all diagonal entries to be 0. It does not prohibit arrows between distinct vertices.*
+
+**Note:** Irreflexive is NOT the same as "not reflexive." A relation can be neither reflexive nor irreflexive. A relation may be reflexive, irreflexive, neither, or (only when $A$ is empty) both.
 
 ### Summary of Relation Properties
 

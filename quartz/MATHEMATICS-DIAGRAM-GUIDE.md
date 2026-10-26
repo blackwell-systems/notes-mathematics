@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **93 original, source-editable SVG figures** placed directly beside the claims they explain across **31 proof-oriented chapters and reading maps**.
+This collection contains **98 original, source-editable SVG figures** placed directly beside the claims they explain across **33 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -10,6 +10,8 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | --- | ---: | --- |
 | [Mathematical Notations](./content/mathematical-notations.md) | 2 | anatomy of a quantified statement; why quantifier order changes meaning |
 | [Atlas of Mathematical Spaces](./content/atlas-of-mathematical-spaces.md) | 14 | independent structure branches; Sierpiński space as an open-set classifier; Banach/inner-product/Hilbert; structural taxonomy; affine/projective constructions; metric versus uniformity; function spaces; measures, manifolds, morphisms, forgetful functors, adjunctions and universal properties |
+| [Functions and Relations](./content/functions-relations.md) | 4 | reflexivity, irreflexivity, symmetry and transitivity, each shown as a directed graph paired with an adjacency matrix |
+| [Linear Algebra Foundations](./content/linear-algebra-foundations.md) | 1 | the distinction between vectors, vector spaces, linear maps and coordinate-dependent matrices |
 | [Functional Analysis](./content/functional-analysis.md) | 1 | vanishing integral error versus persistent maximum error |
 | [Complex Analysis](./content/complex-analysis.md) | 1 | contour winding around a pole and its effect on integrals |
 | [Commutative Algebra](./content/commutative-algebra.md) | 1 | selecting denominators allowed in a local ring |
@@ -63,7 +65,7 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **93 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **98 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 

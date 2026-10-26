@@ -93,7 +93,7 @@ Every push runs two CI gates before deploy:
 - **Quality gate** (`quartz/scripts/check-quality.mjs`) — fails on KaTeX render
   errors, broken internal links or `#anchors`, broken image references, and empty
   image alt text (ratcheted to zero).
-- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 93 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
+- **Mathematical figure audit** (`quartz/scripts/check-math-figures.mjs`) — verifies all 98 original mathematics SVGs across algebra, category theory and general topology, authored alt text, captions and accessible diagram descriptions
   - [**Diagram guide and complete 93-figure catalog**](./quartz/MATHEMATICS-DIAGRAM-GUIDE.md)
 - **Arithmetic harness** (`quartz/scripts/check-arithmetic.mjs`) — re-proves every
   numeric worked example in the notes from scratch (over 1,000 assertions, including recursive-arithmetic regression checks).
