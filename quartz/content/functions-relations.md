@@ -225,7 +225,20 @@ $$
 **Example:** The "less than" relation (<) on real numbers is asymmetric:
 - If a < b, then b ≮ a (b is not less than a)
 
-**Note:** Asymmetric implies antisymmetric, but not vice versa.
+For $A=\{1,2,3\}$, consider the relation $R=\{(1,2),(1,3),(2,3)\}$. Its graph has the arrows $1\to2$, $1\to3$, and $2\to3$, with **no reverse arrows and no self-loops**. In the adjacency matrix, the entries above the diagonal are $1$, while every diagonal entry and every entry below it is $0$. In particular, the arrow $1\to2$ makes a reverse arrow $2\to1$ impossible.
+
+![Asymmetric relation on three vertices, with arrows 1 to 2, 1 to 3 and 2 to 3 only; the matching three-by-three matrix has ones strictly above the diagonal and zeros elsewhere, highlighting that reverse arrows and self-loops are excluded.](./media/fr-asymmetric-graph-matrix.svg)
+
+*Figure: Asymmetry forbids both arrows in opposite directions and self-loops. The matrix has no pair of opposite off-diagonal ones and its diagonal is all zero.*
+
+The pictured relation also happens to be transitive; **transitivity is not required** for a relation to be asymmetric.
+
+> [!distinction] Antisymmetric versus asymmetric
+> **Antisymmetric** means that if $aRb$ and $bRa$, then $a=b$. Self-loops are allowed, but two-way arrows between *distinct* elements are not.
+>
+> **Asymmetric** means that $aRb$ always rules out $bRa$, even when $a=b$. Thus an asymmetric relation has neither reverse-arrow pairs nor self-loops.
+>
+> Every asymmetric relation is **antisymmetric and irreflexive**, but the converse implications do not hold individually. For instance, $\le$ on real numbers is antisymmetric, but not asymmetric: $a\le a$ gives a self-loop at every element. And an irreflexive relation can still have both $(1,2)$ and $(2,1)$.
 
 #### Irreflexive Property
 
