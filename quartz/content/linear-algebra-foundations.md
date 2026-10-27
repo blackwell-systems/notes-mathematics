@@ -19,7 +19,7 @@ A **vector space** is a collection $V$ of objects (called **vectors**) on which 
 
 ![A coordinated three-stage illustration: in the vector space R squared, whole vectors u equals (2,1) and v equals (0,3) combine into u plus v equals (2,4), the linear map T(x,y) equals (x+y,0) sends u to (3,0), and the matrix with rows (1,1) and (0,0) represents that map in the standard bases.](./media/la-objects-before-coordinates.svg)
 
-*Figure: One example, three different things. A vector space contains whole vectors and supports addition and scaling. A linear map acts on those vectors. A matrix expresses the map after choosing bases. The arrows illustrate vectors in $\mathbb R^2$; vectors can also be polynomials, functions, and other objects.*
+*Figure: One example, three different things. A vector space contains whole vectors and supports addition and scaling. The middle panel shows the same vector before and after a linear map in separate coordinate planes. A matrix expresses the map after choosing bases. The arrows illustrate vectors in $\mathbb R^2$; vectors can also be polynomials, functions, and other objects.*
 
 For this example, $T(x,y)=(x+y,0)$ (read "T of x, y equals x plus y, zero") is the **linear map**. It sends $u=(2,1)$ to $T(u)=(3,0)$. In the standard bases, the matrix $\begin{bmatrix}1&1\\0&0\end{bmatrix}$ describes the *same* map in coordinates. The matrix is not the vector space itself.
 

@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 955" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 1192" role="img" aria-labelledby="title desc">
 <title id="title">Linear algebra starts with vectors and maps, not matrices</title>
-<desc id="desc">One consistent example across three stages. First, in V equals R squared, the whole vectors u equals (2,1) and v equals (0,3) are drawn to scale on coordinate axes, with their sum u plus v equals (2,4); a dotted translated v arrow demonstrates head-to-tail addition. Both addition and scalar multiplication keep results within the space. Second, the linear map T(x,y) equals (x+y,0) takes u equals (2,1) to T(u) equals (3,0). Third, after choosing the standard basis, the very same T is encoded by matrix A with first row 1,1 and second row 0,0, which maps the coordinate column (2,1) to (3,0). Vectors are entire objects, coordinates describe them, maps act on them, and matrices represent maps in chosen bases.</desc>
+<desc id="desc">One consistent example across three stages. First, in V equals R squared, the whole vectors u equals (2,1) and v equals (0,3) are drawn to scale on coordinate axes, with their sum u plus v equals (2,4); a dotted translated v arrow demonstrates head-to-tail addition. Both addition and scalar multiplication keep results within the space. Second, two side-by-side coordinate planes display the linear map T(x,y) equals (x+y,0), with an arrow across the panels showing how the input vector u equals (2,1) becomes the output vector T(u) equals (3,0). Third, after choosing the standard basis, the very same T is encoded by matrix A with first row 1,1 and second row 0,0, which maps the coordinate column (2,1) to (3,0). Vectors are entire objects, coordinates describe them, maps act on them, and matrices represent maps in chosen bases.</desc>
 <defs><marker id="head-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#87B8EE"/></marker><marker id="head-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#BCA8EC"/></marker><marker id="head-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#66C4B4"/></marker></defs>
-<rect width="980" height="955" fill="#101A2C" rx="15"/>
+<rect width="980" height="1192" fill="#101A2C" rx="15"/>
 <text x="48" y="63" font-family="Georgia,serif" font-size="40" fill="#F4F3ED" font-weight="700">Linear algebra before matrices</text>
 <text x="48" y="105" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#C0CBD8" >Vectors are whole objects. Coordinates describe them.</text>
 <path d="M48 126 H932" fill="none" stroke="#42576D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -42,15 +42,65 @@
 <text x="508" y="442" font-family="Arial,Helvetica,sans-serif" font-size="27" fill="#EDB86D" font-weight="650">2u = (4, 2)</text>
 <text x="508" y="479" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#C0CBD8" >The results stay in V.</text>
 <text x="64" y="555" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#C0CBD8" >u and v name entire vectors; 2 and 1 are the components of u.</text>
-<rect x="34" y="598" width="912" height="153" rx="13" fill="#182A3D" stroke="#42576D" stroke-width="2"/>
+<rect x="34" y="598" width="912" height="388" rx="13" fill="#182A3D" stroke="#42576D" stroke-width="2"/>
 <text x="62" y="638" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#87B8EE" font-weight="700" letter-spacing="1">02   LINEAR MAP</text>
-<text x="62" y="674" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#F4F3ED" >T(x, y) = (x + y, 0)</text>
-<path d="M64 708 H918" fill="none" stroke="#42576D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-<text x="86" y="740" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#87B8EE" font-weight="700">u = (2, 1)</text>
-<path d="M256 727 H341" fill="none" stroke="#66C4B4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-teal)"/>
-<text x="357" y="739" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#C0CBD8" >apply T</text>
-<path d="M493 727 H577" fill="none" stroke="#66C4B4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-teal)"/>
-<text x="610" y="740" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#66C4B4" font-weight="700">T(u) = (3, 0)</text>
+<text x="62" y="673" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#F4F3ED">One rule transforms vectors from the input space to the output space.</text>
+<g aria-label="INPUT  ·  V = ℝ² coordinate plane">
+<rect x="62" y="702" width="318" height="216" rx="9" fill="#102336" stroke="#466177" stroke-width="1.6"/>
+<text x="80" y="735" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" letter-spacing=".45" fill="#C0CBD8">INPUT  ·  V = ℝ²</text>
+<path d="M105 746 V882" stroke="#2C4356" stroke-width="1" />
+<path d="M153 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M201 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M249 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M297 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M345 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M96 882 H345" stroke="#2C4356" stroke-width="1" />
+<path d="M96 834 H345" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M96 786 H345" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M96 738 H345" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M96 882 H352 M105 892 V741" stroke="#8DABC1" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<text x="82" y="903" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#B3C4D0">0</text>
+<text x="344" y="905" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#B3C4D0">x</text>
+<text x="88" y="761" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#B3C4D0">y</text>
+<text x="83" y="840" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">1</text>
+<text x="148" y="903" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">1</text>
+<text x="196" y="903" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">2</text>
+<text x="244" y="903" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">3</text>
+<path d="M105 882 L201 834" fill="none" stroke="#87B8EE" stroke-width="5" stroke-linecap="round" marker-end="url(#head-blue)"/>
+<text x="161" y="808" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#87B8EE">u = (2, 1)</text>
+</g>
+<g aria-label="The transformation rule">
+<text x="408" y="759" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#F4F3ED">T(x, y) =</text>
+<text x="417" y="796" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#F4F3ED">(x + y, 0)</text>
+<path d="M413 843 H571" stroke="#66C4B4" stroke-width="6" fill="none" marker-end="url(#head-teal)" stroke-linecap="round"/>
+<text x="429" y="881" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#C0CBD8">apply the map</text>
+</g>
+<g aria-label="OUTPUT  ·  W = ℝ² coordinate plane">
+<rect x="595" y="702" width="318" height="216" rx="9" fill="#102336" stroke="#466177" stroke-width="1.6"/>
+<text x="613" y="735" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" letter-spacing=".45" fill="#C0CBD8">OUTPUT  ·  W = ℝ²</text>
+<path d="M638 746 V882" stroke="#2C4356" stroke-width="1" />
+<path d="M686 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M734 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M782 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M830 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M878 746 V882" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M629 882 H878" stroke="#2C4356" stroke-width="1" />
+<path d="M629 834 H878" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M629 786 H878" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M629 738 H878" stroke="#2C4356" stroke-width="1" stroke-dasharray="4 6"/>
+<path d="M629 882 H885 M638 892 V741" stroke="#8DABC1" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<text x="615" y="903" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#B3C4D0">0</text>
+<text x="877" y="905" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#B3C4D0">x</text>
+<text x="621" y="761" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#B3C4D0">y</text>
+<text x="616" y="840" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">1</text>
+<text x="681" y="903" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">1</text>
+<text x="729" y="903" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">2</text>
+<text x="777" y="903" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#B3C4D0">3</text>
+<path d="M638 882 L782 882" fill="none" stroke="#66C4B4" stroke-width="5" stroke-linecap="round" marker-end="url(#head-teal)"/>
+<text x="694" y="790" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#66C4B4">T(u) = (3, 0)</text>
+</g>
+<text x="62" y="956" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#C0CBD8">The entire vector moves. The same rule also preserves addition and scaling.</text>
+<g transform="translate(0 237)">
 <rect x="34" y="770" width="912" height="160" rx="13" fill="#182A3D" stroke="#42576D" stroke-width="2"/>
 <text x="62" y="809" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#EDB86D" font-weight="700" letter-spacing=".4">03   MATRIX: A WAY TO WRITE THE MAP</text>
 <text x="74" y="884" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#F4F3ED" font-weight="700">A =</text>
@@ -62,4 +112,5 @@
 <text x="251" y="895" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#F4F3ED" >0</text>
 <text x="323" y="875" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#66C4B4" font-weight="700">A · (2, 1) = (3, 0)</text>
 <text x="323" y="912" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#C0CBD8" >Using standard bases. New bases can change A, not T.</text>
+</g>
 </svg>
