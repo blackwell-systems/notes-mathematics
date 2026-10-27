@@ -92,7 +92,10 @@ for(const [page,filenames] of Object.entries(expected)){
     if(refs.length!==1){errors.push(page+": "+name+" referenced "+refs.length+" times");continue;}
     const [raw,alt]=refs[0];
     if(alt.length<55)errors.push(page+": "+name+" alt description too short");
-    const next=md.slice(refs[0].index+raw.length,refs[0].index+raw.length+350);
+    // Inspect the complete next nonblank line, not an arbitrary character window.
+    // Longer explanatory captions must not fail merely because the closing * is
+    // beyond the first 350 characters.
+    const next=md.slice(refs[0].index+raw.length);
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
