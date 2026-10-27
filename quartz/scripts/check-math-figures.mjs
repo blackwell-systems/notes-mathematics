@@ -9,7 +9,7 @@ import {spawnSync} from "node:child_process";
 const expected = {
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
   "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"],
-  "linear-algebra-foundations.md": ["la-objects-before-coordinates.svg"],
+  "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg"],
   "functional-analysis.md": ["fa-two-notions-of-convergence.svg"],
   "complex-analysis.md": ["ca-contour-pole.svg"],
   "commutative-algebra.md": ["co-localization-zoom.svg"],

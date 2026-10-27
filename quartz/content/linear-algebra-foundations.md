@@ -17,7 +17,7 @@ A **vector space** is a collection $V$ of objects (called **vectors**) on which 
 
 **Start with one concrete picture.** In $V=\mathbb R^2$ (read "V equals R squared"), $u=(2,1)$ and $v=(0,3)$ are **two whole vectors**, not two coordinates of one vector. Adding them gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$.
 
-![A coordinated three-stage illustration: in the vector space R squared, whole vectors u equals (2,1) and v equals (0,3) combine into u plus v equals (2,4), the linear map T(x,y) equals (x+y,0) sends u to (3,0), and the matrix with rows (1,1) and (0,0) represents that map in the standard bases.](./media/la-objects-before-coordinates.svg)
+![A three-stage vector space, linear map, and matrix illustration. The top panel adds vectors u equals (2,1) and v equals (0,3). In the middle panel, separate coordinate planes show T(x,y) equals (x+y,0) transforming input u equals (2,1) into output T(u) equals (3,0). The bottom panel shows the associated matrix in standard coordinates.](./media/la-objects-before-coordinates-v2.svg)
 
 *Figure: One example, three different things. A vector space contains whole vectors and supports addition and scaling. The middle panel shows the same vector before and after a linear map in separate coordinate planes. A matrix expresses the map after choosing bases. The arrows illustrate vectors in $\mathbb R^2$; vectors can also be polynomials, functions, and other objects.*
 
