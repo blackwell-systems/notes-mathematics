@@ -32,24 +32,24 @@ Both rules must hold for **every** $u,v\in V$ (vectors in $V$) and **every** sca
 
 For **addition**, transforming the sum agrees with adding the transformed vectors:
 
-$
+$$
 T(u+v)=T(2,4)=(6,0)=T(u)+T(v).
-$
+$$
 
 For **scaling**, doubling the vector before transforming agrees with doubling its image:
 
-$
+$$
 T(2u)=T(4,2)=(6,0)=2T(u).
-$
+$$
 
 Those checks illustrate the rules but do not by themselves prove linearity for all inputs. In general, for any $(x,y)$, $(p,q)$, and scalar $c$:
 
-$
+$$
 \begin{aligned}
 T((x,y)+(p,q)) &= (x+p+y+q,0)=T(x,y)+T(p,q),\\
 T(c(x,y)) &= (cx+cy,0)=cT(x,y).
 \end{aligned}
-$
+$$
 
 So **this rule really is linear**, not merely for the two vectors we chose.
 
