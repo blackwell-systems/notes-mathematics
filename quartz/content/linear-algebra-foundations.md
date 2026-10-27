@@ -15,7 +15,7 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 A **vector space** is a collection $V$ of objects (called **vectors**) on which we can **add two vectors** and **multiply a vector by a scalar**. A *scalar* belongs to a specified **field** $F$, most often the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field is a number system where the usual addition, subtraction, multiplication, and division by nonzero elements obey the field laws.
 
-**Start with two vectors.** In $V=\mathbb R^2$ (read "V equals R squared"), $u=(2,1)$ and $v=(0,3)$ are **two whole vectors**, not two coordinates of one vector. Adding them gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$.
+**Start with two vectors.** In $V=\mathbb R^2$ (read "V equals R squared"), take $u=(2,1)$ and $v=(0,3)$. **Each pair describes one whole vector.** The individual numbers are its **vector components** (also called *coordinates* in the chosen basis): with the standard horizontal and vertical axes, $u$ has an **x-component** of $2$ and a **y-component** of $1$, while $v$ has components $0$ and $3$. The vector $u$ is the whole object, not either of its components. Adding these vectors gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$. The components describe a vector **relative to a basis**; choosing different axes can change the numbers without changing the underlying vector.
 
 ### What makes a map linear?
 
@@ -28,7 +28,7 @@ Not every function between vector spaces is linear. To earn that name, $T$ must 
 
 Both rules must hold for **every** $u,v\in V$ (vectors in $V$) and **every** scalar $c$ in the underlying field, not just for a few examples. **Linearity does not mean keeping a vector's length or direction unchanged.** A linear map can stretch, rotate, flatten, or send different inputs to the same output. The preservation is of **addition and scaling**, not of distance.
 
-**See both rules in one example.** Define $T:\mathbb R^2\to\mathbb R^2$ by $T(x,y)=(x+y,0)$ (read "T of x, y equals x plus y, zero"). Here $x$ and $y$ are the two components of *one* input vector. For our whole vectors $u=(2,1)$ and $v=(0,3)$, we get $T(u)=(3,0)$ and $T(v)=(3,0)$.
+**See both rules in one example.** Define $T:\mathbb R^2\to\mathbb R^2$ by $T(x,y)=(x+y,0)$ (read "T of x, y equals x plus y, zero"). Here $x$ and $y$ are the **vector components of one input vector**, not names of two separate vectors. For our whole vectors $u=(2,1)$ and $v=(0,3)$, we get $T(u)=(3,0)$ and $T(v)=(3,0)$.
 
 For **addition**, transforming the sum agrees with adding the transformed vectors:
 
@@ -104,7 +104,7 @@ $$
 
 for any polynomials $p,q$ and real scalars $a,b$. Thus differentiation can be studied using linear algebra even though its inputs are functions, not points or arrows. A matrix appears only when we choose bases to represent that map.
 
-### What the letters mean: whole vectors versus components
+### What the letters mean: whole vectors versus vector components
 
 > [!distinction] In $au+bv$, $u$ and $v$ are **whole vectors**, not two components of one vector.
 > - $V$ is the **vector space**, the collection in which the vectors live.
@@ -118,7 +118,7 @@ $$
 u=(u_1,u_2),\qquad v=(v_1,v_2).
 $$
 
-Here **$u_1,u_2$ are the components of $u$**, and **$v_1,v_2$ are the components of $v$**. The letters $u$ and $v$ themselves name entire vectors. Addition and scaling happen component by component:
+Here **$u_1,u_2$ are the vector components of $u$**, and **$v_1,v_2$ are the vector components of $v$**. The letters $u$ and $v$ themselves name entire vectors. Addition and scaling happen component by component:
 
 $$
 au+bv=(au_1+bv_1,\;au_2+bv_2).
