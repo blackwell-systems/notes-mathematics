@@ -15,13 +15,49 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 A **vector space** is a collection $V$ of objects (called **vectors**) on which we can **add two vectors** and **multiply a vector by a scalar**. A *scalar* belongs to a specified **field** $F$, most often the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field is a number system where the usual addition, subtraction, multiplication, and division by nonzero elements obey the field laws.
 
-**Start with one concrete picture.** In $V=\mathbb R^2$ (read "V equals R squared"), $u=(2,1)$ and $v=(0,3)$ are **two whole vectors**, not two coordinates of one vector. Adding them gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$.
+**Start with two vectors.** In $V=\mathbb R^2$ (read "V equals R squared"), $u=(2,1)$ and $v=(0,3)$ are **two whole vectors**, not two coordinates of one vector. Adding them gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$.
+
+### What makes a map linear?
+
+A **map** is another word for a **function**: it takes an input and assigns an output. A **linear map** (also called a **linear transformation**) $T:V\to W$ (read "T from V to W") takes **a whole vector** from vector space $V$ and returns **a whole vector** in vector space $W$. The spaces may be the same or different.
+
+Not every function between vector spaces is linear. To earn that name, $T$ must **preserve the two vector-space operations**:
+
+1. **Preserve addition:** $T(u+v)=T(u)+T(v)$. Read this as "transform a sum, or transform each vector and then add: the result is the same."
+2. **Preserve scalar multiplication:** $T(cu)=cT(u)$. Read this as "scale a vector and then transform it, or transform it and then scale: the result is the same."
+
+Both rules must hold for **every** $u,v\in V$ (vectors in $V$) and **every** scalar $c$ in the underlying field, not just for a few examples. **Linearity does not mean keeping a vector's length or direction unchanged.** A linear map can stretch, rotate, flatten, or send different inputs to the same output. The preservation is of **addition and scaling**, not of distance.
+
+**See both rules in one example.** Define $T:\mathbb R^2\to\mathbb R^2$ by $T(x,y)=(x+y,0)$ (read "T of x, y equals x plus y, zero"). Here $x$ and $y$ are the two components of *one* input vector. For our whole vectors $u=(2,1)$ and $v=(0,3)$, we get $T(u)=(3,0)$ and $T(v)=(3,0)$.
+
+For **addition**, transforming the sum agrees with adding the transformed vectors:
+
+$
+T(u+v)=T(2,4)=(6,0)=T(u)+T(v).
+$
+
+For **scaling**, doubling the vector before transforming agrees with doubling its image:
+
+$
+T(2u)=T(4,2)=(6,0)=2T(u).
+$
+
+Those checks illustrate the rules but do not by themselves prove linearity for all inputs. In general, for any $(x,y)$, $(p,q)$, and scalar $c$:
+
+$
+\begin{aligned}
+T((x,y)+(p,q)) &= (x+p+y+q,0)=T(x,y)+T(p,q),\\
+T(c(x,y)) &= (cx+cy,0)=cT(x,y).
+\end{aligned}
+$
+
+So **this rule really is linear**, not merely for the two vectors we chose.
 
 ![A three-stage vector space, linear map, and matrix illustration. The top panel adds vectors u equals (2,1) and v equals (0,3). In the middle panel, separate coordinate planes show T(x,y) equals (x+y,0) transforming input u equals (2,1) into output T(u) equals (3,0). The bottom panel shows the associated matrix in standard coordinates.](./media/la-objects-before-coordinates-v2.svg)
 
 *Figure: One example, three different things. A vector space contains whole vectors and supports addition and scaling. The middle panel shows the same vector before and after a linear map in separate coordinate planes. A matrix expresses the map after choosing bases. The arrows illustrate vectors in $\mathbb R^2$; vectors can also be polynomials, functions, and other objects.*
 
-For this example, $T(x,y)=(x+y,0)$ (read "T of x, y equals x plus y, zero") is the **linear map**. It sends $u=(2,1)$ to $T(u)=(3,0)$. In the standard bases, the matrix $\begin{bmatrix}1&1\\0&0\end{bmatrix}$ describes the *same* map in coordinates. The matrix is not the vector space itself.
+**Only now do we need a matrix.** In the standard bases, $A=\begin{bmatrix}1&1\\0&0\end{bmatrix}$ represents **the same linear map** by multiplication of coordinate columns. The map itself is the rule $T$, not the matrix and not the vector space. Changing bases can change its matrix without changing $T$.
 
 
 
@@ -96,7 +132,7 @@ $$
 
 In a different notation, $T(x,y)=(x+y,0)$, **$x$ and $y$ *are* the two components of a single input vector $(x,y)$**. That is a different use of letters from $T(au+bv)$, where $u$ and $v$ are whole input vectors. The [Linear Combinations](#linear-combinations) section develops this operation further.
 
-The central operation is thus a **linear combination** $au+bv$. A **linear transformation** $T:V\to W$ preserves every such combination:
+The central operation is thus a **linear combination** $au+bv$. The two preservation rules from [What makes a map linear?](#what-makes-a-map-linear) combine into one statement:
 
 $$
 T(au+bv)=aT(u)+bT(v).
@@ -682,10 +718,10 @@ The rank equals the number of pivots in the echelon form.
 
 ## Linear Transformations
 
-**Linear Transformation:** A function $T: V \to W$ between vector spaces is linear if:
+**Linear transformation (formal restatement):** A function $T: V \to W$ between vector spaces over a field $F$ is linear if:
 
 1. $T(u + v) = T(u) + T(v)$ for all $u, v \in V$
-2. $T(cv) = cT(v)$ for all $c \in \mathbb{R}$, $v \in V$
+2. $T(cv) = cT(v)$ for all $c \in F$, $v \in V$
 
 Equivalently: $T(c_1 v_1 + c_2 v_2) = c_1 T(v_1) + c_2 T(v_2)$
 
