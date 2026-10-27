@@ -6,7 +6,7 @@ enables: ["calculus", "differential-equations"]
 
 **Partial Fraction Decomposition:** A method for rewriting a proper rational function (where the degree of the numerator is less than the degree of the denominator) as a sum of simpler fractions. This is the inverse process of finding a common denominator.
 
-This technique requires understanding [Rational Functions](./rational-functions) (what makes a fraction proper vs improper) and [Polynomial Functions](./polynomial-functions) (how to factor denominators). It is used in [Calculus](./calculus) to simplify integrals of rational functions.
+This technique requires understanding [Rational Functions](./rational-functions) (what makes a fraction proper vs improper) and [Polynomial Functions](./polynomial-functions) (how to factor denominators), with a dedicated method guide in [Factoring Polynomials](./factoring-polynomials). It is used in [Calculus](./calculus) to simplify integrals of rational functions.
 
 > [!abstract] Prerequisites & where this leads
 > **Builds on:** [Rational Functions](./rational-functions) · [Systems of Equations](./systems-of-equations)

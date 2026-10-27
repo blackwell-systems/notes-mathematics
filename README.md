@@ -46,7 +46,7 @@ A shared typography system now styles **every Markdown page**, while semantic la
 ## Content
 
 All content lives in [`quartz/content/`](./quartz/content/) as Markdown files:
-88 topic chapters, a landing page, and six guided maps: the atlas of mathematical spaces, discrete mathematics, topology, algebra, analysis, and singular learning theory. The homepage is
+89 topic chapters, a landing page, and seven guided maps: the atlas of mathematical spaces, cross-disciplinary bridges, discrete mathematics, topology, algebra, analysis, and singular learning theory. The homepage is
 [`quartz/content/index.md`](./quartz/content/index.md).
 
 Pages are illustrated densely: **hundreds of purpose-built diagrams** (currently

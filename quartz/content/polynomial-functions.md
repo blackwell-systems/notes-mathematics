@@ -1,14 +1,16 @@
 ---
 title: "Polynomial Functions"
 prerequisites: ["functions-relations", "linear-functions"]
-enables: ["rational-functions", "calculus"]
+enables: ["factoring-polynomials", "rational-functions", "calculus"]
 ---
 
 > [!abstract] Prerequisites & where this leads
 > **Builds on:** [Functions & Relations](./functions-relations) · [Linear Functions](./linear-functions)
-> **Leads to:** [Rational Functions](./rational-functions) · [Calculus](./calculus)
+> **Leads to:** [Factoring Polynomials](./factoring-polynomials) · [Rational Functions](./rational-functions) · [Calculus](./calculus)
 
 ## What Is a Polynomial?
+
+For the full foundations-first treatment of **factoring** as multiplication in reverse, including a method-selection guide and worked examples of when factoring stops, see [Factoring Polynomials](./factoring-polynomials). The patterns later in this chapter remain a quick reference.
 
 A **polynomial** is a function built by adding together terms of the form "a constant times $x$ raised to a whole-number power." In plain language, polynomials are sums of power terms, and they are among the simplest and most well-behaved functions in all of mathematics.
 
@@ -200,6 +202,8 @@ The square-of-a-binomial and difference-of-squares identities have a clean geome
 Every special factoring form below is one of these products read right to left.
 
 ### Special Factoring Forms
+
+This section collects standard identities; for a step-by-step decision process, including the coefficient field and irreducibility, use [Factoring Polynomials](./factoring-polynomials).
 
 For factoring that involves dividing polynomials into simpler rational expressions, see [Partial Fraction Decomposition](./partial-fraction-decomposition).
 

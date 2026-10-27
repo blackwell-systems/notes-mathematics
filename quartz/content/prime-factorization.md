@@ -8,7 +8,7 @@ enables: ["number-theory", "partial-fraction-decomposition"]
 > **Builds on:** [Number Systems](./number-systems) · [Order of Operations](./order-of-operations)
 > **Leads to:** [Number Theory](./number-theory) · [Partial Fraction Decomposition](./partial-fraction-decomposition)
 
-Prime factorization is a core tool in [Number Theory](./number-theory), where it is used to compute GCDs, LCMs, and in modular arithmetic.
+Prime factorization is a core tool in [Number Theory](./number-theory), where it is used to compute GCDs, LCMs, and in modular arithmetic. For the related operation on **polynomial expressions**, see [Factoring Polynomials](./factoring-polynomials): the same product idea, but the possible factors depend on the coefficient system.
 
 ## What Are Prime Numbers?
 

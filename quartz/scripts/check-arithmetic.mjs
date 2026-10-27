@@ -60,6 +60,34 @@ function cpow(re, im, n) {
   return [r, i];
 }
 
+// ============= Factoring Polynomials: worked identity regressions =============
+// Ascending-order coefficients; finite checks verify examples, not general proofs.
+{
+  const multiply=(a,b)=>{const r=Array(a.length+b.length-1).fill(0);for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)r[i+j]+=a[i]*b[j];return r;};
+  const product=(...parts)=>parts.reduce(multiply,[1]);
+  const same=(label,got,want)=>check("factoring: "+label,got.join(",")===want.join(","));
+  same("opening quadratic",product([2,1],[3,1]),[6,5,1]);
+  check("factoring: multivariate GCF at x=2 y=3",4*2**2*3*(3*2**2-2*3)===12*2**4*3-8*2**2*3**2);
+  same("difference of squares twice",product([-3,1],[3,1],[9,0,1]),[-81,0,0,0,1]);
+  same("sum of cubes",product([2,1],[4,-2,1]),[8,0,0,1]);
+  same("difference of cubes",product([-1,3],[1,3,9]),[-1,0,0,27]);
+  same("perfect square",product([-5,2],[-5,2]),[25,-20,4]);
+  same("monic quadratic",product([3,1],[4,1]),[12,7,1]);
+  same("AC method",product([1,3],[3,2]),[3,11,6]);
+  same("grouped cubic",product([3,1],[2,0,1]),[6,2,3,1]);
+  same("grouping and squares",product([-3,2],[-1,1],[1,1]),[3,-2,-3,2]);
+  same("rational root cubic",product([-2,1],[-3,1],[1,1]),[6,1,-4,1]);
+  same("repeated root cubic",product([-3,1],[-3,1],[3,1]),[27,-9,-3,1]);
+  same("x^4+4 factorization",product([2,-2,1],[2,2,1]),[4,0,0,0,1]);
+  same("rational numerator",product([-3,1],[3,1]),[-9,0,1]);
+  same("rational denominator",product([-3,1],[2,1]),[-6,-1,1]);
+  eq("factoring: cubic f(2)=0",2**3-4*2**2+2+6,0);
+  eq("factoring: no rational root +1",1**3+1+1,3);
+  eq("factoring: no rational root -1",(-1)**3-1+1,-1);
+  eq("factoring: negative discriminant",2**2-4*1*2,-4);
+  check("factoring: square pattern near miss",4*1**2-18*1+25!==(2*1-5)**2);
+}
+
 // ============= Introductory vector-space / linear-map diagram =============
 // Finite arithmetic checks for the labelled example, not a proof of the axioms.
 {

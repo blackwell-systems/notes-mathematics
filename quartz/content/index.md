@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **88 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **89 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -89,7 +89,8 @@ Category theory studies **objects, arrows and universal mapping properties**, br
 - [Functions & Relations](./functions-relations) (domain, range, composition, inverses)
 - [Graphing Functions](./graphing-functions) (transformations, symmetry, asymptotes)
 - [Linear Functions](./linear-functions) (slope, intercepts, linear models)
-- [Polynomial Functions](./polynomial-functions) (roots, factoring, end behavior)
+- [Polynomial Functions](./polynomial-functions) (roots, end behavior, polynomial division)
+- [Factoring Polynomials](./factoring-polynomials) (meaning, methods, worked examples, irreducibility)
 - [Rational Functions](./rational-functions) (asymptotes, sign analysis, graphing)
 - [Radical Functions](./radical-functions) (nth roots, domain restrictions, solving)
 - [Exponential Functions](./exponential-functions) (growth, decay, compound interest)

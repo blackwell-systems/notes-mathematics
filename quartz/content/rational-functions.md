@@ -1,14 +1,16 @@
 ---
 title: "Rational Functions"
-prerequisites: ["polynomial-functions", "functions-relations"]
+prerequisites: ["polynomial-functions", "factoring-polynomials", "functions-relations"]
 enables: ["calculus", "partial-fraction-decomposition"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Polynomial Functions](./polynomial-functions) · [Functions & Relations](./functions-relations)
+> **Builds on:** [Polynomial Functions](./polynomial-functions) · [Factoring Polynomials](./factoring-polynomials) · [Functions & Relations](./functions-relations)
 > **Leads to:** [Calculus](./calculus) · [Partial Fraction Decomposition](./partial-fraction-decomposition)
 
 ## What Is a Rational Function?
+
+The numerator and denominator often need factoring before you can see a hole, a vertical asymptote, or a common factor. [Factoring Polynomials](./factoring-polynomials) explains how to recognize and verify those factors, and why cancellation does not restore excluded denominator inputs.
 
 A **rational function** is what you get when you divide one polynomial by another. Just as a "rational number" is a ratio of two integers (like $\frac{3}{4}$), a rational function is a ratio of two polynomials.
 

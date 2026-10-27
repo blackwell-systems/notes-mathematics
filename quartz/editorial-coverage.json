@@ -276,6 +276,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "factoring-polynomials.md",
+      "kind": "topic",
+      "track": "algebra",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "field-theory-foundations.md",
       "kind": "topic",
       "track": "ring-and-field-theory",
