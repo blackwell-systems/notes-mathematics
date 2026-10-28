@@ -45,7 +45,7 @@ Relations define which objects may be identified or compared. These foundational
 - [Construction of the Rationals](./construction-of-the-rationals) (fractions, well-defined operations, field and order axioms)
 - [Construction of the Reals](./construction-of-the-reals) (Cauchy completion, field and order laws, proof of completeness)
 - [Construction of the Complex Numbers](./construction-of-the-complex-numbers) (pair arithmetic, inverses, ordering obstruction, algebraic closure)
-- [Number Systems](./number-systems) (naturals through complex, the building-up story, rational/algebraic/transcendental)
+- [Number Systems](./number-systems) ([formal set-theoretic definitions](./number-systems#formal-definitions-of-the-number-sets), naturals through complex, irrational/algebraic/transcendental)
 - [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) (quaternions, octonions, Cayley-Dickson, dual numbers, p-adics, surreals)
 - [Number Bases](./number-bases) (binary, octal, hexadecimal, conversions, two's complement, floating point)
 
