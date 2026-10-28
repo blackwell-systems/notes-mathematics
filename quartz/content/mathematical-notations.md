@@ -291,6 +291,8 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 
 ## Number Sets (Blackboard Bold)
 
+For precise set-builder definitions, quotient constructions, and membership criteria, see [Formal Definitions of the Number Sets](./number-systems#formal-definitions-of-the-number-sets).
+
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
 | [$\mathbb{N}$](./set-theory#countable-vs-uncountable-sets) | "the naturals" / "N" | natural numbers: $0, 1, 2, 3, \ldots$ (some authors start at $1$) |
