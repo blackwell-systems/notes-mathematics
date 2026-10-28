@@ -11,7 +11,198 @@ enables: ["algebraic-structures", "complex-numbers"]
 
 The numbers we use every day did not arrive all at once. They were built up, one layer at a time, each new layer added to repair a specific limitation of the one before it. You can count with the natural numbers, but you cannot always subtract. You can subtract with the integers, but you cannot always divide. You can divide with the rationals, but you cannot always take a limit. Following this chain of "but you cannot..." is the cleanest way to understand what each number system is *for*.
 
-This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them. It is the **overview**, not the full proof sequence. For derivations of each construction and its laws, follow [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
+This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them. The [Formal Definitions of the Number Sets](#formal-definitions-of-the-number-sets) below collects the precise notation in one place. It is the **overview**, not the full proof sequence. For derivations of each construction and its laws, follow [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
+
+## Formal Definitions of the Number Sets
+
+This is the **one-page reference** for the common number families. There are three distinct questions: **membership** (which objects qualify?), **construction** (how do we build the numbers without assuming them?), and **algebraic structure** (which operations and laws do they support?). Set-builder notation such as $\{x\in\mathbb R\mid P(x)\}$ reads "the real x such that P holds"; it describes a subset of an **already constructed** set. A quotient construction actually creates new objects.
+
+### The standard number systems
+
+**Naturals, $\mathbb N$ ("N").** We include zero. The von Neumann model constructs each natural as the set of smaller naturals:
+
+$
+0:=\varnothing,\qquad S(n):=n\cup\{n\},\qquad
+\mathbb N:=\omega=\{0,S(0),S(S(0)),\ldots\}.
+$
+
+Formally, $\omega$ is the **least inductive set**: it contains $\varnothing$, is closed under successor $S$, and is contained in every other inductive set. The set-theoretic axiom of infinity ensures an inductive set exists. Addition and multiplication are then defined by recursion. See [Peano Arithmetic](./peano-arithmetic#constructing-a-model-from-sets).
+
+**Integers, $\mathbb Z$ ("Z").** Start with pairs $(a,b)$ of naturals, meant to represent the *difference* $a-b$ without assuming subtraction already works. Declare two pairs equivalent exactly when $a+d=b+c$:
+
+$
+(a,b)\sim(c,d)\iff a+d=b+c,\qquad
+\mathbb Z:=(\mathbb N\times\mathbb N)/{\sim}.
+$
+
+The slash means *equivalence classes*, not division. For example, $(5,3)\sim(2,0)$, so they name the same integer. Once negatives have been constructed, we may also **characterize** this set as
+
+$
+\mathbb Z=\{0\}\cup\{n\mid n\in\mathbb N_{>0}\}
+\cup\{-n\mid n\in\mathbb N_{>0}\}.
+$
+
+See [Construction of the Integers](./construction-of-the-integers#integers-are-equivalence-classes).
+
+**Rationals, $\mathbb Q$ ("Q").** The familiar **membership characterization** is
+
+$
+\mathbb Q=\left\{\frac pq\ \middle|\ p,q\in\mathbb Z,\ q\neq0\right\}.
+$
+
+But to **construct** fractions without presupposing division, use pairs with nonzero denominators and cross-multiplication equivalence:
+
+$
+(p,q)\sim(r,s)\iff ps=qr,\qquad
+\mathbb Q:=\bigl(\mathbb Z\times(\mathbb Z\setminus\{0\})\bigr)/{\sim}.
+$
+
+The representatives $(1,2)$ and $(2,4)$ belong to one equivalence class. See [Construction of the Rationals](./construction-of-the-rationals).
+
+**Reals, $\mathbb R$ ("R").** One concrete set-theoretic model uses **Dedekind cuts**. A real is represented by a nonempty, proper subset $A$ of $\mathbb Q$ such that (i) if $r\in A$ and $s<r$, then $s\in A$; and (ii) every $r\in A$ has a larger $t\in A$. Write $\operatorname{Lower}(A)$ for (i), and $\operatorname{NoMax}(A)$ for (ii). Then
+
+$
+\mathbb R_{\mathrm{cuts}}:=
+\{A\subseteq\mathbb Q\mid
+A\neq\varnothing,\ A\neq\mathbb Q,\
+\operatorname{Lower}(A),\ \operatorname{NoMax}(A)\}.
+$
+
+The conditions mean **downward closed** and **no greatest member**; they can be expanded as
+
+$
+\begin{aligned}
+\operatorname{Lower}(A)&\iff
+\forall r\in A\ \forall s\in\mathbb Q:\ (s<r\Rightarrow s\in A),\\
+\operatorname{NoMax}(A)&\iff
+\forall r\in A\ \exists t\in A:\ r<t.
+\end{aligned}
+$
+
+This constructs the underlying set of reals; addition, multiplication, order, and completeness must then be defined and proved. An equivalent model takes **equivalence classes of rational Cauchy sequences**, identifying two sequences when their difference converges to zero. The two constructions are isomorphic as complete ordered fields. See [Construction of the Reals](./construction-of-the-reals).
+
+**Complex numbers, $\mathbb C$ ("C").** Construct them as *pairs of reals with specified operations*:
+
+$
+\mathbb C:=\mathbb R\times\mathbb R,\qquad
+(a,b)+(c,d):=(a+c,b+d),
+$
+
+$
+(a,b)(c,d):=(ac-bd,ad+bc).
+$
+
+Write $i:=(0,1)$, identify a real $a$ with $(a,0)$, and obtain the familiar membership description:
+
+$
+\mathbb C=\{a+bi\mid a,b\in\mathbb R\},\qquad i^2=-1.
+$
+
+The multiplication rule is essential: merely taking pairs does not define a field. See [Construction of the Complex Numbers](./construction-of-the-complex-numbers#build-the-underlying-set-and-operations).
+
+> [!distinction] Are the five constructions literally nested?
+> The chain $\mathbb N\subseteq\mathbb Z\subseteq\mathbb Q\subseteq\mathbb R\subseteq\mathbb C$ uses **canonical embeddings**. Raw quotient classes, cuts, and ordered pairs are not literally subsets of one another until we identify each earlier system with its image in the next.
+
+### Irrational, algebraic, and transcendental numbers
+
+These are **membership-defined families** inside systems already constructed. They do not require a new kind of number object.
+
+**Irrationals, $\mathbb I$ ("irrationals").** Rationality is an **existence claim**: some integer fraction equals the real number. Irrationality negates that existence, so **every** proposed integer fraction fails:
+
+$
+\boxed{\mathbb I:=
+\left\{x\in\mathbb R\ \middle|\
+\forall p\in\mathbb Z,\ \forall q\in\mathbb Z_{>0},\ qx\neq p
+\right\}=\mathbb R\setminus\mathbb Q.}
+$
+
+Equivalently, for real $x$,
+
+$
+\begin{aligned}
+x\in\mathbb Q&\iff
+\exists p\in\mathbb Z\ \exists q\in\mathbb Z_{>0}:\ qx=p,\\
+x\in\mathbb I&\iff
+\forall p\in\mathbb Z\ \forall q\in\mathbb Z_{>0}:\ qx\neq p.
+\end{aligned}
+$
+
+Read $\exists$ as "there exists", $\forall$ as "for every", and $\neq$ as "is not equal to". This is quantifier negation: $\neg\exists$ becomes $\forall\neg$. **Irrational** conventionally classifies *real* numbers; a nonreal complex number is not ordinarily called irrational.
+
+**Real algebraic numbers.** Let $\mathbb Z[t]$ (read "integer polynomials in t") be the set of polynomials with integer coefficients. Define
+
+$
+\mathcal A_{\mathbb R}:=
+\{x\in\mathbb R\mid
+\exists f\in\mathbb Z[t]\setminus\{0\}:\ f(x)=0\}.
+$
+
+The **zero polynomial is excluded** because otherwise every number would qualify. The irrational number $\sqrt2$ is algebraic, since it is a root of $t^2-2$. Every rational $p/q$ is algebraic, since it is a root of $qt-p$.
+
+**Real transcendental numbers.** They are the real numbers that satisfy **no nonzero integer polynomial**:
+
+$
+\mathcal T_{\mathbb R}:=\mathbb R\setminus\mathcal A_{\mathbb R}
+=\{x\in\mathbb R\mid
+\forall f\in\mathbb Z[t]\setminus\{0\}:\ f(x)\neq0\}.
+$
+
+Examples include $\pi$ and $e$. All real transcendentals are irrational, but not all irrationals are transcendental. Replacing $\mathbb R$ by $\mathbb C$ gives the families $\mathcal A_{\mathbb C}$ and $\mathcal T_{\mathbb C}$; for example $i$ is algebraic because $i^2+1=0$.
+
+### Other frequently used subsets
+
+**Positive naturals, positive integers, and nonnegative reals:**
+
+$
+\mathbb N_{>0}:=\mathbb N\setminus\{0\},\qquad
+\mathbb Z_{>0}:=\{n\in\mathbb Z\mid n>0\},
+\qquad
+\mathbb R_{\geq0}:=\{x\in\mathbb R\mid x\geq0\}.
+$
+
+More generally, $\mathbb Q_{>0}$ selects positive rationals, $\mathbb R_{<0}$ negative reals, and $\mathbb R_{>0}$ strictly positive reals. Specify whether **zero** is included.
+
+**Even and odd integers:**
+
+$
+\begin{aligned}
+E&:=\{n\in\mathbb Z\mid \exists k\in\mathbb Z:\ n=2k\},\\
+O&:=\{n\in\mathbb Z\mid \exists k\in\mathbb Z:\ n=2k+1\}.
+\end{aligned}
+$
+
+They partition the integers: $E\cup O=\mathbb Z$ and $E\cap O=\varnothing$. Zero is even; negative integers may be even or odd.
+
+**Primes and composites.** Write $d\mid n$ ("d divides n") when $n=dk$ for some integer $k$. Then
+
+$
+\mathcal P:=\left\{n\in\mathbb N_{>1}\ \middle|\
+\forall d\in\mathbb N_{>0},\
+d\mid n\Rightarrow(d=1\lor d=n)\right\},
+$
+
+$
+\mathcal K:=\{n\in\mathbb N\mid
+\exists a,b\in\mathbb N_{>1}:\ n=ab\}.
+$
+
+Here $\lor$ means "or"; neither zero nor one is prime or composite. See [Prime Factorization](./prime-factorization#what-are-prime-numbers).
+
+### Construction and membership at a glance
+
+| Family | How it is specified | Algebraic status |
+| --- | --- | --- |
+| $\mathbb N$ | Least inductive set, built with successor | Addition and multiplication |
+| $\mathbb Z$ | Equivalence classes of natural-number pairs | Commutative ring |
+| $\mathbb Q$ | Equivalence classes of integer numerator-denominator pairs | Ordered field |
+| $\mathbb R$ | Rational Dedekind cuts or Cauchy-sequence classes | Complete ordered field |
+| $\mathbb C$ | Real ordered pairs with complex multiplication | Algebraically closed field |
+| $\mathbb I$ | Real numbers failing every rational representation | Subset, not a field |
+| $\mathcal A_{\mathbb R}$ | Real zeros of nonzero integer polynomials | Field of algebraic reals |
+| $\mathcal T_{\mathbb R}$ | Reals that are not algebraic | Subset, not a field |
+
+The essential distinction is that a formula like $\mathbb I=\mathbb R\setminus\mathbb Q$ **classifies existing reals**, while building $\mathbb R$ from cuts actually **constructs** a number system. The rest of this chapter explains the motivation for each extension, and the linked construction chapters prove the operations and laws.
+
 
 ## The Building-Up Story
 
@@ -140,7 +331,7 @@ Inside $\mathbb{R}$ there are two independent ways to sort numbers. The first as
 A real number is **rational** if it can be written as $p/q$ with integers $p, q$ and $q \neq 0$, and **irrational** otherwise. The cleanest test is the decimal expansion:
 
 - **Rational** $\iff$ its decimal *terminates* or *eventually repeats*. Examples: $\tfrac{1}{3} = 0.\overline{3}$, $\tfrac{1}{4} = 0.25$, $\tfrac{2}{7} = 0.\overline{285714}$.
-- **Irrational** $\iff$ its decimal runs forever with *no* repeating block. Examples: $\sqrt{2} = 1.41421356\ldots$ and $\pi = 3.14159265\ldots$
+- **Irrational** $\iff$ its decimal runs forever and is **not eventually periodic** (it has no repeating tail). Examples: $\sqrt{2} = 1.41421356\ldots$ and $\pi = 3.14159265\ldots$
 
 The word "irrational" here means "not a *ratio*," not "unreasonable."
 
