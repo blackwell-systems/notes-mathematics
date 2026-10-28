@@ -72,6 +72,12 @@ An identity, an equation, and its solutions are different objects. [Polynomial F
 
 Before looking for patterns, collect like terms, put a polynomial in descending powers if helpful, and extract its **greatest common factor (GCF)**. For coefficients that are integers, find their greatest common divisor; for variables, take the smallest exponent shared by all terms.
 
+**Geometric first example.** The area $x^2+3x$ can be divided into an $x$-by-$x$ square and an $x$-by-$3$ strip. Both share height $x$, so joining them forms one rectangle of height $x$ and width $x+3$. Thus $x^2+3x=x(x+3)$.
+
+![A blue x-by-x square and gold x-by-three strip share height x, forming a rectangle of width x plus three. The two areas x squared and 3x equal x times x plus three.](./media/fp-gcf-area.svg)
+
+*Figure: A shared rectangular dimension is a geometric version of extracting the greatest common factor. Areas illustrate the identity for nonnegative lengths; distributivity proves it for all real x.*
+
 **Worked example.** Factor $12x^4y-8x^2y^2$.
 
 1. The integers $12$ and $8$ share the greatest positive factor $4$.
@@ -113,6 +119,10 @@ $$
 $$
 
 Reverse the equality to factor a difference of squares. Here $a$ and $b$ may themselves be expressions.
+
+![A large square of side a with a b-by-b square removed leaves two rectangular pieces. Reassemble the two pieces into a rectangle with width a minus b and height a plus b, showing a squared minus b squared equals their product.](./media/fp-difference-squares.svg)
+
+*Figure: A geometric proof for positive lengths a greater than b. The remaining L-shape splits into areas a(a-b) and b(a-b), which reassemble as (a-b)(a+b). The algebraic identity extends to all real a and b.*
 
 **Worked example.**
 
@@ -166,7 +176,13 @@ $$
 \end{aligned}
 $$
 
-**Worked example.** In $4x^2-20x+25$, the first and last terms are $(2x)^2$ and $5^2$. Their doubled product is $2(2x)(5)=20x$, with a negative sign. Therefore,
+**Geometric first example.** A square whose side is $x+3$ has four subregions: $x^2$, $3x$, another $3x$, and $9$. Their sum is $x^2+6x+9=(x+3)^2$. The two $3x$ rectangles explain why the middle coefficient is doubled.
+
+![A square with each side divided into x and three. The four rectangular regions are labeled x squared, 3x, 3x, and nine, showing that x squared plus 6x plus nine is the square of x plus three.](./media/fp-perfect-square-area.svg)
+
+*Figure: The double middle term of a perfect-square trinomial comes from two identical cross rectangles. The area diagram assumes nonnegative side lengths, while the polynomial identity holds for every real x.*
+
+**Worked example.** In $4x^2-20x+25`, the first and last terms are $(2x)^2$ and $5^2$. Their doubled product is $2(2x)(5)=20x$, with a negative sign. Therefore,
 
 $$
 4x^2-20x+25=(2x-5)^2.
@@ -215,6 +231,10 @@ $$
 \end{aligned}
 $$
 
+![The AC method as a rectangle with width three x plus one and height two x plus three. Its four regions have areas 6x squared, 2x, 9x, and three, so the middle rectangles add to 11x.](./media/fp-ac-area.svg)
+
+*Figure: The AC method is area partitioning: multiplying the side lengths (3x+1)(2x+3) produces the four tiles 6x², 2x, 9x, and 3. The middle coefficients 2 and 9 multiply to 18 and add to 11. The area assumes nonnegative lengths; the identity is general.*
+
 Check: the product is $6x^2+9x+2x+3=6x^2+11x+3$. The AC method works here because we can find a suitable integer pair; **failure to find an integer pair does not mean the polynomial has no real factors**.
 
 ### A quadratic that will not factor into rational linear factors
@@ -241,6 +261,10 @@ x^3+3x^2+2x+6
 &=(x+3)(x^2+2).
 \end{aligned}
 $$
+
+![A rectangular model split into two rows of heights x squared and two, both with shared width x plus three. The four areas x cubed, 3x squared, 2x and six sum to (x squared plus two)(x plus three).](./media/fp-grouping-area.svg)
+
+*Figure: The two grouped expressions are rectangular rows with the same width (x+3). Their heights x² and 2 add to x²+2, revealing (x²+2)(x+3). The picture illustrates nonnegative lengths; distributivity proves the identity for every x.*
 
 The common factor $(x+3)$ appears after factoring the two groups. Multiplication verifies it immediately.
 
@@ -313,6 +337,10 @@ x^3-3x^2-9x+27
 &=(x-3)^2(x+3).
 \end{aligned}
 $$
+
+![Graph of f of x equals x minus three squared times x plus three. The curve crosses the x-axis at negative three, a root of multiplicity one, and touches and turns at positive three, a root of multiplicity two.](./media/fp-roots-multiplicity.svg)
+
+*Figure: The single factor (x+3) changes sign as the graph crosses at x=-3. The squared factor (x-3)² stays nonnegative, so the graph touches the axis at x=3 and turns back. This graph corresponds exactly to the polynomial factored above.*
 
 The root $x=3$ occurs **twice** and the root $x=-3$ once. At a real root of even multiplicity, the graph typically **touches** the x-axis without changing sign; at an odd-multiplicity root, it **crosses** it. [Factor Multiplicity](./polynomial-functions#factor-multiplicity) explains the graph behavior precisely.
 

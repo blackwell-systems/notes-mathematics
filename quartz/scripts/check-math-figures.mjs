@@ -10,6 +10,7 @@ const expected = {
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
   "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"],
   "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg"],
+  "factoring-polynomials.md": ["fp-gcf-area.svg","fp-difference-squares.svg","fp-perfect-square-area.svg","fp-ac-area.svg","fp-grouping-area.svg","fp-roots-multiplicity.svg"],
   "functional-analysis.md": ["fa-two-notions-of-convergence.svg"],
   "complex-analysis.md": ["ca-contour-pole.svg"],
   "commutative-algebra.md": ["co-localization-zoom.svg"],
@@ -123,7 +124,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==99)errors.push("Expected 99 illustrative SVGs, got "+total);
+if(total!==105)errors.push("Expected 105 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");

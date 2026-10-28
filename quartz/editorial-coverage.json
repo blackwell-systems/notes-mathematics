@@ -282,7 +282,7 @@
       "semanticReview": "pending",
       "mobileReview": "pending",
       "darkReview": "pending",
-      "diagramReview": "not-applicable"
+      "diagramReview": "pending"
     },
     {
       "path": "field-theory-foundations.md",

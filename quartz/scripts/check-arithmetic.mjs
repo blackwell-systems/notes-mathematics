@@ -67,6 +67,10 @@ function cpow(re, im, n) {
   const product=(...parts)=>parts.reduce(multiply,[1]);
   const same=(label,got,want)=>check("factoring: "+label,got.join(",")===want.join(","));
   same("opening quadratic",product([2,1],[3,1]),[6,5,1]);
+  // Geometry figures: additional exact identity checks for the new area models.
+  same("GCF area model",product([0,1],[3,1]),[0,3,1]);
+  same("perfect-square area model",product([3,1],[3,1]),[9,6,1]);
+  same("difference squares parameter sample a=7 b=2",[7*7-2*2],[(7-2)*(7+2)]);
   check("factoring: multivariate GCF at x=2 y=3",4*2**2*3*(3*2**2-2*3)===12*2**4*3-8*2**2*3**2);
   same("difference of squares twice",product([-3,1],[3,1],[9,0,1]),[-81,0,0,0,1]);
   same("sum of cubes",product([2,1],[4,-2,1]),[8,0,0,1]);
