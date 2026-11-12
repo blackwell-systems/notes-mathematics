@@ -47,6 +47,7 @@ non-portable absolute paths, so a post-build step is the portable choice.
 
 - **Foundations-first:** define basic terms and motivate a concept before any formula.
 - **Use definitional notation consistently:** first introductions of reusable named sets, functions, operations and other objects use `:=`; defining a predicate/relation by a condition may use `:\iff`; assertions, evaluations, derived identities and equations use `=`. Do not mechanically replace `=` in proofs, examples with assumed values, theorem hypotheses or chains of equalities. See `quartz/content/mathematical-notations.md`.
+- **Run the advisory notation scan** after changing mathematical examples: `cd quartz && node scripts/audit-definition-notation.mjs --details`. Findings are candidates for editorial review, not an automatic reason to change `=`. See `quartz/DEFINITION-NOTATION-AUDIT.md`.
 - **Pronounce every symbol** at first use (how to read it aloud, e.g. `$\hat\lambda$` →
   "lambda-hat"), not just its meaning.
 - **Textbook-level coverage:** cover what a textbook would, minus problem sets; include

@@ -64,6 +64,9 @@ jobs:
       - name: Quality gate (KaTeX errors, broken links, empty alt, orphaned media)
         run: node scripts/check-quality.mjs
 
+      - name: Definition notation audit (advisory)
+        run: node scripts/audit-definition-notation.mjs
+
       - name: Arithmetic regression checks for worked examples
         run: node scripts/check-arithmetic.mjs
 
