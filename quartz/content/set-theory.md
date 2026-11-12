@@ -201,7 +201,9 @@ The antisymmetry row is more than an analogy: showing $A \subseteq B$ **and** $B
 
 This difference changes what "$\neq$" buys you. For numbers, $a \neq b$ *already* pins down a direction: since any two numbers compare, non-equal numbers must have one strictly less, so $a \neq b$ forces $a < b$ **or** $b < a$. For sets, $A \neq B$ does **not** force $A \subsetneq B$ or $B \subsetneq A$, precisely because the two sets might be incomparable ($\{1,2\}$ and $\{2,3\}$ again). So the "and not equal" clause only upgrades $\subseteq$ to $\subsetneq$ *once you already know $A \subseteq B$*: the proper-subset relation acts just like $<$ **along a chain of containment**, but inequality alone never tells you a direction the way it does for numbers.
 
-![Two panels contrasting a total order and a partial order: on the left a number line with 1, 2, 3, 4 where any two numbers are comparable; on the right the lattice of subsets of the two-element set a, b, ordered by inclusion, in which the singletons set-a and set-b are marked incomparable because neither is a subset of the other](./media/st-subset-order.png)
+![Matched dark-purple panels contrast a totally ordered four-number line with the partial-order Hasse diamond for the power set of {a, b}, where singleton {a} and singleton {b} are incomparable.](./media/st-subset-order.svg)
+
+*Figure: Every pair of numbers in $\{1,2,3,4\}$ can be compared using $\leq$, but neither $\{a\}\subseteq\{b\}$ nor $\{b\}\subseteq\{a\}$. The Hasse diagram shows **immediate strict inclusion** going upward; reflexive inclusion such as $\{a\}\subseteq\{a\}$ is not drawn.*
 
 ## Set Equality
 

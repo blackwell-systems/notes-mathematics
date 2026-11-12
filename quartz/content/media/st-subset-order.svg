@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 995" role="img" aria-labelledby="title desc">
+<title id="title">Total order compared with partial subset order</title>
+<desc id="desc">Left: a number line showing one, two, three and four, with every pair comparable under less than or equal to. Right: the Hasse diamond for the power set of a two-element set, with empty set below the incomparable singletons a and b, and the set containing both above. Hasse edges run upward for immediate strict containment; reflexive self-containment is implicit. Both orders are reflexive, antisymmetric and transitive; only a total order compares all pairs.</desc>
+<defs>
+<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop stop-color="#13102A"/><stop offset="1" stop-color="#070A1B"/></linearGradient>
+<linearGradient id="plate" x1="0%" y1="0%" x2="100%" y2="100%"><stop stop-color="#241A44"/><stop offset="1" stop-color="#101329"/></linearGradient>
+<linearGradient id="head" x1="0%" y1="0%" x2="100%" y2="100%"><stop stop-color="#492669"/><stop offset="1" stop-color="#302046"/></linearGradient>
+<linearGradient id="circle" x1="0%" y1="0%" x2="0%" y2="100%"><stop stop-color="#5D3985"/><stop offset="1" stop-color="#2D1D4B"/></linearGradient>
+</defs>
+<rect width="1440" height="995" fill="url(#bg)"/>
+<text x="720" y="90" fill="#FBF6FF" font-size="70" font-family="Georgia, 'DejaVu Serif', serif" font-weight="bold" text-anchor="middle">Total Order vs. Partial Order</text>
+<text x="720" y="140" fill="#D7BCF4" font-size="31" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">The difference is whether every pair can be compared.</text>
+<path d="M55 169 H1385" stroke="#8659B6" stroke-width="2"/>
+<rect x="32" y="196" width="667" height="606" rx="20" fill="url(#plate)" stroke="#B788FA" stroke-width="3"/>
+<rect x="740" y="196" width="667" height="606" rx="20" fill="url(#plate)" stroke="#B788FA" stroke-width="3"/>
+<rect x="35" y="198" width="661" height="89" rx="20" fill="url(#head)" stroke="#885AB3" stroke-width="1"/>
+<rect x="743" y="198" width="661" height="89" rx="20" fill="url(#head)" stroke="#885AB3" stroke-width="1"/>
+<text x="365" y="256" fill="#F9F3FF" font-size="48" font-family="Georgia, 'DejaVu Serif', serif" font-weight="bold" text-anchor="middle">TOTAL ORDER</text>
+<text x="1073" y="256" fill="#F9F3FF" font-size="48" font-family="Georgia, 'DejaVu Serif', serif" font-weight="bold" text-anchor="middle">PARTIAL ORDER</text>
+<text x="365" y="335" fill="#F6F0FF" font-size="37" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">({1, 2, 3, 4}, ≤)</text>
+<text x="1073" y="335" fill="#F6F0FF" font-size="37" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">(𝒫({a, b}), ⊆)</text>
+<text x="365" y="392" fill="#F6F0FF" font-size="30" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">Every pair is comparable.</text>
+<text x="1073" y="392" fill="#F6F0FF" font-size="30" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">Some pairs are incomparable.</text>
+<line x1="112" y1="519" x2="631" y2="519" stroke="#E9DAFA" stroke-width="5"/><path d="M616 506 L636 519 L616 532" stroke="#E9DAFA" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="158" cy="519" r="19" stroke="#DEB7FD" stroke-width="3" fill="#A779F1"/>
+<text x="158" y="594" fill="#F6F0FF" font-size="46" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">1</text>
+<circle cx="293" cy="519" r="19" stroke="#DEB7FD" stroke-width="3" fill="#A779F1"/>
+<text x="293" y="594" fill="#F6F0FF" font-size="46" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">2</text>
+<circle cx="428" cy="519" r="19" stroke="#DEB7FD" stroke-width="3" fill="#A779F1"/>
+<text x="428" y="594" fill="#F6F0FF" font-size="46" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">3</text>
+<circle cx="563" cy="519" r="19" stroke="#DEB7FD" stroke-width="3" fill="#A779F1"/>
+<text x="563" y="594" fill="#F6F0FF" font-size="46" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">4</text>
+<rect x="180" y="647" width="370" height="111" rx="20" fill="url(#circle)" stroke="#B886F8" stroke-width="3"/>
+<text x="365" y="696" fill="#F8F5FF" font-size="49" font-family="Georgia, 'DejaVu Serif', serif" font-weight="bold" text-anchor="middle">2 ≤ 3</text>
+<text x="365" y="734" fill="#D8CBEC" font-size="26" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">and every other pair</text>
+<path d="M1073 457 L951 496 M1073 457 L1194 496 M951 569 L1073 635 M1194 569 L1073 635" stroke="#E1CBFC" stroke-width="5" stroke-linecap="round" fill="none"/>
+<rect x="981" y="400" width="184" height="62" rx="14" fill="url(#circle)" stroke="#BD94F5" stroke-width="2.5"/>
+<text x="1073" y="444" fill="#F6F0FF" font-size="37" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">{a, b}</text>
+<rect x="870" y="503" width="160" height="62" rx="14" fill="url(#circle)" stroke="#BD94F5" stroke-width="2.5"/>
+<text x="950" y="547" fill="#F6F0FF" font-size="37" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">{a}</text>
+<rect x="1115" y="503" width="160" height="62" rx="14" fill="url(#circle)" stroke="#BD94F5" stroke-width="2.5"/>
+<text x="1195" y="547" fill="#F6F0FF" font-size="37" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">{b}</text>
+<rect x="981" y="647" width="184" height="62" rx="14" fill="url(#circle)" stroke="#BD94F5" stroke-width="2.5"/>
+<text x="1073" y="691" fill="#F6F0FF" font-size="37" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">∅</text>
+<path d="M1031 534 H1113" stroke="#E999E9" stroke-width="3" stroke-dasharray="7 9"/>
+<text x="1073" y="547" fill="#F2ABCC" font-size="48" font-family="Georgia, 'DejaVu Serif', serif" font-weight="bold" text-anchor="middle">×</text>
+<text x="1073" y="770" fill="#F6F0FF" font-size="27" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">Neither {a} ⊆ {b} nor {b} ⊆ {a}.</text>
+<rect x="33" y="826" width="1374" height="138" rx="20" fill="url(#plate)" stroke="#BA8BF8" stroke-width="3"/>
+<text x="720" y="874" fill="#FAF5FF" font-size="42" font-family="Georgia, 'DejaVu Serif', serif" font-weight="bold" text-anchor="middle">Key distinction: comparability</text>
+<text x="720" y="914" fill="#F6F0FF" font-size="29" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">A total order has x ≤ y or y ≤ x for every pair.</text>
+<text x="720" y="950" fill="#D9C9F1" font-size="26" font-family="Georgia, 'DejaVu Serif', serif" font-weight="normal" text-anchor="middle">Both relations are reflexive, antisymmetric, and transitive.</text>
+</svg>
