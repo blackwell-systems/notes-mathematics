@@ -316,7 +316,9 @@ By double containment, $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$. $\black
 
 ## Pigeonhole Principle (PHP)
 
-![Four pigeons mapped by arrows into three holes, with one hole receiving two pigeons and highlighted: whenever m objects go into n containers with m greater than n, some container holds two or more, and in general some hole holds the ceiling of m over n](./media/st-pigeonhole.png)
+![Four numbered objects mapped to three containers; two arrows land in the same highlighted container.](./media/st-pigeonhole.svg)
+
+*Figure: Four objects distributed among three containers force a collision. More generally, some container holds at least $\lceil m/n\rceil$ objects.*
 
 If $m$ objects (pigeons) are placed into $n$ containers (holes) with
 $m > n$, then at least one container holds **two or more** objects.
@@ -422,7 +424,9 @@ $$
 f = \{\,(1, a_1),\ (2, a_2),\ (3, a_3)\,\}.
 $$
 
-![A mapping diagram with two ovals. The left oval, labeled domain {1, 2, 3}, contains the numbers 1, 2, and 3 stacked vertically. The right oval, labeled codomain three apples, contains three drawn apples labeled a-one, a-two, a-three. A blue arrow runs from 1 to a-one, from 2 to a-two, and from 3 to a-three. The caption notes the mapping is one-to-one because no two arrows share a target and onto because every apple is hit, so it is a bijection and the set has cardinality 3.](./media/st-bijection-apples.png)
+![One-to-one arrows pair numbers 1, 2, 3 with three distinct apples, and every apple receives exactly one arrow.](./media/st-bijection-apples.svg)
+
+*Figure: A bijection requires **exactly one target per input**, **no repeated target**, and **every target reached**. Matching objects need not look alike.*
 
 Check the three conditions in turn: $f$ is a **function** (each of $1, 2, 3$ has exactly one partner, so exactly one arrow leaves each number), it is **injective** (different numbers go to different apples, so no two arrows share a target), and it is **surjective** (every apple is hit by some arrow). So $f$ is a bijection, and therefore $|\{a_1, a_2, a_3\}| = |\{1, 2, 3\}| = 3$.
 
@@ -822,7 +826,9 @@ Formally: $\forall i, j : i \neq j \Rightarrow A_i \cap A_j = \varnothing$
 
 ## Partition of a Set
 
-![A set S of eight elements enclosed in a box and split into three disjoint colored blocks that together cover every element, illustrating a partition in which the blocks are pairwise disjoint and their union is all of S](./media/st-partition.png)
+![The set S with elements 1 through 8 split into three nonempty, disjoint blocks that collectively cover every element.](./media/st-partition.svg)
+
+*Figure: A partition must pass three tests: **no empty blocks, no overlaps, and no omitted elements**.*
 
 **Partition:** A partition of a set **A** is a collection of non-empty, pairwise disjoint subsets of **A** whose union is **A**.
 
@@ -1427,7 +1433,9 @@ The proof still works: if $\{\{a\}\} = \{\{c\}, \{c, d\}\}$, then {c} = {c, d}, 
 
 ### Cartesian Product
 
-![The Cartesian product A cross B as a grid of points, with A equal to 1, 2, 3 along the horizontal axis and B equal to a, b along the vertical axis, giving the six ordered pairs, so the size of A cross B equals the size of A times the size of B, three times two equals six](./media/st-cartesian-product.png)
+![A three-column by two-row grid lists all six ordered pairs in A times B, with columns 1, 2, 3 and rows a, b.](./media/st-cartesian-product.svg)
+
+*Figure: The two coordinate choices are independent: $|A\times B|=3\cdot2=6$. Ordered pairs remember which element came from which set.*
 
 **Cartesian Product:** The Cartesian product of two sets $A$ and $B$, written $A \times B$ (read "A cross B"), is the set of all ordered pairs where the first element belongs to $A$ and the second belongs to $B$.
 
