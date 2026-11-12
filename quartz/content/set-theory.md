@@ -152,7 +152,9 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 
 **Key Property:** Every set is a subset of itself (reflexive property).
 
-![Euler diagram: circle A drawn entirely inside a larger circle B, showing that every element of A is also in B, so A is a subset of B](./media/st-subset-euler.png)
+![Two matching dark-violet Euler diagrams show both forms of subset inclusion: in the first A contains 1 and 2 while B also contains 3, and in the second A equals B; both satisfy A subset-or-equal B.](./media/st-subset-cases.svg)
+
+*Figure: Subset inclusion allows two cases: strict containment, or equality. In either case, every element of A belongs to B.*
 
 ## Proper Subset
 
@@ -166,7 +168,9 @@ $$
 A \subsetneq B \iff (A \subseteq B) \ \wedge \ (A \neq B)
 $$
 
-![Euler diagram of a proper subset: a circle A containing the elements 1 and 2 drawn strictly inside a larger circle B, with the elements 3 and 4 lying in B but outside A and marked in red, showing that A is contained in B but B has elements A lacks, so the containment is strict](./media/st-proper-subset-euler.png)
+![A dark-violet Euler diagram of strict inclusion shows A containing 1 and 2 inside B, with the element 3 lying in B outside A; therefore A is a proper subset of B, and A is not equal to B.](./media/st-proper-subset.svg)
+
+*Figure: A proper subset requires at least one element of B outside A. Here B contains 3 but A does not, so equality is impossible.*
 
 **Notation warning.** The symbol $\subset$ is ambiguous: some authors use it for *any* subset (identical to $\subseteq$), others reserve it for *proper* subsets only. To stay unambiguous, this page writes $\subseteq$ for "subset (equality allowed)" and $\subsetneq$ for "proper subset (strictly smaller)."
 

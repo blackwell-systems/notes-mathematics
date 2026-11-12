@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc">
+<title id="title">Subset: strict inclusion and equality</title>
+<desc id="desc">A matching pair of diagrams demonstrates that A subset-or-equal B permits two cases. On the left, A consists of 1 and 2 inside B consisting of 1, 2 and 3, so A is properly contained in B. On the right, A equals B, both consisting of 1 and 2, so subset-or-equal still holds. The bottom note states both cases satisfy the subset relation.</desc>
+<defs>
+ <radialGradient id="bg" cx="50%" cy="28%" r="90%"><stop stop-color="#191431"/><stop offset=".7" stop-color="#0A0B1C"/><stop offset="1" stop-color="#07091A"/></radialGradient>
+ <linearGradient id="banner" x2="0" y2="1"><stop stop-color="#35224E"/><stop offset="1" stop-color="#1D1736"/></linearGradient>
+ <linearGradient id="plate" x2=".2" y2="1"><stop stop-color="#251A44"/><stop offset="1" stop-color="#0B0C23"/></linearGradient>
+ <radialGradient id="setB"><stop stop-color="#36234F"/><stop offset="1" stop-color="#251943"/></radialGradient>
+ <radialGradient id="setA"><stop stop-color="#604285"/><stop offset="1" stop-color="#473168"/></radialGradient>
+ <linearGradient id="footer" x2="0" y2="1"><stop stop-color="#392450"/><stop offset="1" stop-color="#211A38"/></linearGradient>
+</defs>
+<rect width="1448" height="1086" fill="url(#bg)"/>
+<path d="M70 84 H485 M964 84 H1378" stroke="#AF7CF3" stroke-width="3" opacity=".75"/>
+<text x="724" y="100" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="82" text-anchor="middle" font-weight="700">Subset</text>
+<rect x="27" y="150" width="1394" height="110" rx="26" fill="url(#banner)" stroke="#BD89FF" stroke-width="3"/>
+<text x="724" y="223" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="42" text-anchor="middle">A ⊆ B: every element of A is also in B.</text>
+<rect x="28" y="292" width="678" height="603" rx="27" fill="url(#plate)" stroke="#B985FC" stroke-width="3"/>
+<rect x="742" y="292" width="678" height="603" rx="27" fill="url(#plate)" stroke="#B985FC" stroke-width="3"/>
+<rect x="30" y="295" width="674" height="92" rx="24" fill="url(#banner)" stroke="#7655AB" stroke-width="1"/>
+<rect x="744" y="295" width="674" height="92" rx="24" fill="url(#banner)" stroke="#7655AB" stroke-width="1"/>
+<text x="368" y="359" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="48" text-anchor="middle" font-weight="700">Case 1: A ⊊ B</text>
+<text x="1080" y="359" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="48" text-anchor="middle" font-weight="700">Case 2: A = B</text>
+<text x="368" y="418" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="27" text-anchor="middle" font-style="italic" fill="#DFCBF8">A is a proper subset of B</text>
+<text x="1080" y="418" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="27" text-anchor="middle" font-style="italic" fill="#DFCBF8">Equality is allowed</text>
+<circle cx="349" cy="640" r="204" fill="url(#setB)" stroke="#A86DFA" stroke-width="6"/>
+<circle cx="300" cy="691" r="112" fill="url(#setA)" stroke="#C89CFF" stroke-width="5"/>
+<text x="349" y="507" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="59" text-anchor="middle" font-style="italic">B</text>
+<text x="300" y="674" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="54" text-anchor="middle" font-style="italic">A</text>
+<text x="263" y="750" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="51" text-anchor="middle">1</text>
+<text x="346" y="750" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="51" text-anchor="middle">2</text>
+<text x="495" y="716" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="51" text-anchor="middle">3</text>
+<circle cx="1080" cy="644" r="202" fill="url(#setB)" stroke="#B386FF" stroke-width="6"/>
+<text x="1080" y="578" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="66" text-anchor="middle" font-style="italic">A = B</text>
+<text x="1022" y="711" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="54" text-anchor="middle">1</text>
+<text x="1141" y="711" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="54" text-anchor="middle">2</text>
+<rect x="28" y="916" width="1392" height="142" rx="25" fill="url(#footer)" stroke="#BC87FF" stroke-width="3"/>
+<text x="724" y="976" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="47" text-anchor="middle" font-weight="700">Both cases satisfy A ⊆ B.</text>
+<text x="724" y="1030" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="29" text-anchor="middle" font-style="italic">A subset may be equal to the containing set.</text>
+</svg>

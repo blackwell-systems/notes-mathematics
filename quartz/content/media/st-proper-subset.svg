@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc">
+<title id="title">Proper subset: strict inclusion</title>
+<desc id="desc">A dark violet Euler diagram shows B consisting of elements 1, 2 and 3, and A consisting of 1 and 2 entirely inside B. The number 3 is in B but outside A. The defining relation is A proper-subset B, meaning A subset-or-equal B and A is not equal to B.</desc>
+<defs>
+ <radialGradient id="bg" cx="50%" cy="28%" r="90%"><stop stop-color="#191431"/><stop offset=".7" stop-color="#0A0B1C"/><stop offset="1" stop-color="#07091A"/></radialGradient>
+ <linearGradient id="banner" x2="0" y2="1"><stop stop-color="#35224E"/><stop offset="1" stop-color="#1D1736"/></linearGradient>
+ <linearGradient id="plate" x2=".2" y2="1"><stop stop-color="#251A44"/><stop offset="1" stop-color="#0B0C23"/></linearGradient>
+ <radialGradient id="setB"><stop stop-color="#36234F"/><stop offset="1" stop-color="#251943"/></radialGradient>
+ <radialGradient id="setA"><stop stop-color="#604285"/><stop offset="1" stop-color="#473168"/></radialGradient>
+ <linearGradient id="footer" x2="0" y2="1"><stop stop-color="#392450"/><stop offset="1" stop-color="#211A38"/></linearGradient>
+</defs>
+<rect width="1448" height="1086" fill="url(#bg)"/>
+<path d="M70 93 H485 M964 93 H1378" stroke="#AF7CF3" stroke-width="3" opacity=".75"/>
+<text x="724" y="107" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="78" text-anchor="middle" font-weight="700">Proper Subset</text>
+<rect x="38" y="178" width="1372" height="126" rx="27" fill="url(#banner)" stroke="#BB85FF" stroke-width="3"/>
+<text x="724" y="252" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="53" text-anchor="middle">A ⊊ B means A ⊆ B and A ≠ B.</text>
+<circle cx="412" cy="693" r="320" fill="url(#setB)" stroke="#A96DFA" stroke-width="8"/>
+<circle cx="347" cy="757" r="164" fill="url(#setA)" stroke="#C597FF" stroke-width="7"/>
+<text x="412" y="495" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="72" text-anchor="middle" font-style="italic">B</text>
+<text x="348" y="718" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="65" text-anchor="middle" font-style="italic">A</text>
+<text x="281" y="839" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="67" text-anchor="middle">1</text>
+<text x="419" y="839" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="67" text-anchor="middle">2</text>
+<text x="621" y="759" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="67" text-anchor="middle">3</text>
+<rect x="787" y="477" width="580" height="209" rx="24" fill="url(#plate)" stroke="#B67DFC" stroke-width="3"/>
+<text x="1077" y="610" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="104" text-anchor="middle" font-style="italic">A ⊊ B</text>
+<rect x="782" y="752" width="585" height="177" rx="25" fill="url(#banner)" stroke="#A67AE8" stroke-width="3"/>
+<text x="1075" y="819" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="34" text-anchor="middle">There is an element of B</text>
+<text x="1075" y="871" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="37" text-anchor="middle" font-weight="700">that is not in A.</text>
+</svg>
