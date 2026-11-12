@@ -127,10 +127,11 @@ The signs $=$, $:=$, $\leftrightarrow$, $\iff$, and $\equiv$ can look interchang
 | $a=b$ | "a equals b" | Claims that two expressions denote the same object |
 | $a:=b$ | "a is defined to be b" | Introduces a name or notation by definition |
 
-**Editorial convention in these notes.** Use $:=$ when **first stipulating a reusable symbol**, such as $A:=\{1,2,3\}$, $f(x):=x^2$, or $R:=\{(1,2)\}$. Use $: \iff$ when defining a logical predicate or relation. Use $=$ when **asserting or proving** that existing expressions are equal, evaluating a defined function, or solving an equation. A chain such as $S:=\{1/n:n\geq1\}=\{1,1/2,1/3,\ldots\}$ has one definition and then an equality. Routine temporary choices and hypotheses such as "take $x=2$" may use ordinary equality: not every equals sign is an unmarked definition. The colon is an editorial clarification, not a requirement that all mathematical authors follow the same convention.
 | $P\leftrightarrow Q$ | "P if and only if Q" | A biconditional formula in propositional logic |
 | $P\iff Q$ | "P if and only if Q" | Often used to assert an equivalence between statements in a derivation |
 | $a\equiv b\pmod n$ | "a is congruent to b modulo n" | A relation in modular arithmetic; meaning depends on context |
+
+**Editorial convention in these notes.** Use $:=$ when **first stipulating a reusable symbol**, such as $A:=\{1,2,3\}$, $f(x):=x^2$, or $R:=\{(1,2)\}$. Use $: \iff$ when defining a logical predicate or relation. Use $=$ when **asserting or proving** that existing expressions are equal, evaluating a defined function, or solving an equation. A chain such as $S:=\{1/n:n\geq1\}=\{1,1/2,1/3,\ldots\}$ has one definition and then an equality. Routine temporary choices and hypotheses such as "take $x=2$" may use ordinary equality: not every equals sign is an unmarked definition. The colon is an editorial clarification, not a requirement that all mathematical authors follow the same convention.
 
 For example, if $A$ and $B$ are sets, then
 
