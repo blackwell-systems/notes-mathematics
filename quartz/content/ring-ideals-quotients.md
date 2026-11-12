@@ -135,13 +135,13 @@ hence $ir\in A$. Reversing the factors gives $ri\in A$. So **any additive subgro
 > R/\ker f\ \cong\ \operatorname{im}f.
 > $$
 
-**Proof.** Define $\bar f(a+\ker f)=f(a)$. If $a+\ker f=b+\ker f$, then $a-b\in\ker f$, so $f(a)=f(b)$; thus the definition is **well-defined**. Additivity and multiplicativity follow by substituting representatives, and $\bar f(1+\ker f)=1_S$.
+**Proof.** Define $\bar f(a+\ker f):=f(a)$. If $a+\ker f=b+\ker f$, then $a-b\in\ker f$, so $f(a)=f(b)$; thus the definition is **well-defined**. Additivity and multiplicativity follow by substituting representatives, and $\bar f(1+\ker f)=1_S$.
 
 Every image element is some $f(a)$, so $\bar f$ is surjective onto the image. If $\bar f(a+\ker f)=0$, then $a\in\ker f$, meaning the coset is zero; thus the map is injective. It is a bijective ring homomorphism. $\square$
 
 ### Worked example: integer residues
 
-Consider $\rho:\mathbb Z\to\mathbb Z/6\mathbb Z$, $\rho(n)=n\bmod6$. Its kernel is $6\mathbb Z$. The theorem gives
+Consider $\rho:\mathbb Z\to\mathbb Z/6\mathbb Z$ defined by $\rho(n):=n\bmod6$. Its kernel is $6\mathbb Z$. The theorem gives
 
 $$
 \mathbb Z/(6\mathbb Z)\cong\mathbb Z/6\mathbb Z.

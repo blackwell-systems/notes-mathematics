@@ -107,7 +107,7 @@ $$
 
 **Worked example: build three without counting as an unexplained operation.**
 
-1. Begin with the empty set $0=\varnothing$.
+1. Begin by defining zero as the empty set, $0:=\varnothing$.
 2. Form $1=S(0)=0\cup\{0\}=\{0\}$.
 3. Form $2=S(1)=1\cup\{1\}=\{0,1\}$.
 4. Form $3=S(2)=2\cup\{2\}=\{0,1,2\}$.
@@ -165,7 +165,7 @@ Induction proves $h(n)=g(n)$ for every $n$, so the functions are equal.
 
 **Why existence is a separate issue.** Uniqueness rules out two different solutions; it does not create even one. We can exhibit the construction in the von Neumann model of $N$ using finite approximations.
 
-For every $n\in N$, let $I_n=\{0,1,\ldots,n\}$ denote the finite successor chain **through** $n$ (not the integer interval notation that we will define later). We show by induction that there exists exactly one function $h_n:I_n\to X$ satisfying the initial and successor rules wherever its domain permits them.
+For every $n\in N$, let $I_n:=\{0,1,\ldots,n\}$ denote the finite successor chain **through** $n$ (not the integer interval notation that we will define later). We show by induction that there exists exactly one function $h_n:I_n\to X$ satisfying the initial and successor rules wherever its domain permits them.
 
 - **Base:** $I_0=\{0\}$, so $h_0(0)=x_0$ defines the unique required function.
 - **Step:** given the unique $h_n$, extend it to $I_{S(n)}=I_n\cup\{S(n)\}$ by setting $h_{S(n)}(S(n))=f(h_n(n))$. The new point $S(n)$ does not already lie in $I_n$, so this really defines a function. Any function satisfying the same rules on $I_{S(n)}$ must agree with $h_n$ on $I_n$ by its uniqueness and must assign that specified value to $S(n)$.

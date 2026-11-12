@@ -73,7 +73,7 @@ Together they give **one and only one** global section for each compatible famil
 >
 > **Proof of uniqueness:** If $f,g:U\to\mathbb R$ agree on every $U_i$, take any point $x\in U$. Some $U_i$ contains $x$, so $f(x)=g(x)$. Thus $f=g$.
 >
-> **Proof of existence:** Define $f(x)=f_i(x)$ for any $i$ with $x\in U_i$. Compatibility means this choice does not depend on $i$, so $f$ is well-defined. It is continuous: for any open $W\subseteq\mathbb R$, the inverse image $f^{-1}(W)$ intersects each $U_i$ in $f_i^{-1}(W)$, which is open in $U_i$, and hence open in $U$. As a union of such sets, $f^{-1}(W)$ is open. Its restrictions are exactly the given $f_i$.
+> **Proof of existence:** Define $f(x):=f_i(x)$ for any $i$ with $x\in U_i$. Compatibility means this choice does not depend on $i$, so $f$ is well-defined. It is continuous: for any open $W\subseteq\mathbb R$, the inverse image $f^{-1}(W)$ intersects each $U_i$ in $f_i^{-1}(W)$, which is open in $U_i$, and hence open in $U$. As a union of such sets, $f^{-1}(W)$ is open. Its restrictions are exactly the given $f_i$.
 
 The proof works because **continuity is local**: a function continuous on a cover by open regions is continuous on their union.
 
@@ -85,7 +85,7 @@ $$
 U=(-2,1),\qquad V=(-1,2),\qquad U\cup V=(-2,2).
 $$
 
-On $U$ define the continuous function $f_U(x)=0$.
+On $U$ define the continuous function $f_U(x):=0$.
 
 On $V$ define
 

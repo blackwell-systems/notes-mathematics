@@ -88,7 +88,7 @@ Define an equivalence relation on $[0,1]$ that makes $0\sim1$ and leaves every o
 Write
 
 $$
-Q=[0,1]/{\sim},\qquad q:[0,1]\to Q,\quad q(t)=[t].
+Q:=[0,1]/{\sim},\qquad q:[0,1]\to Q,\quad q(t):=[t].
 $$
 
 Read "$Q$ is the interval modulo this equivalence relation, and $q$ maps a point to its class." The points $0$ and $1$ are still **different real numbers**; only their classes coincide: $[0]=[1]$.
@@ -105,7 +105,7 @@ for $0<\varepsilon<\tfrac12$. Both pieces are relatively open in $[0,1]$, and to
 
 ### Finally: show the quotient really is a circle
 
-Let $S^1=\{(x,y)\in\mathbb R^2:x^2+y^2=1\}$ (read "S one," the unit circle) and define
+Let $S^1:=\{(x,y)\in\mathbb R^2:x^2+y^2=1\}$ (read "S one," the unit circle) and define
 
 $$
 p(t)=(\cos(2\pi t),\sin(2\pi t)).

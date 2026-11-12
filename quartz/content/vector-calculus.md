@@ -63,7 +63,7 @@ The integrand is **speed**, not displacement. A curve can return to its starting
 
 ### Worked example: a quarter of the unit circle
 
-Let $\mathbf r(t)=(\cos t,\sin t)$, $0\leq t\leq\pi/2$. Then
+Let $\mathbf r(t):=(\cos t,\sin t)$, $0\leq t\leq\pi/2$. Then
 
 $$
 \mathbf r'(t)=(-\sin t,\cos t),
@@ -95,7 +95,7 @@ Read "$\mathbf F\cdot d\mathbf r$" as "the dot product of F with an infinitesima
 
 ### Worked example: a nonconstant force
 
-Let $\mathbf F(x,y)=(y,x)$ and travel along $\mathbf r(t)=(t,t^2)$ for $0\leq t\leq1$.
+Let $\mathbf F(x,y):=(y,x)$ and travel along $\mathbf r(t):=(t,t^2)$ for $0\leq t\leq1$.
 
 Along the curve,
 
@@ -191,7 +191,7 @@ Read $\nabla\times\mathbf F$ as "curl F." Curl is an oriented vector in three di
 
 ### Worked example: a rigid rotation field
 
-Let $\mathbf F(x,y)=(-y/2,x/2)$. The planar curl is
+Let $\mathbf F(x,y):=(-y/2,x/2)$. The planar curl is
 
 $$
 \frac{\partial(x/2)}{\partial x}
@@ -279,7 +279,7 @@ Here $\mathbf n$ is the **unit normal**. Reversing the orientation reverses the 
 
 ### Worked example: upward flux across a square
 
-Let $S$ be the unit square in the horizontal plane $z=0$, parametrized by $\mathbf r(u,v)=(u,v,0)$ for $0\leq u,v\leq1$. Then
+Let $S$ be the unit square in the horizontal plane $z=0$, parametrized by $\mathbf r(u,v):=(u,v,0)$ for $0\leq u,v\leq1$. Then
 
 $$
 \mathbf r_u=(1,0,0),\quad
@@ -327,7 +327,7 @@ A positive divergence is infinitesimal outward flux. Add the contributions from 
 
 ### Worked example: the unit ball
 
-Take $\mathbf F(x,y,z)=(x,y,z)$ and let $E$ be the unit ball.
+Take $\mathbf F(x,y,z):=(x,y,z)$ and let $E$ be the unit ball.
 
 **Interior:** $\nabla\cdot\mathbf F=3$, and the ball has volume $4\pi/3$, so
 

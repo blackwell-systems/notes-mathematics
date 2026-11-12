@@ -217,7 +217,7 @@ A Jacobian-rank test can certify that a zero set is locally a smooth manifold wh
 
 **The cusp: $y^2 = x^3$.**
 
-Write $f(x, y) = y^2 - x^3$. The partial derivatives are:
+Write $f(x, y) := y^2 - x^3$. The partial derivatives are:
 
 $$
 \frac{\partial f}{\partial x} = -3x^2, \qquad \frac{\partial f}{\partial y} = 2y
@@ -227,7 +227,7 @@ At the origin $(0, 0)$: both partials are zero, so $(0, 0)$ is singular. The cur
 
 **The node: $y^2 = x^2(x + 1)$.**
 
-Write $f(x, y) = y^2 - x^2(x + 1) = y^2 - x^3 - x^2$. The partial derivatives are:
+Define $f(x, y) := y^2 - x^2(x + 1) = y^2 - x^3 - x^2$. The partial derivatives are:
 
 $$
 \frac{\partial f}{\partial x} = -3x^2 - 2x, \qquad \frac{\partial f}{\partial y} = 2y
@@ -237,7 +237,7 @@ At the origin $(0, 0)$: both partials are zero, so $(0, 0)$ is singular. But thi
 
 **Smooth curve: $y = x^2$.**
 
-Write $f(x, y) = y - x^2$. The partial derivatives are:
+Write $f(x, y) := y - x^2$. The partial derivatives are:
 
 $$
 \frac{\partial f}{\partial x} = -2x, \qquad \frac{\partial f}{\partial y} = 1

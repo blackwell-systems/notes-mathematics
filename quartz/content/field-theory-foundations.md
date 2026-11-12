@@ -206,7 +206,7 @@ Let $f\in K[x]$ be a **nonconstant irreducible polynomial**.
 The polynomial $x^2-2$ is irreducible over $\mathbb Q$: a rational root $a/b$ in lowest terms would satisfy $a^2=2b^2$, making both $a$ and $b$ even, a contradiction. Define
 
 $$
-L=\mathbb Q[x]/(x^2-2),\qquad\alpha=x+(x^2-2).
+L:=\mathbb Q[x]/(x^2-2),\qquad\alpha:=x+(x^2-2).
 $$
 
 Then $\alpha^2=2$ and every element has a unique form $a+b\alpha$, $a,b\in\mathbb Q$. We compute with the relation $\alpha^2=2$:
@@ -271,7 +271,7 @@ $$
 
 Its formal derivative is $F'(x)=qx^{q-1}-1=-1$ in characteristic $p$, because $p$ divides $q$. So $F$ shares no root with its derivative: the polynomial has **$q$ distinct roots** in its splitting field.
 
-Let $S=\{a\in L:a^q=a\}$. It contains $0$ and $1$. By the Frobenius identity in characteristic $p$,
+Let $S:=\{a\in L:a^q=a\}$. It contains $0$ and $1$. By the Frobenius identity in characteristic $p$,
 
 $$
 (a+b)^q=a^q+b^q,\qquad (-a)^q=-a^q,
@@ -316,7 +316,7 @@ The field is conventionally written $\mathbb F_{p^n}$ or $\mathrm{GF}(p^n)$. Unl
 Over $\mathbb F_2$, the polynomial $f(x)=x^2+x+1$ has no roots: $f(0)=1$ and $f(1)=1$ modulo $2$. Being quadratic, it is **irreducible**. Set
 
 $$
-\mathbb F_4=\mathbb F_2[x]/(x^2+x+1),\qquad
+\mathbb F_4:=\mathbb F_2[x]/(x^2+x+1),\qquad
 \alpha=x+(f).
 $$
 

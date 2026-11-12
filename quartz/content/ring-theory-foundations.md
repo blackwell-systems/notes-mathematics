@@ -141,7 +141,7 @@ In particular $\mathbb Z/p\mathbb Z$ is a field whenever $p$ is prime: if $ab\eq
 > [!definition] Characteristic
 > The **characteristic** of a nonzero ring is the smallest positive integer $n$ with $n\cdot1=0$, if one exists; otherwise it is $0$. Here $n\cdot1$ is a repeated **sum**.
 
-The map $\eta:\mathbb Z\to R$ defined by $\eta(n)=n\cdot1$ respects addition and multiplication. For multiplication, distributivity proves $(m\cdot1)(n\cdot1)=(mn)\cdot1$ for positive integers, and the sign theorem extends it to all integers.
+The map $\eta:\mathbb Z\to R$ defined by $\eta(n):=n\cdot1$ respects addition and multiplication. For multiplication, distributivity proves $(m\cdot1)(n\cdot1)=(mn)\cdot1$ for positive integers, and the sign theorem extends it to all integers.
 
 The kernel of $\eta$ is an additive subgroup of $\mathbb Z$, so it has the form $n\mathbb Z$ for a unique $n\ge0$. The number $n$ is precisely the characteristic.
 

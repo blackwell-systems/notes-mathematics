@@ -89,7 +89,7 @@ The curly $\partial$ (read "partial") distinguishes this from an ordinary deriva
 
 **To compute $\frac{\partial f}{\partial x}$:** Treat every variable except $x$ as a constant, then differentiate with respect to $x$ using the same rules from single-variable calculus.
 
-**Worked example:** Let $f(x, y) = x^2 + 3xy + y^2$.
+**Worked example:** Let $f(x, y) := x^2 + 3xy + y^2$.
 
 $$
 \frac{\partial f}{\partial x} = 2x + 3y \qquad \text{(treat } y \text{ as a constant)}
@@ -99,7 +99,7 @@ $$
 \frac{\partial f}{\partial y} = 3x + 2y \qquad \text{(treat } x \text{ as a constant)}
 $$
 
-**Worked example:** Let $f(x, y) = e^{xy} + \sin(x)$.
+**Worked example:** Let $f(x, y) := e^{xy} + \sin(x)$.
 
 $$
 \frac{\partial f}{\partial x} = y \cdot e^{xy} + \cos(x) \qquad \text{(chain rule on } e^{xy} \text{; } y \text{ is constant)}

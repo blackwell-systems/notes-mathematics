@@ -37,7 +37,7 @@ Now we can state the precise condition, including the crucial **for every cover 
 
 The cover may be **infinite**. A finite subcover may depend on that cover; the definition does not say $X$ contains finitely many points.
 
-**Example of an infinite cover that succeeds.** On $[0,1]$, take all intervals $U_n=(-1/n,1-1/n)$ for $n\ge2$, together with $V=(1/2,2)$. This is an **infinite** open cover, and just the **two original sets** $U_4=(-1/4,3/4)$ and $V=(1/2,2)$ cover $[0,1]$. Compare this with the infinite cover of $(0,1)$ below, from which no finite selection works.
+**Example of an infinite cover that succeeds.** On $[0,1]$, take all intervals $U_n:=(-1/n,1-1/n)$ for $n\ge2$, together with $V:=(1/2,2)$. This is an **infinite** open cover, and just the **two original sets** $U_4=(-1/4,3/4)$ and $V=(1/2,2)$ cover $[0,1]$. Compare this with the infinite cover of $(0,1)$ below, from which no finite selection works.
 
 ![An open cover of a compact interval, with a finite selection still covering it.](./media/tp-compact-cover.svg)
 
@@ -52,7 +52,7 @@ The cover may be **infinite**. A finite subcover may depend on that cover; the d
 
 ### Worked example: every finite space is compact
 
-Let $X=\{x_1,\ldots,x_n\}$ with **any** topology. Given an open cover, choose one covering open set for each $x_j$. There are at most $n$ selected sets, and their union contains every point. Thus $X$ is compact.
+Let $X:=\{x_1,\ldots,x_n\}$ with **any** topology. Given an open cover, choose one covering open set for each $x_j$. There are at most $n$ selected sets, and their union contains every point. Thus $X$ is compact.
 
 > [!counterexample] The open interval (0,1) is not compact
 > In the subspace topology on $(0,1)$, the sets $U_n=(1/n,1)$ for $n\ge2$ are open and cover $(0,1)$: every $x>0$ eventually exceeds $1/n$. But any **finite** selection has a largest index $N$; its union is $(1/N,1)$, which misses points near zero. No finite subcover exists.

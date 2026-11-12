@@ -184,7 +184,7 @@ To justify the first formula: $A\cup B$ contains $A$ and $B$, so it is an upper 
 
 ### An explicit poset that is not a lattice
 
-Let $P=\{a,b,c,d\}$. Require $a\prec c$, $a\prec d$, $b\prec c$, and $b\prec d$, with no other strict comparisons. Both $c$ and $d$ are upper bounds of $\{a,b\}$. Neither is below the other, so **no least upper bound exists**. Hence $a\vee b$ does not exist.
+Let $P:=\{a,b,c,d\}$. Require $a\prec c$, $a\prec d$, $b\prec c$, and $b\prec d$, with no other strict comparisons. Both $c$ and $d$ are upper bounds of $\{a,b\}$. Neither is below the other, so **no least upper bound exists**. Hence $a\vee b$ does not exist.
 
 ![A four-element bow-tie order with incomparable lower points a and b, incomparable upper points c and d, and every lower point below both upper points. There is no unique least upper bound of a and b.](./media/ot-bowtie-nonlattice.svg)
 
@@ -235,7 +235,7 @@ An embedding also preserves **incomparability**. An injective monotone map need 
 
 ### Worked order isomorphism: divisors of thirty and a power set
 
-Let $D=\{1,2,3,5,6,10,15,30\}$, ordered by divisibility. Define
+Let $D:=\{1,2,3,5,6,10,15,30\}$, ordered by divisibility. Define
 
 $$
 F(d)=\{p\in\{2,3,5\}:p\mid d\}.
