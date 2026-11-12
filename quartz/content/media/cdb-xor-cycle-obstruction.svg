@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc"><title id="title">Inconsistent XOR constraints on a triangle</title><desc id="desc">The triangle has edge labels zero on ab, zero on bc and one on ca. The tree edges imply x_a=x_b=x_c while the remaining edge requires x_c different from x_a. Its only independent cycle XOR equals one rather than zero.</desc><rect width="1200" height="600" fill="#101a32"/><text x="42" y="57" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="37" fill="#fff" font-weight="bold">Local equations, global contradiction</text>
+<text x="42" y="91" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#cbd5e9" font-weight="normal">Two agreement edges and one disagreement edge cannot all hold.</text>
+<rect x="33" y="117" width="544" height="437" rx="13" fill="#1c2949" stroke="#6881a9" stroke-width="2"/>
+<rect x="621" y="117" width="545" height="437" rx="13" fill="#1c2949" stroke="#6881a9" stroke-width="2"/>
+<text x="59" y="157" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#91e6d7" font-weight="bold">EDGE LABELS</text>
+<line x1="307" y1="190" x2="152" y2="436" stroke="#87dfd1" stroke-width="7" />
+<line x1="152" y1="436" x2="480" y2="436" stroke="#87dfd1" stroke-width="7" />
+<line x1="480" y1="436" x2="307" y2="190" stroke="#f1ab86" stroke-width="7" />
+<circle cx="307" cy="190" r="30" fill="#4e4275" stroke="#f9f4ff" stroke-width="2"/>
+<text x="307" y="200" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#fff" font-weight="bold">a</text>
+<circle cx="152" cy="436" r="30" fill="#4e4275" stroke="#f9f4ff" stroke-width="2"/>
+<text x="152" y="446" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#fff" font-weight="bold">b</text>
+<circle cx="480" cy="436" r="30" fill="#4e4275" stroke="#f9f4ff" stroke-width="2"/>
+<text x="480" y="446" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#fff" font-weight="bold">c</text>
+<text x="182" y="293" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="31" fill="#a7f5e6" font-weight="normal">0</text>
+<text x="308" y="427" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="31" fill="#a7f5e6" font-weight="normal">0</text>
+<text x="433" y="295" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="31" fill="#ffcfb0" font-weight="normal">1</text>
+<text x="65" y="499" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#a7f5e6" font-weight="normal">Tree: a=b and b=c</text>
+<text x="65" y="534" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#ffcfb0" font-weight="normal">Cycle-closing edge: c≠a</text>
+<text x="647" y="174" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#eef2ff" font-weight="normal">1. Agreement forces</text>
+<text x="694" y="212" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#a7f5e6" font-weight="normal">xₐ = xᵦ = x𝚌</text>
+<text x="647" y="275" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#eef2ff" font-weight="normal">2. Disagreement demands</text>
+<text x="694" y="313" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#ffcfb0" font-weight="normal">x𝚌 ≠ xₐ</text>
+<text x="647" y="375" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#eef2ff" font-weight="normal">3. Cycle XOR:</text>
+<text x="695" y="415" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#f6d7a4" font-weight="bold">0 ⊕ 0 ⊕ 1 = 1 ≠ 0</text>
+<text x="648" y="479" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#bdcce8" font-weight="normal">Fundamental cycles: E − V + 1</text>
+<text x="648" y="514" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#fff" font-weight="bold">Here: 3 − 3 + 1 = 1</text></svg>

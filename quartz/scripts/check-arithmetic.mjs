@@ -22,6 +22,29 @@ function eq(label, got, want, tol = 1e-3) {
   if (!ok) fails.push(`${label}: got ${got}, expected ${want}`);
 }
 
+// Cross-disciplinary bridges: numerical regression checks, not general proof certification.
+{
+  const binomial=(n,k)=>{let z=1;for(let i=1;i<=k;i++) z=z*(n-i+1)/i;return z;};
+  eq("CDB: ten choose seven",binomial(10,7),120);
+  const likelihood=p=>p**7*(1-p)**3;
+  check("CDB: Bernoulli likelihood maximized at 0.7 over tested alternatives",
+    [0.5,0.6,0.8,0.9].every(p=>likelihood(0.7)>likelihood(p)));
+  const mean=0.25*0+0.75*1;
+  const secondMoment=0.25*0+0.75*(4/3);
+  eq("CDB: mixture mean",mean,3/4,1e-12);
+  eq("CDB: mixture second moment",secondMoment,1,1e-12);
+  eq("CDB: mixture variance",secondMoment-mean*mean,7/16,1e-12);
+  const residual=[-2,-2,0,0,2,2];
+  for(const [a,b] of [[0,1],[1,0],[-2,7]]) {
+    const predictor=[a,b,a,b,a,b];
+    eq("CDB: residual orthogonality "+a+","+b,
+      residual.reduce((s,v,i)=>s+v*predictor[i],0),0);
+  }
+  eq("CDB: conditional MSE",residual.reduce((s,v)=>s+v*v,0)/6,8/3,1e-12);
+  eq("CDB: XOR triangle obstruction",0^0^1,1);
+  eq("CDB: triangle cycle rank",3-3+1,1);
+}
+
 // ---------- helpers ----------
 const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
 function reduce(p, q) {

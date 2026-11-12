@@ -23,6 +23,8 @@ The most useful mathematical connections are not merely that two chapters use si
 
 The table is a map, **not a prerequisite list**. The worked bridges below make the translations explicit through concrete calculations and the conditions under which they hold.
 
+**How to read a bridge:** first identify the familiar object, then ask what the new subject *adds*. The decisive moment is not recognizing a shared word but proving that an operation, equation, or invariant survives the translation. Each bridge also identifies a boundary where the analogy would otherwise lead to an incorrect conclusion. You do not need to master the destination subject before starting the calculation.
+
 ## Bridge 1. Equivalence classes become kernels and quotient spaces
 
 **Seed:** [Equivalence Relations and Quotients](./equivalence-relations#quotient-sets-classes-become-objects) teaches that an equivalence relation groups elements that we deliberately treat as indistinguishable.
@@ -33,7 +35,7 @@ $$
 T:\mathbb R^2\to\mathbb R,\qquad T(x,y)=x+y.
 $$
 
-It cannot distinguish $(1,2)$ from $(0,3)$: both map to $3$. Define
+It cannot distinguish $(1,2)$ from $(0,3)$: both map to $3$. The geometric question is therefore not which *point* we started with, but which entire **line of points with the same sum** it belongs to. Define
 
 $$
 (x,y)\sim(u,v)\quad\Longleftrightarrow\quad x+y=u+v.
@@ -67,14 +69,20 @@ $$
 \boxed{\mathbb R^2/\ker T\cong\mathbb R.}
 $$
 
+![Parallel lines x plus y equals c in the plane are each collapsed by T(x,y)=x+y to one number; the points (1,2) and (0,3) lie on the highlighted line x+y=3 and both map to 3.](./media/cdb-quotient-kernel-lines.svg)
+
+*Figure: Each parallel line is one equivalence class. The map $T$ sends all points on that line to the same real number $c$, making the quotient by $\ker T$ concrete.*
+
 **Transfer:** A quotient is not necessarily a mysterious new construction. It may simply be what remains after a map forgets some information. This same question drives [quotient groups](./group-homomorphisms-quotients), [quotient rings](./ring-ideals-quotients), and [quotient topological spaces](./general-topology-constructions).
 
 > [!distinction] Same pattern; different obligations
 > A **set quotient** needs only an equivalence relation. An **algebraic quotient** must show the operations are well-defined on classes. A **topological quotient** specifies which subsets of the quotient are open and requires the appropriate continuity claims. The common pattern is identification—not automatic preservation of every kind of structure.
 
-## Bridge 2. A ranking function is related to, but stronger than, a decreasing potential
+## Bridge 2. Finite termination is not the same as asymptotic decrease
 
 **Seed:** [State Machines and Invariants](./state-machines-invariants#ranking-functions-measuring-finite-progress) distinguishes **invariants**, which stay true, from **ranking functions**, which strictly decrease on active transitions.
+
+Both ranking functions and Lyapunov functions attach numbers to states, but neither is *universally stronger* than the other: their hypotheses, codomains, and conclusions differ. In particular, reaching a state in finitely many transitions is not the same claim as approaching it arbitrarily closely.
 
 Take a machine whose states are $S:=\{0,1,2,3\}$ and whose transition is
 
@@ -129,6 +137,8 @@ with strict decrease whenever $x(t)\ne0$. The value approaches $0$, and $x(t)\to
 
 **Seed:** [Graph Theory](./graph-theory) teaches paths, trees, and cycles. [Equivalence Relations](./equivalence-relations) teaches when local equalities identify objects. Put those ideas together in a tiny constraint system.
 
+**Why this bridge matters:** testing each equation separately cannot establish that *all* equations are satisfiable together. Before invoking cohomology, we can detect the problem with ordinary parity arithmetic. Cohomology then gives the same obstruction a reusable algebraic name.
+
 Place a binary variable $x_v\in\{0,1\}$ at every vertex. On each undirected edge $e=\{u,v\}$ impose
 
 $$
@@ -153,9 +163,21 @@ $$
 
 whereas the required right side is $0\oplus0\oplus1=1$. Contradiction.
 
+![A triangle with zero labels on two edges and a one label on the remaining edge: agreement on the first two edges forces all three vertex values equal, while the final edge demands inequality. A spanning tree contains the two zero edges; the one edge closing the cycle is the failed consistency check.](./media/cdb-xor-cycle-obstruction.svg)
+
+*Figure: The tree edges determine a candidate assignment. The remaining edge closes the triangle and contradicts it; the cycle XOR is $0\oplus0\oplus1=1$, not the required $0$.*
+
 **Exact graph theorem:** On a connected graph, a global assignment exists **if and only if the XOR of edge labels around every cycle is zero**.
 
 *Why the converse holds:* choose a spanning tree and any value at its root. Each tree edge determines the next vertex value, so all tree constraints are satisfied. Each edge outside the tree closes one cycle with the unique tree path; the zero-XOR condition ensures that additional edge constraint is satisfied too. Thus all edges are satisfied.
+
+**How many checks are needed?** For a finite connected graph with $V$ vertices and $E$ edges, a spanning tree has $V-1$ edges. Therefore exactly
+
+$
+E-(V-1)=E-V+1
+$
+
+edges lie outside the tree. Each such edge defines a **fundamental cycle** with the unique tree path joining its endpoints. These $E-V+1$ cycle conditions are independent as constraints on the edge labels over $\mathbb Z_2$, and checking them suffices: every other cycle is a combination of fundamental cycles. The triangle has $E=V=3$, hence exactly **one** independent cycle condition. This is the dimension of its cycle space (its first Betti number). It also explains why a spanning-tree traversal followed by an edge-consistency check gives a linear-time algorithm, $O(V+E)$, for deciding whether an assignment exists.
 
 There is an algebraic-topological language for exactly this obstruction. Regard the graph as a one-dimensional topological complex. Vertex assignments are $0$-cochains, edge labels are $1$-cochains over $\mathbb Z_2$, and the coboundary operation is
 
@@ -184,7 +206,15 @@ Suppose ten independent Bernoulli observations contain seven $1$s and three $0$s
 
 $$
 L(p)=p^7(1-p)^3.
-$$
+$
+
+This is the probability of the **particular ordered sequence** we observed. If we instead ask for the probability of obtaining *any* arrangement with seven successes in ten trials, the binomial coefficient counts those arrangements:
+
+$
+\binom{10}{7}p^7(1-p)^3=120L(p).
+$
+
+The factor $120$ does not depend on $p$, so either likelihood has the same maximizer. The distinction concerns what event the likelihood represents, not which fitted value we obtain.
 
 Taking a logarithm preserves which $p$ maximizes likelihood:
 
@@ -223,7 +253,7 @@ shows that, because $H(\widehat P)$ is constant in $p$, this also equals minimiz
 > [!distinction] What the identity does not say
 > The empirical distribution is not necessarily the true data-generating distribution. Nor is *every* training loss a likelihood. The equivalence here depends on a specified probabilistic model and the particular log-loss objective.
 
-## A fifth bridge to notice: expectation is integration
+## Bridge 5. Expectation is integration
 
 For a finite sample space, if $P(x)$ is a probability assigned to each outcome and $f(x)$ is a quantity of interest, expectation is
 
@@ -238,6 +268,54 @@ $$
 $$
 
 when the integral exists. It is not necessary that every probability distribution have a density $p(x)$ with respect to ordinary length; a sum of point masses is already a valid probability measure.
+
+### Worked example: one distribution, discrete and continuous at once
+
+Suppose $X$ equals zero with probability $1/4$. Otherwise, with probability $3/4$, it is sampled uniformly from the interval $[0,2]$. The probability law is the mixture
+
+$
+P=\frac14\delta_0+\frac34\operatorname{Unif}[0,2].
+$
+
+Read $\delta_0$ as "delta at zero": it assigns probability one to the single outcome $0$. The mixture gives the exact point $0$ probability $1/4$, *and* spreads the remaining probability continuously across the interval. No single ordinary density with respect to length can describe the whole law, because such a density would assign the singleton $\{0\}$ probability zero.
+
+For an integrable function $f$, the defining integral separates into its discrete and continuous contributions:
+
+$
+\mathbb E[f(X)]
+=\int f\,dP
+=\frac14 f(0)+\frac34\int_0^2 f(x)\,\frac{dx}{2}.
+$
+
+Set $f(x)=x$. Since the continuous component has constant density $1/2$ on $[0,2]$,
+
+$
+\begin{aligned}
+\mathbb E[X]
+&=\frac14(0)+\frac34\int_0^2 x\,\frac{dx}{2}\\
+&=\frac34\left[\frac{x^2}{4}\right]_0^2\\
+&=\boxed{\frac34}.
+\end{aligned}
+$
+
+We can also compute a second moment:
+
+$
+\mathbb E[X^2]
+=\frac34\int_0^2 x^2\,\frac{dx}{2}
+=\frac34\cdot\frac43=1.
+$
+
+Consequently,
+
+$
+\operatorname{Var}(X)
+=\mathbb E[X^2]-\mathbb E[X]^2
+=1-\left(\frac34\right)^2
+=\frac7{16}.
+$
+
+**What transfers:** the same integral handles an atomic mass, a continuous component, and their mixture. Moving from a finite weighted sum to $\int f\,dP$ is not merely changing notation; it is moving to a construction that works even without a density for the full law.
 
 The same linearity becomes a general property of integration:
 
@@ -293,6 +371,10 @@ $
 
 because the odd outcomes average to $3$ and the even outcomes average to $4$. This is the conditional expectation $\mathbb E[X\mid\text{parity}]$.
 
+![For six equally likely die outcomes, the conditional prediction given parity is 3 on the odd faces and 4 on the even faces; subtracting it from X=(1,2,3,4,5,6) produces residual (-2,-2,0,0,2,2), which is orthogonal to every parity-based prediction.](./media/cdb-conditional-expectation-projection.svg)
+
+*Figure: Conditioning on parity restricts predictions to the two-dimensional subspace $M=\{(a,b,a,b,a,b)\}$. Its orthogonal projection gives the odd and even means, with a residual perpendicular to that subspace.*
+
 **Why is it really an orthogonal projection?** The residual is
 
 $
@@ -333,5 +415,19 @@ When you notice familiar language in a new subject, try this sequence:
 3. **Translate one small example exactly.** Define the maps and verify the claims, rather than relying on visual analogy.
 4. **Find a boundary case.** What breaks when the target order is not well-founded, when a quotient operation is not well-defined, or when local constraints form a nontrivial cycle?
 5. **Find the theorem payoff.** What can now be proved or computed that was not obvious in the original description?
+
+### Worked transfer audit: revisit the inconsistent cycle
+
+The five questions are not merely a reading checklist. Apply them to Bridge 3:
+
+| Question | Answer for the XOR graph |
+| --- | --- |
+| **Common object?** | A system of edge equations $x_u\oplus x_v=b_e$. |
+| **Additional structure?** | A graph interpreted as a one-dimensional complex, with vertex $0$-cochains and edge $1$-cochains over $\mathbb Z_2$. |
+| **What makes the transfer exact?** | The coboundary identity $b=\delta x$; equivalently, every cycle has XOR sum zero. A spanning tree proves the converse constructively. |
+| **Boundary case?** | The triangle labelled $0,0,1$ passes every individual edge check but fails the global cycle condition. This criterion addresses existence, not the convergence of a repair algorithm. |
+| **Theorem or computation gained?** | One spanning-tree traversal and $E-V+1$ fundamental cycle checks decide consistency in a finite connected graph. The cohomology class $[b]$ identifies the obstruction. |
+
+This method also tells you **when not to transfer** an idea. A decreasing real-valued potential is not automatically a terminating rank, and a linear least-squares projection is not automatically the full conditional expectation. The hypotheses are part of the mathematics, not footnotes to it.
 
 **Related maps:** the [Atlas](./atlas-of-mathematical-spaces) organizes *structures*; [Path Through Algebra](./path-through-algebra), [Path Through Analysis](./path-through-analysis), [Path Through Topology](./path-to-topology), and [Discrete Mathematics](./discrete-mathematics) organize *reading routes*. These cross-disciplinary bridges organize **reusable ideas and proof techniques**.

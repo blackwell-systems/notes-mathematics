@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc"><title id="title">Parallel kernel classes mapped to real numbers</title><desc id="desc">The linear map T(x,y)=x+y collapses each x+y=c line onto one real number. Points (1,2) and (0,3) both belong to the line x+y=3 and have the same output 3. Its kernel is the parallel line x+y=0.</desc><rect width="1200" height="600" fill="#101a32"/><text x="40" y="55" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="39" fill="#fff" font-weight="bold">The quotient keeps only the sum</text>
+<text x="40" y="91" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#cbd5e9" font-weight="normal">T(x, y) = x + y: each parallel line is one equivalence class</text>
+<rect x="34" y="118" width="540" height="439" rx="13" fill="#1c2949" stroke="#6881a9" stroke-width="2"/>
+<rect x="630" y="118" width="534" height="439" rx="13" fill="#1c2949" stroke="#6881a9" stroke-width="2"/>
+<text x="61" y="151" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#83e1d0" font-weight="bold">INPUT: POINTS IN R²</text>
+<text x="655" y="151" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#d6b9fc" font-weight="bold">OUTPUT: ONE REAL NUMBER</text>
+<line x1="152" y1="472" x2="503" y2="472" stroke="#a3b7d6" stroke-width="2" />
+<line x1="152" y1="472" x2="152" y2="157" stroke="#a3b7d6" stroke-width="2" />
+<text x="505" y="483" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#eef2ff" font-weight="normal">x</text>
+<text x="142" y="150" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#eef2ff" font-weight="normal">y</text>
+<text x="152" y="504" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">0</text>
+<text x="228" y="504" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">1</text>
+<text x="137" y="404" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">1</text>
+<text x="304" y="504" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">2</text>
+<text x="137" y="328" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">2</text>
+<text x="380" y="504" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">3</text>
+<text x="137" y="252" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">3</text>
+<text x="456" y="504" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">4</text>
+<text x="137" y="176" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#c8d2e5" font-weight="normal">4</text>
+<line x1="152" y1="396" x2="228" y2="472" stroke="#788aac" stroke-width="3" />
+<text x="254" y="460" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#bfcee5" font-weight="normal">c=1</text>
+<line x1="152" y1="320" x2="304" y2="472" stroke="#788aac" stroke-width="3" />
+<text x="330" y="460" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#bfcee5" font-weight="normal">c=2</text>
+<line x1="152" y1="244" x2="380" y2="472" stroke="#83eadc" stroke-width="6" />
+<text x="406" y="460" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#b6fcf1" font-weight="normal">c=3</text>
+<line x1="152" y1="168" x2="456" y2="472" stroke="#788aac" stroke-width="3" />
+<text x="482" y="460" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#bfcee5" font-weight="normal">c=4</text>
+<circle cx="228" cy="320" r="8" fill="#f5dc9e" stroke="#f9f4ff" stroke-width="2"/>
+<circle cx="152" cy="244" r="8" fill="#f5dc9e" stroke="#f9f4ff" stroke-width="2"/>
+<text x="240" y="314" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#f6dba6" font-weight="normal">(1, 2)</text>
+<text x="169" y="232" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#f6dba6" font-weight="normal">(0, 3)</text>
+<text x="56" y="536" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#e4eaf5" font-weight="normal">Same line, same equivalence class</text>
+<text x="592" y="320" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="48" fill="#bdd3f2" font-weight="normal">→</text>
+<text x="650" y="217" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#f4f3ff" font-weight="normal">Collapse x + y = c to c.</text>
+<line x1="682" y1="351" x2="1096" y2="351" stroke="#b7c9e5" stroke-width="3" />
+<line x1="704" y1="340" x2="704" y2="362" stroke="#a8bce0" stroke-width="2" />
+<circle cx="704" cy="351" r="7" fill="#d6b9fc" stroke="#f9f4ff" stroke-width="2"/>
+<text x="704" y="398" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#eeeaff" font-weight="bold">1</text>
+<line x1="822" y1="340" x2="822" y2="362" stroke="#a8bce0" stroke-width="2" />
+<circle cx="822" cy="351" r="7" fill="#d6b9fc" stroke="#f9f4ff" stroke-width="2"/>
+<text x="822" y="398" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#eeeaff" font-weight="bold">2</text>
+<line x1="940" y1="340" x2="940" y2="362" stroke="#a8bce0" stroke-width="2" />
+<circle cx="940" cy="351" r="10" fill="#83eadc" stroke="#f9f4ff" stroke-width="2"/>
+<text x="940" y="398" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#eeeaff" font-weight="bold">3</text>
+<line x1="1058" y1="340" x2="1058" y2="362" stroke="#a8bce0" stroke-width="2" />
+<circle cx="1058" cy="351" r="7" fill="#d6b9fc" stroke="#f9f4ff" stroke-width="2"/>
+<text x="1058" y="398" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" fill="#eeeaff" font-weight="bold">4</text>
+<text x="648" y="463" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#ffdea3" font-weight="normal">T(1, 2) = T(0, 3) = 3</text>
+<text x="648" y="513" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#e4eafa" font-weight="normal">R² / ker T ≅ R</text></svg>
