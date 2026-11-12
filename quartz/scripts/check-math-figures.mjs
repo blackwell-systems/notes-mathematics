@@ -7,7 +7,7 @@ import {join} from "node:path";
 import {spawnSync} from "node:child_process";
 
 const expected = {
-  "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg"],
+  "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg","st-power-set-lattice.svg","st-cantor-diagonal.svg","st-infinity-hierarchy.svg"],
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
   "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"],
   "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg"],
@@ -125,7 +125,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==119)errors.push("Expected 119 illustrative SVGs, got "+total);
+if(total!==122)errors.push("Expected 122 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
@@ -143,6 +143,36 @@ for(const [key,value] of asymmetricCells){
   if((row===col && value!==0) ||
      (value===1 && (asymmetricCells.get(col+","+row)!==0 || !asymmetricEdges.includes(key))))
     errors.push("Asymmetric figure: invalid self-loop or reverse arrow at "+key);
+}
+
+
+// Verify structural correctness of the power-set Hasse diagram.
+const latticeSource=readFileSync(join("content","media","st-power-set-lattice.svg"),"utf8");
+const latticeSubsets=[...latticeSource.matchAll(/data-subset="([^"]*)"/g)].map(([,value])=>value);
+const latticeEdges=[...latticeSource.matchAll(/data-cover="([^"]*)->([^"]*)"/g)].map(([,from,to])=>[from,to]);
+const idMembers=id=>id.length?new Set(id.split(",")):new Set();
+if(latticeSubsets.length!==8||new Set(latticeSubsets).size!==8||latticeEdges.length!==12||
+   new Set(latticeEdges.map(([a,b])=>a+"->"+b)).size!==12)
+  errors.push("Power-set lattice: expected eight distinct nodes and twelve distinct Hasse edges");
+for(const [from,to] of latticeEdges){
+  const a=idMembers(from),b=idMembers(to);
+  if(!latticeSubsets.includes(from)||!latticeSubsets.includes(to)||
+     a.size+1!==b.size||[...a].some(member=>!b.has(member)))
+    errors.push("Power-set lattice: non-covering edge "+from+" -> "+to);
+}
+// Check a finite prefix of the illustrated diagonal argument against its own digits.
+const cantorSource=readFileSync(join("content","media","st-cantor-diagonal.svg"),"utf8");
+const diagonalDigits=new Map([...cantorSource.matchAll(/data-diagonal="(\d+):(\d)"/g)]
+  .map(([,i,d])=>[Number(i),d]));
+const newDigits=new Map([...cantorSource.matchAll(/data-constructed="(\d+):(\d)"/g)]
+  .map(([,i,d])=>[Number(i),d]));
+if(diagonalDigits.size!==5||newDigits.size!==5)errors.push("Cantor diagram: expected five diagonal and constructed digits");
+for(let n=1;n<=5;n++){
+  const original=diagonalDigits.get(n),constructed=newDigits.get(n);
+  if(original===undefined||constructed===undefined||original===constructed||
+     (constructed!=="1"&&constructed!=="2")||
+     constructed!==(original==="1"?"2":"1"))
+    errors.push("Cantor diagram: new digit does not differ from diagonal at position "+n);
 }
 
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));

@@ -729,7 +729,9 @@ Modern axiomatic set theories (like Zermelo-Fraenkel set theory) avoid Russell's
 
 ## Power Set
 
-![The power set of the three-element set a, b, c drawn as a Hasse lattice ordered by inclusion: the empty set at the bottom, the three singletons above it, the three two-element subsets above those, and the full set at the top, for 2 to the third power equals 8 subsets, in rows of sizes 1, 3, 3, 1](./media/st-power-set-lattice.png)
+![Eight-subset Hasse lattice for {a,b,c}: a four-level diagram with empty set, three singletons, three doubletons and the full set, connected by immediate inclusion edges.](./media/st-power-set-lattice.svg)
+
+*Figure: The lattice groups the eight subsets by size: $\binom30+\binom31+\binom32+\binom33=1+3+3+1=8$. Each edge adds exactly one element.*
 
 **Power Set:** The power set of a set **A**, denoted $\mathcal{P}(A)$ (read "the power set of A") or $2^A$, is the set of all subsets of **A**, including the empty set and **A** itself.
 
@@ -943,7 +945,9 @@ r₄ = 0.a₄₁ a₄₂ a₄₃ a₄₄ ...
 > [!distinction] Why choosing only 1 and 2 matters
 > Decimal notation is **not unique**: $0.5000\ldots$ and $0.4999\ldots$ are the same real number. A diagonal proof that merely changes one digit without controlling the representation can leave a gap. Restricting the newly chosen digits to $1$ and $2$—and using canonical expansions for the listed numbers—closes it.
 
-![Cantor's diagonal argument: a numbered list of reals with each number's diagonal digit highlighted, and a constructed number whose every digit differs from the diagonal, so it cannot appear anywhere in the list](./media/st-cantor-diagonal.png)
+![Diagonal digits from five listed decimal numbers are highlighted; constructing d = 0.21111... makes its n-th digit differ from row n, with the same rule continuing for all rows.](./media/st-cantor-diagonal.svg)
+
+*Figure: The first five rows illustrate an **infinite** procedure. By choosing $d_n=2$ when the $n$th diagonal digit is $1$, and $d_n=1$ otherwise, the constructed number differs from $r_n$ at digit $n$ for every $n$.*
 
 The argument works against *any* proposed list, which is the crux: no enumeration can be complete. Try it yourself below. Edit the digits or regenerate the list; the constructed number always differs from row $i$ in position $i$, so it is never on the list.
 
@@ -960,7 +964,9 @@ Where:
 - $|\mathbb{R}|$ is denoted $\mathfrak{c}$ (the cardinality of the continuum)
 - Each power set has strictly greater cardinality than the original set
 
-![Tower of infinite cardinalities: aleph-null (countable N, Z, Q) at the bottom, then the continuum c = 2 to the aleph-null (uncountable R, C, power set of N), then 2 to the c (power set of R), each level strictly larger via the power-set operation](./media/st-infinity-hierarchy.png)
+![Three-level cardinality tower: countably infinite aleph-null, continuum c, and two to the c, with strict upward arrows for power-set growth and no implied intermediate-cardinality assumption.](./media/st-infinity-hierarchy.svg)
+
+*Figure: Each upward step follows Cantor's theorem: $\aleph_0<2^{\aleph_0}=\mathfrak c<2^{\mathfrak c}$. The diagram makes **no claim** about which other cardinalities might lie between these displayed levels.*
 
 **Key Properties:**
 
