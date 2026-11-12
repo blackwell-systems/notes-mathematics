@@ -210,7 +210,7 @@
       "semanticReview": "pilot",
       "mobileReview": "pending",
       "darkReview": "pending",
-      "diagramReview": "not-applicable"
+      "diagramReview": "pending"
     },
     {
       "path": "descriptive-statistics.md",
