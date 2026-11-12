@@ -175,7 +175,7 @@ $
 f^{-1}(\{y\})=\{a\in A:f(a)=y\}.
 $
 
-Read $f^{-1}(\{y\})$ as "the preimage of the set containing $y$." This notation does **not** require $f$ to have an inverse function. For a diagram showing several inputs flowing into the same output, see [Fibers and the Kernel of a Function](./functions-relations#fibers-and-the-kernel-of-a-function).
+**A fiber is a special case of a preimage.** The [preimage](./functions-relations#preimage) $f^{-1}(C)$ of any subset $C\subseteq B$ collects every input whose output lies in $C$. A **fiber** takes the preimage of just one output, the singleton set $\{y\}$. The notation $f^{-1}$ does **not** require $f$ to have an inverse function. For a diagram, see [Fibers and the Kernel of a Function](./functions-relations#fibers-and-the-kernel-of-a-function).
 
 > [!theorem] Function fibers are equivalence classes
 > The relation $\sim_f$ is an equivalence relation. The equivalence class containing $a$ is exactly the fiber over its output:
@@ -187,7 +187,7 @@ Read $f^{-1}(\{y\})$ as "the preimage of the set containing $y$." This notation 
 > [!proof] Equality of outputs supplies the axioms
 > $f(a)=f(a)$ gives reflexivity. If $f(a)=f(b)$, then $f(b)=f(a)$ gives symmetry. If $f(a)=f(b)$ and $f(b)=f(c)$, then $f(a)=f(c)$ gives transitivity. By definition, $[a]$ consists of exactly those inputs with output $f(a)$.
 
-**Worked example.** Set $f:\mathbb R\to\mathbb R$ by $f(x)=x^2$ (read "f of x equals x squared"). The fiber over $9$ is $f^{-1}(\{9\})=\{-3,3\}$: both inputs square to $9$, so $[3]=[-3]=\{-3,3\}$. The fiber over $0$ is $\{0\}$, while the fiber over $-1$ is empty because no real number squares to $-1$. Thus the equivalence classes correspond exactly to the **nonnegative** outputs.
+**Worked example.** Set $f:\mathbb R\to\mathbb R$ by $f(x)=x^2$ (read "f of x equals x squared"). The fiber over $9$ is $f^{-1}(\{9\})=\{-3,3\}$: both inputs square to $9$, so $[3]=[-3]=\{-3,3\}$. By comparison, the **preimage of $\{4,9\}$** is $f^{-1}(\{4,9\})=\{-3,-2,2,3\}$: this combines the fibers over $4$ and $9$, so it is not a single fiber. The fiber over $0$ is $\{0\}$, while the fiber over $-1$ is empty because no real number squares to $-1$. Thus the equivalence classes correspond exactly to the **nonnegative** outputs.
 
 ### When does a function descend to classes?
 
