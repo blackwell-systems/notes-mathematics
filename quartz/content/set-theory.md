@@ -844,23 +844,40 @@ Formally: $\forall i, j : i \neq j \Rightarrow A_i \cap A_j = \varnothing$
 
 ## Partition of a Set
 
-![The set S with elements 1 through 8 split into three nonempty, disjoint blocks that collectively cover every element.](./media/st-partition.svg)
+A **partition** divides a set into blocks so that **every element belongs to exactly one block**. No element is assigned twice, none is left out, and each block contains at least one element. The blocks do not have to be the same size.
 
-*Figure: A partition must pass three tests: **no empty blocks, no overlaps, and no omitted elements**.*
+![The set S containing 1 through 8, shown inside an outer boundary with three distinct nonempty blocks: B1 contains 1, 2, 3; B2 contains 4, 5; and B3 contains 6, 7, 8. No blocks overlap and no element lies outside them.](./media/st-partition.svg)
 
-**Partition:** A partition of a set **A** is a collection of non-empty, pairwise disjoint subsets of **A** whose union is **A**.
+*Figure: The three blocks form a partition of $S = \{1,2,3,4,5,6,7,8\}$. Block $B_1$ contains 1, 2, 3; $B_2$ contains 4, 5; and $B_3$ contains 6, 7, 8. Each element appears in exactly one block. The outer boundary marks $S$, not a fourth block.*
 
-**Definition:** A collection $\{A_1, A_2, \ldots, A_n\}$ is a partition of **A** if:
+> [!definition] Partition
+> A **partition** $\mathcal P$ of a set $S$ is a collection of subsets of $S$ satisfying three conditions:
+>
+> 1. **Nonempty:** Every block $B \in \mathcal P$ satisfies $B \neq \varnothing$.
+> 2. **Pairwise disjoint:** If $B,C \in \mathcal P$ are distinct blocks, then $B \cap C = \varnothing$.
+> 3. **Complete coverage:** The union of all blocks is $S$: $\bigcup_{B \in \mathcal P} B = S$.
+>
+> The definition allows infinitely many blocks. If $S$ is empty, the empty collection is its unique partition.
 
-1. Each $A_i$ is non-empty: $A_i \neq \varnothing$
-2. The sets are pairwise disjoint: $A_i \cap A_j = \varnothing$ for $i \neq j$
-3. Their union is **A**: $A_1 \cup A_2 \cup \cdots \cup A_n = A$
+### A worked example: what counts, and what fails?
 
-**Example:** The sets {1, 2}, {3, 4}, {5, 6} form a partition of {1, 2, 3, 4, 5, 6}.
+For the set in the diagram, the collection
 
-**Connection to Equivalence Relations:**
+$
+\mathcal P = \big\{\{1,2,3\},\{4,5\},\{6,7,8\}\big\}
+$
 
-Every equivalence relation on a set **A** induces a partition of **A** (its classes), and every partition induces an equivalence relation. See the two complete proofs in [Equivalence Relations and Quotients](./equivalence-relations#equivalence-relations-correspond-to-partitions).
+passes every test. All three blocks are nonempty; no number occurs in two blocks; and listing their elements recovers exactly $S$.
+
+Now change one detail at a time, keeping $S = \{1,2,3,4,5,6,7,8\}$ fixed:
+
+- **Overlap:** Replace the middle block with $\{3,4,5\}$. The number 3 now belongs to both the first and second blocks. Their intersection is $\{3\}$, not $\varnothing$, so this is not a partition.
+- **Omission:** Replace the last block with $\{6,7\}$. The blocks remain nonempty and pairwise disjoint, but their union misses 8. This fails the coverage condition.
+- **Empty block:** Keep the original three blocks and add $\varnothing$ as a fourth block. Coverage and disjointness still hold, but a partition cannot contain an empty block.
+
+These examples explain why **exactly one block per element** captures coverage and disjointness, while the separate nonempty requirement rules out meaningless empty blocks.
+
+**Connection to equivalence relations:** Every equivalence relation on $S$ partitions $S$ into equivalence classes, and every partition determines an equivalence relation: two elements are related exactly when they occupy the same block. See the two complete proofs in [Equivalence Relations and Quotients](./equivalence-relations#equivalence-relations-correspond-to-partitions).
 
 ## Countable vs Uncountable Sets
 
