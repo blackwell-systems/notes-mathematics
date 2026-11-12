@@ -534,7 +534,9 @@ The universal set, often denoted by 𝑈, is the set that includes every
 element that is being considered in a given discussion or problem
 domain. All other sets in that context are subsets of the universal set.
 
-![Rectangle labeled U, the universal set, containing circles A, B, and C as subsets, showing that all sets under discussion live inside U](./media/st-universal-set.png)
+![The universe U includes every element under discussion; A and B overlap, C is separate, and element 6 belongs to U outside all three subsets.](./media/st-universal-set.svg)
+
+*Figure: The boundary of $U$ sets the domain of discourse: elements can belong to $U$ without belonging to any highlighted subset.*
 
 **Special Considerations:**
 
@@ -551,7 +553,7 @@ context or domain of discourse.**
 
 ## Set Operations
 
-Sets combine through a handful of operations, each defined by a membership condition. Explore them all below: pick an operation to light up its region of the Venn diagram, edit which elements lie in $A$ and $B$, and watch the resulting set (and its size) update live.
+Sets combine through a handful of operations, each defined by a membership condition. The five static Venn diagrams below use a **single shared example**: $U:=\{1,2,3,4,5,6\}$, $A:=\{1,2,3\}$ and $B:=\{3,4,5\}$. Only the shaded region changes, so you can compare the operations directly. Explore them all below: pick an operation to light up its region of the Venn diagram, edit which elements lie in $A$ and $B$, and watch the resulting set (and its size) update live.
 
 <iframe src="/static/interactive/set-operation-explorer.html" width="100%" height="640" style="border:none;"></iframe>
 
@@ -564,7 +566,9 @@ $\forall x\, (x \in (A \cup B) \leftrightarrow (x \in A \lor x \in B))$
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then $A \cup B = \{1, 2, 3, 4, 5\}$
 
-![Venn diagram of A union B: both circles fully shaded inside the universal-set rectangle](./media/st-venn-union.png)
+![Union highlights the two circles A and B, including their overlap: A union B equals {1,2,3,4,5}.](./media/st-venn-union.svg)
+
+*Figure: With the same sets used throughout these diagrams, $A\cup B=\{1,2,3,4,5\}$: being in either circle is sufficient.*
 
 ### Set Intersection
 
@@ -574,7 +578,9 @@ $\forall x\, (x \in (A \cap B) \leftrightarrow (x \in A \land x \in B))$
 
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then $A \cap B = \{3\}$
 
-![Venn diagram of A intersect B: only the central overlap lens shaded](./media/st-venn-intersection.png)
+![Intersection shades only the overlap containing element 3: A intersection B is {3}.](./media/st-venn-intersection.svg)
+
+*Figure: Only the shared region survives: $A\cap B=\{3\}$.*
 
 ### Set Complement
 
@@ -585,7 +591,9 @@ elements from the domain of discourse which are NOT in A.
 
 $\forall x\, (x \in A' \leftrightarrow (x \in U \land x \notin A))$
 
-![Venn diagram of the complement of A: the entire universal-set rectangle outside circle A is shaded, including the part of B outside A](./media/st-venn-complement.png)
+![Complement of A within the universe U highlights elements 4, 5 and 6 outside circle A.](./media/st-venn-complement.svg)
+
+*Figure: Complement depends on the universe: $A^c=U\setminus A=\{4,5,6\}$.*
 
 ### Symmetric Difference
 
@@ -602,7 +610,9 @@ Where $\oplus$ is exclusive OR (XOR).
 **Example:** If $A = \{1, 2, 3\}$ and $B = \{3, 4, 5\}$, then:
 - $A \triangle B = \{1, 2, 4, 5\}$
 
-![Venn diagram of the symmetric difference A triangle B: both outer crescents shaded and the overlap left white](./media/st-venn-symmetric-difference.png)
+![Symmetric difference highlights only the nonoverlapping parts of the two circles, elements 1, 2, 4 and 5.](./media/st-venn-symmetric-difference.svg)
+
+*Figure: Symmetric difference keeps the elements in **exactly one** set: $A\triangle B=\{1,2,4,5\}$.*
 
 **Properties:**
 - **Commutative:** $A \triangle B = B \triangle A$
@@ -621,9 +631,11 @@ $$
 A \setminus B = \{x : x \in A \text{ and } x \notin B\}
 $$
 
-![Venn diagram of the set difference A minus B: only the part of A lying outside B is shaded](./media/st-venn-difference.png)
+![The difference A minus B highlights only the left-only region containing elements 1 and 2.](./media/st-venn-difference.svg)
 
-The set difference is not the same as the complement unless $B$ is the universal set. In general, $A \setminus B$ only removes elements of $B$ from $A$, whereas the complement $A'$ (or $A^c$) removes all elements of $A$ from the entire universal set.
+*Figure: Set difference is directional: $A\setminus B=\{1,2\}$; reversing the sets would instead give $\{4,5\}$.*
+
+The complement of $A$ is $A^c=U\setminus A$: it keeps all elements of the universal set **outside** $A$. In contrast, $A\setminus B$ keeps elements **inside** $A$ that are not in $B$. In particular, setting $B=U$ gives $A\setminus U=\emptyset$, **not** $A^c$ in general.
 
 **Relationship to complement and intersection:**
 
