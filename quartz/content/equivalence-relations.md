@@ -40,6 +40,8 @@ Consider "has the same remainder upon division by three." The integers $1$ and $
 
 > [!distinction] Symmetric versus antisymmetric
 > **Symmetric** means every related pair can be reversed. **Antisymmetric** means relations in both directions force the two elements to be identical. These properties are not negations of each other. Equality satisfies **both**.
+>
+> **Example:** $1\equiv4\pmod 3$ and $4\equiv1\pmod 3$, so congruence modulo $3$ is symmetric but **not** antisymmetric: $1\neq4$. In contrast, $2\leq3$ but $3\nleq2$; this is compatible with antisymmetry, because $a\leq b$ and $b\leq a$ together force $a=b$.
 
 ## Worked proof: congruence modulo n
 
