@@ -8,9 +8,15 @@ enables: ["category-theory-foundations", "real-analysis", "general-topology-foun
 > **Builds on:** [sets](./set-theory), [binary relations](./functions-relations#relation), and [equivalence classes](./equivalence-relations).
 > **Leads to:** [real-number bounds](./real-analysis#supremum-and-infimum), [set-theoretic well-ordering](./set-theory#ordinals-and-well-ordering), and [posets as categories](./category-theory-foundations#a-partial-order-is-a-category).
 
-An order tells us when one object is **below, before, contained in, or less informative than** another. For real numbers, every pair can be compared. For subsets, two objects may be unrelated by containment. Order theory treats these as different forms of a single idea rather than assuming every order must look like a line.
+## Why study order theory?
 
-Throughout, let $P$ be a set with a relation $\preceq$ (read "precedes or is equal to"). We use $\leq$ for numerical order, $\subseteq$ for subset containment, and $\mid$ (read "divides") for divisibility. Different symbols may satisfy the *same structural axioms*.
+**The point of order theory is to reason about what depends on, contains, or carries more information than something else, even when not everything can be ranked on a single line.** Ordinary numerical order compares every pair of numbers. Dependencies, permissions, and sets often do not work that way.
+
+Consider two permission sets: one grants **read and write**, while the other grants **read and share**. Neither set contains the other. There is no honest answer to "Which one is greater?" if *greater* means *contains all the permissions of the other*. But we can still identify their **common permissions** (read) and the **smallest set containing both** (read, write, and share). Order theory makes these questions precise. The shared part is an example of a *meet*; the smallest common upper set is a *join*.
+
+The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.**
+
+An **order relation** tells us when one object is below, before, contained in, or less informative than another. Throughout, let $P$ be a set with a relation $\preceq$ (read "precedes or is equal to"). We use $\leq$ for numerical order, $\subseteq$ for subset containment, and $\mid$ (read "divides") for divisibility. These different relationships can satisfy the *same structural axioms*, which is why one theory can study them together.
 
 ## From relations to preorders and partial orders
 
