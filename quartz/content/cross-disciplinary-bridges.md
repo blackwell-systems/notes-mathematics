@@ -78,6 +78,8 @@ $$
 > [!distinction] Same pattern; different obligations
 > A **set quotient** needs only an equivalence relation. An **algebraic quotient** must show the operations are well-defined on classes. A **topological quotient** specifies which subsets of the quotient are open and requires the appropriate continuity claims. The common pattern is identification—not automatic preservation of every kind of structure.
 
+<a id="bridge-2-a-ranking-function-is-related-to-but-stronger-than-a-decreasing-potential"></a>
+
 ## Bridge 2. Finite termination is not the same as asymptotic decrease
 
 **Seed:** [State Machines and Invariants](./state-machines-invariants#ranking-functions-measuring-finite-progress) distinguishes **invariants**, which stay true, from **ranking functions**, which strictly decrease on active transitions.
@@ -173,9 +175,9 @@ whereas the required right side is $0\oplus0\oplus1=1$. Contradiction.
 
 **How many checks are needed?** For a finite connected graph with $V$ vertices and $E$ edges, a spanning tree has $V-1$ edges. Therefore exactly
 
-$
+$$
 E-(V-1)=E-V+1
-$
+$$
 
 edges lie outside the tree. Each such edge defines a **fundamental cycle** with the unique tree path joining its endpoints. These $E-V+1$ cycle conditions are independent as constraints on the edge labels over $\mathbb Z_2$, and checking them suffices: every other cycle is a combination of fundamental cycles. The triangle has $E=V=3$, hence exactly **one** independent cycle condition. This is the dimension of its cycle space (its first Betti number). It also explains why a spanning-tree traversal followed by an edge-consistency check gives a linear-time algorithm, $O(V+E)$, for deciding whether an assignment exists.
 
@@ -206,13 +208,13 @@ Suppose ten independent Bernoulli observations contain seven $1$s and three $0$s
 
 $$
 L(p)=p^7(1-p)^3.
-$
+$$
 
 This is the probability of the **particular ordered sequence** we observed. If we instead ask for the probability of obtaining *any* arrangement with seven successes in ten trials, the binomial coefficient counts those arrangements:
 
-$
+$$
 \binom{10}{7}p^7(1-p)^3=120L(p).
-$
+$$
 
 The factor $120$ does not depend on $p$, so either likelihood has the same maximizer. The distinction concerns what event the likelihood represents, not which fitted value we obtain.
 
@@ -253,6 +255,8 @@ shows that, because $H(\widehat P)$ is constant in $p$, this also equals minimiz
 > [!distinction] What the identity does not say
 > The empirical distribution is not necessarily the true data-generating distribution. Nor is *every* training loss a likelihood. The equivalence here depends on a specified probabilistic model and the particular log-loss objective.
 
+<a id="a-fifth-bridge-to-notice-expectation-is-integration"></a>
+
 ## Bridge 5. Expectation is integration
 
 For a finite sample space, if $P(x)$ is a probability assigned to each outcome and $f(x)$ is a quantity of interest, expectation is
@@ -273,47 +277,47 @@ when the integral exists. It is not necessary that every probability distributio
 
 Suppose $X$ equals zero with probability $1/4$. Otherwise, with probability $3/4$, it is sampled uniformly from the interval $[0,2]$. The probability law is the mixture
 
-$
+$$
 P=\frac14\delta_0+\frac34\operatorname{Unif}[0,2].
-$
+$$
 
 Read $\delta_0$ as "delta at zero": it assigns probability one to the single outcome $0$. The mixture gives the exact point $0$ probability $1/4$, *and* spreads the remaining probability continuously across the interval. No single ordinary density with respect to length can describe the whole law, because such a density would assign the singleton $\{0\}$ probability zero.
 
 For an integrable function $f$, the defining integral separates into its discrete and continuous contributions:
 
-$
+$$
 \mathbb E[f(X)]
 =\int f\,dP
 =\frac14 f(0)+\frac34\int_0^2 f(x)\,\frac{dx}{2}.
-$
+$$
 
 Set $f(x)=x$. Since the continuous component has constant density $1/2$ on $[0,2]$,
 
-$
+$$
 \begin{aligned}
 \mathbb E[X]
 &=\frac14(0)+\frac34\int_0^2 x\,\frac{dx}{2}\\
 &=\frac34\left[\frac{x^2}{4}\right]_0^2\\
 &=\boxed{\frac34}.
 \end{aligned}
-$
+$$
 
 We can also compute a second moment:
 
-$
+$$
 \mathbb E[X^2]
 =\frac34\int_0^2 x^2\,\frac{dx}{2}
 =\frac34\cdot\frac43=1.
-$
+$$
 
 Consequently,
 
-$
+$$
 \operatorname{Var}(X)
 =\mathbb E[X^2]-\mathbb E[X]^2
 =1-\left(\frac34\right)^2
 =\frac7{16}.
-$
+$$
 
 **What transfers:** the same integral handles an atomic mass, a continuous component, and their mixture. Moving from a finite weighted sum to $\int f\,dP$ is not merely changing notation; it is moving to a construction that works even without a density for the full law.
 
@@ -331,27 +335,27 @@ for integrable $f,g$. This creates a bridge from [Probability](./probability#exp
 
 **First surprise: an average is a projection.** Consider the five observations
 
-$
+$$
 y=(2,4,4,6,9).
-$
+$$
 
 Imagine choosing a *constant* prediction: one number $c$ used for all five observations. The possible prediction vectors form a line,
 
-$
+$$
 M_0=\{(c,c,c,c,c):c\in\mathbb R\}.
-$
+$$
 
 Which point on that line is closest to $y$? Minimize the sum of squared errors:
 
-$
+$$
 S(c)=(2-c)^2+(4-c)^2+(4-c)^2+(6-c)^2+(9-c)^2.
-$
+$$
 
 Differentiating, $S'(c)=10c-50$. Thus $c=5$ is the unique minimum, and
 
-$
+$$
 \boxed{\operatorname{proj}_{M_0}y=(5,5,5,5,5).}
-$
+$$
 
 The familiar **arithmetic mean** is the coordinate of the orthogonal projection onto the constant-vector subspace.
 
@@ -359,15 +363,15 @@ The familiar **arithmetic mean** is the coordinate of the orthogonal projection 
 
 The possible prediction vectors are exactly
 
-$
+$$
 M=\{(a,b,a,b,a,b):a,b\in\mathbb R\}.
-$
+$$
 
 The closest such prediction to $X=(1,2,3,4,5,6)$ is
 
-$
+$$
 p=(3,4,3,4,3,4),
-$
+$$
 
 because the odd outcomes average to $3$ and the even outcomes average to $4$. This is the conditional expectation $\mathbb E[X\mid\text{parity}]$.
 
@@ -377,15 +381,15 @@ because the odd outcomes average to $3$ and the even outcomes average to $4$. Th
 
 **Why is it really an orthogonal projection?** The residual is
 
-$
+$$
 r=X-p=(-2,-2,0,0,2,2).
-$
+$$
 
 For *any* parity-based prediction $z=(a,b,a,b,a,b)$, its dot product with the residual is
 
-$
+$$
 r\cdot z=-2a-2b+2a+2b=0.
-$
+$$
 
 Thus $r$ is perpendicular to the entire subspace $M$. With the probability-weighted inner product, the same statement is $\mathbb E[rz]=0$.
 
