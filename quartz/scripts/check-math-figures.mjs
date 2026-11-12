@@ -21,7 +21,7 @@ const expected = {
   "state-machines-invariants.md": ["dm-invariant.svg"],
   "generating-functions.md": ["dm-generating-convolution.svg"],
   "advanced-graph-theory.md": ["dm-hall-matching.svg"],
-  "order-theory.md": ["ot-preorder-quotient.svg", "ot-bowtie-nonlattice.svg"],
+  "order-theory.md": ["ot-preorder-quotient.svg", "ot-total-partial.svg", "ot-hasse-div12.svg", "ot-hasse-powerset-ab.svg", "ot-hasse-div30.svg", "ot-extrema.svg", "ot-join-meet-div60.svg", "ot-bowtie-nonlattice.svg"],
   "propositional-logic-zeroth-order-logic.md": ["pl-conditional-four-forms.svg"],
   "mathematical-notations.md": ["mn-expression-anatomy.svg","mn-quantifier-scope.svg"],
   "group-theory-foundations.md": [
@@ -125,7 +125,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==124)errors.push("Expected 124 illustrative SVGs, got "+total);
+if(total!==130)errors.push("Expected 130 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
@@ -195,6 +195,37 @@ const genericPowerSet=readFileSync(join("content","media","st-power-set-binomial
 for(const rank of ["n","n−1","k","1","0"])
   if(!genericPowerSet.includes('data-level="'+rank+'"'))
     errors.push("Generic binomial power-set figure: missing rank "+rank);
+
+
+// Order-theory Hasse figures use the exact cover relation, not just divisibility.
+for (const [filename, vertices] of [
+  ["ot-hasse-div12.svg", [1,2,3,4,6,12]],
+  ["ot-hasse-div30.svg", [1,2,3,5,6,10,15,30]]
+]) {
+  const src = readFileSync(join("content","media",filename),"utf8");
+  const nodes = [...src.matchAll(/data-node="(\\d+)"/g)].map(m => Number(m[1]));
+  const actual = [...src.matchAll(/data-from="(\\d+)" data-to="(\\d+)"/g)]
+    .map(m => m[1]+"->"+m[2]);
+  const expectedCovers = [];
+  for (const a of vertices) for (const b of vertices) {
+    if (a !== b && b%a===0 && !vertices.some(c => c!==a && c!==b && c%a===0 && b%c===0))
+      expectedCovers.push(a+"->"+b);
+  }
+  if (nodes.length !== vertices.length || new Set(nodes).size!==vertices.length ||
+      vertices.some(n=>!nodes.includes(n)) ||
+      actual.length !== expectedCovers.length ||
+      new Set(actual).size !== expectedCovers.length ||
+      actual.some(e=>!expectedCovers.includes(e)))
+    errors.push(filename+": diagram nodes or cover relations differ from computed divisibility order");
+}
+const subsetFigure=readFileSync(join("content","media","ot-hasse-powerset-ab.svg"),"utf8");
+const subsetNodes=[...subsetFigure.matchAll(/data-subset="([^"]+)"/g)].map(m=>m[1]);
+const subsetEdges=[...subsetFigure.matchAll(/data-from="([^"]+)" data-to="([^"]+)"/g)].map(m=>m[1]+"->"+m[2]);
+const expectedSubsetEdges=["none->a","none->b","a->ab","b->ab"];
+if (new Set(subsetNodes).size!==4 || !["none","a","b","ab"].every(x=>subsetNodes.includes(x)) ||
+    subsetEdges.length!==4 || subsetEdges.some(x=>!expectedSubsetEdges.includes(x)) ||
+    new Set(subsetEdges).size!==4)
+  errors.push("ot-hasse-powerset-ab.svg: incorrect inclusion covers");
 
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){

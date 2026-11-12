@@ -119,21 +119,25 @@ A **chain** is a subset of a poset whose elements are pairwise comparable. An **
 
 A chain is *not* necessarily a contiguous path of immediate cover relations. It may skip intermediate elements.
 
+![Two side-by-side posets compare the chain 1 less than 2 less than 3 less than 4, in which all elements compare, with the four-subset diamond of the set a,b, where the two singleton subsets are incomparable.](./media/ot-total-partial.svg)
+
+*Figure: Both diagrams satisfy the partial-order axioms. The chain is also total; the subset diamond is not because neither singleton contains the other.*
+
 ## Hasse diagrams: reconstructing the finite order
 
 A **Hasse diagram** draws the **cover relations** of a finite poset. We say $b$ covers $a$ when $a\prec b$ but there is no $c$ with $a\prec c\prec b$. Larger elements appear higher. Reflexive loops and transitively implied links are omitted.
 
-![The divisibility Hasse diagram on one, two, three, four, six and twelve shows one at bottom and twelve at top, with upward cover edges for immediate divisibility.](./media/fr-hasse-div12.png)
+![The divisibility Hasse diagram on positive divisors 1, 2, 3, 4, 6, 12 has exactly seven cover lines; 4 and 6 are incomparable, while 1 divides 12 via an upward path.](./media/ot-hasse-div12.svg)
 
 *Figure: In a finite divisibility poset, an upward chain of cover links proves that the bottom element divides the top.*
 
 To decide whether $a\preceq b$, find an **upward path** from $a$ to $b$ (or check $a=b$). An **undirected path** is not enough. The numbers $4$ and $6$ are incomparable, even though both share neighbors elsewhere in the graph.
 
-![The four-element subset inclusion diagram has the empty set below incomparable singleton sets a and b, with both below the complete set a,b.](./media/fr-hasse-powerset-ab.png)
+![The four-element inclusion diamond has empty set at the bottom, incomparable singleton sets a and b in the middle, and their union at the top, showing join and meet.](./media/ot-hasse-powerset-ab.svg)
 
 *Figure: This four-element diamond **is a lattice**. The incomparable middle sets still have a least upper bound and greatest lower bound.*
 
-![The divisors of thirty form an eight-vertex cube Hasse diagram from one through primes two three five and their products up to thirty.](./media/fr-hasse-div30.png)
+![The eight positive divisors of 30 form a Hasse diagram with twelve cover relations, arranged by whether the prime factors 2, 3, 5 occur in a divisor.](./media/ot-hasse-div30.svg)
 
 *Figure: Divisors of thirty have the same order shape as the subsets of a three-element set.*
 
@@ -151,6 +155,10 @@ Every greatest element is maximal; a maximal element might be incomparable with 
 
 > [!counterexample] Two maximal elements but no greatest element
 > On $P=\{a,b\}$ with only reflexive comparisons, both $a$ and $b$ are maximal and minimal. Neither is greatest or least because neither compares with the other.
+
+![Three Hasse diagrams contrast incomparable minimal elements without a least, incomparable maximal elements without a greatest, and a chain with both a least and greatest element.](./media/ot-extrema.svg)
+
+*Figure: In the left poset, a and b are minimal but neither least; in the middle, b and c are maximal but neither greatest. In the right-hand chain, 0 is least and 2 is greatest.*
 
 > [!counterexample] No maximal element at all
 > In $(\mathbb N,\leq)$, every $n$ has a greater number $n+1$. There is no maximal element, even though every finite nonempty subset has a greatest element.
@@ -181,6 +189,12 @@ $$
 To justify the first formula: $A\cup B$ contains $A$ and $B$, so it is an upper bound. Every other upper bound contains both $A$ and $B$, so also contains their union. Thus the union is the **least** upper bound. Dually, the intersection is the greatest lower bound. For arbitrary families, the union and intersection give joins and meets, so $\mathcal P(X)$ is complete; the empty join is $\varnothing$, and the empty meet is $X$.
 
 **Divisibility lattice.** On positive divisors of a fixed integer $n$, the join is $\operatorname{lcm}(a,b)$ (read "least common multiple"), and the meet is $\gcd(a,b)$ (read "greatest common divisor"). Both remain divisors of $n$.
+
+**One pair, all of its bounds.** Work in the positive divisors of $60$, ordered by divisibility, and compare $6$ with $10$. Their **common lower bounds** are $1$ and $2$, because both $6$ and $10$ are divisible by those numbers. The greatest is $2$, so $6\wedge10=2$. Their **common upper bounds** *within this poset* are $30$ and $60$, since each is divisible by both $6$ and $10$. The least is $30$, so $6\vee10=30$.
+
+![Among positive divisors of 60, the common lower bounds of 6 and 10 are 1 and 2, with meet 2; common upper bounds are 30 and 60, with join 30.](./media/ot-join-meet-div60.svg)
+
+*Figure: The diagram shows just the six relevant divisors, not every divisor of 60. It separates **being an upper bound** from being the **least** upper bound, and likewise for lower bounds.*
 
 ### An explicit poset that is not a lattice
 
