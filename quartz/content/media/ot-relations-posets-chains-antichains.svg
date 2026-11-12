@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1180" role="img" aria-labelledby="title desc">
+<title id="title">From binary relations to preorders, posets, chains, and antichains</title>
+<desc id="desc">Binary relations contain preorders, which must be reflexive and transitive. Partial orders add antisymmetry, while equivalence relations add symmetry: both are kinds of preorder, and equality lies in their intersection. A poset is a set with a partial order. Inside a poset, a chain has pairwise comparable elements, while an antichain has pairwise incomparable distinct elements. The example uses the inclusion order on the four subsets of a two-element set.</desc>
+<defs>
+ <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101b36"/><stop offset="1" stop-color="#080d21"/></linearGradient>
+ <linearGradient id="top" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#253a64"/><stop offset="1" stop-color="#162b50"/></linearGradient>
+ <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#46316e"/><stop offset="1" stop-color="#2d2751"/></linearGradient>
+ <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#155b64"/><stop offset="1" stop-color="#11454f"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#665113"/><stop offset="1" stop-color="#463910"/></linearGradient>
+ <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#9dbce8" stroke="none"/></marker>
+</defs>
+<style>
+ .white{font-family:Georgia,serif;fill:#f7f4ff;font-weight:700}
+ .main{font-family:Arial,Helvetica,sans-serif;fill:#e5e9f6;font-weight:600;letter-spacing:1px}
+ .muted{font-family:Arial,Helvetica,sans-serif;fill:#cbd5ed}
+ .hint{font-family:Georgia,serif;fill:#f1e6cb;font-style:italic}
+ .node{font-family:Georgia,serif;fill:#f8f5ff;font-weight:600}
+</style>
+<rect width="1200" height="1180" fill="url(#background)"/>
+<text x="600" y="63" class="white" font-size="47" text-anchor="middle" >Relations, orders, chains, and antichains</text>
+<text x="600" y="101" class="muted" font-size="22" text-anchor="middle" >Which are relations, and which are subsets of an ordered set?</text>
+<path d="M70 119 H1130" stroke="#6795d6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="340" y="145" width="520" height="79" rx="16" fill="url(#top)" stroke="#83aaf0" stroke-width="3" />
+<text x="600" y="184" class="main" font-size="30" text-anchor="middle" >BINARY RELATIONS</text>
+<text x="600" y="210" class="muted" font-size="18" text-anchor="middle" >arbitrary relations on a set</text>
+<path d="M600 225 V274" stroke="#9dbce8" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="265" y="285" width="670" height="94" rx="18" fill="url(#violet)" stroke="#d8b7ff" stroke-width="3" />
+<text x="600" y="327" class="main" font-size="31" text-anchor="middle" >PREORDERS</text>
+<text x="600" y="360" class="hint" font-size="24" text-anchor="middle" >reflexive + transitive</text>
+<path d="M600 379 V416 M320 416 H880 M320 416 V446 M880 416 V446" stroke="#9dbce8" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="72" y="450" width="496" height="132" rx="18" fill="url(#teal)" stroke="#79e5d6" stroke-width="3" />
+<rect x="632" y="450" width="496" height="132" rx="18" fill="url(#violet)" stroke="#c3a5ff" stroke-width="3" />
+<text x="320" y="499" class="main" font-size="28" text-anchor="middle" >PARTIAL ORDERS</text>
+<text x="320" y="535" class="hint" font-size="25" text-anchor="middle" >+ antisymmetric</text>
+<text x="320" y="561" class="muted" font-size="18" text-anchor="middle" >may have incomparable pairs</text>
+<text x="880" y="499" class="main" font-size="27" text-anchor="middle" >EQUIVALENCE RELATIONS</text>
+<text x="880" y="535" class="hint" font-size="25" text-anchor="middle" >+ symmetric</text>
+<text x="880" y="561" class="muted" font-size="18" text-anchor="middle" >partition a set into classes</text>
+<rect x="399" y="603" width="402" height="43" rx="14" fill="#263f68" stroke="#7699cd" stroke-width="2" />
+<text x="600" y="631" class="muted" font-size="21" text-anchor="middle" >Equality belongs to BOTH branches</text>
+<path d="M320 582 V668" stroke="#64d5c7" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="74" y="680" width="494" height="96" rx="15" fill="#153e49" stroke="#6ed1c4" stroke-width="3" />
+<text x="321" y="719" class="white" font-size="31" text-anchor="middle" >A POSET = (P, ≤)</text>
+<text x="321" y="750" class="muted" font-size="20" text-anchor="middle" >a set equipped with a partial order</text>
+<rect x="630" y="681" width="496" height="96" rx="15" fill="#203356" stroke="#809bc8" stroke-width="2" />
+<text x="878" y="717" class="muted" font-size="22" text-anchor="middle" >A relation is not a poset by itself.</text>
+<text x="878" y="748" class="muted" font-size="21" text-anchor="middle" >The underlying set also matters.</text>
+<path d="M72 812 H1128" stroke="#526b95" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+<text x="600" y="855" class="main" font-size="31" text-anchor="middle" >INSIDE ONE POSET</text>
+<text x="600" y="886" class="muted" font-size="23" text-anchor="middle" >Example: subsets of {a, b}, ordered by inclusion</text>
+<rect x="44" y="916" width="338" height="153" rx="16" fill="url(#teal)" stroke="#67d9ca" stroke-width="3" />
+<rect x="818" y="916" width="338" height="153" rx="16" fill="url(#gold)" stroke="#e5be60" stroke-width="3" />
+<text x="213" y="954" class="white" font-size="30" text-anchor="middle" >CHAIN</text>
+<text x="213" y="985" class="muted" font-size="19" text-anchor="middle" >Every pair is comparable.</text>
+<text x="213" y="1030" class="white" font-size="24" text-anchor="middle" >∅ ⊂ {a} ⊂ {a, b}</text>
+<text x="987" y="954" class="white" font-size="30" text-anchor="middle" >ANTICHAIN</text>
+<text x="987" y="985" class="muted" font-size="19" text-anchor="middle" >No distinct pair compares.</text>
+<text x="987" y="1030" class="white" font-size="25" text-anchor="middle" >{a} and {b}</text>
+<rect x="418" y="907" width="364" height="184" rx="17" fill="#192441" stroke="#9484cc" stroke-width="3" />
+<path d="M600 1059 L521 1002" stroke="#b9c8e5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-from="none" data-to="a"/>
+<path d="M600 1059 L679 1002" stroke="#b9c8e5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-from="none" data-to="b"/>
+<path d="M521 1002 L600 943" stroke="#b9c8e5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-from="a" data-to="ab"/>
+<path d="M679 1002 L600 943" stroke="#b9c8e5" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-from="b" data-to="ab"/>
+<circle cx="600" cy="943" r="27" fill="#3e376b" stroke="#d0b8ff" stroke-width="3"/>
+<text x="600" y="951" class="node" font-size="19" text-anchor="middle" data-subset="ab">{a, b}</text>
+<circle cx="521" cy="1002" r="27" fill="#3e376b" stroke="#d0b8ff" stroke-width="3"/>
+<text x="521" y="1010" class="node" font-size="23" text-anchor="middle" data-subset="a">{a}</text>
+<circle cx="679" cy="1002" r="27" fill="#3e376b" stroke="#d0b8ff" stroke-width="3"/>
+<text x="679" y="1010" class="node" font-size="23" text-anchor="middle" data-subset="b">{b}</text>
+<circle cx="600" cy="1059" r="27" fill="#3e376b" stroke="#d0b8ff" stroke-width="3"/>
+<text x="600" y="1067" class="node" font-size="23" text-anchor="middle" data-subset="none">∅</text>
+<text x="600" y="1138" class="muted" font-size="20" text-anchor="middle" >Chains and antichains are subsets of a poset, not additional relation types.</text>
+</svg>

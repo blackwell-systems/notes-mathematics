@@ -21,7 +21,7 @@ const expected = {
   "state-machines-invariants.md": ["dm-invariant.svg"],
   "generating-functions.md": ["dm-generating-convolution.svg"],
   "advanced-graph-theory.md": ["dm-hall-matching.svg"],
-  "order-theory.md": ["ot-preorder-quotient.svg", "ot-total-partial.svg", "ot-hasse-div12.svg", "ot-hasse-powerset-ab.svg", "ot-hasse-div30.svg", "ot-extrema.svg", "ot-join-meet-div60.svg", "ot-bowtie-nonlattice.svg"],
+  "order-theory.md": ["ot-relations-posets-chains-antichains.svg", "ot-preorder-quotient.svg", "ot-total-partial.svg", "ot-hasse-div12.svg", "ot-hasse-powerset-ab.svg", "ot-hasse-div30.svg", "ot-extrema.svg", "ot-join-meet-div60.svg", "ot-bowtie-nonlattice.svg"],
   "propositional-logic-zeroth-order-logic.md": ["pl-conditional-four-forms.svg"],
   "mathematical-notations.md": ["mn-expression-anatomy.svg","mn-quantifier-scope.svg"],
   "group-theory-foundations.md": [
@@ -125,7 +125,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==130)errors.push("Expected 130 illustrative SVGs, got "+total);
+if(total!==131)errors.push("Expected 131 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
@@ -218,6 +218,17 @@ for (const [filename, vertices] of [
       actual.some(e=>!expectedCovers.includes(e)))
     errors.push(filename+": diagram nodes or cover relations differ from computed divisibility order");
 }
+// The hierarchy figure must keep the inclusion diamond and its two kinds of subsets correct.
+const hierarchyFigure=readFileSync(join("content","media","ot-relations-posets-chains-antichains.svg"),"utf8");
+const hierarchyNodes=[...hierarchyFigure.matchAll(/data-subset="([^"]+)"/g)].map(m=>m[1]);
+const hierarchyEdges=[...hierarchyFigure.matchAll(/data-from="([^"]+)" data-to="([^"]+)"/g)].map(m=>m[1]+"->"+m[2]);
+const hierarchyCovers=["none->a","none->b","a->ab","b->ab"];
+if(hierarchyNodes.length!==4||new Set(hierarchyNodes).size!==4||
+   !["none","a","b","ab"].every(x=>hierarchyNodes.includes(x))||
+   hierarchyEdges.length!==4||new Set(hierarchyEdges).size!==4||
+   !hierarchyCovers.every(x=>hierarchyEdges.includes(x)))
+  errors.push("ot-relations-posets-chains-antichains.svg: inclusion diamond is not exact");
+
 const subsetFigure=readFileSync(join("content","media","ot-hasse-powerset-ab.svg"),"utf8");
 const subsetNodes=[...subsetFigure.matchAll(/data-subset="([^"]+)"/g)].map(m=>m[1]);
 const subsetEdges=[...subsetFigure.matchAll(/data-from="([^"]+)" data-to="([^"]+)"/g)].map(m=>m[1]+"->"+m[2]);

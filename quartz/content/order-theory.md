@@ -125,6 +125,10 @@ A **chain** is a subset of a poset whose elements are pairwise comparable. An **
 
 A chain is *not* necessarily a contiguous path of immediate cover relations. It may skip intermediate elements.
 
+![A branching hierarchy shows preorders inside binary relations, with partial orders and equivalence relations as two kinds of preorder and equality belonging to both. A separate inset shows that chains and antichains are subsets of a poset: the four-element inclusion diamond has a three-element chain through the left singleton and an antichain of its two singletons.](./media/ot-relations-posets-chains-antichains.svg)
+
+*Figure: Preorders require reflexivity and transitivity. Antisymmetry makes a partial order; symmetry makes an equivalence relation. Equality satisfies both. A poset is a set equipped with a partial order, and chains and antichains are subsets of that poset, illustrated by the inclusion order on the subsets of $\{a,b\}$.*
+
 ![Two side-by-side posets compare the chain 1 less than 2 less than 3 less than 4, in which all elements compare, with the four-subset diamond of the set a,b, where the two singleton subsets are incomparable.](./media/ot-total-partial.svg)
 
 *Figure: Both diagrams satisfy the partial-order axioms. The chain is also total; the subset diamond is not because neither singleton contains the other.*
