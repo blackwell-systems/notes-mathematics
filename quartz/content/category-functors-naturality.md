@@ -74,7 +74,7 @@ $
 
 ### Worked example: lists of a fixed length
 
-Let $L_2(A)=A\times A$ and $L_2(f)(a_1,a_2)=(f(a_1),f(a_2))$. Define $\Delta_A:A\to A\times A$ by $\Delta_A(a)=(a,a)$. Then
+Let $L_2(A):=A\times A$ and $L_2(f)(a_1,a_2):=(f(a_1),f(a_2))$. Define $\Delta_A:A\to A\times A$ by $\Delta_A(a):=(a,a)$. Then
 
 $$
 L_2(f)(\Delta_A(a))=(f(a),f(a))=\Delta_B(f(a)).
@@ -143,7 +143,7 @@ Therefore $\eta=\eta^{\Phi(\eta)}$. Both directions have been checked. $\square$
 
 ### Worked example: one input determines every natural element
 
-Take $\mathcal C=\mathbf{Set}$ and $A=\{*\}$. Let $F(X)=X\times X$. Choosing an element of $F(A)$ gives only one possibility, $(*,*)$. Yoneda says there is exactly **one** natural transformation $\operatorname{Hom}(A,-)\Rightarrow(-)\times(-)$, corresponding under $\operatorname{Hom}(A,X)\cong X$ to $x\mapsto(x,x)$.
+Take $\mathcal C:=\mathbf{Set}$ and $A:=\{*\}$. Let $F(X):=X\times X$. Choosing an element of $F(A)$ gives only one possibility, $(*,*)$. Yoneda says there is exactly **one** natural transformation $\operatorname{Hom}(A,-)\Rightarrow(-)\times(-)$, corresponding under $\operatorname{Hom}(A,X)\cong X$ to $x\mapsto(x,x)$.
 
 It explains why the diagonal construction is canonical: a family of maps cannot naturally choose some unrelated second element of an arbitrary set.
 
@@ -152,7 +152,7 @@ It explains why the diagonal construction is canonical: a family of maps cannot 
 
 ## The Yoneda embedding and equivalences
 
-Define the contravariant representable $y(A)=\operatorname{Hom}_{\mathcal C}(-,A)$, a functor $\mathcal C^{op}\to\mathbf{Set}$. Each $f:A\to B$ gives a natural transformation $y(A)\Rightarrow y(B)$ by postcomposition with $f$. This defines the **Yoneda embedding**
+Define the contravariant representable $y(A):=\operatorname{Hom}_{\mathcal C}(-,A)$, a functor $\mathcal C^{op}\to\mathbf{Set}$. Each $f:A\to B$ gives a natural transformation $y(A)\Rightarrow y(B)$ by postcomposition with $f$. This defines the **Yoneda embedding**
 
 $$
 y:\mathcal C\longrightarrow[\mathcal C^{op},\mathbf{Set}].

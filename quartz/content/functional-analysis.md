@@ -31,7 +31,7 @@ The sup norm measures the **worst error anywhere**. Compare it with an integral 
 
 ### Worked example: convergence depends on the chosen norm
 
-Define $f_n(t)=t^n$ on $[0,1]$. At every fixed $t<1$, $f_n(t)\to0$, but at $t=1$ the value remains $1$. Thus the pointwise limit is discontinuous.
+Define $f_n(t):=t^n$ on $[0,1]$. At every fixed $t<1$, $f_n(t)\to0$, but at $t=1$ the value remains $1$. Thus the pointwise limit is discontinuous.
 
 In the sup norm, $\|f_n\|_\infty=1$ for all $n$: the functions do **not** converge uniformly to zero. By contrast,
 
@@ -118,7 +118,7 @@ $$
 **Worked example: evaluation.** On $C([0,1])$ with sup norm, $E(f)=f(0)$ is linear and $|E(f)|\leq\|f\|_\infty$, so $\|E\|\leq1$. The constant function $f(t)=1$ gives equality: $\|E\|=1$.
 
 > [!counterexample] Same functional, different norm
-> On $C([0,1])$ equipped with $\|f\|_1=\int_0^1|f(t)|dt$, evaluation $E(f)=f(0)$ is **not bounded**. Set $f_n(t)=\max(1-nt,0)$. Then $E(f_n)=1$, but $\|f_n\|_1=1/(2n)\to0$. No universal $M$ can satisfy $|E(f)|\leq M\|f\|_1$.
+> On $C([0,1])$ equipped with $\|f\|_1=\int_0^1|f(t)|dt$, evaluation $E(f):=f(0)$ is **not bounded**. Set $f_n(t):=\max(1-nt,0)$. Then $E(f_n)=1$, but $\|f_n\|_1=1/(2n)\to0$. No universal $M$ can satisfy $|E(f)|\leq M\|f\|_1$.
 
 This is why the phrase *continuous linear functional* requires both a vector space **and its topology/norm**.
 

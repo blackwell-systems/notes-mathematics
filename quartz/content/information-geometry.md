@@ -51,10 +51,10 @@ This is where the **Fisher information matrix** enters. The expansion requires t
 
 ## Fisher information as local curvature
 
-Define the **score** $s_\theta(x)=\nabla_\theta\log p(x\mid\theta)$ and the Fisher information
+Define the **score** $s_\theta(x):=\nabla_\theta\log p(x\mid\theta)$ and the Fisher information
 
 $$
-I(\theta)=\mathbb E_{X\sim p_\theta}[s_\theta(X)s_\theta(X)^\top].
+I(\theta):=\mathbb E_{X\sim p_\theta}[s_\theta(X)s_\theta(X)^\top].
 $$
 
 Under regularity conditions, $\mathbb E_\theta[s_\theta]=0$ and
@@ -140,7 +140,7 @@ $$
 The zero set is exactly
 
 $$
-W_0=\{w:K(w)=0\}=\{0\}.
+W_0:=\{w:K(w)=0\}=\{0\}.
 $$
 
 This is **one isolated true parameter**, not a line or other positive-dimensional set.

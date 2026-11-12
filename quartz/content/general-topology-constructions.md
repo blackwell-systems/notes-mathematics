@@ -102,9 +102,9 @@ is open in $X$. By definition of the quotient topology, $h^{-1}(W)$ is open in $
 
 This is the recurring example in the [Path Through Topology](./path-to-topology): subspace openness comes first, endpoint classes and quotient continuity next, and a compact–Hausdorff argument finishes the proof that the resulting space is a circle.
 
-Let $X=[0,1]$, identify $0\sim1$ and no other distinct points, and let $Q=X/{\sim}$ with its quotient topology.
+Let $X:=[0,1]$, identify $0\sim1$ and no other distinct points, and let $Q:=X/{\sim}$ with its quotient topology.
 
-Define $p:[0,1]\to S^1$ by $p(t)=(\cos 2\pi t,\sin2\pi t)$. It is continuous, surjective, and satisfies $p(0)=p(1)$, so it factors as $\bar p:Q\to S^1$. It is a **bijection**, because points with equal angles in $[0,1]$ differ only at the endpoints.
+Define $p:[0,1]\to S^1$ by $p(t):=(\cos 2\pi t,\sin2\pi t)$. It is continuous, surjective, and satisfies $p(0)=p(1)$, so it factors as $\bar p:Q\to S^1$. It is a **bijection**, because points with equal angles in $[0,1]$ differ only at the endpoints.
 
 To prove $\bar p$ is a **homeomorphism**, we need one further fact: a continuous bijection from a **compact** space to a **Hausdorff** space is a homeomorphism. We prove that theorem in the [next chapter](./general-topology-compactness). $Q$ is compact as a continuous image of $[0,1]$, and $S^1$ is Hausdorff as a subspace of $\mathbb R^2$. This finishes the claim once those theorems are established.
 ![Two ends of a closed interval are identified into a single point on a circle; an open arc around that seam pulls back to relatively open neighborhoods near zero and near one in the original interval.](./media/tp-quotient-seam-preimage.svg)

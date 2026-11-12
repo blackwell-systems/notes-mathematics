@@ -34,9 +34,9 @@ Reversing all arrows proves the analogous result for initial objects.
 
 ### Constructing and verifying a product in Set
 
-Choose $P=A\times B$, with $p_A(a,b)=a$, $p_B(a,b)=b$. Given $f,g$, define $h(x)=(f(x),g(x))$. Then $p_Ah=f$ and $p_Bh=g$. If $k:X\to A\times B$ also satisfies the equations, the first and second coordinates of $k(x)$ are respectively $f(x)$ and $g(x)$; hence $k(x)=h(x)$ for every $x$. This proves **existence and uniqueness**, the complete universal property.
+Choose $P:=A\times B$, with projections $p_A(a,b):=a$ and $p_B(a,b):=b$. Given $f,g$, define $h(x):=(f(x),g(x))$. Then $p_Ah=f$ and $p_Bh=g$. If $k:X\to A\times B$ also satisfies the equations, the first and second coordinates of $k(x)$ are respectively $f(x)$ and $g(x)$; hence $k(x)=h(x)$ for every $x$. This proves **existence and uniqueness**, the complete universal property.
 
-For groups, let $P=G\times H$ with componentwise multiplication. If $f:X\to G$ and $g:X\to H$ are homomorphisms, their pairing is again a homomorphism; the same coordinate argument proves universality.
+For groups, let $P:=G\times H$ with componentwise multiplication. If $f:X\to G$ and $g:X\to H$ are homomorphisms, their pairing is again a homomorphism; the same coordinate argument proves universality.
 
 > [!theorem] Products are unique up to unique projection-preserving isomorphism
 > Let $(P,p_A,p_B)$ and $(Q,q_A,q_B)$ each satisfy the product property. Apply universality to $q_A,q_B$ to get $u:Q\to P$ and to $p_A,p_B$ to get $v:P\to Q$. The composites $uv$ and $vu$ have the same projections as the appropriate identities. **Uniqueness** in the universal property forces them to be identities. Thus $u,v$ are inverse and unique among maps preserving projections. $\square$
@@ -57,7 +57,7 @@ For parallel arrows $f,g:A\to B$, an **equalizer** $e:E\to A$ satisfies $fe=ge$,
 In Set,
 
 $$
-E=\{a\in A:f(a)=g(a)\},\qquad e:E\hookrightarrow A.
+E:=\{a\in A:f(a)=g(a)\},\qquad e:E\hookrightarrow A.
 $$
 
 **Proof.** Any $u$ with $fu=gu$ has image in $E$. Corestrict $u$ to a map $X\to E$; inclusion back into $A$ recovers $u$. Inclusion is injective, so this factorization is unique. $\square$
@@ -79,14 +79,14 @@ A **coequalizer** reverses the arrows: it is a map $q:B\to Q$ such that $qf=qg$,
 In Set, a model is
 
 $$
-P=\{(a,b)\in A\times B:f(a)=g(b)\}.
+P:=\{(a,b)\in A\times B:f(a)=g(b)\}.
 $$
 
 The projections commute. If $u:X\to A$ and $v:X\to B$ satisfy $fu=gv$, the map $x\mapsto(u(x),v(x))$ lands in $P$. Projection equations make it the **only** possible factorization. This verifies universality.
 
 ### Worked finite example
 
-Let $A=\{a_1,a_2,a_3\}$, $B=\{b_0,b_1\}$, $C=\{0,1\}$, with
+Let $A:=\{a_1,a_2,a_3\}$, $B:=\{b_0,b_1\}$, $C:=\{0,1\}$, with
 
 $$
 f(a_1)=0,\quad f(a_2)=f(a_3)=1,\qquad

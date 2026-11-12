@@ -25,10 +25,10 @@ For a set $A$, let $A^*$ be the set of all **finite lists** (words) of elements 
 >
 > with $\widehat f([a])=f(a)$ for each generator $a$. Here $U$ forgets the monoid structure.
 
-**Construction.** Define $\widehat f([])=1_M$ and
+**Construction.** Define $\widehat f([]):=1_M$ and
 
 $$
-\widehat f([a_1,\ldots,a_n])=f(a_1)\cdots f(a_n).
+\widehat f([a_1,\ldots,a_n]):=f(a_1)\cdots f(a_n).
 $$
 
 Associativity makes the product unambiguous; concatenating words concatenates their product expressions, so $\widehat f(uv)=\widehat f(u)\widehat f(v)$. Therefore it is a homomorphism.
@@ -51,7 +51,7 @@ Associativity makes the product unambiguous; concatenating words concatenates th
 >
 > **natural in both** $A$ and $B$.
 
-For the free-monoid construction, set $F(A)=A^*$, and let $U:\mathbf{Mon}\to\mathbf{Set}$ forget the monoid operation. The preceding construction exhibits the bijection.
+For the free-monoid construction, set $F(A):=A^*$, and let $U:\mathbf{Mon}\to\mathbf{Set}$ forget the monoid operation. The preceding construction exhibits the bijection.
 
 ![Free monoid adjunction: a function from generators extends uniquely into a homomorphism.](./media/ct-adjunction.svg)
 
@@ -125,7 +125,7 @@ $$
 
 For the list monad: apply $f$, apply $g$ to each resulting element, then flatten. The identity Kleisli arrow is $\eta_A:a\mapsto[a]$.
 
-**Worked example.** Set $f(n)=[n,n+1]$ and $g(m)=[m,2m]$ for integers. Then
+**Worked example.** Set $f(n):=[n,n+1]$ and $g(m):=[m,2m]$ for integers. Then
 
 $$
 (g\star f)(3)=[3,6,4,8].

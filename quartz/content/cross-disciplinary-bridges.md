@@ -76,10 +76,10 @@ $$
 
 **Seed:** [State Machines and Invariants](./state-machines-invariants#ranking-functions-measuring-finite-progress) distinguishes **invariants**, which stay true, from **ranking functions**, which strictly decrease on active transitions.
 
-Take a machine whose states are $S=\{0,1,2,3\}$ and whose transition is
+Take a machine whose states are $S:=\{0,1,2,3\}$ and whose transition is
 
 $$
-F(n)=\max(n-1,0).
+F(n):=\max(n-1,0).
 $$
 
 The property $n\geq0$ is invariant. More significantly, $\rho(n)=n$ is a natural-number ranking function on **active** states $n>0$:
@@ -99,7 +99,7 @@ $$
 The solution is $x(t)=x_0e^{-t}$. Define the potential
 
 $$
-V(x)=x^2.
+V(x):=x^2.
 $$
 
 Along a trajectory,
@@ -201,7 +201,7 @@ $$
 
 The log-likelihood tends to $-\infty$ at both endpoints, and its second derivative is negative on $(0,1)$, so this is the **unique maximum**.
 
-Now let the empirical distribution be $\widehat P=(0.3,0.7)$ and the model distribution be $Q_p=(1-p,p)$. Their cross-entropy is
+Now let the empirical distribution be $\widehat P:=(0.3,0.7)$ and the model distribution be $Q_p:=(1-p,p)$. Their cross-entropy is
 
 $$
 H(\widehat P,Q_p)

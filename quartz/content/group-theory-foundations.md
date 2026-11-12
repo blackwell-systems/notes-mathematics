@@ -46,11 +46,11 @@ The operation need not be commutative. A group satisfying $ab=ba$ for all $a,b$ 
 
 ### Why examples really satisfy the axioms
 
-**Integer addition:** take $G=\mathbb Z$ and $a*b=a+b$. The integer construction already proved associativity, identity $0$, and inverse $-a$. Since addition is commutative this group is abelian.
+**Integer addition:** take $G:=\mathbb Z$ and define $a*b:=a+b$. The integer construction already proved associativity, identity $0$, and inverse $-a$. Since addition is commutative this group is abelian.
 
-**Nonzero rational multiplication:** take $G=\mathbb Q\setminus\{0\}$. The rational field construction proves closure of products of nonzero elements, associativity, identity $1$, and reciprocal $a^{-1}$. This is also abelian.
+**Nonzero rational multiplication:** take $G:=\mathbb Q\setminus\{0\}$. The rational field construction proves closure of products of nonzero elements, associativity, identity $1$, and reciprocal $a^{-1}$. This is also abelian.
 
-**Bijections:** let $X$ be a set and $S_X$ all bijections $X\to X$. Composition $f\circ g$ means "apply $g$, then $f$." Composition of functions is associative; the identity function is an identity; and every bijection has an inverse. Thus $S_X$ is a group. This argument never uses numbers. For $X=\{1,2,3\}$, there are $3\cdot2\cdot1=6$ bijections.
+**Bijections:** let $X$ be a set and $S_X$ all bijections $X\to X$. Composition $f\circ g$ means "apply $g$, then $f$." Composition of functions is associative; the identity function is an identity; and every bijection has an inverse. Thus $S_X$ is a group. This argument never uses numbers. For $X:=\{1,2,3\}$, there are $3\cdot2\cdot1=6$ bijections.
 
 A nonempty subset of the integers is **not** automatically a group under addition. For instance, the positive integers contain neither $0$ nor additive inverses.
 
