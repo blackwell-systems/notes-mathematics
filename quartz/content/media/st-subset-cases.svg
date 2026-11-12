@@ -20,8 +20,8 @@
 <rect x="744" y="295" width="674" height="92" rx="24" fill="url(#banner)" stroke="#7655AB" stroke-width="1"/>
 <text x="368" y="359" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="48" text-anchor="middle" font-weight="700">Case 1: A ⊊ B</text>
 <text x="1080" y="359" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="48" text-anchor="middle" font-weight="700">Case 2: A = B</text>
-<text x="368" y="418" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="27" text-anchor="middle" font-style="italic" fill="#DFCBF8">A is a proper subset of B</text>
-<text x="1080" y="418" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="27" text-anchor="middle" font-style="italic" fill="#DFCBF8">Equality is allowed</text>
+<text x="368" y="418" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="27" text-anchor="middle" font-style="italic">A is a proper subset of B</text>
+<text x="1080" y="418" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="27" text-anchor="middle" font-style="italic">Equality is allowed</text>
 <circle cx="349" cy="640" r="204" fill="url(#setB)" stroke="#A86DFA" stroke-width="6"/>
 <circle cx="300" cy="691" r="112" fill="url(#setA)" stroke="#C89CFF" stroke-width="5"/>
 <text x="349" y="507" fill="#F8F6FF" font-family="Georgia, 'DejaVu Serif', 'Times New Roman', serif" font-size="59" text-anchor="middle" font-style="italic">B</text>
