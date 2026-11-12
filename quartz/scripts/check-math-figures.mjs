@@ -7,7 +7,7 @@ import {join} from "node:path";
 import {spawnSync} from "node:child_process";
 
 const expected = {
-  "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg","st-power-set-lattice.svg","st-cantor-diagonal.svg","st-infinity-hierarchy.svg"],
+  "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg","st-power-set-lattice.svg","st-cantor-diagonal.svg","st-infinity-hierarchy.svg","st-power-set-four.svg","st-power-set-binomial.svg"],
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
   "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"],
   "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg"],
@@ -125,7 +125,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==122)errors.push("Expected 122 illustrative SVGs, got "+total);
+if(total!==124)errors.push("Expected 124 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
@@ -174,6 +174,27 @@ for(let n=1;n<=5;n++){
      constructed!==(original==="1"?"2":"1"))
     errors.push("Cantor diagram: new digit does not differ from diagonal at position "+n);
 }
+
+
+// Exact n=4 Boolean lattice: every node and cover relation must be present.
+const four=readFileSync(join("content","media","st-power-set-four.svg"),"utf8");
+const nodes4=[...four.matchAll(/data-mask="(\d+)" data-rank="(\d+)"/g)].map(m=>[+m[1],+m[2]]);
+const edges4=[...four.matchAll(/data-from="(\d+)" data-to="(\d+)"/g)].map(m=>[+m[1],+m[2]]);
+const popcount=n=>{let v=0;for(;n;n>>=1)v+=n&1;return v;};
+const counts4=[1,4,6,4,1];
+if(nodes4.length!==16||new Set(nodes4.map(n=>n[0])).size!==16||
+  edges4.length!==32||new Set(edges4.map(e=>e.join("-"))).size!==32)
+  errors.push("n=4 power set: expected 16 subsets and 32 distinct cover edges");
+for(let k=0;k<=4;k++)
+  if(nodes4.filter(n=>n[1]===k&&popcount(n[0])===k).length!==counts4[k])
+    errors.push("n=4 power set: invalid binomial level k="+k);
+for(const [from,to] of edges4)
+  if(popcount(to)!==popcount(from)+1||(from&to)!==from)
+    errors.push("n=4 power set: invalid Hasse edge "+from+" to "+to);
+const genericPowerSet=readFileSync(join("content","media","st-power-set-binomial.svg"),"utf8");
+for(const rank of ["n","n−1","k","1","0"])
+  if(!genericPowerSet.includes('data-level="'+rank+'"'))
+    errors.push("Generic binomial power-set figure: missing rank "+rank);
 
 const tracked=JSON.parse(readFileSync("editorial-coverage.json","utf8"));
 for(const page of Object.keys(expected)){

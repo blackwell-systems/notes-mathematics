@@ -745,6 +745,22 @@ $\mathcal{P}(A) = \{\varnothing, \{1\}, \{2\}, \{1, 2\}\}$
 
 $\mathcal{P}(A) = \{\varnothing, \{a\}, \{b\}, \{c\}, \{a,b\}, \{a,c\}, \{b,c\}, \{a,b,c\}\}$
 
+**Example 3 (four elements).** Let $S:=\{a,b,c,d\}$. Its subsets form five levels: one empty subset, four singletons, six pairs, four triples, and the whole set. An edge joins subsets that differ by **one added element**.
+
+![Complete sixteen-node power-set Hasse lattice of {a,b,c,d}, with five levels containing 1, 4, 6, 4 and 1 subsets and all 32 immediate-inclusion edges.](./media/st-power-set-four.svg)
+
+*Figure: The $k$-element level contains $\binom{4}{k}$ nodes. Altogether $1+4+6+4+1=16=2^4$.*
+
+**General case (the binomial-coefficient connection).** Given a finite set $S$ with $|S|=n$, choosing a $k$-element subset means selecting exactly $k$ of the $n$ available elements, in $\binom nk$ ways. Every subset belongs to exactly one level, according to its size. Therefore, by the binomial theorem,
+
+$
+|\mathcal P(S)|=\sum_{k=0}^{n}\binom nk=(1+1)^n=2^n.
+$
+
+![Schematic power-set levels for an n-element set, showing one full set, n subsets missing one element, C(n,k) subsets of size k, n singletons and one empty set, with the binomial-coefficient sum equal to two to the n.](./media/st-power-set-binomial.svg)
+
+*Figure: $\binom{n}{k}=\frac{n!}{k!(n-k)!}$ counts the $k$-element subsets. The graphic shows representative ranks, not all Hasse edges or all intermediate sizes.*
+
 **Cardinality:** If $|A| = n$, then $|\mathcal{P}(A)| = 2^n$
 
 This is why the power set is sometimes written as $2^A$.
