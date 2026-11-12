@@ -80,7 +80,7 @@ Saying “Banach space” adds **no new operation** beyond the normed vector-spa
 
 A [set](./set-theory) $X$ is a collection of elements; saying $x\in X$ asserts membership. A **function** $f:X\to Y$ assigns each element of $X$ exactly one element of $Y$. Neither concept provides distance, addition, or probability.
 
-Let $X=\{a,b,c\}$. We can give this **same underlying set** many structures:
+Let $X:=\{a,b,c\}$. We can give this **same underlying set** many structures:
 
 - The **discrete topology**: every subset is open.
 - The **indiscrete topology**: only $\varnothing$ and $X$ are open.
@@ -94,7 +94,7 @@ None is uniquely forced by the underlying elements. Different choices make diffe
 An [equivalence relation](./equivalence-relations) declares when elements count as *the same for a chosen purpose*. For each $x\in X$, its **equivalence class** is $[x]=\{y\in X:y\sim x\}$: all elements considered equivalent to $x$. The **[quotient set](./equivalence-relations#quotient-sets-classes-become-objects)** $X/{\sim}=\{[x]:x\in X\}$ takes those **classes, rather than the original elements, as its points**. The quotient map $q:X\to X/{\sim}$ sends $x$ to $[x]$.
 
 > [!example] What actually changes in a quotient?
-> On $X=\{1,2,3,4\}$, define $a\sim b$ when $a$ and $b$ have the same parity. The quotient is $X/{\sim}=\{\{1,3\},\{2,4\}\}$: **two elements**, each itself a set of original elements. For instance, $q(1)=q(3)=\{1,3\}$. We have replaced individual numbers with their equivalence classes—not merely renamed the numbers.
+> On the set $X:=\{1,2,3,4\}$, define $a\sim b$ when $a$ and $b$ have the same parity. The quotient is $X/{\sim}=\{\{1,3\},\{2,4\}\}$: **two elements**, each itself a set of original elements. For instance, $q(1)=q(3)=\{1,3\}$. We have replaced individual numbers with their equivalence classes—not merely renamed the numbers.
 
 The construction and its [well-defined mapping property](./equivalence-relations#when-does-a-function-descend-to-classes) are developed in **Equivalence Relations and Quotients**.
 
@@ -118,7 +118,7 @@ A topology can describe proximity without coordinates or distance. It enables co
 
 ### Counterexample: some topological spaces are not metric spaces
 
-On $X=\{0,1\}$, let $\tau=\{\varnothing,\{1\},X\}$, the **Sierpiński topology**. It is topological but **not Hausdorff**: no disjoint open neighborhoods separate $0$ and $1$. Every metric topology is Hausdorff (disjoint balls of radius $d(x,y)/3$ separate distinct points). Therefore **no metric generates this topology**.
+On the set $X:=\{0,1\}$, let $\tau:=\{\varnothing,\{1\},X\}$, the **Sierpiński topology**. It is topological but **not Hausdorff**: no disjoint open neighborhoods separate $0$ and $1$. Every metric topology is Hausdorff (disjoint balls of radius $d(x,y)/3$ separate distinct points). Therefore **no metric generates this topology**.
 
 This proves that the branch from **metric** to **topological** is strictly one-way: not all topologies can be metrized.
 
@@ -157,7 +157,7 @@ $
 
 *Figure: The same two-point target detects a meaningful distinction in the source. Characteristic maps of **open** subsets are continuous; characteristic maps of other subsets are not.*
 
-**Worked finite example.** On $X=\{a,b,c\}$ with topology $\tau=\{\varnothing,\{a\},\{a,b\},X\}$, the function mapping $a,b$ to $1$ and $c$ to $0$ is continuous: the inverse image of $\{1\}$ is the open set $\{a,b\}$. The function mapping **only** $b$ to $1$ is **not** continuous, because $\{b\}\notin\tau$.
+**Worked finite example.** On the set $X:=\{a,b,c\}$ with topology $\tau:=\{\varnothing,\{a\},\{a,b\},X\}$, the function mapping $a,b$ to $1$ and $c$ to $0$ is continuous: the inverse image of $\{1\}$ is the open set $\{a,b\}$. The function mapping **only** $b$ to $1$ is **not** continuous, because $\{b\}\notin\tau$.
 
 Consequently, writing $\mathcal O(X)$ for the **set of open subsets**, we have a bijection
 

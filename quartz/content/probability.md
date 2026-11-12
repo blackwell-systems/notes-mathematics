@@ -34,16 +34,16 @@ Both interpretations use the same math. The difference is philosophical, but it 
 **Sample space ($S$ or $\Omega$):** The set of all possible outcomes. For a single die roll:
 
 $$
-S = \{1, 2, 3, 4, 5, 6\}
+S := \{1, 2, 3, 4, 5, 6\}
 $$
 
 For flipping two coins:
 
 $$
-S = \{HH, HT, TH, TT\}
+S := \{HH, HT, TH, TT\}
 $$
 
-**Event:** A subset of the sample space. "Rolling an even number" is the event $E = \{2, 4, 6\}$. An event occurs if the actual outcome is in the subset.
+**Event:** A subset of the sample space. "Rolling an even number" is the event $E := \{2, 4, 6\}$. An event occurs if the actual outcome is in the subset.
 
 For equally likely outcomes, the probability of an event is:
 

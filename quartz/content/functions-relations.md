@@ -86,8 +86,8 @@ Do not let the formal language hide how simple this is. The **Cartesian product*
 
 ![Two panels illustrating a relation as a subset of a Cartesian product. On the left, a three by three grid of dots for A equals the set 1, 2, 3 on the horizontal axis and B equals the set x, y, z on the vertical axis; all nine possible pairs are shown as faint grey dots, and the four pairs in the relation R, namely (1,y), (1,z), (2,x), and (3,z), are overplotted as larger circled blue dots. On the right, the same relation drawn as blue arrows between an A oval and a B oval: 1 to y, 1 to z, 2 to x, 3 to z. The caption notes that a function is the special case with exactly one chosen dot in each row.](./media/fr-relation-cartesian.png)
 
-**Worked example.** Let $A = \{1, 2, 3\}$ and $B = \{x, y, z\}$. There are $|A| \times |B| = 3 \times 3 = 9$ possible pairs in $A \times B$. Suppose we keep the relation
-$$R = \{(1, y),\ (1, z),\ (2, x),\ (3, z)\}.$$
+**Worked example.** Let $A := \{1, 2, 3\}$ and $B := \{x, y, z\}$. There are $|A| \times |B| = 3 \times 3 = 9$ possible pairs in $A \times B$. Suppose we keep the relation
+$R := \{(1, y),\ (1, z),\ (2, x),\ (3, z)\}.$
 This is a perfectly good relation (a subset of the 9 dots). Is it a function? **No**: the input $1$ appears in two pairs, $(1,y)$ and $(1,z)$, so $1$ has two outputs. In the grid picture, the row above $1$ has two circled dots. A function would require exactly one circled dot per input column.
 
 Key Concepts
@@ -152,7 +152,7 @@ $$
 \forall a \in A \, (a \in A \to R(a, a))
 $$
 
-For the set $A=\{1,2,3\}$, consider $R=\{(1,1),(2,2),(3,3),(1,2),(2,3)\}$. The graph has a loop on **every** vertex. In the adjacency matrix, that means every diagonal entry is $1$; the other entries are free to be $0$ or $1$.
+For the set $A:=\{1,2,3\}$, consider the relation $R:=\{(1,1),(2,2),(3,3),(1,2),(2,3)\}$. The graph has a loop on **every** vertex. In the adjacency matrix, that means every diagonal entry is $1$; the other entries are free to be $0$ or $1$.
 
 ![Each of the three vertices has its own self-loop. In the matching adjacency matrix, all three diagonal entries are highlighted ones, while arrows from 1 to 2 and 2 to 3 are optional extra edges.](./media/fr-reflexive-graph-matrix.svg)
 
@@ -173,7 +173,7 @@ $
 \forall a,b \in A \, ( R(a,b) \to R(b,a) )
 $
 
-For $A=\{1,2,3\}$, take $R=\{(1,2),(2,1),(2,3),(3,2)\}$. Every arrow between distinct elements has a reverse arrow. The matrix is symmetric across its main diagonal: the entry in row $i$, column $j$ equals the entry in row $j$, column $i$. Self-loops are optional.
+Take $A:=\{1,2,3\}$ and the relation $R:=\{(1,2),(2,1),(2,3),(3,2)\}$. Every arrow between distinct elements has a reverse arrow. The matrix is symmetric across its main diagonal: the entry in row $i$, column $j$ equals the entry in row $j$, column $i$. Self-loops are optional.
 
 ![Two pairs of opposing arrows connect 1 with 2 and 2 with 3. In the adjacency matrix, each off-diagonal one has a matching one reflected across the main diagonal; all diagonal entries happen to be zero but are not constrained by symmetry.](./media/fr-symmetric-graph-matrix.svg)
 
@@ -194,7 +194,7 @@ $
 \forall a,b,c \in A \, ( ( R(a,b) \wedge R(b,c) ) \to R(a,c) )
 $
 
-On $A=\{1,2,3\}$, let $R=\{(1,2),(2,3),(1,3)\}$. Since $1\,R\,2$ and $2\,R\,3$, transitivity demands $1\,R\,3$. That shortcut is present (highlighted in gold). No other two-step paths introduce further requirements, so this finite relation really is transitive.
+Take $A:=\{1,2,3\}$ and the relation $R:=\{(1,2),(2,3),(1,3)\}$. Since $1\,R\,2$ and $2\,R\,3$, transitivity demands $1\,R\,3$. That shortcut is present (highlighted in gold). No other two-step paths introduce further requirements, so this finite relation really is transitive.
 
 ![Two blue directed arrows, 1 to 2 and 2 to 3, are accompanied by a gold shortcut arrow 1 to 3. The matrix highlights the one entries in row 1 column 2, row 2 column 3, and row 1 column 3, showing that the two-step route has its required shortcut.](./media/fr-transitive-graph-matrix.svg)
 
@@ -225,7 +225,7 @@ $$
 **Example:** The "less than" relation (<) on real numbers is asymmetric:
 - If a < b, then b ≮ a (b is not less than a)
 
-For $A=\{1,2,3\}$, consider the relation $R=\{(1,2),(1,3),(2,3)\}$. Its graph has the arrows $1\to2$, $1\to3$, and $2\to3$, with **no reverse arrows and no self-loops**. In the adjacency matrix, the entries above the diagonal are $1$, while every diagonal entry and every entry below it is $0$. In particular, the arrow $1\to2$ makes a reverse arrow $2\to1$ impossible.
+Take $A:=\{1,2,3\}$ and the relation $R:=\{(1,2),(1,3),(2,3)\}$. Its graph has the arrows $1\to2$, $1\to3$, and $2\to3$, with **no reverse arrows and no self-loops**. In the adjacency matrix, the entries above the diagonal are $1$, while every diagonal entry and every entry below it is $0$. In particular, the arrow $1\to2$ makes a reverse arrow $2\to1$ impossible.
 
 ![Asymmetric relation on three vertices, with arrows 1 to 2, 1 to 3 and 2 to 3 only; the matching three-by-three matrix has ones strictly above the diagonal and zeros elsewhere, highlighting that reverse arrows and self-loops are excluded.](./media/fr-asymmetric-graph-matrix.svg)
 

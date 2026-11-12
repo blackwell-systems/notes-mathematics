@@ -74,7 +74,7 @@ So $\{1, 1, 2\}$ and $\{1, 2\}$ denote the *same* set: repetition and order carr
 
 In many branches of mathematics, a **space** is an underlying set together with specified **additional structure**. This is a useful pattern, not a universal formal definition of the word *space*.
 
-Take the same set $X=\{a,b,c\}$. We can equip it with different structures:
+Take the same set $X:=\{a,b,c\}$. We can equip it with different structures:
 
 ![A central set X containing a, b and c branches independently to functions and maps, relations, topologies, orders, and algebraic operations; the branches are alternatives and not successive prerequisite stages.](./media/st-sets-to-structure.svg)
 

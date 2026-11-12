@@ -46,7 +46,56 @@ non-portable absolute paths, so a post-build step is the portable choice.
 ## Content conventions (non-negotiable)
 
 - **Foundations-first:** define basic terms and motivate a concept before any formula.
-- **Pronounce every symbol** at first use (how to read it aloud, e.g. `$\hat\lambda$` →
+- **Use definitional notation consistently:** first introductions of reusable named sets, functions, operations and other objects use `:=`; defining a predicate/relation by a condition may use `:\iff`; assertions, evaluations, derived identities and equations use `=`. Do not mechanically replace `=` in proofs, examples with assumed values, theorem hypotheses or chains of equalities. See `quartz/content/mathematical-notations.md`.
+- **Pronounce every symbol** at first use (how to read it aloud, e.g. `$\hat\lambda# CLAUDE.md — notes-mathematics
+
+A foundations-first mathematics reference published as a [Quartz](https://quartz.jzhao.xyz/)
+site, built toward singular learning theory (SLT) for ML interpretability research.
+Deploys to GitHub Pages on every push to `main`.
+
+## Layout
+
+- `quartz/content/*.md` — one Markdown file per topic (the actual notes). `index.md`
+  is the landing page + reading-order guide; keep its **topic count** in sync when
+  adding or removing pages.
+- `quartz/content/media/` — images (mostly matplotlib diagrams).
+- `quartz/quartz/static/interactive/*.html` — self-contained interactive widgets,
+  embedded in pages via `<iframe src="/static/interactive/NAME.html" ...>`.
+- `quartz/scripts/check-quality.mjs`, `quartz/scripts/check-arithmetic.mjs` — CI gates.
+- `.github/workflows/deploy.yml` — build + gates + Pages deploy (Node 22, working-dir `quartz`).
+
+## Environment (important)
+
+Node/npm/python are behind a disabled nvm shim in this shell. Always use absolute paths:
+
+- `/opt/homebrew/bin/node`, `/opt/homebrew/bin/npx`, `/opt/homebrew/bin/python3`
+
+## Build & verify (run from `quartz/`)
+
+```
+/opt/homebrew/bin/npx quartz build          # emits ./public
+/opt/homebrew/bin/node scripts/check-quality.mjs      # after a build
+/opt/homebrew/bin/node scripts/check-arithmetic.mjs   # anytime
+```
+
+The **quality gate** (fatal → blocks deploy): KaTeX render errors (`class="katex-error"`
+in emitted HTML), broken internal links / `#anchors`, broken image refs, and **empty alt
+text** (`![](...)`) which is now ratcheted to 0. Orphaned media is a warning.
+
+The **arithmetic harness** re-proves every worked example from scratch. When you add or
+change a numeric worked example in the notes, add/adjust an assertion in
+`check-arithmetic.mjs` so the example stays machine-verified.
+
+`scripts/inject-lightbox.mjs` is a **post-build** pass (runs after the gates, before the
+Pages upload) that inlines a click-to-zoom image lightbox into every `public/*.html`. It is
+idempotent. Run it after a local `npx quartz build` if you want to preview the lightbox.
+It is a post-build injector rather than a Quartz plugin on purpose: the plugin lockfile pins
+non-portable absolute paths, so a post-build step is the portable choice.
+
+## Content conventions (non-negotiable)
+
+- **Foundations-first:** define basic terms and motivate a concept before any formula.
+ →
   "lambda-hat"), not just its meaning.
 - **Textbook-level coverage:** cover what a textbook would, minus problem sets; include
   worked examples, especially for edge cases.

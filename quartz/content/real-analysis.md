@@ -53,7 +53,7 @@ Before stating completeness, we need the concept of bounds.
 
 Similarly, $m$ is a **lower bound** if $m \le x$ for all $x \in S$, and (again by completeness, applied to $-S$) the greatest lower bound exists and is called the **infimum** $\inf S$.
 
-**Example.** Let $S = \{1/n : n \in \mathbb{N}\} = \{1, 1/2, 1/3, 1/4, \ldots\}$. Then $\sup S = 1$ (it is in $S$) and $\inf S = 0$ (not in $S$, but no number greater than $0$ is a lower bound).
+**Example.** Let $S := \{1/n : n \in \mathbb{N}\} = \{1, 1/2, 1/3, 1/4, \ldots\}$. Then $\sup S = 1$ (it is in $S$) and $\inf S = 0$ (not in $S$, but no number greater than $0$ is a lower bound).
 
 The crucial characterization: $s = \sup S$ if and only if (1) $s$ is an upper bound for $S$, and (2) for every $\epsilon > 0$, there exists $x \in S$ with $x > s - \epsilon$. In other words, $\sup S$ is the "tightest" upper bound: you cannot pull it down by any amount $\epsilon$ without some element of $S$ exceeding it.
 
@@ -72,7 +72,7 @@ This is what makes $\mathbb{R}$ special. The rationals $\mathbb{Q}$ do *not* hav
 **Example: the gap in the rationals.** Consider the set:
 
 $$
-S = \{x \in \mathbb{Q} : x^2 < 2\}
+S := \{x \in \mathbb{Q} : x^2 < 2\}
 $$
 
 This set is nonempty ($1 \in S$) and bounded above ($2$ is an upper bound). In $\mathbb{R}$, $\sup S = \sqrt{2}$. But $\sqrt{2} \notin \mathbb{Q}$, so $S$ has no supremum within $\mathbb{Q}$. The rationals have "gaps" where irrational numbers should be, and completeness says the reals fill in every gap.

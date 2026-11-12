@@ -33,7 +33,7 @@ $$
 Read "$K(w)$" as "K of w"; it is the average log-ratio of truth to model. $K(w) \ge 0$ always, with $K(w) = 0$ exactly when $p(\cdot \mid w) = q$. The set of parameters that achieve this,
 
 $$
-W_0 = \{\, w \in W : K(w) = 0 \,\},
+W_0 := \{\, w \in W : K(w) = 0 \,\},
 $$
 
 is the **set of true parameters** (read "W-naught" or "W-zero"). It is the geometric object at the center of everything that follows.

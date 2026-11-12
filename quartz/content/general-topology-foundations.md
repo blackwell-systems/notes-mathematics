@@ -45,10 +45,10 @@ These conditions are axioms. They do not say what a set *looks* like in a drawin
 
 ### A worked three-point example
 
-Let $X=\{a,b,c\}$ and
+Let $X:=\{a,b,c\}$ and
 
 $$
-\tau=\{\varnothing,\{a\},\{a,b\},X\}.
+\tau:=\{\varnothing,\{a\},\{a,b\},X\}.
 $$
 
 **Check the axioms.** Both $\varnothing$ and $X$ occur. The displayed sets are **nested**, so any union is the largest selected set (or $\varnothing$ if none is selected); it belongs to $\tau$. Any finite intersection is the smallest selected set; it too belongs to $\tau$. Therefore this is a topology.
@@ -214,7 +214,7 @@ Conversely, suppose every open preimage is open. For $x$ and $\varepsilon>0$, th
 A homeomorphism preserves openness, closedness, connectedness and compactness because those properties are defined solely through topology and continuous maps.
 
 > [!counterexample] Continuous bijection with discontinuous inverse
-> Give $X=\{0,1\}$ the **discrete** topology and $Y=\{0,1\}$ the **indiscrete** topology. The identity set-map $X\to Y$ is a continuous bijection (every preimage of an open set of $Y$ is open in $X$), but the inverse $Y\to X$ is not continuous since $\{0\}$ is open in $X$ but not in $Y$.
+> Give $X:=\{0,1\}$ the **discrete** topology and $Y:=\{0,1\}$ the **indiscrete** topology. The identity set-map $X\to Y$ is a continuous bijection (every preimage of an open set of $Y$ is open in $X$), but the inverse $Y\to X$ is not continuous since $\{0\}$ is open in $X$ but not in $Y$.
 
 This is why a bijective continuous map is **not automatically** a homeomorphism.
 

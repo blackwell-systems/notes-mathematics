@@ -85,11 +85,11 @@ Since each $A_n^c \in \mathcal{F}$ (axiom 2), the union is in $\mathcal{F}$ (axi
 
 ### Examples
 
-**The trivial sigma-algebra:** $\mathcal{F} = \{\emptyset, \Omega\}$. This is the smallest possible sigma-algebra. It contains no information: you can only distinguish "nothing happened" from "something happened."
+**The trivial sigma-algebra:** $\mathcal{F} := \{\emptyset, \Omega\}$. This is the smallest possible sigma-algebra. It contains no information: you can only distinguish "nothing happened" from "something happened."
 
-**The power set:** $\mathcal{F} = \mathcal{P}(\Omega)$, the collection of all subsets. This is the largest possible sigma-algebra. When $\Omega$ is finite or countable, we usually use this.
+**The power set:** $\mathcal{F} := \mathcal{P}(\Omega)$, the collection of all subsets. This is the largest possible sigma-algebra. When $\Omega$ is finite or countable, we usually use this.
 
-**A coin flip:** Let $\Omega = \{H, T\}$. The sigma-algebra $\mathcal{F} = \{\emptyset, \{H\}, \{T\}, \{H, T\}\}$ is the power set. Every subset is measurable because $\Omega$ is finite.
+**A coin flip:** Let $\Omega := \{H, T\}$. The sigma-algebra $\mathcal{F} := \{\emptyset, \{H\}, \{T\}, \{H, T\}\}$ is the power set. Every subset is measurable because $\Omega$ is finite.
 
 ### The Borel Sigma-Algebra
 
