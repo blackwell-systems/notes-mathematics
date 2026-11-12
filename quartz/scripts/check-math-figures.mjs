@@ -203,8 +203,8 @@ for (const [filename, vertices] of [
   ["ot-hasse-div30.svg", [1,2,3,5,6,10,15,30]]
 ]) {
   const src = readFileSync(join("content","media",filename),"utf8");
-  const nodes = [...src.matchAll(/data-node="(\\d+)"/g)].map(m => Number(m[1]));
-  const actual = [...src.matchAll(/data-from="(\\d+)" data-to="(\\d+)"/g)]
+  const nodes = [...src.matchAll(/data-node="(\d+)"/g)].map(m => Number(m[1]));
+  const actual = [...src.matchAll(/data-from="(\d+)" data-to="(\d+)"/g)]
     .map(m => m[1]+"->"+m[2]);
   const expectedCovers = [];
   for (const a of vertices) for (const b of vertices) {
