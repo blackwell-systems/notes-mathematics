@@ -76,6 +76,10 @@ In many branches of mathematics, a **space** is an underlying set together with 
 
 Take the same set $X=\{a,b,c\}$. We can equip it with different structures:
 
+![A central set X containing a, b and c branches independently to functions and maps, relations, topologies, orders, and algebraic operations; the branches are alternatives and not successive prerequisite stages.](./media/st-sets-to-structure.svg)
+
+*Figure: A set supplies its elements and membership. Adding a relation, operation, order or topology supplies different data; a function can also connect this set to another. These branches need not be traversed in any fixed order.*
+
 | What we specify in addition to $X$ | Structured mathematical object | New questions we can ask |
 | --- | --- | --- |
 | An order $a<b<c$ | **Ordered set** $(X,\leq)$ | Which elements come before others? |
@@ -87,7 +91,7 @@ All three have the **same underlying set**. They are different mathematical obje
 > [!distinction] Structure is not the same as a property
 > A topology, order, or metric is **data that we specify**. *Compactness*, for example, is a **property** that a topology may or may not satisfy, not an additional collection of data by itself. Neither property nor structure is determined solely by the elements of an arbitrary set.
 
-**The progression:** [Sets](#set) provide elements; [functions and relations](./functions-relations) describe mappings and comparisons; [topology](./general-topology-foundations) adds open subsets. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) compares many more structures and shows which can be derived from others. For a worked example of how equivalence on a set becomes a linear-algebra quotient, visit [Cross-Disciplinary Bridges](./cross-disciplinary-bridges#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces).
+**The distinction:** [Sets](#set) provide elements and membership. [Functions](./functions-relations) map between sets; relations, orders, algebraic operations and [topologies](./general-topology-foundations) are different kinds of additional data that can be specified on a set. A topology does **not** require first adding an order or a relation as a separate stage. The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) compares these independent branches and the cases where one kind of structure induces another. For a worked example of how equivalence on a set becomes a linear-algebra quotient, visit [Cross-Disciplinary Bridges](./cross-disciplinary-bridges#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces).
 
 ## Roster Notation
 

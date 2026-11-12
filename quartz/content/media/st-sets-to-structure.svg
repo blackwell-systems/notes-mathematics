@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1030" role="img" aria-labelledby="title desc">
+<title id="title">From sets to structure: independent branches</title>
+<desc id="desc">A dark branching diagram centers on the set X equals a, b, c. Lines connect the set to five distinct options: functions and maps between sets, relations on elements, topologies specified by families of open subsets, orders comparing elements, and algebraic operations combining elements. The branches do not form a prerequisite ladder. A footer emphasizes that the same set may support different structures.</desc>
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0B0B1A"/><stop offset="1" stop-color="#080B18"/></linearGradient>
+  <linearGradient id="blue" x2="1" y2="1"><stop stop-color="#182A49"/><stop offset="1" stop-color="#101629"/></linearGradient>
+  <linearGradient id="green" x2="1" y2="1"><stop stop-color="#103A39"/><stop offset="1" stop-color="#091E27"/></linearGradient>
+  <linearGradient id="gold" x2="1" y2="1"><stop stop-color="#44331F"/><stop offset="1" stop-color="#241A21"/></linearGradient>
+  <linearGradient id="rose" x2="1" y2="1"><stop stop-color="#42213C"/><stop offset="1" stop-color="#241329"/></linearGradient>
+  <linearGradient id="violet" x2="1" y2="1"><stop stop-color="#352051"/><stop offset="1" stop-color="#211432"/></linearGradient>
+  <linearGradient id="intro" x2="0" y2="1"><stop stop-color="#24173B"/><stop offset="1" stop-color="#150F2B"/></linearGradient>
+  <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<rect width="1600" height="1030" fill="url(#bg)"/>
+
+<text x="35" y="64" fill="#F7F1E7" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="700">From Sets to Structure</text>
+<path d="M710 46 H1560" stroke="#AD65E9" stroke-width="2.5"/><rect x="26" y="93" width="1548" height="109" rx="19" fill="url(#intro)" stroke="#7549AB" stroke-width="2"/>
+<text x="64" y="133" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="27" >A set supplies elements and membership. Different branches of mathematics</text>
+<text x="64" y="174" fill="#E6D8F8" font-family="Georgia, 'Times New Roman', serif" font-size="27" >introduce different kinds of data; no fixed sequence connects these branches.</text>
+<path d="M616 401 C574 401 590 330 534 330" stroke="#9D52F7" stroke-width="9" opacity=".26" fill="none" filter="url(#glow)"/>
+<path d="M616 541 C574 541 585 657 534 657" stroke="#9D52F7" stroke-width="9" opacity=".26" fill="none" filter="url(#glow)"/>
+<path d="M984 401 C1026 401 1002 330 1066 330" stroke="#9D52F7" stroke-width="9" opacity=".26" fill="none" filter="url(#glow)"/>
+<path d="M984 541 C1026 541 1016 657 1066 657" stroke="#9D52F7" stroke-width="9" opacity=".26" fill="none" filter="url(#glow)"/>
+<path d="M800 598 L800 693" stroke="#9D52F7" stroke-width="9" opacity=".26" fill="none" filter="url(#glow)"/>
+<path d="M616 401 C574 401 590 330 534 330" stroke="#B77CFF" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path d="M616 541 C574 541 585 657 534 657" stroke="#B77CFF" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path d="M984 401 C1026 401 1002 330 1066 330" stroke="#B77CFF" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path d="M984 541 C1026 541 1016 657 1066 657" stroke="#B77CFF" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path d="M800 598 L800 693" stroke="#B77CFF" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<rect x="40" y="242" width="494" height="238" rx="21" fill="url(#blue)" stroke="#55A9FE" stroke-width="2.5"/>
+<text x="73" y="290" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="39" >Functions / maps</text>
+<text x="73" y="333" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >Assign each input exactly one output.</text>
+<text x="73" y="366" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >A map connects a set X to a set Y.</text>
+<rect x="72" y="408" width="430" height="52" rx="13" fill="#F1EDFF" fill-opacity=".075" stroke="#55A9FE" stroke-opacity=".5"/>
+<text x="287" y="442" fill="#FCF9F5" font-family="Georgia, 'Times New Roman', serif" font-size="27" text-anchor="middle">f : X → Y,   f(a) = 1</text>
+<rect x="40" y="548" width="494" height="240" rx="21" fill="url(#green)" stroke="#42DBC1" stroke-width="2.5"/>
+<text x="73" y="596" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="39" >Relations</text>
+<text x="73" y="639" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >Specify which elements are related.</text>
+<text x="73" y="672" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >For example, a relation R ⊆ X × X.</text>
+<rect x="72" y="716" width="430" height="52" rx="13" fill="#F1EDFF" fill-opacity=".075" stroke="#42DBC1" stroke-opacity=".5"/>
+<text x="287" y="750" fill="#FCF9F5" font-family="Georgia, 'Times New Roman', serif" font-size="27" text-anchor="middle">a ∼ b,   b ∼ c</text>
+<rect x="1066" y="242" width="494" height="238" rx="21" fill="url(#gold)" stroke="#F0C366" stroke-width="2.5"/>
+<text x="1099" y="290" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="39" >Topology</text>
+<text x="1099" y="333" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >Choose open subsets satisfying</text>
+<text x="1099" y="366" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >the topology axioms.</text>
+<rect x="1098" y="408" width="430" height="52" rx="13" fill="#F1EDFF" fill-opacity=".075" stroke="#F0C366" stroke-opacity=".5"/>
+<text x="1313" y="442" fill="#FCF9F5" font-family="Georgia, 'Times New Roman', serif" font-size="27" text-anchor="middle">τ = {∅, {a}, {a,b}, X}</text>
+<rect x="1066" y="548" width="494" height="240" rx="21" fill="url(#rose)" stroke="#E985CA" stroke-width="2.5"/>
+<text x="1099" y="596" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="39" >Order</text>
+<text x="1099" y="639" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >Compare elements by a relation</text>
+<text x="1099" y="672" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >that obeys ordering axioms.</text>
+<rect x="1098" y="716" width="430" height="52" rx="13" fill="#F1EDFF" fill-opacity=".075" stroke="#E985CA" stroke-opacity=".5"/>
+<text x="1313" y="750" fill="#FCF9F5" font-family="Georgia, 'Times New Roman', serif" font-size="27" text-anchor="middle">a ≤ b ≤ c</text>
+<rect x="558" y="694" width="484" height="160" rx="21" fill="url(#violet)" stroke="#B999FC" stroke-width="2.5"/>
+<text x="591" y="742" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="39" >Algebraic operations</text>
+<text x="591" y="785" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="25" >Specify how elements combine.</text>
+<rect x="590" y="782" width="420" height="52" rx="13" fill="#F1EDFF" fill-opacity=".075" stroke="#B999FC" stroke-opacity=".5"/>
+<text x="800" y="816" fill="#FCF9F5" font-family="Georgia, 'Times New Roman', serif" font-size="27" text-anchor="middle">a ⋆ b = c</text>
+<rect x="616" y="365" width="368" height="233" rx="24" fill="url(#violet)" stroke="#C06CF7" stroke-width="3.2"/>
+<text x="800" y="421" fill="#FAF5EF" font-family="Georgia, 'Times New Roman', serif" font-size="57" text-anchor="middle" font-weight="700">Set X</text>
+<text x="800" y="462" fill="#F0E9F5" font-family="Georgia, 'Times New Roman', serif" font-size="25" text-anchor="middle">Elements and membership only</text>
+<rect x="659" y="499" width="282" height="67" rx="13" fill="#EEEAFF" fill-opacity=".12" stroke="#AA80DB" stroke-width="1.5"/>
+<text x="800" y="545" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="36" text-anchor="middle">X = {a, b, c}</text>
+<rect x="26" y="891" width="1548" height="116" rx="20" fill="url(#intro)" stroke="#7549AB" stroke-width="2"/>
+<rect x="54" y="909" width="224" height="49" rx="13" fill="#462181" stroke="#975BDD" stroke-width="2"/>
+<text x="166" y="943" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="30" text-anchor="middle" font-weight="700">Key takeaway</text>
+<path d="M308 907 V972" stroke="#BD86F4" stroke-width="2"/>
+<text x="338" y="938" fill="#F6F2EE" font-family="Georgia, 'Times New Roman', serif" font-size="27" >The same set can support different structures. The branches are</text>
+<text x="338" y="977" fill="#E1D4F7" font-family="Georgia, 'Times New Roman', serif" font-size="27" >independent options, not steps on a ladder.</text>
+</svg>
