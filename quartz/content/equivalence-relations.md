@@ -163,17 +163,31 @@ For congruence modulo three, $\mathbb Z/{\equiv_3}=\{[0],[1],[2]\}$ has only **t
 
 Let $f:A\to B$ be any function. Define
 
-$$
+$
 a\sim_f b\quad\Longleftrightarrow\quad f(a)=f(b).
-$$
+$
+
+Two inputs are equivalent when the function **cannot distinguish them by their outputs**.
+
+A **fiber** is simply the collection of *all inputs that produce one chosen output*. For an output $y\in B$, the fiber over $y$ is
+
+$
+f^{-1}(\{y\})=\{a\in A:f(a)=y\}.
+$
+
+Read $f^{-1}(\{y\})$ as "the preimage of the set containing $y$." This notation does **not** require $f$ to have an inverse function. For a diagram showing several inputs flowing into the same output, see [Fibers and the Kernel of a Function](./functions-relations#fibers-and-the-kernel-of-a-function).
 
 > [!theorem] Function fibers are equivalence classes
-> The relation $\sim_f$ is an equivalence relation. Its classes are the fibers of $f$.
+> The relation $\sim_f$ is an equivalence relation. The equivalence class containing $a$ is exactly the fiber over its output:
+> $
+> [a]=\{b\in A:f(b)=f(a)\}=f^{-1}(\{f(a)\}).
+> $
+> The **nonempty** fibers partition $A$. Values in $B$ that the function never produces have empty fibers, so they do not contribute blocks to the partition.
 
 > [!proof] Equality of outputs supplies the axioms
-> $f(a)=f(a)$ gives reflexivity. If $f(a)=f(b)$, then $f(b)=f(a)$ gives symmetry. If $f(a)=f(b)$ and $f(b)=f(c)$, then $f(a)=f(c)$ gives transitivity. By definition $[a]$ is exactly the set of inputs with output $f(a)$.
+> $f(a)=f(a)$ gives reflexivity. If $f(a)=f(b)$, then $f(b)=f(a)$ gives symmetry. If $f(a)=f(b)$ and $f(b)=f(c)$, then $f(a)=f(c)$ gives transitivity. By definition, $[a]$ consists of exactly those inputs with output $f(a)$.
 
-**Worked example.** Set $f:\mathbb R\to\mathbb R$ by $f(x)=x^2$ (read "f of x equals x squared"). Then $[3]=\{-3,3\}$ because both inputs have output nine, and $[0]=\{0\}$. The set of classes is naturally in bijection with the nonnegative reals via the squared output.
+**Worked example.** Set $f:\mathbb R\to\mathbb R$ by $f(x)=x^2$ (read "f of x equals x squared"). The fiber over $9$ is $f^{-1}(\{9\})=\{-3,3\}$: both inputs square to $9$, so $[3]=[-3]=\{-3,3\}$. The fiber over $0$ is $\{0\}$, while the fiber over $-1$ is empty because no real number squares to $-1$. Thus the equivalence classes correspond exactly to the **nonnegative** outputs.
 
 ### When does a function descend to classes?
 
