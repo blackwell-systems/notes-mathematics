@@ -1,48 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 550" width="1200" height="550" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 665" width="1200" height="665" role="img" aria-labelledby="title desc">
   <title id="title">Equivalence classes of integers modulo three</title>
-  <desc id="desc">The numbers zero through eight are colored by their remainder when divided by three: teal for zero, violet for one, and gold for two. Below are the three disjoint classes, illustrated by zero-three-six, one-four-seven, and two-five-eight. Each class extends infinitely in both directions beyond this finite window.</desc>
+  <desc id="desc">Numbers zero through eight appear in a row, colored according to their remainder modulo three. Three separate enclosing circles below group zero, three, six; one, four, seven; and two, five, eight. Each circle represents an infinite equivalence class, with the shown numbers as examples. The three classes do not overlap.</desc>
   <style>
-    text {font-family: Arial, Helvetica, sans-serif;}
-    .headline {font-size:39px;font-weight:760;}
-    .subtitle {font-size:23px;font-weight:500;}
-    .section {font-size:19px;font-weight:730;letter-spacing:.07em;}
-    .number {font-size:29px;font-weight:760;fill:#F4F3ED;}
-    .panel-header {font-size:23px;font-weight:740;}
-    .panel-set {font-size:34px;font-weight:740;}
-    .panel-note {font-size:19px;font-weight:600;}
-    .footer {font-size:20px;font-weight:500;}
+    text { font-family: Arial, Helvetica, sans-serif; }
+    .headline { font-size: 39px; font-weight: 760; }
+    .subtitle { font-size: 23px; font-weight: 500; }
+    .section { font-size: 19px; font-weight: 730; letter-spacing: .07em; }
+    .number { font-size: 29px; font-weight: 760; fill: #F4F3ED; }
+    .class-label { font-size: 26px; font-weight: 740; }
+    .class-caption { font-size: 20px; font-weight: 600; fill: #C4CEDA; }
+    .footer { font-size: 19px; font-weight: 500; }
   </style>
-  <rect width="1200" height="550" fill="#101A2C"/>
+  <rect width="1200" height="665" fill="#101A2C"/>
   <text x="40" y="59" fill="#F4F3ED" class="headline">Same remainder, same class</text>
   <text x="40" y="98" fill="#C4CEDA" class="subtitle">Congruence modulo 3 partitions the integers into three disjoint classes.</text>
   <line x1="40" x2="1160" y1="118" y2="118" stroke="#45576F" stroke-width="2"/>
   <text x="40" y="158" fill="#C4CEDA" class="section">A FINITE WINDOW OF THE INTEGERS</text>
-  <circle cx="100" cy="206" r="32" fill="#243850" stroke="#80DFD2" stroke-width="3"/><text x="100" y="216" text-anchor="middle" class="number">0</text>
-  <circle cx="225" cy="206" r="32" fill="#243850" stroke="#C9A6EF" stroke-width="3"/><text x="225" y="216" text-anchor="middle" class="number">1</text>
-  <circle cx="350" cy="206" r="32" fill="#243850" stroke="#F4C474" stroke-width="3"/><text x="350" y="216" text-anchor="middle" class="number">2</text>
-  <circle cx="475" cy="206" r="32" fill="#243850" stroke="#80DFD2" stroke-width="3"/><text x="475" y="216" text-anchor="middle" class="number">3</text>
-  <circle cx="600" cy="206" r="32" fill="#243850" stroke="#C9A6EF" stroke-width="3"/><text x="600" y="216" text-anchor="middle" class="number">4</text>
-  <circle cx="725" cy="206" r="32" fill="#243850" stroke="#F4C474" stroke-width="3"/><text x="725" y="216" text-anchor="middle" class="number">5</text>
-  <circle cx="850" cy="206" r="32" fill="#243850" stroke="#80DFD2" stroke-width="3"/><text x="850" y="216" text-anchor="middle" class="number">6</text>
-  <circle cx="975" cy="206" r="32" fill="#243850" stroke="#C9A6EF" stroke-width="3"/><text x="975" y="216" text-anchor="middle" class="number">7</text>
-  <circle cx="1100" cy="206" r="32" fill="#243850" stroke="#F4C474" stroke-width="3"/><text x="1100" y="216" text-anchor="middle" class="number">8</text>
+  <circle cx="100" cy="206" r="32" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="100" y="216" text-anchor="middle" class="number">0</text>
+  <circle cx="225" cy="206" r="32" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="225" y="216" text-anchor="middle" class="number">1</text>
+  <circle cx="350" cy="206" r="32" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="350" y="216" text-anchor="middle" class="number">2</text>
+  <circle cx="475" cy="206" r="32" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="475" y="216" text-anchor="middle" class="number">3</text>
+  <circle cx="600" cy="206" r="32" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="600" y="216" text-anchor="middle" class="number">4</text>
+  <circle cx="725" cy="206" r="32" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="725" y="216" text-anchor="middle" class="number">5</text>
+  <circle cx="850" cy="206" r="32" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="850" y="216" text-anchor="middle" class="number">6</text>
+  <circle cx="975" cy="206" r="32" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="975" y="216" text-anchor="middle" class="number">7</text>
+  <circle cx="1100" cy="206" r="32" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="1100" y="216" text-anchor="middle" class="number">8</text>
 
-  <rect x="40" y="282" width="360" height="181" rx="17" fill="#1C2949" stroke="#45576F" stroke-width="2"/>
-  <rect x="58" y="299" width="324" height="42" rx="9" fill="#80DFD2"/>
-  <text x="220" y="328" text-anchor="middle" class="panel-header" fill="#101A2C">[0] · Remainder 0</text>
-  <text x="220" y="394" text-anchor="middle" class="panel-set" fill="#F4F3ED">{0, 3, 6}</text>
-  <text x="220" y="440" text-anchor="middle" class="panel-note" fill="#80DFD2">0 ≡ 3 ≡ 6 (mod 3)</text>
-  <rect x="420" y="282" width="360" height="181" rx="17" fill="#1C2949" stroke="#45576F" stroke-width="2"/>
-  <rect x="438" y="299" width="324" height="42" rx="9" fill="#C9A6EF"/>
-  <text x="600" y="328" text-anchor="middle" class="panel-header" fill="#101A2C">[1] · Remainder 1</text>
-  <text x="600" y="394" text-anchor="middle" class="panel-set" fill="#F4F3ED">{1, 4, 7}</text>
-  <text x="600" y="440" text-anchor="middle" class="panel-note" fill="#C9A6EF">1 ≡ 4 ≡ 7 (mod 3)</text>
-  <rect x="800" y="282" width="360" height="181" rx="17" fill="#1C2949" stroke="#45576F" stroke-width="2"/>
-  <rect x="818" y="299" width="324" height="42" rx="9" fill="#F4C474"/>
-  <text x="980" y="328" text-anchor="middle" class="panel-header" fill="#101A2C">[2] · Remainder 2</text>
-  <text x="980" y="394" text-anchor="middle" class="panel-set" fill="#F4F3ED">{2, 5, 8}</text>
-  <text x="980" y="440" text-anchor="middle" class="panel-note" fill="#F4C474">2 ≡ 5 ≡ 8 (mod 3)</text>
+  <text x="40" y="281" fill="#C4CEDA" class="section">THE PARTITION INTO CLASSES</text>
+  <!-- Class [0]: the displayed members are a finite sample, not the whole class -->
+  <circle cx="210" cy="420" r="115" fill="#1C2949" stroke="#80DFD2" stroke-width="3.5"/>
+  <text x="210" y="356" text-anchor="middle" class="class-label" fill="#80DFD2">[0]</text>
+  <circle cx="154" cy="410" r="28" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="154" y="420" text-anchor="middle" class="number">0</text>
+  <circle cx="266" cy="410" r="28" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="266" y="420" text-anchor="middle" class="number">3</text>
+  <circle cx="210" cy="475" r="28" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="210" y="485" text-anchor="middle" class="number">6</text>
+  <text x="210" y="580" text-anchor="middle" class="class-caption">All integers congruent to 0</text>
 
-  <text x="40" y="512" fill="#C4CEDA" class="footer">Only nine integers are shown. Each class continues infinitely in both directions.</text>
-  <text x="40" y="537" fill="#C4CEDA" font-size="15" font-weight="700">EQUIVALENCE CLASSES / PARTITION / MODULO 3</text>
+  <!-- Class [1]: the displayed members are a finite sample, not the whole class -->
+  <circle cx="600" cy="420" r="115" fill="#1C2949" stroke="#C9A6EF" stroke-width="3.5"/>
+  <text x="600" y="356" text-anchor="middle" class="class-label" fill="#C9A6EF">[1]</text>
+  <circle cx="544" cy="410" r="28" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="544" y="420" text-anchor="middle" class="number">1</text>
+  <circle cx="656" cy="410" r="28" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="656" y="420" text-anchor="middle" class="number">4</text>
+  <circle cx="600" cy="475" r="28" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="600" y="485" text-anchor="middle" class="number">7</text>
+  <text x="600" y="580" text-anchor="middle" class="class-caption">All integers congruent to 1</text>
+
+  <!-- Class [2]: the displayed members are a finite sample, not the whole class -->
+  <circle cx="990" cy="420" r="115" fill="#1C2949" stroke="#F4C474" stroke-width="3.5"/>
+  <text x="990" y="356" text-anchor="middle" class="class-label" fill="#F4C474">[2]</text>
+  <circle cx="934" cy="410" r="28" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="934" y="420" text-anchor="middle" class="number">2</text>
+  <circle cx="1046" cy="410" r="28" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="1046" y="420" text-anchor="middle" class="number">5</text>
+  <circle cx="990" cy="475" r="28" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="990" y="485" text-anchor="middle" class="number">8</text>
+  <text x="990" y="580" text-anchor="middle" class="class-caption">All integers congruent to 2</text>
+
+  <line x1="40" x2="1160" y1="608" y2="608" stroke="#45576F" stroke-width="2"/>
+  <text x="40" y="645" fill="#C4CEDA" class="footer">Only nine integers are shown. Each class continues infinitely in both directions.</text>
 </svg>
