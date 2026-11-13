@@ -67,7 +67,18 @@ Here is a common second-order presentation. The first two lines specify the kind
 4. **Successor is injective:** for all $a,b\in N$, $S(a)=S(b)\Rightarrow a=b$.
 5. **Full induction:** for every subset $P\subseteq N$, if $0\in P$ and $n\in P\Rightarrow S(n)\in P$ for every $n\in N$, then $P=N$.
 
-The symbol $\Rightarrow$ is read "implies." The symbol $\subseteq$ is read "is a subset of." **Injective** means that different inputs cannot have the same output. **Full induction** quantifies over *every* subset of $N$; the difference between this and first-order induction will matter near the end.
+The symbol $\Rightarrow$ is read "implies." The symbol $\subseteq$ is read "is a subset of." **Injective** means that different inputs cannot have the same output. The fifth condition deserves a closer look because it answers a question the first four do not.
+
+> [!tip] Why do we need full induction?
+> Imagine someone gives you a set $N$ and an operation $S$. Starting at zero, you can follow the chain $0,S(0),S(S(0)),\ldots$. But **what guarantees that this chain reaches every element of $N$?** Nothing in the first four conditions does.
+>
+> Call the set of elements reached from zero in finitely many successor steps $P$. Then $0\in P$, and whenever $n\in P$, its successor $S(n)$ is also in $P$: in other words, **$P$ is closed under successor**.
+>
+> Now suppose $N$ has a second, disconnected chain. All the first four conditions can still hold, yet $P\ne N$: that extra chain lies outside $P$. **Full induction forbids this.** It says that *every* subset of $N$ containing zero and closed under successor must be **all of $N$**.
+>
+> "Full" means the condition covers **every subset $P\subseteq N$**, not just subsets described by some restricted collection of formulas. This is stronger than a first-order induction schema, a distinction we return to later.
+
+Notice the direction: **we do not prove full induction by checking the first few numbers.** We adopt it as a condition on the entire structure. Later, we use that condition to justify proofs by mathematical induction.
 
 ### Visual intuition for each axiom
 
@@ -99,9 +110,9 @@ The five conditions constrain different things. Read each picture as a **finite 
 
 #### 5. Full induction
 
-![A subset P includes zero and every next successor, illustrating that a subset closed under successor must cover the whole natural-number domain.](./media/pa-axiom-full-induction.svg)
+![Two panels compare a successor structure with an extra disconnected chain and one where full induction forces the zero-generated chain to be the entire domain.](./media/pa-axiom-full-induction.svg)
 
-*Figure: If $P$ contains zero and is closed under successor, full induction says $P=N$. The finite picture cannot substitute for the quantification over all subsets.*
+*Figure: In the upper panel, $P$ contains zero and is closed under successor but misses an extra chain, so $P\ne N$. That is exactly what full induction rules out. The lower panel illustrates the allowed conclusion $P=N$; neither finite sketch is itself a proof.*
 
 These are separate requirements. In particular, **the first four do not exclude disconnected successor chains**; the countermodels below explain why full induction is essential.
 
@@ -129,9 +140,16 @@ $$
 
 with $S(a_i)=a_{i+1}$. Zero has no predecessor, and successor is injective everywhere. Yet no finite succession from zero reaches any $a_i$. Thus the first four conditions are satisfied, but this is not just the natural numbers.
 
-Full induction excludes the extra chain. Let $P$ be exactly the elements obtained from zero by finitely many successor steps. Zero is in $P$, and taking the successor of anything in $P$ stays in $P$. Therefore the induction condition forces $P=N$.
+**Test full induction against this structure.** Let $P$ contain exactly the elements reached by starting at zero and taking finitely many successor steps. Check its three relevant properties:
 
-**What induction really says:** there are no objects in our intended natural-number domain that lie outside the successor-generated part beginning at zero. It is stronger than the picture of falling dominoes, because it specifies that the entire domain is covered by the domino chain.
+1. **Start:** $0\in P$ by construction.
+2. **Preservation:** if $n\in P$, taking one more successor step puts $S(n)\in P$.
+3. **Coverage fails:** $a_0\in N$ but $a_0\notin P$. Hence $P\ne N$.
+
+The first two statements satisfy the **premises** of full induction, while the third contradicts its **conclusion**. So this structure violates the fifth axiom. The fifth axiom is what makes "start at zero and keep taking successors" a description of **the entire domain**, not merely one piece of it.
+
+> [!question] Quick check
+> If a subset contains $0,1,2,3$ but not $4$, does it violate full induction? **Not by itself.** A subset is allowed to omit elements; to trigger the axiom, it must also be *closed under successor*. A subset that contains $3$ but not $S(3)=4$ fails that premise.
 
 ### Every nonzero number has a predecessor
 
