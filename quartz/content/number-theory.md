@@ -101,6 +101,9 @@ The picture explains the identity $\gcd \times \operatorname{lcm} = a \times b$:
 
 ## Modular Arithmetic
 
+> [!tip] The core intuition
+> **Modular arithmetic keeps the remainder and forgets how many full cycles came before it.** More precisely, it treats integers as equivalent whenever their difference is a multiple of a fixed positive integer $n$. We then add and multiply *equivalence classes*, not merely the labels used to represent them. The crucial question is why changing a representative cannot change the answer.
+
 > [!definition] Congruence modulo n
 > For $n>0$, $a\equiv b\pmod n$ means $n\mid(a-b)$. Congruence describes **equivalence classes of integers**, and addition and multiplication respect this relation.
 
@@ -164,6 +167,57 @@ If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then:
 - $17 \equiv 5 \pmod{12}$ and $23 \equiv 11 \pmod{12}$
 - Addition: $17 + 23 = 40 \equiv 4 \pmod{12}$ and $5 + 11 = 16 \equiv 4 \pmod{12}$ ✓
 - Multiplication: $17 \times 23 = 391 \equiv 7 \pmod{12}$ and $5 \times 11 = 55 \equiv 7 \pmod{12}$ ✓
+
+### From congruence to arithmetic on equivalence classes
+
+Congruence is the bridge between **divisibility** and a new number system. Fix $n\ge 2$. Declare $a\equiv b\pmod n$ exactly when $n\mid(a-b)$, so their difference is an integer multiple of $n$. The [equivalence-relation axioms](./equivalence-relations#worked-proof-congruence-modulo-n) show that the integers split into disjoint classes.
+
+The class of $a$, denoted $[a]$, contains **every integer congruent to $a$ modulo $n$**. For example, modulo $5$,
+
+$
+[2]=\{\ldots,-8,-3,2,7,12,\ldots\}=[7],
+\qquad 2\ne7.
+$
+
+The quotient set $\mathbb Z/n\mathbb Z$ consists of the $n$ distinct classes $[0],[1],\ldots,[n-1]$. They are sets of integers, not the integers themselves. Writing $7\equiv2\pmod5$ compares **integers**; writing $[7]=[2]$ compares their **classes**.
+
+We want the ordinary operations on integers to become operations on these classes:
+
+$
+[a]+[b]:=[a+b],
+\qquad
+[a]\cdot[b]:=[ab].
+$
+
+The symbol $:=$ means **we are defining** the operations. The equalities only make sense if every choice of representatives gives the same class as output. This is the [well-definedness requirement](./equivalence-relations#when-does-a-function-descend-to-classes).
+
+> [!proof] Changing representatives does not change a sum or product
+> Suppose $[a]=[a']$ and $[b]=[b']$. By congruence, some integers $k,\ell$ satisfy $a'-a=nk$ and $b'-b=n\ell$.
+>
+> For addition, $(a'+b')-(a+b)=n(k+\ell)$, so $[a'+b']=[a+b]$.
+>
+> For multiplication, use
+> $
+> a'b'-ab=(a'-a)b'+a(b'-b)
+> =n(kb'+a\ell).
+> $
+> Again the difference is divisible by $n$, so $[a'b']=[ab]$.
+>
+> **Therefore addition and multiplication are well-defined on classes.** Subtraction follows from addition and negatives; the congruence rule for positive powers follows by repeated multiplication.
+
+**Try two names for the same inputs.** Modulo $5$, $[2]=[7]$ and $[3]=[8]$. Using the first representatives gives
+
+$
+[2]+[3]=[5]=[0],\qquad [2]\cdot[3]=[6]=[1].
+$
+
+Using the second gives
+
+$
+[7]+[8]=[15]=[0],\qquad [7]\cdot[8]=[56]=[1].
+$
+
+The ordinary sums and products differ; the **output classes do not**. That is the mathematical reason the clock arithmetic below works, rather than just a pattern observed in the tables.
 
 ### Modular Addition and Multiplication Tables
 
@@ -244,6 +298,69 @@ So $7\times(-11) + 26\times 3 = 1$, which means $7^{-1} \equiv -11 \equiv 15 \pm
 - $\frac{7}{3} \equiv 7 \times 4 \equiv 28 \equiv 6 \pmod{11}$
 
 **Note:** Division is only defined when the divisor is coprime to the modulus.
+
+### Solving linear congruences: why cancellation can fail
+
+The restriction on modular division is not a technical nuisance: it changes how many solutions an equation can have. Compare these equations modulo $6$:
+
+$
+2x\equiv2\pmod6
+\quad\text{and}\quad
+2x\equiv1\pmod6.
+$
+
+The first has **two distinct solutions modulo $6$**: $x\equiv1$ and $x\equiv4$. Indeed, $2\cdot1=2$ and $2\cdot4=8\equiv2\pmod6$. The second has **no solutions**, because $2x$ is even whereas any integer congruent to $1$ modulo $6$ is odd.
+
+It would be invalid to cancel the $2$ from $2x\equiv2\pmod6$ and claim $x\equiv1\pmod6$. The actual conclusion is $x\equiv1\pmod3$: by definition, $6\mid(2x-2)$ if and only if $3\mid(x-1)$. **Canceling a factor can require changing the modulus.**
+
+> [!theorem] Solutions of a linear congruence
+> Let $n>0$, $a,b\in\mathbb Z$, and $d:=\gcd(a,n)$. The equation
+> $
+> ax\equiv b\pmod n
+> $
+> has a solution **if and only if** $d\mid b$. When it does, it has **exactly $d$ distinct solutions modulo $n$**.
+
+**Why?** If $n\mid(ax-b)$, then $ax-b$ is a multiple of $n$. Since $d$ divides both $a$ and $n$, it must divide $b$. Conversely, if $d\mid b$, write $a=da'$, $b=db'$, and $n=dn'$. The equation is equivalent to
+
+$
+a'x\equiv b'\pmod{n'}.
+$
+
+Now $\gcd(a',n')=1$, so the [inverse criterion](#modular-inverses) gives one unique class $x_0$ modulo $n'$. Its $d$ distinct representatives modulo $n$ are
+
+$
+x\equiv x_0,\ x_0+n',\ \ldots,\ x_0+(d-1)n'\pmod n.
+$
+
+In particular, if $\gcd(a,n)=1$, cancellation works and there is exactly **one** solution modulo $n$. Otherwise, a linear congruence has either **no solutions** or **multiple solutions**.
+
+### Why modular arithmetic leads to groups, rings, and fields
+
+The operations we just proved well-defined obey the same identities they did on integers. That allows us to recognize several algebraic structures without inventing new rules.
+
+| Elements and operations | Structure | What guarantees it? |
+| --- | --- | --- |
+| All classes $[a]$, under addition | **Abelian group** | $[0]$ is the identity; $[-a]$ undoes $[a]$; addition is associative and commutative. |
+| All classes, under addition and multiplication | **Commutative ring with identity** | The integer laws for associativity, distributivity, and $[1]$ descend to classes. |
+| Invertible classes, under multiplication | **Abelian group of units** | Exactly the classes with $\gcd(a,n)=1$ have multiplicative inverses. |
+| All classes, with every nonzero class invertible | **Field** | This occurs **exactly when $n$ is prime**. |
+
+The ring is written $\mathbb Z/n\mathbb Z$. Its multiplicatively invertible elements are the **units**, written $(\mathbb Z/n\mathbb Z)^\times$. Their number is [Euler's totient](#eulers-totient-function) $\varphi(n)$.
+
+**Why does primality matter?** If $p$ is prime, each nonzero class $[a]$ has $\gcd(a,p)=1$; Bézout's identity then gives integers $u,v$ with $au+pv=1$, hence $[a][u]=[1]$. Every nonzero class can be divided by, so $\mathbb Z/p\mathbb Z$ is a field, also written $\mathbb F_p$.
+
+If $n$ is composite, write $n=rs$ with $1<r,s<n$. Both $[r]$ and $[s]$ are nonzero, yet
+
+$
+[r]\cdot[s]=[rs]=[n]=[0].
+$
+
+Such nonzero elements whose product is zero are called **zero divisors**. A field cannot have them: multiplying $ab=0$ by the inverse of nonzero $a$ would force $b=0$. Thus $\mathbb Z/n\mathbb Z$ cannot be a field when $n$ is composite.
+
+> [!example] Modulo 6 is a ring, not a field
+> $[2]\ne[0]$ and $[3]\ne[0]$, but $[2][3]=[0]$ modulo $6$. The class $[2]$ has no multiplicative inverse; its failure of cancellation explains the two solutions of $2x\equiv2\pmod6$ above. By contrast, modulo the prime $5$, every nonzero class has an inverse.
+
+This is the elementary route to [Group Theory](./group-theory-foundations) (reversible addition and the group of units), [Ring Theory](./ring-theory-foundations) (two operations and zero divisors), and [Field Theory](./field-theory-foundations) (division by nonzero elements). The general quotient construction in [Ideals, Quotient Rings and Homomorphisms](./ring-ideals-quotients) explains why $\mathbb Z/n\mathbb Z$ is an instance of a much broader idea.
 
 ### Modular Exponentiation
 
