@@ -9,7 +9,10 @@ enables: ["group-homomorphisms-quotients", "algebraic-structures", "ring-theory-
 > **Leads to:** [Homomorphisms & Quotient Groups](./group-homomorphisms-quotients) · [Algebraic Structures](./algebraic-structures) · [Ring Theory Foundations](./ring-theory-foundations)
 
 
-<span class="ed-term ed-term--definition">A group</span> captures one kind of reversible behavior: combining actions in an associative way, having an action that does nothing, and being able to undo every action. The objects can be numbers, geometric transformations, permutations, matrices, or operations on a program state. None of these must commute.
+> [!tip] The core intuition
+> <span class="ed-term ed-term--definition">A group</span> captures **one kind of reversible behavior**: combining actions in an associative way, having an action that does nothing, and being able to undo every action.
+
+The objects can be numbers, geometric transformations, permutations, matrices, or operations on a program state. None of these must commute.
 
 This chapter starts with the **axioms** and derives the elementary theorems before studying subgroups, cyclic groups, cosets, and Lagrange's theorem. It does not require real-number completeness, complex numbers, or algebraic closure. Examples involving integers use the construction already developed in [Construction of the Integers](./construction-of-the-integers), but **the group axioms themselves require only sets, functions, and equality**.
 
