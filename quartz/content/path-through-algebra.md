@@ -15,7 +15,7 @@ The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) explains the 
 
 ## Stage 1: Build the arithmetic objects
 
-Start with [Peano Arithmetic](./peano-arithmetic) for recursive addition and multiplication on the natural numbers; then [Integers](./construction-of-the-integers), [Rationals](./construction-of-the-rationals), and [Real Numbers](./construction-of-the-reals). The construction story demonstrates the importance of **equivalence relations**: integers can be represented by difference pairs, rationals by fraction pairs, and neither construction works unless operations are independent of representatives.
+Start with [Construction of the Natural Numbers](./construction-of-the-natural-numbers) to build the naturals as sets, then [Peano Arithmetic](./peano-arithmetic) for recursive addition and multiplication; continue to [Integers](./construction-of-the-integers), [Rationals](./construction-of-the-rationals), and [Real Numbers](./construction-of-the-reals). The construction story demonstrates the importance of **equivalence relations**: integers can be represented by difference pairs, rationals by fraction pairs, and neither construction works unless operations are independent of representatives.
 
 The [Equivalence Relations and Quotients](./equivalence-relations) chapter proves why equivalence classes form a partition and exactly when a function descends to classes.
 
