@@ -43,6 +43,11 @@ Instead of treating each number as a separate answer, we can treat each **group 
 >
 > The full list lets us check all three properties rather than simply assert them. **Reflexivity:** each $(a,a)$ appears. **Symmetry:** whenever $(a,b)$ appears, $(b,a)$ also appears. **Transitivity:** whenever $(a,b)$ and $(b,c)$ appear, $(a,c)$ appears too, because both pairs put $a,b,c$ in the same parity group. For instance, $1\sim3$ and $3\sim1$ imply $1\sim1$. The finite check illustrates the general definitions; later we prove the corresponding facts for all integers modulo $n$.
 
+
+![The sixteen possible ordered pairs on A equals one, two, three, four. Eight are highlighted because both elements have the same parity; the other eight are excluded.](./media/er-odd-even-ordered-pairs.svg)
+
+*Figure: Read each cell as an ordered pair $(a,b)$, with the first element labeling its row and the second labeling its column. Highlighted cells are precisely the eight pairs in $R$; the dimmed cells are not related.*
+
 A binary relation $R$ on a set $A$ is a subset of $A\times A$ (read "A cross A"). We write $aRb$ (read "a is R-related to b") when $(a,b)\in R$. In this chapter, the elements belong to the **same underlying set** $A$.
 
 > [!definition] Equivalence relation
