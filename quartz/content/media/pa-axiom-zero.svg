@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" role="img" aria-labelledby="title desc">
+<title id="title">1  ·  Distinguished zero</title>
+<desc id="desc">A set N contains a highlighted designated element zero, together with other possible elements. The first condition singles out zero as a member of N.</desc>
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L0 7 L7 3.5 Z" fill="#87B8EE"/></marker></defs>
+<rect width="800" height="360" fill="#101A2C"/>
+<text x="40" y="52" text-anchor="start" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="750">1  ·  Distinguished zero</text>
+<text x="40" y="87" text-anchor="start" fill="#C4CEDA" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="500">Choose one element of the domain and call it zero.</text>
+<path d="M40 108 H760" stroke="#45576F" stroke-width="2"/>
+
+<rect x="48" y="133" width="704" height="170" rx="14" fill="#19283A" stroke="#45576F" stroke-width="2"/>
+<text x="92" y="174" text-anchor="start" fill="#BCA8EC" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700">N</text>
+<circle cx="243" cy="217" r="39" fill="#223349" stroke="#EDB86D" stroke-width="3"/><text x="243" y="227" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">0</text>
+<circle cx="395" cy="217" r="33" fill="#223349" stroke="#66C4B4" stroke-width="3"/><text x="395" y="227" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">a</text>
+<circle cx="543" cy="217" r="33" fill="#223349" stroke="#66C4B4" stroke-width="3"/><text x="543" y="227" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">b</text>
+<text x="659" y="229" text-anchor="middle" fill="#C4CEDA" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="600">…</text>
+<text x="245" y="279" text-anchor="middle" fill="#EDB86D" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="600">0 ∈ N</text>
+
+<text x="40" y="343" text-anchor="start" fill="#C4CEDA" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="750">CONSTRUCTION  /  PROOF  /  EXAMPLE</text>
+</svg>
