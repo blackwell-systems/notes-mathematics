@@ -186,6 +186,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "construction-of-the-natural-numbers.md",
+      "kind": "topic",
+      "track": "number-systems-and-foundations",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "pending"
+    },
+    {
       "path": "construction-of-the-rationals.md",
       "kind": "topic",
       "track": "number-systems-and-foundations",
