@@ -156,6 +156,10 @@ A **partition** of $A$ is a collection of **nonempty**, **pairwise disjoint** su
 >
 > Finally, if two relations have the same partition, each relates exactly the pairs that lie in a common block. They therefore coincide. This proves uniqueness.
 
+![An equivalence relation on four numbers and its two corresponding parity blocks, with the conversion working in both directions.](./media/er-relation-partition-correspondence.svg)
+
+*Figure: A relation lists which elements belong together; a partition makes those same groups visible. The full relation also includes each reflexive pair.*
+
 This theorem gives two equivalent ways to describe the same structure: specify related pairs, or specify blocks of objects that should count as equivalent.
 
 > [!example] Read a partition in both directions
@@ -223,6 +227,10 @@ $
 > [!proof] Equality of outputs supplies the axioms
 > $f(a)=f(a)$ gives reflexivity. If $f(a)=f(b)$, then $f(b)=f(a)$ gives symmetry. If $f(a)=f(b)$ and $f(b)=f(c)$, then $f(a)=f(c)$ gives transitivity. By definition, $[a]$ consists of exactly those inputs with output $f(a)$.
 
+![Under squaring, three and negative three share output nine, two and negative two share four, and zero maps to zero.](./media/er-function-fibers.svg)
+
+*Figure: Each nonempty fiber collects every input producing the same output. The figure shows three fibers; squaring on the reals has infinitely many more.*
+
 **Worked example.** Set $f:\mathbb R\to\mathbb R$ by $f(x)=x^2$ (read "f of x equals x squared"). The fiber over $9$ is $f^{-1}(\{9\})=\{-3,3\}$: both inputs square to $9$, so $[3]=[-3]=\{-3,3\}$. By comparison, the **preimage of $\{4,9\}$** is $f^{-1}(\{4,9\})=\{-3,-2,2,3\}$: this combines the fibers over $4$ and $9$, so it is not a single fiber. The fiber over $0$ is $\{0\}$, while the fiber over $-1$ is empty because no real number squares to $-1$. Thus the equivalence classes correspond exactly to the **nonnegative** outputs.
 
 For $f(x)=x^2$, the equivalence classes on $\mathbb R$ take the form $\{0\}$ and $\{-t,t\}$ for each $t>0$. These classes partition the entire real line: every nonzero real lies in exactly one pair with its negative. The empty fiber over $-1$ is not a class, because no input has that output.
@@ -247,6 +255,10 @@ Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class 
 
 **Example:** Sending the congruence class $[a]$ modulo three to $a^2\bmod3$ is well-defined, because $a\equiv b\pmod3$ implies $a^2\equiv b^2\pmod3$: factor $a^2-b^2=(a-b)(a+b)$. Sending $[a]$ to the ordinary integer $a$ is **not** well-defined: $[1]=[4]$ but $1\ne4$.
 
+![Two proposals for acting on classes modulo three: an invalid integer-valued rule depends on the representative, while a valid class-valued rule does not.](./media/er-well-definedness-classes.svg)
+
+*Figure: The same input class cannot produce different outputs. The right-hand rule passes because $[2]=[5]$; the proof below establishes that this works for all representatives, not only the two shown.*
+
 > [!example] A proposed function that gives two answers to one input
 > Work with integer classes modulo $3$, where $[1]=[4]$. Suppose someone proposes $F([a]):=a+1$ with values in the **ordinary integers**. Choosing representative $1$ gives $F([1])=2$; choosing representative $4$ gives $F([4])=5$. But $[1]$ and $[4]$ are the **same input**, so this rule fails to define a function on classes.
 >
@@ -261,6 +273,10 @@ Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class 
 
 > [!counterexample] Close to is not transitive
 > On real numbers, define $aRb$ if $|a-b|<1$ (read "the absolute difference is less than one"). The relation is reflexive and symmetric. But $0R0.6$ and $0.6R1.2$ hold while $0R1.2$ does not, since $1.2$ is not less than one. It is therefore **not** an equivalence relation.
+
+![On the number line zero is close to 0.6 and 0.6 is close to 1.2, but zero is not close to 1.2, so the relation fails transitivity.](./media/er-close-not-transitive.svg)
+
+*Figure: Two valid steps do not imply that the first and last numbers are related. Transitivity fails even though the relation is reflexive and symmetric.*
 
 > [!counterexample] Having overlapping sets is not transitive
 > On nonempty finite sets, let $A\,R\,B$ mean $A\cap B\ne\varnothing$. This relation is reflexive and symmetric, but $\{1\}$ intersects $\{1,2\}$, which intersects $\{2\}$, while $\{1\}$ does not intersect $\{2\}$. Transitivity fails.
