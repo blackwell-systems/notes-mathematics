@@ -8,7 +8,10 @@ enables: ["order-theory", "group-homomorphisms-quotients", "ring-ideals-quotient
 > **Builds on:** [Set Theory](./set-theory), [binary relations](./functions-relations#relation), and [relation properties](./functions-relations#properties-of-relations).
 > **Leads to:** [Order Theory](./order-theory), [quotient groups](./group-homomorphisms-quotients), [quotient rings](./ring-ideals-quotients), and [well-defined functions](./functions-relations#well-defined-functions).
 
-An equivalence relation lets us treat **different objects as the same for a stated purpose** without asserting that they are literally equal. The central result is stronger than a definition: every equivalence relation divides its set into disjoint groups, and every such division gives an equivalence relation. Those groups are called **equivalence classes**. We will prove both directions and then explain why operations on classes require an extra well-definedness check.
+> [!tip] The core intuition
+> An equivalence relation lets us treat **different objects as the same for a stated purpose** without asserting that they are literally equal.
+
+The central result is stronger than a definition: every equivalence relation divides its set into disjoint groups, and every such division gives an equivalence relation. Those groups are called **equivalence classes**. We will prove both directions and then explain why operations on classes require an extra well-definedness check.
 
 ## From relations to equivalence
 
