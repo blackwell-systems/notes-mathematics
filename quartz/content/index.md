@@ -54,6 +54,13 @@ This yields $1=\{0\}$, $2=\{0,1\}$, and $3=\{0,1,2\}$: each natural number is re
 - [Hypercomplex Numbers & Beyond](./hypercomplex-numbers) (quaternions, octonions, Cayley-Dickson, dual numbers, p-adics, surreals)
 - [Number Bases](./number-bases) (binary, octal, hexadecimal, conversions, two's complement, floating point)
 
+## Number Theory
+
+Divisibility tells us when integers share a factor. **Congruence** asks when their difference is divisible by a chosen modulus, then turns those equivalence classes into a new arithmetic system. This is a concrete route from familiar integer calculations to [groups](./group-theory-foundations), [rings](./ring-theory-foundations), and [fields](./field-theory-foundations).
+
+- [Number Theory](./number-theory) (divisibility, Euclid's algorithm, [modular arithmetic](./number-theory#modular-arithmetic), congruence classes, inverses, Fermat, CRT, Euler)
+- [Prime Factorization](./prime-factorization) (GCD, LCM, fundamental theorem of arithmetic)
+
 ## Path Through Algebra
 
 The [Path Through Algebra](./path-through-algebra) connects constructions of number systems, groups, quotient rings, field extensions, local rings and algebraic geometry without assuming that every subject depends on every earlier one.
@@ -89,8 +96,6 @@ Category theory studies **objects, arrows and universal mapping properties**, br
 
 ## Algebra
 
-- [Number Theory](./number-theory) (divisibility, modular arithmetic, primes)
-- [Prime Factorization](./prime-factorization) (GCD, LCM, fundamental theorem of arithmetic)
 - [Functions & Relations](./functions-relations) (domain, range, composition, inverses)
 - [Graphing Functions](./graphing-functions) (transformations, symmetry, asymptotes)
 - [Linear Functions](./linear-functions) (slope, intercepts, linear models)
