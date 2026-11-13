@@ -49,6 +49,34 @@ A preorder need not be antisymmetric. Two different objects may each precede the
 >
 > **Do not confuse this with antisymmetry:** if $A\subseteq B$ **and** $B\subseteq A$, then $A=B$. Antisymmetry concerns comparisons that hold in both directions; incomparability concerns pairs for which neither direction holds.
 
+### Worked example: a power set is a poset
+
+Start with $A:=\{a,b\}$. Its **power set** is the set of all its subsets:
+
+$
+\mathcal P(A)=\{\varnothing,\{a\},\{b\},\{a,b\}\}.
+$
+
+A power set alone is just a set. To obtain a **poset**, specify an order on its elements: here, **subset inclusion** $\subseteq$. We claim that $(\mathcal P(A),\subseteq)$ satisfies all three partial-order axioms.
+
+1. **Reflexivity:** every subset contains itself: $X\subseteq X$. For example, $\{a\}\subseteq\{a\}$.
+2. **Antisymmetry:** if $X\subseteq Y$ and $Y\subseteq X$, the two subsets have exactly the same elements, so $X=Y$. For example, $\{a\}\subseteq\{a,b\}$, but the reverse inclusion fails.
+3. **Transitivity:** if $X\subseteq Y$ and $Y\subseteq Z$, then $X\subseteq Z$. For example, $\varnothing\subseteq\{a\}\subseteq\{a,b\}$ implies $\varnothing\subseteq\{a,b\}$.
+
+**Why is the order partial?** The two middle elements, $\{a\}$ and $\{b\}$, are **incomparable**:
+
+$
+\{a\}\nsubseteq\{b\}\qquad\text{and}\qquad\{b\}\nsubseteq\{a\}.
+$
+
+Neither comparison holds, but the order is still well-defined. The power set is therefore a **poset, not a totally ordered set**.
+
+![Two side-by-side posets compare the chain 1 less than 2 less than 3 less than 4, in which all elements compare, with the four-subset diamond of the set a,b, where the two singleton subsets are incomparable.](./media/ot-total-partial.svg)
+
+*Figure: Both diagrams satisfy the partial-order axioms. The chain is also total; the subset diamond is not because neither singleton contains the other.*
+
+*Looking ahead:* this particular poset is also a **complete lattice**. Unions give least upper bounds and intersections give greatest lower bounds; we will make those terms precise in [Joins, meets, and lattices](#joins-meets-and-lattices).
+
 | Relation | Reflexive | Antisymmetric | Transitive | Every pair comparable |
 | --- | --- | --- | --- | --- |
 | $\leq$ on $\mathbb R$ | Yes | Yes | Yes | Yes |
@@ -148,9 +176,7 @@ A chain is *not* necessarily a contiguous path of immediate cover relations. It 
 
 *Figure: Preorders require reflexivity and transitivity. Antisymmetry makes a partial order; symmetry makes an equivalence relation. Equality satisfies both. A poset is a set equipped with a partial order, and chains and antichains are subsets of that poset, illustrated by the inclusion order on the subsets of $\{a,b\}$.*
 
-![Two side-by-side posets compare the chain 1 less than 2 less than 3 less than 4, in which all elements compare, with the four-subset diamond of the set a,b, where the two singleton subsets are incomparable.](./media/ot-total-partial.svg)
 
-*Figure: Both diagrams satisfy the partial-order axioms. The chain is also total; the subset diamond is not because neither singleton contains the other.*
 
 ## Hasse diagrams: reconstructing the finite order
 
