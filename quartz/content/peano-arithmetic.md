@@ -218,6 +218,9 @@ To prove a statement $P(n)$ for every natural $n$, full induction gives a standa
 - **Inductive step:** assume $P(n)$ for an arbitrary $n$, then prove $P(S(n))$.
 - **Conclusion:** $P(n)$ holds for every $n\in N$.
 
+> [!tip] This is the familiar $n$ to $n+1$ step
+> In the usual textbook version of induction, you **assume $P(n)$ and prove $P(n+1)$**. We write $P(S(n))$ here because the successor operation $S$ has already been introduced, but **addition has not yet been defined**. Once we construct addition below, we can prove $n+1=S(n)$. The two notations describe **exactly the same inductive step**; this is not a different kind of induction.
+
 The phrase **inductive hypothesis** means the temporary assumption $P(n)$ inside the step. It is not an assumption that the theorem is already true for every number. You use the hypothesis for one arbitrary $n$, and induction licenses the universal conclusion.
 
 **Worked example: no successor equals zero.** This is not an application of induction at all: it is an axiom. In contrast, "every number is zero or a successor" was a theorem proved by induction. Being able to label a line **axiom**, **definition**, or **derived result** is part of following a rigorous proof.
