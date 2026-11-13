@@ -166,6 +166,29 @@ function cpow(re, im, n) {
   check("nonlattice bow-tie has no least upper bound",bounds.length===2&&!R.c.includes("d")&&!R.d.includes("c"));
 }
 
+// ============= Equivalence relations: finite example checks =============
+// Exhaustive checks on the displayed finite examples, not proofs of general laws.
+{
+  const A=[1,2,3,4];
+  const parity=(a,b)=>a%2===b%2;
+  const pairs=A.flatMap(a=>A.filter(b=>parity(a,b)).map(b=>[a,b]));
+  eq("equivalence parity ordered-pair count",pairs.length,8);
+  check("equivalence parity pair listing",JSON.stringify(pairs)===JSON.stringify([[1,1],[1,3],[2,2],[2,4],[3,1],[3,3],[4,2],[4,4]]));
+  check("equivalence parity reflexive",A.every(a=>parity(a,a)));
+  check("equivalence parity symmetric",A.every(a=>A.every(b=>!parity(a,b)||parity(b,a))));
+  check("equivalence parity transitive",A.every(a=>A.every(b=>A.every(c=>!(parity(a,b)&&parity(b,c))||parity(a,c)))));
+  const classes=A.map(a=>A.filter(b=>parity(a,b)).join(","));
+  eq("equivalence quotient has two classes",new Set(classes).size,2);
+  check("equivalence same class distinct representatives",classes[0]===classes[2] && 1!==3);
+  const mod3=x=>((x%3)+3)%3;
+  check("equivalence ill-defined integer output",mod3(1)===mod3(4) && 1+1!==4+1);
+  for(let a=-12;a<=12;a++)for(let b=-12;b<=12;b++)
+    check("equivalence shifted residue is well-defined "+a+","+b,
+      mod3(a)!==mod3(b)||mod3(a+1)===mod3(b+1));
+  const rel=(a,b)=>Math.abs(a-b)<=1;
+  check("equivalence tolerance fails transitivity",rel(1,2)&&rel(2,3)&&!rel(1,3));
+}
+
 // ============= Discrete Mathematics expansion: worked-example regressions =============
 // Concrete checks exercise examples; universal proofs remain in the chapters.
 {
