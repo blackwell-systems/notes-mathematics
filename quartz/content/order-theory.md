@@ -71,6 +71,10 @@ $
 
 Neither comparison holds, but the order is still well-defined. The power set is therefore a **poset, not a totally ordered set**.
 
+![The four-element power set of {a,b} under inclusion: the empty set is at the bottom, {a} and {b} are incomparable in the middle, and {a,b} is at the top.](./media/ot-hasse-powerset-ab.svg)
+
+*Figure: The power set ordered by inclusion is a poset. Its two singleton sets are incomparable, so the order is partial rather than total. We will see later why this diamond is also a lattice.*
+
 ![Two side-by-side posets compare the chain 1 less than 2 less than 3 less than 4, in which all elements compare, with the four-subset diamond of the set a,b, where the two singleton subsets are incomparable.](./media/ot-total-partial.svg)
 
 *Figure: Both diagrams satisfy the partial-order axioms. The chain is also total; the subset diamond is not because neither singleton contains the other.*
@@ -190,9 +194,7 @@ A **Hasse diagram** draws the **cover relations** of a finite poset. We say $b$ 
 
 To decide whether $a\preceq b$, find an **upward path** from $a$ to $b$ (or check $a=b$). An **undirected path** is not enough. The numbers $4$ and $6$ are incomparable, even though both share neighbors elsewhere in the graph.
 
-![The four-element inclusion diamond has empty set at the bottom, incomparable singleton sets a and b in the middle, and their union at the top, showing join and meet.](./media/ot-hasse-powerset-ab.svg)
-
-*Figure: This four-element diamond **is a lattice**. The incomparable middle sets still have a least upper bound and greatest lower bound.*
+The [power-set diamond](#worked-example-a-power-set-is-a-poset) above is also a Hasse diagram. Its middle elements are incomparable, but they still have a **least upper bound** ($\{a,b\}$) and a **greatest lower bound** ($\varnothing$). This makes the poset a **lattice**, a concept developed below.
 
 ![The eight positive divisors of 30 form a Hasse diagram with twelve cover relations, arranged by whether the prime factors 2, 3, 5 occur in a divisor.](./media/ot-hasse-div30.svg)
 
