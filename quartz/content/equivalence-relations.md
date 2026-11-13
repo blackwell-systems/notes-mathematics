@@ -244,7 +244,7 @@ Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class 
 > [!example] A proposed function that gives two answers to one input
 > Work with integer classes modulo $3$, where $[1]=[4]$. Suppose someone proposes $F([a]):=a+1$ with values in the **ordinary integers**. Choosing representative $1$ gives $F([1])=2$; choosing representative $4$ gives $F([4])=5$. But $[1]$ and $[4]$ are the **same input**, so this rule fails to define a function on classes.
 >
-> Instead, define $G([a]):=[a+1]$, now with values **also in classes modulo $3**. The two representatives give $[1+1]=[2]$ and $[4+1]=[5]=[2]$. More importantly, this works for *every* pair of representatives: if $a\equiv b\pmod 3$, then $(a+1)-(b+1)=a-b$ is divisible by $3$. The output class is independent of the chosen representative.
+> Instead, define $G([a]):=[a+1]$, now with values **also in classes modulo $3$**. The two representatives give $[1+1]=[2]$ and $[4+1]=[5]=[2]$. More importantly, this works for *every* pair of representatives: if $a\equiv b\pmod 3$, then $(a+1)-(b+1)=a-b$ is divisible by $3$. The output class is independent of the chosen representative.
 >
 > **The test is always the same:** if two expressions name the same input class, do they necessarily produce the same output?
 
