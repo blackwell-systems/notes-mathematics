@@ -1,12 +1,12 @@
 ---
 title: "Set Theory"
 prerequisites: ["mathematical-notations"]
-enables: ["functions-relations", "peano-arithmetic", "measure-theory"]
+enables: ["functions-relations", "construction-of-the-natural-numbers", "peano-arithmetic", "measure-theory"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
 > **Builds on:** [Mathematical Notations](./mathematical-notations)
-> **Leads to:** [Functions & Relations](./functions-relations) · [Peano Arithmetic](./peano-arithmetic) · [Measure Theory](./measure-theory)
+> **Leads to:** [Functions & Relations](./functions-relations) · [Construction of the Natural Numbers](./construction-of-the-natural-numbers) · [Peano Arithmetic](./peano-arithmetic) · [Measure Theory](./measure-theory)
 
 
 **Want the bigger picture?** The optional [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) shows how the same underlying set can support different structures. You do **not** need to read the atlas to follow the definitions below.

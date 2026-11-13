@@ -5,7 +5,7 @@ enables: ["construction-of-the-integers"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Set Theory](./set-theory) (sets, functions, relations, induction as a proof method)
+> **Builds on:** [Set Theory](./set-theory) (sets, functions, relations, induction as a proof method); for a concrete model, see [Construction of the Natural Numbers](./construction-of-the-natural-numbers)
 > **Leads to:** [Construction of the Integers](./construction-of-the-integers) (quotient pairs and additive inverses) · [Number Systems](./number-systems) (overview) · [Algebraic Structures](./algebraic-structures) (structure-level laws)
 
 > [!tip] The central idea
@@ -165,7 +165,7 @@ This does not say that zero has a predecessor. It says every *nonzero* natural n
 
 ## Constructing a model from sets
 
-An axiomatic description states what a structure must do; it does not automatically exhibit a structure. In standard set theory we can build a concrete example using the **von Neumann naturals**:
+An axiomatic description states what a structure must do; it does not automatically exhibit a structure. [Construction of the Natural Numbers](./construction-of-the-natural-numbers) gives a dedicated set-theoretic derivation from the axiom of infinity. Here we verify how the same **von Neumann naturals** illustrate the Peano conditions:
 
 $$
 0:=\varnothing,\qquad

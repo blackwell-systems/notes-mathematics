@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **89 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **90 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -41,9 +41,10 @@ Relations define which objects may be identified or compared. These foundational
 
 **Where do the natural numbers come from?** In the **von Neumann model**, begin with the empty set $0:=\varnothing$ and repeatedly apply the successor operation $S(n):=n\cup\{n\}$.
 
-This yields $1=\{0\}$, $2=\{0,1\}$, and $3=\{0,1,2\}$: each natural number is represented by the set of all earlier naturals. We write $\mathbb N:=\omega$ for the **least inductive set** containing zero and closed under successor; its existence relies on the set-theoretic axiom of infinity. This is **one concrete construction** of the naturals, not a claim that numbers must intrinsically be sets. [Peano Arithmetic](./peano-arithmetic#constructing-a-model-from-sets) develops the construction and proves its properties; [Number Systems](./number-systems#formal-definitions-of-the-number-sets) shows how it fits into the successive number systems.
+This yields $1=\{0\}$, $2=\{0,1\}$, and $3=\{0,1,2\}$: each natural number is represented by the set of all earlier naturals. We write $\mathbb N:=\omega$ for the **least inductive set** containing zero and closed under successor; its existence relies on the set-theoretic axiom of infinity. This is **one concrete construction** of the naturals, not a claim that numbers must intrinsically be sets. [Construction of the Natural Numbers](./construction-of-the-natural-numbers) develops the full model and proves its properties; [Peano Arithmetic](./peano-arithmetic) derives arithmetic laws from its axioms; [Number Systems](./number-systems#formal-definitions-of-the-number-sets) compares the successive systems.
 
 - [Order of Operations](./order-of-operations) (PEMDAS/BODMAS, left-to-right tie-breakers, common pitfalls)
+- [Construction of the Natural Numbers](./construction-of-the-natural-numbers) (von Neumann sets, infinity, least inductive set, Peano conditions, arithmetic by recursion)
 - [Peano Arithmetic](./peano-arithmetic) (successor, induction, recursive arithmetic, complete proofs of the elementary laws)
 - [Construction of the Integers](./construction-of-the-integers) (difference pairs, quotient equality, ring laws, order)
 - [Construction of the Rationals](./construction-of-the-rationals) (fractions, well-defined operations, field and order axioms)
