@@ -148,13 +148,7 @@ The intersection construction rules this out. Any subset of $\omega$ that includ
 
 ## Why each natural contains all the earlier ones
 
-The first examples suggest
-
-$$
-n=\{0,1,\ldots,n-1\}.
-$$
-
-This is a **description**, not the definition used to construct $\omega$. The ellipsis is a convenient shorthand once finite successor chains have been justified.
+The examples suggest that **each natural number is exactly the set of natural numbers preceding it**. For instance, $3=\{0,1,2\}$. This is a **description to be proved**, not the definition used to construct $\omega$. It also does not require subtraction: we can describe the predecessors using the successor chain itself.
 
 A set $x$ is called **transitive** when every element $y\in x$ is also a subset of $x$. We can prove by induction that every von Neumann natural is transitive.
 
@@ -162,15 +156,15 @@ A set $x$ is called **transitive** when every element $y\in x$ is also a subset 
 
 **Step.** Suppose $n$ is transitive. An element $y$ of $S(n)=n\cup\{n\}$ is either $n$ itself, in which case $y\subseteq S(n)$, or belongs to $n$, in which case $y\subseteq n\subseteq S(n)$. Thus $S(n)$ is transitive.
 
-The ordinal comparison laws then identify the usual order with membership for these particular sets:
+Define the natural-number order **within this model** by membership:
 
-$$
-\boxed{m<n\ \Longleftrightarrow\ m\in n,
+$
+\boxed{m<n\ :\Longleftrightarrow\ m\in n,
 \qquad
-m\le n\ \Longleftrightarrow\ m\subseteq n.}
-$$
+m\le n\ :\Longleftrightarrow\ m\subseteq n.}
+$
 
-Here the order symbols $<$ and $\le$ express the **natural-number order**, not a numerical ordering on arbitrary sets. Establishing that these relations form the familiar total order uses the fact that the members of $\omega$ are finite ordinals; see the order proofs in [Peano Arithmetic](./peano-arithmetic) for the arithmetic presentation.
+The notation $:\Longleftrightarrow$ means "is defined to hold exactly when." For the finite ordinals in $\omega$, these relations agree with the familiar total order. One proves comparability by induction along the successor chain: for any $m,n\in\omega$, exactly one of $m\in n$, $m=n$, or $n\in m$ holds. Transitivity then shows that $m\subseteq n$ precisely when $m=n$ or $m\in n$. These claims are **specific to von Neumann naturals**, not arbitrary sets; [Peano Arithmetic](./peano-arithmetic) develops the ordering from the arithmetic viewpoint.
 
 **Worked example.** Since $2=\{0,1\}$ and $3=\{0,1,2\}$, we have $2\in3$ and $2\subseteq3$. Both agree with $2<3$, but **membership and subset inclusion are not interchangeable for arbitrary sets**.
 
