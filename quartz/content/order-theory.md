@@ -36,9 +36,18 @@ A preorder need not be antisymmetric. Two different objects may each precede the
 > $$
 > A set equipped with its specified partial order, $(P,\preceq)$, is a **partially ordered set** or **poset** (read "POH-set").
 
-The word *partial* does **not** mean the relation is undefined for some pairs. It means some objects can be **incomparable**: neither $a\preceq b$ nor $b\preceq a$ holds.
-
-**Check it on sets:** in $\mathcal P(\{\text{read},\text{write}\})$ ordered by inclusion, $\{\text{read}\}\subseteq\{\text{read},\text{write}\}$, but neither $\{\text{read}\}\subseteq\{\text{write}\}$ nor the reverse holds. The relation is defined for both singletons; they simply fail to compare. By contrast, antisymmetry says that if $A\subseteq B$ and $B\subseteq A$, then $A=B$.
+> [!tip] Important: “partial” does not mean “partially defined”
+> **The relation is defined for every pair.** The word *partial* means only that **not every pair must be comparable**: sometimes neither element is below the other.
+>
+> $
+> a\npreceq b\qquad\text{and}\qquad b\npreceq a.
+> $
+>
+> This is called **incomparability**, not an undefined comparison.
+>
+> **Concrete example:** Under subset inclusion, take $A:=\{\text{read}\}$ and $B:=\{\text{write}\}$. Neither contains the other, so $A$ and $B$ are incomparable. In contrast, $\{\text{read}\}\subseteq\{\text{read},\text{write}\}$ *is* a comparison that holds.
+>
+> **Do not confuse this with antisymmetry:** if $A\subseteq B$ **and** $B\subseteq A$, then $A=B$. Antisymmetry concerns comparisons that hold in both directions; incomparability concerns pairs for which neither direction holds.
 
 | Relation | Reflexive | Antisymmetric | Transitive | Every pair comparable |
 | --- | --- | --- | --- | --- |
