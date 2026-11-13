@@ -41,7 +41,7 @@
     <rect x="40" y="550" width="720" height="206" rx="14" fill="#19283A" stroke="#45576F" stroke-width="2"/>
     <rect x="40" y="550" width="6" height="206" rx="3" fill="#BCA8EC"/>
     <text x="64" y="590" fill="#BCA8EC" font-size="25" font-weight="750">Full induction</text>
-    <text x="64" y="622" fill="#C4CEDA" font-size="19" font-weight="500">Without it, extra numbers can be unreachable.</text>
+    <text x="64" y="622" fill="#C4CEDA" font-size="19" font-weight="500">An extra chain can remain unreachable.</text>
     <text x="64" y="690" fill="#F4F3ED" font-size="21" font-weight="600">Two separate chains</text>
     <text x="64" y="721" fill="#C4CEDA" font-size="17">The lower chain never joins the upper.</text>
 
