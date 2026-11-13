@@ -5,7 +5,7 @@ enables: ["construction-of-the-rationals"]
 ---
 
 > [!abstract] Prerequisites & where this leads
-> **Builds on:** [Peano Arithmetic](./peano-arithmetic), including natural-number addition, multiplication, cancellation, order, and induction
+> **Builds on:** [Construction of the Natural Numbers](./construction-of-the-natural-numbers) (the underlying natural-number set) and [Peano Arithmetic](./peano-arithmetic) (addition, multiplication, cancellation, order, and induction)
 > **Leads to:** [Construction of the Rationals](./construction-of-the-rationals) · [Number Systems](./number-systems) · [Algebraic Structures](./algebraic-structures)
 
 The natural numbers can express $5+3$ but not $3-5$. We want to extend arithmetic so that **every** equation $b+x=a$ has a solution, while preserving the arithmetic we already proved. We cannot declare $a-b$ to be an integer and then use subtraction to construct it: subtraction is exactly the missing operation. Instead, we build integers using **pairs of natural numbers**, plus an equivalence relation that uses only known natural-number addition.
