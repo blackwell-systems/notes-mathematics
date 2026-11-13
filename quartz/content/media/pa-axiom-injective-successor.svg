@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 393" width="800" height="393" role="img" aria-labelledby="title desc">
+<title id="title">4  ·  Successor is injective</title>
+<desc id="desc">Two distinct inputs a and b must have two distinct successors. At right a crossed-out diagram shows the forbidden alternative of two inputs mapping to the same output.</desc>
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L0 7 L7 3.5 Z" fill="#87B8EE"/></marker></defs>
+<rect width="800" height="393" fill="#101A2C"/>
+<text x="40" y="52" text-anchor="start" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="750">4  ·  Successor is injective</text>
+<text x="40" y="87" text-anchor="start" fill="#C4CEDA" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="500">Different inputs cannot merge into the same output.</text>
+<path d="M40 108 H760" stroke="#45576F" stroke-width="2"/>
+
+<rect x="48" y="133" width="704" height="213" rx="14" fill="#19283A" stroke="#45576F" stroke-width="2"/>
+<text x="252" y="163" text-anchor="middle" fill="#66C4B4" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">ALLOWED</text>
+<text x="609" y="163" text-anchor="middle" fill="#EDB86D" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">NOT ALLOWED</text>
+<path d="M454 154 V323" stroke="#45576F" stroke-width="2"/>
+<circle cx="122" cy="218" r="29" fill="#223349" stroke="#66C4B4" stroke-width="3"/><text x="122" y="228" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">a</text>
+<circle cx="122" cy="288" r="29" fill="#223349" stroke="#66C4B4" stroke-width="3"/><text x="122" y="298" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">b</text>
+<line x1="157" y1="218" x2="235" y2="218" stroke="#87B8EE" stroke-width="3.3" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="157" y1="288" x2="235" y2="288" stroke="#87B8EE" stroke-width="3.3" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="246" y="195" width="135" height="48" rx="13" fill="#223349" stroke="#66C4B4" stroke-width="2"/><text x="313.5" y="228" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600">S(a)</text>
+<rect x="246" y="265" width="135" height="48" rx="13" fill="#223349" stroke="#66C4B4" stroke-width="2"/><text x="313.5" y="298" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600">S(b)</text>
+<circle cx="519" cy="216" r="25" fill="#223349" stroke="#EDB86D" stroke-width="3"/><text x="519" y="226" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">a</text>
+<circle cx="519" cy="290" r="25" fill="#223349" stroke="#EDB86D" stroke-width="3"/><text x="519" y="300" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">b</text>
+<path d="M548 216 L627 252 M548 290 L627 254" fill="none" stroke="#87B8EE" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="634" y="230" width="102" height="48" rx="13" fill="#223349" stroke="#EDB86D" stroke-width="2"/><text x="685" y="263" text-anchor="middle" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600">same</text>
+<path d="M677 174 L709 206 M709 174 L677 206" stroke="#EDB86D" stroke-width="5" stroke-linecap="round"/>
+<text x="252" y="328" text-anchor="middle" fill="#C4CEDA" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="600">a ≠ b ⇒ S(a) ≠ S(b)</text>
+
+<text x="40" y="376" text-anchor="start" fill="#C4CEDA" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="750">CONSTRUCTION  /  PROOF  /  EXAMPLE</text>
+</svg>
