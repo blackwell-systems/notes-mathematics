@@ -87,9 +87,11 @@ $$
 
 Read: "the class of a is the set of all x in A such that x is equivalent to a." The square brackets denote an entire **set**, not simply the object $a$. We sometimes write $[a]_\sim$ when multiple relations are in use.
 
-![A three-position modulo-three clock shows repeated addition by one moving through zero, one, and two before returning to zero. The integers one, four, and seven all land on the same position.](./media/er-modulo-three-cycle.svg)
+![A modulo-three dial with positions zero, one, and two. Each position is linked to an infinite family of integers, including negative integers, and the families are listed alongside the dial.](./media/er-modulo-three-cycle.svg)
 
-*Figure: Modulo-three arithmetic wraps around a three-position dial. Integers differing by a multiple of three land at the same position.*
+*Figure: The three dial positions represent three infinite equivalence classes, not just the labels 0, 1, and 2.*
+
+**What the dial is really showing:** modulo three does not merely mean that counting cycles through $0\to1\to2\to0$. **Every integer** lands on one of the three positions, and infinitely many integers share each position. Two integers land together precisely when their difference is divisible by $3$; that is what it means for them to be **congruent modulo three**. For example, $-2\equiv1\equiv4\equiv7\pmod 3$, even though these integers are not equal.
 
 ![The integers zero through eight are separated into three nonoverlapping colored sets according to remainder modulo three, showing the repeating classes zero-three-six, one-four-seven, and two-five-eight.](./media/er-equivalence-classes-mod3.svg)
 
