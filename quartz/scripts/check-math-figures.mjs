@@ -44,6 +44,7 @@ const expected = {
     "ft-field-extension-tower.svg","ft-adjoin-polynomial-root.svg","ft-prime-power-sizes.svg",
     "ft-f4-cyclic-units.svg","ft-f4-multiplication.svg"
   ],
+  "construction-of-the-natural-numbers.md": ["vn-natural-set-ladder.svg"],
   "peano-arithmetic.md": [
     "pa-successor-chain.svg","pa-induction-engine.svg","pa-recursive-addition.svg",
     "pa-axiom-zero.svg","pa-axiom-total-successor.svg","pa-axiom-no-predecessor-zero.svg",
@@ -128,7 +129,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==139)errors.push("Expected 139 illustrative SVGs, got "+total);
+if(total!==140)errors.push("Expected 140 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
