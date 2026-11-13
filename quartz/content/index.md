@@ -39,11 +39,7 @@ Relations define which objects may be identified or compared. These foundational
 
 ## Number Systems & Foundations
 
-**Where do the natural numbers come from?** In the **von Neumann model**, begin with the empty set and repeatedly apply the successor operation:
-
-$
-0:=\varnothing,\qquad S(n):=n\cup\{n\}.
-$
+**Where do the natural numbers come from?** In the **von Neumann model**, begin with the empty set $0:=\varnothing$ and repeatedly apply the successor operation $S(n):=n\cup\{n\}$.
 
 This yields $1=\{0\}$, $2=\{0,1\}$, and $3=\{0,1,2\}$: each natural number is represented by the set of all earlier naturals. We write $\mathbb N:=\omega$ for the **least inductive set** containing zero and closed under successor; its existence relies on the set-theoretic axiom of infinity. This is **one concrete construction** of the naturals, not a claim that numbers must intrinsically be sets. [Peano Arithmetic](./peano-arithmetic#constructing-a-model-from-sets) develops the construction and proves its properties; [Number Systems](./number-systems#formal-definitions-of-the-number-sets) shows how it fits into the successive number systems.
 
