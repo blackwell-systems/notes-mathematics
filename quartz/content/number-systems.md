@@ -5,13 +5,13 @@ enables: ["algebraic-structures", "complex-numbers"]
 ---
 
 > [!abstract] Prerequisites & where this leads <!-- slt-nav -->
-> **Builds on:** [Construction of the Complex Numbers](./construction-of-the-complex-numbers), completing the chain from [Peano Arithmetic](./peano-arithmetic) through integers, rationals, and reals
+> **Builds on:** [Construction of the Complex Numbers](./construction-of-the-complex-numbers), completing the chain from [Construction of the Natural Numbers](./construction-of-the-natural-numbers) and [Peano Arithmetic](./peano-arithmetic) through integers, rationals, and reals
 > **Leads to:** [Algebraic Structures](./algebraic-structures) · [complex-numbers](./complex-numbers)
 
 
 The numbers we use every day did not arrive all at once. They were built up, one layer at a time, each new layer added to repair a specific limitation of the one before it. You can count with the natural numbers, but you cannot always subtract. You can subtract with the integers, but you cannot always divide. You can divide with the rationals, but you cannot always take a limit. Following this chain of "but you cannot..." is the cleanest way to understand what each number system is *for*.
 
-This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them. The [Formal Definitions of the Number Sets](#formal-definitions-of-the-number-sets) below collects the precise notation in one place. It is the **overview**, not the full proof sequence. For derivations of each construction and its laws, follow [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
+This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them. The [Formal Definitions of the Number Sets](#formal-definitions-of-the-number-sets) below collects the precise notation in one place. It is the **overview**, not the full proof sequence. For derivations of each construction and its laws, follow [Natural Numbers](./construction-of-the-natural-numbers) → [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
 
 ## Formal Definitions of the Number Sets
 
@@ -26,7 +26,7 @@ $$
 \mathbb N:=\omega=\{0,S(0),S(S(0)),\ldots\}.
 $$
 
-Formally, $\omega$ is the **least inductive set**: it contains $\varnothing$, is closed under successor $S$, and is contained in every other inductive set. The set-theoretic axiom of infinity ensures an inductive set exists. Addition and multiplication are then defined by recursion. See [Peano Arithmetic](./peano-arithmetic#constructing-a-model-from-sets).
+Formally, $\omega$ is the **least inductive set**: it contains $\varnothing$, is closed under successor $S$, and is contained in every other inductive set. The set-theoretic axiom of infinity ensures an inductive set exists. Addition and multiplication are then defined by recursion. See [Construction of the Natural Numbers](./construction-of-the-natural-numbers) for the full construction and [Peano Arithmetic](./peano-arithmetic) for the resulting axioms and arithmetic proofs.
 
 **Integers, $\mathbb Z$ ("Z").** Start with pairs $(a,b)$ of naturals, meant to represent the *difference* $a-b$ without assuming subtraction already works. Declare two pairs equivalent exactly when $a+d=b+c$:
 
