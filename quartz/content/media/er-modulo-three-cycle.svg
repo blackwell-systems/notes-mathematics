@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 590" width="1200" height="590" role="img" aria-labelledby="title desc">
-  <title id="title">Circular arithmetic modulo three</title>
-  <desc id="desc">A three-position dial has zero at the top, one at the lower right, and two at the lower left. Three clockwise arrows labeled plus one show the cycle zero to one to two to zero. A companion explanation shows that one, four, and seven all land on position one because each leaves remainder one when divided by three.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 740" width="1200" height="740" role="img" aria-labelledby="title desc">
+  <title id="title">The three infinite equivalence classes modulo three</title>
+  <desc id="desc">A dial cycles clockwise through positions zero, one, and two. Each position has an attached label containing several integers, including negatives, that land there. A companion panel lists the three infinite families: multiples of three, integers leaving remainder one, and integers leaving remainder two. Integers on the same position differ by a multiple of three.</desc>
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto" markerUnits="strokeWidth">
       <path d="M 1 1 L 8 5 L 1 9 Z" fill="#B9CFDE"/>
@@ -14,41 +14,66 @@
     .node-number { font-size: 40px; font-weight: 760; fill: #F4F3ED; }
     .step { font-size: 21px; font-weight: 740; fill: #C4CEDA; }
     .cycle { font-size: 32px; font-weight: 740; fill: #F4F3ED; }
-    .body { font-size: 22px; font-weight: 500; fill: #C4CEDA; }
-    .formula { font-size: 31px; font-weight: 740; fill: #C9A6EF; }
+    .body { font-size: 21px; font-weight: 500; fill: #C4CEDA; }
+    .family-card { font-size: 19px; font-weight: 710; fill: #F4F3ED; }
+    .family-row { font-size: 23px; font-weight: 650; fill: #F4F3ED; }
+    .class-number { font-size: 25px; font-weight: 760; fill: #F4F3ED; }
     .footer { font-size: 19px; font-weight: 500; fill: #C4CEDA; }
   </style>
-  <rect width="1200" height="590" fill="#101A2C"/>
-  <text x="40" y="59" class="headline">Modulo 3: counting around a circle</text>
-  <text x="40" y="98" class="subtitle">Three positions, repeating forever as we add one.</text>
+  <rect width="1200" height="740" fill="#101A2C"/>
+  <text x="40" y="59" class="headline">Modulo 3: one dial, three infinite classes</text>
+  <text x="40" y="98" class="subtitle">Each position stands for every integer that lands there.</text>
   <line x1="40" x2="1160" y1="118" y2="118" stroke="#45576F" stroke-width="2"/>
 
-  <!-- Traverse the three residues clockwise: 0 -> 1 -> 2 -> 0. -->
-  <path d="M 348 151 C 446 170, 490 280, 461 358" fill="none" stroke="#B9CFDE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
-  <path d="M 405 427 C 350 497, 270 497, 215 427" fill="none" stroke="#B9CFDE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
-  <path d="M 159 357 C 130 280, 174 170, 272 151" fill="none" stroke="#B9CFDE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
+  <!-- Repeated addition by one cycles through the three residue positions. -->
+  <path d="M 348 153 C 446 172, 490 290, 461 363" fill="none" stroke="#B9CFDE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
+  <path d="M 404 436 C 350 510, 270 510, 216 436" fill="none" stroke="#B9CFDE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
+  <path d="M 159 363 C 130 290, 174 172, 272 153" fill="none" stroke="#B9CFDE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowhead)"/>
+  <text x="478" y="270" class="step">+1</text>
+  <text x="310" y="537" text-anchor="middle" class="step">+1</text>
+  <text x="112" y="270" class="step">+1</text>
 
-  <text x="478" y="260" class="step">+1</text>
-  <text x="310" y="517" text-anchor="middle" class="step">+1</text>
-  <text x="114" y="260" class="step">+1</text>
+  <!-- The three colored circles are residues; attached cards show members of their classes. -->
+  <circle cx="310" cy="184" r="39" fill="#243850" stroke="#80DFD2" stroke-width="4"/>
+  <text x="310" y="198" text-anchor="middle" class="node-number">0</text>
+  <path d="M 310 223 V 234" stroke="#80DFD2" stroke-width="2"/>
+  <rect x="190" y="235" width="240" height="46" rx="9" fill="#1C2949" stroke="#80DFD2" stroke-width="2"/>
+  <text x="310" y="264" text-anchor="middle" class="family-card">…, −3, 0, 3, 6, …</text>
 
-  <circle cx="310" cy="181" r="39" fill="#243850" stroke="#80DFD2" stroke-width="4"/>
-  <text x="310" y="195" text-anchor="middle" class="node-number">0</text>
-  <circle cx="435" cy="397" r="39" fill="#243850" stroke="#C9A6EF" stroke-width="4"/>
-  <text x="435" y="411" text-anchor="middle" class="node-number">1</text>
-  <circle cx="185" cy="397" r="39" fill="#243850" stroke="#F4C474" stroke-width="4"/>
-  <text x="185" y="411" text-anchor="middle" class="node-number">2</text>
+  <circle cx="435" cy="407" r="39" fill="#243850" stroke="#C9A6EF" stroke-width="4"/>
+  <text x="435" y="421" text-anchor="middle" class="node-number">1</text>
+  <path d="M 435 446 V 574" stroke="#C9A6EF" stroke-width="2" stroke-dasharray="5 6"/>
+  <rect x="320" y="575" width="267" height="49" rx="9" fill="#1C2949" stroke="#C9A6EF" stroke-width="2"/>
+  <text x="453.5" y="606" text-anchor="middle" class="family-card">…, −2, 1, 4, 7, …</text>
 
-  <line x1="610" x2="610" y1="153" y2="516" stroke="#45576F" stroke-width="2"/>
-  <text x="652" y="191" class="section">REPEAT THE SAME STEP</text>
-  <text x="652" y="250" class="cycle">0 &#8594; 1 &#8594; 2 &#8594; 0</text>
-  <text x="652" y="294" class="body">After three steps, we return to zero.</text>
-  <text x="652" y="328" class="body">Adding another three changes no position.</text>
-  <line x1="652" x2="1156" y1="357" y2="357" stroke="#45576F" stroke-width="2"/>
-  <text x="652" y="396" class="section">SAME POSITION, DIFFERENT INTEGERS</text>
-  <text x="652" y="445" class="formula">1 &#8801; 4 &#8801; 7 (mod 3)</text>
-  <text x="652" y="483" class="body">Each leaves remainder 1.</text>
+  <circle cx="185" cy="407" r="39" fill="#243850" stroke="#F4C474" stroke-width="4"/>
+  <text x="185" y="421" text-anchor="middle" class="node-number">2</text>
+  <path d="M 185 446 V 574" stroke="#F4C474" stroke-width="2" stroke-dasharray="5 6"/>
+  <rect x="33" y="575" width="267" height="49" rx="9" fill="#1C2949" stroke="#F4C474" stroke-width="2"/>
+  <text x="166.5" y="606" text-anchor="middle" class="family-card">…, −1, 2, 5, 8, …</text>
 
-  <line x1="40" x2="1160" y1="541" y2="541" stroke="#45576F" stroke-width="2"/>
-  <text x="40" y="569" class="footer">The dial repeats; equivalence classes collect every integer landing at the same position.</text>
+  <line x1="610" x2="610" y1="153" y2="652" stroke="#45576F" stroke-width="2"/>
+  <text x="652" y="187" class="section">ONE STEP, THREE POSITIONS</text>
+  <text x="652" y="247" class="cycle">0 → 1 → 2 → 0</text>
+  <text x="652" y="285" class="body">Adding 3 returns to the same position.</text>
+  <line x1="652" x2="1156" y1="316" y2="316" stroke="#45576F" stroke-width="2"/>
+
+  <text x="652" y="358" class="section">SAME POSITION, MANY INTEGERS</text>
+  <circle cx="679" cy="404" r="23" fill="#243850" stroke="#80DFD2" stroke-width="3"/>
+  <text x="679" y="413" text-anchor="middle" class="class-number">0</text>
+  <text x="720" y="412" class="family-row">…, −6, −3, 0, 3, 6, 9, …</text>
+
+  <circle cx="679" cy="469" r="23" fill="#243850" stroke="#C9A6EF" stroke-width="3"/>
+  <text x="679" y="478" text-anchor="middle" class="class-number">1</text>
+  <text x="720" y="477" class="family-row">…, −5, −2, 1, 4, 7, 10, …</text>
+
+  <circle cx="679" cy="534" r="23" fill="#243850" stroke="#F4C474" stroke-width="3"/>
+  <text x="679" y="543" text-anchor="middle" class="class-number">2</text>
+  <text x="720" y="542" class="family-row">…, −4, −1, 2, 5, 8, 11, …</text>
+  <line x1="652" x2="1156" y1="576" y2="576" stroke="#45576F" stroke-width="2"/>
+  <text x="652" y="611" class="body">Each row is an infinite equivalence class.</text>
+  <text x="652" y="644" class="body">Its members differ by multiples of 3.</text>
+
+  <line x1="40" x2="1160" y1="682" y2="682" stroke="#45576F" stroke-width="2"/>
+  <text x="40" y="718" class="footer">The dial does more than repeat 0, 1, 2: each position represents infinitely many equivalent integers.</text>
 </svg>
