@@ -69,6 +69,42 @@ Here is a common second-order presentation. The first two lines specify the kind
 
 The symbol $\Rightarrow$ is read "implies." The symbol $\subseteq$ is read "is a subset of." **Injective** means that different inputs cannot have the same output. **Full induction** quantifies over *every* subset of $N$; the difference between this and first-order induction will matter near the end.
 
+### Visual intuition for each axiom
+
+The five conditions constrain different things. Read each picture as a **finite window into a general rule**, not a proof from the first few numbers.
+
+#### 1. Distinguished zero
+
+![A set N contains its designated element zero alongside other elements, with zero highlighted as the chosen starting element.](./media/pa-axiom-zero.svg)
+
+*Figure: The first condition designates an element $0$ of $N$; it does not, by itself, explain how successors behave.*
+
+#### 2. Total successor
+
+![A finite window of the natural-number successor chain shows each displayed input having one specified successor within the domain N.](./media/pa-axiom-total-successor.svg)
+
+*Figure: The notation $S:N\to N$ requires one output in $N$ for every input in $N$. The displayed chain illustrates, but does not establish, the universal statement.*
+
+#### 3. Zero is not a successor
+
+![A successor chain begins at highlighted zero, with arrows traveling away from it and no successor arrow ending at zero.](./media/pa-axiom-no-predecessor-zero.svg)
+
+*Figure: No $n\in N$ has $S(n)=0$. This prohibits a cycle that returns to zero.*
+
+#### 4. Successor is injective
+
+![Distinct elements a and b have distinct successor outputs, contrasted with a crossed-out diagram where the two outputs merge into one.](./media/pa-axiom-injective-successor.svg)
+
+*Figure: Two different inputs cannot have the same successor. Equivalently, $a\ne b$ implies $S(a)\ne S(b)$.*
+
+#### 5. Full induction
+
+![A subset P includes zero and every next successor, illustrating that a subset closed under successor must cover the whole natural-number domain.](./media/pa-axiom-full-induction.svg)
+
+*Figure: If $P$ contains zero and is closed under successor, full induction says $P=N$. The finite picture cannot substitute for the quantification over all subsets.*
+
+These are separate requirements. In particular, **the first four do not exclude disconnected successor chains**; the countermodels below explain why full induction is essential.
+
 ### What goes wrong if we remove a condition?
 
 A useful way to understand an axiom is to **build a structure that obeys all the other conditions but violates that one**. These are *countermodels*: they show that the rule does real work.

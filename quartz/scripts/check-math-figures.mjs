@@ -45,7 +45,9 @@ const expected = {
     "ft-f4-cyclic-units.svg","ft-f4-multiplication.svg"
   ],
   "peano-arithmetic.md": [
-    "pa-successor-chain.svg","pa-induction-engine.svg","pa-recursive-addition.svg"
+    "pa-successor-chain.svg","pa-induction-engine.svg","pa-recursive-addition.svg",
+    "pa-axiom-zero.svg","pa-axiom-total-successor.svg","pa-axiom-no-predecessor-zero.svg",
+    "pa-axiom-injective-successor.svg","pa-axiom-full-induction.svg"
   ],
   "construction-of-the-integers.md": [
     "zi-equivalent-differences.svg","zi-signed-integer-pairs.svg","zi-euclidean-remainders.svg"
@@ -126,7 +128,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==134)errors.push("Expected 134 illustrative SVGs, got "+total);
+if(total!==139)errors.push("Expected 139 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
