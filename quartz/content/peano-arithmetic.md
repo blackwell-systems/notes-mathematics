@@ -77,9 +77,9 @@ A useful way to understand an axiom is to **build a structure that obeys all the
 
 *Figure: Each example violates the indicated condition while preserving the others. The right-hand panel shows a window into two infinite chains, not a finite model.*
 
-**If zero may be a successor:** let \(N:=\{0,1\}\), with \(S(0)=1\) and \(S(1)=0\). Successor is a total **injective** function, and every successor-closed subset containing zero is the whole set, so full induction holds. But counting loops back to zero. This is why we prohibit \(S(n)=0\).
+**If zero may be a successor:** let $N:=\{0,1\}$, with $S(0)=1$ and $S(1)=0$. Successor is a total **injective** function, and every successor-closed subset containing zero is the whole set, so full induction holds. But counting loops back to zero. This is why we prohibit $S(n)=0$.
 
-**If successor need not be injective:** take the same set but define \(S(0)=1\) and \(S(1)=1\). Zero is not a successor, and full induction still holds: starting at zero immediately forces the set to contain one. Yet distinct inputs \(0\) and \(1\) have the **same successor**. This is why we require \(S(a)=S(b)\Rightarrow a=b\).
+**If successor need not be injective:** take the same set but define $S(0)=1$ and $S(1)=1$. Zero is not a successor, and full induction still holds: starting at zero immediately forces the set to contain one. Yet distinct inputs $0$ and $1$ have the **same successor**. This is why we require $S(a)=S(b)\Rightarrow a=b$.
 
 ### Do the first four conditions guarantee counting?
 
@@ -143,11 +143,11 @@ There is no addition anywhere in this procedure. The operation used is set union
 
 The usual set-theoretic construction must establish that zero is not a successor, that successor is injective, and that induction holds. A finite list of displayed examples would not prove any of these for *all* naturals.
 
-**Zero is not a successor.** Every von Neumann natural satisfies \(n\in S(n)\), whereas \(0=\varnothing\) has no elements. Therefore \(S(n)\neq0\).
+**Zero is not a successor.** Every von Neumann natural satisfies $n\in S(n)$, whereas $0=\varnothing$ has no elements. Therefore $S(n)\neq0$.
 
-**Successor is injective.** Suppose \(S(m)=S(n)\). Because \(m\in S(m)\) and \(n\in S(n)\), their equality yields \(m\in S(n)=n\cup\{n\}\) and \(n\in S(m)=m\cup\{m\}\). Thus either \(m=n\), or both \(m\in n\) and \(n\in m\). The latter is impossible for sets satisfying Foundation (and in particular for von Neumann finite ordinals). Hence \(m=n\), proving injectivity without assuming it.
+**Successor is injective.** Suppose $S(m)=S(n)$. Because $m\in S(m)$ and $n\in S(n)$, their equality yields $m\in S(n)=n\cup\{n\}$ and $n\in S(m)=m\cup\{m\}$. Thus either $m=n$, or both $m\in n$ and $n\in m$. The latter is impossible for sets satisfying Foundation (and in particular for von Neumann finite ordinals). Hence $m=n$, proving injectivity without assuming it.
 
-**Full induction.** If \(P\subseteq\omega\) contains zero and is closed under \(S\), then \(P\) is an inductive subset of the set constructed above. The minimality of \(\omega\) among inductive sets gives \(\omega\subseteq P\); together with \(P\subseteq\omega\), this proves \(P=\omega\).
+**Full induction.** If $P\subseteq\omega$ contains zero and is closed under $S$, then $P$ is an inductive subset of the set constructed above. The minimality of $\omega$ among inductive sets gives $\omega\subseteq P$; together with $P\subseteq\omega$, this proves $P=\omega$.
 
 **Two levels of assumptions.** The Peano conditions can themselves be adopted as axioms for a number structure. Alternatively, inside set theory we construct a model and *prove* those conditions there. The axiom of infinity is not secretly derived from writing down $0,S(0),S(S(0)),\ldots$.
 
@@ -711,7 +711,7 @@ There is an important qualification to the phrase "the Peano axioms uniquely des
 
 Our induction condition quantified over **every subset** $P\subseteq N$. Under **full second-order semantics**, that quantifier really ranges over all subsets of the domain. With the other Peano conditions, any two such structures are **isomorphic**: there is a bijection carrying zero to zero and preserving successor. An *isomorphism* is a one-to-one, onto correspondence that preserves the named operations.
 
-**Proof using the construction already established.** Let \((M,0_M,S_M)\) be any structure satisfying the full second-order Peano conditions. We have already constructed the standard von Neumann naturals \(\omega\) and proved the recursion theorem **on \(\omega\)**. Apply it with target \(M\) to obtain the unique function \(f:\omega\to M\) satisfying
+**Proof using the construction already established.** Let $(M,0_M,S_M)$ be any structure satisfying the full second-order Peano conditions. We have already constructed the standard von Neumann naturals $\omega$ and proved the recursion theorem **on $\omega$**. Apply it with target $M$ to obtain the unique function $f:\omega\to M$ satisfying
 
 $$
 f(0)=0_M,\qquad f(S(n))=S_M(f(n)).
@@ -719,11 +719,11 @@ $$
 
 This map preserves zero and successor by definition. We prove that it is a **bijection**.
 
-**Injectivity:** induct on \(m\) with the claim that, for every \(n\), \(f(m)=f(n)\Rightarrow m=n\). If \(m=0\), then \(n\) cannot be a successor, since \(f(n)\) would be a successor in \(M\), and \(0_M\) is not; hence \(n=0\). For the induction step, if \(f(S(m))=f(n)\), then \(n\neq0\), so \(n=S(k)\) for some \(k\). Injectivity of \(S_M\) gives \(f(m)=f(k)\); the induction hypothesis gives \(m=k\), hence \(S(m)=n\).
+**Injectivity:** induct on $m$ with the claim that, for every $n$, $f(m)=f(n)\Rightarrow m=n$. If $m=0$, then $n$ cannot be a successor, since $f(n)$ would be a successor in $M$, and $0_M$ is not; hence $n=0$. For the induction step, if $f(S(m))=f(n)$, then $n\neq0$, so $n=S(k)$ for some $k$. Injectivity of $S_M$ gives $f(m)=f(k)$; the induction hypothesis gives $m=k$, hence $S(m)=n$.
 
-**Surjectivity:** the image \(f[\omega]\) contains \(0_M\) and is closed under \(S_M\). Full induction *in \(M\)* therefore forces \(f[\omega]=M\).
+**Surjectivity:** the image $f[\omega]$ contains $0_M$ and is closed under $S_M$. Full induction *in $M$* therefore forces $f[\omega]=M$.
 
-Thus \(f\) is an isomorphism from the standard successor structure \(\omega\) to \(M\). Since **every** full second-order Peano structure is isomorphic to \(\omega\), any two are isomorphic to each other. This is **categoricity**. Importantly, the recursive construction was carried out on the already established standard naturals; we did not assume a recursion theorem for arbitrary models.
+Thus $f$ is an isomorphism from the standard successor structure $\omega$ to $M$. Since **every** full second-order Peano structure is isomorphic to $\omega$, any two are isomorphic to each other. This is **categoricity**. Importantly, the recursive construction was carried out on the already established standard naturals; we did not assume a recursion theorem for arbitrary models.
 
 Categoricity does **not** mean that the objects must literally be von Neumann sets: any isomorphic representation has the same natural-number structure.
 
