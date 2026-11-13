@@ -8,11 +8,24 @@ enables: ["construction-of-the-integers"]
 > **Builds on:** [Set Theory](./set-theory) (sets, functions, relations, induction as a proof method)
 > **Leads to:** [Construction of the Integers](./construction-of-the-integers) (quotient pairs and additive inverses) · [Number Systems](./number-systems) (overview) · [Algebraic Structures](./algebraic-structures) (structure-level laws)
 
+> [!tip] The central idea
+> **Arithmetic is something we can construct, not something we must assume.** Begin with zero, a successor operation, and conditions describing how successors behave. Define addition and multiplication from that foundation, then *prove* the familiar rules instead of building them into the starting assumptions.
+>
+> The point is not to make $2+2$ difficult. It is to discover how much mathematical structure follows from how little we assume.
+
 We use addition every day without wondering why it is associative, why zero is an identity, or why a number cannot have two different immediate successors. These familiar facts are not all assumptions. Many are **theorems**, and the distinction matters when an algebra course asks which properties you are entitled to use.
 
 This chapter builds natural-number arithmetic without taking addition or multiplication for granted. We will separate three jobs: **axiomatization** (specify what a natural-number structure must satisfy), **construction** (exhibit an actual structure that satisfies the specification), and **deduction** (prove arithmetic laws from the specification and definitions). The resulting proofs are also the foundations for the group and field laws encountered later.
 
 We take ordinary [logic](./predicate-logic-first-order-logic), [sets](./set-theory), and elementary facts about functions as background. In particular, an axiom is a stated starting condition, a definition introduces notation or an object, and a theorem requires a proof. Do not confuse these roles.
+
+> [!tip] Two ways to read this chapter
+> **For the central story:** follow zero and successor, the axiom counterexamples, the recursive definitions of addition and multiplication, and [What structure have we obtained?](#what-structure-have-we-obtained). Read the worked calculations and key theorems along the way.
+>
+> **For the complete foundations:** work through each induction proof, the [recursion theorem](#the-recursion-theorem-why-operations-can-be-defined), the set-theoretic model, and the closing distinction between first- and second-order arithmetic. The full derivations remain here; you need not master every one on your first pass.
+
+> [!distinction] Which "Peano arithmetic" are we studying?
+> Our starting point is a **second-order Peano-style successor structure** $(N,0,S)$, with induction over all subsets. We then **construct** $+$ and $\cdot$ using recursion. Conventional **first-order Peano arithmetic (PA)** instead uses a language with $0,S,+,\cdot$ and arithmetic axioms, with induction expressed as an axiom *schema*. These are related presentations, not identical formal theories. We compare their model-theoretic consequences [near the end](#first-order-arithmetic-versus-full-second-order-induction).
 
 ## The primitive language: zero and successor
 
@@ -56,9 +69,21 @@ Here is a common second-order presentation. The first two lines specify the kind
 
 The symbol $\Rightarrow$ is read "implies." The symbol $\subseteq$ is read "is a subset of." **Injective** means that different inputs cannot have the same output. **Full induction** quantifies over *every* subset of $N$; the difference between this and first-order induction will matter near the end.
 
+### What goes wrong if we remove a condition?
+
+A useful way to understand an axiom is to **build a structure that obeys all the other conditions but violates that one**. These are *countermodels*: they show that the rule does real work.
+
+![Three countermodels: a zero–one cycle when zero may have a predecessor, merged successors when injectivity is dropped, and an unreachable chain when full induction is dropped.](./media/pa-axiom-countermodels.svg)
+
+*Figure: Each example violates the indicated condition while preserving the others. The right-hand panel shows a window into two infinite chains, not a finite model.*
+
+**If zero may be a successor:** let \(N:=\{0,1\}\), with \(S(0)=1\) and \(S(1)=0\). Successor is a total **injective** function, and every successor-closed subset containing zero is the whole set, so full induction holds. But counting loops back to zero. This is why we prohibit \(S(n)=0\).
+
+**If successor need not be injective:** take the same set but define \(S(0)=1\) and \(S(1)=1\). Zero is not a successor, and full induction still holds: starting at zero immediately forces the set to contain one. Yet distinct inputs \(0\) and \(1\) have the **same successor**. This is why we require \(S(a)=S(b)\Rightarrow a=b\).
+
 ### Do the first four conditions guarantee counting?
 
-No. The third condition only says that no arrow points **into zero**. It does not, by itself, prohibit a cycle elsewhere. The fourth condition forbids two arrows merging, but still permits a completely separate chain.
+No. Even if zero cannot be a successor and successor is injective, those rules still permit an **entirely separate chain**. Full induction is what rules it out.
 
 **Countermodel: two disconnected chains.** Take the usual objects $0,1,2,\ldots$ and add distinct objects
 
@@ -116,7 +141,13 @@ There is no addition anywhere in this procedure. The operation used is set union
 
 **Where does the infinite set come from?** Zermelo-Fraenkel set theory includes an **axiom of infinity**, which guarantees an inductive set containing $\varnothing$ and closed under $x\mapsto x\cup\{x\}$. Taking the intersection of all inductive subsets of such a set supplies the smallest one, conventionally written $\omega$ (read "omega"). It has precisely the elements produced by finite successor steps and satisfies full induction.
 
-The usual set-theoretic construction proves that zero is not a successor, that successor is injective, and that induction holds. These are not claims that a finite list of displayed sets is sufficient to establish. For example, $n\in S(n)$ for each von Neumann natural $n$, whereas $\varnothing$ has no elements, proving $S(n)\neq 0$. Injectivity follows from the structure of these finite ordinals; it is not a general law of arbitrary sets under arbitrary functions.
+The usual set-theoretic construction must establish that zero is not a successor, that successor is injective, and that induction holds. A finite list of displayed examples would not prove any of these for *all* naturals.
+
+**Zero is not a successor.** Every von Neumann natural satisfies \(n\in S(n)\), whereas \(0=\varnothing\) has no elements. Therefore \(S(n)\neq0\).
+
+**Successor is injective.** Suppose \(S(m)=S(n)\). Because \(m\in S(m)\) and \(n\in S(n)\), their equality yields \(m\in S(n)=n\cup\{n\}\) and \(n\in S(m)=m\cup\{m\}\). Thus either \(m=n\), or both \(m\in n\) and \(n\in m\). The latter is impossible for sets satisfying Foundation (and in particular for von Neumann finite ordinals). Hence \(m=n\), proving injectivity without assuming it.
+
+**Full induction.** If \(P\subseteq\omega\) contains zero and is closed under \(S\), then \(P\) is an inductive subset of the set constructed above. The minimality of \(\omega\) among inductive sets gives \(\omega\subseteq P\); together with \(P\subseteq\omega\), this proves \(P=\omega\).
 
 **Two levels of assumptions.** The Peano conditions can themselves be adopted as axioms for a number structure. Alternatively, inside set theory we construct a model and *prove* those conditions there. The axiom of infinity is not secretly derived from writing down $0,S(0),S(S(0)),\ldots$.
 
@@ -593,7 +624,7 @@ Since $a\leq a+t$ by the definition of order, and $a+t<S(a+t)$ by Lemma 1, we ha
 
 **Lemma 3:** there is no natural $b$ strictly between $a$ and $S(a)$. If $a<b$, then $b=a+S(t)=S(a+t)$ for some $t$. From $a\leq a+t$, adding $1$ preserves order, yielding $S(a)\leq S(a+t)=b$. Thus $b<S(a)$ is impossible.
 
-These lemmas justify the later uses of "positive successor step," "no integer between consecutive naturals," and "adding a nonzero natural strictly increases its input."
+These lemmas justify the later uses of "positive successor step," "no natural number between consecutive naturals," and "adding a nonzero natural strictly increases its input."
 
 ### Well-ordering and its relation to induction
 
@@ -680,13 +711,25 @@ There is an important qualification to the phrase "the Peano axioms uniquely des
 
 Our induction condition quantified over **every subset** $P\subseteq N$. Under **full second-order semantics**, that quantifier really ranges over all subsets of the domain. With the other Peano conditions, any two such structures are **isomorphic**: there is a bijection carrying zero to zero and preserving successor. An *isomorphism* is a one-to-one, onto correspondence that preserves the named operations.
 
-**Why:** between structures $(N,0,S)$ and $(N',0',S')$, recursion defines a map $f$ by $f(0)=0'$ and $f(S(n))=S'(f(n))$. For **injectivity**, induct on $a$ to prove that $f(a)=f(b)$ implies $a=b$ for every $b$. If $a=0$, the equality $f(0)=f(b)$ cannot hold for $b=S(k)$ because $f(S(k))=S'(f(k))\neq0'$; every nonzero $b$ is a successor, so $b=0$. In the step, suppose the claim holds for $a$ and assume $f(S(a))=f(b)$. The value on the left is a successor and therefore not $0'$, so $b\neq0$ and $b=S(k)$ for some $k$. Successor injectivity in $N'$ implies $f(a)=f(k)$, the inductive hypothesis gives $a=k$, and therefore $S(a)=b$. The image of $f$ contains $0'$ and is closed under $S'$, so full induction in $N'$ makes $f$ surjective. Therefore the structures agree up to renaming their elements. This is called **categoricity**.
+**Proof using the construction already established.** Let \((M,0_M,S_M)\) be any structure satisfying the full second-order Peano conditions. We have already constructed the standard von Neumann naturals \(\omega\) and proved the recursion theorem **on \(\omega\)**. Apply it with target \(M\) to obtain the unique function \(f:\omega\to M\) satisfying
+
+$$
+f(0)=0_M,\qquad f(S(n))=S_M(f(n)).
+$$
+
+This map preserves zero and successor by definition. We prove that it is a **bijection**.
+
+**Injectivity:** induct on \(m\) with the claim that, for every \(n\), \(f(m)=f(n)\Rightarrow m=n\). If \(m=0\), then \(n\) cannot be a successor, since \(f(n)\) would be a successor in \(M\), and \(0_M\) is not; hence \(n=0\). For the induction step, if \(f(S(m))=f(n)\), then \(n\neq0\), so \(n=S(k)\) for some \(k\). Injectivity of \(S_M\) gives \(f(m)=f(k)\); the induction hypothesis gives \(m=k\), hence \(S(m)=n\).
+
+**Surjectivity:** the image \(f[\omega]\) contains \(0_M\) and is closed under \(S_M\). Full induction *in \(M\)* therefore forces \(f[\omega]=M\).
+
+Thus \(f\) is an isomorphism from the standard successor structure \(\omega\) to \(M\). Since **every** full second-order Peano structure is isomorphic to \(\omega\), any two are isomorphic to each other. This is **categoricity**. Importantly, the recursive construction was carried out on the already established standard naturals; we did not assume a recursion theorem for arbitrary models.
 
 Categoricity does **not** mean that the objects must literally be von Neumann sets: any isomorphic representation has the same natural-number structure.
 
 ### First-order Peano arithmetic
 
-In **first-order logic**, induction cannot be written as a single axiom quantifying over arbitrary subsets of the domain. Instead, first-order Peano arithmetic (PA) uses an **induction schema**: an induction axiom for each formula $\varphi(n)$ in its first-order language, allowing additional parameters. A schema is an infinite family of formulas, not one assertion about *all* subsets.
+In **first-order logic**, induction cannot be written as a single axiom quantifying over arbitrary subsets of the domain. Conventional first-order PA takes $0,S,+,\cdot$ as symbols of its language and **axiomatizes** how addition and multiplication behave; it does not depend on the set-theoretic construction we used to introduce them. PA uses an **induction schema**: an induction axiom for each formula $\varphi(n)$ in its first-order language, allowing additional parameters. A schema is an infinite family of formulas, not one assertion about *all* subsets.
 
 First-order PA has **nonstandard models**, containing elements that are not equal to any standard numeral
 
