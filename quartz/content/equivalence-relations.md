@@ -87,7 +87,7 @@ $$
 
 Read: "the class of a is the set of all x in A such that x is equivalent to a." The square brackets denote an entire **set**, not simply the object $a$. We sometimes write $[a]_\sim$ when multiple relations are in use.
 
-![The integers zero through eight are separated into three nonoverlapping colored sets according to remainder modulo three, showing the repeating classes zero-three-six, one-four-seven, and two-five-eight.](./media/fr-equivalence-classes.png)
+![The integers zero through eight are separated into three nonoverlapping colored sets according to remainder modulo three, showing the repeating classes zero-three-six, one-four-seven, and two-five-eight.](./media/er-equivalence-classes-mod3.svg)
 
 *Figure: A finite window onto the three infinite classes of congruence modulo three.*
 
