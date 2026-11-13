@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 278" role="img" aria-labelledby="title desc">
+  <title id="title">Parity quotient map</title>
+  <desc id="desc">The inputs 1 and 3 map to the class containing 1 and 3; inputs 2 and 4 map to the class containing 2 and 4.</desc>
+  <style>
+    .surface { fill:#f8fafc; stroke:#cbd5e1; }
+    .heading { fill:#334155; font:600 17px system-ui, sans-serif; }
+    .main { fill:#0f172a; font:600 18px system-ui, sans-serif; }
+    .small { fill:#475569; font:13px system-ui, sans-serif; }
+    .odd-fill { fill:#ccfbf1; } .odd-line {stroke:#0d9488;}
+    .even-fill { fill:#ede9fe; } .even-line {stroke:#7c3aed;}
+    @media (prefers-color-scheme: dark) {
+      .surface { fill:#111827; stroke:#475569; }
+      .heading,.small { fill:#cbd5e1; }
+      .main { fill:#f1f5f9; }
+      .odd-fill { fill:#064e3b; } .odd-line {stroke:#5eead4;}
+      .even-fill {fill:#4c1d95;} .even-line {stroke:#c4b5fd;}
+    }
+  </style>
+  <defs>
+    <marker id="odd-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#0d9488"/></marker>
+    <marker id="even-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"/></marker>
+  </defs>
+  <rect class="surface" x="1" y="1" width="758" height="276" rx="14" stroke-width="1.5"/>
+  <text class="heading" x="35" y="34">Original elements in A</text>
+  <text class="heading" x="472" y="34">Elements of A / ∼</text>
+  <text class="small" x="33" y="259">Each arrow is q(a) = [a].</text>
+  <path d="M150 76 C270 76 345 104 464 104" fill="none" class="odd-line" stroke-width="2" marker-end="url(#odd-arrow)"/>
+  <path d="M150 121 C270 121 346 104 464 104" fill="none" class="odd-line" stroke-width="2" marker-end="url(#odd-arrow)"/>
+  <path d="M150 179 C270 179 346 207 464 207" fill="none" class="even-line" stroke-width="2" marker-end="url(#even-arrow)"/>
+  <path d="M150 224 C270 224 345 207 464 207" fill="none" class="even-line" stroke-width="2" marker-end="url(#even-arrow)"/>
+  <circle cx="125" cy="76" r="23" class="odd-fill odd-line" stroke-width="2"/><text class="main" x="125" y="83" text-anchor="middle">1</text>
+  <circle cx="125" cy="121" r="23" class="odd-fill odd-line" stroke-width="2"/><text class="main" x="125" y="128" text-anchor="middle">3</text>
+  <circle cx="125" cy="179" r="23" class="even-fill even-line" stroke-width="2"/><text class="main" x="125" y="186" text-anchor="middle">2</text>
+  <circle cx="125" cy="224" r="23" class="even-fill even-line" stroke-width="2"/><text class="main" x="125" y="231" text-anchor="middle">4</text>
+  <rect x="472" y="72" width="255" height="64" rx="10" class="odd-fill odd-line" stroke-width="2"/>
+  <rect x="472" y="175" width="255" height="64" rx="10" class="even-fill even-line" stroke-width="2"/>
+  <text class="main" x="599" y="111" text-anchor="middle">[1] = [3] = {1, 3}</text>
+  <text class="main" x="599" y="214" text-anchor="middle">[2] = [4] = {2, 4}</text>
+</svg>
