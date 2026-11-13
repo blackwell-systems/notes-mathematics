@@ -26,6 +26,20 @@ Instead of treating each number as a separate answer, we can treat each **group 
 
 **Where the picture breaks:** this is **not arithmetic division** like $12\div3=4$. Nor can groups overlap arbitrarily. An equivalence relation guarantees that every original element belongs to **exactly one** class: the groups form a *partition*. We will establish the rules and prove this rather than take the grouping picture on faith.
 
+> [!example] The odd-even relation as actual pairs
+> Keep $A=\{1,2,3,4\}$ and define $a\sim b$ exactly when $a$ and $b$ have the same parity. The relation is the following **set of eight ordered pairs**:
+>
+> $
+> \begin{aligned}
+> R:=\{&(1,1),(1,3),(3,1),(3,3),\\
+> &(2,2),(2,4),(4,2),(4,4)\}.
+> \end{aligned}
+> $
+>
+> Thus $1\sim3$ and $2\sim4$, but $1\not\sim2$. The pair $(1,3)$ records that $1$ is related to $3$; it does **not** mean $1=3$.
+>
+> The full list lets us check all three properties rather than simply assert them. **Reflexivity:** each $(a,a)$ appears. **Symmetry:** whenever $(a,b)$ appears, $(b,a)$ also appears. **Transitivity:** whenever $(a,b)$ and $(b,c)$ appear, $(a,c)$ appears too, because both pairs put $a,b,c$ in the same parity group. For instance, $1\sim3$ and $3\sim1$ imply $1\sim1$. The finite check illustrates the general definitions; later we prove the corresponding facts for all integers modulo $n$.
+
 A binary relation $R$ on a set $A$ is a subset of $A\times A$ (read "A cross A"). We write $aRb$ (read "a is R-related to b") when $(a,b)\in R$. In this chapter, the elements belong to the **same underlying set** $A$.
 
 > [!definition] Equivalence relation
@@ -89,6 +103,11 @@ $$
 
 For example, $[4]=[1]$: the representatives $1$ and $4$ name the **same class** even though $1\ne4$.
 
+> [!example] A member is not the same thing as its class
+> In the four-element parity example, the classes are $[1]=[3]=\{1,3\}$ and $[2]=[4]=\{2,4\}$. The number $1$ is an **element** of its class: $1\in[1]$. It is not equal to the set $[1]$. And although $1\ne3$, the classes **are** equal: $[1]=[3]$.
+>
+> This is the difference between asking whether two **representatives** are equal and asking whether they name the **same equivalence class**.
+
 ### When are two classes the same?
 
 > [!theorem] Class equality criterion
@@ -133,6 +152,11 @@ A **partition** of $A$ is a collection of **nonempty**, **pairwise disjoint** su
 
 This theorem gives two equivalent ways to describe the same structure: specify related pairs, or specify blocks of objects that should count as equivalent.
 
+> [!example] Read a partition in both directions
+> For $A=\{1,2,3,4\}$, the parity blocks are $\{1,3\}$ and $\{2,4\}$. Going from the **relation to the partition**, collect each element together with everything related to it; the four possible names $[1],[2],[3],[4]$ describe just two distinct blocks. Going from the **partition back to the relation**, relate two numbers precisely when they are in the same block. This recreates the eight ordered pairs listed above, including pairs of each number with itself.
+>
+> A collection such as $\{\{1,2\},\{2,3,4\}\}$ is **not** a partition of $A$: the blocks overlap at $2$ (and $A=\{1,2,3,4\}$ is still covered). A partition cannot place one element in two distinct blocks.
+
 ## Quotient sets: classes become objects
 
 Return to the odd/even intuition above: with $A=\{1,2,3,4\}$ and $a\sim b$ when $a,b$ have the same parity, the quotient is
@@ -158,6 +182,12 @@ $$
 It is **surjective** (read "onto"): every class has a representative. It is generally not **injective** (read "one-to-one"), because distinct equivalent objects map to the same class.
 
 For congruence modulo three, $\mathbb Z/{\equiv_3}=\{[0],[1],[2]\}$ has only **three elements**, even though $\mathbb Z$ is infinite.
+
+![Four inputs map to two output classes according to parity. One and three map to the same odd class, while two and four map to the same even class.](./media/er-parity-quotient-map.svg)
+
+*Figure: The quotient map keeps every input but sends equivalent inputs to the same class. Its outputs are sets, not numbers.*
+
+In this finite example, $q(1)=q(3)=\{1,3\}$ and $q(2)=q(4)=\{2,4\}$. Every class is reached, which makes $q$ surjective. But $q(1)=q(3)$ despite $1\ne3$, which makes it non-injective. No original element was deleted: **we changed what counts as one output object**.
 
 ### Every function defines a partition by its outputs
 
@@ -189,6 +219,8 @@ $
 
 **Worked example.** Set $f:\mathbb R\to\mathbb R$ by $f(x)=x^2$ (read "f of x equals x squared"). The fiber over $9$ is $f^{-1}(\{9\})=\{-3,3\}$: both inputs square to $9$, so $[3]=[-3]=\{-3,3\}$. By comparison, the **preimage of $\{4,9\}$** is $f^{-1}(\{4,9\})=\{-3,-2,2,3\}$: this combines the fibers over $4$ and $9$, so it is not a single fiber. The fiber over $0$ is $\{0\}$, while the fiber over $-1$ is empty because no real number squares to $-1$. Thus the equivalence classes correspond exactly to the **nonnegative** outputs.
 
+For $f(x)=x^2$, the equivalence classes on $\mathbb R$ take the form $\{0\}$ and $\{-t,t\}$ for each $t>0$. These classes partition the entire real line: every nonzero real lies in exactly one pair with its negative. The empty fiber over $-1$ is not a class, because no input has that output.
+
 ### When does a function descend to classes?
 
 Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class alone. It cannot depend on which representative we write.
@@ -209,6 +241,13 @@ Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class 
 
 **Example:** Sending the congruence class $[a]$ modulo three to $a^2\bmod3$ is well-defined, because $a\equiv b\pmod3$ implies $a^2\equiv b^2\pmod3$: factor $a^2-b^2=(a-b)(a+b)$. Sending $[a]$ to the ordinary integer $a$ is **not** well-defined: $[1]=[4]$ but $1\ne4$.
 
+> [!example] A proposed function that gives two answers to one input
+> Work with integer classes modulo $3$, where $[1]=[4]$. Suppose someone proposes $F([a]):=a+1$ with values in the **ordinary integers**. Choosing representative $1$ gives $F([1])=2$; choosing representative $4$ gives $F([4])=5$. But $[1]$ and $[4]$ are the **same input**, so this rule fails to define a function on classes.
+>
+> Instead, define $G([a]):=[a+1]$, now with values **also in classes modulo $3**. The two representatives give $[1+1]=[2]$ and $[4+1]=[5]=[2]$. More importantly, this works for *every* pair of representatives: if $a\equiv b\pmod 3$, then $(a+1)-(b+1)=a-b$ is divisible by $3$. The output class is independent of the chosen representative.
+>
+> **The test is always the same:** if two expressions name the same input class, do they necessarily produce the same output?
+
 > [!distinction] Forming a quotient is not the same as defining arithmetic on it
 > Classes exist for **any** equivalence relation, but an operation $[a]\star[b]:=[a\star b]$ needs its own representative-independence proof. Relations compatible with an operation in this way are called **congruences** for that operation. The distinction matters for [fractions](./construction-of-the-rationals), [quotient groups](./group-homomorphisms-quotients), and [quotient rings](./ring-ideals-quotients).
 
@@ -219,6 +258,17 @@ Suppose $f:A\to B$ and we want to define an output $\bar f([a])$ from the class 
 
 > [!counterexample] Having overlapping sets is not transitive
 > On nonempty finite sets, let $A\,R\,B$ mean $A\cap B\ne\varnothing$. This relation is reflexive and symmetric, but $\{1\}$ intersects $\{1,2\}$, which intersects $\{2\}$, while $\{1\}$ does not intersect $\{2\}$. Transitivity fails.
+
+> [!example] Diagnose which axiom fails
+>
+> | Relation on $\{1,2,3\}$ | Reflexive? | Symmetric? | Transitive? | Why it fails |
+> | --- | --- | --- | --- | --- |
+> | $aRb$ iff $a<b$ | No | No | Yes | $1\not<1$; $1<2$ but not $2<1$ |
+> | $aRb$ iff $a\le b$ | Yes | No | Yes | $1\le2$ but not $2\le1$ |
+> | $aRb$ iff $\lvert a-b\rvert\le1$ | Yes | Yes | No | $1R2$ and $2R3$, but not $1R3$ |
+> | $aRb$ iff $a$ and $b$ have the same parity | Yes | Yes | Yes | All three requirements hold |
+>
+> A transitive relation need not be reflexive or symmetric. A symmetric, reflexive relation need not be transitive. An equivalence relation requires **all three**.
 
 Both counterexamples show why the three axioms matter. "Similar enough" is not automatically a mathematically valid equivalence.
 
