@@ -5472,6 +5472,43 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     Math.abs(bellAmplitudes[0]*bellAmplitudes[3]-bellAmplitudes[1]*bellAmplitudes[2])>0.49);
 }
 
+// ============= Completeness and Convergence: worked-example regressions =============
+// Finite checks validate numeric illustrations, not the quantified proofs.
+{
+  for (const n of [1, 2, 3, 10, 100, 1000]) {
+    const error = Math.abs((2*n+1)/(3*n+5)-2/3);
+    eq("Analysis convergence: rational sequence error at n="+n,
+      error,7/(3*(3*n+5)),1e-12);
+    check("Analysis convergence: rational sequence error bound at n="+n,
+      error<=7/(9*n)+1e-12);
+  }
+  let a=0;
+  for(let n=1;n<=35;n++){
+    check("Analysis monotone recurrence: bounded at n="+n,a>=0&&a<2);
+    const next=Math.sqrt(2+a);
+    check("Analysis monotone recurrence: increasing at n="+n,next>=a);
+    a=next;
+  }
+  eq("Analysis monotone recurrence: limit approaches two",a,2,1e-9);
+  for(let n=1;n<=9;n++){
+    const q=Math.floor(10**n*Math.SQRT2)/10**n;
+    check("Analysis rational truncation: q_n below sqrt2 n="+n,
+      q<=Math.SQRT2 && Math.SQRT2-q<10**(-n));
+  }
+  for(const n of [2, 5, 10, 25, 100]){
+    let gap=0;for(let k=n+1;k<=2*n;k++)gap+=1/k;
+    check("Analysis harmonic partial sums not Cauchy: n="+n,
+      gap>=0.5-1e-12);
+  }
+  let even=0,odd=0,sum=0;
+  for(let k=1;k<=60;k++){
+    sum+=(k%2===1?1:-1)/k;
+    if(k%2===0){check("Analysis alternating even sums increase k="+k,sum>=even-1e-12);even=sum;}
+    else {check("Analysis alternating odd sums decrease k="+k,odd===0||sum<=odd+1e-12);odd=sum;}
+  }
+  check("Analysis alternating harmonic partial sums remain bracketing",even<=odd);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
