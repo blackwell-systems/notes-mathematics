@@ -148,7 +148,18 @@ P\preceq Q\quad\Longleftrightarrow\quad
 \text{for every }x\in\mathbb R,\ P(x)\Rightarrow Q(x).
 $$
 
-The arrow $\Rightarrow$ is read "implies." The statement $P\preceq Q$ means **every case satisfying P also satisfies Q**: P is at least as restrictive as Q. Implication is reflexive ($P\Rightarrow P$) and transitive, so it defines a preorder on predicates.
+The arrow $\Rightarrow$ is read "implies." The statement $P\preceq Q$ means **every case satisfying P also satisfies Q**: P is at least as restrictive as Q. Why does that give us a preorder? We can **derive both required properties from the meaning of implication**.
+
+> [!proof] Why implication is reflexive and transitive
+> **What implication means:** $A\Rightarrow B$ is false only if $A$ is true and $B$ is false. When $A$ is false, the implication is true: it does not claim that $A$ must hold.
+>
+> **Reflexivity:** Choose any real input $x$. If $P(x)$ is true, then $P(x)$ is true. If $P(x)$ is false, $P(x)\Rightarrow P(x)$ is still true because its premise is false. Either way, $P(x)\Rightarrow P(x)$ holds. Since this works for **every** $x$, the definition gives $P\preceq P$.
+>
+> **Transitivity:** Assume $P\preceq Q$ and $Q\preceq T$. Choose any real input $x$ and suppose $P(x)$ holds. The first comparison gives $Q(x)$; the second gives $T(x)$. Therefore $P(x)\Rightarrow T(x)$ holds for every $x$, so $P\preceq T$.
+>
+> **Concrete chain:** $x>10$ implies $x>5$, and $x>5$ implies $x>0$. So $x>10$ implies $x>0$.
+>
+> We have proved both preorder axioms. Neither proof requires two mutually implying predicates to be literally the same expression.
 
 Take $P(x):\iff x>10$, $Q(x):\iff x>0$, and $T(x):\iff (x\ge0\ \text{and}\ x\ne0)$. Then $P\preceq Q$, and $Q\preceq T$ **and** $T\preceq Q$. The expressions $Q$ and $T$ are different formulas, even though they have exactly the same truth value for every real input.
 
