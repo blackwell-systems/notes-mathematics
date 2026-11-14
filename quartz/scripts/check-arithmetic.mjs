@@ -5510,6 +5510,48 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   check("Analysis alternating harmonic partial sums remain bracketing",even<=odd);
 }
 
+// ============= Order Theory: preorder application regressions =============
+// Finite checks exercise the worked examples, not universal theorem proofs.
+{
+  const roles={
+    Viewer:new Set(["read"]), Auditor:new Set(["read"]),
+    Editor:new Set(["read","write"]), Publisher:new Set(["read","publish"])
+  };
+  const names=Object.keys(roles);
+  const below=(a,b)=>[...roles[a]].every(action=>roles[b].has(action));
+  for(const a of names)check("Preorder roles: reflexive "+a,below(a,a));
+  for(const a of names)for(const b of names)for(const c of names)
+    check("Preorder roles: transitive "+a+","+b+","+c,
+      !below(a,b)||!below(b,c)||below(a,c));
+  check("Preorder roles: distinct roles may be equivalent",
+    below("Viewer","Auditor")&&below("Auditor","Viewer")&&"Viewer"!=="Auditor");
+  check("Preorder roles: Editor and Publisher incomparable",
+    !below("Editor","Publisher")&&!below("Publisher","Editor"));
+  const P=x=>x>10,Q=x=>x>0,T=x=>x>=0&&x!==0;
+  for(const x of [-12,-1,0,0.5,9,10,11,100]){
+    check("Preorder predicates: stronger implies weaker at "+x,!P(x)||Q(x));
+    check("Preorder predicates: equivalent syntax at "+x,Q(x)===T(x));
+  }
+  const edges={Scheduler:["Worker"],Worker:["Scheduler","Storage"],Storage:[]};
+  const reaches=(start,target)=>{
+    const seen=new Set(),todo=[start];
+    while(todo.length){
+      const next=todo.pop();
+      if(next===target)return true;
+      if(seen.has(next))continue;
+      seen.add(next);
+      todo.push(...edges[next]);
+    }
+    return false;
+  };
+  for(const u of Object.keys(edges))
+    check("Preorder service reachability reflexive "+u,reaches(u,u));
+  check("Preorder service reachability SCC",
+    reaches("Scheduler","Worker")&&reaches("Worker","Scheduler"));
+  check("Preorder service reachability across components",
+    reaches("Scheduler","Storage")&&!reaches("Storage","Scheduler"));
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
