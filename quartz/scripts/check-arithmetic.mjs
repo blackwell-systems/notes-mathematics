@@ -5482,9 +5482,10 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     check("Analysis convergence: rational sequence error bound at n="+n,
       error<=7/(9*n)+1e-12);
   }
+  // Floating point can round the increasing iterates to exactly 2.
   let a=0;
   for(let n=1;n<=35;n++){
-    check("Analysis monotone recurrence: bounded at n="+n,a>=0&&a<2);
+    check("Analysis monotone recurrence: bounded at n="+n,a>=0&&a<=2);
     const next=Math.sqrt(2+a);
     check("Analysis monotone recurrence: increasing at n="+n,next>=a);
     a=next;
