@@ -5718,8 +5718,17 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
   }
   check("Order closure system: join of closed singleton facts adds consequence",
     closure(1)===1&&closure(2)===2&&closure(join(1,2))===7);
-  check("Order subgroups: even and multiples of three generate Z",
-    [2,3].some(x=>x===2)&&3-2===1);
+  // In (Z,+), 2Z and 3Z generate Z because 1=3-2.
+  for(let z=-10;z<=10;z++){
+    let generated=false;
+    for(let m=-10;m<=10;m++){
+      const n=(z-2*m)/3;
+      if(Number.isInteger(n)){generated=true;break;}
+    }
+    check("Order subgroup join: 2Z+3Z contains "+z,generated);
+    check("Order subgroup meet: 2Z intersect 3Z equals 6Z at "+z,
+      (z%2===0&&z%3===0)===(z%6===0));
+  }
 }
 
 // ---------- Report ----------
