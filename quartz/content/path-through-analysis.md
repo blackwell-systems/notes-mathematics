@@ -26,7 +26,7 @@ An optional bridge to [Differential Geometry](./differential-geometry) removes t
 
 ## Stage 1: Limits and completeness
 
-[Calculus](./calculus) introduces derivatives and integrals; [Real Analysis](./real-analysis) asks why their rules are correct. Start with the full proofs in [Completeness and Convergence](./completeness-and-convergence): the least-upper-bound property, monotone subsequences, Bolzano-Weierstrass and the Cauchy criterion. Then use [Real Analysis](./real-analysis#continuity-rigorous) to develop $\varepsilon$–$\delta$ continuity.
+[Calculus](./calculus) introduces derivatives and integrals; [Real Analysis](./real-analysis) asks why their rules are correct. Start with the full proofs in [Completeness and Convergence](./completeness-and-convergence): the least-upper-bound property, monotone subsequences, Bolzano-Weierstrass and the Cauchy criterion. Then work through [Continuity and Compactness](./continuity-and-compactness), which proves the epsilon-delta/sequence connection, IVT, EVT, and uniform continuity. Continue to [Rigorous Differentiation](./rigorous-differentiation) (Rolle, MVT, Darboux, Taylor remainder) and [Rigorous Integration](./rigorous-integration) (Darboux sums and the two FTC parts). The [Real Analysis](./real-analysis) page surveys these results and the metric-space generalizations.
 
 **Checkpoint:** Explain the difference between saying that each value $f_n(x)$ approaches $f(x)$ and saying that $f_n$ approaches $f$ **uniformly over all** $x$. The distinction becomes crucial when exchanging limits with other operations.
 
@@ -38,7 +38,7 @@ The sequence $f_n(x)=x^n$ on $[0,1]$ ties several chapters together:
 - The maximum error does not shrink: $\|f_n\|_\infty=1$.
 - Yet $\int_0^1|f_n(x)|\,dx=1/(n+1)\to0$.
 
-[Real Analysis](./real-analysis#sequences-and-series-of-functions) teaches pointwise and uniform convergence. [Measure Theory](./measure-theory) introduces almost-everywhere convergence, integral norms, and the conditions under which limits pass inside integrals. [Functional Analysis](./functional-analysis) studies norm convergence, completeness, and weak convergence in **spaces of functions**.
+[Sequences of Functions](./sequences-of-functions) proves the uniform Cauchy criterion, continuity and integration limit theorems, and the extra hypotheses for exchanging derivatives. [Real Analysis](./real-analysis#sequences-and-series-of-functions) supplies a shorter overview. [Measure Theory](./measure-theory) introduces almost-everywhere convergence, integral norms, and the conditions under which limits pass inside integrals. [Functional Analysis](./functional-analysis) studies norm convergence, completeness, and weak convergence in **spaces of functions**.
 
 **Checkpoint:** Never say simply "the functions converge" when the **type of convergence** determines whether the next step is valid.
 
@@ -46,7 +46,7 @@ The sequence $f_n(x)=x^n$ on $[0,1]$ ties several chapters together:
 
 Read [Measure Theory](./measure-theory) for sigma-algebras, measurable functions, the Lebesgue integral and its monotone/dominated convergence theorems. These are not just more complicated versions of the Riemann integral: they permit statements about almost-everywhere behavior and integrable limits that the Riemann framework cannot handle as naturally.
 
-**Checkpoint:** Before interchanging a limit and an integral, state **which convergence theorem** applies and verify its hypotheses.
+**Checkpoint:** Before interchanging a limit and an integral, state **which convergence theorem** applies and verify its hypotheses. The [Riemann integration chapter](./rigorous-integration) proves why every continuous function on a closed bounded interval is integrable and why pointwise convergence alone does not justify swapping limits.
 
 ## Stage 4A: The real/infinite-dimensional branch
 
