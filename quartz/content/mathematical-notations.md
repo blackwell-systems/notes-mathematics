@@ -264,10 +264,11 @@ By convention $\leftrightarrow$ (or $\Leftrightarrow$) is often reserved for the
 | Symbol | Read aloud | Meaning |
 |--------|------------|---------|
 | [$<$](./inequalities#properties-of-inequalities) , [$>$](./inequalities#properties-of-inequalities) | "is less than" / "is greater than" | strict order |
-| [$\leq$](./inequalities#properties-of-inequalities) , [$\geq$](./inequalities#properties-of-inequalities) | "is less than or equal to" / "is greater than or equal to" | non-strict order |
+| [$\leq$](./inequalities#properties-of-inequalities) , [$\geq$](./inequalities#properties-of-inequalities) | "is less than or equal to" / "is greater than or equal to" | usually numerical non-strict order; may also denote an abstract order when the author defines it |
+| [$\preceq$](./order-theory#the-organizing-idea-different-comparisons-the-same-axioms) | "precedes or is equal to" / "is below in this order" | **generic name** for a specified non-strict comparison, including a preorder. Depending on the objects, it may mean $\leq$, $\subseteq$, $\mid$, or directed reachability. It does not have one fixed interpretation |
 | $\neq$ | "is not equal to" | the two sides differ |
 | $\ll$ , $\gg$ | "is much less than" / "is much greater than" | informal order-of-magnitude comparison |
-| [$\prec$](./functions-relations#partial-order) , [$\succ$](./functions-relations#partial-order) | "precedes" / "succeeds" | a general (partial) order relation |
+| [$\prec$](./order-theory#strict-and-non-strict-order) , [$\succ$](./order-theory#strict-and-non-strict-order) | "strictly precedes" / "strictly succeeds" | **strict** comparison, as opposed to $\preceq$; exact meaning depends on the relation being discussed |
 
 ## Logic Notation
 
