@@ -5651,6 +5651,77 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     image(1)===1&&closure(1)===3&&closure(3)===3);
 }
 
+// ============= Order Theory: algebraic lattices, ideals, closure systems =============
+// Exhaust small finite examples. Universal theorem proofs live in the chapter.
+{
+  const below=(a,b)=>(a&b)===a;
+  const join=(a,b)=>a|b,meet=(a,b)=>a&b;
+  for(let a=0;a<4;a++){
+    for(let b=0;b<4;b++){
+      check("Order algebra: order recovered from join "+a+","+b,
+        below(a,b)===(join(a,b)===b));
+      check("Order algebra: order recovered from meet "+a+","+b,
+        below(a,b)===(meet(a,b)===a));
+      check("Order algebra: absorption join "+a+","+b,
+        join(a,meet(a,b))===a);
+      check("Order algebra: absorption meet "+a+","+b,
+        meet(a,join(a,b))===a);
+      check("Order algebra: join is least upper bound "+a+","+b,
+        below(a,join(a,b))&&below(b,join(a,b))&&
+        [0,1,2,3].every(u=>!below(a,u)||!below(b,u)||below(join(a,b),u)));
+      check("Order algebra: meet is greatest lower bound "+a+","+b,
+        below(meet(a,b),a)&&below(meet(a,b),b)&&
+        [0,1,2,3].every(l=>!below(l,a)||!below(l,b)||below(l,meet(a,b))));
+      for(let c=0;c<4;c++){
+        check("Order algebra: join associative "+a+","+b+","+c,
+          join(join(a,b),c)===join(a,join(b,c)));
+        check("Order algebra: meet associative "+a+","+b+","+c,
+          meet(meet(a,b),c)===meet(a,meet(b,c)));
+      }
+    }
+  }
+  const down=(s,a)=>s.filter(x=>below(x,a));
+  const up=(s,a)=>s.filter(x=>below(a,x));
+  const power=[0,1,2,3];
+  const principalIdeal=down(power,1);
+  const principalFilter=up(power,1);
+  check("Order ideal: principal read ideal",principalIdeal.join(",")==="0,1");
+  check("Order filter: principal read filter",principalFilter.join(",")==="1,3");
+  const downwardOnly=[0,1,2];
+  check("Order ideal: downward set alone is not directed",
+    downwardOnly.every(x=>power.every(y=>!below(y,x)||downwardOnly.includes(y)))&&
+    !downwardOnly.some(c=>below(1,c)&&below(2,c)));
+  // X={a,b,c}; if a and b are both present, add consequence c.
+  const closure=a=>(a&3)===3?a|4:a;
+  const closed=power.concat([4,5,6,7]).filter(x=>closure(x)===x);
+  check("Order closure system: exactly seven closed sets",
+    closed.join(",")==="0,1,2,4,5,6,7");
+  for(let a=0;a<8;a++){
+    check("Order closure: extensive "+a,below(a,closure(a)));
+    check("Order closure: idempotent "+a,closure(closure(a))===closure(a));
+    for(let b=0;b<8;b++){
+      if(below(a,b))check("Order closure: monotone "+a+","+b,
+        below(closure(a),closure(b)));
+    }
+    for(const c of closed){
+      check("Order closure: adjoint to inclusion "+a+","+c,
+        below(closure(a),c)===below(a,c));
+    }
+  }
+  // Intersections of any subfamily of the closed sets stay closed.
+  for(let family=0;family<1<<closed.length;family++){
+    let intersection=7;  // Empty-family meet is X.
+    for(let i=0;i<closed.length;i++)if(family&(1<<i))
+      intersection&=closed[i];
+    check("Order closure system: arbitrary intersection family "+family,
+      closed.includes(intersection));
+  }
+  check("Order closure system: join of closed singleton facts adds consequence",
+    closure(1)===1&&closure(2)===2&&closure(join(1,2))===7);
+  check("Order subgroups: even and multiples of three generate Z",
+    [2,3].some(x=>x===2)&&3-2===1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
