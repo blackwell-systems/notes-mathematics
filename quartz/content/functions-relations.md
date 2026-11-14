@@ -285,9 +285,9 @@ Suppose $R$ is **reflexive** (every $aRa$ holds) and **transitive** (whenever $a
 > [!example] A preorder that is not a partial order
 > Let $A:=\{a,b\}$ with $a\ne b$, and choose **all four possible pairs**:
 >
-> $
+> $$
 > R:=\{(a,a),(a,b),(b,a),(b,b)\}=A\times A.
-> $
+> $$
 >
 > **Reflexive:** both $(a,a)$ and $(b,b)$ belong to $R$. **Transitive:** for any $x,y,z\in A$, if $xRy$ and $yRz$, then $xRz$ too, because $R$ contains *every* pair. So $R$ is a preorder.
 >
