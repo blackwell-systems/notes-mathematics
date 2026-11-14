@@ -400,6 +400,49 @@ In the Boolean algebra of subsets, **AND** behaves like intersection (meet), **O
 > [!distinction] Real-number completeness versus complete lattices
 > $(\mathbb R,\leq)$ is a lattice because every pair has a maximum and minimum, but it is **not a complete lattice**: all of $\mathbb R$ lacks a supremum inside $\mathbb R$. The real-number completeness axiom applies only to **nonempty, bounded-above subsets**.
 
+## Order duality: reverse the comparisons, reuse the theorem
+
+An order relation tells us which way is *up*. Often a theorem about elements above something has an equally important counterpart about elements below it. Instead of proving the second result from scratch, reverse every comparison.
+
+> [!definition] The dual (opposite) poset
+> Given a poset $(P,\preceq)$, its **dual**, written $P^{\mathrm{op}}$ (read "P opposite"), has the same elements and the reversed order:
+>
+> $
+> a\preceq_{\mathrm{op}} b\quad\Longleftrightarrow\quad b\preceq a.
+> $
+
+**Check the axioms.** Reflexivity is unchanged. If $a\preceq_{\mathrm{op}}b$ and $b\preceq_{\mathrm{op}}c$, then $c\preceq b\preceq a$, so $a\preceq_{\mathrm{op}}c$. Antisymmetry also survives: two-way comparisons in the dual are two-way comparisons in the original order.
+
+![The original order has two incomparable minimal elements a and b below a greatest element c. Reversing every comparison produces a dual order with c least and a and b incomparable maximal elements.](./media/ot-order-duality.svg)
+
+*Figure: Reversing a Hasse diagram trades "above" for "below" while preserving incomparability. The two structures use the same elements, not the same order.*
+
+**Worked example.** Let $P:=\{a,b,c\}$ with strict relations $a\prec c$ and $b\prec c$, and no comparison between $a$ and $b$. In $P$, $c$ is **greatest** and $a,b$ are **minimal**. In $P^{\mathrm{op}}$, $c$ is **least** and $a,b$ are **maximal**. The dual does not suddenly make $a$ and $b$ comparable.
+
+| In $P$ | In $P^{\mathrm{op}}$ |
+| --- | --- |
+| Upper bound | Lower bound |
+| Greatest, maximal | Least, minimal |
+| Join $a\vee b$ | Meet $a\wedge b$ |
+| Complete lattice | Complete lattice |
+| Chain, antichain | Chain, antichain |
+
+> [!theorem] Order-duality principle
+> A theorem derived solely from the poset axioms remains valid when all comparisons and their associated dual notions are reversed.
+
+**Proof.** The dual structure satisfies the same poset axioms, as shown above. Apply the theorem to $P^{\mathrm{op}}$ and translate its conclusion back into $P$. For example, the theorem "a unique maximal element in a finite nonempty poset is greatest" immediately yields: **a unique minimal element in a finite nonempty poset is least**. $\square$
+
+**An explicit order-reversing map.** For subsets of a fixed set $X$, complementation satisfies
+
+$
+A\subseteq B\quad\Longleftrightarrow\quad X\setminus B\subseteq X\setminus A.
+$
+
+Thus $A\mapsto X\setminus A$ reverses order bijectively; [De Morgan's laws](./set-theory#set-operation-properties) exchange union and intersection. A lattice's join/meet duality has a concrete manifestation in ordinary set operations.
+
+> [!distinction] Duality is not total ordering
+> Reverse a partial order and incomparable elements remain incomparable. Changing direction is not the same as adding comparisons.
+
 ## Well-foundedness and well-ordering
 
 > [!definition] Well-founded order and well-order
