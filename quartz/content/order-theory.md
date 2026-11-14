@@ -47,18 +47,18 @@ The table uses each relation's **conventional concrete symbol** rather than repe
 
 **Watch the notation become concrete.** Choose $P:=\mathcal P(\{r,w\})$, the set of all subsets of $\{r,w\}$, and **define** the comparison by
 
-$
+$$
 A\preceq B\quad\Longleftrightarrow\quad A\subseteq B.
-$
+$$
 
 With this choice, $\{r\}\preceq\{r,w\}$ and $\{r\}\subseteq\{r,w\}$ say **exactly the same thing**. We have not introduced two relationships. We have given the general symbol a particular meaning.
 
 Now consider the abstract rule of **transitivity**:
 
-$
+$$
 a\preceq b,\quad b\preceq c
 \quad\Longrightarrow\quad a\preceq c.
-$
+$$
 
 For sets with the chosen interpretation, this says that $A\subseteq B$ and $B\subseteq C$ imply $A\subseteq C$. If instead we choose $P:=\mathbb Z_{>0}$ (positive integers) and declare $a\preceq b$ to mean $a\mid b$, the **same abstract rule** says that $a\mid b$ and $b\mid c$ imply $a\mid c$. That ability to reuse one argument is why we introduce generic notation.
 
