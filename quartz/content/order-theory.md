@@ -806,6 +806,93 @@ Going forward and back **again** returns the same two-role set. The operation fi
 
 **Where this appears:** abstract interpretation translates between concrete and approximate program states; permission audits group roles by observable capabilities; formal concept analysis uses object–attribute relations to construct lattices of concepts. The same inequalities govern each application, but the underlying observations differ.
 
+### Closure systems: which families of sets come from a closure operator?
+
+We proved that a Galois connection produces a **closure operator**. We can go further: on a power set, the family of all *closed* subsets determines the closure operator, and **every suitably intersection-closed family** arises this way.
+
+> [!definition] Closure system (Moore family)
+> Fix a set $X$. A **closure system** $\mathcal C\subseteq\mathcal P(X)$ is a family containing $X$ that is closed under **arbitrary intersections**:
+>
+> $
+> (C_i)_{i\in J}\subseteq\mathcal C
+> \quad\Longrightarrow\quad
+> \bigcap_{i\in J}C_i\in\mathcal C.
+> $
+>
+> For the empty family, $\bigcap_{i\in\varnothing}C_i:=X$. Including that case is why $X$ must belong to $\mathcal C$.
+
+> [!theorem] Closure operators and closure systems correspond exactly
+> On the power set $\mathcal P(X)$ ordered by inclusion:
+>
+> 1. The fixed sets $\mathcal C_c:=\{C\subseteq X:c(C)=C\}$ of an **extensive, monotone, idempotent** operator $c$ form a closure system.
+> 2. Conversely, every closure system $\mathcal C$ defines an operator
+>
+> $
+> c_{\mathcal C}(A):=
+> \bigcap\{C\in\mathcal C:A\subseteq C\}.
+> $
+>
+> This is the **smallest closed set containing $A$**. It is extensive, monotone and idempotent, and its fixed sets are **exactly** $\mathcal C$. The two constructions are inverse to each other.
+
+> [!proof] From a closure operator to a family of closed sets
+> First, extensiveness gives $X\subseteq c(X)$; since $c(X)\subseteq X$ by its codomain, $c(X)=X$.
+>
+> Let $(C_i)_{i\in J}$ be any family of fixed sets and write $D:=\bigcap_i C_i$. For each $i$, $D\subseteq C_i$. Monotonicity gives $c(D)\subseteq c(C_i)=C_i$. Therefore $c(D)\subseteq D$. Extensiveness gives $D\subseteq c(D)$; hence $c(D)=D$. This includes the empty-family case just checked. Thus the fixed sets form a closure system. $\square$
+
+> [!proof] From a closure system back to its unique operator
+> The family of closed supersets of $A$ is **nonempty** because it contains $X$. Its intersection $c_{\mathcal C}(A)$ is therefore a member of $\mathcal C$ and contains $A$. This proves **extensiveness**.
+>
+> If $A\subseteq B$, every closed superset of $B$ is also a closed superset of $A$, so intersecting the larger collection of supersets gives $c_{\mathcal C}(A)\subseteq c_{\mathcal C}(B)$. This is **monotonicity**.
+>
+> Because $c_{\mathcal C}(A)$ is itself closed, it is already the smallest closed superset of itself. Thus $c_{\mathcal C}(c_{\mathcal C}(A))=c_{\mathcal C}(A)$: **idempotence**.
+>
+> For any $C\in\mathcal C$, the smallest closed superset of $C$ is $C$ itself, so $c_{\mathcal C}(C)=C$. Conversely, if $c_{\mathcal C}(A)=A$, then $A$ lies in $\mathcal C$ because the defining intersection lies there. So the fixed sets are exactly $\mathcal C$.
+>
+> Finally, if we begin with an arbitrary closure operator $c$, its smallest closed superset of $A$ must be $c(A)$ by the **least stable enlargement** argument already proved. Thus reconstructing from its fixed sets returns the original operator. $\square$
+
+### Worked example: two facts jointly imply a third
+
+Take $X:=\{a,b,c\}$. Interpret $a$ and $b$ as two known facts and $c$ as a consequence that must be included whenever **both** are present. Define
+
+$
+c_*(A):=
+\begin{cases}
+A\cup\{c\},&\text{if }\{a,b\}\subseteq A,\\
+A,&\text{otherwise}.
+\end{cases}
+$
+
+The name $c_*$ (read "c-star") denotes the closure operation; the element $c$ is a separate symbol for the third fact. Adding the consequence never removes an existing fact, cannot break monotonicity, and needs to happen only once, so this is a closure operator.
+
+Its closed sets are **all subsets except $\{a,b\}$**:
+
+$
+\mathcal C_*=
+\{\varnothing,\{a\},\{b\},\{c\},
+\{a,c\},\{b,c\},\{a,b,c\}\}.
+$
+
+Both $\{a\}$ and $\{b\}$ are closed, but their union $\{a,b\}$ is **not**. Therefore the join in the **lattice of closed sets** is
+
+$
+\{a\}\vee_{\mathcal C_*}\{b\}
+=c_*(\{a\}\cup\{b\})=\{a,b,c\}.
+$
+
+Their meet is their ordinary intersection $\varnothing$. This example shows **why a join in a lattice of closed sets need not be plain union**, even though the ambient power set uses union as its join.
+
+**Connection back to Galois:** let $j:\mathcal C_*\hookrightarrow\mathcal P(X)$ be inclusion, and view $c_*:\mathcal P(X)\to\mathcal C_*$ as a function whose outputs are closed. Then
+
+$
+c_*(A)\subseteq C\quad\Longleftrightarrow\quad A\subseteq j(C)
+\qquad(C\in\mathcal C_*).
+$
+
+The forward implication follows from $A\subseteq c_*(A)$; the backward implication follows from monotonicity and $c_*(C)=C$. Thus $c_*\dashv j$ is a Galois connection. **Closed sets, least stable enlargements, and adjunctions are three descriptions of one structure.**
+
+> [!distinction] A closure system is not automatically a topology
+> The word "closed" here refers to **fixed points of an abstract closure operator**. Topological closure additionally satisfies laws such as $c(\varnothing)=\varnothing$ and $c(A\cup B)=c(A)\cup c(B)$. Our worked example fails the latter, so it is a valid closure system but **not** the closed-set family of a topology on $X$. See [General Topology](./general-topology-foundations) for the extra topological structure.
+
 > [!distinction] Monotone is not automatically adjoint
 > Many maps preserve order but have no adjoint on the stated posets. The **for-every-pair equivalence** in the definition is what produces the unit, counit, and closure laws. Do not infer them from monotonicity alone.
 
@@ -818,6 +905,6 @@ The preorder examples above show a pattern that recurs in software and mathemati
 - **Distributed state:** a **join-semilattice** requires a join for every pair, but not a meet. For example, the **nonempty** subsets of $\{a,b\}$ under inclusion form a join-semilattice: unions stay nonempty and give joins. Yet $\{a\}$ and $\{b\}$ have no meet *inside this poset* because their intersection $\varnothing$ was excluded. This distinction matters when replicas merge state but need no general intersection operation.
 - **Categories:** a poset can be interpreted as a category with one arrow $a\to b$ whenever $a\preceq b$. For instance, $\varnothing\subseteq\{a\}\subseteq\{a,b\}$ gives arrows $\varnothing\to\{a\}$ and $\{a\}\to\{a,b\}$; composing them yields the arrow $\varnothing\to\{a,b\}$. Reflexivity supplies identity arrows. See [Category Theory Foundations](./category-theory-foundations#a-partial-order-is-a-category).
 
-**What we can now do:** duality reuses proofs by reversing comparisons. Knaster-Tarski guarantees stable states for monotone updates on complete lattices. Galois connections translate between representations and produce closure operators that compute the least stable enlargement of a state. Each conclusion follows from the definitions above.
+**What we can now do:** order duality reuses proofs by reversing comparisons; ideals and filters select coherent lower and upper regions; lattice operations can be defined by equations; Knaster-Tarski guarantees stable states; and Galois connections construct closure operators whose fixed sets form complete lattices. The same abstract join can be a union, a subgroup generated by a union, a span, or a closure. Each conclusion follows from the specified order and its axioms.
 
 The governing habit is to verify **which axioms the relation has**, rather than assuming every ordering behaves like the real number line.
