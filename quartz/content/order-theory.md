@@ -88,7 +88,24 @@ A preorder need not be antisymmetric. Two different objects may each precede the
 
 Suppose two software components are different implementations of the same externally observable behavior. We may be able to say "implementation A provides at least the capabilities of B" and also the reverse. That does not make their source code, ownership, or identities equal. Insisting on antisymmetry would force us either to identify distinct objects too early or to abandon the useful comparison.
 
-A preorder keeps both facts: the **original objects remain distinct**, and the comparison recognizes when they are **equivalent for the purpose being studied**. Later, if only that purpose matters, we can merge mutually comparable objects into equivalence classes and obtain a partial order. This is the reason preorders appear before posets.
+A preorder can recognize two different objects as **equivalent for the purpose of one comparison** without claiming that the objects themselves are identical. This is the reason preorders appear before posets.
+
+> [!distinction] Equivalent under a comparison does not mean the same object
+> Imagine two separately named roles, **Viewer** and **Auditor**, each granting only **read** permission. Compare roles by the permissions they grant. Then both comparisons hold:
+>
+> $$
+> \text{Viewer}\preceq\text{Auditor}
+> \qquad\text{and}\qquad
+> \text{Auditor}\preceq\text{Viewer}.
+> $$
+>
+> But **Viewer and Auditor are still two distinct roles**: they may have different identities, users, or purposes. Mutual comparison tells us only that **this particular test cannot distinguish them**.
+>
+> If we care only about permissions, we can construct a **new poset whose elements are groups of equivalent roles**, such as the class $\{\text{Viewer},\text{Auditor}\}$. We have **not deleted, renamed, or merged the original roles in the application**. We have changed what counts as one element in our mathematical model.
+>
+> **Preorder:** keep the separate roles, even when they compare both ways. **Quotient poset:** treat each mutually equivalent group as a single element **in the new structure**.
+
+That distinction is the point of [passing from a preorder to its quotient poset](#turning-a-preorder-into-a-poset): *equivalent for this comparison* is weaker than *literally equal*.
 
 ### Three places preorders arise naturally
 
@@ -109,7 +126,7 @@ Read $r\preceq s$ as "role r grants no more actions than role s." This relation 
 | Editor | read, write |
 | Publisher | read, publish |
 
-Here $\text{Viewer}\preceq\text{Auditor}$ **and** $\text{Auditor}\preceq\text{Viewer}$, yet the roles have different names and identities. Both are below Editor and Publisher, while Editor and Publisher are incomparable because each grants an action the other lacks.
+Here $\text{Viewer}\preceq\text{Auditor}$ **and** $\text{Auditor}\preceq\text{Viewer}$, yet the roles have different names and identities. Both are below Editor and Publisher, while Editor and Publisher are incomparable because each grants an action the other lacks. **The original roles are not merged:** a later quotient creates a separate mathematical object, the equivalence class containing Viewer and Auditor.
 
 **Why useful?** An access-control audit can group roles with identical effective privileges, identify roles that are strictly more permissive, and distinguish incomparable privileges. The system can still keep the original role names for assignments and audit logs. This is a simplified action-set model; contextual or conditional authorization policies require a richer description of allowed behavior.
 
@@ -231,7 +248,7 @@ $$
 a\sim b\quad\Longleftrightarrow\quad a\preceq b\ \text{and}\ b\preceq a.
 $$
 
-Read: "a is equivalent to b if and only if each precedes the other."
+Read: "a is equivalent to b if and only if each precedes the other." This **does not assert $a=b$**: it asserts that the chosen comparison treats them as mutually equivalent. The notation $[a]$ in the theorem below denotes an **equivalence class**, a set of original elements, not a replacement identity assigned to $a$.
 
 > [!theorem] Preorder quotient theorem
 > The relation $\sim$ is an equivalence relation. On its equivalence classes, define
