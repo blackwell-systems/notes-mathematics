@@ -64,27 +64,19 @@ With this intuition in place, we can now state the formal definitions.
 
 ## Relation
 
-> [!definition] Relation
-> A **relation** from $A$ to $B$ is a subset $R\subseteq A\times B$. Unlike a function, it may associate one input with several outputs or with none.
+> [!definition] Binary relation (set-theoretic definition)
+> Given sets $A$ and $B$, a **binary relation from $A$ to $B$** is a set $R$ of ordered pairs such that
+>
+> $$
+> R\subseteq A\times B.
+> $$
+>
+> In other words, every pair in $R$ has the form $(a,b)$ with $a\in A$ and $b\in B$. The relation can contain **any selection** of the possible pairs, including none or all of them. It need not be a function: an input may appear in several pairs or in none.
 
+We write $aRb$ (read "a is related to b by R") as shorthand for $(a,b)\in R$. A **relation on $A$** means both positions draw from $A$, so $R\subseteq A\times A$.
 
-**Relation:** A **relation** is a set of ordered pairs, where each pair
-consists of an element from one set, called the **domain**, and an
-element from another set, called the **codomain**.
-
-The relation specifies a relationship between these elements, indicating
-how elements from the **domain** are associated with elements in the
-**codomain**.
-
-**Definition**: A relation **𝑅** from set **𝐴** to set **𝐵** is a
-subset of the Cartesian product **𝐴×𝐵**, which means
-
-$R \subseteq A \times B$
-
-Each element of $R$ is an ordered pair $(a,b)$ where $a \in A$ and
-$b \in B$.
-
-We may state that **x** bears relation **R** to **y** by writing **xRy**
+> [!distinction] Representation versus meaning
+> The Cartesian product supplies a convenient **set-theoretic representation** of all possible pairings. We do **not** need to construct or list $A\times B$ before describing a relationship: we can specify its pairs directly or give a condition deciding which pairs belong. Other mathematical foundations can even take relations as primitive. The subset definition tells us precisely how relations are represented **here**, not that relationships conceptually depend on Cartesian products.
 
 Do not let the formal language hide how simple this is. The **Cartesian product** $A \times B$ contains *every possible ordered pair* with its first element in $A$ and its second in $B$. A relation is **any choice of those pairs**. We can select them arbitrarily; we do not need a rule such as "is less than" to generate them.
 
