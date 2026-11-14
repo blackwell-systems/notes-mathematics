@@ -5586,6 +5586,71 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     1===Math.abs(-1)&&0!==1);
 }
 
+// ============= Order Theory: duals, fixed-point iteration, Galois closures =============
+// Exhaust finite examples; these checks supplement, not replace, universal proofs.
+{
+  const le=(a,b)=>a===b || ((a===0||a===1)&&b===2);
+  const op=(a,b)=>le(b,a);
+  for(let a=0;a<3;a++){
+    check("Order duality: reflexive "+a,op(a,a));
+    for(let b=0;b<3;b++){
+      check("Order duality: reversal "+a+","+b,op(a,b)===le(b,a));
+      check("Order duality: antisymmetric "+a+","+b,
+        !op(a,b)||!op(b,a)||a===b);
+      for(let c=0;c<3;c++){
+        check("Order duality: transitive "+a+","+b+","+c,
+          !op(a,b)||!op(b,c)||op(a,c));
+      }
+    }
+  }
+  // Bits: read=1, write=2, deploy=4, monitor=8.
+  const F=a=>{
+    let next=a|4;
+    if(a&4)next|=2;
+    if(a&2)next|=1;
+    return next;
+  };
+  const fixed=[];
+  for(let a=0;a<16;a++){
+    if(F(a)===a)fixed.push(a);
+    for(let b=0;b<16;b++)if((a&b)===a)
+      check("Tarski dependency update monotone "+a+","+b,(F(a)&F(b))===F(a));
+  }
+  check("Tarski dependency example: precisely two fixed points",
+    fixed.length===2&&fixed[0]===7&&fixed[1]===15);
+  let a=0;
+  const history=[a];
+  for(let i=0;i<4;i++){a=F(a);history.push(a);}
+  check("Tarski bottom iteration reaches lfp",
+    history.join(",")==="0,4,6,7,7");
+  const infinite=x=>x<.5?(x+.5)/2:1;
+  for(const n of [1,2,3,10,20]){
+    const x=.5*(1-2**(-n));
+    eq("Tarski infinite iteration formula n="+n,x,1/2-1/2**(n+1),1e-12);
+    check("Tarski infinite sequence below fixed threshold n="+n,x<.5);
+  }
+  check("Tarski monotone does not preserve omega limit",
+    infinite(.5)===1&&infinite(0)<.5);
+  // X=Editor,Author,Admin; Y=basic,privileged.
+  const image=a=>((a&3)?1:0)|((a&4)?2:0);
+  const inverse=b=>((b&1)?3:0)|((b&2)?4:0);
+  const closure=a=>inverse(image(a));
+  for(let A=0;A<8;A++){
+    check("Galois closure extensive "+A,(A&closure(A))===A);
+    check("Galois closure idempotent "+A,closure(closure(A))===closure(A));
+    for(let B=0;B<4;B++){
+      const left=(image(A)&B)===image(A);
+      const right=(A&inverse(B))===A;
+      check("Galois adjunction iff "+A+","+B,left===right);
+    }
+    for(let B=0;B<8;B++)if((A&B)===A)
+      check("Galois closure monotone "+A+","+B,
+        (closure(A)&closure(B))===closure(A));
+  }
+  check("Galois role observation saturates Editor to Editor and Author",
+    image(1)===1&&closure(1)===3&&closure(3)===3);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);
