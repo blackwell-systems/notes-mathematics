@@ -4,7 +4,7 @@ title: Mathematics Reference
 
 Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
 
-Currently covering **90 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+Currently covering **91 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
 
 The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
 
@@ -204,6 +204,7 @@ Mathematical physics puts abstract tools to work by asking what mathematical str
 ### Advanced analysis and operators
 
 - [Real Analysis](./real-analysis) (rigorous limits, continuity, metric spaces, function sequences)
+- [Completeness and Convergence](./completeness-and-convergence) (complete proofs of monotone convergence, Bolzano-Weierstrass, Cauchy criterion, subsequences, limsup and series)
 - [Multivariable Integration](./multivariable-integration) (coordinate changes and geometric integration)
 - [Vector Calculus](./vector-calculus) (fields, work, flux, circulation, boundary integral theorems)
 - [Measure Theory](./measure-theory) (sigma-algebras, Lebesgue integration, convergence, $L^p$ spaces)
