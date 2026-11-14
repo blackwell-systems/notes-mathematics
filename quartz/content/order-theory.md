@@ -14,6 +14,8 @@ enables: ["category-theory-foundations", "real-analysis", "general-topology-foun
 
 Consider two permission sets: one grants **read and write**, while the other grants **read and share**. Neither set contains the other. There is no honest answer to "Which one is greater?" if *greater* means *contains all the permissions of the other*. But we can still identify their **common permissions** (read) and the **smallest set containing both** (read, write, and share). Order theory makes these questions precise. The shared part is an example of a *meet*; the smallest common upper set is a *join*.
 
+Now change the objects from **permission sets** to **named roles**. The roles `Viewer` and `Auditor` might be distinct records with exactly the same effective permissions. Each is no more powerful than the other, although they are not the same role. This leads naturally to a **preorder**: a comparison that is consistent and transitive, but does not pretend that mutual comparability makes two identities equal.
+
 The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.**
 
 An **order relation** tells us when one object is below, before, contained in, or less informative than another. Throughout, let $P$ be a set with a relation $\preceq$ (read "precedes or is equal to"). We use $\leq$ for numerical order, $\subseteq$ for subset containment, and $\mid$ (read "divides") for divisibility. These different relationships can satisfy the *same structural axioms*, which is why one theory can study them together.
@@ -25,9 +27,81 @@ An **order relation** tells us when one object is below, before, contained in, o
 > - **Reflexive:** $a\preceq a$ for every $a\in P$.
 > - **Transitive:** if $a\preceq b$ and $b\preceq c$, then $a\preceq c$.
 
-A preorder need not be antisymmetric. Two different objects may each precede the other.
+A preorder need not be antisymmetric. Two different objects may each precede the other. That is **not a defect**: the comparison may be about what objects *can do*, *imply*, or *reach*, rather than whether they are literally identical.
 
-**Concrete example:** In a directed graph, define $u\preceq v$ when there is a directed path from $u$ to $v$, allowing a path of length zero. This is reflexive, since each vertex reaches itself in zero steps, and transitive, since paths concatenate. Two different vertices on a directed cycle reach one another, so antisymmetry can fail.
+### Why not require antisymmetry immediately?
+
+Suppose two software components are different implementations of the same externally observable behavior. We may be able to say "implementation A provides at least the capabilities of B" and also the reverse. That does not make their source code, ownership, or identities equal. Insisting on antisymmetry would force us either to identify distinct objects too early or to abandon the useful comparison.
+
+A preorder keeps both facts: the **original objects remain distinct**, and the comparison recognizes when they are **equivalent for the purpose being studied**. Later, if only that purpose matters, we can merge mutually comparable objects into equivalence classes and obtain a partial order. This is the reason preorders appear before posets.
+
+### Three places preorders arise naturally
+
+#### 1. Roles and permission systems: compare capabilities, not identities
+
+Let $R$ be a set of **named roles**, and let $A(r)$ be the set of actions permitted to role $r$. Define
+
+$
+r\preceq s\quad\Longleftrightarrow\quad A(r)\subseteq A(s).
+$
+
+Read $r\preceq s$ as "role r grants no more actions than role s." This relation is **reflexive** because every set is a subset of itself, and **transitive** because subset inclusion is transitive. But the roles are not themselves permission sets, so antisymmetry can fail:
+
+| Role | Allowed actions |
+| --- | --- |
+| Viewer | read |
+| Auditor | read |
+| Editor | read, write |
+| Publisher | read, publish |
+
+Here $\text{Viewer}\preceq\text{Auditor}$ **and** $\text{Auditor}\preceq\text{Viewer}$, yet the roles have different names and identities. Both are below Editor and Publisher, while Editor and Publisher are incomparable because each grants an action the other lacks.
+
+**Why useful?** An access-control audit can group roles with identical effective privileges, identify roles that are strictly more permissive, and distinguish incomparable privileges. The system can still keep the original role names for assignments and audit logs. This is a simplified action-set model; contextual or conditional authorization policies require a richer description of allowed behavior.
+
+#### 2. Logical implication: different statements can mean the same thing
+
+Let $P$ and $Q$ be predicates about a real input $x$, and define
+
+$
+P\preceq Q\quad\Longleftrightarrow\quad
+\text{for every }x\in\mathbb R,\ P(x)\Rightarrow Q(x).
+$
+
+The arrow $\Rightarrow$ is read "implies." The statement $P\preceq Q$ means **every case satisfying P also satisfies Q**: P is at least as restrictive as Q. Implication is reflexive ($P\Rightarrow P$) and transitive, so it defines a preorder on predicates.
+
+Take $P(x):\iff x>10$, $Q(x):\iff x>0$, and $T(x):\iff (x\ge0\ \text{and}\ x\ne0)$. Then $P\preceq Q$, and $Q\preceq T$ **and** $T\preceq Q$. The expressions $Q$ and $T$ are different formulas, even though they have exactly the same truth value for every real input.
+
+**Why useful?** Query optimizers, theorem provers, validation rules, and type-refinement systems compare predicates by implication. They can recognize equivalent conditions without requiring identical syntax, and distinguish a stronger condition from a weaker one. The relevant notion of equivalence is **logical equivalence in the chosen domain**, not literal textual equality.
+
+#### 3. Directed reachability: cycles are comparisons, not mistakes
+
+In a directed graph, define $u\preceq v$ when a directed path runs from vertex $u$ to vertex $v$, including a path of length zero. A vertex reaches itself, and paths compose, so this is a preorder.
+
+Consider a service-call graph with calls from Scheduler to Worker, Worker back to Scheduler, and Worker to Storage. Scheduler and Worker can reach each other, so both comparisons hold even though they are different services. Both can reach Storage, but Storage has no path back to either.
+
+**Why useful?** Reachability answers which services can be contacted along a chain of calls. The equivalence classes under **mutual reachability** are the strongly connected components. Collapsing them gives an acyclic summary graph and a partial order between the components, without claiming that the services inside a component are identical. This is developed algorithmically in [Advanced Graph Theory](./advanced-graph-theory#directed-reachability-and-strongly-connected-components).
+
+### A general recipe: order what we observe
+
+The role and predicate examples share one construction. Suppose a set $X$ contains objects with an **observation map** $f:X\to Y$, where $Y$ is a poset. We compare objects by their observations:
+
+$
+x\preceq_f y\quad\Longleftrightarrow\quad f(x)\leq_Y f(y).
+$
+
+For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set of inputs on which $P$ is true. In both cases, $Y$ is a set of subsets ordered by inclusion.
+
+> [!theorem] Comparing through observations always gives a preorder
+> If $\leq_Y$ is a partial order, then $\preceq_f$ is reflexive and transitive. If distinct elements of $X$ have the same observation, $\preceq_f$ is not antisymmetric.
+
+> [!proof] The properties are inherited from the observed order
+> **Reflexivity:** $f(x)\leq_Y f(x)$ implies $x\preceq_f x$.
+>
+> **Transitivity:** from $f(x)\leq_Y f(y)$ and $f(y)\leq_Y f(z)$, transitivity in $Y$ gives $f(x)\leq_Y f(z)$.
+>
+> **Why antisymmetry can fail:** if $x\ne y$ but $f(x)=f(y)$, then $x\preceq_f y$ and $y\preceq_f x$. The observations agree, but the objects do not.
+
+**The payoff:** a preorder is often the correct first model whenever we compare things by *meaning*, *behavior*, or *capabilities*. A poset is what we get once mutually equivalent observations are treated as one object. This provides a recurring link between [equivalence classes](./equivalence-relations), [graph components](./advanced-graph-theory#directed-reachability-and-strongly-connected-components), and order theory.
 
 > [!definition] Partial order and poset
 > A **partial order** is a reflexive, transitive, **antisymmetric** relation, where antisymmetry requires
