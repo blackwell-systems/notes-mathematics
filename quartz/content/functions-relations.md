@@ -86,15 +86,29 @@ $b \in B$.
 
 We may state that **x** bears relation **R** to **y** by writing **xRy**
 
-Do not let the formal language hide how simple this is. The **Cartesian product** $A \times B$ is the set of *all* possible ordered pairs (every element of $A$ paired with every element of $B$). A relation is nothing more than a **choice of which of those pairs you keep**. Picture the pairs as a grid of dots, one dot per possible pair; a relation just circles some of the dots.
+Do not let the formal language hide how simple this is. The **Cartesian product** $A \times B$ contains *every possible ordered pair* with its first element in $A$ and its second in $B$. A relation is **any choice of those pairs**. We can select them arbitrarily; we do not need a rule such as "is less than" to generate them.
 
-![Two panels illustrating a relation as a subset of a Cartesian product. On the left, a three by three grid of dots for A equals the set 1, 2, 3 on the horizontal axis and B equals the set x, y, z on the vertical axis; all nine possible pairs are shown as faint grey dots, and the four pairs in the relation R, namely (1,y), (1,z), (2,x), and (3,z), are overplotted as larger circled blue dots. On the right, the same relation drawn as blue arrows between an A oval and a B oval: 1 to y, 1 to z, 2 to x, 3 to z. The caption notes that a function is the special case with exactly one chosen dot in each row.](./media/fr-relation-cartesian.svg)
+### From possible pairs to a function
 
-*Figure: A binary relation selects four of the nine ordered pairs in $A\times B$; the grid and arrow diagram encode the same relation.*
+Let $A:=\{1,2,3\}$ and $B:=\{x,y,z\}$. Every column in the following grids represents an **input from $A$**, and every row represents an **output from $B$**.
 
-**Worked example.** Let $A := \{1, 2, 3\}$ and $B := \{x, y, z\}$. There are $|A| \times |B| = 3 \times 3 = 9$ possible pairs in $A \times B$. Suppose we keep the relation
-$R := \{(1, y),\ (1, z),\ (2, x),\ (3, z)\}.$
-This is a perfectly good relation (a subset of the 9 dots). Is it a function? **No**: the input $1$ appears in two pairs, $(1,y)$ and $(1,z)$, so $1$ has two outputs. In the grid picture, the row above $1$ has two circled dots. A function would require exactly one circled dot per input column.
+![Three-panel progression showing Cartesian product, relation, and function on the same three-by-three grid. Columns are inputs 1, 2, 3 and rows are outputs x, y, z. All nine pairs are highlighted in the Cartesian product. The relation selects four pairs: (1,y), (1,z), (2,x), and (3,z). The function selects exactly three pairs: (1,y), (2,x), and (3,z), one per column.](./media/fr-cartesian-relation-function.svg)
+
+*Figure: The Cartesian product $A\times B$ contains all nine possibilities. A relation $R\subseteq A\times B$ keeps whichever pairs we choose. A function $f:A\to B$ is a relation with **exactly one selected pair in every input column**. Dim dots are possible pairs, not selected pairs.*
+
+In the middle panel we chose
+
+$$
+R:=\{(1,y),(1,z),(2,x),(3,z)\}.
+$$
+
+This is a valid relation, but **not a function from $A$ to $B$**: the column for input $1$ has two selected outputs, $y$ and $z$. In the right panel we keep
+
+$$
+f:=\{(1,y),(2,x),(3,z)\},
+$$
+
+so every input has exactly one output. **The point is the condition, not the particular choices:** functions are relations whose pairs satisfy that extra requirement. In this illustration $f\subseteq R$, but a function does not generally have to be obtained by deleting pairs from a previously chosen relation.
 
 Key Concepts
 
