@@ -27,7 +27,9 @@ Once we understand these relationships, we can ask deeper questions. What do two
 >
 > **Different relationships can satisfy the same structural axioms.** That is why one theory can study all of them: a proof using only those axioms can apply in every setting where they hold.
 
-Throughout this chapter, $P$ stands for **whichever set of objects we are studying**, and $\preceq$ (read "precedes or is equal to," or "is below in this order") is our **generic name for the comparison on that set**. It is not another kind of numerical less-than. Its meaning is specified **when we choose the objects and their relation**.
+In [Functions & Relations](./functions-relations#from-binary-relations-to-preorders), we began with an arbitrary relation $R\subseteq P\times P$ and wrote $aRb$ whenever $(a,b)\in R$. Order theory asks which of those relations satisfy additional axioms. Changing the symbol alone cannot supply those properties.
+
+Throughout this chapter, $P$ stands for **whichever set of objects we are studying**, and $\preceq$ (read "precedes or is equal to," or "is below in this order") is our **generic name for an order-like comparison on that set**. It is not another kind of numerical less-than. Its meaning is specified **when we choose the objects and their relation**.
 
 > [!distinction] The general symbol is not an extra comparison
 > We use $\preceq$ when stating a definition or theorem that should work for many kinds of order. When we choose a concrete setting, we can replace it with that setting's familiar symbol:
