@@ -237,7 +237,74 @@ Thus $(g_k)$ is uniformly Cauchy, so it converges uniformly to a real function. 
 
 **Why both hypotheses matter.** The sequence $f_n(x):=x^n$ on $[0,1]$ is uniformly bounded but not equicontinuous; no subsequence can converge uniformly, because its pointwise limit is discontinuous. The constant functions $f_n(x):=n$ are equicontinuous but not uniformly bounded; no subsequence can converge to a finite function.
 
-## 8. A decision table for limit operations
+## 8. Uniform polynomial approximation: a constructive theorem
+
+Uniform convergence is not only a way of preserving properties. It also tells us whether a simple class of functions can **approximate** a more complicated one.
+
+> [!theorem] Weierstrass approximation theorem on a closed interval
+> Every continuous real-valued function $f$ on $[0,1]$ can be approximated arbitrarily closely in the supremum norm by polynomials. More precisely, for every $\varepsilon>0$, a polynomial $p$ exists with
+>
+> $
+> \sup_{x\in[0,1]}|f(x)-p(x)|<\varepsilon.
+> $
+
+**Proof by Bernstein polynomials.** For $n\ge1$ define
+
+$
+B_nf(x):=\sum_{k=0}^{n}f(k/n)\binom{n}{k}x^k(1-x)^{n-k}.
+$
+
+For fixed $n$, this is a polynomial in $x$. The weights
+
+$
+w_{n,k}(x):=\binom{n}{k}x^k(1-x)^{n-k}
+$
+
+are nonnegative for $x\in[0,1]$, and the binomial theorem shows $\sum_k w_{n,k}(x)=1$. Thus $B_nf(x)$ is a weighted average of the sampled values $f(k/n)$.
+
+We need to show that its weights concentrate near $k/n=x$. Two identities, obtained by differentiating the binomial formula (or counting binomial terms), are
+
+$
+\sum_k k\,w_{n,k}(x)=nx,\qquad
+\sum_k k(k-1)\,w_{n,k}(x)=n(n-1)x^2.
+$
+
+Since $k^2=k(k-1)+k$, these imply
+
+$
+\sum_{k=0}^{n}\left(\frac{k}{n}-x\right)^2w_{n,k}(x)
+=\frac{x(1-x)}{n}\le\frac1{4n}.
+$
+
+Now fix a target $\varepsilon>0$. Continuity on $[0,1]$ gives uniform continuity, so choose $\delta>0$ such that $|f(u)-f(v)|<\varepsilon/2$ whenever $|u-v|<\delta$. EVT supplies $M\ge1$ with $|f(x)|\le M$ everywhere.
+
+Split the weighted error into **near** indices $|k/n-x|<\delta$ and **far** indices $|k/n-x|\ge\delta$. Near indices contribute at most $\varepsilon/2$ because the weights sum to at most one. For far indices, the weight sum is bounded by
+
+$
+\sum_{\lvert k/n-x\rvert\ge\delta}w_{n,k}(x)
+\le\frac1{\delta^2}\sum_k(k/n-x)^2w_{n,k}(x)
+\le\frac1{4n\delta^2}.
+$
+
+Since $|f(k/n)-f(x)|\le2M$, the far contribution is at most $M/(2n\delta^2)$. Consequently, **for every** $x\in[0,1]$,
+
+$
+|B_nf(x)-f(x)|\le\frac\varepsilon2+\frac{M}{2n\delta^2}.
+$
+
+Choose $n>M/(\varepsilon\delta^2)$. The right side is then less than $\varepsilon$, uniformly in $x$. This proves the theorem. $\square$
+
+**Worked instance.** For $f(x)=x^2$, the weighted-moment calculation gives
+
+$
+B_n f(x)=x^2+\frac{x(1-x)}n.
+$
+
+Its maximum error is $\max_{[0,1]}x(1-x)/n=1/(4n)$; the approximation converges uniformly with an **explicit global error bound**, not merely pointwise accuracy.
+
+This is a constructive proof of the interval version of the approximation theorem. The more general **Stone-Weierstrass theorem**, dealing with separating subalgebras of continuous functions on compact Hausdorff spaces, is a deeper extension; it is **not proved here**.
+
+## 9. A decision table for limit operations
 
 | What you know | What you may conclude | Why |
 | --- | --- | --- |
