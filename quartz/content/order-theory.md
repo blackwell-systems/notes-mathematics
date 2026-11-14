@@ -23,7 +23,7 @@ Once we understand these relationships, we can ask deeper questions. What do two
 ### The organizing idea: different comparisons, the same axioms
 
 > [!intuition] An order is not necessarily a ranking of numbers
-> An **order relation** tells us when one object is below, before, contained in, or less informative than another. The objects can be numbers, sets, tasks, permissions, or points in a graph. What matters is **how the comparisons behave**, not what the objects happen to be.
+> An **order relation** tells us when one object is **below, before, contained in, or less informative** than another. The objects can be numbers, sets, tasks, permissions, or points in a graph. What matters is **how the comparisons behave**, not what the objects happen to be.
 >
 > **Different relationships can satisfy the same structural axioms.** That is why one theory can study all of them: a proof using only those axioms can apply in every setting where they hold.
 
