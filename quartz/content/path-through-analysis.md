@@ -26,7 +26,7 @@ An optional bridge to [Differential Geometry](./differential-geometry) removes t
 
 ## Stage 1: Limits and completeness
 
-[Calculus](./calculus) introduces derivatives and integrals; [Real Analysis](./real-analysis) asks why their rules are correct. Work carefully through Cauchy sequences, completeness, convergence theorems and $\varepsilon$–$\delta$ continuity.
+[Calculus](./calculus) introduces derivatives and integrals; [Real Analysis](./real-analysis) asks why their rules are correct. Start with the full proofs in [Completeness and Convergence](./completeness-and-convergence): the least-upper-bound property, monotone subsequences, Bolzano-Weierstrass and the Cauchy criterion. Then use [Real Analysis](./real-analysis#continuity-rigorous) to develop $\varepsilon$–$\delta$ continuity.
 
 **Checkpoint:** Explain the difference between saying that each value $f_n(x)$ approaches $f(x)$ and saying that $f_n$ approaches $f$ **uniformly over all** $x$. The distinction becomes crucial when exchanging limits with other operations.
 
