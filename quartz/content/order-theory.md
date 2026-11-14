@@ -389,7 +389,64 @@ These laws can be derived by the uniqueness of least upper and greatest lower bo
 
 **Check the laws with sets.** With $A=\{r\}$ and $B=\{w\}$, commutativity gives $A\cup B=B\cup A=\{r,w\}$; idempotence gives $A\cup A=A$; and absorption gives $A\cup(A\cap B)=\{r\}\cup\varnothing=A$. For associativity, $(A\cup B)\cup C=A\cup(B\cup C)$ for any third set $C$: either grouping collects precisely the elements appearing in at least one of the three sets. Intersections give the corresponding meet examples.
 
-A **distributive lattice** additionally satisfies $a\wedge(b\vee c)=(a\wedge b)\vee(a\wedge c)$ and its dual. Power sets are distributive because intersection distributes over union and vice versa. Not all lattices are distributive: the five-element lattice $M_3$, with three incomparable elements between bottom and top, is a counterexample.
+### Why a lattice can be defined by equations alone
+
+So far, a **lattice** has meant a poset with a join and meet for every pair. But suppose we started with **two binary operations** on a set, without specifying an order. Could the operations themselves tell us which elements are below others?
+
+> [!theorem] Order-theoretic and algebraic lattices are equivalent
+> Let $L$ be a nonempty set with operations $\vee$ ("join") and $\wedge$ ("meet"). The following describe the same kind of structure:
+>
+> - **Order definition:** $(L,\preceq)$ is a poset in which every pair has a least upper bound $a\vee b$ and a greatest lower bound $a\wedge b$.
+> - **Algebraic definition:** both operations are **commutative**, **associative**, and **idempotent**, and satisfy the two **absorption laws**
+>
+> $
+> a\vee(a\wedge b)=a,\qquad a\wedge(a\vee b)=a.
+> $
+>
+> Starting from the algebraic definition, the order is uniquely recovered by
+>
+> $
+> a\preceq b\quad\Longleftrightarrow\quad a\vee b=b
+> \quad\Longleftrightarrow\quad a\wedge b=a.
+> $
+
+> [!proof] First recover the equations from the order
+> **Commutativity:** the least upper bound of $\{a,b\}$ does not depend on the order in which its members are named, so $a\vee b=b\vee a$; likewise for meets.
+>
+> **Idempotence:** $a$ is both the least upper bound and greatest lower bound of $\{a,a\}$, so $a\vee a=a\wedge a=a$.
+>
+> **Associativity:** $(a\vee b)\vee c$ and $a\vee(b\vee c)$ are each the least upper bound of the three elements $a,b,c$; uniqueness makes them equal. The meet argument is dual.
+>
+> **Absorption:** $a\wedge b\preceq a$, so $a$ itself is the least upper bound of $a$ and $a\wedge b$. Hence $a\vee(a\wedge b)=a$. Reverse the order for the other law. $\square$
+
+> [!proof] Now recover the order from the equations
+> Define $a\preceq b$ precisely when $a\vee b=b$.
+>
+> **Reflexivity:** idempotence gives $a\vee a=a$.
+>
+> **Antisymmetry:** if $a\vee b=b$ and $b\vee a=a$, commutativity makes the left sides equal, so $a=b$.
+>
+> **Transitivity:** if $a\vee b=b$ and $b\vee c=c$, then associativity yields
+>
+> $
+> a\vee c=a\vee(b\vee c)=(a\vee b)\vee c=b\vee c=c.
+> $
+>
+> The meet criterion agrees: if $a\vee b=b$, then $a\wedge b=a\wedge(a\vee b)=a$ by absorption. Conversely, $a\wedge b=a$ implies $a\vee b=(a\wedge b)\vee b=b$ by commutativity and absorption.
+>
+> **The operations really are bounds:** $a\vee(a\vee b)=(a\vee a)\vee b=a\vee b$, so $a\preceq a\vee b$; similarly $b\preceq a\vee b$. If $a\preceq u$ and $b\preceq u$, then
+>
+> $
+> (a\vee b)\vee u=a\vee(b\vee u)=a\vee u=u.
+> $
+>
+> Thus $a\vee b$ is the **least upper bound**. The dual argument using $\wedge$ shows that $a\wedge b$ is the greatest lower bound. $\square$
+
+**Why this equivalence matters.** In a Hasse diagram, joins and meets are defined by *position*. In algebra and software, we can often specify them as *operations* and verify four families of laws. Both approaches produce the same ordered structure, so we can transfer results between diagrams, equations, and algorithms.
+
+**Worked check:** for subsets of $X$, $\vee$ is union and $\wedge$ is intersection. The equation $A\vee B=B$ means $A\cup B=B$, which is equivalent to $A\subseteq B$. The order was hiding inside the ordinary set operations.
+
+A **distributive lattice** additionally satisfiesA **distributive lattice** additionally satisfies $a\wedge(b\vee c)=(a\wedge b)\vee(a\wedge c)$ and its dual. Power sets are distributive because intersection distributes over union and vice versa. Not all lattices are distributive: the five-element lattice $M_3$, with three incomparable elements between bottom and top, is a counterexample.
 
 **See both outcomes:** for $A:=\{r\}$, $B:=\{w\}$, and $C:=\{r,w\}$, the left side $A\cap(B\cup C)$ is $\{r\}$; the right side $(A\cap B)\cup(A\cap C)$ is $\varnothing\cup\{r\}=\{r\}$. In $M_3$, instead choose three distinct middle elements $p,q,r$. Since $q\vee r=\top$, we have $p\wedge(q\vee r)=p$, while $(p\wedge q)\vee(p\wedge r)=\bot\vee\bot=\bot$. The two sides differ, so distributivity is **not** a law of every lattice.
 
@@ -397,10 +454,71 @@ In the Boolean algebra of subsets, **AND** behaves like intersection (meet), **O
 
 **One Boolean-algebra calculation:** for $X:=\{\text{read},\text{write}\}$ and $A:=\{\text{read}\}$, its complement (NOT) relative to $X$ is $A^c=\{\text{write}\}$. Then $A\cap A^c=\varnothing$ (AND: nothing belongs to both), while $A\cup A^c=X$ (inclusive OR: everything belongs to at least one). The complement depends on the chosen universe $X$.
 
-> [!distinction] Real-number completeness versus complete lattices
+### The same join, several different constructions
+
+A join is **the least upper bound in the specified poset**. It need not be the literal union of two sets. Compare these four inclusion-ordered structures:
+
+| Elements of the poset | Join of $A,B$ | Meet of $A,B$ |
+| --- | --- | --- |
+| All subsets of $X$ | $A\cup B$ | $A\cap B$ |
+| Subgroups of a group $G$ | $\langle A\cup B\rangle$, the subgroup **generated** by their union | $A\cap B$ |
+| Linear subspaces of a vector space $V$ | $A+B=\{a+b:a\in A,\ b\in B\}$, the **subspace sum** | $A\cap B$ |
+| Open subsets of a topological space | $A\cup B$ | $A\cap B$ for two sets; for an arbitrary family, the meet is the **interior of its intersection** |
+
+Read $\langle A\cup B\rangle$ as "the subgroup generated by the union of A and B." For a family of subspaces, their join is the span of the union. For a family of subgroups, it is the subgroup generated by their union. Both are the *smallest allowed object* containing every member of the family.
+
+**A concrete failure of plain union:** in $(\mathbb Z,+)$, let $A:=2\mathbb Z$ (the even integers) and $B:=3\mathbb Z$ (the multiples of three). Their intersection is $6\mathbb Z$, but their union is **not** a subgroup: $2\in A$, $3\in B$, and $2+3=5\notin A\cup B$. The smallest subgroup containing both is all of $\mathbb Z$, because $3-2=1$. Thus
+
+$
+A\wedge B=6\mathbb Z,\qquad A\vee B=\mathbb Z\ne A\cup B.
+$
+
+**Likewise with vectors:** in $\mathbb R^2$, the $x$-axis and $y$-axis intersect only at the zero vector. Their **union** is not a subspace, since $(1,0)+(0,1)=(1,1)$ lies on neither axis. Their **join** is their sum, all of $\mathbb R^2$.
+
+**Why topological opens are different again:** arbitrary unions of open sets are open, while arbitrary intersections need not be. In the inclusion order of open sets, the meet of an arbitrary family $(U_i)$ is therefore $\operatorname{int}(\bigcap_i U_i)$, the **largest open set contained in the intersection**. This is an important example of a complete lattice whose meet may not equal the set-theoretic intersection.
+
+The point is not to memorize four formulas. It is to ask: **What objects are allowed in this poset, and which allowed object is the least upper bound?** See [Group Theory](./group-theory-foundations), [Linear Algebra](./linear-algebra-foundations), and [General Topology](./general-topology-foundations) for the underlying constructions.
+
+> [!distinction] Real-number completeness versus complete lattices> [!distinction] Real-number completeness versus complete lattices
 > $(\mathbb R,\leq)$ is a lattice because every pair has a maximum and minimum, but it is **not a complete lattice**: all of $\mathbb R$ lacks a supremum inside $\mathbb R$. The real-number completeness axiom applies only to **nonempty, bounded-above subsets**.
 
-## Order duality: reverse the comparisons, reuse the theorem
+## Order ideals and filters: keeping lower or upper information together
+
+A **subset of a poset** can inherit a useful order-theoretic shape. Ideals collect elements together with everything below them; filters do the reverse. The extra requirement that the subset can combine any two of its elements prevents these concepts from being merely "sets pointing downward or upward."
+
+> [!definition] Down-sets, up-sets, ideals, and filters
+> A subset $D\subseteq P$ is a **down-set** if $x\in D$ and $y\preceq x$ imply $y\in D$. An **up-set** reverses this implication.
+>
+> A **nonempty order ideal** $I\subseteq P$ is a down-set that is **upward directed**: for every $a,b\in I$ there is some $c\in I$ with $a\preceq c$ and $b\preceq c$.
+>
+> Dually, a **nonempty order filter** $F\subseteq P$ is an up-set that is **downward directed**: every $a,b\in F$ have some $c\in F$ with $c\preceq a$ and $c\preceq b$.
+>
+> The **principal ideal** generated by $p$ is $\downarrow p:=\{x\in P:x\preceq p\}$ (read "down-arrow p"). The **principal filter** is $\uparrow p:=\{x\in P:p\preceq x\}$ (read "up-arrow p").
+
+**A simple permissions example.** Work in the four-element power set $\mathcal P(\{r,w\})$ ordered by inclusion, where $r$ means read and $w$ means write.
+
+- The principal ideal $\downarrow\{r\}=\{\varnothing,\{r\}\}$ contains every permission set **no more powerful than read**.
+- The principal filter $\uparrow\{r\}=\{\{r\},\{r,w\}\}$ contains every permission set that **includes read**.
+
+Both sets contain their generator. The first points downward; the second points upward. In either case, the direction refers to the **specified order**, not a picture's orientation.
+
+### Why downward closure alone is insufficient
+
+Consider $D:=\{\varnothing,\{r\},\{w\}\}$. This is a **down-set**: every subset of any of its members is again in $D$. But it is **not an ideal**, because $\{r\}$ and $\{w\}$ have no common upper bound **inside $D$**. Their smallest common upper bound in the full power set, $\{r,w\}$, was excluded.
+
+> [!theorem] Ideals in lattices are exactly nonempty down-sets closed under joins
+> If $L$ is a lattice, a nonempty subset $I\subseteq L$ is an order ideal exactly when it is downward closed and $a\vee b\in I$ for every $a,b\in I$. Dually, a nonempty subset is a filter exactly when it is upward closed and closed under pairwise meets.
+
+**Proof.** Suppose $I$ is an ideal. Given $a,b\in I$, directedness produces $c\in I$ above both. Because $a\vee b$ is their **least** upper bound, $a\vee b\preceq c$. Downward closure gives $a\vee b\in I$.
+
+Conversely, if $I$ is a nonempty down-set closed under joins, then for any $a,b\in I$, their join $a\vee b$ lies in $I$ and is an upper bound of both. Hence $I$ is upward directed. The filter statement follows by [order duality](#order-duality-reverse-the-comparisons-reuse-the-theorem). $\square$
+
+**Why this is useful:** ideals describe collections stable under **weakening and combining information**. Filters describe collections stable under **strengthening and taking common lower information**. They occur in logic, lattice theory, topology, and domain-theoretic models of computation. The mathematical term *order ideal* should not automatically be confused with a ring ideal, which has additional algebraic requirements.
+
+> [!distinction] Proper and principal are different qualifiers
+> An ideal or filter is **proper** if it is not the whole poset; **principal** means it is generated by one element. A principal ideal may equal the entire poset (for example $\downarrow\top=P$). Our definitions require nonempty ideals and filters, so the empty set is neither. Some authors use a convention that permits the empty ideal.
+
+## Order duality: reverse the comparisons, reuse the theorem## Order duality: reverse the comparisons, reuse the theorem
 
 An order relation tells us which way is *up*. Often a theorem about elements above something has an equally important counterpart about elements below it. Instead of proving the second result from scratch, reverse every comparison.
 
