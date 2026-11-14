@@ -18,6 +18,25 @@
 
 The finite checks in [the arithmetic harness](./scripts/check-arithmetic.mjs) validate worked examples. They do not replace the mathematical proofs.
 
+## Selective source-based expansion, November 14, 2026
+
+The [Assumptions of Physics: Bare Minimum, Order Theory](https://assumptionsofphysics.org/autogen/bareminima/OrderTheory.pdf) overview was used as a **topic map**, especially its treatment of lattice algebra, ideals/filters, and concrete representations of lattice operations. The site does not reproduce its prose or assume all its propositions are correct. We selected connections with high teaching value, supplied independently written proofs and examples, and excluded the source's less reliable broad claims.
+
+| Addition | Mathematical acceptance check |
+| --- | --- |
+| Algebraic vs order-theoretic lattice definitions | Proved both directions: associative, commutative, idempotent, absorbing operations recover a partial order and the stipulated operations are actual joins and meets |
+| Join/meet across different structures | Checked ordinary union/intersection for powersets, generated subgroup/intersection for subgroups, sum/intersection for vector subspaces, and arbitrary open-set meets as interior of intersection |
+| Order ideals and filters | Explicit nonemptiness convention, downward/upward closure and directedness; proved ideals are join-closed down-sets and filters are meet-closed up-sets in lattices |
+| Closure systems (Moore families) | Proved both directions of the correspondence between closure operators and intersection-closed families containing the universe, including the empty intersection |
+| Closure-family worked example | Three facts with an inference rule requiring a third fact when two antecedents are present; checked seven closed subsets and the join of closed singletons versus their nonclosed union |
+| Closure and Galois connection | Proved that closure regarded as a map into the fixed family is left adjoint to the inclusion map |
+
+The [arithmetic regression harness](./scripts/check-arithmetic.mjs) now checks the displayed finite lattice equations, directedness counterexample, closure laws and all intersections of subfamilies of seven closed sets, plus finite integer witnesses for the generated-subgroup example. These computations do not certify universal proofs.
+
+**Source caution:** The source is a compressed overview, not the authority for theorem hypotheses. It conflates the complete-lattice completion of the rational order with the ordinary real line in one remark; the two differ at their endpoints. We did not import that claim or broad descriptions of intuitionistic logic.
+
+No new images were required: the expansion uses existing lattice and Galois diagrams. All visual-review statuses remain unchanged and pending where they were pending before this work.
+
 ## Figure and presentation checks
 
 - The Order Theory chapter now uses **12** source-editable SVG figures, including two newly authored duality and Galois-closure diagrams.
