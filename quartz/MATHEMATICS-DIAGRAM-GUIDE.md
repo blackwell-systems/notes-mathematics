@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **147 original, source-editable SVG figures** placed directly beside the claims they explain across **38 proof-oriented chapters and reading maps**.
+This collection contains **149 original, source-editable SVG figures** placed directly beside the claims they explain across **38 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -24,7 +24,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Generating Functions](./content/generating-functions.md) | 1 | coefficient convolution from degree-splitting pairs |
 | [Advanced Graph Theory](./content/advanced-graph-theory.md) | 1 | Hall's deficient-neighborhood matching obstruction |
 | [Cross-Disciplinary Bridges](./content/cross-disciplinary-bridges.md) | 3 | kernel equivalence classes under a linear map; inconsistent XOR cycle; conditional expectation as projection onto parity-based predictions |
-| [Order Theory](./content/order-theory.md) | 10 | six-tile comparison of preorder, poset and total order; hierarchy of relations, preorders, partial orders and equivalence relations; chains and antichains inside a poset; total versus partial order; divisibility and subset Hasse diagrams; minimal versus least and maximal versus greatest; join and meet; preorder quotient and a non-lattice bow-tie counterexample |
+| [Order Theory](./content/order-theory.md) | 12 | order duality and Galois closure; six-tile comparison of preorder, poset and total order; hierarchy of relations, preorders, partial orders and equivalence relations; chains and antichains inside a poset; total versus partial order; divisibility and subset Hasse diagrams; minimal versus least and maximal versus greatest; join and meet; preorder quotient and a non-lattice bow-tie counterexample |
 | [Propositional Logic](./content/propositional-logic-zeroth-order-logic.md) | 1 | conditional implication, converse, inverse and contrapositive, with exactly two equivalence pairs |
 | [Peano Arithmetic](./content/peano-arithmetic.md) | 3 | successor chain; proof by induction; recursive addition |
 | [Construction of the Integers](./content/construction-of-the-integers.md) | 3 | equivalence classes of pairs; signs from representatives; descending Euclidean remainders |
