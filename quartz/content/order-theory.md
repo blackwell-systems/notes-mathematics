@@ -16,7 +16,7 @@ Consider two permission sets: one grants **read and write**, while the other gra
 
 Now change the objects from **permission sets** to **named roles**. The roles `Viewer` and `Auditor` might be distinct records with exactly the same effective permissions. Each is no more powerful than the other, although they are not the same role. This leads naturally to a **preorder**: a comparison that is consistent and transitive, but does not pretend that mutual comparability makes two identities equal.
 
-The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.**
+The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.** The chapter builds from preorders to lattices, then shows three deeper payoffs: **order duality** reuses proofs, **Knaster-Tarski** guarantees stable states, and **Galois connections** turn comparisons between representations into closure operations.
 
 ### The organizing idea: different comparisons, the same axioms
 
@@ -684,7 +684,7 @@ Going forward and back **again** returns the same two-role set. The operation fi
 
 **Why closure is the best stable enlargement.** For *any* closure operator on a poset, $c(p)$ is the **least closed element above $p$**. Extensiveness gives $p\preceq c(p)$; idempotence makes $c(p)$ closed. If $z$ is any closed element with $p\preceq z$, monotonicity gives $c(p)\preceq c(z)=z$. This is an existence-and-minimality statement, not simply a new name for a round trip.
 
-**The fixed-point connection.** Closed elements are exactly the fixed points of $c$. On a complete lattice, Knaster-Tarski tells us that these form a complete lattice. When working with closed subsets of a set, their meet is intersection; their join is **closure of the union**, which can be larger than the union.
+**The fixed-point connection.** Closed elements are exactly the fixed points of $c$. On a complete lattice, Knaster-Tarski tells us that these form a complete lattice. When working with closed subsets of a set, their meet is intersection; their join is **closure of the union**, which can be larger than the union for general closure operators. In our particular role-tier example, unions of already saturated role sets remain saturated, so their closure adds nothing. The more general formula remains useful in settings such as topological closure and logical consequence.
 
 **Where this appears:** abstract interpretation translates between concrete and approximate program states; permission audits group roles by observable capabilities; formal concept analysis uses object–attribute relations to construct lattices of concepts. The same inequalities govern each application, but the underlying observations differ.
 
