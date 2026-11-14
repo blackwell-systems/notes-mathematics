@@ -276,9 +276,30 @@ An **equivalence relation** is reflexive + symmetric + transitive; a **partial o
 
 <iframe src="/static/interactive/relation-properties-checker.html" width="100%" height="660" style="border:none;"></iframe>
 
+### From binary relations to preorders
+
+We began with a **binary relation** on $A$: any choice of ordered pairs $R\subseteq A\times A$. Writing $aRb$ means only that $(a,b)\in R$. The notation does **not** tell us whether $R$ has any special properties. Those are things we must check.
+
+Suppose $R$ is **reflexive** (every $aRa$ holds) and **transitive** (whenever $aRb$ and $bRc$, then $aRc$). We now have a **preorder**. No further requirement is needed: in particular, two distinct objects may be related in both directions.
+
+> [!example] A preorder that is not a partial order
+> Let $A:=\{a,b\}$ with $a\ne b$, and choose **all four possible pairs**:
+>
+> $
+> R:=\{(a,a),(a,b),(b,a),(b,b)\}=A\times A.
+> $
+>
+> **Reflexive:** both $(a,a)$ and $(b,b)$ belong to $R$. **Transitive:** for any $x,y,z\in A$, if $xRy$ and $yRz$, then $xRz$ too, because $R$ contains *every* pair. So $R$ is a preorder.
+>
+> But $aRb$ and $bRa$ both hold while $a\ne b$. This **violates antisymmetry**, so $R$ is **not** a partial order. Transitivity did not require the two-way comparison; the definition of $R$ happened to include it.
+
+This is a progression in **which axioms a relation satisfies**, not a process that automatically changes its pairs. An **equivalence relation** is another important branch: it requires reflexivity, symmetry, and transitivity, so every equivalence relation is also a preorder. A **partial order** adds antisymmetry to the preorder requirements; a **total order** additionally compares every pair.
+
+Read [Order Theory](./order-theory#from-relations-to-preorders-and-partial-orders) for why these distinctions matter, how to model permissions and dependencies, and how a preorder gives a poset of equivalence classes.
+
 ### Partial Order
 
-A **partial order** is reflexive, antisymmetric, and transitive. Distinct elements need not be comparable. For proofs and examples, see [Order Theory](./order-theory#from-relations-to-preorders-and-partial-orders).
+A **partial order** is a preorder that is also antisymmetric. Distinct elements need not be comparable. For proofs and examples, see [Order Theory](./order-theory#from-relations-to-preorders-and-partial-orders).
 
 ### Hasse Diagrams
 
