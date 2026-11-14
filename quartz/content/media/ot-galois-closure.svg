@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">Galois closure from role names to observable tiers</title>
+<desc id="desc">Three columns show the original selected role Editor, the observed basic permission tier, and the closure containing both Editor and Author. The mapping loses the distinct role names, and inverse image returns every name with the tier basic. Admin remains outside the closure.</desc>
+<rect width="1200" height="560" rx="18" fill="#0c1e30"/>
+<text x="600" y="46" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#f4f3ed">FORWARD, BACK, THEN CLOSED</text>
+<text x="600" y="79" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#bdd0df">Distinct identities can share the same observable property.</text>
+<g fill="#162b40" stroke="#45647e" stroke-width="2">
+<rect x="36" y="111" width="344" height="339" rx="16"/>
+<rect x="428" y="111" width="344" height="339" rx="16"/>
+<rect x="820" y="111" width="344" height="339" rx="16"/>
+</g>
+<g font-family="Arial,sans-serif" text-anchor="middle" fill="#f4f3ed" font-size="20" font-weight="700">
+<text x="208" y="149">NAMED ROLES</text>
+<text x="600" y="149">OBSERVED TIERS</text>
+<text x="992" y="149">CLOSED ROLE SET</text>
+</g>
+<g font-family="Arial,sans-serif" text-anchor="middle" font-size="19" font-weight="700">
+<rect x="89" y="180" width="238" height="54" rx="25" fill="#236475" stroke="#77d1c8" stroke-width="3"/><text x="208" y="213" fill="#ffffff">Editor (selected)</text>
+<rect x="89" y="254" width="238" height="54" rx="25" fill="#26394f" stroke="#6c8297" stroke-width="2"/><text x="208" y="287" fill="#ccdbe6">Author</text>
+<rect x="89" y="328" width="238" height="54" rx="25" fill="#26394f" stroke="#6c8297" stroke-width="2"/><text x="208" y="361" fill="#ccdbe6">Admin</text>
+<rect x="481" y="206" width="238" height="59" rx="27" fill="#236475" stroke="#77d1c8" stroke-width="3"/><text x="600" y="243" fill="#ffffff">basic</text>
+<rect x="481" y="320" width="238" height="59" rx="27" fill="#26394f" stroke="#6c8297" stroke-width="2"/><text x="600" y="357" fill="#ccdbe6">privileged</text>
+<rect x="867" y="198" width="250" height="106" rx="20" fill="#236475" stroke="#77d1c8" stroke-width="3"/><text x="992" y="241" fill="#ffffff">Editor + Author</text><text x="992" y="272" fill="#ffffff" font-size="16">same tier</text>
+<rect x="867" y="328" width="250" height="54" rx="25" fill="#26394f" stroke="#6c8297" stroke-width="2"/><text x="992" y="361" fill="#ccdbe6">Admin excluded</text>
+</g>
+<g fill="none" stroke="#efbf7d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M336 207 H467"/><path d="M451 195 L469 207 L451 219"/>
+<path d="M735 237 H852"/><path d="M836 225 L854 237 L836 249"/>
+</g>
+<g fill="#f0bf7d" font-family="Arial,sans-serif" text-anchor="middle" font-size="17" font-weight="700">
+<text x="403" y="192">image</text><text x="792" y="221">preimage</text>
+</g>
+<text x="600" y="489" fill="#f4f3ed" text-anchor="middle" font-family="Arial,sans-serif" font-size="21">Start with {Editor}; observe {basic}; recover {Editor, Author}.</text>
+<text x="600" y="523" fill="#8fd7b9" text-anchor="middle" font-family="Arial,sans-serif" font-size="19">Going forward and back again makes no further change.</text>
+</svg>
