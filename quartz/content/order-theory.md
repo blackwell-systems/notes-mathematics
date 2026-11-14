@@ -93,11 +93,11 @@ A preorder can recognize two different objects as **equivalent for the purpose o
 > [!distinction] Equivalent under a comparison does not mean the same object
 > Imagine two separately named roles, **Viewer** and **Auditor**, each granting only **read** permission. Compare roles by the permissions they grant. Then both comparisons hold:
 >
-> $
+> $$
 > \text{Viewer}\preceq\text{Auditor}
 > \qquad\text{and}\qquad
 > \text{Auditor}\preceq\text{Viewer}.
-> $
+> $$
 >
 > But **Viewer and Auditor are still two distinct roles**: they may have different identities, users, or purposes. Mutual comparison tells us only that **this particular test cannot distinguish them**.
 >
