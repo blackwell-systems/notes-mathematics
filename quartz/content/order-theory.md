@@ -10,7 +10,9 @@ enables: ["category-theory-foundations", "real-analysis", "general-topology-foun
 
 ## Why study order theory?
 
-Suppose one permission set allows **read and write**, while another allows **read and share**. Which is more permissive? Neither contains the other: each grants an action the other lacks. But we can still identify what they share (**read**) and the permissions needed to include both (**read, write, share**). The comparison is useful even without a winner.
+**Suppose one permission set allows read and write, while another allows read and share. Which is more permissive?**
+
+Neither contains the other: each grants an action the other lacks. But we can still identify what they share (**read**) and the permissions needed to include both (**read, write, share**). The comparison is useful even without a winner.
 
 **Order theory studies relationships like this.** Instead of requiring every pair of objects to be ranked, it asks what follows when one object is **contained in**, **depends on**, or **can reach** another. The objects might be sets, tasks, programs, or states of a system. What matters is the structure of their comparisons.
 
