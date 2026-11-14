@@ -25,7 +25,18 @@ The same structure appears when independent tasks can run concurrently, when a c
 >
 > **Different relationships can satisfy the same structural axioms.** That is why one theory can study all of them: a proof using only those axioms can apply in every setting where they hold.
 
-Throughout this chapter, let $P$ be a set equipped with a relation $\preceq$ (read "precedes or is equal to"). The expression $a\preceq b$ is a **placeholder for a comparison we must specify**, not necessarily a statement that $a$ is numerically smaller than $b$.
+Throughout this chapter, $P$ stands for **whichever set of objects we are studying**, and $\preceq$ (read "precedes or is equal to," or "is below in this order") is our **generic name for the comparison on that set**. It is not another kind of numerical less-than. Its meaning is specified **when we choose the objects and their relation**.
+
+> [!distinction] The general symbol is not an extra comparison
+> We use $\preceq$ when stating a definition or theorem that should work for many kinds of order. When we choose a concrete setting, we can replace it with that setting's familiar symbol:
+> - **Numbers:** $\preceq$ can mean $\leq$ ("less than or equal to").
+> - **Sets:** $\preceq$ can mean $\subseteq$ ("is a subset of").
+> - **Positive integers under divisibility:** $\preceq$ can mean $\mid$ ("divides").
+> - **Vertices of a directed graph:** $\preceq$ can mean $\leadsto$ ("can reach by a directed path").
+>
+> These are **different relations**, not four names for one universal comparison. The symbol $\preceq$ is simply the common notation we use to reason about whichever relation has been chosen.
+
+The table uses each relation's **conventional concrete symbol** rather than repeating $\preceq$ in every row:
 
 | Objects being compared | What the comparison means | Concrete example |
 | --- | --- | --- |
@@ -34,7 +45,27 @@ Throughout this chapter, let $P$ be a set equipped with a relation $\preceq$ (re
 | Positive integers | $a\mid b$ (read "a divides b"): $b$ is an integer multiple of $a$ | $2\mid6$ |
 | Vertices in a directed graph | $u\leadsto v$: a directed path goes from $u$ to $v$, possibly of length zero | $u\leadsto v$ along a path |
 
-These are **not the same relation**. For example, $2\leq3$, but $2\nmid3$ (read "two does not divide three"). Yet they all obey two rules: every object compares with itself (**reflexivity**), and comparisons can be chained (**transitivity**). For instance, $2\mid6$ and $6\mid30$ imply $2\mid30$, just as $A\subseteq B$ and $B\subseteq C$ imply $A\subseteq C$.
+**Watch the notation become concrete.** Choose $P:=\mathcal P(\{r,w\})$, the set of all subsets of $\{r,w\}$, and **define** the comparison by
+
+$
+A\preceq B\quad\Longleftrightarrow\quad A\subseteq B.
+$
+
+With this choice, $\{r\}\preceq\{r,w\}$ and $\{r\}\subseteq\{r,w\}$ say **exactly the same thing**. We have not introduced two relationships. We have given the general symbol a particular meaning.
+
+Now consider the abstract rule of **transitivity**:
+
+$
+a\preceq b,\quad b\preceq c
+\quad\Longrightarrow\quad a\preceq c.
+$
+
+For sets with the chosen interpretation, this says that $A\subseteq B$ and $B\subseteq C$ imply $A\subseteq C$. If instead we choose $P:=\mathbb Z_{>0}$ (positive integers) and declare $a\preceq b$ to mean $a\mid b$, the **same abstract rule** says that $a\mid b$ and $b\mid c$ imply $a\mid c$. That ability to reuse one argument is why we introduce generic notation.
+
+**The symbol alone does not determine truth.** For example, $2\leq3$ is true, but $2\nmid3$ (read "two does not divide three"). So $2\preceq3$ has no definite meaning until we specify which relation $\preceq$ denotes.
+
+> [!distinction] Similar shapes do not guarantee the same meaning
+> The curved $\preceq$ is a conventional choice for a general **non-strict** comparison, including a preorder that may relate two distinct objects in both directions. The straighter $\leq$ is conventional for numbers, although mathematicians sometimes use it for abstract orders too. The symbols $\subseteq$, $\mid$, and $\leadsto$ tell you which **specific** comparison is intended. Later, $\prec$ denotes a **strict** comparison, which is different from $\preceq$. In a preorder, even $a\preceq b$ and $b\preceq a$ need not imply that $a=b$.
 
 The similarities do not erase the differences. Numerical $\leq$ compares every pair; subset inclusion and positive-integer divisibility can leave some pairs **incomparable**; directed reachability can compare distinct vertices in **both directions** when a cycle exists. The next section turns these differences into precise definitions: **preorder, partial order, and total order**.
 
