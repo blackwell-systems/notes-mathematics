@@ -113,7 +113,7 @@ forces the same sequence to converge to $M$. Uniqueness of limits yields $f(x_{\
 
 **Example.** On $[0,2]$, the function $f(x):=-(x-1)^2+3$ has maximum $3$ at $1$ and minimum $2$ at both endpoints. EVT guaranteed these extrema **before** we differentiated anything.
 
-**Why the hypotheses matter.** On $(0,1)$, $f(x)=x$ has neither a maximum nor a minimum despite being continuous and bounded. On the compact interval $[-1,1]$, define $f(0):=2$ and $f(x):=|x|$ for $x\ne0$. The function is bounded but discontinuous at $0$; this particular example still has extrema, showing that the theorem gives **sufficient conditions**, not a characterization. To see why continuity cannot simply be dropped, take $g(0)=0$ and $g(x)=1/|x|$ for $x\ne0$ on $[-1,1]$: $g$ is unbounded and has no maximum.
+**Why the hypotheses matter.** On $(0,1)$, $f(x)=x$ has neither a maximum nor a minimum despite being continuous and bounded. On the compact interval $[-1,1]$, define $f(0):=2$ and $f(x):=|x|$ for $x\ne0$. This $f$ is **bounded but discontinuous**, and it has **no minimum**: every value is positive, but $f(x)$ approaches $0$ along nonzero $x\to0$. Thus even boundedness of $f$ on a compact domain cannot replace continuity in EVT. A discontinuous function may still attain both extrema (for example, set $g(0):=2$ and $g(x):=1$ for $x\ne0$), so continuity is a sufficient hypothesis, not a necessary one for an individual function.
 
 ## 5. Pointwise continuity versus one delta for the whole set
 
