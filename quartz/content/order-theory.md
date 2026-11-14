@@ -16,7 +16,7 @@ Consider two permission sets: one grants **read and write**, while the other gra
 
 Now change the objects from **permission sets** to **named roles**. The roles `Viewer` and `Auditor` might be distinct records with exactly the same effective permissions. Each is no more powerful than the other, although they are not the same role. This leads naturally to a **preorder**: a comparison that is consistent and transitive, but does not pretend that mutual comparability makes two identities equal.
 
-The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.**
+The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.** The chapter builds from preorders to lattices, then shows three deeper payoffs: **order duality** reuses proofs, **Knaster-Tarski** guarantees stable states, and **Galois connections** turn comparisons between representations into closure operations.
 
 ### The organizing idea: different comparisons, the same axioms
 
@@ -65,9 +65,9 @@ A preorder keeps both facts: the **original objects remain distinct**, and the c
 
 Let $R$ be a set of **named roles**, and let $A(r)$ be the set of actions permitted to role $r$. Define
 
-$
+$$
 r\preceq s\quad\Longleftrightarrow\quad A(r)\subseteq A(s).
-$
+$$
 
 Read $r\preceq s$ as "role r grants no more actions than role s." This relation is **reflexive** because every set is a subset of itself, and **transitive** because subset inclusion is transitive. But the roles are not themselves permission sets, so antisymmetry can fail:
 
@@ -86,10 +86,10 @@ Here $\text{Viewer}\preceq\text{Auditor}$ **and** $\text{Auditor}\preceq\text{Vi
 
 Let $P$ and $Q$ be predicates about a real input $x$, and define
 
-$
+$$
 P\preceq Q\quad\Longleftrightarrow\quad
 \text{for every }x\in\mathbb R,\ P(x)\Rightarrow Q(x).
-$
+$$
 
 The arrow $\Rightarrow$ is read "implies." The statement $P\preceq Q$ means **every case satisfying P also satisfies Q**: P is at least as restrictive as Q. Implication is reflexive ($P\Rightarrow P$) and transitive, so it defines a preorder on predicates.
 
@@ -109,9 +109,9 @@ Consider a service-call graph with calls from Scheduler to Worker, Worker back t
 
 The role and predicate examples share one construction. Suppose a set $X$ contains objects with an **observation map** $f:X\to Y$, where $Y$ is a poset. We compare objects by their observations:
 
-$
+$$
 x\preceq_f y\quad\Longleftrightarrow\quad f(x)\leq_Y f(y).
-$
+$$
 
 For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set of inputs on which $P$ is true. In both cases, $Y$ is a set of subsets ordered by inclusion.
 
@@ -137,9 +137,9 @@ For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set o
 > [!tip] Important: “partial” does not mean “partially defined”
 > **The relation is defined for every pair.** The word *partial* means only that **not every pair must be comparable**: sometimes neither element is below the other.
 >
-> $
+> $$
 > a\npreceq b\qquad\text{and}\qquad b\npreceq a.
-> $
+> $$
 >
 > This is called **incomparability**, not an undefined comparison.
 >
@@ -151,9 +151,9 @@ For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set o
 
 Start with $A:=\{a,b\}$. Its **power set** is the set of all its subsets:
 
-$
+$$
 \mathcal P(A)=\{\varnothing,\{a\},\{b\},\{a,b\}\}.
-$
+$$
 
 A power set alone is just a set. To obtain a **poset**, specify an order on its elements: here, **subset inclusion** $\subseteq$. We claim that $(\mathcal P(A),\subseteq)$ satisfies all three partial-order axioms.
 
@@ -163,9 +163,9 @@ A power set alone is just a set. To obtain a **poset**, specify an order on its 
 
 **Why is the order partial?** The two middle elements, $\{a\}$ and $\{b\}$, are **incomparable**:
 
-$
+$$
 \{a\}\nsubseteq\{b\}\qquad\text{and}\qquad\{b\}\nsubseteq\{a\}.
-$
+$$
 
 Neither comparison holds, but the order is still well-defined. The power set is therefore a **poset, not a totally ordered set**.
 
@@ -400,6 +400,49 @@ In the Boolean algebra of subsets, **AND** behaves like intersection (meet), **O
 > [!distinction] Real-number completeness versus complete lattices
 > $(\mathbb R,\leq)$ is a lattice because every pair has a maximum and minimum, but it is **not a complete lattice**: all of $\mathbb R$ lacks a supremum inside $\mathbb R$. The real-number completeness axiom applies only to **nonempty, bounded-above subsets**.
 
+## Order duality: reverse the comparisons, reuse the theorem
+
+An order relation tells us which way is *up*. Often a theorem about elements above something has an equally important counterpart about elements below it. Instead of proving the second result from scratch, reverse every comparison.
+
+> [!definition] The dual (opposite) poset
+> Given a poset $(P,\preceq)$, its **dual**, written $P^{\mathrm{op}}$ (read "P opposite"), has the same elements and the reversed order:
+>
+> $$
+> a\preceq_{\mathrm{op}} b\quad\Longleftrightarrow\quad b\preceq a.
+> $$
+
+**Check the axioms.** Reflexivity is unchanged. If $a\preceq_{\mathrm{op}}b$ and $b\preceq_{\mathrm{op}}c$, then $c\preceq b\preceq a$, so $a\preceq_{\mathrm{op}}c$. Antisymmetry also survives: two-way comparisons in the dual are two-way comparisons in the original order.
+
+![The original order has two incomparable minimal elements a and b below a greatest element c. Reversing every comparison produces a dual order with c least and a and b incomparable maximal elements.](./media/ot-order-duality.svg)
+
+*Figure: Reversing a Hasse diagram trades "above" for "below" while preserving incomparability. The two structures use the same elements, not the same order.*
+
+**Worked example.** Let $P:=\{a,b,c\}$ with strict relations $a\prec c$ and $b\prec c$, and no comparison between $a$ and $b$. In $P$, $c$ is **greatest** and $a,b$ are **minimal**. In $P^{\mathrm{op}}$, $c$ is **least** and $a,b$ are **maximal**. The dual does not suddenly make $a$ and $b$ comparable.
+
+| In $P$ | In $P^{\mathrm{op}}$ |
+| --- | --- |
+| Upper bound | Lower bound |
+| Greatest, maximal | Least, minimal |
+| Join $a\vee b$ | Meet $a\wedge b$ |
+| Complete lattice | Complete lattice |
+| Chain, antichain | Chain, antichain |
+
+> [!theorem] Order-duality principle
+> A theorem derived solely from the poset axioms remains valid when all comparisons and their associated dual notions are reversed.
+
+**Proof.** The dual structure satisfies the same poset axioms, as shown above. Apply the theorem to $P^{\mathrm{op}}$ and translate its conclusion back into $P$. For example, the theorem "a unique maximal element in a finite nonempty poset is greatest" immediately yields: **a unique minimal element in a finite nonempty poset is least**. $\square$
+
+**An explicit order-reversing map.** For subsets of a fixed set $X$, complementation satisfies
+
+$$
+A\subseteq B\quad\Longleftrightarrow\quad X\setminus B\subseteq X\setminus A.
+$$
+
+Thus $A\mapsto X\setminus A$ reverses order bijectively; [De Morgan's laws](./set-theory#set-operation-properties) exchange union and intersection. A lattice's join/meet duality has a concrete manifestation in ordinary set operations.
+
+> [!distinction] Duality is not total ordering
+> Reverse a partial order and incomparable elements remain incomparable. Changing direction is not the same as adding comparisons.
+
 ## Well-foundedness and well-ordering
 
 > [!definition] Well-founded order and well-order
@@ -458,6 +501,196 @@ $$
 
 The eight-element divisibility cube and the power-set cube have the same **order structure**, even though their elements are different kinds of mathematical objects. Isomorphisms preserve comparisons, extrema, bounds, joins, meets, chains, and antichains.
 
+## Fixed points: when adding information reaches a stable result
+
+An order-preserving function can describe an information update: dependency resolution adds requirements, program analysis adds discovered facts, or a workflow repeatedly propagates consequences. We want to know whether there is a state that remains unchanged.
+
+> [!definition] Fixed, pre-fixed and post-fixed points
+> For $F:P\to P$, a **fixed point** satisfies $F(x)=x$. A **pre-fixed point** satisfies $F(x)\preceq x$ and a **post-fixed point** satisfies $x\preceq F(x)$. A one-sided inequality is **not** the same as equality.
+
+The lattice completeness needed below is the completeness defined in [Joins, meets, and lattices](#joins-meets-and-lattices): every subset has a join and meet, including the empty subset. It is stronger than the real-number least-upper-bound axiom, which only concerns nonempty sets bounded above.
+
+### Knaster-Tarski: fixed points without continuity
+
+> [!theorem] Knaster-Tarski fixed-point theorem
+> Let $L$ be a **complete lattice** and $F:L\to L$ be **monotone**. Then the fixed points of $F$, ordered as in $L$, form a complete lattice. In particular, the least and greatest fixed points exist and are
+>
+> $$
+> \operatorname{lfp}(F)=\bigwedge\{x:F(x)\preceq x\},
+> \qquad
+> \operatorname{gfp}(F)=\bigvee\{x:x\preceq F(x)\}.
+> $$
+
+Here $\bigwedge$ means "meet over the set," $\bigvee$ means "join over the set," and $\operatorname{lfp}$ and $\operatorname{gfp}$ mean "least fixed point" and "greatest fixed point." **No metric, differentiability, or continuity hypothesis is involved.**
+
+> [!proof] Construct the least fixed point
+> Define $U:=\{x\in L:F(x)\preceq x\}$. This set is nonempty: $\top\in U$ because every lattice element, including $F(\top)$, lies below $\top$.
+>
+> Let $u:=\bigwedge U$. For each $x\in U$, we have $u\preceq x$ and therefore, by monotonicity, $F(u)\preceq F(x)\preceq x$. Thus $F(u)$ lies below **every** member of $U$, so $F(u)\preceq u$.
+>
+> Applying monotonicity gives $F(F(u))\preceq F(u)$. That means $F(u)$ itself belongs to $U$, so $u\preceq F(u)$ because $u$ is its meet.
+>
+> Hence $F(u)=u$ by antisymmetry. Every fixed point lies in $U$, so $u$ is below every fixed point. It is the least fixed point. $\square$
+
+> [!proof] Why *all* fixed points form a complete lattice
+> Let $S$ be **any subset of fixed points**, including the empty subset. Define
+>
+> $$
+> U_S:=\{x\in L:F(x)\preceq x\text{ and }s\preceq x\text{ for all }s\in S\}.
+> $$
+>
+> This set contains $\top$. Put $u_S:=\bigwedge U_S$. Exactly as before, monotonicity implies $F(u_S)\preceq u_S$.
+>
+> For each $s\in S$, since every member of $U_S$ is above $s$, their meet $u_S$ is also above $s$. Thus $s=F(s)\preceq F(u_S)$ by monotonicity. Applying monotonicity again to $F(u_S)\preceq u_S$ gives $F(F(u_S))\preceq F(u_S)$. So $F(u_S)$ belongs to $U_S$.
+>
+> By the definition of a meet, $u_S\preceq F(u_S)$, hence $F(u_S)=u_S$. This element is the **least fixed upper bound** of $S$. In the **dual lattice**, the same construction gives the greatest fixed lower bound of every $S$. Therefore the entire fixed-point set is a complete lattice. $\square$
+
+**Subtlety:** the join of fixed points taken *inside the fixed-point lattice* need not equal their join taken in the ambient lattice $L$. The theorem constructs the **least fixed upper bound**.
+
+### Worked example: closing a dependency graph
+
+Let $X:=\{\text{read},\text{write},\text{deploy},\text{monitor}\}$. A subset $A\subseteq X$ records enabled capabilities. Suppose deployment requires writing, writing requires reading, and monitoring is optional. We require the final state to include deployment. Define a monotone update $F:\mathcal P(X)\to\mathcal P(X)$:
+
+$$
+F(A):=\{\text{deploy}\}\cup A
+\cup\begin{cases}\{\text{write}\},&\text{if deploy}\in A,\\\varnothing,&\text{otherwise},\end{cases}
+\cup\begin{cases}\{\text{read}\},&\text{if write}\in A,\\\varnothing,&\text{otherwise}.\end{cases}
+$$
+
+**Check monotonicity:** if $A\subseteq B$, every membership condition true in $A$ is also true in $B$, so $F(A)\subseteq F(B)$. Because $\mathcal P(X)$ is a complete lattice, the theorem applies.
+
+Start from the least element $\varnothing$:
+
+$$
+\begin{aligned}
+A_0&:=\varnothing,\\
+A_1:=F(A_0)&=\{\text{deploy}\},\\
+A_2:=F(A_1)&=\{\text{deploy},\text{write}\},\\
+A_3:=F(A_2)&=\{\text{deploy},\text{write},\text{read}\},\\
+A_4:=F(A_3)&=A_3.
+\end{aligned}
+$$
+
+The least fixed point is $A_3$, which contains exactly the mandatory capabilities. The greatest fixed point is $X$, which additionally includes optional monitoring.
+
+> [!theorem] Bottom-up iteration on a finite complete lattice
+> If $L$ is **finite**, $F:L\to L$ is monotone, and $x_0:=\bot$, $x_{n+1}:=F(x_n)$, then the sequence reaches the least fixed point after finitely many steps.
+
+**Proof.** Since $\bot\preceq F(\bot)$, monotonicity inductively gives $x_n\preceq x_{n+1}$. There cannot be infinitely many strict increases in a finite poset, so eventually consecutive terms agree, producing a fixed point. For any fixed point $z$, start with $\bot\preceq z$ and induct: $x_n\preceq z$ implies $F(x_n)\preceq F(z)=z$. Hence the reached fixed point lies below all others and is the least. $\square$
+
+**Why infinite iteration needs another hypothesis.** The Knaster-Tarski theorem does *not* say that the supremum of the first countably many iterations is fixed. On the complete lattice $[0,1]$, define
+
+$$
+F(x):=
+\begin{cases}
+(x+1/2)/2,&0\le x<1/2,\\
+1,&1/2\le x\le1.
+\end{cases}
+$$
+
+This $F$ is monotone. Iterating from $x_0=0$ gives $x_n=\tfrac12(1-2^{-n})\to1/2$, yet $F(1/2)=1$, not $1/2$. The least fixed point is $1$. The missing property is an appropriate continuity or preservation-of-directed-joins assumption, not monotonicity. Contrast with metric contraction arguments in [Differential Equations](./differential-equations), which use a distance and contraction factor instead of just the order.
+
+## Galois connections: compare through two representations
+
+Suppose an application stores **named objects** but also assigns each object an **observable tier**. Moving from names to tiers forgets which particular name was used. Moving from tiers back to names must therefore recover *all* names compatible with a tier, not just the one originally chosen.
+
+A **Galois connection** captures this loss of distinction using an exact two-way comparison. It is an order-theoretic case of an [adjunction](./category-adjunctions-monads#an-adjunction-is-a-natural-family-of-bijections) in category theory.
+
+> [!definition] Galois connection (monotone convention)
+> Let $P,Q$ be posets. Functions $f:P\to Q$ and $g:Q\to P$ form a **Galois connection**, written $f\dashv g$ (read "f is left adjoint to g"), if for **every** $p\in P$, $q\in Q$,
+>
+> $$
+> f(p)\preceq_Q q\quad\Longleftrightarrow\quad p\preceq_P g(q).
+> $$
+>
+> This is the **monotone** or **adjoint** convention. Some authors also use the name Galois connection for *antitone* maps; when reading another source, check which convention it uses.
+
+The relationship says: "the image of $p$ lies below $q$" exactly when "the original $p$ lies below the reverse image of $q$." It is much stronger than saying that the maps happen to be monotone.
+
+### Worked example: named roles and their permission tier
+
+Let $X:=\{\text{Editor},\text{Author},\text{Admin}\}$ be different role identities, and let $Y:=\{\text{basic},\text{privileged}\}$. Define an observation $h:X\to Y$ by
+
+$$
+h(\text{Editor})=h(\text{Author})=\text{basic},
+\qquad
+h(\text{Admin})=\text{privileged}.
+$$
+
+On **sets** of roles and tiers, define
+
+$$
+f:\mathcal P(X)\to\mathcal P(Y),\quad f(A):=h[A],
+\qquad
+g:\mathcal P(Y)\to\mathcal P(X),\quad g(B):=h^{-1}[B].
+$$
+
+Here $h[A]$ is the **direct image** (all tiers represented by roles in $A$). The expression $h^{-1}[B]$ is the **inverse image** (all roles whose tiers belong to $B$), and **does not** require $h$ to have an inverse function.
+
+> [!theorem] Direct image is left adjoint to inverse image
+> For **every** $A\subseteq X$ and $B\subseteq Y$,
+>
+> $$
+> h[A]\subseteq B\quad\Longleftrightarrow\quad A\subseteq h^{-1}[B].
+> $$
+
+**Proof.** If $h[A]\subseteq B$ and $x\in A$, then $h(x)\in B$ and hence $x\in h^{-1}[B]$. Thus $A\subseteq h^{-1}[B]$. Conversely, if $A\subseteq h^{-1}[B]$, then every $x\in A$ has $h(x)\in B$. Every member of $h[A]$ lies in $B$, proving the other implication. $\square$
+
+![An observation map sends Editor and Author to the same basic tier, and Admin to privileged. The direct image of the singleton Editor gives basic, but the inverse image of basic returns both Editor and Author. Repeating the operation leaves that saturated set unchanged.](./media/ot-galois-closure.svg)
+
+*Figure: Forward then backward through the observation map does not recover a unique role identity. It recovers the **entire equivalence class** of identities sharing an observable tier.*
+
+For $A:=\{\text{Editor}\}$, we calculate
+
+$$
+f(A)=\{\text{basic}\},
+\qquad
+(g\circ f)(A)=\{\text{Editor},\text{Author}\}.
+$$
+
+Going forward and back **again** returns the same two-role set. The operation fills in everything indistinguishable under the chosen observations.
+
+### The unit, counit, and closure operator
+
+> [!theorem] A Galois connection produces closure and interior
+> If $f\dashv g$, then $f$ and $g$ are monotone. The composite $c:=g\circ f:P\to P$ is a **closure operator**:
+>
+> - **Extensive:** $p\preceq c(p)$.
+> - **Monotone:** $p\preceq p'$ implies $c(p)\preceq c(p')$.
+> - **Idempotent:** $c(c(p))=c(p)$.
+>
+> Dually, $i:=f\circ g:Q\to Q$ is an **interior operator**: $i(q)\preceq q$, it is monotone, and $i(i(q))=i(q)$.
+
+> [!proof] Derive all three closure laws
+> Substitute the reflexive comparisons $f(p)\preceq f(p)$ and $g(q)\preceq g(q)$ into the adjunction. We obtain
+>
+> $$
+> p\preceq g(f(p))\quad\text{(unit)},\qquad
+> f(g(q))\preceq q\quad\text{(counit)}.
+> $$
+>
+> **Monotonicity of $f$:** if $p\preceq p'$, then the unit at $p'$ gives $p\preceq p'\preceq g(f(p'))$. Apply the adjunction to conclude $f(p)\preceq f(p')$.
+>
+> **Monotonicity of $g$:** if $q\preceq q'$, counit gives $f(g(q))\preceq q\preceq q'$. By adjunction, $g(q)\preceq g(q')$.
+>
+> **Extensive:** the unit is exactly $p\preceq c(p)$. **Monotone:** $c$ is a composite of monotone maps.
+>
+> **Idempotent:** apply $g$ to the counit at $q=f(p)$, obtaining $g(f(g(f(p))))\preceq g(f(p))$, or $c(c(p))\preceq c(p)$. The unit at $c(p)$ gives $c(p)\preceq c(c(p))$. Antisymmetry implies equality.
+>
+> **Interior laws:** counit gives $i(q)\preceq q$, and the maps' monotonicity makes $i$ monotone. Applying $f$ to the unit at $p=g(q)$ gives $i(q)\preceq i(i(q))$; applying counit at $i(q)$ gives the reverse inequality. Thus $i(i(q))=i(q)$. $\square$
+
+> [!definition] Closed elements
+> A point $p$ is **closed under $c$** if $c(p)=p$. In the role example, a set is closed when it contains **all roles associated with every tier it already contains**.
+
+**Why closure is the best stable enlargement.** For *any* closure operator on a poset, $c(p)$ is the **least closed element above $p$**. Extensiveness gives $p\preceq c(p)$; idempotence makes $c(p)$ closed. If $z$ is any closed element with $p\preceq z$, monotonicity gives $c(p)\preceq c(z)=z$. This is an existence-and-minimality statement, not simply a new name for a round trip.
+
+**The fixed-point connection.** Closed elements are exactly the fixed points of $c$. On a complete lattice, Knaster-Tarski tells us that these form a complete lattice. When working with closed subsets of a set, their meet is intersection; their join is **closure of the union**, which can be larger than the union for general closure operators. In our particular role-tier example, unions of already saturated role sets remain saturated, so their closure adds nothing. The more general formula remains useful in settings such as topological closure and logical consequence.
+
+**Where this appears:** abstract interpretation translates between concrete and approximate program states; permission audits group roles by observable capabilities; formal concept analysis uses object–attribute relations to construct lattices of concepts. The same inequalities govern each application, but the underlying observations differ.
+
+> [!distinction] Monotone is not automatically adjoint
+> Many maps preserve order but have no adjoint on the stated posets. The **for-every-pair equivalence** in the definition is what produces the unit, counit, and closure laws. Do not infer them from monotonicity alone.
+
 ## Why order theory appears everywhere
 
 The preorder examples above show a pattern that recurs in software and mathematics: **comparison by behavior is not always comparison by identity**. We can compare roles by permissions, predicates by logical strength, and vertices by reachability without pretending that equivalent observations make the underlying objects literally equal. When we need an antisymmetric order, we pass to equivalence classes; when identity matters, we retain the original preorder.
@@ -466,5 +699,7 @@ The preorder examples above show a pattern that recurs in software and mathemati
 - **Permissions and information:** "contains no more permission or information than" can define partial orders, but only becomes a lattice when appropriate joins and meets exist.
 - **Distributed state:** a **join-semilattice** requires a join for every pair, but not a meet. For example, the **nonempty** subsets of $\{a,b\}$ under inclusion form a join-semilattice: unions stay nonempty and give joins. Yet $\{a\}$ and $\{b\}$ have no meet *inside this poset* because their intersection $\varnothing$ was excluded. This distinction matters when replicas merge state but need no general intersection operation.
 - **Categories:** a poset can be interpreted as a category with one arrow $a\to b$ whenever $a\preceq b$. For instance, $\varnothing\subseteq\{a\}\subseteq\{a,b\}$ gives arrows $\varnothing\to\{a\}$ and $\{a\}\to\{a,b\}$; composing them yields the arrow $\varnothing\to\{a,b\}$. Reflexivity supplies identity arrows. See [Category Theory Foundations](./category-theory-foundations#a-partial-order-is-a-category).
+
+**What we can now do:** duality reuses proofs by reversing comparisons. Knaster-Tarski guarantees stable states for monotone updates on complete lattices. Galois connections translate between representations and produce closure operators that compute the least stable enlargement of a state. Each conclusion follows from the definitions above.
 
 The governing habit is to verify **which axioms the relation has**, rather than assuming every ordering behaves like the real number line.
