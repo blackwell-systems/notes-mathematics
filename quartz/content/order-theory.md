@@ -22,6 +22,10 @@ An **order relation** tells us when one object is below, before, contained in, o
 
 ## From relations to preorders and partial orders
 
+![Six-tile dark illustration comparing preorders, partial orders and total orders. Preorders allow Editor and Author, distinct roles with the same permissions, to compare both ways. The poset quotient merges them into one permission class below Admin. Total orders compare every pair, while ordering the original roles requires an additional tie-break.](./media/ot-preorder-poset-total-story.svg)
+
+*Figure: The three ordering structures are nested by their axioms. In the worked role example, Editor and Author are different names with identical capabilities. The preorder compares them in both directions; its quotient identifies their equivalence class. A total ordering of the **original names** requires a separate tie-break and is not automatically induced by the quotient.*
+
 > [!definition] Preorder
 > A relation $\preceq$ on $P$ is a **preorder** when it is:
 > - **Reflexive:** $a\preceq a$ for every $a\in P$.
