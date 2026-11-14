@@ -590,6 +590,107 @@ $
 
 This $F$ is monotone. Iterating from $x_0=0$ gives $x_n=\tfrac12(1-2^{-n})\to1/2$, yet $F(1/2)=1$, not $1/2$. The least fixed point is $1$. The missing property is an appropriate continuity or preservation-of-directed-joins assumption, not monotonicity. Compare the metric-based approach in [Fixed-Point Theorems](./fixed-point-theorems) if that companion is available; unlike Knaster-Tarski, Banach's contraction theorem uses a distance and contraction factor.
 
+## Galois connections: compare through two representations
+
+Suppose an application stores **named objects** but also assigns each object an **observable tier**. Moving from names to tiers forgets which particular name was used. Moving from tiers back to names must therefore recover *all* names compatible with a tier, not just the one originally chosen.
+
+A **Galois connection** captures this loss of distinction using an exact two-way comparison. It is an order-theoretic case of an [adjunction](./category-adjunctions-monads#an-adjunction-is-a-natural-family-of-bijections) in category theory.
+
+> [!definition] Galois connection (monotone convention)
+> Let $P,Q$ be posets. Functions $f:P\to Q$ and $g:Q\to P$ form a **Galois connection**, written $f\dashv g$ (read "f is left adjoint to g"), if for **every** $p\in P$, $q\in Q$,
+>
+> $
+> f(p)\preceq_Q q\quad\Longleftrightarrow\quad p\preceq_P g(q).
+> $
+>
+> This is the **monotone** or **adjoint** convention. Some authors also use the name Galois connection for *antitone* maps; when reading another source, check which convention it uses.
+
+The relationship says: "the image of $p$ lies below $q$" exactly when "the original $p$ lies below the reverse image of $q$." It is much stronger than saying that the maps happen to be monotone.
+
+### Worked example: named roles and their permission tier
+
+Let $X:=\{\text{Editor},\text{Author},\text{Admin}\}$ be different role identities, and let $Y:=\{\text{basic},\text{privileged}\}$. Define an observation $h:X\to Y$ by
+
+$
+h(\text{Editor})=h(\text{Author})=\text{basic},
+\qquad
+h(\text{Admin})=\text{privileged}.
+$
+
+On **sets** of roles and tiers, define
+
+$
+f:\mathcal P(X)\to\mathcal P(Y),\quad f(A):=h[A],
+\qquad
+g:\mathcal P(Y)\to\mathcal P(X),\quad g(B):=h^{-1}[B].
+$
+
+Here $h[A]$ is the **direct image** (all tiers represented by roles in $A$). The expression $h^{-1}[B]$ is the **inverse image** (all roles whose tiers belong to $B$), and **does not** require $h$ to have an inverse function.
+
+> [!theorem] Direct image is left adjoint to inverse image
+> For **every** $A\subseteq X$ and $B\subseteq Y$,
+>
+> $
+> h[A]\subseteq B\quad\Longleftrightarrow\quad A\subseteq h^{-1}[B].
+> $
+
+**Proof.** If $h[A]\subseteq B$ and $x\in A$, then $h(x)\in B$ and hence $x\in h^{-1}[B]$. Thus $A\subseteq h^{-1}[B]$. Conversely, if $A\subseteq h^{-1}[B]$, then every $x\in A$ has $h(x)\in B$. Every member of $h[A]$ lies in $B$, proving the other implication. $\square$
+
+![An observation map sends Editor and Author to the same basic tier, and Admin to privileged. The direct image of the singleton Editor gives basic, but the inverse image of basic returns both Editor and Author. Repeating the operation leaves that saturated set unchanged.](./media/ot-galois-closure.svg)
+
+*Figure: Forward then backward through the observation map does not recover a unique role identity. It recovers the **entire equivalence class** of identities sharing an observable tier.*
+
+For $A:=\{\text{Editor}\}$, we calculate
+
+$
+f(A)=\{\text{basic}\},
+\qquad
+(g\circ f)(A)=\{\text{Editor},\text{Author}\}.
+$
+
+Going forward and back **again** returns the same two-role set. The operation fills in everything indistinguishable under the chosen observations.
+
+### The unit, counit, and closure operator
+
+> [!theorem] A Galois connection produces closure and interior
+> If $f\dashv g$, then $f$ and $g$ are monotone. The composite $c:=g\circ f:P\to P$ is a **closure operator**:
+>
+> - **Extensive:** $p\preceq c(p)$.
+> - **Monotone:** $p\preceq p'$ implies $c(p)\preceq c(p')$.
+> - **Idempotent:** $c(c(p))=c(p)$.
+>
+> Dually, $i:=f\circ g:Q\to Q$ is an **interior operator**: $i(q)\preceq q$, it is monotone, and $i(i(q))=i(q)$.
+
+> [!proof] Derive all three closure laws
+> Substitute the reflexive comparisons $f(p)\preceq f(p)$ and $g(q)\preceq g(q)$ into the adjunction. We obtain
+>
+> $
+> p\preceq g(f(p))\quad\text{(unit)},\qquad
+> f(g(q))\preceq q\quad\text{(counit)}.
+> $
+>
+> **Monotonicity of $f$:** if $p\preceq p'$, then the unit at $p'$ gives $p\preceq p'\preceq g(f(p'))$. Apply the adjunction to conclude $f(p)\preceq f(p')$.
+>
+> **Monotonicity of $g$:** if $q\preceq q'$, counit gives $f(g(q))\preceq q\preceq q'$. By adjunction, $g(q)\preceq g(q')$.
+>
+> **Extensive:** the unit is exactly $p\preceq c(p)$. **Monotone:** $c$ is a composite of monotone maps.
+>
+> **Idempotent:** apply $g$ to the counit at $q=f(p)$, obtaining $g(f(g(f(p))))\preceq g(f(p))$, or $c(c(p))\preceq c(p)$. The unit at $c(p)$ gives $c(p)\preceq c(c(p))$. Antisymmetry implies equality.
+>
+> **Interior laws:** counit gives $i(q)\preceq q$, and the maps' monotonicity makes $i$ monotone. Applying $f$ to the unit at $p=g(q)$ gives $i(q)\preceq i(i(q))$; applying counit at $i(q)$ gives the reverse inequality. Thus $i(i(q))=i(q)$. $\square$
+
+> [!definition] Closed elements
+> A point $p$ is **closed under $c$** if $c(p)=p$. In the role example, a set is closed when it contains **all roles associated with every tier it already contains**.
+
+**Why closure is the best stable enlargement.** For *any* closure operator on a poset, $c(p)$ is the **least closed element above $p$**. Extensiveness gives $p\preceq c(p)$; idempotence makes $c(p)$ closed. If $z$ is any closed element with $p\preceq z$, monotonicity gives $c(p)\preceq c(z)=z$. This is an existence-and-minimality statement, not simply a new name for a round trip.
+
+**The fixed-point connection.** Closed elements are exactly the fixed points of $c$. On a complete lattice, Knaster-Tarski tells us that these form a complete lattice. When working with closed subsets of a set, their meet is intersection; their join is **closure of the union**, which can be larger than the union.
+
+**Where this appears:** abstract interpretation translates between concrete and approximate program states; permission audits group roles by observable capabilities; formal concept analysis uses object–attribute relations to construct lattices of concepts. The same inequalities govern each application, but the underlying observations differ.
+
+> [!distinction] Monotone is not automatically adjoint
+> Many maps preserve order but have no adjoint on the stated posets. The **for-every-pair equivalence** in the definition is what produces the unit, counit, and closure laws. Do not infer them from monotonicity alone.
+
 ## Why order theory appears everywhere
 
 The preorder examples above show a pattern that recurs in software and mathematics: **comparison by behavior is not always comparison by identity**. We can compare roles by permissions, predicates by logical strength, and vertices by reachability without pretending that equivalent observations make the underlying objects literally equal. When we need an antisymmetric order, we pass to equivalence classes; when identity matters, we retain the original preorder.
