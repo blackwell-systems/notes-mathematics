@@ -816,6 +816,8 @@ One of the most far-reaching applications of infinite series is the **Fourier se
 
 ## Where It Shows Up
 
+For a proof that Cauchy partial sums characterize convergent real series and absolute convergence implies convergence, see [Completeness and Convergence](./completeness-and-convergence). For **series of functions**, uniform convergence, the M-test and limit interchanges, continue to [Sequences of Functions](./sequences-of-functions).
+
 - **Computer science:** Algorithm complexity often involves sums (loop iterations, divide-and-conquer recurrences). Geometric series appear in the analysis of algorithms that halve their input at each step (binary search, merge sort).
 - **Machine learning:** Learning rate schedules often use geometric decay ($\alpha_t = \alpha_0 \cdot r^t$). Gradient descent convergence analysis uses series.
 - **Finance:** Compound interest, annuities, and present value calculations are geometric series applications.

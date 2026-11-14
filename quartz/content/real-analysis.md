@@ -14,7 +14,7 @@ Real analysis is what happens when you ask calculus to justify itself. In calcul
 This is not pedantry. The rigorous foundations built here are exactly what you need to do mathematics at a higher level, whether that means measure theory, functional analysis, or the convergence proofs that underpin machine learning theory. Singular learning theory, for instance, requires precise control over when you can swap limits, integrals, and derivatives. Analysis gives you that control.
 
 > [!tip] Read the underlying proofs
-> This is the **survey chapter** for Real Analysis. For the complete dependency chain from supremum to monotone convergence, Bolzano-Weierstrass, the Cauchy criterion, subsequences, nested intervals, limsup/liminf and series, read [Completeness and Convergence: Proofs from First Principles](./completeness-and-convergence). That companion explains exactly where completeness is used and why each hypothesis matters.
+> This is the **survey chapter** for Real Analysis. The complete proof chain is: [Completeness and Convergence](./completeness-and-convergence) (suprema, subsequences and Cauchy sequences) → [Continuity and Compactness](./continuity-and-compactness) (IVT, EVT and Heine-Cantor) → [Rigorous Differentiation](./rigorous-differentiation) (Rolle, MVT, Darboux and Taylor) → [Rigorous Integration](./rigorous-integration) (Darboux sums and both FTC parts) → [Sequences of Functions](./sequences-of-functions) (uniform convergence and limit exchanges). **Use the linked chapters for full proofs; the statements here remain a conceptual survey.**
 
 ## Why Real Analysis?
 
@@ -480,6 +480,8 @@ This is another reason compactness is so important: it automatically upgrades co
 
 ### The Intermediate Value Theorem (Rigorous)
 
+For the proof from completeness, including the two continuity contradictions at the supremum, see [Continuity and Compactness](./continuity-and-compactness#3-intermediate-value-theorem-why-a-continuous-path-cannot-skip-a-height).
+
 **Theorem.** If $f : [a, b] \to \mathbb{R}$ is continuous and $f(a) < v < f(b)$ (or $f(b) < v < f(a)$), then there exists $c \in (a, b)$ with $f(c) = v$.
 
 You used this in calculus to argue that continuous functions "hit every value in between." The proof requires completeness of $\mathbb{R}$: you define $c = \sup\{x \in [a, b] : f(x) < v\}$ and use continuity to show $f(c) = v$. The theorem fails in $\mathbb{Q}$, because that supremum might not exist.
@@ -559,9 +561,9 @@ $$
 \lim_{n \to \infty} \int_a^b f_n(x) \, dx = \int_a^b f(x) \, dx
 $$
 
-**Theorem (Swapping Limits and Derivatives).** If each $f_n$ is differentiable, $f_n \to f$ pointwise, and $f_n' \to g$ uniformly, then $f$ is differentiable and $f' = g$.
+**Theorem (Swapping Limits and Derivatives).** Suppose each $f_n$ is continuous on a closed interval $[a,b]$ and differentiable on $(a,b)$; the derivatives converge uniformly to $g$ on $(a,b)$; and the values $f_n(c)$ converge for one $c\in(a,b)$. Then $f_n$ converges uniformly and its limit $f$ satisfies $f'=g$ on $(a,b)$. See the [complete theorem and proof](./sequences-of-functions#6-why-exchanging-derivatives-needs-a-different-theorem).
 
-These theorems say: uniform convergence is the condition you need to legitimately interchange limits with the fundamental operations of calculus.
+**Do not flatten these into one rule:** uniform convergence of the functions preserves continuity and Riemann integrals (when the terms are integrable). For derivatives, uniform convergence of the functions is **insufficient**; the derivative theorem instead controls $f_n'$ and requires convergence at an anchor point.
 
 **Worked example (a swap that succeeds, and one that fails).** Let $f_n(x) = x/n$ on $[0, 1]$. This converges uniformly to $0$, since $\sup_{x \in [0,1]} |x/n - 0| = 1/n \to 0$. The swap is then legitimate, and you can check both sides directly:
 
@@ -581,9 +583,11 @@ $$
 
 A power series with radius of convergence $R$ converges uniformly on any compact subset of $(a - R, a + R)$. This is why Taylor series behave so well: you can differentiate and integrate them term by term within the radius of convergence.
 
-**Worked example.** The geometric series $\sum_{n=0}^{\infty} x^n = \frac{1}{1 - x}$ has radius of convergence $R = 1$ (centered at $a = 0$). Fix any $r < 1$ and restrict to the compact interval $[-r, r]$. There each term is bounded by a constant: $|x^n| \le r^n = M_n$, and $\sum r^n = \frac{1}{1 - r}$ converges. By the [Weierstrass M-test](#the-weierstrass-m-test) above, the series converges *uniformly* on $[-r, r]$. That uniform convergence on every such interval is exactly what licenses term-by-term differentiation, giving $\sum_{n=1}^{\infty} n x^{n-1} = \frac{1}{(1-x)^2}$ for $|x| < 1$. Note the uniformity is only on $[-r, r]$, not on the full open interval $(-1, 1)$: as $r \to 1$ the bound degrades, which is why the endpoints are delicate.
+**Worked example.** The geometric series $\sum_{n=0}^{\infty} x^n = \frac{1}{1 - x}$ has radius of convergence $R = 1$ (centered at $a = 0$). Fix any $r < 1$ and restrict to the compact interval $[-r, r]$. There each term is bounded by a constant: $|x^n| \le r^n = M_n$, and $\sum r^n = \frac{1}{1 - r}$ converges. By the [Weierstrass M-test](#the-weierstrass-m-test) above, the series converges *uniformly* on $[-r, r]$. To justify **differentiation**, check the derivative series separately: on $[-r,r]$, its terms satisfy $|nx^{n-1}|\le n r^{n-1}$ and $\sum_{n=1}^\infty n r^{n-1}=1/(1-r)^2<\infty$. By the M-test the derivative series converges uniformly; the [derivative interchange theorem](./sequences-of-functions#6-why-exchanging-derivatives-needs-a-different-theorem), applied to the partial sums (which converge at $0$), now licenses $\sum_{n=1}^{\infty} n x^{n-1} = \frac{1}{(1-x)^2}$ for $|x| < 1$. Note the uniformity is only on $[-r, r]$, not on the full open interval $(-1, 1)$: as $r \to 1$ the bound degrades, which is why the endpoints are delicate.
 
 ### The Weierstrass M-Test
+
+The tail estimate and uniform Cauchy proof appear in [Sequences of Functions](./sequences-of-functions#4-the-weierstrass-m-test).
 
 **Theorem.** If $|f_n(x)| \le M_n$ for all $x \in D$ and $\sum M_n$ converges, then $\sum f_n$ converges uniformly on $D$.
 
@@ -649,6 +653,8 @@ On $[0, 1]$ we have $c < 1$, so $e^c < e < 3$, and $x^3 \le 1$; therefore $|R_2(
 
 ### The Riemann Integral (Formal Definition)
 
+The [Rigorous Integration](./rigorous-integration) companion proves the Darboux epsilon criterion, continuous and monotone integrability, both FTC parts, and a counterexample to pointwise limit interchange.
+
 > [!definition] Riemann integrability
 > A bounded function on $[a,b]$ is Riemann integrable when its upper and lower sums approach the **same** number as the partition mesh goes to zero. A formula involving a limiting sum is not a declaration that every function has an integral.
 
@@ -699,7 +705,7 @@ Yet in some sense, this function "should" integrate to $0$ (the rationals form a
 
 **Theorem (FTC, Part 1).** If $f$ is Riemann integrable on $[a, b]$ and $F(x) = \int_a^x f(t) \, dt$, then $F$ is continuous on $[a, b]$. If $f$ is continuous at $c \in (a, b)$, then $F$ is differentiable at $c$ and $F'(c) = f(c)$.
 
-**Theorem (FTC, Part 2).** If $f$ is Riemann integrable on $[a, b]$ and $F$ is an antiderivative of $f$ (i.e., $F' = f$ on $[a, b]$), then:
+**Theorem (FTC, Part 2).** If $f$ is Riemann integrable on $[a,b]$ and $F$ is continuous on $[a,b]$ and differentiable on $(a,b)$ with $F'=f$ there, then:
 
 $$
 \int_a^b f(x) \, dx = F(b) - F(a)

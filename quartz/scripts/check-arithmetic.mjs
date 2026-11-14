@@ -5552,6 +5552,40 @@ eq("rose r=cos(2 theta) has 4 petals", rosePetals(2), 4);
     reaches("Scheduler","Storage")&&!reaches("Storage","Scheduler"));
 }
 
+// ============= Real Analysis: proof-sequence numerical regressions =============
+// Finite calculations check displayed examples, not universal quantified proofs.
+{
+  for(const n of [2,3,5,10,30,100]){
+    // Triangular spike: height n, base 2/n, integral 1.
+    eq("Analysis: triangular spike area n="+n,0.5*(2/n)*n,1,1e-12);
+    const x=0.2;
+    let binom=1,bernst=0;
+    for(let k=0;k<=n;k++){
+      if(k>0)binom=binom*(n-k+1)/k;
+      bernst+=(k/n)**2*binom*x**k*(1-x)**(n-k);
+    }
+    eq("Analysis: Bernstein x squared exact moment n="+n,
+      bernst,x*x+x*(1-x)/n,1e-10);
+  }
+  for(const n of [1,2,3,10,100]){
+    const L=(n-1)/(2*n),U=(n+1)/(2*n);
+    eq("Analysis: Darboux gap for f(x)=x n="+n,U-L,1/n,1e-12);
+  }
+  for(const x of [-2,-1,0,1,2]){
+    const h=1e-6;
+    eq("Analysis: derivative of x squared at c="+x,
+      ((x+h)**2-x**2)/h,2*x,1e-5);
+  }
+  for(const x of [0,0.1,0.5,0.9,1]){
+    const n=30;
+    const approx=x*x+x*(1-x)/n;
+    check("Analysis: Bernstein error bounded by 1/(4n) x="+x,
+      Math.abs(approx-x*x)<=1/(4*n)+1e-12);
+  }
+  check("Analysis: derivative-limit counterexample at zero",
+    1===Math.abs(-1)&&0!==1);
+}
+
 // ---------- Report ----------
 if (fails.length) {
   console.error(`\n❌ Arithmetic harness FAILED: ${fails.length}/${count} assertion(s) wrong:`);

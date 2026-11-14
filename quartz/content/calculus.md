@@ -1767,4 +1767,6 @@ $$
 
 ### What Comes Next
 
+To see exactly **why the derivative rules, IVT, FTC and convergence manipulations work**, follow the proof sequence beginning with [Completeness and Convergence](./completeness-and-convergence), then [Continuity and Compactness](./continuity-and-compactness), [Rigorous Differentiation](./rigorous-differentiation), [Rigorous Integration](./rigorous-integration) and [Sequences of Functions](./sequences-of-functions).
+
 This page covers single-variable calculus: functions of one input. In [Multivariable Calculus](./multivariable-calculus), we extend these ideas to functions of several variables, introducing partial derivatives, gradient vectors, and gradient descent. Those topics connect directly to the [matrix calculus](./linear-algebra-computation) already covered in the linear algebra section.
