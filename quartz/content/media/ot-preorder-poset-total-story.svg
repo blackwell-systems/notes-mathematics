@@ -18,7 +18,7 @@
 <text x="721" y="166" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">Preorder</text>
 <text x="518" y="215" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">Reflexive: every role compares with itself.</text>
 <text x="518" y="239" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">Transitive: comparisons can be chained.</text>
-<text x="518" y="263" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">Neither requires or forbids two-way comparison.</text>
+<text x="518" y="263" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">Neither requires nor forbids two-way comparison.</text>
 <rect x="537" y="294" width="136" height="52" rx="26" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
 <text x="605" y="321" fill="#87B8EE" font-size="21" font-weight="600" text-anchor="middle" dominant-baseline="middle">Editor</text>
 <rect x="767" y="294" width="136" height="52" rx="26" fill="#122338" stroke="#BCA8EC" stroke-width="2.6"/>
