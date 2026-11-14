@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **134 original, source-editable SVG figures** placed directly beside the claims they explain across **36 proof-oriented chapters and reading maps**.
+This collection contains **146 original, source-editable SVG figures** placed directly beside the claims they explain across **38 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -14,6 +14,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Functions and Relations](./content/functions-relations.md) | 5 | reflexivity, irreflexivity, symmetry, transitivity, and asymmetry, each shown as a directed graph paired with an adjacency matrix; asymmetry excludes both reverse arrows and self-loops |
 | [Linear Algebra Foundations](./content/linear-algebra-foundations.md) | 1 | the distinction between vectors, vector spaces, linear maps and coordinate-dependent matrices |
 | [Functional Analysis](./content/functional-analysis.md) | 1 | vanishing integral error versus persistent maximum error |
+| [Real Analysis](./content/real-analysis.md) | 6 | supremum and infimum; epsilon-N convergence; Cauchy tail comparisons; open balls; epsilon-delta continuity; pointwise versus uniform convergence |
 | [Complex Analysis](./content/complex-analysis.md) | 1 | contour winding around a pole and its effect on integrals |
 | [Commutative Algebra](./content/commutative-algebra.md) | 1 | selecting denominators allowed in a local ring |
 | [Information Geometry](./content/information-geometry.md) | 1 | quadratic versus isolated quartic minima and Fisher degeneracy |
@@ -67,8 +68,10 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **134 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **146 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
+
+The six Real Analysis figures replace the page's older PNG references with SVGs; the old PNG assets remain in the repository for now. The figures use the shared editorial palette and explicit textual labels instead of relying on color alone.
 
 **Still to review:** mobile widths including 320/390 px, dark/light-theme contrast on neighboring page surfaces, keyboard navigation through the image lightbox, localized figure overflow, and browser screenshots. The diagram review status stays **pending** until those checks actually happen. All SVGs are text-and-shape based, so they remain resolution-independent and editable without fonts being embedded or shipped.
