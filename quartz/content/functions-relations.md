@@ -46,13 +46,17 @@ Each input (time) produces exactly one output (distance), so this is a function.
 
 The friendliest way to picture a function is as a **machine**: you drop an input in one end, the machine applies its rule, and exactly one output comes out the other end. Put in $t = 2$ hours, the machine multiplies by 60, and out comes 120 miles, every single time.
 
-![A function drawn as a machine: a central box holding the rule f of t equals 60 t, with an input arrow labeled input t entering from the left and an output arrow labeled output f of t leaving on the right. Three sample passes are shown going through the machine: t equals 1 comes out 60, t equals 2 comes out 120, and t equals 3 comes out 180.](./media/fr-function-machine.png)
+![A function drawn as a machine: a central box holding the rule f of t equals 60 t, with an input arrow labeled input t entering from the left and an output arrow labeled output f of t leaving on the right. Three sample passes are shown going through the machine: t equals 1 comes out 60, t equals 2 comes out 120, and t equals 3 comes out 180.](./media/fr-function-machine.svg)
+
+*Figure: A single input passes through the rule $f(t)=60t$ and receives exactly one output; the examples show $t=1,2,3$.*
 
 The single most important word in that sentence is **exactly one**. That is the whole difference between a function and a more general relation.
 
 Not every relation is a function. For instance, the relation "is a student at" might pair one person with multiple schools (if they transferred). A function requires that each input maps to a single output.
 
-![Two mapping diagrams side by side. On the left, labeled a function, each of the three inputs a, b, c in the domain oval has exactly one arrow to the codomain oval: a to 1, b to 3, c to 3. On the right, labeled not a function, the input a has two arrows leaving it, one to 1 and one to 2, drawn in red and flagged input a has two outputs, while b goes to 3. The caption reads: the defining rule of a function is exactly one output per input.](./media/fr-relation-vs-function.png)
+![Two mapping diagrams side by side. On the left, labeled a function, each of the three inputs a, b, c in the domain oval has exactly one arrow to the codomain oval: a to 1, b to 3, c to 3. On the right, labeled not a function, the input a has two arrows leaving it, one to 1 and one to 2, drawn in red and flagged input a has two outputs, while b goes to 3. The caption reads: the defining rule of a function is exactly one output per input.](./media/fr-relation-vs-function.svg)
+
+*Figure: The left relation is a function because each input has exactly one arrow. On the right, $a$ has two outputs, so it is not a function.*
 
 Look at the two pictures above. On the left, every input has **exactly one** arrow leaving it, so it is a function. On the right, the input $a$ has **two** arrows leaving it, so it is a relation but *not* a function. Notice that it is perfectly fine for two different inputs to share an output (both $b$ and $c$ point to $3$ on the left); what is forbidden is one input pointing to two outputs.
 
@@ -84,7 +88,9 @@ We may state that **x** bears relation **R** to **y** by writing **xRy**
 
 Do not let the formal language hide how simple this is. The **Cartesian product** $A \times B$ is the set of *all* possible ordered pairs (every element of $A$ paired with every element of $B$). A relation is nothing more than a **choice of which of those pairs you keep**. Picture the pairs as a grid of dots, one dot per possible pair; a relation just circles some of the dots.
 
-![Two panels illustrating a relation as a subset of a Cartesian product. On the left, a three by three grid of dots for A equals the set 1, 2, 3 on the horizontal axis and B equals the set x, y, z on the vertical axis; all nine possible pairs are shown as faint grey dots, and the four pairs in the relation R, namely (1,y), (1,z), (2,x), and (3,z), are overplotted as larger circled blue dots. On the right, the same relation drawn as blue arrows between an A oval and a B oval: 1 to y, 1 to z, 2 to x, 3 to z. The caption notes that a function is the special case with exactly one chosen dot in each row.](./media/fr-relation-cartesian.png)
+![Two panels illustrating a relation as a subset of a Cartesian product. On the left, a three by three grid of dots for A equals the set 1, 2, 3 on the horizontal axis and B equals the set x, y, z on the vertical axis; all nine possible pairs are shown as faint grey dots, and the four pairs in the relation R, namely (1,y), (1,z), (2,x), and (3,z), are overplotted as larger circled blue dots. On the right, the same relation drawn as blue arrows between an A oval and a B oval: 1 to y, 1 to z, 2 to x, 3 to z. The caption notes that a function is the special case with exactly one chosen dot in each row.](./media/fr-relation-cartesian.svg)
+
+*Figure: A binary relation selects four of the nine ordered pairs in $A\times B$; the grid and arrow diagram encode the same relation.*
 
 **Worked example.** Let $A := \{1, 2, 3\}$ and $B := \{x, y, z\}$. There are $|A| \times |B| = 3 \times 3 = 9$ possible pairs in $A \times B$. Suppose we keep the relation
 $R := \{(1, y),\ (1, z),\ (2, x),\ (3, z)\}.$
@@ -138,7 +144,9 @@ codomain).
 
 ### Properties of Relations
 
-![Four small directed graphs illustrating relation properties: reflexive with a self-loop at every node, symmetric with every edge drawn both ways, transitive where edges a to b and b to c force the implied edge a to c, and antisymmetric where no two distinct nodes have arrows in both directions](./media/fr-relation-properties.png)
+![Four small directed graphs illustrating relation properties: reflexive with a self-loop at every node, symmetric with every edge drawn both ways, transitive where edges a to b and b to c force the implied edge a to c, and antisymmetric where no two distinct nodes have arrows in both directions](./media/fr-relation-properties.svg)
+
+*Figure: Four examples isolate different relation properties. Reflexivity requires self-loops, symmetry requires reverse pairs, transitivity requires shortcuts, and antisymmetry forbids two-way pairs between distinct nodes.*
 
 **Properties of Relations**
 
@@ -344,7 +352,9 @@ The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes 
   - $(2,4) \in R$ and $(4,5) \in S$ → $(2,5) \in S \circ R$
 - Result: $S \circ R = \{(1,5), (1,6), (2,5)\}$
 
-![Composition of relations shown as three columns of nodes. Column A on the left holds 1, 2, 3; column B in the middle holds 2, 3, 4; column C on the right holds 5, 6. Blue solid arrows for R go from A to B: 1 to 2, 1 to 3, 2 to 4. Green solid arrows for S go from B to C: 2 to 5, 3 to 6, 4 to 5. Purple dashed arcs arch over the top directly from A to C for the composite S after R: 1 to 5 via 2, 1 to 6 via 3, and 2 to 5 via 4. The caption gives S composed with R equals the set of pairs (1,5), (1,6), (2,5).](./media/fr-composition-relations.png)
+![Composition of relations shown as three columns of nodes. Column A on the left holds 1, 2, 3; column B in the middle holds 2, 3, 4; column C on the right holds 5, 6. Blue solid arrows for R go from A to B: 1 to 2, 1 to 3, 2 to 4. Green solid arrows for S go from B to C: 2 to 5, 3 to 6, 4 to 5. Purple dashed arcs arch over the top directly from A to C for the composite S after R: 1 to 5 via 2, 1 to 6 via 3, and 2 to 5 via 4. The caption gives S composed with R equals the set of pairs (1,5), (1,6), (2,5).](./media/fr-composition-relations.svg)
+
+*Figure: To obtain $S\circ R$, follow an $R$ arrow and then an $S$ arrow. The resulting pairs are $(1,5),(1,6),(2,5)$.*
 
 To build $S \circ R$ from the picture, start at a node in $A$, walk one blue $R$-arrow to $B$, then continue along a green $S$-arrow to $C$; the pair (start, end) belongs to the composite. Every path from $A$ through $B$ to $C$ is one dashed purple arrow.
 
@@ -367,7 +377,9 @@ To build $S \circ R$ from the picture, start at a node in $A$, walk one blue $R$
 1. Contains **R** as a subset
 2. Has property **P**
 
-![Four directed-graph panels on the three nodes 1, 2, 3 arranged as a triangle, illustrating closures. The first panel shows the original relation R with blue arrows 1 to 2 and 2 to 3. The second panel, the reflexive closure, adds red self-loops at 1, 2, and 3. The third panel, the symmetric closure, adds red reverse arrows 2 to 1 and 3 to 2. The fourth panel, the transitive closure, adds the red shortcut arrow 1 to 3. In every panel the original blue arrows stay and the newly added edges are drawn in red.](./media/fr-closure-relations.png)
+![Four directed-graph panels on the three nodes 1, 2, 3 arranged as a triangle, illustrating closures. The first panel shows the original relation R with blue arrows 1 to 2 and 2 to 3. The second panel, the reflexive closure, adds red self-loops at 1, 2, and 3. The third panel, the symmetric closure, adds red reverse arrows 2 to 1 and 3 to 2. The fourth panel, the transitive closure, adds the red shortcut arrow 1 to 3. In every panel the original blue arrows stay and the newly added edges are drawn in red.](./media/fr-closure-relations.svg)
+
+*Figure: Blue arrows belong to the original relation; red arrows are the minimal additional pairs for reflexive, symmetric, or transitive closure.*
 
 Read "smallest" literally: you add the *fewest* new pairs that force the property to hold, and nothing more. The red edges in each panel above are exactly those forced additions.
 
@@ -443,7 +455,9 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 
 **Definition:** $R^{-1} = \{(b,a) \mid (a,b) \in R\}$
 
-![Two panels showing that the inverse of a relation reverses every arrow. The left panel, labeled R from A to B, has an A oval with nodes 1 and 2 on the left and a B oval with nodes 2, 3, 4 on the right, with blue arrows 1 to 2, 1 to 3, and 2 to 4. The right panel, labeled R inverse from B to A, has the B oval on the left and the A oval on the right, with red arrows 2 to 1, 3 to 1, and 4 to 2, each the reverse of an arrow in the left panel. The caption notes that reversing twice returns the original relation.](./media/fr-inverse-relation.png)
+![Two panels showing that the inverse of a relation reverses every arrow. The left panel, labeled R from A to B, has an A oval with nodes 1 and 2 on the left and a B oval with nodes 2, 3, 4 on the right, with blue arrows 1 to 2, 1 to 3, and 2 to 4. The right panel, labeled R inverse from B to A, has the B oval on the left and the A oval on the right, with red arrows 2 to 1, 3 to 1, and 4 to 2, each the reverse of an arrow in the left panel. The caption notes that reversing twice returns the original relation.](./media/fr-inverse-relation.svg)
+
+*Figure: Inverting a relation reverses every ordered pair: $(a,b)\in R$ exactly when $(b,a)\in R^{-1}$.*
 
 **Example:**
 - Let $R = \{(1,2), (1,3), (2,4)\}$
@@ -462,7 +476,9 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 
 ### Vertical Line Test
 
-![Two graphs demonstrating the vertical line test: a parabola y equals x squared where a vertical line meets the curve exactly once, so it is a function; and a sideways parabola x equals y squared where a vertical line meets the curve twice, so it is not a function](./media/fr-vertical-line-test.png)
+![Two graphs demonstrating the vertical line test: a parabola y equals x squared where a vertical line meets the curve exactly once, so it is a function; and a sideways parabola x equals y squared where a vertical line meets the curve twice, so it is not a function](./media/fr-vertical-line-test.svg)
+
+*Figure: A vertical line hits $y=x^2$ once, but hits the sideways parabola $x=y^2$ twice; only the first graph defines $y$ as a function of $x$.*
 
 **Vertical Line Test:** A graph in the coordinate plane represents a function if and only if every vertical line intersects the graph at most once.
 
@@ -532,7 +548,9 @@ subset in question is the entire **domain**, then the **image** and the
 
 ### Domain
 
-![A mapping diagram between a domain oval with elements a, b, c, d and a codomain oval with elements 1 through 5, with arrows a to 2, b to 3, c to 3, and d to 5. The range (image of the domain) is the hit subset 2, 3, 5, while 1 and 4 are unhit, and the preimage of 3 is the set b, c](./media/fr-domain-codomain-range.png)
+![A mapping diagram between a domain oval with elements a, b, c, d and a codomain oval with elements 1 through 5, with arrows a to 2, b to 3, c to 3, and d to 5. The range (image of the domain) is the hit subset 2, 3, 5, while 1 and 4 are unhit, and the preimage of 3 is the set b, c](./media/fr-domain-codomain-range.svg)
+
+*Figure: Every input belongs to the domain, every possible output belongs to the codomain, and only $\{2,3,5\}$ is actually reached.*
 
 The domain of a function **f** is the set **X**, which includes all the
 possible inputs for the function. In terms of ordered pairs, the domain
@@ -626,7 +644,9 @@ f has an inverse or not. **Note that however** if f does have an
 inverse, then the preimage is exactly the image of Y under the inverse
 map.
 
-![Two mapping-diagram panels sharing the same function, whose arrows are a to 2, b to 3, c to 3, and d to 5, between a domain oval a, b, c, d and a codomain oval 1, 2, 3, 4, 5. The left panel, image, highlights the domain subset A equals a, b in blue and pushes it forward along the arrows to the highlighted output set f of A equals 2, 3 in the codomain. The right panel, preimage, highlights the codomain subset B equals 3, 5 in green and pulls it back to the highlighted input set f inverse of B equals b, c, d, every input whose arrow lands in B. The caption stresses that the preimage is defined for any function, with no inverse required.](./media/fr-image-preimage.png)
+![Two mapping-diagram panels sharing the same function, whose arrows are a to 2, b to 3, c to 3, and d to 5, between a domain oval a, b, c, d and a codomain oval 1, 2, 3, 4, 5. The left panel, image, highlights the domain subset A equals a, b in blue and pushes it forward along the arrows to the highlighted output set f of A equals 2, 3 in the codomain. The right panel, preimage, highlights the codomain subset B equals 3, 5 in green and pulls it back to the highlighted input set f inverse of B equals b, c, d, every input whose arrow lands in B. The caption stresses that the preimage is defined for any function, with no inverse required.](./media/fr-image-preimage.svg)
+
+*Figure: Images push a chosen input subset forward, while preimages collect every input that lands in a chosen output subset.*
 
 Think of it directionally: the **image** pushes a set of *inputs* **forward** to the outputs they produce; the **preimage** pulls a set of *outputs* **backward** to every input that lands there. The forward arrows and the backward gathering use the very same function.
 
@@ -651,11 +671,15 @@ f(A \cup D) = f(A) \cup f(D), \qquad f(A \cap D) \subseteq f(A) \cap f(D),
 $$
 and the second inclusion can be **strict**. Take $f(x) = x^2$ on $\mathbb{R}$ with $A = (-\infty, 0]$ and $D = [0, \infty)$: then $A \cap D = \{0\}$ so $f(A \cap D) = \{0\}$, but $f(A) \cap f(D) = [0, \infty)$. The reason is non-injectivity: an output can sit in both $f(A)$ and $f(D)$ by coming from *different* inputs, one in each set. In fact $f(A \cap D) = f(A) \cap f(D)$ for all $A, D$ if and only if $f$ is injective. This is why preimages, not images, are the right tool for pulling structure back through a function.
 
-![The parabola y equals x squared drawn in blue, used to show why the image only half-commutes with intersection. The negative half of the x-axis is highlighted blue as the set A equals the interval from minus infinity to 0, and the positive half is highlighted red as the set D equals the interval from 0 to infinity. Dashed lines from x equals minus 2 and x equals plus 2 both rise to the curve at height 4 and across to the y-axis, showing that the two different inputs minus 2 and 2 share the single output 4. On the y-axis both images f of A and f of D are the whole non-negative ray from 0 to infinity, so they overlap completely, while the domain intersection A intersect D is just the single point 0 whose image is just 0. The annotation concludes that f of the intersection equals just 0 but the intersection of the images is the whole ray, a strict gap caused by non-injectivity.](./media/fr-image-preimage-setops.png)
+![The parabola y equals x squared drawn in blue, used to show why the image only half-commutes with intersection. The negative half of the x-axis is highlighted blue as the set A equals the interval from minus infinity to 0, and the positive half is highlighted red as the set D equals the interval from 0 to infinity. Dashed lines from x equals minus 2 and x equals plus 2 both rise to the curve at height 4 and across to the y-axis, showing that the two different inputs minus 2 and 2 share the single output 4. On the y-axis both images f of A and f of D are the whole non-negative ray from 0 to infinity, so they overlap completely, while the domain intersection A intersect D is just the single point 0 whose image is just 0. The annotation concludes that f of the intersection equals just 0 but the intersection of the images is the whole ray, a strict gap caused by non-injectivity.](./media/fr-image-preimage-setops.svg)
+
+*Figure: The two inputs $-2$ and $2$ both map to $4$ under $x^2$; this is why the image of an intersection can be strictly smaller than the intersection of the images.*
 
 ### Fibers and the Kernel of a Function
 
-![Two panels illustrating fibers. The left panel, fibers of a finite map, shows a domain oval containing eight dots grouped into three colored blobs: a blue blob 1, 2, 3, a green blob 4, 5, and a purple blob 6, 7, 8, with arrows from each blob to its single target in a codomain oval holding p, q, r, so all of 1, 2, 3 map to p, both 4 and 5 map to q, and 6, 7, 8 map to r. The right panel, fibers of f of x equals x squared, plots the parabola with a horizontal line at height 4 meeting it at the points minus 2, 4 and 2, 4, marking the fiber over 4 as the set minus 2, 2. The caption states that the fibers are the equivalence classes of the kernel, where x is related to x prime exactly when f of x equals f of x prime.](./media/fr-fibers-kernel.png)
+![Two panels illustrating fibers. The left panel, fibers of a finite map, shows a domain oval containing eight dots grouped into three colored blobs: a blue blob 1, 2, 3, a green blob 4, 5, and a purple blob 6, 7, 8, with arrows from each blob to its single target in a codomain oval holding p, q, r, so all of 1, 2, 3 map to p, both 4 and 5 map to q, and 6, 7, 8 map to r. The right panel, fibers of f of x equals x squared, plots the parabola with a horizontal line at height 4 meeting it at the points minus 2, 4 and 2, 4, marking the fiber over 4 as the set minus 2, 2. The caption states that the fibers are the equivalence classes of the kernel, where x is related to x prime exactly when f of x equals f of x prime.](./media/fr-fibers-kernel.svg)
+
+*Figure: Each fiber collects all inputs with one output. For $x^2$, the fiber over $4$ contains both $-2$ and $2$.*
 
 For each $y \in Y$, its preimage of a single point, $f^{-1}(\{y\}) = \{x \in X : f(x) = y\}$, is called the **fiber** over $y$. The fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
 $$
@@ -730,7 +754,9 @@ The second factor is never negative and only vanishes at the origin: completing 
 
 Injective and surjective together make $f$ a **bijection**. To find the inverse, solve $y = x^3$ for $x$, giving $x = \sqrt[3]{y}$, so $f^{-1}(y) = \sqrt[3]{y}$. The two round-trip checks confirm it: $f^{-1}(f(x)) = \sqrt[3]{x^3} = x$ and $f(f^{-1}(y)) = \left(\sqrt[3]{y}\right)^3 = y$. $\blacksquare$
 
-![Four mapping diagrams contrasting injective-not-surjective, surjective-not-injective, bijective, and neither, each drawn as arrows between a domain oval and a codomain oval](./media/fr-inj-surj-bij.png)
+![Four mapping diagrams contrasting injective-not-surjective, surjective-not-injective, bijective, and neither, each drawn as arrows between a domain oval and a codomain oval](./media/fr-inj-surj-bij.svg)
+
+*Figure: Injectivity prohibits collisions, surjectivity requires every codomain element to be reached, and bijectivity requires both.*
 
 Define your own function on a small domain below: choose each output and watch whether it is injective, surjective, bijective, or invertible, with its image, a chosen preimage, and the mapping diagram updating live.
 
@@ -783,7 +809,9 @@ The rule to remember: whenever a function is defined via representatives of equi
 
 ## Inverse Functions
 
-![The graph of f of x equals e to the x and its inverse the natural logarithm drawn as mirror images across the dashed line y equals x, with the point (0, 1) on the exponential reflecting to the point (1, 0) on the logarithm](./media/fr-inverse-reflection.png)
+![The graph of f of x equals e to the x and its inverse the natural logarithm drawn as mirror images across the dashed line y equals x, with the point (0, 1) on the exponential reflecting to the point (1, 0) on the logarithm](./media/fr-inverse-reflection.svg)
+
+*Figure: The graphs of $e^x$ and $\ln x$ reflect across $y=x$; the point $(0,1)$ becomes $(1,0)$.*
 
 The exponential and logarithm are the most important pair of inverse functions. See [Exponential Functions](./exponential-functions) and [Logarithms](./logarithms).
 
@@ -826,7 +854,9 @@ A function has an inverse if and only if it is bijective:
 
 ## Composition of Functions
 
-![A left-to-right pipeline diagram of function composition: an input x enters box g to produce g of x, which enters box f to produce f of g of x, written f composed with g of x. The example uses g of x equals x plus 1 and f of u equals u squared, giving x plus 1 quantity squared, with the trace x equals 2 to g of 2 equals 3 to f of 3 equals 9](./media/fr-composition.png)
+![A left-to-right pipeline diagram of function composition: an input x enters box g to produce g of x, which enters box f to produce f of g of x, written f composed with g of x. The example uses g of x equals x plus 1 and f of u equals u squared, giving x plus 1 quantity squared, with the trace x equals 2 to g of 2 equals 3 to f of 3 equals 9](./media/fr-composition.svg)
+
+*Figure: Function composition evaluates $g$ first and then $f$; with $g(x)=x+1$ and $f(u)=u^2$, input $2$ produces output $9$.*
 
 Function composition is the mathematical foundation of the chain rule in [Calculus](./calculus), which is in turn the basis of backpropagation in machine learning.
 
@@ -948,7 +978,9 @@ $$\frac{f(x + h) - f(x)}{h}$$
 
 This expression computes the **average rate of change** of $f$ between the input $x$ and the input $x + h$. Geometrically, it is the slope of the **secant line** through the points $(x, f(x))$ and $(x + h, f(x + h))$.
 
-![The parabola y equals x squared in blue with two marked points P at (1, 1) and Q at (2, 4), taking x equals 1 and h equals 1. A red secant line is drawn through P and Q. A right triangle beneath the secant marks the horizontal run h equals 1 from x equals 1 to x equals 2 and the vertical rise equal to 3 from y equals 1 to y equals 4, so the secant slope is the rise over the run, 3 over 1, which equals 2x plus h. A thin grey dashed tangent line at P with slope 2 is shown for contrast, labeled as the limit slope 2x as h approaches 0.](./media/fr-difference-quotient.png)
+![The parabola y equals x squared in blue with two marked points P at (1, 1) and Q at (2, 4), taking x equals 1 and h equals 1. A red secant line is drawn through P and Q. A right triangle beneath the secant marks the horizontal run h equals 1 from x equals 1 to x equals 2 and the vertical rise equal to 3 from y equals 1 to y equals 4, so the secant slope is the rise over the run, 3 over 1, which equals 2x plus h. A thin grey dashed tangent line at P with slope 2 is shown for contrast, labeled as the limit slope 2x as h approaches 0.](./media/fr-difference-quotient.svg)
+
+*Figure: The secant through $(1,1)$ and $(2,4)$ has slope $3$, while the tangent at $(1,1)$ has slope $2$.*
 
 The difference quotient is the precursor to the derivative in [Calculus](./calculus). Taking the limit as $h \to 0$ turns the average rate of change into the instantaneous rate of change.
 
@@ -976,7 +1008,9 @@ Different families of functions have characteristic domain restrictions:
 
 ### Even and Odd Functions
 
-![Two graphs: an even function y equals x squared symmetric about the y-axis where f of negative x equals f of x, and an odd function y equals x cubed symmetric about the origin where f of negative x equals negative f of x](./media/fr-even-odd.png)
+![Two graphs: an even function y equals x squared symmetric about the y-axis where f of negative x equals f of x, and an odd function y equals x cubed symmetric about the origin where f of negative x equals negative f of x](./media/fr-even-odd.svg)
+
+*Figure: The graph of $x^2$ is symmetric about the vertical axis; the graph of $x^3$ has rotational symmetry about the origin.*
 
 **Even Function:** A function $f$ is even if $f(-x) = f(x)$ for all $x$ in the domain.
 
@@ -992,7 +1026,9 @@ Different families of functions have characteristic domain restrictions:
 
 ### Periodic Functions
 
-![The sine curve over several cycles with a horizontal double-headed arrow marking one full period of length 2 pi between corresponding peaks, and dashed lines at plus 1 and minus 1 marking the amplitude](./media/fr-periodic.png)
+![The sine curve over several cycles with a horizontal double-headed arrow marking one full period of length 2 pi between corresponding peaks, and dashed lines at plus 1 and minus 1 marking the amplitude](./media/fr-periodic.svg)
+
+*Figure: The sine curve repeats after each interval of length $2\pi$; the marked peaks are one period apart.*
 
 **Periodic Function:** A function $f$ is periodic if there exists a positive number $p$ such that:
 
@@ -1007,7 +1043,9 @@ for all $x$ in the domain. The smallest such positive number $p$ is called the *
 
 ### Monotonic Functions
 
-![Three graphs: an increasing function that rises left to right, a decreasing function that falls left to right, and a non-monotonic parabola that decreases and then increases](./media/fr-monotonic.png)
+![Three graphs: an increasing function that rises left to right, a decreasing function that falls left to right, and a non-monotonic parabola that decreases and then increases](./media/fr-monotonic.svg)
+
+*Figure: An increasing function rises, a decreasing function falls, and a non-monotonic function changes direction.*
 
 **Increasing Function:** A function $f$ is increasing on an interval if:
 
@@ -1088,7 +1126,9 @@ A one-to-one correspondence between sets **A** and **B** means that **A** and **
    
    This shows that the natural numbers and integers have the same cardinality (both are countably infinite).
 
-![A bijection between the natural numbers and the integers. The top row lists the naturals 0, 1, 2, 3, 4, 5 with an ellipsis, and the bottom row lists directly beneath each the integer it maps to: 0, minus 1, 1, minus 2, 2, minus 3, with an ellipsis. An arrow joins each natural to its integer. Even-numbered inputs map to non-negative integers along green arrows and odd-numbered inputs map to negative integers along purple arrows, so the two colors interleave and the pairing zig-zags outward from 0. The caption notes every integer is hit exactly once, so the cardinalities are equal.](./media/fr-cardinality-bijection.png)
+![A bijection between the natural numbers and the integers. The top row lists the naturals 0, 1, 2, 3, 4, 5 with an ellipsis, and the bottom row lists directly beneath each the integer it maps to: 0, minus 1, 1, minus 2, 2, minus 3, with an ellipsis. An arrow joins each natural to its integer. Even-numbered inputs map to non-negative integers along green arrows and odd-numbered inputs map to negative integers along purple arrows, so the two colors interleave and the pairing zig-zags outward from 0. The caption notes every integer is hit exactly once, so the cardinalities are equal.](./media/fr-cardinality-bijection.svg)
+
+*Figure: Natural numbers $0,1,2,3,\ldots$ pair with integers $0,-1,1,-2,\ldots$ so every integer is reached exactly once.*
 
 The picture makes the counting concrete: walking left to right along the naturals, the outputs bounce $0, -1, +1, -2, +2, -3, \ldots$, sweeping outward so that *every* integer is reached exactly once. A set that can be listed this way (put in bijection with $\mathbb{N}$) is called **countably infinite**.
 
@@ -1112,7 +1152,9 @@ Each chain traced backward does exactly one of three things:
 - **B-stopper:** it halts at an element of $B$ with no parent, i.e. a $b \in B \setminus f(A)$ (an "orphan in $B$").
 - **No stop:** it runs backward forever, or closes into a cycle.
 
-![A two-panel schematic of the Schroder Bernstein proof. The top panel shows an A-stopper chain: blue A-nodes and red B-nodes alternate left to right, connected by f arrows going from A down to B and g arrows going from B up to A; the chain starts at an orphan a0 in A that has no g-preimage, and the bijection h is drawn as the green f arrows pairing a0 with b0, a1 with b1, a2 with b2. The bottom panel shows a B-stopper chain starting at an orphan b0 in B with no f-preimage, where h instead follows the green g arrows backward, pairing each a-node with its g-preimage b-node. The caption explains that choosing f on A-stopper chains and g-inverse on B-stopper chains covers every orphan exactly once, making h a bijection.](./media/fr-schroeder-bernstein.png)
+![A two-panel schematic of the Schroder Bernstein proof. The top panel shows an A-stopper chain: blue A-nodes and red B-nodes alternate left to right, connected by f arrows going from A down to B and g arrows going from B up to A; the chain starts at an orphan a0 in A that has no g-preimage, and the bijection h is drawn as the green f arrows pairing a0 with b0, a1 with b1, a2 with b2. The bottom panel shows a B-stopper chain starting at an orphan b0 in B with no f-preimage, where h instead follows the green g arrows backward, pairing each a-node with its g-preimage b-node. The caption explains that choosing f on A-stopper chains and g-inverse on B-stopper chains covers every orphan exactly once, making h a bijection.](./media/fr-schroeder-bernstein.svg)
+
+*Figure: On an $A$-stopper chain the matching follows $f$; on a $B$-stopper chain it uses $g^{-1}$.*
 
 Now define the bijection **one chain at a time**. Within a single chain the $A$-elements and $B$-elements simply alternate, so we can pair each $A$-element either with the $B$-element that $f$ sends it to, or with the $B$-element that $g$ came from. The whole trick is choosing consistently so the orphan gets covered:
 
@@ -1134,7 +1176,9 @@ A clean closed-form version of the same construction (no explicit chains) is **B
 
 ## Piecewise Functions
 
-![A piecewise function graph: the parabola y equals x squared for x less than 1 ending in an open circle at the point (1, 1), and the constant value 3 for x at least 1 starting from a closed dot at the point (1, 3), illustrating that an open circle excludes a point and a closed dot includes it](./media/fr-piecewise.png)
+![A piecewise function graph: the parabola y equals x squared for x less than 1 ending in an open circle at the point (1, 1), and the constant value 3 for x at least 1 starting from a closed dot at the point (1, 3), illustrating that an open circle excludes a point and a closed dot includes it](./media/fr-piecewise.svg)
+
+*Figure: The open circle excludes $(1,1)$, while the filled point includes $(1,3)$; the value at $x=1$ is $3$.*
 
 **Piecewise Function:** A piecewise function is a function defined by multiple sub-functions, each applying to a different interval of the domain.
 
@@ -1193,7 +1237,9 @@ $$\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = f(a)$$
 
 ## Function Transformations
 
-![A base parabola y equals x squared shown bold, with three dashed transformations: shifted up two units to x squared plus 2, shifted right two units to the quantity x minus 2 squared, and reflected across the x-axis to negative x squared](./media/fr-transformations.png)
+![A base parabola y equals x squared shown bold, with three dashed transformations: shifted up two units to x squared plus 2, shifted right two units to the quantity x minus 2 squared, and reflected across the x-axis to negative x squared](./media/fr-transformations.svg)
+
+*Figure: From $y=x^2$, shifting up, shifting right, and reflecting across the horizontal axis produce distinct predictable graphs.*
 
 **Function Transformations** describe how to shift, stretch, compress, or reflect the graph of a function.
 
@@ -1264,7 +1310,9 @@ Apply in this order:
 
 ### Floor Function
 
-![Two staircase step graphs: the floor function with a closed dot at the left of each step and an open circle at the right, so the floor of 2.5 is 2; and the ceiling function with an open circle at the left and a closed dot at the right, so the ceiling of 2.5 is 3](./media/fr-floor-ceiling.png)
+![Two staircase step graphs: the floor function with a closed dot at the left of each step and an open circle at the right, so the floor of 2.5 is 2; and the ceiling function with an open circle at the left and a closed dot at the right, so the ceiling of 2.5 is 3](./media/fr-floor-ceiling.svg)
+
+*Figure: Floor intervals include their left endpoints; ceiling intervals include their right endpoints, so at $x=2.5$ the outputs are $2$ and $3$.*
 
 **Floor Function:** $\lfloor x \rfloor$ (also called the **greatest integer function**)
 
@@ -1334,7 +1382,9 @@ Where $c$ is a constant.
 
 ### Absolute Value Function
 
-![Three graphs of special functions: the absolute value function as a V-shape through the origin, the signum function equal to minus 1, 0, or plus 1 with a closed dot at the origin and open circles at plus and minus 1, and the Heaviside step function jumping from 0 to 1 at the origin](./media/fr-special-functions.png)
+![Three graphs of special functions: the absolute value function as a V-shape through the origin, the signum function equal to minus 1, 0, or plus 1 with a closed dot at the origin and open circles at plus and minus 1, and the Heaviside step function jumping from 0 to 1 at the origin](./media/fr-special-functions.svg)
+
+*Figure: Absolute value forms a V, signum takes values $-1,0,1$, and the Heaviside convention shown assigns $H(0)=1$.*
 
 **Absolute Value Function:** Returns the magnitude (distance from zero) of a number.
 
