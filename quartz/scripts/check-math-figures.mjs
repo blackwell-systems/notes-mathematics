@@ -12,7 +12,7 @@ const expected = {
   "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg","st-power-set-lattice.svg","st-cantor-diagonal.svg","st-infinity-hierarchy.svg","st-power-set-four.svg","st-power-set-binomial.svg"],
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
   "functions-relations.md": [
-    "fr-function-machine.svg", "fr-relation-vs-function.svg", "fr-relation-cartesian.svg", "fr-relation-properties.svg", "fr-composition-relations.svg", "fr-closure-relations.svg", "fr-inverse-relation.svg", "fr-vertical-line-test.svg", "fr-domain-codomain-range.svg", "fr-image-preimage.svg", "fr-image-preimage-setops.svg", "fr-fibers-kernel.svg", "fr-inj-surj-bij.svg", "fr-inverse-reflection.svg", "fr-composition.svg", "fr-difference-quotient.svg", "fr-even-odd.svg", "fr-periodic.svg", "fr-monotonic.svg", "fr-cardinality-bijection.svg", "fr-schroeder-bernstein.svg", "fr-piecewise.svg", "fr-transformations.svg", "fr-floor-ceiling.svg", "fr-special-functions.svg", "fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"
+    "fr-function-machine.svg", "fr-relation-vs-function.svg", "fr-cartesian-relation-function.svg", "fr-relation-properties.svg", "fr-composition-relations.svg", "fr-closure-relations.svg", "fr-inverse-relation.svg", "fr-vertical-line-test.svg", "fr-domain-codomain-range.svg", "fr-image-preimage.svg", "fr-image-preimage-setops.svg", "fr-fibers-kernel.svg", "fr-inj-surj-bij.svg", "fr-inverse-reflection.svg", "fr-composition.svg", "fr-difference-quotient.svg", "fr-even-odd.svg", "fr-periodic.svg", "fr-monotonic.svg", "fr-cardinality-bijection.svg", "fr-schroeder-bernstein.svg", "fr-piecewise.svg", "fr-transformations.svg", "fr-floor-ceiling.svg", "fr-special-functions.svg", "fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"
   ],
   "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg"],
   "factoring-polynomials.md": ["fp-gcf-area.svg","fp-difference-squares.svg","fp-perfect-square-area.svg","fp-ac-area.svg","fp-grouping-area.svg","fp-roots-multiplicity.svg"],
@@ -133,6 +133,34 @@ if (xmlRun.error) {
 }
 
 if(total!==174)errors.push("Expected 174 illustrative SVGs, got "+total);
+// Verify that the three-panel construction actually illustrates the stated
+// progression, rather than merely having the right title and caption.
+const progressionSource=readFileSync(join("content","media","fr-cartesian-relation-function.svg"),"utf8");
+const progressionDots=[...progressionSource.matchAll(/<circle data-stage="(product|relation|function)" data-pair="([123],[xyz])" data-selected="(true|false)"/g)]
+  .map(([,stage,pair,selected])=>({stage,pair,selected:selected==="true"}));
+const pairUniverse=["1","2","3"].flatMap(a=>["x","y","z"].map(b=>a+","+b));
+const chosen={
+  product:pairUniverse,
+  relation:["1,y","1,z","2,x","3,z"],
+  function:["1,y","2,x","3,z"],
+};
+for(const [stage,selection] of Object.entries(chosen)){
+  const dots=progressionDots.filter(dot=>dot.stage===stage);
+  const names=dots.map(dot=>dot.pair),selected=dots.filter(dot=>dot.selected).map(dot=>dot.pair);
+  if(dots.length!==9||new Set(names).size!==9||pairUniverse.some(pair=>!names.includes(pair)))
+    errors.push("Cartesian progression: "+stage+" does not display every possible pair exactly once");
+  if(selected.length!==selection.length||selected.some(pair=>!selection.includes(pair))||
+     selection.some(pair=>!selected.includes(pair)))
+    errors.push("Cartesian progression: "+stage+" highlights incorrect pairs");
+}
+if(progressionDots.length!==27)
+  errors.push("Cartesian progression: expected three complete 3x3 grids");
+for(const a of ["1","2","3"]){
+  const outputs=progressionDots.filter(dot=>dot.stage==="function"&&dot.selected&&dot.pair.startsWith(a+","));
+  if(outputs.length!==1)
+    errors.push("Cartesian progression: function must select exactly one output for "+a);
+}
+
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
