@@ -13,6 +13,9 @@ Real analysis is what happens when you ask calculus to justify itself. In calcul
 
 This is not pedantry. The rigorous foundations built here are exactly what you need to do mathematics at a higher level, whether that means measure theory, functional analysis, or the convergence proofs that underpin machine learning theory. Singular learning theory, for instance, requires precise control over when you can swap limits, integrals, and derivatives. Analysis gives you that control.
 
+> [!tip] Read the underlying proofs
+> This is the **survey chapter** for Real Analysis. For the complete dependency chain from supremum to monotone convergence, Bolzano-Weierstrass, the Cauchy criterion, subsequences, nested intervals, limsup/liminf and series, read [Completeness and Convergence: Proofs from First Principles](./completeness-and-convergence). That companion explains exactly where completeness is used and why each hypothesis matters.
+
 ## Why Real Analysis?
 
 ### Calculus Gives You Tools. Analysis Asks Why They Work.
@@ -213,6 +216,8 @@ More precisely: if $(a_n)$ is increasing ($a_n \le a_{n+1}$ for all $n$) and bou
 This theorem is used constantly: whenever you can show a sequence is increasing and bounded, you immediately know it converges, even if you cannot compute the limit directly.
 
 ### Subsequences and Bolzano-Weierstrass
+
+For a complete construction of the monotone subsequence and the resulting theorem, see [the proofs in Completeness and Convergence](./completeness-and-convergence#4-every-sequence-has-a-monotone-subsequence).
 
 A **subsequence** of $(a_n)$ is a sequence $(a_{n_k})$ where $n_1 < n_2 < n_3 < \cdots$. You keep the original terms but skip some of them.
 
@@ -548,7 +553,7 @@ $$
 
 **Theorem.** If each $f_n$ is continuous and $f_n \to f$ uniformly, then $f$ is continuous.
 
-**Theorem (Swapping Limits and Integrals).** If $f_n \to f$ uniformly on $[a, b]$, then:
+**Theorem (Swapping Limits and Integrals).** If each $f_n$ is Riemann integrable on $[a,b]$ and $f_n\to f$ uniformly there, then $f$ is Riemann integrable and:
 
 $$
 \lim_{n \to \infty} \int_a^b f_n(x) \, dx = \int_a^b f(x) \, dx

@@ -141,6 +141,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "completeness-and-convergence.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "complex-analysis.md",
       "kind": "topic",
       "track": "advanced-mathematics",
