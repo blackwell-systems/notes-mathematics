@@ -8,6 +8,7 @@ import {spawnSync} from "node:child_process";
 
 const expected = {
   "cross-disciplinary-bridges.md": ["cdb-quotient-kernel-lines.svg", "cdb-xor-cycle-obstruction.svg", "cdb-conditional-expectation-projection.svg"],
+  "real-analysis.md": ["ra-sup-inf.svg", "ra-epsilon-n.svg", "ra-cauchy.svg", "ra-open-ball.svg", "ra-epsilon-delta.svg", "ra-pointwise-uniform.svg"],
   "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg","st-power-set-lattice.svg","st-cantor-diagonal.svg","st-infinity-hierarchy.svg","st-power-set-four.svg","st-power-set-binomial.svg"],
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
   "functions-relations.md": ["fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"],
@@ -129,7 +130,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==140)errors.push("Expected 140 illustrative SVGs, got "+total);
+if(total!==146)errors.push("Expected 146 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
