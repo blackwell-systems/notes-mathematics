@@ -65,9 +65,9 @@ A preorder keeps both facts: the **original objects remain distinct**, and the c
 
 Let $R$ be a set of **named roles**, and let $A(r)$ be the set of actions permitted to role $r$. Define
 
-$
+$$
 r\preceq s\quad\Longleftrightarrow\quad A(r)\subseteq A(s).
-$
+$$
 
 Read $r\preceq s$ as "role r grants no more actions than role s." This relation is **reflexive** because every set is a subset of itself, and **transitive** because subset inclusion is transitive. But the roles are not themselves permission sets, so antisymmetry can fail:
 
@@ -86,10 +86,10 @@ Here $\text{Viewer}\preceq\text{Auditor}$ **and** $\text{Auditor}\preceq\text{Vi
 
 Let $P$ and $Q$ be predicates about a real input $x$, and define
 
-$
+$$
 P\preceq Q\quad\Longleftrightarrow\quad
 \text{for every }x\in\mathbb R,\ P(x)\Rightarrow Q(x).
-$
+$$
 
 The arrow $\Rightarrow$ is read "implies." The statement $P\preceq Q$ means **every case satisfying P also satisfies Q**: P is at least as restrictive as Q. Implication is reflexive ($P\Rightarrow P$) and transitive, so it defines a preorder on predicates.
 
@@ -109,9 +109,9 @@ Consider a service-call graph with calls from Scheduler to Worker, Worker back t
 
 The role and predicate examples share one construction. Suppose a set $X$ contains objects with an **observation map** $f:X\to Y$, where $Y$ is a poset. We compare objects by their observations:
 
-$
+$$
 x\preceq_f y\quad\Longleftrightarrow\quad f(x)\leq_Y f(y).
-$
+$$
 
 For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set of inputs on which $P$ is true. In both cases, $Y$ is a set of subsets ordered by inclusion.
 
@@ -137,9 +137,9 @@ For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set o
 > [!tip] Important: “partial” does not mean “partially defined”
 > **The relation is defined for every pair.** The word *partial* means only that **not every pair must be comparable**: sometimes neither element is below the other.
 >
-> $
+> $$
 > a\npreceq b\qquad\text{and}\qquad b\npreceq a.
-> $
+> $$
 >
 > This is called **incomparability**, not an undefined comparison.
 >
@@ -151,9 +151,9 @@ For roles, $f(r)$ is the allowed-action set. For predicates, $f(P)$ is the set o
 
 Start with $A:=\{a,b\}$. Its **power set** is the set of all its subsets:
 
-$
+$$
 \mathcal P(A)=\{\varnothing,\{a\},\{b\},\{a,b\}\}.
-$
+$$
 
 A power set alone is just a set. To obtain a **poset**, specify an order on its elements: here, **subset inclusion** $\subseteq$. We claim that $(\mathcal P(A),\subseteq)$ satisfies all three partial-order axioms.
 
@@ -163,9 +163,9 @@ A power set alone is just a set. To obtain a **poset**, specify an order on its 
 
 **Why is the order partial?** The two middle elements, $\{a\}$ and $\{b\}$, are **incomparable**:
 
-$
+$$
 \{a\}\nsubseteq\{b\}\qquad\text{and}\qquad\{b\}\nsubseteq\{a\}.
-$
+$$
 
 Neither comparison holds, but the order is still well-defined. The power set is therefore a **poset, not a totally ordered set**.
 
@@ -407,9 +407,9 @@ An order relation tells us which way is *up*. Often a theorem about elements abo
 > [!definition] The dual (opposite) poset
 > Given a poset $(P,\preceq)$, its **dual**, written $P^{\mathrm{op}}$ (read "P opposite"), has the same elements and the reversed order:
 >
-> $
+> $$
 > a\preceq_{\mathrm{op}} b\quad\Longleftrightarrow\quad b\preceq a.
-> $
+> $$
 
 **Check the axioms.** Reflexivity is unchanged. If $a\preceq_{\mathrm{op}}b$ and $b\preceq_{\mathrm{op}}c$, then $c\preceq b\preceq a$, so $a\preceq_{\mathrm{op}}c$. Antisymmetry also survives: two-way comparisons in the dual are two-way comparisons in the original order.
 
@@ -434,9 +434,9 @@ An order relation tells us which way is *up*. Often a theorem about elements abo
 
 **An explicit order-reversing map.** For subsets of a fixed set $X$, complementation satisfies
 
-$
+$$
 A\subseteq B\quad\Longleftrightarrow\quad X\setminus B\subseteq X\setminus A.
-$
+$$
 
 Thus $A\mapsto X\setminus A$ reverses order bijectively; [De Morgan's laws](./set-theory#set-operation-properties) exchange union and intersection. A lattice's join/meet duality has a concrete manifestation in ordinary set operations.
 
@@ -515,11 +515,11 @@ The lattice completeness needed below is the completeness defined in [Joins, mee
 > [!theorem] Knaster-Tarski fixed-point theorem
 > Let $L$ be a **complete lattice** and $F:L\to L$ be **monotone**. Then the fixed points of $F$, ordered as in $L$, form a complete lattice. In particular, the least and greatest fixed points exist and are
 >
-> $
+> $$
 > \operatorname{lfp}(F)=\bigwedge\{x:F(x)\preceq x\},
 > \qquad
 > \operatorname{gfp}(F)=\bigvee\{x:x\preceq F(x)\}.
-> $
+> $$
 
 Here $\bigwedge$ means "meet over the set," $\bigvee$ means "join over the set," and $\operatorname{lfp}$ and $\operatorname{gfp}$ mean "least fixed point" and "greatest fixed point." **No metric, differentiability, or continuity hypothesis is involved.**
 
@@ -535,9 +535,9 @@ Here $\bigwedge$ means "meet over the set," $\bigvee$ means "join over the set,"
 > [!proof] Why *all* fixed points form a complete lattice
 > Let $S$ be **any subset of fixed points**, including the empty subset. Define
 >
-> $
+> $$
 > U_S:=\{x\in L:F(x)\preceq x\text{ and }s\preceq x\text{ for all }s\in S\}.
-> $
+> $$
 >
 > This set contains $\top$. Put $u_S:=\bigwedge U_S$. Exactly as before, monotonicity implies $F(u_S)\preceq u_S$.
 >
@@ -551,17 +551,17 @@ Here $\bigwedge$ means "meet over the set," $\bigvee$ means "join over the set,"
 
 Let $X:=\{\text{read},\text{write},\text{deploy},\text{monitor}\}$. A subset $A\subseteq X$ records enabled capabilities. Suppose deployment requires writing, writing requires reading, and monitoring is optional. We require the final state to include deployment. Define a monotone update $F:\mathcal P(X)\to\mathcal P(X)$:
 
-$
+$$
 F(A):=\{\text{deploy}\}\cup A
 \cup\begin{cases}\{\text{write}\},&\text{if deploy}\in A,\\\varnothing,&\text{otherwise},\end{cases}
 \cup\begin{cases}\{\text{read}\},&\text{if write}\in A,\\\varnothing,&\text{otherwise}.\end{cases}
-$
+$$
 
 **Check monotonicity:** if $A\subseteq B$, every membership condition true in $A$ is also true in $B$, so $F(A)\subseteq F(B)$. Because $\mathcal P(X)$ is a complete lattice, the theorem applies.
 
 Start from the least element $\varnothing$:
 
-$
+$$
 \begin{aligned}
 A_0&:=\varnothing,\\
 A_1:=F(A_0)&=\{\text{deploy}\},\\
@@ -569,7 +569,7 @@ A_2:=F(A_1)&=\{\text{deploy},\text{write}\},\\
 A_3:=F(A_2)&=\{\text{deploy},\text{write},\text{read}\},\\
 A_4:=F(A_3)&=A_3.
 \end{aligned}
-$
+$$
 
 The least fixed point is $A_3$, which contains exactly the mandatory capabilities. The greatest fixed point is $X$, which additionally includes optional monitoring.
 
@@ -580,15 +580,15 @@ The least fixed point is $A_3$, which contains exactly the mandatory capabilitie
 
 **Why infinite iteration needs another hypothesis.** The Knaster-Tarski theorem does *not* say that the supremum of the first countably many iterations is fixed. On the complete lattice $[0,1]$, define
 
-$
+$$
 F(x):=
 \begin{cases}
 (x+1/2)/2,&0\le x<1/2,\\
 1,&1/2\le x\le1.
 \end{cases}
-$
+$$
 
-This $F$ is monotone. Iterating from $x_0=0$ gives $x_n=\tfrac12(1-2^{-n})\to1/2$, yet $F(1/2)=1$, not $1/2$. The least fixed point is $1$. The missing property is an appropriate continuity or preservation-of-directed-joins assumption, not monotonicity. Compare the metric-based approach in [Fixed-Point Theorems](./fixed-point-theorems) if that companion is available; unlike Knaster-Tarski, Banach's contraction theorem uses a distance and contraction factor.
+This $F$ is monotone. Iterating from $x_0=0$ gives $x_n=\tfrac12(1-2^{-n})\to1/2$, yet $F(1/2)=1$, not $1/2$. The least fixed point is $1$. The missing property is an appropriate continuity or preservation-of-directed-joins assumption, not monotonicity. Contrast with metric contraction arguments in [Differential Equations](./differential-equations), which use a distance and contraction factor instead of just the order.
 
 ## Galois connections: compare through two representations
 
@@ -599,9 +599,9 @@ A **Galois connection** captures this loss of distinction using an exact two-way
 > [!definition] Galois connection (monotone convention)
 > Let $P,Q$ be posets. Functions $f:P\to Q$ and $g:Q\to P$ form a **Galois connection**, written $f\dashv g$ (read "f is left adjoint to g"), if for **every** $p\in P$, $q\in Q$,
 >
-> $
+> $$
 > f(p)\preceq_Q q\quad\Longleftrightarrow\quad p\preceq_P g(q).
-> $
+> $$
 >
 > This is the **monotone** or **adjoint** convention. Some authors also use the name Galois connection for *antitone* maps; when reading another source, check which convention it uses.
 
@@ -611,28 +611,28 @@ The relationship says: "the image of $p$ lies below $q$" exactly when "the origi
 
 Let $X:=\{\text{Editor},\text{Author},\text{Admin}\}$ be different role identities, and let $Y:=\{\text{basic},\text{privileged}\}$. Define an observation $h:X\to Y$ by
 
-$
+$$
 h(\text{Editor})=h(\text{Author})=\text{basic},
 \qquad
 h(\text{Admin})=\text{privileged}.
-$
+$$
 
 On **sets** of roles and tiers, define
 
-$
+$$
 f:\mathcal P(X)\to\mathcal P(Y),\quad f(A):=h[A],
 \qquad
 g:\mathcal P(Y)\to\mathcal P(X),\quad g(B):=h^{-1}[B].
-$
+$$
 
 Here $h[A]$ is the **direct image** (all tiers represented by roles in $A$). The expression $h^{-1}[B]$ is the **inverse image** (all roles whose tiers belong to $B$), and **does not** require $h$ to have an inverse function.
 
 > [!theorem] Direct image is left adjoint to inverse image
 > For **every** $A\subseteq X$ and $B\subseteq Y$,
 >
-> $
+> $$
 > h[A]\subseteq B\quad\Longleftrightarrow\quad A\subseteq h^{-1}[B].
-> $
+> $$
 
 **Proof.** If $h[A]\subseteq B$ and $x\in A$, then $h(x)\in B$ and hence $x\in h^{-1}[B]$. Thus $A\subseteq h^{-1}[B]$. Conversely, if $A\subseteq h^{-1}[B]$, then every $x\in A$ has $h(x)\in B$. Every member of $h[A]$ lies in $B$, proving the other implication. $\square$
 
@@ -642,11 +642,11 @@ Here $h[A]$ is the **direct image** (all tiers represented by roles in $A$). The
 
 For $A:=\{\text{Editor}\}$, we calculate
 
-$
+$$
 f(A)=\{\text{basic}\},
 \qquad
 (g\circ f)(A)=\{\text{Editor},\text{Author}\}.
-$
+$$
 
 Going forward and back **again** returns the same two-role set. The operation fills in everything indistinguishable under the chosen observations.
 
@@ -664,10 +664,10 @@ Going forward and back **again** returns the same two-role set. The operation fi
 > [!proof] Derive all three closure laws
 > Substitute the reflexive comparisons $f(p)\preceq f(p)$ and $g(q)\preceq g(q)$ into the adjunction. We obtain
 >
-> $
+> $$
 > p\preceq g(f(p))\quad\text{(unit)},\qquad
 > f(g(q))\preceq q\quad\text{(counit)}.
-> $
+> $$
 >
 > **Monotonicity of $f$:** if $p\preceq p'$, then the unit at $p'$ gives $p\preceq p'\preceq g(f(p'))$. Apply the adjunction to conclude $f(p)\preceq f(p')$.
 >
@@ -699,5 +699,7 @@ The preorder examples above show a pattern that recurs in software and mathemati
 - **Permissions and information:** "contains no more permission or information than" can define partial orders, but only becomes a lattice when appropriate joins and meets exist.
 - **Distributed state:** a **join-semilattice** requires a join for every pair, but not a meet. For example, the **nonempty** subsets of $\{a,b\}$ under inclusion form a join-semilattice: unions stay nonempty and give joins. Yet $\{a\}$ and $\{b\}$ have no meet *inside this poset* because their intersection $\varnothing$ was excluded. This distinction matters when replicas merge state but need no general intersection operation.
 - **Categories:** a poset can be interpreted as a category with one arrow $a\to b$ whenever $a\preceq b$. For instance, $\varnothing\subseteq\{a\}\subseteq\{a,b\}$ gives arrows $\varnothing\to\{a\}$ and $\{a\}\to\{a,b\}$; composing them yields the arrow $\varnothing\to\{a,b\}$. Reflexivity supplies identity arrows. See [Category Theory Foundations](./category-theory-foundations#a-partial-order-is-a-category).
+
+**What we can now do:** duality reuses proofs by reversing comparisons. Knaster-Tarski guarantees stable states for monotone updates on complete lattices. Galois connections translate between representations and produce closure operators that compute the least stable enlargement of a state. Each conclusion follows from the definitions above.
 
 The governing habit is to verify **which axioms the relation has**, rather than assuming every ordering behaves like the real number line.
