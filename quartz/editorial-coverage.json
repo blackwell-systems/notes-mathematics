@@ -222,6 +222,15 @@
       "diagramReview": "pending"
     },
     {
+      "path": "continuity-and-compactness.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "cross-disciplinary-bridges.md",
       "kind": "learning-path",
       "track": "navigation",
@@ -762,6 +771,24 @@
       "diagramReview": "pending"
     },
     {
+      "path": "rigorous-differentiation.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
+      "path": "rigorous-integration.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
+    },
+    {
       "path": "ring-ideals-quotients.md",
       "kind": "topic",
       "track": "ring-and-field-theory",
@@ -787,6 +814,15 @@
       "mobileReview": "pending",
       "darkReview": "pending",
       "diagramReview": "pending"
+    },
+    {
+      "path": "sequences-of-functions.md",
+      "kind": "topic",
+      "track": "advanced-mathematics",
+      "semanticReview": "pending",
+      "mobileReview": "pending",
+      "darkReview": "pending",
+      "diagramReview": "not-applicable"
     },
     {
       "path": "set-theory.md",
