@@ -18,7 +18,27 @@ Now change the objects from **permission sets** to **named roles**. The roles `V
 
 The same structure appears when independent tasks can run concurrently, when a compiler gradually discovers facts about a program, and when distributed replicas combine compatible state. It also underlies bounds and fixed-point theorems: under suitable assumptions, we can reason about whether repeatedly adding information reaches a stable result. **Order theory is not just about sorting. It is about comparison, dependence, combination, and what can be concluded when comparisons are incomplete.**
 
-An **order relation** tells us when one object is below, before, contained in, or less informative than another. Throughout, let $P$ be a set with a relation $\preceq$ (read "precedes or is equal to"). We use $\leq$ for numerical order, $\subseteq$ for subset containment, and $\mid$ (read "divides") for divisibility. These different relationships can satisfy the *same structural axioms*, which is why one theory can study them together.
+### The organizing idea: different comparisons, the same axioms
+
+> [!intuition] An order is not necessarily a ranking of numbers
+> An **order relation** tells us when one object is below, before, contained in, or less informative than another. The objects can be numbers, sets, tasks, permissions, or points in a graph. What matters is **how the comparisons behave**, not what the objects happen to be.
+>
+> **Different relationships can satisfy the same structural axioms.** That is why one theory can study all of them: a proof using only those axioms can apply in every setting where they hold.
+
+Throughout this chapter, let $P$ be a set equipped with a relation $\preceq$ (read "precedes or is equal to"). The expression $a\preceq b$ is a **placeholder for a comparison we must specify**, not necessarily a statement that $a$ is numerically smaller than $b$.
+
+| Objects being compared | What the comparison means | Concrete example |
+| --- | --- | --- |
+| Real numbers | $a\leq b$: $a$ is no greater than $b$ | $2\leq 6$ |
+| Sets | $A\subseteq B$: every member of $A$ is in $B$ | $\{r\}\subseteq\{r,w\}$ |
+| Positive integers | $a\mid b$ (read "a divides b"): $b$ is an integer multiple of $a$ | $2\mid6$ |
+| Vertices in a directed graph | $u\leadsto v$: a directed path goes from $u$ to $v$, possibly of length zero | $u\leadsto v$ along a path |
+
+These are **not the same relation**. For example, $2\leq3$, but $2\nmid3$ (read "two does not divide three"). Yet they all obey two rules: every object compares with itself (**reflexivity**), and comparisons can be chained (**transitivity**). For instance, $2\mid6$ and $6\mid30$ imply $2\mid30$, just as $A\subseteq B$ and $B\subseteq C$ imply $A\subseteq C$.
+
+The similarities do not erase the differences. Numerical $\leq$ compares every pair; subset inclusion and positive-integer divisibility can leave some pairs **incomparable**; directed reachability can compare distinct vertices in **both directions** when a cycle exists. The next section turns these differences into precise definitions: **preorder, partial order, and total order**.
+
+**Why this is powerful:** instead of proving separate, unrelated facts about numbers, sets, divisibility, and reachability, we can identify which properties a proof actually needs and reuse the argument across all four. That is the abstraction behind order theory.
 
 ## From relations to preorders and partial orders
 
