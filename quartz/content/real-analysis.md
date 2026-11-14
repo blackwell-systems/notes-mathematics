@@ -57,7 +57,9 @@ Similarly, $m$ is a **lower bound** if $m \le x$ for all $x \in S$, and (again b
 
 The crucial characterization: $s = \sup S$ if and only if (1) $s$ is an upper bound for $S$, and (2) for every $\epsilon > 0$, there exists $x \in S$ with $x > s - \epsilon$. In other words, $\sup S$ is the "tightest" upper bound: you cannot pull it down by any amount $\epsilon$ without some element of $S$ exceeding it.
 
-![The set S = {1/n} on the real line: its points cluster toward 0; the supremum 1 is attained (it lies in S) while the infimum 0 is not, with the region of upper bounds shaded to the right of 1](./media/ra-sup-inf.png)
+![The set S = {1/n} on the real line: its points cluster toward 0; the supremum 1 is attained (it lies in S) while the infimum 0 is not, with the region of upper bounds shaded to the right of 1](./media/ra-sup-inf.svg)
+
+*Figure: The points 1/n approach zero without reaching it. The infimum is missing from the set, while the supremum 1 is attained.*
 
 ### The Completeness Axiom
 
@@ -125,7 +127,9 @@ $$
 
 Unpacking this: $\epsilon$ represents how close you want the terms to be to $L$. No matter how small you make $\epsilon$ (even $\epsilon = 10^{-100}$), you can find a point $N$ in the sequence beyond which *every* term is within $\epsilon$ of $L$. The sequence eventually enters and stays inside any neighborhood of $L$, no matter how tiny.
 
-![A convergent sequence approaching a limit L: given a tolerance epsilon, there is an index N beyond which every term lies inside the horizontal band from L minus epsilon to L plus epsilon](./media/ra-epsilon-n.png)
+![A convergent sequence approaching a limit L: given a tolerance epsilon, there is an index N beyond which every term lies inside the horizontal band from L minus epsilon to L plus epsilon](./media/ra-epsilon-n.svg)
+
+*Figure: A concrete alternating sequence illustrates the epsilon-N condition: every term after N = 4 stays strictly within the chosen tolerance band around zero.*
 
 Play the tolerance game below: pick a sequence, shrink $\varepsilon$, and the widget finds the smallest $N$ beyond which *every* term lands inside the $L \pm \varepsilon$ band. As $\varepsilon$ shrinks, $N$ grows, but one always exists, which is exactly what convergence means.
 
@@ -250,7 +254,9 @@ where the last equality is the geometric series $\sum_{k=n+1}^{\infty} 2^{-(k-1)
 
 **Research connection (informal):** Convergence behavior offers a useful lens on training dynamics. In our experiments, a "frustration gap" in BPE-trained models (a gap between a model's structural capacity and what the tokenizer allows) appears to be measurable by around step 5,000 and does not visibly close over the next 35,000 steps. We read this as suggestive of a sequence that converges to a nonzero limit (permanently wasted capacity), though this is an empirical observation from specific runs, not a proven limit. This paragraph is an interpretive analogy, separate from the rigorous results above.
 
-![A Cauchy sequence: beyond some index N all terms lie within epsilon of each other, bunching together, so convergence can be established without knowing the limit value](./media/ra-cauchy.png)
+![A Cauchy sequence: beyond some index N all terms lie within epsilon of each other, bunching together, so convergence can be established without knowing the limit value](./media/ra-cauchy.svg)
+
+*Figure: The Cauchy property compares pairs of late terms. From N = 5 onward, every pair in this example differs by less than the chosen epsilon.*
 
 ### Limsup and Liminf
 
@@ -357,7 +363,9 @@ $$
 
 In $\mathbb{R}$, an open ball is just an open interval $(x - r, x + r)$.
 
-![An open ball B(x, r) in the plane: all points within distance r of the center x, drawn with a dashed boundary to indicate that points exactly at distance r are excluded](./media/ra-open-ball.png)
+![An open ball B(x, r) in the plane: all points within distance r of the center x, drawn with a dashed boundary to indicate that points exactly at distance r are excluded](./media/ra-open-ball.svg)
+
+*Figure: The dashed boundary is excluded from the open ball. Points strictly closer than r to the center belong to it.*
 
 **Definition.** A set $U \subseteq X$ is **open** if for every $x \in U$, there exists $r > 0$ such that $B(x, r) \subseteq U$. In words: every point of $U$ has some "breathing room" around it that stays inside $U$.
 
@@ -435,7 +443,9 @@ The trick of restricting $\delta$ first (here to be at most $1$) to control one 
 
 In a general metric space $(X, d_X)$ and $(Y, d_Y)$: for every $\epsilon > 0$, there exists $\delta > 0$ such that $d_X(x, a) < \delta \implies d_Y(f(x), f(a)) < \epsilon$.
 
-![Epsilon-delta continuity at a point c: an interval of width delta around c on the x-axis maps entirely into the epsilon band around f(c) on the y-axis](./media/ra-epsilon-delta.png)
+![Epsilon-delta continuity at a point c: an interval of width delta around c on the x-axis maps entirely into the epsilon band around f(c) on the y-axis](./media/ra-epsilon-delta.svg)
+
+*Figure: For f(x) = x squared at c = 1, the highlighted delta-neighborhood maps entirely inside the epsilon-neighborhood of f(c).*
 
 ### Sequential Characterization
 
@@ -483,7 +493,9 @@ $$
 
 This means: fix any $x$, and the sequence of *numbers* $f_1(x), f_2(x), f_3(x), \ldots$ converges to $f(x)$.
 
-![The functions f_n(x) = x^n on the interval from 0 to 1 for n = 1, 2, 5, 20, 100: each is continuous, but they converge pointwise to a discontinuous limit that is 0 on the interval up to 1 and jumps to 1 at x equals 1](./media/ra-pointwise-uniform.png)
+![The functions f_n(x) = x^n on the interval from 0 to 1 for n = 1, 2, 5, 20, 100: each is continuous, but they converge pointwise to a discontinuous limit that is 0 on the interval up to 1 and jumps to 1 at x equals 1](./media/ra-pointwise-uniform.svg)
+
+*Figure: Each curve x to the n is continuous, yet the pointwise limit has a jump at x = 1. The supremum error remains 1, so convergence is not uniform.*
 
 ### The Problem with Pointwise Convergence
 
