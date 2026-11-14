@@ -73,9 +73,11 @@ The similarities do not erase the differences. Numerical $\leq$ compares every p
 
 ## From relations to preorders and partial orders
 
-![Six-tile dark illustration comparing preorders, partial orders and total orders. Preorders allow Editor and Author, distinct roles with the same permissions, to compare both ways. The poset quotient merges them into one permission class below Admin. Total orders compare every pair, while ordering the original roles requires an additional tie-break.](./media/ot-preorder-poset-total-story.svg)
+In the illustration, we compare **named roles by allowed actions**: $r\preceq s$ means every action allowed to $r$ is also allowed to $s$. This comparison tells us about permissions, **not whether the role identities are equal**.
 
-*Figure: The three ordering structures are nested by their axioms. In the worked role example, Editor and Author are different names with identical capabilities. The preorder compares them in both directions; its quotient identifies their equivalence class. A total ordering of the **original names** requires a separate tie-break and is not automatically induced by the quotient.*
+![Six-tile dark illustration comparing preorders, partial orders and total orders. Reflexivity requires self-comparison, transitivity chains comparisons, and neither requires or forbids two-way comparison. Editor and Author have identical permissions yet remain distinct roles. The quotient poset has a class containing both roles, while a total order of the original roles requires an extra tie-break.](./media/ot-preorder-poset-total-story.svg)
+
+*Figure: The hierarchy classifies relations by the axioms they satisfy; it does **not** turn a relation that fails antisymmetry into one that satisfies it merely by adding a label. Editor and Author compare both ways because their **permission sets agree**, not because transitivity demands it. To obtain a poset from this preorder, we instead compare **equivalence classes** of roles. A total order of the original role names requires a separate tie-break.*
 
 > [!definition] Preorder
 > A relation $\preceq$ on $P$ is a **preorder** when it is:
@@ -83,6 +85,13 @@ The similarities do not erase the differences. Numerical $\leq$ compares every p
 > - **Transitive:** if $a\preceq b$ and $b\preceq c$, then $a\preceq c$.
 
 A preorder need not be antisymmetric. Two different objects may each precede the other. That is **not a defect**: the comparison may be about what objects *can do*, *imply*, or *reach*, rather than whether they are literally identical.
+
+> [!distinction] Transitivity does not cause two-way comparison
+> **Reflexivity** only requires $a\preceq a$. **Transitivity** only requires that $a\preceq b$ and $b\preceq c$ imply $a\preceq c$. Neither rule **requires** two distinct objects to compare in both directions, and neither **forbids** it.
+>
+> In the diagram, Editor and Author compare both ways **because they grant the same actions**. From $\text{Editor}\preceq\text{Author}$ and $\text{Author}\preceq\text{Editor}$, transitivity gives $\text{Editor}\preceq\text{Editor}$ and $\text{Author}\preceq\text{Author}$—facts reflexivity already guarantees. It **does not** give $\text{Editor}=\text{Author}$.
+>
+> The additional rule **antisymmetry** *would* force equality whenever both directions hold. A partial order requires that rule; a preorder does not. To construct a poset from **this particular preorder**, we must instead compare classes of permission-equivalent roles, not pretend the original roles have become identical.
 
 ### Why not require antisymmetry immediately?
 
