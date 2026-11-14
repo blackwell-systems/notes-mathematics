@@ -443,7 +443,7 @@ The trick of restricting $\delta$ first (here to be at most $1$) to control one 
 
 In a general metric space $(X, d_X)$ and $(Y, d_Y)$: for every $\epsilon > 0$, there exists $\delta > 0$ such that $d_X(x, a) < \delta \implies d_Y(f(x), f(a)) < \epsilon$.
 
-![Epsilon-delta continuity at a point c: an interval of width delta around c on the x-axis maps entirely into the epsilon band around f(c) on the y-axis](./media/ra-epsilon-delta.svg)
+![Epsilon-delta continuity for f(x) = x squared at c = 1: every x within delta = 1/4 of c maps strictly inside epsilon = 3/4 of f(c); the highlighted input interval has total width 2 delta](./media/ra-epsilon-delta.svg)
 
 *Figure: For f(x) = x squared at c = 1, the highlighted delta-neighborhood maps entirely inside the epsilon-neighborhood of f(c).*
 
