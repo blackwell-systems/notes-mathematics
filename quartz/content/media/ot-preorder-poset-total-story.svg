@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960" role="img" aria-labelledby="figure-title figure-desc"><title id="figure-title">Preorder, poset, and total order: six illustrated tiles</title><desc id="figure-desc">Six dark editorial panels explain the hierarchy of ordering relations. A preorder allows distinct named roles with equal permissions to compare in both directions; quotienting those roles produces a partial order on permission levels; a total order compares every pair. Editor and Author share read, write and edit permissions, while Admin adds delete. A separate tie-break can rank the named roles, but it is not part of the quotient construction.</desc>
+<defs><marker id="tipV" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 z" fill="#BCA8EC"/></marker><marker id="tipB" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 z" fill="#87B8EE"/></marker><marker id="tipW" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 z" fill="#F4F3ED"/></marker></defs>
+<rect x="0" y="0" width="1440" height="960" rx="0" fill="#101A2C" stroke="none" stroke-width="2"/>
+<text x="720" y="47" fill="#F4F3ED" font-size="44" font-weight="750" text-anchor="middle" dominant-baseline="middle">Preorder, Poset, Total Order</text>
+<text x="720" y="94" fill="#C4CEDA" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="middle">Three levels of comparison, shown as one connected story</text>
+<rect x="22" y="128" width="454" height="388" rx="21" fill="#19283A" stroke="#526580" stroke-width="2"/>
+<rect x="32" y="138" width="434" height="56" rx="15" fill="#122338" stroke="none" stroke-width="2"/>
+<text x="249" y="166" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">The hierarchy</text>
+<rect x="52" y="221" width="394" height="220" rx="43" fill="#122338" stroke="#87B8EE" stroke-width="3"/>
+<text x="249" y="247" fill="#87B8EE" font-size="24" font-weight="700" text-anchor="middle" dominant-baseline="middle">Preorder</text>
+<rect x="80" y="280" width="338" height="145" rx="33" fill="#261F3A" stroke="#BCA8EC" stroke-width="3"/>
+<text x="249" y="306" fill="#BCA8EC" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="middle">Partial order (poset)</text>
+<rect x="126" y="336" width="246" height="64" rx="28" fill="#342C24" stroke="#EDB86D" stroke-width="3"/>
+<text x="249" y="370" fill="#EDB86D" font-size="24" font-weight="700" text-anchor="middle" dominant-baseline="middle">Total order</text>
+<text x="249" y="467" fill="#C4CEDA" font-size="18" font-weight="400" text-anchor="middle" dominant-baseline="middle">Each level adds one requirement</text>
+<rect x="494" y="128" width="454" height="388" rx="21" fill="#19283A" stroke="#526580" stroke-width="2"/>
+<rect x="504" y="138" width="434" height="56" rx="15" fill="#122338" stroke="none" stroke-width="2"/>
+<text x="721" y="166" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">Preorder</text>
+<text x="518" y="217" fill="#F4F3ED" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">Reflexive and transitive.</text>
+<text x="518" y="247" fill="#F4F3ED" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">Different objects may compare both ways.</text>
+<rect x="537" y="294" width="136" height="52" rx="26" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
+<text x="605" y="321" fill="#87B8EE" font-size="21" font-weight="600" text-anchor="middle" dominant-baseline="middle">Editor</text>
+<rect x="767" y="294" width="136" height="52" rx="26" fill="#122338" stroke="#BCA8EC" stroke-width="2.6"/>
+<text x="835" y="321" fill="#BCA8EC" font-size="21" font-weight="600" text-anchor="middle" dominant-baseline="middle">Author</text>
+<path d="M684 312 L757 312" fill="none" stroke="#BCA8EC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipV)"/>
+<path d="M757 331 L684 331" fill="none" stroke="#BCA8EC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipV)"/>
+<rect x="656" y="394" width="130" height="52" rx="26" fill="#122338" stroke="#EDB86D" stroke-width="2.6"/>
+<text x="721" y="421" fill="#EDB86D" font-size="21" font-weight="600" text-anchor="middle" dominant-baseline="middle">Admin</text>
+<path d="M613 351 L688 388" fill="none" stroke="#87B8EE" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipB)"/>
+<path d="M832 351 L753 388" fill="none" stroke="#BCA8EC" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipV)"/>
+<text x="721" y="476" fill="#98D5A3" font-size="18" font-weight="600" text-anchor="middle" dominant-baseline="middle">Mutual comparison ≠ identical roles</text>
+<rect x="966" y="128" width="454" height="388" rx="21" fill="#19283A" stroke="#526580" stroke-width="2"/>
+<rect x="976" y="138" width="434" height="56" rx="15" fill="#122338" stroke="none" stroke-width="2"/>
+<text x="1193" y="166" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">Partial order (poset)</text>
+<text x="991" y="220" fill="#F4F3ED" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">Reflexive, transitive, antisymmetric.</text>
+<text x="991" y="249" fill="#F4F3ED" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">Mutual comparison now means equality.</text>
+<rect x="1064" y="302" width="258" height="53" rx="26.5" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
+<text x="1193" y="329.5" fill="#87B8EE" font-size="20" font-weight="600" text-anchor="middle" dominant-baseline="middle">{Editor, Author}</text>
+<rect x="1131" y="398" width="125" height="52" rx="26" fill="#122338" stroke="#EDB86D" stroke-width="2.6"/>
+<text x="1193.5" y="425" fill="#EDB86D" font-size="20" font-weight="600" text-anchor="middle" dominant-baseline="middle">Admin</text>
+<path d="M1193 361 L1193 389" fill="none" stroke="#87B8EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipB)"/>
+<text x="1193" y="479" fill="#98D5A3" font-size="18" font-weight="600" text-anchor="middle" dominant-baseline="middle">Equivalent roles become one class</text>
+<rect x="22" y="536" width="454" height="388" rx="21" fill="#19283A" stroke="#526580" stroke-width="2"/>
+<rect x="32" y="546" width="434" height="56" rx="15" fill="#122338" stroke="none" stroke-width="2"/>
+<text x="249" y="574" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">Total order</text>
+<text x="47" y="626" fill="#F4F3ED" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">A poset in which every pair compares.</text>
+<text x="47" y="656" fill="#F4F3ED" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">Either a ≤ b or b ≤ a.</text>
+<rect x="44" y="730" width="114" height="58" rx="29" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
+<text x="101" y="760" fill="#87B8EE" font-size="22" font-weight="600" text-anchor="middle" dominant-baseline="middle">Low</text>
+<rect x="192" y="730" width="114" height="58" rx="29" fill="#122338" stroke="#BCA8EC" stroke-width="2.6"/>
+<text x="249" y="760" fill="#BCA8EC" font-size="21" font-weight="600" text-anchor="middle" dominant-baseline="middle">Middle</text>
+<rect x="340" y="730" width="114" height="58" rx="29" fill="#122338" stroke="#EDB86D" stroke-width="2.6"/>
+<text x="397" y="760" fill="#EDB86D" font-size="22" font-weight="600" text-anchor="middle" dominant-baseline="middle">High</text>
+<path d="M164 759 L187 759" fill="none" stroke="#F4F3ED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipW)"/>
+<path d="M312 759 L335 759" fill="none" stroke="#F4F3ED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipW)"/>
+<text x="249" y="862" fill="#98D5A3" font-size="18" font-weight="600" text-anchor="middle" dominant-baseline="middle">Every two values have a ranking.</text>
+<text x="249" y="889" fill="#98D5A3" font-size="18" font-weight="600" text-anchor="middle" dominant-baseline="middle">A total order is also a poset.</text>
+<rect x="494" y="536" width="454" height="388" rx="21" fill="#19283A" stroke="#526580" stroke-width="2"/>
+<rect x="504" y="546" width="434" height="56" rx="15" fill="#122338" stroke="none" stroke-width="2"/>
+<text x="721" y="574" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">One concrete permission example</text>
+<rect x="519" y="630" width="403" height="192" rx="8" fill="#122338" stroke="#526580" stroke-width="1.5"/>
+<rect x="519" y="630" width="403" height="48" rx="8" fill="#263951" stroke="none" stroke-width="2"/>
+<path d="M519 678 L922 678" fill="none" stroke="#526580" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M519 726 L922 726" fill="none" stroke="#526580" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M519 774 L922 774" fill="none" stroke="#526580" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M647 630 L647 822" fill="none" stroke="#526580" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="585" y="654" fill="#F4F3ED" font-size="20" font-weight="700" text-anchor="middle" dominant-baseline="middle">Role</text>
+<text x="665" y="654" fill="#F4F3ED" font-size="20" font-weight="700" text-anchor="start" dominant-baseline="middle">Allowed actions</text>
+<text x="585" y="702" fill="#87B8EE" font-size="18" font-weight="700" text-anchor="middle" dominant-baseline="middle">Editor</text>
+<text x="665" y="702" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">read, write, edit</text>
+<text x="585" y="750" fill="#BCA8EC" font-size="18" font-weight="700" text-anchor="middle" dominant-baseline="middle">Author</text>
+<text x="665" y="750" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">read, write, edit</text>
+<text x="585" y="798" fill="#EDB86D" font-size="18" font-weight="700" text-anchor="middle" dominant-baseline="middle">Admin</text>
+<text x="665" y="798" fill="#F4F3ED" font-size="17" font-weight="400" text-anchor="start" dominant-baseline="middle">read, write, edit, delete</text>
+<text x="523" y="860" fill="#98D5A3" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">Editor and Author are distinct roles,</text>
+<text x="523" y="888" fill="#98D5A3" font-size="18" font-weight="400" text-anchor="start" dominant-baseline="middle">but have identical permission sets.</text>
+<rect x="966" y="536" width="454" height="388" rx="21" fill="#19283A" stroke="#526580" stroke-width="2"/>
+<rect x="976" y="546" width="434" height="56" rx="15" fill="#122338" stroke="none" stroke-width="2"/>
+<text x="1193" y="574" fill="#F4F3ED" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle">The same roles, three views</text>
+<rect x="985" y="619" width="416" height="72" rx="12" fill="#122338" stroke="#526580" stroke-width="1.2"/>
+<text x="997" y="655" fill="#C4CEDA" font-size="17" font-weight="700" text-anchor="start" dominant-baseline="middle">Preorder</text>
+<rect x="1109" y="638" width="78" height="34" rx="17" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
+<text x="1148" y="656" fill="#87B8EE" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Editor</text>
+<rect x="1214" y="638" width="78" height="34" rx="17" fill="#122338" stroke="#BCA8EC" stroke-width="2.6"/>
+<text x="1253" y="656" fill="#BCA8EC" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Author</text>
+<text x="1199" y="654" fill="#F4F3ED" font-size="20" font-weight="400" text-anchor="middle" dominant-baseline="middle">↔</text>
+<path d="M1296 655 L1319 655" fill="none" stroke="#F4F3ED" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipW)"/>
+<rect x="1325" y="638" width="72" height="34" rx="17" fill="#122338" stroke="#EDB86D" stroke-width="2.6"/>
+<text x="1361" y="656" fill="#EDB86D" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Admin</text>
+<rect x="985" y="700" width="416" height="72" rx="12" fill="#122338" stroke="#526580" stroke-width="1.2"/>
+<text x="997" y="736" fill="#C4CEDA" font-size="17" font-weight="700" text-anchor="start" dominant-baseline="middle">Quotient</text>
+<rect x="1109" y="718" width="189" height="34" rx="17" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
+<text x="1203.5" y="736" fill="#87B8EE" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">{Editor, Author}</text>
+<path d="M1301 735 L1318 735" fill="none" stroke="#F4F3ED" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipW)"/>
+<rect x="1325" y="718" width="72" height="34" rx="17" fill="#122338" stroke="#EDB86D" stroke-width="2.6"/>
+<text x="1361" y="736" fill="#EDB86D" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Admin</text>
+<rect x="985" y="781" width="416" height="72" rx="12" fill="#122338" stroke="#526580" stroke-width="1.2"/>
+<text x="997" y="817" fill="#C4CEDA" font-size="17" font-weight="700" text-anchor="start" dominant-baseline="middle">Extra choice</text>
+<rect x="1101" y="800" width="87" height="34" rx="17" fill="#122338" stroke="#87B8EE" stroke-width="2.6"/>
+<text x="1144.5" y="818" fill="#87B8EE" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Editor</text>
+<rect x="1217" y="800" width="88" height="34" rx="17" fill="#122338" stroke="#BCA8EC" stroke-width="2.6"/>
+<text x="1261" y="818" fill="#BCA8EC" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Author</text>
+<rect x="1321" y="800" width="75" height="34" rx="17" fill="#122338" stroke="#EDB86D" stroke-width="2.6"/>
+<text x="1358.5" y="818" fill="#EDB86D" font-size="15" font-weight="600" text-anchor="middle" dominant-baseline="middle">Admin</text>
+<path d="M1191 817 L1212 817" fill="none" stroke="#F4F3ED" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipW)"/>
+<path d="M1307 817 L1316 817" fill="none" stroke="#F4F3ED" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#tipW)"/>
+<text x="1193" y="884" fill="#98D5A3" font-size="15" font-weight="550" text-anchor="middle" dominant-baseline="middle">A role-by-role total order needs a tie-break.</text>
+<text x="1193" y="905" fill="#98D5A3" font-size="15" font-weight="550" text-anchor="middle" dominant-baseline="middle">The quotient alone does not choose one.</text>
+</svg>
