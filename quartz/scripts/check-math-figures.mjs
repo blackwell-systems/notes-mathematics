@@ -23,7 +23,7 @@ const expected = {
   "state-machines-invariants.md": ["dm-invariant.svg"],
   "generating-functions.md": ["dm-generating-convolution.svg"],
   "advanced-graph-theory.md": ["dm-hall-matching.svg"],
-  "order-theory.md": ["ot-relations-posets-chains-antichains.svg", "ot-preorder-quotient.svg", "ot-total-partial.svg", "ot-hasse-div12.svg", "ot-hasse-powerset-ab.svg", "ot-hasse-div30.svg", "ot-extrema.svg", "ot-join-meet-div60.svg", "ot-bowtie-nonlattice.svg"],
+  "order-theory.md": ["ot-preorder-poset-total-story.svg", "ot-relations-posets-chains-antichains.svg", "ot-preorder-quotient.svg", "ot-total-partial.svg", "ot-hasse-div12.svg", "ot-hasse-powerset-ab.svg", "ot-hasse-div30.svg", "ot-extrema.svg", "ot-join-meet-div60.svg", "ot-bowtie-nonlattice.svg"],
   "propositional-logic-zeroth-order-logic.md": ["pl-conditional-four-forms.svg"],
   "mathematical-notations.md": ["mn-expression-anatomy.svg","mn-quantifier-scope.svg"],
   "group-theory-foundations.md": [
@@ -130,7 +130,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==146)errors.push("Expected 146 illustrative SVGs, got "+total);
+if(total!==147)errors.push("Expected 147 illustrative SVGs, got "+total);
 // The asymmetric graph's labeled arrows must agree with its entire adjacency
 // matrix. Explicitly verify the one-way and no-self-loop conditions.
 const asymmetricSource=readFileSync(join("content","media","fr-asymmetric-graph-matrix.svg"),"utf8");
