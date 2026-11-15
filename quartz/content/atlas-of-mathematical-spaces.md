@@ -9,9 +9,9 @@ enables: ["path-to-topology", "path-through-algebra", "path-through-analysis", "
 > **Use alongside:** [Path Through Topology](./path-to-topology), [Path Through Algebra](./path-through-algebra), and [Path Through Analysis](./path-through-analysis).
 > **Advanced destinations:** [Functional Analysis](./functional-analysis), [Measure Theory](./measure-theory), [Differential Geometry](./differential-geometry), [Algebraic Topology](./algebraic-topology), [Sheaf Theory](./sheaf-theory), [Information Geometry](./information-geometry), [Algebraic Geometry](./algebraic-geometry), and [Category Theory](./category-theory-foundations).
 >
-> This is an **atlas**, not an assertion that all mathematical spaces sit in one chain. We will repeatedly distinguish **added structure**, **a property of an existing structure**, and **a map that preserves it**.
+> This is an **atlas**, not an assertion that all mathematical spaces sit in one chain. We will repeatedly distinguish **added structure**, **a property of an existing structure**, and **a map (function) that preserves it**.
 
-A **space** is usually a set of objects equipped with specified mathematical structure: perhaps a way to compare elements, a notion of nearby points, addition and scalar multiplication, measurable subsets, or differentiable coordinates. A definition matters because it licenses **particular questions and theorems**. Asking whether points are close is different from asking whether they can be added; knowing one rarely answers the other.
+A **space** is usually a set of objects equipped with specified mathematical structure: perhaps a way to compare elements, a notion of nearby points, addition and scalar multiplication, measurable subsets, or differentiable coordinates. **Here, a *map* (or *mapping*) is another word for a *function*: every input is assigned exactly one output.** A *structure-preserving map* is a function with additional conditions on how it behaves. Calling something a map by itself does **not** mean it is continuous, linear, or distance-preserving. (In more abstract category theory, morphisms need not be ordinary set-functions.) A definition matters because it licenses **particular questions and theorems**. Asking whether points are close is different from asking whether they can be added; knowing one rarely answers the other.
 
 The goal of this guide is to learn to look at an unfamiliar space and ask:
 
@@ -24,6 +24,8 @@ The goal of this guide is to learn to look at an unfamiliar space and ask:
 7. **Categories:** What if we consider all such spaces at once, together with the maps we permit between them?
 
 These questions let you navigate from elementary sets to the spaces of modern analysis and geometry without confusing one kind of structure with another.
+
+**The recurring thread is set + structure + axioms.** An underlying set supplies the objects, chosen relations or operations give them additional structure, and axioms say which general results apply. This is a common construction, not a compulsory sequence: quotients can change the elements themselves, and [point-free topology](#topology-without-starting-from-points-frames-and-locales) can begin with open-set algebra. See [the side-by-side comparison in Set Theory](./set-theory#the-common-thread-set-structure-axioms).
 
 **Want to transfer a specific idea between fields?** The companion [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) works through explicit examples—including quotients, Lyapunov-style descent, cohomological cycle obstructions, cross-entropy, and **conditional expectation as orthogonal projection**—and explains which parts of each analogy really carry over. This atlas classifies **structures**; the bridges page tracks **reusable constructions and proofs**.
 
@@ -62,7 +64,7 @@ One useful way to organize the immense variety of spaces is to keep three **diff
 
 For example, the open interval $(0,1)$ and the real line $\mathbb R$ are **homeomorphic**: the function $f(t)=\tan(\pi(t-\tfrac12))$ is a continuous bijection with continuous inverse. Yet they are **not isometric with their ordinary Euclidean metrics**, because $(0,1)$ has bounded diameter, whereas $\mathbb R$ has infinite diameter. Changing the kind of morphism changes what counts as the “same space.”
 
-By contrast, completeness, connectedness, compactness, and dimension are **conditions or invariants**, not further operations introduced automatically. A single underlying set can be given different structures and therefore satisfy different properties.
+By contrast, completeness, connectedness, compactness, and dimension are **properties**, not further operations introduced automatically. Whether a property is an **invariant** depends on the permitted maps: compactness and connectedness are homeomorphism invariants, but completeness of a specified metric is not. A single underlying set can be given different structures and therefore satisfy different properties.
 
 > [!distinction] A taxonomy is not a proof
 > Classifying a space as “compact” or “Hilbert” makes claims requiring hypotheses. Calling two spaces “isomorphic” is incomplete until the allowed morphisms have been stated. A chart with arrows is helpful only insofar as every arrow has a mathematically valid interpretation.
@@ -74,7 +76,7 @@ Saying “Banach space” adds **no new operation** beyond the normed vector-spa
 
 ![A common four-point set is successively equipped with a topology and compatible numerical distances; in a separate branch vector operations are added before a norm can be introduced. The diagram distinguishes extra data from conditions like completeness.](./media/sp-adding-structure.svg)
 
-*Figure: Different questions demand different data. A norm is more than an arbitrary metric glued to a vector space; it must respect translation and scalar multiplication.*
+*Figure: Different questions demand different data. The topology-to-metric arrow is **conditional**: only metrizable topologies admit compatible metrics, although every metric induces a topology. A norm is more than an arbitrary metric on a vector space; its induced distance must respect translation and scalar multiplication.*
 
 ## 2. Start with a set—and notice how little it says
 
@@ -129,28 +131,28 @@ The Sierpiński space $S=\{0,1\}$ above is not metrizable. Yet its **lack of sym
 
 Given any subset $A\subseteq X$, define its *characteristic function*
 
-$
+$$
 \chi_A:X\longrightarrow S,\qquad
 \chi_A(x)=
 \begin{cases}
 1,&x\in A,\\
 0,&x\notin A.
 \end{cases}
-$
+$$
 
 > [!theorem] Open subsets are exactly continuous characteristic maps into Sierpiński space
 > For any topological space $X$ and any $A\subseteq X$,
-> $
+> $$
 > \boxed{A\text{ is open in }X\quad\Longleftrightarrow\quad\chi_A:X\to S\text{ is continuous}.}
-> $
+> $$
 
 > [!proof] Test the preimages of every open set in the target
 > The **only** open subsets of $S$ are $\varnothing$, $\{1\}$, and $S$. Their inverse images are
-> $
+> $$
 > \chi_A^{-1}(\varnothing)=\varnothing,\quad
 > \chi_A^{-1}(\{1\})=A,\quad
 > \chi_A^{-1}(S)=X.
-> $
+> $$
 > The first and last are always open in $X$. Thus the middle preimage is open exactly when $A$ is open, which is precisely the definition of continuity. $\square$
 
 ![A three-point topological space X with open subsets empty, {a}, {a,b}, and X maps to Sierpiński space in two contrasting cases: the characteristic function of {a,b} is continuous, while that of {b} is not because {b} is not open.](./media/sp-sierpinski-open-classifier.svg)
@@ -161,15 +163,15 @@ $
 
 Consequently, writing $\mathcal O(X)$ for the **set of open subsets**, we have a bijection
 
-$
+$$
 \mathcal O(X)\;\cong\;\operatorname{Hom}_{\mathbf{Top}}(X,S).
-$
+$$
 
 This is a **categorical description of part of the internal structure of $X$ using only the maps from $X$ into one fixed object**. It is natural in $X$: for a continuous $f:X\to Y$ and an open $B\subseteq Y$,
 
-$
+$$
 \chi_{f^{-1}(B)}=\chi_B\circ f.
-$
+$$
 
 In other words, pulling back an open subset is the same as composing its characteristic map. This connects topology directly to [contravariant functors](./category-functors-naturality#contravariant-functors) and [representable functors](./category-functors-naturality#representable-functors-describing-objects-by-their-arrows).
 
@@ -220,9 +222,9 @@ Because $\arctan:\mathbb R\to(-\pi/2,\pi/2)$ is a homeomorphism (with usual Eucl
 A metric gives this through comparisons $d(x,y)<\varepsilon$. What if we want the pattern of **uniform nearness** without ever measuring a numerical distance?
 
 > [!definition] Uniform space (entourage formulation)
-> A **uniformity** $\mathcal U$ on a set $X$ is a family of subsets of $X\times X$ called **entourages**—permitted sets of pairs regarded as uniformly close. It satisfies:
+> A **uniformity** $\mathcal U$ on a set $X$ is a **nonempty family** of subsets of $X\times X$ called **entourages**, interpreted as sets of uniformly close pairs. This family is a **filter** (nonempty, upward closed, and closed under finite intersections) with further conditions. Explicitly:
 > 1. Every entourage contains the diagonal $\Delta=\{(x,x):x\in X\}$.
-> 2. If $U\in\mathcal U$ and $U\subseteq W\subseteq X\times X$, then $W\in\mathcal U$; and the intersection of finitely many entourages is an entourage.
+> 2. If $U\in\mathcal U$ and $U\subseteq W\subseteq X\times X$, then $W\in\mathcal U$; if $U,V\in\mathcal U$, then $U\cap V\in\mathcal U$.
 > 3. If $U$ is an entourage, then $U^{-1}=\{(y,x):(x,y)\in U\}$ is an entourage.
 > 4. For every entourage $U$, some entourage $V$ obeys $V\circ V\subseteq U$, where $(x,z)\in V\circ V$ means that for some $y$, both $(x,y)\in V$ and $(y,z)\in V$.
 >
@@ -238,28 +240,28 @@ For a metric space $(X,d)$, let $\mathcal U_d$ consist of all supersets of some 
 
 This yields a genuine structure-forgetting chain
 
-$
+$$
 \text{metric space}\longrightarrow\text{uniform space}
 \longrightarrow\text{topological space}.
-$
+$$
 
 The arrows retain less information; they do **not** say that every topology is uniformizable, nor that every uniformity comes from one metric. A uniformity induces a **completely regular** topology if the uniformity is separated (Hausdorff); even non-Hausdorff uniformizable topologies have restrictions, so an arbitrary topology need not arise this way.
 
 > [!theorem] Metric entourages satisfy the composition requirement
 > Fix $\varepsilon>0$ and choose $V=U_{\varepsilon/3}$, not merely an arbitrary near-pair relation. If $(x,y),(y,z)\in V$, then
-> $
+> $$
 > d(x,z)\le d(x,y)+d(y,z)<\varepsilon/3+\varepsilon/3<\varepsilon.
-> $
+> $$
 > Thus $V\circ V\subseteq U_\varepsilon$. Intersecting entourages and taking supersets extends the claim to the uniformity generated by the metric balls.
 
 **What becomes possible:** uniform continuity asks for each entourage $W$ in the *codomain* to have an entourage $U$ in the domain such that $(x,y)\in U$ implies $(f(x),f(y))\in W$. A sequence is uniformly **Cauchy** when, for every entourage, all sufficiently late pairs of terms belong to it. For arbitrary uniform spaces, the general notion of completeness is formulated using **Cauchy filters or nets**, not merely sequences; this distinction becomes important beyond metrizable spaces.
 
 **Worked counterexample: a topology doesn't determine its uniformity.** Recall the two metrics on $\mathbb R$:
 
-$
+$$
 d(x,y)=|x-y|,\qquad
 \rho(x,y)=|\arctan x-\arctan y|.
-$
+$$
 
 They induce the **same open sets** but different uniformities. The sequence $x_n=n$ is $\rho$-Cauchy yet not $d$-Cauchy (its tail contains points arbitrarily far apart in ordinary distance). If the induced uniformities were equal, their Cauchy sequences would coincide. They do not.
 
@@ -288,9 +290,9 @@ A vector space has a distinguished zero vector $0$; an **affine space** keeps po
 
 > [!definition] Affine space modeled on a vector space
 > An affine space $A$ over a field such as $\mathbb R$ is a nonempty set of **points** equipped with an action $A\times V\to A$, written $p+v$, of a vector space $V$, satisfying
-> $
+> $$
 > p+0=p,\qquad(p+u)+v=p+(u+v),
-> $
+> $$
 > and, for every $p,q\in A$, there is a **unique** $v\in V$ such that $p+v=q$. This is a *free and transitive* action of the additive vector group.
 >
 > We write that unique displacement as $q-p\in V$. **Points cannot in general be added to points**, but a point can be translated by a vector.
@@ -299,17 +301,17 @@ If we temporarily choose an origin $o\in A$, the map $p\mapsto p-o$ identifies $
 
 **A worked example.** In the familiar coordinate model of the plane, let $p=(1,2)$ and $q=(3,5)$. Their displacement is $q-p=(2,3)$. The midpoint is
 
-$
+$$
 m=p+\tfrac12(q-p)=(2,\tfrac72).
-$
+$$
 
 Under the translation $T(x,y)=(x+10,y-4)$, we have $T(p)=(11,-2)$ and $T(q)=(13,1)$. Their midpoint is $(12,-\tfrac12)=T(m)$ and their displacement is **still** $(2,3)$. No privileged origin was needed to establish this relationship.
 
 More generally, **affine combinations** of points have coefficients summing to $1$:
 
-$
+$$
 p=a_1p_1+\cdots+a_kp_k,\qquad \sum_i a_i=1.
-$
+$$
 
 This expression is well-defined independent of the coordinate origin: when the origin changes by $t$, the terms change collectively by $(\sum_i a_i)t=t$, exactly the same shift as the resulting point. A linear combination with coefficients summing to $0$ instead describes a **displacement vector**, not a point.
 
@@ -324,21 +326,21 @@ This expression is well-defined independent of the coordinate origin: when the o
 
 > [!definition] Projective space constructed from a vector space
 > Given a real vector space $V$ of dimension $n+1$, define an equivalence relation on its **nonzero** vectors:
-> $
+> $$
 > v\sim w\quad\Longleftrightarrow\quad
 > w=\lambda v\text{ for some nonzero }\lambda\in\mathbb R.
-> $
+> $$
 > The **real projective space** is
-> $
+> $$
 > \mathbb P(V)=(V\setminus\{0\})/{\sim}.
-> $
+> $$
 > Its elements are **one-dimensional linear subspaces of $V$**, or, equivalently, equivalence classes of nonzero vectors under nonzero scaling.
 
 The real projective plane $\mathbb{RP}^2$ arises from $V=\mathbb R^3$. Write a projective point in **homogeneous coordinates** as
 
-$
+$$
 [x:y:z]=[\lambda x:\lambda y:\lambda z]\qquad(\lambda\ne0).
-$
+$$
 
 Here $[1:2:1]=[2:4:2]$: both coordinate triples represent the **same projective point**. The all-zero triple is forbidden.
 
@@ -352,16 +354,16 @@ There is a natural affine chart in $\mathbb{RP}^2$ consisting of points with $z\
 
 Consider two parallel affine lines
 
-$
+$$
 L_0:y=0,\qquad L_1:y=1.
-$
+$$
 
 Under the affine-chart embedding, their projective closures obey the homogeneous linear equations
 
-$
+$$
 \overline{L_0}:Y=0,\qquad
 \overline{L_1}:Y-Z=0.
-$
+$$
 
 A common projective point therefore has $Y=0$ and $Z=0$. Since projective coordinates cannot all vanish, it is **precisely** the point $[1:0:0]$. So the two projective lines intersect at a common point at infinity even though their affine portions are disjoint.
 
@@ -481,7 +483,7 @@ A **topological $n$-manifold** is, under the usual convention, a Hausdorff, seco
 
 A **smooth manifold** carries a compatible collection of smooth coordinate charts (an *atlas*), so differentiability makes sense independently of one particular chart. A **Riemannian manifold** further assigns smoothly varying inner products on tangent spaces. Their inner products define curve lengths, and for connected manifolds the infimum of lengths of piecewise smooth curves induces a distance compatible with the manifold topology.
 
-![A circle is shown with two overlapping local coordinate arcs, a tangent line at a point, and a small inner-product ellipse in its tangent space, illustrating topological, smooth, and Riemannian structure.](./media/sp-manifold-local.svg)
+![Three views of a circle: a local coordinate chart on an arc, its one-dimensional tangent line and a tangent vector, and the length of that tangent vector measured by a Riemannian metric.](./media/sp-manifold-local.svg)
 
 *Figure: The local-chart step gives Euclidean coordinates near each point, smooth transitions let us differentiate, and a Riemannian metric measures tangent vectors and curve length. These are additional structures, not automatic consequences of an arbitrary topology.*
 
@@ -549,7 +551,9 @@ The point is not to rank one of these as "better." Each chooses an error notion 
 
 ## 12. Structure-preserving maps: different notions of sameness
 
-The correct maps depend on the structure. Two spaces are "the same" only **relative to a specified category of structure**.
+**A map is a function.** A *structure-preserving map* is an ordinary function satisfying **additional rules** dictated by the structures on its domain and codomain. For example, a continuous function respects open-set structure, a linear function respects vector addition and scalar multiplication, and an isometry preserves distances. **An arbitrary function need not preserve any of these.**
+
+Two spaces count as "the same" only relative to the chosen notion of **structure-preserving isomorphism**, meaning a suitable map with an inverse preserving the structure too.
 
 ![Two branches of structure-preserving maps are contrasted: maps preserving topological closeness (continuous maps and homeomorphisms), maps preserving exact distance (isometries), and maps preserving vector operations (linear maps). The diagram distinguishes independent conditions.](./media/sp-morphism-map.svg)
 
@@ -584,9 +588,9 @@ A linear map in infinite dimensions need **not** be continuous (see differentiat
 
 A **fixed point** of a self-map $f:X\to X$ is an element that the map leaves unchanged:
 
-$
+$$
 f(x)=x.
-$
+$$
 
 Think of repeatedly applying a rule to a state. A fixed point is a state where **one more application changes nothing**. But three questions must be kept separate: **Does a fixed point exist? Is it unique? Will repeated application reach it?** Different theorems answer different combinations of these questions.
 
@@ -645,9 +649,9 @@ A category is **not an extra rung above Hilbert or Riemannian spaces**. It is a 
 
 > [!definition] Functor
 > A functor $F:\mathcal C\to\mathcal D$ assigns objects to objects and morphisms to morphisms, preserving identities and composition:
-> $
+> $$
 > F(1_A)=1_{F(A)},\qquad F(g\circ f)=F(g)\circ F(f).
-> $
+> $$
 
 The functor $U:\mathbf{Vect}_{\mathbb R}\to\mathbf{Set}$ retains the **underlying set** of each vector space and treats every linear map as its underlying function. It forgets addition and scalar multiplication. The functor $\mathbf{Ban}\to\mathbf{Top}$ retains the norm-induced topology and regards a bounded linear map as continuous. The functor $\mathbf{Hilb}\to\mathbf{Ban}$ retains the Hilbert norm and forgets which inner product produced it.
 
@@ -665,15 +669,15 @@ For a set $S$, let $D(S)$ denote $S$ with the **discrete topology** (every subse
 
 > [!theorem] Discrete and indiscrete spaces are adjoint to forgetting
 > There are natural bijections
-> $
+> $$
 > \operatorname{Hom}_{\mathbf{Top}}(D(S),X)
 > \cong\operatorname{Hom}_{\mathbf{Set}}(S,U(X))
-> $
+> $$
 > and
-> $
+> $$
 > \operatorname{Hom}_{\mathbf{Set}}(U(X),S)
 > \cong\operatorname{Hom}_{\mathbf{Top}}(X,I(S)).
-> $
+> $$
 > Equivalently, **$D\dashv U\dashv I$**.
 
 > [!proof] Every bare function works at the respective extreme
@@ -693,9 +697,9 @@ Therefore, whenever $f:X\to Y$ is continuous and **constant on equivalence class
 
 > [!proof] Why continuity and uniqueness both follow
 > Define $\bar f([x])=f(x)$. This is well-defined because equivalent representatives have the same $f$-value, and it is the **only** possible factorization because every element of $Q$ is some $[x]$. For any open $V\subseteq Y$,
-> $
+> $$
 > q^{-1}(\bar f^{-1}(V))=f^{-1}(V),
-> $
+> $$
 > which is open by continuity of $f$. The quotient topology then makes $\bar f^{-1}(V)$ open in $Q$. Thus $\bar f$ is continuous. $\square$
 
 This is a **universal property**: the quotient is not described only by which points it contains, but by **every** continuous map out of it. Categorically, it is a **coequalizer** of the two projections from the equivalence-relation subspace $R=\{(x,y):x\sim y\}\subseteq X\times X$ into $X$. The complete [quotient construction and circle-gluing example](./general-topology-constructions#quotient-topology-identify-points) prove the same continuity criterion directly.
@@ -706,16 +710,16 @@ We can ask an even stronger question: perhaps the **algebra of open sets** deser
 
 For any topological space $X$, its open sets $\mathcal O(X)$ form a **frame**: they admit arbitrary joins (unions), finite meets (intersections), and satisfy
 
-$
+$$
 U\cap\bigcup_{i\in I}V_i
 =\bigcup_{i\in I}(U\cap V_i).
-$
+$$
 
 The identity follows directly from elementwise set membership. For any continuous $f:X\to Y$, inverse image restricts to
 
-$
+$$
 f^{-1}:\mathcal O(Y)\longrightarrow\mathcal O(X)
-$
+$$
 
 and preserves **arbitrary joins** and **finite meets**. Notice that the arrow points **backward**: continuous maps of spaces yield homomorphisms in the **opposite direction** between their frames of opens.
 
@@ -746,19 +750,19 @@ Going from a vector space to its underlying set is easy: **forget** the operatio
 
 > [!proof] Build the extension and show that no other choice is possible
 > Define
-> $
+> $$
 > \widehat g\!\left(\sum_{s\in S}a_s e_s\right)
 > :=\sum_{s\in S}a_s g(s).
-> $
+> $$
 > The sums are **finite**, so the right side always exists in $V$. Every element of $F(S)$ has unique coefficients relative to its formal basis, so the formula is well-defined. Distributivity makes it linear. On one basis vector $e_s$, the formula gives exactly $g(s)$.
 >
 > Conversely, any linear map $h:F(S)\to V$ satisfying $h(e_s)=g(s)$ must take a finite sum to $\sum_s a_s h(e_s)=\sum_s a_s g(s)$, by linearity. Therefore $h=\widehat g$ and the extension is unique. $\square$
 
 **Numerical example.** Take $S=\{a,b\}$, $V=\mathbb R$, with $g(a)=2$ and $g(b)=-1$. Then
 
-$
+$$
 \widehat g(3e_a+4e_b)=3g(a)+4g(b)=6-4=2.
-$
+$$
 
 That is not simply a clever representation: the universal property specifies how **every** assignment of values to the generators extends, with **no extra equations or accidental identifications**. It is the vector-space counterpart of the free-monoid construction in [Adjunctions and Monads](./category-adjunctions-monads).
 
@@ -766,11 +770,11 @@ That is not simply a clever representation: the universal property specifies how
 
 The natural correspondence above is written
 
-$
+$$
 F\dashv U,\qquad
 F:\mathbf{Set}\to\mathbf{Vect}_{\mathbb R},
 \quad U:\mathbf{Vect}_{\mathbb R}\to\mathbf{Set}.
-$
+$$
 
 Read $F\dashv U$ as “$F$ is **left adjoint** to $U$.” A left adjoint is **not** an inverse. It adds freely generated structure, whereas a forgetful functor discards structure. The naturality requirement says the hom-set correspondence respects functions between generating sets and linear maps between destination vector spaces.
 
@@ -778,13 +782,13 @@ Read $F\dashv U$ as “$F$ is **left adjoint** to $U$.” A left adjoint is **no
 > Let $h:S\to T$ be a function. It induces a linear map $F(h):F(S)\to F(T)$ by the rule $F(h)(e_s)=e_{h(s)}$. If two elements of $S$ map to the same element of $T$, the coefficients of those basis vectors simply **add** under $F(h)$.
 >
 > For any linear $\ell:F(T)\to V$, the two routes from a generator $s\in S$ give the same answer:
-> $
+> $$
 > (\ell\circ F(h))(e_s)=\ell(e_{h(s)}).
-> $
+> $$
 > For naturality in the **destination**, let $k:V\to W$ be linear. On each generator,
-$
+$$
 (k\circ\widehat g)(e_s)=k(g(s)).
-$
+$$
 By the uniqueness just proved, $k\circ\widehat g$ is exactly the linear extension of $k\circ g:S\to U(W)$. Thus the correspondence is compatible with maps in **both** arguments, not merely with one worked input.
 
 > [!example] The empty generating set
@@ -813,9 +817,9 @@ When you see $\mathbb R$, **name which structure matters**. As an ordered field 
 
 The same $C([0,1])$ supports many maps. Evaluation at $0$, $E(f)=f(0)$, is **linear and bounded in sup norm**:
 
-$
+$$
 |E(f)|=|f(0)|\leq\|f\|_\infty.
-$
+$$
 
 In the category of normed spaces with bounded linear maps it is a morphism. With the integral norm $\|f\|_1$, it is still algebraically **linear** but is no longer **bounded**, as the spike example above shows. Changing the **norm** changes which arrows belong to the relevant bounded-operator category, not merely which sets are considered open.
 
@@ -853,7 +857,7 @@ The matrix below is a compact reference. “Learn here” points to **developed*
 | Topological manifold | Hausdorff, second-countable, locally Euclidean | Local coordinates | [Differential Geometry](./differential-geometry) |
 | Smooth manifold | Compatible smooth charts | Differentiation on spaces | [Differential Geometry](./differential-geometry) |
 | Riemannian manifold | Smooth inner product on tangent spaces | Angles, geodesic lengths | [Differential Geometry](./differential-geometry) |
-| Algebraic variety | Polynomial constraints, algebraic topology | Geometry of solution sets | [Algebraic Geometry](./algebraic-geometry) |
+| Algebraic variety | Polynomial equations, with the Zariski topology | Geometry of solution sets | [Algebraic Geometry](./algebraic-geometry) |
 | Category of spaces | Objects **and** chosen morphisms | Functors, universal properties and adjunctions | [Category Theory](./category-theory-foundations) |
 | Sheaf of sections | Restrictions on opens; unique gluing of compatible local data | Construct global sections from agreeing local pieces | [Sheaf Theory](./sheaf-theory) |
 | Topological invariant | Loops, chains and homotopy or homology classes | Detect global holes without coordinates or metrics | [Algebraic Topology](./algebraic-topology) |
