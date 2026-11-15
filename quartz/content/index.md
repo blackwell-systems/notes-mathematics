@@ -2,23 +2,37 @@
 title: Mathematics Reference
 ---
 
-Comprehensive mathematics reference covering logic, algebra, functions, geometry, and combinatorics, building toward machine learning research.
+**Mathematics, with the missing steps shown.** An intuition-first, proof-oriented reference that begins with what an idea means, defines it precisely, and develops the reasoning behind it—from elementary foundations to abstract mathematics and the theory of learning.
 
-Currently covering **95 topics** across 19 topic branches of mathematics, from basic algebra through singular learning theory, with self-contained interactive widgets throughout.
+**The approach:** Start with concrete examples, make the notation explicit, examine the cases where an idea fails, and work through the argument rather than skipping the difficult step. Diagrams and interactive explorations support the written explanations where they help.
 
-The aim is to be the place you come to for **clarity**: every topic is built foundations-first and carried by detailed, fully-worked examples, with each step shown and justified rather than hand-waved. It is a reference and explainer, not a problem set (practice is left to other resources), so if another source lost you at the step that actually mattered, this is meant to be where you see it done in full.
+These are **learning notes and a reference, not a problem-set workbook**. Use them to understand a concept, check a definition, follow a proof, or discover how subjects fit together. There is no single mandatory reading order.
 
 ## Explore the reference
 
-These notes support several ways of reading mathematics. There is **no required entry point** or single prerequisite chain; the appropriate route depends on the concept you're trying to understand.
+**Start with your question, not a prescribed syllabus.** Choose the kind of explanation you need:
 
-- **Individual topics:** Browse the subject sections below or use search and the sidebar. Each chapter identifies its actual prerequisites and links to related ideas.
-- **Mathematical structures:** The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) connects sets, orders, topology, metric and function spaces, **affine and projective geometry**, uniform spaces, measures, manifolds, and **categories of spaces**. It illustrates what additional structure makes possible and which familiar converses fail.
-- **Cross-subject concept transfer:** [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) follows worked examples of **quotients, dynamical stability, cycle obstructions, likelihood/KL, and projection as conditional expectation** through multiple subjects, including the hypotheses that prevent misleading analogies.
-- **Subject-guided paths:** [Topology](./path-to-topology), [Algebra](./path-through-algebra), [Analysis](./path-through-analysis), and [Discrete Mathematics](./discrete-mathematics) connect chapters into focused reading routes.
-- **Toward singular learning theory:** The [Path to SLT](./path-to-slt) traces a research-oriented route through the relevant foundations to [Singular Learning Theory](./singular-learning-theory).
+- **Understand one topic:** Browse the complete subject catalog below, or use search and the sidebar to find a specific definition, worked example, or proof. Each chapter links to its own prerequisites.
+- **See the bigger mathematical picture:** The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) compares sets, orders, topologies, distances, vector spaces, manifolds, and categories, showing what each additional structure lets us express.
+- **Connect ideas across subjects:** [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) works through examples of quotients, stability, cyclic obstructions, likelihood/KL, and projection as conditional expectation, while stating when an analogy does not apply.
+- **Follow a subject-guided route:** [Topology](./path-to-topology), [Algebra](./path-through-algebra), [Analysis](./path-through-analysis), and [Discrete Mathematics](./discrete-mathematics) offer suggested sequences rather than artificial chains of mandatory prerequisites.
+- **Work toward a research topic:** The [Path to SLT](./path-to-slt) connects relevant foundations to [Singular Learning Theory](./singular-learning-theory).
 
-**Use the chapters for definitions and worked proofs; use the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) when you want the bigger picture.** For example: why is a set not automatically a topological space, how does a metric induce a topology, and what changes when we add algebraic operations? You can consult the atlas at any point; it is **optional reading**, not a prerequisite. Learning maps suggest useful sequences without creating mathematical prerequisites that do not exist.
+**A recurring idea to look for:** a **set** tells us which objects exist, **additional structure** specifies how they relate or combine, and **axioms** determine what we can prove about that structure. This common thread connects relations, orders, groups, and vector spaces. See [Set Theory: the common thread](./set-theory#the-common-thread-set-structure-axioms) for a side-by-side comparison.
+
+**Use individual chapters for definitions and worked proofs; use the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) when you want to see how the subjects connect.** Learning maps are optional aids, not claims that every subject depends on every other one.
+
+### Jump to a subject
+
+**Foundations:** [Logic & Proofs](#logic-proofs) · [Set Theory](#set-theory) · [Relations & Order](#relations-order) · [Number Systems & Foundations](#number-systems-foundations) · [Number Theory](#number-theory)
+
+**Algebra and structures:** [Algebra](#algebra) · [Linear Algebra](#linear-algebra) · [Group Theory](#group-theory) · [Ring & Field Theory](#ring-field-theory) · [Category Theory](#category-theory)
+
+**Analysis and geometry:** [Geometry & Trigonometry](#geometry-trigonometry) · [Calculus](#calculus) · [General Topology](#general-topology) · [Advanced Mathematics](#advanced-mathematics)
+
+**Counting, statistics, and applications:** [Combinatorics & Probability](#combinatorics-probability) · [Statistics](#statistics) · [Optimization](#optimization) · [Information Theory](#information-theory) · [Discrete Mathematics](#discrete-mathematics) · [Mathematical Physics](#mathematical-physics)
+
+The complete catalog below retains every subject link, including more specialized chapters and guided reading routes.
 
 ## Logic & Proofs
 
