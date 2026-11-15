@@ -24,7 +24,9 @@ A plain number used as a scaling factor is called a **scalar**. For the *geometr
 
 A free vector is illustrated by a directed line segment; its start and end points belong to the drawing, not to the abstract vector. Other vector spaces may have no spatial arrows or lengths at all.
 
-![A vector as a directed line segment: an arrow from its initial point A to its terminal point B, with the length labeled magnitude and the arrowhead indicating direction](./media/vec-directed-segment.png)
+![A blue arrow from A at (1,1) to B at (5,4) showing a displacement with direction and length.](./media/vec-directed-segment.svg)
+
+*Figure: A directed line segment represents a free vector, whose starting position does not determine its identity.*
 
 ### Why vectors describe changes rather than locations
 
@@ -96,7 +98,9 @@ $$
 
 So the arrow from $A$ to $B$ is the same magnitude and direction as the position vector $\langle 3, 4 \rangle$ drawn from the origin to the point $(3, 4)$, and its length is $\lVert\vec{AB}\rVert = \sqrt{3^2 + 4^2} = 5$. Notice the subtraction is what strips out the starting location: the two points sit at $(1,2)$ and $(4,6)$, but only the *difference* $\langle 3, 4 \rangle$ survives, because a vector cares about displacement, not where you started.
 
-![A directed segment from point A to point B and the equal position vector drawn from the origin to (b1 - a1, b2 - a2), shown parallel and the same length](./media/vec-position-vector.png)
+![The arrow from A=(1,2) to B=(4,6) and a parallel arrow from the origin to (3,4) express the same displacement.](./media/vec-position-vector.svg)
+
+*Figure: The displacement B−A=(3,4) is independent of where the arrow is drawn.*
 
 ## Unit Vector
 
@@ -163,7 +167,9 @@ $$
 
 **Example 2:** $\langle -2, 5 \rangle + \langle 3, -1 \rangle = \langle 1, 4 \rangle$
 
-![Tip-to-tail and parallelogram construction of vector addition: u = (3,4) in blue and v = (1,2) in red placed head to tail, with the resultant u plus v = (4,6) drawn in green as the diagonal of the parallelogram they span](./media/vec-addition.png)
+![Blue vector (3,4) followed tip-to-tail by red vector (1,2) reaches the green sum (4,6).](./media/vec-addition.svg)
+
+*Figure: Place v at the head of u; the resultant u+v goes directly from the starting point to the final head.*
 
 **Properties:**
 - **Commutative:** $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$
@@ -182,7 +188,9 @@ $$
 
 **Example:** $\langle 5, 7 \rangle - \langle 2, 3 \rangle = \langle 3, 4 \rangle$
 
-![Vector subtraction u minus v: u = (5,7) and v = (2,3) drawn from the origin, with u minus v = (3,4) shown as the green arrow from the head of v to the head of u, and the same vector redrawn from the origin](./media/vec-subtraction.png)
+![The difference of u=(5,7) and v=(2,3) points from the head of v to the head of u.](./media/vec-subtraction.svg)
+
+*Figure: With both vectors drawn from one origin, the difference u−v=(3,4) connects their heads.*
 
 ### Scalar Multiplication
 
@@ -201,7 +209,9 @@ $$
 
 **Example 2:** $-2\langle 1, 4 \rangle = \langle -2, -8 \rangle$
 
-![Scalar multiples of v = (2,1) all lying on one line through the origin: 2v = (4,2) is twice as long, one-half v is shorter, and negative v = (-2,-1) points the opposite way](./media/vec-scalar-multiplication.png)
+![Collinear arrows v=(2,1), 2v=(4,2), half-v=(1,0.5), and negative-v=(-2,-1).](./media/vec-scaling.svg)
+
+*Figure: Multiplying by a scalar stretches or shrinks a vector; a negative scalar reverses its direction.*
 
 **Properties:**
 - $c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}$
@@ -338,7 +348,9 @@ Where $\theta$ is the angle between vectors.
 
 $= \langle 0(0) - 0(1),\; 0(0) - 1(0),\; 1(1) - 0(0) \rangle = \langle 0, 0, 1 \rangle$
 
-![Three-dimensional right-hand-rule diagram: i = (1,0,0) and j = (0,1,0) span a unit square of area 1 in the xy-plane, and their cross product i cross j = k = (0,0,1) points straight up, perpendicular to both](./media/vec-cross-product.png)
+![An oblique 3D sketch of x- and y-axis unit vectors spanning a square and their upward perpendicular cross product.](./media/vec-cross-product.svg)
+
+*Figure: The right-hand-rule example i×j=k produces a vector perpendicular to the plane spanned by i and j.*
 
 **Worked example (general cross product).** Compute $\mathbf{u} \times \mathbf{v}$ for $\mathbf{u} = \langle 1, 2, 3 \rangle$ and $\mathbf{v} = \langle 4, 5, 6 \rangle$. Expanding the determinant along the top row, each unit vector picks up the $2\times 2$ determinant of the columns it does *not* sit in:
 
@@ -387,7 +399,9 @@ $$
 
 $\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{3(1) + 4(0)}{1^2 + 0^2} \langle 1, 0 \rangle = 3\langle 1, 0 \rangle = \langle 3, 0 \rangle$
 
-![Projection of u = (3,4) onto v = (1,0): a dashed perpendicular drops from the head of u to the x-axis, and the green projection vector (3,0) is the shadow of u along the direction of v](./media/vec-projection.png)
+![Vector (3,4) projects onto the horizontal direction as (3,0), leaving a perpendicular component (0,4).](./media/vec-projection.svg)
+
+*Figure: Projection retains the part parallel to the chosen direction; the residual is perpendicular.*
 
 That first example projected onto $\mathbf{v} = \langle 1, 0 \rangle$, where $|\mathbf v|^2 = 1$, so the denominator did no visible work. Here is a case where it matters.
 
@@ -423,7 +437,9 @@ $$
 
 The horizontal leg is $r\cos\theta$ and the vertical leg is $r\sin\theta$: the vector is the hypotenuse of a right triangle whose legs are its components.
 
-![Resolving a force of magnitude 10 at 30 degrees into a horizontal component 10 cos 30 approximately 8.66 and a vertical component 10 sin 30 equals 5, drawn as the two legs of a right triangle under the vector](./media/vec-components.png)
+![A force of 10 newtons at 30 degrees has horizontal component approximately 8.66 and vertical component 5.](./media/vec-components.svg)
+
+*Figure: A vector of magnitude 10 at 30° splits into the perpendicular components 10cos(30°) and 10sin(30°).*
 
 **Worked Example (physics):** A force of magnitude $10$ N acts at $30°$ above the horizontal. Its components are
 
@@ -503,7 +519,9 @@ $$
 $$
 It is $1$ for vectors pointing the same way, $0$ for perpendicular, and $-1$ for opposite. This is the standard way to compare word or document embeddings. For $\mathbf u = \langle 1,1\rangle$ and $\mathbf v = \langle 1,0\rangle$, $\cos\theta = \frac{1}{\sqrt 2} \approx 0.707$ (a $45°$ angle).
 
-![Cosine similarity between a reference vector and three others: a nearly aligned vector with cosine about 0.94, a perpendicular vector with cosine 0, and an opposing vector with negative cosine, all drawn from a common origin](./media/vec-cosine-similarity.png)
+![A reference vector and aligned, perpendicular, and opposing arrows have cosine similarities about 0.94, zero, and minus one.](./media/vec-cosine-similarity.svg)
+
+*Figure: Cosine similarity measures directional alignment independently of vector magnitude.*
 
 - **Euclidean distance** $\lVert\mathbf u - \mathbf v\rVert$ measures how far apart two examples are; the k-nearest-neighbors classifier labels a new point by the labels of the closest feature vectors.
 - **The linear model, or neuron.** The fundamental computation in a linear model (and in one unit of a neural network) is a weighted sum of inputs, which is a dot product of a weight vector $\mathbf w$ with the input $\mathbf x$ plus a bias $b$:
