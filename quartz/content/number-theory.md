@@ -12,6 +12,30 @@ Number theory is about understanding the patterns and structure hidden in the wh
 > **Builds on:** [Prime Factorization](./prime-factorization) · [Number Systems](./number-systems)
 > **Leads to:** [Algebraic Structures](./algebraic-structures)
 
+
+## The mathematical setting: integers, divisibility, and quotient structures
+
+Number theory usually begins with familiar integers, but the important question is **which mathematical structure makes a particular statement meaningful**. In this chapter the underlying set is $\mathbb Z$, not just the positive counting numbers, and we use several different structures on it.
+
+| Structure | Question it answers |
+| --- | --- |
+| **Ring** $(\mathbb Z,+,\times)$ | How do integers add, multiply, and factor? |
+| **Usual total order** $\leq$ | Which integer is less than or equal to another? |
+| **Divisibility relation** $a\mid b$ | Does some integer $k$ satisfy $b=ak$? |
+| **Congruence modulo $n$** $a\equiv b\pmod n$ | Is $a-b$ divisible by $n$? |
+| **Quotient ring** $\mathbb Z/n\mathbb Z$ | How can we do arithmetic with congruence classes instead of individual integers? |
+
+These relations are **not the same**. On positive integers, divisibility is a **partial order**, which is different from the usual numerical total order: $2\mid6$ but $4$ and $6$ are incomparable under divisibility. On all of $\mathbb Z$, divisibility is only a **preorder**: $2\mid-2$ and $-2\mid2$ although $2\ne-2$, so antisymmetry fails. **Neither order supplies a numerical distance merely by being an order.** This is the distinction developed in [Order Theory](./order-theory).
+
+> [!example] From integers to a new arithmetic system
+> Declare two integers equivalent when their difference is a multiple of $5$: $a\equiv b\pmod5$. Thus $2\equiv7\pmod5$, because $7-2=5$.
+>
+> The equivalence class $[2]$ contains $\ldots,-8,-3,2,7,12,\ldots$. Instead of adding representatives as distinct answers, define $[a]+[b]:=[a+b]$. Then $[2]+[4]=[6]=[1]$. Multiplication is similarly $[a][b]:=[ab]$.
+>
+> These operations are **well-defined**: changing a representative to a congruent integer cannot change the resulting class. The resulting set of five classes, with addition and multiplication, is the **quotient ring** $\mathbb Z/5\mathbb Z$.
+
+This connects [Number Systems](./number-systems), [Equivalence Relations](./equivalence-relations), and [Ring Theory](./ring-theory-foundations): number theory moves between the same familiar integers equipped with different relations, and entirely new algebraic objects obtained by quotienting.
+
 ## Divisibility
 
 > [!definition] Divisibility in the integers

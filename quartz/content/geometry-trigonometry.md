@@ -12,6 +12,42 @@ Geometry studies the properties and relationships of shapes, sizes, and position
 
 # Part 1: Geometry Foundations
 
+
+## The mathematical setting: what makes measurement possible?
+
+A drawing can show **which points lie on a line**, **which segments meet**, or **which shapes seem congruent**, but measurement requires additional mathematical structure. Two complementary approaches appear throughout this subject.
+
+**Synthetic Euclidean geometry** begins with primitive objects such as points, lines, and incidence and congruence relations, together with axioms that justify geometric constructions and theorems. Its proofs do not have to start with numerical coordinates; see [Euclidean Geometry](./euclidean-geometry).
+
+**Coordinate geometry** chooses a coordinate system and represents points in the plane by elements of $\mathbb R^2$. That brings several distinct structures into play:
+
+| Structure | What it allows us to ask |
+| --- | --- |
+| **Set of points** $\mathbb R^2$ | Which points can be considered? |
+| **Vector-space operations** | How do we form displacement vectors, add them, and scale them? |
+| **Euclidean distance** $d(P,Q)$ | How far apart are two points? |
+| **Inner product** $u\cdot v$ | How can we compute lengths, orthogonality, and the angle between nonzero vectors? |
+| **Angle and ratio relationships** | How do sine, cosine, and tangent encode geometric relations? |
+
+> [!example] Coordinates alone are not a distance formula
+> Let $P:=(0,0)$ and $Q:=(3,4)$. The ordered pairs tell us **which points** we mean. Their displacement is the vector $Q-P=(3,4)$.
+>
+> Now choose the **Euclidean metric**. The distance is
+>
+> $$
+> d(P,Q)=\sqrt{(3-0)^2+(4-0)^2}
+> =\sqrt{9+16}=5.
+> $$
+>
+> For the right triangle formed by the horizontal and vertical displacements, the hypotenuse has length $5$, so for the angle $\theta$ at $P$ between the positive horizontal direction and the segment $PQ$, $\sin\theta=4/5$ and $\cos\theta=3/5$.
+>
+> **The number $5$ and these trigonometric ratios come from the chosen geometric measurement structure**, not from a bare set of points or a mere ranking of coordinate values.
+
+> [!important] Position, order, and distance are different
+> A [partial or total order](./order-theory) compares elements; it need not assign any distance. A [metric](./atlas-of-mathematical-spaces) adds numerical separation. Euclidean geometry uses a specific metric and angle structure. **The same point set could carry different metrics**, so distance formulas should not be treated as properties of coordinates alone.
+
+The trigonometric functions below make a further connection to [Functions and Relations](./functions-relations) and [Calculus](./calculus): geometric angle ratios become functions whose behavior we can analyze.
+
 ## What is Geometry?
 
 Geometry is the branch of mathematics concerned with the properties of space: points, lines, surfaces, and solids. It asks questions like "how far apart are these two points?", "what is the area enclosed by this shape?", and "when are two figures the same shape?" The coordinate geometry approach (placing shapes on a number grid) connects geometric intuition to algebraic computation, making it possible to solve geometric problems with equations.

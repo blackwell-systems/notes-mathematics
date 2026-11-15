@@ -13,6 +13,35 @@ Information theory is the mathematical framework for quantifying information. It
 
 The field was founded by **Claude Shannon** in his 1948 paper "A Mathematical Theory of Communication." Shannon was working at Bell Labs on the problem of transmitting messages over noisy communication channels (telephone lines). He needed to define "information" precisely enough to reason about it mathematically. The framework he created has become one of the most broadly applied theories in mathematics, with applications far beyond communication: it underpins compression algorithms, cryptography, statistical inference, and modern machine learning.
 
+
+## The mathematical setting: outcomes, alphabets, and distributions
+
+Information theory starts with the same structure as [Probability](./probability), but asks a different question. Instead of only asking **which event occurs?**, it asks **how surprising is an observed outcome, and how much uncertainty does a source produce on average?**
+
+The basic ingredients fit together as follows.
+
+| Mathematical object | Role in information theory |
+| --- | --- |
+| **Probability space** $(\Omega,\mathcal F,P)$ | Describes possible outcomes, measurable events, and their probabilities |
+| **Alphabet** $\mathcal A$ | The set of symbols or values a source can emit, such as $\{H,T\}$ or $\{0,1\}$ |
+| **Random variable** $X:\Omega\to\mathcal A$ | Assigns an emitted symbol to each outcome |
+| **Distribution** $p(x):=P(X=x)$ | Says how likely each symbol is |
+| **Information content** $I(x):=-\log_2 p(x)$ | Measures the surprise of observing a symbol with $p(x)>0$ |
+| **Entropy** $H(X):=\sum_x p(x)I(x)$ | Measures the *average* surprise under the distribution |
+
+Here we begin with **discrete alphabets**, where these sums have their usual Shannon-entropy meaning; continuous variables require additional care, and **differential entropy** is not simply a discrete sum with an integral substituted. The alphabet itself is just a set. It acquires probabilities through the distribution of $X$, not by virtue of being made of letters or bits. See [Functions and Relations](./functions-relations) for why $X$ is a function and [Measure Theory](./measure-theory) for the event structure beneath it.
+
+> [!example] Same alphabet, different entropy
+> Let $\Omega:=\{H,T\}$, $\mathcal F:=\mathcal P(\Omega)$, and $X(\omega):=\omega$.
+>
+> **Fair source:** $P(H)=P(T)=1/2$. Each possible observation has information $-\log_2(1/2)=1$ bit, so $H(X)=\tfrac12(1)+\tfrac12(1)=1$ bit.
+>
+> **Biased source:** Keep the *same* outcomes and the *same* function $X$, but set $P(H)=3/4$ and $P(T)=1/4$. Now seeing $T$ carries $-\log_2(1/4)=2$ bits, while seeing $H$ carries about $0.415$ bits. The average is $H(X)=-\tfrac34\log_2(\tfrac34)-\tfrac14\log_2(\tfrac14)\approx0.811$ bits.
+>
+> Nothing about the symbols changed. **The distribution changed**, and therefore the uncertainty changed. An observed symbol has *surprisal relative to a model*; the source's **entropy is a property of its probability distribution**.
+
+This gives a recurring connection to the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces): we start with a set, add measurable events and probabilities, and then define functions of that probabilistic structure. Later, channels and joint distributions add relationships between random variables.
+
 ## Surprise and Information Content
 
 ### The Intuition

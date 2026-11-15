@@ -13,6 +13,33 @@ Single-variable calculus studies functions with one input and one output: $f(x) 
 
 This page builds on [Calculus](./calculus) (limits, derivatives, integrals) and connects forward to the [matrix calculus](./linear-algebra-computation) already covered in the linear algebra section (gradients, Jacobians, Hessians, chain rule for vectors).
 
+
+## The mathematical structures behind several-variable calculus
+
+The expression $f(x_1,\ldots,x_n)$ hides a set of choices about the **input space** and what it means for nearby inputs to produce nearby outputs. For the standard theory in this chapter, we work with functions
+
+$$
+f:D\subseteq\mathbb R^n\longrightarrow\mathbb R^m.
+$$
+
+The domain $D$ is a set of allowed input vectors. The **vector-space structure** of $\mathbb R^n$ lets us add inputs and scale changes; the usual **Euclidean norm** $\|h\|_2=\sqrt{h_1^2+\cdots+h_n^2}$ measures the size of a change and gives a metric $d(x,y)=\|x-y\|_2$. The metric supplies the notion of a limit, and therefore continuity and differentiability. For coordinate formulas and gradients, we also use the standard inner product.
+
+These structures have different jobs. **Vector addition alone does not define a distance**; choosing a norm does. And the existence of separate **partial derivatives** does not by itself guarantee that a multivariable function has a single well-behaved total derivative. See [Linear Algebra Foundations](./linear-algebra-foundations), [Calculus](./calculus), and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces).
+
+> [!example] A derivative is a linear map on small changes
+> Let $f:\mathbb R^2\to\mathbb R$ be $f(x,y)=x^2+y^2$. At the point $(1,2)$, perturb the input by $h=(h_1,h_2)$:
+>
+> $$
+> f(1+h_1,2+h_2)-f(1,2)
+> =2h_1+4h_2+h_1^2+h_2^2.
+> $$
+>
+> The leading term $Df(1,2)[h]:=2h_1+4h_2$ is a **linear function of the displacement** $h$. The remainder $h_1^2+h_2^2=\|h\|_2^2$ becomes negligible relative to $\|h\|_2$ as $h\to0$. Thus the derivative is a linear map represented in standard coordinates by the row matrix $\begin{bmatrix}2&4\end{bmatrix}$.
+>
+> The familiar gradient $\nabla f(1,2)=(2,4)$ packages the same local information using the Euclidean inner product.
+
+The standard differentiability definition applies at **interior points** of the domain; boundary points require a suitable one-sided or relative formulation. This difference matters later for constrained optimization and integration over regions.
+
 ## Functions of Several Variables
 
 > [!definition] Scalar field on a multivariable domain

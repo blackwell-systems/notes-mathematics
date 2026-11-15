@@ -10,6 +10,35 @@ enables: []
 
 Statistical learning shifts the goal from *describing* or *inferring* to *predicting*: fitting models that generalize from training data to unseen data. It covers correlation and regression, logistic and generalized linear models, and the machine-learning core, the bias-variance tradeoff, overfitting, cross-validation, and bootstrapping. It builds on [inferential statistics](./inferential-statistics) (regression inference reuses the sampling-distribution machinery) and is the bridge from classical statistics into machine learning.
 
+
+## The mathematical setting: learning as a problem about functions
+
+A prediction problem is not defined by an algorithm alone. Before choosing linear regression or a neural network, specify **what inputs are possible, what outputs mean, which predictions are allowed, and how mistakes are measured**.
+
+| Object | What it supplies |
+| --- | --- |
+| **Input space** $\mathcal X$ | Possible features or observations, such as vectors in $\mathbb R^d$ |
+| **Output space** $\mathcal Y$ | Possible targets, such as $\{0,1\}$ for classification or $\mathbb R$ for regression |
+| **Data-generating distribution** $P$ on $\mathcal X\times\mathcal Y$ | A probabilistic model for pairs $(X,Y)$ |
+| **Hypothesis class** $\mathcal H$ | A specified family of functions $h:\mathcal X\to\mathcal Y$ from which the learner may choose |
+| **Loss** $\ell:\mathcal Y\times\mathcal Y\to[0,\infty)$ | The numerical cost of a prediction compared with its target |
+| **Training data** $(x_i,y_i)_{i=1}^n$ | Observed input-output pairs used to select a hypothesis |
+
+With the relevant measurability and integrability assumptions, the **population risk** is the expected loss
+
+$$
+R(h):=\mathbb E_{(X,Y)\sim P}\big[\ell(h(X),Y)\big].
+$$
+
+Because the true distribution $P$ is usually unknown, training frequently minimizes the **empirical risk** $\widehat R_n(h):=\frac1n\sum_{i=1}^n\ell(h(x_i),y_i)$ or a regularized version. Doing well on observed training pairs does **not** by itself guarantee doing well on unseen data. Generalization requires additional assumptions about the sampling process and the complexity of $\mathcal H$. Independent, identically distributed sampling is a common assumption, **not part of the definition of a hypothesis class**.
+
+> [!example] A complete tiny classification problem
+> Let $\mathcal X:=\{a,b\}$ and $\mathcal Y:=\{0,1\}$, with $P(Y=1)=0.7$ and $P(Y=0)=0.3$; for this example the label distribution does not depend on $X$. Choose $\mathcal H:=\{h_0,h_1\}$ where $h_0(x)=0$ and $h_1(x)=1$ for every input. Use **zero-one loss**: $\ell(\widehat y,y)=0$ if they agree and $1$ otherwise.
+>
+> Predicting $0$ always makes an error whenever $Y=1$, so $R(h_0)=0.7$. Predicting $1$ always makes an error whenever $Y=0$, so $R(h_1)=0.3$. **Within this hypothesis class, $h_1$ has lower expected loss.** Training data would give estimates of these risks; their actual values here come from knowing the distribution.
+
+The **functions** come from [Functions and Relations](./functions-relations), the **expectation** from [Probability](./probability), and minimizing loss from [Optimization](./optimization). Correlation and regression below are particular tools *inside this larger mathematical setting*, not definitions of learning itself.
+
 ## Correlation
 
 Once we have plotted two quantitative variables against each other, the natural next question is quantitative: *how strongly*, and *in what direction*, are they associated? Before fitting a line through the cloud (the next section), we want a single number summarizing the **strength** and **direction** of the *linear* association. That number is the correlation coefficient.

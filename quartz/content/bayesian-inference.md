@@ -11,6 +11,43 @@ enables: ["singular-learning-theory"]
 
 Bayesian inference is the framework for reasoning about uncertainty by treating unknown quantities as probability distributions rather than fixed values. Instead of asking "what is the best parameter?", Bayesian inference asks "what is the distribution of the parameter given the data?" This page builds on [Bayes' theorem and probability distributions](./probability) and on [MLE and MAP estimation](./inferential-statistics#maximum-likelihood-estimation-mle). It provides the foundation for understanding singular learning theory (SLT), which is fundamentally a Bayesian framework.
 
+
+## The mathematical setting: data, parameters, and probability measures
+
+Before using Bayes' formula, separate the **space where observations live** from the **space where unknown parameters live**. They answer different questions.
+
+| Object | Meaning |
+| --- | --- |
+| **Data space** $(\mathcal X,\mathcal A)$ | The possible observed values, with a sigma-algebra specifying measurable data events |
+| **Parameter space** $(\Theta,\mathcal T)$ | The possible parameter values, with their measurable subsets |
+| **Statistical model** $\{P_\theta:\theta\in\Theta\}$ | A family of probability distributions **on the data space**, one for each parameter |
+| **Prior** $\pi$ | A probability measure **on the parameter space**, representing uncertainty about $\theta$ before the data |
+| **Likelihood** $L(\theta;d)$ | For fixed data $d$, how well each parameter explains it; it is **not** generally a normalized probability distribution over $\theta$ |
+| **Posterior** $\pi(\,\cdot\mid d)$ | The updated probability measure **on the parameter space**, after observing $d$ |
+
+The model, likelihood, and prior determine a joint probability model for parameters and data. Conditioning that joint model on the observed data gives the posterior. If prior and posterior have densities with respect to a suitable reference measure, Bayesian updating can be written
+
+$$
+\pi(\theta\mid d)
+=\frac{L(\theta;d)\,\pi(\theta)}
+       {\displaystyle\int_\Theta L(u;d)\,\pi(u)\,du},
+$$
+
+provided the denominator is finite and positive. Here $\pi(\theta)$ and $\pi(\theta\mid d)$ denote **densities**, not the probabilities of single parameter values. The integral form assumes a density with respect to the displayed $du$; otherwise one integrates the likelihood with respect to the prior measure, $\int_\Theta L(u;d)\,\pi(du)$. For discrete parameter spaces, use a sum instead. The familiar $P(\theta\mid D)$ notation below is a convenient shorthand, but these distinctions matter when $\theta$ is continuous.
+
+> [!example] One coin flip updates a distribution over possible biases
+> Suppose a coin has unknown probability $\theta\in[0,1]$ of heads. The **parameter space** is $\Theta=[0,1]$; the **data space** for one flip is $\mathcal X=\{H,T\}$. The likelihood of observing $H$ is $L(\theta;H)=\theta$.
+>
+> Start with the **uniform prior density** $\pi(\theta)=1$ on $[0,1]$. After observing $H$, the unnormalized posterior density is $\theta\cdot1=\theta$. The normalizing evidence is $\int_0^1u\,du=1/2$, so
+>
+> $$
+> \pi(\theta\mid H)=\frac{\theta}{1/2}=2\theta,\qquad 0\leq\theta\leq1.
+> $$
+>
+> The posterior integrates to one, and its mean is $\int_0^1\theta(2\theta)\,d\theta=2/3$. **The data were a single symbol; the posterior is a distribution over a whole interval of possible parameter values.**
+
+The underlying probability and measurable-space constructions are introduced in [Probability](./probability), while the distinction between a set, its additional structure, and the maps between such spaces is developed in the [Atlas](./atlas-of-mathematical-spaces).
+
 ## The Bayesian Framework
 
 ### Review: Bayes' Theorem

@@ -13,6 +13,31 @@ Optimization is the mathematical framework for finding the best solution from a 
 
 This page builds on [Multivariable Calculus](./multivariable-calculus) (gradients, Hessians, basic gradient descent) and [Linear Algebra for Computation](./linear-algebra-computation) (positive definiteness, condition numbers, matrix calculus). Where that page introduced gradient descent as a first application, here we treat optimization as its own subject in full depth.
 
+
+## The mathematical setting: choosing from a feasible set
+
+An optimization problem is not simply "take a derivative and solve." The underlying objects come first: a **space of possible choices**, a **set of allowed choices**, and a **numerical objective** whose values can be compared.
+
+| Structure | What it contributes |
+| --- | --- |
+| **Ambient space** $X$ | The universe of candidate choices, often the vector space $\mathbb R^n$ |
+| **Domain** $D\subseteq X$ | Where the objective $f:D\to\mathbb R$ is defined |
+| **Feasible set** $S\subseteq D$ | The choices permitted by constraints |
+| **Objective** $f$ | Assigns a real number to each allowed choice so we can compare costs |
+| **Optimization problem** | Find $x^*\in S$ with $f(x^*)\leq f(x)$ for every $x\in S$, **if such a point exists** |
+
+In symbols, we seek $\min_{x\in S} f(x)$. The **infimum** $\inf_{x\in S}f(x)$ can exist even if no feasible point attains it. More mathematical structure is needed for particular solution methods: a **vector space** permits line segments, a **norm or topology** makes limits and continuity meaningful, and a **derivative** requires sufficient local regularity. **Convexity, continuity, and differentiability are additional properties or assumptions**, not axioms of every optimization problem. See [Linear Algebra Foundations](./linear-algebra-foundations), [Multivariable Calculus](./multivariable-calculus), and the [Atlas](./atlas-of-mathematical-spaces).
+
+> [!example] The same objective, with and without a constraint
+> Let $f(x):=(x-2)^2$ on $\mathbb R$. Without constraints, the minimum is $f(2)=0$ at $x=2$.
+>
+> Now restrict the feasible set to $S:=[0,1]$. The objective is unchanged, but $x=2$ is **not permitted**. On $[0,1]$, $f$ decreases as $x$ moves toward $1$, so the constrained minimum is $f(1)=1$ at $x=1$.
+>
+> The **set of allowed points** matters as much as the function being minimized.
+
+> [!distinction] A minimum needs justification
+> For example, $f(x)=x$ on the open interval $S:=(0,1)$ has infimum $0$ but **no minimizer** in $S$. A continuous function on a nonempty **compact** feasible subset of $\mathbb R^n$ does attain its extrema, but a feasible set need not be compact. Convexity gives powerful guarantees *when its hypotheses apply*; it does not automatically guarantee existence of a minimum.
+
 ## What Is Optimization?
 
 An optimization problem has three components:

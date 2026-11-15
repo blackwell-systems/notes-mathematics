@@ -16,6 +16,35 @@ Differential equations are the language of dynamics. Anything that evolves over 
 
 This page builds on [Calculus](./calculus) (derivatives, integrals), [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients), and [Linear Algebra Foundations](./linear-algebra-foundations) (eigenvalues, matrix operations).
 
+
+## The mathematical setting: a differential equation selects functions
+
+An algebraic equation such as $x^2=4$ selects **numbers** from a chosen number system. A differential equation selects **functions** from a chosen space of functions. That is the fundamental change in the kind of object we are solving for.
+
+For a first-order ordinary differential equation, choose an interval $I\subseteq\mathbb R$, a value space $\mathbb R^m$, and a specified function $F:I\times\mathbb R^m\to\mathbb R^m$. The unknown is a **differentiable map** $y:I\to\mathbb R^m$ satisfying
+
+$$
+y'(t)=F(t,y(t))\qquad(t\in I).
+$$
+
+| Structure or condition | What it contributes |
+| --- | --- |
+| **Domain** $I$ | The times or independent-variable values on which a proposed solution is defined |
+| **Value space** $\mathbb R^m$ | What each value $y(t)$ is allowed to be |
+| **Function space**, such as $C^1(I,\mathbb R^m)$ | The collection of candidates with the differentiability needed to interpret the equation |
+| **Differential equation** | A condition that selects some candidates from that space |
+| **Initial or boundary conditions** | Additional restrictions that may select fewer solutions, perhaps one or none |
+
+The function-space requirement is not decoration. A derivative is meaningful only when the relevant limit exists. Higher-order ODEs require correspondingly more derivatives, and partial differential equations involve functions of several independent variables. Smoothness is **an assumption we specify**, not a property possessed by every function. See [Calculus](./calculus), [Multivariable Calculus](./multivariable-calculus), and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces).
+
+> [!example] One equation, infinitely many functions, then one initial condition
+> On $I=\mathbb R$, consider $y'(t)=y(t)$. Every function $y_C(t):=Ce^t$ with $C\in\mathbb R$ satisfies the equation because $y_C'(t)=Ce^t=y_C(t)$.
+>
+> The equation therefore has an **entire family of solutions**. Add the initial condition $y(0)=1$. Because $y_C(0)=C$, this forces $C=1$, leaving $y(t)=e^t$. We have not changed the type of object: the answer is still a function, but with an extra constraint.
+
+> [!important] A solution is not guaranteed to exist or be unique
+> Initial or boundary conditions do not automatically produce exactly one solution. **Existence and uniqueness require hypotheses on the differential equation**, and boundary-value problems may have no solution or many. Those are *properties of a problem under specified assumptions*, not axioms defining every differential equation.
+
 ## What is a Differential Equation?
 
 > [!definition] Differential equation
