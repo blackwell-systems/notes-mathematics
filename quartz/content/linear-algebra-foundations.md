@@ -13,9 +13,34 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 ## The fundamental setting: vector spaces, not matrices
 
-A **vector space** is a collection $V$ of objects (called **vectors**) on which we can **add two vectors** and **multiply a vector by a scalar**. A *scalar* belongs to a specified **field** $F$, most often the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field is a number system where the usual addition, subtraction, multiplication, and division by nonzero elements obey the field laws.
+A **vector space really does have an underlying set** $V$. Its members are called **vectors**. To make that set into a vector space over a **field** $F$, we specify two operations—**vector addition** (two vectors give another vector) and **scalar multiplication** (a scalar and a vector give another vector)—and require them to satisfy the [vector-space axioms](#the-vector-space-axioms-the-actual-rules) below. A *scalar* belongs to $F$, commonly the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field permits addition, subtraction, multiplication, and division by nonzero elements according to the field laws.
+
+**Here is the actual set in a familiar example:**
+
+$
+\boxed{V:=\mathbb R^2=\{(x,y)\mid x\in\mathbb R,\ y\in\mathbb R\}.}
+$
+
+This says $V$ contains **every ordered pair of real numbers**. For instance, $(0,0)$, $(2,1)$, $(0,3)$, and $(-4,\pi)$ are *elements* of $V$. This short list is **not the entire vector space**: $\mathbb R^2$ contains infinitely many vectors. With ordinary componentwise operations,
+
+$
+(x,y)+(a,b):=(x+a,y+b),\qquad c(x,y):=(cx,cy)\quad(c\in\mathbb R),
+$
+
+the results are again members of $\mathbb R^2$. Closure is necessary, but the other vector-space axioms must hold too.
 
 **Start with two vectors.** In $V:=\mathbb R^2$ (read "V is defined as R squared"), take $u:=(2,1)$ and $v:=(0,3)$. **Each pair describes one whole vector.** The individual numbers are its **vector components** (also called *coordinates* in the chosen basis): with the standard horizontal and vertical axes, $u$ has an **x-component** of $2$ and a **y-component** of $1$, while $v$ has components $0$ and $3$. The vector $u$ is the whole object, not either of its components. Adding these vectors gives $u+v=(2,4)$; multiplying $u$ by the scalar $2$ gives $2u=(4,2)$. Both results still belong to $V$. The components describe a vector **relative to a basis**; choosing different axes can change the numbers without changing the underlying vector.
+
+> [!example] A vector space small enough to list completely
+> Not every vector space is infinite. Let $F:=\mathbb F_2=\{0,1\}$, the field where arithmetic is done **modulo 2**, so $1+1=0$. Then
+>
+> $
+> V:=\mathbb F_2^2=\{(0,0),(0,1),(1,0),(1,1)\}.
+> $
+>
+> **Those four pairs are the entire set $V$.** With componentwise addition and scalar multiplication modulo 2, they form a vector space over $\mathbb F_2$. For example, $(1,1)+(1,0)=(0,1)$.
+>
+> The **field matters**: these same four pairs are *not* a vector space over $\mathbb R$ with ordinary scalar multiplication, because $\tfrac12(1,0)=(\tfrac12,0)$ is missing. A set of vectors becomes a vector space only when the specified operations and scalar field satisfy all the axioms.
 
 ### What makes a map linear?
 
