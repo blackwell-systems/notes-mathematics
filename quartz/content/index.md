@@ -2,11 +2,15 @@
 title: Mathematics Reference
 ---
 
-**Mathematics, with the missing steps shown.** An intuition-first, proof-oriented reference that begins with what an idea means, defines it precisely, and develops the reasoning behind it, from elementary foundations to abstract mathematics and the theory of learning.
+**Mathematics is connected. Its explanations should be, too.**
 
-**The approach:** Start with concrete examples, make the notation explicit, examine the cases where an idea fails, and work through the argument rather than skipping the difficult step. Diagrams and interactive explorations support the written explanations where they help.
+This site grew from **more than a decade of my handwritten mathematics notes**. I am developing those notes into a single, evolving reference, with one pedagogical approach running from elementary foundations through algebra, analysis, geometry, and more. The choices of explanations, examples, diagrams, and connections are informed by that long-running work, rather than assembled as unrelated treatments of individual subjects.
 
-These are **learning notes and a reference, not a problem-set workbook**. Use them to understand a concept, check a definition, follow a proof, or discover how subjects fit together. There is no single mandatory reading order.
+**The connections are part of the teaching.** Ideas are introduced, then deliberately recalled, tested, and extended in later chapters. An order tells us which objects precede others, but not how far apart they are; metric spaces introduce that different kind of structure. Equivalence relations return as quotient spaces. Completeness appears in analysis and resurfaces in Banach and Hilbert spaces. These callbacks explain **what carries over, what changes, and why an additional assumption matters**, so readers do not have to reconstruct the connections for themselves.
+
+**Mathematics, with the missing steps shown.** Each subject aims to start with an intuitive question, define the relevant objects and notation precisely, work through small complete examples and proofs, and examine cases where familiar conclusions fail. Diagrams and interactive explorations support the reasoning where they clarify it. The goal is a **continuous understanding of mathematics**, not simply a collection of accurate definitions.
+
+These are **learning notes and a reference, not a problem-set workbook**. Start from a question, follow connections backward or forward, and return to earlier concepts as your understanding deepens. There is no single mandatory reading order.
 
 ## Explore the reference
 
@@ -18,7 +22,8 @@ These are **learning notes and a reference, not a problem-set workbook**. Use th
 - **Follow a subject-guided route:** [Topology](./path-to-topology), [Algebra](./path-through-algebra), [Analysis](./path-through-analysis), and [Discrete Mathematics](./discrete-mathematics) offer suggested sequences rather than artificial chains of mandatory prerequisites.
 - **Work toward a research topic:** The [Path to SLT](./path-to-slt) connects relevant foundations to [Singular Learning Theory](./singular-learning-theory).
 
-**A recurring idea to look for:** a **set** tells us which objects exist, **additional structure** specifies how they relate or combine, and **axioms** determine what we can prove about that structure. This common thread connects relations, orders, groups, and vector spaces. See [Set Theory: the common thread](./set-theory#the-common-thread-set-structure-axioms) for a side-by-side comparison.
+> [!tip] Follow a concept beyond its first chapter
+> A **set** tells us which objects we have, **additional structure** specifies relationships or operations, and **axioms** determine what follows. This same pattern returns in relations, orders, groups, vector spaces, and spaces with notions of closeness. Each return asks a little more of the idea. See [Set Theory: the common thread](./set-theory#the-common-thread-set-structure-axioms) for a side-by-side comparison.
 
 **Use individual chapters for definitions and worked proofs; use the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) when you want to see how the subjects connect.** Learning maps are optional aids, not claims that every subject depends on every other one.
 
