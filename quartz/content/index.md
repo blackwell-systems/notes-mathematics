@@ -2,7 +2,7 @@
 title: Mathematics Reference
 ---
 
-**Mathematics, with the missing steps shown.** An intuition-first, proof-oriented reference that begins with what an idea means, defines it precisely, and develops the reasoning behind it—from elementary foundations to abstract mathematics and the theory of learning.
+**Mathematics, with the missing steps shown.** An intuition-first, proof-oriented reference that begins with what an idea means, defines it precisely, and develops the reasoning behind it, from elementary foundations to abstract mathematics and the theory of learning.
 
 **The approach:** Start with concrete examples, make the notation explicit, examine the cases where an idea fails, and work through the argument rather than skipping the difficult step. Diagrams and interactive explorations support the written explanations where they help.
 
@@ -130,7 +130,7 @@ Category theory studies **objects, arrows and universal mapping properties**, br
 
 ## Linear Algebra
 
-**Linear algebra is the study of vector spaces and linear transformations between them—not fundamentally the manipulation of matrices.** A *vector* can be an arrow, a polynomial, a function, or any other element of a vector space. A *matrix* is a coordinate representation of a linear map once bases have been chosen. Start with [what a vector space is and why it matters](./linear-algebra-foundations#the-fundamental-setting-vector-spaces-not-matrices), then see how the same ideas apply to very different objects.
+**Linear algebra is the study of vector spaces and linear transformations between them, rather than fundamentally the manipulation of matrices.** A *vector* can be an arrow, a polynomial, a function, or any other element of a vector space. A *matrix* is a coordinate representation of a linear map once bases have been chosen. Start with [what a vector space is and why it matters](./linear-algebra-foundations#the-fundamental-setting-vector-spaces-not-matrices), then see how the same ideas apply to very different objects.
 
 - [Linear Algebra Foundations](./linear-algebra-foundations) (**vector spaces and linear maps first**; then bases, kernels, images, eigenvectors, and SVD)
 - [Linear Algebra for Computation](./linear-algebra-computation) (norms, factorizations, positive definiteness, matrix calculus)
