@@ -31,6 +31,8 @@ $$
 
 Read $*$ as "the group operation" and $\times$ here as the Cartesian product. The codomain $G$ makes **closure** explicit: whenever $a,b\in G$, the result $a*b$ is in $G$. We often write $ab$ instead of $a*b$, but that juxtaposition need not mean ordinary multiplication.
 
+Here is the [same recurring pattern](./set-theory#the-common-thread-set-structure-axioms): **$G$ is the underlying set, $*$ is additional structure, and the group axioms are the conditions on that operation.** Merely choosing an operation on a set does not guarantee a group, just as merely choosing a set of vectors does not guarantee a vector space.
+
 > [!definition] Group
 > A **group** is a set $G$ with a binary operation $*:G\times G\to G$ that is **associative**, has a two-sided **identity**, and gives every element a two-sided **inverse**. These are axioms; the cancellation rules and other familiar properties must be proved.
 
