@@ -42,6 +42,16 @@ the results are again members of $\mathbb R^2$. Closure is necessary, but the ot
 >
 > The **field matters**: these same four pairs are *not* a vector space over $\mathbb R$ with ordinary scalar multiplication, because $\tfrac12(1,0)=(\tfrac12,0)$ is missing. A set of vectors becomes a vector space only when the specified operations and scalar field satisfy all the axioms.
 
+> [!important] The same pattern: set + structure + axioms
+> This is the [common thread across mathematics](./set-theory#the-common-thread-set-structure-axioms). **A set gives us elements. Extra structure tells us how they relate or combine. Axioms determine which kind of mathematical structure we have.**
+>
+> - For a **[relation](./functions-relations#relation)**, we choose ordered pairs; no further properties are required just to call it a relation.
+> - For an **[order](./order-theory#from-relations-to-preorders-and-partial-orders)**, the chosen relation must obey laws such as reflexivity and transitivity (and antisymmetry for a partial order).
+> - For a **[group](./group-theory-foundations#a-binary-operation-and-the-group-axioms)**, the chosen operation must be associative and have an identity and inverses.
+> - For a **vector space**, we choose a scalar field and two operations on $V$ that satisfy the vector-space laws.
+>
+> **The axioms describe the behavior of the operations on the collection, not a special property that each individual vector has.** A subset of existing vectors need not be a subspace unless the inherited operations satisfy the necessary requirements.
+
 ### What makes a map linear?
 
 **Map**, **mapping**, and **function** mean the **same thing in this context**; these are different names for one mathematical concept, not different types of objects. A function assigns **exactly one output to every input in its specified domain**. When we say that a function *maps* an input to an output, we mean it assigns that output to the input. See [Functions & Relations](./functions-relations#function) for the full definition.
