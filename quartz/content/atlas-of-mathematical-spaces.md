@@ -27,6 +27,13 @@ These questions let you navigate from elementary sets to the spaces of modern an
 
 > [!important] The recurring thread: set + structure + axioms
 > An underlying set supplies the objects. Chosen relations, operations, or distinguished subsets give those objects additional structure. Axioms determine which general results apply.
+>
+> **Tiny, complete example: construct an ordered set.**
+> - **Set:** $X:=\{a,b\}$ contains exactly two objects.
+> - **Structure:** Choose the relation $R:=\{(a,a),(a,b),(b,b)\}$. Write $x\preceq y$ when $(x,y)\in R$. These are **all** the pairs for which the comparison holds.
+> - **Axioms:** It is **reflexive** because $(a,a)$ and $(b,b)$ are present; **antisymmetric** because no two *distinct* elements are related in both directions; and **transitive** because the only non-identity comparison is $a\preceq b$, and composing it with the identity comparisons never changes its result.
+>
+> Therefore $(X,\preceq)$ is a **partially ordered set (poset)**. The set $X$ alone did not tell us how $a$ and $b$ compare. **Choosing $R$ supplied the structure; checking all three axioms justified calling it a partial order.**
 
 This is a common construction, not a compulsory sequence: quotients can change the elements themselves, and [point-free topology](#topology-without-starting-from-points-frames-and-locales) can begin with open-set algebra. See [the side-by-side comparison in Set Theory](./set-theory#the-common-thread-set-structure-axioms).
 
