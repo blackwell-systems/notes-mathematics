@@ -109,7 +109,9 @@ The "unit ball" for each norm (the set of all vectors with $\|v\| \leq 1$) has a
 
 These shapes explain why L1 regularization produces sparse solutions: the diamond has sharp corners where coordinates are zero, and optimization tends to find those corners.
 
-![Unit balls for L1 (diamond), L2 (circle), and L-infinity (square) norms](./media/norm-unit-balls.png)
+![Side-by-side unit balls for the L1 diamond, L2 circle, and L infinity square in two dimensions.](./media/lac-norm-balls.svg)
+
+*Figure: The same norm threshold of 1 describes three different shapes: a diamond, a circle, and a square.*
 
 Drag a vector below and toggle the unit balls to compare its $L^1$, $L^2$, and $L^\infty$ norms; the $p$-slider morphs the unit ball from the diamond ($p=1$) through the circle ($p=2$) toward the square ($p=\infty$), and $\|v\|_\infty \le \|v\|_2 \le \|v\|_1$ always holds.
 
@@ -208,7 +210,9 @@ $$
 
 Check: $\frac{5}{2}\begin{bmatrix} 1 \\ 1 \end{bmatrix} + \frac{1}{2}\begin{bmatrix} 1 \\ -1 \end{bmatrix} = \begin{bmatrix} 3 \\ 2 \end{bmatrix}$ ✓
 
-![Same vector v shown in standard basis coordinates and in a new basis B](./media/change-of-basis.png)
+![The same geometric vector has coordinates (3,2) in the standard basis and (5/2,1/2) in basis (1,1),(1,-1).](./media/lac-change-basis.svg)
+
+*Figure: The geometric vector remains (3,2) in standard coordinates, while its coordinates relative to the new basis are (5/2,1/2).*
 
 ### How a Linear Transformation Changes Basis
 
@@ -578,7 +582,9 @@ The rows are nearly parallel. The system is nearly singular. Tiny changes in $b$
 
 **Feature scaling in ML:** If features in a dataset have very different scales (e.g., age in years vs. income in dollars), the design matrix has a large condition number, and gradient descent converges slowly. Normalizing features improves the condition number.
 
-![Well-conditioned system with perpendicular lines vs ill-conditioned system with nearly parallel lines](./media/condition-number.png)
+![Well-separated constraint lines have a stable intersection; nearly parallel lines have a sensitive intersection.](./media/lac-conditioning.svg)
+
+*Figure: The angle between constraints helps explain why a small perturbation can move an ill-conditioned solution substantially.*
 
 ## Sparse Matrices
 
@@ -740,9 +746,13 @@ Hessian: $H = 2A$
 
 So $f$ is convex (has a unique minimum) if and only if $A$ is positive definite. This connects quadratic forms, positive definiteness, and optimization into a single story.
 
-![Positive definite (bowl), indefinite (saddle), and negative definite (inverted bowl) quadratic forms](./media/quadratic-forms.png)
+![Three quadratic wireframe surfaces: positive-definite bowl, indefinite saddle, and negative-definite inverted bowl.](./media/lac-quadratic-forms.svg)
 
-![Gradient descent following the negative gradient downhill to the minimum of a quadratic](./media/gradient-descent.png)
+*Figure: The signs of quadratic forms give an upward bowl, a saddle, or a downward bowl.*
+
+![Contour ellipses of f(x1,x2)=x1 squared plus twice x2 squared with a sequence of descent steps converging toward the origin.](./media/lac-gradient-descent.svg)
+
+*Figure: The descent iterates follow decreasing quadratic level sets toward the unique minimum at (0,0).*
 
 ### The Chain Rule for Vectors
 
