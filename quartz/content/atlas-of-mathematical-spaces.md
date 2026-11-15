@@ -17,11 +17,13 @@ The goal of this guide is to learn to look at an unfamiliar space and ask:
 
 1. **Objects:** What are its points (or more general elements)?
 2. **Data:** What additional operations, relations, subsets, or functions are specified?
-3. **Axioms:** Which rules must that data obey?
+3. **Axioms:** What conditions must the specified structure satisfy to qualify as this kind of mathematical object?
 4. **Morphisms:** Which maps (functions) preserve the specified structure?
-5. **Properties:** Which further conditions, such as completeness or compactness, happen to hold?
+5. **Properties:** What additional statements are true of this particular object, beyond those guaranteed by its defining axioms?
 6. **Limits:** Which familiar implications fail if a hypothesis is removed?
 7. **Categories:** What if we consider all such spaces at once, together with the maps we permit between them?
+
+**Axioms and properties differ by their role, not by being different kinds of statements.** The axioms define the class of objects under study; additional properties distinguish its members. A property can become a defining requirement for a narrower class. For example, completeness is **not** required of a metric space, but it **is** required of a *complete metric space*. A complete metric space still satisfies all the ordinary metric axioms.
 
 These questions let you navigate from elementary sets to the spaces of modern analysis and geometry without confusing one kind of structure with another.
 
