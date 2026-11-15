@@ -106,7 +106,13 @@ The order of the pair matters: $(a,b)$ and $(b,a)$ generally express different c
 
 ### From possible pairs to a function
 
-Take $A:=\{1,2,3\}$ and $B:=\{x,y,z\}$. Their product has $3\times3=9$ possible pairs. In the diagram, **columns correspond to first elements from $A$ (inputs)** and **rows to second elements from $B$ (outputs)**.
+Take $A:=\{1,2,3\}$ and $B:=\{x,y,z\}$. Each set has **cardinality 3**: $|A|=3$ and $|B|=3$. For finite sets, the cardinality of their Cartesian product is the **product of their cardinalities**:
+
+$
+|A\times B|=|A|\cdot|B|=3\cdot3=9.
+$
+
+For each of the three choices from $A$, there are three choices from $B$, giving **nine distinct ordered pairs**. In the diagram, **columns correspond to first elements from $A$ (inputs)** and **rows to second elements from $B$ (outputs)**.
 
 ![Three-panel progression showing Cartesian product, relation, and function on the same three-by-three grid. Columns are inputs 1, 2, 3 and rows are outputs x, y, z. All nine pairs are highlighted in the Cartesian product. The relation selects four pairs: (1,y), (1,z), (2,x), and (3,z). The function selects exactly three pairs: (1,y), (2,x), and (3,z), one per column.](./media/fr-cartesian-relation-function.svg)
 
