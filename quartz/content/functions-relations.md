@@ -30,7 +30,7 @@ Much of mathematics, science, and everyday life involves understanding how one q
 
 Before we define functions formally, we need a broader concept: the **relation**.
 
-**Relation (informal):** A relation is any rule or association that pairs elements from one set with elements of another. For example, "is the capital of" is a relation that pairs cities with countries (Ottawa with Canada, Tokyo with Japan).
+**Relation (informal):** A relation records **which pairs of objects are associated**. We may list the pairs directly or describe them with a condition, such as "is the capital of" for cities and countries (Ottawa with Canada, Tokyo with Japan). A rule is one way to specify a relation, **not a requirement**.
 
 **Function (informal):** A function is a special kind of relation where each input is paired with exactly one output. If you input a specific time into a temperature function, you get back one temperature, not two or three.
 
@@ -64,89 +64,90 @@ With this intuition in place, we can now state the formal definitions.
 
 ## Relation
 
-> [!definition] Binary relation (set-theoretic definition)
-> Given sets $A$ and $B$, a **binary relation from $A$ to $B$** is a set $R$ of ordered pairs such that
+A **relation** answers a question about two objects: *is the first related to the second?* The answer can be yes for some pairs and no for others. A relation does not, by itself, require every object to be paired, or impose any symmetry, ordering, or other rule.
+
+> [!definition] Binary relation (in set theory)
+> Let $A$ and $B$ be sets. Their [**Cartesian product**](./set-theory#cartesian-product) is the set of all possible **ordered pairs** with first element from $A$ and second element from $B$:
 >
 > $$
-> R\subseteq A\times B.
+> A\times B:=\{(a,b)\mid a\in A,\ b\in B\}.
 > $$
 >
-> In other words, every pair in $R$ has the form $(a,b)$ with $a\in A$ and $b\in B$. The relation can contain **any selection** of the possible pairs, including none or all of them. It need not be a function: an input may appear in several pairs or in none.
+> A **binary relation from $A$ to $B$** is **any set of such pairs**:
+>
+> $$
+> \boxed{R\subseteq A\times B}
+> $$
+>
+> The symbol $\subseteq$ says that **every pair in $R$ belongs to $A\times B$**. It does **not** say that $R$ contains every possible pair. Both $R=\varnothing$ (no pairs) and $R=A\times B$ (all pairs) are valid relations.
 
-We write $aRb$ (read "a is related to b by R") as shorthand for $(a,b)\in R$. A **relation on $A$** means both positions draw from $A$, so $R\subseteq A\times A$.
+### What the notation actually says
 
-> [!distinction] Representation versus meaning
-> The Cartesian product supplies a convenient **set-theoretic representation** of all possible pairings. We do **not** need to construct or list $A\times B$ before describing a relationship: we can specify its pairs directly or give a condition deciding which pairs belong. Other mathematical foundations can even take relations as primitive. The subset definition tells us precisely how relations are represented **here**, not that relationships conceptually depend on Cartesian products.
+If $a\in A$ and $b\in B$, we write
 
-Do not let the formal language hide how simple this is. The **Cartesian product** $A \times B$ contains *every possible ordered pair* with its first element in $A$ and its second in $B$. A relation is **any choice of those pairs**. We can select them arbitrarily; we do not need a rule such as "is less than" to generate them.
+$$
+aRb\quad\Longleftrightarrow\quad (a,b)\in R.
+$$
+
+These are **two ways to state the same fact**: the *ordered pair* $(a,b)$ is an **element of the set** $R$. In particular:
+
+- $R\subseteq A\times B$ compares **two sets**: a chosen relation and the full set of possibilities.
+- $(a,b)\in R$ checks whether **one ordered pair belongs to the relation**.
+- $aRb$ is **shorthand** for that membership statement, not a new operation or a numerical comparison.
+
+**A pair can be possible without being selected.** Membership $(a,b)\in A\times B$ says only that $a$ and $b$ are eligible first and second elements; $(a,b)\in R$ says the relation actually holds for them.
+
+The order of the pair matters: $(a,b)$ and $(b,a)$ generally express different comparisons. A relation **on $A$** is the special case where both elements come from the same set: $R\subseteq A\times A$.
+
+> [!distinction] Defining a relation is not the same as generating every pair
+> You can specify a relation by **listing selected pairs**, or by giving a **condition** that decides membership (for example, $aRb$ exactly when $a<b$ on a set of numbers). The condition is optional: an arbitrary selection already defines a valid relation. **You do not have to enumerate $A\times B$ first.**
+>
+> In the set-theoretic framework used here, a binary relation **is defined as a set of ordered pairs**, hence a subset of a Cartesian product. This is an exact mathematical definition, not merely a picture or an implementation trick. Other foundational approaches can take relations as primitive concepts instead; that does not change the definition adopted in this chapter.
 
 ### From possible pairs to a function
 
-Let $A:=\{1,2,3\}$ and $B:=\{x,y,z\}$. Every column in the following grids represents an **input from $A$**, and every row represents an **output from $B$**.
+Take $A:=\{1,2,3\}$ and $B:=\{x,y,z\}$. Their product has $3\times3=9$ possible pairs. In the diagram, **columns correspond to first elements from $A$ (inputs)** and **rows to second elements from $B$ (outputs)**.
 
 ![Three-panel progression showing Cartesian product, relation, and function on the same three-by-three grid. Columns are inputs 1, 2, 3 and rows are outputs x, y, z. All nine pairs are highlighted in the Cartesian product. The relation selects four pairs: (1,y), (1,z), (2,x), and (3,z). The function selects exactly three pairs: (1,y), (2,x), and (3,z), one per column.](./media/fr-cartesian-relation-function.svg)
 
-*Figure: The Cartesian product $A\times B$ contains all nine possibilities. A relation $R\subseteq A\times B$ keeps whichever pairs we choose. A function $f:A\to B$ is a relation with **exactly one selected pair in every input column**. Dim dots are possible pairs, not selected pairs.*
+*Figure: The product $A\times B$ contains all nine possible pairs. The middle panel selects a relation $R\subseteq A\times B$. The right panel selects a **function from $A$ to $B$**: exactly one pair in **each input column**. Dim dots represent pairs not selected.*
 
-In the middle panel we chose
+The middle panel defines the relation
 
 $$
 R:=\{(1,y),(1,z),(2,x),(3,z)\}.
 $$
 
-This is a valid relation, but **not a function from $A$ to $B$**: the column for input $1$ has two selected outputs, $y$ and $z$. In the right panel we keep
+It is **not a function** from $A$ to $B$: input $1$ is paired with *both* $y$ and $z$. The right panel instead defines
 
 $$
-f:=\{(1,y),(2,x),(3,z)\},
+f:=\{(1,y),(2,x),(3,z)\}.
 $$
 
-so every input has exactly one output. **The point is the condition, not the particular choices:** functions are relations whose pairs satisfy that extra requirement. In this illustration $f\subseteq R$, but a function does not generally have to be obtained by deleting pairs from a previously chosen relation.
+Every $a\in A$ is the first element of **exactly one** selected pair. In symbols, the defining additional condition for a function $f:A\to B$ is
 
-Key Concepts
+$$
+\forall a\in A,\ \exists! b\in B\text{ such that }(a,b)\in f.
+$$
 
-1.  **Domain, Codomain**, **Range, Image**
+Here $\exists!$ means **"there exists exactly one."** This condition rules out both *two outputs for one input* and *an input with no output*. Our illustrated $f$ happens to be a subset of the illustrated $R$, but a function need not be constructed by removing pairs from some previously chosen relation.
 
--   The **domain** of a relation is the set of all possible first
-    elements (inputs) in the ordered pairs.
+### Allowed elements versus elements actually used
 
--   The **codomain** (or target set) is the set of all possible second
-    elements (outputs) in the ordered pairs.
+There is a distinction worth making before we talk about domains and ranges elsewhere in the chapter.
 
--   The **range** is the set of *actual outputs* in the
-    relation, which is a subset of the codomain.
+For a relation **from $A$ to $B$**, $A$ and $B$ are the **specified source and target sets**: they say *which elements may appear* in a pair. The relation need not use all of them. Its **actual domain** is the set of first elements that *do* occur; its **range** is the set of second elements that *do* occur:
 
--   The **image** a relation, often used in the context of specific
-    subsets of the domain, is the set of actual outputs that the
-    relation produces when applied to a particular subset of its domain.
-    For a given subset of the domain, the image refers to the outputs
-    that the function generates from that subset.
+$$
+\begin{aligned}
+\operatorname{dom}(R)&:=\{a\in A\mid \exists b\in B,\ (a,b)\in R\},\\
+\operatorname{ran}(R)&:=\{b\in B\mid \exists a\in A,\ (a,b)\in R\}.
+\end{aligned}
+$$
 
-**In summary:**
+For example, with the same $A$ and $B$ as above, take $S:=\{(1,y),(1,z)\}$. Then $\operatorname{dom}(S)=\{1\}$ and $\operatorname{ran}(S)=\{y,z\}$, even though the specified source is $A=\{1,2,3\}$ and the target is $B=\{x,y,z\}$.
 
-**Domain**: All possible inputs.
-
-**Codomain**: All possible outputs (as defined for the function or
-relation).
-
-**Range**: The ***actual outputs produced by the
-relation*** over its entire domain (a subset of the
-codomain).
-
-**Image**: The set of actual outputs for a specific subset of inputs
-(may be the same as the range if considering the whole domain).
-
-2.  **Ordered Pairs**
-
--   An **ordered pair** (𝑎,𝑏) consists of two elements, where 𝑎 is from
-    the domain and 𝑏 is from the codomain. The order of elements
-    matters, meaning (𝑎,𝑏) ≠ (𝑏,𝑎) unless 𝑎 = 𝑏.
-
-3.  Types of Relation
-
--   **Function**: A special type of relation where each element in the
-    domain is associated with exactly one element in the codomain. For
-    every 𝑎 in the domain, there is a unique 𝑏 in the codomain such that
-    (𝑎,𝑏) is in the relation.
+For a **function $f:A\to B$**, the exactly-one-output requirement ensures $\operatorname{dom}(f)=A$; it does **not** require every element of $B$ to be reached. Reaching every target is the additional property called **surjectivity**.
 
 ### Properties of Relations
 
