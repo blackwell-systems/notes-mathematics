@@ -66,6 +66,8 @@ With this intuition in place, we can now state the formal definitions.
 
 A **relation** answers a question about two objects: *is the first related to the second?* The answer can be yes for some pairs and no for others. A relation does not, by itself, require every object to be paired, or impose any symmetry, ordering, or other rule.
 
+This is the [set–structure–axioms pattern](./set-theory#the-common-thread-set-structure-axioms) in its simplest form: **start with sets, choose a relation, then ask which additional axioms it satisfies.** An arbitrary selection of pairs is already a relation. Reflexivity, symmetry, and transitivity are *possible further properties*, not prerequisites for being a relation; imposing different combinations of them gives us equivalence relations, preorders, and orders.
+
 > [!definition] Binary relation (in set theory)
 > Let $A$ and $B$ be sets. Their [**Cartesian product**](./set-theory#cartesian-product) is the set of all possible **ordered pairs** with first element from $A$ and second element from $B$:
 >
