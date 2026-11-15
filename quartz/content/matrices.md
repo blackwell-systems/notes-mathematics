@@ -77,7 +77,9 @@ $$
 
 Or more compactly: $A = [a_{ij}]$ where $1 \leq i \leq m$ and $1 \leq j \leq n$
 
-![A three-by-four grid of cells labeled a-one-one through a-three-four, illustrating the parts of a matrix. The second row is shaded blue and labeled row i with i equals 2; the third column is shaded red and labeled column j with j equals 3; the single cell where they cross, a-two-three, is shaded purple and labeled the entry a-i-j equals a-two-three, meaning row 2, column 3. A caption notes this is a three by four matrix with 3 rows and 4 columns.](./media/mat-anatomy.png)
+![A 3 by 4 matrix with row 2 and column 3 highlighted, identifying the a23 entry.](./media/mat-anatomy.svg)
+
+*Figure: For aᵢⱼ, the first index chooses the row and the second index chooses the column.*
 
 The one thing beginners reverse: the **first** index is the row (how far *down*), the **second** is the column (how far *across*). This is the opposite order from $(x, y)$ coordinates, so $a_{23}$ is row 2, column 3, not "across 2, up 3."
 
@@ -126,7 +128,9 @@ $$3 \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} = \begin{bmatrix} 3 & 6 \\ 9 & 
 
 The result is a matrix $C$ of size $m \times p$.
 
-![Three labeled rectangles showing the dimension rule for matrix multiplication. Matrix A is drawn as a wide two-by-three block, matrix B as a tall three-by-two block, and the product C as a two-by-two block. A green double arrow links the inner dimensions, the 3 columns of A and the 3 rows of B, marked must match. A blue arrow spans the outer dimensions, showing they give the result size two by two. The rule is written as m by n times n by p equals m by p.](./media/mat-multiply-dims.png)
+![A 2 by 3 matrix times a 3 by 2 matrix gives a 2 by 2 result, because the inner dimensions agree.](./media/mat-multiply-dims.svg)
+
+*Figure: The inner dimensions must match for multiplication to be defined; the outer dimensions determine the shape of the result.*
 
 Before multiplying, always check the shapes: write the two sizes next to each other as $(m \times n)(n \times p)$. The **inner** numbers must be equal, or the product is undefined; the **outer** numbers become the size of the result.
 
@@ -159,11 +163,15 @@ Each entry still sums three products (one per inner index $k = 1, 2, 3$). Revers
 - **Distributive:** $A(B + C) = AB + AC$
 - **Identity:** $AI = IA = A$ (where $I$ is the identity matrix)
 
-![Matrix multiplication visual showing row times column to produce each entry](./media/matrix-multiplication.png)
+![Two two-by-two matrices multiply to a result with entries 19, 22, 43 and 50, with the first row-column dot product producing 19.](./media/mat-multiplication.svg)
+
+*Figure: Each entry of AB is a dot product between a row of A and a column of B: 1·5+2·7=19 in the top-left cell.*
 
 **Matrices as transformations.** When a matrix $A$ multiplies a column vector $\mathbf{x}$ (read "x-vector"), each output coordinate is a dot product of a row of $A$ with $\mathbf{x}$. Geometrically, a $2 \times 2$ matrix takes every point of the plane and moves it, so multiplication is the same as applying a linear transformation.
 
-![Five small coordinate grids, each showing the unit square (dashed) transformed by a different two-by-two matrix, with red and green arrows marking where the basis vectors i-hat and j-hat land. Identity, matrix [[1,0],[0,1]], leaves the square unchanged. Scale, matrix [[1.5,0],[0,0.5]], stretches it wider and shorter. Rotate 90 degrees, matrix [[0,-1],[1,0]], turns the square a quarter turn. Shear, matrix [[1,1],[0,1]], slants the top of the square sideways into a parallelogram. Reflect, matrix [[-1,0],[0,1]], flips the square across the vertical axis. In every panel the two columns of the matrix are exactly the landing spots of the two basis vectors.](./media/mat-transformations.png)
+![Five 2D matrix transformations of the unit square: identity, horizontal scaling, vertical scaling, shear, and reflection.](./media/mat-transformations.svg)
+
+*Figure: A 2×2 matrix specifies where the two unit basis vectors land; the transformed square follows from those two images.*
 
 The key to reading any $2 \times 2$ matrix geometrically: its **first column is where the basis vector $\hat\imath = (1,0)$ lands, and its second column is where $\hat\jmath = (0,1)$ lands.** Once you know where those two vectors go, the whole grid follows, because every point is just a combination of them.
 
@@ -215,7 +223,9 @@ If $A = [a_{ij}]$ is $m \times n$, then $A^T = [a_{ji}]$ is $n \times m$
 
 $$A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} \Rightarrow A^T = \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix}$$
 
-![A two-by-three matrix A with first row 1, 2, 3 shaded blue and second row 4, 5, 6 shaded red, alongside its transpose, a three-by-two matrix. An arrow labeled flip across the diagonal points from A to its transpose. In the transpose, the blue values 1, 2, 3 now form the first column and the red values 4, 5, 6 now form the second column, showing that row one of A became column one of A-transpose and row two became column two.](./media/mat-transpose.png)
+![A 2 by 3 matrix with numbers 1 to 6 becomes a 3 by 2 transpose, exchanging rows and columns.](./media/mat-transpose.svg)
+
+*Figure: Transposition swaps each entry's row and column positions.*
 
 **Properties:**
 - $(A^T)^T = A$
@@ -243,7 +253,9 @@ $$A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$$
 
 Where $ad - bc$ is the **determinant** of $A$.
 
-![Two panels giving the determinant a geometric meaning. The left panel shows the unit square (dashed) transformed into a parallelogram spanned by the two columns of a matrix, drawn as a red and a green arrow; the parallelogram's area is labeled the absolute value of the determinant, computed as the absolute value of 2 times 3 minus 1 times 1, which equals 5. The right panel shows a singular matrix whose two column arrows point along the same line, so the square collapses to a line segment of zero area, labeled columns parallel, area 0, determinant 2 times 2 minus 1 times 4 equals 0, singular with no inverse.](./media/mat-determinant-area.png)
+![One matrix with determinant 5 expands a unit square to an area-5 parallelogram; another with determinant 0 flattens it to a line.](./media/mat-determinant-area.svg)
+
+*Figure: The determinant measures signed area scaling; zero determinant means the transformed square has no area and the map is not invertible.*
 
 This is *why* a zero determinant means no inverse. Geometrically the determinant is the factor by which the transformation scales area. If it is zero, the matrix has flattened the plane onto a line (or a point), crushing two dimensions into one. No transformation can un-flatten that, so there is nothing to undo it, and $A^{-1}$ cannot exist.
 
@@ -284,7 +296,9 @@ $$
 
 Once the left block is $I$, the right block is $A^{-1} = \begin{bmatrix} 0.8 & -0.6 \\ -0.2 & 0.4 \end{bmatrix}$, exactly matching the formula. For a $3 \times 3$ or larger, where no compact formula exists, these are the *only* steps you need.
 
-![Three coordinate panels read left to right showing the inverse as an undo operation, for the matrix A equal to [[2,3],[1,4]] with determinant 5. The first panel shows the starting unit square. An arrow labeled times A leads to the second panel, where the square has been transformed into a slanted parallelogram. An arrow labeled times A inverse leads to the third panel, where the parallelogram has been transformed exactly back into the original unit square. The caption states that A inverse of A times x returns x.](./media/mat-inverse-undo.png)
+![The unit square becomes a parallelogram under a matrix and returns to the unit square under its inverse.](./media/mat-inverse-undo.svg)
+
+*Figure: Applying A and then A⁻¹ restores the original position of every point.*
 
 That is what "inverse" means: $A$ reshapes the square into a parallelogram, and $A^{-1}$ is the unique transformation that reshapes it back. Applying one and then the other returns every point to where it started, which is exactly the statement $A^{-1}A = I$.
 

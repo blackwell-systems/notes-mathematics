@@ -1,6 +1,6 @@
 # Proof-oriented mathematics diagrams
 
-This collection contains **174 original, source-editable SVG figures** placed directly beside the claims they explain across **38 proof-oriented chapters and reading maps**.
+This collection contains **203 original, source-editable SVG figures** placed directly beside the claims they explain across **38 proof-oriented chapters and reading maps**.
 
 Figures are **not general decoration**. Their meaning is in the adjacent mathematical statement, and their caption/alt text independently identifies the concept. The source uses the same dark-navy, muted-teal, violet, ochre and blue editorial palette as the rest of the mathematics site. Diagram colors are redundant with textual labels.
 
@@ -12,7 +12,11 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Mathematical Notations](./content/mathematical-notations.md) | 2 | anatomy of a quantified statement; why quantifier order changes meaning |
 | [Atlas of Mathematical Spaces](./content/atlas-of-mathematical-spaces.md) | 14 | independent structure branches; Sierpiński space as an open-set classifier; Banach/inner-product/Hilbert; structural taxonomy; affine/projective constructions; metric versus uniformity; function spaces; measures, manifolds, morphisms, forgetful functors, adjunctions and universal properties |
 | [Functions and Relations](./content/functions-relations.md) | 30 | consistent dark, source-editable diagrams for relations, properties, composition, closures, inverse relations, mappings, function types, plotting, fibers, countability and graph transformations |
-| [Linear Algebra Foundations](./content/linear-algebra-foundations.md) | 1 | the distinction between vectors, vector spaces, linear maps and coordinate-dependent matrices |
+| [Linear Algebra Foundations](./content/linear-algebra-foundations.md) | 7 | vector spaces versus maps and matrices; row versus column pictures, independence, correct orthogonal pairs of the four fundamental subspaces, projection, eigenvectors and SVD geometry |
+| [Linear Algebra Computation](./content/linear-algebra-computation.md) | 5 | three norm-unit-ball shapes; basis changes; conditioning; quadratic-form surfaces; explicit gradient descent |
+| [Matrices](./content/matrices.md) | 7 | row/column index anatomy; compatible dimensions; multiplication; five plane transformations; transpose, determinant area and inverses |
+| [Vectors](./content/vector.md) | 9 | free and position vectors; addition and subtraction; scaling, cross product, projections, force components and cosine similarity |
+| [Systems of Linear Equations](./content/systems-of-linear-equations.md) | 2 | one/infinite/no solution for two lines; a single three-plane intersection |
 | [Functional Analysis](./content/functional-analysis.md) | 1 | vanishing integral error versus persistent maximum error |
 | [Real Analysis](./content/real-analysis.md) | 6 | supremum and infimum; epsilon-N convergence; Cauchy tail comparisons; open balls; epsilon-delta continuity; pointwise versus uniform convergence |
 | [Complex Analysis](./content/complex-analysis.md) | 1 | contour winding around a pole and its effect on integrals |
@@ -47,7 +51,7 @@ Figures are **not general decoration**. Their meaning is in the adjacent mathema
 | [Compactness and Connectedness](./content/general-topology-compactness.md) | 8 | corrected subcover diagrams, noncompactness, compact–Hausdorff proof, connectedness and finite-intersection duality |
 
 
-The diagram file families are named with `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-`, `mn-`, `pl-`, `fa-`, `ca-`, `co-`, `ig-` and other topic prefixes; every image is linked from its teaching chapter.
+The diagram file families are named with `pa-`, `zi-`, `qr-`, `re-`, `cx-`, `gr-`, `rg-`, `ri-`, `ft-`, `ct-`, `tp-`, `mn-`, `pl-`, `fa-`, `ca-`, `co-`, `ig-` and the new `la-`, `lac-`, `mat-`, `vec-`, and `sle-` linear algebra families; every image is linked from its teaching chapter.
 
 ## Formal truth behind the pictures
 
@@ -68,10 +72,10 @@ npm run editorial:check
 node scripts/check-arithmetic.mjs
 ~~~
 
-`figures:check` verifies that all **174 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
+`figures:check` verifies that all **203 images** exist, are embedded exactly once in the intended chapter, have human-authored meaningful alternative text and nearby captions, and expose an SVG `<title>`, `<desc>`, and `viewBox`. It also checks that every chapter is present in the coverage manifest.
 
 The GitHub Pages workflow runs this structural gate before building the site. The arithmetic harness independently rechecks selected finite operations (e.g., modular units, quotient representative independence, CRT, F4 and F9 arithmetic). **These checks do not independently certify the mathematical proofs**, verify SVG appearance in browsers, or guarantee adequate visual/contrast behavior on every device.
 
-The six Real Analysis figures and 25 Functions & Relations figures replace their older PNG references with SVGs; the old PNG assets remain in the repository for now. The figures use the shared editorial palette and explicit textual labels instead of relying on color alone.
+The six Real Analysis figures, 30 Functions & Relations figures, and 29 upgraded linear algebra figures are editable SVGs. The linear algebra conversions span five topic pages; their old PNG assets remain in the repository for rollback. The figures use the shared editorial palette and explicit textual labels instead of relying on color alone.
 
 **Still to review:** mobile widths including 320/390 px, dark/light-theme contrast on neighboring page surfaces, keyboard navigation through the image lightbox, localized figure overflow, and browser screenshots. The diagram review status stays **pending** until those checks actually happen. All SVGs are text-and-shape based, so they remain resolution-independent and editable without fonts being embedded or shipped.

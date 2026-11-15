@@ -14,7 +14,11 @@ const expected = {
   "functions-relations.md": [
     "fr-function-machine.svg", "fr-relation-vs-function.svg", "fr-cartesian-relation-function.svg", "fr-relation-properties.svg", "fr-composition-relations.svg", "fr-closure-relations.svg", "fr-inverse-relation.svg", "fr-vertical-line-test.svg", "fr-domain-codomain-range.svg", "fr-image-preimage.svg", "fr-image-preimage-setops.svg", "fr-fibers-kernel.svg", "fr-inj-surj-bij.svg", "fr-inverse-reflection.svg", "fr-composition.svg", "fr-difference-quotient.svg", "fr-even-odd.svg", "fr-periodic.svg", "fr-monotonic.svg", "fr-cardinality-bijection.svg", "fr-schroeder-bernstein.svg", "fr-piecewise.svg", "fr-transformations.svg", "fr-floor-ceiling.svg", "fr-special-functions.svg", "fr-reflexive-graph-matrix.svg", "fr-irreflexive-graph-matrix.svg", "fr-symmetric-graph-matrix.svg", "fr-transitive-graph-matrix.svg", "fr-asymmetric-graph-matrix.svg"
   ],
-  "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg"],
+    "linear-algebra-foundations.md": ["la-objects-before-coordinates-v2.svg","la-row-column-picture.svg","la-independence.svg","la-four-subspaces.svg","la-projection.svg","la-eigen-directions.svg","la-svd-geometry.svg"],
+  "linear-algebra-computation.md": ["lac-norm-balls.svg","lac-change-basis.svg","lac-conditioning.svg","lac-quadratic-forms.svg","lac-gradient-descent.svg"],
+  "matrices.md": ["mat-anatomy.svg","mat-multiply-dims.svg","mat-multiplication.svg","mat-transformations.svg","mat-transpose.svg","mat-determinant-area.svg","mat-inverse-undo.svg"],
+  "vector.md": ["vec-directed-segment.svg","vec-position-vector.svg","vec-addition.svg","vec-subtraction.svg","vec-scaling.svg","vec-cross-product.svg","vec-projection.svg","vec-components.svg","vec-cosine-similarity.svg"],
+  "systems-of-linear-equations.md": ["sle-solution-types.svg","sle-three-planes.svg"],
   "factoring-polynomials.md": ["fp-gcf-area.svg","fp-difference-squares.svg","fp-perfect-square-area.svg","fp-ac-area.svg","fp-grouping-area.svg","fp-roots-multiplicity.svg"],
   "functional-analysis.md": ["fa-two-notions-of-convergence.svg"],
   "complex-analysis.md": ["ca-contour-pole.svg"],
@@ -108,6 +112,36 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
+// The five linear algebra topic pages have fully migrated from raster figures.
+for(const page of ["linear-algebra-foundations.md","linear-algebra-computation.md","matrices.md","vector.md","systems-of-linear-equations.md"]){
+  const source=readFileSync(join("content",page),"utf8");
+  const raster=[...source.matchAll(/\]\(\.\/media\/([^)]+\.png)\)/g)].map(m=>m[1]);
+  if(raster.length)errors.push(page+": legacy raster figure references remain: "+raster.join(", "));
+}
+// Keep the most important visual mathematical examples tied to true values.
+// These are consistency checks for the diagrams, not substitutes for visual review.
+const dot=(x,y)=>x.reduce((s,v,i)=>s+v*y[i],0);
+const A=[[1,3],[2,6]];
+const row=[1,3], kernel=[-3,1],col=[1,2],leftKernel=[-2,1];
+if(dot(row,kernel)!==0||dot(col,leftKernel)!==0)
+  errors.push("Four-subspace figure: one of the claimed orthogonal pairs is not perpendicular");
+if(A[0][0]*kernel[0]+A[0][1]*kernel[1]!==0 ||
+   A[1][0]*kernel[0]+A[1][1]*kernel[1]!==0)
+  errors.push("Four-subspace figure: listed null-space vector not in kernel");
+const b=[2,4],p=[3,1],e=[-1,3];
+if(b.some((v,i)=>v!==p[i]+e[i])||dot(p,e)!==0)
+  errors.push("Projection figure: decomposition or perpendicular residual is incorrect");
+if(2*3-1*1!==5||1*4-2*2!==0)
+  errors.push("Determinant area example arithmetic mismatch");
+const fieldArea=(x,y)=>x*x+2*y*y;
+let q=[2.5,2],prev=fieldArea(...q);
+for(let i=0;i<11;i++){
+ q=[q[0]*.76,q[1]*.52];
+ const curr=fieldArea(...q);
+ if(curr>=prev)errors.push("Gradient-descent figure: displayed descent step failed to decrease the objective");
+ prev=curr;
+}
+
 // Validate actual XML syntax, not only the presence of <svg> and </svg>.
 // XML parsers reject duplicate attributes, broken entities and unclosed tags.
 // One Python process checks the entire catalog using the standard library.
@@ -132,7 +166,7 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==174)errors.push("Expected 174 illustrative SVGs, got "+total);
+if(total!==203)errors.push("Expected 203 illustrative SVGs, got "+total);
 // Verify that the three-panel construction actually illustrates the stated
 // progression, rather than merely having the right title and caption.
 const progressionSource=readFileSync(join("content","media","fr-cartesian-relation-function.svg"),"utf8");

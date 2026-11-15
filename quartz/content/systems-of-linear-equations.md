@@ -83,7 +83,9 @@ A system of linear equations can have:
 - Lines are parallel (never intersect)
 - No point satisfies all equations
 
-![Three types of solutions: intersecting lines (one solution), same line (infinite solutions), parallel lines (no solution)](./media/system-solution-types.png)
+![Three systems graphed as intersecting lines, coincident lines, and parallel lines.](./media/sle-solution-types.svg)
+
+*Figure: Two lines can have exactly one shared point, infinitely many, or none.*
 
 ## Methods to Solve Systems of Linear Equations
 
@@ -592,7 +594,9 @@ These are parallel lines. No solution.
 
 ## Systems with More than Two Variables
 
-![Three semi-transparent planes in x-y-z space crossing at a single common point marked as the unique solution, with a caption noting that parallel planes give no solution and planes sharing a common line give infinitely many solutions](./media/sle-three-planes.png)
+![Three coordinate planes x=1, y=1, z=1 meet at the unique point (1,1,1).](./media/sle-three-planes.svg)
+
+*Figure: Three equations in three unknowns can define three planes whose common point solves the system.*
 
 With three variables, each equation is a plane in space rather than a line, and a solution is a point lying on all of them at once. Three planes can meet at a single point (unique solution), share a common line or plane (infinitely many), or have no common point (no solution).
 
