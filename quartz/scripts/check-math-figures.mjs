@@ -167,7 +167,8 @@ if (xmlRun.error) {
   errors.push("Invalid SVG XML:\n" + (xmlRun.stderr || "XML parser exited unsuccessfully").trim());
 }
 
-if(total!==203)errors.push("Expected 203 illustrative SVGs, got "+total);
+// 203 original illustrations plus 14 probability figures migrated to SVG.
+if(total!==217)errors.push("Expected 217 illustrative SVGs, got "+total);
 // Verify that the three-panel construction actually illustrates the stated
 // progression, rather than merely having the right title and caption.
 const progressionSource=readFileSync(join("content","media","fr-cartesian-relation-function.svg"),"utf8");
