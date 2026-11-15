@@ -343,7 +343,9 @@ Each equation defines a line in the $xy$-plane. The first line passes through th
 
 This is how most people first learn to think about systems of equations: draw the lines, find where they cross.
 
-![Row picture showing two intersecting lines, and column picture showing a linear combination of vectors reaching the target](./media/row-vs-column-picture.png)
+![The same system viewed as intersecting constraint lines and as a combination of matrix columns.](./media/la-row-column-picture.svg)
+
+*Figure: The row picture solves the equations by their intersection at (1,2); the column picture combines the columns with coefficients 1 and 2 to reach (0,3).*
 
 ### The Column Picture
 
@@ -473,7 +475,9 @@ No. $v_2 = 3v_1$, so $3v_1 - v_2 = 0$ gives a nontrivial solution. They are depe
 
 **Why it matters for ML:** In a dataset, linearly dependent features are redundant. If one feature is a linear combination of others, it adds no new information. This connects to dimensionality reduction and feature selection.
 
-![Independent vectors span all of R², dependent vectors only span a line](./media/linear-independence.png)
+![Independent vectors point in distinct directions and span the plane; dependent vectors lie on a single line.](./media/la-independence.svg)
+
+*Figure: The vectors (2,1) and (1,3) are independent; (1,1) and (3,3) are dependent because the latter is three times the former.*
 
 ## Vector Spaces and Subspaces
 
@@ -669,7 +673,9 @@ This means $\mathbb{R}^n$ splits cleanly into two perpendicular subspaces: the r
 
 **The orthogonality made concrete.** Collect the four subspaces of $A = \begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$ (rank $1$) worked out above: column space $= \text{Span}\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and left null space $= \text{Span}\begin{bmatrix} -2 \\ 1 \end{bmatrix}$ (both in $\mathbb{R}^2$, the output space); row space $= \text{Span}\begin{bmatrix} 1 \\ 3 \end{bmatrix}$ and null space $= \text{Span}\begin{bmatrix} -3 \\ 1 \end{bmatrix}$ (both in $\mathbb{R}^2$, the input space). The theorem's orthogonal-complement claim is now a one-line check: row space $\perp$ null space, $\begin{bmatrix} 1 \\ 3 \end{bmatrix}\cdot\begin{bmatrix} -3 \\ 1 \end{bmatrix} = -3 + 3 = 0$; and column space $\perp$ left null space, $\begin{bmatrix} 1 \\ 2 \end{bmatrix}\cdot\begin{bmatrix} -2 \\ 1 \end{bmatrix} = -2 + 2 = 0$. ✓
 
-![Column space and null space as perpendicular subspaces](./media/column-null-space.png)
+![Two separate coordinate plots show row space perpendicular to null space in the input, and column space perpendicular to left null space in the output.](./media/la-four-subspaces.svg)
+
+*Figure: Correct orthogonal pairs: Row(A) is perpendicular to Null(A) in the input space, while Col(A) is perpendicular to Null(Aᵀ) in the output space.*
 
 ### Why rank-nullity must be true
 
@@ -893,7 +899,9 @@ $$
 
 With $\det(A^T A) = 15 - 9 = 6$, solving gives $\hat x = \begin{bmatrix} C \\ D \end{bmatrix} = \begin{bmatrix} 5 \\ -3 \end{bmatrix}$, so the best-fit line is $y = 5 - 3t$. The fitted values are $A\hat x = \begin{bmatrix} 5 \\ 2 \\ -1 \end{bmatrix}$, and the residual $e = b - A\hat x = \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix}$ is orthogonal to both columns of $A$: it sums to $0$ (orthogonal to the all-ones column) and $e^T \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix} = -2 + 2 = 0$. That orthogonality of the residual to the column space is the defining property of the least-squares fit.
 
-![Projection of vector b onto line through a, showing the error vector perpendicular to a](./media/projection.png)
+![A vector b splits into its projection p onto a line and a residual e perpendicular to that line.](./media/la-projection.svg)
+
+*Figure: The example b=(2,4), p=(3,1), and e=(-1,3) satisfies b=p+e with p·e=0.*
 
 ## Determinants
 
@@ -1040,7 +1048,9 @@ The **spectral theorem** gives a stronger conclusion for real symmetric matrices
 - Real symmetric matrices always have real eigenvalues and orthogonal eigenvectors
 - If $A$ is symmetric, $A = Q \Lambda Q^T$ where $Q$ is orthogonal ($Q^{-1} = Q^T$), known as the **spectral theorem**
 
-![Eigenvectors maintain their direction under transformation A, while regular vectors change direction](./media/eigenvectors.png)
+![A diagonal matrix stretches one eigenvector, preserves another, and turns a generic vector to a different direction.](./media/la-eigen-directions.svg)
+
+*Figure: For A=diag(2,1), the coordinate-axis eigenvectors stay on their original lines; a generic vector (1,1) changes direction.*
 
 The interactive plot below shows a grid of points (blue) and the same grid after multiplication by the matrix $A = \begin{bmatrix} 3 & 1 \\ 1 & 2 \end{bmatrix}$ (red). The thick colored lines are the eigenvectors: directions along which the matrix only stretches, never rotates. The dotted unit circle transforms into an ellipse whose axes align with the eigenvectors.
 
@@ -1103,7 +1113,9 @@ $A$ acts on a vector in three steps:
 
 Any real finite-dimensional linear map thus factors into **orthogonal coordinate changes and axis scaling**. An orthogonal transformation need not be a pure rotation.
 
-![SVD decomposes a linear map into orthogonal input and output changes plus axis scaling: the unit circle becomes an ellipse](./media/svd-geometry.png)
+![The steps V transpose, diagonal singular-value scaling, and U take a unit circle through reorientation and stretching to a rotated ellipse.](./media/la-svd-geometry.svg)
+
+*Figure: SVD separates orthogonal changes of coordinates from the singular-value scaling that turns a circle into an ellipse.*
 
 <iframe src="/static/interactive/svd-sphere-to-ellipsoid.html" width="100%" height="550" style="border:none;"></iframe>
 
