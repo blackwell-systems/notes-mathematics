@@ -19,7 +19,17 @@ A **vector space** is a collection $V$ of objects (called **vectors**) on which 
 
 ### What makes a map linear?
 
-A **map** is another word for a **function**: it takes an input and assigns an output. A **linear map** (also called a **linear transformation**) $T:V\to W$ (read "T from V to W") takes **a whole vector** from vector space $V$ and returns **a whole vector** in vector space $W$. The spaces may be the same or different.
+**Map**, **mapping**, and **function** mean the **same thing in this context**; these are different names for one mathematical concept, not different types of objects. A function assigns **exactly one output to every input in its specified domain**. When we say that a function *maps* an input to an output, we mean it assigns that output to the input. See [Functions & Relations](./functions-relations#function) for the full definition.
+
+For a map $T:V\to W$ (read "$T$ from $V$ to $W$"), the vector space $V$ is its **domain** and $W$ is its **codomain**. For **every whole vector** $v\in V$, there is **exactly one** output vector $T(v)\in W$. We write
+
+$
+v\mapsto T(v)
+$
+
+and read this "$v$ maps to $T(v)$." The notation $T:V\to W$ names the function and its domain and codomain; $v\mapsto T(v)$ describes what happens to an individual input. Different inputs *may* have the same output, and the two vector spaces may be the same or different.
+
+A **linear map** (also called a **linear transformation**) is simply a **function between vector spaces with additional requirements**: it must respect vector addition and scalar multiplication. The word *linear* describes those additional properties; it does not change what a function or map is.
 
 Not every function between vector spaces is linear. To earn that name, $T$ must **preserve the two vector-space operations**:
 
