@@ -25,7 +25,10 @@ The goal of this guide is to learn to look at an unfamiliar space and ask:
 
 These questions let you navigate from elementary sets to the spaces of modern analysis and geometry without confusing one kind of structure with another.
 
-**The recurring thread is set + structure + axioms.** An underlying set supplies the objects, chosen relations or operations give them additional structure, and axioms say which general results apply. This is a common construction, not a compulsory sequence: quotients can change the elements themselves, and [point-free topology](#topology-without-starting-from-points-frames-and-locales) can begin with open-set algebra. See [the side-by-side comparison in Set Theory](./set-theory#the-common-thread-set-structure-axioms).
+> [!important] The recurring thread: set + structure + axioms
+> An underlying set supplies the objects. Chosen relations, operations, or distinguished subsets give those objects additional structure. Axioms determine which general results apply.
+
+This is a common construction, not a compulsory sequence: quotients can change the elements themselves, and [point-free topology](#topology-without-starting-from-points-frames-and-locales) can begin with open-set algebra. See [the side-by-side comparison in Set Theory](./set-theory#the-common-thread-set-structure-axioms).
 
 **Want to transfer a specific idea between fields?** The companion [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) works through explicit examples—including quotients, Lyapunov-style descent, cohomological cycle obstructions, cross-entropy, and **conditional expectation as orthogonal projection**—and explains which parts of each analogy really carry over. This atlas classifies **structures**; the bridges page tracks **reusable constructions and proofs**.
 
