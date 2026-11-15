@@ -112,7 +112,16 @@ An [equivalence relation](./equivalence-relations) declares when elements count 
 
 The construction and its [well-defined mapping property](./equivalence-relations#when-does-a-function-descend-to-classes) are developed in **Equivalence Relations and Quotients**.
 
-A [partial order](./order-theory) $\,\leq\,$ is reflexive, antisymmetric, and transitive. It makes “at most” or “precedes” meaningful without assigning a distance. A **lattice** is a poset in which every pair has a greatest lower bound (meet) and least upper bound (join). A **complete lattice** has meets and joins of **all subsets**, including the empty subset.
+A [partial order](./order-theory) $\preceq$ is reflexive, antisymmetric, and transitive. A **total order** additionally requires that every pair of elements be comparable: for any $a,b$, either $a\preceq b$ or $b\preceq a$. A partial order may leave some pairs incomparable.
+
+> [!important] Order tells us which comes before, not how far apart
+> A partial or total order specifies **comparisons between elements**, not numerical distances, gap sizes, or amounts of difference. **Even a total order only guarantees that every pair can be compared.** It does not say how far apart two elements are. A partial order does not even require every pair to be comparable.
+>
+> **Tiny example:** Let $A:=\{1,2,3\}$ and $B:=\{1,2,100\}$, each with the usual order on numbers. Both have the same **order pattern**: first $<$ middle $<$ last. The function sending $1\mapsto1$, $2\mapsto2$, and $3\mapsto100$ preserves that order in both directions. But with ordinary numerical distance, the final gaps are $3-2=1$ in $A$ and $100-2=98$ in $B$.
+>
+> The order relations alone cannot distinguish those gaps. The distances come from **additional arithmetic or metric structure** on the numbers, not from the ordering itself. **Order is about relative position; a metric is about measured separation.**
+
+A **lattice** is a poset in which every pair has a greatest lower bound (meet) and least upper bound (join). A **complete lattice** has meets and joins of **all subsets**, including the empty subset.
 
 > [!proof] Complete lattices have a top and bottom element
 > By definition the join $\bigvee\varnothing$ exists. The universal property of this join means it lies below every element, since every element is (vacuously) an upper bound for the empty set; hence it is the least element $\bot$. Dually $\bigwedge\varnothing$ is the greatest element $\top$.
