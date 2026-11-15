@@ -17,15 +17,15 @@ A **vector space really does have an underlying set** $V$. Its members are calle
 
 **Here is the actual set in a familiar example:**
 
-$
+$$
 \boxed{V:=\mathbb R^2=\{(x,y)\mid x\in\mathbb R,\ y\in\mathbb R\}.}
-$
+$$
 
 This says $V$ contains **every ordered pair of real numbers**. For instance, $(0,0)$, $(2,1)$, $(0,3)$, and $(-4,\pi)$ are *elements* of $V$. This short list is **not the entire vector space**: $\mathbb R^2$ contains infinitely many vectors. With ordinary componentwise operations,
 
-$
+$$
 (x,y)+(a,b):=(x+a,y+b),\qquad c(x,y):=(cx,cy)\quad(c\in\mathbb R),
-$
+$$
 
 the results are again members of $\mathbb R^2$. Closure is necessary, but the other vector-space axioms must hold too.
 
@@ -34,9 +34,9 @@ the results are again members of $\mathbb R^2$. Closure is necessary, but the ot
 > [!example] A vector space small enough to list completely
 > Not every vector space is infinite. Let $F:=\mathbb F_2=\{0,1\}$, the field where arithmetic is done **modulo 2**, so $1+1=0$. Then
 >
-> $
+> $$
 > V:=\mathbb F_2^2=\{(0,0),(0,1),(1,0),(1,1)\}.
-> $
+> $$
 >
 > **Those four pairs are the entire set $V$.** With componentwise addition and scalar multiplication modulo 2, they form a vector space over $\mathbb F_2$. For example, $(1,1)+(1,0)=(0,1)$.
 >
