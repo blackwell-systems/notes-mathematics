@@ -67,7 +67,7 @@ With this intuition in place, we can now state the formal definitions.
 A **relation** answers a question about two objects: *is the first related to the second?* The answer can be yes for some pairs and no for others. A relation does not, by itself, require every object to be paired, or impose any symmetry, ordering, or other rule.
 
 > [!definition] Binary relation (in set theory)
-> Let $A$ and $B$ be sets. Their **Cartesian product** is the set of all possible **ordered pairs** with first element from $A$ and second element from $B$:
+> Let $A$ and $B$ be sets. Their [**Cartesian product**](./set-theory#cartesian-product) is the set of all possible **ordered pairs** with first element from $A$ and second element from $B$:
 >
 > $$
 > A\times B:=\{(a,b)\mid a\in A,\ b\in B\}.
@@ -76,7 +76,7 @@ A **relation** answers a question about two objects: *is the first related to th
 > A **binary relation from $A$ to $B$** is **any set of such pairs**:
 >
 > $$
-> \boxed{R\subseteq A\times B.}
+> \boxed{R\subseteq A\times B}
 > $$
 >
 > The symbol $\subseteq$ says that **every pair in $R$ belongs to $A\times B$**. It does **not** say that $R$ contains every possible pair. Both $R=\varnothing$ (no pairs) and $R=A\times B$ (all pairs) are valid relations.
@@ -94,6 +94,8 @@ These are **two ways to state the same fact**: the *ordered pair* $(a,b)$ is an 
 - $R\subseteq A\times B$ compares **two sets**: a chosen relation and the full set of possibilities.
 - $(a,b)\in R$ checks whether **one ordered pair belongs to the relation**.
 - $aRb$ is **shorthand** for that membership statement, not a new operation or a numerical comparison.
+
+**A pair can be possible without being selected.** Membership $(a,b)\in A\times B$ says only that $a$ and $b$ are eligible first and second elements; $(a,b)\in R$ says the relation actually holds for them.
 
 The order of the pair matters: $(a,b)$ and $(b,a)$ generally express different comparisons. A relation **on $A$** is the special case where both elements come from the same set: $R\subseteq A\times A$.
 
