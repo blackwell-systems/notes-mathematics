@@ -30,7 +30,7 @@ Much of mathematics, science, and everyday life involves understanding how one q
 
 Before we define functions formally, we need a broader concept: the **relation**.
 
-**Relation (informal):** A relation records **which pairs of objects are associated**. We may list the pairs directly or describe them with a condition, such as "is the capital of" for cities and countries (Ottawa with Canada, Tokyo with Japan). A rule is one way to specify a relation, **not a requirement**.
+**Relation (informal):** A relation records **which pairs of objects are associated**. We can construct one simply by **choosing pairs arbitrarily**, without following any rule. That is mathematically valid, but without an interpretation such a selection usually tells us little. Relations become more informative when the pairs express a property, observation, or connection we care about—for example, "is the capital of" relates cities to countries (Ottawa to Canada, Tokyo to Japan). Arbitrarily chosen relations can still be useful for testing definitions and constructing counterexamples.
 
 **Function (informal):** A function is a special kind of relation where each input is paired with exactly one output. If you input a specific time into a temperature function, you get back one temperature, not two or three.
 
@@ -100,7 +100,7 @@ These are **two ways to state the same fact**: the *ordered pair* $(a,b)$ is an 
 The order of the pair matters: $(a,b)$ and $(b,a)$ generally express different comparisons. A relation **on $A$** is the special case where both elements come from the same set: $R\subseteq A\times A$.
 
 > [!distinction] Defining a relation is not the same as generating every pair
-> You can specify a relation by **listing selected pairs**, or by giving a **condition** that decides membership (for example, $aRb$ exactly when $a<b$ on a set of numbers). The condition is optional: an arbitrary selection already defines a valid relation. **You do not have to enumerate $A\times B$ first.**
+> You can specify a relation by **listing selected pairs**, or by giving a **condition** that decides membership (for example, $aRb$ exactly when $a<b$ on a set of numbers). The condition is optional: **an arbitrary selection already defines a valid relation**, although it need not carry an interesting interpretation. **You do not have to enumerate $A\times B$ first.**
 >
 > In the set-theoretic framework used here, a binary relation **is defined as a set of ordered pairs**, hence a subset of a Cartesian product. This is an exact mathematical definition, not merely a picture or an implementation trick. Other foundational approaches can take relations as primitive concepts instead; that does not change the definition adopted in this chapter.
 
