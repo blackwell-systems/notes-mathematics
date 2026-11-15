@@ -18,7 +18,7 @@ Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to cho
 
 Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to choose 3 of them to form a team. How many different teams are possible?
 
-At first, you might count ordered selections. Using [permutations](permutation.md), there are $P(5,3) = 5 \times 4 \times 3 = 60$ ways to pick 3 people in order. But a team is not an ordered arrangement. The team {Alice, Bob, Carol} is the same team as {Carol, Alice, Bob}; the order you list them does not matter.
+At first, you might count ordered selections. Using [permutations](./permutation), there are $P(5,3) = 5 \times 4 \times 3 = 60$ ways to pick 3 people in order. But a team is not an ordered arrangement. The team {Alice, Bob, Carol} is the same team as {Carol, Alice, Bob}; the order you list them does not matter.
 
 So how many times has each team been counted? Every group of 3 people can be arranged in $3! = 3 \times 2 \times 1 = 6$ different orders. That means each unique team appears 6 times in the 60 ordered selections.
 
@@ -33,6 +33,19 @@ There are 10 possible teams. The key insight is: **when order does not matter, d
 ![A diagram showing why a combination divides the ordered count by r factorial. On the left, a box lists the six orderings of the same three people A, B, C: ABC, ACB, BAC, BCA, CAB, CBA. A large arrow labeled order does not matter points right to a single set brace-A comma B comma C, one team. Below, the arithmetic reads: P of 5,3 equals 5 times 4 times 3 equals 60 ordered selections, divided by 3 factorial equals 6 orderings per team, giving the boxed result C of 5,3 equals 60 over 6 equals 10 teams.](./media/comb-choose-divide.png)
 
 The picture is the whole idea of a combination in one glance: the $60$ ordered selections fall into groups of $6$ (the $3!$ ways to reorder each team), and collapsing each group to a single unordered team leaves $60/6 = 10$.
+
+> [!tip] Connection to equivalence relations: forgetting order
+> This is exactly the idea behind [equivalence classes and quotients](./equivalence-relations). Start with the set of all **ordered selections of $r$ distinct objects**. Declare two selections equivalent, written $s\sim t$, precisely when they contain the **same selected objects**, regardless of their order.
+>
+> For instance, $(A,B,C)\sim(C,A,B)$, but $(A,B,C)\not\sim(A,B,D)$. The equivalence class of $(A,B,C)$ consists of all six orderings of those three people. **One class = one team = one combination.**
+>
+> Every class contains exactly $r!$ ordered selections, because the $r$ selected objects are distinct and can be rearranged in $r!$ ways. Thus the set of combinations is the **quotient set** of ordered selections under this equivalence relation, and
+>
+> $
+> \binom nr=\frac{P(n,r)}{r!}.
+> $
+>
+> We have **kept which objects were chosen while deliberately forgetting their order**. This is the same mathematical move we used when constructing quotient sets: treat distinct objects as equivalent for a specified purpose. The division by $r!$ works here because every equivalence class has the same size; that need not hold for counting problems with repeated or indistinguishable objects.
 
 **Combination:** A combination refers to a selection of items from a larger set, where the **order does not matter**. Unlike permutations, where order is important, combinations consider only which items are selected, not the arrangement.
 
