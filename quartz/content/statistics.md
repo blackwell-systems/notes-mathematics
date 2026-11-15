@@ -18,6 +18,23 @@ Statistics has two classical halves, plus a modern third, and this site gives ea
 
 The foundational vocabulary below, data types, populations versus samples, and how *good* data is produced, underlies all three.
 
+## What mathematical structures does statistics use?
+
+Statistics is **not a new kind of space with one universal set of axioms**. It builds on several structures, and the right one depends on the question.
+
+Start with a **probability space** $(\Omega,\mathcal F,P)$, which models possible outcomes, measurable events, and their probabilities. A **random variable** is a measurable function $X:\Omega\to E$ taking outcomes to values in a **data space** $E$. A categorical variable might take values in a finite set of labels; a real-valued measurement might take values in $\mathbb R$; a multivariate observation may lie in $\mathbb R^d$. Each data space is equipped with an appropriate sigma-algebra so that events about its values are measurable.
+
+A statistical study commonly adds **observations** $X_1,\ldots,X_n$, a **statistic** $T(X_1,\ldots,X_n)$ (a measurable function of the sample), and a **model** $\{P_\theta:\theta\in\Theta\}$ indexed by a **parameter space** $\Theta$. The model describes possible data-generating distributions, while inference uses observed values to learn about the unknown parameter or make predictions. Independence and identical distribution are *additional assumptions*, not automatic consequences of defining random variables.
+
+> [!example] Three coin flips: probability becomes statistics
+> Let $\Omega:=\{HHH,HHT,HTH,THH,HTT,THT,TTH,TTT\}$, let $\mathcal F:=\mathcal P(\Omega)$, and assign each outcome probability $1/8$ for three independent fair flips.
+>
+> For $i\in\{1,2,3\}$ define $X_i(\omega)=1$ if flip $i$ is heads and $0$ otherwise. The **statistic** $T:=X_1+X_2+X_3$ counts heads, so $T:\Omega\to\{0,1,2,3\}$.
+>
+> The fair-coin model predicts $P(T=2)=3/8$, because exactly $HHT$, $HTH$ and $THH$ produce two heads. If the coin's head probability $p$ is instead **unknown**, the family of binomial models indexed by $p\in[0,1]$ lets us use an observed value of $T$ to estimate $p$. **Predicting $T$ from known $p$ is probability; learning about $p$ from observed $T$ is statistics.**
+
+**Structures are not interchangeable.** Nominal variables support equality but have no intrinsic order; **ordinal variables** support ranking but not numerical distances between ranks; quantitative variables may support meaningful differences and arithmetic. A [partial or total order](./order-theory) does not by itself supply a [metric](./atlas-of-mathematical-spaces). A **topology** is useful for continuity and convergence, a **measure** assigns probabilities, and **vector spaces** allow means, covariances and linear models when their assumptions are appropriate. See the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) for how these structures relate, and [Measure Theory](./measure-theory) for the probability-space foundations.
+
 ## What Is Data?
 
 Before doing statistics, we need to be precise about what we are working with.

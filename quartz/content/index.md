@@ -173,11 +173,15 @@ Topology generalizes the open sets of real and metric analysis to spaces with **
 
 ## Combinatorics & Probability
 
+Probability begins with a **set of possible outcomes**, a **sigma-algebra of measurable events**, and a **probability measure** that assigns each event a consistent likelihood. Counting is a convenient way to compute probabilities when outcomes are equally likely, but probability is more general than counting. The [Probability](./probability) chapter constructs a complete example and connects these structures to [Set Theory](./set-theory), [Measure Theory](./measure-theory), and the [Atlas](./atlas-of-mathematical-spaces).
+
 - [Permutations](./permutation) (arrangements, factorial, with repetition)
 - [Combinations](./combination) (selections, binomial coefficients, Pascal's triangle)
 - [Probability](./probability) (axioms, Bayes' theorem, distributions, CLT)
 
 ## Statistics
+
+Statistics builds on those probability spaces and adds **observed random variables, datasets, statistics, and models** for inference. The kind of data matters: nominal values are categories, ordinal values can be ranked without measured gaps, and quantitative values may support numerical operations. The [Statistics](./statistics) introduction shows how probability becomes statistical inference, using three coin flips as one complete example.
 
 - [Statistics](./statistics) (the hub: data types, populations vs samples, producing good data)
 - [Descriptive Statistics](./descriptive-statistics) (central tendency, spread, visualization)

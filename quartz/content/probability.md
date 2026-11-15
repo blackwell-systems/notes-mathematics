@@ -11,9 +11,38 @@ enables: ["statistics", "information-theory", "bayesian-inference"]
 
 Probability is the mathematical framework for reasoning about uncertainty. It quantifies how likely events are, and provides the foundation for statistics, machine learning, and decision-making under uncertainty. This page builds directly on [combinatorics](./combination) (counting how many ways things can happen) and extends it to measuring how likely they are.
 
+## The mathematical structures behind probability and statistics
+
+Before computing probabilities, it helps to identify **what kind of mathematical space we are working with**. Probability does not start with a numerical distance, a ranking, or a vector space. It begins with a set of possible outcomes, specifies which subsets are events, and assigns probabilities to those events.
+
+| Structure | What it supplies | Why we need it |
+| --- | --- | --- |
+| **Set** $\Omega$ | The possible outcomes $\omega$ | Specifies what can happen; see [Set Theory](./set-theory) |
+| **Measurable space** $(\Omega,\mathcal F)$ | A **sigma-algebra** $\mathcal F$: a collection of event subsets closed under complements and countable unions | Specifies **which events can be assigned probabilities**; see [Measure Theory](./measure-theory#sigma-algebras) |
+| **Probability space** $(\Omega,\mathcal F,P)$ | A **measure** $P$ with $P(\Omega)=1$ | Assigns consistent probabilities to measurable events |
+| **Random variable** $X:\Omega\to E$ | A **measurable function** into a measurable value space $(E,\mathcal E)$ | Turns an outcome into a number, category, vector, or another observed value; see [Functions and Relations](./functions-relations) |
+| **Probability distribution** $P_X$ | The probability induced on possible values of $X$ | Makes statements such as $P(X=2)$ or $P(X\leq x)$ precise |
+
+A sigma-algebra is not merely an arbitrary collection of subsets: it contains $\Omega$ (and therefore $\varnothing$), and is closed under complements and **countable** unions. A probability measure is nonnegative and **countably additive** on disjoint events. Those axioms make $(\Omega,\mathcal F,P)$ a probability space.
+
+> [!example] One complete probability space: a fair die
+> **Set:** $\Omega:=\{1,2,3,4,5,6\}$.
+>
+> **Events:** $\mathcal F:=\mathcal P(\Omega)$, the power set, so every subset is an allowed event. For a finite set this is a sigma-algebra.
+>
+> **Measure:** For each $A\in\mathcal F$, define $P(A):=|A|/6$. The empty event has probability zero, the whole space has probability one, and disjoint events have probabilities that add. Since there are only six outcomes, at most six disjoint events can be nonempty, so **countable additivity** follows as well.
+>
+> **Random variable:** Let $X:\Omega\to\{0,1\}$ be $X(\omega)=1$ when $\omega$ is even and $0$ otherwise. Then $P(X=1)=P(\{2,4,6\})=3/6=1/2$.
+>
+> This is **set + event structure + probability axioms + a measurable function**, with every ingredient specified.
+
+**What is not automatically present?** A probability space need not have a preferred **order, metric, topology, or vector-space structure** on its outcomes. Some applications add them: real-valued variables use the Borel sigma-algebra on $\mathbb R$, continuous models often use integration, and multivariate statistics uses vector spaces and linear algebra. A measurable space does not require a metric.
+
+**Where statistics enters:** Probability studies what a specified model predicts. Statistics uses **observed data**, together with a probabilistic model and its assumptions, to estimate unknown quantities, compare hypotheses, or make predictions. It often studies a family of distributions $\{P_\theta:\theta\in\Theta\}$, where $\Theta$ is a **parameter space**. See [Statistics](./statistics) and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) for the larger structural picture.
+
 ## What Is Probability?
 
-**Probability:** A number between 0 and 1 that measures the likelihood of an event occurring. A probability of 0 means the event is impossible; a probability of 1 means the event is certain.
+**Probability:** For a specified event, a number between 0 and 1 that measures its likelihood under a chosen probability model. In a finite model where every individual outcome has positive probability, probability 0 means the event is impossible and probability 1 means it is certain. **In general, an event with probability 0 need not be empty, and an event with probability 1 need not equal the entire sample space.** For example, choosing uniformly from $[0,1]$ assigns probability zero to any particular point, even though some point is always chosen.
 
 There are two major interpretations of what probability "means":
 
@@ -23,7 +52,9 @@ There are two major interpretations of what probability "means":
 
 Both interpretations use the same math. The difference is philosophical, but it matters when you get to statistics and ML, where Bayesian methods (priors, posteriors) and frequentist methods (p-values, confidence intervals) take different approaches to the same problems.
 
-![A line graph illustrating the frequentist interpretation. The horizontal axis is the number of coin flips n from 1 to 500, and the vertical axis is the proportion of heads so far from 0 to 1. A blue jagged curve starts wildly variable for small n, swinging between roughly 0.2 and 0.6, then settles down and hugs a red dashed line at 0.5 as n grows. Annotations mark early on wildly variable near the left and converges as n grows near the right. The title says the long-run frequency settles toward P of heads equals 0.5.](./media/prob-frequentist-convergence.png)
+![One simulated fair-coin sequence of 500 flips, showing the running proportion of heads fluctuating around the true probability one half. The tendency to settle is a long-run result; a finite sequence need not approach smoothly.](./media/prob-frequentist-convergence.svg)
+
+*Figure: A fair coin has probability one-half of heads. The running frequency in a finite sample fluctuates, particularly early on; the law of large numbers explains its long-run behavior.*
 
 ## Sample Spaces, Events, and Outcomes
 
@@ -53,7 +84,9 @@ $$
 
 This is where [combinatorics](./combination) connects directly: counting $|E|$ and $|S|$ often requires permutations and combinations.
 
-![Two side-by-side sample-space diagrams. On the left, one die roll: six rounded boxes labelled 1 through 6, with the even outcomes 2, 4, and 6 shaded blue as the event E and the odd outcomes 1, 3, 5 left grey; below it reads S equals the set 1 through 6, E equals the set 2, 4, 6, and P of E equals the size of E over the size of S equals 3 over 6 equals one half. On the right, two coin flips: four boxes HH, HT, TH, TT, with HH, HT, TH shaded green as the event at least one head and TT left grey, giving P of at least one head equals 3 over 4. The caption reads: a probability is the size of an event relative to the whole sample space.](./media/prob-sample-space-event.png)
+![Two finite sample spaces with event outcomes highlighted: even results among six equally likely die faces, and at least one head among four equally likely outcomes of two coin flips.](./media/prob-sample-space-event.svg)
+
+*Figure: For equally likely outcomes, $P(E)=|E|/|\Omega|$. The highlighted events have probabilities $3/6$ and $3/4$ respectively.*
 
 **Example:** What is the probability of drawing 2 aces from a standard 52-card deck (drawing 2 cards)?
 
@@ -73,13 +106,13 @@ All of probability theory is built on three axioms, proposed by Andrey Kolmogoro
 
 **Axiom 2 (Normalization):** $P(S) = 1$. Something in the sample space must happen.
 
-**Axiom 3 (Additivity):** For mutually exclusive events $A$ and $B$ (they cannot both occur):
+**Axiom 3 (Countable additivity):** For any **countable sequence of pairwise disjoint events** $A_1,A_2,\ldots$ in $\mathcal F$,
 
-$$
-P(A \cup B) = P(A) + P(B)
-$$
+$
+P\left(\bigcup_{n=1}^{\infty}A_n\right)=\sum_{n=1}^{\infty}P(A_n).
+$
 
-Here $A \cup B$ (read "A union B," or "A or B") is the event that $A$ or $B$ occurs.
+For two mutually exclusive events $A$ and $B$ this implies $P(A\cup B)=P(A)+P(B)$. The symbols $A\cup B$ mean "A or B." The countable version is the defining axiom; the two-event formula is a special case.
 
 From these axioms, you can derive everything else:
 
@@ -87,7 +120,9 @@ From these axioms, you can derive everything else:
 - $P(A^c) = 1 - P(A)$ (the complement rule; $A^c$ means "not $A$")
 - For any two events: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (inclusion-exclusion), where $A \cap B$ (read "A intersect B," or "A and B") is the event that both $A$ and $B$ occur
 
-![Two Venn-style panels illustrating Kolmogorov's axioms. On the left, the complement rule: a grey square is the whole sample space with total area equal to P of S equals 1, a blue ellipse inside it is the event A, and the surrounding grey region is its complement A-complement, with the equation P of A plus P of A-complement equals 1. On the right, additivity for disjoint events: the same square holds two non-overlapping ellipses, a blue A and a red B that cannot both occur, with P of A union B equals P of A plus P of B. The caption notes that areas are non-negative, the whole space has area 1, and disjoint areas add.](./media/prob-axioms-complement.png)
+![Two event-set diagrams: on the left, A and its complement exhaust the sample space; on the right, two disjoint events A and B have probabilities that add.](./media/prob-axioms-complement.svg)
+
+*Figure: Complements partition the sample space, and disjoint events add. The regions are schematic: their drawn geometric areas do not encode numerical probabilities.*
 
 The complement rule is especially useful. If it is hard to compute $P(A)$ directly, compute $P(A^c)$ and subtract from 1.
 
@@ -129,7 +164,9 @@ Read $P(A|B)$ as "the probability of A given B" (the bar $|$ is read "given").
 
 The intuition: once you know $B$ happened, the sample space shrinks to just the outcomes in $B$. You then ask what fraction of those outcomes also belong to $A$.
 
-![A Venn diagram for conditional probability. Inside a square labelled S for the sample space, a blue circle A on the left overlaps a green circle B on the right, and their overlap is labelled A intersect B. The caption explains that given B, the sample space shrinks to just B, and gives the formula P of A given B equals P of A intersect B over P of B, described as the share of B that also lies in A.](./media/prob-conditional.png)
+![Overlapping sets A and B inside a sample space, with the actual intersection highlighted, showing that conditioning on B measures the probability of the overlap relative to B.](./media/prob-conditional.svg)
+
+*Figure: Conditioning changes the reference population to $B$: $P(A\mid B)=P(A\cap B)/P(B)$ when $P(B)>0$. The drawn areas are schematic.*
 
 **Example:** A bag has 3 red and 2 blue marbles. You draw one marble (without replacement), and it is red. What is the probability the second marble is also red?
 
@@ -189,7 +226,9 @@ As with conditional probability, this requires $P(B) > 0$ so the denominator is 
 - $P(A)$: **Prior.** Your belief about $A$ before seeing any evidence.
 - $P(B)$: **Evidence (marginal likelihood).** The total probability of observing $B$ under all possible hypotheses. This acts as a normalizing constant.
 
-![Bayes' theorem: prior, likelihood, and posterior](./media/bayes-theorem-visualization.png)
+![Natural-frequency Bayes diagram of ten thousand people: one hundred have a disease, ninety-five of them test positive, and nine hundred ninety healthy people test positive, yielding a posterior of about eight-point-eight percent.](./media/bayes-theorem-visualization.svg)
+
+*Figure: The medical-testing example uses the chapter's actual inputs: of 1,085 positive tests, only 95 are true positives. Thus $P(D\mid +)=95/1085\approx8.76\%$. The base rate and false-positive count matter.*
 
 ### Worked Example: Medical Testing
 
@@ -276,7 +315,9 @@ The PDF must satisfy:
 
 **Cumulative distribution function (CDF):** $F(x) = P(X \leq x)$. The CDF works for both discrete and continuous variables and gives the probability that $X$ is at most $x$.
 
-![Three panels contrasting the ways a distribution is described: a discrete PMF drawn as stems at 0, 1, 2, 3 with heights one-eighth, three-eighths, three-eighths, one-eighth for the number of heads in three coin flips; a continuous PDF drawn as a bell curve with the area between a and b shaded to show that probability is area under the curve; and a CDF drawn as an S-shaped curve rising monotonically from 0 to 1](./media/prob-pmf-pdf-cdf.png)
+![Three distinct probability charts: a discrete PMF for heads in three coin flips, a continuous bell-shaped PDF with probability area shaded, and a smooth cumulative distribution function increasing toward one.](./media/prob-pmf-pdf-cdf.svg)
+
+*Figure: A PMF assigns probability to individual values; a PDF assigns probability through area; the CDF accumulates probability to the left and is defined for both discrete and continuous variables.*
 
 The three pictures capture the key contrast: a discrete variable places lumps of probability at individual points (the PMF), a continuous variable spreads probability as area under a curve (the PDF, where any single point has probability zero), and the CDF accumulates that probability from the left and works for both.
 
@@ -369,7 +410,9 @@ $$
 - **Negative skewness ($\gamma_1 < 0$):** The left tail is longer. The mean is pulled to the left of the median. Examples: exam scores on an easy test (most students score high, a few score very low).
 - **Zero skewness ($\gamma_1 = 0$):** The distribution is symmetric about the mean. Examples: normal distribution, uniform distribution.
 
-![Skewness: left-skewed, symmetric, and right-skewed distributions](./media/skewness-examples.png)
+![Three schematic distribution curves showing a longer left tail, symmetric tails, and a longer right tail, with mean and median reference lines.](./media/skewness-examples.svg)
+
+*Figure: Skewness describes asymmetry. The mean often lies toward the longer tail relative to the median, though that relationship is not a universal theorem.*
 
 Why the cube? Squaring (as in variance) makes everything positive, so deviations above and below the mean cancel out. Cubing preserves the sign: values far above the mean contribute positive terms, values far below contribute negative terms. If the right tail is heavier, the positive terms dominate and skewness is positive.
 
@@ -410,7 +453,9 @@ so the excess kurtosis is $\gamma_2 - 3 = 0.25$: slightly heavier-tailed than a 
 
 ## Common Discrete Distributions
 
-![Comparison of common probability distributions](./media/common-distributions.png)
+![Dark-mode four-panel comparison: Bernoulli probabilities, a binomial PMF with 20 trials and success probability 0.4, several Poisson PMFs, and three normal densities with different parameters.](./media/common-distributions.svg)
+
+*Figure: Bernoulli, binomial and Poisson distributions assign probability masses to discrete values. Normal distributions have continuous densities; changing their mean and variance changes position and spread.*
 
 Explore the standard distributions interactively below: switch between discrete and continuous, pick a distribution, and drag its parameters to reshape the PMF or PDF, with the mean, variance, and standard deviation updating live.
 
@@ -593,7 +638,9 @@ The Poisson and exponential distributions are not just two separate distribution
 2. **Stationary increments:** The probability distribution of the number of events in an interval depends only on the length of the interval, not on when it starts.
 3. **No simultaneous events:** The probability of two or more events occurring at exactly the same instant is zero.
 
-![Poisson process: random event arrivals on a timeline](./media/poisson-process.png)
+![A legible timeline of twelve irregular sample arrivals and the resulting cumulative step count, with six arrivals occurring in the first two time units.](./media/poisson-process.svg)
+
+*Figure: In a rate-$\lambda$ Poisson process, the count $N(t)$ is Poisson-distributed with mean $\lambda t$, while the waiting times between arrivals are exponentially distributed. The timeline is one realization.*
 
 **The connection between Poisson and Exponential:**
 
@@ -669,7 +716,9 @@ Notation: $X \sim N(\mu, \sigma^2)$ means "$X$ follows a normal distribution wit
 
 ### The 68-95-99.7 Rule
 
-![Normal distribution with 68-95-99.7 rule](./media/normal-distribution-68-95-99.png)
+![A standard normal density with nested probability intervals at one, two, and three standard deviations, labeled approximately 68.27, 95.45, and 99.73 percent.](./media/normal-distribution-68-95-99.svg)
+
+*Figure: For a normal distribution, approximately $68.27\%$, $95.45\%$, and $99.73\%$ of observations lie within one, two, and three standard deviations of the mean.*
 
 For a normal distribution:
 
@@ -998,7 +1047,9 @@ $$
 f(\mathbf{x}) = \frac{1}{(2\pi)^{k/2} |\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\right)
 $$
 
-![Bivariate normal distribution: 3D surface and contour plot](./media/joint-distribution-3d.png)
+![Two views of the same centered bivariate normal distribution with covariance 0.6: an isometric surface mesh and positively sloping elliptical density contours.](./media/joint-distribution-3d.svg)
+
+*Figure: The joint density describes two variables together. The tilted ellipses reflect positive covariance; height and contour levels describe the same density function.*
 
 **Worked example (bivariate).** Take $\boldsymbol{\mu} = (1, 2)$ and covariance matrix $\boldsymbol{\Sigma} = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$. The diagonal entries are the marginal variances, so $X_1 \sim N(1, 4)$ and $X_2 \sim N(2, 3)$ individually, with standard deviations $2$ and $\sqrt{3} \approx 1.73$. The off-diagonal $\text{Cov}(X_1, X_2) = 2$ gives the correlation
 
@@ -1053,7 +1104,9 @@ The absolute value of the derivative of the inverse function acts as a "stretchi
 
 Let $X \sim \text{Uniform}(0, 1)$ and $Y = -\ln(X)$. We will show that $Y \sim \text{Exponential}(1)$.
 
-![Transformation from Uniform(0,1) to Exponential(1) via Y = -ln(X)](./media/transformation-of-rv.png)
+![The uniform density on the interval zero to one transforms under Y equals minus log X into an exponentially declining density for nonnegative Y.](./media/transformation-of-rv.svg)
+
+*Figure: If $X\sim\mathrm{Uniform}(0,1)$ and $Y=-\ln X$, then $P(Y\leq y)=1-e^{-y}$ for $y\geq0$, and the resulting density is $e^{-y}$.*
 
 **Step 1:** Find the inverse. If $y = -\ln(x)$, then $x = e^{-y}$, so $g^{-1}(y) = e^{-y}$.
 
@@ -1178,7 +1231,9 @@ Watch it happen below: keep adding trials (coin, die, or a skewed source) and se
 
 Probability inequalities give bounds on probabilities when you do not know the exact distribution. They are weaker than exact calculations but apply to broad classes of distributions.
 
-![Two panels illustrating the inequalities: on the left, Markov's inequality shown as a non-negative decreasing density with the right tail beyond a shaded, bounding the probability that X is at least a by the mean over a; on the right, Chebyshev's inequality shown as a symmetric bell with the two tails beyond mu minus 2 sigma and mu plus 2 sigma shaded, bounding the mass far from the mean by one over k squared](./media/prob-inequalities.png)
+![Two valid tail bound examples: Markov's inequality for an exponential variable with mean two and threshold five; Chebyshev's inequality for the standard normal outside two standard deviations.](./media/prob-inequalities.svg)
+
+*Figure: Markov bounds a nonnegative variable's upper tail and Chebyshev bounds deviations from the mean. The plotted tail probabilities are smaller than their respective general bounds.*
 
 ### Markov's Inequality
 
@@ -1266,7 +1321,9 @@ $$
 
 where $\xrightarrow{d}$ denotes convergence in distribution. The finite-variance condition $0 < \sigma^2 < \infty$ is load-bearing: distributions with infinite variance, such as the Cauchy distribution, have no CLT.
 
-![Central Limit Theorem: sample means from a uniform distribution become normal](./media/clt-demonstration.png)
+![Uniform distribution shown beside illustrative histograms of sample means from two, ten, and thirty uniform observations, with matching normal approximation curves.](./media/clt-demonstration.svg)
+
+*Figure: Averages of more independent, identically distributed uniform variables concentrate near $1/2$ and become approximately normal after the appropriate rescaling. The dashed curves are finite-sample approximations.*
 
 **Intuition:** Take any distribution (uniform, exponential, Poisson, anything). Draw samples of size 30, compute each sample's average, and plot the distribution of those averages. It will look like a bell curve. This works even if the original distribution is heavily skewed.
 

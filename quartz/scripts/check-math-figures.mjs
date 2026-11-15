@@ -8,6 +8,7 @@ import {spawnSync} from "node:child_process";
 
 const expected = {
   "cross-disciplinary-bridges.md": ["cdb-quotient-kernel-lines.svg", "cdb-xor-cycle-obstruction.svg", "cdb-conditional-expectation-projection.svg"],
+  "probability.md": ["prob-frequentist-convergence.svg", "prob-sample-space-event.svg", "prob-axioms-complement.svg", "prob-conditional.svg", "bayes-theorem-visualization.svg", "prob-pmf-pdf-cdf.svg", "skewness-examples.svg", "common-distributions.svg", "poisson-process.svg", "normal-distribution-68-95-99.svg", "joint-distribution-3d.svg", "transformation-of-rv.svg", "prob-inequalities.svg", "clt-demonstration.svg"],
   "real-analysis.md": ["ra-sup-inf.svg", "ra-epsilon-n.svg", "ra-cauchy.svg", "ra-open-ball.svg", "ra-epsilon-delta.svg", "ra-pointwise-uniform.svg"],
   "set-theory.md": ["st-sets-to-structure.svg","st-subset-cases.svg","st-proper-subset.svg","st-subset-order.svg","st-universal-set.svg","st-venn-union.svg","st-venn-intersection.svg","st-venn-complement.svg","st-venn-symmetric-difference.svg","st-venn-difference.svg","st-pigeonhole.svg","st-bijection-apples.svg","st-partition.svg","st-cartesian-product.svg","st-power-set-lattice.svg","st-cantor-diagonal.svg","st-infinity-hierarchy.svg","st-power-set-four.svg","st-power-set-binomial.svg"],
   "atlas-of-mathematical-spaces.md": ["sp-structure-atlas.svg","sp-adding-structure.svg","sp-metric-topology.svg","sp-norm-parallelogram.svg","sp-measure-borel.svg","sp-manifold-local.svg","sp-function-space.svg","sp-morphism-map.svg","sp-categorical-forgetful.svg","sp-free-vector-universal.svg","sp-taxonomy-three-questions.svg","sp-affine-projective.svg","sp-uniform-entourages.svg","sp-sierpinski-open-classifier.svg"],
@@ -112,8 +113,8 @@ for(const [page,filenames] of Object.entries(expected)){
     if(!/^\s+\*Figure: [^\n]+\*/.test(next))errors.push(page+": "+name+" needs a nearby figure caption");
   }
 }
-// The five linear algebra topic pages have fully migrated from raster figures.
-for(const page of ["linear-algebra-foundations.md","linear-algebra-computation.md","matrices.md","vector.md","systems-of-linear-equations.md"]){
+// These migrated chapters, including probability, must use source-editable SVG figures.
+for(const page of ["linear-algebra-foundations.md","linear-algebra-computation.md","matrices.md","vector.md","systems-of-linear-equations.md","probability.md"]){
   const source=readFileSync(join("content",page),"utf8");
   const raster=[...source.matchAll(/\]\(\.\/media\/([^)]+\.png)\)/g)].map(m=>m[1]);
   if(raster.length)errors.push(page+": legacy raster figure references remain: "+raster.join(", "));
