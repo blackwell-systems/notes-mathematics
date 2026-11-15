@@ -18,7 +18,7 @@ The goal of this guide is to learn to look at an unfamiliar space and ask:
 1. **Objects:** What are its points (or more general elements)?
 2. **Data:** What additional operations, relations, subsets, or functions are specified?
 3. **Axioms:** Which rules must that data obey?
-4. **Morphisms:** Which maps preserve the data?
+4. **Morphisms:** Which maps (functions) preserve the specified structure?
 5. **Properties:** Which further conditions, such as completeness or compactness, happen to hold?
 6. **Limits:** Which familiar implications fail if a hypothesis is removed?
 7. **Categories:** What if we consider all such spaces at once, together with the maps we permit between them?
