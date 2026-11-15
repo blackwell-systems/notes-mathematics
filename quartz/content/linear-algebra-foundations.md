@@ -36,7 +36,10 @@ Not every function between vector spaces is linear. To earn that name, $T$ must 
 1. **Preserve addition:** $T(u+v)=T(u)+T(v)$. Read this as "transform a sum, or transform each vector and then add: the result is the same."
 2. **Preserve scalar multiplication:** $T(cu)=cT(u)$. Read this as "scale a vector and then transform it, or transform it and then scale: the result is the same."
 
-Both rules must hold for **every** $u,v\in V$ (vectors in $V$) and **every** scalar $c$ in the underlying field, not just for a few examples. **Linearity does not mean keeping a vector's length or direction unchanged.** A linear map can stretch, rotate, flatten, or send different inputs to the same output. The preservation is of **addition and scaling**, not of distance.
+> [!important] Linearity preserves operations, not distance
+> Both rules must hold for **every** $u,v\in V$ (vectors in $V$) and **every** scalar $c$ in the underlying field, not just for a few examples.
+>
+> **Linearity does not mean keeping a vector's length or direction unchanged.** A linear map can stretch, rotate, flatten, or send different inputs to the same output. The preservation is of **addition and scaling**, not of distance.
 
 **See both rules in one example.** Define $T:\mathbb R^2\to\mathbb R^2$ by $T(x,y):=(x+y,0)$ (read "T of x, y equals x plus y, zero"). Here $x$ and $y$ are the **vector components of one input vector**, not names of two separate vectors. For our whole vectors $u=(2,1)$ and $v=(0,3)$, we get $T(u)=(3,0)$ and $T(v)=(3,0)$.
 
