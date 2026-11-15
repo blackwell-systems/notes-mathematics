@@ -163,7 +163,7 @@ Each entry still sums three products (one per inner index $k = 1, 2, 3$). Revers
 - **Distributive:** $A(B + C) = AB + AC$
 - **Identity:** $AI = IA = A$ (where $I$ is the identity matrix)
 
-![Two 2 by 2 matrices multiply to [[19,22],[43,50]], with the first row-column dot product producing 19.](./media/mat-multiplication.svg)
+![Two two-by-two matrices multiply to a result with entries 19, 22, 43 and 50, with the first row-column dot product producing 19.](./media/mat-multiplication.svg)
 
 *Figure: Each entry of AB is a dot product between a row of A and a column of B: 1·5+2·7=19 in the top-left cell.*
 
