@@ -29,6 +29,8 @@ Once we understand these relationships, we can ask deeper questions. What do two
 
 In [Functions & Relations](./functions-relations#from-binary-relations-to-preorders), we began with an arbitrary relation $R\subseteq P\times P$ and wrote $aRb$ whenever $(a,b)\in R$. Order theory asks which of those relations satisfy additional axioms. Changing the symbol alone cannot supply those properties.
 
+This is another instance of the [common set–structure–axioms pattern](./set-theory#the-common-thread-set-structure-axioms): **the set supplies the objects; the chosen relation supplies the comparison; the axioms determine whether we have a preorder, partial order, or total order.** The same collection can support different orders, or a relation that is not an order at all.
+
 Throughout this chapter, $P$ stands for **whichever set of objects we are studying**, and $\preceq$ (read "precedes or is equal to," or "is below in this order") is our **generic name for an order-like comparison on that set**. It is not another kind of numerical less-than. Its meaning is specified **when we choose the objects and their relation**.
 
 > [!distinction] The general symbol is not an extra comparison
