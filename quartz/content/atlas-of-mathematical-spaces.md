@@ -11,7 +11,7 @@ enables: ["path-to-topology", "path-through-algebra", "path-through-analysis", "
 >
 > This is an **atlas**, not an assertion that all mathematical spaces sit in one chain. We will repeatedly distinguish **added structure**, **a property of an existing structure**, and **a map (function) that preserves it**.
 
-A **space** is usually a set of objects equipped with specified mathematical structure: perhaps a way to compare elements, a notion of nearby points, addition and scalar multiplication, measurable subsets, or differentiable coordinates. **Here, a *map* (or *mapping*) is another word for a *function*: every input is assigned exactly one output.** A *structure-preserving map* is a function with additional conditions on how it behaves. Calling something a map by itself does **not** mean it is continuous, linear, or distance-preserving. (In more abstract category theory, morphisms need not be ordinary set-functions.) A definition matters because it licenses **particular questions and theorems**. Asking whether points are close is different from asking whether they can be added; knowing one rarely answers the other.
+A **space** is usually a set of objects equipped with specified mathematical structure: perhaps a way to compare elements, a notion of nearby points, addition and scalar multiplication, measurable subsets, or differentiable coordinates. **Here, a *map* (or *mapping*) is another word for a *function*: every input is assigned exactly one output.** A *structure-preserving map* is a function that **preserves specified operations or relationships**. In practical terms, the outputs must still obey the rule we chose to preserve. For instance, a linear map carries sums to sums, an order-preserving map carries comparisons to valid comparisons, and an isometry keeps distances equal. **Preserving a relationship does not mean leaving the inputs unchanged.** Calling something a map by itself does **not** mean it is continuous, linear, or distance-preserving. (In more abstract category theory, morphisms need not be ordinary set-functions.) A definition matters because it licenses **particular questions and theorems**. Asking whether points are close is different from asking whether they can be added; knowing one rarely answers the other.
 
 The goal of this guide is to learn to look at an unfamiliar space and ask:
 
@@ -551,25 +551,71 @@ The point is not to rank one of these as "better." Each chooses an error notion 
 
 ## 12. Structure-preserving maps: different notions of sameness
 
-**A map is a function.** A *structure-preserving map* is an ordinary function satisfying **additional rules** dictated by the structures on its domain and codomain. For example, a continuous function respects open-set structure, a linear function respects vector addition and scalar multiplication, and an isometry preserves distances. **An arbitrary function need not preserve any of these.**
+**A map is simply a function:** it assigns exactly one output to each input in its domain. A **structure-preserving map** is a function that maintains a *specified operation or relationship* between objects, even when it changes the objects themselves. The word **preserve** does not mean that the inputs remain in place, keep their numerical values, or necessarily keep their lengths.
 
-Two spaces count as "the same" only relative to the chosen notion of **structure-preserving isomorphism**, meaning a suitable map with an inverse preserving the structure too.
+> [!important] What does "preserve a structure" actually mean?
+> First name the structure: **addition**, **order**, **distance**, **open sets**, or some other mathematical relationship. Then state a rule that the function must satisfy for **every applicable input**, not just for one example.
+>
+> - For **operations**, applying the operation before transforming must agree with applying it to the transformed inputs.
+> - For **relations**, a relationship that holds before transforming must still hold afterward.
+> - For **topology**, the continuity rule uses **inverse images of open sets**. A continuous function need not send open sets to open sets.
+>
+> A function may preserve one structure while failing to preserve another.
+
+### Work through two preservation rules
+
+**Preserving addition.** Consider the function $f:\mathbb R\to\mathbb R$ given by $f(x)=2x$. We can add first, then apply $f$:
+
+$
+f(3+4)=f(7)=14.
+$
+
+Or apply $f$ to both inputs first, then add:
+
+$
+f(3)+f(4)=6+8=14.
+$
+
+Both routes agree, and more importantly, they agree for **every** pair $a,b\in\mathbb R$:
+
+$
+\boxed{f(a+b)=f(a)+f(b).}
+$
+
+This function also preserves **scalar multiplication**: $f(ca)=cf(a)$ for every $c,a\in\mathbb R$. It is therefore a **linear map** over $\mathbb R$. It changes most input values and doubles ordinary distances, but **preserves the vector-space operations**.
+
+**Preserving order without preserving addition.** Now choose $g:\mathbb R\to\mathbb R$ given by $g(x)=x+5$. Because adding $5$ to both sides of a true inequality keeps it true,
+
+$
+a\leq b\quad\Longrightarrow\quad g(a)\leq g(b).
+$
+
+For example, $2\leq4$ becomes $7\leq9$. Thus $g$ **preserves the usual order**. But it does **not** preserve addition:
+
+$
+g(3+4)=12,\qquad g(3)+g(4)=8+9=17.
+$
+
+We have not discovered a contradiction. **Different structures demand different preservation rules.** The same function may pass one test and fail another.
+
+Two spaces count as "the same" only relative to a chosen notion of **structure-preserving isomorphism**: an appropriate function must have an inverse that also preserves the relevant structure. **Preserving structure alone does not require a function to be invertible.**
 
 ![Two branches of structure-preserving maps are contrasted: maps preserving topological closeness (continuous maps and homeomorphisms), maps preserving exact distance (isometries), and maps preserving vector operations (linear maps). The diagram distinguishes independent conditions.](./media/sp-morphism-map.svg)
 
 *Figure: There is no universal kind of “structure-preserving function.” A homeomorphism preserves the topology, an isometry preserves distance, and a linear map preserves vector operations; additional conditions may be needed at intersections.*
 
-| Kind of map | Must preserve | Concrete example or limitation |
+| Kind of map (function) | Preservation rule | Concrete example or limitation |
 | --- | --- | --- |
-| Arbitrary function | Assigned elements | No structure beyond well-defined output |
-| Monotone map | Partial order | $x\leq y\Rightarrow f(x)\leq f(y)$ |
-| Continuous map | Open-set topology by inverse images | $x\mapsto x^2$ on $\mathbb R$ |
-| Homeomorphism | Topology in **both** directions | $x\mapsto x^3$ on $\mathbb R$ |
-| Isometry (metric embedding) | Exact distances $d(fx,fy)=d(x,y)$ | Translation $x\mapsto x+5$ on $\mathbb R$ |
-| Linear map | Addition and scaling | $T(x,y)=(x+y,y)$ |
+| Arbitrary function | Exactly one output per input; **no additional structure** must be preserved | A function need not be linear, continuous, or monotone |
+| Monotone map | If $x\leq y$, then $f(x)\leq f(y)$ | $g(x)=x+5$ on ordered real numbers |
+| Continuous map | Preimages of open sets are open | $x\mapsto x^2$ on $\mathbb R$; the direct images of open sets need not be open |
+| Homeomorphism | A bijection continuous **in both directions** | $x\mapsto x^3$ on $\mathbb R$ |
+| Isometry (metric embedding) | Exact distances: $d_Y(f(x),f(y))=d_X(x,y)$ | Translation $x\mapsto x+5$ on $\mathbb R$ |
+| Linear map | $f(u+v)=f(u)+f(v)$ and $f(cu)=cf(u)$ | $T(x,y)=(x+y,y)$ |
 | Bounded linear map | Linearity **and** norm-continuity | Evaluation $f\mapsto f(0)$ on $C([0,1])$ in sup norm |
-| Measurable map | Preimages of measurable sets | Every continuous map between Borel spaces is Borel-measurable |
-| Measure-preserving map | Pullback measure condition | Rotation of the circle with normalized arc-length probability |
+| Group homomorphism | $f(a*b)=f(a)\star f(b)$, using each group's specified operation | $f(n)=2n$ preserves addition on $(\mathbb Z,+)$ |
+| Measurable map | Preimages of measurable sets are measurable | Every continuous map between Borel spaces is Borel-measurable |
+| Measure-preserving map | For measurable $B$ in the target, $\mu(f^{-1}(B))=\nu(B)$ for the specified measures | Rotation of the circle with normalized arc-length probability |
 
 ### What implies what?
 
