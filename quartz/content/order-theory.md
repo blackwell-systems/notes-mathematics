@@ -315,7 +315,7 @@ This poset is **not total**: neither $2\mid3$ nor $3\mid2$. Those numbers are in
 
 ## Strict and non-strict order
 
-### Start with something familiar: $\leq$ versus $<$
+### Start with something familiar: comparing ordinary numbers
 
 For ordinary numbers, we already use **two ways to describe the same ordering**:
 
