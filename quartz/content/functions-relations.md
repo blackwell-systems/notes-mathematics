@@ -536,9 +536,14 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 
 ## Function
 
-> [!definition] Function, with explicit domain and codomain
-> A function $f:A\to B$ assigns **exactly one** element of $B$ to **every** element of $A$. The domain and codomain are part of the specified map, not details to infer solely from its formula.
-
+> [!definition] Function as a set of ordered pairs
+> For specified sets $A$ (domain) and $B$ (codomain), a **total function** $f:A\to B$ is a relation $f\subseteq A\times B$ with exactly one second coordinate for **every** first coordinate:
+>
+> $$
+> \boxed{\forall a\in A,\ \exists!\,b\in B:\ (a,b)\in f.}
+> $$
+>
+> The symbol $\exists!$ means "there exists exactly one." We write $f(a)=b$ precisely when $(a,b)\in f$. In set theory the function is represented by its **graph of ordered pairs**, with its domain and codomain specified. A formula alone need not determine those sets.
 
 ### Vertical Line Test
 
@@ -618,97 +623,63 @@ subset in question is the entire **domain**, then the **image** and the
 
 *Figure: Every input belongs to the domain, every possible output belongs to the codomain, and only $\{2,3,5\}$ is actually reached.*
 
-The domain of a function **f** is the set **X**, which includes all the
-possible inputs for the function. In terms of ordered pairs, the domain
-is the set of all possible first values (the input values) in those
-pairs.
+> [!definition] Domain from ordered pairs
+> For any relation $R\subseteq A\times B$, the **actual domain** is the set of first coordinates appearing in its pairs:
+>
+> $$
+> \boxed{\operatorname{dom}(R):=\{a\in A\mid\exists b\in B:\ (a,b)\in R\}.}
+> $$
+>
+> For a **total function** $f:A\to B$, every $a\in A$ appears in exactly one pair, hence $\operatorname{dom}(f)=A$.
 
-$$
-\text{Dom}(f) = A \iff \forall x \, (x \in A \leftrightarrow \exists y \, f(x) = y)
-$$
-
-$$
-\text{Dom}(f) = \{ x \mid \exists y \, f(x) = y \}
-$$
+For a general relation or [partial function](#partial-functions), its actual domain can be a proper subset of the specified source set $A$.
 
 ### Codomain
 
-The **codomain** of a function **f : X → Y**
+> [!definition] Codomain
+> In a specified function $f:A\to B$, the **codomain** is the target set $B$, which contains every output of the function:
+>
+> $$
+> f\subseteq A\times B,\qquad f(a)\in B\quad\text{for all }a\in A.
+> $$
 
-includes all possible outputs that the function is allowed to produce
-according to its definition
-
-The **codomain** is specified as part of the function's definition,
-even if not all elements of the **codomain** are actually reached by the
-function. This contrasts with range, which represents the actually
-mapped values of the **codomain**.
-
-$$
-\text{Cod}(f) = B \iff \forall x \in \text{Dom}(f), \, \exists y \in B \, (f(x) = y)
-$$
+The codomain is **part of the specified map**, not something uniquely recoverable from its ordered pairs. For example, the rule $f(x)=x^2$ from $\mathbb R$ can have codomain $\mathbb R$ or $[0,\infty)$, without changing the ordered pairs. Whether $f$ is surjective depends on this choice.
 
 ### Range
 
-The range of a function **f : X → Y** is the set of all actual
-outputs that the function produces when applied to every
-element in its domain **X**. The range is therefore a subset of the
-codomain.
+> [!definition] Range (image of the full domain)
+> For $f:A\to B$, its **range** is the set of all outputs that actually occur:
+>
+> $$
+> \boxed{\operatorname{ran}(f):=\{b\in B\mid\exists a\in A:\ (a,b)\in f\}
+> =\{f(a)\mid a\in A\}.}
+> $$
 
-$$
-\text{Range}(f) = \{ y \in \text{Cod}(f) \mid \exists x \in \text{Dom}(f), \, f(x) = y \}
-$$
-
-$$
-\text{Range}(f) = \{ f(x) \mid x \in \text{Dom}(f) \}
-$$
-
-Explanation:
-
--   $\forall y$: For all elements **y** in the codomain.
-
--   $y \in \text{Range}(f) \leftrightarrow \exists x \, ( x \in X \wedge f(x) = y)$:
-
-    -   This states that **y** is in the **range** of the function **f**
-        iff. there exists an element **x** in the domain **X** such that
-        **(x) = y**.
-
-    -   In other words, for each **y** in the **range**, there is at
-        least one **x** in the **domain** that maps to **y**.
+The range is a subset of the codomain, and is equal to it exactly when the function is **surjective**. In the mapping diagram above, the codomain is $\{1,2,3,4,5\}$, while the range is $\{2,3,5\}$.
 
 ### Image
 
-The **image** of a function is similar to the **range** but often refers
-to the outputs corresponding to a specific subset of the domain.
+> [!definition] Image of a subset
+> For a function $f:A\to B$ and subset $C\subseteq A$, its **image** is
+>
+> $$
+> \boxed{f[C]:=\{f(c)\mid c\in C\}
+> =\{b\in B\mid\exists c\in C:\ (c,b)\in f\}.}
+> $$
 
-*If the subset in question is the entire **domain**, then the **image**
-and the **range** are the same.*
-
-For a particular subset $A \subseteq X$, the image of **A** under **f** is
-denoted as **f(A)**.
+The notation $f(C)$ is also common, but $f[C]$ makes it clear that the input is a **set**, whereas $f(c)$ is the single output at an **element**. The image of the entire domain $f[A]$ is the range.
 
 ### Preimage
 
-The **preimage** of a set under a function is a concept that refers to
-the set of all elements in the domain that map to a given subset of the
-codomain.
+> [!definition] Preimage of a subset
+> Let $f:A\to B$ and $D\subseteq B$. The **preimage** (inverse image) is the set of all inputs whose output lies in $D$:
+>
+> $$
+> \boxed{f^{-1}[D]:=\{a\in A\mid f(a)\in D\}
+> =\{a\in A\mid\exists b\in D:\ (a,b)\in f\}.}
+> $$
 
-In other words, for a function:
-
-**f : X → Y** and a subset **B** of the codomain **Y**, the preimage of
-**B** under **f** is the set of all elements in the domain **X** that
-**f** maps into **B**.
-
-$f^{-1}(B) = \{ x \in X \mid f(x) \in B \}$
-
-The **preimage** of a set **B** under a function **f** is the set of all
-elements in the domain **X** that map to elements in **B** in the
-codomain **Y**.
-
-One should not be misled by the notation into thinking of the preimage
-as having to do with an inverse of **f**. The preimage is defined whether
-f has an inverse or not. **Note that however** if f does have an
-inverse, then the preimage is exactly the image of Y under the inverse
-map.
+The notation $f^{-1}(D)$ is also common. **Every function has preimages**, even if it has no inverse function. Square brackets help distinguish a preimage *set* $f^{-1}[D]$ from a value $f^{-1}(b)$ of an inverse function, which requires bijectivity.
 
 ![Two mapping-diagram panels sharing the same function, whose arrows are a to 2, b to 3, c to 3, and d to 5, between a domain oval a, b, c, d and a codomain oval 1, 2, 3, 4, 5. The left panel, image, highlights the domain subset A equals a, b in blue and pushes it forward along the arrows to the highlighted output set f of A equals 2, 3 in the codomain. The right panel, preimage, highlights the codomain subset B equals 3, 5 in green and pulls it back to the highlighted input set f inverse of B equals b, c, d, every input whose arrow lands in B. The caption stresses that the preimage is defined for any function, with no inverse required.](./media/fr-image-preimage.svg)
 
@@ -747,7 +718,20 @@ and the second inclusion can be **strict**. Take $f(x) = x^2$ on $\mathbb{R}$ wi
 
 *Figure: Each fiber collects all inputs with one output. For $x^2$, the fiber over $4$ contains both $-2$ and $2$.*
 
-For each $y \in Y$, its preimage of a single point, $f^{-1}(\{y\}) = \{x \in X : f(x) = y\}$, is called the **fiber** over $y$. The fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
+> [!definition] Fiber and kernel relation
+> For $f:A\to B$ and $b\in B$, the **fiber over $b$** is the preimage of the singleton:
+>
+> $
+> \boxed{f^{-1}[\{b\}]=\{a\in A\mid f(a)=b\}.}
+> $
+>
+> The **kernel equivalence relation** compares inputs with identical outputs:
+>
+> $
+> \boxed{\ker(f):=\{(a,a')\in A\times A\mid f(a)=f(a')\}.}
+> $
+
+For each $y\in Y$, its fiber is $f^{-1}(\{y\})=\{x\in X:f(x)=y\}$. The fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
 $$
 x \sim x' \iff f(x) = f(x'),
 $$
@@ -762,6 +746,15 @@ called the **kernel** of $f$. So *every function silently carves its domain into
 These fibers **partition** $\mathbb{R}$: every real $x$ lies in exactly one fiber, the one over $x^2$ (for instance $3$ and $-3$ both live in the fiber over $9$), and no $x$ can lie in two fibers because $x^2$ is a single number. Sweeping $y$ over all of $[0, \infty)$, the nonempty fibers exactly cover $\mathbb{R}$. The kernel relation $x \sim x' \iff x^2 = x'^2$ has these fibers as its classes: two reals are related precisely when $x' = \pm x$. So the quotient $\mathbb{R}/{\sim}$ is in bijection with the range $[0, \infty)$ via $[x] \mapsto x^2$, one class per attained output. $\blacksquare$
 
 ### Injection (one-to-one)
+
+> [!definition] Injective function
+> $f:A\to B$ is **injective** when equal outputs force equal inputs:
+>
+> $
+> \boxed{\forall a,a'\in A:\ f(a)=f(a')\Rightarrow a=a'.}
+> $
+>
+> In ordered-pair language, $(a,b)\in f$ and $(a',b)\in f$ imply $a=a'$. Equivalently, every fiber has **at most one element**.
 
 > [!distinction] Injective, surjective and bijective
 > **Injective:** no two different inputs have the same output. **Surjective:** every specified codomain element is hit. **Bijective:** both properties. The same formula may be surjective for one codomain but not another.
@@ -783,6 +776,15 @@ It is enough to exhibit **one** collision: $f(-2) = 4 = f(2)$, yet $-2 \neq 2$. 
 
 ### Surjection (onto)
 
+> [!definition] Surjective function
+> $f:A\to B$ is **surjective** when every codomain element occurs as the second coordinate of a pair:
+>
+> $
+> \boxed{\forall b\in B,\ \exists a\in A:\ (a,b)\in f.}
+> $
+>
+> Equivalently, $\operatorname{ran}(f)=B$.
+
 **Surjection:** A function $f : X \to Y$ is **surjective** (or **onto**) if every element of the codomain is the image of at least one input:
 $$
 \forall y \in Y,\ \exists x \in X,\ f(x) = y.
@@ -796,6 +798,15 @@ Pick an arbitrary target $y \in \mathbb{R}$. We need an input $x$ with $f(x) = y
 **Worked example (surjectivity depends on the codomain).** The rule $f(x) = x^2$ is **not** surjective as a map $\mathbb{R} \to \mathbb{R}$: no input produces the output $-1$, since squares are never negative, so $(-\infty, 0)$ is left entirely unhit. But the *same rule* $f(x) = x^2$ viewed as a map $\mathbb{R} \to [0, \infty)$ **is** surjective, because every non-negative $y$ has the input $\sqrt{y}$. Surjectivity is a statement about a specific chosen codomain, not about the formula alone.
 
 ### Bijection (injective and surjective)
+
+> [!definition] Bijective function
+> $f:A\to B$ is **bijective** when each $b\in B$ is paired with **exactly one** $a\in A$:
+>
+> $
+> \boxed{\forall b\in B,\ \exists!\,a\in A:\ (a,b)\in f.}
+> $
+>
+> This is equivalent to **injectivity and surjectivity together**. It is the condition needed for the reversed pairs to form a function $B\to A$.
 
 A function is bijective if and only if it is
 both **injective** **(or *one-to-one*)---**meaning that each element in
@@ -844,6 +855,19 @@ $\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
 
 ## Well-Defined Functions
 
+> [!definition] Well-definedness on equivalence classes
+> For an equivalence relation $\sim$ on $A$ and a function $F:A\to B$, a proposed map on the quotient
+>
+> $
+> \overline F:A/{\sim}\to B,\qquad \overline F([a]):=F(a)
+> $
+>
+> is **well-defined** exactly when its value is independent of the representative:
+>
+> $
+> \boxed{a\sim a'\ \Rightarrow\ F(a)=F(a')\qquad(a,a'\in A).}
+> $
+
 For an abstract treatment that preserves **composition and identities** without requiring arrows to be set functions, continue to [Category Theory Foundations](./category-theory-foundations). [Functors and Natural Transformations](./category-functors-naturality) then explain how whole families of such maps are related.
 
 
@@ -862,6 +886,15 @@ The rule to remember: whenever a function is defined via representatives of equi
 
 ## Identity Function
 
+> [!definition] Identity function as a relation
+> The **identity function** on a set $A$ contains exactly the diagonal pairs:
+>
+> $
+> \boxed{\operatorname{id}_A:=\{(a,a)\mid a\in A\}\subseteq A\times A.}
+> $
+>
+> Thus $\operatorname{id}_A:A\to A$ and $\operatorname{id}_A(a)=a$ for all $a\in A$.
+
 **Identity Function:** The identity function on a set **X**, denoted **id_X** or simply **id**, is a function that maps every element to itself.
 
 **Definition:** $id_X : X \rightarrow X$ defined by $id_X(x) = x$ for all $x \in X$
@@ -877,24 +910,26 @@ The rule to remember: whenever a function is defined via representatives of equi
 
 ## Inverse Functions
 
+> [!definition] Inverse function — set-theoretic definition
+> Treat $f:A\to B$ as its graph of ordered pairs $f\subseteq A\times B$. **Reverse every pair** to construct the inverse relation:
+>
+> $
+> \boxed{f^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in f\}.}
+> $
+>
+> This inverse relation always exists. It is a **function** $f^{-1}:B\to A$ precisely when **every $b\in B$ has exactly one reversed output**—equivalently, when $f$ is **bijective**.
+
 A function is not merely a formula. In the [set-theoretic definition](#relation), a function $f:A\to B$ is a **relation** $f\subseteq A\times B$ that assigns **exactly one** $b\in B$ to each $a\in A$. This matters when we ask what it means to *reverse* a function: before solving any equation, we can reverse its **ordered pairs**.
 
 ### Start with the inverse relation
 
-> [!definition] Set-theoretic inverse relation
-> For **any** function $f:A\to B$, its inverse **relation** is the subset of $B\times A$ obtained by reversing every ordered pair in $f$:
->
-> $$
-> \boxed{f^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in f\}.}
-> $$
->
-> Equivalently, for $a\in A$ and $b\in B$,
->
-> $$
-> (b,a)\in f^{-1}\quad\Longleftrightarrow\quad f(a)=b.
-> $$
->
-> This is the same construction used for [inverse relations](#inverse-relations). **The inverse relation always exists. It need not be a function.**
+The definition above reverses the ordered pairs of $f$. In symbols,
+
+$
+(b,a)\in f^{-1}\quad\Longleftrightarrow\quad f(a)=b.
+$
+
+This is the same construction used for [inverse relations](#inverse-relations).
 
 **Build one from the pairs.** Let $A:=\{1,2,3\}$, $B:=\{p,q,r\}$, and
 
@@ -910,9 +945,7 @@ $$
 
 The new relation goes from $B$ to $A$: what was an output becomes an input. In this example every element of $B$ has exactly one output in $A$, so the inverse relation **is** a function. Notice that the letters and numbers themselves have not changed; only their roles in the pairs have.
 
-![Two panels show a relation from A to B and its inverse from B to A, with each arrow reversed.](./media/fr-inverse-relation.svg)
-
-*Figure: The same pair-reversal rule works for every relation. The property that makes the reversed arrows form a **function** is bijectivity of the original function.*
+The [inverse-relation diagram above](#inverse-relations) shows pair reversal for a general relation. For functions, bijectivity adds the requirement of exactly one output at every reversed input.
 
 ### When does the inverse relation become a function?
 
@@ -1004,6 +1037,16 @@ Inverting a composition reverses the order because an output of $g\circ f$ must 
 **Graph test, with a qualification:** For a real-valued function, the **horizontal-line test** checks **injectivity**: every horizontal line intersects the graph **at most once**. For an inverse function on the **entire specified codomain**, we also need **surjectivity**: every horizontal line corresponding to a value in that codomain must intersect the graph **at least once**. Thus bijectivity requires **exactly one** intersection for each codomain value, not merely at most one.
 
 ## Composition of Functions
+
+> [!definition] Composition of function graphs
+> For $f:A\to B$ and $g:B\to C$, define
+>
+> $
+> \boxed{g\circ f:=\{(a,c)\in A\times C\mid
+> \exists b\in B:\ (a,b)\in f\land (b,c)\in g\}.}
+> $
+>
+> This relation is a **function**, since $f$ and $g$ each choose exactly one output for each input. It satisfies $(g\circ f)(a)=g(f(a))$: apply $f$ **first**.
 
 ![A left-to-right pipeline diagram of function composition: an input x enters box g to produce g of x, which enters box f to produce f of g of x, written f composed with g of x. The example uses g of x equals x plus 1 and f of u equals u squared, giving x plus 1 quantity squared, with the trace x equals 2 to g of 2 equals 3 to f of 3 equals 9](./media/fr-composition.svg)
 
@@ -1239,6 +1282,15 @@ for all $x$ in the domain.
 - $f(x) = e^x$ is bounded below by 0 but not bounded above
 
 ## Partial Functions
+
+> [!definition] Partial function as a relation
+> A **partial function** $f:A\rightharpoonup B$ is a relation $f\subseteq A\times B$ in which **each $a\in A$ occurs as the first coordinate in at most one pair**:
+>
+> $
+> \boxed{(a,b)\in f\ \land\ (a,b')\in f\ \Rightarrow\ b=b'.}
+> $
+>
+> Its **domain of definition** is $D=\{a\in A\mid\exists b\in B:(a,b)\in f\}\subseteq A$; equivalently, it is a total function $D\to B$. The empty relation is also a valid partial function.
 
 **Partial Function:** A partial function from set **A** to set **B** is a function that is not necessarily defined for every element of **A**.
 
