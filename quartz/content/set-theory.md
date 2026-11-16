@@ -660,6 +660,16 @@ Sets combine through a handful of operations, each defined by a membership condi
 
 ### Set Union
 
+> [!definition] Union
+> The **union** $A\cup B$ consists of exactly those objects that belong to **at least one** set:
+>
+> $$
+> \boxed{x\in A\cup B\iff(x\in A)\lor(x\in B).}
+> $$
+>
+> The logical "or" is inclusive: an element in both sets belongs to the union.
+
+
 **Set Union:** The union of two sets A and B, denoted $A \cup B$ (read "A union B"), is the set of elements
 which are in **A** or **B** (or both).
 
@@ -672,6 +682,16 @@ $\forall x\, (x \in (A \cup B) \leftrightarrow (x \in A \lor x \in B))$
 *Figure: With the same sets used throughout these diagrams, $A\cup B=\{1,2,3,4,5\}$: being in either circle is sufficient.*
 
 ### Set Intersection
+
+> [!definition] Intersection
+> The **intersection** contains the objects common to both sets:
+>
+> $$
+> \boxed{A\cap B:=\{x\in A\mid x\in B\}.}
+> $$
+>
+> Equivalently, $x\in A\cap B$ iff $x\in A$ **and** $x\in B$.
+
 
 **Set Intersection:** The intersection of two sets A and B, denoted $A \cap B$ (read "A intersect B"), is the set of elements which are in both **A** and **B**.
 
@@ -687,6 +707,16 @@ $\forall x\, (x \in (A \cap B) \leftrightarrow (x \in A \land x \in B))$
 
 #### Absolute Complement
 
+> [!definition] Complement relative to a fixed universe
+> Fix a set $U$ with $A\subseteq U$. The **complement** of $A$ in $U$ is
+>
+> $$
+> \boxed{A^c:=U\setminus A=\{x\in U\mid x\notin A\}.}
+> $$
+>
+> The term "absolute" here is relative to the diagram's **chosen** $U$, not to a nonexistent set of all sets.
+
+
 **Absolute Complement:** The complement of a set is the set of all
 elements from the domain of discourse which are NOT in A.
 
@@ -697,6 +727,16 @@ $\forall x\, (x \in A' \leftrightarrow (x \in U \land x \notin A))$
 *Figure: Complement depends on the universe: $A^c=U\setminus A=\{4,5,6\}$.*
 
 ### Symmetric Difference
+
+> [!definition] Symmetric difference
+> The **symmetric difference** keeps elements in **exactly one** of $A$ and $B$:
+>
+> $$
+> \boxed{A\triangle B:=(A\setminus B)\cup(B\setminus A).}
+> $$
+>
+> This is the set operation corresponding to **exclusive-or** (XOR).
+
 
 **Symmetric Difference:** The symmetric difference of sets $A$ and $B$, denoted $A \triangle B$ (read "A triangle B" or "A symmetric-difference B") or $A \oplus B$, is the set of elements in either $A$ or $B$ but not in both.
 
@@ -725,6 +765,16 @@ Where $\oplus$ is exclusive OR (XOR).
 **Application:** XOR operation in computer science, symmetric encryption
 
 ### Set Difference
+
+> [!definition] Set difference
+> The **difference** $A\setminus B$ contains the elements in $A$ but not in $B$:
+>
+> $$
+> \boxed{A\setminus B:=\{x\in A\mid x\notin B\}.}
+> $$
+>
+> The order matters: $A\setminus B$ need not equal $B\setminus A$.
+
 
 **Set Difference:** The set difference of $A$ and $B$, written $A \setminus B$ (also written $A - B$), is the set of all elements that belong to $A$ but not to $B$.
 
@@ -937,6 +987,20 @@ This is not merely a resemblance between set operations and logic. It is an **ex
 
 ## Disjoint Sets
 
+> [!definition] Disjoint and pairwise disjoint
+> Sets $A,B$ are **disjoint** iff they have no common member:
+>
+> $$
+> \boxed{A\cap B=\varnothing.}
+> $$
+>
+> A family $(A_i)_{i\in I}$ is **pairwise disjoint** iff
+>
+> $$
+> \boxed{\forall i,j\in I:\ i\ne j\Rightarrow A_i\cap A_j=\varnothing.}
+> $$
+
+
 **Disjoint Sets:** Two sets **A** and **B** are disjoint if they have no elements in common.
 
 **Definition:** $A \cap B = \varnothing$
@@ -987,6 +1051,12 @@ These examples explain why **exactly one block per element** captures coverage a
 **Connection to equivalence relations:** Every equivalence relation on $S$ partitions $S$ into equivalence classes, and every partition determines an equivalence relation: two elements are related exactly when they occupy the same block. See the two complete proofs in [Equivalence Relations and Quotients](./equivalence-relations#equivalence-relations-correspond-to-partitions).
 
 ## Countable vs Uncountable Sets
+
+> [!definition] Countable and uncountable sets
+> A set $A$ is **countable** iff there exists an **injection** $A\to\mathbb N$; finite sets and the empty set are countable.
+>
+> It is **countably infinite** iff there is a bijection $A\to\mathbb N$. It is **uncountable** iff no injection $A\to\mathbb N$ exists.
+
 
 **Countable Set:** A set is countable if its elements can be put in one-to-one correspondence with the natural numbers $\mathbb{N} = \{0, 1, 2, 3, \ldots\}$, or if it is finite.
 
@@ -1308,6 +1378,17 @@ Zorn's Lemma is equivalent to the Axiom of Choice: assuming either one, you can 
 
 ## Ordinals and Well-Ordering
 
+> [!definition] Well-ordering and ordinal
+> A **well-order** on $A$ is a **total order** $\preceq$ such that every nonempty subset $S\subseteq A$ has a **least element**:
+>
+> $$
+> \boxed{\forall S\subseteq A:\ S\ne\varnothing\Rightarrow
+> \exists m\in S\ \forall s\in S:\ m\preceq s.}
+> $$
+>
+> A **von Neumann ordinal** is a transitive set well-ordered by membership $\in$. In that construction, each ordinal contains **all smaller ordinals**.
+
+
 A **well-ordered** set is a totally ordered set in which *every* nonempty subset has a least element. The naturals $\mathbb{N}$ are well-ordered (any nonempty set of naturals has a smallest member), but $\mathbb{Z}$ and $\mathbb{R}$ are not (there is no least integer, and no least positive real). Well-ordering is exactly the property that makes [induction](./propositional-logic-zeroth-order-logic) work, and it generalizes far beyond the finite.
 
 **Ordinals** are the canonical well-ordered sets, the "order types" that extend counting into the transfinite. Using the same **von Neumann encoding** as the [natural numbers](./number-systems), each ordinal *is* the set of all smaller ordinals:
@@ -1466,6 +1547,22 @@ These identities are the axioms of a **Boolean algebra** (the same structure beh
 
 ## Indexed Families of Sets
 
+> [!definition] Indexed family, union, and intersection
+> An **indexed family** $(A_i)_{i\in I}$ is a function that assigns a set $A_i$ to each index $i\in I$.
+>
+> For a **nonempty** index set $I$, membership in the generalized union and intersection is defined by
+>
+> $$
+> \boxed{x\in\bigcup_{i\in I}A_i\iff\exists i\in I:\ x\in A_i,}
+> $$
+>
+> $$
+> \boxed{x\in\bigcap_{i\in I}A_i\iff\forall i\in I:\ x\in A_i.}
+> $$
+>
+> For **empty** $I$, the union is $\varnothing$. An empty intersection is $U$ **only when a universe $U$ has been fixed**; otherwise the intersection of an empty family is not a set specified by this formula alone.
+
+
 When working with more than two sets, we often need notation for unions and intersections of many sets at once. An **indexed family** of sets is a collection $\{A_i\}_{i \in I}$, where $I$ is an index set and each $i \in I$ labels a set $A_i$.
 
 For finitely many sets, we write $A_1, A_2, \ldots, A_n$. For infinitely many, we might use $\{A_n\}_{n=1}^{\infty}$ or $\{A_i\}_{i \in I}$ for an arbitrary index set $I$.
@@ -1578,6 +1675,16 @@ $$
 The proof still works: if $\{\{a\}\} = \{\{c\}, \{c, d\}\}$, then {c} = {c, d}, so c = d = a.
 
 ### Cartesian Product
+
+> [!definition] Cartesian product
+> The **Cartesian product** is the set of all **ordered pairs** choosing the first coordinate from $A$ and the second from $B$:
+>
+> $$
+> \boxed{A\times B:=\{(a,b)\mid a\in A,\ b\in B\}.}
+> $$
+>
+> If either set is empty, the product is empty. In general, $A\times B$ and $B\times A$ are different sets.
+
 
 ![A three-column by two-row grid lists all six ordered pairs in A times B, with columns 1, 2, 3 and rows a, b.](./media/st-cartesian-product.svg)
 
