@@ -11,7 +11,11 @@ enables: ["combination", "probability"]
 ## Why Permutations?
 
 > [!definition] Permutations count ordered arrangements
-> Selecting $r$ **distinct** objects from $n$ distinct objects **with order** gives $P(n,r)=n!/(n-r)!$, for $0\le r\le n$. If order does not matter, use a combination instead.
+> A **permutation** is a selection **with an order**. It matters both *which objects* you choose and *where you put them*. For example, seating Alice first and Bob second is different from seating Bob first and Alice second—even though the two people are the same.
+>
+> We use $n$ for the **number of distinct objects available** and $r$ for the **number of ordered positions to fill**. Each object can be used only once, so $0\le r\le n$. We will work out how to count these arrangements before introducing the formula.
+>
+> **Contrast:** If you are simply choosing a two-person team, Alice-and-Bob is the same team as Bob-and-Alice. When changing the order does *not* change the outcome, use a [combination](./combination) instead.
 
 
 Imagine you have 3 people (Alice, Bob, and Carol) and 3 chairs in a row. How many different ways can they sit down?
