@@ -634,71 +634,16 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 
 *Figure: A vertical line hits $y=x^2$ once, but hits the sideways parabola $x=y^2$ twice; only the first graph defines $y$ as a function of $x$.*
 
-**Vertical Line Test:** A graph in the coordinate plane represents a function if and only if every vertical line intersects the graph at most once.
+The [set-theoretic definition](#function) says that every input in the domain occurs in **exactly one** ordered pair. On a graph in the coordinate plane, an input $x=a$ corresponds to the **vertical line** through that input.
 
-**Why this works:** A function assigns exactly one output to each input. A vertical line at $x = a$ passes through every point with that $x$-value. If the line crosses the graph at two or more points, then the input $a$ would map to multiple outputs, violating the definition of a function.
+> [!distinction] At most once versus exactly once
+> A plane curve passes the **vertical-line test** when no vertical line intersects it **more than once**. This means the curve is the graph of a **function on the set of x-values that actually occur**.
+>
+> To represent a **total function on a specified domain $A$**, each vertical line $x=a$ for $a\in A$ must intersect the graph **exactly once**, and no graphed point may have an x-coordinate outside $A$. The "at most once" version checks single-valuedness but does not by itself establish that every element of a chosen domain is covered.
 
-**Examples:**
-- The graph of $y = x^2$ passes the vertical line test (each vertical line hits the parabola at most once), so it is a function.
-- The graph of $x^2 + y^2 = 1$ (a circle) fails the vertical line test. For instance, the vertical line $x = 0$ intersects the circle at both $(0, 1)$ and $(0, -1)$.
+For $y=x^2$, every real $x$ has one output, so it defines $f:\mathbb R\to\mathbb R$. The sideways parabola $x=y^2$ fails: the vertical line $x=1$ meets the curve at both $(1,1)$ and $(1,-1)$, so it cannot define a function of $x$ without restricting the curve.
 
-**Function:** A function is a relation that uniquely associates each
-element of a set, called the **domain**, with exactly one element of
-another set, called the **codomain**.
-
-A function **f** from a set **X** (called the **domain**) to a set **Y**
-(called the **codomain**) is a **rule or mapping** that **assigns to
-each element** **x** in **X** **exactly one element** **y** in **Y**.
-
-The element **y** is called the **image** of **x** under the function
-**f**, and it is often denoted as **f(x)**.
-
-Precise definition of a function:
-
-A function is formed by three sets: the **domain** $X$, the **codomain** $Y$, and the **graph** $R$ (a set of input-output pairs) satisfying three conditions:
-
-1. **The graph is a set of pairs:** $R \subseteq X \times Y$. Each pair $(x, y) \in R$ records that $f$ sends $x$ to $y$.
-2. **Totality (defined everywhere):** every input has an output. $\forall x \in X,\ \exists y \in Y,\ (x, y) \in R$.
-3. **Single-valuedness (functionality):** every input has *only one* output. If $(x, y) \in R$ and $(x, y') \in R$, then $y = y'$.
-
-Conditions 2 and 3 together say each $x \in X$ relates to *exactly one* $y$, which is precisely what separates a function from a general [relation](#relation): a relation may leave an element unpaired or pair it with several, a function does neither.
-
-Each function type has characteristic domain restrictions. See [Rational Functions](./rational-functions) (excluded zeros of denominator), [Radical Functions](./radical-functions) (non-negative under even roots), and [Logarithms](./logarithms) (positive arguments only).
-
-**1. Domain of a Function:**
-
-The **domain** of a function **f : X → Y** is the set **X**. It includes
-all the possible inputs that the function can accept.
-
-**Example**: For the function **f(x) =** $\sqrt{\mathbf{x}}$, the domain
-is $X = \{ x \in \mathbb{R} \mid x \geq 0 \}$, because the square root function is only
-defined for non-negative real numbers.
-
-**2. Codomain of a Function:**
-
-The **codomain** of a function **f : X → Y**, which includes all
-possible outputs that the function is allowed to produce according to
-its definition.
-
-The **codomain** is specified as part of the function's definition,
-even if not all elements of the **codomain** are actually reached by
-the function.
-
-**3. Range of a Function:**
-
-The range of a function **f : X → Y** is the set of all actual
-outputs that the function produces when applied to every
-element in its domain **X**.
-
-The range is therefore a subset of the codomain.
-
-**4. Image of a Function:**
-
-The **image** of a function is similar to the **range** but often refers
-to the outputs corresponding to a specific subset of the domain. If the
-subset in question is the entire **domain**, then the **image** and the
-**range** are the same. For a particular subset $A \subseteq X$, the image of
-**A** under **f** is denoted as **f(A)**. For a single element $a$, the value $f(a)$ is called the **image of $a$ under $f$**.
+Domain restrictions often make otherwise ambiguous formulas into valid functions. See [Rational Functions](./rational-functions) (excluded denominator zeros), [Radical Functions](./radical-functions) (the real domain for even roots), and [Logarithms](./logarithms) (positive inputs).
 
 ### Domain
 
@@ -924,17 +869,16 @@ Define your own function on a small domain below: choose each output and watch w
 
 ### Invertibility
 
-For the set-theoretic construction (as opposed to the composition test alone), see [Inverse Functions](#inverse-functions).
+> [!definition] Invertible function (composition criterion)
+> A function $f:A\to B$ is **invertible** if there exists a function $g:B\to A$ satisfying
+>
+> $$
+> \boxed{g\circ f=\operatorname{id}_A,\qquad f\circ g=\operatorname{id}_B.}
+> $$
+>
+> Such a $g$ is unique and is denoted $f^{-1}$. Equivalently, $f$ is invertible **if and only if** it is **bijective**.
 
-**Let f: A → B**
-
-**f is invertible if there exists a function g: B → A such that:**
-
-$\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
-
-**In this case, g is called the inverse of f, written f^−1**
-
-**Important:** A function is invertible if and only if it is bijective (both injective and surjective).
+This gives the **operational criterion**: applying the two functions in either order recovers the original input. The later [Inverse Functions](#inverse-functions) section constructs $g$ **set-theoretically** by reversing the ordered pairs of $f$ and proves precisely when this produces a function.
 
 ## Well-Defined Functions
 
