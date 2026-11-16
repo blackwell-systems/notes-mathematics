@@ -743,8 +743,6 @@ A **lattice is simultaneously a join-semilattice and a meet-semilattice**. A **c
 
 *Figure: The join and meet branches are **independent additional conditions** on a poset. Requiring both produces a lattice. Requiring bounds or arbitrary joins and meets produces stronger kinds of lattice.*
 
-For a compact reference on the relationships among order-theoretic structures, see [Bare Minimum: Order Theory](https://assumptionsofphysics.org/autogen/bareminima/OrderTheory.pdf).
-
 ### The same structure described by an operation
 
 We can recognize a semilattice **without drawing a Hasse diagram first**. Begin with a nonempty set $S$ and a binary operation $\circ:S\times S\to S$. The notation means that combining **any two elements of $S$ returns an element of $S$**. We have not chosen a partial order yet.
