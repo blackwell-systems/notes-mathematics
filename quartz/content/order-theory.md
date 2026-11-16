@@ -173,7 +173,27 @@ Take $P(x):\iff x>10$, $Q(x):\iff x>0$, and $T(x):\iff (x\ge0\ \text{and}\ x\ne0
 
 #### 3. Directed reachability: cycles are comparisons, not mistakes
 
-In a directed graph, define $u\preceq v$ when a directed path runs from vertex $u$ to vertex $v$, including a path of length zero. A vertex reaches itself, and paths compose, so this is a preorder.
+Before asking whether one vertex can **reach** another, we need to define the structure we're moving through.
+
+> [!definition] Directed graph, vertex, edge, and path
+> A **directed graph** $G=(V,E)$ consists of a set $V$ of **vertices** (the objects, drawn as points) and a set $E\subseteq V\times V$ of **directed edges** (arrows connecting vertices).
+>
+> An edge $(u,v)\in E$, drawn $u\to v$, allows us to travel **from $u$ to $v$**. It does not automatically allow travel back from $v$ to $u$: that would require another directed edge or path.
+>
+> A **directed path** from $u$ to $v$ follows a finite sequence of arrows **in their indicated direction**, beginning at $u$ and ending at $v$. Its **length** is the number of edges followed. A path of **length zero** uses no edges and stays at the same vertex. Here paths may revisit vertices; some graph-theory texts call these *walks*, but the reachability relation is the same under either convention.
+
+![A dark-mode diagram introducing vertices and directed edges, showing arrows from a to b, b to c, c to b, and c to d. The two opposite arrows between b and c allow mutual reachability. The figure explains that directed reachability is reflexive and transitive, while antisymmetry can fail.](./media/ot-directed-graph-reachability.svg)
+
+*Figure: Arrows specify the allowed direction of travel. The **reflexivity** and **transitivity** of reachability make it a preorder; a cycle between distinct vertices can violate **antisymmetry**.*
+
+Now choose **reachability** as our comparison. Define $u\preceq v$ to mean that a directed path runs from vertex $u$ to vertex $v$. Read this as **"$u$ can reach $v$,"** not as a numerical less-than statement.
+
+**Check the preorder properties:**
+
+- **Reflexivity:** every vertex reaches itself by a path of length zero, so $u\preceq u$.
+- **Transitivity:** if $u$ can reach $v$ and $v$ can reach $w$, following those paths in sequence shows $u$ can reach $w$.
+
+A **directed cycle** follows one or more arrows and returns to its starting vertex. In the diagram, the two distinct vertices $b$ and $c$ lie on a cycle: both $b\preceq c$ and $c\preceq b$ hold, even though $b\neq c$. This violates **antisymmetry**, so reachability need not be a partial order. The cycle isn't an error; it is exactly what the chosen relation records.
 
 Consider a service-call graph with calls from Scheduler to Worker, Worker back to Scheduler, and Worker to Storage. Scheduler and Worker can reach each other, so both comparisons hold even though they are different services. Both can reach Storage, but Storage has no path back to either.
 
