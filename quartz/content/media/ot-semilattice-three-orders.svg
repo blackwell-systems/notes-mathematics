@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1530 795" role="img" aria-labelledby="tt dd">
+<title id="tt">A join-semilattice, meet-semilattice, and lattice</title>
+<desc id="dd">Side-by-side Hasse diagrams of the three nonempty subsets, three proper subsets, and four subsets of {a,b}, ordered by inclusion. The join-semilattice has a common upper bound but no common lower bound for singleton sets. The meet-semilattice has a common lower bound but no common upper bound. The full power-set lattice has both.</desc>
+<rect width="1530" height="795" fill="#0e1424"/>
+<text x="765" y="80" font-size="49" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif" font-weight="bold">When one bound exists—and when both do</text>
+<rect x="28" y="136" width="475" height="611" rx="19" fill="#111b2c" stroke="#66cfc1" stroke-width="3"/>
+<rect x="28" y="136" width="475" height="73" rx="19" fill="#1a2638"/>
+<text x="265.5" y="183" font-size="31" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif" font-weight="bold">Join-semilattice</text><text x="265.5" y="246" font-size="21" fill="#c9d6e1" text-anchor="middle" font-family="Arial,sans-serif">Nonempty subsets of {a, b}</text><text x="265.5" y="275" font-size="21" fill="#c9d6e1" text-anchor="middle" font-family="Arial,sans-serif">Every pair has a least upper bound</text>
+<rect x="528" y="136" width="475" height="611" rx="19" fill="#111b2c" stroke="#b798e2" stroke-width="3"/>
+<rect x="528" y="136" width="475" height="73" rx="19" fill="#1a2638"/>
+<text x="765.5" y="183" font-size="31" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif" font-weight="bold">Meet-semilattice</text><text x="765.5" y="246" font-size="21" fill="#c9d6e1" text-anchor="middle" font-family="Arial,sans-serif">Proper subsets of {a, b}</text><text x="765.5" y="275" font-size="21" fill="#c9d6e1" text-anchor="middle" font-family="Arial,sans-serif">Every pair has a greatest lower bound</text>
+<rect x="1028" y="136" width="475" height="611" rx="19" fill="#111b2c" stroke="#e7bd6e" stroke-width="3"/>
+<rect x="1028" y="136" width="475" height="73" rx="19" fill="#1a2638"/>
+<text x="1265.5" y="183" font-size="31" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif" font-weight="bold">Lattice</text><text x="1265.5" y="246" font-size="21" fill="#c9d6e1" text-anchor="middle" font-family="Arial,sans-serif">All subsets of {a, b}</text><text x="1265.5" y="275" font-size="21" fill="#c9d6e1" text-anchor="middle" font-family="Arial,sans-serif">Every pair has both bounds</text>
+<!-- left: peak joined to two lower nodes -->
+<line x1="266" y1="383" x2="174" y2="489" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/><line x1="266" y1="383" x2="360" y2="489" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/>
+<circle cx="266" cy="353" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="266" y="362" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{a,b}</text><circle cx="174" cy="517" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="174" y="526" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{a}</text><circle cx="360" cy="517" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="360" y="526" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{b}</text>
+<text x="266" y="598" font-size="27" fill="#8ae1d3" text-anchor="middle" font-family="Georgia,serif">{a} ∨ {b} = {a,b}</text>
+<text x="266" y="640" font-size="23" fill="#e8c4fb" text-anchor="middle" font-family="Georgia,serif">No meet: ∅ is absent</text>
+<text x="266" y="698" font-size="19" fill="#b7c1d3" text-anchor="middle" font-family="Arial,sans-serif">∅ is not an element of this poset</text>
+<!-- middle: two upper nodes joined to bottom -->
+<line x1="674" y1="399" x2="766" y2="489" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/><line x1="858" y1="399" x2="766" y2="489" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/>
+<circle cx="674" cy="372" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="674" y="381" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{a}</text><circle cx="858" cy="372" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="858" y="381" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{b}</text><circle cx="766" cy="519" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="766" y="528" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">∅</text>
+<text x="766" y="598" font-size="27" fill="#d1b2fb" text-anchor="middle" font-family="Georgia,serif">{a} ∧ {b} = ∅</text>
+<text x="766" y="640" font-size="23" fill="#f6ce94" text-anchor="middle" font-family="Georgia,serif">No join: {a,b} is absent</text>
+<text x="766" y="698" font-size="19" fill="#b7c1d3" text-anchor="middle" font-family="Arial,sans-serif">{a,b} is not an element of this poset</text>
+<!-- right: full diamond -->
+<line x1="1266" y1="358" x2="1172" y2="424" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/><line x1="1266" y1="358" x2="1360" y2="424" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/><line x1="1172" y1="464" x2="1266" y2="531" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/><line x1="1360" y1="464" x2="1266" y2="531" stroke="#ba94e4" stroke-width="5" stroke-linecap="round"/>
+<circle cx="1266" cy="342" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="1266" y="351" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{a,b}</text><circle cx="1172" cy="444" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="1172" y="453" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{a}</text><circle cx="1360" cy="444" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="1360" y="453" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">{b}</text><circle cx="1266" cy="549" r="40" fill="#211e37" stroke="#e8bf71" stroke-width="3"/>
+<text x="1266" y="558" font-size="28" fill="#f5f2ec" text-anchor="middle" font-family="Georgia,serif">∅</text>
+<text x="1266" y="638" font-size="26" fill="#f2d597" text-anchor="middle" font-family="Georgia,serif">Join = {a,b}; meet = ∅</text>
+<text x="1266" y="698" font-size="20" fill="#b7c1d3" text-anchor="middle" font-family="Arial,sans-serif">Both exist inside this poset</text>
+</svg>
