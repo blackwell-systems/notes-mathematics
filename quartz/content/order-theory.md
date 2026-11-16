@@ -315,70 +315,95 @@ This poset is **not total**: neither $2\mid3$ nor $3\mid2$. Those numbers are in
 
 ## Strict and non-strict order
 
-### Why distinguish the two?
+### Start with something familiar: \(\leq\) versus \(<\)
 
-In the **divisibility poset** we just studied, both of these are true:
+For ordinary numbers, we already use **two ways to describe the same ordering**:
 
-- $2\mid2$: two divides **itself**.
-- $2\mid4$: two divides **a different number**, four.
+- $2\leq2$ is true, but $2<2$ is false.
+- $2\leq4$ is true, **and** $2<4$ is true.
+- $4\leq2$ and $4<2$ are both false.
 
-A partial order must allow the first kind of comparison because it is **reflexive**: every element is related to itself. But sometimes we want to say something stronger than "at or below." For instance, when asking whether an element has something **genuinely above it**, we must exclude the element itself. This is why we introduce a *strict* comparison.
+The difference is just **whether an element may be compared with itself**. The symbol $\leq$ allows equality; $<$ excludes it. In particular, $a\leq b$ does **not** mean $a=b$: it means $a$ is less than **or equal to** $b$.
 
-**We are not dividing the poset into two parts or choosing a second, unrelated ordering.** The objects stay the same, and so does the underlying idea of comparison. We are simply choosing whether to **include or exclude equality**:
+Order theory uses this same distinction even when we are not comparing numerical sizes. We write $\preceq$ in place of a chosen non-strict order and $\prec$ for its strict version. As earlier in this chapter, **these are generic symbols whose meaning comes from the order we have chosen**.
 
-- **Non-strict:** $a\preceq b$ means "$a$ is at or below $b$ according to this order." The two elements **may be equal, but need not be**.
-- **Strict:** $a\prec b$ means "$a$ is below $b$ according to this order **and is not the same element**." Equality is excluded.
+### See exactly what changes in a poset
 
-In other words, *the strict part of an order* means its comparisons **between different elements**, not a separate portion of the elements of the poset.
-
-### See the distinction before the formula
-
-| The chosen order | Non-strict comparison | Strict comparison |
-| --- | --- | --- |
-| Numbers by size | $2\leq2$ and $2\leq4$ | $2<4$, but **not** $2<2$ |
-| Sets by inclusion | $A\subseteq A$ and $\{a\}\subseteq\{a,b\}$ | $\{a\}\subsetneq\{a,b\}$, but **not** $A\subsetneq A$ |
-| Positive integers by divisibility | $2\mid2$ and $2\mid4$ | $2$ is a **proper divisor** of $4$, but not of itself |
-
-**Nothing new is being compared in the strict column.** We retain the existing comparison and additionally require the elements to be different. For example, in the earlier power-set diamond, $\{a\}$ and $\{b\}$ are still **incomparable**: excluding equality does not suddenly make them comparable.
-
-The symbols $\preceq$ and $\prec$ are **generic placeholders**, just as $\preceq$ was earlier in the chapter. For numerical order they can mean $\leq$ and $<$; for set inclusion they can mean $\subseteq$ and $\subsetneq$; for divisibility, $\prec$ means "divides and is different from." **Strict does not mean immediately next**: for example, $1$ strictly divides $12$ even though $2$ and $3$ are intermediate divisors. We will distinguish *strictly below* from *immediately below* when we reach [Hasse diagrams](#hasse-diagrams-reconstructing-the-finite-order).
-
-### The formal relationship
-
-For any partial order $(P,\preceq)$, define a new relation $\prec$ **on the same set** by
+Return to **divisibility**, the partial order we just proved valid. This time, consider only the three positive integers
 
 $$
-a\prec b
-\quad\Longleftrightarrow\quad
-a\preceq b\ \text{and}\ a\neq b.
+P:=\{1,2,4\}.
 $$
 
-Read "$a$ is strictly below $b$." The formula says: first check that the original order relates $a$ to $b$; then check that they are **not equal**.
+In this poset, saying "$a$ is below $b$" is **shorthand for "$a$ divides $b$."** It is not a new numerical comparison. For example, $1$ is below $4$ because $1\mid4$.
 
-We can also go **backward**. If we know all the strict comparisons, we recover the non-strict comparison just by allowing equality:
+Let's write down **every true comparison**. Remember that a comparison is a statement about a *pair* of elements, not a new element in the poset.
+
+| Using the existing (non-strict) order | Keeping only comparisons between *different* elements |
+| --- | --- |
+| $(1,1)$, $(2,2)$, $(4,4)$ | ~~$(1,1)$, $(2,2)$, $(4,4)$~~ |
+| $(1,2)$, $(1,4)$, $(2,4)$ | $(1,2)$, $(1,4)$, $(2,4)$ |
+
+Each pair $(a,b)$ means **"the comparison from $a$ to $b$ holds"**. For example, $(2,4)$ is present because $2$ divides $4$. The left column includes comparisons of elements **with themselves**; the right column drops exactly those three self-comparisons.
+
+**That's all "the strict part of an order" means:** keep the same elements and all the comparisons between **different** elements, but leave out self-comparisons. We have not split the poset into two sets of elements, and we have not invented a different ordering.
+
+Now we can give those two versions names:
+
+- **Non-strict divisibility:** $2\preceq2$ and $2\preceq4$ both hold.
+- **Strict divisibility:** $2\prec4$ holds, but $2\prec2$ does **not**.
+
+Here $\prec$ means **"is a proper divisor of"**, not ordinary numerical $<$. This matters: numerically $3<4$, but $3$ does not divide $4$, so $3\nprec4$ **in the divisibility order**.
+
+The same pattern appears with sets: $A\subseteq A$ is true, whereas $A\subsetneq A$ is false. But $\{a\}\subsetneq\{a,b\}$ is true. Thus **$\subseteq$ is to $\subsetneq$ as $\leq$ is to $<$**.
+
+### How this relates to the partial-order axioms
+
+Two properties you already learned explain why the distinction works:
+
+- **Reflexivity** requires every self-comparison $a\preceq a$. That's why the non-strict version includes $(1,1)$, $(2,2)$, and $(4,4)$.
+- **Antisymmetry** says that if $a\preceq b$ **and** $b\preceq a$, then $a=b$. So **different elements cannot compare in both directions** in a partial order.
+
+Antisymmetry does **not** define equality: $a=b$ already means they are the same element. It tells us that **two-way comparison is possible only in that case**. When we remove self-comparisons, no pair can be related in both directions.
+
+> [!distinction] Strict does not mean the reverse, and does not mean immediately next
+> If $a\prec b$ is false, it does **not** follow that $b\prec a$ is true. Under divisibility, neither $2\prec3$ nor $3\prec2$ holds: those elements are **incomparable**.
+>
+> And "strictly below" does **not** mean there is nothing between the two elements. We have $1\prec4$, even though $1\prec2\prec4$. The stronger idea of *immediately below* is introduced through [cover relations in Hasse diagrams](#hasse-diagrams-reconstructing-the-finite-order).
+
+### Only now: the general rule
+
+Let $(P,\preceq)$ be **any** poset. Its strict version is the relation $\prec$ on the **same set** $P$ defined by
 
 $$
-a\preceq b
-\quad\Longleftrightarrow\quad
-a\prec b\ \text{or}\ a=b.
+a\prec b\quad\Longleftrightarrow\quad a\preceq b\ \text{and}\ a\neq b.
 $$
 
-Thus the strict and non-strict descriptions contain **the same information**. For instance, $\{a\}\subseteq\{a\}$ comes from equality, while $\{a\}\subseteq\{a,b\}$ comes from strict inclusion.
+Read: "$a$ is strictly below $b$." In plain English: **the chosen comparison holds, and the elements are different**.
+
+Conversely, we can recover the original non-strict order by adding self-comparisons back:
+
+$$
+a\preceq b\quad\Longleftrightarrow\quad a\prec b\ \text{or}\ a=b.
+$$
+
+This is why **strict and non-strict are two descriptions of the same order**, not two independent structures. The same comparisons can be recorded either with equality allowed or with equality handled separately.
 
 > [!theorem] Strict and non-strict descriptions correspond
-> The strict part $\prec$ of a partial order is **irreflexive** (no element is strictly below itself) and **transitive** (if $a\prec b$ and $b\prec c$, then $a\prec c$). Conversely, any irreflexive and transitive relation $\prec$ gives a partial order when we define $a\preceq b$ to mean $a=b$ or $a\prec b$.
+> Starting from a partial order, its strict version is **irreflexive** (nothing is strictly below itself) and **transitive** (if $a\prec b$ and $b\prec c$, then $a\prec c$).
+>
+> Conversely, start with any **irreflexive and transitive** relation $\prec$. Allow equality as above, and the result is a partial order. So either version determines the other.
 
-**Why these properties?** Excluding equality makes $a\prec a$ impossible, hence *irreflexivity*. A genuine step from $a$ to $b$, followed by a genuine step from $b$ to $c$, must remain a genuine step from $a$ to $c$; *transitivity together with irreflexivity* rules out a reversal back to $a$. The proof makes both statements precise.
+**Why is this a theorem rather than just notation?** We have to verify that removing the equality comparisons really leaves a transitive relation—and that adding them back produces reflexivity, antisymmetry, and transitivity. The proof checks both directions.
 
 > [!proof] Show both constructions satisfy their axioms
 > **Forward:** $a\prec a$ would require $a\neq a$, impossible. If $a\prec b$ and $b\prec c$, transitivity of $\preceq$ gives $a\preceq c$. If $a=c$, then $a\preceq b\preceq a$ forces $a=b$ by antisymmetry, contradicting strictness. Hence $a\prec c$.
 >
 > **Backward:** equality makes the new relation reflexive. If $a\preceq b$ and $b\preceq a$ with $a\neq b$, then $a\prec b$ and $b\prec a$, so transitivity gives $a\prec a$, contradicting irreflexivity. Thus it is antisymmetric. Its transitivity follows from the transitivity of $\prec$, together with the cases in which either comparison is equality.
 
-Every transitive irreflexive relation is also **asymmetric**: $a\prec b$ prevents $b\prec a$. This is stronger than merely saying no element is strictly below itself.
+Every transitive irreflexive relation is also **asymmetric**: $a\prec b$ prevents $b\prec a$.
 
-**Keep the distinction in mind for what comes next:** an element is *maximal* when there is nothing **strictly above** it, not when nothing is at or above it (which would already fail because every element is at or above itself). A [Hasse diagram](#hasse-diagrams-reconstructing-the-finite-order) uses strict comparisons and then narrows them to **cover relations**, where no third element lies between the two.
-
+**Where we'll use this:** later, "maximal" means **no different element is strictly above it**. We cannot say "nothing is at or above it," because reflexivity guarantees that the element is always at or above itself. [Hasse diagrams](#hasse-diagrams-reconstructing-the-finite-order) narrow strict comparisons further to *immediate* comparisons (cover relations).
 
 ## Total orders, chains, and antichains
 
