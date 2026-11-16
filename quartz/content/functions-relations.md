@@ -368,10 +368,10 @@ An **equivalence relation** is reflexive + symmetric + transitive; a **partial o
 > [!definition] Preorder
 > A **preorder** on $A$ is a relation $R\subseteq A\times A$ that is **reflexive and transitive**:
 >
-> $
+> $$
 > (a,a)\in R\quad(a\in A),\qquad
 > (a,b),(b,c)\in R\Rightarrow(a,c)\in R.
-> $
+> $$
 >
 > Antisymmetry is **not** required: different objects may be related in both directions.
 
@@ -412,9 +412,9 @@ A Hasse diagram displays cover relations in a finite poset. Comparability follow
 > [!definition] Total (linear) order
 > A **total order** is a partial order $R\subseteq A\times A$ satisfying **comparability**:
 >
-> $
+> $$
 > \forall a,b\in A:\ (a,b)\in R\ \lor\ (b,a)\in R.
-> $
+> $$
 >
 > The disjunction is inclusive; when $a=b$, reflexivity already makes both sides true.
 
@@ -438,9 +438,9 @@ An **equivalence relation** is reflexive, symmetric, and transitive. Read the co
 > [!definition] Equivalence class
 > For an equivalence relation $\sim$ on $A$, the **class** of $a\in A$ is
 >
-> $
+> $$
 > \boxed{[a]_{\sim}:=\{x\in A\mid x\sim a\}.}
-> $
+> $$
 >
 > The element $a$ **belongs to** this set; it is not the entire set. Equivalent elements name the same class.
 
@@ -452,9 +452,9 @@ The class $[a]$ contains all elements equivalent to $a$. See [Classes and the cl
 > [!definition] Quotient set
 > The **quotient set** of $A$ by an equivalence relation $\sim$ has **equivalence classes as elements**:
 >
-> $
+> $$
 > \boxed{A/{\sim}:=\{[a]_{\sim}\mid a\in A\}.}
-> $
+> $$
 >
 > The **quotient map** $q:A\to A/{\sim}$ sends $q(a):=[a]_{\sim}$. It is surjective, identifying precisely those inputs related by $\sim$.
 
@@ -466,10 +466,10 @@ The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes 
 > [!definition] Composition of binary relations
 > For $R\subseteq A\times B$ and $S\subseteq B\times C$, the **composite** $S\circ R\subseteq A\times C$ consists of pairs connected through **some** intermediate $b\in B$:
 >
-> $
+> $$
 > \boxed{S\circ R:=\{(a,c)\in A\times C\mid
 > \exists b\in B:\ (a,b)\in R\ \land\ (b,c)\in S\}.}
-> $
+> $$
 >
 > Relations may have several intermediate paths; $b$ need not be unique.
 
@@ -515,9 +515,9 @@ To build $S \circ R$ from the picture, start at a node in $A$, walk one blue $R$
 > [!definition] Reflexive, symmetric, or transitive closure
 > For $R\subseteq A\times A$ and a property such as reflexivity, symmetry, or transitivity, its **closure** is the **least relation under inclusion** among $T\subseteq A\times A$ satisfying
 >
-> $
+> $$
 > R\subseteq T\quad\text{and}\quad T\text{ has the specified property}.
-> $
+> $$
 >
 > For these three properties, a least relation exists. A "closure under an arbitrary property" is **not always defined** without additional assumptions.
 
@@ -603,9 +603,9 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 > [!definition] Inverse relation
 > Given $R\subseteq A\times B$, reverse every selected pair:
 >
-> $
+> $$
 > \boxed{R^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in R\}.}
-> $
+> $$
 >
 > The result is always a relation; it need not be a function even if $R$ is.
 
@@ -632,9 +632,9 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 > [!definition] Function as a set of ordered pairs
 > For specified sets $A$ (domain) and $B$ (codomain), a **total function** $f:A\to B$ is a relation $f\subseteq A\times B$ with exactly one second coordinate for **every** first coordinate:
 >
-> $
+> $$
 > \boxed{\forall a\in A,\ \exists!\,b\in B:\ (a,b)\in f.}
-> $
+> $$
 >
 > The symbol $\exists!$ means "there exists exactly one." We write $f(a)=b$ precisely when $(a,b)\in f$. In set theory the function is represented by its **graph of ordered pairs**, with its domain and codomain specified. A formula alone need not determine those sets.
 
@@ -723,9 +723,9 @@ subset in question is the entire **domain**, then the **image** and the
 > [!definition] Domain from ordered pairs
 > For any relation $R\subseteq A\times B$, the **actual domain** is the set of first coordinates appearing in its pairs:
 >
-> $
+> $$
 > \boxed{\operatorname{dom}(R):=\{a\in A\mid\exists b\in B:\ (a,b)\in R\}.}
-> $
+> $$
 >
 > For a **total function** $f:A\to B$, every $a\in A$ appears in exactly one pair, hence $\operatorname{dom}(f)=A$.
 
@@ -752,9 +752,9 @@ $$
 > [!definition] Codomain
 > In a specified function $f:A\to B$, the **codomain** is the target set $B$, which contains every output of the function:
 >
-> $
+> $$
 > f\subseteq A\times B,\qquad f(a)\in B\quad\text{for all }a\in A.
-> $
+> $$
 
 
 The **codomain** of a function **f : X → Y**
@@ -776,10 +776,10 @@ $$
 > [!definition] Range (image of the full domain)
 > For $f:A\to B$, its **range** is the set of all outputs that actually occur:
 >
-> $
+> $$
 > \boxed{\operatorname{ran}(f):=\{b\in B\mid\exists a\in A:\ (a,b)\in f\}
 > =\{f(a)\mid a\in A\}.}
-> $
+> $$
 
 
 The range of a function **f : X → Y** is the set of all actual
@@ -813,10 +813,10 @@ Explanation:
 > [!definition] Image of a subset
 > For a function $f:A\to B$ and subset $C\subseteq A$, its **image** is
 >
-> $
+> $$
 > \boxed{f[C]:=\{f(c)\mid c\in C\}
 > =\{b\in B\mid\exists c\in C:\ (c,b)\in f\}.}
-> $
+> $$
 
 
 The **image** of a function is similar to the **range** but often refers
@@ -833,10 +833,10 @@ denoted as **f(A)**.
 > [!definition] Preimage of a subset
 > Let $f:A\to B$ and $D\subseteq B$. The **preimage** (inverse image) is the set of all inputs whose output lies in $D$:
 >
-> $
+> $$
 > \boxed{f^{-1}[D]:=\{a\in A\mid f(a)\in D\}
 > =\{a\in A\mid\exists b\in D:\ (a,b)\in f\}.}
-> $
+> $$
 
 
 The **preimage** of a set under a function is a concept that refers to
@@ -897,15 +897,15 @@ and the second inclusion can be **strict**. Take $f(x) = x^2$ on $\mathbb{R}$ wi
 > [!definition] Fiber and kernel relation
 > For $f:A\to B$ and $b\in B$, the **fiber over $b$** is the preimage of the singleton:
 >
-> $
+> $$
 > \boxed{f^{-1}[\{b\}]=\{a\in A\mid f(a)=b\}.}
-> $
+> $$
 >
 > The **kernel equivalence relation** compares inputs with identical outputs (not to be confused with the kernel of a linear map or group homomorphism):
 >
-> $
+> $$
 > \boxed{\ker(f):=\{(a,a')\in A\times A\mid f(a)=f(a')\}.}
-> $
+> $$
 
 
 ![Two panels illustrating fibers. The left panel, fibers of a finite map, shows a domain oval containing eight dots grouped into three colored blobs: a blue blob 1, 2, 3, a green blob 4, 5, and a purple blob 6, 7, 8, with arrows from each blob to its single target in a codomain oval holding p, q, r, so all of 1, 2, 3 map to p, both 4 and 5 map to q, and 6, 7, 8 map to r. The right panel, fibers of f of x equals x squared, plots the parabola with a horizontal line at height 4 meeting it at the points minus 2, 4 and 2, 4, marking the fiber over 4 as the set minus 2, 2. The caption states that the fibers are the equivalence classes of the kernel, where x is related to x prime exactly when f of x equals f of x prime.](./media/fr-fibers-kernel.svg)
@@ -931,9 +931,9 @@ These fibers **partition** $\mathbb{R}$: every real $x$ lies in exactly one fibe
 > [!definition] Injective function
 > $f:A\to B$ is **injective** when equal outputs force equal inputs:
 >
-> $
+> $$
 > \boxed{\forall a,a'\in A:\ f(a)=f(a')\Rightarrow a=a'.}
-> $
+> $$
 >
 > In ordered-pair language, $(a,b)\in f$ and $(a',b)\in f$ imply $a=a'$. Equivalently, every fiber has **at most one element**.
 
@@ -961,9 +961,9 @@ It is enough to exhibit **one** collision: $f(-2) = 4 = f(2)$, yet $-2 \neq 2$. 
 > [!definition] Surjective function
 > $f:A\to B$ is **surjective** when every codomain element occurs as the second coordinate of a pair:
 >
-> $
+> $$
 > \boxed{\forall b\in B,\ \exists a\in A:\ (a,b)\in f.}
-> $
+> $$
 >
 > Equivalently, $\operatorname{ran}(f)=B$.
 
@@ -985,9 +985,9 @@ Pick an arbitrary target $y \in \mathbb{R}$. We need an input $x$ with $f(x) = y
 > [!definition] Bijective function
 > $f:A\to B$ is **bijective** when each $b\in B$ is paired with **exactly one** $a\in A$:
 >
-> $
+> $$
 > \boxed{\forall b\in B,\ \exists!\,a\in A:\ (a,b)\in f.}
-> $
+> $$
 >
 > This is equivalent to **injectivity and surjectivity together**. It is the condition needed for the reversed pairs to form a function $B\to A$.
 
@@ -1028,9 +1028,9 @@ Define your own function on a small domain below: choose each output and watch w
 > [!definition] Invertible function (composition criterion)
 > A function $f:A\to B$ is **invertible** if there exists a function $g:B\to A$ satisfying
 >
-> $
+> $$
 > \boxed{g\circ f=\operatorname{id}_A,\qquad f\circ g=\operatorname{id}_B.}
-> $
+> $$
 >
 > Such a $g$ is unique and is denoted $f^{-1}$. Equivalently, $f$ is invertible **if and only if** it is **bijective**.
 
@@ -1052,15 +1052,15 @@ $\forall x \in A, \, g(f(x)) = x \wedge \forall y \in B, \, f(g(y)) = y.$
 > [!definition] Well-definedness on equivalence classes
 > For an equivalence relation $\sim$ on $A$ and a function $F:A\to B$, a proposed map on the quotient
 >
-> $
+> $$
 > \overline F:A/{\sim}\to B,\qquad \overline F([a]):=F(a)
-> $
+> $$
 >
 > is **well-defined** exactly when its value is independent of the representative:
 >
-> $
+> $$
 > \boxed{a\sim a'\ \Rightarrow\ F(a)=F(a')\qquad(a,a'\in A).}
-> $
+> $$
 
 
 For an abstract treatment that preserves **composition and identities** without requiring arrows to be set functions, continue to [Category Theory Foundations](./category-theory-foundations). [Functors and Natural Transformations](./category-functors-naturality) then explain how whole families of such maps are related.
@@ -1084,9 +1084,9 @@ The rule to remember: whenever a function is defined via representatives of equi
 > [!definition] Identity function as a relation
 > The **identity function** on a set $A$ contains exactly the diagonal pairs:
 >
-> $
+> $$
 > \boxed{\operatorname{id}_A:=\{(a,a)\mid a\in A\}\subseteq A\times A.}
-> $
+> $$
 >
 > Thus $\operatorname{id}_A:A\to A$ and $\operatorname{id}_A(a)=a$ for all $a\in A$.
 
@@ -1109,9 +1109,9 @@ The rule to remember: whenever a function is defined via representatives of equi
 > [!definition] Inverse function — set-theoretic definition
 > Treat $f:A\to B$ as its graph of ordered pairs $f\subseteq A\times B$. **Reverse every pair** to construct the inverse relation:
 >
-> $
+> $$
 > \boxed{f^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in f\}.}
-> $
+> $$
 >
 > This inverse relation always exists. It is a **function** $f^{-1}:B\to A$ precisely when **every $b\in B$ has exactly one reversed output**—equivalently, when $f$ is **bijective**.
 
@@ -1249,10 +1249,10 @@ Inverting a composition reverses the order because an output of $g\circ f$ must 
 > [!definition] Composition of function graphs
 > For $f:A\to B$ and $g:B\to C$, define
 >
-> $
+> $$
 > \boxed{g\circ f:=\{(a,c)\in A\times C\mid
 > \exists b\in B:\ (a,b)\in f\land (b,c)\in g\}.}
-> $
+> $$
 >
 > This relation is a **function**, since $f$ and $g$ each choose exactly one output for each input. It satisfies $(g\circ f)(a)=g(f(a))$: apply $f$ **first**.
 
@@ -1495,9 +1495,9 @@ for all $x$ in the domain.
 > [!definition] Partial function as a relation
 > A **partial function** $f:A\rightharpoonup B$ is a relation $f\subseteq A\times B$ in which **each $a\in A$ occurs as the first coordinate in at most one pair**:
 >
-> $
+> $$
 > \boxed{(a,b)\in f\ \land\ (a,b')\in f\ \Rightarrow\ b=b'.}
-> $
+> $$
 >
 > Its **domain of definition** is $D=\{a\in A\mid\exists b\in B:(a,b)\in f\}\subseteq A$; equivalently, it is a total function $D\to B$. The empty relation is also a valid partial function.
 
