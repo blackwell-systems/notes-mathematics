@@ -1345,9 +1345,9 @@ The **transfinite induction principle** is:
 > [!theorem] Transfinite induction
 > To prove a property $P(\alpha)$ for **every ordinal** $\alpha$, it is enough to establish for an arbitrary ordinal $\alpha$:
 >
-> $
+> $$
 > \left(\forall\beta<\alpha,\;P(\beta)\right)\Longrightarrow P(\alpha).
-> $
+> $$
 >
 > This single formulation handles the base case, successor stages, and limit stages: at $\alpha=0$ there are no predecessors; at a successor you may use all earlier cases; at a limit you may use **every** earlier stage.
 
