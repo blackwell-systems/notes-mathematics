@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 745" role="img" aria-labelledby="ttl dsc">
+<title id="ttl">Structure hierarchy of posets, semilattices, and lattices</title>
+<desc id="dsc">Requirements strengthen from a partial order to either a join-semilattice or a meet-semilattice. Having both gives a lattice. Adding a least and greatest element gives a bounded lattice. Requiring joins and meets for every subset, including the empty subset, gives a complete lattice. Every complete lattice is bounded, but a bounded lattice need not be complete.</desc>
+<defs><marker id="arrow" markerWidth="11" markerHeight="11" refX="8.5" refY="5.5" orient="auto"><path d="M0 0 L11 5.5 L0 11Z" fill="#f4d393"/></marker></defs>
+<rect width="1500" height="745" fill="#0d1526"/>
+<text x="750" y="67" font-size="47" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">From poset to semilattices and lattices</text>
+<text x="750" y="105" font-size="23" fill="#b4c6d6" text-anchor="middle" font-family="Georgia,serif">Read arrows as adding requirements, not automatic implications</text>
+<rect x="27" y="299" width="255" height="145" rx="16" fill="#142035" stroke="#b4cadc" stroke-width="3"/>
+<text x="154" y="346" font-size="34" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">Partial order</text>
+<text x="154" y="388" font-size="21" fill="#d5e1eb" text-anchor="middle" font-family="Georgia,serif">Reflexive · transitive</text>
+<text x="154" y="415" font-size="21" fill="#d5e1eb" text-anchor="middle" font-family="Georgia,serif">Antisymmetric</text>
+<rect x="366" y="180" width="299" height="150" rx="16" fill="#142035" stroke="#65c8be" stroke-width="3"/>
+<text x="515" y="225" font-size="29" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">Join-semilattice</text>
+<text x="515" y="266" font-size="22" fill="#dbd8e4" text-anchor="middle" font-family="Georgia,serif">Every pair has a join</text>
+<text x="515" y="299" font-size="19" fill="#8adfd3" text-anchor="middle" font-family="Georgia,serif">least upper bound</text>
+<rect x="366" y="415" width="299" height="150" rx="16" fill="#142035" stroke="#ad92dc" stroke-width="3"/>
+<text x="515" y="460" font-size="29" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">Meet-semilattice</text>
+<text x="515" y="501" font-size="22" fill="#dbd8e4" text-anchor="middle" font-family="Georgia,serif">Every pair has a meet</text>
+<text x="515" y="534" font-size="19" fill="#d0b9f2" text-anchor="middle" font-family="Georgia,serif">greatest lower bound</text>
+<path d="M282 371 H325 V255 H366" fill="none" stroke="#e7d4a0" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M325 371 V490 H366" fill="none" stroke="#e7d4a0" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="742" y="299" width="227" height="145" rx="16" fill="#142035" stroke="#e5bd76" stroke-width="3"/>
+<text x="856" y="347" font-size="34" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">Lattice</text>
+<text x="856" y="388" font-size="20" fill="#e9dfe0" text-anchor="middle" font-family="Georgia,serif">Both join and meet</text>
+<text x="856" y="419" font-size="20" fill="#e9dfe0" text-anchor="middle" font-family="Georgia,serif">for every pair</text>
+<path d="M665 255 H703 V367 H742" fill="none" stroke="#e7d4a0" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M665 490 H703 V379 H742" fill="none" stroke="#e7d4a0" stroke-width="4"/>
+<rect x="1012" y="299" width="225" height="145" rx="16" fill="#142035" stroke="#69cabe" stroke-width="3"/>
+<text x="1124" y="343" font-size="27" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">Bounded lattice</text>
+<text x="1124" y="384" font-size="21" fill="#e9dfe0" text-anchor="middle" font-family="Georgia,serif">Has bottom ⊥</text>
+<text x="1124" y="413" font-size="21" fill="#e9dfe0" text-anchor="middle" font-family="Georgia,serif">and top ⊤</text>
+<path d="M969 371 L1010 371" fill="none" stroke="#f4d393" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1280" y="299" width="202" height="145" rx="16" fill="#142035" stroke="#ad92dc" stroke-width="3"/>
+<text x="1381" y="340" font-size="30" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">Complete</text>
+<text x="1381" y="374" font-size="30" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">lattice</text>
+<text x="1381" y="409" font-size="20" fill="#e9dfe0" text-anchor="middle" font-family="Georgia,serif">Every subset</text>
+<text x="1381" y="433" font-size="20" fill="#e9dfe0" text-anchor="middle" font-family="Georgia,serif">has join, meet</text>
+<path d="M1237 371 L1278 371" fill="none" stroke="#f4d393" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="428" y="608" width="648" height="75" rx="16" fill="#222239" stroke="#e4bd76" stroke-width="3"/>
+<text x="752" y="640" font-size="26" fill="#f6f0e7" text-anchor="middle" font-family="Georgia,serif">A lattice has both semilattice structures.</text>
+<text x="752" y="671" font-size="21" fill="#d2cedf" text-anchor="middle" font-family="Georgia,serif">Completeness adds arbitrary joins and meets.</text>
+</svg>
