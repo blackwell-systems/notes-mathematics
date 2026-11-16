@@ -326,7 +326,7 @@ A **partial order** is a preorder that is also antisymmetric. Distinct elements 
 
 ### Hasse Diagrams
 
-A Hasse diagram displays cover relations in a finite poset. Comparability follows an **upward path**, not an arbitrary undirected path. See the [Hasse examples](./order-theory#hasse-diagrams-reconstructing-the-finite-order).
+A Hasse diagram displays cover relations in a finite poset. Comparability follows an **upward path**, not an arbitrary undirected path. See the [Hasse examples](./order-theory#hasse-diagrams-constructing-and-reading-a-finite-order).
 
 ### Total Order (Linear Order)
 
