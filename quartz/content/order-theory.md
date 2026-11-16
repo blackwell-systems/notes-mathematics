@@ -632,13 +632,187 @@ Every greatest element is maximal; a maximal element might be incomparable with 
 
 **Finite check:** in the divisors of $12$, only $12$ is maximal: every other divisor has a strictly larger multiple in the same set. Finiteness guarantees that every upward path eventually reaches $12$, so it is also greatest. The isolated-$m$ example shows exactly what fails without finiteness.
 
+## Semilattices: one bound for every pair
+
+A partial order tells us **which elements can be compared**. It does not promise that two elements have a common best combination. To make that stronger guarantee, we introduce **semilattices**.
+
+Imagine two incomparable permission sets, $\{\text{read}\}$ and $\{\text{write}\}$. Neither contains the other. We might still ask two useful questions:
+
+- **What is the smallest permitted set that contains both?** That is their **join**.
+- **What is the largest permitted set contained in both?** That is their **meet**.
+
+The answers must be **elements of the poset we are studying**. A result that exists somewhere outside the specified set does not count.
+
+### Joins and meets: two directions of the same idea
+
+Recall that an **upper bound** of $\{a,b\}$ is an element $u$ satisfying $a\preceq u$ and $b\preceq u$. A **lower bound** is an element $\ell$ satisfying $\ell\preceq a$ and $\ell\preceq b$.
+
+> [!definition] Join and meet
+> A **join** $a\vee b$ (read "a join b") is the **least upper bound** of $a$ and $b$: it lies above both and lies below every other common upper bound.
+>
+> A **meet** $a\wedge b$ (read "a meet b") is the **greatest lower bound**: it lies below both and above every other common lower bound.
+>
+> Formally, when $j=a\vee b$ exists,
+> $
+> a\preceq j,\quad b\preceq j,\qquad
+> \forall u\in P:\ (a\preceq u\land b\preceq u)\Rightarrow j\preceq u.
+> $
+> When $m=a\wedge b$ exists,
+> $
+> m\preceq a,\quad m\preceq b,\qquad
+> \forall \ell\in P:\ (\ell\preceq a\land\ell\preceq b)\Rightarrow \ell\preceq m.
+> $
+> If either exists, it is unique by **antisymmetry**.
+
+The important words are **least** and **greatest**, not merely "some bound." In a Hasse diagram, look *upward* for common upper bounds and then identify the one below all the others; look *downward* for common lower bounds and identify the one above all the others. **The nearest-looking point in a drawing is not a definition**: comparisons, not distances on the page, determine the answer.
+
+### Define the two semilattices
+
+> [!definition] Join-semilattice and meet-semilattice
+> A **join-semilattice** is a nonempty **poset** $(P,\preceq)$ in which **every pair** $a,b\in P$ has a join $a\vee b$ **inside $P$**.
+>
+> A **meet-semilattice** is a nonempty **poset** $(P,\preceq)$ in which **every pair** $a,b\in P$ has a meet $a\wedge b$ **inside $P$**.
+>
+> A semilattice requires **only one kind of bound for every pair**. A join-semilattice does not necessarily have all meets, and a meet-semilattice does not necessarily have all joins.
+
+Notice the quantifier **every pair**. Finding a join for one convenient pair does not prove an entire poset is a join-semilattice. Likewise, a missing join for a *single* pair is enough to prove that it is **not** a join-semilattice.
+
+### Three diagrams, three different structures
+
+Let $X:=\{a,b\}$ and use **subset inclusion** $\subseteq$ as our order. We can obtain three different structures simply by changing which subsets are admitted as elements.
+
+**Join-semilattice, but not a meet-semilattice.** Consider
+
+$
+J:=\big\{\{a\},\{b\},\{a,b\}\big\}.
+$
+
+Every two members have a **union in $J$**, so union supplies their join. In particular,
+
+$
+\{a\}\vee\{b\}=\{a,b\}.
+$
+
+But the two singleton sets have **no common lower bound inside $J$**: the set $\varnothing$, which would lie below both, is **not an element of $J$**. Thus their meet does not exist in this poset.
+
+**Meet-semilattice, but not a join-semilattice.** Instead take
+
+$
+M:=\big\{\varnothing,\{a\},\{b\}\big\}.
+$
+
+Every two members have an **intersection in $M$**, so intersections are their meets. In particular,
+
+$
+\{a\}\wedge\{b\}=\varnothing.
+$
+
+But $\{a\}$ and $\{b\}$ have **no common upper bound inside $M$**. The missing candidate $\{a,b\}$ is not a member of $M$, so there is no join for this pair.
+
+**Lattice: both operations.** Finally, take **all** subsets:
+
+$
+L:=\mathcal P(X)=\big\{\varnothing,\{a\},\{b\},\{a,b\}\big\}.
+$
+
+Here unions and intersections of any two elements stay in $L$. Every pair therefore has both a join **and** a meet.
+
+![Three Hasse diagrams of inclusion-ordered subsets of {a,b}. The nonempty subsets form a join-semilattice without the empty-set meet; the proper subsets form a meet-semilattice without the full-set join; the full power set forms a lattice with both.](./media/ot-semilattice-three-orders.svg)
+
+*Figure: **What counts as an element of the poset matters.** The missing join or meet may exist as an ordinary set outside the poset, but an operation on $P$ must return an element of $P$.*
+
+> [!example] Check all pairs, not just the interesting ones
+> In $J$, if $A\subseteq B$ then $A\vee B=B$; if $A$ and $B$ are the incomparable singletons, their join is $\{a,b\}$. Those are all the possibilities, so $J$ is a join-semilattice. The same case split using intersections proves that $M$ is a meet-semilattice. Neither structure has the missing *other* operation for the two singleton elements.
+
+### How a semilattice relates to a lattice
+
+The structures form a hierarchy of **additional requirements**, not a rule that every poset automatically provides joins and meets:
+
+| Structure | What every pair must have |
+| --- | --- |
+| Partial order (poset) | Reflexive, antisymmetric, transitive comparisons; no guaranteed join or meet |
+| Join-semilattice | A **join** |
+| Meet-semilattice | A **meet** |
+| Lattice | **Both** a join and a meet |
+| Bounded lattice | Both operations, plus a **least** and a **greatest** element |
+| Complete lattice | A join and meet for **every subset**, including the empty subset |
+
+A **lattice is simultaneously a join-semilattice and a meet-semilattice**. A **complete lattice** is always bounded: the join of the empty subset is the least element $\bot$, and its meet is the greatest element $\top$. A bounded lattice need not be complete if it is infinite. Every **finite nonempty lattice** is complete; we will distinguish these qualifications in the lattice section below.
+
+![A structural map from partial orders to the two semilattice requirements, then to lattices, bounded lattices, and complete lattices. Arrows indicate added requirements, not properties every poset already has.](./media/ot-semilattice-structure-map.svg)
+
+*Figure: The join and meet branches are **independent additional conditions** on a poset. Requiring both produces a lattice. Requiring bounds or arbitrary joins and meets produces stronger kinds of lattice.*
+
+### The same structure described by an operation
+
+We can also recognize a semilattice **without drawing a Hasse diagram first**. Suppose $S$ is a nonempty set equipped with a binary operation $\vee:S\times S\to S$; in other words, **combining any two elements must produce another element of $S$**.
+
+> [!theorem] The algebraic laws of a join-semilattice
+> An operation $\vee$ is the join operation of a semilattice precisely when it is:
+>
+> - **Commutative:** $a\vee b=b\vee a$.
+> - **Associative:** $(a\vee b)\vee c=a\vee(b\vee c)$.
+> - **Idempotent:** $a\vee a=a$.
+>
+> Such an operation defines a partial order by
+> $
+> a\preceq b\quad\Longleftrightarrow\quad a\vee b=b.
+> $
+> Under that order, $a\vee b$ is the **least upper bound** of $a$ and $b$. Dually, a commutative, associative, idempotent operation $\wedge$ defines a **meet-semilattice**, with $a\preceq b$ exactly when $a\wedge b=a$.
+
+> [!proof] Recover the order from the join operation
+> **Reflexivity:** $a\vee a=a$ by idempotence, so $a\preceq a$.
+>
+> **Antisymmetry:** if $a\vee b=b$ and $b\vee a=a$, commutativity makes their left sides equal, so $a=b$.
+>
+> **Transitivity:** if $a\vee b=b$ and $b\vee c=c$, associativity gives
+> $
+> a\vee c=a\vee(b\vee c)=(a\vee b)\vee c=b\vee c=c.
+> $
+> Hence $a\preceq c$.
+>
+> **The operation is a join:** by associativity and idempotence,
+> $
+> a\vee(a\vee b)=(a\vee a)\vee b=a\vee b,
+> $
+> showing $a\preceq a\vee b$; similarly $b\preceq a\vee b$. If $a\preceq u$ and $b\preceq u$, then
+> $
+> (a\vee b)\vee u=a\vee(b\vee u)=a\vee u=u,
+> $
+> so $a\vee b\preceq u$. This proves it is the **least** upper bound. The reverse direction follows because least upper bounds are unique, symmetric in their arguments, and associative when taken successively. The meet argument reverses the order. $\square$
+
+Notice that we have recovered both an **order** and a **meaning** for the operation. Semilattices are therefore both order-theoretic structures and simple algebras. When we later add both operations to form a lattice, the extra **absorption laws** make their induced orders agree.
+
+### Why join-semilattices appear in distributed systems
+
+Suppose two replicas have independently learned some facts. One knows $\{a\}$ and the other knows $\{b\}$. If we order states by **information inclusion**, we can combine them using the join:
+
+$
+\{a\}\vee\{b\}=\{a\}\cup\{b\}=\{a,b\}.
+$
+
+This merged state is **above both** original states because it contains everything each replica knew. It is their **least** common upper bound because no smaller set contains all that information.
+
+![An information-order Hasse diagram accompanies two replicas holding facts {a} and {b}. Arrows converge on the join operation, producing the merged set {a,b}. Three panels explain commutativity, associativity, and idempotence.](./media/ot-semilattice-merge.svg)
+
+*Figure: A merge based on the join combines information regardless of the order or grouping of individual merge operations. Repeating a merge does not introduce a new state.*
+
+The algebraic laws explain why join is useful for state-based **conflict-free replicated data types (CRDTs)**: **commutativity** tolerates changed delivery order, **associativity** tolerates regrouping merges, and **idempotence** tolerates repeated delivery. This gives a mathematically well-defined way to reconcile states.
+
+> [!distinction] A merge law is not a network guarantee
+> A join-semilattice does **not**, by itself, guarantee that all distributed replicas converge. Convergence also depends on system assumptions: replicas must eventually receive the relevant updates or states, and state evolution and merges must respect the chosen information order. A practical state-based CRDT typically uses **inflationary local updates** together with join-based merging, so neither local updates nor merges discard information.
+>
+> The example treats state as an **ever-growing set of facts**. Removing facts, expiring data, or handling causal history needs a richer state representation; simply applying set union is not a general deletion algorithm.
+
+**The connection:** A semilattice starts with the same poset concepts we already know—upper bounds, lower bounds, and comparability—but adds a **total operation on pairs** in one direction. A lattice adds the other direction. This progression is why semilattices belong **between partial orders and lattices** in our study path.
+
 ## Joins, meets, and lattices
 
 A **least upper bound**, or **supremum** (read "SOO-premum"), is an upper bound below all other upper bounds. A **greatest lower bound**, or **infimum** (read "in-FEE-mum"), is above all other lower bounds. Each, when it exists, is unique by antisymmetry.
 
 **Bounds need not be members of the set.** In $(\mathbb R,\leq)$, take $S:=(0,1)$. Every $u\geq1$ is an upper bound, with **supremum** $\sup S=1$; every $\ell\leq0$ is a lower bound, with **infimum** $\inf S=0$. Neither $0$ nor $1$ belongs to $S$, so $S$ has neither a least nor a greatest element. This is why *supremum* is not just another word for *maximum*.
 
-For a pair $a,b$, the least upper bound is the **join** $a\vee b$ (read "a join b"), and the greatest lower bound is the **meet** $a\wedge b$ (read "a meet b").
+As defined in the [semilattice section](#semilattices-one-bound-for-every-pair), the **join** $a\vee b$ is the least upper bound of $a,b$, and the **meet** $a\wedge b$ is their greatest lower bound. **A lattice requires both for every pair**, not just one.
 
 > [!definition] Lattice, bounded lattice, complete lattice
 > A **lattice** is a poset in which every **pair** has a join and meet. It is **bounded** if there are a greatest element $\top$ and a least element $\bot$. It is **complete** if **every subset** has a join and meet, including the empty subset.
@@ -744,7 +918,7 @@ So far, a **lattice** has meant a poset with a join and meet for every pair. But
 
 **Worked check:** for subsets of $X$, $\vee$ is union and $\wedge$ is intersection. The equation $A\vee B=B$ means $A\cup B=B$, which is equivalent to $A\subseteq B$. The order was hiding inside the ordinary set operations.
 
-A **distributive lattice** additionally satisfiesA **distributive lattice** additionally satisfies $a\wedge(b\vee c)=(a\wedge b)\vee(a\wedge c)$ and its dual. Power sets are distributive because intersection distributes over union and vice versa. Not all lattices are distributive: the five-element lattice $M_3$, with three incomparable elements between bottom and top, is a counterexample.
+A **distributive lattice** additionally satisfies $a\wedge(b\vee c)=(a\wedge b)\vee(a\wedge c)$ and its dual. Power sets are distributive because intersection distributes over union and vice versa. Not all lattices are distributive: the five-element lattice $M_3$, with three incomparable elements between bottom and top, is a counterexample.
 
 **See both outcomes:** for $A:=\{r\}$, $B:=\{w\}$, and $C:=\{r,w\}$, the left side $A\cap(B\cup C)$ is $\{r\}$; the right side $(A\cap B)\cup(A\cap C)$ is $\varnothing\cup\{r\}=\{r\}$. In $M_3$, instead choose three distinct middle elements $p,q,r$. Since $q\vee r=\top$, we have $p\wedge(q\vee r)=p$, while $(p\wedge q)\vee(p\wedge r)=\bot\vee\bot=\bot$. The two sides differ, so distributivity is **not** a law of every lattice.
 
@@ -779,7 +953,7 @@ $$
 
 The point is not to memorize four formulas. It is to ask: **What objects are allowed in this poset, and which allowed object is the least upper bound?** See [Group Theory](./group-theory-foundations), [Linear Algebra](./linear-algebra-foundations), and [General Topology](./general-topology-foundations) for the underlying constructions.
 
-> [!distinction] Real-number completeness versus complete lattices> [!distinction] Real-number completeness versus complete lattices
+> [!distinction] Real-number completeness versus complete lattices
 > $(\mathbb R,\leq)$ is a lattice because every pair has a maximum and minimum, but it is **not a complete lattice**: all of $\mathbb R$ lacks a supremum inside $\mathbb R$. The real-number completeness axiom applies only to **nonempty, bounded-above subsets**.
 
 ## Order ideals and filters: keeping lower or upper information together
