@@ -325,7 +325,9 @@ For ordinary numbers, we already use **two ways to describe the same ordering**:
 
 **The property behind this distinction is reflexivity.** A relation $R$ is **reflexive** if $aRa$ holds for *every* element $a$; it is **irreflexive** if $aRa$ holds for *no* element. Thus numerical $\leq$ is reflexive ($2\leq2$), while $<$ is irreflexive (not $2<2$). In particular, $a\leq b$ does **not** assert $a=b$: it says $a$ is less than **or equal to** $b$.
 
-Order theory uses this same distinction even when we are not comparing numerical sizes. We write $\preceq$ in place of a chosen non-strict order and $\prec$ for its strict version. As earlier in this chapter, **these are generic symbols whose meaning comes from the order we have chosen**.
+**The symbols do not choose an order for us.** Earlier, $\preceq$ was introduced as a **placeholder** for whichever partial-order relation we have specified: for numbers it could mean $\leq$, for sets $\subseteq$, and for positive integers it could mean divisibility ($\mid$). Only after choosing that relation do we define a *second, derived relation*, written $\prec$: it keeps a comparison $a\preceq b$ **only if $a\neq b$**. We will construct it with an example before writing the general formula.
+
+**Keep the axioms separate:** **reflexivity** requires $a\preceq a$ for every element, but it does **not** require $a\preceq b$ for two different elements. Whether those distinct elements compare is determined by the chosen order; removing self-comparisons does not change that.
 
 ### See exactly what changes in a poset
 
