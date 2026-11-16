@@ -157,6 +157,57 @@ For example, with the same $A$ and $B$ as above, take $S:=\{(1,y),(1,z)\}$. Then
 
 For a **function $f:A\to B$**, the exactly-one-output requirement ensures $\operatorname{dom}(f)=A$; it does **not** require every element of $B$ to be reached. Reaching every target is the additional property called **surjectivity**.
 
+### Constructing a relation diagram from first principles
+
+We have defined a relation as a **set of ordered pairs**. How do we turn that mathematical definition into the **circles and arrows** used in pictures of reflexivity, symmetry, transitivity, and equivalence?
+
+The picture is called a **directed graph** (or **digraph**) of the relation. A **vertex** is a point representing an element; a **directed edge** is an arrow between two points. In this construction, **each ordered pair becomes exactly one arrow**. Unlike a Hasse diagram, the full relation graph displays the selected pairs directly.
+
+> [!definition] Directed graph of a relation on a set
+> For a relation $R\subseteq A\times A$, draw **one vertex for every element of $A$** and a directed edge $a\to b$ **if and only if** $(a,b)\in R$.
+>
+> A pair $(a,a)$ becomes a **self-loop**, an arrow returning to its own vertex. If both $(a,b)$ and $(b,a)$ belong to $R$ for distinct elements, draw **two arrows in opposite directions**. If $(a,b)\notin R$, do not draw that arrow.
+
+We can construct the graph systematically without guessing the shape.
+
+**Step 1 — Specify the set and relation.** Let
+
+$
+A:=\{1,2,3,4\},\qquad
+aRb\quad\Longleftrightarrow\quad
+a\text{ and }b\text{ have the same parity}.
+$
+
+*Parity* means whether a number is **odd or even**. Our relation says that two elements are related exactly when both are odd or both are even. It does not mean that those numbers are equal.
+
+**Step 2 — List the pairs that satisfy the rule.** Test the possible pairs in $A\times A$ and retain the ones that satisfy the condition:
+
+$
+\begin{aligned}
+R=\{&(1,1),(1,3),(3,1),(3,3),\\
+&(2,2),(2,4),(4,2),(4,4)\}.
+\end{aligned}
+$
+
+There are **eight selected pairs**. The other eight pairs in $A\times A$ do not belong to $R$.
+
+**Step 3 — Draw a vertex for each element.** Draw four distinct circles labeled $1,2,3,4$. They represent the **original elements**, even when those elements have the same parity.
+
+**Step 4 — Convert each selected pair into an arrow.** The four pairs $(1,1),(2,2),(3,3),(4,4)$ give four **loops**. The pairs $(1,3),(3,1)$ give **arrows both ways** between $1$ and $3$; the pairs $(2,4),(4,2)$ do the same for $2$ and $4$. There is no $1\to2$ arrow because $(1,2)\notin R$.
+
+![Three panels construct a relation graph from the parity relation on {1,2,3,4}: a four-by-four grid selects eight pairs, the corresponding digraph has four self-loops and reverse-arrow pairs 1 with 3 and 2 with 4, and the two equivalence classes are {1,3} and {2,4}.](./media/fr-relation-diagram-from-pairs.svg)
+
+*Figure: Every highlighted grid cell becomes **one arrow** in the relation graph. The groups at right will later be called **equivalence classes**: the original four elements remain distinct, but the relation puts them into two groups.*
+
+**Step 5 — Verify the graph against the pairs.** From each vertex $a$, read the arrow $a\to b$ as the ordered pair $(a,b)$. Recovering the eight pairs above confirms that we have drawn **exactly this relation**, with no missing or invented arrows.
+
+> [!distinction] A relation graph is not a Hasse diagram
+> A **full relation graph** draws an arrow for **every** true ordered pair, including loops and arrows implied by transitivity. A **Hasse diagram** is a specialized drawing of a **finite partial order**: it omits loops and redundant comparisons, keeps only **cover relations**, and uses **vertical position instead of arrowheads** to show direction.
+>
+> We will [construct a Hasse diagram from an ordinary relation graph](./order-theory#hasse-diagrams-constructing-and-reading-a-finite-order). Equivalence relations instead lead to [equivalence classes and partitions](./equivalence-relations); these are **different structures**, even though both begin with binary relations.
+
+The graph construction applies to **any finite relation on a set**, not just equivalence relations. Reflexivity, symmetry, transitivity, and antisymmetry are then properties we can **check**, not rules we must assume before drawing a graph.
+
 ### Properties of Relations
 
 ![Four small directed graphs illustrating relation properties: reflexive with a self-loop at every node, symmetric with every edge drawn both ways, transitive where edges a to b and b to c force the implied edge a to c, and antisymmetric where no two distinct nodes have arrows in both directions](./media/fr-relation-properties.svg)
