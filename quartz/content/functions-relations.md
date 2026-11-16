@@ -830,6 +830,8 @@ Define your own function on a small domain below: choose each output and watch w
 
 ### Invertibility
 
+For the set-theoretic construction (as opposed to the composition test alone), see [Inverse Functions](#inverse-functions).
+
 **Let f: A → B**
 
 **f is invertible if there exists a function g: B → A such that:**
@@ -875,48 +877,131 @@ The rule to remember: whenever a function is defined via representatives of equi
 
 ## Inverse Functions
 
+A function is not merely a formula. In the [set-theoretic definition](#relation), a function $f:A\to B$ is a **relation** $f\subseteq A\times B$ that assigns **exactly one** $b\in B$ to each $a\in A$. This matters when we ask what it means to *reverse* a function: before solving any equation, we can reverse its **ordered pairs**.
+
+### Start with the inverse relation
+
+> [!definition] Set-theoretic inverse relation
+> For **any** function $f:A\to B$, its inverse **relation** is the subset of $B\times A$ obtained by reversing every ordered pair in $f$:
+>
+> $$
+> \boxed{f^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in f\}.}
+> $$
+>
+> Equivalently, for $a\in A$ and $b\in B$,
+>
+> $$
+> (b,a)\in f^{-1}\quad\Longleftrightarrow\quad f(a)=b.
+> $$
+>
+> This is the same construction used for [inverse relations](#inverse-relations). **The inverse relation always exists. It need not be a function.**
+
+**Build one from the pairs.** Let $A:=\{1,2,3\}$, $B:=\{p,q,r\}$, and
+
+$$
+f:=\{(1,p),(2,r),(3,q)\}.
+$$
+
+To construct the inverse, switch the entries of **every** ordered pair:
+
+$$
+f^{-1}=\{(p,1),(r,2),(q,3)\}.
+$$
+
+The new relation goes from $B$ to $A$: what was an output becomes an input. In this example every element of $B$ has exactly one output in $A$, so the inverse relation **is** a function. Notice that the letters and numbers themselves have not changed; only their roles in the pairs have.
+
+![Two panels show a relation from A to B and its inverse from B to A, with each arrow reversed.](./media/fr-inverse-relation.svg)
+
+*Figure: The same pair-reversal rule works for every relation. The property that makes the reversed arrows form a **function** is bijectivity of the original function.*
+
+### When does the inverse relation become a function?
+
+A function $g:B\to A$ must assign **exactly one element of $A$ to every element of $B$**. Looking at the reversed pairs gives two separate requirements.
+
+- **Injectivity:** If two different inputs of $f$ produce the same $b$, reversing the pairs gives that $b$ **two outputs**, so the inverse relation is not single-valued.
+- **Surjectivity onto $B$:** If some $b\in B$ is never an output of $f$, the reversed relation gives that $b$ **no output**, so it is not a function defined on all of $B$.
+
+> [!theorem] Existence and uniqueness of an inverse function
+> A function $f:A\to B$ has an inverse **function** $f^{-1}:B\to A$ if and only if $f$ is **bijective** (injective and surjective).
+>
+> In that case its graph is exactly
+>
+> $$
+> \{(b,a)\in B\times A\mid f(a)=b\},
+> $$
+>
+> and the inverse is uniquely determined by these pairs. It satisfies
+>
+> $$
+> f^{-1}\circ f=\operatorname{id}_A,\qquad
+> f\circ f^{-1}=\operatorname{id}_B,
+> $$
+>
+> where $\operatorname{id}_A$ and $\operatorname{id}_B$ are the [identity functions](#identity-function) on the indicated sets.
+
+> [!proof] Both directions
+> **Suppose $f$ is bijective.** For every $b\in B$, surjectivity supplies an $a\in A$ with $f(a)=b$. Injectivity guarantees that **at most one** such $a$ exists. Hence there is **exactly one** such $a$, and pair reversal defines a function $g:B\to A$. By construction $g(f(a))=a$ for every $a\in A$, and $f(g(b))=b$ for every $b\in B$. Since any inverse must return the unique preimage of each $b$, it equals $g$.
+>
+> **Conversely, suppose an inverse function $g:B\to A$ exists**, satisfying both identities. If $f(a_1)=f(a_2)$, applying $g$ gives $a_1=a_2$, so $f$ is injective. For any $b\in B$, the equality $f(g(b))=b$ shows that $b$ is attained, so $f$ is surjective. Thus $f$ is bijective. $\square$
+
+### Why reversing pairs sometimes fails
+
+Consider $f:\mathbb R\to[0,\infty)$ defined by $f(x)=x^2$. It is surjective onto the specified codomain, but it is **not injective**, since $f(2)=f(-2)=4$.
+
+The inverse relation contains **both** $(4,2)$ and $(4,-2)$. Consequently, it does not define a function $[0,\infty)\to\mathbb R$: input $4$ would have two outputs. The existence of an inverse **relation** does not imply the existence of an inverse **function**.
+
+But restrict the **domain** to $[0,\infty)$ as well. Then
+
+$$
+f:[0,\infty)\to[0,\infty),\quad f(x)=x^2
+$$
+
+is bijective. Every nonnegative $y$ has exactly one nonnegative square root, so now $f^{-1}(y)=\sqrt y$. **The formula is unchanged; the specified domain and codomain determine whether it is invertible.**
+
+> [!distinction] Inverse function versus preimage
+> The expression $f^{-1}(b)$ denotes an **element** when the inverse function exists. By contrast, the [preimage](#preimage) $f^{-1}(\{b\})=\{a\in A:f(a)=b\}$ is a **set** and exists for *every* function, whether or not it is invertible.
+>
+> For the unrestricted squaring function above, $f^{-1}(\{4\})=\{-2,2\}$ is a perfectly valid preimage, even though $f^{-1}(4)$ **cannot denote an inverse-function value**. When an inverse function exists, its value is the unique element of the corresponding singleton preimage.
+
+### Finding an inverse from a formula
+
+Once you establish that the specified function is bijective, solving $y=f(x)$ for $x$ is a convenient way to find the inverse's **rule**. This calculation is a consequence of pair reversal, **not the definition**.
+
+Take $f:\mathbb R\to\mathbb R$ given by $f(x)=2x+3$. Solving
+
+$$
+y=2x+3\quad\Longleftrightarrow\quad x=\frac{y-3}{2}
+$$
+
+gives $f^{-1}(y)=(y-3)/2$. Confirm both directions:
+
+$$
+\begin{aligned}
+f^{-1}(f(x))&=\frac{(2x+3)-3}{2}=x,\\
+f(f^{-1}(y))&=2\left(\frac{y-3}{2}\right)+3=y.
+\end{aligned}
+$$
+
+These equations confirm that the reversed pairs yield a function that undoes $f$ on both sets.
+
 ![The graph of f of x equals e to the x and its inverse the natural logarithm drawn as mirror images across the dashed line y equals x, with the point (0, 1) on the exponential reflecting to the point (1, 0) on the logarithm](./media/fr-inverse-reflection.svg)
 
-*Figure: The graphs of $e^x$ and $\ln x$ reflect across $y=x$; the point $(0,1)$ becomes $(1,0)$.*
+*Figure: Reversing $(x,y)$ to $(y,x)$ reflects a graph across $y=x$. The point $(0,1)$ on $e^x$ becomes $(1,0)$ on $\ln x$.*
 
-The exponential and logarithm are the most important pair of inverse functions. See [Exponential Functions](./exponential-functions) and [Logarithms](./logarithms).
+The exponential and logarithm form another inverse pair when their domains and codomains are specified as $e^x:\mathbb R\to(0,\infty)$ and $\ln:(0,\infty)\to\mathbb R$. See [Exponential Functions](./exponential-functions) and [Logarithms](./logarithms).
 
-**Inverse Function:** If a function **f: A → B** is bijective, then there exists a unique function **f^−1: B → A** called the inverse function, such that:
+### What inversion preserves
 
-- $f^{-1}(f(x)) = x$ for all $x \in A$
-- $f(f^{-1}(y)) = y$ for all $y \in B$
+For bijections $f:A\to B$ and $g:B\to C$, reversing the corresponding pairs gives:
 
-**Finding an Inverse:**
+$$
+(f^{-1})^{-1}=f,\qquad
+(g\circ f)^{-1}=f^{-1}\circ g^{-1}.
+$$
 
-1. Start with $y = f(x)$
-2. Solve for $x$ in terms of $y$
-3. Swap variables: write $y = f^{-1}(x)$
+Inverting a composition reverses the order because an output of $g\circ f$ must be passed back through $g^{-1}$ **first**, and only then through $f^{-1}$.
 
-**Example:** Find the inverse of $f(x) = 2x + 3$
-
-1. Let $y = 2x + 3$
-2. Solve for $x$: $x = \frac{y - 3}{2}$
-3. Therefore: $f^{-1}(x) = \frac{x - 3}{2}$
-
-**Verification:**
-- $f^{-1}(f(x)) = f^{-1}(2x + 3) = \frac{(2x + 3) - 3}{2} = \frac{2x}{2} = x$ ✓
-- $f(f^{-1}(x)) = f\left(\frac{x - 3}{2}\right) = 2\left(\frac{x - 3}{2}\right) + 3 = x - 3 + 3 = x$ ✓
-
-**Properties of Inverse Functions:**
-
-- The graph of $f^{-1}$ is the reflection of the graph of $f$ across the line $y = x$
-- $(f^{-1})^{-1} = f$ (inverse of inverse is the original function)
-- If $f$ and $g$ are both invertible, then $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$ (reverse order)
-- Domain of $f^{-1}$ = Range of $f$
-- Range of $f^{-1}$ = Domain of $f$
-
-**When Does an Inverse Exist?**
-
-A function has an inverse if and only if it is bijective:
-- **Injective** (one-to-one): No two inputs map to the same output
-- **Surjective** (onto): Every element in the codomain is mapped to
-
-**Horizontal Line Test:** A function has an inverse if and only if every horizontal line intersects its graph at most once.
+**Graph test, with a qualification:** For a real-valued function, the **horizontal-line test** checks **injectivity**: every horizontal line intersects the graph **at most once**. For an inverse function on the **entire specified codomain**, we also need **surjectivity**: every horizontal line corresponding to a value in that codomain must intersect the graph **at least once**. Thus bijectivity requires **exactly one** intersection for each codomain value, not merely at most one.
 
 ## Composition of Functions
 
