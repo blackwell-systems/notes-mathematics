@@ -65,6 +65,20 @@ Consider "has the same remainder upon division by three." The integers $1$ and $
 >
 > **Example:** $1\equiv4\pmod 3$ and $4\equiv1\pmod 3$, so congruence modulo $3$ is symmetric but **not** antisymmetric: $1\neq4$. In contrast, $2\leq3$ but $3\nleq2$; this is compatible with antisymmetry, because $a\leq b$ and $b\leq a$ together force $a=b$.
 
+### Construct the equivalence diagram, then find its classes
+
+The earlier odd/even relation is not only a list of pairs. We can [build its directed relation graph from first principles](./functions-relations#constructing-a-relation-diagram-from-first-principles) and then **read the equivalence classes from that graph**.
+
+Start with $A=\{1,2,3,4\}$ and the eight pairs listed above. Draw one vertex for each number, add a self-loop for each reflexive pair $(a,a)$, and add opposite arrows between $1$ and $3$ and between $2$ and $4$. **Draw every selected pair**; a general relation diagram does not silently omit transitive arrows.
+
+![From ordered pairs to a directed relation graph and then to the two parity equivalence classes: four vertices have their self-loops, odd numbers have two-way arrows between them, and even numbers have two-way arrows between them.](./media/fr-relation-diagram-from-pairs.svg)
+
+*Figure: First represent the relation **on the original elements**. Then group the mutually equivalent elements to obtain the partition $\{\{1,3\},\{2,4\}\}$.*
+
+Because we have already checked **reflexivity, symmetry, and transitivity**, the related elements form two disjoint classes. The loops and two-way arrows are **features of an equivalence relation**, not redundant marks to erase. This differs from a **Hasse diagram**, which is built for a partial order and deliberately retains only cover relations. We [construct Hasse diagrams separately in Order Theory](./order-theory#hasse-diagrams-constructing-and-reading-a-finite-order).
+
+The two pictures answer different questions. The **relation graph** tells us *which original elements are related*; the **partition picture** tells us *which distinct elements are grouped together for the chosen purpose*. Neither picture makes $1=3$ or $2=4$.
+
 ## Worked proof: congruence modulo n
 
 For integers $a,b$ and a fixed positive integer $n$, write $a\equiv b\pmod n$ (read "a is congruent to b modulo n") when $n$ divides $a-b$. That is, there exists an integer $k$ such that $a-b=nk$.
