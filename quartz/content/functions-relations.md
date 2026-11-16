@@ -1033,6 +1033,8 @@ $$
 
 Inverting a composition reverses the order because an output of $g\circ f$ must be passed back through $g^{-1}$ **first**, and only then through $f^{-1}$.
 
+### Horizontal Line Test
+
 **Graph test, with a qualification:** For a real-valued function, the **horizontal-line test** checks **injectivity**: every horizontal line intersects the graph **at most once**. For an inverse function on the **entire specified codomain**, we also need **surjectivity**: every horizontal line corresponding to a value in that codomain must intersect the graph **at least once**. Thus bijectivity requires **exactly one** intersection for each codomain value, not merely at most one.
 
 ## Composition of Functions
