@@ -185,11 +185,14 @@ Thus $\emptyset \neq \{\emptyset\}$
 
 > [!definition] Subset
 > $A\subseteq B$ means **every** element of $A$ is an element of $B$. Equality of the sets is allowed. This is a universal membership claim, not a comparison of their sizes.
-
+>
+> **Formal definition**
+>
+> $$
+> A \subseteq B \iff \forall x\, (x \in A \to x \in B).
+> $$
 
 **Subset:** A is a subset of B, (denoted $A \subseteq B$, read "A is a subset of B"), if every element of A is also an element of B.
-
-**Formal Definition:** $A \subseteq B \iff \forall x\, (x \in A \to x \in B)$
 
 If A is not a subset of B, we write $A \not\subseteq B$.
 
