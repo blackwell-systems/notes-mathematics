@@ -124,7 +124,7 @@ That distinction is the point of [passing from a preorder to its quotient poset]
 
 ### Three places preorders arise naturally
 
-#### 1. Roles and permission systems: compare capabilities, not identities
+#### 1. Roles and permissions: why capability comparisons can form a preorder
 
 Let $R$ be a set of **named roles**, and let $A(r)$ be the set of actions permitted to role $r$. Define
 
@@ -132,7 +132,7 @@ $$
 r\preceq s\quad\Longleftrightarrow\quad A(r)\subseteq A(s).
 $$
 
-Read $r\preceq s$ as "role r grants no more actions than role s." This relation is **reflexive** because every set is a subset of itself, and **transitive** because subset inclusion is transitive. But the roles are not themselves permission sets, so antisymmetry can fail:
+Read $r\preceq s$ as "role r grants no more actions than role s." This relation is **reflexive** because every permission set is a subset of itself, and **transitive** because subset inclusion is transitive. But the elements being compared are **named roles**, not permission sets, so antisymmetry can fail. A partial order can compare capabilities too; what matters is whether two-way comparison forces equality of the *elements being ordered*:
 
 | Role | Allowed actions |
 | --- | --- |
