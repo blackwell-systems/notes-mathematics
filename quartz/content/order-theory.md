@@ -745,43 +745,78 @@ A **lattice is simultaneously a join-semilattice and a meet-semilattice**. A **c
 
 ### The same structure described by an operation
 
-We can also recognize a semilattice **without drawing a Hasse diagram first**. Suppose $S$ is a nonempty set equipped with a binary operation $\vee:S\times S\to S$; in other words, **combining any two elements must produce another element of $S$**.
+We can recognize a semilattice **without drawing a Hasse diagram first**. Begin with a nonempty set $S$ and a binary operation $\circ:S\times S\to S$. The notation means that combining **any two elements of $S$ returns an element of $S$**. We have not chosen a partial order yet.
 
-> [!theorem] The algebraic laws of a join-semilattice
-> An operation $\vee$ is the join operation of a semilattice precisely when it is:
+> [!definition] Algebraic semilattice
+> An **algebraic semilattice** is a nonempty set with a **commutative, associative, idempotent** binary operation $\circ$. For all $a,b,c\in S$:
 >
-> - **Commutative:** $a\vee b=b\vee a$.
-> - **Associative:** $(a\vee b)\vee c=a\vee(b\vee c)$.
-> - **Idempotent:** $a\vee a=a$.
+> - **Commutative:** $a\circ b=b\circ a$.
+> - **Associative:** $(a\circ b)\circ c=a\circ(b\circ c)$.
+> - **Idempotent:** $a\circ a=a$.
 >
-> Such an operation defines a partial order by
-> $
-> a\preceq b\quad\Longleftrightarrow\quad a\vee b=b.
-> $
-> Under that order, $a\vee b$ is the **least upper bound** of $a$ and $b$. Dually, a commutative, associative, idempotent operation $\wedge$ defines a **meet-semilattice**, with $a\preceq b$ exactly when $a\wedge b=a$.
+> This is the algebraic definition. It does **not** initially say whether the operation is a *join* or a *meet*. We can recover a partial order from it in either of two **dual** ways.
 
-> [!proof] Recover the order from the join operation
-> **Reflexivity:** $a\vee a=a$ by idempotence, so $a\preceq a$.
+### The induced order: join versus meet
+
+An abstract semilattice operation can be understood as **joining** information or as **meeting** information, depending on which order we choose:
+
+| Interpretation of the operation | Define the order by | The operation becomes |
+| --- | --- | --- |
+| **Join**, written $\vee$ | $a\preceq b\iff a\vee b=b$ | The **least upper bound** of $a$ and $b$ |
+| **Meet**, written $\wedge$ | $a\preceq b\iff a\wedge b=a$ | The **greatest lower bound** of $a$ and $b$ |
+
+> [!distinction] Do not use the join identity as the meet identity
+> If we write $b=a\circ b$ for the induced order, then $a\circ b$ is the **join** under that order. To interpret that **same operation** as a meet, we must **reverse the order**: $a\preceq b$ holds when $a=a\circ b$.
 >
-> **Antisymmetry:** if $a\vee b=b$ and $b\vee a=a$, commutativity makes their left sides equal, so $a=b$.
+> **Test with sets:** let $A=\{a\}$ and $B=\{a,b\}$. Since $A\cap B=A$, the meet-semilattice order is $A\preceq B$. The incorrect condition $B=A\cap B$ would say the opposite. Union illustrates the join convention: $A\cup B=B$, so $A\preceq B$.
+
+> [!theorem] An algebraic semilattice determines a partial order
+> If $\circ$ is associative, commutative, and idempotent, the relation
 >
-> **Transitivity:** if $a\vee b=b$ and $b\vee c=c$, associativity gives
-> $
-> a\vee c=a\vee(b\vee c)=(a\vee b)\vee c=b\vee c=c.
-> $
-> Hence $a\preceq c$.
+> $$
+> a\preceq_{\vee} b\quad\Longleftrightarrow\quad a\circ b=b
+> $$
+>
+> is a partial order in which $a\circ b$ is the **join** of $a$ and $b$. Alternatively, the relation
+>
+> $$
+> a\preceq_{\wedge} b\quad\Longleftrightarrow\quad a\circ b=a
+> $$
+>
+> is the **opposite partial order**, in which $a\circ b$ is the **meet**. Thus the order-theoretic and algebraic descriptions of semilattices agree.
+
+> [!proof] Recover the join order and its bounds
+> Define $a\preceq b$ precisely when $a\circ b=b$.
+>
+> **Reflexivity:** $a\circ a=a$ by idempotence, so $a\preceq a$.
+>
+> **Antisymmetry:** if $a\circ b=b$ and $b\circ a=a$, commutativity makes the two left sides equal, so $a=b$.
+>
+> **Transitivity:** if $a\circ b=b$ and $b\circ c=c$, associativity gives
+>
+> $$
+> a\circ c=a\circ(b\circ c)=(a\circ b)\circ c=b\circ c=c.
+> $$
+>
+> Therefore $a\preceq c$.
 >
 > **The operation is a join:** by associativity and idempotence,
-> $
-> a\vee(a\vee b)=(a\vee a)\vee b=a\vee b,
-> $
-> showing $a\preceq a\vee b$; similarly $b\preceq a\vee b$. If $a\preceq u$ and $b\preceq u$, then
-> $
-> (a\vee b)\vee u=a\vee(b\vee u)=a\vee u=u,
-> $
-> so $a\vee b\preceq u$. This proves it is the **least** upper bound. The reverse direction follows because least upper bounds are unique, symmetric in their arguments, and associative when taken successively. The meet argument reverses the order. $\square$
+>
+> $$
+> a\circ(a\circ b)=(a\circ a)\circ b=a\circ b,
+> $$
+>
+> so $a\preceq a\circ b$; similarly $b\preceq a\circ b$. If $a\preceq u$ and $b\preceq u$, then
+>
+> $$
+> (a\circ b)\circ u=a\circ(b\circ u)=a\circ u=u,
+> $$
+>
+> so $a\circ b\preceq u$. It is the **least** upper bound. Conversely, a join operation on a poset satisfies the three laws because least upper bounds are unique and do not depend on ordering or grouping their inputs.
+>
+> For the **meet interpretation**, reverse the partial order. Then $a\circ b$ is the greatest lower bound, and its induced-order identity is $a\circ b=a$. $\square$
 
-Notice that we have recovered both an **order** and a **meaning** for the operation. Semilattices are therefore both order-theoretic structures and simple algebras. When we later add both operations to form a lattice, the extra **absorption laws** make their induced orders agree.
+A semilattice is therefore both an **algebra** (one operation with three laws) and a **poset** (where every pair has one appropriate bound). When we later equip a set with **both** operations to form a lattice, the additional **absorption laws** ensure that join and meet describe **the same** partial order rather than unrelated or incompatible orders.
 
 ### Why join-semilattices appear in distributed systems
 
