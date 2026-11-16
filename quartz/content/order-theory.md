@@ -460,6 +460,32 @@ We have defined a **partial order** by its comparisons, but a list of all those 
 
 A Hasse diagram is not a new ordering rule. **We must first specify the set and its partial order; then we construct the diagram from that information.** The diagram is a compact representation of the order, not a substitute for defining it.
 
+### From an ordinary relation diagram to a Hasse diagram
+
+In [Functions & Relations](./functions-relations#constructing-a-relation-diagram-from-first-principles), we constructed a **directed graph of a relation** by drawing **one arrow for every ordered pair**. We can start the same way for a partial order, but a **Hasse diagram is deliberately more economical**: it keeps only those comparisons that are not already explained by an intermediate element.
+
+For a small example, let $P:=\{1,2,4\}$ with $a\preceq b$ meaning **$a$ divides $b$**. The complete relation is
+
+$
+R=\{(1,1),(2,2),(4,4),(1,2),(1,4),(2,4)\}.
+$
+
+Here is the construction, one change at a time:
+
+1. **Draw the complete relation graph.** Make a vertex for each of $1,2,4$. Draw the three self-loops and the arrows $1\to2$, $1\to4$, and $2\to4$. At this stage, **every pair in $R$ is represented**.
+2. **Remove the self-loops.** A partial order is already reflexive, so every element compares with itself without needing a drawn loop.
+3. **Remove any direct comparison implied by a longer chain.** Delete $1\to4$ because $1\prec2\prec4$. Keep $1\to2$ and $2\to4$: there is **no element of this poset strictly between either pair**. These remaining comparisons are called **covers**.
+4. **Place greater elements higher and erase arrowheads.** Draw $1$ at the bottom, $2$ in the middle, and $4$ at the top, joined by two plain lines. Upward is now the understood direction.
+
+![Three consecutive panels transform the full divisibility relation graph on {1,2,4}, with self-loops and all three distinct arrows, into the two cover relations, then a vertical Hasse diagram with 1 below 2 below 4 and no arrowheads.](./media/ot-build-hasse-from-relation.svg)
+
+*Figure: We have **not changed the poset**. We have changed how much information needs to be drawn: the missing comparison $1\preceq4$ is recoverable from the upward path $1\to2\to4$.*
+
+> [!distinction] Why this is different from a diagram of an equivalence relation
+> **Equivalence-relation graphs** show all their selected pairs, including reverse arrows and reflexive loops; equivalence classes can be visualized as groups. **Hasse diagrams** belong to **partial orders** and keep only covers. An arbitrary equivalence relation is generally *not* a partial order, so we cannot simply turn its graph into a Hasse diagram by deleting arrows. What determines the correct diagram is **which structure and axioms we have defined**.
+
+Now we can define the cover relation precisely and construct a less trivial example.
+
 ### First define what an edge means
 
 Suppose $(P,\preceq)$ is a **finite poset**, and recall that $a\prec b$ means $a\preceq b$ **and** $a\ne b$.
