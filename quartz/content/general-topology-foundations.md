@@ -75,7 +75,7 @@ $$
 
 **Check the axioms.** Both $\varnothing$ and $X$ occur. The displayed sets are **nested**, so any union is the largest selected set (or $\varnothing$ if none is selected); it belongs to $\tau$. Any finite intersection is the smallest selected set; it too belongs to $\tau$. Therefore this is a topology.
 
-This example also shows what a topology **does not** do. The subset $\{b\}$ belongs to $X$ but not to $\tau$, so it is **not open** in this space. A topology declares certain subsets open; it does not declare every subset open automatically.
+This example also shows what a topology **does not** do. The set $\{b\}$ is a **subset** of $X$ but **not a member** of $\tau$, so it is **not open** in this space. A topology declares certain subsets open; it does not declare every subset open automatically.
 
 > [!counterexample] Arbitrary union is required, not just finite union
 > A proposed family closed under **finite** unions may still fail the second axiom. Take $X=\mathbb N$ and declare just the **finite subsets plus $X$** open. Finite unions stay in the family. But the union of the singleton sets $\{2\},\{4\},\{6\},\ldots$ is the set of all positive even numbers: it is infinite and is not all of $\mathbb N$. That union is missing from the proposed family, so this is **not** a topology.
