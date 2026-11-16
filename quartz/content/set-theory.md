@@ -116,12 +116,32 @@ This is a **recurring organizing pattern**, not a claim that every mathematical 
 
 ## Roster Notation
 
+> [!definition] Roster notation
+> $\{a_1,\ldots,a_n\}$ denotes the set containing **exactly** the listed objects:
+>
+> $$
+> x\in\{a_1,\ldots,a_n\}\iff x=a_1\lor\cdots\lor x=a_n.
+> $$
+>
+> Order and repeated entries do not affect membership.
+
+
 Roster notation (also known as **enumeration notation**) involves
 explicitly listing out all the elements of the set within curly braces.
 
 For example, the set of vowels is $\{a, e, i, o, u\}$, and the first five natural numbers form $\{0, 1, 2, 3, 4\}$.
 
 ## Set-Builder Notation
+
+> [!definition] Set-builder notation (Separation)
+> For an **existing set** $A$ and a condition $P(x)$, define
+>
+> $$
+> \boxed{\{x\in A\mid P(x)\}.}
+> $$
+>
+> An element belongs to this set **if and only if** it belongs to $A$ and satisfies $P$. In ZF/ZFC, an arbitrary property does **not** define an unrestricted set without an ambient set.
+
 
 > [!distinction] A property does not automatically define a set
 > The notation $\{x\in A:P(x)\}$ names a **subset of an existing set** $A$ using a property. In ZF/ZFC, unrestricted $\{x:P(x)\}$ is **not** legitimate without a previously justified ambient set: [Russell's paradox](#russells-paradox) shows why.
@@ -144,6 +164,16 @@ listing them out.
 > $\{x\in\mathbb R:x>0\}$ and $\{x\in\mathbb Q:x>0\}$ are different sets, even though both may be informally called "positive numbers." A condition does not tell us which mathematical objects are under consideration unless we specify the underlying set.
 
 ## Empty Set
+
+> [!definition] Empty set
+> The **empty set** $\varnothing$ is the unique set with no elements:
+>
+> $$
+> \boxed{\forall x,\ x\notin\varnothing.}
+> $$
+>
+> Its uniqueness follows from extensionality; $\{\varnothing\}$ is a different set with one member.
+
 
 The empty set, denoted $\emptyset$ or $\{\}$, is a set
 with no members at all.
@@ -178,6 +208,16 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 *Figure: Subset inclusion allows two cases: strict containment, or equality. In either case, every element of A belongs to B.*
 
 ## Proper Subset
+
+> [!definition] Proper subset
+> $A$ is a **proper subset** of $B$ if it is contained in $B$ but is not equal to it:
+>
+> $$
+> \boxed{A\subsetneq B\iff(A\subseteq B)\land(A\ne B).}
+> $$
+>
+> Equivalently, $B$ contains an element not belonging to $A$.
+
 
 > [!distinction] Subset versus proper subset
 > $A\subseteq B$ permits $A=B$; $A\subsetneq B$ requires $A\ne B$ as well. A set is always a subset of itself, but never a **proper** subset of itself.
@@ -227,6 +267,16 @@ This difference changes what "$\neq$" buys you. For numbers, $a \neq b$ *already
 *Figure: Every pair of numbers in $\{1,2,3,4\}$ can be compared using $\leq$, but neither $\{a\}\subseteq\{b\}$ nor $\{b\}\subseteq\{a\}$. The Hasse diagram shows **immediate strict inclusion** going upward; reflexive inclusion such as $\{a\}\subseteq\{a\}$ is not drawn.*
 
 ## Set Equality
+
+> [!definition] Set equality by extensionality
+> Two sets are equal precisely when they have identical members:
+>
+> $$
+> \boxed{A=B\iff\forall x\;(x\in A\leftrightarrow x\in B).}
+> $$
+>
+> Consequently, $A=B$ iff $A\subseteq B$ **and** $B\subseteq A$.
+
 
 > [!axiom] Extensionality
 > Sets are equal precisely when their **members agree**: $A=B$ if and only if $\forall x\,(x\in A\leftrightarrow x\in B)$. A set's display order and repeated listing do not matter.
@@ -372,6 +422,16 @@ average, thus $\geq \lceil m/n\rceil$.
 
 ## Cardinality
 
+> [!definition] Cardinality through bijections
+> Sets $A,B$ have the **same cardinality** exactly when there is a bijection between them:
+>
+> $$
+> \boxed{|A|=|B|\iff\exists\text{ a bijection }f:A\to B.}
+> $$
+>
+> For a finite set, $|A|=n$ means $A$ is in bijection with $\{0,1,\ldots,n-1\}$, interpreted as $\varnothing$ for $n=0$. Infinite sizes are compared by the same bijection principle.
+
+
 **Cardinality:** Let A be a set. then the number of elements in the set
 A is called **cardinality** of the set A, and is denoted by **\|A\|** (read "the cardinality of A" or "the size of A")
 
@@ -484,6 +544,10 @@ This is the same partial-versus-total distinction seen earlier for $\subseteq$ a
 
 #### Finite Set
 
+> [!definition] Finite set
+> A set $A$ is **finite** if it is in bijection with $\{0,\ldots,n-1\}$ for some $n\in\mathbb N$; $n=0$ gives $\varnothing$. The number $n$ is uniquely determined and equals $|A|$.
+
+
 **Definition (cardinal):**
 
 A set $S$ is **finite** if $S \cong \{ 0,1,\ldots,n - 1\}$ for some
@@ -492,6 +556,12 @@ $n \in \mathbb{N}$; ($\cong$ is bijection symbol)
 $\mid S \mid = n$.
 
 #### Infinite Set
+
+> [!definition] Infinite set
+> A set is **infinite** iff it is **not finite**: it is not in bijection with $\{0,\ldots,n-1\}$ for any $n\in\mathbb N$.
+>
+> A **Dedekind-infinite** set is in bijection with a proper subset of itself. In ZFC these notions agree; in ZF without Choice they need not.
+
 
 **Definition:**
 
@@ -549,6 +619,12 @@ $
 This gives the same discrete topology as the usual metric $|m-n|$ on $\mathbb Z$, yet the space is now **bounded**. Thus *metric boundedness is not determined by topology alone*. See [Metric Spaces](./real-analysis#metric-spaces), [General Topology](./general-topology-foundations#discrete-indiscrete-and-cofinite-examples), and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#4-metric-spaces-a-number-for-the-separation).
 
 ## Universal Set
+
+> [!definition] Relative universe of discourse
+> A **universe** $U$ is an already specified set containing all the elements under discussion; the sets being compared are subsets of $U$.
+>
+> There is **no set of all sets** in ZF/ZFC. Complementation is always relative to a specified universe.
+
 
 The universal set is a fundamental concept in set theory, which refers
 to the set that contains all the objects or elements under consideration
@@ -749,6 +825,16 @@ Modern axiomatic set theories (like Zermelo-Fraenkel set theory) avoid Russell's
 - Influenced the formalist movement in mathematics
 
 ## Power Set
+
+> [!definition] Power set
+> The **power set** of $A$ contains **all subsets of $A$**:
+>
+> $$
+> \boxed{\mathcal P(A):=\{S\mid S\subseteq A\}.}
+> $$
+>
+> Its existence is a ZF axiom. Both $\varnothing$ and $A$ belong to $\mathcal P(A)$; its elements are sets.
+
 
 ![Eight-subset Hasse lattice for {a,b,c}: a four-level diagram with empty set, three singletons, three doubletons and the full set, connected by immediate inclusion edges.](./media/st-power-set-lattice.svg)
 
