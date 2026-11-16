@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 890" role="img" aria-labelledby="title desc">
+<title id="title">Directed graphs and reachability</title>
+<desc id="desc">A directed graph contains vertices and one-way arrow edges. The example graph has a to b, b to c, c to b, and c to d. Reachability is reflexive using zero-length paths, transitive through concatenating paths, and may not be antisymmetric because b and c can reach each other while being distinct.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0 0L10 5L0 10Z" fill="#f5c574"/></marker>
+  <style>
+    .serif{font-family:Georgia, 'Times New Roman', serif}
+    .sans{font-family:Arial, Helvetica, sans-serif}
+    .heading{fill:#f6f0e5;font-weight:700}
+    .body{fill:#e3e4e9}
+    .muted{fill:#aeb9c8}
+    .gold{fill:#f5c574}
+    .node{fill:#242038;stroke:#bca0d8;stroke-width:3}
+    .edge{stroke:#f5c574;stroke-width:4.5;stroke-linecap:round;fill:none;marker-end:url(#arrow)}
+  </style>
+</defs>
+<rect width="1400" height="890" fill="#0d1525"/>
+<path d="M35 70H160 M1240 70H1365" stroke="#7bcac4" stroke-width="3"/>
+<text x="700" y="85" class="serif heading" font-size="52" text-anchor="middle">Directed graphs and reachability</text>
+<text x="700" y="131" class="serif muted" font-size="23" text-anchor="middle">How arrows between vertices define a preorder</text>
+
+<rect x="34" y="173" width="415" height="580" rx="19" fill="#111c2e" stroke="#69c5bb" stroke-width="3"/>
+<rect x="34" y="173" width="415" height="77" rx="19" fill="#163b3c"/>
+<rect x="492" y="173" width="415" height="580" rx="19" fill="#111c2e" stroke="#69c5bb" stroke-width="3"/>
+<rect x="492" y="173" width="415" height="77" rx="19" fill="#163b3c"/>
+<rect x="950" y="173" width="415" height="580" rx="19" fill="#111c2e" stroke="#69c5bb" stroke-width="3"/>
+<rect x="950" y="173" width="415" height="77" rx="19" fill="#163b3c"/>
+
+<text x="241" y="224" class="serif heading" font-size="32" text-anchor="middle">Directed graph</text>
+<text x="700" y="224" class="serif heading" font-size="32" text-anchor="middle">Example graph</text>
+<text x="1157" y="224" class="serif heading" font-size="32" text-anchor="middle">Reachability preorder</text>
+
+<text x="67" y="302" class="serif gold" font-size="28" font-weight="bold">Vertices</text>
+<text x="67" y="343" class="serif body" font-size="25">The objects being connected,</text>
+<text x="67" y="379" class="serif body" font-size="25">drawn as circles.</text>
+<text x="67" y="451" class="serif gold" font-size="28" font-weight="bold">Directed edges</text>
+<text x="67" y="493" class="serif body" font-size="25">Arrows with a direction:</text>
+<text x="67" y="530" class="serif body" font-size="25">u &#x2192; v need not mean v &#x2192; u.</text>
+<text x="67" y="599" class="serif gold" font-size="28" font-weight="bold">Directed path</text>
+<text x="67" y="640" class="serif body" font-size="25">Follow one or more arrows;</text>
+<text x="67" y="677" class="serif body" font-size="25">length 0 stays at one vertex.</text>
+
+<!-- Edges are drawn before circles so arrow endpoints sit cleanly behind vertices -->
+<path d="M584 421 L640 421" class="edge"/>
+<path d="M739 391 Q772 322 809 391" class="edge"/>
+<path d="M809 448 Q772 518 739 448" class="edge"/>
+<path d="M849 459 L849 535" class="edge"/>
+<circle cx="551" cy="421" r="34" class="node"/>
+<circle cx="699" cy="421" r="34" class="node"/>
+<circle cx="849" cy="421" r="34" class="node"/>
+<circle cx="849" cy="573" r="34" class="node"/>
+<text x="551" y="434" class="serif heading" font-size="41" text-anchor="middle">a</text>
+<text x="699" y="434" class="serif heading" font-size="41" text-anchor="middle">b</text>
+<text x="849" y="434" class="serif heading" font-size="41" text-anchor="middle">c</text>
+<text x="849" y="586" class="serif heading" font-size="41" text-anchor="middle">d</text>
+
+<rect x="510" y="637" width="380" height="79" rx="12" fill="#252037" stroke="#8e82a4" stroke-width="2"/>
+<text x="700" y="670" class="sans body" font-size="21" text-anchor="middle">b and c can reach each other;</text>
+<text x="700" y="696" class="sans body" font-size="21" text-anchor="middle">d has no path back.</text>
+
+<text x="982" y="298" class="serif gold" font-size="26" font-weight="bold">Reflexivity</text>
+<text x="982" y="334" class="serif body" font-size="23">Every vertex reaches itself</text>
+<text x="982" y="369" class="serif body" font-size="23">by a path of length 0.</text>
+
+<path d="M979 397H1335" stroke="#374b60" stroke-width="1.5"/>
+<text x="982" y="441" class="serif gold" font-size="26" font-weight="bold">Transitivity</text>
+<text x="982" y="478" class="serif body" font-size="23">Paths can be joined:</text>
+<text x="982" y="513" class="serif body" font-size="23">u to v, then v to w,</text>
+<text x="982" y="548" class="serif body" font-size="23">gives u to w.</text>
+
+<path d="M979 575H1335" stroke="#374b60" stroke-width="1.5"/>
+<text x="982" y="619" class="serif gold" font-size="25" font-weight="bold">Antisymmetry may fail</text>
+<text x="982" y="656" class="serif body" font-size="23">Distinct vertices b and c</text>
+<text x="982" y="690" class="serif body" font-size="23">can reach each other.</text>
+
+<rect x="78" y="794" width="1244" height="62" rx="12" fill="#272238" stroke="#f5c574" stroke-width="3"/>
+<text x="700" y="836" class="serif heading" font-size="28" text-anchor="middle">Directed reachability is a preorder, even when cycles are present.</text>
+</svg>
