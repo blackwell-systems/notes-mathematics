@@ -466,13 +466,7 @@ The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes 
 >
 > Relations may have several intermediate paths; $b$ need not be unique.
 
-**Composition of Relations:** Given relations $R \subseteq A \times B$ and $S \subseteq B \times C$, the composition $S \circ R$ is a relation from **A** to **C**.
-
-**Definition:** $(a,c) \in S \circ R$ if and only if there exists $b \in B$ such that $(a,b) \in R$ and $(b,c) \in S$
-
-**Notation:** $S \circ R$ (read as "S composed with R" or "S after R")
-
-**Note:** Order matters - apply **R** first, then **S**
+Read $S\circ R$ as **"S after R"**: follow an $R$-pair first, then an $S$-pair. The formal definition above does not require the intermediate $b$ to be unique.
 
 **Example 1:**
 - Let $R = \{(1,2), (1,3), (2,4)\}$ on $A = \{1,2,3\}$ to $B = \{2,3,4\}$
@@ -600,9 +594,7 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 >
 > The result is always a relation; it need not be a function even if $R$ is.
 
-**Inverse Relation:** Given a relation $R \subseteq A \times B$, the inverse relation $R^{-1} \subseteq B \times A$ reverses the order of all pairs.
-
-**Definition:** $R^{-1} = \{(b,a) \mid (a,b) \in R\}$
+Every arrow in the original relation reverses direction. The original and inverse relations have **opposite source and target sets**, as the next figure shows.$
 
 ![Two panels showing that the inverse of a relation reverses every arrow. The left panel, labeled R from A to B, has an A oval with nodes 1 and 2 on the left and a B oval with nodes 2, 3, 4 on the right, with blue arrows 1 to 2, 1 to 3, and 2 to 4. The right panel, labeled R inverse from B to A, has the B oval on the left and the A oval on the right, with red arrows 2 to 1, 3 to 1, and 4 to 2, each the reverse of an arrow in the left panel. The caption notes that reversing twice returns the original relation.](./media/fr-inverse-relation.svg)
 
@@ -788,11 +780,7 @@ The **nonempty** fibers **partition** $\mathbb{R}$: every real $x$ lies in exact
 > **Injective:** no two different inputs have the same output. **Surjective:** every specified codomain element is hit. **Bijective:** both properties. The same formula may be surjective for one codomain but not another.
 
 
-**Injection:** A function is **injective** (also called **one-to-one**) if *different inputs always produce different outputs*, so no output is ever hit twice. Equivalently, in the contrapositive form that is easiest to use in proofs:
-
-$\forall x_1 \forall x_2 ( (f(x_1) = f(x_2)) \rightarrow (x_1 = x_2) )$
-
-*For every $x_1$, $x_2$: if $f(x_1) = f(x_2)$, then $x_1$ must equal $x_2$.* (Read $x_1$ as "x-sub-one".) In the mapping-diagram pictures, injective means **no two arrows land on the same codomain dot**; with the [horizontal line test](#horizontal-line-test), it means every horizontal line hits the graph at most once.
+**How to recognize injectivity:** In a mapping diagram, no two arrows from different inputs land on the same codomain element. For a graph of a real-valued function, the [horizontal-line test](#horizontal-line-test) says each horizontal line intersects the graph **at most once**. When proving injectivity algebraically, assume equal outputs and derive equal inputs.
 
 **Worked example (proving a function is injective).** Show $f(x) = 2x + 3$ on $\mathbb{R}$ is injective.
 
@@ -813,11 +801,7 @@ It is enough to exhibit **one** collision: $f(-2) = 4 = f(2)$, yet $-2 \neq 2$. 
 >
 > Equivalently, $\operatorname{ran}(f)=B$.
 
-**Surjection:** A function $f : X \to Y$ is **surjective** (or **onto**) if every element of the codomain is the image of at least one input:
-$$
-\forall y \in Y,\ \exists x \in X,\ f(x) = y.
-$$
-Equivalently, the range equals the whole codomain, $\text{Range}(f) = Y$: nothing in $Y$ is left unhit. Surjectivity is a condition on the *codomain* (everything is reached), exactly complementary to injectivity, which is a condition on the *inputs* (nothing is doubled up).
+**How to recognize surjectivity:** Nothing in the **specified codomain** is left unhit. This is different from injectivity: surjectivity requires **at least one** input per target, while injectivity allows **at most one** input per target.
 
 **Worked example (proving a function is surjective).** Show $f(x) = 2x + 3$ as a map $\mathbb{R} \to \mathbb{R}$ is surjective.
 
@@ -836,17 +820,7 @@ Pick an arbitrary target $y \in \mathbb{R}$. We need an input $x$ with $f(x) = y
 >
 > This is equivalent to **injectivity and surjectivity together**. It is the condition needed for the reversed pairs to form a function $B\to A$.
 
-A function is bijective if and only if it is
-both **injective** **(or *one-to-one*)---**meaning that each element in
-the codomain is mapped to from at most one element of the
-domain---and **surjective** **(or *onto*)---**meaning that each element
-of the codomain is mapped to from at least one element of the domain. 
-
-Formally, $f$ is bijective when it is injective *and* surjective:
-$$
-\underbrace{\forall x_1, x_2\ \big(f(x_1) = f(x_2) \to x_1 = x_2\big)}_{\text{injective}} \quad\wedge\quad \underbrace{\forall y \in Y\ \exists x \in X\ (f(x) = y)}_{\text{surjective}}.
-$$
-A bijection pairs the elements of $X$ and $Y$ perfectly, one-to-one and onto, which is exactly what makes it invertible (next) and what underlies comparing set sizes.
+Bijectivity combines the two requirements: every codomain element is reached, and none is reached by two different inputs. It gives a genuine **one-to-one correspondence** between $A$ and $B$, allowing inputs and outputs to be recovered uniquely from one another.
 
 **Worked example: proving a function is bijective, then inverting it.** Show that $f(x) = x^3$ as a map $\mathbb{R} \to \mathbb{R}$ is a bijection, and find its inverse. A bijection needs *both* halves, so we prove each in turn.
 
@@ -922,9 +896,7 @@ The rule to remember: whenever a function is defined via representatives of equi
 >
 > Thus $\operatorname{id}_A:A\to A$ and $\operatorname{id}_A(a)=a$ for all $a\in A$.
 
-**Identity Function:** The identity function on a set **X**, denoted **id_X** or simply **id**, is a function that maps every element to itself.
-
-**Definition:** $id_X : X \rightarrow X$ defined by $id_X(x) = x$ for all $x \in X$
+The identity is the simplest bijection: it **changes nothing**. Its defining diagonal set of pairs makes the following laws immediate.
 
 **Properties:**
 - The identity function is bijective
@@ -946,7 +918,7 @@ The rule to remember: whenever a function is defined via representatives of equi
 >
 > This inverse relation always exists. It is a **function** $f^{-1}:B\to A$ precisely when **every $b\in B$ has exactly one reversed output**—equivalently, when $f$ is **bijective**.
 
-A function is not merely a formula. In the [set-theoretic definition](#relation), a function $f:A\to B$ is a **relation** $f\subseteq A\times B$ that assigns **exactly one** $b\in B$ to each $a\in A$. This matters when we ask what it means to *reverse* a function: before solving any equation, we can reverse its **ordered pairs**.
+A function is not merely a formula. In the [set-theoretic definition](#function), a function $f:A\to B$ is a **relation** $f\subseteq A\times B$ that assigns **exactly one** $b\in B$ to each $a\in A$. This matters when we ask what it means to *reverse* a function: before solving any equation, we can reverse its **ordered pairs**.
 
 ### Start with the inverse relation
 
@@ -1081,13 +1053,7 @@ Inverting a composition reverses the order because an output of $g\circ f$ must 
 
 Function composition is the mathematical foundation of the chain rule in [Calculus](./calculus), which is in turn the basis of backpropagation in machine learning.
 
-**Function Composition:** The composition of two functions **f: A → B** and **g: B → C** is a new function **g ∘ f: A → C** defined by:
-
-$$(g \circ f)(x) = g(f(x))$$
-
-Read as "g composed with f" or "g of f of x".
-
-**Important:** The order matters! $g \circ f$ means "apply f first, then apply g to the result."
+Read $g\circ f$ as **"g composed with f"** or **"g after f."** The order matters: $g\circ f$ applies $f$ first and $g$ second; it generally differs from $f\circ g$.
 
 **Example:**
 
@@ -1319,11 +1285,7 @@ for all $x$ in the domain.
 >
 > Its **domain of definition** is $D=\{a\in A\mid\exists b\in B:(a,b)\in f\}\subseteq A$; equivalently, it is a total function $D\to B$. The empty relation is also a valid partial function.
 
-**Partial Function:** A partial function from set **A** to set **B** is a function that is not necessarily defined for every element of **A**.
-
-Formally, a partial function $f: A \rightharpoonup B$ is a function $f: A' \rightarrow B$ where $A' \subseteq A$.
-
-The set $A'$ is called the **domain of definition**.
+**Contrast with total functions:** In $f:A\rightharpoonup B$, some elements of $A$ may be unpaired. Once we restrict attention to its actual domain of definition $D$, the same set of pairs defines a total function $D\to B$.
 
 **Examples:**
 - $f(x) = \frac{1}{x}$ is a partial function on $\mathbb{R}$ (undefined at $x = 0$)
