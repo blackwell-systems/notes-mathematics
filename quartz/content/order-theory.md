@@ -359,6 +359,10 @@ Here $\prec$ means **"is a proper divisor of"**, not ordinary numerical $<$. Thi
 
 The same pattern appears with sets: $A\subseteq A$ is true, whereas $A\subsetneq A$ is false. But $\{a\}\subsetneq\{a,b\}$ is true. Thus **$\subseteq$ is to $\subsetneq$ as $\leq$ is to $<$**.
 
+![Comparison of non-strict and strict divisibility on the same set P = {1, 2, 4}. The non-strict relation includes all three self-comparisons, while the derived strict relation removes them and keeps the comparisons between different elements.](./media/ot-strict-nonstrict-derived.svg)
+
+*Figure: Deriving the strict relation removes only self-comparisons. **Reflexivity** requires them in the original partial order; **irreflexivity** excludes them from the derived relation. The elements and comparisons between distinct elements do not change.*
+
 ### How this relates to the partial-order axioms
 
 Name the properties explicitly when switching between the relations:
