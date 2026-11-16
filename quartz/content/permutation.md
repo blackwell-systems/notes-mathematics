@@ -87,6 +87,13 @@ Alternate notation: $_nP_r$ or $P_r^n$
 
 The two panels capture the whole distinction: **without** repetition the choices shrink by one each step (giving $\frac{n!}{(n-r)!}$), while **with** repetition every position keeps all $n$ choices (giving $n^r$).
 
+> [!tip] Reminder: permutations versus combinations
+> **Same five people, same three choices, different question.** Assigning three people to *first, second, and third* positions makes $(A,B,C)$ different from $(C,A,B)$: **order matters**, so $P(5,3)=5\cdot4\cdot3=60$.
+>
+> If we form a **three-person team**, those arrangements represent the same selection $\{A,B,C\}$: **order does not matter**, so $\binom53=60/3!=10$. See [Combinations](./combination) for why dividing by $3!$ merges all orderings of each selected team.
+>
+> **Decision test:** Would swapping two selected objects change the outcome? If yes, use permutations. If no, use combinations. Here the objects are **distinct and selected without repetition**.
+
 ### Explore it interactively
 
 Pick $n$ (read "n", the size of the pool) and $r$ (read "r", how many you arrange) below. The widget shows the factorial cancellation in $P(n,r) = \frac{n!}{(n-r)!}$ (read "the number of permutations of n things taken r at a time") and, for small cases, draws the actual ordered arrangements so the count is concrete. Watch how swapping the order of two tokens produces a **different** arrangement: that is what "order matters" means.
@@ -100,6 +107,8 @@ Pick $n$ (read "n", the size of the pool) and $r$ (read "r", how many you arrang
 
 
 **Permutations with Repetition:** When elements can be repeated, the formula changes.
+
+**Compare with [Combinations with Repetition](./combination#combinations-with-repetition):** filling three **ordered** positions from five types allows $5^3=125$ sequences, whereas choosing three items from five types **without recording order** gives $\binom{7}{3}=35$ multisets. **Order** and **repetition** are independent choices; allowing repetition does not turn permutations into combinations.
 
 **Formula:**
 

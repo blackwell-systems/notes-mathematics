@@ -41,9 +41,9 @@ The picture is the whole idea of a combination in one glance: the $60$ ordered s
 >
 > Every class contains exactly $r!$ ordered selections, because the $r$ selected objects are distinct and can be rearranged in $r!$ ways. Thus the set of combinations is the **quotient set** of ordered selections under this equivalence relation, and
 >
-> $
+> $$
 > \binom nr=\frac{P(n,r)}{r!}.
-> $
+> $$
 >
 > We have **kept which objects were chosen while deliberately forgetting their order**. This is the same mathematical move we used when constructing quotient sets: treat distinct objects as equivalent for a specified purpose. The division by $r!$ works here because every equivalence class has the same size; that need not hold for counting problems with repeated or indistinguishable objects.
 
@@ -68,6 +68,13 @@ Alternate notation: $_nC_r$ or $C_r^n$ or $\binom{n}{r}$
 $$C(n,r) = \frac{P(n,r)}{r!}$$
 
 Combinations are permutations divided by the number of ways to arrange r items, because order doesn't matter.
+
+> [!tip] Reminder: combinations versus permutations
+> **Same five people, same three choices, different question.** Choosing a team means $\{A,B,C\}=\{C,A,B\}$: only membership matters. There are $\binom53=10$ **combinations**.
+>
+> Assigning people to *first, second, and third* positions makes $(A,B,C)$ different from $(C,A,B)$. There are $P(5,3)=60$ **permutations**. Every three-person team has $3!=6$ distinct orderings, so $60/6=10$.
+>
+> **Decision test:** Does changing the order of selected objects change what you are counting? If yes, revisit [Permutations](./permutation); if no, use combinations. These counts assume **distinct objects without repetition**. The equivalence-class explanation above formalizes what we forget when order is irrelevant.
 
 **Examples:**
 
@@ -153,6 +160,8 @@ Where:
 - **r:** Number of items to select (repetition allowed)
 
 **Example:** How many ways can you select 3 donuts from 5 types if you can choose the same type multiple times?
+
+**Compare with [Permutations with Repetition](./permutation#permutations-with-repetition):** three **ordered** picks from five types give $5^3=125$ sequences; three **unordered** picks with the same options give $\binom{5+3-1}{3}=35$ multisets. **Order matters?** and **May objects repeat?** are separate questions.
 
 $$C(5+3-1,\, 3) = C(7,3) = \frac{7!}{3!\,4!} = 35$$
 
