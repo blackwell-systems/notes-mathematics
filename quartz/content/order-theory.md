@@ -346,7 +346,7 @@ Let's write down **every true comparison**. Remember that a comparison is a stat
 
 Each pair $(a,b)$ means **"the comparison from $a$ to $b$ holds"**. For example, $(2,4)$ is present because $2$ divides $4$. The left column includes comparisons of elements **with themselves**; the right column drops exactly those three self-comparisons.
 
-**That's all "the strict part of an order" means:** keep the same elements and all the comparisons between **different** elements, but leave out self-comparisons. We have not split the poset into two sets of elements, and we have not invented a different ordering.
+**We have now derived a new relation from the original partial order.** The original relation is unchanged; the derived relation keeps exactly those comparisons that involve **different elements**. Both relations use the same set $P$. The word *strict* describes the new relation, not a separate component or group of elements inside the poset.
 
 Now we can give those two versions names:
 
