@@ -372,6 +372,23 @@ Let $x \in A \cap (B \cup C)$. Then $x \in A$ and $x \in B \cup C$.
 
 Since $x \in B \cup C$, either $x \in B$ or $x \in C$ (or both).
 
+> [!tip] Why we split into two cases — and what stays true
+> The starting assumption $x\in A\cap(B\cup C)$ gave us **two facts at once**:
+>
+> 1. $x\in A$. **Keep this fact in both cases.**
+> 2. $x\in B\cup C$. This means $x\in B$ **or** $x\in C$ (possibly both).
+>
+> We split only the **second** fact. The first is still available:
+>
+> | Case | What we already know | What the case adds | What we can now conclude |
+> | --- | --- | --- | --- |
+> | $x\in B$ | $x\in A$ | $x\in B$ | $x\in A\cap B$ |
+> | $x\in C$ | $x\in A$ | $x\in C$ | $x\in A\cap C$ |
+>
+> Either $A\cap B$ **or** $A\cap C$ is enough to put $x$ in **their union** $(A\cap B)\cup(A\cap C)$. We do **not** need to prove that $x$ belongs to both intersections.
+>
+> If $x$ belongs to both $B$ and $C$, both cases apply; the conclusion remains the same.
+
 - If $x \in B$: then $x \in A$ and $x \in B$, so $x \in A \cap B$, hence $x \in (A \cap B) \cup (A \cap C)$.
 - If $x \in C$: then $x \in A$ and $x \in C$, so $x \in A \cap C$, hence $x \in (A \cap B) \cup (A \cap C)$.
 
@@ -380,6 +397,16 @@ In either case, $x \in (A \cap B) \cup (A \cap C)$. $\checkmark$
 **Show $(A \cap B) \cup (A \cap C) \subseteq A \cap (B \cup C)$:**
 
 Let $x \in (A \cap B) \cup (A \cap C)$. Then $x \in A \cap B$ or $x \in A \cap C$.
+
+> [!tip] Reading the reverse direction
+> This time the assumption says $x$ is in **at least one** of two intersections. Each intersection gives us **two facts**:
+>
+> - If $x\in A\cap B$, then $x\in A$ **and** $x\in B$.
+> - If $x\in A\cap C$, then $x\in A$ **and** $x\in C$.
+>
+> In **either** case, $x\in A$. And in either case, $x$ belongs to **at least one** of $B$ or $C$, which is exactly what $x\in B\cup C$ means.
+>
+> Combining those two conclusions with **intersection** gives $x\in A\cap(B\cup C)$. So the reverse containment holds too.
 
 - If $x \in A \cap B$: then $x \in A$ and $x \in B$. Since $x \in B$, we have $x \in B \cup C$. So $x \in A \cap (B \cup C)$.
 - If $x \in A \cap C$: then $x \in A$ and $x \in C$. Since $x \in C$, we have $x \in B \cup C$. So $x \in A \cap (B \cup C)$.
