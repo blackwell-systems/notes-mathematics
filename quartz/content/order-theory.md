@@ -323,7 +323,7 @@ For ordinary numbers, we already use **two ways to describe the same ordering**:
 - $2\leq4$ is true, **and** $2<4$ is true.
 - $4\leq2$ and $4<2$ are both false.
 
-The difference is just **whether an element may be compared with itself**. The symbol $\leq$ allows equality; $<$ excludes it. In particular, $a\leq b$ does **not** mean $a=b$: it means $a$ is less than **or equal to** $b$.
+**The property behind this distinction is reflexivity.** A relation $R$ is **reflexive** if $aRa$ holds for *every* element $a$; it is **irreflexive** if $aRa$ holds for *no* element. Thus numerical $\leq$ is reflexive ($2\leq2$), while $<$ is irreflexive (not $2<2$). In particular, $a\leq b$ does **not** assert $a=b$: it says $a$ is less than **or equal to** $b$.
 
 Order theory uses this same distinction even when we are not comparing numerical sizes. We write $\preceq$ in place of a chosen non-strict order and $\prec$ for its strict version. As earlier in this chapter, **these are generic symbols whose meaning comes from the order we have chosen**.
 
@@ -359,10 +359,11 @@ The same pattern appears with sets: $A\subseteq A$ is true, whereas $A\subsetneq
 
 ### How this relates to the partial-order axioms
 
-Two properties you already learned explain why the distinction works:
+Name the properties explicitly when switching between the relations:
 
-- **Reflexivity** requires every self-comparison $a\preceq a$. That's why the non-strict version includes $(1,1)$, $(2,2)$, and $(4,4)$.
-- **Antisymmetry** says that if $a\preceq b$ **and** $b\preceq a$, then $a=b$. So **different elements cannot compare in both directions** in a partial order.
+- **Reflexivity** of the original non-strict partial order requires $a\preceq a$ for every $a$. That's why its list includes $(1,1)$, $(2,2)$, and $(4,4)$.
+- **Irreflexivity** of the derived strict relation means $a\prec a$ is false for every $a$. That's why its list excludes those self-comparisons.
+- **Antisymmetry** of the original partial order says that if $a\preceq b$ **and** $b\preceq a$, then $a=b$. Thus **different elements cannot compare in both directions**.
 
 Antisymmetry does **not** define equality: $a=b$ already means they are the same element. It tells us that **two-way comparison is possible only in that case**. When we remove self-comparisons, no pair can be related in both directions.
 
