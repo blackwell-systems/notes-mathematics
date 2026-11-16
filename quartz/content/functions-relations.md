@@ -210,6 +210,18 @@ The graph construction applies to **any finite relation on a set**, not just equ
 
 ### Properties of Relations
 
+> [!definition] Relation properties in ordered-pair form
+> Let $R\subseteq A\times A$. The properties below state **which ordered pairs belong to $R$**:
+>
+> - **Reflexive:** $(a,a)\in R$ for every $a\in A$.
+> - **Irreflexive:** $(a,a)\notin R$ for every $a\in A$.
+> - **Symmetric:** $(a,b)\in R\Rightarrow(b,a)\in R$.
+> - **Antisymmetric:** $(a,b)\in R$ and $(b,a)\in R$ imply $a=b$.
+> - **Asymmetric:** $(a,b)\in R\Rightarrow(b,a)\notin R$.
+> - **Transitive:** $(a,b),(b,c)\in R\Rightarrow(a,c)\in R$.
+>
+> Each statement applies to **all relevant elements** of $A$. None is required of an arbitrary relation.
+
 ![Four small directed graphs illustrating relation properties: reflexive with a self-loop at every node, symmetric with every edge drawn both ways, transitive where edges a to b and b to c force the implied edge a to c, and antisymmetric where no two distinct nodes have arrows in both directions](./media/fr-relation-properties.svg)
 
 *Figure: Four examples isolate different relation properties. Reflexivity requires self-loops, symmetry requires reverse pairs, transitivity requires shortcuts, and antisymmetry forbids two-way pairs between distinct nodes.*
@@ -352,6 +364,16 @@ An **equivalence relation** is reflexive + symmetric + transitive; a **partial o
 
 ### From binary relations to preorders
 
+> [!definition] Preorder
+> A **preorder** on $A$ is a relation $R\subseteq A\times A$ that is **reflexive and transitive**:
+>
+> $
+> (a,a)\in R\quad(a\in A),\qquad
+> (a,b),(b,c)\in R\Rightarrow(a,c)\in R.
+> $
+>
+> Antisymmetry is **not** required: different objects may be related in both directions.
+
 We began with a **binary relation** on $A$: any choice of ordered pairs $R\subseteq A\times A$. Writing $aRb$ means only that $(a,b)\in R$. The notation does **not** tell us whether $R$ has any special properties. Those are things we must check.
 
 Suppose $R$ is **reflexive** (every $aRa$ holds) and **transitive** (whenever $aRb$ and $bRc$, then $aRc$). We now have a **preorder**. No further requirement is needed: in particular, two distinct objects may be related in both directions.
@@ -373,6 +395,9 @@ Read [Order Theory](./order-theory#from-relations-to-preorders-and-partial-order
 
 ### Partial Order
 
+> [!definition] Partial order
+> A **partial order** on $A$ is a relation $R\subseteq A\times A$ that is **reflexive, antisymmetric, and transitive**. The structure $(A,R)$ is a **partially ordered set** (poset). Two distinct elements can be **incomparable**, meaning neither $(a,b)$ nor $(b,a)$ belongs to $R$.
+
 A **partial order** is a preorder that is also antisymmetric. Distinct elements need not be comparable. For proofs and examples, see [Order Theory](./order-theory#from-relations-to-preorders-and-partial-orders).
 
 ### Hasse Diagrams
@@ -380,6 +405,15 @@ A **partial order** is a preorder that is also antisymmetric. Distinct elements 
 A Hasse diagram displays cover relations in a finite poset. Comparability follows an **upward path**, not an arbitrary undirected path. See the [Hasse examples](./order-theory#hasse-diagrams-constructing-and-reading-a-finite-order).
 
 ### Total Order (Linear Order)
+
+> [!definition] Total (linear) order
+> A **total order** is a partial order $R\subseteq A\times A$ satisfying **comparability**:
+>
+> $
+> \forall a,b\in A:\ (a,b)\in R\ \lor\ (b,a)\in R.
+> $
+>
+> The disjunction is inclusive; when $a=b$, reflexivity already makes both sides true.
 
 In a **total order**, every two elements are comparable. See [Total orders, chains, and antichains](./order-theory#total-orders-chains-and-antichains).
 
@@ -389,17 +423,48 @@ A lattice has a least upper bound and greatest lower bound for every pair. Minim
 
 ### Equivalence Relation
 
+> [!definition] Equivalence relation
+> An **equivalence relation** $\sim$ on $A$ is a relation $R\subseteq A\times A$ that is **reflexive, symmetric, and transitive**. Thus every element relates to itself, every pair can be reversed, and related pairs can be chained.
+
 An **equivalence relation** is reflexive, symmetric, and transitive. Read the complete treatment in [Equivalence Relations and Quotients](./equivalence-relations).
 
 ### Equivalence Classes
+
+> [!definition] Equivalence class
+> For an equivalence relation $\sim$ on $A$, the **class** of $a\in A$ is
+>
+> $
+> \boxed{[a]_{\sim}:=\{x\in A\mid x\sim a\}.}
+> $
+>
+> The element $a$ **belongs to** this set; it is not the entire set. Equivalent elements name the same class.
 
 The class $[a]$ contains all elements equivalent to $a$. See [Classes and the class equality criterion](./equivalence-relations#equivalence-classes-what-gets-identified).
 
 ### Quotient Set (Set of Equivalence Classes)
 
+> [!definition] Quotient set
+> The **quotient set** of $A$ by an equivalence relation $\sim$ has **equivalence classes as elements**:
+>
+> $
+> \boxed{A/{\sim}:=\{[a]_{\sim}\mid a\in A\}.}
+> $
+>
+> The **quotient map** $q:A\to A/{\sim}$ sends $q(a):=[a]_{\sim}$. It is surjective, identifying precisely those inputs related by $\sim$.
+
 The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes must be independent of representatives. See [Quotient sets and factorization](./equivalence-relations#quotient-sets-classes-become-objects).
 
 ### Composition of Relations
+
+> [!definition] Composition of binary relations
+> For $R\subseteq A\times B$ and $S\subseteq B\times C$, the **composite** $S\circ R\subseteq A\times C$ consists of pairs connected through **some** intermediate $b\in B$:
+>
+> $
+> \boxed{S\circ R:=\{(a,c)\in A\times C\mid
+> \exists b\in B:\ (a,b)\in R\ \land\ (b,c)\in S\}.}
+> $
+>
+> Relations may have several intermediate paths; $b$ need not be unique.
 
 **Composition of Relations:** Given relations $R \subseteq A \times B$ and $S \subseteq B \times C$, the composition $S \circ R$ is a relation from **A** to **C**.
 
@@ -438,6 +503,15 @@ To build $S \circ R$ from the picture, start at a node in $A$, walk one blue $R$
 - If **R** is **reflexive** and **transitive**, then $R \circ R = R$
 
 ### Closure of Relations
+
+> [!definition] Reflexive, symmetric, or transitive closure
+> For $R\subseteq A\times A$ and a property such as reflexivity, symmetry, or transitivity, its **closure** is the **least relation under inclusion** among $T\subseteq A\times A$ satisfying
+>
+> $
+> R\subseteq T\quad\text{and}\quad T\text{ has the specified property}.
+> $
+>
+> For these three properties, a least relation exists. A "closure under an arbitrary property" is **not always defined** without additional assumptions.
 
 **Closure:** The closure of a relation **R** with respect to a property **P** is the smallest relation that:
 1. Contains **R** as a subset
@@ -516,6 +590,15 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 **Application:** Used in defining "reachability" in graphs, regular expressions, and formal languages.
 
 ### Inverse Relations
+
+> [!definition] Inverse relation
+> Given $R\subseteq A\times B$, reverse every selected pair:
+>
+> $
+> \boxed{R^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in R\}.}
+> $
+>
+> The result is always a relation; it need not be a function even if $R$ is.
 
 **Inverse Relation:** Given a relation $R \subseteq A \times B$, the inverse relation $R^{-1} \subseteq B \times A$ reverses the order of all pairs.
 
@@ -1306,6 +1389,9 @@ The set $A'$ is called the **domain of definition**.
 **Total Function:** A function defined for every element in its domain. Most functions discussed in mathematics are total functions.
 
 ## One-to-One Correspondence
+
+> [!definition] One-to-one correspondence
+> A **one-to-one correspondence between sets $A$ and $B$** is a **bijection** $f:A\to B$: each $a\in A$ has exactly one output in $B$, and every $b\in B$ has exactly one preimage in $A$. Thus both $f$ and its inverse relation $f^{-1}$ are total functions.
 
 **One-to-One Correspondence:** Another term for a bijective function. It establishes a perfect pairing between two sets where:
 
