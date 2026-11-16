@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 870" width="1440" height="870" role="img" aria-labelledby="figtitle figdesc">
+<title id="figtitle">Deriving a strict order from a non-strict partial order</title>
+<desc id="figdesc">Two panels display the same set {1,2,4} ordered by divisibility. The non-strict order has six true comparison pairs including the three reflexive pairs (1,1), (2,2), (4,4). The derived strict relation omits exactly these three self-comparisons, retaining (1,2), (1,4), (2,4). Both panels use the same elements and arrows between distinct elements.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e7bd62"/></marker></defs>
+<rect width="1440" height="870" fill="#0e1423"/>
+<text x="720" y="73" font-size="54" text-anchor="middle" fill="#f3f0e7" font-family="Georgia, serif" font-weight="bold">Strict and non-strict order</text>
+<text x="720" y="122" font-size="27" text-anchor="middle" fill="#c9d0df" font-family="Georgia, serif">Same elements. The strict relation removes self-comparisons.</text>
+<rect x="35" y="160" width="607" height="547" rx="20" fill="#101a2b" stroke="#6dcdc5" stroke-width="3"/>
+<rect x="35" y="160" width="607" height="83" rx="20" fill="#163339"/>
+<rect x="798" y="160" width="607" height="547" rx="20" fill="#101a2b" stroke="#b991de" stroke-width="3"/>
+<rect x="798" y="160" width="607" height="83" rx="20" fill="#342746"/>
+<text x="337" y="214" font-size="34" text-anchor="middle" fill="#f2efe8" font-family="Georgia, serif" font-weight="bold">Non-strict order (reflexive)</text>
+<text x="1100" y="214" font-size="34" text-anchor="middle" fill="#f2efe8" font-family="Georgia, serif" font-weight="bold">Strict relation (irreflexive)</text>
+<text x="80" y="283" font-size="26" fill="#e5e4e1" font-family="Georgia, serif">P = {1, 2, 4} under divisibility</text>
+<text x="842" y="283" font-size="26" fill="#e5e4e1" font-family="Georgia, serif">P = {1, 2, 4} under divisibility</text>
+<path d="M 166 538 V 501 M 166 424 V 387" stroke="#e7bd62" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+<path d="M 135 565 C 44 553 46 351 135 349" stroke="#e7bd62" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<circle cx="166" cy="576" r="36" fill="#0d2030" stroke="#7bdfd6" stroke-width="3"/>
+<text x="166" y="587" font-size="37" text-anchor="middle" fill="#f5f1e8" font-family="Georgia, serif">1</text>
+<path d="M 191 548 C 239 502 260 570 204 573" stroke="#e7bd62" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<circle cx="166" cy="462" r="36" fill="#0d2030" stroke="#7bdfd6" stroke-width="3"/>
+<text x="166" y="473" font-size="37" text-anchor="middle" fill="#f5f1e8" font-family="Georgia, serif">2</text>
+<path d="M 191 434 C 239 388 260 456 204 459" stroke="#e7bd62" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<circle cx="166" cy="348" r="36" fill="#0d2030" stroke="#7bdfd6" stroke-width="3"/>
+<text x="166" y="359" font-size="37" text-anchor="middle" fill="#f5f1e8" font-family="Georgia, serif">4</text>
+<path d="M 191 320 C 239 274 260 342 204 345" stroke="#e7bd62" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M 929 538 V 501 M 929 424 V 387" stroke="#e7bd62" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+<path d="M 898 565 C 807 553 809 351 898 349" stroke="#e7bd62" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<circle cx="929" cy="576" r="36" fill="#0d2030" stroke="#7bdfd6" stroke-width="3"/>
+<text x="929" y="587" font-size="37" text-anchor="middle" fill="#f5f1e8" font-family="Georgia, serif">1</text>
+<circle cx="929" cy="462" r="36" fill="#0d2030" stroke="#7bdfd6" stroke-width="3"/>
+<text x="929" y="473" font-size="37" text-anchor="middle" fill="#f5f1e8" font-family="Georgia, serif">2</text>
+<circle cx="929" cy="348" r="36" fill="#0d2030" stroke="#7bdfd6" stroke-width="3"/>
+<text x="929" y="359" font-size="37" text-anchor="middle" fill="#f5f1e8" font-family="Georgia, serif">4</text>
+<rect x="286" y="326" width="322" height="256" rx="14" fill="#201d35" stroke="#b991de" stroke-width="2"/>
+<text x="305" y="372" font-size="26" fill="#f1c9fa" font-family="Georgia, serif" font-weight="bold">True comparisons</text>
+<text x="303" y="420" font-size="24" fill="#f2f0ec" font-family="monospace">(1,1) (2,2) (4,4)</text>
+<text x="303" y="472" font-size="24" fill="#f2f0ec" font-family="monospace">(1,2) (1,4) (2,4)</text>
+<text x="303" y="533" font-size="17" fill="#a4dbd5" font-family="sans-serif">Self-comparisons included</text>
+<rect x="1047" y="326" width="324" height="256" rx="14" fill="#211d35" stroke="#b991de" stroke-width="2"/>
+<text x="1068" y="372" font-size="26" fill="#f1c9fa" font-family="Georgia, serif" font-weight="bold">True comparisons</text>
+<text x="1064" y="427" font-size="24" fill="#f2f0ec" font-family="monospace">(1,2) (1,4) (2,4)</text>
+<text x="1066" y="496" font-size="22" fill="#b3b3bb" font-family="monospace" text-decoration="line-through">(1,1) (2,2) (4,4)</text>
+<text x="1068" y="535" font-size="17" fill="#b3b3bb" font-family="sans-serif">Self-comparisons removed</text>
+<text x="720" y="395" font-size="23" text-anchor="middle" fill="#f2efdf" font-family="Georgia, serif">Remove</text>
+<text x="720" y="425" font-size="22" text-anchor="middle" fill="#f2efdf" font-family="Georgia, serif">self-</text>
+<text x="720" y="454" font-size="22" text-anchor="middle" fill="#f2efdf" font-family="Georgia, serif">comparisons</text>
+<line x1="665" y1="493" x2="773" y2="493" stroke="#e7bd62" stroke-width="5" marker-end="url(#arrow)"/>
+<rect x="70" y="626" width="540" height="56" rx="12" fill="#163339" stroke="#6dcdc5" stroke-width="2"/>
+<text x="340" y="663" font-size="26" text-anchor="middle" fill="#e7e9dd" font-family="Georgia, serif">Reflexivity: every a ⪯ a</text>
+<rect x="832" y="626" width="539" height="56" rx="12" fill="#2c293c" stroke="#b991de" stroke-width="2"/>
+<text x="1102" y="663" font-size="26" text-anchor="middle" fill="#e7e9dd" font-family="Georgia, serif">Irreflexivity: never a ≺ a</text>
+<rect x="264" y="747" width="912" height="85" rx="14" fill="#182132" stroke="#e7bd62" stroke-width="3"/>
+<text x="720" y="804" font-size="43" text-anchor="middle" fill="#f3efe7" font-family="Georgia, serif">a ≺ b    iff    a ⪯ b  and  a ≠ b</text>
+</svg>
