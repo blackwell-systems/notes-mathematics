@@ -323,7 +323,10 @@ For ordinary numbers, we already use **two ways to describe the same ordering**:
 - $2\leq4$ is true, **and** $2<4$ is true.
 - $4\leq2$ and $4<2$ are both false.
 
-**The property behind this distinction is reflexivity.** A relation $R$ is **reflexive** if $aRa$ holds for *every* element $a$; it is **irreflexive** if $aRa$ holds for *no* element. Thus numerical $\leq$ is reflexive ($2\leq2$), while $<$ is irreflexive (not $2<2$). In particular, $a\leq b$ does **not** assert $a=b$: it says $a$ is less than **or equal to** $b$.
+> [!distinction] Reflexivity versus irreflexivity
+> **The property behind this distinction is reflexivity.** A relation $R$ is **reflexive** if $aRa$ holds for *every* element $a$. It is **irreflexive** if $aRa$ holds for *no* element.
+>
+> Numerical $\leq$ is **reflexive** because $a\leq a$ always holds; numerical $<$ is **irreflexive** because $a<a$ never holds. But $a\leq b$ does **not** assert that $a=b$: it allows equality *or* a comparison between distinct elements. Reflexivity only guarantees **self-comparisons**, not comparisons between distinct elements.
 
 **The symbols do not choose an order for us.** Earlier, $\preceq$ was introduced as a **placeholder** for whichever partial-order relation we have specified: for numbers it could mean $\leq$, for sets $\subseteq$, and for positive integers it could mean divisibility ($\mid$). Only after choosing that relation do we define a *second, derived relation*, written $\prec$: it keeps a comparison $a\preceq b$ **only if $a\neq b$**. We will construct it with an example before writing the general formula.
 
