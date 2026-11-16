@@ -315,25 +315,70 @@ This poset is **not total**: neither $2\mid3$ nor $3\mid2$. Those numbers are in
 
 ## Strict and non-strict order
 
-From a partial order define its strict part by
+### Why distinguish the two?
+
+In the **divisibility poset** we just studied, both of these are true:
+
+- $2\mid2$: two divides **itself**.
+- $2\mid4$: two divides **a different number**, four.
+
+A partial order must allow the first kind of comparison because it is **reflexive**: every element is related to itself. But sometimes we want to say something stronger than "at or below." For instance, when asking whether an element has something **genuinely above it**, we must exclude the element itself. This is why we introduce a *strict* comparison.
+
+**We are not dividing the poset into two parts or choosing a second, unrelated ordering.** The objects stay the same, and so does the underlying idea of comparison. We are simply choosing whether to **include or exclude equality**:
+
+- **Non-strict:** $a\preceq b$ means "$a$ is at or below $b$ according to this order." The two elements **may be equal, but need not be**.
+- **Strict:** $a\prec b$ means "$a$ is below $b$ according to this order **and is not the same element**." Equality is excluded.
+
+In other words, *the strict part of an order* means its comparisons **between different elements**, not a separate portion of the elements of the poset.
+
+### See the distinction before the formula
+
+| The chosen order | Non-strict comparison | Strict comparison |
+| --- | --- | --- |
+| Numbers by size | $2\leq2$ and $2\leq4$ | $2<4$, but **not** $2<2$ |
+| Sets by inclusion | $A\subseteq A$ and $\{a\}\subseteq\{a,b\}$ | $\{a\}\subsetneq\{a,b\}$, but **not** $A\subsetneq A$ |
+| Positive integers by divisibility | $2\mid2$ and $2\mid4$ | $2$ is a **proper divisor** of $4$, but not of itself |
+
+**Nothing new is being compared in the strict column.** We retain the existing comparison and additionally require the elements to be different. For example, in the earlier power-set diamond, $\{a\}$ and $\{b\}$ are still **incomparable**: excluding equality does not suddenly make them comparable.
+
+The symbols $\preceq$ and $\prec$ are **generic placeholders**, just as $\preceq$ was earlier in the chapter. For numerical order they can mean $\leq$ and $<$; for set inclusion they can mean $\subseteq$ and $\subsetneq$; for divisibility, $\prec$ means "divides and is different from." **Strict does not mean immediately next**: for example, $1$ strictly divides $12$ even though $2$ and $3$ are intermediate divisors. We will distinguish *strictly below* from *immediately below* when we reach [Hasse diagrams](#hasse-diagrams-reconstructing-the-finite-order).
+
+### The formal relationship
+
+For any partial order $(P,\preceq)$, define a new relation $\prec$ **on the same set** by
 
 $$
-a\prec b\quad\Longleftrightarrow\quad a\preceq b\ \text{and}\ a\neq b.
+a\prec b
+\quad\Longleftrightarrow\quad
+a\preceq b\ \text{and}\ a\neq b.
 $$
 
-Read "a is strictly below b."
+Read "$a$ is strictly below $b$." The formula says: first check that the original order relates $a$ to $b$; then check that they are **not equal**.
+
+We can also go **backward**. If we know all the strict comparisons, we recover the non-strict comparison just by allowing equality:
+
+$$
+a\preceq b
+\quad\Longleftrightarrow\quad
+a\prec b\ \text{or}\ a=b.
+$$
+
+Thus the strict and non-strict descriptions contain **the same information**. For instance, $\{a\}\subseteq\{a\}$ comes from equality, while $\{a\}\subseteq\{a,b\}$ comes from strict inclusion.
 
 > [!theorem] Strict and non-strict descriptions correspond
-> The strict part $\prec$ of a partial order is **irreflexive** and **transitive**. Conversely, an irreflexive and transitive relation $\prec$ gives a partial order by defining $a\preceq b$ when $a=b$ or $a\prec b$.
+> The strict part $\prec$ of a partial order is **irreflexive** (no element is strictly below itself) and **transitive** (if $a\prec b$ and $b\prec c$, then $a\prec c$). Conversely, any irreflexive and transitive relation $\prec$ gives a partial order when we define $a\preceq b$ to mean $a=b$ or $a\prec b$.
+
+**Why these properties?** Excluding equality makes $a\prec a$ impossible, hence *irreflexivity*. A genuine step from $a$ to $b$, followed by a genuine step from $b$ to $c$, must remain a genuine step from $a$ to $c$; *transitivity* rules out a reversal back to $a$. The proof makes both statements precise.
 
 > [!proof] Show both constructions satisfy their axioms
 > **Forward:** $a\prec a$ would require $a\neq a$, impossible. If $a\prec b$ and $b\prec c$, transitivity of $\preceq$ gives $a\preceq c$. If $a=c$, then $a\preceq b\preceq a$ forces $a=b$ by antisymmetry, contradicting strictness. Hence $a\prec c$.
 >
 > **Backward:** equality makes the new relation reflexive. If $a\preceq b$ and $b\preceq a$ with $a\neq b$, then $a\prec b$ and $b\prec a$, so transitivity gives $a\prec a$, contradicting irreflexivity. Thus it is antisymmetric. Its transitivity follows from the transitivity of $\prec$, together with the cases in which either comparison is equality.
 
-Every transitive irreflexive relation is also **asymmetric**: $a\prec b$ prevents $b\prec a$.
+Every transitive irreflexive relation is also **asymmetric**: $a\prec b$ prevents $b\prec a$. This is stronger than merely saying no element is strictly below itself.
 
-**Strict versus non-strict, concretely:** in positive integers ordered by divisibility, $2\preceq4$ and $2\prec4$ because $2\mid4$ and $2\ne4$. We also have $2\preceq2$, but **not** $2\prec2$. Conversely, start with strict inclusion $A\subsetneq B$: it is irreflexive and transitive, and allowing equality gives ordinary inclusion $A\subseteq B$. Asymmetry means that $2\prec4$ rules out $4\prec2$; it is stronger than merely saying $2\prec2$ never happens.
+**Keep the distinction in mind for what comes next:** an element is *maximal* when there is nothing **strictly above** it, not when nothing is at or above it (which would already fail because every element is at or above itself). A [Hasse diagram](#hasse-diagrams-reconstructing-the-finite-order) uses strict comparisons and then narrows them to **cover relations**, where no third element lies between the two.
+
 
 ## Total orders, chains, and antichains
 
