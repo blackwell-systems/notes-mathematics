@@ -368,7 +368,7 @@ Thus the strict and non-strict descriptions contain **the same information**. Fo
 > [!theorem] Strict and non-strict descriptions correspond
 > The strict part $\prec$ of a partial order is **irreflexive** (no element is strictly below itself) and **transitive** (if $a\prec b$ and $b\prec c$, then $a\prec c$). Conversely, any irreflexive and transitive relation $\prec$ gives a partial order when we define $a\preceq b$ to mean $a=b$ or $a\prec b$.
 
-**Why these properties?** Excluding equality makes $a\prec a$ impossible, hence *irreflexivity*. A genuine step from $a$ to $b$, followed by a genuine step from $b$ to $c$, must remain a genuine step from $a$ to $c$; *transitivity* rules out a reversal back to $a$. The proof makes both statements precise.
+**Why these properties?** Excluding equality makes $a\prec a$ impossible, hence *irreflexivity*. A genuine step from $a$ to $b$, followed by a genuine step from $b$ to $c$, must remain a genuine step from $a$ to $c$; *transitivity together with irreflexivity* rules out a reversal back to $a$. The proof makes both statements precise.
 
 > [!proof] Show both constructions satisfy their axioms
 > **Forward:** $a\prec a$ would require $a\neq a$, impossible. If $a\prec b$ and $b\prec c$, transitivity of $\preceq$ gives $a\preceq c$. If $a=c$, then $a\preceq b\preceq a$ forces $a=b$ by antisymmetry, contradicting strictness. Hence $a\prec c$.
