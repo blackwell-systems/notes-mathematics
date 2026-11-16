@@ -367,10 +367,10 @@ An **equivalence relation** is reflexive + symmetric + transitive; a **partial o
 > [!definition] Preorder
 > A **preorder** on $A$ is a relation $R\subseteq A\times A$ that is **reflexive and transitive**:
 >
-> $
+> $$
 > (a,a)\in R\quad(a\in A),\qquad
 > (a,b),(b,c)\in R\Rightarrow(a,c)\in R.
-> $
+> $$
 >
 > Antisymmetry is **not** required: different objects may be related in both directions.
 
@@ -409,9 +409,9 @@ A Hasse diagram displays cover relations in a finite poset. Comparability follow
 > [!definition] Total (linear) order
 > A **total order** is a partial order $R\subseteq A\times A$ satisfying **comparability**:
 >
-> $
+> $$
 > \forall a,b\in A:\ (a,b)\in R\ \lor\ (b,a)\in R.
-> $
+> $$
 >
 > The disjunction is inclusive; when $a=b$, reflexivity already makes both sides true.
 
@@ -433,9 +433,9 @@ An **equivalence relation** is reflexive, symmetric, and transitive. Read the co
 > [!definition] Equivalence class
 > For an equivalence relation $\sim$ on $A$, the **class** of $a\in A$ is
 >
-> $
+> $$
 > \boxed{[a]_{\sim}:=\{x\in A\mid x\sim a\}.}
-> $
+> $$
 >
 > The element $a$ **belongs to** this set; it is not the entire set. Equivalent elements name the same class.
 
@@ -446,9 +446,9 @@ The class $[a]$ contains all elements equivalent to $a$. See [Classes and the cl
 > [!definition] Quotient set
 > The **quotient set** of $A$ by an equivalence relation $\sim$ has **equivalence classes as elements**:
 >
-> $
+> $$
 > \boxed{A/{\sim}:=\{[a]_{\sim}\mid a\in A\}.}
-> $
+> $$
 >
 > The **quotient map** $q:A\to A/{\sim}$ sends $q(a):=[a]_{\sim}$. It is surjective, identifying precisely those inputs related by $\sim$.
 
@@ -459,10 +459,10 @@ The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes 
 > [!definition] Composition of binary relations
 > For $R\subseteq A\times B$ and $S\subseteq B\times C$, the **composite** $S\circ R\subseteq A\times C$ consists of pairs connected through **some** intermediate $b\in B$:
 >
-> $
+> $$
 > \boxed{S\circ R:=\{(a,c)\in A\times C\mid
 > \exists b\in B:\ (a,b)\in R\ \land\ (b,c)\in S\}.}
-> $
+> $$
 >
 > Relations may have several intermediate paths; $b$ need not be unique.
 
@@ -507,9 +507,9 @@ To build $S \circ R$ from the picture, start at a node in $A$, walk one blue $R$
 > [!definition] Reflexive, symmetric, or transitive closure
 > For $R\subseteq A\times A$ and a property such as reflexivity, symmetry, or transitivity, its **closure** is the **least relation under inclusion** among $T\subseteq A\times A$ satisfying
 >
-> $
+> $$
 > R\subseteq T\quad\text{and}\quad T\text{ has the specified property}.
-> $
+> $$
 >
 > For these three properties, a least relation exists. A "closure under an arbitrary property" is **not always defined** without additional assumptions.
 
@@ -594,9 +594,9 @@ Read "smallest" literally: you add the *fewest* new pairs that force the propert
 > [!definition] Inverse relation
 > Given $R\subseteq A\times B$, reverse every selected pair:
 >
-> $
+> $$
 > \boxed{R^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in R\}.}
-> $
+> $$
 >
 > The result is always a relation; it need not be a function even if $R$ is.
 
@@ -749,17 +749,17 @@ and the second inclusion can be **strict**. Take $f(x) = x^2$ on $\mathbb{R}$ wi
 > [!definition] Fiber and kernel relation
 > For $f:A\to B$ and $b\in B$, the **fiber over $b$** is the preimage of the singleton:
 >
-> $
+> $$
 > \boxed{f^{-1}[\{b\}]=\{a\in A\mid f(a)=b\}.}
-> $
+> $$
 >
-> The **kernel equivalence relation** compares inputs with identical outputs:
+> The **kernel equivalence relation** compares inputs with identical outputs (not to be confused with the kernel of a linear map or group homomorphism):
 >
-> $
+> $$
 > \boxed{\ker(f):=\{(a,a')\in A\times A\mid f(a)=f(a')\}.}
-> $
+> $$
 
-For each $y\in Y$, its fiber is $f^{-1}(\{y\})=\{x\in X:f(x)=y\}$. The fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
+For each $y\in Y$, its fiber is $f^{-1}(\{y\})=\{x\in X:f(x)=y\}$. The **nonempty** fibers **partition the domain**: every $x$ lies in exactly one fiber (the one over $f(x)$), and fibers over different values are disjoint. That partition is precisely the [equivalence relation](#equivalence-relation) induced by $f$,
 $$
 x \sim x' \iff f(x) = f(x'),
 $$
@@ -771,16 +771,16 @@ called the **kernel** of $f$. So *every function silently carves its domain into
 - **Over $0$:** $x^2 = 0$ gives $x = 0$ only, so the fiber is $\{0\}$, a *single* point.
 - **Over $-1$:** $x^2 = -1$ has no real solution, so the fiber is $\varnothing$ (this value is never hit).
 
-These fibers **partition** $\mathbb{R}$: every real $x$ lies in exactly one fiber, the one over $x^2$ (for instance $3$ and $-3$ both live in the fiber over $9$), and no $x$ can lie in two fibers because $x^2$ is a single number. Sweeping $y$ over all of $[0, \infty)$, the nonempty fibers exactly cover $\mathbb{R}$. The kernel relation $x \sim x' \iff x^2 = x'^2$ has these fibers as its classes: two reals are related precisely when $x' = \pm x$. So the quotient $\mathbb{R}/{\sim}$ is in bijection with the range $[0, \infty)$ via $[x] \mapsto x^2$, one class per attained output. $\blacksquare$
+The **nonempty** fibers **partition** $\mathbb{R}$: every real $x$ lies in exactly one fiber, the one over $x^2$ (for instance $3$ and $-3$ both live in the fiber over $9$), and no $x$ can lie in two fibers because $x^2$ is a single number. Sweeping $y$ over all of $[0, \infty)$, the nonempty fibers exactly cover $\mathbb{R}$. The kernel relation $x \sim x' \iff x^2 = x'^2$ has these fibers as its classes: two reals are related precisely when $x' = \pm x$. So the quotient $\mathbb{R}/{\sim}$ is in bijection with the range $[0, \infty)$ via $[x] \mapsto x^2$, one class per attained output. $\blacksquare$
 
 ### Injection (one-to-one)
 
 > [!definition] Injective function
 > $f:A\to B$ is **injective** when equal outputs force equal inputs:
 >
-> $
+> $$
 > \boxed{\forall a,a'\in A:\ f(a)=f(a')\Rightarrow a=a'.}
-> $
+> $$
 >
 > In ordered-pair language, $(a,b)\in f$ and $(a',b)\in f$ imply $a=a'$. Equivalently, every fiber has **at most one element**.
 
@@ -807,9 +807,9 @@ It is enough to exhibit **one** collision: $f(-2) = 4 = f(2)$, yet $-2 \neq 2$. 
 > [!definition] Surjective function
 > $f:A\to B$ is **surjective** when every codomain element occurs as the second coordinate of a pair:
 >
-> $
+> $$
 > \boxed{\forall b\in B,\ \exists a\in A:\ (a,b)\in f.}
-> $
+> $$
 >
 > Equivalently, $\operatorname{ran}(f)=B$.
 
@@ -830,9 +830,9 @@ Pick an arbitrary target $y \in \mathbb{R}$. We need an input $x$ with $f(x) = y
 > [!definition] Bijective function
 > $f:A\to B$ is **bijective** when each $b\in B$ is paired with **exactly one** $a\in A$:
 >
-> $
+> $$
 > \boxed{\forall b\in B,\ \exists!\,a\in A:\ (a,b)\in f.}
-> $
+> $$
 >
 > This is equivalent to **injectivity and surjectivity together**. It is the condition needed for the reversed pairs to form a function $B\to A$.
 
@@ -885,15 +885,15 @@ This gives the **operational criterion**: applying the two functions in either o
 > [!definition] Well-definedness on equivalence classes
 > For an equivalence relation $\sim$ on $A$ and a function $F:A\to B$, a proposed map on the quotient
 >
-> $
+> $$
 > \overline F:A/{\sim}\to B,\qquad \overline F([a]):=F(a)
-> $
+> $$
 >
 > is **well-defined** exactly when its value is independent of the representative:
 >
-> $
+> $$
 > \boxed{a\sim a'\ \Rightarrow\ F(a)=F(a')\qquad(a,a'\in A).}
-> $
+> $$
 
 For an abstract treatment that preserves **composition and identities** without requiring arrows to be set functions, continue to [Category Theory Foundations](./category-theory-foundations). [Functors and Natural Transformations](./category-functors-naturality) then explain how whole families of such maps are related.
 
@@ -916,9 +916,9 @@ The rule to remember: whenever a function is defined via representatives of equi
 > [!definition] Identity function as a relation
 > The **identity function** on a set $A$ contains exactly the diagonal pairs:
 >
-> $
+> $$
 > \boxed{\operatorname{id}_A:=\{(a,a)\mid a\in A\}\subseteq A\times A.}
-> $
+> $$
 >
 > Thus $\operatorname{id}_A:A\to A$ and $\operatorname{id}_A(a)=a$ for all $a\in A$.
 
@@ -940,9 +940,9 @@ The rule to remember: whenever a function is defined via representatives of equi
 > [!definition] Inverse function — set-theoretic definition
 > Treat $f:A\to B$ as its graph of ordered pairs $f\subseteq A\times B$. **Reverse every pair** to construct the inverse relation:
 >
-> $
+> $$
 > \boxed{f^{-1}:=\{(b,a)\in B\times A\mid(a,b)\in f\}.}
-> $
+> $$
 >
 > This inverse relation always exists. It is a **function** $f^{-1}:B\to A$ precisely when **every $b\in B$ has exactly one reversed output**—equivalently, when $f$ is **bijective**.
 
@@ -1068,10 +1068,10 @@ Inverting a composition reverses the order because an output of $g\circ f$ must 
 > [!definition] Composition of function graphs
 > For $f:A\to B$ and $g:B\to C$, define
 >
-> $
+> $$
 > \boxed{g\circ f:=\{(a,c)\in A\times C\mid
 > \exists b\in B:\ (a,b)\in f\land (b,c)\in g\}.}
-> $
+> $$
 >
 > This relation is a **function**, since $f$ and $g$ each choose exactly one output for each input. It satisfies $(g\circ f)(a)=g(f(a))$: apply $f$ **first**.
 
@@ -1313,9 +1313,9 @@ for all $x$ in the domain.
 > [!definition] Partial function as a relation
 > A **partial function** $f:A\rightharpoonup B$ is a relation $f\subseteq A\times B$ in which **each $a\in A$ occurs as the first coordinate in at most one pair**:
 >
-> $
+> $$
 > \boxed{(a,b)\in f\ \land\ (a,b')\in f\ \Rightarrow\ b=b'.}
-> $
+> $$
 >
 > Its **domain of definition** is $D=\{a\in A\mid\exists b\in B:(a,b)\in f\}\subseteq A$; equivalently, it is a total function $D\to B$. The empty relation is also a valid partial function.
 
