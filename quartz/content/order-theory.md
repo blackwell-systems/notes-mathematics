@@ -265,7 +265,7 @@ Neither comparison holds, but the order is still well-defined. The power set is 
 
 ![The four-element power set of {a,b} under inclusion: the empty set is at the bottom, {a} and {b} are incomparable in the middle, and {a,b} is at the top.](./media/ot-hasse-powerset-ab.svg)
 
-*Figure: The power set ordered by inclusion is a poset. Its two singleton sets are incomparable, so the order is partial rather than total. We will see later why this diamond is also a lattice.*
+*Figure: The power set ordered by inclusion is a poset. Its two singleton sets are incomparable, so the order is partial rather than total. This is an early example of a **Hasse diagram**—we will [define and construct such diagrams step by step](#hasse-diagrams-constructing-and-reading-a-finite-order) after introducing strict comparisons and chains. We will also see why this diamond is a lattice.*
 
 ![Two side-by-side posets compare the chain 1 less than 2 less than 3 less than 4, in which all elements compare, with the four-subset diamond of the set a,b, where the two singleton subsets are incomparable.](./media/ot-total-partial.svg)
 
@@ -454,26 +454,124 @@ A chain is *not* necessarily a contiguous path of immediate cover relations. It 
 
 
 
-## Hasse diagrams: reconstructing the finite order
+## Hasse diagrams: constructing and reading a finite order
 
-A **Hasse diagram** draws the **cover relations** of a finite poset. We say $b$ covers $a$ when $a\prec b$ but there is no $c$ with $a\prec c\prec b$. Larger elements appear higher. Reflexive loops and transitively implied links are omitted.
+We have defined a **partial order** by its comparisons, but a list of all those comparisons quickly becomes difficult to read. A **Hasse diagram** is a way to **draw a finite poset without drawing every comparison**. Its points represent elements of the poset, and its lines show which elements are *immediately* above others in the chosen order.
 
-![The divisibility Hasse diagram on positive divisors 1, 2, 3, 4, 6, 12 has exactly seven cover lines; 4 and 6 are incomparable, while 1 divides 12 via an upward path.](./media/ot-hasse-div12.svg)
+A Hasse diagram is not a new ordering rule. **We must first specify the set and its partial order; then we construct the diagram from that information.** The diagram is a compact representation of the order, not a substitute for defining it.
 
-*Figure: In a finite divisibility poset, an upward chain of cover links proves that the bottom element divides the top.*
+### First define what an edge means
 
-**Which links are covers?** In the divisors of $12$, $2$ covers $1$, and $4$ covers $2$. Yet $4$ does **not** cover $1$: $1\prec2\prec4$ supplies an intermediate element, so the diagram omits a direct $1$–$4$ edge. It also omits loops such as $2\preceq2$.
+Suppose $(P,\preceq)$ is a **finite poset**, and recall that $a\prec b$ means $a\preceq b$ **and** $a\ne b$.
 
-To decide whether $a\preceq b$, find an **upward path** from $a$ to $b$ (or check $a=b$). An **undirected path** is not enough. The numbers $4$ and $6$ are incomparable, even though both share neighbors elsewhere in the graph.
+> [!definition] Cover relation and Hasse diagram
+> An element $b$ **covers** an element $a$ if $a$ is strictly below $b$ **with no element of $P$ strictly between them**:
+>
+> $$
+> a\lessdot b
+> \quad\Longleftrightarrow\quad
+> a\prec b\ \text{and there is no }c\in P
+> \text{ with }a\prec c\prec b.
+> $$
+>
+> A **Hasse diagram** of a finite poset is constructed by drawing:
+> - **One point for each element** of $P$.
+> - **One line segment between $a$ and $b$** exactly when $a\lessdot b$ (that is, when $b$ covers $a$).
+> - **Higher elements above lower elements**: if $a\lessdot b$, place $b$ higher than $a$.
+>
+> We omit arrowheads because the direction is understood to be **upward**. We also omit **self-loops** (which merely express reflexivity) and **direct lines for non-cover comparisons** (which can be recovered from transitivity).
 
-The [power-set diamond](#worked-example-a-power-set-is-a-poset) above is also a Hasse diagram. Its middle elements are incomparable, but they still have a **least upper bound** ($\{a,b\}$) and a **greatest lower bound** ($\varnothing$). This makes the poset a **lattice**, a concept developed below.
+The symbol $\lessdot$ is read **“is covered by.”** It is stronger than $\prec$: every cover is a strict comparison, but not every strict comparison is a cover.
 
-![The eight positive divisors of 30 form a Hasse diagram with twelve cover relations, arranged by whether the prime factors 2, 3, 5 occur in a divisor.](./media/ot-hasse-div30.svg)
+### Construct one from scratch: divisors of twelve
 
-*Figure: Divisors of thirty have the same order shape as the subsets of a three-element set.*
+**Step 1 — Choose the elements and specify the order.**
+
+Let
+
+$$
+P:=\{1,2,3,4,6,12\},
+\qquad
+a\preceq b\ \Longleftrightarrow\ a\mid b.
+$$
+
+The notation $a\mid b$ means that **$a$ divides $b$ without a remainder**. We use **divisibility**, not numerical size, to decide which elements compare. Divisibility is reflexive, transitive, and antisymmetric on these positive integers, so this is a poset.
+
+**Step 2 — Find the strict comparisons.**
+
+For each $a$, list all *different* elements $b$ for which $a\mid b$. For example, $1\prec2$, $1\prec4$, and $1\prec12$ all hold. **Do not draw all these connections yet**: first decide which are covers.
+
+**Step 3 — Remove comparisons that have an intermediate element.**
+
+The table carries out the complete check. The last column gives precisely the pairs for which there is **no element in between**.
+
+| Element $a$ | Different elements strictly above $a$ | Elements that cover $a$ |
+| --- | --- | --- |
+| $1$ | $2,3,4,6,12$ | $2,3$ |
+| $2$ | $4,6,12$ | $4,6$ |
+| $3$ | $6,12$ | $6$ |
+| $4$ | $12$ | $12$ |
+| $6$ | $12$ | $12$ |
+| $12$ | None | None |
+
+Why isn't there a line directly from $1$ to $4$? Because $1\prec2\prec4$: **$2$ lies between them in the chosen order**. Likewise, there is no direct $2$–$12$ line because $2\prec4\prec12$ (also $2\prec6\prec12$).
+
+The **seven cover relations** are therefore
+
+$$
+\begin{aligned}
+1&\lessdot2,&1&\lessdot3,\\
+2&\lessdot4,&2&\lessdot6,\\
+3&\lessdot6,&4&\lessdot12,&6&\lessdot12.
+\end{aligned}
+$$
+
+**Step 4 — Draw one point per element and connect only covers.**
+
+Put $1$ below $2$ and $3$; put $4$ and $6$ above their respective lower neighbors; and put $12$ above $4$ and $6$. Draw exactly the seven cover lines listed above, with **no loops and no arrows**.
+
+![A Hasse diagram constructed from the divisors 1, 2, 3, 4, 6, 12 under divisibility, showing the seven cover lines but omitting reflexive loops and transitive comparisons.](./media/ot-hasse-div12.svg)
+
+*Figure: The finished Hasse diagram. Its lines are **cover relations**, not every true divisibility comparison. Higher means greater **under divisibility**, not necessarily greater under some other relation.*
+
+**Step 5 — Read the full order back from the picture.**
+
+To determine whether $a\preceq b$:
+
+- If **$a=b$**, the comparison holds by reflexivity, even though no loop is drawn.
+- If **$a\ne b$**, look for an **upward path** of cover lines from $a$ to $b$. If one exists, $a\preceq b$.
+- If there is **no upward path in either direction**, the two elements are **incomparable**.
+
+For example, the path $1\to2\to4\to12$ tells us that $1\mid12$, even without a direct $1$–$12$ line. But $4$ and $6$ are incomparable: neither is on an upward path from the other. Merely finding an **undirected** route through other points does *not* establish comparability.
+
+### Why does drawing only covers preserve the order?
+
+> [!theorem] Reading a finite poset from its Hasse diagram
+> For any elements $a,b$ of a **finite poset**, $a\preceq b$ holds **if and only if** $a=b$ or the Hasse diagram has an upward path from $a$ to $b$.
+
+> [!proof] Covers recover all comparisons
+> **From paths to comparisons:** every upward line represents a true cover comparison. Following several such lines gives a true comparison by **transitivity**.
+>
+> **From comparisons to paths:** suppose $a\prec b$. If $b$ covers $a$, their line is already drawn. Otherwise there must be an intermediate $c$ with $a\prec c\prec b$. We can keep breaking a non-cover comparison into smaller comparisons in this way. Because the poset is **finite**, this cannot continue indefinitely; eventually we obtain a sequence of cover relations from $a$ up to $b$.
+>
+> Equality is recovered separately by **reflexivity**. Thus the cover lines, together with reflexivity and transitivity, determine the original order. $\square$
+
+This process is called the **transitive reduction** of the strict order: remove a direct edge whenever a longer upward path already explains that comparison. For a finite poset, the remaining edges are exactly its cover relations.
+
+### What the drawing does—and does not—mean
+
+A Hasse diagram has an **upward reading direction**, unlike an ordinary directed graph in which arrows explicitly show direction. Its lines do not need arrowheads because we agree that *higher* means *greater under the specified relation*. A crossing of lines without a labeled vertex is not an extra element or an extra comparison.
+
+**The heights are a drawing convention, not numerical values or intrinsic levels.** Comparable distinct elements must appear at different heights, but incomparable elements need not share a horizontal level. The same poset can have several valid layouts; the **cover relations**, not the precise coordinates, determine its structure.
+
+The earlier [power-set diamond](#worked-example-a-power-set-is-a-poset) is another Hasse diagram. The two singleton sets are incomparable, yet they have a **least upper bound** ($\{a,b\}$) and **greatest lower bound** ($\varnothing$). That structure is a **lattice**, which we develop below.
+
+![A Hasse diagram of the eight positive divisors of 30, showing the cover relations under divisibility.](./media/ot-hasse-div30.svg)
+
+*Figure: The divisors of thirty have the same order shape as the subsets of a three-element set. To reconstruct any omitted comparison, follow a path upward.*
 
 > [!distinction] Finite Hasse diagrams versus dense infinite orders
-> A Hasse diagram makes cover relations visible in a **finite** poset. In a dense order such as the rationals, there is always another rational between two distinct ordered values, so **no** distinct pair is a cover. A picture of cover edges alone cannot reconstruct that infinite order.
+> The construction above assumes a **finite** poset. In a dense infinite order such as $(\mathbb Q,\leq)$, between any two distinct comparable rational numbers there is always another rational number, so **no two distinct rational numbers form a cover**. A diagram containing only cover edges could not reconstruct that order. This is why the finite assumption matters.
 
 ## Bounds and extrema: maximal is not greatest
 
