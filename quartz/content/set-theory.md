@@ -46,8 +46,8 @@ There are 2 primary branches of set theory:
 
 ## Set
 
-> [!definition] Sets and membership
-> A **set** is determined by which objects belong to it. Writing $x\in A$ means $x$ is a member of $A$. Order and repetition in a finite roster do not change its members.
+> [!definition] Set
+> A **set** is determined by which objects belong to it. Order and repetition in a finite roster do not change its members. See [Set Membership](#set-membership) for the precise notation.
 
 
 **Set:** A set is a collection of "*things*." These ***things*** are
@@ -68,6 +68,37 @@ multiple times. It may be listed multiple times, but this is
 extraneous.
 
 So $\{1, 1, 2\}$ and $\{1, 2\}$ denote the *same* set: repetition and order carry no information about membership.
+
+## Set Membership
+
+> [!definition] Set membership
+> **Membership** asks whether a particular object belongs to a particular set. For an object $x$ and set $A$:
+>
+> - $x\in A$: **"$x$ is an element of $A$"**.
+> - $x\notin A$: **"$x$ is not an element of $A$"**.
+>
+> In axiomatic set theory, membership ($\in$) is a **primitive relation**. Axioms govern which membership statements can hold; it is not defined using a more basic set-theoretic concept.
+
+For $A:=\{1,2,3\}$, we have $2\in A$ and $4\notin A$. Membership is a yes-or-no statement about **one whole object**.
+
+> [!distinction] Membership ($\in$) versus subset inclusion ($\subseteq$)
+> $x\in A$ asks if **one object** $x$ belongs to $A$. By contrast, $B\subseteq A$ asks whether **every element of the set $B$** belongs to $A$.
+>
+> A set can itself be an element. The inner braces matter: $2$ and $\{2\}$ are different objects.
+
+For the same set $A:=\{1,2,3\}$:
+
+| Statement | True? | Why? |
+| --- | --- | --- |
+| $2\in A$ | **Yes** | $2$ is an element of $A$. |
+| $\{2\}\in A$ | **No** | $A$ contains the number $2$, not the set $\{2\}$. |
+| $\{2\}\subseteq A$ | **Yes** | Every element of $\{2\}$ (just $2$) belongs to $A$. |
+| $\varnothing\subseteq A$ | **Yes** | There is no element of $\varnothing$ that fails the subset condition. |
+| $\varnothing\in A$ | **No** | The empty set is not listed as a member of $A$. |
+
+**Nested-set example:** Let $B:=\{1,\{2\}\}$. Then $\{2\}\in B$, while $2\notin B$: **a set containing $2$** is one element of $B$, but $2$ itself is not.
+
+This difference matters for [subsets](#subset), [power sets](#power-set), and [functions and relations](./functions-relations).
 
 ## From sets to mathematical spaces
 
@@ -1805,7 +1836,8 @@ This is a **lookup guide**, not a replacement for the explanations, diagrams, ex
 
 | Definition | Meaning |
 | :--- | :--- |
-| **[Set and membership](#set)** | A set is determined by its members; $x\in A$ means $x$ belongs to $A$. |
+| **[Set](#set)** | A set is determined by its elements; changing their order or repeating them in a roster does not change the set. |
+| **[Set membership](#set-membership)** | $x\in A$ means $x$ belongs to $A$; $x\notin A$ means it does not. Membership is different from $B\subseteq A$. |
 | **[Roster notation](#roster-notation)** | $\{a_1,\ldots,a_n\}$ lists exactly the members of a set; order and repetition do not matter. |
 | **[Set-builder notation](#set-builder-notation)** | $\{x\in A\mid P(x)\}$ selects members of an **existing** set $A$ satisfying $P$; unrestricted comprehension is not allowed. |
 | **[Empty set](#empty-set)** | $\varnothing$ is the unique set with no members; $\varnothing\ne\{\varnothing\}$. |
