@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">A disconnected divisibility poset with two maximal elements</title>
+<desc id="desc">Hasse diagram for the set {2,3,4,7,8,12,24,35} ordered by divisibility. Six cover edges in the first component: 2 to 4, 4 to 8, 4 to 12, 3 to 12, 8 to 24, and 12 to 24. One cover edge in the second component: 7 to 35. Maximal elements 24 and 35 are golden; minimal elements 2, 3, and 7 are teal. Neither a greatest nor a least element exists.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17122d"/><stop offset="1" stop-color="#0b1225"/></linearGradient></defs>
+<rect width="1280" height="720" fill="url(#bg)"/>
+<text x="54" y="61" text-anchor="start" fill="#f6f2ff" font-size="39" font-family="Georgia,serif" font-weight="700">One poset, two disconnected components</text>
+<text x="54" y="101" text-anchor="start" fill="#c7c6da" font-size="22" font-family="Arial,sans-serif" font-weight="400">Divisibility: x ≼ y means x divides y. Read comparisons upward.</text>
+<path d="M54 122 H1226" stroke="#695282" stroke-width="2"/>
+<rect x="43" y="144" width="871" height="479" rx="20" fill="#21203b" stroke="#51496b" stroke-width="2"/>
+<rect x="930" y="144" width="307" height="479" rx="20" fill="#21203b" stroke="#51496b" stroke-width="2"/>
+<text x="354" y="195" text-anchor="middle" fill="#bea0f1" font-size="23" font-family="Arial,sans-serif" font-weight="700">2, 3, 4, 8, 12, 24</text>
+<text x="770" y="195" text-anchor="middle" fill="#bea0f1" font-size="23" font-family="Arial,sans-serif" font-weight="700">7, 35</text>
+<line data-from="2" data-to="4" x1="265" y1="563" x2="342" y2="458" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<line data-from="3" data-to="12" x1="565" y1="563" x2="470" y2="370" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<line data-from="4" data-to="8" x1="342" y1="458" x2="242" y2="370" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<line data-from="4" data-to="12" x1="342" y1="458" x2="470" y2="370" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<line data-from="7" data-to="35" x1="770" y1="563" x2="770" y2="278" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<line data-from="8" data-to="24" x1="242" y1="370" x2="354" y2="278" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<line data-from="12" data-to="24" x1="470" y1="370" x2="354" y2="278" stroke="#8292bb" stroke-width="4.5" stroke-linecap="round"/>
+<g data-node="2"><circle cx="265" cy="563" r="31" fill="#26535b" stroke="#78d2c7" stroke-width="3.5"/><text x="265" y="573" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">2</text></g>
+<g data-node="3"><circle cx="565" cy="563" r="31" fill="#26535b" stroke="#78d2c7" stroke-width="3.5"/><text x="565" y="573" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">3</text></g>
+<g data-node="4"><circle cx="342" cy="458" r="31" fill="#493767" stroke="#bea0f1" stroke-width="3.5"/><text x="342" y="468" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">4</text></g>
+<g data-node="7"><circle cx="770" cy="563" r="31" fill="#26535b" stroke="#78d2c7" stroke-width="3.5"/><text x="770" y="573" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">7</text></g>
+<g data-node="8"><circle cx="242" cy="370" r="31" fill="#493767" stroke="#bea0f1" stroke-width="3.5"/><text x="242" y="380" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">8</text></g>
+<g data-node="12"><circle cx="470" cy="370" r="31" fill="#493767" stroke="#bea0f1" stroke-width="3.5"/><text x="470" y="380" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">12</text></g>
+<g data-node="24"><circle cx="354" cy="278" r="31" fill="#624829" stroke="#f1ce90" stroke-width="3.5"/><text x="354" y="288" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">24</text></g>
+<g data-node="35"><circle cx="770" cy="278" r="31" fill="#624829" stroke="#f1ce90" stroke-width="3.5"/><text x="770" y="288" text-anchor="middle" fill="#f6f2ff" font-size="30" font-family="Georgia,serif" font-weight="700">35</text></g>
+<text x="354" y="233" text-anchor="middle" fill="#f1ce90" font-size="23" font-family="Arial,sans-serif" font-weight="700">maximal</text>
+<text x="770" y="233" text-anchor="middle" fill="#f1ce90" font-size="23" font-family="Arial,sans-serif" font-weight="700">maximal</text>
+<text x="1083" y="196" text-anchor="middle" fill="#f1ce90" font-size="22" font-family="Arial,sans-serif" font-weight="700">WHAT TO NOTICE</text>
+<path d="M955 212 H1211" stroke="#695282" stroke-width="1.5"/>
+<text x="958" y="258" text-anchor="start" fill="#f1ce90" font-size="21" font-family="Arial,sans-serif" font-weight="700">TWO MAXIMAL</text>
+<text x="958" y="293" text-anchor="start" fill="#f6f2ff" font-size="23" font-family="Arial,sans-serif" font-weight="400">24 and 35</text>
+<text x="958" y="350" text-anchor="start" fill="#f1ce90" font-size="21" font-family="Arial,sans-serif" font-weight="700">NO GREATEST</text>
+<text x="958" y="385" text-anchor="start" fill="#f6f2ff" font-size="20" font-family="Arial,sans-serif" font-weight="400">24 ∤ 35, 35 ∤ 24</text>
+<text x="958" y="439" text-anchor="start" fill="#78d2c7" font-size="21" font-family="Arial,sans-serif" font-weight="700">THREE MINIMAL</text>
+<text x="958" y="474" text-anchor="start" fill="#f6f2ff" font-size="23" font-family="Arial,sans-serif" font-weight="400">2, 3 and 7</text>
+<text x="958" y="526" text-anchor="start" fill="#bea0f1" font-size="20" font-family="Arial,sans-serif" font-weight="700">TWO COMPONENTS</text>
+<text x="958" y="565" text-anchor="start" fill="#c7c6da" font-size="20" font-family="Arial,sans-serif" font-weight="400">No comparisons</text>
+<text x="958" y="592" text-anchor="start" fill="#c7c6da" font-size="20" font-family="Arial,sans-serif" font-weight="400">between components</text>
+<text x="640" y="670" text-anchor="middle" fill="#f1ce90" font-size="22" font-family="Arial,sans-serif" font-weight="400">Hasse edges show covers only. Upward paths recover other comparisons.</text>
+</svg>

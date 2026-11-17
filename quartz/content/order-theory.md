@@ -621,6 +621,51 @@ Every greatest element is maximal; a maximal element might be incomparable with 
 
 *Figure: In the left poset, a and b are minimal but neither least; in the middle, b and c are maximal but neither greatest. In the right-hand chain, 0 is least and 2 is greatest.*
 
+### Worked example: two maximal elements in a disconnected divisibility poset
+
+Let
+
+$$
+A:=\{2,3,4,7,8,12,24,35\}
+$$
+
+and order its elements by **divisibility**:
+
+$$
+x\preceq y\iff x\mid y.
+$$
+
+All eight elements belong to the **same poset** $(A,\preceq)$, but its Hasse diagram has two disconnected components.
+
+![Hasse diagram for divisibility on A={2,3,4,7,8,12,24,35}. The left component has cover relations from 2 to 4, from 4 to 8 and 12, from 3 to 12, and from 8 and 12 to 24. The right component is 7 below 35. Maximal elements 24 and 35 are highlighted.](./media/ot-disconnected-divisibility-maximal.svg)
+
+*Figure: The diagram shows one partially ordered set, even though its Hasse graph is disconnected. Gold marks the maximal elements, $24$ and $35$; teal marks the minimal elements, $2$, $3$ and $7$.*
+
+**Read upward.** The seven edges show **cover relations** (no elements of $A$ strictly between their endpoints):
+
+$$
+2\prec4,\quad 4\prec8,\quad 4\prec12,\quad
+3\prec12,\quad 8\prec24,\quad 12\prec24,\quad
+7\prec35.
+$$
+
+Transitive comparisons are already implicit. For example, $2\mid24$ follows from the upward path $2\mid4\mid8\mid24$; it needs no extra edge.
+
+| Question | Answer | Reason |
+| --- | --- | --- |
+| **Which elements are maximal?** | $24$ and $35$ | Neither has a strictly larger multiple **in $A$**. |
+| **Is there a greatest element?** | **No** | $24\nmid35$ and $35\nmid24$. No member of $A$ lies above both. |
+| **Which elements are minimal?** | $2$, $3$ and $7$ | None has a strictly smaller divisor **in $A$**. |
+| **Is there a least element?** | **No** | No member of $A$ divides all the others. |
+| **Why are there two components?** | $\{2,3,4,8,12,24\}$ and $\{7,35\}$ | No element of one component is comparable with any element of the other. |
+
+> [!distinction] Disconnected does not mean separate posets
+> The underlying set and divisibility relation together still form **one poset**. A partial order need not compare every pair, and its Hasse diagram need not be connected.
+>
+> **Maximal** means nothing lies strictly above that element. **Greatest** means *every* element lies below it. The first does not imply the second when there are incomparable maximal elements.
+
+One further subtlety: **connected does not mean comparable**. The numbers $8$ and $12$ appear in the **same component**, yet neither divides the other. Only an **upward path** from one element to another establishes a divisibility comparison.
+
 > [!counterexample] No maximal element at all
 > In $(\mathbb N,\leq)$, every $n$ has a greater number $n+1$. There is no maximal element, even though every finite nonempty subset has a greatest element.
 
@@ -1445,7 +1490,7 @@ A compact reference to the chapter's definitions and proved or stated results. S
 
 | Definition | Meaning / statement |
 | :--- | :--- |
-| **[Maximal / greatest](#bounds-and-extrema-maximal-is-not-greatest)** | Maximal means nothing in the subset lies strictly above; greatest means every element lies below. |
+| **[Maximal / greatest](#bounds-and-extrema-maximal-is-not-greatest)** | Maximal means nothing in the subset lies strictly above; greatest means every element lies below. See the [disconnected divisibility example](#worked-example-two-maximal-elements-in-a-disconnected-divisibility-poset). |
 | **[Minimal / least](#bounds-and-extrema-maximal-is-not-greatest)** | Minimal means nothing lies strictly below; least means every element lies above. |
 | **[Upper and lower bounds](#bounds-and-extrema-maximal-is-not-greatest)** | An upper bound lies above every member of a subset; a lower bound lies below every member. |
 | **[Join and meet](#joins-and-meets-two-directions-of-the-same-idea)** | a ∨ b is the least upper bound; a ∧ b is the greatest lower bound, when those exist. |
