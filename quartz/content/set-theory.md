@@ -1803,39 +1803,47 @@ This is a **lookup guide**, not a replacement for the explanations, diagrams, ex
 
 #### Sets, membership, and comparison
 
-- **[Set and membership](#set).** A set is determined by its members; $x\in A$ means $x$ belongs to $A$.
-- **[Roster notation](#roster-notation).** $\{a_1,\ldots,a_n\}$ lists exactly the members of a set; order and repetition do not matter.
-- **[Set-builder notation](#set-builder-notation).** $\{x\in A\mid P(x)\}$ selects members of an **existing** set $A$ satisfying $P$; unrestricted comprehension is not allowed.
-- **[Empty set](#empty-set).** $\varnothing$ is the unique set with no members; $\varnothing\ne\{\varnothing\}$.
-- **[Subset](#subset).** $A\subseteq B\iff\forall x\,(x\in A\Rightarrow x\in B)$; equality is allowed.
-- **[Proper subset](#proper-subset).** $A\subsetneq B\iff A\subseteq B\land A\ne B$.
-- **[Set equality](#set-equality).** $A=B\iff\forall x\,(x\in A\Leftrightarrow x\in B)$; the sets have exactly the same members.
-- **[Relative universe](#universal-set).** $U$ is an already chosen set containing the elements under consideration; there is no set of all sets in ZF/ZFC.
+| Definition | Meaning |
+| :--- | :--- |
+| **[Set and membership](#set)** | A set is determined by its members; $x\in A$ means $x$ belongs to $A$. |
+| **[Roster notation](#roster-notation)** | $\{a_1,\ldots,a_n\}$ lists exactly the members of a set; order and repetition do not matter. |
+| **[Set-builder notation](#set-builder-notation)** | $\{x\in A\mid P(x)\}$ selects members of an **existing** set $A$ satisfying $P$; unrestricted comprehension is not allowed. |
+| **[Empty set](#empty-set)** | $\varnothing$ is the unique set with no members; $\varnothing\ne\{\varnothing\}$. |
+| **[Subset](#subset)** | $A\subseteq B\iff\forall x\,(x\in A\Rightarrow x\in B)$; equality is allowed. |
+| **[Proper subset](#proper-subset)** | $A\subsetneq B\iff A\subseteq B\land A\ne B$. |
+| **[Set equality](#set-equality)** | $A=B\iff\forall x\,(x\in A\Leftrightarrow x\in B)$; the sets have exactly the same members. |
+| **[Relative universe](#universal-set)** | $U$ is an already chosen set containing the elements under consideration; there is no set of all sets in ZF/ZFC. |
+
 
 #### Operations and collections
 
-- **[Union](#set-union).** $A\cup B$ contains elements in $A$ **or** $B$ (inclusive or).
-- **[Intersection](#set-intersection).** $A\cap B$ contains elements in **both** $A$ and $B$.
-- **[Complement](#absolute-complement).** Relative to a fixed $U$, $A^c:=U\setminus A=\{x\in U\mid x\notin A\}$.
-- **[Difference](#set-difference).** $A\setminus B:=\{x\in A\mid x\notin B\}$.
-- **[Symmetric difference](#symmetric-difference).** $A\triangle B:=(A\setminus B)\cup(B\setminus A)$; elements in **exactly one** set.
-- **[Power set](#power-set).** $\mathcal P(A):=\{S\mid S\subseteq A\}$ contains every subset of $A$.
-- **[Disjointness](#disjoint-sets).** $A,B$ are disjoint iff $A\cap B=\varnothing$; *pairwise disjoint* means every two distinct members of a family are disjoint.
-- **[Partition](#partition-of-a-set).** A family of **nonempty**, pairwise disjoint subsets whose union is the whole set.
-- **[Indexed family](#indexed-families-of-sets).** $(A_i)_{i\in I}$ assigns a set to each index; membership in its union means **some** index works, and membership in its intersection means **all** indices work (with empty-family conventions requiring care).
-- **[Ordered pair](#ordered-pairs-kuratowskis-definition).** $(a,b):=\{\{a\},\{a,b\}\}$ encodes which coordinate is first and which is second.
-- **[Cartesian product](#cartesian-product).** $A\times B:=\{(a,b)\mid a\in A,\ b\in B\}$.
+| Definition | Meaning |
+| :--- | :--- |
+| **[Union](#set-union)** | $A\cup B$ contains elements in $A$ **or** $B$ (inclusive or). |
+| **[Intersection](#set-intersection)** | $A\cap B$ contains elements in **both** $A$ and $B$. |
+| **[Complement](#absolute-complement)** | Relative to a fixed $U$, $A^c:=U\setminus A=\{x\in U\mid x\notin A\}$. |
+| **[Difference](#set-difference)** | $A\setminus B:=\{x\in A\mid x\notin B\}$. |
+| **[Symmetric difference](#symmetric-difference)** | $A\triangle B:=(A\setminus B)\cup(B\setminus A)$; elements in **exactly one** set. |
+| **[Power set](#power-set)** | $\mathcal P(A):=\{S\mid S\subseteq A\}$ contains every subset of $A$. |
+| **[Disjointness](#disjoint-sets)** | $A,B$ are disjoint iff $A\cap B=\varnothing$; *pairwise disjoint* means every two distinct members of a family are disjoint. |
+| **[Partition](#partition-of-a-set)** | A family of **nonempty**, pairwise disjoint subsets whose union is the whole set. |
+| **[Indexed family](#indexed-families-of-sets)** | $(A_i)_{i\in I}$ assigns a set to each index; membership in its union means **some** index works, and membership in its intersection means **all** indices work (with empty-family conventions requiring care). |
+| **[Ordered pair](#ordered-pairs-kuratowskis-definition)** | $(a,b):=\{\{a\},\{a,b\}\}$ encodes which coordinate is first and which is second. |
+| **[Cartesian product](#cartesian-product)** | $A\times B:=\{(a,b)\mid a\in A,\ b\in B\}$. |
+
 
 #### Size and infinity
 
-- **[Cardinality](#cardinality).** $|A|=|B|$ means **there exists** a bijection $A\to B$, not that every function between the sets is bijective.
-- **[Cardinality comparison](#finite-vs-infinite-sets).** $|A|\leq|B|$ iff an injection $A\to B$ exists.
-- **[Finite set](#finite-set).** $A$ is finite iff it is bijective with $\{0,\ldots,n-1\}$ for some $n\in\mathbb N$, including $n=0$.
-- **[Infinite and Dedekind-infinite sets](#infinite-set).** *Infinite* means not finite. *Dedekind-infinite* means bijective with a proper subset of itself; these agree in ZFC but need not in ZF.
-- **[Countability](#countable-vs-uncountable-sets).** *Countable* means injectable into $\mathbb N$ (finite sets included); *countably infinite* means bijective with $\mathbb N$; *uncountable* means not countable.
-- **[Indicator function](#a-power-set-is-a-space-of-yesno-functions).** $\chi_S:A\to\{0,1\}$ equals $1$ for members of $S\subseteq A$ and $0$ elsewhere.
-- **[Well-order](#ordinals-and-well-ordering).** A total order in which every **nonempty subset** has a least element.
-- **[Ordinal](#ordinals-and-well-ordering).** In the von Neumann construction, a transitive set well-ordered by membership; it contains the smaller ordinals and represents an **order type**.
+| Definition | Meaning |
+| :--- | :--- |
+| **[Cardinality](#cardinality)** | $\lvert A\rvert=\lvert B\rvert$ means **there exists** a bijection $A\to B$, not that every function between the sets is bijective. |
+| **[Cardinality comparison](#finite-vs-infinite-sets)** | $\lvert A\rvert\leq\lvert B\rvert$ iff an injection $A\to B$ exists. |
+| **[Finite set](#finite-set)** | $A$ is finite iff it is bijective with $\{0,\ldots,n-1\}$ for some $n\in\mathbb N$, including $n=0$. |
+| **[Infinite and Dedekind-infinite sets](#infinite-set)** | *Infinite* means not finite. *Dedekind-infinite* means bijective with a proper subset of itself; these agree in ZFC but need not in ZF. |
+| **[Countability](#countable-vs-uncountable-sets)** | *Countable* means injectable into $\mathbb N$ (finite sets included); *countably infinite* means bijective with $\mathbb N$; *uncountable* means not countable. |
+| **[Indicator function](#a-power-set-is-a-space-of-yesno-functions)** | $\chi_S:A\to\{0,1\}$ equals $1$ for members of $S\subseteq A$ and $0$ elsewhere. |
+| **[Well-order](#ordinals-and-well-ordering)** | A total order in which every **nonempty subset** has a least element. |
+| **[Ordinal](#ordinals-and-well-ordering)** | In the von Neumann construction, a transitive set well-ordered by membership; it contains the smaller ordinals and represents an **order type**. |
 
 ### Theorems and Key Results
 
@@ -1843,39 +1851,48 @@ A **theorem** follows from the working axioms; an **identity** is an equality va
 
 The set-operation identities use complements **relative to the same chosen universe** $U$; see the [full summary table](#summary-of-the-algebra-of-sets).
 
+
 #### Equality, inclusion, and finite counting
 
-- **[Double containment](#set-equality).** $A=B\iff(A\subseteq B\land B\subseteq A)$; see the [worked proof](#proof-techniques-for-sets) for the method in action.
-- **[Subset inclusion is a partial order](#subset-as-an-order-the-analogy-with-leq-and).** The relation $\subseteq$ on a collection of sets is **reflexive, antisymmetric, and transitive**, but is not generally total.
-- **[Pigeonhole principle](#pigeonhole-principle-php).** If $m>n\geq1$ objects occupy $n$ boxes, some box contains at least two objects.
-- **[Generalized pigeonhole principle](#pigeonhole-principle-php).** For $m$ objects and $n\geq1$ boxes, some box contains at least $\lceil m/n\rceil$ objects.
-- **[Finite power-set size](#power-set).** For $|A|=n<\infty$, $|\mathcal P(A)|=2^n=\sum_{k=0}^{n}\binom nk$.
-- **[Finite Cartesian-product counting](#cartesian-product).** For finite $A,B$, $|A\times B|=|A|\cdot|B|$.
-- **[Kuratowski ordered-pair property](#ordered-pairs-kuratowskis-definition).** $(a,b)=(c,d)\iff a=c\land b=d$.
+| Theorem / result | Statement and conditions |
+| :--- | :--- |
+| **[Double containment](#set-equality)** | $A=B\iff(A\subseteq B\land B\subseteq A)$; see the [worked proof](#proof-techniques-for-sets) for the method in action. |
+| **[Subset inclusion is a partial order](#subset-as-an-order-the-analogy-with-leq-and)** | The relation $\subseteq$ on a collection of sets is **reflexive, antisymmetric, and transitive**, but is not generally total. |
+| **[Pigeonhole principle](#pigeonhole-principle-php)** | If $m>n\geq1$ objects occupy $n$ boxes, some box contains at least two objects. |
+| **[Generalized pigeonhole principle](#pigeonhole-principle-php)** | For $m$ objects and $n\geq1$ boxes, some box contains at least $\lceil m/n\rceil$ objects. |
+| **[Finite power-set size](#power-set)** | For $\lvert A\rvert=n<\infty$, $\lvert \mathcal P(A)\rvert=2^n=\sum_{k=0}^{n}\binom nk$. |
+| **[Finite Cartesian-product counting](#cartesian-product)** | For finite $A,B$, $\lvert A\times B\rvert=\lvert A\rvert\cdot\lvert B\rvert$. |
+| **[Kuratowski ordered-pair property](#ordered-pairs-kuratowskis-definition)** | $(a,b)=(c,d)\iff a=c\land b=d$. |
+
 
 #### Algebraic laws of sets
 
-- **[Commutativity](#commutative-laws).** $A\cup B=B\cup A$; $A\cap B=B\cap A$.
-- **[Associativity](#associative-laws).** $A\cup(B\cup C)=(A\cup B)\cup C$; $A\cap(B\cap C)=(A\cap B)\cap C$.
-- **[Distributivity](#distributive-laws).** $A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$; $A\cup(B\cap C)=(A\cup B)\cap(A\cup C)$; see the [element-chasing proof](#proof-techniques-for-sets).
-- **[Identity laws](#identity-laws).** $A\cup\varnothing=A$; $A\cap U=A$.
-- **[Domination laws](#domination-laws).** $A\cup U=U$; $A\cap\varnothing=\varnothing$.
-- **[Idempotence](#idempotent-laws).** $A\cup A=A$; $A\cap A=A$.
-- **[Complement laws](#complement-laws).** $A\cup A^c=U$; $A\cap A^c=\varnothing$; $(A^c)^c=A$.
-- **[De Morgan's laws](#de-morgans-laws).** $(A\cup B)^c=A^c\cap B^c$; $(A\cap B)^c=A^c\cup B^c$; the section includes an element-by-element proof.
-- **[Absorption](#absorption-laws).** $A\cup(A\cap B)=A$; $A\cap(A\cup B)=A$.
-- **[Generalized De Morgan's laws](#indexed-families-of-sets).** The complement of an indexed union is the intersection of the complements and vice versa, for a family of subsets of a fixed $U$ (including the empty-family conventions relative to $U$).
+| Theorem / result | Statement and conditions |
+| :--- | :--- |
+| **[Commutativity](#commutative-laws)** | $A\cup B=B\cup A$; $A\cap B=B\cap A$. |
+| **[Associativity](#associative-laws)** | $A\cup(B\cup C)=(A\cup B)\cup C$; $A\cap(B\cap C)=(A\cap B)\cap C$. |
+| **[Distributivity](#distributive-laws)** | $A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$; $A\cup(B\cap C)=(A\cup B)\cap(A\cup C)$; see the [element-chasing proof](#proof-techniques-for-sets). |
+| **[Identity laws](#identity-laws)** | $A\cup\varnothing=A$; $A\cap U=A$. |
+| **[Domination laws](#domination-laws)** | $A\cup U=U$; $A\cap\varnothing=\varnothing$. |
+| **[Idempotence](#idempotent-laws)** | $A\cup A=A$; $A\cap A=A$. |
+| **[Complement laws](#complement-laws)** | $A\cup A^c=U$; $A\cap A^c=\varnothing$; $(A^c)^c=A$. |
+| **[De Morgan's laws](#de-morgans-laws)** | $(A\cup B)^c=A^c\cap B^c$; $(A\cap B)^c=A^c\cup B^c$; the section includes an element-by-element proof. |
+| **[Absorption](#absorption-laws)** | $A\cup(A\cap B)=A$; $A\cap(A\cup B)=A$. |
+| **[Generalized De Morgan's laws](#indexed-families-of-sets)** | The complement of an indexed union is the intersection of the complements and vice versa, for a family of subsets of a fixed $U$ (including the empty-family conventions relative to $U$). |
+
 
 #### Infinite sets, cardinality, and foundational results
 
-- **[Schröder–Bernstein theorem](#finite-vs-infinite-sets).** Injections $A\hookrightarrow B$ and $B\hookrightarrow A$ imply that **some bijection** $A\to B$ exists; Choice is not required.
-- **[Power sets as yes/no functions](#a-power-set-is-a-space-of-yesno-functions).** $S\mapsto\chi_S$ gives a bijection $\mathcal P(A)\cong\{0,1\}^A$ for finite **and** infinite $A$.
-- **[Countability of standard sets](#countable-vs-uncountable-sets).** $\mathbb N$, $\mathbb Z$, and $\mathbb Q$ are countable; $\mathbb R$ is uncountable.
-- **[Countable products and unions](#hierarchy-of-infinities).** $\mathbb N\times\mathbb N$ is countable. A countable union of countable sets is countable in **ZFC**, but not necessarily in bare ZF.
-- **[Cantor's theorem](#cantors-theorem).** For every set $A$, $|A|<|\mathcal P(A)|$; diagonalization proves that no function $A\to\mathcal P(A)$ is onto.
-- **[Continuum cardinality](#cardinal-arithmetic-and-the-continuum-hypothesis).** $|\mathcal P(\mathbb N)|=|\mathbb R|=2^{\aleph_0}>\aleph_0$.
-- **[Continuum hypothesis independence](#cardinal-arithmetic-and-the-continuum-hypothesis).** Assuming ZFC is consistent, neither CH nor its negation is provable from ZFC; CH itself is **not** a theorem of ZFC.
-- **[Transfinite induction](#transfinite-induction-ordinary-induction-without-an-end).** If $(\forall\beta<\alpha\,P(\beta))\Rightarrow P(\alpha)$ holds for each ordinal $\alpha$, then $P$ holds for every ordinal.
-- **[Zorn's lemma and the well-ordering theorem](#axiom-of-choice-and-zorns-lemma).** In ZF, both are equivalent to the **Axiom of Choice**. Zorn: a nonempty poset whose every chain has an upper bound has a maximal element. Well-ordering: every set admits a well-order.
+| Theorem / result | Statement and conditions |
+| :--- | :--- |
+| **[Schröder–Bernstein theorem](#finite-vs-infinite-sets)** | Injections $A\hookrightarrow B$ and $B\hookrightarrow A$ imply that **some bijection** $A\to B$ exists; Choice is not required. |
+| **[Power sets as yes/no functions](#a-power-set-is-a-space-of-yesno-functions)** | $S\mapsto\chi_S$ gives a bijection $\mathcal P(A)\cong\{0,1\}^A$ for finite **and** infinite $A$. |
+| **[Countability of standard sets](#countable-vs-uncountable-sets)** | $\mathbb N$, $\mathbb Z$, and $\mathbb Q$ are countable; $\mathbb R$ is uncountable. |
+| **[Countable products and unions](#hierarchy-of-infinities)** | $\mathbb N\times\mathbb N$ is countable. A countable union of countable sets is countable in **ZFC**, but not necessarily in bare ZF. |
+| **[Cantor's theorem](#cantors-theorem)** | For every set $A$, $\lvert A\rvert<\lvert \mathcal P(A)\rvert$; diagonalization proves that no function $A\to\mathcal P(A)$ is onto. |
+| **[Continuum cardinality](#cardinal-arithmetic-and-the-continuum-hypothesis)** | $\lvert \mathcal P(\mathbb N)\rvert=\lvert \mathbb R\rvert=2^{\aleph_0}>\aleph_0$. |
+| **[Continuum hypothesis independence](#cardinal-arithmetic-and-the-continuum-hypothesis)** | Assuming ZFC is consistent, neither CH nor its negation is provable from ZFC; CH itself is **not** a theorem of ZFC. |
+| **[Transfinite induction](#transfinite-induction-ordinary-induction-without-an-end)** | If $(\forall\beta<\alpha\,P(\beta))\Rightarrow P(\alpha)$ holds for each ordinal $\alpha$, then $P$ holds for every ordinal. |
+| **[Zorn's lemma and the well-ordering theorem](#axiom-of-choice-and-zorns-lemma)** | In ZF, both are equivalent to the **Axiom of Choice**. Zorn: a nonempty poset whose every chain has an upper bound has a maximal element. Well-ordering: every set admits a well-order. |
 
 *Use these entries to find the right argument, not as a substitute for checking assumptions or reading a proof. In particular, some infinite-cardinality claims require the Axiom of Choice; the definitions of subsets and equal cardinality do not.*
