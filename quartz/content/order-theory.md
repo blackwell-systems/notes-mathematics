@@ -186,7 +186,7 @@ Before asking whether one vertex can **reach** another, we need to define the st
 
 ![A dark-mode diagram introducing vertices and directed edges, showing arrows from a to b, b to c, c to b, and c to d. The two opposite arrows between b and c allow mutual reachability. The figure explains that directed reachability is reflexive and transitive, while antisymmetry can fail.](./media/ot-directed-graph-reachability.svg)
 
-*Figure: Arrows specify the allowed direction of travel. The **reflexivity** and **transitivity** of reachability make it a preorder; a cycle between distinct vertices can violate **antisymmetry**.*
+*Figure: Arrows specify the allowed direction of travel. Reachability is **reflexive** because every vertex reaches itself by a path of length zero, and **transitive** because paths can be joined; these two properties make it a preorder. **Antisymmetry** would additionally require that if $u\preceq v$ and $v\preceq u$, then $u=v$. But the arrows $b\to c$ and $c\to b$ mean both $b\preceq c$ and $c\preceq b$, even though $b\ne c$. Thus, two distinct vertices are mutually reachable: this cycle is a concrete counterexample to antisymmetry, so reachability on this graph is **not a partial order**.*
 
 Now choose **reachability** as our comparison. Define $u\preceq v$ to mean that a directed path runs from vertex $u$ to vertex $v$. Read this as **"$u$ can reach $v$,"** not as a numerical less-than statement.
 
