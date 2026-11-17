@@ -469,12 +469,7 @@ Suppose $(P,\preceq)$ is a **finite poset**, and recall that $a\prec b$ means $a
 > [!definition] Cover relation and Hasse diagram
 > An element $b$ **covers** an element $a$ if $a$ is strictly below $b$ **with no element of $P$ strictly between them**:
 >
-> $
-> a\lessdot b
-> \quad\Longleftrightarrow\quad
-> a\prec b\ \text{and there is no }c\in P
-> \text{ with }a\prec c\prec b.
-> $
+> In symbols, $a\lessdot b$ means $a\prec b$ **and there is no** $c\in P$ satisfying $a\prec c\prec b$.
 >
 > A **Hasse diagram** of a finite poset is constructed by drawing:
 > - **One point for each element** of $P$.
