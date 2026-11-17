@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1180" role="img" aria-labelledby="title desc">
-<title id="title">From binary relations to preorders, posets, chains, and antichains</title>
-<desc id="desc">Binary relations contain preorders, which must be reflexive and transitive. Partial orders add antisymmetry, while equivalence relations add symmetry: both are kinds of preorder, and equality lies in their intersection. A poset is a set with a partial order. Inside a poset, a chain has pairwise comparable elements, while an antichain has pairwise incomparable distinct elements. The example uses the inclusion order on the four subsets of a two-element set.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1295" role="img" aria-labelledby="title desc">
+<title id="title">From relations of any arity to binary relations, preorders, posets, chains, and antichains</title>
+<desc id="desc">Relations may have any arity. Binary (two-argument) relations are one kind, and preorders are binary relations that must be reflexive and transitive. Partial orders add antisymmetry, while equivalence relations add symmetry: both are kinds of preorder, and equality lies in their intersection. A poset is a set with a partial order. Inside a poset, a chain has pairwise comparable elements, while an antichain has pairwise incomparable distinct elements. The example uses the inclusion order on the four subsets of a two-element set.</desc>
 <defs>
  <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101b36"/><stop offset="1" stop-color="#080d21"/></linearGradient>
  <linearGradient id="top" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#253a64"/><stop offset="1" stop-color="#162b50"/></linearGradient>
@@ -16,13 +16,18 @@
  .hint{font-family:Georgia,serif;fill:#f1e6cb;font-style:italic}
  .node{font-family:Georgia,serif;fill:#f8f5ff;font-weight:600}
 </style>
-<rect width="1200" height="1180" fill="url(#background)"/>
+<rect width="1200" height="1295" fill="url(#background)"/>
 <text x="600" y="63" class="white" font-size="47" text-anchor="middle" >Relations, orders, chains, and antichains</text>
 <text x="600" y="101" class="muted" font-size="22" text-anchor="middle" >Which are relations, and which are subsets of an ordered set?</text>
 <path d="M70 119 H1130" stroke="#6795d6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="340" y="145" width="520" height="75" rx="16" fill="url(#top)" stroke="#83aaf0" stroke-width="3" />
+<text x="600" y="182" class="main" font-size="28" text-anchor="middle">RELATIONS (ANY ARITY)</text>
+<text x="600" y="205" class="muted" font-size="19" text-anchor="middle">unary, binary, ternary, ...</text>
+<path d="M600 220 V250" stroke="#9dbce8" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<g transform="translate(0 115)">
 <rect x="340" y="145" width="520" height="79" rx="16" fill="url(#top)" stroke="#83aaf0" stroke-width="3" />
 <text x="600" y="184" class="main" font-size="30" text-anchor="middle" >BINARY RELATIONS</text>
-<text x="600" y="210" class="muted" font-size="18" text-anchor="middle" >arbitrary relations on a set</text>
+<text x="600" y="210" class="muted" font-size="18" text-anchor="middle" >two arguments: ordered pairs</text>
 <path d="M600 225 V274" stroke="#9dbce8" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <rect x="265" y="285" width="670" height="94" rx="18" fill="url(#violet)" stroke="#d8b7ff" stroke-width="3" />
 <text x="600" y="327" class="main" font-size="31" text-anchor="middle" >PREORDERS</text>
@@ -70,4 +75,5 @@
 <circle cx="600" cy="1059" r="27" fill="#3e376b" stroke="#d0b8ff" stroke-width="3"/>
 <text x="600" y="1067" class="node" font-size="23" text-anchor="middle" data-subset="none">∅</text>
 <text x="600" y="1138" class="muted" font-size="20" text-anchor="middle" >Chains and antichains are subsets of a poset, not additional relation types.</text>
+</g>
 </svg>
