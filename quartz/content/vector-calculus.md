@@ -268,6 +268,10 @@ $$
 
 ## 8. Surface integrals: flow through a surface
 
+![A tilted illustration of a horizontal unit square has upward arrows for the constant field F=(0,0,3); upward flux is +3 and reversed orientation gives -3.](./media/vc-surface-flux-orientation.svg)
+
+*Figure: In the unit-square example, $\mathbf F=(0,0,3)$ has upward flux $3$. Reversing the normal changes the signed flux to $-3$ but not the surface area.*
+
 For a parametrized oriented surface $\mathbf r(u,v)$, two tangent vectors are
 
 $$
@@ -320,6 +324,10 @@ The field is constant; the result is just normal field strength times the area. 
 
 ## 9. Stokes' theorem: surface curl becomes boundary circulation
 
+![An oriented curved-perspective surface has an upward normal and boundary direction indicated by an arrow. Stokes theorem equates boundary circulation and normal curl flux.](./media/vc-stokes-orientation.svg)
+
+*Figure: The right-hand rule couples the surface normal and boundary orientation. Reversing one without the other changes the sign of Stokes' theorem.*
+
 Let $S$ be a smooth oriented surface with piecewise smooth boundary $\partial S$, and let $\mathbf F$ be continuously differentiable on an open neighborhood. Orient the boundary consistently with the surface normal by the right-hand rule.
 
 **Stokes' theorem** states
@@ -337,6 +345,10 @@ Green's theorem is the planar instance of Stokes' theorem. The surface itself ne
 > Looking from the tip of the chosen upward normal, the boundary of a horizontal disk is counterclockwise. If you reverse the normal but keep the same boundary direction, Stokes' formula no longer matches signs. When results differ only by a minus sign, check orientation before redoing the calculus.
 
 ## 10. The divergence theorem: sources inside equal flux outside
+
+![A unit ball has outward radial arrows and equations divergence of F=(x,y,z) equals three, giving volume integral four pi and boundary flux four pi.](./media/vc-divergence-sphere-flux.svg)
+
+*Figure: For the radial field $\mathbf F=(x,y,z)$, the unit ball's volume integral and outward boundary flux both equal $4\pi$.*
 
 Let $E$ be a bounded solid region with a sufficiently regular, piecewise smooth closed boundary surface $\partial E$, oriented **outward**. For a continuously differentiable field $\mathbf F$ on a neighborhood of the solid, the **divergence theorem** states
 
@@ -367,6 +379,10 @@ $$
 Both calculations give $4\pi$. Neither result requires solving a differential equation: this is a relationship between **local outflow** and **total boundary flux**.
 
 ## 11. Four calculus theorems, one recurring structure
+
+![Four columns compare fundamental theorem of calculus on an interval, Green theorem on planar regions, Stokes theorem on surfaces, and divergence theorem in solids; each maps an interior derivative to appropriate boundary data.](./media/vc-four-boundary-theorems.svg)
+
+*Figure: FTC, Green's theorem, Stokes' theorem, and the divergence theorem all relate a local derivative integrated over a region to a boundary quantity, under different hypotheses and orientations.*
 
 | Dimension and region | Local quantity integrated | Boundary quantity obtained |
 | --- | --- | --- |
