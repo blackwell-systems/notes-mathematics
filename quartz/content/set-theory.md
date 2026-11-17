@@ -15,10 +15,10 @@ enables: ["functions-relations", "construction-of-the-natural-numbers", "peano-a
 
 **Three structural discoveries in this chapter:** [A power set is a space of yes/no functions](#a-power-set-is-a-space-of-yesno-functions); [infinity does not determine boundedness or discreteness](#infinity-does-not-mean-unbounded-or-infinitely-subdividable); and [the cumulative hierarchy builds sets through transfinite stages](#the-cumulative-hierarchy-how-sets-are-built-in-stages). These reveal why set theory connects to logic, topology, and mathematical foundations—not merely how to perform set operations.
 
-Sets are the most fundamental building block in all of mathematics: a **set** is simply a collection of distinct objects.
+Sets are a foundational way to represent **collections of mathematical objects**. A set is determined by **which objects belong to it**, rather than by their order or how often they are listed.
 
 > [!important] Why formal set theory matters
-> **We need formal set theory because mathematics requires a precise language for talking about collections, membership, and relationships between groups of objects.**
+> **A set is the basic mathematical object used to represent a collection.** Formal set theory makes this idea rigorous: it takes sets and membership as primitive notions, then uses axioms to govern which sets exist and how they can be constructed and related.
 
 Nearly everything else in math, including numbers, functions, sequences, and probability, is built on the concept of a set. Understanding sets first makes every other topic easier to reason about.
 
