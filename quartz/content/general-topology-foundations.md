@@ -53,6 +53,10 @@ $$
 U_n:=\left(-\frac1n,\frac1n\right),\qquad n=1,2,\ldots.
 $$
 
+![tp open infinite intersection](./media/tp-open-infinite-intersection.svg)
+
+*Figure: Every interval $U_n$ is open, and each finite intersection is an open interval. Their intersection over all positive integers is the non-open singleton $\{0\}$.*
+
 Every $U_n$ is open. Yet
 
 $$
@@ -210,6 +214,10 @@ By De Morgan's laws, arbitrary **intersections** of closed sets are closed and f
 
 The **interior** $\operatorname{int}(A)$ is the union of all open subsets of $A$; it is the largest open set contained in $A$. The **closure** $\overline A$ is the intersection of all closed supersets of $A$; it is the smallest closed set containing $A$.
 
+![tp interior closure boundary](./media/tp-interior-closure-boundary.svg)
+
+*Figure: The interior excludes both endpoints, the closure includes both, and the boundary consists of the endpoints—even though only one endpoint is in the original set.*
+
 **One running example.** In $\mathbb R$ with its usual topology, take $A=(0,1]$. Its interior is $(0,1)$: around each point strictly between $0$ and $1$ there is an open interval inside $A$, but no such interval around $1$. Its closure is $[0,1]$: every open interval around $0$ meets $A$, even though $0\notin A$. Meanwhile a point like $2$ has an open interval that misses $A$ entirely, so it does not belong to the closure.
 
 This suggests a practical alternative to taking an intersection of *all* closed supersets: **a point is in the closure exactly when no open neighborhood can avoid the set**. The following theorem makes that precise.
@@ -305,6 +313,10 @@ Why insist on continuity of the inverse? A continuous bijection alone can lose i
 > [!counterexample] Continuous bijection with discontinuous inverse
 > Give $X:=\{0,1\}$ the **discrete** topology and $Y:=\{0,1\}$ the **indiscrete** topology. The identity set-map $X\to Y$ is a continuous bijection (every preimage of an open set of $Y$ is open in $X$), but the inverse $Y\to X$ is not continuous since $\{0\}$ is open in $X$ but not in $Y$.
 
+![tp homeomorphism inverse](./media/tp-homeomorphism-inverse.svg)
+
+*Figure: Both spaces contain the same points, but differ in which subsets are open. The identity $X\to Y$ is continuous and bijective; its inverse is not continuous.*
+
 This is why a bijective continuous map is **not automatically** a homeomorphism.
 
 ## Convergence from neighborhoods, without a distance
@@ -328,6 +340,10 @@ In $\mathbb R$ with its usual topology this agrees with ordinary metric sequence
 
 > [!counterexample] A sequence can have more than one limit
 > In our earlier three-point topology $X=\{a,b,c\}$, $\tau=\{\varnothing,\{a\},\{a,b\},X\}$, the constant sequence $x_n=a$ converges to **all three points**: every nonempty open set contains $a$. Sequence limits are unique in a **Hausdorff** space; see [Separation Axioms](./general-topology-compactness#hausdorff-separation).
+
+![tp nonhausdorff convergence](./media/tp-nonhausdorff-convergence.svg)
+
+*Figure: In the three-point topology $\tau=\{\varnothing,\{a\},\{a,b\},X\}$, the constant sequence $a,a,a,\ldots$ converges to $a$, $b$, and $c$. Hausdorffness is what guarantees uniqueness of limits.*
 
 In metric spaces, sequences also suffice to characterize closure. **In arbitrary topological spaces they do not**: a point may be in $\overline A$ without being the limit of any sequence from $A$. **Nets** and **filters** extend convergence to arbitrary topological spaces. A full development of those ideas is beyond this introductory chapter.
 
