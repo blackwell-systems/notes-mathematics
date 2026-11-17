@@ -450,9 +450,9 @@ A chain is *not* necessarily a contiguous path of immediate cover relations. It 
 
 **Check both types of subset:** among the divisors of $30$, $1\mid6\mid30$ makes $\{1,6,30\}$ a chain even though $1$ and $30$ are not joined by a single cover edge. Meanwhile $2,3,5$ are pairwise incomparable under divisibility, so $\{2,3,5\}$ is an antichain. A **total order** is a poset whose *entire underlying set* is a chain; the usual order on $\{1,2,3,4\}$ is an example.
 
-![A branching hierarchy shows preorders inside binary relations, with partial orders and equivalence relations as two kinds of preorder and equality belonging to both. A separate inset shows that chains and antichains are subsets of a poset: the four-element inclusion diamond has a three-element chain through the left singleton and an antichain of its two singletons.](./media/ot-relations-posets-chains-antichains.svg)
+![A branching hierarchy starts with relations of any arity, narrows to binary relations and then preorders, with partial orders and equivalence relations as two kinds of preorder and equality belonging to both. A separate inset shows that chains and antichains are subsets of a poset: the four-element inclusion diamond has a three-element chain through the left singleton and an antichain of its two singletons.](./media/ot-relations-posets-chains-antichains.svg)
 
-*Figure: Preorders require reflexivity and transitivity. Antisymmetry makes a partial order; symmetry makes an equivalence relation. Equality satisfies both. A poset is a set equipped with a partial order, and chains and antichains are subsets of that poset, illustrated by the inclusion order on the subsets of $\{a,b\}$.*
+*Figure: Relations may have any arity; binary relations are the two-argument case, and preorders are binary relations requiring reflexivity and transitivity. Antisymmetry makes a partial order; symmetry makes an equivalence relation. Equality satisfies both. A poset is a set equipped with a partial order, and chains and antichains are subsets of that poset, illustrated by the inclusion order on the subsets of $\{a,b\}$.*
 
 
 
