@@ -24,6 +24,10 @@ The theorem you use depends on whether you measure a scalar, a movement **along*
 
 ## 1. Scalar fields and vector fields
 
+![Left panel has level contours of scalar T=x squared+y squared; right panel has arrows of vector field F=(x,y), pointing outward from the origin.](./media/vc-scalar-vector-fields.svg)
+
+*Figure: A scalar field assigns values; a vector field assigns vectors. Neither one by itself specifies a chosen integration path.*
+
 A **scalar field** assigns a number to each point: temperature $T(x,y)$ or pressure $p(x,y,z)$.
 
 A **vector field** assigns a vector to each point:
@@ -76,6 +80,10 @@ $$
 Its length is $\int_0^{\pi/2}1\,dt=\pi/2$, as expected for one quarter of the unit circle.
 
 ## 3. Line integrals: work along a path
+
+![A rising smooth curve has gold vectors tangent to its travel direction; the integral of F dot dr measures tangential field components and reverses sign when path orientation is reversed.](./media/vc-work-tangential-field.svg)
+
+*Figure: Work accumulates the tangential component $\mathbf F\cdot d\mathbf r$ along an oriented path—not the field's full magnitude.*
 
 A scalar line integral accumulates a scalar quantity along a curve **weighted by length**:
 
@@ -141,6 +149,10 @@ For the example $\mathbf F(x,y)=(y,x)$, a potential is $\phi(x,y)=xy$. Our path 
 
 ### Counterexample: zero curl is not always enough
 
+![Two paths in a gradient field have equal work between endpoints, while a circular path about the missing origin in the punctured plane has nonzero circulation even though the field has zero curl there.](./media/vc-potential-versus-hole.svg)
+
+*Figure: In a gradient field, work depends only on endpoints. On the punctured plane, the angle field has zero local curl but circulation $2\pi$ around the missing origin.*
+
 On the punctured plane $\mathbb R^2\setminus\{0\}$ let
 
 $$
@@ -157,6 +169,10 @@ $$
 The field is **locally** a gradient, but has no single-valued global potential on the punctured plane. This is the same obstruction as the globally missing angle function in [Sheaf Theory](./sheaf-theory#6-local-solutions-do-not-imply-a-global-solution). On a **simply connected open region** in the plane, a continuously differentiable curl-free field *is* conservative. The hole changes the conclusion.
 
 ## 5. Divergence: infinitesimal outflow
+
+![On the left arrows of F=(x,y) expand outward with divergence 2 and zero curl; on the right arrows of G=(-y,x) rotate counterclockwise with divergence zero and planar curl 2.](./media/vc-divergence-vs-curl.svg)
+
+*Figure: An expanding field may have positive divergence without rotation; a rotational field may have nonzero curl but zero divergence.*
 
 For a continuously differentiable field $\mathbf F=(P,Q,R)$ in three dimensions, its **divergence** is the scalar field
 
@@ -206,6 +222,10 @@ The divergence is $0$. Thus this field circulates without creating net outward f
 The factor $1/2$ in this example makes its curl equal $1$: a convenient normalization for checking Green's theorem.
 
 ## 7. Green's theorem: circulation along an edge equals curl inside
+
+![A disk filled with small counterclockwise circulations has an oriented outer boundary. For F=(-y/2,x/2), the planar curl is 1, and both area integral and boundary line integral equal pi.](./media/vc-green-boundary-curl.svg)
+
+*Figure: For $\mathbf F=(-y/2,x/2)$, the planar curl equals $1$. The unit disk has area $\pi$, matching the counterclockwise circulation around its boundary.*
 
 Let $D$ be a bounded planar region with a positively oriented (counterclockwise outer boundary), piecewise smooth, simple closed boundary $C$. Suppose $P,Q$ have continuous first partial derivatives on an open neighborhood of $D$.
 
