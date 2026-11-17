@@ -48,6 +48,10 @@ $$
 
 The scaling factor stays positive, so we never hit the missing origin. At $t=0$, $H(x,0)=x$; at $t=1$, $H(x,1)=r(x)$. Points already on the unit circle remain fixed.
 
+![tp at deformation retraction](./media/tp-at-deformation-retraction.svg)
+
+*Figure: Radial retraction keeps the origin excluded, fixes points already on the circle, and gives the punctured plane and circle the same homotopy type.*
+
 This is a **deformation retraction**: the punctured plane and circle have the same homotopy type. The entire unbounded plane, with one point removed, retains one essential loop obstruction.
 
 ## 2. Paths and loops: where the fundamental group begins
@@ -87,6 +91,10 @@ Concatenating loops adds winding numbers. Reversing a loop negates the winding n
 > [!proof] Why a winding number is an integer
 > A loop on the circle can be tracked locally by a continuously varying angle $\theta(t)$ with $(\cos\theta(t),\sin\theta(t))=\gamma(t)$. Although there may be no globally defined angle *on the circle itself*, along the interval $[0,1]$ an angle can be chosen continuously. Because the loop ends where it starts, $\theta(1)-\theta(0)$ must be a multiple of $2\pi$. Dividing by $2\pi$ gives an integer. A homotopy cannot change it continuously without leaving the integers. Proving the full classification uses the angle-lifting construction carefully; this paragraph gives its core mechanism.
 
+![tp at winding numbers](./media/tp-at-winding-numbers.svg)
+
+*Figure: Winding number is an integer invariant of based loops on the circle; the two-turn example traverses the same circle twice, rather than creating two different loops.*
+
 In fact,
 
 $$
@@ -110,6 +118,10 @@ A two-dimensional sphere $S^2$ is simply connected, even though it surrounds a t
 | Punctured plane $\mathbb R^2\setminus\{0\}$ | $\mathbb Z$ | Same essential loop as $S^1$ |
 | Sphere $S^2$ | Trivial | Loops contract, despite higher-dimensional topology |
 | Torus $S^1\times S^1$ | $\mathbb Z^2$ | Two independent loop directions |
+
+![tp at holes by dimension](./media/tp-at-holes-by-dimension.svg)
+
+*Figure: The fundamental group and second homology record different information. In particular, every loop on a sphere contracts, but its entire surface represents a nontrivial two-dimensional homology class.*
 
 Higher **homotopy groups** $\pi_n$ study maps from higher-dimensional spheres rather than just loops. Their definition and computation are a further subject. A related, often more computable family of invariants comes from **homology**.
 
@@ -154,6 +166,10 @@ $$
 \end{aligned}
 $$
 
+![tp at boundary of boundary](./media/tp-at-boundary-of-boundary.svg)
+
+*Figure: The alternating signs encode orientation. Taking the boundary of an oriented triangle yields edges; taking their boundary yields vertex terms that cancel.*
+
 Each endpoint appears twice with opposite signs. The same cancellation principle holds in every dimension:
 
 $$
@@ -183,6 +199,10 @@ z=[a,b]+[b,c]+[c,a]
 $$
 
 is a cycle: all vertex boundaries cancel.
+
+![tp at filled versus unfilled](./media/tp-at-filled-versus-unfilled.svg)
+
+*Figure: The perimeter cycle closes in both spaces. Adding the 2-simplex makes that cycle a boundary and eliminates the first-homology class represented by the loop.*
 
 **Case A: only the edges exist.** The result is a triangle-shaped **circle**. There is no two-dimensional piece whose boundary is $z$. So $z$ represents a nonzero class in $H_1$.
 
@@ -234,6 +254,10 @@ $$
 
 For a filled triangle (a disk), $V=3$, $E=3$, and $F=1$, giving $\chi=1$. For just the triangle's perimeter, $V=3$, $E=3$, and no faces, giving $\chi=0$.
 
+![tp at euler tetrahedron](./media/tp-at-euler-tetrahedron.svg)
+
+*Figure: The boundary of a tetrahedron triangulates a sphere, giving $V=4$, $E=6$, $F=4$, and Euler characteristic $2$.*
+
 Why doesn't the answer change when we subdivide a triangle? Inserting one vertex on an existing edge increases both $V$ and $E$ by one, leaving the difference unchanged. More generally, subdividing a face changes the counts in compensating ways; the invariance of $\chi$ is formalized by the relationship to homology.
 
 For a finite cell complex,
@@ -257,6 +281,10 @@ $$
 $$
 
 is closed, yet its integral around the unit circle is $2\pi$. Thus it cannot be the differential of a globally defined real-valued function on the punctured plane. You can check the integral directly using [the circle calculation in Differential Geometry](./differential-geometry#4-from-tangent-vectors-to-measurements-differential-forms).
+
+![tp at closed not exact](./media/tp-at-closed-not-exact.svg)
+
+*Figure: The angular form is closed on the punctured plane, but its nonzero integral around an essential loop prevents it from being globally exact.*
 
 The **de Rham cohomology** groups measure closed differential forms modulo exact ones:
 
@@ -284,6 +312,10 @@ The star in $f_*$ is read "f-star" and indicates the *induced* map on invariants
 
 > [!example] A map of degree two
 > The circle map $f(z)=z^2$ sends $e^{it}$ to $e^{2it}$. A loop winding once around the input circle winds **twice** around the output. On $\pi_1(S^1)\cong\mathbb Z$ the induced homomorphism is $n\mapsto2n$. The map's effect on an infinite family of loops is captured by one integer.
+
+![tp at map degree two](./media/tp-at-map-degree-two.svg)
+
+*Figure: The induced map of $f(z)=z^2$ on fundamental groups is multiplication by two, turning one circuit into two.*
 
 This is the characteristic move of algebraic topology: turn a difficult question about continuous maps into a simpler, computable question about group homomorphisms.
 
