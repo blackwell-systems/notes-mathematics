@@ -476,6 +476,29 @@ $n$ objects total. But $m > n$.
 
 Contradiction. ∎
 
+### Why different-sized finite sets cannot be in bijection
+
+> [!important] The Pigeonhole Principle rules out bijections between finite sets of different sizes
+> Let $A$ and $B$ be **finite** sets with $|A|<|B|$. A bijection $A\to B$ would have to match **every** element of $A$ to **exactly one distinct** element of $B$, leaving no element of $B$ unmatched. That is impossible: there are fewer elements in $A$ than in $B$.
+>
+> $$
+> \boxed{A,B\text{ finite and }|A|<|B|\implies\text{no bijection }A\to B.}
+> $$
+
+For a concrete example, take $A:=\{1,2\}$ and $B:=\{1,2,3\}$. The direction of the function reveals **which requirement for a bijection must fail**:
+
+| Function | What the Pigeonhole Principle tells us | Why it cannot be bijective |
+| --- | --- | --- |
+| $f:B\to A$ (three inputs, two targets) | At least two inputs must share a target. | $f$ cannot be **injective** (one-to-one). |
+| $g:A\to B$ (two inputs, three targets) | At most two targets can be reached, so at least one target is missed. | $g$ cannot be **surjective** (onto). |
+
+Thus, **neither direction admits a bijection**. This explains why finite sets of different sizes have different [cardinalities](#cardinality).
+
+> [!distinction] A proper subset does not always have a smaller cardinality
+> If $A\subsetneq B$ and **$B$ is finite**, then $|A|<|B|$, so the Pigeonhole Principle rules out a bijection between them.
+>
+> **For infinite sets, this conclusion can fail.** Let $\mathbb N:=\{0,1,2,\ldots\}$ and $E:=\{0,2,4,\ldots\}$. Although $E\subsetneq\mathbb N$, the function $f(n)=2n$ is a bijection $\mathbb N\to E$. The ordinary counting argument above applies to **finite sets**, not arbitrary infinite ones. See [Finite vs. Infinite Sets](#finite-vs-infinite-sets).
+
 **Theorem (Generalized PHP).**
 
 Placing $m$ objects into $n$ containers (with $n \geq 1$) guarantees some container has
@@ -1903,7 +1926,7 @@ The set-operation identities use complements **relative to the same chosen unive
 | :--- | :--- |
 | **[Double containment](#set-equality)** | $A=B\iff(A\subseteq B\land B\subseteq A)$; see the [worked proof](#proof-techniques-for-sets) for the method in action. |
 | **[Subset inclusion is a partial order](#subset-as-an-order-the-analogy-with-leq-and)** | The relation $\subseteq$ on a collection of sets is **reflexive, antisymmetric, and transitive**, but is not generally total. |
-| **[Pigeonhole principle](#pigeonhole-principle-php)** | If $m>n\geq1$ objects occupy $n$ boxes, some box contains at least two objects. |
+| **[Pigeonhole principle](#pigeonhole-principle-php)** | If $m>n\geq1$ objects occupy $n$ boxes, some box contains at least two objects. Consequently, finite sets of different cardinalities cannot be in bijection: a larger-to-smaller map cannot be injective, and a smaller-to-larger map cannot be surjective. |
 | **[Generalized pigeonhole principle](#pigeonhole-principle-php)** | For $m$ objects and $n\geq1$ boxes, some box contains at least $\lceil m/n\rceil$ objects. |
 | **[Finite power-set size](#power-set)** | For $\lvert A\rvert=n<\infty$, $\lvert \mathcal P(A)\rvert=2^n=\sum_{k=0}^{n}\binom nk$. |
 | **[Finite Cartesian-product counting](#cartesian-product)** | For finite $A,B$, $\lvert A\times B\rvert=\lvert A\rvert\cdot\lvert B\rvert$. |
