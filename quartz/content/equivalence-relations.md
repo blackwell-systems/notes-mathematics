@@ -13,6 +13,8 @@ enables: ["order-theory", "group-homomorphisms-quotients", "ring-ideals-quotient
 
 The central result is stronger than a definition: every equivalence relation divides its set into disjoint groups, and every such division gives an equivalence relation. Those groups are called **equivalence classes**. We will prove both directions and then explain why operations on classes require an extra well-definedness check.
 
+**For review:** Jump to the [Chapter Reference](#chapter-reference) for definitions and results in tables.
+
 ## From relations to equivalence
 
 ### First intuition: dividing a set into groups
@@ -327,3 +329,41 @@ Both counterexamples show why the three axioms matter. "Similar enough" is not a
 - **[Quotient groups](./group-homomorphisms-quotients) and [quotient rings](./ring-ideals-quotients):** algebraic operations on classes.
 
 The governing intuition: **equivalence deliberately forgets distinctions**. Order theory retains distinctions and organizes them.
+
+---
+
+## Chapter Reference
+
+This quick reference collects the chapter's definitions and theorems in tables. Each linked name returns to its original explanation or proof. The full examples and arguments above remain in place.
+
+### Definitions
+
+| Definition | Meaning / statement |
+| :--- | :--- |
+| **[Binary relation](#first-intuition-dividing-a-set-into-groups)** | A relation on A is a subset of A×A; aRb means the ordered pair (a,b) belongs to it. |
+| **[Equivalence relation](#first-intuition-dividing-a-set-into-groups)** | A relation that is reflexive, symmetric, and transitive. |
+| **[Congruence modulo n](#worked-proof-congruence-modulo-n)** | For positive n, a and b are congruent modulo n when n divides a−b. |
+| **[Equivalence class](#equivalence-classes-what-gets-identified)** | [a] is the set of elements equivalent to a, not the representative a itself. |
+| **[Partition](#equivalence-relations-correspond-to-partitions)** | Nonempty, pairwise disjoint blocks whose union is the whole set. |
+| **[Quotient set](#quotient-sets-classes-become-objects)** | A/~ is the set of distinct equivalence classes [a], each treated as one object. |
+| **[Quotient map](#quotient-sets-classes-become-objects)** | q(a)=[a]; it is surjective but need not be injective. |
+| **[Fiber](#every-function-defines-a-partition-by-its-outputs)** | The set of all inputs producing one output y; empty fibers are possible. |
+| **[Output-equivalence](#every-function-defines-a-partition-by-its-outputs)** | a ~f b exactly when f(a)=f(b). |
+| **[Well-defined rule on classes](#when-does-a-function-descend-to-classes)** | The output of a rule on [a] must be independent of the representative chosen. |
+| **[Congruence for an operation](#when-does-a-function-descend-to-classes)** | An equivalence relation compatible with the operation on representatives. |
+
+### Theorems and Key Results
+
+These statements concern equivalence relations and their quotient sets; representative independence is essential when defining functions on classes.
+
+| Theorem / result | Meaning / statement |
+| :--- | :--- |
+| **[Congruence modulo n](#worked-proof-congruence-modulo-n)** | Congruence modulo every positive integer n is an equivalence relation on the integers. |
+| **[Class equality criterion](#when-are-two-classes-the-same)** | [a]=[b] if and only if a~b. |
+| **[Classes are disjoint or equal](#when-are-two-classes-the-same)** | Two equivalence classes that overlap must be equal; distinct classes cannot partially overlap. |
+| **[Equivalence–partition correspondence](#equivalence-relations-correspond-to-partitions)** | Every equivalence relation determines a partition, and every partition determines exactly one equivalence relation. |
+| **[Surjectivity of the quotient map](#quotient-sets-classes-become-objects)** | Every class [a] is reached by the quotient map q(a)=[a]. |
+| **[Function fibers are equivalence classes](#every-function-defines-a-partition-by-its-outputs)** | Equality of function outputs defines an equivalence relation, and the nonempty fibers partition its domain. |
+| **[Unique quotient factorization](#when-does-a-function-descend-to-classes)** | A unique map on classes exists exactly when f takes equal values on equivalent representatives. |
+
+**Key distinction:** An equivalence relation says which distinctions to ignore. A quotient treats the resulting classes as objects. An operation or function on classes requires a well-definedness check.
