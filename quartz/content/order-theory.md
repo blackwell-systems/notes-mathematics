@@ -462,6 +462,29 @@ We have defined a **partial order** by its comparisons, but a list of all those 
 
 A Hasse diagram is not a new ordering rule. **We must first specify the set and its partial order; then we construct the diagram from that information.** The diagram is a compact representation of the order, not a substitute for defining it.
 
+### First define what an edge means
+
+Suppose $(P,\preceq)$ is a **finite poset**, and recall that $a\prec b$ means $a\preceq b$ **and** $a\ne b$.
+
+> [!definition] Cover relation and Hasse diagram
+> An element $b$ **covers** an element $a$ if $a$ is strictly below $b$ **with no element of $P$ strictly between them**:
+>
+> $
+> a\lessdot b
+> \quad\Longleftrightarrow\quad
+> a\prec b\ \text{and there is no }c\in P
+> \text{ with }a\prec c\prec b.
+> $
+>
+> A **Hasse diagram** of a finite poset is constructed by drawing:
+> - **One point for each element** of $P$.
+> - **One line segment between $a$ and $b$** exactly when $a\lessdot b$ (that is, when $b$ covers $a$).
+> - **Higher elements above lower elements**: if $a\lessdot b$, place $b$ higher than $a$.
+>
+> We omit arrowheads because the direction is understood to be **upward**. We also omit **self-loops** (which merely express reflexivity) and **direct lines for non-cover comparisons** (which can be recovered from transitivity).
+
+The symbol $\lessdot$ is read **“is covered by.”** It is stronger than $\prec$: every cover is a strict comparison, but not every strict comparison is a cover.
+
 ### From an ordinary relation diagram to a Hasse diagram
 
 In [Functions & Relations](./functions-relations#constructing-a-relation-diagram-from-first-principles), we constructed a **directed graph of a relation** by drawing **one arrow for every ordered pair**. We can start the same way for a partial order, but a **Hasse diagram is deliberately more economical**: it keeps only those comparisons that are not already explained by an intermediate element.
@@ -479,37 +502,14 @@ Here is the construction, one change at a time:
 3. **Remove any direct comparison implied by a longer chain.** Delete $1\to4$ because $1\prec2\prec4$. Keep $1\to2$ and $2\to4$: there is **no element of this poset strictly between either pair**. These remaining comparisons are called **covers**.
 4. **Place greater elements higher and erase arrowheads.** Draw $1$ at the bottom, $2$ in the middle, and $4$ at the top, joined by two plain lines. Upward is now the understood direction.
 
-![Three consecutive panels transform the full divisibility relation graph on {1,2,4}, with self-loops and all three distinct arrows, into the two cover relations, then a vertical Hasse diagram with 1 below 2 below 4 and no arrowheads.](./media/ot-build-hasse-from-relation.svg)
+![Three consecutive panels transform the full divisibility relation graph on {1,2,4}, with self-loops and all three distinct arrows, into the two cover relations (comparisons with no intervening element), then a vertical Hasse diagram with 1 below 2 below 4 and no arrowheads.](./media/ot-build-hasse-from-relation.svg)
 
-*Figure: We have **not changed the poset**. We have changed how much information needs to be drawn: the missing comparison $1\preceq4$ is recoverable from the upward path $1\to2\to4$.*
+*Figure: Only **cover relations** remain as drawn lines: $2$ covers $1$ and $4$ covers $2$, since neither pair has an element of $P$ strictly between it. The comparison $1\preceq4$ still holds, but $4$ does **not** cover $1$ because $1\prec2\prec4$. We have not changed the poset; the upward path $1\to2\to4$ recovers that omitted comparison.*
 
 > [!distinction] Why this is different from a diagram of an equivalence relation
 > **Equivalence-relation graphs** show all their selected pairs, including reverse arrows and reflexive loops; equivalence classes can be visualized as groups. **Hasse diagrams** belong to **partial orders** and keep only covers. An arbitrary equivalence relation is generally *not* a partial order, so we cannot simply turn its graph into a Hasse diagram by deleting arrows. What determines the correct diagram is **which structure and axioms we have defined**.
 
-Now we can define the cover relation precisely and construct a less trivial example.
-
-### First define what an edge means
-
-Suppose $(P,\preceq)$ is a **finite poset**, and recall that $a\prec b$ means $a\preceq b$ **and** $a\ne b$.
-
-> [!definition] Cover relation and Hasse diagram
-> An element $b$ **covers** an element $a$ if $a$ is strictly below $b$ **with no element of $P$ strictly between them**:
->
-> $$
-> a\lessdot b
-> \quad\Longleftrightarrow\quad
-> a\prec b\ \text{and there is no }c\in P
-> \text{ with }a\prec c\prec b.
-> $$
->
-> A **Hasse diagram** of a finite poset is constructed by drawing:
-> - **One point for each element** of $P$.
-> - **One line segment between $a$ and $b$** exactly when $a\lessdot b$ (that is, when $b$ covers $a$).
-> - **Higher elements above lower elements**: if $a\lessdot b$, place $b$ higher than $a$.
->
-> We omit arrowheads because the direction is understood to be **upward**. We also omit **self-loops** (which merely express reflexivity) and **direct lines for non-cover comparisons** (which can be recovered from transitivity).
-
-The symbol $\lessdot$ is read **“is covered by.”** It is stronger than $\prec$: every cover is a strict comparison, but not every strict comparison is a cover.
+With the cover relation defined, we can now construct a less trivial example.
 
 ### Construct one from scratch: divisors of twelve
 
