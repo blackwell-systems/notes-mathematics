@@ -252,7 +252,20 @@ If A is not a subset of B, we write $A \not\subseteq B$.
 > \boxed{A\subsetneq B\iff(A\subseteq B)\land(A\ne B).}
 > $$
 >
-> Equivalently, $B$ contains an element not belonging to $A$.
+> Because $A\subseteq B$, the inclusion is **proper** exactly when at least one element of $B$ does not belong to $A$.
+>
+> **Containment language:** All of the following describe the same relation:
+> - "$A$ is a **proper subset** of $B$."
+> - "$A$ is **properly contained in** $B$" (or "**properly contained by** $B$").
+> - "$B$ **properly contains** $A$ **as a subset**."
+>
+> We write this in either direction:
+>
+> $$
+> A\subsetneq B\iff B\supsetneq A.
+> $$
+>
+> **Important:** "$B$ contains $A$ as a subset" is a statement about **inclusion**, not membership. It does **not** mean $A\in B$.
 
 
 > [!distinction] Subset versus proper subset
@@ -1842,7 +1855,7 @@ This is a **lookup guide**, not a replacement for the explanations, diagrams, ex
 | **[Set-builder notation](#set-builder-notation)** | $\{x\in A\mid P(x)\}$ selects members of an **existing** set $A$ satisfying $P$; unrestricted comprehension is not allowed. |
 | **[Empty set](#empty-set)** | $\varnothing$ is the unique set with no members; $\varnothing\ne\{\varnothing\}$. |
 | **[Subset](#subset)** | $A\subseteq B\iff\forall x\,(x\in A\Rightarrow x\in B)$; equality is allowed. |
-| **[Proper subset](#proper-subset)** | $A\subsetneq B\iff A\subseteq B\land A\ne B$. |
+| **[Proper subset](#proper-subset)** | $A\subsetneq B\iff A\subseteq B\land A\ne B$; read "$A$ is properly contained by $B$," equivalently $B\supsetneq A$. |
 | **[Set equality](#set-equality)** | $A=B\iff\forall x\,(x\in A\Leftrightarrow x\in B)$; the sets have exactly the same members. |
 | **[Relative universe](#universal-set)** | $U$ is an already chosen set containing the elements under consideration; there is no set of all sets in ZF/ZFC. |
 
