@@ -63,6 +63,10 @@ A set $K\subseteq\mathbb R$ is **bounded** if $K\subseteq[-M,M]$ for some $M$. I
 
 **Proof, converse.** Suppose every sequence in $K$ has a subsequence converging in $K$. If $K$ were unbounded, we could choose $x_n\in K$ with $|x_n|>n$, and no subsequence could converge. Thus $K$ is bounded. If $K$ were not closed, there would be a sequence $x_n\in K$ converging to a real $c\notin K$. Every subsequence still converges to $c$, contradicting the assumption that a subsequence converges to a point of $K$. Thus $K$ is closed. $\square$
 
+![tp sequential compactness examples](./media/tp-sequential-compactness-examples.svg)
+
+*Figure: The sequence $1/n$ can converge outside $(0,1)$, while $n$ escapes to infinity in $\mathbb R$. A closed bounded interval avoids both failures by Bolzano–Weierstrass and closedness.*
+
 For subsets of $\mathbb R$, the [open-cover definition of compactness](./general-topology-compactness#compactness-every-open-cover-admits-a-finite-subcover) agrees with sequential compactness. The topology chapter proves this link rather than assuming the two definitions agree in every topological space.
 
 **What fails if a condition is removed?** The bounded but nonclosed interval $(0,1)$ contains $x_n:=1/n$ for $n\ge2$; all its convergent subsequences have limit $0$ outside $(0,1)$. The closed but unbounded set $\mathbb R$ contains $x_n:=n$, which has no convergent subsequence.
@@ -87,6 +91,10 @@ If $f(c)<v$, continuity at $c$ would give an interval around $c$ on which $f(x)<
 If $f(c)>v$, continuity would give an interval around $c$ on which $f(x)>v$. But since $c=\sup S$, there is an $x\in S$ arbitrarily close to $c$ from below. That gives both $f(x)<v$ and $f(x)>v$, impossible.
 
 Neither strict inequality is possible, so $f(c)=v$. $\square$
+
+![tp ivt hypotheses](./media/tp-ivt-hypotheses.svg)
+
+*Figure: Continuity on an interval forces intermediate values. A jump discontinuity or a disconnected domain can invalidate the conclusion.*
 
 **Worked example: an existence proof, not a root formula.** Let $f(x):=x^3-x-1$. We have $f(1)=-1$ and $f(2)=5$. Polynomials are continuous, so some $c\in(1,2)$ satisfies $c^3-c-1=0$. The theorem does **not** supply a closed form or a unique root.
 
@@ -115,6 +123,10 @@ forces the same sequence to converge to $M$. Uniqueness of limits yields $f(x_{\
 
 **Example.** On $[0,2]$, the function $f(x):=-(x-1)^2+3$ has maximum $3$ at $1$ and minimum $2$ at both endpoints. EVT guaranteed these extrema **before** we differentiated anything.
 
+![tp evt hypotheses](./media/tp-evt-hypotheses.svg)
+
+*Figure: The Extreme Value Theorem guarantees actual extrema under compactness and continuity. An open domain or a discontinuity can make an extremum unattainable.*
+
 **Why the hypotheses matter.** On $(0,1)$, $f(x)=x$ has neither a maximum nor a minimum despite being continuous and bounded. On the compact interval $[-1,1]$, define $f(0):=2$ and $f(x):=|x|$ for $x\ne0$. This $f$ is **bounded but discontinuous**, and it has **no minimum**: every value is positive, but $f(x)$ approaches $0$ along nonzero $x\to0$. Thus even boundedness of $f$ on a compact domain cannot replace continuity in EVT. A discontinuous function may still attain both extrema (for example, set $g(0):=2$ and $g(x):=1$ for $x\ne0$), so continuity is a sufficient hypothesis, not a necessary one for an individual function.
 
 ## 5. Pointwise continuity versus one delta for the whole set
@@ -140,6 +152,10 @@ $$
 $$
 
 By sequential compactness, choose a subsequence $x_{n_j}\to c\in K$. The triangle inequality gives $|y_{n_j}-c|\le|y_{n_j}-x_{n_j}|+|x_{n_j}-c|\to0$, so both selected sequences approach the **same point** $c$. Continuity at $c$ implies both $f(x_{n_j})$ and $f(y_{n_j})$ approach $f(c)$. Their difference therefore tends to zero, contradicting its fixed lower bound $\varepsilon_0$. $\square$
+
+![tp uniform continuity x2](./media/tp-uniform-continuity-x2.svg)
+
+*Figure: $x^2$ is uniformly continuous on each closed bounded interval but not on all of $\mathbb R$. The paired inputs $n$ and $n+1/n$ approach one another while their outputs stay separated.*
 
 **Worked contrast.** The function $f(x)=x^2$ is continuous on $\mathbb R$ but **not** uniformly continuous there. Set $x_n=n$, $y_n=n+1/n$. Their distance is $1/n\to0$, but
 
