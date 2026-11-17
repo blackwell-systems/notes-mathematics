@@ -462,6 +462,19 @@ average, thus $\geq \lceil m/n\rceil$.
 > For a finite set, $|A|=n$ means $A$ is in bijection with $\{0,1,\ldots,n-1\}$, interpreted as $\varnothing$ for $n=0$. Infinite sizes are compared by the same bijection principle.
 
 
+![Three house-style mapping diagrams showing that equally sized sets can be connected by a non-bijective function, that a different function between the same sets can be bijective, and that sets of different cardinalities have no bijection.](./media/st-cardinality-bijection-existence.svg)
+
+*Figure: **Equal cardinality guarantees the existence of a bijection**, not that any particular function is bijective. In the first panel, both sets have three elements, but the function is neither injective nor surjective. In the second, another function between those same sets is a bijection. In the third, no bijection can exist between sets of three and four elements.*
+
+> [!distinction] Existence is not a statement about every function
+> In $|A|=|B|\iff\exists\text{ a bijection }f:A\to B$, the symbol $\exists$ means **there exists at least one** such function. Even if $|A|=|B|$, a particular function $g:A\to B$ can fail to be bijective.
+>
+> A function's **range** may be smaller than its **codomain**, but the cardinality $|B|$ counts **all elements in $B$**, including those not reached by that function.
+>
+> This also holds for infinite sets: $n\mapsto 2n$ defines a bijection $\mathbb N\to\{0,2,4,\ldots\}$, demonstrating equal cardinality even though one set is a proper subset of the other.
+
+
+
 **Cardinality:** Let A be a set. then the number of elements in the set
 A is called **cardinality** of the set A, and is denoted by **\|A\|** (read "the cardinality of A" or "the size of A")
 
