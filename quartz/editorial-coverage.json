@@ -39,7 +39,7 @@
       "semanticReview": "pending",
       "mobileReview": "pending",
       "darkReview": "pending",
-      "diagramReview": "not-applicable"
+      "diagramReview": "pending"
     },
     {
       "path": "asymptotic-notation.md",
@@ -228,7 +228,7 @@
       "semanticReview": "pending",
       "mobileReview": "pending",
       "darkReview": "pending",
-      "diagramReview": "not-applicable"
+      "diagramReview": "pending"
     },
     {
       "path": "cross-disciplinary-bridges.md",
