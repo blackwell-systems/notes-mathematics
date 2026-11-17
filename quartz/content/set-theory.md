@@ -468,6 +468,8 @@ average, thus $\geq \lceil m/n\rceil$.
 
 > [!distinction] Existence is not a statement about every function
 > In $|A|=|B|\iff\exists\text{ a bijection }f:A\to B$, the symbol $\exists$ means **there exists at least one** such function. Even if $|A|=|B|$, a particular function $g:A\to B$ can fail to be bijective.
+
+> **In plain language:** Equal cardinality means that **some bijection can exist between these two sets**, not that every relation defined between them will be a bijection. A **relation** may pair an input with no outputs or with several; a **function** pairs each input with exactly one output; a **bijection** is a function that also pairs every element of the codomain with exactly one input. So **cardinality describes the sets**, while **bijectivity describes the particular mapping**.
 >
 > A function's **range** may be smaller than its **codomain**, but the cardinality $|B|$ counts **all elements in $B$**, including those not reached by that function.
 >
