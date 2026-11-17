@@ -830,12 +830,12 @@ A quick reference to the chapter's definitions and results, with links to their 
 | Concept | Statement / meaning |
 | :--- | :--- |
 | **[The input: rational Cauchy sequences](#the-input-rational-cauchy-sequences)** | *Figure: The completed real system represents the limit using an equivalence class of rational Cauchy sequences.* A sequence of rationals is a function $x:\mathbb N\to\mathbb Q$. |
-| **[Defining addition, negation, and multiplication](#defining-addition-negation-and-multiplication)** | For two classes $X=[x]$ and $Y=[y]$, propose termwise operations: $\boxed{ X+Y:=[(x_n+y_n)],\qquad XY:=[(x_ny_n)],\qquad$ |
-| **[Addition closure and well-definedness](#addition-closure-and-well-definedness)** | For any $m,n$, $\leq\vert x_m-x_n\vert +\vert y_m-y_n\vert .$ |
+| **[Defining addition, negation, and multiplication](#defining-addition-negation-and-multiplication)** | For real classes $X=[x]$ and $Y=[y]$, define addition and multiplication termwise: $X+Y=[(x_n+y_n)]$ and $XY=[(x_ny_n)]$; negation is termwise as well. |
+| **[Addition closure and well-definedness](#addition-closure-and-well-definedness)** | The sum of two rational Cauchy sequences is Cauchy; replacing either sequence by an equivalent one does not change the resulting real class. |
 | **[Multiplication closure and well-definedness](#multiplication-closure-and-well-definedness)** | Cauchy sequences are bounded. Choose rational bounds $\vert x_n\vert \leq M$ and $\vert y_n\vert \leq K$ for all indices. Then |
 | **[The field laws that are inherited](#the-field-laws-that-are-inherited)** | Define the real zero and one as classes of constant rational sequences: $0_{\mathbb R}=[(0,0,0,\ldots)],\qquad 1_{\mathbb R}=[(1,1,1,\ldots)].$ |
 | **[The reciprocal theorem: nonzero classes stay away from zero](#the-reciprocal-theorem-nonzero-classes-stay-away-from-zero)** | First prove a key fact. |
-| **[Embedding the rationals faithfully](#embedding-the-rationals-faithfully)** | Define $\eta:\mathbb Q\to\mathbb R,\qquad \boxed{\eta(q):=[(q,q,q,\ldots)].}\tag{R5}$ |
+| **[Embedding the rationals faithfully](#embedding-the-rationals-faithfully)** | Map each rational $q$ to the class of the constant Cauchy sequence $(q,q,\ldots)$. This embeds $\mathbb Q$ into the constructed real field. |
 | **[Constructing order on the real classes](#constructing-order-on-the-real-classes)** | We cannot simply say $[x]<[y]$ whenever $x_n<y_n$ for some index: an early approximation can be misleading, and equivalent sequences can fluctuate above and below one another. |
 | **[Positivity is independent of representatives](#positivity-is-independent-of-representatives)** | Suppose $x\sim x'$ and $x_n\geq\delta$ for all $n\geq N$. For sufficiently late indices, $\vert x_n-x'_n\vert <\delta/2$. Therefore |
 | **[Trichotomy](#trichotomy)** | For every real class $X$, exactly one of these holds: $X=0,\qquad X>0,\qquad -X>0.$ |
@@ -846,7 +846,7 @@ A quick reference to the chapter's definitions and results, with links to their 
 | **[Dedekind cuts as a second representation](#dedekind-cuts-as-a-second-representation)** | *Figure: A cut determines a real boundary, even though that boundary need not be rational.* The Cauchy quotient is our independent construction of $\mathbb R$. Dedekind cuts offer a different set of objects. |
 | **[Every cut has a unique real boundary](#every-cut-has-a-unique-real-boundary)** | View $\mathbb Q$ inside the complete field $\mathbb R$ we constructed above. Every cut $A$ has an upper bound: if $t\notin A$, downward closure forces every $a\in A$ to satisfy $a<t$. Thus $A$ has a supremum $x$ in $\mathbb R$. |
 | **[Cut order and addition](#cut-order-and-addition)** | Define $A\leq_D B$ exactly when $A\subseteq B$. By DC, this holds if and only if $\Phi(A)\leq\Phi(B)$: if the latter fails, choose a rational strictly between the two boundaries to disprove the inclusion. |
-| **[Cut multiplication and field laws](#cut-multiplication-and-field-laws)** | For positive cuts $A=C_x$, $B=C_y$ with $x,y>0$, define $\boxed{ A\odot B= \{q\in\mathbb Q:q<0\ \text{or}\$ |
+| **[Cut multiplication and field laws](#cut-multiplication-and-field-laws)** | Multiplication of positive Dedekind cuts agrees with multiplication of their real boundaries. The section extends it to all signs and verifies the field laws. |
 | **[Least-upper-bound completeness is intrinsic to cuts](#least-upper-bound-completeness-is-intrinsic-to-cuts)** | There is a direct proof of completeness using no real boundary map. Let $\mathcal S\subseteq D$ be nonempty and have an upper bound cut $B$. Set |
 
 ### Theorems and Key Results

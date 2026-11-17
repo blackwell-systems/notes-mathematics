@@ -532,7 +532,7 @@ A quick reference to the chapter's definitions and results, with links to their 
 | **[Proving the fraction equivalence relation](#proving-the-fraction-equivalence-relation)** | Reflexivity: $pq=pq$, so $(p,q)\sim(p,q)$. |
 | **[Rational numbers are equivalence classes](#rational-numbers-are-equivalence-classes)** | Define Read $\frac pq$ as "p over q"; it denotes the equivalence class containing $(p,q)$, not an integer division operation that was available previously. |
 | **[Fraction addition, including well-definedness](#fraction-addition-including-well-definedness)** | *Figure: Fraction operations must produce the same rational class regardless of the chosen representatives.* Define addition by the rule |
-| **[Fraction multiplication, including well-definedness](#fraction-multiplication-including-well-definedness)** | Define Again $qs\ne0$ supplies closure. $\boxed{\frac pq\cdot\frac rs:=\frac{pr}{qs}.}\tag{Q×}$ |
+| **[Fraction multiplication, including well-definedness](#fraction-multiplication-including-well-definedness)** | For $q,s\ne 0$, multiplication is $\frac pq\cdot\frac rs=\frac{pr}{qs}$. The operation is proved independent of the representatives chosen. |
 | **[The field laws, proved from integer laws](#the-field-laws-proved-from-integer-laws)** | See this section for the underlying idea, notation, and worked examples. |
 | **[Addition forms an abelian group](#addition-forms-an-abelian-group)** | Identity: $\frac pq+\frac01=\frac{p\cdot1+0\cdot q}{q\cdot1}=\frac pq.$ |
 | **[Multiplication is associative and commutative](#multiplication-is-associative-and-commutative)** | For any three fractions, $\left(\frac pq\cdot\frac rs\right)\cdot\frac ut =\frac{pru}{qst} =\frac pq\cdot\left(\frac rs\cdot\frac ut\right).$ |
