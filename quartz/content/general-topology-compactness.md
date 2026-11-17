@@ -122,6 +122,10 @@ This is the missing step promised in the [interval-to-circle quotient constructi
 
 Every Hausdorff space is T₁; every T₁ space is T₀. The converses fail.
 
+![tp separation t0 t1 t2](./media/tp-separation-t0-t1-t2.svg)
+
+*Figure: Sierpiński space is $T_0$ but not $T_1$; the infinite cofinite topology is $T_1$ but not Hausdorff. The cofinite neighborhood drawing is schematic: all nonempty opens must intersect.*
+
 ### Counterexamples that distinguish them
 
 - The **Sierpiński space** $X=\{0,1\}$ with topology $\{\varnothing,\{1\},X\}$ is T₀ but not T₁: the open set $\{1\}$ distinguishes the points, but no open set contains $0$ without also containing $1$.
@@ -171,6 +175,10 @@ Let $f:[a,b]\to\mathbb R$ be continuous. The interval is connected, so its image
 | $\{0\}\cup\{1\}$ with real subspace topology | Yes | No | Yes |
 | An infinite set with indiscrete topology | Yes | Yes | No |
 | $\mathbb R$ | No | Yes | Yes |
+
+![tp compact connected matrix](./media/tp-compact-connected-matrix.svg)
+
+*Figure: Each combination of compactness and connectedness occurs for simple subspaces of $\mathbb R$.*
 
 For the infinite **indiscrete** example, every open cover contains the whole space as a member, hence compactness; the only opens are $\varnothing$ and $X$, hence connectedness. Failure of Hausdorffness is immediate.
 
@@ -229,6 +237,10 @@ Inductively, finite products of compact spaces are compact. Hence every Euclidea
 
 > [!distinction] Finite products are not the whole story
 > This argument proves **finite** product compactness. The compactness of arbitrary products in the product topology is **Tychonoff's theorem**, a deeper result with set-theoretic choice principles. We have not proved that theorem here.
+
+![tp compact product strips](./media/tp-compact-product-strips.svg)
+
+*Figure: Compactness of $Y$ yields a finite cover of each vertical fiber; the resulting open neighborhoods of $X$ admit a further finite subcover, proving finite-product compactness.*
 
 ### Step 3: closed and bounded implies compact
 
@@ -298,7 +310,11 @@ Open-cover compactness makes sense in any topological space. In **metric spaces*
 > $
 > \|e_m-e_n\|_2=\sqrt2.
 > $
-> No subsequence of $(e_n)$ can be Cauchy, so no subsequence converges in norm. By the metric theorem above, $B$ is **not compact**. This pinpoints why the "closed and bounded" test is specific to finite-dimensional Euclidean spaces.
+> ![tp l2 unit ball noncompact](./media/tp-l2-unit-ball-noncompact.svg)
+
+*Figure: These axes sketch only the first three coordinates of $\ell^2$. The infinite sequence of standard unit vectors remains pairwise distance $\sqrt2$ apart, so it has no norm-convergent subsequence.*
+
+No subsequence of $(e_n)$ can be Cauchy, so no subsequence converges in norm. By the metric theorem above, $B$ is **not compact**. This pinpoints why the "closed and bounded" test is specific to finite-dimensional Euclidean spaces.
 
 ### A payoff: continuous functions attain maxima and minima
 
