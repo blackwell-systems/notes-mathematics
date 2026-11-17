@@ -204,6 +204,10 @@ Read $\det D\Phi$ as "the determinant of the derivative of Phi." The absolute va
 
 ### Worked example: an ellipse becomes a disk
 
+![The unit disk maps to an ellipse with semiaxes three and two by x=3u,y=2v, multiplying its area by six.](./media/vi-ellipse-disk.svg)
+
+*Figure: Stretching by $(3,2)$ maps the unit disk to the ellipse $x^2/9+y^2/4\leq1$, with area factor $6$.*
+
 The ellipse $x^2/9+y^2/4\leq1$ becomes the unit disk under
 
 $$
@@ -225,6 +229,10 @@ Here the transformation multiplies every unit of area by $6$. The formula is no 
 A coordinate change must not count the same physical region multiple times without accounting for that multiplicity. Polar coordinates identify angles separated by $2\pi$, and the origin corresponds to every angle. We use a standard angle interval and treat boundaries of area zero carefully. A general map that folds several regions on top of one another needs a more advanced **area formula**; blindly applying the simple one-to-one substitution formula gives the wrong answer.
 
 ## 5. Triple integrals: volume, density, center of mass
+
+![Eight density slices increase from x zero to two, with dashed markers for geometric center x one and mass center seven sixths.](./media/vi-mass-center-shift.svg)
+
+*Figure: With $\rho=1+x$, the center of mass lies at $\bar x=7/6$, to the right of the geometric center $1$.*
 
 For a solid $E$ and continuous density $\rho$, the total mass is
 
@@ -264,6 +272,10 @@ $$
 The geometric center would be at $x=1$. The mass center shifts toward larger $x$ because the box is denser there.
 
 ## 6. Cylindrical coordinates: polar coordinates plus height
+
+![Cylinder with a radial vertical wedge illustrating horizontal radius r, azimuth theta, vertical height z and volume element r dr dtheta dz.](./media/vi-cylindrical-coordinates.svg)
+
+*Figure: A polar area element extended through height $dz$ gives $dV=r\,dr\,d\theta\,dz$.*
 
 **Cylindrical coordinates** describe a point by $(r,\theta,z)$:
 
