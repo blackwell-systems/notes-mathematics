@@ -38,6 +38,10 @@ is read "the triple integral over E of g, d-V." Setting $g=1$ computes volume; u
 
 ## 2. Double integrals on curved and triangular regions
 
+![The triangle with corners (0,0), (2,0), (2,2) is shown with vertical slices of y from zero to x and horizontal slices with x from y to two.](./media/vi-triangle-slicing.svg)
+
+*Figure: The domain is unchanged, but switching the integration order changes the bounds of the inner integral.*
+
 A **Type I region** can be described as vertical slices
 
 $$
@@ -90,6 +94,10 @@ $$
 This connects the integral to a physical question: a triangle's area is $2$, but its mass is $4$ because the density increases with position.
 
 ## 3. Polar coordinates: why an extra factor appears
+
+![An annular polar sector with radial thickness delta r and angular extent delta theta has local area approximately r delta r delta theta.](./media/vi-polar-area-element.svg)
+
+*Figure: A radial increment contributes $\Delta r$ and an angular increment contributes length $r\Delta\theta$, explaining the polar Jacobian.*
 
 A disk looks awkward in rectangular coordinates: its boundary is $x^2+y^2=a^2$. Polar coordinates use **radius** $r$ and **angle** $\theta$ (read "theta"):
 
@@ -145,6 +153,10 @@ $$
 The region is unbounded, so this is an **improper integral**. Nonnegativity also makes the passage to expanding bounded regions safe by monotone convergence. This computation is the key to the classic one-dimensional Gaussian integral.
 
 ## 4. Jacobians: local area scaling
+
+![The mapping Phi(u,v)=(2u+v,v) sends a unit square to a parallelogram of area two, illustrating the absolute value of a Jacobian determinant.](./media/vi-jacobian-area-scale.svg)
+
+*Figure: $\Phi(u,v)=(2u+v,v)$ has $|\det D\Phi|=2$: an input area of $1$ becomes an output area of $2$.*
 
 Polar coordinates are one case of a general method. Suppose coordinates $(u,v)$ describe the plane through a differentiable map
 
@@ -280,6 +292,10 @@ $$
 A cylinder, a pipe, and many rotationally symmetric probability distributions naturally invite these coordinates.
 
 ## 7. Spherical coordinates: two angles and a radius
+
+![A sphere and radial line illustrate rho, polar angle phi measured down from positive z, and azimuth theta, yielding the volume factor rho squared sine phi.](./media/vi-spherical-angle-convention.svg)
+
+*Figure: With $\phi$ measured from the positive $z$-axis, the local tangential lengths are $\rho\,d\phi$ and $\rho\sin\phi\,d\theta$.*
 
 One common convention for **spherical coordinates** is
 
