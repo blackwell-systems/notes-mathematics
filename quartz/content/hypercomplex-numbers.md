@@ -12,6 +12,8 @@ The [building-up story of the number systems](./number-systems) has a natural st
 
 So why go further at all? Because dimension and structure are their own reward. Beyond $\mathbb{C}$ the extensions no longer *add* solutions, they *trade away* an algebraic law in exchange for new geometry. This page follows two roads out. The first keeps doubling the dimension (the **Cayley–Dickson tower**: quaternions, octonions, sedenions), surrendering one law at each step. The second changes the question entirely, redefining what "size" or "closeness" of a number means (dual numbers, $p$-adics, hyperreals). One of these, the humble **dual number**, turns out to be exactly how automatic differentiation works, so this is not a detour away from machine learning but a road back into it.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Cayley–Dickson Construction
 
 > [!definition] Cayley-Dickson doubling
@@ -207,3 +209,34 @@ Past $\mathbb{C}$, "bigger" always costs something.
 - **Sideways extensions** keep the algebra small but change the meaning of a number: dual numbers ($\varepsilon^2 = 0$) compute derivatives, split-complex numbers ($j^2 = +1$) do hyperbolic geometry, $p$-adics redefine distance, and hyperreals/surreals add infinitesimals.
 
 The lesson is the one made precise on the [algebraic structures](./algebraic-structures) page: a number system is defined as much by the axioms it *keeps* as by the ones it drops, and every system on this page is a deliberate, useful choice about which law to surrender.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Cayley-Dickson doubling](#the-cayleydickson-construction)** | Represent a new algebra element by a pair of elements from the previous algebra, with specified multiplication and conjugation. Every doubling increases the real vector-space dimension by a factor of two, while changing which algebraic laws survive. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Cayley–Dickson Construction](#the-cayleydickson-construction)** | There is a single mechanical recipe that generates $\mathbb{C}$ from $\mathbb{R}$, then $\mathbb{H}$ from $\mathbb{C}$, then $\mathbb{O}$ from $\mathbb{H}$, and onward, each time doubling the dimension. |
+| **[Quaternions $\mathbb{H}$: Losing Commutativity](#quaternions-mathbbh-losing-commutativity)** | The quaternions (read "H", for William Rowan Hamilton, who carved the defining relations into a Dublin bridge in 1843) are four-dimensional numbers built from three imaginary units $i, j, k$ satisfying Hamilton's relations |
+| **[Octonions $\mathbb{O}$: Losing Associativity](#octonions-mathbbo-losing-associativity)** | Double once more and you reach the eight-dimensional octonions (read "O"), with a real part and seven imaginary units $e_1, \ldots, e_7$. |
+| **[Higher Number Systems in Physics](#higher-number-systems-in-physics)** | The complex numbers, invented to solve $x^2 + 1 = 0$, turned out to be woven into physical law. It is natural to hope the higher systems are too. The honest evidence forms a spectrum from settled to tantalizingly open. |
+| **[Sedenions $\mathbb{S}$ and the End of the Line](#sedenions-mathbbs-and-the-end-of-the-line)** | One more doubling gives the sixteen-dimensional sedenions (read "S"), and here the tower breaks in a decisive way: sedenions have zero divisors. There exist nonzero sedenions whose product is zero, for example (in a standard basis) |
+| **[Sideways Extensions: Changing the Question](#sideways-extensions-changing-the-question)** | The Cayley–Dickson road is not the only way out of $\mathbb{C}$. These constructions keep two dimensions (or stay one-dimensional) but change what a number *does*. |
+| **[Dual Numbers and Automatic Differentiation](#dual-numbers-and-automatic-differentiation)** | A dual number has the form $a + b\,\varepsilon$ (read "$\varepsilon$" as "epsilon") where $\varepsilon$ is a new symbol with |
+| **[Split-Complex Numbers](#split-complex-numbers)** | A split-complex (or hyperbolic) number is $a + b\,j$ with $j^2 = +1$ (but $j \ne \pm 1$). |
+| **[$p$-adic Numbers $\mathbb{Q}_p$](#p-adic-numbers-mathbbqp)** | The $p$-adic numbers (read "$\mathbb{Q}_p$" as "Q-p") extend the rationals in a completely different direction: not by adding roots, but by adopting a different notion of distance. |
+| **[Hyperreals and Surreals](#hyperreals-and-surreals)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

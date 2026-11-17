@@ -12,6 +12,8 @@ The natural numbers can express $5+3$ but not $3-5$. We want to extend arithmeti
 
 We will establish, in order: that our equality of representations is legitimate, that the proposed operations respect it, that the resulting system satisfies the ring laws, and that its order and division properties can be proved without assuming integers at the start.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Before construction: what can we already use?
 
 From [Peano Arithmetic](./peano-arithmetic) we may use the following natural-number theorems:
@@ -588,3 +590,51 @@ These results supply the non-circular foundation for prime factorization, coprim
 | Prime factorization exists uniquely | strong induction, Euclid's lemma, and cancellation |
 
 The key distinction is now visible: **the rules of signed arithmetic are consequences of the quotient construction, not prerequisites smuggled into it.** Next, [Construction of the Rationals](./construction-of-the-rationals) takes pairs of integers and performs a new quotient construction to make division by every nonzero element possible.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Differences before subtraction exists](#a-pair-is-a-proposed-difference-not-yet-an-integer)** | A natural pair $(a,b)$ stands for the intended difference $a-b$, but does not rely on preexisting integer subtraction. The equivalence relation defines when two such pairs represent the same integer. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Before construction: what can we already use?](#before-construction-what-can-we-already-use)** | From Peano Arithmetic we may use the following natural-number theorems: When we cite any of these properties, we are using a previously proved theorem, not taking an integer law for granted. |
+| **[A pair is a proposed difference, not yet an integer](#a-pair-is-a-proposed-difference-not-yet-an-integer)** | *Figure: Different pairs can represent one integer; they are identified only after proving equivalence.* Let |
+| **[Prove that equivalence really is an equivalence relation](#prove-that-equivalence-really-is-an-equivalence-relation)** | An equivalence relation must be reflexive, symmetric, and transitive. Otherwise the proposed "same integer" classes cannot be used as identities of mathematical objects. |
+| **[Integers are equivalence classes](#integers-are-equivalence-classes)** | The integer represented by $(a,b)$ is the set of all equivalent pairs: Square brackets mean "the equivalence class of." Define |
+| **[Defining addition and proving independence of representatives](#defining-addition-and-proving-independence-of-representatives)** | For classes $x=[(a,b)]$ and $y=[(c,d)]$, propose The proposed sum is a class of a pair of naturals, so closure is immediate. However, we still need well-definedness: replacing either input by an equivalent pair must not change the output class. |
+| **[Addition laws and additive inverses](#addition-laws-and-additive-inverses)** | All the identities below concern classes, not merely their representatives. |
+| **[Multiplication: constructing signs without assuming them](#multiplication-constructing-signs-without-assuming-them)** | If our pairs behave as intended, the formal expansion suggests the following definition, written entirely in natural-number operations: |
+| **[Well-definedness of multiplication](#well-definedness-of-multiplication)** | First hold $(c,d)$ fixed, and suppose $(a,b)\sim(a',b')$, so $a+b'=b+a'$. Distributivity in $\mathbb N$ gives |
+| **[Proving the ring properties](#proving-the-ring-properties)** | Multiplicative identity. Commutativity. Swap the factors in Z×. Natural multiplication and addition commutativity make the two resulting coordinates equal. |
+| **[Embedding the naturals](#embedding-the-naturals)** | Define $\iota:\mathbb N\to\mathbb Z,\qquad \boxed{\iota(n)=[(n,0)].}$ |
+| **[Constructing the integer order](#constructing-the-integer-order)** | *Figure: Signs and order emerge from comparing coordinates of the representing pairs.* Define order on integer classes using only natural order: |
+| **[No zero divisors and multiplicative cancellation](#no-zero-divisors-and-multiplicative-cancellation)** | An integral domain is a commutative ring with identity $1\neq0$ and no zero divisors: $xy=0$ implies $x=0$ or $y=0$. |
+| **[Division with remainder, from well-ordering](#division-with-remainder-from-well-ordering)** | Although not every division has an *integer* result, division with remainder is available. |
+| **[Greatest common divisors and the Euclidean algorithm](#greatest-common-divisors-and-the-euclidean-algorithm)** | *Figure: The strictly decreasing remainders prove termination; the last nonzero remainder is the gcd.* The division-with-remainder theorem does more than justify quotient notation. |
+| **[Bézout's identity from well-ordering](#bzouts-identity-from-well-ordering)** | Theorem: for integers $a,b$ not both zero there exist integers $x,y$ such that Proof. Let $T$ be the collection of all positive integer linear combinations: |
+| **[Euclid's lemma and unique prime factorization](#euclids-lemma-and-unique-prime-factorization)** | Define a prime to be a positive integer $p>1$ whose only positive divisors are $1$ and $p$. |
+| **[Euclid's lemma](#euclids-lemma)** | Theorem: if a prime $p$ divides a product $ab$, then it divides $a$ or it divides $b$. |
+| **[Fundamental theorem of arithmetic](#fundamental-theorem-of-arithmetic)** | Theorem: every positive integer $n>1$ can be written as a product of primes. This factorization is unique up to the ordering of factors. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Integer division with remainder](#division-with-remainder-from-well-ordering)** | Given integers $a$ and positive $b$, there are unique integers $q,r$ with $a=bq+r$ and $0\leq r<b$. Existence and uniqueness need proof; the well-ordering argument below supplies it. |
+| **[Addition laws and additive inverses](#addition-laws-and-additive-inverses)** | All the identities below concern classes, not merely their representatives. |
+| **[Bézout's identity from well-ordering](#bzouts-identity-from-well-ordering)** | Theorem: for integers $a,b$ not both zero there exist integers $x,y$ such that Proof. Let $T$ be the collection of all positive integer linear combinations: |
+| **[Euclid's lemma and unique prime factorization](#euclids-lemma-and-unique-prime-factorization)** | Define a prime to be a positive integer $p>1$ whose only positive divisors are $1$ and $p$. |
+| **[Euclid's lemma](#euclids-lemma)** | Theorem: if a prime $p$ divides a product $ab$, then it divides $a$ or it divides $b$. |
+| **[Fundamental theorem of arithmetic](#fundamental-theorem-of-arithmetic)** | Theorem: every positive integer $n>1$ can be written as a product of primes. This factorization is unique up to the ordering of factors. |

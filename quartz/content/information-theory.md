@@ -14,6 +14,8 @@ Information theory is the mathematical framework for quantifying information. It
 The field was founded by **Claude Shannon** in his 1948 paper "A Mathematical Theory of Communication." Shannon was working at Bell Labs on the problem of transmitting messages over noisy communication channels (telephone lines). He needed to define "information" precisely enough to reason about it mathematically. The framework he created has become one of the most broadly applied theories in mathematics, with applications far beyond communication: it underpins compression algorithms, cryptography, statistical inference, and modern machine learning.
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: outcomes, alphabets, and distributions
 
 Information theory starts with the same structure as [Probability](./probability), but asks a different question. Instead of only asking **which event occurs?**, it asks **how surprising is an observed outcome, and how much uncertainty does a source produce on average?**
@@ -642,3 +644,54 @@ H(P, Q) = H(P) + D_{\text{KL}}(P \| Q)
 $$
 
 This single equation explains why cross-entropy loss works: minimizing cross-entropy between the data distribution and the model distribution is the same as minimizing KL divergence, which is the same as maximum likelihood estimation. Information theory, statistics, and ML optimization are all perspectives on the same underlying mathematics.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[KL divergence](#kl-divergence-relative-entropy)** | $D_{\mathrm{KL}}(P\\vert Q)$ is nonnegative and generally asymmetric, and can be infinite when the required absolute continuity fails. It is not a metric. |
+| **[Mutual information](#mutual-information)** | $I(X;Y)$ is the KL divergence of the joint law from the product of its marginals. It vanishes precisely for independent random variables. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: outcomes, alphabets, and distributions](#the-mathematical-setting-outcomes-alphabets-and-distributions)** | Information theory starts with the same structure as Probability, but asks a different question. |
+| **[Surprise and Information Content](#surprise-and-information-content)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Intuition](#the-intuition)** | Some events are more "informative" than others. Consider two statements: The first statement tells you almost nothing because it happens every day (probability close to 1). |
+| **[Formal Definition](#formal-definition)** | Information content (also called self-information or surprisal): The information content of an event $x$ with probability $p(x)$ is: This is measured in bits (binary digits) when using base-2 logarithms. |
+| **[Entropy](#entropy)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Intuition](#intuition)** | Entropy measures average uncertainty or average surprise. You can think of it as: High entropy means the outcomes are hard to predict (lots of uncertainty). Low entropy means the outcomes are predictable. |
+| **[Properties](#properties)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Entropy as the Compression Limit (Source Coding)](#entropy-as-the-compression-limit-source-coding)** | Entropy is not just a measure of expected surprise; Shannon proved it has a concrete operational meaning. Suppose you want to encode a long stream of symbols as a string of bits, losslessly, using as few bits as possible. |
+| **[The Binary Entropy Function](#the-binary-entropy-function)** | For a binary random variable with $P(X = 1) = p$ and $P(X = 0) = 1 - p$, entropy is a function of the single parameter $p$: This function has a characteristic shape: |
+| **[Differential Entropy (Continuous Case)](#differential-entropy-continuous-case)** | For a continuous random variable $X$ with probability density function $p(x)$, we replace the sum with an integral. |
+| **[Joint and Conditional Entropy](#joint-and-conditional-entropy)** | Real problems involve multiple random variables. We need to extend entropy to handle them. |
+| **[Joint Entropy](#joint-entropy)** | Joint entropy measures the total uncertainty in a pair of random variables $(X, Y)$: where $p(x, y)$ is the joint probability distribution. This generalizes directly: it is the expected information content of observing both $X$ and $Y$ together. |
+| **[Conditional Entropy](#conditional-entropy)** | Conditional entropy measures the remaining uncertainty in $Y$ after you have observed $X$: where $p(y\vert x)$ is the conditional probability of $Y$ given $X$. See Probability for conditional probability. |
+| **[Chain Rule of Entropy](#chain-rule-of-entropy)** | The chain rule connects joint and conditional entropy: In words: the total uncertainty in $(X, Y)$ equals the uncertainty in $X$ plus the remaining uncertainty in $Y$ after knowing $X$. |
+| **[KL Divergence (Relative Entropy)](#kl-divergence-relative-entropy)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Properties](#properties-1)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Forward vs. Reverse KL](#forward-vs-reverse-kl)** | The asymmetry of KL divergence leads to two distinct optimization behaviors, both important in ML. |
+| **[Cross-Entropy](#cross-entropy)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Relationship to Entropy and KL Divergence](#relationship-to-entropy-and-kl-divergence)** | Cross-entropy decomposes into two parts: $H(P, Q) = H(P) + D_{\text{KL}}(P \\vert Q)$ |
+| **[Cross-Entropy as a Loss Function in ML](#cross-entropy-as-a-loss-function-in-ml)** | Cross-entropy is the standard loss function for classification in machine learning. Here is why it works and how it appears in practice. |
+| **[Properties](#properties-2)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Information Venn Diagram](#the-information-venn-diagram)** | The relationships between entropy, conditional entropy, joint entropy, and mutual information can be visualized as a Venn diagram with two overlapping circles: From the diagram, you can read off the relationships: |
+| **[Data Processing Inequality](#data-processing-inequality)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Statement](#statement)** | If three random variables form a Markov chain $X \to Y \to Z$ (meaning $Z$ depends on $X$ only through $Y$), then: In words: processing cannot create information. Each step of processing can only preserve or destroy information, never increase it. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Data processing](#data-processing-inequality)** | If $X\to Y\to Z$ forms a Markov chain, then $I(X;Z)\le I(X;Y)$. Processing $Y$ without additional information about $X$ cannot increase their mutual information. |
+| **[Chain Rule of Entropy](#chain-rule-of-entropy)** | The chain rule connects joint and conditional entropy: In words: the total uncertainty in $(X, Y)$ equals the uncertainty in $X$ plus the remaining uncertainty in $Y$ after knowing $X$. This parallels the probability chain rule $p(x, y) = p(x) \cdot p(y\vert x)$. |

@@ -10,6 +10,8 @@ Suppose you have 5 people (Alice, Bob, Carol, Dave, and Eve) and you need to cho
 > **Builds on:** [Permutations](./permutation) · [Set Theory](./set-theory)
 > **Leads to:** [Probability](./probability) · [Statistics](./statistics)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Combinations?
 
 > [!definition] Unordered choices
@@ -399,3 +401,43 @@ $$
 
 Therefore, at least two of the five points are within distance $\frac{\sqrt{2}}{2}$. $\blacksquare$
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Unordered choices](#why-combinations)** | For $0\le r\le n$, the number of size-$r$ subsets of an $n$-element set is $\binom nr=n!/[r!(n-r)!]$. It counts subsets, not ordered sequences. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Properties of Combinations](#properties-of-combinations)** | Symmetry Property: $$\binom{n}{r} = \binom{n}{n-r}$$ Choosing r items is the same as choosing which (n-r) items to leave out. |
+| **[Combinations with Repetition](#combinations-with-repetition)** | Formula: When items can be selected more than once: $$C(n+r-1,\, r) = \binom{n+r-1}{r} = \frac{(n+r-1)!}{r!\,(n-1)!}$$ Where: |
+| **[Permutation vs Combination Summary](#permutation-vs-combination-summary)** | Key Question to Ask: Does the order of selection matter? |
+| **[Inclusion-Exclusion Principle](#inclusion-exclusion-principle)** | When counting elements that belong to at least one of several sets, simply adding the set sizes overcounts elements that belong to more than one set. The inclusion-exclusion principle corrects for this overcounting. |
+| **[Two Sets](#two-sets)** | We add the sizes, then subtract the intersection (which was counted twice). |
+| **[Three Sets](#three-sets)** | We add individual sizes, subtract pairwise intersections (overcounted), then add back the triple intersection (subtracted too many times). |
+| **[Stars and Bars (Distributing Identical Objects)](#stars-and-bars-distributing-identical-objects)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Problem](#the-problem)** | How many ways can you distribute $n$ identical items into $k$ distinct bins (where bins can be empty)? |
+| **[The Visual Model](#the-visual-model)** | Represent the $n$ items as stars ($\star$) and use $k-1$ bars ($\vert $) to separate them into $k$ groups. Each arrangement of stars and bars corresponds to one distribution. |
+| **[The Formula](#the-formula)** | The total number of symbols is $n + k - 1$ (that is, $n$ stars and $k-1$ bars). We need to choose positions for the $k-1$ bars (or equivalently, choose positions for the $n$ stars). Here $k \geq 1$ (there must be at least one bin) and $n \geq 0$. |
+| **[With Minimum Constraints](#with-minimum-constraints)** | Problem: How many ways can you put 10 identical balls into 4 boxes if each box must have at least 1 ball? |
+| **[Pigeonhole Principle](#pigeonhole-principle)** | The pigeonhole principle states: if you place more than $n$ items into $n$ containers, at least one container holds more than one item. Despite its simplicity, this principle is surprisingly powerful for proving existence results. |
+| **[Basic Form](#basic-form)** | If $n + 1$ (or more) objects are placed into $n$ boxes, then some box contains at least 2 objects. |
+| **[Generalized Pigeonhole Principle](#generalized-pigeonhole-principle)** | If $n$ items are placed into $k$ boxes (with $k \geq 1$), then at least one box contains at least $\lceil n/k \rceil$ items, where $\lceil \cdot \rceil$ is the ceiling function. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Inclusion-exclusion](#inclusion-exclusion-principle)** | Alternating intersections corrects double counting in the size of a union: add singles, subtract pairs, add triples, and so on. It is a finite identity for overlapping sets. |
+| **[Pigeonhole principle](#pigeonhole-principle)** | Placing more than $k$ objects into $k$ bins forces some bin to contain at least two objects. For $n$ objects and $k>0$ bins, some bin holds at least $\lceil n/k\rceil$. |
+| **[Generalized Pigeonhole Principle](#generalized-pigeonhole-principle)** | If $n$ items are placed into $k$ boxes (with $k \geq 1$), then at least one box contains at least $\lceil n/k \rceil$ items, where $\lceil \cdot \rceil$ is the ceiling function. |

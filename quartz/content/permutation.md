@@ -8,6 +8,8 @@ enables: ["combination", "probability"]
 > **Builds on:** [Set Theory](./set-theory)
 > **Leads to:** [Combinations](./combination) · [Probability](./probability)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Permutations?
 
 > [!definition] Permutations count ordered arrangements
@@ -188,3 +190,31 @@ $$\frac{(5-1)!}{2} = \frac{24}{2} = 12$$
 
 ![Two panels on circular arrangements of 5 people or beads. The left panel, around a table, shows people numbered 1 to 5 seated around a circle with a curved rotate arrow, illustrating that rotating everyone one seat leaves every person's neighbors unchanged, so the 5 rotations of a seating all count as one; the arithmetic reads 5 factorial in a row, but each table seating is counted 5 times, so 5 factorial over 5 equals 4 factorial equals 24. The right panel, a bracelet, shows a ring of 5 beads next to its mirror image joined by a flip arrow, illustrating that a bracelet can be turned over so a clockwise arrangement equals its reflection; dividing by 2 more gives 4 factorial over 2 equals 12.](./media/perm-circular-bracelet.png)
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Permutations count ordered arrangements](#why-permutations)** | A permutation is a selection with an order. It matters both *which objects* you choose and *where you put them*. For example, seating Alice first and Bob second is different from seating Bob first and Alice second—even though the two people are the same. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Explore it interactively](#explore-it-interactively)** | Pick $n$ (read "n", the size of the pool) and $r$ (read "r", how many you arrange) below. |
+| **[Permutations with Repetition](#permutations-with-repetition)** | Permutations with Repetition: When elements can be repeated, the formula changes. |
+| **[Permutations with Indistinguishable Objects](#permutations-with-indistinguishable-objects)** | Formula: When you have $n$ objects where some are identical: Where: $\frac{n!}{n_1! \, n_2! \cdots n_k!}$ |
+| **[Circular Permutations](#circular-permutations)** | The formulas above count arrangements in a row, where there is a first position, a second position, and so on. But sometimes we arrange objects around a circle, such as people seated at a round table. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Multinomial arrangement count](#permutations-with-indistinguishable-objects)** | For $n$ positions containing indistinguishable groups of sizes $a_1,\ldots,a_k$ with $\sum a_i=n$, the count is $n!/(a_1!\cdots a_k!)$. Divide only by permutations within each identical group. |

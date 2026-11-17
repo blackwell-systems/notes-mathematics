@@ -18,6 +18,8 @@ enables: ["optimization", "systems-of-equations"]
 - $\geq$ : greater than or equal to
 - $\neq$ : not equal to
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Properties of Inequalities
 
 > [!distinction] Negative factors reverse order
@@ -518,3 +520,39 @@ Notice the candidate $x + y = 4$ with $y = 0$ gives $(4, 0)$, but that point fai
 | $a \leq x < b$ | $[a, b)$ | Closed at $a$, open at $b$ |
 | $x < a$ OR $x > b$ | $(-\infty, a) \cup (b, \infty)$ | Union of two intervals |
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Absolute value](#absolute-value-equations)** | $\vert x\vert $ is the distance from $x$ to $0$ on the real line. Thus $\vert x\vert \ge0$, and $\vert x\vert =a$ has no real solution for $a<0$. Cases must preserve the signs of every expression involved. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Properties of Inequalities](#properties-of-inequalities)** | Addition/Subtraction Property: If $a < b$, then $a + c < b + c$ and $a - c < b - c$ You can add or subtract the same value from both sides without changing the inequality direction. |
+| **[Linear Inequalities](#linear-inequalities)** | Linear Inequality: An inequality involving a linear expression (degree 1). |
+| **[Compound Inequalities](#compound-inequalities)** | Compound Inequality: Combines two inequalities using "and" or "or". |
+| **[Quadratic Inequalities](#quadratic-inequalities)** | Quadratic Inequality: An inequality involving a quadratic expression (degree 2). Solving quadratic inequalities requires finding the zeros first. See Polynomial Functions for factoring and the quadratic formula. |
+| **[Polynomial Inequalities of Higher Degree](#polynomial-inequalities-of-higher-degree)** | The sign chart method used for quadratic inequalities extends naturally to polynomials of any degree. The key idea is the same: factor completely, find the zeros, and test the sign of the product in each interval. |
+| **[Rational Inequalities](#rational-inequalities)** | Rational Inequality: An inequality involving a rational expression (fraction with polynomials). Rational inequalities combine the techniques from Rational Functions (finding asymptotes and zeros) with sign analysis. |
+| **[Absolute Value Equations](#absolute-value-equations)** | Absolute Value Equation: An equation involving absolute value. Recall that $\vert x\vert $ represents the distance from zero on the number line, so $\vert x\vert = a$ means "$x$ is exactly $a$ units from zero." Key Properties of Absolute Value: |
+| **[Solving $\vert f(x)\vert = a$](#solving-fx-a)** | When $a > 0$: split into two equations. |
+| **[Solving $\vert f(x)\vert = \vert g(x)\vert $](#solving-fx-gx)** | Two expressions have the same absolute value when they are equal or when they are negatives of each other. |
+| **[Equations with Multiple Absolute Values](#equations-with-multiple-absolute-values)** | When an equation contains absolute value expressions added or nested, consider the sign of each expression in different intervals. |
+| **[Absolute Value Inequalities](#absolute-value-inequalities)** | Absolute Value Inequality: An inequality involving absolute value. |
+| **[Type 1: $\vert x\vert < a$](#type-1-x-a)** | Interpretation: Distance from zero is less than $a$. |
+| **[Type 2: $\vert x\vert > a$](#type-2-x-a)** | Interpretation: Distance from zero is greater than $a$. |
+| **[Complex Absolute Value Inequalities](#complex-absolute-value-inequalities)** | Example: Solve $\vert x + 2\vert < 3x - 1$ For absolute value inequalities with variable expressions, consider two cases: Case 1: $x + 2 \geq 0$ (expression inside is non-negative) |
+| **[Systems of Inequalities](#systems-of-inequalities)** | System of Inequalities: Multiple inequalities that must be satisfied simultaneously. |
+| **[Interval Notation Summary](#interval-notation-summary)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

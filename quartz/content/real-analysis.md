@@ -16,6 +16,8 @@ This is not pedantry. The rigorous foundations built here are exactly what you n
 > [!tip] Read the underlying proofs
 > This is the **survey chapter** for Real Analysis. The complete proof chain is: [Completeness and Convergence](./completeness-and-convergence) (suprema, subsequences and Cauchy sequences) → [Continuity and Compactness](./continuity-and-compactness) (IVT, EVT and Heine-Cantor) → [Rigorous Differentiation](./rigorous-differentiation) (Rolle, MVT, Darboux and Taylor) → [Rigorous Integration](./rigorous-integration) (Darboux sums and both FTC parts) → [Sequences of Functions](./sequences-of-functions) (uniform convergence and limit exchanges). **Use the linked chapters for full proofs; the statements here remain a conceptual survey.**
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Real Analysis?
 
 ### Calculus Gives You Tools. Analysis Asks Why They Work.
@@ -760,3 +762,61 @@ The progression looks like this:
 4. **Algebraic geometry and singular learning theory**: combining algebraic and analytic tools to study the geometry of statistical models.
 
 Each level builds directly on the previous one. The definitions and theorems on this page (particularly completeness, compactness, and uniform convergence) appear in new guises at every subsequent level. Mastering them here means recognizing them later.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Convergence of a sequence](#the-epsilon-n-definition-of-convergence)** | $a_n\to L$ means: for every $\epsilon>0$, there exists $N$ such that every $n\geq N$ obeys $\vert a_n-L\vert <\epsilon$. The threshold may depend on $\epsilon$, not on the later index $n$. |
+| **[Continuity, including restricted domains](#the-epsilon-delta-definition)** | For $f:D\to\mathbb R$ and $a\in D$, continuity requires: for every $\epsilon>0$ some $\delta>0$ makes $\vert f(x)-f(a)\vert <\epsilon$ whenever $x\in D$ and $\vert x-a\vert <\delta$. Restricting $x$ to the domain is essential at boundaries. |
+| **[Uniform convergence of functions](#uniform-convergence-the-fix)** | $f_n\to f$ uniformly on $D$ if $\sup_{x\in D}\vert f_n(x)-f(x)\vert \to0$. Equivalently, the index threshold $N$ for a requested accuracy works for every $x\in D$ at once. |
+| **[Riemann integrability](#the-riemann-integral-formal-definition)** | A bounded function on $[a,b]$ is Riemann integrable when its upper and lower sums approach the same number as the partition mesh goes to zero. A formula involving a limiting sum is not a declaration that every function has an integral. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Calculus Gives You Tools. Analysis Asks Why They Work.](#calculus-gives-you-tools-analysis-asks-why-they-work)** | In calculus, you learned that continuous functions behave nicely: they do not jump, they satisfy the Intermediate Value Theorem, and you can integrate them. But you probably never questioned *why* these things are true. |
+| **[The Real Numbers](#the-real-numbers)** | For a prior, constructive justification of what the reals *are* and why completeness holds, see Construction of the Reals. The results below build on that ordered-field construction. |
+| **[Supremum and Infimum](#supremum-and-infimum)** | Before stating completeness, we need the concept of bounds. |
+| **[The Completeness Axiom](#the-completeness-axiom)** | Axiom of Completeness. Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum in $\mathbb{R}$. |
+| **[The Archimedean Property](#the-archimedean-property)** | Theorem (Archimedean Property). For any real number $x$, there exists a natural number $n$ such that $n > x$. |
+| **[Density of the Rationals and Irrationals](#density-of-the-rationals-and-irrationals)** | Theorem. Between any two real numbers $a < b$, there exists a rational number $r$ with $a < r < b$, and an irrational number $s$ with $a < s < b$. |
+| **[Nested Interval Property](#nested-interval-property)** | Theorem. If $I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots$ is a nested sequence of closed bounded intervals $I_n = [a_n, b_n]$, then the intersection $\bigcap_{n=1}^{\infty} I_n$ is nonempty. |
+| **[Sequences and Convergence](#sequences-and-convergence)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Epsilon-N Definition of Convergence](#the-epsilon-n-definition-of-convergence)** | Definition. A sequence $(a_n)$ converges to a limit $L$, written $a_n \to L$ or $\lim_{n \to \infty} a_n = L$, if: |
+| **[Another Worked Example: $(2n + 1)/(3n + 5) \to 2/3$](#another-worked-example-2n-13n-5-to-23)** | Claim. $\lim_{n \to \infty} \frac{2n + 1}{3n + 5} = \frac{2}{3}$. |
+| **[Uniqueness of Limits and Divergence](#uniqueness-of-limits-and-divergence)** | Theorem. If a sequence converges, its limit is unique. |
+| **[Limit Theorems](#limit-theorems)** | Once you have established that individual sequences converge, you can combine them. |
+| **[Monotone Convergence Theorem](#monotone-convergence-theorem)** | Theorem. A bounded monotone sequence converges. |
+| **[Subsequences and Bolzano-Weierstrass](#subsequences-and-bolzano-weierstrass)** | For a complete construction of the monotone subsequence and the resulting theorem, see the proofs in Completeness and Convergence. |
+| **[Cauchy Sequences](#cauchy-sequences)** | Definition. A sequence $(a_n)$ is Cauchy if for every $\epsilon > 0$, there exists $N$ such that: |
+| **[Limsup and Liminf](#limsup-and-liminf)** | Not every sequence converges, but every bounded sequence has a well-defined limit superior and limit inferior. |
+| **[Series](#series)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Absolute vs. Conditional Convergence](#absolute-vs-conditional-convergence)** | Definition. A series $\sum a_n$ converges absolutely if $\sum \vert a_n\vert $ converges. It converges conditionally if $\sum a_n$ converges but $\sum \vert a_n\vert $ diverges. |
+| **[Convergence Tests (Rigorous Perspective)](#convergence-tests-rigorous-perspective)** | You learned these tests computationally in calculus. Here is the analytic core of why they work. |
+| **[Metric Spaces](#metric-spaces)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Beyond the Real Line](#beyond-the-real-line)** | Everything so far has been about $\mathbb{R}$. But analysis needs to work in higher dimensions ($\mathbb{R}^n$), in spaces of functions, and in even more abstract settings. The concept that unifies all of these is the metric space. |
+| **[Completeness in Metric Spaces](#completeness-in-metric-spaces)** | A metric space is complete if every Cauchy sequence converges (to a point in the space). The real numbers $\mathbb{R}$ are complete, and so is $\mathbb{R}^n$ with any of the standard metrics. |
+| **[Open and Closed Sets](#open-and-closed-sets)** | Definition. The open ball of radius $r$ centered at $x$ is: In $\mathbb{R}$, an open ball is just an open interval $(x - r, x + r)$. |
+| **[Compact Sets](#compact-sets)** | Definition. A set $K$ is compact if every open cover of $K$ has a finite subcover. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[What uniform convergence preserves](#why-uniform-convergence-fixes-everything)** | Uniform limits of continuous functions are continuous. On a compact interval, uniformly convergent sequences of continuous functions permit interchange of limit and (Riemann) integral. Interchanging derivatives has additional hypotheses; uniform convergence of functions alone is not enough. |
+| **[Limit Theorems](#limit-theorems)** | Once you have established that individual sequences converge, you can combine them. |
+| **[Monotone Convergence Theorem](#monotone-convergence-theorem)** | Theorem. A bounded monotone sequence converges. |
+| **[The Intermediate Value Theorem (Rigorous)](#the-intermediate-value-theorem-rigorous)** | For the proof from completeness, including the two continuity contradictions at the supremum, see Continuity and Compactness. |
+| **[The Mean Value Theorem](#the-mean-value-theorem)** | Theorem. If $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then there exists $c \in (a, b)$ with: You used this in calculus. The proof uses the Extreme Value Theorem (which requires compactness of $[a, b]$) applied to an auxiliary function. |
+| **[Taylor's Theorem with Remainder](#taylors-theorem-with-remainder)** | Theorem. If $f$ has $n + 1$ continuous derivatives on an interval containing $a$, then for any $x$ in that interval: where the Lagrange remainder is: |
+| **[The Fundamental Theorem of Calculus (Rigorous Statement)](#the-fundamental-theorem-of-calculus-rigorous-statement)** | Theorem (FTC, Part 1). If $f$ is Riemann integrable on $[a, b]$ and $F(x) = \int_a^x f(t) \, dt$, then $F$ is continuous on $[a, b]$. If $f$ is continuous at $c \in (a, b)$, then $F$ is differentiable at $c$ and $F'(c) = f(c)$. |

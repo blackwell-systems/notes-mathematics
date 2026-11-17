@@ -16,6 +16,8 @@ For the geometric link between linear subspaces, **homogeneous coordinates** and
 This page builds the path from polynomial equations to the **real log canonical threshold (RLCT)**, the central quantity in singular learning theory (SLT). The route is: polynomial equations define geometric shapes (varieties), those shapes can have singular points where the geometry is irregular, and the severity of those singularities is measured by the RLCT, which controls how well a neural network generalizes.
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: from equations to geometric spaces
 
 A polynomial equation is not yet a geometric space. We must decide **which numbers are allowed as coordinates**, **which polynomials can be formed**, and **which common solutions those polynomials select**. The resulting geometry also has a topology, which is not generally the familiar Euclidean one.
@@ -621,3 +623,55 @@ The mathematical path from polynomial equations to developmental interpretabilit
 This path, from the circle equation $x^2 + y^2 = 1$ to tracking phase transitions in transformer training, is the mathematical backbone of singular learning theory.
 
 To see the RLCT placed inside the full statistical theory, alongside the free energy and Watanabe's fundamental formula, continue to the [Singular Learning Theory](./singular-learning-theory) capstone.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Algebraic zero set](#affine-varieties)** | For polynomials $f_1,\ldots,f_k$ over a chosen field, $V(f_1,\ldots,f_k)$ consists of simultaneous zeros in that field. Over $\mathbb R$ some equations have no real solutions even when they have complex solutions. |
+| **[Real log canonical threshold](#the-real-log-canonical-threshold-rlct)** | Under the analytic and integrability hypotheses used in singular learning theory, the RLCT is the leading pole threshold of a zeta integral built from a nonnegative loss and a prior weight. It depends on both the loss and relevant support/prior behavior, not just raw parameter count. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: from equations to geometric spaces](#the-mathematical-setting-from-equations-to-geometric-spaces)** | A polynomial equation is not yet a geometric space. We must decide which numbers are allowed as coordinates, which polynomials can be formed, and which common solutions those polynomials select. |
+| **[Shapes You Already Know](#shapes-you-already-know)** | Every conic section is a curve defined by a second-degree polynomial equation in two variables. |
+| **[Affine Varieties](#affine-varieties)** | For the general topological language behind open subsets and continuous maps, see General Topology Foundations. |
+| **[Dimension](#dimension)** | The dimension of a variety is what you would expect intuitively: More precisely, the dimension of a variety in $\mathbb{R}^n$ is typically $n$ minus the number of "independent" equations that define it. |
+| **[Operations on Varieties](#operations-on-varieties)** | Varieties interact with set operations in natural ways: Intersection. The intersection of two varieties is a variety. If $V = V(f_1, \ldots, f_j)$ and $W = V(g_1, \ldots, g_k)$, then |
+| **[Ideals and the Algebra-Geometry Dictionary](#ideals-and-the-algebra-geometry-dictionary)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Polynomials That Vanish on a Variety](#polynomials-that-vanish-on-a-variety)** | Given a variety $V$, many different polynomials vanish on it (evaluate to zero at every point of $V$). |
+| **[The Fundamental Correspondence](#the-fundamental-correspondence)** | The algebra behind this dictionary is constructed in Ideals, Quotient Rings & Homomorphisms: ideals are kernels and precisely the subsets for which quotient-ring multiplication is well-defined. |
+| **[Hilbert's Nullstellensatz](#hilberts-nullstellensatz)** | The formal statement of this correspondence is Hilbert's Nullstellensatz ("zero-locus theorem"), one of the foundational results of algebraic geometry. |
+| **[Singular Points](#singular-points)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Smooth vs. Singular](#smooth-vs-singular)** | Consider a curve in the plane defined by $f(x, y) = 0$. At most points on the curve, the curve is "smooth": it has a well-defined tangent line, and if you zoom in far enough, the curve looks like a straight line. |
+| **[The Jacobian Criterion](#the-jacobian-criterion)** | How do we detect singular points? The answer comes from calculus. |
+| **[The Parameter-to-Distribution Map](#the-parameter-to-distribution-map)** | In statistical learning, a model with parameters $w$ defines a probability distribution $p(x \vert w)$ for each parameter value $w$. The map sends each point in parameter space to a probability distribution. |
+| **[The True Parameter Set Is a Variety](#the-true-parameter-set-is-a-variety)** | Suppose the true data-generating distribution is $q(x)$. The set of "true" parameters, those that make the model perfectly match the data, is |
+| **[Neural Networks Have Singular Parameter Sets](#neural-networks-have-singular-parameter-sets)** | For neural networks, $W_0$ is typically not a single point but a complicated variety with singularities. |
+| **[The Fisher Information Matrix as Jacobian](#the-fisher-information-matrix-as-jacobian)** | The Fisher information matrix at a parameter $w$ is The Fisher information is not itself the Jacobian: it is a matrix of inner products of score vectors, calculated under the model distribution $p(x\mid w)$. |
+| **[Resolution of Singularities](#resolution-of-singularities)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Problem](#the-problem)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Hironaka's Theorem](#hironakas-theorem)** | Theorem (Hironaka, 1964). Every algebraic variety can be transformed into a smooth variety by a finite sequence of blowups. |
+| **[Blowup: The Intuition](#blowup-the-intuition)** | A blowup replaces a singular point with a space of directions. The idea is easiest to see with a concrete example. |
+| **[Normal Form After Resolution](#normal-form-after-resolution)** | After resolving the singularity, the loss function $K(w)$ (the KL divergence) near $W_0$ takes the form |
+| **[The Real Log Canonical Threshold (RLCT)](#the-real-log-canonical-threshold-rlct)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Key Insight for Deep Learning](#the-key-insight-for-deep-learning)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Watanabe's Main Theorem](#watanabes-main-theorem)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Nullstellensatz, algebraically closed case](#hilberts-nullstellensatz)** | For an ideal $I$ in $k[x_1,\ldots,x_n]$ with algebraically closed $k$, the ideal of polynomials vanishing on $V(I)$ is the radical $\sqrt I$. This precise statement underlies the variety/radical-ideal dictionary. |
+| **[Conditional singular free-energy expansion](#watanabes-main-theorem)** | Under the regularity, analyticity, prior, and data-generating assumptions required by the relevant SLT theorem, free energy has a leading complexity correction involving the RLCT $\lambda$ and its pole multiplicity $m$. The expansion is not a theorem about arbitrary models without hypotheses. |
+| **[Hironaka's Theorem](#hironakas-theorem)** | Theorem (Hironaka, 1964). Every algebraic variety can be transformed into a smooth variety by a finite sequence of blowups. |

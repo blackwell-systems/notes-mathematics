@@ -18,6 +18,8 @@ Our next goal is to construct a field in which <span class="ed-term ed-term--the
 
 The essential warning is that **completeness cannot be presumed halfway through its own construction**. Every appearance of a limit before the real numbers exist must be a definition involving rational tolerances, not a hidden invocation of real analysis.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The input: rational Cauchy sequences
 
 ![Rational approximations 1.4, 1.41, 1.414, and 1.4142 become closer and approach square root of two.](./media/re-cauchy-convergence.svg)
@@ -810,3 +812,50 @@ This proves existence, field-law preservation, order preservation, bijectivity, 
 The next step is [Construction of the Complex Numbers](./construction-of-the-complex-numbers). There we gain solutions to $x^2+1=0$ and, eventually, every nonconstant complex polynomial. But that final **algebraic closure** statement is a deep theorem requiring more than the field axioms alone.
 
 For continued study of limits, compactness, continuity, derivatives, and integration, proceed to [Real Analysis](./real-analysis). That chapter may now cite a constructed complete ordered field rather than simply assuming one.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Rational Cauchy sequence](#the-input-rational-cauchy-sequences)** | A rational sequence is Cauchy when its sufficiently late terms become arbitrarily close to one another. This definition does *not* require us to name a limit in $\mathbb R$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The input: rational Cauchy sequences](#the-input-rational-cauchy-sequences)** | *Figure: The completed real system represents the limit using an equivalence class of rational Cauchy sequences.* A sequence of rationals is a function $x:\mathbb N\to\mathbb Q$. |
+| **[Defining addition, negation, and multiplication](#defining-addition-negation-and-multiplication)** | For two classes $X=[x]$ and $Y=[y]$, propose termwise operations: $\boxed{ X+Y:=[(x_n+y_n)],\qquad XY:=[(x_ny_n)],\qquad$ |
+| **[Addition closure and well-definedness](#addition-closure-and-well-definedness)** | For any $m,n$, $\leq\vert x_m-x_n\vert +\vert y_m-y_n\vert .$ |
+| **[Multiplication closure and well-definedness](#multiplication-closure-and-well-definedness)** | Cauchy sequences are bounded. Choose rational bounds $\vert x_n\vert \leq M$ and $\vert y_n\vert \leq K$ for all indices. Then |
+| **[The field laws that are inherited](#the-field-laws-that-are-inherited)** | Define the real zero and one as classes of constant rational sequences: $0_{\mathbb R}=[(0,0,0,\ldots)],\qquad 1_{\mathbb R}=[(1,1,1,\ldots)].$ |
+| **[The reciprocal theorem: nonzero classes stay away from zero](#the-reciprocal-theorem-nonzero-classes-stay-away-from-zero)** | First prove a key fact. |
+| **[Embedding the rationals faithfully](#embedding-the-rationals-faithfully)** | Define $\eta:\mathbb Q\to\mathbb R,\qquad \boxed{\eta(q):=[(q,q,q,\ldots)].}\tag{R5}$ |
+| **[Constructing order on the real classes](#constructing-order-on-the-real-classes)** | We cannot simply say $[x]<[y]$ whenever $x_n<y_n$ for some index: an early approximation can be misleading, and equivalent sequences can fluctuate above and below one another. |
+| **[Positivity is independent of representatives](#positivity-is-independent-of-representatives)** | Suppose $x\sim x'$ and $x_n\geq\delta$ for all $n\geq N$. For sufficiently late indices, $\vert x_n-x'_n\vert <\delta/2$. Therefore |
+| **[Trichotomy](#trichotomy)** | For every real class $X$, exactly one of these holds: $X=0,\qquad X>0,\qquad -X>0.$ |
+| **[Ordered-field compatibility](#ordered-field-compatibility)** | If $X,Y>0$, choose eventual positive lower bounds $\delta_X,\delta_Y$. Then late representatives of $X+Y$ exceed $\delta_X+\delta_Y>0$, and those of $XY$ exceed $\delta_X\delta_Y>0$. |
+| **[The rationals are dense in the reals](#the-rationals-are-dense-in-the-reals)** | Theorem. For every real $X$ and positive rational $\varepsilon$, there is a rational $q$ with Proof. Choose a rational Cauchy representative $x$ of $X$. By R1, there exists $N$ such that for all $n\geq N$, |
+| **[Proving completeness: the central result](#proving-completeness-the-central-result)** | Up to this point we have proved that $\mathbb R$ is an Archimedean ordered field. Now we justify the defining reason for constructing it: every real Cauchy sequence converges to a real. |
+| **[Every nonnegative real has a unique nonnegative square root](#every-nonnegative-real-has-a-unique-nonnegative-square-root)** | The square-root-of-two argument is a special case of a more useful result. Theorem: for every real $t\geq0$ there exists a unique $s\geq0$ with $s^2=t$. |
+| **[Dedekind cuts as a second representation](#dedekind-cuts-as-a-second-representation)** | *Figure: A cut determines a real boundary, even though that boundary need not be rational.* The Cauchy quotient is our independent construction of $\mathbb R$. Dedekind cuts offer a different set of objects. |
+| **[Every cut has a unique real boundary](#every-cut-has-a-unique-real-boundary)** | View $\mathbb Q$ inside the complete field $\mathbb R$ we constructed above. Every cut $A$ has an upper bound: if $t\notin A$, downward closure forces every $a\in A$ to satisfy $a<t$. Thus $A$ has a supremum $x$ in $\mathbb R$. |
+| **[Cut order and addition](#cut-order-and-addition)** | Define $A\leq_D B$ exactly when $A\subseteq B$. By DC, this holds if and only if $\Phi(A)\leq\Phi(B)$: if the latter fails, choose a rational strictly between the two boundaries to disprove the inclusion. |
+| **[Cut multiplication and field laws](#cut-multiplication-and-field-laws)** | For positive cuts $A=C_x$, $B=C_y$ with $x,y>0$, define $\boxed{ A\odot B= \{q\in\mathbb Q:q<0\ \text{or}\$ |
+| **[Least-upper-bound completeness is intrinsic to cuts](#least-upper-bound-completeness-is-intrinsic-to-cuts)** | There is a direct proof of completeness using no real boundary map. Let $\mathcal S\subseteq D$ be nonempty and have an upper bound cut $B$. Set |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Completeness of the constructed real field](#proving-completeness-the-central-result)** | Every Cauchy sequence of real equivalence classes converges to a real equivalence class. This is proved from our rational-sequence construction rather than assumed as an axiom. |
+| **[The field laws that are inherited](#the-field-laws-that-are-inherited)** | Define the real zero and one as classes of constant rational sequences: $0_{\mathbb R}=[(0,0,0,\ldots)],\qquad 1_{\mathbb R}=[(1,1,1,\ldots)].$ |
+| **[The reciprocal theorem: nonzero classes stay away from zero](#the-reciprocal-theorem-nonzero-classes-stay-away-from-zero)** | First prove a key fact. |
+| **[Cut multiplication and field laws](#cut-multiplication-and-field-laws)** | For positive cuts $A=C_x$, $B=C_y$ with $x,y>0$, define $\boxed{ A\odot B= \{q\in\mathbb Q:q<0\ \text{or}\$ |

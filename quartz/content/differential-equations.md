@@ -17,6 +17,8 @@ Differential equations are the language of dynamics. Anything that evolves over 
 This page builds on [Calculus](./calculus) (derivatives, integrals), [Multivariable Calculus](./multivariable-calculus) (partial derivatives, gradients), and [Linear Algebra Foundations](./linear-algebra-foundations) (eigenvalues, matrix operations).
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: a differential equation selects functions
 
 An algebraic equation such as $x^2=4$ selects **numbers** from a chosen number system. A differential equation selects **functions** from a chosen space of functions. That is the fundamental change in the kind of object we are solving for.
@@ -764,3 +766,54 @@ In **singular learning theory** (Watanabe), the critical points of the loss func
 | Constant-coefficient non-homogeneous | $ay'' + by' + cy = g(x)$ | Undetermined coefficients + homogeneous |
 | System | $\mathbf{x}' = A\mathbf{x}$ | Eigenvalues and eigenvectors of $A$ |
 | Any (with IVP) | $y' = f(x,y)$, $y(x_0) = y_0$ | Laplace transform or numerical methods |
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Differential equation](#what-is-a-differential-equation)** | An ordinary differential equation relates an unknown function to derivatives with respect to one independent variable. A partial differential equation involves partial derivatives with respect to multiple independent variables. |
+| **[First-order linear ODE](#first-order-linear-equations)** | A first-order linear equation has the form $y'+P(x)y=Q(x)$ on an interval where the coefficients are suitably regular. An integrating factor changes its left side into a product derivative. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: a differential equation selects functions](#the-mathematical-setting-a-differential-equation-selects-functions)** | An algebraic equation such as $x^2=4$ selects numbers from a chosen number system. A differential equation selects functions from a chosen space of functions. That is the fundamental change in the kind of object we are solving for. |
+| **[The Basic Idea](#the-basic-idea)** | A differential equation (DE) is any equation that contains derivatives of an unknown function. The goal is to find the function itself. |
+| **[ODE vs PDE](#ode-vs-pde)** | An ordinary differential equation (ODE) involves a function of one variable and its ordinary derivatives: A partial differential equation (PDE) involves a function of multiple variables and partial derivatives: |
+| **[Order and Linearity](#order-and-linearity)** | The order of a DE is the highest derivative that appears: |
+| **[General and Particular Solutions](#general-and-particular-solutions)** | The general solution of a DE is the family of all solutions, typically containing arbitrary constants. The number of constants equals the order of the DE. |
+| **[Initial Value Problems](#initial-value-problems)** | An initial value problem (IVP) is a DE together with conditions that pin down the constants: The general solution is $y = x^2 + C$. Applying $y(0) = 5$: $5 = 0 + C$, so $C = 5$. The particular solution is $y = x^2 + 5$. |
+| **[First-Order ODEs](#first-order-odes)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Separable Equations](#separable-equations)** | A first-order ODE is separable if it can be written as: The strategy: first check equilibrium solutions $g(y)=0$, then on intervals where $g(y)\ne0$, separate the variables (put all $y$ terms on one side, all $x$ terms on the other) and integrate. |
+| **[First-Order Linear Equations](#first-order-linear-equations)** | A first-order linear ODE has the standard form: The method uses an integrating factor $\mu(x) = e^{\int P(x) \, dx}$. |
+| **[Exact Equations](#exact-equations)** | An equation $M(x,y) \, dx + N(x,y) \, dy = 0$ is exact if there exists a function $F(x,y)$ such that $\frac{\partial F}{\partial x} = M$ and $\frac{\partial F}{\partial y} = N$. The solution is then $F(x,y) = C$. |
+| **[Direction Fields and Slope Fields](#direction-fields-and-slope-fields)** | A first-order ODE $\frac{dy}{dx} = f(x, y)$ assigns a slope to every point $(x, y)$ in the plane. If you draw a short line segment with that slope at each point, you get a direction field (or slope field). |
+| **[Euler's Method](#eulers-method)** | When a DE cannot be solved analytically, we approximate the solution numerically. Euler's method is the simplest approach: start at the initial point and take small steps, using the DE to compute the slope at each step. |
+| **[Second-Order Linear ODEs with Constant Coefficients](#second-order-linear-odes-with-constant-coefficients)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Homogeneous Case](#the-homogeneous-case)** | The general form is: where $a, b, c$ are constants. This is the workhorse equation of physics and engineering. |
+| **[Case 1: Two Distinct Real Roots](#case-1-two-distinct-real-roots)** | If $b^2 - 4ac > 0$, the characteristic equation has two distinct real roots $r_1$ and $r_2$: Worked example: Solve $y'' - 5y' + 6y = 0$. |
+| **[Case 2: Repeated Root](#case-2-repeated-root)** | If $b^2 - 4ac = 0$, there is one repeated root $r = -b/(2a)$: The factor of $x$ in the second term is needed because we need two linearly independent solutions, and $e^{rx}$ alone only gives one. |
+| **[Case 3: Complex Conjugate Roots](#case-3-complex-conjugate-roots)** | If $b^2 - 4ac < 0$, the roots are complex conjugates $r = \alpha \pm \beta i$: This is where oscillation comes from. The exponential $e^{\alpha x}$ controls growth or decay, while $\cos$ and $\sin$ produce oscillation with frequency $\beta$. |
+| **[The Non-Homogeneous Case](#the-non-homogeneous-case)** | When the right side is nonzero: The general solution is: $ay'' + by' + cy = g(x)$ |
+| **[Systems of ODEs](#systems-of-odes)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Stability](#stability)** | For the linear system $\dot{\mathbf x}=A\mathbf x$, eigenvalues give the main stability cases, but Jordan blocks also matter when an eigenvalue has real part zero: |
+| **[Phase Portraits](#phase-portraits)** | For $2 \times 2$ systems, we can visualize trajectories in the $(x_1, x_2)$ plane. The pattern depends on the eigenvalues: |
+| **[Existence and Uniqueness](#existence-and-uniqueness)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Picard-Lindelof Theorem](#the-picard-lindelof-theorem)** | Not every IVP has a solution, and when it does, the solution might not be unique. The Picard-Lindelof theorem (also called the Cauchy-Lipschitz theorem) gives sufficient conditions. |
+| **[Laplace Transforms](#laplace-transforms)** | The Laplace transform converts a differential equation into an algebraic equation, which is often easier to solve. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Picard-Lindelof: local existence and uniqueness](#existence-and-uniqueness)** | For an initial value problem $y'=f(x,y)$ with $f$ continuous and locally Lipschitz in $y$ near the initial point, there is a unique local solution. This does not, by itself, assert existence for all time. |
+| **[The Picard-Lindelof Theorem](#the-picard-lindelof-theorem)** | Not every IVP has a solution, and when it does, the solution might not be unique. The Picard-Lindelof theorem (also called the Cauchy-Lipschitz theorem) gives sufficient conditions. |

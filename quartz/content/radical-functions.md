@@ -10,6 +10,8 @@ A **radical** (or **root**) is the inverse operation of raising a number to a po
 > **Builds on:** [Functions & Relations](./functions-relations) · [Polynomial Functions](./polynomial-functions)
 > **Leads to:** [Complex Numbers](./complex-numbers) · [Rational Functions](./rational-functions)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Is a Radical?
 
 > [!distinction] The principal root is single-valued
@@ -724,3 +726,53 @@ The same "square root of a sum of squares" pattern is everywhere in ML:
 
 In every case the squaring makes all contributions non-negative and emphasizes large ones, and the final square root restores the original scale, which is precisely the round trip radicals are built for.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Radical function and its domain](#definition)** | A real radical function includes an expression such as $\sqrt[n]{g(x)}$. If $n$ is even, its radicand must be nonnegative. If $n$ is odd, the real root is defined for every real radicand, subject to any other constraints in the expression. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Simplifying Radical Expressions](#simplifying-radical-expressions)** | Before working with radical functions, we need to be comfortable simplifying radical expressions. The key insight is that radicals obey rules inherited from exponent laws, and these rules let us rewrite complicated radicals in simpler form. |
+| **[Product Rule for Radicals](#product-rule-for-radicals)** | Product Rule: The radical of a product equals the product of the radicals (when both radicals are defined): $$\sqrt[n]{ab} = \sqrt[n]{a} \cdot \sqrt[n]{b}$$ This follows directly from exponent rules: $(ab)^{1/n} = a^{1/n} \cdot b^{1/n}$. |
+| **[Quotient Rule for Radicals](#quotient-rule-for-radicals)** | Quotient Rule: The radical of a quotient equals the quotient of the radicals (when the denominator is nonzero): |
+| **[Simplifying by Extracting Perfect Powers](#simplifying-by-extracting-perfect-powers)** | The most common simplification technique is to factor the radicand (the expression under the radical) so that one factor is a perfect power of the index. |
+| **[Simplifying Higher-Index Radicals](#simplifying-higher-index-radicals)** | For cube roots, look for perfect cube factors. For fourth roots, look for perfect fourth power factors, and so on. |
+| **[Operations with Radical Expressions](#operations-with-radical-expressions)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Adding and Subtracting Radicals](#adding-and-subtracting-radicals)** | Like radicals are radical expressions with the same index and the same radicand. You can add or subtract like radicals by combining their coefficients, just as you combine like terms in algebra. |
+| **[Multiplying Radicals](#multiplying-radicals)** | To multiply radicals with the same index, multiply the radicands and then simplify. |
+| **[Multiplying with Distribution](#multiplying-with-distribution)** | When one factor contains multiple terms, distribute just as you would with any algebraic expression. |
+| **[FOIL with Radicals](#foil-with-radicals)** | When multiplying two binomials involving radicals, use the FOIL method (First, Outer, Inner, Last). |
+| **[Conjugates and the Difference of Squares Pattern](#conjugates-and-the-difference-of-squares-pattern)** | Two expressions of the form $a + \sqrt{b}$ and $a - \sqrt{b}$ are called conjugates. Their product eliminates the radical: $$(a + \sqrt{b})(a - \sqrt{b}) = a^2 - (\sqrt{b})^2 = a^2 - b$$ This pattern is central to rationalizing denominators. |
+| **[Rationalizing Denominators](#rationalizing-denominators)** | Rationalizing the denominator means rewriting a fraction so that no radicals appear in the denominator. |
+| **[Monomial Denominators](#monomial-denominators)** | When the denominator is a single radical term, multiply the numerator and denominator by the radical needed to make the radicand a perfect power. |
+| **[Binomial Denominators (Conjugate Method)](#binomial-denominators-conjugate-method)** | When the denominator is a binomial involving a square root, multiply by the conjugate. |
+| **[Higher-Index Radicals](#higher-index-radicals)** | For cube roots, you need to make the radicand a perfect cube. This means multiplying by whatever cube root factor is needed to complete the cube. |
+| **[General Form](#general-form)** | $$f(x) = a\sqrt[n]{bx + c} + d$$ Where: Note that $c$ is not the horizontal shift by itself. Factoring out $b$ gives $bx + c = b\left(x + \frac{c}{b}\right)$, so the graph shifts by $-c/b$. |
+| **[Square Root Function](#square-root-function)** | Square Root Function (parent): $f(x) = \sqrt{x}$ Domain: $[0, \infty)$ (only non-negative numbers, since $\sqrt{x}$ is undefined for $x < 0$ in real numbers) Range: $[0, \infty)$ |
+| **[Domain of Transformed Square Root](#domain-of-transformed-square-root)** | For $f(x) = \sqrt{bx + c}$, solve for where the radicand is non-negative: $$bx + c \geq 0$$ Example 1: Find domain of $f(x) = \sqrt{x - 3}$ |
+| **[Explore Radical Transformations](#explore-radical-transformations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Cube Root Function](#cube-root-function)** | Cube Root Function (parent): $f(x) = \sqrt[3]{x}$ Domain: $(-\infty, \infty)$ (all real numbers, since cube roots of negative numbers are defined) Range: $(-\infty, \infty)$ |
+| **[nth Root Function](#nth-root-function)** | General nth Root: $f(x) = \sqrt[n]{x}$ Domain: Range: |
+| **[Solving Radical Equations](#solving-radical-equations)** | Steps for solving radical equations: Example 1: Solve $\sqrt{x + 3} = 5$ Square both sides: |
+| **[Equations with Cube Roots or Higher](#equations-with-cube-roots-or-higher)** | For cube root equations, isolate the radical and cube both sides. Since cubing is one-to-one, extraneous solutions do not arise (though checking is still good practice). |
+| **[Equations Requiring Squaring Twice](#equations-requiring-squaring-twice)** | Some equations have two radical terms positioned so that a single squaring does not eliminate all radicals. In these cases, after squaring once, isolate the remaining radical and square again. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Product Rule for Radicals](#product-rule-for-radicals)** | Product Rule: The radical of a product equals the product of the radicals (when both radicals are defined): $$\sqrt[n]{ab} = \sqrt[n]{a} \cdot \sqrt[n]{b}$$ This follows directly from exponent rules: $(ab)^{1/n} = a^{1/n} \cdot b^{1/n}$. |
+| **[Quotient Rule for Radicals](#quotient-rule-for-radicals)** | Quotient Rule: The radical of a quotient equals the quotient of the radicals (when the denominator is nonzero): $$\sqrt[n]{\frac{a}{b}} = \frac{\sqrt[n]{a}}{\sqrt[n]{b}}$$ Again, this is just $(a/b)^{1/n} = a^{1/n} / b^{1/n}$ written in radical notation. |
+| **[Exponent Rules with Fractional Exponents](#exponent-rules-with-fractional-exponents)** | Every exponent rule you learned for integer exponents applies unchanged to rational exponents. This is what makes the exponent notation so powerful for simplification. |

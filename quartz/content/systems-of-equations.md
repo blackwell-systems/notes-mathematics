@@ -12,6 +12,8 @@ For linear systems, see [Systems of Linear Equations](./systems-of-linear-equati
 > **Builds on:** [Linear Functions](./linear-functions) · [Graphing Functions](./graphing-functions)
 > **Leads to:** [Systems of Linear Equations](./systems-of-linear-equations) · [Matrices](./matrices)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Solving Methods for Two-Variable Systems
 
 > [!definition] Solution to a system
@@ -257,3 +259,33 @@ Set the six coefficients below and watch the classification change. The widget s
 - **Computer graphics:** Ray tracing computes intersections of rays with geometric surfaces (spheres, cylinders, planes), which produces nonlinear systems.
 - **Engineering:** Circuit analysis with nonlinear components (diodes, transistors) requires solving nonlinear systems. Structural analysis involves equilibrium equations that may be nonlinear.
 - **Optimization:** Lagrange multipliers produce systems of nonlinear equations combining the objective function and constraints.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Solution to a system](#solving-methods-for-two-variable-systems)** | A solution is a tuple satisfying every original equation simultaneously. Substitution and elimination are tools for finding candidates; substitutions involving squaring, division or a restricted domain still require checking the original system. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Solving Methods for Two-Variable Systems](#solving-methods-for-two-variable-systems)** | The substitution and elimination methods below are the same techniques introduced in Systems of Linear Equations, here applied to nonlinear systems. |
+| **[Substitution Method](#substitution-method)** | Substitution Method: Solve one equation for one variable, then substitute that expression into the other equation. |
+| **[Elimination Method](#elimination-method)** | Elimination Method: Add or subtract equations (possibly after multiplying by constants) to eliminate one variable. |
+| **[Systems of Nonlinear Equations](#systems-of-nonlinear-equations)** | Nonlinear System: A system where at least one equation is not linear. These systems can have zero, one, or multiple solutions, and the number of solutions depends on how the curves intersect. |
+| **[Parabola and Line](#parabola-and-line)** | The intersection of a parabola and a line produces 0, 1, or 2 solutions. |
+| **[Two Conics](#two-conics)** | Systems involving circles, ellipses, parabolas, and hyperbolas can produce up to 4 intersection points. |
+| **[Exponential and Linear](#exponential-and-linear)** | Example: Solve $2^x = x + 3$ This cannot be solved algebraically in closed form. Use numerical methods: By the Intermediate Value Theorem, a solution exists between $x = 2$ and $x = 3$. |
+| **[Number of Solutions](#number-of-solutions)** | The number of solutions to a nonlinear system depends on the geometry of the curves. |
+| **[Interactive: Two-Line System Explorer](#interactive-two-line-system-explorer)** | The simplest case of the "number of solutions" question is a system of two lines. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

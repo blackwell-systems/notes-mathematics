@@ -10,6 +10,8 @@ enables: ["geometry-trigonometry", "conic-sections"]
 
 Geometry is the study of shape, size, position, and space. This page builds the subject the way Euclid did around 300 BCE: starting from a handful of primitive notions and self-evident assumptions, then deriving everything else step by step. This is **synthetic** (axiom-based) geometry, as opposed to the **coordinate** (algebraic) approach on the [Geometry & Trigonometry](./geometry-trigonometry) page, where points become number pairs. Start here for the vocabulary and the logical scaffolding; go there for measurement with coordinates and trigonometry.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Building Blocks: Point, Line, Plane
 
 > [!definition] Primitive objects of Euclidean geometry
@@ -338,3 +340,41 @@ Counting them up: $6$ reflections and $6$ rotations (including the do-nothing $3
 ## Where This Leads
 
 From these foundations the subject branches in several directions. Placing points on a coordinate grid turns geometry into algebra: distances, midpoints, slopes, and the trigonometry of triangles all live on the [Geometry & Trigonometry](./geometry-trigonometry) page. The circle and the other curves cut from a cone are studied as equations in [Conic Sections](./conic-sections). Relaxing the parallel postulate opens the non-Euclidean geometries that underlie modern physics, and treating rigid motions as an algebraic system of their own leads to the group theory of symmetry in [Algebraic Structures](./algebraic-structures).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Primitive objects of Euclidean geometry](#the-building-blocks-point-line-plane)** | Axiomatic geometry starts with points, lines, planes and incidence relationships. They need not be identified with coordinates until a model is introduced. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Building Blocks: Point, Line, Plane](#the-building-blocks-point-line-plane)** | Every mathematical system has to start somewhere. If you try to define every term using earlier terms, you eventually run in a circle or never stop. |
+| **[Segments, Rays, and Distance](#segments-rays-and-distance)** | From a line we carve out the two most useful finite and half-infinite pieces. |
+| **[Angles](#angles)** | An angle is the figure formed by two rays that share a common vertex. The two rays are the angle's sides and the shared point is its vertex. |
+| **[Angle Pairs](#angle-pairs)** | Angles that occur together have special names, and each name carries a fact you can use. |
+| **[Euclid's Postulates](#euclids-postulates)** | Euclid organized geometry into theorems proved from a short list of postulates (assumptions taken as true without proof) and common notions (general logical truths, such as "things equal to the same thing are equal to each other"). |
+| **[Parallel and Perpendicular Lines](#parallel-and-perpendicular-lines)** | Two lines in a plane are parallel, written $\ell \parallel m$ (the symbol $\parallel$ is read "is parallel to"), if they never meet no matter how far they are extended. |
+| **[Polygons](#polygons)** | A polygon is a closed plane figure made of straight line segments joined end to end. Each segment is a side and each corner is a vertex (plural vertices). Polygons are named by their number of sides. |
+| **[Angle Sums](#angle-sums)** | Pick any vertex of a polygon with $n$ sides and draw diagonals to every other vertex. This splits the polygon into exactly $n - 2$ triangles. |
+| **[Triangles](#triangles)** | The triangle is the simplest polygon and the foundation of the rest of geometry, because every polygon can be cut into triangles. |
+| **[The Angle Sum](#the-angle-sum)** | The angles of any triangle sum to $180°$. To see why, draw a line through one vertex parallel to the opposite side. |
+| **[Congruence](#congruence)** | Two triangles are congruent (written with $\cong$) if they have the same size and shape, so one can be laid exactly on top of the other. You do not need to check all six parts (three sides and three angles); a few matching parts force the rest. |
+| **[Similarity](#similarity)** | Two triangles are similar, written $\triangle ABC \sim \triangle DEF$ (the symbol $\sim$ is read "is similar to"), if they have the same shape but not necessarily the same size: equal corresponding angles and proportional corresponding sides. |
+| **[Quadrilaterals](#quadrilaterals)** | A quadrilateral is a four-sided polygon. Its interior angles always sum to $(4 - 2) \times 180° = 360°$. Special quadrilaterals form a family, each a special case of a more general one. |
+| **[Circles](#circles)** | A circle is the set of all points in a plane at a fixed distance (the radius, $r$) from a fixed point (the center). It is the first curved figure, and it comes with its own vocabulary. |
+| **[Perimeter, Area, and Volume](#perimeter-area-and-volume)** | Perimeter is the total distance around a two-dimensional figure (the circumference for a circle). Area is the amount of surface a flat figure covers, measured in square units. |
+| **[Solids and Euler's Formula](#solids-and-eulers-formula)** | A polyhedron (plural polyhedra) is a solid whose faces are all flat polygons. Its flat surfaces are faces, the segments where faces meet are edges, and the corners are vertices. |
+| **[Transformations and Symmetry](#transformations-and-symmetry)** | A transformation moves or resizes a figure. A rigid motion (or isometry) preserves distance, so the image is congruent to the original. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

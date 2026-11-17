@@ -8,6 +8,8 @@ enables: ["asymptotic-notation", "algebraic-structures"]
 > **Builds on:** [Set Theory](./set-theory) · [Functions & Relations](./functions-relations)
 > **Leads to:** [Asymptotic Notation](./asymptotic-notation) · [Algebraic Structures](./algebraic-structures)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Is a Graph?
 
 In everyday language, "graph" usually means a chart or a plot of a function (like a line on an x-y axis). In graph theory, a **graph** means something completely different: it is a collection of **dots** (called vertices or nodes) connected by **lines** (called edges or links). There are no axes, no coordinates, and no functions being plotted.
@@ -1834,3 +1836,53 @@ A graph is **planar** if it can be drawn in the plane with no two edges crossing
 $$V - E + F = 2.$$
 Draw $K_4$ (four vertices, all six edges) without crossings: it has $V = 4$, $E = 6$, and $F = 4$ (three inner triangular regions plus the outer face), and indeed $4 - 6 + 4 = 2$. Euler's formula also yields a fast **non-planarity test**. Because every face is bounded by at least three edges and each edge borders two faces, any simple planar graph satisfies $E \le 3V - 6$. Test $K_5$: it has $V = 5$ and $E = 10$, but $3V - 6 = 9$, and $10 > 9$, so $K_5$ **cannot** be drawn without crossings. For $K_{3,3}$, which is bipartite (no triangles, so every face needs at least four edges), the sharper bound $E \le 2V - 4$ applies: $V = 6$, $E = 9$, but $2V - 4 = 8$, and $9 > 8$, so $K_{3,3}$ is non-planar as well. These two graphs are the fundamental obstructions: **Kuratowski's theorem** states that a graph is planar if and only if it contains no subdivision of $K_5$ or $K_{3,3}$.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Graph](#formal-definition)** | A graph consists of vertices and edges together with an incidence relation (or suitable endpoint map). Whether loops, parallel edges, or direction are allowed must be specified, because theorems depend on these conventions. |
+| **[Tree](#tree)** | A finite undirected tree is a connected acyclic graph. Equivalently, between every pair of vertices there is a unique simple path. The finite condition matters for familiar edge-count results. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Formal Definition](#formal-definition)** | Graph Theory: The mathematical study of graphs, which are structures used to model pairwise relations between objects. Graphs consist of vertices (nodes) connected by edges (links). |
+| **[Basic Definitions](#basic-definitions)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Graph](#graph)** | Graph: A graph $G = (V, E)$ consists of: What graphs model: Graphs represent relationships between objects. The objects are vertices, and the relationships are edges connecting them. |
+| **[Vertex (Node)](#vertex-node)** | Vertex: A fundamental unit in a graph, representing an object or point. |
+| **[Edge (Link, Arc)](#edge-link-arc)** | Edge: A connection between two vertices. |
+| **[Weighted Graphs](#weighted-graphs)** | Weighted Graph: A graph where each edge has an associated numerical value called a weight (or cost, length, capacity). |
+| **[Directed vs Undirected Graphs](#directed-vs-undirected-graphs)** | Undirected Graph: A graph where edges have no direction. If there is an edge between $u$ and $v$, you can traverse it in either direction. |
+| **[Adjacent and Incident](#adjacent-and-incident)** | Adjacent Vertices: Two vertices are adjacent if they are connected by an edge. |
+| **[Simple Graph, Multigraph, and Pseudograph](#simple-graph-multigraph-and-pseudograph)** | Simple Graph: A graph with: Most graphs discussed in graph theory are simple graphs unless stated otherwise. |
+| **[Order and Size](#order-and-size)** | Order: The number of vertices in a graph, denoted $\vert V\vert $ or $n$. |
+| **[Neighborhood](#neighborhood)** | Neighborhood (Open Neighborhood): The set of all vertices adjacent to a given vertex $v$, denoted $N(v)$. |
+| **[Subgraph](#subgraph)** | Subgraph: A graph $H = (V', E')$ is a subgraph of $G = (V, E)$ if: Example: Original graph G: |
+| **[Isolated, Pendant, and Null Vertices](#isolated-pendant-and-null-vertices)** | Isolated Vertex: A vertex with degree 0, i.e. $\deg(v) = 0$ (no edges connected to it). |
+| **[Degree](#degree)** | Degree of a Vertex: The number of edges connected to a vertex. |
+| **[In-degree and Out-degree (Directed Graphs)](#in-degree-and-out-degree-directed-graphs)** | In-degree: Number of edges pointing into a vertex. |
+| **[Special Types of Graphs](#special-types-of-graphs)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Complete Graph](#complete-graph)** | Complete Graph ($K_n$, read "K-n"): A graph where every pair of vertices is connected by an edge. |
+| **[Cycle Graph](#cycle-graph)** | Cycle Graph ($C_n$, read "C-n"): A graph forming a single closed loop with $n$ vertices. |
+| **[Path Graph](#path-graph)** | Path Graph ($P_n$, read "P-n"): A graph forming a single path with $n$ vertices. |
+| **[Bipartite Graph](#bipartite-graph)** | Bipartite Graph: A graph whose vertices can be divided into two disjoint sets such that every edge connects a vertex in one set to a vertex in the other set. |
+| **[Forest](#forest)** | Forest: A graph consisting of multiple disconnected trees. |
+| **[Graph Representation](#graph-representation)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Adjacency Matrix](#adjacency-matrix)** | Adjacency Matrix: A matrix where entry $A[i][j] = 1$ if there's an edge from vertex $i$ to vertex $j$, otherwise $0$. |
+| **[Adjacency List](#adjacency-list)** | Adjacency List: Each vertex stores a list of its adjacent vertices. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Handshaking lemma](#degree)** | For a finite undirected graph, $\sum_{v\in V}\deg(v)=2\vert E\vert $ when a loop contributes two to degree. Every edge contributes exactly two endpoints to the count. |
+| **[Eulerian versus Hamiltonian](#eulerian-path-and-circuit)** | An Eulerian trail uses every edge exactly once; a Hamiltonian path visits every vertex exactly once. These are fundamentally different obligations, and their existence criteria differ. |

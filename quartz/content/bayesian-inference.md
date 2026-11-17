@@ -12,6 +12,8 @@ enables: ["singular-learning-theory"]
 Bayesian inference is the framework for reasoning about uncertainty by treating unknown quantities as probability distributions rather than fixed values. Instead of asking "what is the best parameter?", Bayesian inference asks "what is the distribution of the parameter given the data?" This page builds on [Bayes' theorem and probability distributions](./probability) and on [MLE and MAP estimation](./inferential-statistics#maximum-likelihood-estimation-mle). It provides the foundation for understanding singular learning theory (SLT), which is fundamentally a Bayesian framework.
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: data, parameters, and probability measures
 
 Before using Bayes' formula, separate the **space where observations live** from the **space where unknown parameters live**. They answer different questions.
@@ -584,3 +586,49 @@ Changes in $\hat{\lambda}$ during training correspond to **phase transitions**: 
 The connection runs full circle: Bayes' theorem gives the posterior, the posterior determines the free energy, the free energy is controlled by the RLCT, and the RLCT reveals the geometry of learning. Bayesian inference is not just a framework for estimation; in the singular setting, it is the framework for understanding generalization itself.
 
 For the full theory assembled in one place, with Watanabe's fundamental formula and a worked RLCT calculation, see the [Singular Learning Theory](./singular-learning-theory) capstone.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Prior, likelihood and posterior](#review-bayes-theorem)** | Bayesian updating weights a prior by the likelihood and normalizes by marginal evidence when finite and positive. Posterior probabilities are not frequentist confidence coverage. |
+| **[Posterior prediction](#posterior-predictive-distribution)** | Predict new observations by averaging their sampling distribution over the posterior, not by silently substituting one point estimate. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: data, parameters, and probability measures](#the-mathematical-setting-data-parameters-and-probability-measures)** | Before using Bayes' formula, separate the space where observations live from the space where unknown parameters live. They answer different questions. |
+| **[The Bayesian Framework](#the-bayesian-framework)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Choosing Priors](#choosing-priors)** | The prior $P(\theta)$ is what distinguishes Bayesian inference from frequentist methods. Choosing a prior is both a modeling decision and, for some, a source of controversy. |
+| **[Informative Priors](#informative-priors)** | An informative prior encodes genuine knowledge about the parameter. If you are estimating the height of adult humans and you know from previous studies that heights cluster around 170 cm with a standard deviation of about 10 cm, you might use: |
+| **[Non-informative (Diffuse) Priors](#non-informative-diffuse-priors)** | A non-informative prior tries to encode ignorance, letting the data speak for itself. |
+| **[Conjugate Priors](#conjugate-priors)** | A prior is conjugate to a likelihood if the posterior has the same distributional form as the prior. This is enormously convenient because it gives a closed-form posterior: you just update the prior's parameters. |
+| **[Empirical Bayes](#empirical-bayes)** | Empirical Bayes is a pragmatic compromise between full Bayesian inference and frequentist methods. Instead of choosing the prior subjectively, you estimate the prior from the data itself. |
+| **[Posterior Computation](#posterior-computation)** | The central computational challenge of Bayesian inference is evaluating the posterior: The numerator is easy to compute pointwise. The denominator, the evidence integral, is the bottleneck. |
+| **[Conjugate Priors (Exact)](#conjugate-priors-exact)** | When the prior is conjugate to the likelihood, the posterior has a known form and the evidence integral cancels out. This was shown in the Beta-Binomial example above. Conjugate solutions are exact, fast, and limited to specific likelihood-prior pairs. |
+| **[Grid Approximation](#grid-approximation)** | Discretize the parameter space into a grid of values $\theta_1, \theta_2, \ldots, \theta_K$. At each grid point, compute: Then normalize so the values sum to 1. This gives an approximate posterior over the grid. |
+| **[Laplace Approximation](#laplace-approximation)** | Approximate the posterior as a Gaussian centered at the MAP estimate $\hat{\theta}$, with covariance given by the inverse of the Hessian of the negative log-posterior: This is a second-order Taylor expansion of the log-posterior around its mode. |
+| **[Markov Chain Monte Carlo (MCMC)](#markov-chain-monte-carlo-mcmc)** | MCMC is the workhorse of modern Bayesian computation. The idea: construct a Markov chain whose stationary distribution is the posterior $P(\theta \vert D)$. |
+| **[Variational Inference (VI)](#variational-inference-vi)** | Variational inference takes a completely different approach to posterior computation. Instead of sampling from the posterior, approximate it with a simpler distribution and optimize. |
+| **[Bayesian Prediction](#bayesian-prediction)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Posterior Predictive Distribution](#posterior-predictive-distribution)** | Once you have the posterior $P(\theta \vert D)$, you can make predictions for new data $x_{\text{new}}$ by averaging over all plausible parameter values: This is the posterior predictive distribution. It is a core advantage of the Bayesian approach. |
+| **[Bayesian Model Selection](#bayesian-model-selection)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Marginal Likelihood (Model Evidence)](#marginal-likelihood-model-evidence)** | When comparing two models $M_1$ and $M_2$, the Bayesian framework uses the marginal likelihood (also called model evidence): This is the same evidence integral $P(D)$ from Bayes' theorem, but now made explicit as a function of the model. |
+| **[Bayes Factor](#bayes-factor)** | The Bayes factor compares two models: A Bayes factor of 10 means the data is 10 times more probable under $M_1$ than $M_2$. |
+| **[BIC as an Approximation](#bic-as-an-approximation)** | The Bayesian Information Criterion approximates $-2 \log P(D \vert M)$ using the Laplace approximation: where $d$ is the number of parameters and $n$ is the number of data points. |
+| **[WAIC and WBIC](#waic-and-wbic)** | Watanabe introduced information criteria that work correctly for singular models: WAIC (Widely Applicable Information Criterion): An asymptotically correct estimate of the generalization loss, even for singular models. |
+| **[Bayesian Neural Networks](#bayesian-neural-networks)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Placing Priors on Weights](#placing-priors-on-weights)** | A Bayesian neural network places a prior distribution over the network weights $w$: A common choice is an isotropic Gaussian prior: $w_i \sim \mathcal{N}(0, \sigma_w^2)$ independently for each weight. |
+| **[Approximate Bayesian Methods for Neural Networks](#approximate-bayesian-methods-for-neural-networks)** | Since the exact posterior is intractable, several approximations are used: Variational inference (Bayes by Backprop): Parameterize $q(w) = \prod_i \mathcal{N}(w_i \vert \mu_i, \sigma_i^2)$ and optimize $(\mu_i, \sigma_i)$ to maximize the ELBO. |
+| **[The Free Energy](#the-free-energy)** | The central quantity in SLT is the Bayesian free energy: where $Z_n$ is the partition function (marginal likelihood): |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

@@ -10,6 +10,8 @@ enables: ["sequences-of-functions", "measure-theory"]
 
 The symbol $\int_a^b f(x)\,dx$ is not automatically meaningful for every function. Before we compute an integral, we need to show that increasingly precise finite measurements agree. We will construct the Riemann integral from upper and lower bounds, prove which familiar functions are integrable, and derive both parts of the Fundamental Theorem of Calculus.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. Build the integral from finite partitions
 
 Assume $a<b$ and $f:[a,b]\to\mathbb R$ is **bounded**. A partition is a list
@@ -252,3 +254,43 @@ $$
 There is no contradiction with FTC: every $f_n$ can be integrated correctly. The problem is **interchanging a limit with an integral without a convergence theorem**.
 
 The next chapter proves why **uniform convergence of Riemann integrable functions** is enough, and why differentiating a uniform limit is a separate question.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Darboux integrability](#why-refining-a-partition-improves-the-bounds)** | Let A bounded function is Riemann (Darboux) integrable on $[a,b]$ if $I_*=I^*$. Their common value is $\int_a^b f(x)\,dx$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. Build the integral from finite partitions](#1-build-the-integral-from-finite-partitions)** | Assume $a<b$ and $f:[a,b]\to\mathbb R$ is bounded. A partition is a list $P:\quad a=x_0<x_1<\cdots<x_m=b.$ |
+| **[The epsilon criterion](#the-epsilon-criterion)** | Proof. If such partitions exist, then $0\le I^*-I_*\le U(f,P)-L(f,P)0$, forcing $I^*=I_*$. |
+| **[2. Why continuous functions are integrable](#2-why-continuous-functions-are-integrable)** | Proof. By EVT, $f$ is bounded. By Heine-Cantor, $f$ is uniformly continuous on the closed interval. |
+| **[3. Why monotone functions are integrable even with jumps](#3-why-monotone-functions-are-integrable-even-with-jumps)** | Proof for a nondecreasing function. Partition $[a,b]$ into $n$ equal pieces of width $h:=(b-a)/n$. Monotonicity gives $m_i=f(x_{i-1})$ and $M_i=f(x_i)$. Thus |
+| **[A bounded function that is not Riemann integrable](#a-bounded-function-that-is-not-riemann-integrable)** | The Dirichlet function $d(x):=1$ for rational $x$ and $d(x):=0$ for irrational $x$ on $[0,1]$ has both values on every nondegenerate subinterval, by density of rationals and irrationals. Every partition satisfies |
+| **[4. Basic integral estimates and additivity](#4-basic-integral-estimates-and-additivity)** | Proof of the main estimates. Each tagged sum is linear, and Darboux integrability means all tagged sums on sufficiently fine partitions converge to the common integral; the linearity formula follows by taking those limits. |
+| **[5. Fundamental Theorem of Calculus, Part I](#5-fundamental-theorem-of-calculus-part-i)** | Proof of continuity of $F$. Boundedness gives $\vert f(t)\vert \le M$. For any $x,y\in[a,b]$, integral additivity and the estimate above imply with reversed endpoint orientation handled by $\int_y^x=-\int_x^y$. Thus $F$ is Lipschitz, hence continuous. |
+| **[6. Fundamental Theorem of Calculus, Part II](#6-fundamental-theorem-of-calculus-part-ii)** | Proof. Choose an arbitrary partition $P:a=x_0<\cdots<x_m=b$. Apply the Mean Value Theorem to $G$ on each subinterval. It yields a point $\xi_i\in(x_{i-1},x_i)$ with |
+| **[7. Why pointwise convergence does not permit moving the limit inside](#7-why-pointwise-convergence-does-not-permit-moving-the-limit-inside)** | Consider the continuous triangular spikes, for integers $n\ge2$, |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Refinement inequality](#why-refining-a-partition-improves-the-bounds)** | If $Q$ is a refinement of $P$ (it includes all of $P$'s division points), then $L(f,P)\le L(f,Q)\le U(f,Q)\le U(f,P).$ |
+| **[Integrability test](#the-epsilon-criterion)** | A bounded function $f$ is Riemann integrable on $[a,b]$ if and only if, for every $\varepsilon>0$, there exists a partition $P$ with |
+| **[Continuous implies Riemann integrable](#2-why-continuous-functions-are-integrable)** | Every continuous $f:[a,b]\to\mathbb R$ is Riemann integrable. |
+| **[Monotone implies Riemann integrable](#3-why-monotone-functions-are-integrable-even-with-jumps)** | Every bounded monotone real function on a closed finite interval is Riemann integrable, even when it is discontinuous. |
+| **[Additivity and bounds](#4-basic-integral-estimates-and-additivity)** | For Riemann integrable $f,g$ on $[a,b]$, scalar combinations are integrable and If $f\le g$ pointwise, then $\int f\le\int g$. If $\vert f(x)\vert \le M$, then $\vert \int_a^b f\vert \le M(b-a)$. If $c\in[a,b]$, then $\int_a^b f=\int_a^c f+\int_c^b f$. |
+| **[FTC I: integrating then differentiating](#5-fundamental-theorem-of-calculus-part-i)** | Let $f$ be Riemann integrable on $[a,b]$, and set Then $F$ is continuous on $[a,b]$. At every interior point $c$ where $f$ is continuous, $F$ is differentiable and $F'(c)=f(c)$. |
+| **[FTC II: evaluating an integral from an antiderivative](#6-fundamental-theorem-of-calculus-part-ii)** | Suppose $f$ is Riemann integrable on $[a,b]$, and $G$ is continuous on $[a,b]$ and differentiable on $(a,b)$ with $G'(x)=f(x)$ for every $x\in(a,b)$. Then |

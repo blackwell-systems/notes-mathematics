@@ -10,6 +10,8 @@ enables: ["optimization", "statistics"]
 
 This page builds on [Linear Algebra Foundations](./linear-algebra-foundations) and covers the topics that bridge theory to actual computation: how to measure vectors, how to change perspectives, how to factor matrices for efficient solving, and how to take derivatives of matrix expressions. Each section uses ideas from the ones before it.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What computation adds to linear algebra
 
 The foundations chapter asks **which transformations are possible**. Numerical linear algebra asks a further question: **can we calculate the answer reliably with finite time and imperfect numbers?** These are different problems.
@@ -871,3 +873,53 @@ This makes the distinction between **having a stable state** and **converging to
 6. **What should determine the algorithm?** The matrix's shape, rank, symmetry, sparsity, conditioning and the accuracy the problem requires—not only the formal equation.
 
 **Next:** [Optimization](./optimization) uses these tools to study objective functions and convergence. [Functional Analysis](./functional-analysis) shows what changes when the spaces or operators become infinite-dimensional.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Norm](#norms-measuring-size)** | A norm is nonnegative, zero only at the zero vector, absolutely homogeneous, and satisfies the triangle inequality. Formulas called norms must meet every axiom. |
+| **[Positive definiteness](#positive-definite-matrices)** | For a real symmetric matrix $A$, positive definiteness means $x^TAx>0$ for every nonzero $x$. The symmetry hypothesis is essential to the familiar eigenvalue and Cholesky equivalences. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Norms: Measuring Size](#norms-measuring-size)** | We already know how to compute the length of a vector using the distance formula: $\\vert v\\vert = \sqrt{v_1^2 + v_2^2}$. A norm generalizes this idea. |
+| **[The $L^2$ Norm (Euclidean Norm)](#the-l2-norm-euclidean-norm)** | The familiar distance formula. It measures straight-line distance from the origin. |
+| **[The $L^1$ Norm (Manhattan Norm)](#the-l1-norm-manhattan-norm)** | Add up the absolute values of all components. It measures distance if you can only travel along grid lines (like walking city blocks in Manhattan). |
+| **[The $L^\infty$ Norm (Max Norm)](#the-linfty-norm-max-norm)** | Take the largest absolute value among all components. |
+| **[The General $L^p$ Norm](#the-general-lp-norm)** | All three norms above arise from the $\ell^p$ family (with $p=\infty$ understood as a limit). |
+| **[Comparing Norms Visually](#comparing-norms-visually)** | The "unit ball" for each norm (the set of all vectors with $\\vert v\\vert \leq 1$) has a different shape in 2D: |
+| **[Properties Every Norm Must Have](#properties-every-norm-must-have)** | Any function $\\vert \cdot\\vert $ that qualifies as a norm must satisfy: The triangle inequality says that the direct path is never longer than going through an intermediate point. It is why norms behave like "distances." |
+| **[Matrix Norms](#matrix-norms)** | Norms extend to matrices. The most common is the Frobenius norm, which treats the matrix as a long vector and takes the $L^2$ norm: |
+| **[Distance Between Vectors](#distance-between-vectors)** | Once you have a norm, you can measure the distance between two vectors: Different norms give different distance functions. The L2 distance is Euclidean distance. The L1 distance is Manhattan distance. |
+| **[Change of Basis](#change-of-basis)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Idea](#the-idea)** | Every vector is written as coordinates relative to some basis. The standard basis for $\mathbb{R}^2$ is $e_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, $e_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$. |
+| **[The Change-of-Basis Matrix](#the-change-of-basis-matrix)** | Suppose we have a new basis $B = \{b_1, b_2, \ldots, b_n\}$ for $\mathbb{R}^n$. Form the matrix $P$ whose columns are the basis vectors: If $[v]_B$ represents the coordinates of $v$ in the new basis, then: |
+| **[Orthogonal Change of Basis](#orthogonal-change-of-basis)** | When the new basis vectors are orthonormal (orthogonal and unit length), $P$ is an orthogonal matrix: $P^{-1} = P^T$. |
+| **[Gram-Schmidt Orthonormalization](#gram-schmidt-orthonormalization)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Problem](#the-problem)** | You have a set of linearly independent vectors, but they are not orthogonal. You want an orthonormal basis that spans the same space. |
+| **[The Process](#the-process)** | Gram-Schmidt takes vectors $v_1, v_2, \ldots, v_n$ and produces orthonormal vectors $q_1, q_2, \ldots, q_n$: Step 1: Take the first vector and normalize it: |
+| **[Matrix Factorizations](#matrix-factorizations)** | Matrix factorizations (also called decompositions) break a matrix into a product of simpler matrices. This is how linear algebra is actually done on computers. |
+| **[LU Factorization](#lu-factorization)** | What it is: Factor a square matrix $A$ into a lower triangular matrix $L$ and an upper triangular matrix $U$: Lower triangular means all entries above the diagonal are zero. Upper triangular means all entries below the diagonal are zero. |
+| **[QR Factorization](#qr-factorization)** | What it is: Factor any $m \times n$ matrix $A$ (with $m \geq n$) into a matrix $Q$ with orthonormal columns and an upper triangular matrix $R$: This is the reduced (or thin) QR factorization. |
+| **[Cholesky Factorization](#cholesky-factorization)** | What it is: For a symmetric positive definite matrix $A$ (defined in the next section), factor it as: where $L$ is lower triangular. |
+| **[Positive Definite Matrices](#positive-definite-matrices)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Equivalent Conditions](#equivalent-conditions)** | A symmetric matrix $A$ is positive definite if and only if any one of these holds: These are all different windows into the same property. |
+| **[Condition Number](#condition-number)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Problem](#the-problem-1)** | Not all systems $Ax = b$ are equally easy to solve numerically. Some matrices amplify small errors in $b$ into large errors in $x$. Others keep errors under control. The condition number quantifies this. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[The Chain Rule for Vectors](#the-chain-rule-for-vectors)** | If $f = g(h(x))$ where $h: \mathbb{R}^n \to \mathbb{R}^m$ and $g: \mathbb{R}^m \to \mathbb{R}^p$, then: This is matrix multiplication of Jacobians. |

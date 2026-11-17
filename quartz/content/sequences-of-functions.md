@@ -10,6 +10,8 @@ enables: ["functional-analysis", "measure-theory"]
 
 A sequence of numbers converges to another number. A sequence of **functions** can converge in different senses, and the sense determines what survives: continuity, integration, or differentiation. The issue is not whether limits exist, but whether a single error threshold controls **all points in the domain**.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. A quantifier changes the mathematics
 
 > [!definition] Pointwise versus uniform convergence
@@ -318,3 +320,44 @@ This is a constructive proof of the interval version of the approximation theore
 The recurring question is never merely "do these functions converge?" It is **what converges, in which sense, and which hypothesis licenses the next operation?**
 
 This completes the core proof-focused path from [Completeness](./completeness-and-convergence) through [Continuity](./continuity-and-compactness), [Differentiation](./rigorous-differentiation) and [Integration](./rigorous-integration). The [Real Analysis](./real-analysis) overview ties those theorems to metric spaces, and [Functional Analysis](./functional-analysis) studies analogous questions in infinite-dimensional function spaces.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Pointwise versus uniform convergence](#1-a-quantifier-changes-the-mathematics)** | Functions $f_n:D\to\mathbb R$ converge pointwise to $f$ when They converge uniformly to $f$ when |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. A quantifier changes the mathematics](#1-a-quantifier-changes-the-mathematics)** | In the pointwise statement, the chosen index $N$ may depend on $x$. Uniform convergence moves "for every $x$" after "there exists $N$": one threshold must work simultaneously everywhere. |
+| **[The key counterexample: powers of x](#the-key-counterexample-powers-of-x)** | For $f_n(x):=x^n$ on $[0,1]$, we have $f_n(x)\to0$ at every $x<1$ but $f_n(1)=1$. Hence Each $f_n$ is continuous; the pointwise limit $f$ is not continuous at $1$. Moreover $\sup_{x\in[0,1)}x^n=1$ for every $n$. |
+| **[2. Uniform Cauchy criterion](#2-uniform-cauchy-criterion)** | Proof, convergence implies Cauchy. If $f_n\to f$ uniformly, choose $N$ so that $\vert f_n(x)-f(x)\vert <\varepsilon/2$ for all $n\ge N$ and every $x$. For $m,n\ge N$ the triangle inequality gives $\vert f_m(x)-f_n(x)\vert <\varepsilon$. |
+| **[3. Uniform limits preserve continuity](#3-uniform-limits-preserve-continuity)** | Proof. Fix $\varepsilon>0$. Uniform convergence supplies an index $N$ such that |
+| **[4. The Weierstrass M-test](#4-the-weierstrass-m-test)** | Proof. For $m>n$ and any $x\in D$, the triangle inequality gives $\left\vert \sum_{k=n+1}^{m}u_k(x)\right\vert \le\sum_{k=n+1}^{m}\vert u_k(x)\vert \le\sum_{k=n+1}^{m}M_k.$ |
+| **[5. Exchanging a uniform limit and a Riemann integral](#5-exchanging-a-uniform-limit-and-a-riemann-integral)** | Proof of integrability. Given $\varepsilon>0$, choose $n$ so that $\\vert f-f_n\\vert _\infty<\varepsilon/[4(b-a)]$ (for $a<b$). Since $f_n$ is integrable, choose a partition $P$ with |
+| **[6. Why exchanging derivatives needs a different theorem](#6-why-exchanging-derivatives-needs-a-different-theorem)** | Uniform convergence of differentiable functions does not ensure that their limit is differentiable. |
+| **[7. A compactness application: Arzelà-Ascoli on a closed interval](#7-a-compactness-application-arzel-ascoli-on-a-closed-interval)** | So far the theorems began with known convergence. Can we guarantee that *some* subsequence of functions converges uniformly? |
+| **[8. Uniform polynomial approximation: a constructive theorem](#8-uniform-polynomial-approximation-a-constructive-theorem)** | Uniform convergence is not only a way of preserving properties. It also tells us whether a simple class of functions can approximate a more complicated one. |
+| **[9. A decision table for limit operations](#9-a-decision-table-for-limit-operations)** | The recurring question is never merely "do these functions converge?" It is what converges, in which sense, and which hypothesis licenses the next operation? |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Uniform Cauchy criterion for real functions](#2-uniform-cauchy-criterion)** | A sequence $f_n:D\to\mathbb R$ converges uniformly to a real-valued function on $D$ if and only if |
+| **[Uniform limit theorem](#3-uniform-limits-preserve-continuity)** | If every $f_n:D\to\mathbb R$ is continuous at $c\in D$ and $f_n\to f$ uniformly on $D$, then $f$ is continuous at $c$. |
+| **[M-test](#4-the-weierstrass-m-test)** | Let $u_n:D\to\mathbb R$ be functions and let $M_n\ge0$ be numbers such that $\vert u_n(x)\vert \le M_n$ for every $x\in D$ and every $n$. If $\sum_{n=1}^{\infty}M_n$ converges, then $\sum_{n=1}^{\infty}u_n$ converges uniformly and absolutely on $D$. |
+| **[Uniform convergence preserves Riemann integrability](#5-exchanging-a-uniform-limit-and-a-riemann-integral)** | Suppose every $f_n:[a,b]\to\mathbb R$ is Riemann integrable and $f_n\to f$ uniformly. Then $f$ is Riemann integrable and |
+| **[A sufficient theorem for differentiating a limit](#6-why-exchanging-derivatives-needs-a-different-theorem)** | Let $f_n:[a,b]\to\mathbb R$ be continuous on $[a,b]$ and differentiable on $(a,b)$. Assume: 1. $f_n'(x)$ converges uniformly on $(a,b)$ to a function $g(x)$; 2. for one fixed $c\in(a,b)$, the numerical sequence $f_n(c)$ converges. |
+| **[Arzelà-Ascoli on $(a,b)$ (sequence form)](#7-a-compactness-application-arzel-ascoli-on-a-closed-interval)** | Every sequence of real-valued functions on $[a,b]$ belonging to a uniformly bounded, equicontinuous family has a uniformly convergent subsequence. Its limit is continuous. |
+| **[Weierstrass approximation theorem on a closed interval](#8-uniform-polynomial-approximation-a-constructive-theorem)** | See the linked section for the formal statement and hypotheses. |

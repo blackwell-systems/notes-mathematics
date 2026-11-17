@@ -10,6 +10,8 @@ enables: ["linear-functions", "polynomial-functions"]
 > **Builds on:** [Functions & Relations](./functions-relations) · [Order of Operations](./order-of-operations)
 > **Leads to:** [Linear Functions](./linear-functions) · [Polynomial Functions](./polynomial-functions)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Coordinate Plane
 
 > [!definition] Graph of a real-valued function
@@ -480,3 +482,37 @@ The explorer below lets you pick a base function and drag the parameters $a$ ("a
 **Why the shift is $h$ and not $\frac{h}{b}$.** Because the form is written factored as $f\big(b(x - h)\big)$, the inner argument is zero exactly at $x = h$, independent of $b$. If instead you meet the *expanded* version $f(bx - c)$, the anchor sits where $bx - c = 0$, that is $x = \frac{c}{b}$. The two agree because $c = bh$, so $\frac{c}{b} = h$: the factored form simply reads the shift off directly, while the expanded form hides it. Always factor out $b$ before reading the horizontal shift.
 
 ![Four panels showing vertical shifts, horizontal shifts, stretch/compression, and reflections of f(x) = x²](./media/transformations-summary.png)
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Graph of a real-valued function](#the-coordinate-plane)** | The graph of $f:A\to\mathbb R$ is the set $\{(x,f(x)):x\in A\}$. A drawing is only a representation of that set, and should preserve domain restrictions and excluded points. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Coordinate Plane](#the-coordinate-plane)** | Coordinate Plane (Cartesian Plane): A two-dimensional plane formed by two perpendicular number lines: |
+| **[Key Features to Identify](#key-features-to-identify)** | When graphing any function, identify these key features: 1. Domain and Range 2. Intercepts |
+| **[Graphing Linear Functions](#graphing-linear-functions)** | Linear Function: $f(x) = mx + b$ Key Features: Graphing Steps: |
+| **[Graphing Quadratic Functions](#graphing-quadratic-functions)** | Quadratic Function: $f(x) = ax^2 + bx + c$ Key Features: Vertex Form: $f(x) = a(x - h)^2 + k$ |
+| **[Graphing Polynomial Functions](#graphing-polynomial-functions)** | Polynomial Function: $f(x) = a_n x^n + \ldots + a_1 x + a_0$ Key Features: Zeros/Roots: |
+| **[Graphing Rational Functions](#graphing-rational-functions)** | Rational Function: $f(x) = \frac{P(x)}{Q(x)}$ Key Features: Graphing Steps: |
+| **[Graphing Exponential Functions](#graphing-exponential-functions)** | Exponential Function: $f(x) = a \cdot b^x + c$ Key Features: Graphing Steps: |
+| **[Graphing Logarithmic Functions](#graphing-logarithmic-functions)** | Logarithmic Function: $f(x) = a \cdot \log_b(x) + c$ Key Features: Graphing Steps: |
+| **[Graphing Absolute Value Functions](#graphing-absolute-value-functions)** | Absolute Value Function: $f(x) = a\vert x - h\vert + k$ Key Features: Graphing Steps: |
+| **[Graphing Piecewise Functions](#graphing-piecewise-functions)** | Piecewise Function: Different formulas for different intervals of $x$ Graphing Steps: Example: Graph $f(x) = \begin{cases} x + 1 & \text{if } x < 0 \\ x^2 & \text{if } x \geq 0 \end{cases}$ |
+| **[Graphing Radical Functions](#graphing-radical-functions)** | Square Root Function: $f(x) = a\sqrt{x - h} + k$ Key Features: Graphing Steps: |
+| **[Graphing Inequalities](#graphing-inequalities)** | Inequality on Number Line: Inequality in Two Variables: Steps: |
+| **[Common Transformations Summary](#common-transformations-summary)** | Starting with parent function $f(x)$ (read "f of x"): The explorer below lets you pick a base function and drag the parameters $a$ ("a"), $b$ ("b"), $h$ ("h"), and $k$ ("k") in the combined form $y = a \cdot f\big(b(x - h)\big) + k$. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

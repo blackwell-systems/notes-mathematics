@@ -12,6 +12,8 @@ A recursively defined object is built from **base objects** by repeating specifi
 
 The important distinction is between (1) rules saying **which objects exist**, (2) a recursion defining a **function on those objects**, and (3) induction establishing a **property of all such objects**.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Begin with a recursively constructed tree
 
 Define the set $T$ of **full binary trees** by two rules:
@@ -179,3 +181,30 @@ A **well-founded order** is one in which no nonempty subset lacks a minimal elem
 | An algorithm making progress | Invariant plus termination argument | Property preserved by a state transition |
 
 **Next:** [State Machines, Invariants, and Termination](./state-machines-invariants) applies the same base-and-step idea to **processes that evolve over time**, rather than static objects built from constructors.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Begin with a recursively constructed tree](#begin-with-a-recursively-constructed-tree)** | Define the set $T$ of full binary trees by two rules: No other objects are in $T$. |
+| **[Recursion defines functions on trees](#recursion-defines-functions-on-trees)** | Let $L(t)$ count leaves and $I(t)$ count internal nodes. Define both recursively: |
+| **[Structural induction: the proof rule](#structural-induction-the-proof-rule)** | Why is this sufficient? Every tree is a leaf or was constructed from two earlier, smaller trees. By ordinary induction on the number of constructor applications, every finite construction satisfies the property. |
+| **[Lists are another inductive object](#lists-are-another-inductive-object)** | For elements from a set $A$, define lists by Read $\operatorname{Cons}(x,xs)$ as "put x at the front of xs." Every finite list is obtained by finitely many applications of the second rule to the empty list. |
+| **[Syntax trees: proofs about formulas](#syntax-trees-proofs-about-formulas)** | A tiny Boolean-expression grammar can use constructors $e::=\operatorname{True}\mid\operatorname{False} \mid\operatorname{Not}(e) \mid\operatorname{And}(e,e).$ |
+| **[Recursion, termination, and well-foundedness](#recursion-termination-and-well-foundedness)** | A recursive definition must be legitimate: its recursive calls need to lead to previously defined or smaller cases. For finite trees, each subtree contains fewer constructor applications than its parent. For a list, the tail has smaller length. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Structural induction for full binary trees](#structural-induction-the-proof-rule)** | To prove a property $P(t)$ for every finite tree $t\in T$, it suffices to prove: 1. Base: $P(\operatorname{Leaf})$. 2. Constructor step: for arbitrary trees $a,b$, assuming $P(a)$ and $P(b)$, prove $P(\operatorname{Node}(a,b))$. |
+| **[Counting a full binary tree](#worked-proof-leaves-equal-internal-nodes-plus-one)** | Every finite full binary tree satisfies $L(t)=I(t)+1.$ |
+| **[Length of concatenation](#lists-are-another-inductive-object)** | For all lists $xs,ys$, $\vert xs\mathbin{+\!\!+}ys\vert =\vert xs\vert +\vert ys\vert .$ |

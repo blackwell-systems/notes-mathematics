@@ -12,6 +12,8 @@ Discrete mathematics studies **separate, countable, or finitely describable stru
 
 This map links **existing chapters** with the new developments, rather than copying the same definitions into another article.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The core route: from reasoning to structure
 
 | Stage | Read | Central question |
@@ -62,3 +64,22 @@ Likewise, advanced combinatorics includes Ramsey theory, analytic combinatorics,
 If the problem is about *logical validity*, follow logic. If it is about *counting*, follow combinatorial reasoning and generating functions. If it is about *a process*, use induction, invariants and termination. If it is about *network structure or capacity*, follow graph theory, matchings and flows.
 
 The aim of the collection is a coherent set of **proved connections**, not simply a catalog of disconnected terms.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The core route: from reasoning to structure](#the-core-route-from-reasoning-to-structure)** | These topics are the foundations used by many other branches; they need not be considered a linear list of formal prerequisites. |
+| **[The counting route](#the-counting-route)** | Start with Permutations and Combinations. They establish factorials, binomial coefficients, stars and bars, pigeonhole arguments, and inclusion-exclusion. |
+| **[The graphs and algorithms route](#the-graphs-and-algorithms-route)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The arithmetic and probability routes](#the-arithmetic-and-probability-routes)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

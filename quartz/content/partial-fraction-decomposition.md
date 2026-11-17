@@ -14,6 +14,8 @@ This technique requires understanding [Rational Functions](./rational-functions)
 
 **Prerequisite:** The rational function must be **proper**. If it is improper (degree of numerator $\geq$ degree of denominator), first perform polynomial long division to extract the polynomial part, then decompose the remaining proper fraction.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## First Step: Make It Proper
 
 > [!distinction] Divide before decomposing
@@ -241,3 +243,31 @@ Each of the four cases maps to a standard integral form: distinct linear factors
 - **Control theory:** Transfer functions in control systems are rational functions. Partial fractions decompose them into first- and second-order components for analysis.
 - **Signal processing:** Z-transforms of discrete signals are rational functions. Partial fractions enable inverse Z-transform computation.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Partial fraction decomposition](#the-four-cases)** | Over the reals, a proper rational function decomposes using powers of linear factors and irreducible quadratics in its denominator. Repeated factors require every power through the multiplicity, not just the highest one. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Four Cases](#the-four-cases)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Case 1: Distinct Linear Factors](#case-1-distinct-linear-factors)** | If the denominator factors into distinct linear factors: Example: Decompose $\frac{5x + 3}{(x + 1)(x - 2)}$ |
+| **[Case 2: Repeated Linear Factors](#case-2-repeated-linear-factors)** | If a linear factor appears with multiplicity $m$: Each power of the repeated factor gets its own term. |
+| **[Case 3: Distinct Irreducible Quadratic Factors](#case-3-distinct-irreducible-quadratic-factors)** | If the denominator contains an irreducible quadratic factor (one that cannot be factored over the reals), that factor's partial fraction gets a linear numerator $Ax + B$, not just a constant. For example, alongside a linear factor $(x - r)$: |
+| **[Case 4: Repeated Irreducible Quadratic Factors](#case-4-repeated-irreducible-quadratic-factors)** | If an irreducible quadratic appears with multiplicity $m$: Example: Decompose $\frac{x^3}{(x^2 + 1)^2}$ |
+| **[Solving for Coefficients](#solving-for-coefficients)** | Two main approaches: Strategic substitution: Choose $x$ values that make factors zero to isolate coefficients. Fast when you have linear factors. |
+| **[The Cover-Up (Heaviside) Method](#the-cover-up-heaviside-method)** | For a distinct linear factor $(x - r)$, there is a one-step shortcut: cover up that factor in the original denominator and evaluate what remains at $x = r$. The result is that factor's coefficient directly. |
+| **[Mixed Example](#mixed-example)** | Decompose $\frac{x^2 + 2x + 3}{(x - 1)(x + 2)^2}$ This combines Case 1 (distinct factor $x - 1$) and Case 2 (repeated factor $(x + 2)^2$). |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

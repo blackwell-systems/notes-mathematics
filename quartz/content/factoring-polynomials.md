@@ -21,6 +21,8 @@ The left side is a **sum of terms**; the right side is a **product of factors**.
 > [!definition] Polynomial factor
 > A polynomial $g(x)$ is a **factor** of a polynomial $f(x)$ when there is another polynomial $h(x)$ with $f(x)=g(x)h(x)$. Equivalently, division of $f$ by $g$ leaves **remainder zero**. The allowable coefficients matter: a polynomial may factor over the real numbers but not over the rational numbers.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why factoring works: multiplication in reverse
 
 The distributive law says
@@ -397,3 +399,36 @@ When an expression needs factoring, ask:
 6. **Am I solving an equation or simplifying a quotient?** Zero-product reasoning requires an equation equal to zero; cancellation requires respecting denominator restrictions.
 
 The larger conceptual connection is that factoring exposes **multiplicative structure**. In arithmetic it reveals prime divisors; in polynomials it exposes zeros and irreducible pieces; in [rational functions](./rational-functions) it identifies holes and asymptotes; in [ring theory](./ring-theory-foundations) it raises the deeper question of which algebraic systems admit unique factorizations.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Polynomial factor](#why-factoring-works-multiplication-in-reverse)** | A polynomial $g(x)$ is a factor of a polynomial $f(x)$ when there is another polynomial $h(x)$ with $f(x)=g(x)h(x)$. Equivalently, division of $f$ by $g$ leaves remainder zero. The allowable coefficients matter: a polynomial may factor over the real numbers but not over the rational numbers. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[A factorization does not solve an equation](#a-factorization-does-not-solve-an-equation)** | Factoring $x^2+5x+6$ describes the expression for all inputs. Solving asks for the *particular inputs* where its value is zero. Only after factoring an equation equal to zero can we apply the zero-product property (over the real or complex numbers): |
+| **[The first move: factor out what every term shares](#the-first-move-factor-out-what-every-term-shares)** | Before looking for patterns, collect like terms, put a polynomial in descending powers if helpful, and extract its greatest common factor (GCF). |
+| **[Two terms: difference of squares](#two-terms-difference-of-squares)** | The product $(a-b)(a+b)$ has opposite middle terms, so they cancel: $(a-b)(a+b)=a^2-b^2.$ |
+| **[Two terms: cubes](#two-terms-cubes)** | Expanding the products shows two companion identities: |
+| **[Three terms: perfect squares](#three-terms-perfect-squares)** | Squaring a binomial gives a recognizable middle term: |
+| **[Three terms: general quadratics](#three-terms-general-quadratics)** | A quadratic is an expression $ax^2+bx+c$ with $a\neq0$ (read "a not equal to zero"). For integer-coefficient factoring, our goal is a product of two linear polynomials with integer or rational coefficients, when such a product exists. |
+| **[A quadratic that will not factor into rational linear factors](#a-quadratic-that-will-not-factor-into-rational-linear-factors)** | For $x^2-2$, there is no pair of rational numbers with sum zero and product $-2$. Nevertheless, using the real number $\sqrt2$ (read "square root of two"), |
+| **[Four or more terms: grouping](#four-or-more-terms-grouping)** | Grouping looks for a common polynomial factor, not only a common number or monomial. |
+| **[Higher-degree polynomials: find one factor first](#higher-degree-polynomials-find-one-factor-first)** | For a polynomial $f(x)$ and number $r$ (read "r"), the Factor Theorem states |
+| **[Roots, factors, and multiplicity](#roots-factors-and-multiplicity)** | A polynomial with leading coefficient $a\neq0$ and roots $r_1,\ldots,r_n$ in the complex numbers, counted with multiplicity, can be written |
+| **[Factoring in rational expressions: what may be canceled?](#factoring-in-rational-expressions-what-may-be-canceled)** | Factoring is also the preparation for simplifying a *quotient* of polynomials. Only entire common factors cancel, and canceled factors do not erase restrictions from the original denominator. |
+| **[A final checklist](#a-final-checklist)** | When an expression needs factoring, ask: The larger conceptual connection is that factoring exposes multiplicative structure. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

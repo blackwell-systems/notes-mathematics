@@ -17,6 +17,8 @@ This chapter has **two uses**. Read the first sections in order if you are learn
 
 The most important habit is to read an entire expression, not translate one symbol at a time and stop. A symbol gets its meaning from its **position**, its **scope**, and its **context**.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## First, read a complete statement
 
 Consider a sentence written almost entirely in symbols:
@@ -438,3 +440,54 @@ Greek letters are used constantly as variable names; often the hard part is just
 | $\cdot$ , $\times$ | "times" | multiplication (the $\times$ symbol also denotes the Cartesian product of sets) |
 | [$\therefore$](./propositional-logic-zeroth-order-logic#rules-of-inference) , $\because$ | "therefore" / "because" | introduces a conclusion or a reason |
 | [$\blacksquare$](./propositional-logic-zeroth-order-logic#proof-techniques) , $\square$ , QED | "Q.E.D." / "end of proof" | marks the end of a proof |
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Free and bound variables](#the-grammar-behind-the-symbols)** | A variable is free when its value is still an input to the expression or condition. A quantifier such as $\forall x$ (for every x) or $\exists x$ (there exists an x) binds the occurrences of $x$ in its scope. |
+| **[Equality](#equality)** | $a=b$ asserts that $a$ and $b$ denote the same object, within the relevant mathematical structure. It is stronger than saying two different objects satisfy similar properties. |
+| **[Definitional equality](#definition)** | $a:=b$ introduces $a$ as a name or expression defined by $b$. It should not be read as an empirical discovery or as an additional theorem needing proof. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[First, read a complete statement](#first-read-a-complete-statement)** | Consider a sentence written almost entirely in symbols: $\forall x\in\mathbb R,\qquad x^2\geq 0.$ |
+| **[Explore the parts of an expression](#explore-the-parts-of-an-expression)** | Choose an expression, then select its highlighted parts. For each part, the reader gives its role, pronunciation, and contribution to the whole. The examples move from quantified statements to sets, functions, and sums. |
+| **[The grammar behind the symbols](#the-grammar-behind-the-symbols)** | Mathematical writing has structure much like ordinary language. A name refers to an object; an expression denotes a value or object; a relation compares objects; a statement makes an assertion. |
+| **[Scope, grouping, and reading order](#scope-grouping-and-reading-order)** | Small marks can completely change what a formula says. Parentheses are not decoration: they specify which operation or condition is inside another. |
+| **[Superscripts and subscripts](#superscripts-and-subscripts)** | See this section for the underlying idea, notation, and worked examples. |
+| **[A quantifier changes the scope of the claim](#a-quantifier-changes-the-scope-of-the-claim)** | These two sentences contain the same words and symbols, but their order changes the claim: Read: "For every real x, there exists a real y greater than x." Given any $x$, choose $y=x+1$. |
+| **[Context decides what a symbol means](#context-decides-what-a-symbol-means)** | Many symbols are overloaded: their meaning depends on the type of objects around them and the subject being discussed. A reference is a dictionary, not a universal promise that every printed mark has only one meaning. |
+| **[Definitions, equalities, and proof claims](#definitions-equalities-and-proof-claims)** | The signs $=$, $:=$, $\leftrightarrow$, $\iff$, and $\equiv$ can look interchangeable when skimmed. They are not. |
+| **[Equivalence and Equality Symbols](#equivalence-and-equality-symbols)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Equality ( = )](#equality)** | Type: Object-level symbol. |
+| **[Biconditional / Equivalence ( ⟺ , ↔ )](#biconditional-equivalence)** | Type: Both object-level and meta-level, depending on context (see below). |
+| **[Congruence / Identity ( ≡ )](#congruence-identity)** | Type: Varies by context. |
+| **[Definition ( := )](#definition)** | Type: Meta-level notation. |
+| **[Set-Theory Notation](#set-theory-notation)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Order and Relations](#order-and-relations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Logic Notation](#logic-notation)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Number Sets (Blackboard Bold)](#number-sets-blackboard-bold)** | For precise set-builder definitions, quotient constructions, and membership criteria, see Formal Definitions of the Number Sets. |
+| **[Greek Letters](#greek-letters)** | Greek letters are used constantly as variable names; often the hard part is just saying them. Common letters and their typical roles in these notes: |
+| **[Number Theory](#number-theory)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Functions and Mappings](#functions-and-mappings)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Linear Algebra](#linear-algebra)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Analysis and Calculus](#analysis-and-calculus)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Probability and Statistics](#probability-and-statistics)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Information Theory](#information-theory)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Congruence / Identity ( ≡ )](#congruence-identity)** | Type: Varies by context. |

@@ -15,6 +15,8 @@ This chapter develops that explanation as a chain of proofs. The [Real Analysis]
 > [!intuition] The main idea
 > The real line has no missing finite limit points. To make that precise, we first assume that every nonempty set bounded above has a least upper bound. From that single property, we will derive convergence results and see exactly where they fail without completeness.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. Start with bounds, not with limits
 
 Let $S\subseteq\mathbb R$ be a nonempty set. An **upper bound** is a real number $u$ satisfying $x\le u$ for every $x\in S$. A **lower bound** reverses the inequality. The **supremum** (read "soo-PREE-mum"), denoted $\sup S$, is the least upper bound; the **infimum** (read "in-FEE-mum"), denoted $\inf S$, is the greatest lower bound.
@@ -476,3 +478,66 @@ These examples explain why the hypotheses in the theorems are actual work, not d
 In [Real Analysis](./real-analysis#continuity-rigorous), completeness and sequences support continuity, the Intermediate Value Theorem, and uniform continuity. The [Compactness chapter](./general-topology-compactness#metric-compactness-and-convergent-subsequences) compares sequential compactness and finite-subcover compactness, with full proofs of their relationship for metric spaces. [Measure Theory](./measure-theory) develops a different Monotone Convergence Theorem about integrals. [Functional Analysis](./functional-analysis) asks whether sequences of *functions* converge in the spaces and norms we care about.
 
 The next proof-focused chapter is [Continuity and Compactness](./continuity-and-compactness), where sequence tools become existence theorems about functions. Continue to [Rigorous Differentiation](./rigorous-differentiation), [Rigorous Integration](./rigorous-integration), and [Sequences of Functions](./sequences-of-functions). Together these form the core proof sequence in the [Path Through Analysis](./path-through-analysis).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Epsilon-N convergence](#2-what-it-means-to-converge)** | The sequence $(a_n)$ converges to $L\in\mathbb R$ if $\forall\varepsilon>0\ \exists N\in\mathbb N\ \forall n\ge N: \quad \vert a_n-L\vert <\varepsilon.$ |
+| **[Cauchy condition](#6-cauchy-sequences-convergence-without-knowing-the-answer)** | $(a_n)$ is Cauchy if, for every $\varepsilon>0$, there exists $N$ such that $m,n\ge N\quad\Longrightarrow\quad \vert a_m-a_n\vert <\varepsilon.$ |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. Start with bounds, not with limits](#1-start-with-bounds-not-with-limits)** | Let $S\subseteq\mathbb R$ be a nonempty set. An upper bound is a real number $u$ satisfying $x\le u$ for every $x\in S$. A lower bound reverses the inequality. |
+| **[A sharp test for the supremum](#a-sharp-test-for-the-supremum)** | We read $\varepsilon$ as "epsilon": a positive tolerance chosen as small as desired. |
+| **[The Archimedean property follows from completeness](#the-archimedean-property-follows-from-completeness)** | Proof. Suppose instead that $\mathbb N$ had an upper bound. Completeness would give $s:=\sup\mathbb N$. Since $s-1$ is smaller than $s$, some natural $n$ would satisfy $n>s-1$. |
+| **[Density is not completeness](#density-is-not-completeness)** | The rational numbers are dense in $\mathbb R$: every open interval $(a,b)$ contains a rational. To prove this, choose a positive integer $n$ with $n(b-a)>1$. |
+| **[2. What it means to converge](#2-what-it-means-to-converge)** | A sequence is a function $a:\mathbb N\to\mathbb R$, with terms $a_n:=a(n)$. We write $a_n\to L$ when the terms eventually remain arbitrarily close to one real number $L$. |
+| **[Limits are unique](#limits-are-unique)** | Proof. Suppose $a_n\to L$ and $a_n\to M$. If $L\ne M$, choose $\varepsilon:=\vert L-M\vert /3>0$. Convergence to $L$ gives a threshold $N_L$; convergence to $M$ gives a threshold $N_M$. |
+| **[Every convergent sequence is bounded](#every-convergent-sequence-is-bounded)** | Proof. If $a_n\to L$, use $\varepsilon=1$ to obtain $N$ such that $\vert a_n-L\vert <1$ for $n\ge N$. The tail is bounded by $\vert L\vert +1$, and there are only finitely many preceding terms. |
+| **[Algebra of limits: why multiplication works](#algebra-of-limits-why-multiplication-works)** | Proof. Addition follows by the triangle inequality: choose thresholds making the two errors smaller than $\varepsilon/2$. Scalar multiplication follows by controlling $\vert c\vert \vert a_n-a\vert $ (and is immediate when $c=0$). |
+| **[Order survives limits](#order-survives-limits)** | If $a_n\le b_n$ for all sufficiently large $n$ and $a_n\to a$, $b_n\to b$, then $a\le b$. Otherwise $a-b>0$ and the limit laws would make $a_n-b_n>0$ eventually, a contradiction. |
+| **[3. Monotone sequences: the first payoff of completeness](#3-monotone-sequences-the-first-payoff-of-completeness)** | A sequence is nondecreasing (often called increasing in this context) if $a_n\le a_{n+1}$, and nonincreasing if $a_n\ge a_{n+1}$. The order of the terms supplies information that ordinary boundedness does not. |
+| **[4. Every sequence has a monotone subsequence](#4-every-sequence-has-a-monotone-subsequence)** | A subsequence is made by choosing terms without changing their order. If $n_1<n_2<\cdots$ are natural-number indices, then $(a_{n_k})$ is a subsequence of $(a_n)$. |
+| **[5. Bolzano-Weierstrass: bounded sequences contain convergence](#5-bolzano-weierstrass-bounded-sequences-contain-convergence)** | Proof. Take a bounded sequence $(a_n)$. The monotone subsequence lemma gives a subsequence $(a_{n_k})$ that is nondecreasing or nonincreasing. |
+| **[6. Cauchy sequences: convergence without knowing the answer](#6-cauchy-sequences-convergence-without-knowing-the-answer)** | For a convergent sequence, late terms are close to the *limit*. A Cauchy sequence is one whose late terms are close to *each other*. This definition requires no proposed limit. |
+| **[One direction needs only the triangle inequality](#one-direction-needs-only-the-triangle-inequality)** | Proof in $\mathbb R$. If $a_n\to L$, choose $N$ so that $\vert a_n-L\vert <\varepsilon/2$ for all $n\ge N$. For any $m,n\ge N$, No completeness property was needed. $\square$ The reverse implication is the interesting one. |
+| **[The converse is where completeness enters](#the-converse-is-where-completeness-enters)** | Proof of the remaining direction. Assume $(a_n)$ is Cauchy. |
+| **[A useful nonexample: small steps are insufficient](#a-useful-nonexample-small-steps-are-insufficient)** | For the partial sums of the harmonic series, $s_n:=\sum_{k=1}^{n}\frac1k, \qquad$ |
+| **[7. Nested intervals: another face of completeness](#7-nested-intervals-another-face-of-completeness)** | Proof. Nestedness makes $(a_n)$ nondecreasing and $(b_n)$ nonincreasing. For any two indices $m,n$, nestedness implies $a_n\le b_m$: the interval with the larger index lies inside the other. |
+| **[8. Limsup and liminf: where bounded sequences accumulate](#8-limsup-and-liminf-where-bounded-sequences-accumulate)** | Not every bounded sequence converges, but the long-run upper and lower extremes of its tails always settle down. |
+| **[9. Infinite series are sequences in disguise](#9-infinite-series-are-sequences-in-disguise)** | An infinite series $\sum_{n=1}^{\infty}c_n$ is defined to converge when its partial sums converge: |
+| **[Absolute convergence is enough](#absolute-convergence-is-enough)** | Proof. The absolute-value series has Cauchy partial sums. Given $\varepsilon>0$, choose $N$ such that for all $m>n\ge N$, |
+| **[A full proof of the alternating series test](#a-full-proof-of-the-alternating-series-test)** | Proof. Let $s_n$ denote the partial sums. The even partial sums form a nondecreasing sequence because |
+| **[10. A proof dependency map](#10-a-proof-dependency-map)** | The arguments in this chapter form a single logical chain: The dependencies matter more than the names. |
+| **[11. What would break the proofs?](#11-what-would-break-the-proofs)** | Remove boundedness: $a_n:=n$ is nondecreasing but has no finite real limit, so the Monotone Convergence Theorem no longer applies. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Approximation from below](#a-sharp-test-for-the-supremum)** | A real number $s$ equals $\sup S$ precisely when it is an upper bound of $S$ and, for every $\varepsilon>0$, there is an $x\in S$ with $s-\varepsilon<x$. |
+| **[Archimedean property](#the-archimedean-property-follows-from-completeness)** | For every real $x$, some natural number $n$ satisfies $n>x$. Equivalently, for every $\varepsilon>0$ there is an $n$ with $1/n<\varepsilon$. |
+| **[Uniqueness](#limits-are-unique)** | A real sequence cannot converge to two distinct limits. |
+| **[Algebraic limit laws](#algebra-of-limits-why-multiplication-works)** | If $a_n\to a$ and $b_n\to b$, then $a_n+b_n\to a+b$, $a_nb_n\to ab$, and $ca_n\to ca$ for every fixed real $c$. If $b\ne0$, then $a_n/b_n\to a/b$ for all sufficiently late indices. |
+| **[Monotone Convergence Theorem for sequences](#3-monotone-sequences-the-first-payoff-of-completeness)** | Every nondecreasing real sequence bounded above converges, and its limit is the supremum of its terms. Every nonincreasing real sequence bounded below likewise converges to the infimum of its terms. |
+| **[Monotone subsequence lemma](#4-every-sequence-has-a-monotone-subsequence)** | Every real sequence has a nondecreasing subsequence or a nonincreasing subsequence, whether or not the original sequence is bounded. |
+| **[Bolzano-Weierstrass theorem in $\mathbb R$](#5-bolzano-weierstrass-bounded-sequences-contain-convergence)** | Every bounded real sequence has a convergent subsequence. |
+| **[Convergent implies Cauchy](#one-direction-needs-only-the-triangle-inequality)** | In every metric space, every convergent sequence is Cauchy. |
+| **[Cauchy criterion for real sequences](#the-converse-is-where-completeness-enters)** | A real sequence converges if and only if it is Cauchy. |
+| **[Nested closed interval property](#7-nested-intervals-another-face-of-completeness)** | If $I_n:=[a_n,b_n]$ are nonempty closed bounded real intervals and $I_{n+1}\subseteq I_n$ for all $n$, then $\bigcap_{n=1}^{\infty}I_n$ is nonempty. If also $b_n-a_n\to0$, the intersection contains exactly one real number. |
+| **[Subsequential meaning](#8-limsup-and-liminf-where-bounded-sequences-accumulate)** | For a bounded real sequence, the limsup is its greatest subsequential limit and the liminf is its least subsequential limit. |
+| **[A convergence test](#8-limsup-and-liminf-where-bounded-sequences-accumulate)** | A bounded real sequence converges if and only if $\limsup a_n=\liminf a_n$. |
+| **[Cauchy criterion for a series](#9-infinite-series-are-sequences-in-disguise)** | A real series $\sum c_n$ converges if and only if, for every $\varepsilon>0$, some $N$ makes |
+| **[Absolute convergence implies convergence](#absolute-convergence-is-enough)** | If $\sum \vert c_n\vert $ converges, then $\sum c_n$ converges. |
+| **[Alternating series test](#a-full-proof-of-the-alternating-series-test)** | Suppose $d_n\ge0$ is nonincreasing and $d_n\to0$. Then $\sum_{n=1}^{\infty}(-1)^{n+1}d_n$ converges. |

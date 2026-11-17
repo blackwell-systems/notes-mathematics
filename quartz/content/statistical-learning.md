@@ -11,6 +11,8 @@ enables: []
 Statistical learning shifts the goal from *describing* or *inferring* to *predicting*: fitting models that generalize from training data to unseen data. It covers correlation and regression, logistic and generalized linear models, and the machine-learning core, the bias-variance tradeoff, overfitting, cross-validation, and bootstrapping. It builds on [inferential statistics](./inferential-statistics) (regression inference reuses the sampling-distribution machinery) and is the bridge from classical statistics into machine learning.
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: learning as a problem about functions
 
 A prediction problem is not defined by an algorithm alone. Before choosing linear regression or a neural network, specify **what inputs are possible, what outputs mean, which predictions are allowed, and how mistakes are measured**.
@@ -637,3 +639,47 @@ The concepts on this page form the statistical foundation of machine learning:
 
 The next topics in the roadmap (optimization and information theory) build directly on these foundations. MLE requires optimization to find parameter values. Distributions connect to information theory through entropy and KL divergence. Cross-entropy loss (the standard loss for classification) is a concept from information theory applied through the lens of MLE.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Bootstrap](#bootstrapping)** | A bootstrap approximates a sampling distribution through repeated resampling from the observed data. The usual nonparametric i.i.d. bootstrap has assumptions and failure cases; dependence, heavy tails and nonsmooth estimators may need different methods. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: learning as a problem about functions](#the-mathematical-setting-learning-as-a-problem-about-functions)** | A prediction problem is not defined by an algorithm alone. Before choosing linear regression or a neural network, specify what inputs are possible, what outputs mean, which predictions are allowed, and how mistakes are measured. |
+| **[Correlation](#correlation)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Pearson Correlation Coefficient](#the-pearson-correlation-coefficient)** | The Pearson correlation coefficient, written $r$, measures the strength and direction of the linear relationship between two quantitative variables $x$ and $y$: |
+| **[Properties of $r$](#properties-of-r)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Correlation Is Not Causation](#correlation-is-not-causation)** | A large $\vert r\vert $ says two variables move together; it says nothing about *why*. The association may arise because a confounder drives both. |
+| **[Relationship to Regression](#relationship-to-regression)** | Correlation and simple linear regression are two views of the same quantity, which is why this section precedes the next. |
+| **[Inference for the Population Correlation $\rho$](#inference-for-the-population-correlation-rho)** | The sample $r$ estimates the unknown population correlation $\rho$. To test $H_0: \rho = 0$ against $H_a: \rho \neq 0$ (assuming $(x, y)$ are bivariate normal), the test statistic is |
+| **[Linear Regression](#linear-regression)** | Linear regression: Fits a straight line to data by minimizing the sum of squared residuals. It is the simplest and most important predictive model, and understanding it deeply is essential for ML. |
+| **[The Model](#the-model)** | For a single feature: For multiple features: $y = X\beta + \epsilon$, where $X$ is the design matrix and $\beta$ is the parameter vector. |
+| **[Ordinary Least Squares (OLS)](#ordinary-least-squares-ols)** | Objective: Minimize the sum of squared residuals: Residual: The difference between the observed value and the predicted value: $e_i = y_i - \hat{y}_i$. |
+| **[$R^2$: How Good Is the Fit?](#r2-how-good-is-the-fit)** | Coefficient of determination ($R^2$): The proportion of variance in $y$ that is explained by the model: Adjusted $R^2$: Penalizes adding more features. Regular $R^2$ always increases when you add features (even useless ones). |
+| **[Multiple Linear Regression](#multiple-linear-regression)** | When there are multiple predictor variables, the model extends naturally: $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \epsilon$ |
+| **[Polynomial and Quadratic Regression](#polynomial-and-quadratic-regression)** | Real relationships are often curved, and a straight line will systematically miss the pattern (the linearity assumption discussed in the next section). The fix is surprisingly simple: add powers of the predictor as extra columns. |
+| **[Regression Diagnostics](#regression-diagnostics)** | The validity of regression inference depends on four key assumptions. When these assumptions are violated, the coefficient estimates may be biased, the standard errors may be wrong, and the p-values and confidence intervals may be unreliable. |
+| **[Logistic Regression and Generalized Linear Models](#logistic-regression-and-generalized-linear-models)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Logistic (Sigmoid) Function](#the-logistic-sigmoid-function)** | The building block is the logistic function, or sigmoid: $\sigma(z) = \frac{1}{1 + e^{-z}}.$ |
+| **[The Model and the Log-Odds](#the-model-and-the-log-odds)** | Logistic regression feeds a linear predictor through the sigmoid: $p = \sigma(\beta_0 + \beta_1 x)$. To see what the coefficients mean, invert the sigmoid. |
+| **[Fitting by Maximum Likelihood](#fitting-by-maximum-likelihood)** | Unlike OLS, logistic regression has no closed-form solution; there is no analogue of the normal equations. Instead we fit by maximum likelihood. |
+| **[Generalized Linear Models (GLMs)](#generalized-linear-models-glms)** | Linear and logistic regression are two instances of one framework, the generalized linear model, with three components: |
+| **[Bias-Variance Tradeoff](#bias-variance-tradeoff)** | Slide the polynomial degree below to see the tradeoff before the algebra: a low-degree fit underfits (high bias), a high-degree fit chases the noise (high variance), and the test error is U-shaped even as training error keeps falling. |
+| **[Overfitting and Underfitting](#overfitting-and-underfitting)** | Overfitting: The model learns the training data too well, including its noise and quirks. It performs great on training data but poorly on new data. Signs: large gap between training accuracy and test accuracy. |
+| **[Cross-Validation](#cross-validation)** | Cross-validation: A method for estimating how well a model will perform on unseen data, without needing a separate test set. |
+| **[k-Fold Cross-Validation](#k-fold-cross-validation)** | Worked example (computing a 5-fold CV score). Take ten data points with target values $y = 2, 4, 6, \ldots, 20$, and use the simplest possible model: *predict the training-set mean*. With $k = 5$ we get five folds of two points each. |
+| **[Leave-One-Out Cross-Validation (LOOCV)](#leave-one-out-cross-validation-loocv)** | The extreme case where $k = n$ (each fold is a single data point). Gives a nearly unbiased estimate but is computationally expensive for large datasets. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

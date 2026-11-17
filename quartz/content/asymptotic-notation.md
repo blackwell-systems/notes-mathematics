@@ -10,6 +10,8 @@ enables: ["real-analysis", "graph-theory"]
 
 Algorithm **complexity** is different from algorithm **correctness** or **termination**. The [State Machines and Invariants](./state-machines-invariants) chapter proves that a process stays safe and finishes; this chapter measures how resource use grows. For a coherent route through all these topics, see the [Discrete Mathematics Learning Map](./discrete-mathematics).
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why We Need Asymptotic Notation
 
 How long does an algorithm take to run? The exact answer depends on the hardware, programming language, compiler optimizations, and many other factors that have nothing to do with the algorithm itself. If we measure wall-clock time, the same algorithm might take 2 seconds on one machine and 0.5 seconds on another.
@@ -307,3 +309,47 @@ Asymptotic notation describes the computational cost of ML algorithms as data or
 - **k-nearest neighbors prediction:** $O(nd)$ per query by brute force (compare against all $n$ training points in $d$ dimensions). Tree-based methods reduce this to $O(d \log n)$ on average.
 
 Understanding these costs guides architectural choices: when $n$ or $p$ is large, the difference between $O(n)$ and $O(n^2)$ determines whether a method is practical.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Eventual upper bound](#big-o-notation-upper-bound)** | For eventually nonnegative functions $f,g$, $f\in O(g)$ means some $c>0,n_0$ satisfy $f(n)\le c\,g(n)$ for every $n\ge n_0$. For signed functions, the more general version bounds absolute values. |
+| **[Eventual lower bound](#big-omega-notation-lower-bound)** | $f\in\Omega(g)$ means $f(n)\ge c\,g(n)$ eventually for some positive $c$ (under the nonnegative-function convention). It does not say $f$ is bounded below at *every* input. |
+| **[Tight asymptotic bound](#big-theta-notation-tight-bound)** | $\Theta(g)$ requires both eventual upper and lower positive constant-factor bounds. Writing "$f=O(g)$" is common shorthand for membership in a function class, not ordinary numeric equality. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Big-O Notation (Upper Bound)](#big-o-notation-upper-bound)** | Definition: We say $f(n) = O(g(n))$ if there exist positive constants $c$ and $n_0$ such that: Intuition: $f$ grows no faster than $g$, up to a constant factor, once $n$ is large enough. Big-O provides an upper bound on the growth rate. |
+| **[Big-Omega Notation (Lower Bound)](#big-omega-notation-lower-bound)** | Definition: We say $f(n) = \Omega(g(n))$ if there exist positive constants $c$ and $n_0$ such that: Intuition: $f$ grows at least as fast as $g$. Big-Omega provides a lower bound on the growth rate. |
+| **[Big-Theta Notation (Tight Bound)](#big-theta-notation-tight-bound)** | Definition: We say $f(n) = \Theta(g(n))$ if $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$. |
+| **[Common Growth Rates](#common-growth-rates)** | Listed from slowest to fastest growth: |
+| **[Rules for Determining Big-O](#rules-for-determining-big-o)** | These rules let you quickly determine the Big-O of a function or algorithm: |
+| **[1. Drop Lower-Order Terms](#1-drop-lower-order-terms)** | Only the fastest-growing term matters: $n^3 + n^2 + n = O(n^3)$ |
+| **[2. Drop Constant Factors](#2-drop-constant-factors)** | Constants do not affect the growth rate: $5n^2 = O(n^2), \quad 1000n = O(n), \quad \frac{n}{3} = O(n)$ |
+| **[3. Nested Loops Multiply](#3-nested-loops-multiply)** | If an outer loop runs $n$ times and an inner loop runs $n$ times for each iteration: More generally, a loop running $O(n)$ times with $O(m)$ work per iteration is $O(nm)$. |
+| **[4. Sequential Steps Add](#4-sequential-steps-add)** | If you do one operation taking $O(n)$ and then another taking $O(n^2)$, the total is: The slower step dominates. |
+| **[5. Logarithmic Bases Do Not Matter](#5-logarithmic-bases-do-not-matter)** | Since $\log_a n = \frac{\log_b n}{\log_b a}$, different bases differ only by a constant factor. |
+| **[Analyzing Algorithms](#analyzing-algorithms)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Linear Search: $O(n)$](#linear-search-on)** | Scan through an array of $n$ elements to find a target. In the worst case (target is last or absent), you examine all $n$ elements. |
+| **[Binary Search: $O(\log n)$](#binary-search-olog-n)** | Search a sorted array by repeatedly halving the search space. After $k$ steps, the remaining space has size $n / 2^k$. The search ends when $n / 2^k = 1$, so $k = \log_2 n$. |
+| **[Sorting](#sorting)** | Comparison-based sorts (those that only compare pairs of elements) have a provable lower bound of $\Omega(n \log n)$. |
+| **[Matrix Multiplication](#matrix-multiplication)** | The naive algorithm for multiplying two $n \times n$ matrices uses three nested loops: $O(n^3)$. Strassen's algorithm reduces this to approximately $O(n^{2.807})$ by cleverly reducing the number of sub-multiplications. |
+| **[Formal Proofs with Big-O](#formal-proofs-with-big-o)** | To rigorously prove $f(n) = O(g(n))$, you must exhibit specific constants $c$ and $n_0$ and show the inequality holds. |
+| **[Little-o and Little-omega](#little-o-and-little-omega)** | For completeness, there are also strict asymptotic notations: The difference: $n = O(n)$ is true (a function is its own upper bound), but $n = o(n)$ is false (a function does not grow strictly slower than itself). |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Rules for Determining Big-O](#rules-for-determining-big-o)** | These rules let you quickly determine the Big-O of a function or algorithm: |

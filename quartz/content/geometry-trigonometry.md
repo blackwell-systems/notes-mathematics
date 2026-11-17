@@ -13,6 +13,8 @@ Geometry studies the properties and relationships of shapes, sizes, and position
 # Part 1: Geometry Foundations
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: what makes measurement possible?
 
 A drawing can show **which points lie on a line**, **which segments meet**, or **which shapes seem congruent**, but measurement requires additional mathematical structure. Two complementary approaches appear throughout this subject.
@@ -1183,3 +1185,63 @@ For $\cos\theta = -1$: $\theta = \pi$.
 ### General Solutions vs. Solutions in an Interval
 
 When a problem says "find all solutions," give the general solution with the integer parameter $n$. When a problem restricts to an interval like $[0, 2\pi)$ or $[0°, 360°)$, list only the solutions in that interval. Always check for extraneous solutions when squaring both sides or making substitutions.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Angle measure and radians](#angles)** | A radian is defined by arc length divided by radius on a circle. Angles measured in radians make trigonometric derivatives and periodicity formulas work in their simplest form. |
+| **[Unit-circle trigonometry](#the-unit-circle)** | The point at angle $\theta$ on the unit circle has coordinates $(\cos\theta,\sin\theta)$. This extends sine and cosine to all real angles, not just acute angles in right triangles. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: what makes measurement possible?](#the-mathematical-setting-what-makes-measurement-possible)** | A drawing can show which points lie on a line, which segments meet, or which shapes seem congruent, but measurement requires additional mathematical structure. Two complementary approaches appear throughout this subject. |
+| **[Coordinate Geometry](#coordinate-geometry)** | The Cartesian plane (or coordinate plane) consists of two perpendicular number lines: a horizontal $x$-axis and a vertical $y$-axis, intersecting at the origin $(0, 0)$. Every point in the plane is identified by an ordered pair $(x, y)$. |
+| **[Distance Formula](#distance-formula)** | The distance between two points $(x_1, y_1)$ and $(x_2, y_2)$ is derived directly from the Pythagorean theorem. Draw a right triangle whose legs are the horizontal distance $\vert x_2 - x_1\vert $ and the vertical distance $\vert y_2 - y_1\vert $. |
+| **[Midpoint Formula](#midpoint-formula)** | The midpoint between two points is the average of their coordinates: Worked example. Find the midpoint between $(2, 3)$ and $(8, 7)$. |
+| **[Angles](#angles)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Measuring Angles: Degrees and Radians](#measuring-angles-degrees-and-radians)** | Degrees. A full rotation is divided into $360°$. This convention dates back to Babylonian astronomy (roughly 360 days in a year). |
+| **[Converting Between Degrees and Radians](#converting-between-degrees-and-radians)** | Since $180° = \pi$ radians: $\text{radians} = \text{degrees} \times \frac{\pi}{180}$ |
+| **[Reference Angles](#reference-angles)** | The reference angle is the acute angle formed between the terminal side of an angle and the $x$-axis. Reference angles are always between $0°$ and $90°$ (or $0$ and $\frac{\pi}{2}$). |
+| **[Types of Angles](#types-of-angles)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Angle Relationships](#angle-relationships)** | Complementary angles sum to $90°$. For example, $35°$ and $55°$ are complementary. |
+| **[Triangles](#triangles)** | A triangle is a polygon with three vertices, three edges (sides), and three interior angles. Sometimes one edge is designated the base, and the opposite vertex is called the apex. |
+| **[Angle Sum Property](#angle-sum-property)** | The sum of the three interior angles of any triangle equals $180°$. |
+| **[Exterior Angle Theorem](#exterior-angle-theorem)** | An exterior angle of a triangle is formed by extending one side. Each exterior angle equals the sum of the two non-adjacent interior angles. |
+| **[Area Formulas](#area-formulas)** | Base-height formula: where $b$ is the base and $h$ is the perpendicular height from the base to the opposite vertex. |
+| **[Types by Sides](#types-by-sides)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Types by Angles](#types-by-angles)** | An oblique triangle is any triangle that does not contain a right angle (so it is either acute or obtuse). |
+| **[The Pythagorean Theorem](#the-pythagorean-theorem)** | For a right triangle with legs $a$ and $b$ and hypotenuse $c$: Geometric intuition. The area of the square built on the hypotenuse equals the sum of the areas of the squares built on the two legs. |
+| **[Pythagorean Triples](#pythagorean-triples)** | A Pythagorean triple is a set of three positive integers $(a, b, c)$ satisfying $a^2 + b^2 = c^2$. |
+| **[Special Right Triangles](#special-right-triangles)** | Special right triangles have side ratios involving simple integers or square roots, making exact computation possible without a calculator. |
+| **[Triangle Inequality Theorem](#triangle-inequality-theorem)** | The sum of any two sides of a triangle must be greater than the third side: This determines whether three given lengths can form a triangle. For example, sides $3, 4, 8$ cannot form a triangle because $3 + 4 = 7 < 8$. |
+| **[Similarity](#similarity)** | Similar triangles have the same shape but may differ in size. Corresponding angles are equal, and corresponding sides are proportional. |
+| **[Congruence](#congruence)** | Congruent triangles are identical in both shape and size. All corresponding sides and angles are equal. Unlike similarity, congruence requires that the triangles could be placed on top of each other exactly (possibly after rotation or reflection). |
+| **[Circles](#circles)** | A circle is the set of all points in a plane that are a fixed distance (the radius $r$) from a fixed point (the center). |
+| **[Equation of a Circle](#equation-of-a-circle)** | A circle with center $(h, k)$ and radius $r$ satisfies: A circle centered at the origin simplifies to $x^2 + y^2 = r^2$. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Pythagorean theorem](#the-pythagorean-theorem)** | In a right triangle, the square of the hypotenuse length equals the sum of the squares of the leg lengths: $c^2=a^2+b^2$. The right-angle hypothesis is essential. |
+| **[Exterior Angle Theorem](#exterior-angle-theorem)** | An exterior angle of a triangle is formed by extending one side. Each exterior angle equals the sum of the two non-adjacent interior angles. |
+| **[Triangle Inequality Theorem](#triangle-inequality-theorem)** | The sum of any two sides of a triangle must be greater than the third side: This determines whether three given lengths can form a triangle. For example, sides $3, 4, 8$ cannot form a triangle because $3 + 4 = 7 < 8$. |
+| **[Trigonometric Identities](#trigonometric-identities)** | See the linked section for the precise result and its conditions. |
+| **[Pythagorean Identities](#pythagorean-identities)** | From the unit circle equation $x^2 + y^2 = 1$ with $x = \cos\theta$ and $y = \sin\theta$: Dividing both sides by $\cos^2\theta$: |
+| **[Reciprocal Identities](#reciprocal-identities)** | $\csc\theta = \frac{1}{\sin\theta} \qquad \sec\theta = \frac{1}{\cos\theta} \qquad \cot\theta = \frac{1}{\tan\theta}$ |
+| **[Quotient Identities](#quotient-identities)** | $\tan\theta = \frac{\sin\theta}{\cos\theta} \qquad \cot\theta = \frac{\cos\theta}{\sin\theta}$ |
+| **[Proving Trigonometric Identities](#proving-trigonometric-identities)** | See the linked section for the precise result and its conditions. |
+| **[Law of Sines and Law of Cosines](#law-of-sines-and-law-of-cosines)** | These extend trigonometry to oblique triangles (triangles without a right angle). In any triangle with sides $a, b, c$ opposite angles $A, B, C$: Solve any triangle interactively below. |
+| **[Law of Sines](#law-of-sines)** | When to use: You have AAS (two angles and a non-included side), ASA (two angles and the included side), or SSA (two sides and a non-included angle). |
+| **[Law of Cosines](#law-of-cosines)** | Equivalently: $a^2 = b^2 + c^2 - 2bc\cos A$ and $b^2 = a^2 + c^2 - 2ac\cos B$. $c^2 = a^2 + b^2 - 2ab\cos C$ |

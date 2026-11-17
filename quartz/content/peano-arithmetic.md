@@ -27,6 +27,8 @@ We take ordinary [logic](./predicate-logic-first-order-logic), [sets](./set-theo
 > [!distinction] Which "Peano arithmetic" are we studying?
 > Our starting point is a **second-order Peano-style successor structure** $(N,0,S)$, with induction over all subsets. We then **construct** $+$ and $\cdot$ using recursion. Conventional **first-order Peano arithmetic (PA)** instead uses a language with $0,S,+,\cdot$ and arithmetic axioms, with induction expressed as an axiom *schema*. These are related presentations, not identical formal theories. We compare their model-theoretic consequences [near the end](#first-order-arithmetic-versus-full-second-order-induction).
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The primitive language: zero and successor
 
 ![The successor chain 0, 1, 2, 3, 4 shows that a natural number's successor comes after it.](./media/pa-successor-chain.svg)
@@ -835,3 +837,57 @@ Read $\Downarrow$ as "provides the foundation for the next step," not as one sin
 **What may be assumed in an abstract algebra proof?** Whatever the exercise or course has explicitly established or taken as background. For example, to test whether $(\mathbb Q,+)$ is a group, you normally invoke previously proved rational-arithmetic laws. You need not rebuild the Peano axioms each time. The important point is that those properties can be traced through a chain of definitions and proofs; they are not magic supplied by the plus sign.
 
 **Final perspective:** the value of the Peano approach is not that calculating $2+2$ was secretly difficult. It is that it exposes a dependency that ordinary notation hides: the successor function is primitive, addition and multiplication are constructed, and associativity and commutativity are *earned*. Once that separation is clear, abstract algebra becomes the study of exactly which earned properties survive when the underlying objects and operations change.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Natural-number order](#defining-order-instead-of-assuming-a-number-line)** | Define $a\leq b$ when $b=a+k$ for some natural $k$. This uses constructed addition and does not depend on a picture of a number line. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The primitive language: zero and successor](#the-primitive-language-zero-and-successor)** | *Figure: Zero and successor are primitive here; addition is derived later.* Before defining addition, multiplication, or even the relation "less than," consider a structure |
+| **[The Peano conditions and what each excludes](#the-peano-conditions-and-what-each-excludes)** | Here is a common second-order presentation. The first two lines specify the kind of objects and function we work with; some textbooks count only the remaining axioms, and conventions for the number of "Peano axioms" vary. |
+| **[Visual intuition for each axiom](#visual-intuition-for-each-axiom)** | The five conditions constrain different things. Read each picture as a finite window into a general rule, not a proof from the first few numbers. |
+| **[Do the first four conditions guarantee counting?](#do-the-first-four-conditions-guarantee-counting)** | No. Even if zero cannot be a successor and successor is injective, those rules still permit an entirely separate chain. Full induction is what rules it out. |
+| **[Every nonzero number has a predecessor](#every-nonzero-number-has-a-predecessor)** | We can already deduce something useful: $\forall n\in N,\quad n=0\ \text{or}\ \exists k\in N\ (n=S(k)).$ |
+| **[Constructing a model from sets](#constructing-a-model-from-sets)** | An axiomatic description states what a structure must do; it does not automatically exhibit a structure. Construction of the Natural Numbers gives a dedicated set-theoretic derivation from the axiom of infinity. |
+| **[Induction: a theorem engine, not a repeated calculation](#induction-a-theorem-engine-not-a-repeated-calculation)** | *Figure: Induction proves closure over the entire number system, not merely the first few examples.* |
+| **[The recursion theorem: why operations can be defined](#the-recursion-theorem-why-operations-can-be-defined)** | A pair of recursive equations looks like a definition, but we must justify that it determines an actual function on *every* natural number. |
+| **[Defining addition and checking the first examples](#defining-addition-and-checking-the-first-examples)** | *Figure: Addition is constructed from the successor operation.* Fix a natural $a$. Apply the recursion theorem with $X=N$, starting value $a$, and step function $f=S$. Call the resulting function of $b$ by the notation $a+b$ (read "a plus b"). |
+| **[The other zero law must be proved](#the-other-zero-law-must-be-proved)** | Definition A0 gives $a+0=a$. It does not directly give $0+a=a$ because addition was defined by recursing on its *second* argument. |
+| **[Moving successor across the first argument](#moving-successor-across-the-first-argument)** | We will need one more lemma before proving commutativity. |
+| **[Proving the laws of addition](#proving-the-laws-of-addition)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Associativity](#associativity)** | Theorem: for all $a,b,c\in N$, Read this as "parenthesizing an addition in either order gives the same result." Fix $a$ and $b$ and induct on $c$. |
+| **[Commutativity](#commutativity)** | Theorem: for all $a,b\in N$, Read this as "changing the order of the addends does not change the result." Fix $a$ and induct on $b$. |
+| **[Cancellation](#cancellation)** | Theorem: if $a+c=b+c$, then $a=b$. |
+| **[Defining multiplication](#defining-multiplication)** | Now addition exists, so we can use the recursion theorem a second time. For fixed $a$, start at zero and repeatedly add $a$. This specifies multiplication (read $a\cdot b$ as "a times b"): |
+| **[Zero and one in multiplication](#zero-and-one-in-multiplication)** | M0 immediately gives $a\cdot 0=0$. The reverse statement, $0\cdot a=0$, requires induction: Since $1=S(0)$, we also have |
+| **[Proving the laws of multiplication](#proving-the-laws-of-multiplication)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Multiplying a successor in the first argument](#multiplying-a-successor-in-the-first-argument)** | The multiplication recursion MS changes the second argument. To change the first, we need a lemma analogous to the earlier addition lemma: Proof by induction on $b$. At $b=0$, both sides are zero. Assume the formula holds for $b$. Then |
+| **[Distributivity in the second argument](#distributivity-in-the-second-argument)** | Theorem: for all $a,b,c$, Read "distributes over" as "multiplying a sum equals the sum of the separate products." Fix $a,b$ and induct on $c$. |
+| **[Distributivity in the first argument](#distributivity-in-the-first-argument)** | We also need Induct on $c$. The base follows from M0 and the addition zero laws. For the step, |
+| **[Commutativity](#commutativity-1)** | Theorem: $a\cdot b=b\cdot a$ for all naturals. |
+| **[Associativity](#associativity-1)** | Theorem: $(a\cdot b)\cdot c=a\cdot(b\cdot c)$ for all naturals. |
+| **[Defining order instead of assuming a number line](#defining-order-instead-of-assuming-a-number-line)** | We have not taken "$a$ is less than $b$" as primitive. We can define it through addition: |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Recursion makes arithmetic operations legitimate](#the-recursion-theorem-why-operations-can-be-defined)** | The recursion theorem supplies a unique function with a prescribed value at zero and a successor step. Addition and multiplication are then defined by recursion rather than assumed in advance. |
+| **[Induction: a theorem engine, not a repeated calculation](#induction-a-theorem-engine-not-a-repeated-calculation)** | *Figure: Induction proves closure over the entire number system, not merely the first few examples.* To prove a statement $P(n)$ for every natural $n$, full induction gives a standard method: The phrase inductive hypothesis means the temporary assumption $P(n)$ inside the step. |
+| **[The other zero law must be proved](#the-other-zero-law-must-be-proved)** | Definition A0 gives $a+0=a$. It does not directly give $0+a=a$ because addition was defined by recursing on its *second* argument. |
+| **[Proving the laws of addition](#proving-the-laws-of-addition)** | See the linked section for the precise result and its conditions. |
+| **[Proving the laws of multiplication](#proving-the-laws-of-multiplication)** | See the linked section for the precise result and its conditions. |
+| **[A small lemma prevents circular order arguments](#a-small-lemma-prevents-circular-order-arguments)** | Lemma: if $a+k=a$, then $k=0$. |

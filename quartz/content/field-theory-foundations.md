@@ -12,6 +12,8 @@ A ring lets us add, subtract, and multiply. A **field** is a commutative ring in
 
 We develop these claims rather than assuming that every polynomial already has a root. The distinction between **an existing field**, **a field extension**, and **an algebraic closure** is essential throughout.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Fields, prime subfields and characteristic
 
 > [!definition] Field
@@ -360,3 +362,53 @@ The [Fundamental Theorem of Algebra](./construction-of-the-complex-numbers) says
 | Finite-field uniqueness | root relations and embeddings of successive root extensions |
 
 The field/ideal machinery feeds directly into polynomial geometry and statistical model geometry, but neither field theory nor algebraic closure alone proves the analytic results required in [Singular Learning Theory](./singular-learning-theory).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Field](#fields-prime-subfields-and-characteristic)** | A field $K$ is a nonzero commutative ring with $1$ such that every $a\ne0$ admits $a^{-1}$ with $aa^{-1}=1$. Equivalently, $(K,+)$ and $(K\setminus\{0\},\cdot)$ are abelian groups related by distributivity. |
+| **[Field extension](#field-extensions-and-their-degree)** | A field extension $L/K$ consists of a field $L$ containing an identified copy of a field $K$. The operations of $K$ agree with those inherited from $L$. |
+| **[Algebraic versus transcendental](#algebraic-elements-and-minimal-polynomials)** | An element $\alpha\in L$ is algebraic over $K$ if some nonzero polynomial $f\in K[x]$ satisfies $f(\alpha)=0$. Otherwise it is transcendental over $K$. |
+| **[Splitting field](#splitting-fields-exist)** | A splitting field of $f\in K[x]$ is a field extension $L/K$ in which $f$ factors into linear terms, and which is generated over $K$ by those roots. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Fields, prime subfields and characteristic](#fields-prime-subfields-and-characteristic)** | Every field is an integral domain. If $ab=0$ and $a\ne0$, multiply by $a^{-1}$ to get $b=0$. Therefore the characteristic of a field is either $0$ or a prime $p$, as proved in Ring Theory Foundations. |
+| **[Fractions of an arbitrary integral domain](#fractions-of-an-arbitrary-integral-domain)** | The construction of the rationals is an instance of a much more general theorem. |
+| **[The universal property](#the-universal-property)** | If $j:D\to L$ is an injective unital homomorphism into a field $L$, define $\widetilde j\big([(a,b)]\big)=j(a)j(b)^{-1}.$ |
+| **[Field extensions and their degree](#field-extensions-and-their-degree)** | *Figure: The tower law multiplies degrees, not the number of written radical symbols.* Because scalars in $K$ multiply elements of $L$, the extension is a vector space over $K$. |
+| **[Algebraic elements and minimal polynomials](#algebraic-elements-and-minimal-polynomials)** | For algebraic $\alpha$, consider evaluation $\operatorname{ev}_\alpha:K[x]\longrightarrow L,\qquad f\longmapsto f(\alpha).$ |
+| **[Adjoining a root without assuming it exists](#adjoining-a-root-without-assuming-it-exists)** | *Figure: A root is constructed by a quotient rather than being assumed to exist in the original field.* Let $f\in K[x]$ be a nonconstant irreducible polynomial. |
+| **[Splitting fields exist](#splitting-fields-exist)** | Proof. Factor $f$ into irreducibles in $K[x]$ (the polynomial division algorithm supports induction on degree). Choose one irreducible factor $g$. The quotient $K_1=K[x]/(g)$ is a field containing a root $\alpha_1$ of $g$, hence of $f$. |
+| **[Finite fields have prime-power size](#finite-fields-have-prime-power-size)** | Proof. A finite field has positive prime characteristic $p$, so contains the prime subfield $\mathbb F_p$. Regard it as an $\mathbb F_p$-vector space of some finite dimension $n$. |
+| **[Existence of a field of size $p^n$](#existence-of-a-field-of-size-pn)** | *Figure: Finite fields exist precisely at prime-power cardinalities.* Proof. Work over $\mathbb F_p$ and take a splitting field $L$ of |
+| **[The multiplicative group of a finite field is cyclic](#the-multiplicative-group-of-a-finite-field-is-cyclic)** | *Figure: The field's nonzero elements form a cyclic multiplicative group.* Proof. Let $m$ be the least common multiple of the orders of elements of $G$. Since every element order divides $\vert G\vert $ by Lagrange's theorem, $m$ divides $\vert G\vert $. |
+| **[Uniqueness of the finite field of order $p^n$](#uniqueness-of-the-finite-field-of-order-pn)** | Proof. In a field $E$ of $q$ elements, every nonzero element has multiplicative order dividing $q-1$. Therefore $a^{q-1}=1$ for $a\ne0$, and also $0^q=0$: every element is a root of $x^q-x$. |
+| **[Algebraic closure: what is and is not proved here](#algebraic-closure-what-is-and-is-not-proved-here)** | A field $\overline K$ is an algebraic closure of $K$ if every element of $\overline K$ is algebraic over $K$ and every nonconstant polynomial over $\overline K$ has a root there. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[The smallest subfield](#fields-prime-subfields-and-characteristic)** | Every field of characteristic $0$ contains a copy of $\mathbb Q$; every field of characteristic $p>0$ contains a copy of $\mathbb F_p=\mathbb Z/p\mathbb Z$. |
+| **[Field of fractions of a domain](#fractions-of-an-arbitrary-integral-domain)** | Every integral domain $D$ embeds in a field $\operatorname{Frac}(D)$ whose elements are equivalence classes of pairs $(a,b)$ with $a\in D$, $b\in D\setminus\{0\}$. The resulting field is unique up to an isomorphism respecting the embedded copy of $D$. |
+| **[Tower law](#field-extensions-and-their-degree)** | For finite extensions $K\subseteq E\subseteq L$, $[L:K]=[L:E]\,[E:K].$ |
+| **[Minimal polynomial theorem](#algebraic-elements-and-minimal-polynomials)** | There is a unique monic irreducible polynomial $m_\alpha\in K[x]$ of least positive degree with $m_\alpha(\alpha)=0$, and every polynomial vanishing at $\alpha$ is divisible by $m_\alpha$. |
+| **[Finite extensions are algebraic](#algebraic-elements-and-minimal-polynomials)** | If $[L:K]=n<\infty$, then every $\alpha\in L$ is algebraic over $K$. |
+| **[Irreducible polynomial quotient constructs a field with a root](#adjoining-a-root-without-assuming-it-exists)** | $L=K[x]/(f)$ is a field, and the class $\alpha=x+(f)$ satisfies $f(\alpha)=0$. The natural map $K\hookrightarrow L$ is injective. |
+| **[Every nonconstant polynomial has a finite splitting extension](#splitting-fields-exist)** | For every field $K$ and nonconstant $f\in K[x]$, there is a finite-degree field extension in which $f$ splits into linear factors. |
+| **[Cardinality of a finite field](#finite-fields-have-prime-power-size)** | Every finite field has size $p^n$ for some prime $p$ and positive integer $n$. |
+| **[Existence of finite fields of every prime-power order](#existence-of-a-field-of-size-pn)** | For each prime $p$ and $n\ge1$ there exists a field with exactly $q=p^n$ elements. |
+| **[Finite subgroup of a field's units is cyclic](#the-multiplicative-group-of-a-finite-field-is-cyclic)** | Every finite subgroup $G\subseteq K^\times$ is cyclic. In particular, the nonzero elements of a field of $q$ elements form a cyclic group of order $q-1$. |
+| **[Uniqueness up to isomorphism](#uniqueness-of-the-finite-field-of-order-pn)** | Any two fields of $q=p^n$ elements are isomorphic over their common prime field $\mathbb F_p$. |

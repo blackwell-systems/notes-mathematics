@@ -8,6 +8,8 @@ enables: ["linear-algebra-foundations", "linear-algebra-computation"]
 > **Builds on:** [Matrices](./matrices) · [Systems of Equations](./systems-of-equations)
 > **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Linear Algebra for Computation](./linear-algebra-computation)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Problem
 
 You walk into a fruit stand. You buy 3 apples and 2 oranges and pay \$8. Your friend buys 1 apple and 4 oranges and pays \$9. What does each fruit cost?
@@ -634,3 +636,36 @@ Solving $\begin{bmatrix} 5 & 3 \\ 3 & 3 \end{bmatrix}\begin{bmatrix} m \\ b \end
 
 This is the computational core of ordinary least squares (see [Statistical Learning](./statistical-learning#ordinary-least-squares-ols)); every method on this page (elimination, Gaussian elimination, Cramer's rule, the matrix inverse) is a way to solve the resulting square system.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Problem](#the-problem)** | You walk into a fruit stand. You buy 3 apples and 2 oranges and pay \$8. Your friend buys 1 apple and 4 oranges and pays \$9. What does each fruit cost? |
+| **[Geometric Intuition](#geometric-intuition)** | Each linear equation in two variables describes a line in the plane. A system of two equations therefore gives you two lines, and the solution is the point where those lines cross. |
+| **[Types of Solutions](#types-of-solutions)** | A system of linear equations can have: 1. Exactly one solution (consistent and independent) 2. Infinitely many solutions (consistent and dependent) |
+| **[Methods to Solve Systems of Linear Equations](#methods-to-solve-systems-of-linear-equations)** | There are several methods to solve systems of linear equations: |
+| **[Substitution Method](#substitution-method)** | Substitution Method: Solve one equation for one variable in terms of the others, then substitute that expression into the remaining equations. |
+| **[Elimination Method](#elimination-method)** | Elimination Method (Addition/Subtraction Method): Multiply equations by constants to make coefficients of one variable opposites, then add equations to eliminate that variable. |
+| **[Graphing Method](#graphing-method)** | Graphing Method: Put each equation in slope-intercept form, graph both lines, and read off the point where they cross. This is the most visual method and directly shows which of the three solution types you have. |
+| **[Matrix Method (Augmented Matrix)](#matrix-method-augmented-matrix)** | Matrix Method: Represent the system as an augmented matrix and use row operations to solve. |
+| **[Gaussian Elimination](#gaussian-elimination)** | Gaussian Elimination: A systematic matrix method using forward elimination followed by back-substitution. |
+| **[Gauss-Jordan Elimination](#gauss-jordan-elimination)** | Gauss-Jordan Elimination: Extends Gaussian elimination to achieve reduced row echelon form, eliminating need for back-substitution. |
+| **[Cramer's Rule](#cramers-rule)** | Cramer's Rule: For a square system, each variable equals a ratio of determinants. For the $2 \times 2$ system |
+| **[Matrix Form and the Inverse-Matrix Method](#matrix-form-and-the-inverse-matrix-method)** | Every linear system can be packaged as a single matrix equation where $A$ is the coefficient matrix, $\mathbf{x}$ is the column vector of unknowns, and $\mathbf{b}$ is the column of constants. The fruit-stand system becomes |
+| **[Special Cases](#special-cases)** | Infinitely Many Solutions: A row of all zeros (like [0 0 \vert 0]) expresses a redundant equation, not automatically infinitely many solutions. |
+| **[Systems with More than Two Variables](#systems-with-more-than-two-variables)** | *Figure: Three equations in three unknowns can define three planes whose common point solves the system.* With three variables, each equation is a plane in space rather than a line, and a solution is a point lying on all of them at once. |
+| **[Systems of Linear Equations in Machine Learning](#systems-of-linear-equations-in-machine-learning)** | The single most important appearance of linear systems in machine learning is linear regression. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Cramer's rule applies only to invertible square systems](#cramers-rule)** | For a square coefficient matrix $A$ with $\det A\ne0$, each solution coordinate is a determinant ratio. When $\det A=0$, the rule is not applicable, but that alone does not decide whether the system is inconsistent or dependent. |

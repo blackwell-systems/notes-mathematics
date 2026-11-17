@@ -12,6 +12,8 @@ A forgetful functor removes structure. A **free construction** adds exactly enou
 
 Alongside the free monoid here, the [Mathematical Spaces Atlas](./atlas-of-mathematical-spaces#13-categories-the-structure-of-mathematical-structures) proves the analogous **free vector-space** construction and displays its universal mapping diagram.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## A free monoid you can build by hand
 
 For a set $A$, let $A^*$ be the set of all **finite lists** (words) of elements of $A$, including the empty list $[]$. Define multiplication by concatenation and identity by the empty list.
@@ -156,3 +158,38 @@ The unit and associativity laws proved above guarantee Kleisli identities and as
 | Kleisli composition | apply, map, flatten |
 
 This completes the first category-theory branch. Its universal perspective reappears immediately in [General Topology Foundations](./general-topology-foundations), where continuity is defined through inverse images of open sets.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Left/right adjoint](#an-adjunction-is-a-natural-family-of-bijections)** | Functors $F:\mathcal C\to\mathcal D$ and $U:\mathcal D\to\mathcal C$ form an adjunction $F\dashv U$ if there are bijections natural in both $A$ and $B$. |
+| **[Monad](#the-list-monad)** | A monad on $\mathcal C$ consists of an endofunctor $T:\mathcal C\to\mathcal C$, a unit $\eta:1\Rightarrow T$, and multiplication $\mu:T^2\Rightarrow T$, satisfying $\mu\circ T\eta=1_T=\mu\circ\eta_T$ and $\mu\circ T\mu=\mu\circ\mu_T$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[A free monoid you can build by hand](#a-free-monoid-you-can-build-by-hand)** | For a set $A$, let $A^*$ be the set of all finite lists (words) of elements of $A$, including the empty list $[]$. Define multiplication by concatenation and identity by the empty list. |
+| **[An adjunction is a natural family of bijections](#an-adjunction-is-a-natural-family-of-bijections)** | For the free-monoid construction, set $F(A):=A^*$, and let $U:\mathbf{Mon}\to\mathbf{Set}$ forget the monoid operation. The preceding construction exhibits the bijection. |
+| **[Unit and counit from the hom-set correspondence](#unit-and-counit-from-the-hom-set-correspondence)** | The adjunction produces two natural transformations: $\eta:1_{\mathcal C}\Rightarrow UF, \qquad \varepsilon:FU\Rightarrow1_{\mathcal D}.$ |
+| **[The list monad](#the-list-monad)** | From $F\dashv U$, obtain a monad $T=UF$, with unit the adjunction unit and multiplication $\mu=U\varepsilon F$. |
+| **[The monad laws by explicit list computations](#the-monad-laws-by-explicit-list-computations)** | Take a list $w=[a,b,c]$. Applying $\eta_{T(A)}$ gives $[w]$, so flattening gives $w$. Applying $T\eta_A$ gives $[[a],[b],[c]]$, which also flattens to $w$. This proves both unit laws. |
+| **[Kleisli composition: composing computations that return lists](#kleisli-composition-composing-computations-that-return-lists)** | A Kleisli arrow $f:A\to T(B)$ assigns zero or more outputs to each input. Given $f:A\to T(B)$ and $g:B\to T(C)$, define |
+| **[Two more adjunctions worth recognizing](#two-more-adjunctions-worth-recognizing)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Words form the free monoid on A](#a-free-monoid-you-can-build-by-hand)** | For every monoid $M$ and every function $f:A\to U(M)$, there is a unique monoid homomorphism with $\widehat f([a])=f(a)$ for each generator $a$. Here $U$ forgets the monoid structure. |
+| **[Triangle identities (worked for words)](#unit-and-counit-from-the-hom-set-correspondence)** | The two composites $F(A)\xrightarrow{F\eta_A}FUF(A)\xrightarrow{\varepsilon_{F(A)}}F(A)$ and $U(M)\xrightarrow{\eta_{U(M)}}UFU(M)\xrightarrow{U\varepsilon_M}U(M)$ are identities. |
+| **[The monad laws by explicit list computations](#the-monad-laws-by-explicit-list-computations)** | Take a list $w=[a,b,c]$. Applying $\eta_{T(A)}$ gives $[w]$, so flattening gives $w$. Applying $T\eta_A$ gives $[[a],[b],[c]]$, which also flattens to $w$. This proves both unit laws. |

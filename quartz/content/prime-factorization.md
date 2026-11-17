@@ -10,6 +10,8 @@ enables: ["number-theory", "partial-fraction-decomposition"]
 
 Prime factorization is a core tool in [Number Theory](./number-theory), where it is used to compute GCDs, LCMs, and in modular arithmetic. For the related operation on **polynomial expressions**, see [Factoring Polynomials](./factoring-polynomials): the same product idea, but the possible factors depend on the coefficient system.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Are Prime Numbers?
 
 > [!definition] Prime number
@@ -491,3 +493,51 @@ Prime factorization is the foundation of many topics in [Number Theory](./number
 - **Euler's totient function** $\phi(n)$ counts integers less than $n$ that are coprime to $n$; its formula reads the prime factorization directly, $\phi(n) = n\prod_{p \mid n}\left(1 - \tfrac{1}{p}\right)$, one factor per *distinct* prime. For $360 = 2^3 \cdot 3^2 \cdot 5$ the distinct primes are $2, 3, 5$, so $\phi(360) = 360\left(1 - \tfrac{1}{2}\right)\left(1 - \tfrac{1}{3}\right)\left(1 - \tfrac{1}{5}\right) = 360 \cdot \tfrac{1}{2} \cdot \tfrac{2}{3} \cdot \tfrac{4}{5} = 96$
 - **Cryptography** (RSA) relies on the difficulty of factoring large numbers into primes
 - **Perfect numbers** are characterized by the equation $\sigma(n) = 2n$, linking back to the sum of divisors formula
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Prime number](#what-are-prime-numbers)** | An integer $p>1$ is prime when its only positive divisors are $1$ and $p$. The number $1$ is not prime, a convention needed for a unique factorization. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[List of Small Primes](#list-of-small-primes)** | The primes up to 50 are worth memorizing, as they appear constantly when factoring: Note that $2$ is the only even prime. Every even number greater than 2 is divisible by 2, so it cannot be prime. This makes 2 special in many arguments. |
+| **[Canonical Form](#canonical-form)** | When writing prime factorizations, we use canonical form (also called standard form): group repeated primes using exponents and list the prime bases in increasing order. |
+| **[Divisibility Rules](#divisibility-rules)** | Before diving into factorization methods, it helps to have quick tests for whether a number is divisible by small primes. These divisibility rules let you test divisibility without performing full division. |
+| **[Factor Tree Method](#factor-tree-method)** | Factor tree method of prime factorization: To find the prime factorization of the given number using factor tree method, follow the below steps: |
+| **[Trial Division Method](#trial-division-method)** | The trial division method is a systematic algorithm for finding the prime factorization of any integer $n > 1$. |
+| **[Algorithm](#algorithm)** | Why stop at $\sqrt{n}$? If $n$ has a factor larger than $\sqrt{n}$, then the corresponding cofactor must be smaller than $\sqrt{n}$, and we would have already found it. |
+| **[Sieve of Eratosthenes](#sieve-of-eratosthenes)** | The Sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to a given limit $n$. Rather than testing each number individually, it works by systematically eliminating composites. |
+| **[Algorithm](#algorithm-1)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Walkthrough: Primes up to 30](#walkthrough-primes-up-to-30)** | Start with the list: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30. |
+| **[GCD via Prime Factorization](#gcd-via-prime-factorization)** | The greatest common divisor (GCD) of two numbers can be found by comparing their prime factorizations. For each prime that appears in both factorizations, take the minimum exponent. |
+| **[Formula](#formula)** | If $a = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$ and $b = p_1^{b_1} \cdot p_2^{b_2} \cdots p_k^{b_k}$ (using exponent 0 for primes that don't appear), then: |
+| **[LCM via Prime Factorization](#lcm-via-prime-factorization)** | The least common multiple (LCM) of two numbers is found similarly, but by taking the maximum exponent of each prime. |
+| **[Formula](#formula-1)** | $\text{lcm}(a, b) = p_1^{\max(a_1, b_1)} \cdot p_2^{\max(a_2, b_2)} \cdots p_k^{\max(a_k, b_k)}$ |
+| **[The GCD-LCM Identity](#the-gcd-lcm-identity)** | For any two positive integers $a$ and $b$: Verification with our example: $\gcd(a, b) \cdot \text{lcm}(a, b) = a \cdot b$ |
+| **[Number of Divisors](#number-of-divisors)** | Prime factorization reveals exactly how many divisors a number has. |
+| **[Formula](#formula-2)** | If $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$, then the number of positive divisors of $n$, written $\tau(n)$ (read "tau of n"), is: |
+| **[Sum of Divisors](#sum-of-divisors)** | We can also compute the sum of all positive divisors of $n$ using its prime factorization. |
+| **[Formula](#formula-3)** | If $n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$, then the sum of divisors, written $\sigma(n)$ (read "sigma of n"), is: |
+| **[Perfect Numbers](#perfect-numbers)** | A perfect number equals the sum of its *proper* divisors (all divisors except itself), which is the same as saying $\sigma(n) = 2n$ (adding $n$ back to both sides). The sum-of-divisors formula makes this easy to check. |
+| **[Simplifying Fractions](#simplifying-fractions)** | To reduce a fraction to lowest terms, factor both numerator and denominator and cancel shared primes. |
+| **[Finding Common Denominators](#finding-common-denominators)** | To add fractions like $\frac{1}{12} + \frac{5}{18}$, find the LCM of the denominators. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Uniqueness of prime factorization](#canonical-form)** | Each integer $n>1$ has a prime factorization unique up to the order of its factors. Ordering the distinct primes and grouping repetitions into exponents supplies a canonical form. |
+| **[Divisibility Rules](#divisibility-rules)** | Before diving into factorization methods, it helps to have quick tests for whether a number is divisible by small primes. These divisibility rules let you test divisibility without performing full division. |
+| **[The GCD-LCM Identity](#the-gcd-lcm-identity)** | For any two positive integers $a$ and $b$: Verification with our example: $\gcd(a, b) \cdot \text{lcm}(a, b) = a \cdot b$ |

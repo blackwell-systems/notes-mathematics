@@ -20,6 +20,8 @@ Vector calculus generalizes that idea to curves, regions and surfaces:
 
 The theorem you use depends on whether you measure a scalar, a movement **along** a boundary or a flow **through** a boundary. All three must be distinguished.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. Scalar fields and vector fields
 
 A **scalar field** assigns a number to each point: temperature $T(x,y)$ or pressure $p(x,y,z)$.
@@ -384,3 +386,38 @@ The slogan is not a license to interchange line, flux and scalar integrals. Each
 **Scope:** These examples build the classical vector-calculus picture and state the main integral theorems with their standard regularity and orientation requirements. A full proof course would treat partitions, surface orientations, singularities, domains with multiple boundary components, generalized Stokes' theorem, and differential forms in greater depth.
 
 **Continue with:** [Differential Geometry](./differential-geometry) for curved manifolds and forms, [Algebraic Topology](./algebraic-topology) for cycles and boundaries, or [Differential Equations](./differential-equations) for fields that describe motion evolving over time.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. Scalar fields and vector fields](#1-scalar-fields-and-vector-fields)** | A scalar field assigns a number to each point: temperature $T(x,y)$ or pressure $p(x,y,z)$. |
+| **[2. Curves, velocity and arc length](#2-curves-velocity-and-arc-length)** | Describe a smooth curve by a parameter $t$: |
+| **[3. Line integrals: work along a path](#3-line-integrals-work-along-a-path)** | A scalar line integral accumulates a scalar quantity along a curve weighted by length: |
+| **[4. Conservative fields: when the path does not matter](#4-conservative-fields-when-the-path-does-not-matter)** | A field is a gradient field on a region if there exists a differentiable scalar potential $\phi$ such that $\mathbf F=\nabla\phi$. |
+| **[5. Divergence: infinitesimal outflow](#5-divergence-infinitesimal-outflow)** | For a continuously differentiable field $\mathbf F=(P,Q,R)$ in three dimensions, its divergence is the scalar field |
+| **[6. Curl: infinitesimal circulation](#6-curl-infinitesimal-circulation)** | For a continuously differentiable field $\mathbf F=(P,Q,R)$, its curl in three dimensions is |
+| **[7. Green's theorem: circulation along an edge equals curl inside](#7-greens-theorem-circulation-along-an-edge-equals-curl-inside)** | Let $D$ be a bounded planar region with a positively oriented (counterclockwise outer boundary), piecewise smooth, simple closed boundary $C$. Suppose $P,Q$ have continuous first partial derivatives on an open neighborhood of $D$. |
+| **[8. Surface integrals: flow through a surface](#8-surface-integrals-flow-through-a-surface)** | For a parametrized oriented surface $\mathbf r(u,v)$, two tangent vectors are $\mathbf r_u=\frac{\partial\mathbf r}{\partial u}, \qquad \mathbf r_v=\frac{\partial\mathbf r}{\partial v}.$ |
+| **[9. Stokes' theorem: surface curl becomes boundary circulation](#9-stokes-theorem-surface-curl-becomes-boundary-circulation)** | Let $S$ be a smooth oriented surface with piecewise smooth boundary $\partial S$, and let $\mathbf F$ be continuously differentiable on an open neighborhood. Orient the boundary consistently with the surface normal by the right-hand rule. |
+| **[10. The divergence theorem: sources inside equal flux outside](#10-the-divergence-theorem-sources-inside-equal-flux-outside)** | Let $E$ be a bounded solid region with a sufficiently regular, piecewise smooth closed boundary surface $\partial E$, oriented outward. |
+| **[11. Four calculus theorems, one recurring structure](#11-four-calculus-theorems-one-recurring-structure)** | The pattern can be written schematically as $\boxed{\text{integral of a derivative over a region} =\text{integral of the original quantity over its boundary}.}$ |
+| **[12. A map of mistakes and missing assumptions](#12-a-map-of-mistakes-and-missing-assumptions)** | See this section for the underlying idea, notation, and worked examples. |
+| **[13. Self-check and continuation](#13-self-check-and-continuation)** | Scope: These examples build the classical vector-calculus picture and state the main integral theorems with their standard regularity and orientation requirements. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[7. Green's theorem: circulation along an edge equals curl inside](#7-greens-theorem-circulation-along-an-edge-equals-curl-inside)** | Let $D$ be a bounded planar region with a positively oriented (counterclockwise outer boundary), piecewise smooth, simple closed boundary $C$. Suppose $P,Q$ have continuous first partial derivatives on an open neighborhood of $D$. |
+| **[9. Stokes' theorem: surface curl becomes boundary circulation](#9-stokes-theorem-surface-curl-becomes-boundary-circulation)** | Let $S$ be a smooth oriented surface with piecewise smooth boundary $\partial S$, and let $\mathbf F$ be continuously differentiable on an open neighborhood. Orient the boundary consistently with the surface normal by the right-hand rule. |
+| **[10. The divergence theorem: sources inside equal flux outside](#10-the-divergence-theorem-sources-inside-equal-flux-outside)** | Let $E$ be a bounded solid region with a sufficiently regular, piecewise smooth closed boundary surface $\partial E$, oriented outward. For a continuously differentiable field $\mathbf F$ on a neighborhood of the solid, the divergence theorem states |
+| **[11. Four calculus theorems, one recurring structure](#11-four-calculus-theorems-one-recurring-structure)** | The pattern can be written schematically as $\boxed{\text{integral of a derivative over a region} =\text{integral of the original quantity over its boundary}.}$ |

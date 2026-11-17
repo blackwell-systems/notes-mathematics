@@ -13,6 +13,8 @@ Number theory is about understanding the patterns and structure hidden in the wh
 > **Leads to:** [Algebraic Structures](./algebraic-structures)
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: integers, divisibility, and quotient structures
 
 Number theory usually begins with familiar integers, but the important question is **which mathematical structure makes a particular statement meaningful**. In this chapter the underlying set is $\mathbb Z$, not just the positive counting numbers, and we use several different structures on it.
@@ -550,3 +552,50 @@ $$a^{-1} \equiv a^{\phi(n) - 1} \pmod{n}$$
 
 **Worked example:** Take $n = 10$ (composite, so Fermat does not apply). The numbers coprime to $10$ are $1, 3, 7, 9$, so $\phi(10) = 4$. Euler's theorem says $3^{\phi(10)} = 3^4 \equiv 1 \pmod{10}$, and indeed $3^4 = 81 = 8\times 10 + 1 \equiv 1$. ✓ To invert $3$ modulo $10$, use $3^{-1} \equiv 3^{\phi(10) - 1} = 3^3 = 27 \equiv 7 \pmod{10}$. Check: $3 \times 7 = 21 \equiv 1 \pmod{10}$. ✓ This is the composite-modulus generalization of the Fermat trick used above.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Divisibility in the integers](#divisibility)** | For integers $a,b$, $a\mid b$ means that some integer $k$ satisfies $b=ak$. It is not an assertion that a fractional quotient is an integer without proof. |
+| **[Congruence modulo n](#modular-arithmetic)** | For $n>0$, $a\equiv b\pmod n$ means $n\mid(a-b)$. Congruence describes equivalence classes of integers, and addition and multiplication respect this relation. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: integers, divisibility, and quotient structures](#the-mathematical-setting-integers-divisibility-and-quotient-structures)** | Number theory usually begins with familiar integers, but the important question is which mathematical structure makes a particular statement meaningful. |
+| **[Divisibility](#divisibility)** | Divisibility: An integer a is divisible by an integer b (where $b \neq 0$) if there exists an integer k such that $a = bk$. |
+| **[Greatest Common Divisor (GCD)](#greatest-common-divisor-gcd)** | Greatest Common Divisor: The largest positive integer that divides both a and b. The GCD is used in simplifying fractions and in Prime Factorization. |
+| **[Euclidean Algorithm](#euclidean-algorithm)** | Euclidean Algorithm: Efficient method to compute GCD using repeated division. |
+| **[Extended Euclidean Algorithm](#extended-euclidean-algorithm)** | Extended Euclidean Algorithm: Finds integers x and y such that $ax + by = \gcd(a, b)$ Example: Express $\gcd(252, 105) = 21$ as a linear combination |
+| **[Least Common Multiple (LCM)](#least-common-multiple-lcm)** | Least Common Multiple: The smallest positive integer that is divisible by both a and b. |
+| **[Modular Arithmetic](#modular-arithmetic)** | Modular Arithmetic: A system of arithmetic for integers where numbers "wrap around" after reaching a certain value (the modulus). Modular arithmetic is the foundation of modern cryptography (RSA) and hash functions in computer science. |
+| **[Congruence](#congruence)** | Congruence Modulo n: Two integers a and b are congruent modulo n if they have the same remainder when divided by n. |
+| **[Properties of Congruence](#properties-of-congruence)** | Congruence is an equivalence relation: Arithmetic Properties: If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then: |
+| **[Modular Addition and Multiplication Tables](#modular-addition-and-multiplication-tables)** | Example - Arithmetic modulo 5: Addition table ($\mathbb{Z}_5$): Multiplication table ($\mathbb{Z}_5$): |
+| **[Modular Inverses](#modular-inverses)** | Modular Inverse: An integer a has a multiplicative inverse modulo n if there exists an integer x such that $ax \equiv 1 \pmod{n}$. |
+| **[Modular Division](#modular-division)** | Modular Division: To compute $\frac{a}{b} \pmod{n}$, find $b^{-1} \pmod{n}$ and compute $a \times b^{-1} \pmod{n}$. |
+| **[Solving linear congruences: why cancellation can fail](#solving-linear-congruences-why-cancellation-can-fail)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Modular Exponentiation](#modular-exponentiation)** | Modular Exponentiation: Computing $a^b \pmod{n}$ efficiently. |
+| **[Fermat's Little Theorem](#fermats-little-theorem)** | Fermat's Little Theorem: If p is prime and $\gcd(a, p) = 1$, then: $$a^{p-1} \equiv 1 \pmod{p}$$ Corollary: $a^p \equiv a \pmod{p}$ for all integers a. |
+| **[Chinese Remainder Theorem](#chinese-remainder-theorem)** | Chinese Remainder Theorem (CRT): Given a system of congruences with pairwise coprime moduli, there exists a unique solution modulo the product of the moduli. |
+| **[Euler's Totient Function](#eulers-totient-function)** | Euler's Totient Function: $\phi(n)$ counts the number of integers from 1 to n that are coprime to n. |
+| **[Euler's Theorem](#eulers-theorem)** | Euler's Theorem: If $\gcd(a, n) = 1$, then: $$a^{\phi(n)} \equiv 1 \pmod{n}$$ Note: Fermat's Little Theorem is a special case where n is prime (since $\phi(p) = p - 1$). |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Criterion for a modular inverse](#modular-inverses)** | The residue of $a$ has a multiplicative inverse modulo $n$ if and only if $\gcd(a,n)=1$. Bézout's identity supplies the inverse when the gcd is one. |
+| **[Solutions of a linear congruence](#solving-linear-congruences-why-cancellation-can-fail)** | See the linked section for the formal statement and hypotheses. |
+| **[Fermat's Little Theorem](#fermats-little-theorem)** | Fermat's Little Theorem: If p is prime and $\gcd(a, p) = 1$, then: $$a^{p-1} \equiv 1 \pmod{p}$$ Corollary: $a^p \equiv a \pmod{p}$ for all integers a. |
+| **[Chinese Remainder Theorem](#chinese-remainder-theorem)** | Chinese Remainder Theorem (CRT): Given a system of congruences with pairwise coprime moduli, there exists a unique solution modulo the product of the moduli. |
+| **[Euler's Theorem](#eulers-theorem)** | Euler's Theorem: If $\gcd(a, n) = 1$, then: $$a^{\phi(n)} \equiv 1 \pmod{n}$$ Note: Fermat's Little Theorem is a special case where n is prime (since $\phi(p) = p - 1$). |

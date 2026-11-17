@@ -14,6 +14,8 @@ We want a system containing the reals and an element whose square equals $-1$. W
 
 This time the new objects are simpler than equivalence classes: each complex number will be an ordinary ordered pair $(a,b)$ of reals. What changes is the definition of multiplication.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Build the underlying set and operations
 
 ![Vectors at (3,2) and (3,-2) represent conjugate complex numbers 3+2i and 3-2i.](./media/cx-complex-conjugation.svg)
@@ -783,3 +785,48 @@ For calculating in polar coordinates, computing complex logarithms, and studying
 | Polynomial factorization into linear terms | FTA plus division by $z-\alpha$ and induction |
 
 The original question was "which arithmetic laws am I allowed to assume?" You can now trace each law through a construction, a well-definedness argument if needed, and a proof. The next time [Algebraic Structures](./algebraic-structures) calls $\mathbb Q$ a field or $\mathbb Z$ a ring, those names summarize results whose foundations have been established rather than black-boxed.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Complex numbers as ordered pairs](#build-the-underlying-set-and-operations)** | Construct $\mathbb C$ as $\mathbb R^2$ with componentwise addition and a deliberately defined multiplication. The special product is what makes $(0,1)^2=(-1,0)$ possible. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Build the underlying set and operations](#build-the-underlying-set-and-operations)** | *Figure: The complex plane identifies addition with vector addition, while conjugation reflects across the real axis.* Define |
+| **[The real-number embedding and the imaginary unit](#the-real-number-embedding-and-the-imaginary-unit)** | *Figure: Complex multiplication by the imaginary unit corresponds to a quarter-turn in the plane.* Embed the reals via |
+| **[The addition laws](#the-addition-laws)** | Because addition is componentwise, real addition laws establish the corresponding complex laws: Associativity: |
+| **[Multiplication: identity, commutativity, associativity](#multiplication-identity-commutativity-associativity)** | The multiplicative identity is $1_{\mathbb C}:=(1,0)$: $(a,b)(1,0)=(a\cdot1-b\cdot0,\ a\cdot0+b\cdot1)=(a,b).$ |
+| **[Distributivity](#distributivity)** | Let $x=(a,b)$, $y=(c,d)$, and $z=(e,f)$. |
+| **[Conjugation, norm, and the inverse theorem](#conjugation-norm-and-the-inverse-theorem)** | Define the complex conjugate of $z=(a,b)$ by Read $\overline z$ as "z-bar." Its product with $z$ is |
+| **[Conjugation is compatible with arithmetic](#conjugation-is-compatible-with-arithmetic)** | Direct coordinate calculations give $\overline{z+w}=\overline z+\overline w, \qquad \overline{zw}=\overline z\,\overline w,$ |
+| **[The complex modulus and its properties](#the-complex-modulus-and-its-properties)** | Define Read $\vert z\vert $ as "the modulus of z." The square root is the nonnegative real square root, whose existence follows from real completeness (the square-root-of-two argument generalizes to every nonnegative real). |
+| **[Completeness of the complex numbers](#completeness-of-the-complex-numbers)** | We constructed $\mathbb R$ so that every real Cauchy sequence converges. We can now prove, without adopting another completeness axiom, that the complex field is Cauchy complete in its modulus metric. |
+| **[Roots, polynomial equations, and what has *not* been proved yet](#roots-polynomial-equations-and-what-has-not-been-proved-yet)** | *Figure: Passing to a larger field creates roots of equations not solvable in the smaller field.* Constructing $i$ solves $x^2+1=0$. It does not, by itself, prove that every complex polynomial equation has a solution. |
+| **[Every complex number has a square root](#every-complex-number-has-a-square-root)** | We can establish this preliminary fact with the real construction. Let $z=a+bi\ne0$ and $r=\vert z\vert $. Then $r\geq\vert a\vert $, so |
+| **[Analytic lemmas for algebraic closure](#analytic-lemmas-for-algebraic-closure)** | The minimum-modulus proof of the Fundamental Theorem of Algebra (FTA) requires roots of arbitrary order on the unit circle and minimum attainment on a closed disk. These are analytic theorems, not consequences of the complex field axioms. |
+| **[A proof route for the Fundamental Theorem of Algebra](#a-proof-route-for-the-fundamental-theorem-of-algebra)** | We can connect algebraic closure to the real completeness we already constructed via the minimum-modulus argument. |
+| **[Complex conjugate roots of real polynomials](#complex-conjugate-roots-of-real-polynomials)** | If a polynomial $P$ has real coefficients, conjugation passes through its sum and products: |
+| **[An alternative presentation: quotient by a polynomial](#an-alternative-presentation-quotient-by-a-polynomial)** | The ordered-pair construction also has a compact algebraic interpretation: $\mathbb C\cong\mathbb R[x]/(x^2+1).$ |
+| **[Final dependency audit](#final-dependency-audit)** | The original question was "which arithmetic laws am I allowed to assume?" You can now trace each law through a construction, a well-definedness argument if needed, and a proof. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Multiplicative inverses come from the norm](#conjugation-norm-and-the-inverse-theorem)** | For nonzero $z=a+bi$, the positive real $a^2+b^2$ gives $z^{-1}=(a-bi)/(a^2+b^2)$. The proof must establish both positivity and the product identity. |
+| **[Fundamental Theorem of Algebra](#a-proof-route-for-the-fundamental-theorem-of-algebra)** | Every nonconstant polynomial with complex coefficients has at least one complex root, and hence factors into linear terms over $\mathbb C$. The detailed analytic and algebraic arguments below are the actual proof obligations; this summary is not a replacement for them. |
+| **[The addition laws](#the-addition-laws)** | Because addition is componentwise, real addition laws establish the corresponding complex laws: Associativity: |
+| **[Multiplication: identity, commutativity, associativity](#multiplication-identity-commutativity-associativity)** | The multiplicative identity is $1_{\mathbb C}:=(1,0)$: $(a,b)(1,0)=(a\cdot1-b\cdot0,\ a\cdot0+b\cdot1)=(a,b).$ |
+| **[Analytic lemmas for algebraic closure](#analytic-lemmas-for-algebraic-closure)** | The minimum-modulus proof of the Fundamental Theorem of Algebra (FTA) requires roots of arbitrary order on the unit circle and minimum attainment on a closed disk. These are analytic theorems, not consequences of the complex field axioms. |

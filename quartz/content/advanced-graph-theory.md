@@ -10,6 +10,8 @@ enables: ["optimization"]
 
 The foundational [Graph Theory](./graph-theory) chapter introduces paths, cycles, trees, traversals, weighted paths, and spanning trees. Here we develop deeper questions: what directed cycles mean for dependencies, when distinct items can be matched without collisions, and how much can move through a network with capacity limits. Each proof connects a graph algorithm to a mathematical invariant or counting obstruction.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Directed reachability and strongly connected components
 
 For vertices $u,v$ of a directed graph, write $u\leadsto v$ when there is a directed path from $u$ to $v$, including a zero-length path when $u=v$.
@@ -172,3 +174,35 @@ The same idea appears in [Order Theory](./order-theory#order-preserving-maps-and
 The foundational [Graph Theory](./graph-theory#graph-coloring) chapter already treats planar embeddings, Euler's formula, and the obstructions $K_5$ and $K_{3,3}$. This chapter does not duplicate that proof.
 
 Further discrete graph topics worth separate treatments include the proof of Kuratowski's theorem, graph minors, Menger's theorem, spectral graph theory, and Ramsey theory. The matching/flow and reachability results above are the reusable foundation for those directions.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Directed reachability and strongly connected components](#directed-reachability-and-strongly-connected-components)** | For vertices $u,v$ of a directed graph, write $u\leadsto v$ when there is a directed path from $u$ to $v$, including a zero-length path when $u=v$. |
+| **[Topological ordering of dependencies](#topological-ordering-of-dependencies)** | A topological ordering of a directed graph is a list of all vertices such that every directed edge $u\to v$ goes from an earlier vertex to a later one. |
+| **[Kahn's algorithm and its invariant](#kahns-algorithm-and-its-invariant)** | Kahn's algorithm keeps the set of all remaining vertices with zero incoming edges. It repeatedly removes one such vertex, records it, and deletes its outgoing edges. |
+| **[Bipartite matching: avoiding collisions](#bipartite-matching-avoiding-collisions)** | A bipartite graph has vertices split into a left set $L$ and right set $R$, with edges only between the two sets. A matching is a set of edges that do not share endpoints. |
+| **[Augmenting paths improve a matching](#augmenting-paths-improve-a-matching)** | An augmenting path begins and ends at unmatched vertices and alternates between edges outside a matching and edges inside it. |
+| **[Flow networks: capacities and conservation](#flow-networks-capacities-and-conservation)** | A flow network is a directed graph with a source $s$, sink $t$, and nonnegative capacities $c(u,v)$ on directed edges. |
+| **[Graph isomorphism and structural invariants](#graph-isomorphism-and-structural-invariants)** | Two graphs are isomorphic when a bijection between their vertex sets preserves adjacency in both directions. An isomorphism is a *relabeling without structural change*. |
+| **[Planarity and further directions](#planarity-and-further-directions)** | The foundational Graph Theory chapter already treats planar embeddings, Euler's formula, and the obstructions $K_5$ and $K_{3,3}$. This chapter does not duplicate that proof. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[The condensation graph is a DAG](#directed-reachability-and-strongly-connected-components)** | Contracting every strongly connected component of a directed graph produces a directed acyclic graph (DAG). |
+| **[A finite directed graph has a topological ordering exactly when it is acyclic.](#topological-ordering-of-dependencies)** | See the linked section for the formal statement and hypotheses. |
+| **[Hall's marriage theorem](#bipartite-matching-avoiding-collisions)** | A finite bipartite graph has a matching saturating $L$ if and only if Read this as "every collection of left vertices collectively has at least as many possible right neighbors as it has members." |
+| **[Berge's augmenting-path criterion](#augmenting-paths-improve-a-matching)** | A matching is maximum if and only if it has no augmenting path. |
+| **[Every flow is bounded by every cut](#flow-networks-capacities-and-conservation)** | For every feasible flow $f$ and source-sink cut $S$, $\vert f\vert \leq \sum_{u\in S,\ v\notin S}c(u,v).$ |
+| **[Max-flow min-cut theorem](#worked-example-matching-the-upper-bound-of-a-cut)** | In a finite flow network, the maximum feasible flow value equals the minimum capacity of any source-sink cut. |

@@ -8,6 +8,8 @@ enables: ["differential-equations", "optimization"]
 > **Builds on:** [Calculus](./calculus)
 > **Leads to:** [Differential Equations](./differential-equations) · [Optimization](./optimization)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Symbolic Methods
 
 > [!definition] Symbolic method
@@ -139,3 +141,27 @@ Secant converges **superlinearly** (order $\approx 1.618$, the golden ratio): fa
 | Insight | Provides deeper mathematical understanding | Practical and efficient for computational tasks |
 | Example Techniques | Quadratic formula, factoring, Cardano's method | Newton's method, bisection method, secant method |
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Symbolic method](#symbolic-methods)** | A symbolic method transforms formulas to produce an exact expression, when one can be found. Exact representation is not the same as a guarantee that evaluating it is numerically stable. |
+| **[Numerical method](#numerical-methods)** | A numerical method produces a numerical approximation using finite computational steps. Accuracy, convergence and error bounds are separate mathematical obligations. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Symbolic Methods](#symbolic-methods)** | Symbolic Methods: Symbolic methods involve manipulating mathematical expressions algebraically to find exact solutions. These methods rely on symbolic computation, where the results are expressed in terms of |
+| **[Numerical Methods](#numerical-methods)** | Numerical Methods: Numerical methods involve approximating solutions through iterative algorithms and numerical computations. The results are given as approximate numerical values. |
+| **[Comparison](#comparison)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

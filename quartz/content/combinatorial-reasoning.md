@@ -10,6 +10,8 @@ enables: ["generating-functions", "advanced-graph-theory"]
 
 A counting formula is more convincing when we understand **what it counts**. Combinatorial reasoning derives identities by constructing a bijection, dividing a set of objects into disjoint cases, or counting the same collection in two different ways. These proofs reveal structure that an algebraic simplification can hide.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The product and sum principles
 
 If a choice consists of independently selecting one of $m$ first-stage options and one of $n$ second-stage options, there are $mn$ ordered outcomes (**product principle**). If an outcome belongs to one of two *disjoint* cases of sizes $m$ and $n$, there are $m+n$ outcomes (**sum principle**).
@@ -147,3 +149,32 @@ This is another appearance of [equivalence classes and quotient sets](./equivale
 The Catalan recurrence and Stirling recurrence encode entire sequences. Rather than calculate each coefficient separately, we can package a sequence into one **formal generating function**, convert recursive structure into an algebraic identity, and read counts back from coefficients.
 
 **Next:** [Generating Functions](./generating-functions), where "count objects by size" becomes algebra on power series.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The product and sum principles](#the-product-and-sum-principles)** | If a choice consists of independently selecting one of $m$ first-stage options and one of $n$ second-stage options, there are $mn$ ordered outcomes (product principle). |
+| **[Bijections: show two sets have equal size](#bijections-show-two-sets-have-equal-size)** | A bijection is a one-to-one and onto function. It pairs every item in one finite set with exactly one item in the other. |
+| **[Double counting: one set, two descriptions](#double-counting-one-set-two-descriptions)** | Numerical check: If $r=3$, $s=2$, $n=2$, then $\binom52=\binom30\binom22+\binom31\binom21+\binom32\binom20 =1+6+3=10.$ |
+| **[Pascal's identity by a distinguished element](#pascals-identity-by-a-distinguished-element)** | For $1\leq k\leq n$, split all $k$-element subsets of an $n$-element set by whether they contain a distinguished element $x$. |
+| **[Catalan numbers: recursive objects determine a recurrence](#catalan-numbers-recursive-objects-determine-a-recurrence)** | Let $C_n$ count balanced sequences of $n$ matched pairs of parentheses, such as $()()$ and $(())$ when $n=2$. |
+| **[Stirling numbers: partition labeled objects into blocks](#stirling-numbers-partition-labeled-objects-into-blocks)** | Let $S(n,k)$ (read "Stirling number of the second kind") count partitions of an $n$-element labeled set into exactly $k$ nonempty, unlabeled blocks. |
+| **[Counting up to symmetry](#counting-up-to-symmetry)** | Sometimes arrangements related by rotation or reflection are considered equivalent. Then merely dividing the number of arrangements by the number of symmetries can be wrong, because some arrangements have nontrivial stabilizers. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Counting subsets with binary strings](#bijections-show-two-sets-have-equal-size)** | A set with $n$ distinct elements has $2^n$ subsets. |
+| **[Vandermonde's identity](#double-counting-one-set-two-descriptions)** | For nonnegative integers $r,s,n$, where out-of-range binomial coefficients are zero. |
+| **[The product and sum principles](#the-product-and-sum-principles)** | If a choice consists of independently selecting one of $m$ first-stage options and one of $n$ second-stage options, there are $mn$ ordered outcomes (product principle). |
+| **[Pascal's identity by a distinguished element](#pascals-identity-by-a-distinguished-element)** | For $1\leq k\leq n$, split all $k$-element subsets of an $n$-element set by whether they contain a distinguished element $x$. |

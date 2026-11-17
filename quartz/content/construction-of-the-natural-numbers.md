@@ -15,6 +15,8 @@ enables: ["peano-arithmetic", "construction-of-the-integers"]
 
 This chapter builds a particular mathematical object, $\mathbb N$, inside set theory. It is a **construction**, whereas [Peano Arithmetic](./peano-arithmetic) begins with an **axiomatic description** of what any natural-number system must satisfy. Neither viewpoint makes the other redundant: one supplies a model; the other identifies the properties that matter independently of the representation.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why make numbers out of sets?
 
 Counting seems to require no explanation until we ask what a number *is*. We could simply say that the numbers are $0,1,2,\ldots$, but the dots already assume we know what comes next and that the list never runs out. The goal is to replace that informal picture with a rule using objects introduced earlier: **sets**.
@@ -295,3 +297,26 @@ There is also a logical distinction. **Full induction over every subset** is par
 | Addition and multiplication by recursion | Arithmetic operations are defined rather than assumed |
 
 The natural numbers are closed under addition and multiplication, but **not under arbitrary subtraction**: $3-5$ is not a natural number. That is the next construction problem. [Construction of the Integers](./construction-of-the-integers) solves it using equivalence classes of **pairs of naturals**, without assuming that negative numbers already exist.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Build the first few numbers](#build-the-first-few-numbers)** | Apply successor repeatedly, giving names to the resulting sets: |
+| **[The problem with the dots: where does the infinite set come from?](#the-problem-with-the-dots-where-does-the-infinite-set-come-from)** | We have constructed each *individual* displayed number. That does not yet show that there is a set containing every natural number. |
+| **[Select the smallest inductive set](#select-the-smallest-inductive-set)** | Start with an inductive set $I$ whose existence the axiom of infinity supplies. Form the family |
+| **[Prove it really is the smallest](#prove-it-really-is-the-smallest)** | Zero belongs to $\omega$. Every $A\in\mathcal F$ contains zero, so their intersection contains zero. |
+| **[Verify the Peano conditions, one at a time](#verify-the-peano-conditions-one-at-a-time)** | The Peano conditions are not automatic just because we chose familiar names. Here we verify them for the concrete object $(\omega,0,S)$. |
+| **[Define addition](#define-addition)** | Fix $a\in\omega$. Recursively define addition in its second argument by To compute $2+2$ without assuming any preexisting addition law: |
+| **[Define multiplication](#define-multiplication)** | With addition established, fix $a\in\omega$ and recursively define This means multiplication is built from repeated addition, with the recursion theorem ensuring an actual function exists. |
+| **[Is this the only possible construction?](#is-this-the-only-possible-construction)** | No. We chose the von Neumann encoding because it makes the order relationship remarkably transparent: each number is the set of predecessors. Other set-theoretic encodings are possible. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

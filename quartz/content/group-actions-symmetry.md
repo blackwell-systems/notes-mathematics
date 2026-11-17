@@ -12,6 +12,8 @@ A group describes a family of reversible operations. A **group action** specifie
 
 We will not treat familiar pictures as substitutes for proofs. Every action needs an identity law and a compatibility law, and the central counting theorems follow from explicit maps and bijections.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What exactly is a group action?
 
 > [!definition] Left group action
@@ -405,3 +407,44 @@ There are exactly **six distinct binary square-vertex colorings up to rotation**
 | Burnside's lemma | double counting and orbit-stabilizer |
 
 The next deeper group-theory topics would be **Sylow theorems**, classification of finite abelian groups, free groups and presentations, semidirect products, and group representations. The results in these three chapters supply a proof-level basis for those extensions and for working with symmetry in [Linear Algebra Foundations](./linear-algebra-foundations), [Graph Theory](./graph-theory), and [Algebraic Structures](./algebraic-structures).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Left group action](#what-exactly-is-a-group-action)** | An action $G\times X\to X$ must satisfy $e\cdot x=x$ and $(gh)\cdot x=g\cdot(h\cdot x)$. It describes how abstract group elements act as reversible transformations of a set. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Actions are the same as homomorphisms into permutations](#actions-are-the-same-as-homomorphisms-into-permutations)** | For every $g\in G$, define $\rho(g):X\to X$ by $\rho(g)(x)=g\cdot x$ (read $\rho$ as "rho"). This function is bijective, because |
+| **[Permutation groups, constructed concretely](#permutation-groups-constructed-concretely)** | The symmetric group $S_n$ is the set of all bijections of $\{1,\ldots,n\}$ under function composition. |
+| **[Cycle notation and noncommutativity](#cycle-notation-and-noncommutativity)** | A cycle $(1\ 2\ 3)$ sends $1$ to $2$, $2$ to $3$, and $3$ to $1$, fixing all other labels. A transposition $(1\ 2)$ exchanges those two labels. |
+| **[Cayley's theorem: every group is a permutation group](#cayleys-theorem-every-group-is-a-permutation-group)** | Theorem (Cayley). Every group $G$ is isomorphic to a subgroup of $S_G$, the bijections of its underlying set. |
+| **[Orbits and stabilizers](#orbits-and-stabilizers)** | *Figure: Eight symmetries distribute as four possible images of a vertex times two symmetries fixing it.* For $x\in X$, define its orbit |
+| **[Stabilizers are subgroups](#stabilizers-are-subgroups)** | The identity fixes $x$, so $e\in G_x$. If $g,h$ fix $x$, then because $h^{-1}$ also fixes $x$: applying $h^{-1}$ to $h\cdot x=x$ yields $h^{-1}\cdot x=x$. The one-step subgroup test proves $G_x\leq G$. |
+| **[Orbits partition the set](#orbits-partition-the-set)** | Define $x\sim y$ if some $g\in G$ satisfies $y=g\cdot x$. This relation is: Therefore $\sim$ is an equivalence relation, and its equivalence classes are precisely the orbits. Distinct orbits do not overlap; every point belongs to one orbit. |
+| **[Orbit-stabilizer theorem: a bijection, not a formula guessed from counting](#orbit-stabilizer-theorem-a-bijection-not-a-formula-guessed-from-counting)** | For a fixed $x\in X$, consider the left cosets of $G_x$. Define $\boxed{\psi:G/G_x\to G\cdot x,\qquad \psi(gG_x)=g\cdot x.}\tag{OS}$ |
+| **[Dihedral groups: rotations and reflections](#dihedral-groups-rotations-and-reflections)** | *Figure: Rotations alone account for only half the symmetries of a square.* Consider a regular $n$-gon, with $n\geq3$. Label its vertices by residues $k\in\mathbb Z/n\mathbb Z$. Define two bijections |
+| **[The kernel of the polygon action](#the-kernel-of-the-polygon-action)** | The action of $D_n$ on its $n$ vertices is faithful: a symmetry fixing every vertex must be the identity, as the explicit functions $r^k$ and $sr^k$ show. This makes $D_n$ a concrete subgroup of $S_n$, consistent with Cayley's theorem. |
+| **[Conjugation as an action on the group itself](#conjugation-as-an-action-on-the-group-itself)** | Let $G$ act on itself by conjugation: $g\cdot x=gxg^{-1}.$ |
+| **[Class equation](#class-equation)** | Conjugacy classes partition $G$. Separate the singleton classes, which are the elements of $Z(G)$, from the nonsingleton classes. Choose one representative $x_i$ from each nonsingleton class. |
+| **[A structural consequence: groups of prime-square order are abelian](#a-structural-consequence-groups-of-prime-square-order-are-abelian)** | Let $\vert G\vert =p^2$ for a prime $p$. We will use the class equation to show $G$ is abelian, a deeper result than Lagrange alone. |
+| **[Burnside's lemma: count objects up to symmetry](#burnsides-lemma-count-objects-up-to-symmetry)** | *Figure: Averaging the fixed-coloring counts yields six distinct colorings up to rotation.* For a finite group $G$ acting on a finite set $X$, define the fixed-point set |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Cayley's theorem](#cayleys-theorem-every-group-is-a-permutation-group)** | Every group embeds into the permutation group of its underlying set, via left multiplication. The proof uses the fact that $g\mapsto(x\mapsto gx)$ is a homomorphism with a trivial kernel. |
+| **[Orbit-stabilizer](#orbit-stabilizer-theorem-a-bijection-not-a-formula-guessed-from-counting)** | In a finite group action, $\vert G\cdot x\vert =\vert G\vert /\vert G_x\vert $. The proof constructs a bijection between the orbit and left cosets of the stabilizer. The stabilizer need not be normal. |
+| **[Burnside's lemma](#burnsides-lemma-count-objects-up-to-symmetry)** | For finite $G$ acting on finite $X$, the number of orbits equals the average number of fixed points: $\vert X/G\vert =\vert G\vert ^{-1}\sum_{g\in G}\vert \operatorname{Fix}(g)\vert $. The proof counts the same set of pairs in two ways. |

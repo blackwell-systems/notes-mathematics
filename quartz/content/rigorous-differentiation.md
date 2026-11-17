@@ -10,6 +10,8 @@ enables: ["rigorous-integration", "sequences-of-functions"]
 
 A derivative measures a *local* rate. Why can a local fact such as $f'(x)>0$ force a *global* inequality $f(b)>f(a)$? The answer is the Mean Value Theorem. We will derive it instead of treating it as another rule to memorize.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. Differentiability is a statement about a limit
 
 > [!definition] Derivative at an interior point
@@ -208,3 +210,46 @@ Substitute the definition of $K$ and rearrange to obtain the formula. $\square$
 **EVT** $\Rightarrow$ **Fermat + Rolle** $\Rightarrow$ **MVT** $\Rightarrow$ **monotonicity and quantitative bounds**.
 
 The same tools yield **Darboux** and **Taylor's remainder**. These theorems justify calculus rules and explain when they can fail. The [Rigorous Integration](./rigorous-integration) chapter uses MVT again to prove the fundamental theorem of calculus from partitions, and [Sequences of Functions](./sequences-of-functions) asks when derivatives survive a limiting process.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Derivative at an interior point](#1-differentiability-is-a-statement-about-a-limit)** | A function $f$ is differentiable at an interior point $c$ of its domain when exists as a finite real number. The limit examines $h\ne0$ from both sides. At endpoints, one-sided derivatives must be identified separately. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. Differentiability is a statement about a limit](#1-differentiability-is-a-statement-about-a-limit)** | The numerator is a change in output; dividing by the change in input makes an average rate. Differentiability says these averages settle to one common real value as the input interval shrinks. |
+| **[Differentiability implies continuity](#differentiability-implies-continuity)** | Proof. For $h\ne0$, rewrite the change as a product: $f(c+h)-f(c)=h\frac{f(c+h)-f(c)}h.$ |
+| **[2. Prove the product rule: where the cross-term goes](#2-prove-the-product-rule-where-the-cross-term-goes)** | Proof. Insert and subtract the same intermediate product: |
+| **[Chain rule, with its zero-increment subtlety](#chain-rule-with-its-zero-increment-subtlety)** | Proof. Differentiability of $f$ at $u:=g(c)$ means there is an error function $r(k)$ with $r(k)\to0$ as $k\to0$ and |
+| **[3. Interior extrema have zero derivative](#3-interior-extrema-have-zero-derivative)** | Proof for a maximum. For sufficiently small $h>0$, we have $f(c+h)-f(c)\le0$, so the right difference quotient is nonpositive. |
+| **[4. Rolle's theorem and the Mean Value Theorem](#4-rolles-theorem-and-the-mean-value-theorem)** | Proof. The Extreme Value Theorem supplies a maximum and minimum on the closed interval. |
+| **[5. Consequences that feel global](#5-consequences-that-feel-global)** | Proof. For any $a<b$ in the interval, apply MVT to the restriction to $[a,b]$. It gives $f(b)-f(a)=f'(c)(b-a)=0$. Any two values agree. |
+| **[6. Darboux's theorem: derivatives cannot jump over values](#6-darbouxs-theorem-derivatives-cannot-jump-over-values)** | It is possible for a derivative to be discontinuous. Yet, surprisingly, derivatives still obey an intermediate-value principle. |
+| **[7. Taylor's theorem: what a polynomial approximation owes us](#7-taylors-theorem-what-a-polynomial-approximation-owes-us)** | For $n\ge0$, let $P_n(x):=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k.$ |
+| **[8. The dependency map](#8-the-dependency-map)** | EVT $\Rightarrow$ Fermat + Rolle $\Rightarrow$ MVT $\Rightarrow$ monotonicity and quantitative bounds. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Differentiability is stronger than continuity](#differentiability-implies-continuity)** | If $f$ is differentiable at $c$, then $f$ is continuous there. |
+| **[Product rule](#2-prove-the-product-rule-where-the-cross-term-goes)** | If $f,g$ are differentiable at $c$, then $(fg)'(c)=f'(c)g(c)+f(c)g'(c)$. |
+| **[Chain rule](#chain-rule-with-its-zero-increment-subtlety)** | If $g$ is differentiable at $c$ and $f$ is differentiable at $g(c)$, then $f\circ g$ is differentiable at $c$ and |
+| **[Fermat's theorem](#3-interior-extrema-have-zero-derivative)** | If a differentiable function has a local maximum or local minimum at an interior point $c$, then $f'(c)=0$. |
+| **[Rolle's theorem](#4-rolles-theorem-and-the-mean-value-theorem)** | If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a)=f(b)$, then some $c\in(a,b)$ satisfies $f'(c)=0$. |
+| **[Mean Value Theorem (MVT)](#4-rolles-theorem-and-the-mean-value-theorem)** | If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, with $a<b$, then for some $c\in(a,b)$, |
+| **[Zero derivative means constant](#5-consequences-that-feel-global)** | If $f'(x)=0$ at every interior point of an interval, then $f$ is constant on that interval. |
+| **[Darboux's theorem](#6-darbouxs-theorem-derivatives-cannot-jump-over-values)** | Let $f$ be differentiable on an open interval containing $[a,b]$, and suppose $f'(a)<\lambda<f'(b)$. Then some $c\in(a,b)$ satisfies $f'(c)=\lambda$. The reverse-order case follows by applying the argument to $-f$. |
+| **[Taylor's theorem with Lagrange remainder](#7-taylors-theorem-what-a-polynomial-approximation-owes-us)** | Suppose $f$ has continuous derivatives through order $n$ on the closed interval between $a$ and $b$, and an $(n+1)$-st derivative at every interior point. If $a\ne b$, then for some $\xi$ strictly between $a$ and $b$, |

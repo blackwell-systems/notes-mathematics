@@ -4,6 +4,8 @@ prerequisites: ["functions-relations", "polynomial-functions"]
 enables: ["logarithms", "calculus"]
 ---
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Is Exponential Growth?
 
 **Exponential growth** describes a quantity that multiplies by a fixed factor in each time period, rather than increasing by a fixed amount. When something doubles every hour, or halves every year, or grows by 5% each month, that is exponential behavior.
@@ -566,3 +568,51 @@ Starting with $f(x) = b^x$:
 | Doubling time | $T_d = \dfrac{\ln 2}{\ln b} = \dfrac{\ln 2}{k}$ |
 | Half-life | $T_{1/2} = \dfrac{\ln 2}{\lvert\ln b\rvert} = \dfrac{\ln 2}{\lvert k\rvert}$ |
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Real exponential function](#definition)** | For a real base $b>0$ with $b\ne1$, $x\mapsto b^x$ is defined on all real inputs and has positive outputs. For $a b^x+c$, the vertical factor $a$ changes scale and may reverse monotonicity; the base $b$ controls the multiplicative factor per unit increase in $x$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Real-World Examples](#real-world-examples)** | Exponential functions appear throughout science and everyday life: |
+| **[General Form](#general-form)** | $$f(x) = a \cdot b^x + c$$ Where: Special case (parent function): $f(x) = b^x$ |
+| **[Growth vs Decay](#growth-vs-decay)** | Exponential Growth: When $b > 1$ The parent function $b^x$ increases as $x$ increases; $a b^x+c$ does so when $a>0$. |
+| **[Growth Rate vs Growth Factor](#growth-rate-vs-growth-factor)** | This distinction trips people up constantly. |
+| **[Explore It Yourself](#explore-it-yourself)** | Drag the sliders to see how the base $b$ (read "b") and the coefficient $a$ (read "a") shape the curve $y = a \cdot b^x$ (read "a times b to the x"). |
+| **[The Natural Exponential Function](#the-natural-exponential-function)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Two Forms of Exponential Functions](#the-two-forms-of-exponential-functions)** | Any exponential function can be written two ways: They are related by $k = \ln(b)$, or equivalently $b = e^k$. |
+| **[Continuous Compound Interest](#continuous-compound-interest)** | Where $P$ = principal, $r$ = annual rate, $t$ = time in years. This is the continuous compounding limit of the discrete formula $A = P(1 + r/n)^{nt}$. |
+| **[Domain and Range](#domain-and-range)** | Domain: $(-\infty, \infty)$ or $\mathbb{R}$ (all real numbers) Exponential functions accept any real number as input. |
+| **[Intercepts](#intercepts)** | See this section for the underlying idea, notation, and worked examples. |
+| **[y-intercept](#y-intercept)** | Finding the y-intercept: Set $x = 0$ $$f(0) = a \cdot b^0 + c = a \cdot 1 + c = a + c$$ Example: For $f(x) = 3 \cdot 2^x - 1$ |
+| **[x-intercept](#x-intercept)** | Finding x-intercept: Set $f(x) = 0$ and solve for x $$0 = a \cdot b^x + c$$ $$b^x = -\frac{c}{a}$$ |
+| **[Horizontal Asymptote](#horizontal-asymptote)** | Horizontal Asymptote: $y = c$ As $x \to \infty$ or $x \to -\infty$, the function approaches $y = c$ but never reaches it (unless $b = 1$, which is not a valid exponential). |
+| **[Properties of Exponents](#properties-of-exponents)** | Product Rule: $b^x \cdot b^y = b^{x+y}$ Quotient Rule: $\frac{b^x}{b^y} = b^{x-y}$ Power Rule: $(b^x)^y = b^{xy}$ |
+| **[Common Mistakes with Exponents](#common-mistakes-with-exponents)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Doubling Time and Half-Life](#doubling-time-and-half-life)** | Two of the most common questions about exponential functions: "How long until it doubles?" and "How long until half is left?" |
+| **[Doubling Time](#doubling-time)** | For a function $f(t) = a \cdot b^t$ with $b > 1$, the doubling time $T_d$ is how long it takes for the value to double: In the $e^{kx}$ form: $T_d = \frac{\ln 2}{k} \approx \frac{0.693}{k}$ |
+| **[Half-Life](#half-life)** | For a function $f(t) = a \cdot b^t$ with $0 < b < 1$, the half-life $T_{1/2}$ is how long it takes for the value to halve: The formula is the same as doubling time because halving and doubling are inverse processes. |
+| **[Solving Exponential Equations](#solving-exponential-equations)** | To solve an equation where the variable is in the exponent, you need logarithms. The key idea: a logarithm undoes an exponential, just like subtraction undoes addition. |
+| **[Exponential Inequalities](#exponential-inequalities)** | Like logarithms, exponentials are monotonic, so an inequality between exponentials becomes an inequality between the exponents, with the direction set by the base. |
+| **[Calculus of Exponentials](#calculus-of-exponentials)** | The natural exponential is as central to calculus as the natural logarithm, and for a related reason: it is the function that equals its own rate of change. |
+| **[The Derivative and the Defining Equation](#the-derivative-and-the-defining-equation)** | The natural exponential is its own derivative: $$\frac{d}{dx}e^x = e^x.$$ Geometrically, at every point the slope of the curve equals its height. |
+| **[The Integral](#the-integral)** | Since $e^x$ is its own derivative, it is also its own antiderivative (up to a constant): $$\int e^x\,dx = e^x + C, \qquad \int b^x\,dx = \frac{b^x}{\ln b} + C.$$ |
+| **[The Series Definition](#the-series-definition)** | $e^x$ can be built directly as an infinite polynomial, its Taylor series: |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Essential Rules (Quick Reference)](#essential-rules-quick-reference)** | Exponent laws (base $b > 0$): The function $f(x) = a\,b^x + c$: Natural base and calculus: |

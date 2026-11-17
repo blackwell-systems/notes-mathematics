@@ -10,6 +10,8 @@ enables: ["statistical-learning", "bayesian-inference"]
 
 Inferential statistics is the science of generalizing from a *sample* to the *population* it was drawn from. Its two engines are **estimation** (producing a value or an interval for an unknown parameter) and **hypothesis testing** (deciding between competing claims), both powered by the **sampling distribution** of a statistic. This page builds on [descriptive statistics](./descriptive-statistics), since you summarize before you infer, and on [probability](./probability), which supplies the sampling distributions. For foundational vocabulary see the [Statistics](./statistics) hub.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Sampling Distributions and Standard Error
 
 **Sampling distribution:** If you drew many samples of size $n$ from a population and computed the sample mean $\bar{x}$ each time, the distribution of those sample means is the sampling distribution of $\bar{x}$.
@@ -1433,3 +1435,48 @@ a moderate positive *monotonic* association. Spearman's advantage over [Pearson 
 | One-way ANOVA | Kruskal-Wallis | Three+ independent groups |
 | Pearson correlation | Spearman rank correlation | Two continuous or ordinal variables |
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Confidence coverage](#confidence-intervals)** | A 95% confidence procedure covers the fixed parameter in 95% of repetitions under its assumptions; it is not a 95% posterior probability for the realized interval. |
+| **[Error rates and power](#type-i-and-type-ii-errors)** | Type I error rejects a true null; Type II error fails to reject a false null. Power is one minus the Type II rate for a specified alternative and design. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Sampling Distributions and Standard Error](#sampling-distributions-and-standard-error)** | Sampling distribution: If you drew many samples of size $n$ from a population and computed the sample mean $\bar{x}$ each time, the distribution of those sample means is the sampling distribution of $\bar{x}$. |
+| **[The t-Distribution](#the-t-distribution)** | When you estimate the standard error using the sample standard deviation $s$ instead of the (unknown) population standard deviation $\sigma$, the resulting standardized statistic does not follow a standard normal distribution. |
+| **[Point Estimation and Interval Estimation](#point-estimation-and-interval-estimation)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Point Estimation](#point-estimation)** | Point estimate: A single value used to estimate a population parameter. The sample mean $\bar{x}$ is a point estimate of $\mu$. A point estimate is your best single guess but gives no sense of how reliable it is. |
+| **[Confidence Intervals](#confidence-intervals)** | Confidence interval (CI): A range of values that is likely to contain the true population parameter. A 95% confidence interval means: if you repeated this process many times, about 95% of the intervals you construct would contain the true parameter. |
+| **[t-Intervals](#t-intervals)** | When the sample size is small and $\sigma$ is unknown (the typical situation), use the t-distribution instead of the z-distribution. |
+| **[Confidence Interval for a Proportion](#confidence-interval-for-a-proportion)** | When estimating a population proportion $p$ (e.g., the fraction of voters who support a candidate), the point estimate is the sample proportion $\hat{p} = x/n$, where $x$ is the number of successes in $n$ trials. |
+| **[Prediction Intervals](#prediction-intervals)** | A prediction interval (PI) is a range that is likely to contain a single new observation from the population. This is fundamentally different from a confidence interval. |
+| **[Maximum Likelihood Estimation (MLE)](#maximum-likelihood-estimation-mle)** | Maximum Likelihood Estimation (MLE): A method for estimating model parameters by finding the parameter values that make the observed data most probable. |
+| **[Method of Moments Estimation](#method-of-moments-estimation)** | Method of Moments (MoM): An estimation technique that works by setting sample moments equal to their theoretical (population) counterparts and solving for the unknown parameters. |
+| **[The Idea](#the-idea)** | Every distribution has moments that depend on its parameters. The first population moment is the mean $E[X]$, the second raw moment is $E[X^2]$, and so on. |
+| **[MoM vs. MLE](#mom-vs-mle)** | In practice: MoM estimates are often used as starting values for iterative MLE algorithms. They are quick to compute and usually in the right neighborhood, which helps the optimizer converge. |
+| **[MAP Estimation](#map-estimation)** | Maximum a Posteriori (MAP) estimation: Like MLE, but incorporates a prior belief about the parameters. |
+| **[Hypothesis Testing](#hypothesis-testing)** | Hypothesis testing: A formal procedure for deciding whether data provides enough evidence to reject a claim about a population. |
+| **[The Framework](#the-framework)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Type I and Type II Errors](#type-i-and-type-ii-errors)** | The tradeoff: Lowering $\alpha$ (being more strict about rejecting $H_0$) reduces Type I errors but increases Type II errors. You catch fewer false alarms, but you also miss more real effects. |
+| **[One-Tailed vs. Two-Tailed Tests](#one-tailed-vs-two-tailed-tests)** | The alternative hypothesis determines whether you perform a one-tailed or two-tailed test, and this choice affects both the rejection region and the p-value. |
+| **[Effect Size](#effect-size)** | Effect size measures the magnitude of a difference or relationship, independent of sample size. A p-value tells you whether an effect exists; the effect size tells you how big it is. |
+| **[Power Analysis](#power-analysis)** | Statistical power is the probability of correctly rejecting a false null hypothesis. In other words, if there really is an effect, power is the probability that your study will detect it. |
+| **[One-Sample t-Test](#one-sample-t-test)** | When to use: You want to test whether a population mean equals a specific hypothesized value $\mu_0$, and the population standard deviation is unknown. |
+| **[Two-Sample t-Test](#two-sample-t-test)** | When to use: You want to compare the means of two independent groups. |
+| **[Paired t-Test](#paired-t-test)** | When to use: You have two measurements on the same subjects (before and after a treatment, left and right hand, two test versions taken by the same students). The key feature is that the observations are not independent; they come in natural pairs. |
+| **[Tests for Proportions](#tests-for-proportions)** | So far the tests in this chapter (t-tests, ANOVA) have compared *means* of numeric variables. |
+| **[Chi-Squared Goodness-of-Fit Test](#chi-squared-goodness-of-fit-test)** | When to use: You want to test whether observed frequency counts match a set of expected frequencies. This is used for categorical data, not means. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

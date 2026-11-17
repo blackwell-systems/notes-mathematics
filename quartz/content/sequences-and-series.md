@@ -9,6 +9,8 @@ enables: ["real-analysis"]
 > **Leads to:** [Real Analysis](./real-analysis)
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Sequences and Series?
 
 Numbers often follow patterns. Consider these examples:
@@ -823,3 +825,49 @@ For a proof that Cauchy partial sums characterize convergent real series and abs
 - **Finance:** Compound interest, annuities, and present value calculations are geometric series applications.
 - **Signal processing:** Fourier series decompose signals into sums of sinusoidal components. Digital filters use geometric series for their transfer functions.
 - **Physics:** Many physical quantities are modeled as series (Taylor series for approximations, power series solutions to differential equations).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Sequence versus series](#definitions)** | A sequence is an ordered family of terms $a_n$. A series is the formal sum $\sum a_n$, whose convergence is determined by the sequence of partial sums, not merely by individual terms shrinking. |
+| **[Convergence of an infinite series](#formal-definition-of-series-convergence)** | The series $\sum_{n=1}^\infty a_n$ converges to $L$ when its partial sums $S_N=\sum_{n=1}^{N}a_n$ satisfy $S_N\to L$ as $N\to\infty$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Sigma Notation](#sigma-notation)** | Sigma Notation (Summation Notation): A compact way to express the sum of a sequence of terms using the Greek capital letter sigma ($\Sigma$). |
+| **[Arithmetic Sequences](#arithmetic-sequences)** | Arithmetic Sequence: A sequence where each term is obtained by adding a fixed value, called the common difference ($d$), to the previous term. |
+| **[Arithmetic Series](#arithmetic-series)** | Arithmetic Series: The sum of the first $n$ terms of an arithmetic sequence. |
+| **[Geometric Sequences](#geometric-sequences)** | Geometric Sequence: A sequence where each term is obtained by multiplying the previous term by a fixed value, called the common ratio ($r$). |
+| **[Geometric Series (Finite)](#geometric-series-finite)** | Finite Geometric Series: The sum of the first $n$ terms of a geometric sequence. |
+| **[Infinite Geometric Series](#infinite-geometric-series)** | Infinite Geometric Series: The sum of all terms in a geometric sequence, when it converges. |
+| **[Common Summation Formulas](#common-summation-formulas)** | These closed-form expressions are useful for evaluating sums without adding term by term. |
+| **[Recursive vs Explicit Definitions](#recursive-vs-explicit-definitions)** | A sequence can be defined in two ways: Explicit (Closed-Form): Gives $a_n$ directly as a function of $n$. |
+| **[Recurrence Relations](#recurrence-relations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Linear Recurrence Relations](#linear-recurrence-relations)** | A linear recurrence relation expresses $a_n$ as a linear combination of previous terms (possibly with an added function of $n$): where $c_1, c_2, \ldots, c_k$ are constants and $f(n)$ is some function of $n$. |
+| **[Solving First-Order Linear Recurrences](#solving-first-order-linear-recurrences)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Solving Second-Order Linear Recurrences (Characteristic Equation Method)](#solving-second-order-linear-recurrences-characteristic-equation-method)** | Consider a homogeneous second-order linear recurrence: with initial conditions $a_0$ and $a_1$ given. |
+| **[Mathematical Induction](#mathematical-induction)** | Mathematical Induction: A proof technique used to establish that a statement $P(n)$ is true for all natural numbers $n \geq 1$ (or for all integers from some starting point onward). |
+| **[The Two Steps](#the-two-steps)** | Step 1: Base Case. Verify that the statement is true for the first value, typically $n = 1$. |
+| **[The Domino Analogy](#the-domino-analogy)** | Think of an infinite row of dominoes: Together, these guarantee that every domino falls. Neither step alone is sufficient: without the base case, no domino ever starts falling; without the inductive step, only the first domino falls. |
+| **[Formal Definition of Series Convergence](#formal-definition-of-series-convergence)** | The infinite geometric series section above showed that some infinite sums have finite values. Here we make this idea precise for any series, not just geometric ones. |
+| **[The $n$th Term Test (Divergence Test)](#the-nth-term-test-divergence-test)** | This is the simplest test and often the first one to apply: If $\lim_{n \to \infty} a_n \neq 0$, then $\sum a_n$ diverges. The logic: if the terms are not shrinking toward zero, the partial sums cannot stabilize. |
+| **[Harmonic Series](#harmonic-series)** | Harmonic Series: This series diverges, even though the terms $\frac{1}{n} \to 0$. |
+| **[Telescoping Series](#telescoping-series)** | Telescoping Series: A series in which most terms cancel when the partial sum is expanded, leaving only a few terms from the beginning and end. |
+| **[Convergence Tests Overview](#convergence-tests-overview)** | Beyond the geometric series formula and the $n$th term test, several more powerful tests exist for determining whether a series converges. These are covered in depth in a calculus context; here is a brief overview. |
+| **[Comparison Test](#comparison-test)** | If $0 \leq a_n \leq b_n$ for all $n$, then: Intuition: A series with smaller terms than a convergent series must also converge. A series with larger terms than a divergent series must also diverge. |
+| **[Ratio Test](#ratio-test)** | For a series $\sum a_n$ with positive terms, compute: Intuition: The ratio test measures whether each term is shrinking fast enough relative to the previous term. It works especially well for series involving factorials or exponentials. |
+| **[Integral Test](#integral-test)** | If $f(x)$ is a positive, continuous, decreasing function for $x \geq 1$ and $a_n = f(n)$, then: This connects discrete sums to continuous integrals. See Calculus for improper integrals. |
+| **[Fourier Series: Building Waves from Sinusoids](#fourier-series-building-waves-from-sinusoids)** | One of the most far-reaching applications of infinite series is the Fourier series: any reasonable periodic function can be written as an infinite sum of sines and cosines. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

@@ -10,6 +10,8 @@ enables: ["singular-learning-theory", "algebraic-geometry"]
 
 Complex analysis begins with a stronger kind of differentiability than ordinary real differentiability. That extra strength is surprising: requiring one complex derivative forces local power-series expansions, gives exact integral formulas and provides tools for counting zeros and poles.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Complex differentiability is a two-dimensional constraint
 
 For $f:\mathbb C\to\mathbb C$, define
@@ -152,3 +154,31 @@ This result turns a continuous contour integral into a discrete count, one reaso
 ## What lies beyond this chapter
 
 Conformal mapping, analytic continuation along paths, the maximum-modulus principle, normal families, the Riemann mapping theorem, and several-variable complex analysis each merit deeper treatments. The Cauchy and residue theorems above are **stated with conditions and worked applications**, not passed off as proved from a few examples. Standard references include Priestley's *Introduction to Complex Analysis* and Ablowitz–Fokas's *Introduction to Complex Variables and Applications*.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Complex differentiability is a two-dimensional constraint](#complex-differentiability-is-a-two-dimensional-constraint)** | For $f:\mathbb C\to\mathbb C$, define $f'(z_0)=\lim_{h\to0,\ h\in\mathbb C}\frac{f(z_0+h)-f(z_0)}{h}.$ |
+| **[Contour integrals: integrating along a path](#contour-integrals-integrating-along-a-path)** | A contour $\gamma:[a,b]\to\mathbb C$ is a piecewise continuously differentiable path. Define |
+| **[Cauchy's theorem and integral formula](#cauchys-theorem-and-integral-formula)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Power series, Laurent series, and singularities](#power-series-laurent-series-and-singularities)** | A holomorphic function locally has a convergent Taylor series: inside an appropriate disc about $a$. The existence of this expansion is a deep consequence of Cauchy's integral formula. |
+| **[Residue theorem: poles become finite data](#residue-theorem-poles-become-finite-data)** | Worked example with two poles. Evaluate on the counterclockwise circle $\vert z\vert =3$: |
+| **[Counting zeros: the argument principle](#counting-zeros-the-argument-principle)** | Suppose $f$ is meromorphic in a neighborhood of a simple positively oriented closed contour and its interior, with no zeros or poles on the contour. Counting multiplicities, the number of zeros minus poles inside is |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Cauchy's integral theorem (one standard form)](#cauchys-theorem-and-integral-formula)** | If $D$ is a simply connected open region, $f$ is holomorphic on $D$, and $\gamma$ is a closed piecewise-smooth curve in $D$, then $\int_\gamma f(z)\,dz=0$. |
+| **[Cauchy's integral formula](#cauchys-theorem-and-integral-formula)** | If $f$ is holomorphic on a neighborhood of a closed disc and $a$ lies strictly inside its positively oriented boundary circle $\gamma$, then |
+| **[Residue theorem (simple contour form)](#residue-theorem-poles-become-finite-data)** | Let $f$ be holomorphic on an open set containing a positively oriented simple closed contour and its interior, except for finitely many isolated singularities $a_1,\dots,a_m$ inside. Then |
+| **[Counting zeros: the argument principle](#counting-zeros-the-argument-principle)** | Suppose $f$ is meromorphic in a neighborhood of a simple positively oriented closed contour and its interior, with no zeros or poles on the contour. Counting multiplicities, the number of zeros minus poles inside is |

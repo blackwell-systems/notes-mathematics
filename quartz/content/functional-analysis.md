@@ -12,6 +12,8 @@ For a cross-subject picture of where Banach, inner-product, Hilbert and general 
 
 Linear algebra studies vectors and linear maps. Analysis studies limits. **Functional analysis asks what survives when vectors themselves are functions or infinite sequences**, and whether limiting processes are compatible with linear operations. The central words are *norm*, *complete*, *bounded operator*, and *Hilbert space*. Each imposes a mathematically distinct requirement.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why an infinite-dimensional vector needs more structure
 
 A vector space alone defines addition and scalar multiplication but does not say when a sequence of vectors converges. A **norm** supplies size, and hence distance:
@@ -150,3 +152,37 @@ Three particularly useful distinctions connect this chapter to later work:
 ## Connections to the rest of the site
 
 The [Analysis Learning Map](./path-through-analysis) tracks the transition from metric and integral convergence to function-space convergence. [Measure Theory](./measure-theory#lp-spaces) develops the $L^p$ norms; [Optimization](./optimization) uses gradients and projections; [Statistical Learning](./statistical-learning) benefits from the distinction between function space, parameter space, and convergence. This chapter supplies the language needed to say **which topology and which theorem** make those manipulations legal.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Normed vector space](#why-an-infinite-dimensional-vector-needs-more-structure)** | A norm on a real or complex vector space $V$ assigns $\\vert x\\vert \geq0$ satisfying, for all scalars $\alpha$ and vectors $x,y$: 1. $\\vert x\\vert =0$ exactly when $x=0$. 2. $\\vert \alpha x\\vert =\vert \alpha\vert \,\\vert x\\vert $. |
+| **[Banach space](#banach-spaces-no-missing-limits)** | A Banach space is a normed vector space in which every Cauchy sequence (with respect to the norm metric) converges to a point inside that space. |
+| **[Hilbert space](#inner-products-and-hilbert-spaces)** | A Hilbert space is an inner-product space complete in the metric of its induced norm. Every Hilbert space is Banach, but not every Banach-space norm comes from an inner product. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Banach spaces: no missing limits](#banach-spaces-no-missing-limits)** | Every finite-dimensional normed space over $\mathbb R$ or $\mathbb C$ is Banach. Infinite dimension makes the completion requirement substantive. |
+| **[Inner products and Hilbert spaces](#inner-products-and-hilbert-spaces)** | An inner product $\langle x,y\rangle$ measures angles and gives a norm $\\vert x\\vert =\sqrt{\langle x,x\rangle}$. Over $\mathbb C$, the inner product is conjugate symmetric and conjugate linear in one slot (our convention: linear in the first slot). |
+| **[An explicit orthogonal projection](#an-explicit-orthogonal-projection)** | In the Hilbert space $\mathbb R^2$, let $M$ be the horizontal axis and let $x=(3,4)$. For any point $y=(a,0)\in M$, with equality only when $a=3$. Thus $(3,0)$ is the unique closest point of $M$ to $x$ and the error $(0,4)$ is orthogonal to $M$. |
+| **[Bounded linear operators](#bounded-linear-operators)** | A linear function $T:X\to Y$ between normed spaces is bounded if some $M\geq0$ satisfies $\\vert Tx\\vert _Y\leq M\\vert x\\vert _X$ for every $x$. Its operator norm is |
+| **[Riesz representation and the dual](#riesz-representation-and-the-dual)** | For a normed space $X$, the continuous dual $X^*$ consists of bounded linear functionals $X\to\mathbb R$ or $\mathbb C$. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[The space of continuous functions is complete in sup norm](#banach-spaces-no-missing-limits)** | $C([0,1])$, equipped with $\\vert \cdot\\vert _\infty$, is a Banach space. |
+| **[Bounded is equivalent to continuous](#bounded-linear-operators)** | A linear map between normed spaces is bounded if and only if it is continuous. |
+| **[Riesz representation for Hilbert spaces](#riesz-representation-and-the-dual)** | If $H$ is a Hilbert space (with inner product linear in its first slot), every bounded linear functional $L:H\to\mathbb C$ has a unique representing vector $y\in H$ such that |

@@ -9,6 +9,8 @@ enables: ["equivalence-relations", "order-theory", "graphing-functions", "linear
 > **Leads to:** [Equivalence Relations](./equivalence-relations) · [Order Theory](./order-theory) · the [function types](#the-function-family) · [Calculus](./calculus) · [Statistics](./statistics)
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Function Family
 
 This page develops the **general theory** of functions and relations. The deeper branches now have their own chapters: [Equivalence Relations and Quotients](./equivalence-relations) and [Order Theory](./order-theory). Each specific *kind* of function then gets its own page, all building on this shared foundation:
@@ -1866,3 +1868,84 @@ u_a(x) = H(x - a) = \begin{cases}
 \end{cases}
 $$
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Binary relation (in set theory)](#relation)** | Let $A$ and $B$ be sets. Their Cartesian product is the set of all possible ordered pairs with first element from $A$ and second element from $B$: |
+| **[Directed graph of a relation on a set](#constructing-a-relation-diagram-from-first-principles)** | For a relation $R\subseteq A\times A$, draw one vertex for every element of $A$ and a directed edge $a\to b$ if and only if $(a,b)\in R$. A pair $(a,a)$ becomes a self-loop, an arrow returning to its own vertex. |
+| **[Relation properties in ordered-pair form](#properties-of-relations)** | Let $R\subseteq A\times A$. The properties below state which ordered pairs belong to $R$: Reflexive: $(a,a)\in R$ for every $a\in A$. Irreflexive: $(a,a)\notin R$ for every $a\in A$. |
+| **[Preorder](#from-binary-relations-to-preorders)** | A preorder on $A$ is a relation $R\subseteq A\times A$ that is reflexive and transitive: Antisymmetry is not required: different objects may be related in both directions. |
+| **[Partial order](#partial-order)** | A partial order on $A$ is a relation $R\subseteq A\times A$ that is reflexive, antisymmetric, and transitive. The structure $(A,R)$ is a partially ordered set (poset). Two distinct elements can be incomparable, meaning neither $(a,b)$ nor $(b,a)$ belongs to $R$. |
+| **[Total (linear) order](#total-order-linear-order)** | A total order is a partial order $R\subseteq A\times A$ satisfying comparability: The disjunction is inclusive; when $a=b$, reflexivity already makes both sides true. |
+| **[Equivalence relation](#equivalence-relation)** | An equivalence relation $\sim$ on $A$ is a relation $R\subseteq A\times A$ that is reflexive, symmetric, and transitive. Thus every element relates to itself, every pair can be reversed, and related pairs can be chained. |
+| **[Equivalence class](#equivalence-classes)** | For an equivalence relation $\sim$ on $A$, the class of $a\in A$ is The element $a$ belongs to this set; it is not the entire set. Equivalent elements name the same class. |
+| **[Quotient set](#quotient-set-set-of-equivalence-classes)** | The quotient set of $A$ by an equivalence relation $\sim$ has equivalence classes as elements: The quotient map $q:A\to A/{\sim}$ sends $q(a):=[a]_{\sim}$. It is surjective, identifying precisely those inputs related by $\sim$. |
+| **[Composition of binary relations](#composition-of-relations)** | For $R\subseteq A\times B$ and $S\subseteq B\times C$, the composite $S\circ R\subseteq A\times C$ consists of pairs connected through some intermediate $b\in B$: Relations may have several intermediate paths; $b$ need not be unique. |
+| **[Reflexive, symmetric, or transitive closure](#closure-of-relations)** | For $R\subseteq A\times A$ and a property such as reflexivity, symmetry, or transitivity, its closure is the least relation under inclusion among $T\subseteq A\times A$ satisfying For these three properties, a least relation exists. |
+| **[Inverse relation](#inverse-relations)** | Given $R\subseteq A\times B$, reverse every selected pair: The result is always a relation; it need not be a function even if $R$ is. |
+| **[Function as a set of ordered pairs](#function)** | For specified sets $A$ (domain) and $B$ (codomain), a total function $f:A\to B$ is a relation $f\subseteq A\times B$ with exactly one second coordinate for every first coordinate: The symbol $\exists!$ means "there exists exactly one." We write $f(a)=b$ precisely when $(a,b)\in f$. |
+| **[Function, with explicit domain and codomain](#function)** | A function $f:A\to B$ assigns exactly one element of $B$ to every element of $A$. The domain and codomain are part of the specified map, not details to infer solely from its formula. |
+| **[Domain from ordered pairs](#domain)** | For any relation $R\subseteq A\times B$, the actual domain is the set of first coordinates appearing in its pairs: For a total function $f:A\to B$, every $a\in A$ appears in exactly one pair, hence $\operatorname{dom}(f)=A$. |
+| **[Codomain](#codomain)** | In a specified function $f:A\to B$, the codomain is the target set $B$, which contains every output of the function: |
+| **[Range (image of the full domain)](#range)** | For $f:A\to B$, its range is the set of all outputs that actually occur: $\boxed{\operatorname{ran}(f):=\{b\in B\mid\exists a\in A:\ (a,b)\in f\} =\{f(a)\mid a\in A\}.}$ |
+| **[Image of a subset](#image)** | For a function $f:A\to B$ and subset $C\subseteq A$, its image is $\boxed{f[C]:=\{f(c)\mid c\in C\} =\{b\in B\mid\exists c\in C:\ (c,b)\in f\}.}$ |
+| **[Preimage of a subset](#preimage)** | Let $f:A\to B$ and $D\subseteq B$. The preimage (inverse image) is the set of all inputs whose output lies in $D$: |
+| **[Fiber and kernel relation](#fibers-and-the-kernel-of-a-function)** | For $f:A\to B$ and $b\in B$, the fiber over $b$ is the preimage of the singleton: The kernel equivalence relation compares inputs with identical outputs (not to be confused with the kernel of a linear map or group homomorphism): |
+| **[Injective function](#injection-one-to-one)** | $f:A\to B$ is injective when equal outputs force equal inputs: In ordered-pair language, $(a,b)\in f$ and $(a',b)\in f$ imply $a=a'$. Equivalently, every fiber has at most one element. |
+| **[Surjective function](#surjection-onto)** | $f:A\to B$ is surjective when every codomain element occurs as the second coordinate of a pair: Equivalently, $\operatorname{ran}(f)=B$. |
+| **[Bijective function](#bijection-injective-and-surjective)** | $f:A\to B$ is bijective when each $b\in B$ is paired with exactly one $a\in A$: This is equivalent to injectivity and surjectivity together. It is the condition needed for the reversed pairs to form a function $B\to A$. |
+| **[Invertible function (composition criterion)](#invertibility)** | A function $f:A\to B$ is invertible if there exists a function $g:B\to A$ satisfying Such a $g$ is unique and is denoted $f^{-1}$. Equivalently, $f$ is invertible if and only if it is bijective. |
+| **[Well-definedness on equivalence classes](#well-defined-functions)** | For an equivalence relation $\sim$ on $A$ and a function $F:A\to B$, a proposed map on the quotient is well-defined exactly when its value is independent of the representative: |
+| **[Identity function as a relation](#identity-function)** | The identity function on a set $A$ contains exactly the diagonal pairs: Thus $\operatorname{id}_A:A\to A$ and $\operatorname{id}_A(a)=a$ for all $a\in A$. |
+| **[Inverse function — set-theoretic definition](#inverse-functions)** | Treat $f:A\to B$ as its graph of ordered pairs $f\subseteq A\times B$. Reverse every pair to construct the inverse relation: This inverse relation always exists. It is a function $f^{-1}:B\to A$ precisely when every $b\in B$ has exactly one reversed output—equivalently, when $f$ is bijective. |
+| **[Set-theoretic inverse relation](#start-with-the-inverse-relation)** | For any function $f:A\to B$, its inverse relation is the subset of $B\times A$ obtained by reversing every ordered pair in $f$: Equivalently, for $a\in A$ and $b\in B$, This is the same construction used for inverse relations. The inverse relation always exists. |
+| **[Composition of function graphs](#composition-of-functions)** | For $f:A\to B$ and $g:B\to C$, define This relation is a function, since $f$ and $g$ each choose exactly one output for each input. It satisfies $(g\circ f)(a)=g(f(a))$: apply $f$ first. |
+| **[Partial function as a relation](#partial-functions)** | A partial function $f:A\rightharpoonup B$ is a relation $f\subseteq A\times B$ in which each $a\in A$ occurs as the first coordinate in at most one pair: Its domain of definition is $D=\{a\in A\mid\exists b\in B:(a,b)\in f\}\subseteq A$; equivalently, it is a total function $D\to B$. |
+| **[One-to-one correspondence](#one-to-one-correspondence)** | A one-to-one correspondence between sets $A$ and $B$ is a bijection $f:A\to B$: each $a\in A$ has exactly one output in $B$, and every $b\in B$ has exactly one preimage in $A$. Thus both $f$ and its inverse relation $f^{-1}$ are total functions. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Function Family](#the-function-family)** | This page develops the general theory of functions and relations. The deeper branches now have their own chapters: Equivalence Relations and Quotients and Order Theory. |
+| **[Relation](#relation)** | A relation answers a question about two objects: *is the first related to the second?* The answer can be yes for some pairs and no for others. |
+| **[Allowed elements versus elements actually used](#allowed-elements-versus-elements-actually-used)** | There is a distinction worth making before we talk about domains and ranges elsewhere in the chapter. |
+| **[Constructing a relation diagram from first principles](#constructing-a-relation-diagram-from-first-principles)** | We have defined a relation as a set of ordered pairs. How do we turn that mathematical definition into the circles and arrows used in pictures of reflexivity, symmetry, transitivity, and equivalence? |
+| **[Properties of Relations](#properties-of-relations)** | *Figure: Four examples isolate different relation properties. Reflexivity requires self-loops, symmetry requires reverse pairs, transitivity requires shortcuts, and antisymmetry forbids two-way pairs between distinct nodes.* Properties of Relations |
+| **[Hasse Diagrams](#hasse-diagrams)** | A Hasse diagram displays cover relations in a finite poset. Comparability follows an upward path, not an arbitrary undirected path. See the Hasse examples. |
+| **[Total Order (Linear Order)](#total-order-linear-order)** | In a total order, every two elements are comparable. See Total orders, chains, and antichains. |
+| **[Lattices, Bounds, and Chains](#lattices-bounds-and-chains)** | A lattice has a least upper bound and greatest lower bound for every pair. Minimal and maximal are weaker than least and greatest. |
+| **[Equivalence Classes](#equivalence-classes)** | The class $[a]$ contains all elements equivalent to $a$. See Classes and the class equality criterion. |
+| **[Quotient Set (Set of Equivalence Classes)](#quotient-set-set-of-equivalence-classes)** | The quotient $A/{\sim}$ is the set of equivalence classes. Functions on classes must be independent of representatives. See Quotient sets and factorization. |
+| **[Composition of Relations](#composition-of-relations)** | Composition of Relations: Given relations $R \subseteq A \times B$ and $S \subseteq B \times C$, the composition $S \circ R$ is a relation from A to C. |
+| **[Closure of Relations](#closure-of-relations)** | Closure: The closure of a relation R with respect to a property P is the smallest relation that: |
+| **[Inverse Relations](#inverse-relations)** | Inverse Relation: Given a relation $R \subseteq A \times B$, the inverse relation $R^{-1} \subseteq B \times A$ reverses the order of all pairs. |
+| **[Function](#function)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Vertical Line Test](#vertical-line-test)** | *Figure: A vertical line hits $y=x^2$ once, but hits the sideways parabola $x=y^2$ twice; only the first graph defines $y$ as a function of $x$.* |
+| **[Domain](#domain)** | *Figure: Every input belongs to the domain, every possible output belongs to the codomain, and only $\{2,3,5\}$ is actually reached.* The domain of a function f is the set X, which includes all the possible inputs for the function. |
+| **[Range](#range)** | The range of a function f : X → Y is the set of all actual outputs that the function produces when applied to every element in its domain X. The range is therefore a subset of the |
+| **[Image](#image)** | The image of a function is similar to the range but often refers to the outputs corresponding to a specific subset of the domain. |
+| **[Preimage](#preimage)** | The preimage of a set under a function is a concept that refers to the set of all elements in the domain that map to a given subset of the codomain. |
+| **[Fibers and the Kernel of a Function](#fibers-and-the-kernel-of-a-function)** | *Figure: Each fiber collects all inputs with one output. For $x^2$, the fiber over $4$ contains both $-2$ and $2$.* For each $y \in Y$, its preimage of a single point, $f^{-1}(\{y\}) = \{x \in X : f(x) = y\}$, is called the fiber over $y$. |
+| **[Injection (one-to-one)](#injection-one-to-one)** | Injection: A function is injective (also called one-to-one) if *different inputs always produce different outputs*, so no output is ever hit twice. |
+| **[Surjection (onto)](#surjection-onto)** | Surjection: A function $f : X \to Y$ is surjective (or onto) if every element of the codomain is the image of at least one input: |
+| **[Bijection (injective and surjective)](#bijection-injective-and-surjective)** | A function is bijective if and only if it is both injective (or *one-to-one*)---meaning that each element in the codomain is mapped to from at most one element of the |
+| **[Invertibility](#invertibility)** | For the set-theoretic construction (as opposed to the composition test alone), see Inverse Functions. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Existence and uniqueness of an inverse function](#when-does-the-inverse-relation-become-a-function)** | A function $f:A\to B$ has an inverse function $f^{-1}:B\to A$ if and only if $f$ is bijective (injective and surjective). In that case its graph is exactly and the inverse is uniquely determined by these pairs. It satisfies |
+| **[Constructing a relation diagram from first principles](#constructing-a-relation-diagram-from-first-principles)** | We have defined a relation as a set of ordered pairs. How do we turn that mathematical definition into the circles and arrows used in pictures of reflexivity, symmetry, transitivity, and equivalence? |
+| **[Identity Function](#identity-function)** | Identity Function: The identity function on a set X, denoted id_X or simply id, is a function that maps every element to itself. |
+| **[Schröder–Bernstein (Cantor–Bernstein) Theorem](#schrderbernstein-cantorbernstein-theorem)** | Statement. If there are injections $f : A \rightarrow B$ and $g : B \rightarrow A$, then there exists a bijection $h : A \rightarrow B$. |

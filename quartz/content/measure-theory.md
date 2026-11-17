@@ -13,6 +13,8 @@ The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) distinguishes
 
 Measure theory rebuilds integration from the ground up. In [real analysis](./real-analysis), you saw that the Riemann integral works well for continuous functions but breaks down for functions with too many discontinuities. The Dirichlet function (which is 1 on the rationals and 0 on the irrationals) is not Riemann integrable, even though its "values are mostly 0." Measure theory provides the Lebesgue integral, which handles such functions effortlessly, and in doing so gives us the convergence theorems that power all of modern analysis, probability, and learning theory.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Measure Theory?
 
 ### The Riemann Integral Is Not Enough
@@ -746,3 +748,60 @@ $$
 Without measure theory, the fundamental quantities of SLT (the free energy, the RLCT, the stochastic complexity) cannot even be properly defined, let alone analyzed.
 
 These quantities are assembled into the full theory on the [Singular Learning Theory](./singular-learning-theory) capstone page.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Sigma-algebra](#sigma-algebras)** | A collection $\mathcal F$ of subsets of $\Omega$ is a sigma-algebra when it contains $\Omega$ and is closed under complements and countable unions. The empty set and countable intersections follow from these axioms. |
+| **[Countably additive measure](#measures)** | A measure $\mu:\mathcal F\to[0,\infty]$ satisfies $\mu(\varnothing)=0$ and is countably additive on disjoint measurable families. Measurability is specified before assigning sizes; not every subset must belong to $\mathcal F$. |
+| **[Measurable function](#measurable-functions)** | A map between measurable spaces is measurable when preimages of measurable target sets are measurable in the source. This is the property required to integrate functions against a measure and to treat random variables as measurable maps. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Riemann Integral Is Not Enough](#the-riemann-integral-is-not-enough)** | Recall from real analysis how the Riemann integral works: you partition the domain (the x-axis) into small subintervals, approximate the function's height on each subinterval, and take a limit as the partition gets finer. |
+| **[The Lebesgue Idea: Partition the Range, Not the Domain](#the-lebesgue-idea-partition-the-range-not-the-domain)** | The key insight behind the Lebesgue integral is simple and beautiful. Instead of asking "what is $f$ doing on each small subinterval?" (Riemann), ask "how much of the domain does $f$ spend at each height?" (Lebesgue). |
+| **[Sigma-Algebras](#sigma-algebras)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Which Sets Can We Measure?](#which-sets-can-we-measure)** | Before assigning sizes to sets, we need to decide which sets are eligible for measurement. You might think: just measure all subsets. But Vitali's construction shows this is impossible. |
+| **[The Borel Sigma-Algebra](#the-borel-sigma-algebra)** | For $\Omega = \mathbb{R}$, the power set is too large (it contains unmeasurable sets). Instead, we use the Borel sigma-algebra $\mathcal{B}(\mathbb{R})$, defined as the smallest sigma-algebra containing all open intervals $(a, b)$. |
+| **[Measures](#measures)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Assigning Sizes to Sets](#assigning-sizes-to-sets)** | Now that we know *which* sets we can measure (those in a sigma-algebra), we need a function that assigns a "size" to each one. |
+| **[Basic Properties](#basic-properties)** | From the definition, several useful properties follow: Monotonicity: If $A \subseteq B$, then $\mu(A) \leq \mu(B)$. |
+| **[Key Examples](#key-examples)** | Lebesgue measure on $\mathbb{R}$ (with the Borel sigma-algebra): this is the formalization of "length." It satisfies: for every interval, and extends to more complicated Borel sets. |
+| **[Null Sets and "Almost Everywhere"](#null-sets-and-almost-everywhere)** | Definition. A set $N \in \mathcal{F}$ is a null set (or has measure zero) if $\mu(N) = 0$. |
+| **[Measurable Functions](#measurable-functions)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Functions Compatible with the Sigma-Algebra](#functions-compatible-with-the-sigma-algebra)** | We have a measure space $(\Omega, \mathcal{F}, \mu)$ and we want to integrate functions defined on $\Omega$. But not every function is compatible with our sigma-algebra. We need the function to interact well with the sets we can measure. |
+| **[Which Functions Are Measurable?](#which-functions-are-measurable)** | Almost every function you encounter in practice is measurable: The last point is critical. Measurability is *stable under limits*, which makes it the right notion for analysis. |
+| **[Random Variables Are Measurable Functions](#random-variables-are-measurable-functions)** | In probability, a random variable is nothing more than a measurable function. If $(\Omega, \mathcal{F}, P)$ is a probability space, a random variable $X : \Omega \to \mathbb{R}$ is a measurable function from $\Omega$ to $\mathbb{R}$. |
+| **[The Lebesgue Integral](#the-lebesgue-integral)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Dirichlet Function, Revisited](#the-dirichlet-function-revisited)** | The Dirichlet function $\mathbf{1}_{\mathbb{Q}}$ is Lebesgue integrable on $[0,1]$: This is the answer that the Riemann integral could not give. The function is a simple function (taking values 0 and 1), so the Lebesgue integral applies directly. |
+| **[Convergence Theorems](#convergence-theorems)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Power of Lebesgue Integration](#the-power-of-lebesgue-integration)** | The convergence theorems are the main reason measure theory exists. They tell you precisely when you can interchange a limit and an integral: This interchange is not always valid (you saw counterexamples in real analysis). |
+| **[Monotone Convergence Theorem (MCT)](#monotone-convergence-theorem-mct)** | Theorem. Let $f_1, f_2, f_3, \ldots$ be non-negative measurable functions with $f_1 \leq f_2 \leq f_3 \leq \cdots$ (pointwise increasing). Let $f(x) = \lim_{n \to \infty} f_n(x)$. Then: |
+| **[Fatou's Lemma](#fatous-lemma)** | Theorem. Let $f_1, f_2, f_3, \ldots$ be non-negative measurable functions. Then: |
+| **[Dominated Convergence Theorem (DCT)](#dominated-convergence-theorem-dct)** | $\lim_{n \to \infty} \int f_n \, d\mu = \int f \, d\mu.$ |
+| **[$L^p$ Spaces](#lp-spaces)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Function Spaces with Finite Norms](#function-spaces-with-finite-norms)** | In linear algebra, you measure vectors with norms like $\\vert v\\vert _2 = \sqrt{\sum v_i^2}$. |
+| **[Important Cases](#important-cases)** | $L^1(\mu)$: The integrable functions. $\\vert f\\vert _1 = \int \vert f\vert \, d\mu$. This is the natural space for the Lebesgue integral. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Monotone convergence](#monotone-convergence-theorem-mct)** | For nonnegative measurable $f_n$ increasing pointwise to $f$, the Lebesgue integrals satisfy $\int f_n\,d\mu\uparrow\int f\,d\mu$, allowing an infinite value. The nonnegativity and monotonicity hypotheses matter. |
+| **[Fatou's lemma](#fatous-lemma)** | For nonnegative measurable $f_n$, $\int\liminf f_n\,d\mu\le\liminf\int f_n\,d\mu$. The statement is an inequality, not a general equality of limits and integrals. |
+| **[Dominated convergence](#dominated-convergence-theorem-dct)** | If measurable $f_n\to f$ almost everywhere and $\vert f_n\vert \le g$ almost everywhere for an integrable nonnegative $g$, then $f$ is integrable and $\int f_n\,d\mu\to\int f\,d\mu$. Without a common integrable dominator, the exchange can fail. |
+| **[The general $L^2$ projection statement](#conditional-expectation-is-an-orthogonal-projection)** | See the linked section for the formal statement and hypotheses. |
+| **[Convergence Theorems](#convergence-theorems)** | See the linked section for the precise result and its conditions. |
+| **[Product Measures and Fubini's Theorem](#product-measures-and-fubinis-theorem)** | See the linked section for the precise result and its conditions. |
+| **[Fubini's Theorem](#fubinis-theorem)** | Theorem (Fubini-Tonelli). Let $f : X \times Y \to \mathbb{R}$ be measurable with respect to $\mathcal{A} \otimes \mathcal{B}$. |

@@ -9,6 +9,8 @@ enables: ["path-to-topology", "path-through-algebra", "path-through-analysis", "
 
 The most useful mathematical connections are not merely that two chapters use similar words. They are the cases where a construction, invariant, or argument from one field can be transported to another—and where we can say exactly **which hypotheses make that transfer legitimate**.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## How to recognize a transferable idea
 
 | Seed idea | First appears clearly in | Reappears as | Transfer question |
@@ -435,3 +437,24 @@ The five questions are not merely a reading checklist. Apply them to Bridge 3:
 This method also tells you **when not to transfer** an idea. A decreasing real-valued potential is not automatically a terminating rank, and a linear least-squares projection is not automatically the full conditional expectation. The hypotheses are part of the mathematics, not footnotes to it.
 
 **Related maps:** the [Atlas](./atlas-of-mathematical-spaces) organizes *structures*; [Path Through Algebra](./path-through-algebra), [Path Through Analysis](./path-through-analysis), [Path Through Topology](./path-to-topology), and [Discrete Mathematics](./discrete-mathematics) organize *reading routes*. These cross-disciplinary bridges organize **reusable ideas and proof techniques**.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Bridge 1. Equivalence classes become kernels and quotient spaces](#bridge-1-equivalence-classes-become-kernels-and-quotient-spaces)** | Seed: Equivalence Relations and Quotients teaches that an equivalence relation groups elements that we deliberately treat as indistinguishable. |
+| **[Bridge 2. Finite termination is not the same as asymptotic decrease](#bridge-2-finite-termination-is-not-the-same-as-asymptotic-decrease)** | Seed: State Machines and Invariants distinguishes invariants, which stay true, from ranking functions, which strictly decrease on active transitions. |
+| **[Bridge 3. An inconsistent cycle is a cohomological obstruction](#bridge-3-an-inconsistent-cycle-is-a-cohomological-obstruction)** | Seed: Graph Theory teaches paths, trees, and cycles. Equivalence Relations teaches when local equalities identify objects. Put those ideas together in a tiny constraint system. |
+| **[Bridge 4. Likelihood, cross-entropy, and KL divergence are one calculation](#bridge-4-likelihood-cross-entropy-and-kl-divergence-are-one-calculation)** | Seeds: Probability defines Bernoulli events, Logarithms shows how products become sums, and Optimization studies minima and maxima. |
+| **[Bridge 5. Expectation is integration](#bridge-5-expectation-is-integration)** | For a finite sample space, if $P(x)$ is a probability assigned to each outcome and $f(x)$ is a quantity of interest, expectation is |
+| **[Bridge 6. Conditional expectation is orthogonal projection](#bridge-6-conditional-expectation-is-orthogonal-projection)** | Seeds: A vector projection keeps the part of a vector lying in a chosen direction. Linear Algebra Foundations generalizes this to the nearest vector in a subspace. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

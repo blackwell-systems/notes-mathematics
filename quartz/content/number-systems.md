@@ -13,6 +13,8 @@ The numbers we use every day did not arrive all at once. They were built up, one
 
 This page tells that story, shows how the systems nest inside one another, and then classifies the numbers that live within them. The [Formal Definitions of the Number Sets](#formal-definitions-of-the-number-sets) below collects the precise notation in one place. It is the **overview**, not the full proof sequence. For derivations of each construction and its laws, follow [Natural Numbers](./construction-of-the-natural-numbers) → [Peano Arithmetic](./peano-arithmetic) → [Integers](./construction-of-the-integers) → [Rationals](./construction-of-the-rationals) → [Reals](./construction-of-the-reals) → [Complex Numbers](./construction-of-the-complex-numbers).
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Formal Definitions of the Number Sets
 
 This is the **one-page reference** for the common number families. There are three distinct questions: **membership** (which objects qualify?), **construction** (how do we build the numbers without assuming them?), and **algebraic structure** (which operations and laws do they support?). Set-builder notation such as $\{x\in\mathbb R\mid P(x)\}$ reads "the real x such that P holds"; it describes a subset of an **already constructed** set. A quotient construction actually creates new objects.
@@ -510,3 +512,49 @@ For the full story, including the Cayley–Dickson construction that generates t
 | Complex | $\mathbb{C}$ | polynomial roots | algebraically closed |
 
 The single sentence to remember: **each number system is the smallest one in which some previously impossible operation always works.** For how these operations are captured as axioms, see [Algebraic Structures](./algebraic-structures); for the way we actually write numbers down in binary and hexadecimal, see [Number Bases](./number-bases).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Rational numbers](#rational-numbers-mathbbq)** | Each rational is represented by a fraction of integers with nonzero denominator, modulo cross-multiplication equivalence. The same rational may have many numerator-denominator representatives. |
+| **[Complex numbers as an algebraic extension](#the-complex-numbers-as-a-quotient-ring)** | $\mathbb C\cong\mathbb R[x]/(x^2+1)$ because the polynomial $x^2+1$ is irreducible over $\mathbb R$. Quotienting imposes the relation $x^2=-1$ without assuming an imaginary object in advance. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Formal Definitions of the Number Sets](#formal-definitions-of-the-number-sets)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The standard number systems](#the-standard-number-systems)** | Naturals, $\mathbb N$ ("N"). We include zero. The von Neumann model constructs each natural as the set of smaller naturals: |
+| **[Irrational, algebraic, and transcendental numbers](#irrational-algebraic-and-transcendental-numbers)** | These are membership-defined families inside systems already constructed. They do not require a new kind of number object. |
+| **[Other frequently used subsets](#other-frequently-used-subsets)** | Positive naturals, positive integers, and nonnegative reals: $\mathbb N_{>0}:=\mathbb N\setminus\{0\},\qquad \mathbb Z_{>0}:=\{n\in\mathbb Z\mid n>0\}, \qquad$ |
+| **[Construction and membership at a glance](#construction-and-membership-at-a-glance)** | The essential distinction is that a formula like $\mathbb I=\mathbb R\setminus\mathbb Q$ classifies existing reals, while building $\mathbb R$ from cuts actually constructs a number system. |
+| **[The Building-Up Story](#the-building-up-story)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Natural numbers $\mathbb{N}$](#natural-numbers-mathbbn)** | The symbol $\mathbb{N}$ is read "the natural numbers" (or just "N"). These are the counting numbers: |
+| **[Integers $\mathbb{Z}$](#integers-mathbbz)** | The symbol $\mathbb{Z}$ is read "the integers" (from the German *Zahlen*, "numbers"). |
+| **[Rational numbers $\mathbb{Q}$](#rational-numbers-mathbbq)** | The symbol $\mathbb{Q}$ is read "the rationals" (from *quotient*). We extend $\mathbb{Z}$ by adjoining a quotient $p/q$ for every pair of integers $p$ and $q$ with $q \neq 0$: |
+| **[Real numbers $\mathbb{R}$](#real-numbers-mathbbr)** | The symbol $\mathbb{R}$ is read "the reals." Informally, the reals are all the points on a continuous, gapless number line, the rationals *together with* every irrational number like $\sqrt{2}$, $\pi$, and $e$ that fills the holes. |
+| **[Complex numbers $\mathbb{C}$](#complex-numbers-mathbbc)** | The symbol $\mathbb{C}$ is read "the complex numbers." We adjoin a single new number $i$, read "$i$," defined by the rule $$i^2 = -1,$$ and then take every combination $a + bi$ with $a, b \in \mathbb{R}$: |
+| **[Classifying Real Numbers](#classifying-real-numbers)** | Inside $\mathbb{R}$ there are two independent ways to sort numbers. The first asks whether a number is a fraction; the second asks whether it solves a polynomial. |
+| **[Rational vs irrational](#rational-vs-irrational)** | A real number is rational if it can be written as $p/q$ with integers $p, q$ and $q \neq 0$, and irrational otherwise. |
+| **[Algebraic vs transcendental](#algebraic-vs-transcendental)** | A second, deeper classification. A real number is algebraic if it is a root of some nonzero polynomial with integer coefficients, and transcendental if it is not. |
+| **[The naturals, from sets](#the-naturals-from-sets)** | The Peano conditions specify $0$, a successor operation $S$, the fact that $0$ is not a successor, injectivity of $S$, and an induction principle. |
+| **[The integers, from pairs of naturals](#the-integers-from-pairs-of-naturals)** | The complete equivalence, well-definedness, ring, order, and division proofs are in Construction of the Integers. |
+| **[The rationals, from pairs of integers](#the-rationals-from-pairs-of-integers)** | For representative independence, field and order laws, and the rational completeness gap, see Construction of the Rationals. |
+| **[The reals, by completing the rationals](#the-reals-by-completing-the-rationals)** | For the Cauchy-sequence quotient, reciprocals, order, and proof of completeness, see Construction of the Reals. |
+| **[The complex numbers, as a quotient ring](#the-complex-numbers-as-a-quotient-ring)** | For pair-operation proofs and an analytic argument for algebraic closure, see Construction of the Complex Numbers. |
+| **[Beyond the Complex Numbers](#beyond-the-complex-numbers)** | Since $\mathbb{C}$ is algebraically closed, extending it can never buy you new roots: the original motive for building each layer runs out. You can still extend further, but now every extension *trades away* a property rather than adding one. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Completeness is the new property](#real-numbers-mathbbr)** | The reals form a complete ordered field; in the rational Cauchy-sequence construction, completeness is proved for the resulting equivalence classes. It is not inherited from the rationals. |

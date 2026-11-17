@@ -12,6 +12,8 @@ enables: ["multivariable-calculus", "sequences-and-series", "real-analysis"]
 Calculus is the mathematics of change. Where algebra studies fixed relationships (what is $y$ when $x = 3$?), calculus asks: how fast is $y$ changing as $x$ changes? And if we know how fast something is changing, can we figure out how much total change has accumulated? These two questions give rise to the two halves of calculus: **derivatives** (rates of change) and **integrals** (accumulated totals). Both are built on a single foundational idea: the **limit**.
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The organizing idea: local change, global accumulation
 
 The most useful intuition for calculus is not a table of differentiation rules. It is **two ways of asking what happens to a changing quantity**:
@@ -1770,3 +1772,68 @@ $$
 To see exactly **why the derivative rules, IVT, FTC and convergence manipulations work**, follow the proof sequence beginning with [Completeness and Convergence](./completeness-and-convergence), then [Continuity and Compactness](./continuity-and-compactness), [Rigorous Differentiation](./rigorous-differentiation), [Rigorous Integration](./rigorous-integration) and [Sequences of Functions](./sequences-of-functions).
 
 This page covers single-variable calculus: functions of one input. In [Multivariable Calculus](./multivariable-calculus), we extend these ideas to functions of several variables, introducing partial derivatives, gradient vectors, and gradient descent. Those topics connect directly to the [matrix calculus](./linear-algebra-computation) already covered in the linear algebra section.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Limit](#limits)** | A finite limit $\lim_{x\to a}f(x)=L$ describes what $f(x)$ approaches as $x$ approaches $a$ through values in its domain, not necessarily the value of $f(a)$. Formal $\epsilon$-$\delta$ conditions appear in Real Analysis. |
+| **[Continuity at a point](#continuity)** | A function is continuous at $a$ when its value agrees with the limit as its input approaches $a$ through its domain. At an endpoint or an isolated domain point, use the corresponding domain-relative interpretation of the limit. |
+| **[Derivative at a point](#the-limit-definition-of-the-derivative)** | $f'(a)=\lim_{h\to0}\big(f(a+h)-f(a)\big)/h$, when this finite limit exists. The limit uses nonzero increments for which $a+h$ is in the domain; differentiability at an interior point implies continuity there. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Limits](#limits)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Limit Notation](#limit-notation)** | We write: This reads: "the limit of $f(x)$ as $x$ approaches $a$ equals $L$." It means that as $x$ gets closer and closer to $a$ (from either side), $f(x)$ gets closer and closer to $L$. |
+| **[One-Sided Limits](#one-sided-limits)** | Sometimes a function approaches different values from the left and right. The left-hand limit uses values less than $a$: The right-hand limit uses values greater than $a$: |
+| **[Infinite Limits (Vertical Asymptotes)](#infinite-limits-vertical-asymptotes)** | Sometimes a function does not approach a finite number; instead it grows without bound. We write: Here $\infty$ (read "infinity") is the symbol for unbounded growth. |
+| **[Limit Laws](#limit-laws)** | If $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$ (both limits exist and are finite), then: |
+| **[Limits at Infinity](#limits-at-infinity)** | What happens to a function as $x$ grows without bound? This connects to the end behavior of rational functions you have already studied. |
+| **[Computing Limits](#computing-limits)** | Direct substitution: Try plugging in $a$. If you get a real number, that is the limit. |
+| **[Limits of Piecewise Functions](#limits-of-piecewise-functions)** | For piecewise functions, evaluate the limit from each side using the piece that applies on that side. |
+| **[Important Trigonometric Limits](#important-trigonometric-limits)** | Two limits involving trigonometric functions come up repeatedly in calculus. They are needed to derive the derivatives of sine and cosine. |
+| **[The Squeeze Theorem](#the-squeeze-theorem)** | Squeeze Theorem (Sandwich Theorem): If $g(x) \leq f(x) \leq h(x)$ for all $x$ near $a$ (except possibly at $a$ itself), and: then $\lim_{x \to a} f(x) = L$ as well. |
+| **[Indeterminate Forms](#indeterminate-forms)** | When direct substitution gives $\frac{0}{0}$ or $\frac{\infty}{\infty}$, the result is called an indeterminate form. The limit might be any number (or might not exist). |
+| **[L'Hopital's Rule (Preview)](#lhopitals-rule-preview)** | $\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$ |
+| **[Continuity](#continuity)** | A function is continuous at a point $a$ if three things hold: In plain language: you can draw the graph through that point without lifting your pen. Polynomials, exponentials, and sine/cosine are continuous everywhere. |
+| **[Types of Discontinuities](#types-of-discontinuities)** | When a function fails to be continuous at a point, the nature of the failure falls into one of four categories. Understanding these types clarifies what "not continuous" really means. |
+| **[Intermediate Value Theorem](#intermediate-value-theorem)** | The Intermediate Value Theorem (IVT) formalizes an intuitive property of continuous functions: they cannot "skip over" values. |
+| **[Derivatives](#derivatives)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Big Idea](#the-big-idea)** | A derivative measures how fast a function's output changes as its input changes. If you are driving and your position is a function of time, the derivative of position is your speed. |
+| **[The Limit Definition of the Derivative](#the-limit-definition-of-the-derivative)** | The derivative of $f$ at the point $x$, written $f'(x)$ (read "f prime of x"), is: Here, $h$ is the tiny gap between $x$ and the nearby point $x + h$. |
+| **[Differentiability](#differentiability)** | A function is differentiable at $a$ if the derivative $f'(a)$ exists, meaning the limit in the definition above produces a finite value. Differentiability is a stronger condition than continuity. |
+| **[Derivative Notation](#derivative-notation)** | Several notations all mean the same thing: Leibniz notation ($\frac{dy}{dx}$) is especially useful because it reminds you what variable you are differentiating with respect to, and it behaves nicely in the chain rule. |
+| **[Basic Derivative Rules](#basic-derivative-rules)** | Instead of using the limit definition every time, we use rules: Constant rule: The derivative of a constant is zero. |
+| **[Product Rule](#product-rule)** | When two functions are multiplied together: The derivative of a product is not the product of the derivatives. You must use this rule. |
+| **[Quotient Rule](#quotient-rule)** | For a fraction of two functions: A common mnemonic: "low d-high minus high d-low, over the square of what's below." |
+| **[The Chain Rule](#the-chain-rule)** | The chain rule is arguably the single most important rule in calculus for machine learning. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Intermediate Value Theorem](#intermediate-value-theorem)** | If $f$ is continuous on $[a,b]$, it attains every value between $f(a)$ and $f(b)$. A target strictly between the endpoint values is attained at some $c\in(a,b)$; an endpoint target is guaranteed at least at an endpoint. |
+| **[Mean Value Theorem](#mean-value-theorem)** | If $a<b$, $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then $f'(c)=(f(b)-f(a))/(b-a)$ for some $c\in(a,b)$. Both hypotheses matter. |
+| **[Fundamental Theorem of Calculus](#the-fundamental-theorem-of-calculus)** | For a continuous real function on $[a,b]$, the accumulation function $F(x)=\int_a^x f(t)\,dt$ differentiates to $f$ at interior points. If $G'=f$ on the interval, then $\int_a^b f(x)\,dx=G(b)-G(a)$. The first assertion at endpoints is understood one-sidedly. |
+| **[Limit Laws](#limit-laws)** | If $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$ (both limits exist and are finite), then: |
+| **[The Squeeze Theorem](#the-squeeze-theorem)** | Squeeze Theorem (Sandwich Theorem): If $g(x) \leq f(x) \leq h(x)$ for all $x$ near $a$ (except possibly at $a$ itself), and: then $\lim_{x \to a} f(x) = L$ as well. |
+| **[L'Hopital's Rule (Preview)](#lhopitals-rule-preview)** | This rule requires derivatives, which we define next. Under the additional hypotheses of L'Hopital's rule (appropriate differentiability, $g'(x)\ne0$ near the point, and existence of the derivative-quotient limit), an indeterminate $0/0$ or infinity/infinity limit can be evaluated by: |
+| **[Basic Derivative Rules](#basic-derivative-rules)** | Instead of using the limit definition every time, we use rules: Constant rule: The derivative of a constant is zero. |
+| **[Product Rule](#product-rule)** | When two functions are multiplied together: The derivative of a product is not the product of the derivatives. You must use this rule. |
+| **[Quotient Rule](#quotient-rule)** | For a fraction of two functions: A common mnemonic: "low d-high minus high d-low, over the square of what's below." |
+| **[The Chain Rule](#the-chain-rule)** | The chain rule is arguably the single most important rule in calculus for machine learning. |
+| **[L'Hopital's Rule](#lhopitals-rule)** | L'Hopital's Rule provides a powerful method for evaluating limits that give indeterminate forms. The preview in the Limits section introduced the idea; here is the full treatment. |
+| **[Basic Integration Rules](#basic-integration-rules)** | These are the derivative rules in reverse: Constant multiple: $\int c \cdot f(x) \, dx = c \int f(x) \, dx$ Sum/difference: $\int [f(x) \pm g(x)] \, dx = \int f(x) \, dx \pm \int g(x) \, dx$ |
+| **[Trigonometric integrals: use identities to reveal substitutions](#trigonometric-integrals-use-identities-to-reveal-substitutions)** | Trigonometric powers are often easier after using identities, instead of searching for an antiderivative directly. |
+| **[Essential Derivative Rules](#essential-derivative-rules)** | See the linked section for the precise result and its conditions. |
+| **[Fundamental Theorem of Calculus](#fundamental-theorem-of-calculus)** | $\int_a^b f(x) \, dx = F(b) - F(a) \quad \text{where } F' = f$ |

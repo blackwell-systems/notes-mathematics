@@ -41,6 +41,8 @@ This is a common construction, not a compulsory sequence: quotients can change t
 
 **Want to transfer a specific idea between fields?** The companion [Cross-Disciplinary Bridges](./cross-disciplinary-bridges) works through explicit examples—including quotients, Lyapunov-style descent, cohomological cycle obstructions, cross-entropy, and **conditional expectation as orthogonal projection**—and explains which parts of each analogy really carry over. This atlas classifies **structures**; the bridges page tracks **reusable constructions and proofs**.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. Read the map correctly: a network, not a ladder
 
 ![An upper network branches from sets into ordered, topological, vector, and measurable spaces. The lower analytic subgraph distinguishes normed spaces, Banach spaces requiring completeness, inner-product spaces carrying extra inner-product data, and Hilbert spaces at their intersection.](./media/sp-structure-atlas.svg)
@@ -1012,3 +1014,72 @@ This atlas makes many fundamental relationships explicit, including a categorica
 That limitation is intentional: the objective is a **correct reusable framework**, one in which every new kind of space can be understood by the questions “What objects? What structure? What axioms? What maps? What properties? Which theorems?” Follow the linked full chapters whenever a named theorem needs a proof beyond what appears here.
 
 **The central insight:** Mathematical spaces are not a succession of more sophisticated sets. They are **different, often compatible ways of organizing objects so that precisely specified reasoning becomes possible**.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Topological space](#3-topological-spaces-closeness-without-measuring-it)** | A topology on $X$ is a family $\tau$ of subsets, called open sets, with $\varnothing,X\in\tau$, closed under arbitrary unions, and closed under finite intersections. The space is $(X,\tau)$. |
+| **[Metric space](#4-metric-spaces-a-number-for-the-separation)** | A metric $d$ on $X$ satisfies, for all $x,y,z\in X$, A metric space is the pair $(X,d)$. |
+| **[Uniform space (entourage formulation)](#uniform-spaces-cauchy-behavior-without-numbers-for-distance)** | A uniformity $\mathcal U$ on a set $X$ is a nonempty family of subsets of $X\times X$ called entourages, interpreted as sets of uniformly close pairs. This family is a filter (nonempty, upward closed, and closed under finite intersections) with further conditions. Explicitly: 1. |
+| **[Vector space](#5-vector-spaces-addition-and-scaling-independently-of-distance)** | A real vector space $V$ carries addition $+:V\times V\to V$ and scalar multiplication $\mathbb R\times V\to V$, satisfying the familiar associativity, commutativity, distributivity, zero and inverse axioms. A complex vector space uses scalar field $\mathbb C$ instead. |
+| **[Affine space modeled on a vector space](#affine-spaces-geometry-with-no-distinguished-origin)** | An affine space $A$ over a field such as $\mathbb R$ is a nonempty set of points equipped with an action $A\times V\to A$, written $p+v$, of a vector space $V$, satisfying and, for every $p,q\in A$, there is a unique $v\in V$ such that $p+v=q$. |
+| **[Projective space constructed from a vector space](#projective-spaces-directions-become-points)** | Given a real vector space $V$ of dimension $n+1$, define an equivalence relation on its nonzero vectors: The real projective space is Its elements are one-dimensional linear subspaces of $V$, or, equivalently, equivalence classes of nonzero vectors under nonzero scaling. |
+| **[Banach space](#6-normed-spaces-banach-spaces-and-inner-products)** | A Banach space is a normed vector space complete in its norm metric. Completeness is a condition on the chosen norm, not another operation. |
+| **[Inner-product and Hilbert spaces](#6-normed-spaces-banach-spaces-and-inner-products)** | An inner product $\langle x,y\rangle$ is linear in one input, conjugate symmetric (over $\mathbb C$), and positive definite. It produces the norm $\\vert x\\vert =\sqrt{\langle x,x\rangle}$. An inner-product space need not be complete. A Hilbert space is a complete inner-product space. |
+| **[Measurable space](#8-measurable-measure-and-probability-spaces-sizes-of-subsets)** | A sigma-algebra $\Sigma\subseteq\mathcal P(X)$ contains $\varnothing$, is closed under complements in $X$, and is closed under countable unions. A measurable space is $(X,\Sigma)$. |
+| **[Measure and probability spaces](#8-measurable-measure-and-probability-spaces-sizes-of-subsets)** | A measure $\mu:\Sigma\to[0,\infty]$ satisfies $\mu(\varnothing)=0$ and countable additivity for pairwise disjoint measurable sets. A measure space is $(X,\Sigma,\mu)$. A probability space has $\mu(X)=1$, conventionally denoted $(\Omega,\mathcal F,P)$. |
+| **[A category](#13-categories-the-structure-of-mathematical-structures)** | A category $\mathcal C$ has a collection of objects, a collection of morphisms $\operatorname{Hom}_{\mathcal C}(A,B)$ for each pair of objects, associative composition $g\circ f$, and identity morphisms $1_A$ satisfying $1_B\circ f=f=f\circ1_A$. |
+| **[Functor](#functors-systematically-forget-information)** | A functor $F:\mathcal C\to\mathcal D$ assigns objects to objects and morphisms to morphisms, preserving identities and composition: |
+| **[Free real vector space on a set](#free-constructions-add-structure-without-arbitrary-choices)** | $F(S)$ consists of formal finite linear combinations $\sum_{s\in S}a_s e_s$, where all but finitely many real coefficients $a_s$ are zero. Equivalently it is the vector space of finitely supported functions $S\to\mathbb R$. Each $s\in S$ corresponds to a basis vector $e_s$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. Read the map correctly: a network, not a ladder](#1-read-the-map-correctly-a-network-not-a-ladder)** | *Figure: The upper branches show independent kinds of structure; the lower subgraph makes the Banach and inner-product branches distinct and joins them at Hilbert spaces. |
+| **[Three classification questions, not three ranks of sophistication](#three-classification-questions-not-three-ranks-of-sophistication)** | One useful way to organize the immense variety of spaces is to keep three different questions separate: *Figure: Structure, properties and classification up to isomorphism are complementary ways to study spaces. |
+| **[2. Start with a set—and notice how little it says](#2-start-with-a-setand-notice-how-little-it-says)** | A set $X$ is a collection of elements; saying $x\in X$ asserts membership. A function $f:X\to Y$ assigns each element of $X$ exactly one element of $Y$. Neither concept provides distance, addition, or probability. |
+| **[Relations, quotients, and orders](#relations-quotients-and-orders)** | An equivalence relation declares when elements count as *the same for a chosen purpose*. For each $x\in X$, its equivalence class is $[x]=\{y\in X:y\sim x\}$: all elements considered equivalent to $x$. |
+| **[3. Topological spaces: closeness without measuring it](#3-topological-spaces-closeness-without-measuring-it)** | Here continuous means: for every open $V\subseteq Y$, the inverse image $f^{-1}(V)$ is open in $X$. A homeomorphism is a continuous bijection whose inverse is continuous. |
+| **[A remarkable two-point space: open sets are continuous maps](#a-remarkable-two-point-space-open-sets-are-continuous-maps)** | The Sierpiński space $S=\{0,1\}$ above is not metrizable. Yet its lack of symmetry makes it useful: its single proper nonempty open set, $\{1\}$, can be used to detect exactly which subsets of another space are open. |
+| **[4. Metric spaces: a number for the separation](#4-metric-spaces-a-number-for-the-separation)** | Open balls $B_r(x)=\{y:d(x,y)<r\}$ generate a topology. The metric also makes Cauchy sequences, numerical error bounds, Lipschitz maps and completeness meaningful. |
+| **[Subtle counterexample: completeness is not purely topological](#subtle-counterexample-completeness-is-not-purely-topological)** | On $\mathbb R$, compare $d(x,y)=\vert x-y\vert ,\qquad \rho(x,y)=\vert \arctan x-\arctan y\vert .$ |
+| **[Uniform spaces: Cauchy behavior without numbers for distance](#uniform-spaces-cauchy-behavior-without-numbers-for-distance)** | See this section for the underlying idea, notation, and worked examples. |
+| **[5. Vector spaces: addition and scaling, independently of distance](#5-vector-spaces-addition-and-scaling-independently-of-distance)** | The elements need not be arrows. They may be polynomials, continuous functions, infinite sequences or random variables. Linear combinations $ax+by$ make sense, but neither length nor convergence is defined by the vector-space axioms. |
+| **[Affine spaces: geometry with no distinguished origin](#affine-spaces-geometry-with-no-distinguished-origin)** | First intuition. On a sheet of paper, choosing the point labeled $(0,0)$ is a convention. Moving the paper does not change which points lie on a straight line, which points are midpoints, or the displacement between two marked positions. |
+| **[Projective spaces: directions become points](#projective-spaces-directions-become-points)** | Problem left by affine geometry: distinct parallel lines in an affine plane never intersect there. But perspective drawings make parallel lines appear to converge toward a common direction. Could directions themselves become legitimate objects? |
+| **[A projective point at infinity, computed rather than assumed](#a-projective-point-at-infinity-computed-rather-than-assumed)** | There is a natural affine chart in $\mathbb{RP}^2$ consisting of points with $z\ne0$. Divide homogeneous coordinates by $z$ to write every such point uniquely as $[x:y:1]$; this identifies that chart with the ordinary affine plane $\mathbb R^2$. |
+| **[6. Normed spaces, Banach spaces, and inner products](#6-normed-spaces-banach-spaces-and-inner-products)** | A norm $\\vert \cdot\\vert $ obeys definiteness, absolute homogeneity $\\vert ax\\vert =\vert a\vert \\vert x\\vert $, and the triangle inequality. It induces $d(x,y)=\\vert x-y\\vert $. |
+| **[A decisive test: the parallelogram law](#a-decisive-test-the-parallelogram-law)** | *Figure: An inner product constrains the geometry of a norm. The unit ball of $\ell^1$ in $\mathbb R^2$ is a diamond and violates the parallelogram identity.* Worked counterexample. In $(\mathbb R^2,\\vert \cdot\\vert _1)$, take $x=(1,0)$ and $y=(0,1)$. |
+| **[7. Topological vector spaces: compatibility without a single norm](#7-topological-vector-spaces-compatibility-without-a-single-norm)** | See this section for the underlying idea, notation, and worked examples. |
+| **[8. Measurable, measure, and probability spaces: sizes of subsets](#8-measurable-measure-and-probability-spaces-sizes-of-subsets)** | These spaces branch from sets in a different direction than metrics or vector operations. |
+| **[One exact finite example](#one-exact-finite-example)** | Let $\Omega=\{a,b,c\}$ and $\mathcal F=\mathcal P(\Omega)$. Assign $P(\{a\})=1/2$, $P(\{b\})=1/3$, and $P(\{c\})=1/6$. For any $A\subseteq\Omega$, define $P(A)$ as the sum of the weights of its members. |
+| **[9. Manifolds: spaces that are locally Euclidean](#9-manifolds-spaces-that-are-locally-euclidean)** | A topological $n$-manifold is, under the usual convention, a Hausdorff, second-countable space in which every point has a neighborhood homeomorphic to an open subset of $\mathbb R^n$. A chart supplies such a local coordinate map. |
+| **[10. Intersections of branches: the spaces mathematicians actually use](#10-intersections-of-branches-the-spaces-mathematicians-actually-use)** | Advanced mathematics often works exactly where two branches meet. |
+| **[11. Same functions, different spaces: the recurring experiment](#11-same-functions-different-spaces-the-recurring-experiment)** | Let the set of continuous real-valued functions on the unit interval. We can now revisit it through the entire atlas. |
+| **[12. Structure-preserving maps: different notions of sameness](#12-structure-preserving-maps-different-notions-of-sameness)** | A map is simply a function: it assigns exactly one output to each input in its domain. A structure-preserving map is a function that maintains a *specified operation or relationship* between objects, even when it changes the objects themselves. |
+| **[Work through two preservation rules](#work-through-two-preservation-rules)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Fixed points: when structure guarantees stability](#fixed-points-when-structure-guarantees-stability)** | A fixed point of a self-map $f:X\to X$ is an element that the map leaves unchanged: |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Open subsets are exactly continuous characteristic maps into Sierpiński space](#a-remarkable-two-point-space-open-sets-are-continuous-maps)** | For any topological space $X$ and any $A\subseteq X$, $\boxed{A\text{ is open in }X\quad\Longleftrightarrow\quad\chi_A:X\to S\text{ is continuous}.}$ |
+| **[Metric entourages satisfy the composition requirement](#why-the-axioms-are-chosen)** | Fix $\varepsilon>0$ and choose $V=U_{\varepsilon/3}$, not merely an arbitrary near-pair relation. If $(x,y),(y,z)\in V$, then Thus $V\circ V\subseteq U_\varepsilon$. Intersecting entourages and taking supersets extends the claim to the uniformity generated by the metric balls. |
+| **[Norm-induced distances really are metrics](#6-normed-spaces-banach-spaces-and-inner-products)** | Set $d(x,y)=\\vert x-y\\vert $. Norm positivity and definiteness give metric positivity and definiteness; homogeneity with scalar $-1$ gives symmetry; and All metric axioms follow directly. |
+| **[Inner-product norms obey the parallelogram identity](#a-decisive-test-the-parallelogram-law)** | $\\vert x+y\\vert ^2+\\vert x-y\\vert ^2=2\\vert x\\vert ^2+2\\vert y\\vert ^2.$ |
+| **[Isometries are continuous](#what-implies-what)** | If $f$ satisfies $d_Y(fx,fy)=d_X(x,y)$, then $f$ is $1$-Lipschitz and therefore continuous. In fact, for every $\varepsilon>0$ choose $\delta=\varepsilon$; $d_X(x,y)<\delta$ implies $d_Y(fx,fy)<\varepsilon$. |
+| **[Discrete and indiscrete spaces are adjoint to forgetting](#topology-has-two-canonical-extremes-an-adjunction-on-each-side)** | There are natural bijections and Equivalently, $D\dashv U\dashv I$. $\operatorname{Hom}_{\mathbf{Top}}(D(S),X) \cong\operatorname{Hom}_{\mathbf{Set}}(S,U(X))$ |
+| **[Universal property of the free vector space](#free-constructions-add-structure-without-arbitrary-choices)** | Given any real vector space $V$ and function $g:S\to U(V)$, there is a unique real-linear map $\widehat g:F(S)\to V$ for which $\widehat g\circ\eta_S=g$ (interpreting the composite as a function to the underlying set $U(V)$). |
+| **[Work through two preservation rules](#work-through-two-preservation-rules)** | See the linked section for the precise result and its conditions. |
+| **[15. A working catalog of spaces and their theorems](#15-a-working-catalog-of-spaces-and-their-theorems)** | The matrix below is a compact reference. “Learn here” points to developed treatments; an atlas-only entry signals that the full subject needs its own chapter. |

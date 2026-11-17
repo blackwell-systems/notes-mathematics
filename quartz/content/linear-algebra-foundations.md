@@ -11,6 +11,8 @@ enables: ["multivariable-calculus", "optimization", "algebraic-geometry"]
 
 **Linear algebra is the mathematics of vector spaces and linear maps between them.** Matrices and systems of equations are important tools and applications, but they are not the fundamental objects.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The fundamental setting: vector spaces, not matrices
 
 A **vector space really does have an underlying set** $V$. Its members are called **vectors**. To make that set into a vector space over a **field** $F$, we specify two operations—**vector addition** (two vectors give another vector) and **scalar multiplication** (a scalar and a vector give another vector)—and require them to satisfy the [vector-space axioms](#the-vector-space-axioms-the-actual-rules) below. A *scalar* belongs to $F$, commonly the real numbers $\mathbb R$ or complex numbers $\mathbb C$. A field permits addition, subtraction, multiplication, and division by nonzero elements according to the field laws.
@@ -1190,3 +1192,56 @@ The discarded part is $A - A_1 = \begin{bmatrix} 0 & 0 \\ -1 & 1 \end{bmatrix}$,
 7. **Why can SVD work without diagonalization?** It permits different orthonormal input and output bases rather than demanding an eigenbasis of a square map.
 
 **Continue with:** [Linear Algebra for Computation](./linear-algebra-computation) for norms, factorizations, numerical accuracy and iteration; [Functional Analysis](./functional-analysis) for infinite-dimensional spaces; and the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces) for how linear algebra connects to other structures.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Linear combination](#linear-combinations)** | A linear combination of vectors $v_1,\ldots,v_k$ is $\sum_{i=1}^k c_i v_i$ with scalar coefficients $c_i$. The span is the set of all these combinations. |
+| **[Linear independence](#linear-independence)** | Vectors $v_1,\ldots,v_k$ are linearly independent when $\sum c_i v_i=0$ forces every coefficient $c_i=0$. Independence is a property of the collection, not the size of any one vector. |
+| **[Eigenvector and eigenvalue](#eigenvalues-and-eigenvectors)** | A nonzero vector $v$ is an eigenvector of $A$ with eigenvalue $\lambda$ if $Av=\lambda v$. The zero vector is deliberately excluded because it would satisfy this equation for every $\lambda$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The fundamental setting: vector spaces, not matrices](#the-fundamental-setting-vector-spaces-not-matrices)** | A vector space really does have an underlying set $V$. Its members are called vectors. |
+| **[The vector-space axioms: the actual rules](#the-vector-space-axioms-the-actual-rules)** | Merely calling something a vector does not make it one. For $V$ to be a vector space over $F$, its two operations must obey all the following rules. |
+| **[Row Vectors vs Column Vectors](#row-vectors-vs-column-vectors)** | Before diving in, one convention to get straight. A vector can be written two ways: Column vector (vertical): $\begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix}$ . This is 3 rows and 1 column. |
+| **[Matrices Are Made of Both](#matrices-are-made-of-both)** | A matrix can be read as a stack of row vectors (reading horizontally) or as a set of column vectors side by side (reading vertically). Both descriptions give the same matrix: Reading the rows (left to right): |
+| **[Transpose: Flipping Between Them](#transpose-flipping-between-them)** | The transpose, written $A^T$ (or $x^T$) (read "A transpose"), flips a column vector into a row vector and vice versa. |
+| **[The Default Convention](#the-default-convention)** | Convention in these notes and in most of linear algebra: vectors are columns by default. When someone writes "let $v$ be a vector in $\mathbb{R}^n$" (read "vector v"), they mean a column vector with $n$ entries. |
+| **[Systems as Separate Equations](#systems-as-separate-equations)** | A system of linear equations is a collection of equations that must all be satisfied simultaneously. For example: |
+| **[Packaging the System into a Matrix Equation](#packaging-the-system-into-a-matrix-equation)** | Rather than writing each equation separately, we can collect the coefficients, unknowns, and right-hand sides into matrices and vectors. |
+| **[The General Case](#the-general-case)** | For a system with $m$ equations and $n$ unknowns: |
+| **[Three Views of $Ax = b$](#three-views-of-ax-b)** | Now that we know what $Ax = b$ means, we can look at it from different angles. Gilbert Strang's central insight is that the same equation can be understood in fundamentally different ways, and each view reveals different information. |
+| **[The Row Picture](#the-row-picture)** | In the row picture, each row of $A$ defines one equation, and each equation defines a geometric object: a line in 2D, a plane in 3D, a hyperplane in higher dimensions. The solution is the point where all these objects intersect. |
+| **[The Column Picture](#the-column-picture)** | The row picture looks at $A$ horizontally: each row is one equation. The column picture looks at $A$ vertically: each column is a vector. |
+| **[The Matrix Picture](#the-matrix-picture)** | A third perspective: treat $Ax = b$ as a single matrix equation. The matrix $A$ acts as a function (a linear transformation) that takes the input vector $x$ and produces the output vector $b$. |
+| **[Linear Combinations](#linear-combinations)** | In words: choose some whole vectors ($v_1,v_2,\ldots$), stretch or reverse them by scalar coefficients ($c_1,c_2,\ldots$), then add. |
+| **[Span](#span)** | Span: The span of a set of vectors is the set of all possible linear combinations of those vectors. |
+| **[Vector Spaces and Subspaces](#vector-spaces-and-subspaces)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Vector Space](#vector-space)** | Vector Space: A vector space $V$ over the real numbers is a set of objects (called vectors) with two operations, addition and scalar multiplication, that satisfy these axioms: |
+| **[Subspace](#subspace)** | Subspace: A subspace is a subset of a vector space that is itself a vector space. A subset $S$ of $V$ is a subspace if and only if: Quick test: If a subset does not contain the zero vector, it is not a subspace. |
+| **[Basis and Dimension](#basis-and-dimension)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Basis](#basis)** | Basis: A basis for a vector space $V$ is a set of vectors that: A basis is the minimal spanning set, or equivalently, the maximal independent set. |
+| **[Dimension](#dimension)** | Dimension: The dimension of a vector space is the number of vectors in any basis. It is written $\dim(V)$ (read "the dimension of V"). |
+| **[The Four Fundamental Subspaces](#the-four-fundamental-subspaces)** | This is the heart of Strang's approach to linear algebra. Given an $m \times n$ matrix $A$, there are four subspaces that completely describe its behavior. |
+| **[Column Space $C(A)$](#column-space-ca)** | Column Space: The set of all linear combinations of the columns of $A$. It is a subspace of $\mathbb{R}^m$. |
+| **[Null Space $N(A)$](#null-space-na)** | Null Space (Kernel): The set of all vectors $x$ that $A$ sends to zero. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Four fundamental subspaces](#the-fundamental-theorem-of-linear-algebra)** | For an $m\times n$ matrix of rank $r$, the row and column spaces have dimension $r$, while the null and left-null spaces have dimensions $n-r$ and $m-r$. Their orthogonal-complement relations explain solvability and nonuniqueness. |
+| **[The vector-space axioms: the actual rules](#the-vector-space-axioms-the-actual-rules)** | Merely calling something a vector does not make it one. For $V$ to be a vector space over $F$, its two operations must obey all the following rules. |
+| **[The first isomorphism theorem: what survives information loss](#the-first-isomorphism-theorem-what-survives-information-loss)** | Two inputs $u,v$ are indistinguishable under $T$ exactly when $T(u)=T(v)$, or equivalently when $u-v\in\ker T$. The kernel tells us which differences should be ignored. |

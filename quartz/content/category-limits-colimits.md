@@ -10,6 +10,8 @@ enables: ["category-adjunctions-monads", "general-topology-constructions"]
 
 The idea of a universal property is to define an object by **all the maps into or out of it**. The resulting object is unique *up to unique compatible isomorphism*, independently of how it was implemented. This is why sets of ordered pairs, direct products of groups, and products of topological spaces can be understood through one common theorem.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Terminal and initial objects
 
 > [!definition] Terminal / initial
@@ -138,3 +140,40 @@ We prove those details in [Subspaces, Products and Quotients](./general-topology
 | Pushout | universal gluing along a shared source |
 
 Next: [Adjunctions and Monads](./category-adjunctions-monads), which package an entire **family of universal mappings** into a natural correspondence.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Terminal / initial](#terminal-and-initial-objects)** | A terminal object $1$ has exactly one arrow $X\to1$ from every object $X$. An initial object $0$ has exactly one arrow $0\to X$ to every $X$. |
+| **[Categorical product](#products-from-projections-not-tuples)** | A product of $A,B$ is an object $P$ with projection arrows $p_A:P\to A$ and $p_B:P\to B$ such that for any $X$ and arrows $f:X\to A$, $g:X\to B$, there exists a unique $\langle f,g\rangle:X\to P$ satisfying $p_A\circ\langle f,g\rangle=f$ and $p_B\circ\langle f,g\rangle=g$. |
+| **[Coproduct](#coproducts-dualizing-the-product)** | A coproduct $A\amalg B$ has injections $i_A:A\to A\amalg B$, $i_B:B\to A\amalg B$ such that for arrows $f:A\to X$, $g:B\to X$, a unique $[f,g]:A\amalg B\to X$ extends both. |
+| **[Pullback](#pullbacks-matching-two-maps-into-one-target)** | For $f:A\to C$ and $g:B\to C$, a pullback has an object $P$ and maps $p:P\to A$, $q:P\to B$ satisfying $fp=gq$, universal among all commuting squares over $f$ and $g$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Terminal and initial objects](#terminal-and-initial-objects)** | In Set, a singleton is terminal and the empty set is initial. In Grp, the trivial group is both initial and terminal. That dual role makes Grp a pointed category. |
+| **[Products from projections, not tuples](#products-from-projections-not-tuples)** | *Figure: Two arrows with the same source uniquely combine into one arrow into a product.* |
+| **[Constructing and verifying a product in Set](#constructing-and-verifying-a-product-in-set)** | Choose $P:=A\times B$, with projections $p_A(a,b):=a$ and $p_B(a,b):=b$. Given $f,g$, define $h(x):=(f(x),g(x))$. Then $p_Ah=f$ and $p_Bh=g$. |
+| **[Coproducts: dualizing the product](#coproducts-dualizing-the-product)** | In Set, it is the disjoint union: remember which input set each element came from. If the original sets overlap, ordinary union loses that tag and generally is not a coproduct with the specified injections. |
+| **[Equalizers and coequalizers](#equalizers-and-coequalizers)** | For parallel arrows $f,g:A\to B$, an equalizer $e:E\to A$ satisfies $fe=ge$, universally: any $u:X\to A$ for which $fu=gu$ factors uniquely through $e$. |
+| **[Pullbacks: matching two maps into one target](#pullbacks-matching-two-maps-into-one-target)** | *Figure: A pullback stores compatible pairs, not arbitrary pairs.* In Set, a model is |
+| **[Pushouts: glue along a common source](#pushouts-glue-along-a-common-source)** | Reverse the pullback arrows. Given $f:C\to A$ and $g:C\to B$, a pushout has arrows $i:A\to Q$, $j:B\to Q$ with $if=jg$ and is universal among such commuting squares. |
+| **[Limits, colimits, and shape diagrams](#limits-colimits-and-shape-diagrams)** | A diagram of shape $J$ in $\mathcal C$ is a functor $D:J\to\mathcal C$. A cone from $X$ to $D$ supplies compatible arrows $X\to D(j)$ for all $j$; a limit is a universal cone. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Terminal objects are unique up to unique isomorphism](#terminal-and-initial-objects)** | If $T$ and $T'$ are both terminal, the universal properties give unique maps $u:T\to T'$ and $v:T'\to T$. Their composites are endomorphisms of terminal objects, which must be the identities because those are the unique endomorphisms. Therefore $u,v$ are inverse isomorphisms. |
+| **[Products are unique up to unique projection-preserving isomorphism](#constructing-and-verifying-a-product-in-set)** | Let $(P,p_A,p_B)$ and $(Q,q_A,q_B)$ each satisfy the product property. Apply universality to $q_A,q_B$ to get $u:Q\to P$ and to $p_A,p_B$ to get $v:P\to Q$. The composites $uv$ and $vu$ have the same projections as the appropriate identities. |

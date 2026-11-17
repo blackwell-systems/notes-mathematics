@@ -15,6 +15,8 @@ Propositional logic can only express complete statements like "it is raining" as
 
 **Predicate Logic / first-order logic:** An extension of propositional logic that allows reasoning about objects, their properties, and relationships using variables and quantifiers.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Terms and the FOL Alphabet
 
 Propositional logic has only one kind of building block, the atomic proposition. First-order logic needs to talk about *objects* and what is true of them, so its alphabet is richer. Before we can write a formula, we need a vocabulary of symbols and a way to name objects.
@@ -665,3 +667,58 @@ and the least-upper-bound property of $\mathbb{R}$ becomes directly statable. Se
 
 The catch is exactly the metatheory above: **second-order logic has no sound and complete proof system, and fails compactness.** You cannot have both full expressive power and a complete, effective notion of proof. This trade-off is why mainstream mathematics is founded on *first-order* set theory (ZFC): a first-order theory keeps Gödel completeness and a usable proof system, and recovers the strength of second-order ideas by quantifying over sets *as objects* rather than over predicates. Choosing first-order logic is choosing a complete, well-behaved logic over a maximally expressive one.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[First-order logic](#terms-and-the-fol-alphabet)** | First-order logic (FOL) extends propositional logic with objects, terms, predicates, and quantifiers ranging over individual elements of a domain. Its expressions are interpreted in a structure. |
+| **[Structure / interpretation](#structures-and-interpretations-models)** | A first-order structure supplies a nonempty domain, assigns a domain element to each constant, an actual function to each function symbol, and an actual relation to each predicate symbol. Formula truth is evaluated relative to these choices. |
+| **[Universal quantifier](#universal-quantifier)** | $\forall x\,P(x)$ means $P$ holds for every object $x$ in the chosen domain. One genuine counterexample is enough to refute the claim. |
+| **[Existential quantifier](#existential-quantifier)** | $\exists x\,P(x)$ means at least one object in the domain satisfies $P$. A witness proves existence, but not necessarily uniqueness. |
+| **[Bound variable vs free variable](#bound-vs-free-variables)** | An occurrence of a variable is bound only when it lies inside the scope of a quantifier binding that variable. Other occurrences are free, so evaluating the formula also requires an assignment to those variables. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Terms and the FOL Alphabet](#terms-and-the-fol-alphabet)** | Propositional logic has only one kind of building block, the atomic proposition. First-order logic needs to talk about *objects* and what is true of them, so its alphabet is richer. |
+| **[Structures and Interpretations (Models)](#structures-and-interpretations-models)** | A first-order formula by itself is just a string of symbols; it has no truth value until we say what the symbols *mean* and what objects exist. That information is packaged in a structure (also called an interpretation or a model). |
+| **[A fully worked tiny structure](#a-fully-worked-tiny-structure)** | Abstract definitions sink in faster on a concrete case, so let us build one structure *completely* and then read a few sentences off it purely by looking things up. |
+| **[Predicates](#predicates)** | Predicate: A function that takes one or more variables and returns a truth value (true or false). |
+| **[Equality (First-Order Logic with Identity)](#equality-first-order-logic-with-identity)** | Almost all of mathematics is written in first-order logic *with equality*: the binary predicate $=$ (read "equals") is treated as a built-in logical symbol with a fixed meaning, rather than just another relation you get to interpret freely. |
+| **[Domain of Discourse](#domain-of-discourse)** | Domain of Discourse (Universe): The set of all possible values that variables can take. |
+| **[Quantifiers](#quantifiers)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Universal Quantifier (∀)](#universal-quantifier)** | Symbol: $\forall$ (read as "for all" or "for every") Meaning: The statement is true for all elements in the domain. |
+| **[Existential Quantifier (∃)](#existential-quantifier)** | Symbol: $\exists$ (read as "there exists" or "for some") Meaning: The statement is true for at least one element in the domain. |
+| **[Unique Existential Quantifier (∃!)](#unique-existential-quantifier)** | Symbol: $\exists!$ (read as "there exists exactly one") Meaning: The statement is true for exactly one element in the domain. |
+| **[Multiple Quantifiers](#multiple-quantifiers)** | A full quantified formula is read left to right, symbol by symbol: $\forall x\, \exists y\, (x < y)$ reads "for all x, there exists a y such that x is less than y". |
+| **[Order Matters](#order-matters)** | Example 1: $\forall x \exists y (x < y)$ Example 2: $\exists y \forall x (x < y)$ The difference is *dependency*. In $\forall x\, \exists y$, the witness $y$ is chosen after $x$ and may depend on it (here $y = x+1$). |
+| **[Mixed Quantifiers](#mixed-quantifiers)** | Example: $\forall x \exists y (x + y = 0)$ |
+| **[Negating Quantified Statements](#negating-quantified-statements)** | Rules (De Morgan's laws for quantifiers): To negate a quantified statement, flip each quantifier ($\forall \leftrightarrow \exists$) and push the negation inward onto the predicate. |
+| **[Bound vs Free Variables](#bound-vs-free-variables)** | Bound Variable: A variable that is controlled by a quantifier. |
+| **[Formal Semantics: Satisfaction, Validity, and Entailment](#formal-semantics-satisfaction-validity-and-entailment)** | The Structures and Interpretations section said informally that a structure makes each sentence true or false. |
+| **[Common Patterns](#common-patterns)** | See this section for the underlying idea, notation, and worked examples. |
+| **["For all... if..., then..."](#for-all-if-then)** | Pattern: $\forall x (P(x) \to Q(x))$ Example: $\forall x (x > 0 \to x^2 > 0)$ |
+| **["There exists... such that... and..."](#there-exists-such-that-and)** | Pattern: $\exists x (P(x) \land Q(x))$ Example: $\exists x (x > 0 \land x^2 = 4)$ |
+| **[Truth Tables for Quantified Statements](#truth-tables-for-quantified-statements)** | When the domain is finite, quantified statements can be expanded: Universal Quantifier: Existential Quantifier: |
+| **[Logical Equivalences for Quantifiers](#logical-equivalences-for-quantifiers)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Distribution Over Conjunctions and Disjunctions](#distribution-over-conjunctions-and-disjunctions)** | Universal Quantifier with Conjunction: $$\forall x (P(x) \land Q(x)) \equiv \forall x P(x) \land \forall x Q(x)$$ Example: "All numbers are positive and even" is equivalent to "All numbers are positive AND all numbers are even" |
+| **[Quantifier Exchange Rules](#quantifier-exchange-rules)** | With Negation (De Morgan's laws for quantifiers): $$\neg \forall x P(x) \equiv \exists x \neg P(x)$$ $$\neg \exists x P(x) \equiv \forall x \neg P(x)$$ |
+| **[Nested Quantifiers - Swapping Rules](#nested-quantifiers---swapping-rules)** | Same Quantifiers (can swap): $$\forall x \forall y P(x, y) \equiv \forall y \forall x P(x, y)$$ $$\exists x \exists y P(x, y) \equiv \exists y \exists x P(x, y)$$ |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Equality (First-Order Logic with Identity)](#equality-first-order-logic-with-identity)** | Almost all of mathematics is written in first-order logic *with equality*: the binary predicate $=$ (read "equals") is treated as a built-in logical symbol with a fixed meaning, rather than just another relation you get to interpret freely. |
+| **[Quantifier Exchange Rules](#quantifier-exchange-rules)** | With Negation (De Morgan's laws for quantifiers): $$\neg \forall x P(x) \equiv \exists x \neg P(x)$$ $$\neg \exists x P(x) \equiv \forall x \neg P(x)$$ |
+| **[Nested Quantifiers - Swapping Rules](#nested-quantifiers---swapping-rules)** | Same Quantifiers (can swap): $$\forall x \forall y P(x, y) \equiv \forall y \forall x P(x, y)$$ $$\exists x \exists y P(x, y) \equiv \exists y \exists x P(x, y)$$ |
+| **[Rules of Inference for Quantifiers](#rules-of-inference-for-quantifiers)** | The propositional rules of inference (modus ponens and friends) handle connectives, but they cannot get inside a quantifier. |

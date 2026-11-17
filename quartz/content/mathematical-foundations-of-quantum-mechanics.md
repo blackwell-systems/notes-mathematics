@@ -14,6 +14,8 @@ enables: []
 
 The same mathematics appears across your existing notes: vectors, orthogonality, probability, differentiation, geometry and optimization. The key is not that quantum mechanics makes everything mysterious. It is that **the objects and operations have different physical meanings** than they do in ordinary classical probability.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. First intuition: states are not probability lists
 
 For a classical bit, the two possibilities are $0$ and $1$. A classical probability distribution can assign them probabilities $p$ and $1-p$.
@@ -592,3 +594,41 @@ This is an **introductory mathematical framework**, not a full quantum-mechanics
 A more mathematical route continues through [Functional Analysis](./functional-analysis), [Differential Geometry](./differential-geometry), and [Information Geometry](./information-geometry). A more algorithmic route continues through [Optimization](./optimization) and [Differential Equations](./differential-equations). For a geometric comparison of what states and maps preserve, use the [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces).
 
 **The recurring lesson:** Every theorem and algorithm depends on the structure of its state space. First identify the states, operations, probabilities, and metric. Then ask what optimization or dynamics can guarantee under that structure.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. First intuition: states are not probability lists](#1-first-intuition-states-are-not-probability-lists)** | For a classical bit, the two possibilities are $0$ and $1$. A classical probability distribution can assign them probabilities $p$ and $1-p$. |
+| **[2. Inner products and the Born rule](#2-inner-products-and-the-born-rule)** | For complex column vectors, the inner product uses complex conjugation. If $\vert \psi\rangle$ is a column, its corresponding bra $\langle\psi\vert $ (read "bra psi") is the conjugate transpose: |
+| **[3. Observables: measuring is an operator question](#3-observables-measuring-is-an-operator-question)** | An observable is represented, in the standard finite-dimensional formulation, by a Hermitian operator $A$, meaning $A^\dagger=A$. |
+| **[4. Superposition versus mixture: the interference experiment](#4-superposition-versus-mixture-the-interference-experiment)** | Two states can give identical measurement probabilities in one basis and behave differently in another. |
+| **[5. The Pauli operators and incompatible measurements](#5-the-pauli-operators-and-incompatible-measurements)** | Three especially useful Hermitian operators on one qubit are |
+| **[6. The geometry of one qubit: the Bloch sphere](#6-the-geometry-of-one-qubit-the-bloch-sphere)** | Ignoring physically irrelevant global phase, every normalized pure qubit can be represented as |
+| **[7. Time evolution: transformations that preserve probability](#7-time-evolution-transformations-that-preserve-probability)** | For a closed quantum system, ordinary time evolution is described by a unitary operator $U(t)$: |
+| **[8. Two qubits and entanglement](#8-two-qubits-and-entanglement)** | One qubit has state space $\mathbb C^2$. Two qubits use the tensor product $\mathbb C^2\otimes\mathbb C^2\cong\mathbb C^4.$ |
+| **[9. Experimental evidence: why the mathematics earns physical trust](#9-experimental-evidence-why-the-mathematics-earns-physical-trust)** | See this section for the underlying idea, notation, and worked examples. |
+| **[A. Individual detections accumulate into an interference pattern](#a-individual-detections-accumulate-into-an-interference-pattern)** | Prediction: When coherent alternatives contribute amplitudes $a_1$ and $a_2$ to the same detection location, the probability is |
+| **[B. Individual quantum systems can be prepared, controlled and measured](#b-individual-quantum-systems-can-be-prepared-controlled-and-measured)** | Prediction: A unitary operation can change the amplitudes and relative phase of a qubit while preserving normalization. Preparing the same state and measuring in different bases gives the specific outcome frequencies predicted by the Born rule. |
+| **[C. Bell tests distinguish quantum correlations from local hidden-variable predictions](#c-bell-tests-distinguish-quantum-correlations-from-local-hidden-variable-predictions)** | Prediction: Consider two separated observers, each choosing between two binary measurements. Write their outcomes as $A_0,A_1,B_0,B_1\in\{-1,+1\}$, and denote the measured correlation at settings $i,j$ by $E_{ij}$. |
+| **[D. Precision quantum electrodynamics: calculations face numerical tests](#d-precision-quantum-electrodynamics-calculations-face-numerical-tests)** | Prediction: Quantum electrodynamics (QED), the relativistic quantum theory of electromagnetic interactions, makes extremely precise predictions about quantities including the electron's magnetic moment. |
+| **[10. Quantum states as an optimization problem](#10-quantum-states-as-an-optimization-problem)** | Here is the bridge to Gradient Descent, Optimization, and Information Geometry. |
+| **[Ordinary gradient versus natural gradient](#ordinary-gradient-versus-natural-gradient)** | A parameter change of magnitude $0.01$ is not always the same physical change of state at different positions or with different parameterizations. |
+| **[Imaginary-time evolution and energy descent](#imaginary-time-evolution-and-energy-descent)** | Ordinary, unitary quantum time evolution is *not* generic gradient descent: for a time-independent Hamiltonian the energy expectation remains constant. |
+| **[11. What actually transfers to classical model training?](#11-what-actually-transfers-to-classical-model-training)** | The intersection is geometry-aware optimization of parameterized objects. Classical backpropagation remains a classical chain-rule algorithm; no quantum mechanics is required for ordinary neural-network training. |
+| **[12. Self-check: separate the claims](#12-self-check-separate-the-claims)** | See this section for the underlying idea, notation, and worked examples. |
+| **[13. How far this chapter goes](#13-how-far-this-chapter-goes)** | This is an introductory mathematical framework, not a full quantum-mechanics text. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[2. Inner products and the Born rule](#2-inner-products-and-the-born-rule)** | For complex column vectors, the inner product uses complex conjugation. If $\vert \psi\rangle$ is a column, its corresponding bra $\langle\psi\vert $ (read "bra psi") is the conjugate transpose: |

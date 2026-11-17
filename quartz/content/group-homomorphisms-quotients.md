@@ -18,6 +18,8 @@ $$
 
 Read $\ker(f)$ as "the kernel of f," $\operatorname{im}(f)$ as "the image of f," and $\cong$ as "is isomorphic to." This result explains why one often obtains a quotient when applying a structure-preserving map.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Homomorphisms: preserving multiplication, not necessarily elements
 
 ![Map from Z modulo six to Z modulo three with fibers {0,3}, {1,4}, and {2,5}.](./media/gr-homomorphism-fibers.svg)
@@ -414,3 +416,51 @@ Direct products preserve components, while quotient groups identify elements. Th
 | Direct product forms a group | componentwise verification |
 
 The next chapter, [Group Actions and Symmetry](./group-actions-symmetry), uses these constructions to explain groups of permutations, orbit-stabilizer, conjugacy, and counting symmetries. Groups cease to be merely collections with a binary operation: they become tools for studying the structure of other mathematical objects.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Group homomorphism](#homomorphisms-preserving-multiplication-not-necessarily-elements)** | A map $f:G\to H$ is a homomorphism when $f(ab)=f(a)f(b)$ for all group elements. This preserves the operation, not necessarily distinctness: different elements may share an image. |
+| **[Kernel and image](#kernel-and-image-what-is-lost-what-survives)** | The kernel consists of inputs mapping to the identity of $H$. The image consists of outputs actually reached. Both are subgroups, but only the kernel lives in $G$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Homomorphisms: preserving multiplication, not necessarily elements](#homomorphisms-preserving-multiplication-not-necessarily-elements)** | *Figure: Different inputs can have the same image while the group operation remains preserved.* Let $(G,\cdot)$ and $(H,*)$ be groups. A group homomorphism $f:G\to H$ is a function satisfying |
+| **[Identity and inverses are automatically preserved](#identity-and-inverses-are-automatically-preserved)** | Theorem: for a homomorphism $f:G\to H$, Proof. By H1, $f(e_G)=f(e_Ge_G)=f(e_G)^2$. Cancel $f(e_G)$ in the group $H$ to obtain $f(e_G)=e_H$. Now |
+| **[Kernel and image: what is lost, what survives](#kernel-and-image-what-is-lost-what-survives)** | Define $\boxed{\ker(f)=\{g\in G:f(g)=e_H\}},\qquad \boxed{\operatorname{im}(f)=\{f(g):g\in G\}}.$ |
+| **[Exactly when is a homomorphism injective?](#exactly-when-is-a-homomorphism-injective)** | Theorem: Forward proof. If $f$ is injective and $f(g)=e_H=f(e_G)$, then $g=e_G$. |
+| **[Normal subgroups: the exact obstacle to quotient multiplication](#normal-subgroups-the-exact-obstacle-to-quotient-multiplication)** | Recall that a subgroup $N\leq G$ has left cosets $gN=\{gn:n\in N\}$ and right cosets $Ng=\{ng:n\in N\}$. |
+| **[Kernels are automatically normal](#kernels-are-automatically-normal)** | Let $N=\ker(f)$ and $n\in N$. Then $f(gng^{-1}) =f(g)f(n)f(g)^{-1} =f(g)e_Hf(g)^{-1}$ |
+| **[A nonnormal example](#a-nonnormal-example)** | Let $G=S_{\{1,2,3\}}$ under permutation composition, and let $N=\{e,(1\ 2)\}$, where $(1\ 2)$ means "swap 1 and 2." Choose $g=(1\ 2\ 3)$, the permutation that sends $1\to2\to3\to1$. Conjugating the transposition gives another transposition: |
+| **[Quotient groups: proving well-definedness first](#quotient-groups-proving-well-definedness-first)** | Assume $N\trianglelefteq G$. Define the *set of left cosets* Read $G/N$ as "G modulo N." Its elements are subsets of G, not ordinary elements of $G$. Propose the operation |
+| **[Well-definedness theorem](#well-definedness-theorem)** | Suppose $aN=a'N$ and $bN=b'N$. The coset-equality test from Group Theory Foundations gives elements $n_1,n_2\in N$ with $a'=an_1$ and $b'=bn_2$. Then |
+| **[Normality is also necessary](#normality-is-also-necessary)** | Suppose QG is well-defined for left cosets of a subgroup $N$ without assuming normality. For any $n\in N$ and $g\in G$, |
+| **[The quotient really is a group](#the-quotient-really-is-a-group)** | Now that QG is defined, associativity follows from associativity in $G$: $((aN)(bN))(cN)=((ab)c)N=(a(bc))N=(aN)((bN)(cN)).$ |
+| **[The canonical quotient map](#the-canonical-quotient-map)** | Define $\pi:G\to G/N,\qquad\pi(g)=gN.$ |
+| **[The First Isomorphism Theorem](#the-first-isomorphism-theorem)** | *Figure: First quotient out what the map loses; the remaining information is precisely the image.* Theorem. For every group homomorphism $f:G\to H$, |
+| **[The Second Isomorphism Theorem](#the-second-isomorphism-theorem)** | Let $H\leq G$ and $N\trianglelefteq G$. Define $HN=\{hn:h\in H,n\in N\}$. |
+| **[The Third Isomorphism Theorem](#the-third-isomorphism-theorem)** | Suppose $N\trianglelefteq G$ and $K\trianglelefteq G$ with $N\subseteq K$. Because $K$ is normal, the quotient $G/K$ exists. Define |
+| **[Correspondence theorem: all subgroups above the kernel](#correspondence-theorem-all-subgroups-above-the-kernel)** | *Figure: Subgroup inclusion survives the passage to the quotient.* Let $N\trianglelefteq G$ with canonical map $\pi:G\to G/N$. There is a one-to-one correspondence |
+| **[Direct products: building larger groups without collapsing them](#direct-products-building-larger-groups-without-collapsing-them)** | For groups $G$ and $H$, define the direct product on ordered pairs: Associativity follows componentwise. Identity is $(e_G,e_H)$ and inverse is $(g^{-1},h^{-1})$, proving $G\times H$ is a group. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[First Isomorphism Theorem](#the-first-isomorphism-theorem)** | Every group homomorphism factors through the quotient by its kernel: $G/\ker(f)\cong\operatorname{im}(f)$. The proof constructs the induced map and verifies well-definedness, homomorphism, injectivity, and surjectivity. |
+| **[Identity and inverses are automatically preserved](#identity-and-inverses-are-automatically-preserved)** | Theorem: for a homomorphism $f:G\to H$, Proof. By H1, $f(e_G)=f(e_Ge_G)=f(e_G)^2$. Cancel $f(e_G)$ in the group $H$ to obtain $f(e_G)=e_H$. Now |
+| **[Well-definedness theorem](#well-definedness-theorem)** | Suppose $aN=a'N$ and $bN=b'N$. The coset-equality test from Group Theory Foundations gives elements $n_1,n_2\in N$ with $a'=an_1$ and $b'=bn_2$. Then |
+| **[The Second Isomorphism Theorem](#the-second-isomorphism-theorem)** | Let $H\leq G$ and $N\trianglelefteq G$. Define $HN=\{hn:h\in H,n\in N\}$. |
+| **[The Third Isomorphism Theorem](#the-third-isomorphism-theorem)** | Suppose $N\trianglelefteq G$ and $K\trianglelefteq G$ with $N\subseteq K$. Because $K$ is normal, the quotient $G/K$ exists. Define |
+| **[Correspondence theorem: all subgroups above the kernel](#correspondence-theorem-all-subgroups-above-the-kernel)** | *Figure: Subgroup inclusion survives the passage to the quotient.* Let $N\trianglelefteq G$ with canonical map $\pi:G\to G/N$. There is a one-to-one correspondence |

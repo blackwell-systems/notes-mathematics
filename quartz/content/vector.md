@@ -8,6 +8,8 @@ enables: ["linear-algebra-foundations", "multivariable-calculus"]
 > **Builds on:** [Geometry & Trigonometry](./geometry-trigonometry) · [Number Systems](./number-systems)
 > **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Multivariable Calculus](./multivariable-calculus)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Numbers Alone Are Not Enough
 
 If someone tells you "the airport is 5 miles away," you still cannot get there: you need to know *which direction*. "5 miles northeast" gives you everything you need. The same is true for wind speed ("20 mph from the northwest"), forces ("10 newtons to the right"), and velocity ("60 km/h due south"). In each case, a single number (the magnitude) is incomplete without a direction.
@@ -532,3 +534,45 @@ With weights $\mathbf w = \langle 0.5, -1, 2\rangle$, input $\mathbf x = \langle
 - **Normalization.** Dividing a vector by its magnitude, $\mathbf x / \lVert\mathbf x\rVert$, rescales every example to length $1$, a common preprocessing step so that magnitude differences do not dominate.
 
 These uses all reduce to addition, scaling, the dot product, and magnitude: the operations on this page. The theory of what collections of vectors can represent continues in [Linear Algebra Foundations](./linear-algebra-foundations).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Vector in a coordinate space](#writing-vectors)** | A vector in $\mathbb R^n$ is an ordered $n$-tuple of real components. In abstract linear algebra, vectors need not be arrows in physical space; they are elements of any vector space. |
+| **[Dot product](#dot-product-scalar-product)** | In $\mathbb R^n$, $u\cdot v=\sum_i u_i v_i$ is a scalar. For nonzero vectors, $u\cdot v=\\vert u\\vert \\vert v\\vert \cos\theta$ relates it to their angle. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Writing Vectors](#writing-vectors)** | Writing Vectors: |
+| **[Position Vector](#position-vector)** | Position Vector: A position vector is a vector that represents the position of a point in space relative to a reference origin. It is also called a location vector or radius vector. |
+| **[Calculate the Position Vector](#calculate-the-position-vector)** | To find the position vector of a point, subtract the coordinates of the tail from the coordinates of the head. |
+| **[Unit Vector](#unit-vector)** | Unit Vector: Similarly to the unit circle, a unit vector has a magnitude of 1. |
+| **[Unit Vector vs Position Vector](#unit-vector-vs-position-vector)** | Both a unit vector and a position vector can be pictured with their tail at the origin, so they are easy to confuse. |
+| **[Magnitude](#magnitude)** | Magnitude: The magnitude of a vector is depicted by two vertical bars surrounding the vector: $\\vert \mathbf{a}\\vert $ or $\vert \mathbf{a}\vert $ Vector magnitude is calculated using the distance formula: |
+| **[Scalar](#scalar)** | Scalars: A scalar is just a number, having size/magnitude only. |
+| **[Vector Operations](#vector-operations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Vector Addition](#vector-addition)** | Vector Addition: Add corresponding components. |
+| **[Vector Subtraction](#vector-subtraction)** | Vector Subtraction: Subtract corresponding components. |
+| **[Scalar Multiplication](#scalar-multiplication)** | Scalar Multiplication: Multiply each component by the scalar. |
+| **[Magnitude (Length)](#magnitude-length)** | Magnitude: The length of vector $\mathbf{v} = \langle v_1, v_2 \rangle$: 3D: For $\mathbf{v} = \langle v_1, v_2, v_3 \rangle$: |
+| **[Unit Vector](#unit-vector-1)** | Unit Vector: A vector with magnitude 1. |
+| **[Dot Product (Scalar Product)](#dot-product-scalar-product)** | Meaning first: The dot product measures how much two vectors align, since $\mathbf{a} \cdot \mathbf{b} = \vert \mathbf{a}\vert \vert \mathbf{b}\vert \cos\theta$. |
+| **[Cross Product (Vector Product)](#cross-product-vector-product)** | Cross Product: For 3D vectors $\mathbf{u} = \langle u_1, u_2, u_3 \rangle$ and $\mathbf{v} = \langle v_1, v_2, v_3 \rangle$: Result is a vector perpendicular to both u and v. |
+| **[Projection](#projection)** | Vector Projection: The projection of u onto v is: Scalar Projection (Component): |
+| **[Component and Direction Form](#component-and-direction-form)** | Physics and navigation usually hand you a vector as a magnitude and a direction ("a 10 newton force at 30 degrees above horizontal"), but the componentwise algebra above needs it as $\langle x, y \rangle$. |
+| **[Vectors in n Dimensions](#vectors-in-n-dimensions)** | Everything so far used two or three components, but nothing forces that. A vector can have any number of components: Such a vector lives in $\mathbb{R}^n$ (read "R-n"), the set of all ordered lists of $n$ real numbers. |
+| **[Physics](#physics)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Machine Learning](#machine-learning)** | In machine learning a single data example is stored as a feature vector: a point in $\mathbb{R}^n$ whose components are measured features. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

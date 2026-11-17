@@ -4,6 +4,8 @@ prerequisites: ["vector", "number-systems"]
 enables: ["linear-algebra-foundations", "systems-of-linear-equations"]
 ---
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Matrices?
 
 > [!definition] Matrix
@@ -307,3 +309,35 @@ That is what "inverse" means: $A$ reshapes the square into a parallelogram, and 
 - $(AB)^{-1} = B^{-1}A^{-1}$ (order reverses!)
 - $(A^T)^{-1} = (A^{-1})^T$
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Matrix](#why-matrices)** | An $m\times n$ matrix is a rectangular family of entries with $m$ rows and $n$ columns. The shape determines which addition, multiplication and linear-map interpretations are valid. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Matrix Addition](#matrix-addition)** | Matrix Addition: Two matrices can be added if and only if they have the same dimensions (same number of rows and columns). |
+| **[Scalar Multiplication](#scalar-multiplication)** | Scalar Multiplication: Multiply every entry of the matrix by a scalar (constant). |
+| **[Matrix Multiplication](#matrix-multiplication)** | Matrix Multiplication: To multiply matrices $A$ (size $m \times n$) and $B$ (size $n \times p$), the number of columns in A must equal the number of rows in B. |
+| **[Identity Matrix](#identity-matrix)** | Identity Matrix: A square matrix with 1's on the main diagonal and 0's elsewhere. |
+| **[Zero Matrix](#zero-matrix)** | Zero Matrix: A matrix where all entries are 0. |
+| **[Matrix Transpose](#matrix-transpose)** | Transpose: The transpose of a matrix $A$, denoted $A^T$, is obtained by swapping rows and columns. |
+| **[Inverse Matrix](#inverse-matrix)** | Inverse Matrix: For a square matrix $A$, the inverse $A^{-1}$ (if it exists) satisfies: $$AA^{-1} = A^{-1}A = I$$ Not all matrices have inverses. A matrix is invertible (or non-singular) if its determinant is non-zero. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Invertibility of a square matrix](#inverse-matrix)** | A square matrix has an inverse exactly when it has full rank, equivalently a nonzero determinant over a field. Row reduction to the identity provides a constructive inversion test. |
+| **[Identity Matrix](#identity-matrix)** | Identity Matrix: A square matrix with 1's on the main diagonal and 0's elsewhere. |

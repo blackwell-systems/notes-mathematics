@@ -31,6 +31,8 @@ foundation of first-order logic and higher-order logic.
 The most thoroughly researched branch of propositional logic is
 classical truth-functional propositional logic
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Truth
 
 
@@ -1780,3 +1782,67 @@ Prove both directions:
 
 Remember: A proof should convince a skeptical reader. If there's a gap in logic, the proof is incomplete.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Logical truth](#logical-truth)** | A formula is a logical truth if it is true under every admissible interpretation of its nonlogical symbols (or, in classical propositional logic, under every truth assignment to its atomic letters). What makes it true is its logical structure. |
+| **[Necessary truth](#necessary-truth)** | A proposition is necessary relative to a specified modal interpretation if it is true in every relevant possible world. It could not have been false under that interpretation. |
+| **[Analytic truth](#analytic-truth)** | On a traditional account, an analytic claim is true by virtue of the meanings or definitions involved. The term concerns a source of truth, not simply how someone personally discovered the claim. |
+| **[Synthetic truth](#synthetic-truth)** | A synthetic claim is not guaranteed by meanings alone. Its truth depends on further facts or, on some accounts, substantive nondefinitional relations. |
+| **[Contingent truth](#contingent-truth)** | A claim is contingently true when it is true in the actual world but false in at least one relevant possible world. Its truth could have been otherwise. |
+| **[Proposition](#proposition)** | In classical propositional logic, a proposition is a declarative content treated as having a determinate truth value, true or false. The formal system studies how those values combine, without inspecting the internal structure of each atomic proposition. |
+| **[Truth function](#truth-function)** | A truth function maps a tuple of input truth values to an output truth value. Its output depends only on those inputs, not on which real-world statements the letters happen to describe. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Truth](#truth)** | *Figure. Three different questions about a claim. Colors identify the question being asked; the labels carry the meaning without color.* The map separates three axes: |
+| **[Empirical Truth](#empirical-truth)** | An empirical claim is one whose justification rests on observation, experience, or experiment. "There is rain outside this window" is empirical because inspecting the weather can provide evidence. |
+| **[Validity](#validity)** | Validity: When we talk about a single proposition being valid, we usually mean that it is a tautology, a statement that is true in all possible circumstances. This means the proposition cannot be false, |
+| **[Unsatisfiable](#unsatisfiable)** | Unsatisfiable: If a proposition is unsatisfiable, it means that there is no possible scenario or interpretation under which the proposition can be true. In other words, the proposition is false in |
+| **[Contingent](#contingent)** | Contingent: Contingency refers to the status of a proposition that is neither necessarily true nor necessarily false. A contingent proposition is one that could be true in some circumstances and false in |
+| **[Logical / Propositional Constants](#logical-propositional-constants)** | Logical / Propositional Constants: In the context of propositional logic, contradiction and tautology are often referred to as logical constants or propositional constants because their truth values |
+| **[Contradiction](#contradiction)** | Contradiction: A contradiction (also known as a logical falsehood) is a proposition that is always false. |
+| **[Tautology](#tautology)** | Tautology: A tautology (also known as a logical truth) is a proposition that is always true. It is denoted by symbols such as ⊤(verum / down-tack) or true (read $\top$ as "top" or "true"). |
+| **[Limitation: the $2^n$ explosion, and why symbolic methods exist](#limitation-the-2n-explosion-and-why-symbolic-methods-exist)** | A truth table is completely mechanical and never wrong, but its size is its undoing: $n$ variables force $2^n$ rows, and that growth is brutal rather than gradual. |
+| **[Compound Proposition / Statement](#compound-proposition-statement)** | Compound Proposition / Statement: A compound proposition (or compound statement) is a proposition that is formed by combining one or more simpler propositions, called atomic propositions, using logical |
+| **[Propositional / Logical Connectives / Operators](#propositional-logical-connectives-operators)** | Logical Connectives: Logical connectives, also known as logical operators, are symbols or words used to connect propositions (or statements) to form compound propositions. |
+| **[Unary Logical Connectives / Unary Operators](#unary-logical-connectives-unary-operators)** | Unary Logical Connectives / Unary Operators: A unary logical connective (or unary operator) is a logical operator that operates on a single proposition (or statement) to produce a new |
+| **[Properties of Binary Operations](#properties-of-binary-operations)** | Properties of Binary Operations |
+| **[Connective Precedence](#connective-precedence)** | Just like in mathematics, parentheses can be used in compound expressions to indicate the order in which the operators are to be evaluated. In the absence of parentheses, the order of evaluation is |
+| **[Logical Equivalences](#logical-equivalences)** | Logical Equivalence: Two propositions $P$ and $Q$ are logically equivalent if they have the same truth value in all possible cases. |
+| **[Fundamental Laws](#fundamental-laws)** | Identity Laws: Domination Laws: Idempotent Laws: |
+| **[Conditional Equivalences](#conditional-equivalences)** | Conditional as Disjunction: Contrapositive: Conditional in terms of Conjunction: |
+| **[Tautologies, Contradictions, and Contingencies](#tautologies-contradictions-and-contingencies)** | Tautology: A proposition that is always true, regardless of the truth values of its components. |
+| **[Normal Forms](#normal-forms)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Disjunctive Normal Form (DNF)](#disjunctive-normal-form-dnf)** | Disjunctive Normal Form: A proposition is in DNF if it is a disjunction (OR) of conjunctions (AND). |
+| **[Conjunctive Normal Form (CNF)](#conjunctive-normal-form-cnf)** | Conjunctive Normal Form: A proposition is in CNF if it is a conjunction (AND) of disjunctions (OR). |
+| **[Functional Completeness and Adequate Connectives](#functional-completeness-and-adequate-connectives)** | The normal-form results above hide a remarkable fact: they show that *every* truth function can be written using only negation, conjunction, and disjunction, because the DNF construction reproduces any truth table you like. |
+| **[The Sixteen Binary Connectives](#the-sixteen-binary-connectives)** | A binary connective is completely determined by the output column of its truth table, which has $2^2 = 4$ rows. Each of those 4 outputs is independently $T$ or $F$, so there are $2^4 = 16$ possible binary truth functions. |
+| **[Functional Completeness](#functional-completeness)** | A set of connectives is functionally complete (or adequate) if every truth function, of any number of variables, can be expressed using only connectives from that set. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Proposition](#proposition)** | Proposition: Propositions are declarative statements that have a truth value, which can either be true or false, but not both. |
+| **[Logical / Propositional Constants](#logical-propositional-constants)** | Logical / Propositional Constants: In the context of propositional logic, contradiction and tautology are often referred to as logical constants or propositional constants because their truth values |
+| **[Compound Proposition / Statement](#compound-proposition-statement)** | Compound Proposition / Statement: A compound proposition (or compound statement) is a proposition that is formed by combining one or more simpler propositions, called atomic propositions, using logical |
+| **[Propositional / Logical Connectives / Operators](#propositional-logical-connectives-operators)** | Logical Connectives: Logical connectives, also known as logical operators, are symbols or words used to connect propositions (or statements) to form compound propositions. |
+| **[Fundamental Laws](#fundamental-laws)** | Identity Laws: Domination Laws: Idempotent Laws: |
+| **[The Duality Principle](#the-duality-principle)** | Notice the mirror symmetry running through the equivalence laws: swap every $\wedge$ with $\vee$ and every $\top$ with $\bot$, and identities turn into other identities. |
+| **[Rules of Inference](#rules-of-inference)** | Rules of Inference: Valid argument forms that allow us to derive conclusions from premises. |
+| **[Hypothetical Syllogism (Chain Rule)](#hypothetical-syllogism-chain-rule)** | Form: Example: |
+| **[Constructive Dilemma](#constructive-dilemma)** | Form: Example: |
+| **[Destructive Dilemma](#destructive-dilemma)** | Form: |
+| **[Chaining Rules: a Worked Derivation](#chaining-rules-a-worked-derivation)** | The rules above are individual moves; a real argument strings several together. Here is a multi-step derivation that combines them, with every line justified by the rule it uses and the earlier lines it consumes. |

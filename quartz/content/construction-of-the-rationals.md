@@ -12,6 +12,8 @@ We proved that integers have addition, subtraction, multiplication, and a compat
 
 This chapter constructs a number system in which every nonzero integer, and ultimately every nonzero *rational*, has a multiplicative inverse. We will not assume familiar fraction arithmetic before proving that fractions are legitimate objects and operations on them are independent of how they are written.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The input: an integral domain
 
 We use facts already proved in [Construction of the Integers](./construction-of-the-integers):
@@ -508,3 +510,49 @@ For $D=\mathbb Z$ this field is $\mathbb Q$. This is the structural connection t
 | The field is not Cauchy complete | bisection sequence targeting $x^2=2$ |
 
 The property we have *not* earned is completeness. We cannot conjure it by adding more fraction formulas. [Construction of the Reals](./construction-of-the-reals) changes the kind of objects we admit: a real number will be an equivalence class of **entire rational Cauchy sequences**, rather than a single rational pair.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Rational fractions as classes of pairs](#a-fraction-begins-as-a-pair)** | Start with integer pairs $(a,b)$ where $b\ne0$. Define $(a,b)\sim(c,d)$ by $ad=bc$. A rational number is an equivalence class, not the literal pair chosen to represent it. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The input: an integral domain](#the-input-an-integral-domain)** | We use facts already proved in Construction of the Integers: The phrase integral domain means a commutative ring with identity $1\ne0$ and no zero divisors. |
+| **[A fraction begins as a pair](#a-fraction-begins-as-a-pair)** | *Figure: Rationals are equivalence classes of pairs, not particular textual fraction forms.* Let |
+| **[Proving the fraction equivalence relation](#proving-the-fraction-equivalence-relation)** | Reflexivity: $pq=pq$, so $(p,q)\sim(p,q)$. |
+| **[Rational numbers are equivalence classes](#rational-numbers-are-equivalence-classes)** | Define Read $\frac pq$ as "p over q"; it denotes the equivalence class containing $(p,q)$, not an integer division operation that was available previously. |
+| **[Fraction addition, including well-definedness](#fraction-addition-including-well-definedness)** | *Figure: Fraction operations must produce the same rational class regardless of the chosen representatives.* Define addition by the rule |
+| **[Fraction multiplication, including well-definedness](#fraction-multiplication-including-well-definedness)** | Define Again $qs\ne0$ supplies closure. $\boxed{\frac pq\cdot\frac rs:=\frac{pr}{qs}.}\tag{Q×}$ |
+| **[The field laws, proved from integer laws](#the-field-laws-proved-from-integer-laws)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Addition forms an abelian group](#addition-forms-an-abelian-group)** | Identity: $\frac pq+\frac01=\frac{p\cdot1+0\cdot q}{q\cdot1}=\frac pq.$ |
+| **[Multiplication is associative and commutative](#multiplication-is-associative-and-commutative)** | For any three fractions, $\left(\frac pq\cdot\frac rs\right)\cdot\frac ut =\frac{pru}{qst} =\frac pq\cdot\left(\frac rs\cdot\frac ut\right).$ |
+| **[Every nonzero rational has a reciprocal](#every-nonzero-rational-has-a-reciprocal)** | First identify which fraction represents zero: $\frac pq=0 \quad\Longleftrightarrow\quad p\cdot1=0\cdot q \quad\Longleftrightarrow\quad p=0.$ |
+| **[Distributivity](#distributivity)** | We need to show that the two operations interact correctly: $\frac pq\left(\frac rs+\frac ut\right) =\frac pq\cdot\frac rs+\frac pq\cdot\frac ut.$ |
+| **[Embedding the integers](#embedding-the-integers)** | Define $\jmath:\mathbb Z\to\mathbb Q,\qquad \boxed{\jmath(n):=\frac n1.}$ |
+| **[Constructing a total order on the rationals](#constructing-a-total-order-on-the-rationals)** | We previously proved every fraction has a representative with positive denominator. For $q,s>0$, define The direction of the inequality is justified by the positivity of the denominators. |
+| **[The ordering is independent of representatives](#the-ordering-is-independent-of-representatives)** | Suppose $p/q=p'/q'$ and $r/s=r'/s'$, with all four denominators positive. We know |
+| **[Between any two rationals lies another](#between-any-two-rationals-lies-another)** | If $x<y$ in $\mathbb Q$, define their midpoint $m:=\frac{x+y}{2}.$ |
+| **[The Archimedean property](#the-archimedean-property)** | The rationals are Archimedean: for every $x\in\mathbb Q$ there is a natural $n$ with $x<n$. |
+| **[The fundamental limitation: rationals have gaps](#the-fundamental-limitation-rationals-have-gaps)** | *Figure: Arbitrarily accurate rational approximations do not put the irrational limit in the rational field.* To prove that $\mathbb Q$ is not complete, we need a rigorous rational Cauchy sequence that does not converge to a rational. |
+| **[No rational squares to two](#no-rational-squares-to-two)** | Suppose $(p/q)^2=2$ for integers $p,q$ with $q\ne0$. Among all representations of a hypothetical rational solution with positive denominator, choose one with the *smallest* denominator $q$, possible by the well-ordering of positive integers. Then |
+| **[Rational approximations that are Cauchy](#rational-approximations-that-are-cauchy)** | Start with the rational interval $[1,2]$. Its left endpoint has square less than $2$, and its right endpoint has square greater than $2$. Bisect it repeatedly. At each stage retain the half whose endpoints $L_n,U_n$ satisfy |
+| **[A more general result: fractions of any integral domain](#a-more-general-result-fractions-of-any-integral-domain)** | Nothing essential in the equivalence-relation and field proofs used a special property of integers beyond being a commutative integral domain. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Reciprocal for each nonzero rational](#every-nonzero-rational-has-a-reciprocal)** | If a rational is represented by $(a,b)$ with both $a\ne0$ and $b\ne0$, its reciprocal is represented by $(b,a)$. The construction must prove this is independent of representatives and multiplies to the identity. |
+| **[The field laws, proved from integer laws](#the-field-laws-proved-from-integer-laws)** | See the linked section for the precise result and its conditions. |

@@ -15,6 +15,8 @@ A function graph $y = f(x)$ (read "y equals f of x") can only draw curves that p
 
 Both are standard precalculus capstones, and both feed directly into [calculus](./calculus) (arc length, areas of polar regions, motion) and into the polar form of [complex numbers](./complex-numbers).
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Part 1: Parametric Equations
 
 > [!definition] Parametric curve
@@ -326,3 +328,41 @@ Parametric curves are the input to [line integrals](./vector-calculus#3-line-int
 | Time of flight | $2v_0\sin(\alpha)/g$ |
 | Range | $v_0^2\sin(2\alpha)/g$ |
 | Max height | $(v_0\sin\alpha)^2/(2g)$ |
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Parametric curve](#part-1-parametric-equations)** | A parametrization assigns a point $(x(t),y(t))$ to each allowed parameter value $t$. A parametrized curve carries orientation and multiplicity of traversal, data which may be lost when eliminating $t$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Part 1: Parametric Equations](#part-1-parametric-equations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Idea: A Curve as a Path](#the-idea-a-curve-as-a-path)** | Instead of relating $y$ to $x$ directly, introduce a parameter $t$ (read "tee", almost always thought of as time) and give *both* coordinates as functions of it: |
+| **[Orientation: Parametric Curves Have a Direction](#orientation-parametric-curves-have-a-direction)** | A crucial feature that $y = f(x)$ lacks: a parametric curve is oriented. Because $t$ increases, the curve is traced in a definite direction, usually shown with an arrow. |
+| **[Eliminating the Parameter](#eliminating-the-parameter)** | To see the underlying curve as a relation between $x$ and $y$, solve for $t$ in one equation and substitute into the other, or use an identity to cancel $t$. |
+| **[Application: Projectile Motion](#application-projectile-motion)** | Parametric equations are how physics describes motion in a plane. A projectile launched from the origin with speed $v_0$ (read "v-naught") at angle $\alpha$ (read "alpha") above the horizontal has position |
+| **[Part 2: Polar Coordinates](#part-2-polar-coordinates)** | See this section for the underlying idea, notation, and worked examples. |
+| **[A Different Way to Name a Point](#a-different-way-to-name-a-point)** | The usual Cartesian (rectangular) coordinates $(x, y)$ locate a point by "go right $x$, go up $y$." Polar coordinates locate the same point by "face a direction, then walk out a distance": |
+| **[Polar Coordinates Are Not Unique](#polar-coordinates-are-not-unique)** | Unlike Cartesian coordinates, a single point has *infinitely many* polar names. Two conventions cause this: The pole itself is $(0, \theta)$ for *any* angle $\theta$. |
+| **[Converting Between Polar and Rectangular](#converting-between-polar-and-rectangular)** | The link between the two systems is a right triangle: drop a perpendicular from the point to the $x$-axis, and the radius $r$ is the hypotenuse. |
+| **[Polar Graphs: Curves as $r = h(\theta)$](#polar-graphs-curves-as-r-htheta)** | A polar equation gives $r$ as a function of $\theta$, and its graph is all points $(r, \theta)$ satisfying it as $\theta$ sweeps around. Many curves that are messy in rectangular form are simple in polar form. |
+| **[Interactive: Trace a Curve](#interactive-trace-a-curve)** | Switch between parametric and polar mode, choose a preset, adjust the parameters, and press play to watch the point trace the curve. |
+| **[Calculus with parametric and polar curves](#calculus-with-parametric-and-polar-curves)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Tangent slope for a parametrized curve](#tangent-slope-for-a-parametrized-curve)** | Let $\mathbf r(t)=(x(t),y(t))$ be differentiable. When $x'(t)\ne0$, the chain rule gives |
+| **[Arc length: sum speed rather than coordinate increments](#arc-length-sum-speed-rather-than-coordinate-increments)** | For a continuously differentiable regular parametrized curve traced once for $a\leq t\leq b$, The quantity under the radical is the square of speed. For the unit circle, $x'=-\sin t$ and $y'=\cos t$, so the speed is $1$ and the full circumference is |
+| **[Area of a polar region](#area-of-a-polar-region)** | For a region described by $0\leq r\leq R(\theta)$ over an angle range where the radial slices trace the desired region without overlap, each narrow sector contributes approximately |
+| **[Arc length in polar form](#arc-length-in-polar-form)** | If $r=R(\theta)$ is continuously differentiable, set $x(\theta)=R(\theta)\cos\theta,\quad y(\theta)=R(\theta)\sin\theta.$ |
+| **[Quick Reference](#quick-reference)** | Conversions. Common polar curves. Projectile (launch from origin, speed $v_0$, angle $\alpha$). |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

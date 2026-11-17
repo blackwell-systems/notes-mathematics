@@ -10,6 +10,8 @@ Linear functions are the simplest and most important type of function, and they 
 > **Builds on:** [Functions & Relations](./functions-relations) · [Graphing Functions](./graphing-functions)
 > **Leads to:** [Systems of Equations](./systems-of-equations) · [Inequalities](./inequalities)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why Linear Functions?
 
 What sets a linear function apart is that its rate of change never varies: over every equal step of the input, the output changes by the same amount. That single property is what forces the graph to be a straight line and makes these functions so predictable.
@@ -394,3 +396,47 @@ Linear functions are the simplest case of [polynomial functions](./polynomial-fu
 
 In [Calculus](./calculus), the derivative of a linear function $f(x) = mx + b$ is simply its slope: $f'(x) = m$. More broadly, calculus uses linear functions (tangent lines) to approximate any differentiable function at a point, which is the foundation of differential calculus.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Constant rate of change](#definition)** | An affine rule $f(x)=mx+b$ changes by exactly $m\Delta x$ when the input changes by $\Delta x$. In elementary algebra this is often called a linear function, although in linear algebra a *linear map* must also satisfy $f(0)=0$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Visual Intuition](#the-visual-intuition)** | Every linear function, when graphed, produces a straight line. This is the defining visual feature. If a graph curves, bends, or changes direction, the function is not linear. |
+| **[Linear Equation Forms](#linear-equation-forms)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Slope-Intercept Form](#slope-intercept-form)** | Slope-Intercept Form $$f(x) = mx + b$$ Use the explorer below to build intuition. Drag the sliders for the slope $m$ and the y-intercept $b$ and watch the line, the "rise over run" triangle, and both intercepts update in real time. |
+| **[Calculating Slope](#calculating-slope)** | Calculating Slope: The slope, or rate of change, of a function *m* can be calculated according to the following: |
+| **[Standard Form](#standard-form)** | Standard Form: $$Ax + By = C$$ Where $A$, $B$, $C$ are real numbers and $A$ and $B$ are not both zero. |
+| **[Point-Slope Form](#point-slope-form)** | Point-Slope Form: $$y - y_1 = m(x - x_1)$$ Where $(x_1, y_1)$ is a known point on the line and $m$ is the slope. |
+| **[Domain and Range](#domain-and-range)** | Domain and Range of Linear Functions: A linear function (that is not constant) is defined for all real numbers and can output all real numbers. |
+| **[Finding Intercepts](#finding-intercepts)** | x-intercept (zero): To find the x-intercept, set $f(x) = 0$ and solve for $x$: $$0 = mx + b$$ |
+| **[Writing Equations from Conditions](#writing-equations-from-conditions)** | Often you are not given an equation directly but instead given information (points, slope, relationship to another line) from which you must construct one. |
+| **[Given Two Points](#given-two-points)** | Problem: Find the equation of the line through $(2, 5)$ and $(4, 11)$. |
+| **[Given a Point and Slope](#given-a-point-and-slope)** | Problem: Find the equation of the line with slope $m = -2$ passing through $(3, 7)$. |
+| **[Given Parallel to a Line Through a Point](#given-parallel-to-a-line-through-a-point)** | Problem: Find the equation of the line parallel to $y = 3x - 1$ passing through $(2, 4)$. |
+| **[Given Perpendicular to a Line Through a Point](#given-perpendicular-to-a-line-through-a-point)** | Problem: Find the equation of the line perpendicular to $y = 2x + 5$ passing through $(6, 1)$. |
+| **[Parallel Lines](#parallel-lines)** | Parallel Lines: Two distinct lines are parallel if and only if they have the same slope. |
+| **[Perpendicular Lines](#perpendicular-lines)** | Perpendicular Lines: Two lines are perpendicular if and only if the product of their slopes is $-1$ (equivalently, their slopes are negative reciprocals of each other). |
+| **[Horizontal and Vertical Lines](#horizontal-and-vertical-lines)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Horizontal Lines](#horizontal-lines)** | Horizontal Line: A line of the form $y = k$, where $k$ is a constant. |
+| **[Vertical Lines](#vertical-lines)** | Vertical Line: A line of the form $x = k$, where $k$ is a constant. |
+| **[Direct Variation](#direct-variation)** | Direct Variation: A relationship where $y$ varies directly as $x$ (or "$y$ is directly proportional to $x$") means where $k$ is the constant of variation (or constant of proportionality). |
+| **[Inverse Variation](#inverse-variation)** | Inverse Variation: $y$ varies inversely as $x$ means Equivalently, the product $xy = k$ is constant. As $x$ increases, $y$ decreases (and vice versa). The graph is a hyperbola, not a line. |
+| **[Joint and Combined Variation](#joint-and-combined-variation)** | Joint Variation: $z$ varies jointly as $x$ and $y$ means $z = kxy$. |
+| **[Modeling with Linear Functions](#modeling-with-linear-functions)** | Linear functions are natural models for any situation where a quantity changes at a constant rate. The slope and $y$-intercept always have real-world interpretations. |
+| **[Cost Functions](#cost-functions)** | Many cost structures have a fixed component and a per-unit component: where $m$ is the variable cost (cost per unit) and $b$ is the fixed cost (cost regardless of production). |
+| **[Temperature Conversion](#temperature-conversion)** | The relationship between Fahrenheit and Celsius is linear: The slope $\frac{9}{5}$ means each degree Celsius corresponds to $1.8$ degrees Fahrenheit. The $y$-intercept $32$ means $0°C = 32°F$. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

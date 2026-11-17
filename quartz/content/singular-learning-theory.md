@@ -14,6 +14,8 @@ This page is the summit of these notes. It assembles pieces developed elsewhere:
 
 Why should you care? For [mechanistic and developmental interpretability](./bayesian-inference), SLT is not an analogy but the governing theory. The theory motivates estimating a **local learning coefficient** (often written $\hat\lambda$, read "lambda-hat") around trained parameters. Empirical work investigates whether changes in these estimates correspond to changes in learned structure, but that correspondence is **not a general theorem** for arbitrary training runs. SLT offers a geometric lens on such observations; it does not by itself certify a phase transition.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Learning Problem, Stated Precisely
 
 Before we can say what goes wrong, we need the classical setup stated carefully.
@@ -245,3 +247,35 @@ Explore this directly below. Vary the singularity exponent $k$ in $K(w) = w^{2k}
 ## References
 
 Watanabe, S. *Algebraic Geometry and Statistical Learning Theory* (Cambridge, 2009): the foundational monograph. Watanabe, S. *Mathematical Theory of Bayesian Statistics* (CRC, 2018): a more accessible treatment centered on WAIC and WBIC. For the interpretability thread, see the developmental interpretability literature on the local learning coefficient and phase transitions in neural network training.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[RLCT through zeta-function poles](#what-the-rlct-actually-is)** | The RLCT is associated with the smallest relevant positive pole threshold of $\int K(w)^{-z}\varphi(w)\,dw$, for a nonnegative analytic contrast $K$ with suitable prior weight. The multiplicity is the pole order, which need not equal a naïve global count of tied coordinate directions. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Learning Problem, Stated Precisely](#the-learning-problem-stated-precisely)** | Before we can say what goes wrong, we need the classical setup stated carefully. |
+| **[Regular vs. Singular: The Fork in the Road](#regular-vs-singular-the-fork-in-the-road)** | Everything hinges on the shape of $W_0$ and on one matrix. |
+| **[The Free Energy: The Object That Knows Everything](#the-free-energy-the-object-that-knows-everything)** | Bayesian model selection ranks models by their *marginal likelihood*, the probability the model assigns to the observed data after averaging over all parameter settings: |
+| **[Watanabe's Fundamental Theorem](#watanabes-fundamental-theorem)** | The central SLT expansion describes Bayesian free energy for a broad class of analytic statistical models under specified regularity and prior assumptions, including important regular and singular cases: Read this term by term: |
+| **[Generalization Error: The Other Face of $\lambda$](#generalization-error-the-other-face-of-lambda)** | The free energy tells you which model to *select*; the generalization error tells you how well the selected model will *predict* new data. Watanabe's theory pins this down too, and the *same* $\lambda$ governs it. |
+| **[Estimating the RLCT: WAIC and WBIC](#estimating-the-rlct-waic-and-wbic)** | Watanabe's formula is exact but involves $\lambda$, which we usually cannot compute in closed form for a real network. Two estimators make SLT usable in practice; both are developed on the Bayesian inference page. |
+| **[References](#references)** | Watanabe, S. *Algebraic Geometry and Statistical Learning Theory* (Cambridge, 2009): the foundational monograph. Watanabe, S. *Mathematical Theory of Bayesian Statistics* (CRC, 2018): a more accessible treatment centered on WAIC and WBIC. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Free-energy asymptotics need model hypotheses](#watanabes-fundamental-theorem)** | The RLCT formula is derived under specified analytic, statistical, and prior assumptions. It is not unconditional for every model. The regular case yields the familiar $d/2$ penalty; singular behavior can alter the leading coefficient and pole multiplicity. |

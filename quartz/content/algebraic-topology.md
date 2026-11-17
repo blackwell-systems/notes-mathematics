@@ -13,6 +13,8 @@ enables: []
 
 **Algebraic topology** gives algebraic answers to such geometric questions. It turns a space into objects such as groups, and asks what information about the original shape those groups preserve.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. What does topology permit us to forget?
 
 A **homeomorphism** is a continuous bijection with a continuous inverse. Homeomorphic spaces have the same topological structure, although their geometric shapes can look different.
@@ -297,3 +299,28 @@ This is the characteristic move of algebraic topology: turn a difficult question
 **Scope:** This chapter explains and computes loops, winding, boundaries, simple chain complexes, homology examples, and Euler characteristic. A full algebraic topology course would develop singular homology systematically, excision, long exact sequences, covering spaces, higher homotopy groups, CW complexes and cohomology products. Those results are **not claimed as proved here**.
 
 **Next directions:** [Sheaf Theory](./sheaf-theory) asks whether locally defined data can be consistently assembled globally; [Differential Geometry](./differential-geometry) develops forms and curvature; [Category Theory](./category-theory-foundations) explains why the induced maps themselves are important.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. What does topology permit us to forget?](#1-what-does-topology-permit-us-to-forget)** | A homeomorphism is a continuous bijection with a continuous inverse. Homeomorphic spaces have the same topological structure, although their geometric shapes can look different. |
+| **[2. Paths and loops: where the fundamental group begins](#2-paths-and-loops-where-the-fundamental-group-begins)** | A path from $a$ to $b$ is a continuous map $\gamma:[0,1]\to X$ with $\gamma(0)=a$ and $\gamma(1)=b$. |
+| **[3. Fundamental group versus higher-dimensional holes](#3-fundamental-group-versus-higher-dimensional-holes)** | Simply connected means path-connected with every loop contractible (equivalently, trivial fundamental group for a path-connected space). |
+| **[4. Chains, cycles and boundaries](#4-chains-cycles-and-boundaries)** | The fundamental group studies loops and their deformations. Homology begins by making formal sums of oriented pieces: vertices, edges, triangles, and their higher-dimensional analogues. |
+| **[5. Filled versus unfilled: one triangle changes everything](#5-filled-versus-unfilled-one-triangle-changes-everything)** | Take three vertices $a,b,c$ and the three edges joining them. Their oriented sum is a cycle: all vertex boundaries cancel. |
+| **[6. What homology records](#6-what-homology-records)** | For familiar spaces, the first few integral homology groups are: |
+| **[7. Euler characteristic: a numerical shadow of topology](#7-euler-characteristic-a-numerical-shadow-of-topology)** | For a finite triangulated surface, count vertices ($V$), edges ($E$), and triangular faces ($F$). Its Euler characteristic (read "OY-ler characteristic") is |
+| **[8. A bridge to differential forms](#8-a-bridge-to-differential-forms)** | In differential geometry we learned to integrate differential forms. An exact form $\omega=d\eta$ integrates to zero around any appropriate closed cycle because of Stokes' theorem. But a closed form ($d\omega=0$) need not be exact globally. |
+| **[9. Maps, invariants and what is preserved](#9-maps-invariants-and-what-is-preserved)** | A continuous map $f:X\to Y$ induces homomorphisms on fundamental groups and homology groups: |
+| **[10. Self-check and what comes next](#10-self-check-and-what-comes-next)** | Scope: This chapter explains and computes loops, winding, boundaries, simple chain complexes, homology examples, and Euler characteristic. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

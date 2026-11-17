@@ -16,6 +16,8 @@ $$
 
 Read "A of x equals the sum, over n from zero upward, of a sub n times x to the n." The central insight is that **algebraic operations on these series express operations on sequences**. Addition combines counts; multiplication counts ways to split an object into two parts.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What is a formal power series?
 
 Here $x$ is initially a **formal symbol**, not necessarily a real number at which we evaluate a convergent infinite sum. Two formal power series are equal when their corresponding coefficients agree. This distinction lets us do purely algebraic counting without first proving analytic convergence.
@@ -197,3 +199,32 @@ This last identity requires extracting coefficients from the square-root series 
 Generating functions package recurrences but do not guarantee a simple **closed form**. Some give algebraic series, others transcendental series, and some equations are difficult even when their combinatorial meaning is clear. Analytical tools such as singularity analysis require actual convergence assumptions; formal coefficient identities alone do not justify treating a formal series as a convergent real function.
 
 The practical method is: **define what a coefficient counts, translate how objects are constructed into series operations, then check the resulting coefficients against small examples.**
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Product is convolution](#what-is-a-formal-power-series)** | If $A(x)=\sum_{n\geq0}a_nx^n$ and $B(x)=\sum_{n\geq0}b_nx^n$, then The right side is a convolution (read "con-vo-LOO-shun"): sum over all ways to split total size $n$ into a first size $k$ and remaining size $n-k$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The geometric-series identity as a formal identity](#the-geometric-series-identity-as-a-formal-identity)** | Let $G(x)=1+x+x^2+\cdots$. Multiplying formally, because every positive-degree term cancels. Hence |
+| **[Solving a recurrence using a generating function](#solving-a-recurrence-using-a-generating-function)** | Let $F_0=0$, $F_1=1$, and $F_n=F_{n-1}+F_{n-2}$ for $n\geq2$. Define $F(x)=\sum_{n\geq0}F_nx^n.$ |
+| **[Recursive structures become functional equations](#recursive-structures-become-functional-equations)** | In Combinatorial Reasoning, the Catalan numbers obey |
+| **[A short gallery of algebra-to-counting translations](#a-short-gallery-of-algebra-to-counting-translations)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[The geometric-series identity as a formal identity](#the-geometric-series-identity-as-a-formal-identity)** | Let $G(x)=1+x+x^2+\cdots$. Multiplying formally, because every positive-degree term cancels. Hence |

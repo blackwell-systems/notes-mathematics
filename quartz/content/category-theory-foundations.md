@@ -12,6 +12,8 @@ The same pattern keeps appearing: sets have functions, groups have group homomor
 
 The [Atlas of Mathematical Spaces](./atlas-of-mathematical-spaces#13-categories-the-structure-of-mathematical-structures) gives a concrete cross-subject example: categories of spaces, their selected morphisms, forgetful functors, and a free vector-space universal property.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Objects, morphisms and the axioms
 
 > [!definition] Category
@@ -126,3 +128,40 @@ That viewpoint will be proved in [Limits, Colimits and Universal Properties](./c
 | Duality | reversing all arrows defines an opposite category |
 
 **Further reading:** [Category theory](https://ncatlab.org/nlab/show/category) (nLab) and the following three chapters in this reference.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Category](#objects-morphisms-and-the-axioms)** | A category $\mathcal C$ has a collection of objects; for each ordered pair $(A,B)$, a collection $\operatorname{Hom}_{\mathcal C}(A,B)$ of morphisms $f:A\to B$; a composite $g\circ f:A\to C$ whenever $f:A\to B$ and $g:B\to C$; and an identity $1_A:A\to A$ for each object. |
+| **[Isomorphism](#isomorphism-the-reversible-arrow)** | A morphism $f:A\to B$ is an isomorphism if there is $g:B\to A$ with $g\circ f=1_A$ and $f\circ g=1_B$. The objects are then isomorphic, written $A\cong B$. |
+| **[Mono and epi](#monomorphisms-and-epimorphisms)** | A morphism $m:A\to B$ is a monomorphism if $m\circ u=m\circ v$ implies $u=v$ for all parallel $u,v:X\to A$ (left-cancellability). A morphism $e:A\to B$ is an epimorphism if $u\circ e=v\circ e$ implies $u=v$ for all parallel $u,v:B\to Y$ (right-cancellability). |
+| **[Opposite category](#opposite-categories-reverse-every-arrow)** | $\mathcal C^{op}$ has the same objects as $\mathcal C$, but $\operatorname{Hom}_{\mathcal C^{op}}(A,B)=\operatorname{Hom}_{\mathcal C}(B,A)$. Composition is reversed in order so that it remains well-defined. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Objects, morphisms and the axioms](#objects-morphisms-and-the-axioms)** | No assumption says that a morphism is literally a function. It may be a matrix, order relation, path, or abstract arrow. |
+| **[Uniqueness of identities](#uniqueness-of-identities)** | Proof. Suppose $e$ and $e'$ are both identities at $A$. Because $e$ is a left identity for $e'$, $e\circ e'=e'$. Because $e'$ is a right identity for $e$, $e\circ e'=e$. Therefore $e=e'$. $\square$ |
+| **[Isomorphism: the reversible arrow](#isomorphism-the-reversible-arrow)** | Proof of inverse uniqueness. If $g$ and $h$ are both two-sided inverses of $f$, then |
+| **[Categories already hiding in these notes](#categories-already-hiding-in-these-notes)** | For Grp, compose the underlying functions. If $f:G\to H$ and $g:H\to J$ preserve products, then |
+| **[A partial order is a category](#a-partial-order-is-a-category)** | The proofs for posets, preorders, and quotient orders are given in Order Theory. |
+| **[A monoid is a one-object category](#a-monoid-is-a-one-object-category)** | Take a monoid $M$, such as strings under concatenation. Use one object $\ast$, with $\operatorname{Hom}(\ast,\ast)=M$. Composition is monoid multiplication and the identity is its neutral element. |
+| **[Monomorphisms and epimorphisms](#monomorphisms-and-epimorphisms)** | In Set, monomorphisms are exactly injective functions. The proof uses a one-element set to detect whether two domain elements are identified. |
+| **[Opposite categories: reverse every arrow](#opposite-categories-reverse-every-arrow)** | Any theorem expressed entirely through categorical composition has a dual statement obtained by reversing the arrows. |
+| **[A preview of universal properties](#a-preview-of-universal-properties)** | A direct product of sets $A\times B$ is familiar as ordered pairs. Category theory instead recognizes it from the unique map into it determined by any pair of maps into $A$ and $B$. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Identity morphisms are unique](#uniqueness-of-identities)** | An object cannot have two different arrows satisfying the two-sided identity law. |

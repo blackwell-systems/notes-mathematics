@@ -4,6 +4,8 @@ prerequisites: ["exponential-functions", "functions-relations"]
 enables: ["calculus", "information-theory"]
 ---
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Problem Logarithms Solve
 
 Consider a simple question: **2 to what power gives 8?** You can figure this out by trying: $2^1 = 2$, $2^2 = 4$, $2^3 = 8$. The answer is 3.
@@ -747,3 +749,56 @@ Logarithmic and exponential functions are inverses of each other. The graph of $
 | Solve $\log_a x = c$ | $x = a^c$ |
 | pH / Richter / decibels | $-\log_{10}[\text{H}^+]$ / $\log_{10}(A/A_0)$ / $10\log_{10}(I/I_0)$ |
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Logarithm as an inverse](#definition)** | For $a>0$ and $a\ne1$, the inverse of $x\mapsto a^x$ is $y\mapsto\log_a y$. Its real domain is $y>0$, its range is all reals, and $\log_a(a^x)=x$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Problem Logarithms Solve](#the-problem-logarithms-solve)** | Consider a simple question: 2 to what power gives 8? You can figure this out by trying: $2^1 = 2$, $2^2 = 4$, $2^3 = 8$. The answer is 3. |
+| **[Explore the Inverse Relationship](#explore-the-inverse-relationship)** | Because a logarithm undoes an exponential, the graph of $y = \log_b(x)$ (read "y equals log base b of x") is the mirror image of $y = b^x$ (read "y equals b to the x") across the line $y = x$. |
+| **[Common Logarithms](#common-logarithms)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Natural Logarithm (ln)](#natural-logarithm-ln)** | Natural Logarithm: The logarithm with base $e$ (Euler's number, approximately 2.71828). |
+| **[Common Logarithm (log)](#common-logarithm-log)** | Common Logarithm: The logarithm with base 10. Often written as $\log(x)$ without a base specified. |
+| **[Binary Logarithm (lg)](#binary-logarithm-lg)** | Binary Logarithm: The logarithm with base 2. Common in computer science. |
+| **[Fundamental Properties](#fundamental-properties)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Product Rule](#product-rule)** | $$\log_a(xy) = \log_a(x) + \log_a(y)$$ The logarithm of a product is the sum of the logarithms. |
+| **[Quotient Rule](#quotient-rule)** | $$\log_a\left(\frac{x}{y}\right) = \log_a(x) - \log_a(y)$$ The logarithm of a quotient is the difference of the logarithms. |
+| **[Power Rule](#power-rule)** | $$\log_a(x^n) = n \cdot \log_a(x)$$ The logarithm of a power is the exponent times the logarithm of the base. |
+| **[Change of Base Formula](#change-of-base-formula)** | $$\log_a(x) = \frac{\log_b(x)}{\log_b(a)}$$ This allows converting between different logarithm bases. Particularly useful for converting to natural or common logarithms for calculator use. |
+| **[Reciprocal and Base-Swap Identities](#reciprocal-and-base-swap-identities)** | Two more identities follow directly from the rules above and are worth naming. |
+| **[Expanding Logarithmic Expressions](#expanding-logarithmic-expressions)** | Expanding a logarithmic expression means using the product, quotient, and power rules to rewrite a single logarithm as a sum or difference of simpler logarithms. This is the standard direction when simplifying expressions for analysis or comparison. |
+| **[Condensing Logarithmic Expressions](#condensing-logarithmic-expressions)** | Condensing is the reverse of expanding: you combine multiple logarithmic terms into a single logarithm. This is the standard first step when solving logarithmic equations, because you need a single log expression to convert to exponential form. |
+| **[Common Mistakes with Logarithms](#common-mistakes-with-logarithms)** | The logarithm laws apply to products, quotients, and powers *inside* a single log. Most errors come from trying to stretch them to sums, or to logs of logs. |
+| **[Special Values](#special-values)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Identity](#identity)** | $$\log_a(a) = 1$$ Any base raised to the power 1 equals itself. |
+| **[Zero](#zero)** | $$\log_a(1) = 0$$ Any base raised to the power 0 equals 1. |
+| **[Undefined Values](#undefined-values)** | For negative (and complex) arguments the logarithm does exist in the complex numbers, where it becomes multivalued through Euler's formula. It is only the *real* logarithm that is restricted to positive arguments. |
+| **[Inverse Relationship](#inverse-relationship)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Logarithm cancels Exponential](#logarithm-cancels-exponential)** | $$\log_a(a^x) = x$$ Example: $\log_2(2^5) = 5$ |
+| **[Exponential cancels Logarithm](#exponential-cancels-logarithm)** | $$a^{\log_a(x)} = x$$ Example: $2^{\log_2(8)} = 8$ For exponential functions and the exp/log connection with graphs, see Exponential Functions. |
+| **[Domain and Range](#domain-and-range)** | Domain: $(0, \infty)$ - Logarithms are only defined for positive real numbers. |
+| **[Solving Logarithmic Equations](#solving-logarithmic-equations)** | Logarithmic equations require careful technique because not every algebraic solution is valid. The argument of every logarithm must be positive, and this constraint can eliminate solutions that otherwise satisfy the algebra. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Product Rule](#product-rule)** | $$\log_a(xy) = \log_a(x) + \log_a(y)$$ The logarithm of a product is the sum of the logarithms. |
+| **[Quotient Rule](#quotient-rule)** | $$\log_a\left(\frac{x}{y}\right) = \log_a(x) - \log_a(y)$$ The logarithm of a quotient is the difference of the logarithms. |
+| **[Power Rule](#power-rule)** | $$\log_a(x^n) = n \cdot \log_a(x)$$ The logarithm of a power is the exponent times the logarithm of the base. |
+| **[Reciprocal and Base-Swap Identities](#reciprocal-and-base-swap-identities)** | Two more identities follow directly from the rules above and are worth naming. |
+| **[Identity](#identity)** | $$\log_a(a) = 1$$ Any base raised to the power 1 equals itself. |
+| **[Essential Rules (Quick Reference)](#essential-rules-quick-reference)** | Logarithm laws (base $a > 0$, $a \neq 1$; all arguments $> 0$): Special values and the inverse relationship: Calculus: |

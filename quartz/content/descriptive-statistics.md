@@ -10,6 +10,8 @@ enables: ["inferential-statistics"]
 
 Descriptive statistics summarize a dataset you already have: where it is centered, how spread out it is, and what its shape looks like. This is the first of the two classical halves of statistics; the second, [inferential statistics](./inferential-statistics), generalizes from a sample to a population. For the foundational vocabulary (populations vs samples, data types, how data is produced) see the [Statistics](./statistics) hub.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Descriptive Statistics
 
 Before making inferences, you need to summarize what you observed. Descriptive statistics reduce a dataset to a few numbers that capture its key features.
@@ -386,3 +388,42 @@ Yet the four scatter plots look completely different:
 
 **The lesson:** Summary statistics and regression fits can be identical for datasets that have fundamentally different structures. Always visualize your data. A scatter plot takes seconds to produce and can prevent you from fitting a linear model to nonlinear data, missing outliers that distort your analysis, or drawing conclusions driven by a single influential point.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Mean, median, mode](#measures-of-central-tendency)** | The mean averages magnitudes, the median depends on ordered position, and the mode counts frequency. They emphasize different aspects of the same data. |
+| **[Standard score](#standardization-z-scores)** | A $z$-score measures displacement in units of a nonzero standard deviation. Standardization does not turn arbitrary data into a normal distribution. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Descriptive Statistics](#descriptive-statistics)** | Before making inferences, you need to summarize what you observed. Descriptive statistics reduce a dataset to a few numbers that capture its key features. |
+| **[The Problem: What Is "Typical"?](#the-problem-what-is-typical)** | You have a dataset: exam scores, salaries, measurements, etc. You want a single number that represents the "center" of the data. But "center" is not obvious. Consider these five salaries (in thousands): 40, 45, 50, 55, 310. |
+| **[Measures of Central Tendency](#measures-of-central-tendency)** | Mean (arithmetic average): Add up all values and divide by the count: For the salaries above: $\bar{x} = (40 + 45 + 50 + 55 + 310)/5 = 100$. The mean uses every data point, which makes it informative but also sensitive to outliers. |
+| **[The Problem: How Spread Out Is the Data?](#the-problem-how-spread-out-is-the-data)** | Two datasets can have the same mean but look completely different. Consider: You need a number that captures how spread out the data is. |
+| **[Measures of Spread](#measures-of-spread)** | These are also called measures of dispersion or measures of variability, the standard counterpart to the measures of central tendency above. |
+| **[Standardization: z-scores](#standardization-z-scores)** | Once you have a mean and a standard deviation, you can express any single value as how many standard deviations it sits from the mean. |
+| **[Data Visualization](#data-visualization)** | Visualization is how you explore data before doing any analysis. A chart can reveal patterns, outliers, and distributions that summary statistics miss entirely. Numbers compress data into a few values; plots show you the full picture. |
+| **[Histogram](#histogram)** | A histogram divides continuous data into equal-width bins and shows the frequency (or density) of observations in each bin. It is the most common way to visualize the shape of a distribution. |
+| **[Box Plot (Box and Whisker)](#box-plot-box-and-whisker)** | A box plot displays the five-number summary of a dataset in a single figure: minimum, first quartile ($Q_1$), median, third quartile ($Q_3$), and maximum. |
+| **[Scatter Plot](#scatter-plot)** | A scatter plot shows the relationship between two quantitative variables by plotting each observation as a point at its $(x, y)$ coordinates. |
+| **[Bar Chart](#bar-chart)** | A bar chart shows frequencies or values for categorical data. Each category gets its own bar, and the height of the bar represents the count or measured value. |
+| **[Pie Chart](#pie-chart)** | A pie chart shows proportions of a whole. The full circle represents 100% of the data, and each slice represents one category's share. |
+| **[Stem-and-Leaf Plot](#stem-and-leaf-plot)** | A stem-and-leaf plot is a text-based display that retains the actual data values while showing the shape of the distribution. Each data value is split into a stem (the leading digit or digits) and a leaf (the trailing digit). |
+| **[Dot Plot](#dot-plot)** | A dot plot places one dot for each data point on a number line. When multiple observations share the same value, the dots stack vertically. |
+| **[Q-Q Plot (Quantile-Quantile)](#q-q-plot-quantile-quantile)** | A Q-Q plot compares the distribution of your data to a theoretical distribution (most commonly the normal distribution). It plots the quantiles of your sample data against the quantiles you would expect if the data came from the theoretical distribution. |
+| **[Heat Map](#heat-map)** | A heat map is a color-coded matrix where the value in each cell is represented by a color. It turns a table of numbers into a visual pattern. |
+| **[Violin Plot](#violin-plot)** | A violin plot combines a box plot with a kernel density estimation (KDE), which is a smoothed version of a histogram. The "violin" shape shows the full distribution of the data, not just the quartiles. |
+| **[Anscombe's Quartet](#anscombes-quartet)** | Anscombe's quartet is a collection of four datasets constructed by statistician Francis Anscombe in 1973. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

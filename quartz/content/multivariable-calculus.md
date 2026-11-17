@@ -14,6 +14,8 @@ Single-variable calculus studies functions with one input and one output: $f(x) 
 This page builds on [Calculus](./calculus) (limits, derivatives, integrals) and connects forward to the [matrix calculus](./linear-algebra-computation) already covered in the linear algebra section (gradients, Jacobians, Hessians, chain rule for vectors).
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical structures behind several-variable calculus
 
 The expression $f(x_1,\ldots,x_n)$ hides a set of choices about the **input space** and what it means for nearby inputs to produce nearby outputs. For the standard theory in this chapter, we work with functions
@@ -702,3 +704,57 @@ The path from single-variable calculus to machine learning optimization forms a 
 | Set $f'(x) = 0$ to find extrema | Set $\nabla f = \mathbf{0}$ to find extrema | Solve $\nabla f = \mathbf{0}$ (system of equations) |
 
 Gradient descent ties it all together: compute the gradient (from calculus), use it to take a step (linear algebra), and repeat until you reach a minimum (optimization). This is the mathematical engine behind training every neural network.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Scalar field on a multivariable domain](#functions-of-several-variables)** | A map $f:D\subseteq\mathbb R^n\to\mathbb R$ assigns a scalar output to each allowed vector input. Its domain matters for level sets, differentiability, constrained extrema, and integrals. |
+| **[Partial derivative](#the-limit-definition)** | A partial derivative varies one coordinate while holding the others fixed. Existence of all partial derivatives at a point does not alone guarantee continuity or total differentiability there. |
+| **[Gradient](#the-gradient-vector)** | For differentiable $f:\mathbb R^n\to\mathbb R$, the gradient collects its partial derivatives. It determines the first-order linear approximation and is the direction of steepest local increase in the Euclidean norm. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical structures behind several-variable calculus](#the-mathematical-structures-behind-several-variable-calculus)** | The expression $f(x_1,\ldots,x_n)$ hides a set of choices about the input space and what it means for nearby inputs to produce nearby outputs. For the standard theory in this chapter, we work with functions |
+| **[Functions of Several Variables](#functions-of-several-variables)** | A function of several variables takes multiple inputs and produces one output: This function takes two numbers $x$ and $y$ and returns a single number. |
+| **[Partial Derivatives](#partial-derivatives)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The Idea](#the-idea)** | With one variable, the derivative $f'(x)$ tells you the rate of change. With multiple variables, you can change each variable independently. |
+| **[The Limit Definition](#the-limit-definition)** | Just as the single-variable derivative is a limit of a difference quotient, the partial derivative is defined as a limit in which only one input is perturbed. |
+| **[Notation and Computation](#notation-and-computation)** | The partial derivative of $f$ with respect to $x$ is written: The curly $\partial$ (read "partial") distinguishes this from an ordinary derivative $\frac{d}{dx}$. |
+| **[Geometric Interpretation](#geometric-interpretation)** | If you slice the surface $z = f(x, y)$ with a plane that holds $y$ constant, you get a curve. The partial derivative $\frac{\partial f}{\partial x}$ is the slope of that curve. |
+| **[The Gradient Vector](#the-gradient-vector)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Collecting All Partial Derivatives](#collecting-all-partial-derivatives)** | The gradient of a scalar function $f(x_1, x_2, \ldots, x_n)$ is the vector of all its partial derivatives: The symbol $\nabla$ is called "nabla" or "del." The gradient $\nabla f$ is a vector that lives in the same space as the input. |
+| **[The Gradient Points Uphill](#the-gradient-points-uphill)** | The gradient has a crucial geometric property: $\nabla f$ points in the direction of steepest increase of $f$. Its magnitude $\\vert \nabla f\\vert $ tells you how steep that increase is. |
+| **[Directional Derivatives](#directional-derivatives)** | The partial derivatives measure rates of change along the coordinate axes ($x$-direction, $y$-direction, etc.). But what if you want the rate of change in some other direction? |
+| **[The Multivariable Chain Rule](#the-multivariable-chain-rule)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Extending the Chain Rule](#extending-the-chain-rule)** | In single-variable calculus, if $y = f(g(x))$, then $\frac{dy}{dx} = f'(g(x)) \cdot g'(x)$. The multivariable chain rule extends this to functions of several variables. |
+| **[Differentiability: one linear approximation, not just separate slopes](#differentiability-one-linear-approximation-not-just-separate-slopes)** | A partial derivative changes one coordinate at a time. But a true multivariable derivative must describe how the function responds when all input coordinates change together. |
+| **[Second-order approximation: what the Hessian is for](#second-order-approximation-what-the-hessian-is-for)** | For a twice continuously differentiable real-valued function, with a small displacement $h$, |
+| **[Inverse and implicit function theorems: local solvability](#inverse-and-implicit-function-theorems-local-solvability)** | The inverse function theorem says that for a continuously differentiable map $F:\mathbb R^n\to\mathbb R^n$, if $\det J_F(a)\ne0$, then $F$ has a continuously differentiable inverse between suitable neighborhoods of $a$ and $F(a)$. |
+| **[Second-Order Partial Derivatives and the Hessian](#second-order-partial-derivatives-and-the-hessian)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Second Partial Derivatives](#second-partial-derivatives)** | Just as the second derivative $f''(x)$ measures how the slope is changing, second partial derivatives measure how the partial derivatives themselves change. |
+| **[The Hessian Matrix](#the-hessian-matrix)** | The Hessian collects all second partial derivatives into a matrix: For a function with continuous second-order partial derivatives near the point, the Hessian is symmetric by equality of mixed partials. |
+| **[Double Integrals](#double-integrals)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Extending Integration to Two Dimensions](#extending-integration-to-two-dimensions)** | $\iint_R f(x, y) \, dA$ |
+| **[Computing Double Integrals](#computing-double-integrals)** | For a continuous function on a rectangular region, a double integral can be evaluated using two nested single integrals (an iterated integral). |
+| **[Changing the Order of Integration](#changing-the-order-of-integration)** | For a continuous function on a rectangular region, you can integrate in either order: Sometimes one order is much easier to compute than the other. |
+| **[Gradient Descent](#gradient-descent)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Convexity removes bad local minima](#convexity)** | On a convex domain, any local minimizer of a convex function is a global minimizer. For twice-differentiable functions on an open convex domain, the Hessian is positive semidefinite everywhere exactly when the function is convex. |
+| **[The Multivariable Chain Rule](#the-multivariable-chain-rule)** | See the linked section for the precise result and its conditions. |
+| **[Extending the Chain Rule](#extending-the-chain-rule)** | In single-variable calculus, if $y = f(g(x))$, then $\frac{dy}{dx} = f'(g(x)) \cdot g'(x)$. The multivariable chain rule extends this to functions of several variables. |
+| **[Inverse and implicit function theorems: local solvability](#inverse-and-implicit-function-theorems-local-solvability)** | The inverse function theorem says that for a continuously differentiable map $F:\mathbb R^n\to\mathbb R^n$, if $\det J_F(a)\ne0$, then $F$ has a continuously differentiable inverse between suitable neighborhoods of $a$ and $F(a)$. |

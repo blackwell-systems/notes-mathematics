@@ -10,6 +10,8 @@ enables: ["advanced-graph-theory", "asymptotic-notation"]
 
 Mathematics can describe a **process**, not just a number or a static structure. A state machine describes which situations are possible and which steps can move between them. An **invariant** proves that a desired property survives every step. A **termination argument** proves that a process eventually stops. Together they underpin rigorous reasoning about algorithms and protocols.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The three ingredients of a state machine
 
 > [!definition] Transition system
@@ -155,3 +157,36 @@ In distributed systems, a state can include several machines' local states and m
 The same language leads to finite-state automata, model checking, temporal logic, protocols, and concurrent algorithms. These are distinct further subjects rather than consequences of invariants alone.
 
 **Next:** [Advanced Graph Theory](./advanced-graph-theory) connects reachable-state graphs with strongly connected components, topological order, and flow networks.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Transition system](#the-three-ingredients-of-a-state-machine)** | A transition system has: A set $S$ of states, each a complete description of the information relevant to the model. A set $I\subseteq S$ of initial states. |
+| **[Inductive invariant](#safety-invariants-proof-by-induction-over-transitions)** | A predicate $J(s)$ is an inductive invariant when: 1. Initialization: $J(s)$ holds for every $s\in I$. 2. Preservation: for every transition $s\to s'$, $J(s)\Rightarrow J(s')$. |
+| **[Ranking function](#ranking-functions-measuring-finite-progress)** | For a loop or transition system, a ranking function $\rho:S\to\mathbb N$ maps states to natural numbers, is nonnegative in every state where the loop can execute, and strictly decreases on each relevant transition. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The three ingredients of a state machine](#the-three-ingredients-of-a-state-machine)** | A finite execution is a sequence $s_0\to s_1\to\cdots\to s_k$ with $s_0\in I$. A state is reachable when some such finite execution ends there. An infinite execution is an unending sequence of legal transitions. |
+| **[Safety invariants: proof by induction over transitions](#safety-invariants-proof-by-induction-over-transitions)** | An inductive invariant holds in every reachable state, by induction on the number of transitions from an initial state. |
+| **[A small machine: two counters](#a-small-machine-two-counters)** | Let the state be $(a,b)\in\mathbb N^2$, initially $(0,0)$. The only transitions are |
+| **[Ranking functions: measuring finite progress](#ranking-functions-measuring-finite-progress)** | Because the natural numbers have no infinite strictly descending sequence, an infinite execution consisting of such transitions is impossible. In the summation loop $\rho(i,s)=n-i$ is a valid ranking function while the guard is true. |
+| **[A deeper invariant: Euclid's greatest-common-divisor algorithm](#a-deeper-invariant-euclids-greatest-common-divisor-algorithm)** | For nonnegative integers $a,b$, the Euclidean algorithm repeatedly replaces the pair by |
+| **[Beyond finite computations](#beyond-finite-computations)** | In distributed systems, a state can include several machines' local states and messages. A transition can represent one participant sending, receiving, or processing a message. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Euclid's algorithm preserves the greatest common divisor](#a-deeper-invariant-euclids-greatest-common-divisor-algorithm)** | For $b>0$, $\gcd(a,b)=\gcd(b,a\bmod b)$. |

@@ -8,6 +8,8 @@ enables: ["calculus", "partial-fraction-decomposition"]
 > **Builds on:** [Polynomial Functions](./polynomial-functions) · [Factoring Polynomials](./factoring-polynomials) · [Functions & Relations](./functions-relations)
 > **Leads to:** [Calculus](./calculus) · [Partial Fraction Decomposition](./partial-fraction-decomposition)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Is a Rational Function?
 
 The numerator and denominator often need factoring before you can see a hole, a vertical asymptote, or a common factor. [Factoring Polynomials](./factoring-polynomials) explains how to recognize and verify those factors, and why cancellation does not restore excluded denominator inputs.
@@ -912,3 +914,47 @@ Ratios of polynomials show up in ML wherever a bounded or saturating response is
 - **Rational approximation.** A Padé approximant often matches a target function far better than a Taylor polynomial of the same total degree, precisely because a denominator lets it capture asymptotes and saturation that a polynomial cannot. This is used to approximate expensive functions (exponentials, special functions) cheaply inside numerical routines.
 - **Ratios in training dynamics.** Many diagnostic quantities are ratios: a signal-to-noise ratio, a loss ratio between two runs, or the adaptive step in optimizers like Adam ($\hat m / (\sqrt{\hat v} + \epsilon)$) is a ratio whose limiting behavior is exactly the end-behavior analysis of this page. Reading such a ratio as a rational function tells you what it saturates to as its inputs grow.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Rational function](#formal-definition)** | A rational function is $f(x)=P(x)/Q(x)$ for polynomials $P,Q$ with $Q$ not identically zero. Its original domain excludes every real input satisfying $Q(x)=0$, even when algebraic factors later cancel. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[A Concrete Example](#a-concrete-example)** | Consider the function: $$f(x) = \frac{1}{x}$$ This is the simplest nontrivial rational function: the constant polynomial $1$ divided by the polynomial $x$. When $x = 0$, the function is undefined. |
+| **[Formal Definition](#formal-definition)** | Rational Functions: A rational function is an expression of the form $\frac{P(x)}{Q(x)}$, where $P(x)$ and $Q(x)$ are polynomials and $Q(x)$ is not the zero polynomial. |
+| **[Domain](#domain)** | Domain: The domain of a rational function is the set of all real numbers (or complex numbers) for which the function is defined. |
+| **[Range](#range)** | Range: The range of a rational function is the set of all possible y-values (outputs) that the function can produce. To determine the range, you need to consider the behavior of the function across its |
+| **[Proper / Improper Rational Function](#proper-improper-rational-function)** | Proper / Improper Rational Function: Just as with normal fractions, rational functions also have the concept of 'proper' and 'improper.' |
+| **[Operations on Rational Expressions](#operations-on-rational-expressions)** | Before analyzing rational functions graphically, it helps to be fluent in the algebra of rational expressions: simplifying, multiplying, dividing, adding, subtracting, and untangling compound fractions. |
+| **[Simplifying to Lowest Terms](#simplifying-to-lowest-terms)** | Factor the numerator and denominator completely, then cancel common factors. Cancelling is only valid where the cancelled factor is nonzero, which is exactly why a cancelled factor leaves a hole in the graph. |
+| **[Multiplying and Dividing](#multiplying-and-dividing)** | To multiply, factor everything, cancel across the two fractions, then multiply straight across. To divide, multiply by the reciprocal of the divisor (flip the second fraction) and proceed as with multiplication. |
+| **[Adding and Subtracting](#adding-and-subtracting)** | Rewrite each fraction over the least common denominator (LCD), combine the numerators, then simplify. As with numeric fractions, you cannot add numerators until the denominators match. |
+| **[Complex (Compound) Fractions](#complex-compound-fractions)** | A complex fraction has fractions inside its numerator or denominator. The cleanest method is to multiply the top and bottom by the LCD of all the inner fractions, clearing them in one step. |
+| **[Finding x-intercepts](#finding-x-intercepts)** | Finding x-intercepts: Factor the numerator and solve for the $x$ that make it zero (an $x$-intercept of a rational function occurs where the numerator is zero *and* the denominator is nonzero). |
+| **[Finding y-intercept](#finding-y-intercept)** | Finding y-intercept: To find the y-intercept of a rational function, you need to evaluate the function at *𝑥 = 0*. The y-intercept is the point where the graph of the function crosses the y-axis, which |
+| **[Horizontal, Slant, and Polynomial Asymptotes](#horizontal-slant-and-polynomial-asymptotes)** | Horizontal Asymptote: A horizontal asymptote of a graph is a horizontal line y = b, where the graph approaches the line as the input value increases/decreases without bound. |
+| **[Numerator = Denominator](#numerator-denominator)** | When the degrees are equal, the horizontal asymptote is the ratio of the leading coefficients. For $\dfrac{x^2 + 3}{x^2}$ both leading coefficients are $1$, so the asymptote is $y = \tfrac{1}{1} = 1$. |
+| **[Numerator \> Denominator (improper fraction)](#numerator-denominator-improper-fraction)** | Numerator \> Denominator Num\>Denom by 1 *(Because the degree of the numerator exceeds the degree of the |
+| **[Hole / Discontinuity / Removable Discontinuity](#hole-discontinuity-removable-discontinuity)** | Hole / Removable Discontinuity: A hole occurs in a rational function when there is a common factor between the numerator and the denominator that can be cancelled. |
+| **[Slant/Oblique Asymptote - Worked Example](#slantoblique-asymptote---worked-example)** | Slant Asymptote: When the degree of the numerator exceeds the degree of the denominator by exactly 1, the function has a slant (oblique) asymptote with equation y = mx + b. |
+| **[End Behavior](#end-behavior)** | End Behavior: Describes what happens to f(x) as x approaches positive infinity (x → +∞) or negative infinity (x → -∞). |
+| **[Case 1: Degree of Numerator < Degree of Denominator](#case-1-degree-of-numerator-degree-of-denominator)** | Example: $f(x) = \frac{x + 1}{x^2 + 1}$ As x → ±∞, the denominator grows much faster than the numerator: End behavior: Approaches horizontal asymptote y = 0, from above on the right and from below on the left. |
+| **[Case 2: Degree of Numerator = Degree of Denominator](#case-2-degree-of-numerator-degree-of-denominator)** | Example: $f(x) = \frac{3x^2 + 2x + 1}{x^2 - 4}$ As x → ±∞, the highest degree terms dominate: $$\frac{3x^2 + 2x + 1}{x^2 - 4} \approx \frac{3x^2}{x^2} = 3$$ |
+| **[Case 3: Degree of Numerator > Degree of Denominator](#case-3-degree-of-numerator-degree-of-denominator)** | Example: $f(x) = \frac{x^2 - 1}{x + 1}$ After polynomial division: $f(x) = x - 1 + \frac{0}{x+1} = x - 1$ End behavior: Follows slant asymptote y = x - 1. |
+| **[Sign Analysis / Interval Testing](#sign-analysis-interval-testing)** | Sign Analysis: Determines where the function is positive (above x-axis) or negative (below x-axis) by testing intervals between critical points. |
+| **[Solving Rational Equations](#solving-rational-equations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Solving Rational Inequalities](#solving-rational-inequalities)** | To solve an inequality such as $\dfrac{x-1}{x+2} \ge 0$, do not multiply across by $(x+2)$: its sign is unknown, and multiplying by a negative would flip the inequality. Instead, reuse the sign analysis machinery. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

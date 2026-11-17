@@ -10,6 +10,8 @@ enables: ["category-limits-colimits", "category-adjunctions-monads"]
 
 A category records objects and composable morphisms in one mathematical world. A **functor** translates that world—objects **and** arrows—into another without destroying composition. The [Mathematical Spaces Atlas](./atlas-of-mathematical-spaces#13-categories-the-structure-of-mathematical-structures) illustrates concrete forgetful functors from Hilbert and Banach spaces through topology to underlying sets.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Functors preserve the laws of mapping
 
 > [!definition] Covariant functor
@@ -182,3 +184,40 @@ An equivalence preserves the structural features that can be expressed categoric
 | Fully faithful Yoneda embedding | contravariant Yoneda applied to representables |
 
 **Further reading:** [Yoneda lemma (nLab)](https://ncatlab.org/nlab/show/Yoneda+lemma). Next: [Limits and Colimits](./category-limits-colimits).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Covariant functor](#functors-preserve-the-laws-of-mapping)** | A functor $F:\mathcal C\to\mathcal D$ sends each object $A$ to $F(A)$ and each arrow $f:A\to B$ to $F(f):F(A)\to F(B)$, preserving $F(1_A)=1_{F(A)}$ and $F(g\circ f)=F(g)\circ F(f)$. |
+| **[Contravariant functor](#contravariant-functors)** | A contravariant functor $F:\mathcal C\to\mathcal D$ is a covariant functor $\mathcal C^{op}\to\mathcal D$. On arrows it reverses direction and obeys $F(g\circ f)=F(f)\circ F(g)$. |
+| **[Natural transformation](#natural-transformations-a-compatible-family-of-maps)** | For functors $F,G:\mathcal C\to\mathcal D$, a natural transformation $\eta:F\Rightarrow G$ assigns each $A$ an arrow $\eta_A:F(A)\to G(A)$ such that for every $f:A\to B$, |
+| **[Equivalence of categories](#the-yoneda-embedding-and-equivalences)** | Categories $\mathcal C,\mathcal D$ are equivalent when there are functors $F:\mathcal C\to\mathcal D$ and $G:\mathcal D\to\mathcal C$ with natural isomorphisms $GF\cong1_{\mathcal C}$ and $FG\cong1_{\mathcal D}$. This is weaker than strict equality or isomorphism of the categories. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Functors preserve the laws of mapping](#functors-preserve-the-laws-of-mapping)** | *Figure: A functor transports composable arrows to composable arrows and preserves their order and composites.* |
+| **[A concrete functor: forget the group operation](#a-concrete-functor-forget-the-group-operation)** | The functor $U:\mathbf{Grp}\to\mathbf{Set}$ sends a group to its underlying set and a homomorphism to its underlying function. The identity function and composition remain unchanged, so the functor axioms are immediate. |
+| **[Contravariant functors](#contravariant-functors)** | For a function $f:A\to B$, inverse image maps subsets backwards: $f^{-1}:\mathcal P(B)\longrightarrow\mathcal P(A).$ |
+| **[A topological example: inverse images of opens as a functor](#a-topological-example-inverse-images-of-opens-as-a-functor)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Natural transformations: a compatible family of maps](#natural-transformations-a-compatible-family-of-maps)** | *Figure: Whichever route you follow around a naturality square, you get the same composite.* |
+| **[Representable functors: describing objects by their arrows](#representable-functors-describing-objects-by-their-arrows)** | Fix an object $A$ of a locally small category $\mathcal C$. Define $h^A(X)=\operatorname{Hom}_{\mathcal C}(A,X).$ |
+| **[Yoneda lemma, with the proof exposed](#yoneda-lemma-with-the-proof-exposed)** | Forward map. If $\eta:h^A\Rightarrow F$, evaluate its component at the identity: |
+| **[The Yoneda embedding and equivalences](#the-yoneda-embedding-and-equivalences)** | Define the contravariant representable $y(A):=\operatorname{Hom}_{\mathcal C}(-,A)$, a functor $\mathcal C^{op}\to\mathbf{Set}$. Each $f:A\to B$ gives a natural transformation $y(A)\Rightarrow y(B)$ by postcomposition with $f$. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Covariant Yoneda lemma](#yoneda-lemma-with-the-proof-exposed)** | For a locally small category $\mathcal C$, a functor $F:\mathcal C\to\mathbf{Set}$, and $A\in\mathcal C$, there is a natural bijection |
+| **[Functors preserve the laws of mapping](#functors-preserve-the-laws-of-mapping)** | *Figure: A functor transports composable arrows to composable arrows and preserves their order and composites.* |

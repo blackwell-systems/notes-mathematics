@@ -15,6 +15,8 @@ A **sheaf** is a mathematical rule for assigning data to each open region of a s
 
 The caveat is essential. A sheaf does **not** promise that any collection of local solutions can be glued. It promises that *if* they agree on all overlaps, then they glue, and glue uniquely.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. The three ingredients: regions, restrictions, compatibility
 
 Let $X$ be a topological space. For each open set $U\subseteq X$, imagine a collection $\mathcal F(U)$ (read "script F of U") of allowed **sections over $U$**.
@@ -312,3 +314,33 @@ Only after checking those axioms is a sheaf theorem applicable. **Existence of l
 **Scope:** This chapter develops presheaves, restrictions, sheaf gluing with proof, a counterexample, germs and stalks, the functorial viewpoint, and the beginnings of cohomological obstructions. A full treatment would develop sheafification formally, morphisms and exact sequences of sheaves, injective or flabby resolutions, derived functors, Čech comparison theorems, ringed spaces, and Grothendieck topologies. Those results are **not claimed here**.
 
 Continue with [Category Theory](./category-functors-naturality), [Algebraic Topology](./algebraic-topology), [Differential Geometry](./differential-geometry), and [Commutative Algebra](./commutative-algebra), depending on which kind of local-to-global problem interests you.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. The three ingredients: regions, restrictions, compatibility](#1-the-three-ingredients-regions-restrictions-compatibility)** | Let $X$ be a topological space. For each open set $U\subseteq X$, imagine a collection $\mathcal F(U)$ (read "script F of U") of allowed sections over $U$. |
+| **[2. The sheaf axiom: one exact promise](#2-the-sheaf-axiom-one-exact-promise)** | Suppose an open region $U$ is covered by open sets $U_i$: $U=\bigcup_{i\in I}U_i.$ |
+| **[3. Worked example: glue genuinely different local formulas](#3-worked-example-glue-genuinely-different-local-formulas)** | Let $U=(-2,1),\qquad V=(-1,2),\qquad U\cup V=(-2,2).$ |
+| **[4. Counterexample: a presheaf that cannot glue](#4-counterexample-a-presheaf-that-cannot-glue)** | It is tempting to assign to each nonempty open set $U$ the set of constant real-valued functions on $U$. Restrictions of constants are constant, so this defines a presheaf (with one section on the empty set). |
+| **[5. Germs and stalks: what can we know at one point?](#5-germs-and-stalks-what-can-we-know-at-one-point)** | Sometimes the value of a function at one point is not enough. We want to know its behavior in some sufficiently small neighborhood. |
+| **[6. Local solutions do not imply a global solution](#6-local-solutions-do-not-imply-a-global-solution)** | Here is the most important limitation of gluing. |
+| **[7. The categorical viewpoint: presheaves reverse arrows](#7-the-categorical-viewpoint-presheaves-reverse-arrows)** | If $V\subseteq U$, there is an inclusion $V\hookrightarrow U$. But restriction goes the other way: |
+| **[8. What is sheaf cohomology trying to measure?](#8-what-is-sheaf-cohomology-trying-to-measure)** | Sheaf theory tells us how to glue local data *when it matches*. What if locally valid choices consistently fail to match, even though the mismatch has structure? |
+| **[9. Applications: the same pattern in different mathematical worlds](#9-applications-the-same-pattern-in-different-mathematical-worlds)** | The last example explains why sheaves are central to modern scheme theory. A space's local rings and the restrictions between them carry algebraic information invisible if we record only its points. |
+| **[A careful connection to distributed consistency and confluence](#a-careful-connection-to-distributed-consistency-and-confluence)** | A distributed system often has local views that must agree on shared information. That resembles overlapping sections, but the resemblance is not automatically a mathematical equivalence. |
+| **[10. A compact mental model](#10-a-compact-mental-model)** | Self-check: A collection of local functions can disagree only outside their overlaps and still glue; that is what the worked example demonstrated. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Continuous real-valued functions form a sheaf](#2-the-sheaf-axiom-one-exact-promise)** | For every topological space $X$, the assignment $U\mapsto\mathcal C(U)$ with ordinary restriction is a sheaf. Proof of uniqueness: If $f,g:U\to\mathbb R$ agree on every $U_i$, take any point $x\in U$. Some $U_i$ contains $x$, so $f(x)=g(x)$. Thus $f=g$. |

@@ -16,6 +16,8 @@ What survives under continuous maps when distances are no longer available? Thre
 
 These properties are independent enough that confusing them produces common false arguments. The abstract definitions and preservation proofs need no metric, but the proofs about *real intervals* later in this chapter use real-analysis results such as completeness and compactness of $[a,b]$. Readers taking the abstract route can learn the definitions first and consult those results when the examples require them.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Compactness: every open cover admits a finite subcover
 
 ### First intuition: nothing gets left behind by an open cover
@@ -344,3 +346,56 @@ The category-theory connection is precise: **Top** has products and coproducts a
 | Extreme-value theorem | continuous image of compact, Heine–Borel in $\mathbb R$ |
 
 **External reference:** [Homeomorphisms](https://encyclopediaofmath.org/wiki/Homeomorphism) (Encyclopedia of Mathematics). These results complete the core compactness branch; arbitrary product compactness (Tychonoff), nets, filters, and compactness in weaker topologies are important further topics.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Compact topological space](#first-intuition-nothing-gets-left-behind-by-an-open-cover)** | A space $X$ is compact if for every family of open sets $(U_i)_{i\in I}$ with $X=\bigcup_{i\in I}U_i$, there are finitely many indices $i_1,\ldots,i_n$ such that |
+| **[Hausdorff (T₂) space](#hausdorff-separation)** | A topological space $X$ is Hausdorff if for every pair of distinct points $x,y$, there are disjoint open neighborhoods $U\ni x$, $V\ni y$. |
+| **[Separation axioms](#t-t-and-hausdorff-are-different-strengths)** | T₀: for any distinct points, an open set contains one but not the other. T₁: for any distinct points, each has an open neighborhood excluding the other; equivalently each singleton is closed. Hausdorff (T₂): distinct points have disjoint open neighborhoods. |
+| **[Connected space](#connectedness-no-nontrivial-separation)** | $X$ is connected if it cannot be written as $X=U\cup V$ for two disjoint nonempty open sets $U,V$. Equivalently, its only clopen subsets are $\varnothing$ and $X$. |
+| **[Sequential compactness](#metric-compactness-and-convergent-subsequences)** | A space is sequentially compact if every sequence $(x_n)$ has a subsequence $(x_{n_k})$ converging to a limit inside the space. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Compactness: every open cover admits a finite subcover](#compactness-every-open-cover-admits-a-finite-subcover)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Continuous images preserve compactness](#continuous-images-preserve-compactness)** | Proof. Suppose open sets $V_i$ of $Y$ cover $f(X)$ (a subspace open cover can always be represented by ambient opens). The sets $f^{-1}(V_i)$ are open in $X$ and cover $X$. Choose finitely many whose union is $X$. |
+| **[Closed-subspace inheritance](#closed-subspace-inheritance)** | Proof. An open cover of $F$ by relative-open sets can be written as $F\cap U_i$, with each $U_i$ open in $X$. Add the open set $X\setminus F$ to cover all of $X$. |
+| **[Hausdorff separation](#hausdorff-separation)** | *Figure: Hausdorffness requires enough open sets to separate any two different points.* Every metric space is Hausdorff: if $d(x,y)=r>0$, balls of radius $r/3$ centered at $x,y$ are disjoint by the triangle inequality. |
+| **[The compact–Hausdorff homeomorphism theorem](#the-compacthausdorff-homeomorphism-theorem)** | Proof. For any closed $F\subseteq X$, the closed-subspace theorem makes $F$ compact. Continuous-image compactness makes $f(F)$ compact in $Y$. Hausdorffness makes $f(F)$ closed in $Y$. Hence $f$ is a closed map. |
+| **[T₀, T₁ and Hausdorff are different strengths](#t-t-and-hausdorff-are-different-strengths)** | Every Hausdorff space is T₁; every T₁ space is T₀. The converses fail. |
+| **[Connectedness: no nontrivial separation](#connectedness-no-nontrivial-separation)** | *Figure: A connected space cannot be split into two nonempty relatively open components.* *Figure: Connectedness forbids a separation of the whole space. |
+| **[Intermediate Value Theorem from connectedness](#intermediate-value-theorem-from-connectedness)** | Let $f:[a,b]\to\mathbb R$ be continuous. The interval is connected, so its image is connected. |
+| **[Compactness versus connectedness: a comparison](#compactness-versus-connectedness-a-comparison)** | For the infinite indiscrete example, every open cover contains the whole space as a member, hence compactness; the only opens are $\varnothing$ and $X$, hence connectedness. Failure of Hausdorffness is immediate. |
+| **[Metric compactness and convergent subsequences](#metric-compactness-and-convergent-subsequences)** | Open-cover compactness makes sense in any topological space. In metric spaces, we can characterize the same property by what happens to *every sequence*. |
+| **[A payoff: continuous functions attain maxima and minima](#a-payoff-continuous-functions-attain-maxima-and-minima)** | This explains an important role of compactness in optimization: on nonempty compact feasible sets, a continuous objective has actual optimizers, not merely an infimum or supremum that might be approached but never attained. |
+| **[A useful compactness reformulation](#a-useful-compactness-reformulation)** | Proof. Suppose $X$ compact and $(F_i)$ has the finite intersection property, but $\bigcap_i F_i=\varnothing$. Then $(X\setminus F_i)$ is an open cover. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[A continuous image of a compact space is compact](#continuous-images-preserve-compactness)** | If $f:X\to Y$ is continuous and $X$ compact, then $f(X)$ is compact with its subspace topology. |
+| **[A closed subset of a compact space is compact](#closed-subspace-inheritance)** | If $F\subseteq X$ is closed and $X$ compact, then $F$ is compact. |
+| **[Compact subsets of Hausdorff spaces are closed](#hausdorff-separation)** | If $K\subseteq X$ is compact and $X$ Hausdorff, then $X\setminus K$ is open. |
+| **[Continuous bijection from compact to Hausdorff is a homeomorphism](#the-compacthausdorff-homeomorphism-theorem)** | If $f:X\to Y$ is continuous and bijective, $X$ is compact, and $Y$ is Hausdorff, then $f^{-1}:Y\to X$ is continuous. |
+| **[Continuous images preserve connectedness](#connectedness-no-nontrivial-separation)** | If $X$ is connected and $f:X\to Y$ continuous, then $f(X)$ is connected. |
+| **[Every real interval is connected](#why-real-intervals-are-connected)** | An interval $I\subseteq\mathbb R$ with its usual subspace topology is connected. |
+| **[Heine–Borel theorem](#compactness-versus-connectedness-a-comparison)** | For $K\subseteq\mathbb R^n$ with $n\geq1$, open-cover compactness is equivalent to being closed and bounded in the Euclidean metric. |
+| **[The finite-subcover property of a closed interval](#step-1-closed-real-intervals-are-compact)** | Every open cover of $[a,b]\subseteq\mathbb R$, with $a\leq b$, admits a finite subcover. |
+| **[Two-factor product compactness](#step-2-finite-products-of-compact-spaces-are-compact)** | If $X$ and $Y$ are compact, then $X\times Y$ with the product topology is compact. |
+| **[Compactness and sequential compactness agree in metric spaces](#metric-compactness-and-convergent-subsequences)** | A metric space $(X,d)$ is compact if and only if every sequence in $X$ has a subsequence converging in $X$. |
+| **[Extreme-value theorem from compactness](#a-payoff-continuous-functions-attain-maxima-and-minima)** | A continuous function $f:X\to\mathbb R$ on a nonempty compact space $X$ attains a maximum and a minimum. |
+| **[Finite intersection property](#a-useful-compactness-reformulation)** | A space $X$ is compact if and only if every family of closed subsets with the property that every finite subfamily has nonempty intersection also has nonempty total intersection. |
+| **[Intermediate Value Theorem from connectedness](#intermediate-value-theorem-from-connectedness)** | Let $f:[a,b]\to\mathbb R$ be continuous. The interval is connected, so its image is connected. Every connected subset of $\mathbb R$ is an interval: if it contained $r<t$ but omitted $s$ between them, intersections with $(-\infty,s)$ and $(s,\infty)$ would disconnect it. |

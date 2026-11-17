@@ -12,6 +12,8 @@ Algebraic geometry describes shapes by polynomial equations. To study what happe
 
 All rings in this chapter are **commutative with identity** and homomorphisms preserve identity, unless explicitly noted.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Ideals encode simultaneous polynomial constraints
 
 An **ideal** $I\subseteq R$ is an additive subgroup closed under multiplication by arbitrary elements of $R$. The quotient $R/I$ identifies expressions that differ by an element of $I$. Read $R/I$ as "R modulo I."
@@ -144,3 +146,39 @@ The difference between $(x)$ and $(x^2)$ illustrates **scheme-theoretic multipli
 Polynomial parameterizations can create zero sets with multiple components or degeneracies. [Algebraic Geometry](./algebraic-geometry) investigates how those sets behave near their singularities. A local ring collects algebraic functions regular near one point; an ideal expresses which equations vanish there. This machinery motivates, but **does not alone prove**, the resolution-of-singularities theorems or RLCT asymptotics used in [Singular Learning Theory](./singular-learning-theory).
 
 The lesson: **rings describe equations; ideals encode constraints; quotients encode imposed equations; localizations retain only what can be seen near a specified point**.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Prime ideal and maximal ideal](#prime-and-maximal-ideals-answer-different-questions)** | A proper ideal $\mathfrak p\subsetneq R$ is prime if $ab\in\mathfrak p$ implies $a\in\mathfrak p$ or $b\in\mathfrak p$. An ideal $\mathfrak m\subsetneq R$ is maximal if no ideal lies strictly between $\mathfrak m$ and $R$. |
+| **[Local ring](#local-rings-focus-on-one-point)** | A ring is local if it has exactly one maximal ideal. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Ideals encode simultaneous polynomial constraints](#ideals-encode-simultaneous-polynomial-constraints)** | An ideal $I\subseteq R$ is an additive subgroup closed under multiplication by arbitrary elements of $R$. The quotient $R/I$ identifies expressions that differ by an element of $I$. |
+| **[Prime and maximal ideals answer different questions](#prime-and-maximal-ideals-answer-different-questions)** | Every maximal ideal is prime, but not conversely. For instance, $(0)\subset\mathbb Z$ is prime because $\mathbb Z$ is a domain, but not maximal because $\mathbb Z$ is not a field. |
+| **[Localization: make selected denominators invertible](#localization-make-selected-denominators-invertible)** | Ordinary fractions turn nonzero integers into invertible rational denominators. Localization applies the same strategy to only a chosen collection of ring elements. |
+| **[Local rings: focus on one point](#local-rings-focus-on-one-point)** | The ring $\mathbb R[x]_{(x)}$ above is local: its unique maximal ideal consists of fractions $f/g$ whose numerator vanishes at zero. A fraction $f/g$ with $f(0)\neq0$ has inverse $g/f$ in the same localization, so it is a unit. |
+| **[Modules generalize vector spaces](#modules-generalize-vector-spaces)** | A vector space is a module over a field. A module over a ring $R$ has an abelian group structure and scalar multiplication by elements of $R$, obeying the analogues of vector-space distributivity and associativity. |
+| **[Noetherian rings and finite descriptions](#noetherian-rings-and-finite-descriptions)** | A ring is Noetherian if every ideal is finitely generated (equivalently, every ascending sequence of ideals stabilizes). |
+| **[The algebra–geometry dictionary, with a caveat](#the-algebrageometry-dictionary-with-a-caveat)** | For an ideal $I\subseteq k[x_1,\ldots,x_n]$, the zero set $V(I)$ consists of common zeros of all polynomials in $I$. Different ideals can have the same zero set: over $\mathbb C$, |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Detect prime and maximal ideals using quotients](#prime-and-maximal-ideals-answer-different-questions)** | For a commutative unital ring, $\mathfrak p$ is prime if and only if $R/\mathfrak p$ is an integral domain. The ideal $\mathfrak m$ is maximal if and only if $R/\mathfrak m$ is a field. |
+| **[Universal property of localization](#localization-make-selected-denominators-invertible)** | Let $f:R\to T$ be a ring homomorphism carrying every $s\in S$ to a unit of $T$. Then there exists a unique ring homomorphism $\widetilde f:S^{-1}R\to T$ such that $\widetilde f(r/1)=f(r)$. |
+| **[Localization at a prime ideal is local](#local-rings-focus-on-one-point)** | For any prime ideal $\mathfrak p$, the ring $R_{\mathfrak p}=(R\setminus\mathfrak p)^{-1}R$ has unique maximal ideal $\mathfrak pR_{\mathfrak p}$. |
+| **[Hilbert basis theorem](#noetherian-rings-and-finite-descriptions)** | If $R$ is Noetherian, then $R[x]$ is Noetherian. Consequently a polynomial ring in finitely many variables over a field is Noetherian. |

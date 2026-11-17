@@ -15,6 +15,8 @@ This makes continuity, connectedness and compactness available for function spac
 > [!distinction] Two ways into topology
 > **Metric route:** start with distance, open balls and limits in [Real Analysis](./real-analysis#metric-spaces), then show that the resulting open sets satisfy the topology axioms. **Abstract route:** start right here from sets and the three open-set axioms, without assuming any metric. Both routes lead to the same definitions. The [topology learning map](./path-to-topology) compares them.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Open sets as the primitives
 
 ### First intuition: geometry without a coordinate grid
@@ -342,3 +344,49 @@ In metric spaces, sequences also suffice to characterize closure. **In arbitrary
 | Homeomorphism | continuity in both directions |
 
 Next: [Subspaces, Products and Quotients](./general-topology-constructions), where topologies are **constructed by mapping requirements**.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Topological space](#the-formal-definition)** | A topology $\tau$ on a set $X$ is a collection of subsets (called open sets) satisfying: 1. $\varnothing,X\in\tau$; 2. the union of any collection of members of $\tau$ belongs to $\tau$; |
+| **[Neighborhood and open neighborhood](#neighborhoods-what-does-around-a-point-mean)** | In a topological space $(X,\tau)$, a set $N\subseteq X$ is a neighborhood of $x$ if some open set $U\in\tau$ satisfies An open neighborhood of $x$ is simply an open set containing $x$. |
+| **[Basis](#bases-a-small-collection-generating-all-opens)** | A collection $\mathcal B\subseteq\mathcal P(X)$ is a basis if: every $x\in X$ lies in some $B\in\mathcal B$; whenever $x\in B_1\cap B_2$ for $B_1,B_2\in\mathcal B$, some $B_3\in\mathcal B$ satisfies $x\in B_3\subseteq B_1\cap B_2$. |
+| **[Local basis (neighborhood basis)](#bases-a-small-collection-generating-all-opens)** | A local basis at $x$ is a family $\mathcal B_x$ of open neighborhoods of $x$ such that every open neighborhood $U$ of $x$ contains at least one member $B\in\mathcal B_x$: It is enough to work with these smaller basic neighborhoods when testing a property stated for every open neighborhood. |
+| **[Closed set](#closed-sets-interiors-closures-and-boundaries)** | $F\subseteq X$ is closed when its complement $X\setminus F$ is open. A set can be both open and closed (clopen), or neither. |
+| **[Limit point, isolated point, and dense subset](#closed-sets-interiors-closures-and-boundaries)** | A point $x$ is a limit point (or accumulation point) of $A\subseteq X$ if every open neighborhood $U$ of $x$ intersects $A\setminus\{x\}$. Unlike the closure test, this excludes the point itself. A point $x\in A$ is isolated in $A$ if some open neighborhood $U$ of $x$ satisfies $U\cap A=\{x\}$. |
+| **[Topological continuity](#continuous-functions-from-inverse-images)** | A map $f:(X,\tau_X)\to(Y,\tau_Y)$ is continuous if $f^{-1}(V)$ is open in $X$ for every open $V\subseteq Y$. |
+| **[Homeomorphism](#homeomorphisms-and-topological-invariants)** | A homeomorphism is a bijective continuous map whose inverse is also continuous. It is exactly an isomorphism in $\mathbf{Top}$. |
+| **[Convergence of a sequence](#convergence-from-neighborhoods-without-a-distance)** | A sequence $(x_n)$ converges to $x$ if, for every open neighborhood $U$ of $x$, there is an index $n_0$ such that In words: eventually every term stays inside any prescribed open neighborhood of the proposed limit. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Open sets as the primitives](#open-sets-as-the-primitives)** | See this section for the underlying idea, notation, and worked examples. |
+| **[The formal definition](#the-formal-definition)** | Read the notation carefully: $U\in\tau$ means the subset $U$ is one of the sets declared open. It does not mean that $U$ is a point of $X$. The symbol $\tau$ names a *collection of subsets of $X$*. |
+| **[Neighborhoods: what does "around a point" mean?](#neighborhoods-what-does-around-a-point-mean)** | In the three-point example, the topology tells us which sets are open, but we also need a way to say that a (possibly larger) set contains some open room around a particular point. |
+| **[Discrete, indiscrete, and cofinite examples](#discrete-indiscrete-and-cofinite-examples)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Recovering metric spaces](#recovering-metric-spaces)** | This section is the optional metric route. If you are learning topology directly from sets, you can continue to Bases and return here later. |
+| **[Bases: a small collection generating all opens](#bases-a-small-collection-generating-all-opens)** | A topology can contain an enormous number of open sets. Rather than listing them all, we would like a smaller collection of building blocks from which every open set can be made by taking unions. That collection is a *basis*. |
+| **[Closed sets, interiors, closures and boundaries](#closed-sets-interiors-closures-and-boundaries)** | Once we know which sets are open, we can study a subset $A$ from several directions: which points are safely inside it, which points it comes arbitrarily close to, and which points lie on its edge. |
+| **[Continuous functions from inverse images](#continuous-functions-from-inverse-images)** | In calculus, continuity says that sufficiently small changes in the input cannot cause an abrupt change in output. |
+| **[Topological continuity agrees with metric continuity](#topological-continuity-agrees-with-metric-continuity)** | Let $X,Y$ be metric spaces with their induced topologies. Suppose $f$ is $\varepsilon$-$\delta$ continuous at every point. |
+| **[Homeomorphisms and topological invariants](#homeomorphisms-and-topological-invariants)** | Two topological spaces may use different underlying sets or descriptions while having the same open-set structure. A *homeomorphism* is a reversible change of description that preserves continuity in both directions. |
+| **[Convergence from neighborhoods, without a distance](#convergence-from-neighborhoods-without-a-distance)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Open metric sets form a topology](#recovering-metric-spaces)** | This collection satisfies all three topology axioms. |
+| **[Neighborhood test for closure](#closed-sets-interiors-closures-and-boundaries)** | $x\in\overline A$ if and only if every open neighborhood of $x$ intersects $A$. |
+| **[Continuous maps compose](#continuous-functions-from-inverse-images)** | If $f:X\to Y$ and $g:Y\to Z$ are continuous, then $g\circ f$ is continuous. |

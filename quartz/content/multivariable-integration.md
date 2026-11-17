@@ -10,6 +10,8 @@ enables: ["vector-calculus", "differential-geometry"]
 >
 > The central question is not merely "How can we integrate twice or three times?" It is **how we divide space into pieces, attach a quantity to each piece, and add them without counting anything twice**.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. From area sums to volume sums
 
 In single-variable calculus, a Riemann sum adds values on short intervals. In two dimensions, the pieces are small patches of **area**, and in three dimensions they are small pieces of **volume**.
@@ -347,3 +349,28 @@ Similarly, [Measure Theory](./measure-theory) generalizes integrals beyond well-
 **Scope:** This chapter establishes concrete iterated integrals, coordinate transformations, Jacobian intuition, and worked applications. Full measure-theoretic change-of-variables and arbitrary multiplicity formulas require further hypotheses and belong to [Measure Theory](./measure-theory).
 
 **Continue with [Vector Calculus](./vector-calculus).** A scalar integral accumulates quantities *inside* a region. Vector calculus asks how fields circulate *along boundaries* or flow *through surfaces*, and why those two viewpoints are linked.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. From area sums to volume sums](#1-from-area-sums-to-volume-sums)** | In single-variable calculus, a Riemann sum adds values on short intervals. In two dimensions, the pieces are small patches of area, and in three dimensions they are small pieces of volume. |
+| **[2. Double integrals on curved and triangular regions](#2-double-integrals-on-curved-and-triangular-regions)** | A Type I region can be described as vertical slices $R=\{(x,y):a\leq x\leq b,\quad g_1(x)\leq y\leq g_2(x)\}.$ |
+| **[3. Polar coordinates: why an extra factor appears](#3-polar-coordinates-why-an-extra-factor-appears)** | A disk looks awkward in rectangular coordinates: its boundary is $x^2+y^2=a^2$. Polar coordinates use radius $r$ and angle $\theta$ (read "theta"): |
+| **[4. Jacobians: local area scaling](#4-jacobians-local-area-scaling)** | Polar coordinates are one case of a general method. Suppose coordinates $(u,v)$ describe the plane through a differentiable map |
+| **[5. Triple integrals: volume, density, center of mass](#5-triple-integrals-volume-density-center-of-mass)** | For a solid $E$ and continuous density $\rho$, the total mass is $M=\iiint_E\rho(x,y,z)\,dV.$ |
+| **[6. Cylindrical coordinates: polar coordinates plus height](#6-cylindrical-coordinates-polar-coordinates-plus-height)** | Cylindrical coordinates describe a point by $(r,\theta,z)$: $x=r\cos\theta,\qquad y=r\sin\theta,\qquad z=z.$ |
+| **[7. Spherical coordinates: two angles and a radius](#7-spherical-coordinates-two-angles-and-a-radius)** | One common convention for spherical coordinates is $x=\rho\sin\phi\cos\theta,\quad y=\rho\sin\phi\sin\theta,\quad z=\rho\cos\phi.$ |
+| **[8. Integrating probabilities and functions, not only geometric volumes](#8-integrating-probabilities-and-functions-not-only-geometric-volumes)** | Integration over regions is not restricted to pictures of physical solids. For a joint probability density $p(x,y)$, the probability of a region $R$ is |
+| **[9. Mistakes that reveal the real idea](#9-mistakes-that-reveal-the-real-idea)** | See this section for the underlying idea, notation, and worked examples. |
+| **[10. Concept checks and next step](#10-concept-checks-and-next-step)** | Scope: This chapter establishes concrete iterated integrals, coordinate transformations, Jacobian intuition, and worked applications. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

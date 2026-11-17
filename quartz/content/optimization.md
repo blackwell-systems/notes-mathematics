@@ -14,6 +14,8 @@ Optimization is the mathematical framework for finding the best solution from a 
 This page builds on [Multivariable Calculus](./multivariable-calculus) (gradients, Hessians, basic gradient descent) and [Linear Algebra for Computation](./linear-algebra-computation) (positive definiteness, condition numbers, matrix calculus). Where that page introduced gradient descent as a first application, here we treat optimization as its own subject in full depth.
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical setting: choosing from a feasible set
 
 An optimization problem is not simply "take a derivative and solve." The underlying objects come first: a **space of possible choices**, a **set of allowed choices**, and a **numerical objective** whose values can be compared.
@@ -752,3 +754,54 @@ At a critical point, each eigenvalue of the Hessian is independently positive or
 This is one reason why the non-convexity of deep learning loss functions is less problematic than theory might suggest: the critical points that gradient-based methods might get stuck at are mostly saddle points (which SGD escapes) rather than bad local minima.
 
 **Research connection:** In developmental interpretability, attention heads that fail to join co-specializing circuits undergo a "try-fail-collapse" sequence, eventually sinking to position-zero attention. This resembles escaping a saddle point into a degenerate basin. The collapse is permanent: once a head sinks, additional training does not recover it. This suggests the loss landscape around P0 sinks is a stable attractor, not a saddle.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Convex function on a convex domain](#convex-functions)** | $f$ is convex if $f(tx+(1-t)y)\le tf(x)+(1-t)f(y)$ for every domain pair and every $t\in[0,1]$. Convexity makes every local minimum global, but it does not automatically guarantee that a minimizer exists. |
+| **[Subgradient of a convex function](#subgradients)** | $g$ is a subgradient at $x$ if $f(y)\ge f(x)+g\cdot(y-x)$ for all points $y$ in the convex domain. It gives a global lower affine support, even where $f$ is not differentiable. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical setting: choosing from a feasible set](#the-mathematical-setting-choosing-from-a-feasible-set)** | An optimization problem is not simply "take a derivative and solve." The underlying objects come first: a space of possible choices, a set of allowed choices, and a numerical objective whose values can be compared. |
+| **[Unconstrained Optimization](#unconstrained-optimization)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Critical Points](#critical-points)** | A critical point (or stationary point) is a point where the gradient vanishes: At a critical point, there is no direction of steepest ascent or descent. The function is "flat" in every direction (to first order). |
+| **[First-Order Necessary Condition](#first-order-necessary-condition)** | If $x^*$ is a local minimum of a differentiable function $f$, then $\nabla f(x^*) = \mathbf{0}$. |
+| **[Second-Order Conditions](#second-order-conditions)** | The Hessian matrix $H$ (or $\nabla^2 f$) contains all second partial derivatives (see Multivariable Calculus for a full treatment). |
+| **[Local vs. Global Minima](#local-vs-global-minima)** | A local minimum is a point where $f$ is smaller than at all nearby points. A global minimum is a point where $f$ is smaller than at all points in the domain. |
+| **[Convexity in Depth](#convexity-in-depth)** | Convexity is the single most important structural property in optimization. Convex problems are "easy" (in a precise sense), and much of optimization theory is built around identifying or exploiting convexity. |
+| **[Convex Sets](#convex-sets)** | A set $S$ is convex if, for any two points $x, y \in S$, the entire line segment between them lies in $S$: Intuition: a set is convex if you can walk in a straight line between any two points without leaving the set. A filled circle is convex. |
+| **[Convex Functions](#convex-functions)** | A function $f: \mathbb{R}^n \to \mathbb{R}$ is convex if its domain is a convex set and for all $x, y$ in its domain and all $\lambda \in [0, 1]$: Geometrically: the function lies below (or on) the chord connecting any two points on its graph. |
+| **[Testing for Convexity](#testing-for-convexity)** | For a twice-differentiable function, the Hessian test is the standard approach: |
+| **[Convex Optimization Problems](#convex-optimization-problems)** | A convex optimization problem is one where: Non-convex problems (like training deep neural networks) are much harder. The loss landscape has many local minima, saddle points, and flat regions. |
+| **[Subgradients](#subgradients)** | Convex functions need not be differentiable. The absolute value $\vert x\vert $ is convex but has a corner at $x = 0$ where no tangent line exists. |
+| **[Gradient Descent: Full Treatment](#gradient-descent-full-treatment)** | Gradient descent was introduced in Multivariable Calculus. Here we develop it fully. |
+| **[The Algorithm](#the-algorithm)** | Starting from an initial guess $x_0$, repeat: where $\alpha > 0$ is the learning rate (or step size). The negative gradient $-\nabla f(x_k)$ points in the direction of steepest decrease of $f$ at $x_k$. |
+| **[Learning Rate](#learning-rate)** | The learning rate $\alpha$ controls how far each step moves: |
+| **[Convergence Rate](#convergence-rate)** | For a convex function with Lipschitz-continuous gradient (bounded curvature), gradient descent with step size $\alpha = 1/L$ (where $L$ is the Lipschitz constant of the gradient) achieves: |
+| **[Gradient Descent Variants](#gradient-descent-variants)** | In machine learning, the objective function typically has the form: where the sum is over $N$ training examples. Computing the full gradient requires evaluating all $N$ terms, which is expensive when $N$ is large (millions of images, billions of tokens). |
+| **[Batch Gradient Descent](#batch-gradient-descent)** | Use the full dataset to compute the exact gradient at each step. The gradient is smooth and predictable, but each iteration costs $O(N)$. Impractical for large datasets. |
+| **[Stochastic Gradient Descent (SGD)](#stochastic-gradient-descent-sgd)** | Use a single randomly chosen sample to estimate the gradient: Each iteration is $O(1)$ instead of $O(N)$. The gradient estimate is noisy (high variance), but its expectation equals the true gradient. |
+| **[Mini-Batch SGD](#mini-batch-sgd)** | The practical compromise: use a random subset (mini-batch) of $B$ samples: Typical batch sizes: 32 to 256. |
+| **[Momentum](#momentum)** | Standard SGD can oscillate in narrow valleys, zigzagging across the valley instead of moving along it. Momentum fixes this by accumulating a velocity term: |
+| **[Nesterov Accelerated Gradient (NAG)](#nesterov-accelerated-gradient-nag)** | A refinement of momentum: instead of computing the gradient at the current position, compute it at the "lookahead" position where momentum would take you: |
+| **[AdaGrad](#adagrad)** | Adaptive Gradient gives each parameter its own learning rate, based on how much that parameter's gradient has varied: |
+| **[RMSProp](#rmsprop)** | Fixes AdaGrad's learning rate decay by using an exponential moving average of squared gradients instead of accumulating all of them: |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Gradient descent rates require smoothness hypotheses](#convergence-rate)** | For an $L$-smooth convex function with a minimizer, step size $1/L$ gives a standard $O(1/k)$ function-value bound. Strong convexity improves this under appropriate assumptions. These guarantees do not apply to arbitrary differentiable or nonconvex objectives. |
+| **[KKT conditions and constraint qualifications](#inequality-constraints-and-kkt-conditions)** | KKT stationarity, primal/dual feasibility and complementary slackness are necessary at a regular local optimum under suitable constraint qualifications. |

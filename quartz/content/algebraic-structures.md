@@ -9,6 +9,8 @@ enables: ["linear-algebra-foundations", "ring-theory-foundations", "algebraic-ge
 > **Leads to:** [Linear Algebra Foundations](./linear-algebra-foundations) · [Algebraic Geometry](./algebraic-geometry)
 
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why name the obvious?
 
 When you rewrite $2 + 3$ as $3 + 2$, factor $6x + 6y$ into $6(x+y)$, or cancel the $5$ in $5a = 5b$ to conclude $a = b$, you are using rules so familiar they feel like nothing at all. But each of these moves rests on a specific property of numbers, and those properties are neither obvious nor automatic. Change the setting slightly (to matrices, to remainders after division, to symmetries of a shape) and some of them quietly fail.
@@ -213,3 +215,38 @@ The payoff of this vocabulary is that once you recognize a structure, everything
 - **Binary and hexadecimal** on [Number Bases](./number-bases) are the integers $\mathbb{Z}$ written differently: the underlying ring is unchanged, only the notation for its elements differs.
 
 The lesson is not that abstraction is fancy, but that it is economical. Naming the pattern once means never having to reprove closure, cancellation, or "negative times negative" again on each new set you meet.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Structure-preserving map](#homomorphisms-structure-preserving-maps)** | A homomorphism preserves the operation(s) under discussion. Injectivity is a separate property: in group theory, a homomorphism is injective precisely when its kernel is trivial. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The field axioms of the real numbers](#the-field-axioms-of-the-real-numbers)** | The real numbers come equipped with two operations, addition ($+$, read "plus") and multiplication ($\times$ or $\cdot$, read "times"). Every rule of high-school algebra is a consequence of a short list of axioms these operations obey. |
+| **[The order axioms](#the-order-axioms)** | The field axioms say nothing about *size*: they hold equally for $\mathbb{C}$, where "less than" makes no sense. The real numbers carry extra structure, a notion of order written $<$ (read "is less than"), governed by its own axioms. |
+| **[Derived rules: consequences, not assumptions](#derived-rules-consequences-not-assumptions)** | A striking feature of the axioms is how much they force. Many rules that feel like separate facts are actually *theorems*, provable from the list above. Nothing new needs to be assumed. Here are the most useful, with short derivations. |
+| **[A bridge to abstract algebra](#a-bridge-to-abstract-algebra)** | Look again at what we actually used. The derivations above never mentioned that $a$ was a *number*. They used only associativity, identities, inverses, and distributivity. |
+| **[Group](#group)** | For full derivations of group properties, subgroup tests, cyclic groups, cosets and Lagrange's theorem, begin with Group Theory Foundations. |
+| **[Ring](#ring)** | For a dedicated derivation of the ring laws, units, zero divisors, cancellation, characteristic and polynomial division, see Ring Theory Foundations. |
+| **[Field](#field)** | The full abstract development is Field Theory Foundations, including field extensions, irreducible-polynomial quotients, minimal polynomials and fields of prime-power order. |
+| **[Maps and substructures](#maps-and-substructures)** | Naming the structures is half the story; the other half is how they relate to one another. Two ideas do most of that work: maps that *preserve* structure, and subsets that *are* structures in their own right. |
+| **[Homomorphisms: structure-preserving maps](#homomorphisms-structure-preserving-maps)** | A homomorphism (read "homo-morph-ism," meaning "same shape") is a map $\varphi: G \to H$ between two structures of the same kind that respects the operation: |
+| **[Subgroups: structures inside structures](#subgroups-structures-inside-structures)** | A subgroup is a subset $H \subseteq G$ that is itself a group under $G$'s operation: it contains the identity and is closed under both the operation and inverses. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Derived rules: consequences, not assumptions](#derived-rules-consequences-not-assumptions)** | A striking feature of the axioms is how much they force. Many rules that feel like separate facts are actually *theorems*, provable from the list above. Nothing new needs to be assumed. Here are the most useful, with short derivations. |

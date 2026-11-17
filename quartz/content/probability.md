@@ -11,6 +11,8 @@ enables: ["statistics", "information-theory", "bayesian-inference"]
 
 Probability is the mathematical framework for reasoning about uncertainty. It quantifies how likely events are, and provides the foundation for statistics, machine learning, and decision-making under uncertainty. This page builds directly on [combinatorics](./combination) (counting how many ways things can happen) and extends it to measuring how likely they are.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The mathematical structures behind probability and statistics
 
 Before computing probabilities, it helps to identify **what kind of mathematical space we are working with**. Probability does not start with a numerical distance, a ranking, or a vector space. It begins with a set of possible outcomes, specifies which subsets are events, and assigns probabilities to those events.
@@ -1336,3 +1338,61 @@ where $\xrightarrow{d}$ denotes convergence in distribution. The finite-variance
 **How large is "large enough"?** A common rule of thumb is $n \geq 30$, but this depends on how skewed the original distribution is. For symmetric distributions, even $n = 10$ can be sufficient. For heavily skewed distributions, you may need $n > 100$.
 
 **Worked example (sum of dice).** Roll $n = 30$ fair dice and add them. Each die has mean $3.5$ and variance $\tfrac{35}{12} \approx 2.917$, so the sum $S$ has mean $30 \times 3.5 = 105$ and variance $30 \times \tfrac{35}{12} = 87.5$, giving standard deviation $\sqrt{87.5} \approx 9.35$. The CLT says $S$ is approximately $N(105, 87.5)$, so probabilities follow from z-scores: the chance the total exceeds $120$ is $P(S > 120) \approx P\!\left(Z > \tfrac{120 - 105}{9.35}\right) = P(Z > 1.60) \approx 0.055$. A discrete, bounded, decidedly non-normal summand (a single die) produces an almost perfectly normal total once you add $30$ of them.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Conditioning requires positive probability](#conditional-probability)** | $P(A\mid B)=P(A\cap B)/P(B)$ requires $P(B)>0$. Conditioning on a null event requires a different construction. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The mathematical structures behind probability and statistics](#the-mathematical-structures-behind-probability-and-statistics)** | Before computing probabilities, it helps to identify what kind of mathematical space we are working with. Probability does not start with a numerical distance, a ranking, or a vector space. |
+| **[Sample Spaces, Events, and Outcomes](#sample-spaces-events-and-outcomes)** | Experiment: Any process that produces an uncertain result. Rolling a die, drawing a card, measuring a patient's blood pressure. |
+| **[Axioms of Probability (Kolmogorov)](#axioms-of-probability-kolmogorov)** | All of probability theory is built on three axioms, proposed by Andrey Kolmogorov in 1933. Every rule, theorem, and formula in probability can be derived from these. |
+| **[Conditional Probability and Independence](#conditional-probability-and-independence)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Conditional Probability](#conditional-probability)** | Conditional probability: The probability of event $A$ given that event $B$ has occurred: Read $P(A\vert B)$ as "the probability of A given B" (the bar $\vert $ is read "given"). |
+| **[Independence](#independence)** | Independent events: Two events $A$ and $B$ are independent if their joint probability factors into the product of their individual probabilities: This is the fundamental definition, and it requires no positivity assumption. |
+| **[Bayes' Theorem](#bayes-theorem)** | Bayes' theorem is arguably the most important single formula in probability for machine learning. It tells you how to update your beliefs when you see new evidence. |
+| **[Law of Total Probability](#law-of-total-probability)** | Law of total probability: If events $B_1, B_2, \ldots, B_n$ form a partition of the sample space (they are mutually exclusive and exhaustive), then for any event $A$: This lets you compute the probability of $A$ by breaking it into cases. |
+| **[Random Variables](#random-variables)** | Random variable: A function that assigns a numerical value to each outcome in the sample space. Instead of talking about events like "rolling a 6," random variables let us do algebra with outcomes. |
+| **[Discrete Random Variables](#discrete-random-variables)** | A discrete random variable takes on a countable number of values (often integers). |
+| **[Continuous Random Variables](#continuous-random-variables)** | A continuous random variable takes on values in a continuous range (like all real numbers, or all positive reals). |
+| **[Expected Value, Variance, and Standard Deviation](#expected-value-variance-and-standard-deviation)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Expected Value](#expected-value)** | Expected value (mean): The long-run average of a random variable, weighted by probabilities. |
+| **[Variance and Standard Deviation](#variance-and-standard-deviation)** | Variance: Measures how spread out a random variable's values are around the mean. It is written $\text{Var}(X)$ (read "the variance of X"): The second form ($E[X^2] - (E[X])^2$) is usually easier to compute. |
+| **[Skewness and Kurtosis](#skewness-and-kurtosis)** | Variance (the second moment) measures spread, but it says nothing about the shape of a distribution. The third and fourth standardized moments capture two important shape properties: asymmetry and tail heaviness. |
+| **[Common Discrete Distributions](#common-discrete-distributions)** | *Figure: Bernoulli, binomial and Poisson distributions assign probability masses to discrete values. |
+| **[Bernoulli Distribution](#bernoulli-distribution)** | Bernoulli distribution: Models a single trial with two outcomes: success (1) or failure (0). |
+| **[Binomial Distribution](#binomial-distribution)** | Binomial distribution: The number of successes in $n$ independent Bernoulli trials. |
+| **[Poisson Distribution](#poisson-distribution)** | Poisson distribution: Models the number of events occurring in a fixed interval of time or space, when events happen independently at a constant average rate $\lambda$. |
+| **[Geometric Distribution](#geometric-distribution)** | Geometric distribution: The number of trials needed to get the first success. |
+| **[Negative Binomial Distribution](#negative-binomial-distribution)** | Negative binomial distribution: The number of trials needed to achieve the $r$th success, where each trial independently succeeds with probability $p$. |
+| **[Hypergeometric Distribution](#hypergeometric-distribution)** | Hypergeometric distribution: Models the number of successes when sampling without replacement from a finite population. Use this instead of the binomial when the population is small and sampling without replacement matters. |
+| **[Discrete Uniform Distribution](#discrete-uniform-distribution)** | Discrete uniform distribution: Each of $n$ equally likely outcomes has the same probability. This is the simplest discrete distribution. |
+| **[Poisson Approximation to the Binomial](#poisson-approximation-to-the-binomial)** | When $n$ is large and $p$ is small, the binomial distribution $\text{Binomial}(n, p)$ is well approximated by the Poisson distribution with $\lambda = np$: |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Strong law](#law-of-large-numbers)** | For i.i.d. random variables with finite absolute mean, sample averages converge almost surely to their expected value; finite variance is not required. |
+| **[Classical central limit theorem](#central-limit-theorem)** | For i.i.d. summands with finite mean and positive finite variance, standardized sums converge in distribution to a standard normal; the summands themselves do not turn normal. |
+| **[Bayes' Theorem](#bayes-theorem)** | Bayes' theorem is arguably the most important single formula in probability for machine learning. It tells you how to update your beliefs when you see new evidence. |
+| **[Law of Total Probability](#law-of-total-probability)** | Law of total probability: If events $B_1, B_2, \ldots, B_n$ form a partition of the sample space (they are mutually exclusive and exhaustive), then for any event $A$: This lets you compute the probability of $A$ by breaking it into cases. |
+| **[The 68-95-99.7 Rule](#the-68-95-997-rule)** | *Figure: For a normal distribution, approximately $68.27\%$, $95.45\%$, and $99.73\%$ of observations lie within one, two, and three standard deviations of the mean.* |
+| **[Law of Total Expectation](#law-of-total-expectation)** | Law of total expectation (tower property): For any two random variables $X$ and $Y$: |
+| **[Law of Total Variance](#law-of-total-variance)** | The law of total expectation decomposes the mean of $Y$ by conditioning on $X$. There is an analogous decomposition for variance: In words: Total variance = average within-group variance + between-group variance. |
+| **[Markov's Inequality](#markovs-inequality)** | Markov's inequality: For any non-negative random variable $X$ and any $a > 0$: This is the weakest major inequality but also the most general: it requires only that $X \geq 0$ and that $E[X]$ exists. |
+| **[Chebyshev's Inequality](#chebyshevs-inequality)** | Chebyshev's inequality: For any random variable $X$ with mean $\mu$ and finite variance $\sigma^2$, and for any $k > 0$: This gives an upper bound on how much probability can lie far from the mean, for any distribution whatsoever. |
+| **[Jensen's Inequality](#jensens-inequality)** | Jensen's inequality connects the expected value of a function to the function of an expected value. It depends on whether the function is convex or concave. |

@@ -18,6 +18,8 @@ Statistics has two classical halves, plus a modern third, and this site gives ea
 
 The foundational vocabulary below, data types, populations versus samples, and how *good* data is produced, underlies all three.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What mathematical structures does statistics use?
 
 Statistics is **not a new kind of space with one universal set of axioms**. It builds on several structures, and the right one depends on the question.
@@ -275,3 +277,40 @@ Combined, B wins. The association has reversed. The lurking variable is **stone 
 
 > **Where it shows up in ML.** Aggregate metrics can hide subgroup reversals. A classifier with higher overall accuracy than a baseline can be *worse* on every demographic subgroup if the subgroups are unevenly sized across the two systems' evaluation sets. This is why disaggregated evaluation (reporting metrics per subgroup) is a standard fairness practice.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Population, sample, statistic](#populations-and-samples)** | A statistic is computed from a sample; a parameter describes the target population. Their variability and roles are different. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Types of Variables](#types-of-variables)** | Variables come in two fundamental types, and the type determines which statistical methods apply. |
+| **[Scales of Measurement](#scales-of-measurement)** | This is a more formal way of classifying variables. Each level adds more structure. |
+| **[Cardinal vs Ordinal Numbers](#cardinal-vs-ordinal-numbers)** | Cardinal numbers answer "how many?" They represent quantity: 3 apples, 47 students, 1,000,000 data points. You can do arithmetic with them. |
+| **[The Fundamental Problem](#the-fundamental-problem)** | You want to know something about the world: What is the average height of adults in a country? Does this drug work? Will users click on button A or button B more often? |
+| **[Populations and Samples](#populations-and-samples)** | These two concepts must be clear before anything else. |
+| **[Producing Data and Experimental Design](#producing-data-and-experimental-design)** | Everything a statistical analysis can tell you is limited by how the data were produced. |
+| **[Observational studies vs designed experiments](#observational-studies-vs-designed-experiments)** | There are two broad ways to produce data about a relationship between variables. |
+| **[The Vocabulary of Experiments](#the-vocabulary-of-experiments)** | A precise vocabulary keeps experimental reasoning clear. |
+| **[The Three Principles of Experimental Design](#the-three-principles-of-experimental-design)** | Good experiments rest on three principles. Each one neutralizes a specific way that a naive comparison can mislead you. |
+| **[Blocking and Randomized Block Designs](#blocking-and-randomized-block-designs)** | Randomization makes groups equal *on average*, but with a modest number of units, chance can still leave the groups noticeably unbalanced on a variable you know matters. Blocking addresses this. |
+| **[Blinding, Placebo, and the Placebo Effect](#blinding-placebo-and-the-placebo-effect)** | Subjects (and the people measuring them) can respond to their *expectations*, not just to the treatment. |
+| **[Confounding Variables](#confounding-variables)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Simpson's Paradox](#simpsons-paradox)** | Confounding can be dramatic enough to *reverse* an association. Simpson's paradox is the phenomenon in which a trend that appears in each subgroup of the data reverses when the subgroups are combined. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[The Three Principles of Experimental Design](#the-three-principles-of-experimental-design)** | Good experiments rest on three principles. Each one neutralizes a specific way that a naive comparison can mislead you. |

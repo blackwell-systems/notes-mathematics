@@ -12,6 +12,8 @@ An arithmetic expression like $3 + 4 \times 2^2 - (5 - 1)$ (read "three plus fou
 
 This is not a deep theorem; it is an agreement. But it is an agreement mathematicians, calculators, and programming languages all share, so learning it once lets you read any expression unambiguously.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Why We Need a Convention
 
 Consider $3 + 4 \times 2$. There are two ways to read it:
@@ -145,3 +147,29 @@ Once expressions are unambiguous, the [field and order axioms](./algebraic-struc
 | 2 | Exponents and roots | Stacked powers: right to left |
 | 3 | Multiplication and division | Equal priority; **left to right** |
 | 4 (lowest) | Addition and subtraction | Equal priority; **left to right** |
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Expression parsing convention](#the-priority-ranking)** | Grouping binds most tightly; exponentiation precedes multiplication/division; addition/subtraction come last. At shared precedence, multiplication and division (and likewise addition/subtraction) ordinarily associate left to right. The rule governs well-formed expressions with defined operations. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Priority Ranking](#the-priority-ranking)** | Evaluate an expression by handling higher-priority operations first. From highest to lowest: This ranking is often remembered by an acronym: They describe the *same* rule. |
+| **[The Two Tie-Breakers That Everyone Forgets](#the-two-tie-breakers-that-everyone-forgets)** | The acronyms hide two subtleties that cause most real mistakes. |
+| **[More Worked Examples](#more-worked-examples)** | Nested grouping, innermost first. Evaluate $2 \times [3 + (8 - 2 \times 3)]$. |
+| **[A Note on Ambiguous Notation](#a-note-on-ambiguous-notation)** | The order of operations resolves *most* expressions, but a few informal notations remain genuinely ambiguous and are best avoided or clarified with parentheses. |
+| **[Quick Reference](#quick-reference)** | See this section for the underlying idea, notation, and worked examples. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

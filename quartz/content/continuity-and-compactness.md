@@ -10,6 +10,8 @@ enables: ["rigorous-differentiation", "rigorous-integration", "sequences-of-func
 
 A continuous curve seems unable to jump over a height; a continuous function on a closed interval seems to reach its highest value. Neither claim follows from drawing a smooth line. **Completeness and compactness turn the pictures into theorems.** This chapter proves the results for subsets of the real line, and states exactly what can go wrong when a hypothesis is removed.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. From sequence limits to function limits
 
 > [!definition] Limit at a point
@@ -159,3 +161,42 @@ These results solve *existence* questions but do not give explicit formulas. The
 
 > [!distinction] What has been proved, and what has been reused
 > The epsilon-delta sequential criterion, the real sequential compactness criterion, IVT, EVT, and Heine-Cantor are proved here. The equivalence with **open-cover** compactness is proved in the linked topology chapter, not silently assumed for arbitrary spaces.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Limit at a point](#1-from-sequence-limits-to-function-limits)** | Let $D\subseteq\mathbb R$, let $c$ be an accumulation point of $D$, and let $f:D\to\mathbb R$. We say $\lim_{x\to c}f(x)=L$ when |
+| **[Continuity, including endpoints](#1-from-sequence-limits-to-function-limits)** | A function $f:D\to\mathbb R$ is continuous at $c\in D$ when for every $\varepsilon>0$ some $\delta>0$ satisfies This is relative to the domain. At the left endpoint of $[a,b]$, $x$ approaches only from inside the interval. |
+| **[Uniform continuity](#5-pointwise-continuity-versus-one-delta-for-the-whole-set)** | A function $f:D\to\mathbb R$ is uniformly continuous on $D$ when $\forall\varepsilon>0\ \exists\delta>0\ \forall x,y\in D:\quad \vert x-y\vert <\delta\implies \vert f(x)-f(y)\vert <\varepsilon.$ |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. From sequence limits to function limits](#1-from-sequence-limits-to-function-limits)** | The condition $0<\vert x-c\vert $ matters: a limit examines values near $c$, not necessarily the value at $c$. An accumulation point guarantees that there actually are domain points arbitrarily near $c$ other than $c$. |
+| **[Sequences give an equivalent continuity test](#sequences-give-an-equivalent-continuity-test)** | Proof, forward direction. Given $\varepsilon>0$, continuity provides a $\delta>0$. Convergence of $x_n$ to $c$ provides $N$ such that $\vert x_n-c\vert <\delta$ for every $n\ge N$, hence $\vert f(x_n)-f(c)\vert <\varepsilon$. |
+| **[2. Closed and bounded sets do the heavy lifting](#2-closed-and-bounded-sets-do-the-heavy-lifting)** | A set $K\subseteq\mathbb R$ is bounded if $K\subseteq[-M,M]$ for some $M$. It is closed when it contains the limit of every convergent sequence of its points. |
+| **[3. Intermediate Value Theorem: why a continuous path cannot skip a height](#3-intermediate-value-theorem-why-a-continuous-path-cannot-skip-a-height)** | Proof from completeness. Define $S:=\{x\in[a,b]: f(x)<v\}.$ |
+| **[4. Extreme Value Theorem: when an optimum exists](#4-extreme-value-theorem-when-an-optimum-exists)** | Proof. First show $f(K)$ is bounded. Otherwise choose $x_n\in K$ with $\vert f(x_n)\vert >n$. Sequential compactness yields a subsequence $x_{n_j}\to c\in K$. Continuity implies $f(x_{n_j})\to f(c)$, contradicting unboundedness. |
+| **[5. Pointwise continuity versus one delta for the whole set](#5-pointwise-continuity-versus-one-delta-for-the-whole-set)** | At every point $c$, ordinary continuity allows the chosen $\delta$ to depend on both $\varepsilon$ and $c$. Uniform continuity requires one $\delta$ that works simultaneously for all points in the domain. |
+| **[6. A boundary between theorems](#6-a-boundary-between-theorems)** | The dependency chain is: Completeness $\longrightarrow$ Bolzano-Weierstrass $\longrightarrow$ sequential compactness $\longrightarrow$ EVT and Heine-Cantor. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Sequential characterization](#sequences-give-an-equivalent-continuity-test)** | $f:D\to\mathbb R$ is continuous at $c\in D$ if and only if for every sequence $(x_n)$ in $D$ with $x_n\to c$, we have $f(x_n)\to f(c)$. |
+| **[Sequential compactness on the line](#2-closed-and-bounded-sets-do-the-heavy-lifting)** | A nonempty set $K\subseteq\mathbb R$ is closed and bounded if and only if every sequence in $K$ has a subsequence converging to a point in $K$. |
+| **[Intermediate Value Theorem (IVT)](#3-intermediate-value-theorem-why-a-continuous-path-cannot-skip-a-height)** | If $f:[a,b]\to\mathbb R$ is continuous, $a<b$, and $f(a)<v<f(b)$, then there is a $c\in(a,b)$ with $f(c)=v$. The reversed inequality case is symmetric. |
+| **[Extreme Value Theorem (EVT)](#4-extreme-value-theorem-when-an-optimum-exists)** | If $K\subseteq\mathbb R$ is nonempty, closed and bounded, and $f:K\to\mathbb R$ is continuous, then there exist $x_{\min},x_{\max}\in K$ with |
+| **[Heine-Cantor theorem](#5-pointwise-continuity-versus-one-delta-for-the-whole-set)** | Every continuous real-valued function on a nonempty closed and bounded set $K\subseteq\mathbb R$ is uniformly continuous. |
+| **[6. A boundary between theorems](#6-a-boundary-between-theorems)** | The dependency chain is: Completeness $\longrightarrow$ Bolzano-Weierstrass $\longrightarrow$ sequential compactness $\longrightarrow$ EVT and Heine-Cantor. |

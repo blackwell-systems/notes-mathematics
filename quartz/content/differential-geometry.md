@@ -12,6 +12,8 @@ enables: ["information-geometry"]
 
 A manifold need not come embedded in a surrounding Euclidean space. We can describe its geometry using overlapping coordinate patches and the rules for moving between them. Additional structure tells us what can be differentiated, how to measure lengths, and how to recognize curvature.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## 1. Three different questions about the same space
 
 The word *geometry* can conceal several logically different layers.
@@ -256,3 +258,28 @@ This is a network, not a ladder. Homotopy and singular homology do not require a
 5. **Can integration reveal topology?** Yes. The nonzero integral of the angle form around the circle obstructs its being globally exact.
 
 **Scope:** This chapter develops the first working definitions, concrete tangent and integral calculations, and the geometric intuition. A full treatment would prove the inverse-function and implicit-function theorems in charts, develop tangent bundles, connections, covariant derivatives, general Stokes' theorem, and curvature tensors. Those are **not claimed here**. Continue through [Algebraic Topology](./algebraic-topology), [Sheaf Theory](./sheaf-theory), or [Information Geometry](./information-geometry), depending on which questions you want to ask next.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[1. Three different questions about the same space](#1-three-different-questions-about-the-same-space)** | The word *geometry* can conceal several logically different layers. |
+| **[2. Charts: local coordinates without a global grid](#2-charts-local-coordinates-without-a-global-grid)** | An $n$-dimensional topological manifold is a Hausdorff, second-countable topological space in which each point has a neighborhood homeomorphic to an open subset of $\mathbb R^n$. |
+| **[Smooth compatibility](#smooth-compatibility)** | A smooth atlas requires that whenever charts overlap, the transition function is smooth and has a smooth inverse. Read $\psi\circ\varphi^{-1}$ as "first undo the $\varphi$ coordinates, then apply the $\psi$ coordinates." |
+| **[3. Tangent vectors: directions available at a point](#3-tangent-vectors-directions-available-at-a-point)** | Calculus on a curve uses a derivative to describe a direction of motion. On a manifold, a tangent vector at a point $p$ is a possible instantaneous direction for a curve passing through $p$. |
+| **[Differentials are linear maps](#differentials-are-linear-maps)** | For a smooth map $F:M\to N$, its differential at $p$ is the linear map $dF_p:T_pM\longrightarrow T_{F(p)}N.$ |
+| **[4. From tangent vectors to measurements: differential forms](#4-from-tangent-vectors-to-measurements-differential-forms)** | A tangent vector is a direction. A covector is a linear measurement of directions, an element of the dual space $T_p^*M$. |
+| **[5. Riemannian metrics: adding lengths and angles](#5-riemannian-metrics-adding-lengths-and-angles)** | A smooth manifold has differentiable maps, but no preferred distance formula. A Riemannian metric adds a smoothly varying, positive-definite inner product at each point $p$. |
+| **[6. Curvature: what no single flat chart can remove](#6-curvature-what-no-single-flat-chart-can-remove)** | A coordinate grid can make a small region *look* flat on paper. Curvature measures something more intrinsic: how the metric and its directions vary, independent of the chart used. |
+| **[7. How the structures connect](#7-how-the-structures-connect)** | This is a network, not a ladder. Homotopy and singular homology do not require a Riemannian metric; a smooth atlas does not come with a natural curvature; a sheaf can exist on spaces that are not manifolds. |
+| **[8. Self-check and boundaries](#8-self-check-and-boundaries)** | Scope: This chapter develops the first working definitions, concrete tangent and integral calculations, and the geometric intuition. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

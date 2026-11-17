@@ -8,6 +8,8 @@ enables: ["parametric-and-polar"]
 > **Builds on:** [Polynomial Functions](./polynomial-functions) · [Graphing Functions](./graphing-functions)
 > **Leads to:** [Parametric & Polar](./parametric-and-polar)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Are Conic Sections?
 
 > [!definition] Conic sections
@@ -516,3 +518,47 @@ $$
 Drag the eccentricity slider (read $e$ as "eccentricity") to watch one continuous family of curves pass through all four conic types. The widget draws each curve from the polar focus-directrix form $r = \frac{l}{1 + e\cos\theta}$ (with $\theta$ read "theta"), keeping the focus fixed at the pole. At every $e$ it marks the focus, the directrix, and (for the ellipse and hyperbola) the second focus, and it annotates the defining ratio $e = \frac{\text{distance to focus}}{\text{distance to directrix}}$. Watch the circle at $e = 0$ open into an ellipse, straighten into a parabola at exactly $e = 1$, and split into a hyperbola for $e > 1$.
 
 <iframe src="/static/interactive/conic-eccentricity-morph.html" width="100%" height="580" style="border:none;"></iframe>
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Conic sections](#what-are-conic-sections)** | Intersecting a plane with a double cone can produce a circle, ellipse, parabola or hyperbola, depending on the cut. Algebraically, general conics satisfy a quadratic equation in two coordinates, possibly with a mixed term. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Parabolas](#parabolas)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Standard Forms](#standard-forms)** | Vertical axis of symmetry (opens up or down): Horizontal axis of symmetry (opens left or right): |
+| **[Key Features](#key-features)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Graphing Procedure](#graphing-procedure)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Ellipses](#ellipses)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Standard Form](#standard-form)** | $\frac{(x - h)^2}{a^2} + \frac{(y - k)^2}{b^2} = 1$ |
+| **[The Relationship $c^2 = a^2 - b^2$](#the-relationship-c2-a2---b2)** | The distance $c$ from the center to each focus satisfies: where $a$ is the semi-major axis and $b$ is the semi-minor axis. Since the foci lie inside the ellipse, $c 0$. |
+| **[Eccentricity](#eccentricity)** | The eccentricity of an ellipse measures how elongated it is: $e = \frac{c}{a}, \quad 0 \leq e < 1$ |
+| **[Graphing Procedure](#graphing-procedure-1)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Hyperbolas](#hyperbolas)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Standard Forms](#standard-forms-1)** | Horizontal transverse axis (opens left and right): Vertical transverse axis (opens up and down): |
+| **[The Relationship $c^2 = a^2 + b^2$](#the-relationship-c2-a2-b2)** | Unlike the ellipse, the foci of a hyperbola lie outside the vertices, so: This means $c > a$ always. |
+| **[Eccentricity](#eccentricity-1)** | $e = \frac{c}{a}, \quad e > 1$ |
+| **[Asymptotes and the Box Method](#asymptotes-and-the-box-method)** | The asymptotes are lines that the hyperbola approaches but never touches. To graph a hyperbola: |
+| **[Circles](#circles)** | A circle is a special case of the ellipse where $a = b$ (eccentricity $e = 0$). Since circles appear extensively in geometry and trigonometry, this section focuses on the algebraic forms. |
+| **[Standard Form](#standard-form-1)** | $(x - h)^2 + (y - k)^2 = r^2$ |
+| **[General Form](#general-form)** | To convert to standard form, complete the square for both $x$ and $y$. $x^2 + y^2 + Dx + Ey + F = 0$ |
+| **[The General Second-Degree Equation](#the-general-second-degree-equation)** | Every conic section (including degenerate cases) can be written in the form: $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$ |
+| **[Identifying the Conic (When $B = 0$)](#identifying-the-conic-when-b-0)** | When there is no $xy$ term, the quadratic part gives a first classification. These cases describe nondegenerate real conics only after the remaining coefficients and the real solution set have been checked: |
+| **[The Discriminant (When $B \neq 0$)](#the-discriminant-when-b-neq-0)** | When the equation includes an $xy$ term, the discriminant $B^2-4AC$ classifies the type of the quadratic part. |
+| **[Degenerate Conics](#degenerate-conics)** | Sometimes the general equation does not produce a curve at all. These degenerate cases occur when the plane passes through the apex of the cone: |
+| **[Completing the Square to Identify Conics](#completing-the-square-to-identify-conics)** | When given a general second-degree equation, completing the square transforms it into a recognizable standard form. |
+| **[Interactive: The Eccentricity Morph](#interactive-the-eccentricity-morph)** | Drag the eccentricity slider (read $e$ as "eccentricity") to watch one continuous family of curves pass through all four conic types. |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

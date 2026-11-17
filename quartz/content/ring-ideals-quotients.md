@@ -12,6 +12,8 @@ Group quotients collapse a normal subgroup while preserving multiplication. A ri
 
 We develop this from definitions, prove the main quotient and isomorphism theorems, and show why **prime** and **maximal** ideals correspond to two different strengths of quotient structure.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Ideals: an additive subgroup that absorbs products
 
 > [!definition] Two-sided ideal
@@ -278,3 +280,49 @@ Every product $ij$ lies in $I\cap J$, so $IJ\subseteq I\cap J$. Conversely, if $
 | Chinese remainder theorem | comaximal witness and first isomorphism theorem |
 
 Next, [Field Theory Foundations](./field-theory-foundations) uses the irreducible-polynomial quotient to construct fields containing roots that did not exist in the original field.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Two-sided ideal](#ideals-an-additive-subgroup-that-absorbs-products)** | A subset $I\subseteq R$ is a two-sided ideal when it is an additive subgroup and whenever $i\in I$ and $r\in R$, both $ri\in I$ and $ir\in I$. In a commutative ring the two conditions coincide. |
+| **[Unital ring homomorphism](#kernels-of-ring-homomorphisms-are-ideals)** | A map $f:R\to S$ preserves $+$ and $\cdot$ and satisfies $f(1_R)=1_S$. We use unital homomorphisms throughout; the target may be the zero ring only where explicitly allowed. |
+| **[Prime ideal](#prime-and-maximal-ideals-two-kinds-of-quotient)** | A proper ideal $P$ is prime if $ab\in P$ implies $a\in P$ or $b\in P$. |
+| **[Maximal ideal](#prime-and-maximal-ideals-two-kinds-of-quotient)** | A proper ideal $M$ is maximal if no ideal lies strictly between $M$ and $R$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Ideals: an additive subgroup that absorbs products](#ideals-an-additive-subgroup-that-absorbs-products)** | A left ideal need only absorb $ri$; a right ideal need only absorb $ir$. We will use ideal to mean two-sided ideal unless explicitly stated otherwise. |
+| **[Kernels of ring homomorphisms are ideals](#kernels-of-ring-homomorphisms-are-ideals)** | The addition law makes $f$ an additive-group homomorphism. In particular it preserves zero and negatives. Its kernel is |
+| **[Constructing the quotient ring and proving well-definedness](#constructing-the-quotient-ring-and-proving-well-definedness)** | *Figure: A quotient collects elements into equivalence classes; its operations must not depend on the representative.* Let $I$ be a two-sided ideal. Because $(R,+)$ is abelian, the additive cosets |
+| **[The First Isomorphism Theorem for rings](#the-first-isomorphism-theorem-for-rings)** | Proof. Define $\bar f(a+\ker f):=f(a)$. If $a+\ker f=b+\ker f$, then $a-b\in\ker f$, so $f(a)=f(b)$; thus the definition is well-defined. Additivity and multiplicativity follow by substituting representatives, and $\bar f(1+\ker f)=1_S$. |
+| **[Ideals in a quotient: the Correspondence Theorem](#ideals-in-a-quotient-the-correspondence-theorem)** | Proof. Let $\pi:R\to R/I$ be the quotient map. The preimage $\pi^{-1}(B)$ of an ideal $B\subseteq R/I$ is an ideal: it is closed under additive differences, and multiplication by any $r\in R$ stays in the preimage because $B$ absorbs $\pi(r)$. |
+| **[Second and Third Isomorphism Theorems](#second-and-third-isomorphism-theorems)** | Proof. Restrict the quotient map to $A$: $a\mapsto a+I$. Its kernel is $A\cap I$, and its image consists of cosets with representatives in $A$, exactly $(A+I)/I$. |
+| **[Prime and maximal ideals: two kinds of quotient](#prime-and-maximal-ideals-two-kinds-of-quotient)** | *Figure: The stronger maximal-ideal condition guarantees multiplicative inverses in the quotient.* From here onward let $R$ be a commutative ring with $1\ne0$. All ideals called prime or maximal below are proper. |
+| **[Prime and maximal ideals in integer and polynomial rings](#prime-and-maximal-ideals-in-integer-and-polynomial-rings)** | In $\mathbb Z$, the ideal $(n)$ is maximal exactly when $\vert n\vert $ is prime, because $\mathbb Z/(n)$ is a field exactly for prime modulus. |
+| **[Chinese remainder theorem for comaximal ideals](#chinese-remainder-theorem-for-comaximal-ideals)** | *Figure: The product-ring representation separates arithmetic into two coprime moduli.* Two ideals $I,J$ are comaximal if $I+J=R$, meaning there exist $i\in I$, $j\in J$ with $i+j=1$. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Kernel-ideal theorem](#kernels-of-ring-homomorphisms-are-ideals)** | The kernel of a ring homomorphism is a two-sided ideal. Its image is a subring (with the target's identity for a unital map). |
+| **[Ideal absorption makes quotient multiplication well-defined](#constructing-the-quotient-ring-and-proving-well-definedness)** | If $a'=a+i$ and $b'=b+j$ with $i,j\in I$, then $a'b'-ab\in I$. Consequently the product $(a+I)(b+I)$ is independent of representatives. |
+| **[Quotient-ring theorem](#constructing-the-quotient-ring-and-proving-well-definedness)** | The additive cosets of a two-sided ideal form a ring $R/I$, and the map $\pi:R\to R/I$, $\pi(a)=a+I$, is a surjective unital ring homomorphism with $\ker\pi=I$. |
+| **[First Isomorphism Theorem](#the-first-isomorphism-theorem-for-rings)** | For a unital ring homomorphism $f:R\to S$, $R/\ker f\ \cong\ \operatorname{im}f.$ |
+| **[Correspondence Theorem for ideals](#ideals-in-a-quotient-the-correspondence-theorem)** | For a two-sided ideal $I$ of $R$, ideals of $R/I$ correspond bijectively to ideals $J$ of $R$ containing $I$, via $J\mapsto J/I$. |
+| **[Second Isomorphism Theorem](#second-and-third-isomorphism-theorems)** | If $A\subseteq R$ is a unital subring and $I$ a two-sided ideal, then $A/(A\cap I)\ \cong\ (A+I)/I.$ |
+| **[Third Isomorphism Theorem](#second-and-third-isomorphism-theorems)** | If $I\subseteq J$ are two-sided ideals of $R$, then $(R/I)/(J/I)\ \cong\ R/J.$ |
+| **[Prime quotient criterion](#prime-and-maximal-ideals-two-kinds-of-quotient)** | $P$ is prime if and only if $R/P$ is an integral domain. |
+| **[Maximal quotient criterion](#prime-and-maximal-ideals-two-kinds-of-quotient)** | $M$ is maximal if and only if $R/M$ is a field. |
+| **[Chinese Remainder Theorem (two ideals)](#chinese-remainder-theorem-for-comaximal-ideals)** | For commutative $R$ and comaximal ideals $I,J$, Moreover, $I\cap J=IJ$, the ideal generated by products $ij$. |

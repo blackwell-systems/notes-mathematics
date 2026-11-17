@@ -10,6 +10,8 @@ enables: ["singular-learning-theory"]
 
 A statistical model is a family of probability distributions $p(x\mid\theta)$ indexed by parameters $\theta$. The **parameter coordinates** are not the probabilities themselves. Information geometry asks: *How much do the model's predictions change when we nudge the parameter?* KL divergence measures a discrepancy between distributions, and Fisher information captures its local quadratic behavior under precise smoothness assumptions.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Distributions, parameters, and identifiability
 
 A statistical model defines a map
@@ -221,3 +223,25 @@ One derivation applies Cauchy–Schwarz to the estimator and total score, using 
 [Fisher information](./information-geometry#fisher-information-as-local-curvature) describes a local second-order approximation when the model is regular. The **real log canonical threshold** in [Algebraic Geometry](./algebraic-geometry#the-real-log-canonical-threshold-rlct) captures a different asymptotic invariant of a vanishing contrast, including higher-order behavior such as $w^4$. The [SLT capstone](./singular-learning-theory) combines this geometric information with Bayesian integrals under explicit assumptions.
 
 This chapter proves the score and Fisher calculations and constructs a concrete isolated singular model. The full information-geometric theory of dual affine connections, exponential families as manifolds, and nonregular statistical asymptotics remains beyond this introductory bridge.
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Distributions, parameters, and identifiability](#distributions-parameters-and-identifiability)** | A statistical model defines a map from parameter space to a space of distributions. The map is identifiable when different admissible parameters never give the same distribution. |
+| **[KL divergence: a directional discrepancy](#kl-divergence-a-directional-discrepancy)** | For distributions $q$ and $p$ with suitable common dominating measure, $D_{\mathrm{KL}}(q\\vert p) =\int q(x)\log\frac{q(x)}{p(x)}\,dx.$ |
+| **[Fisher information as local curvature](#fisher-information-as-local-curvature)** | Define the score $s_\theta(x):=\nabla_\theta\log p(x\mid\theta)$ and the Fisher information |
+| **[An explicit singular statistical model with one true parameter](#an-explicit-singular-statistical-model-with-one-true-parameter)** | Consider the model and suppose the true distribution is $q=\mathcal N(0,1)$. The model's mean is $\mu(w)=w^2$. |
+| **[Coordinates change; information geometry should not](#coordinates-change-information-geometry-should-not)** | If $\theta=\theta(\eta)$ is a smooth invertible reparameterization with Jacobian $J=\partial\theta/\partial\eta$, then the score transforms by the chain rule, $s_\eta=J^\top s_\theta$, and therefore |
+| **[Quantum geometry as a nearby, but different, application](#quantum-geometry-as-a-nearby-but-different-application)** | The Mathematical Foundations of Quantum Mechanics chapter develops another way to make gradient updates geometry-aware. |
+| **[Cramér–Rao and the meaning of information](#cramrrao-and-the-meaning-of-information)** | In a regular scalar parameter family, for an unbiased estimator $\hat\theta$ from $n$ i.i.d. observations under appropriate differentiability and variance conditions, the Cramér–Rao inequality is |
+
+### Theorems and Key Results
+
+This chapter focuses on concepts, constructions, or worked methods rather than separately labeled theorem statements.

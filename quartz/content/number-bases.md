@@ -10,6 +10,8 @@ Every whole number you write down is a coded message. The string `3204` is not t
 > **Builds on:** [Number Systems](./number-systems) · [Order of Operations](./order-of-operations)
 > **Leads to:** [Prime Factorization](./prime-factorization)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## Positional Notation and Place Value
 
 > [!definition] Positional base notation
@@ -268,3 +270,36 @@ A computer storing $0.1$ in a finite number of bits must therefore truncate or r
 - **Colors on the web use hex.** A CSS color like `#RRGGBB` packs three bytes (red, green, blue), each a two-digit hex value from $00$ to $FF$ (that is, $0$ to $255$).
 - **Bitwise operations and masks** (AND, OR, XOR, shifts) manipulate individual bits directly, and the masks used to select or clear specific bits are almost always written in hex or binary.
 - **Floating-point precision** connects the fractions section to numerical analysis: because most decimals are not exact in binary, careful scientific computing must track and bound rounding error. This ties into the treatment of real numbers and limits in [Real Analysis](./real-analysis).
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Positional base notation](#positional-notation-and-place-value)** | In base $b\ge2$, a digit string represents a sum of digits times powers of $b$. The numeral is a representation, not the number itself; each digit must lie between $0$ and $b-1$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Positional Notation and Place Value](#positional-notation-and-place-value)** | We are so used to base 10 that we forget it is a *convention*. When we write $3204$, the position of each digit tells us which power of ten it counts. Reading right to left, the columns are the ones, tens, hundreds, and thousands: |
+| **[Binary (base 2)](#binary-base-2)** | The smallest useful base is $b = 2$, called binary. It has only two digits, $0$ and $1$. A single binary digit is called a bit (a contraction of "binary digit"). |
+| **[Octal (base 8) and Hexadecimal (base 16)](#octal-base-8-and-hexadecimal-base-16)** | Binary is natural for hardware but painful for humans: numbers of any size become long ribbons of ones and zeros that are easy to miscount. Octal (base 8) and hexadecimal (base 16) exist as compact shorthand for binary. |
+| **[Converting Between Bases](#converting-between-bases)** | There are two directions to handle: into decimal and out of decimal. Between two non-decimal bases you can always route through decimal, but for the binary/hex pair there is a much faster shortcut, given at the end. |
+| **[Binary, octal, and hexadecimal, the fast way](#binary-octal-and-hexadecimal-the-fast-way)** | Because $16 = 2^4$, each hex digit corresponds to exactly four bits, and the correspondence is fixed regardless of the surrounding digits. |
+| **[Arithmetic in Other Bases](#arithmetic-in-other-bases)** | The grade-school addition algorithm (line up the columns, add, carry when a column overflows) is not special to base 10. It works in any base; you simply carry whenever a column reaches the base $b$ instead of reaching $10$. |
+| **[Representing Negative Numbers: Two's Complement](#representing-negative-numbers-twos-complement)** | So far every numeral has been non-negative. Hardware, though, works with fixed-width registers: a fixed number of bits, say 8 or 32 or 64, and no room for a separate minus sign. |
+| **[Fractions in Other Bases](#fractions-in-other-bases)** | Positional notation extends past the point (the "decimal point" in base 10, more generally the radix point). Digits to the *right* of the point count *negative* powers of the base. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[When a rational expansion terminates](#fractions-in-other-bases)** | A reduced rational $a/q$ has a finite base-$b$ fractional expansion exactly when $q$ divides some power of $b$. Equivalently, every prime divisor of $q$ divides $b$. |

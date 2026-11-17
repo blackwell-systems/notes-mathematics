@@ -8,6 +8,8 @@ enables: ["factoring-polynomials", "rational-functions", "calculus"]
 > **Builds on:** [Functions & Relations](./functions-relations) · [Linear Functions](./linear-functions)
 > **Leads to:** [Factoring Polynomials](./factoring-polynomials) · [Rational Functions](./rational-functions) · [Calculus](./calculus)
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## What Is a Polynomial?
 
 For the full foundations-first treatment of **factoring** as multiplication in reverse, including a method-selection guide and worked examples of when factoring stops, see [Factoring Polynomials](./factoring-polynomials). The patterns later in this chapter remain a quick reference.
@@ -1376,3 +1378,58 @@ Polynomials are a recurring tool in machine learning and numerical computing.
 - **Local approximation.** [Taylor's theorem](./calculus#taylor-and-maclaurin-series) approximates any smooth function by a polynomial near a point, which is how nonlinear functions get locally linearized (or quadratically approximated) throughout optimization and analysis.
 - **Basis functions.** Orthogonal polynomial families (Chebyshev, Legendre) provide numerically stable bases for function approximation, avoiding the ill-conditioning of the raw $1, x, x^2, \ldots$ basis.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Polynomial over the reals](#formal-definition)** | A polynomial is a finite sum $p(x)=\sum_{k=0}^{n}a_kx^k$ with nonnegative integer exponents and real coefficients here. Its degree is the largest exponent with a nonzero coefficient; the zero polynomial has no finite degree under the usual convention. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[Formal Definition](#formal-definition)** | Polynomial Functions: $$a_{n}x^{n} + a_{n - 1}x^{n - 1} + \ldots + a_{2}x^{2} + a_{1}x^{1} + a_{0}$$ This can be expressed more concisely by using summation notation: |
+| **[Quadratic Functions (Degree 2)](#quadratic-functions-degree-2)** | Quadratic Functions: |
+| **[Standard Form of a Quadratic Equation](#standard-form-of-a-quadratic-equation)** | Standard Form of a Quadratic Equation $$f(x) = ax^{2} + bx + c$$ Where a,b,c are real numbers and $a \neq 0$ |
+| **[Vertex Form of a Quadratic Equation](#vertex-form-of-a-quadratic-equation)** | Vertex Form of a Quadratic Equation The vertex form of a quadratic equation allows you to read the vertex/axis of symmetry directly from the equation. |
+| **[Axis of Symmetry](#axis-of-symmetry)** | Axis of Symmetry: Every parabola has an axis of symmetry which is the line that divides the graph into two perfect halves. |
+| **[Methods for Solving Quadratic Equations](#methods-for-solving-quadratic-equations)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Zero Product Property](#zero-product-property)** | Zero Product Property: The Zero Product Property is crucial for solving polynomial equations that can be factored. Once a polynomial equation is factored into a product of binomials, each binomial is set |
+| **[Adding and Subtracting Polynomials](#adding-and-subtracting-polynomials)** | The simplest polynomial operations are addition and subtraction: combine like terms (terms with the same power of $x$) by adding or subtracting their coefficients, leaving the powers untouched. |
+| **[Special Products (Multiplying Binomials)](#special-products-multiplying-binomials)** | Before factoring, it pays to recognize the products that factoring undoes. A handful of binomial products occur constantly, and knowing them by sight is what lets you factor by pattern instead of by trial. |
+| **[Special Factoring Forms](#special-factoring-forms)** | This section collects standard identities; for a step-by-step decision process, including the coefficient field and irreducibility, use Factoring Polynomials. |
+| **[Factoring by Grouping](#factoring-by-grouping)** | Factoring by Grouping: A technique used to factor polynomials with four or more terms by grouping terms with common factors. |
+| **[Square Root Property](#square-root-property)** | Square Root Property: When there is no linear term in the equation, another method of solving a quadratic equation is by using the square root property. |
+| **[Completing the Square](#completing-the-square)** | Completing the Square: A technique for rewriting a quadratic expression in vertex form by adding and subtracting a constant to create a perfect square trinomial. |
+| **[Quadratic Formula](#quadratic-formula)** | Quadratic Formula: The fourth method of solving a quadratic equation is by using the quadratic formula, a formula that will solve all quadratic equations. |
+| **[The Discriminant](#the-discriminant)** | The quadratic formula contains the expression $b^2 - 4ac$ under the square root. This expression, called the discriminant, determines the nature of the roots without requiring you to solve the entire equation. |
+| **[Cubic Functions (Degree 3)](#cubic-functions-degree-3)** | Cubic Functions: a cubic function is a function of the form $$\mathbf{f}\left( \mathbf{x} \right)\mathbf{= a}\mathbf{x}^{\mathbf{3}}\mathbf{+ b}\mathbf{x}^{\mathbf{2}}\mathbf{+ cx + d}$$ A cubic function is a polynomial function of degree 3. |
+| **[Domain / Range of Cubic Function](#domain-range-of-cubic-function)** | Domain / Range of Cubic Functions: |
+| **[Y-Intercepts of a Cubic Function](#y-intercepts-of-a-cubic-function)** | Y-Intercepts of a Cubic function: A cubic function always has exactly one y-intercept. |
+| **[Cardano's Method](#cardanos-method)** | Cardano's Method: A formula for solving cubic equations of the form $x^3 + px + q = 0$ (called the depressed cubic, with no $x^2$ term). |
+| **[Solving Higher-Degree Polynomials](#solving-higher-degree-polynomials)** | Cardano's cubic formula raised a natural question: is there a formula for every degree? The answer is a famous "no." This does not mean high-degree equations are unsolvable, only that no *radical formula* exists. |
+| **[Polynomial Degree](#polynomial-degree)** | Polynomial Degree: The degree of the polynomial is defined as the highest power the variable is raised to in the polynomial. |
+| **[End Behavior](#end-behavior)** | End Behavior: A polynomial's end-behavior is completely determined by its leading term. The four cases below are fixed by the *parity of the degree* and the *sign of the leading coefficient*: Even power, positive leading coefficient: |
+| **[Symmetry of Polynomials](#symmetry-of-polynomials)** | A polynomial's symmetry can be read directly from the degrees of its terms: (A constant term has degree $0$, which counts as even.) This is a quick way to anticipate the shape of a graph before plotting. |
+| **[Factor Multiplicity](#factor-multiplicity)** | Factor Multiplicity: The multiplicity of a factor determines how the graph behaves at the x-intercept. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Zero-product property](#zero-product-property)** | Over the real numbers, if $ab=0$, then $a=0$ or $b=0$. Factoring a polynomial equation into products uses this no-zero-divisors property. It does not justify the same inference in every possible ring. |
+| **[Fundamental Theorem of Algebra](#the-fundamental-theorem-of-algebra)** | Every nonconstant polynomial with complex coefficients has a complex root. This is an existence theorem, not a guarantee of a rational root or a simple closed-form expression for every root. |
+| **[Remainder Theorem](#remainder-theorem)** | When you divide a polynomial $f(x)$ by a linear factor $(x - c)$, you get a quotient $q(x)$ and a remainder $r$: Remainder Theorem: When a polynomial $f(x)$ is divided by $(x - c)$, the remainder is $f(c)$. |
+| **[Factor Theorem](#factor-theorem)** | The Factor Theorem is a direct consequence of the Remainder Theorem. |
+| **[Rational Root Theorem](#rational-root-theorem)** | When a polynomial has integer coefficients, the Rational Root Theorem narrows the search for rational zeros to a finite list of candidates. |
+| **[Conjugate Zeros Theorem](#conjugate-zeros-theorem)** | When a polynomial has real coefficients, its complex zeros always appear in matched pairs. |
+| **[Descartes Rule of Signs](#descartes-rule-of-signs)** | Descartes Rule of Signs: Descartes' Rule of Signs is a theorem that provides a way to determine the possible number of positive and negative *real* roots (zeros) of a polynomial |
+| **[Binomial Expansion Theorem](#binomial-expansion-theorem)** | Binomial Expansion Theorem: The Binomial Expansion theorem (also called the Binomial Theorem) allows you to calculate the expansion of any binomial raised to a positive integer power. |

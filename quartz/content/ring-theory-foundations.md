@@ -12,6 +12,8 @@ A group describes one associative, reversible operation. A **ring** makes two op
 
 This chapter develops the ring axioms and **derives** their consequences. It also isolates precisely which extra property lets cancellation work and which property lets every nonzero element be divided by.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The conventions and axioms
 
 ![Ring axioms diagram: addition forms an abelian group, multiplication is an associative monoid and the operations distribute.](./media/rg-ring-structure.svg)
@@ -227,3 +229,49 @@ That extra property defines an **ideal**, the central subject of [Ideals, Quotie
 | Domain characteristic is prime or zero | minimal repeated sum of $1$ and no zero divisors |
 | $\deg(fg)=\deg f+\deg g$ | product of nonzero leading coefficients remains nonzero |
 | Polynomial division | inverses of nonzero leading coefficients in a field |
+
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Associative ring with identity](#the-conventions-and-axioms)** | A ring $(R,+,\cdot)$ has an abelian group $(R,+)$, an associative multiplication, a two-sided multiplicative identity $1$, and both distributive laws $a(b+c)=ab+ac$ and $(a+b)c=ac+bc$. Unless explicitly stated otherwise, this chapter assumes $1\ne0$. Multiplication need not commute. |
+| **[Unit](#units-and-multiplicative-inverses)** | An element $u\in R$ is a unit if there is $v\in R$ with $uv=vu=1$. This $v$ is denoted $u^{-1}$. Requiring both products matters when multiplication is noncommutative. |
+| **[Zero divisor](#zero-divisors-cancellation-and-integral-domains)** | A nonzero element $a$ is a left zero divisor if $ab=0$ for some nonzero $b$, and a right zero divisor if $ba=0$ for some nonzero $b$. These notions coincide in a commutative ring. |
+| **[Integral domain](#zero-divisors-cancellation-and-integral-domains)** | A domain here means a nonzero commutative ring with $1$ and no zero divisors. Some texts also call this an integral domain. |
+| **[Characteristic](#characteristic-when-repeated-ones-return-to-zero)** | The characteristic of a nonzero ring is the smallest positive integer $n$ with $n\cdot1=0$, if one exists; otherwise it is $0$. Here $n\cdot1$ is a repeated sum. |
+| **[Unital subring](#subrings-and-the-importance-of-the-identity)** | A unital subring $S\subseteq R$ contains $0,1_R$, is closed under addition, additive inverses and multiplication, and inherits the operations from $R$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The conventions and axioms](#the-conventions-and-axioms)** | *Figure: Unlike in a field, multiplicative inverses and commutativity need not hold.* Closure is built into the operations $+:R\times R\to R$ and $\cdot:R\times R\to R$. The additive identity is $0$, and $-a$ is the additive inverse of $a$. |
+| **[Four examples that behave differently](#four-examples-that-behave-differently)** | *Figure: Each more restrictive structure satisfies every axiom of those below it.* The operations in $\mathbb Z/6\mathbb Z$ are performed modulo $6$. In $M_2(\mathbb R)$ they are matrix addition and multiplication. |
+| **[Units and multiplicative inverses](#units-and-multiplicative-inverses)** | *Figure: Residue arithmetic gives both a reversible example and an obstruction to cancellation.* Uniqueness of inverse. If $uv=vu=1$ and $uw=wu=1$, then |
+| **[Zero divisors, cancellation and integral domains](#zero-divisors-cancellation-and-integral-domains)** | Proof. Subtract to get $a(b-c)=0$. As the domain has no zero divisors and $a\ne0$, we must have $b-c=0$. Thus $b=c$. |
+| **[Characteristic: when repeated ones return to zero](#characteristic-when-repeated-ones-return-to-zero)** | The map $\eta:\mathbb Z\to R$ defined by $\eta(n):=n\cdot1$ respects addition and multiplication. For multiplication, distributivity proves $(m\cdot1)(n\cdot1)=(mn)\cdot1$ for positive integers, and the sign theorem extends it to all integers. |
+| **[Subrings and the importance of the identity](#subrings-and-the-importance-of-the-identity)** | Some authors permit subrings with a different identity or without a multiplicative identity; our convention deliberately requires the same $1$. |
+| **[Polynomial rings and degree](#polynomial-rings-and-degree)** | *Figure: Each output coefficient collects input pairs whose powers sum to that exponent.* For a commutative ring $R$, define $R[x]$ as the set of finite coefficient sequences written |
+| **[Polynomial division needs field coefficients](#polynomial-division-needs-field-coefficients)** | Existence proof. Start with remainder $r=f$ and quotient $q=0$. If $\deg r\ge\deg g$, let $a x^m$ and $b x^n$ be their leading terms. Since $b\ne0$ is invertible in $K$, subtract $(a/b)x^{m-n}g$ from $r$ and add that monomial to $q$. |
+| **[The bridge: from additive subgroups to ideals](#the-bridge-from-additive-subgroups-to-ideals)** | A subgroup of $(R,+)$ need not support quotient multiplication. To multiply additive cosets without ambiguity, the subgroup must absorb multiplication by arbitrary ring elements on the appropriate sides. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Zero annihilates multiplication](#first-ring-proofs-zero-and-signs)** | For every $a$ in a ring, $a0=0a=0$. |
+| **[Negatives interact with multiplication](#first-ring-proofs-zero-and-signs)** | For all $a,b\in R$, $(-a)b=-(ab)=a(-b)$ and $(-a)(-b)=ab$. |
+| **[Cancellation in a domain](#zero-divisors-cancellation-and-integral-domains)** | In a domain, $ab=ac$ and $a\ne0$ imply $b=c$. |
+| **[Every finite integral domain is a field](#why-a-finite-domain-is-a-field)** | In a finite domain $R$, each nonzero $a$ has a multiplicative inverse. |
+| **[A domain has characteristic zero or a prime](#characteristic-when-repeated-ones-return-to-zero)** | If an integral domain has a positive characteristic $n$, then $n$ is prime. |
+| **[Degree of a product over a domain](#polynomial-rings-and-degree)** | For nonzero $f,g\in R[x]$ over an integral domain, $\deg(fg)=\deg(f)+\deg(g)$. |
+| **[Division algorithm for $K(x)$](#polynomial-division-needs-field-coefficients)** | If $K$ is a field, $f,g\in K[x]$, and $g\ne0$, there are unique $q,r\in K[x]$ such that $f=qg+r$ and either $r=0$ or $\deg r<\deg g$. |
+| **[Subrings and the importance of the identity](#subrings-and-the-importance-of-the-identity)** | Some authors permit subrings with a different identity or without a multiplicative identity; our convention deliberately requires the same $1$. |

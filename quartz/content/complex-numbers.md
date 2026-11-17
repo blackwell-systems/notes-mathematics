@@ -10,6 +10,8 @@ enables: ["hypercomplex-numbers", "geometry-trigonometry", "complex-analysis"]
 
 For a proof-level foundation before computing with complex numbers, [Construction of the Complex Numbers](./construction-of-the-complex-numbers) develops them as real pairs and proves their field laws, inverses, ordering obstruction, and algebraic closure.
 
+**For review:** See the [Chapter Reference](#chapter-reference) for definitions, key concepts, and theorem statements in tables.
+
 ## The Problem: Some Equations Have No Real Solution
 
 Try solving this equation: $x^2 = -1$. You need a number that, when multiplied by itself, gives $-1$. But any positive number squared is positive, and any negative number squared is also positive, and $0^2 = 0$. No real number works. The equation has no solution among the real numbers.
@@ -454,3 +456,54 @@ Complex numbers are far more than a device for solving quadratics; they are the 
 - **Waves and oscillations.** Alternating-current circuits, quantum mechanics (whose state amplitudes are complex numbers), and any oscillating system are described with complex exponentials, because $e^{i\omega t}$ packages amplitude and phase into a single number.
 - **Machine learning.** Fourier features and spectral methods bring complex analysis into ML; convolution (a core neural-network operation) is multiplication in the frequency domain, and complex-valued networks are used for signal-heavy domains.
 
+---
+
+## Chapter Reference
+
+A quick reference to the chapter's definitions and results, with links to their original treatment. This table does not replace the full explanations, hypotheses, diagrams, or proofs.
+
+### Definitions
+
+| Definition | Statement / meaning |
+| :--- | :--- |
+| **[Complex numbers in rectangular form](#definition)** | A complex number is $z=a+bi$ with $a,b\in\mathbb R$ and $i^2=-1$. Its real and imaginary parts are real numbers; $bi$ is not a separate kind of arithmetic. |
+| **[Complex conjugation](#complex-conjugate)** | For $z=a+bi$, the conjugate is $\overline z=a-bi$. Their product $z\overline z=a^2+b^2$ is a nonnegative real, giving a route to inverses when $z\ne0$. |
+
+### Key Concepts
+
+| Concept | Statement / meaning |
+| :--- | :--- |
+| **[The Problem: Some Equations Have No Real Solution](#the-problem-some-equations-have-no-real-solution)** | Try solving this equation: $x^2 = -1$. You need a number that, when multiplied by itself, gives $-1$. But any positive number squared is positive, and any negative number squared is also positive, and $0^2 = 0$. No real number works. |
+| **[Complex Plane](#complex-plane)** | Complex plane: The complex plane is a two-dimensional plane used to visualize complex numbers geometrically. It has a horizontal real axis and a perpendicular vertical imaginary axis. |
+| **[Polar (Trigonometric) Form](#polar-trigonometric-form)** | Polar form (trigonometric form): The polar form is an alternative way to describe a complex number, using its distance from the origin and its angle rather than its real and imaginary parts. |
+| **[Imaginary Unit](#imaginary-unit)** | Imaginary unit: The imaginary unit $i$ is the number defined by the property |
+| **[Standard Form (Rectangular Form)](#standard-form-rectangular-form)** | Standard Form: A complex number in standard form is written as: $$z = a + bi$$ Where: |
+| **[Operations with Complex Numbers](#operations-with-complex-numbers)** | See this section for the underlying idea, notation, and worked examples. |
+| **[Addition and Subtraction](#addition-and-subtraction)** | Addition: Add real parts and imaginary parts separately. |
+| **[Multiplication](#multiplication)** | Multiplication: Use FOIL and remember $i^2 = -1$. |
+| **[Division](#division)** | Division: Multiply by conjugate of denominator. |
+| **[Complex Conjugate](#complex-conjugate)** | Complex Conjugate: The conjugate of $z = a + bi$ is: $$\bar{z} = a - bi$$ Properties: |
+| **[Modulus (Absolute Value)](#modulus-absolute-value)** | Modulus: The modulus of $z = a + bi$ is: $$\vert z\vert = \sqrt{a^2 + b^2}$$ Distance from origin in complex plane. |
+| **[Polar Form](#polar-form)** | Polar Form: $$z = r(\cos\theta + i\sin\theta) = re^{i\theta}$$ Where: |
+| **[Euler's Formula](#eulers-formula)** | Euler's Formula: For any real number $\theta$: $$e^{i\theta} = \cos\theta + i\sin\theta$$ This single equation connects three seemingly unrelated areas of mathematics: exponential functions, trigonometry, and complex numbers. |
+| **[Euler's Identity](#eulers-identity)** | Setting $\theta = \pi$ in Euler's formula gives: |
+| **[Polar Form Using Euler's Formula](#polar-form-using-eulers-formula)** | With Euler's formula, the polar form of a complex number becomes especially compact: |
+| **[Multiplication and Division in Polar Form](#multiplication-and-division-in-polar-form)** | Polar form transforms multiplication and division of complex numbers into simple operations on moduli and angles. |
+| **[Multiplication](#multiplication-1)** | To multiply two complex numbers in polar form, multiply their moduli and add their angles: $$r_1 e^{i\theta_1} \cdot r_2 e^{i\theta_2} = r_1 r_2 \, e^{i(\theta_1 + \theta_2)}$$ In trigonometric notation: |
+| **[Division](#division-1)** | To divide two complex numbers in polar form, divide their moduli and subtract their angles: $$\frac{r_1 e^{i\theta_1}}{r_2 e^{i\theta_2}} = \frac{r_1}{r_2} e^{i(\theta_1 - \theta_2)}$$ Example: Divide $z_1 = 4e^{i\cdot 5\pi/6}$ by $z_2 = 2e^{i\pi/3}$ |
+| **[De Moivre's Theorem](#de-moivres-theorem)** | Polar form uses concepts from Geometry & Trigonometry: the angle $\theta$ and the modulus $r$. |
+| **[nth Roots](#nth-roots)** | The $n$ distinct $n$th roots of $z = r(\cos\theta + i\sin\theta)$: $$z_k = \sqrt[n]{r}\left(\cos\frac{\theta + 2\pi k}{n} + i\sin\frac{\theta + 2\pi k}{n}\right)$$ For $k = 0, 1, 2, \ldots, n-1$ |
+| **[The Complex Exponential and Logarithm](#the-complex-exponential-and-logarithm)** | Euler's formula extends the exponential to any complex input. Writing $z = x + iy$, $$e^z = e^{x + iy} = e^x(\cos y + i\sin y),$$ so $e^z$ has modulus $e^x$ and argument $y$. This is the natural setting for the complex logarithm, the inverse of $e^z$. |
+| **[Complex Zeros of Polynomials](#complex-zeros-of-polynomials)** | Complex numbers complete the picture of polynomial factoring. Over the real numbers, some polynomials cannot be factored completely (for example, $x^2 + 1$ has no real roots). Over the complex numbers, every polynomial factors into linear terms. |
+| **[Conjugate Pairs Theorem](#conjugate-pairs-theorem)** | Conjugate Pairs Theorem: If a polynomial has real coefficients and $a + bi$ (with $b \neq 0$) is a root, then its conjugate $a - bi$ is also a root. |
+| **[Factoring Completely over $\mathbb{C}$](#factoring-completely-over-mathbbc)** | The Fundamental Theorem of Algebra (see Polynomial Functions) guarantees that every polynomial of degree $n$ has exactly $n$ roots in $\mathbb{C}$, counting multiplicity. |
+
+### Theorems and Key Results
+
+Some results have full proofs here; others are introduced and discussed. Check the linked section for each result's assumptions.
+
+| Theorem / result | Statement / meaning |
+| :--- | :--- |
+| **[Euler's Identity](#eulers-identity)** | Setting $\theta = \pi$ in Euler's formula gives: |
+| **[De Moivre's Theorem](#de-moivres-theorem)** | Polar form uses concepts from Geometry & Trigonometry: the angle $\theta$ and the modulus $r$. |
+| **[Conjugate Pairs Theorem](#conjugate-pairs-theorem)** | Conjugate Pairs Theorem: If a polynomial has real coefficients and $a + bi$ (with $b \neq 0$) is a root, then its conjugate $a - bi$ is also a root. |
