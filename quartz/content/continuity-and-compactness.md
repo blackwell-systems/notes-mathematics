@@ -63,7 +63,7 @@ A set $K\subseteq\mathbb R$ is **bounded** if $K\subseteq[-M,M]$ for some $M$. I
 
 **Proof, converse.** Suppose every sequence in $K$ has a subsequence converging in $K$. If $K$ were unbounded, we could choose $x_n\in K$ with $|x_n|>n$, and no subsequence could converge. Thus $K$ is bounded. If $K$ were not closed, there would be a sequence $x_n\in K$ converging to a real $c\notin K$. Every subsequence still converges to $c$, contradicting the assumption that a subsequence converges to a point of $K$. Thus $K$ is closed. $\square$
 
-![tp sequential compactness examples](./media/tp-sequential-compactness-examples.svg)
+![Sequences in an open interval or unbounded set illustrate failures avoided by closed bounded real intervals.](./media/tp-sequential-compactness-examples.svg)
 
 *Figure: The sequence $1/n$ can converge outside $(0,1)$, while $n$ escapes to infinity in $\mathbb R$. A closed bounded interval avoids both failures by Bolzano–Weierstrass and closedness.*
 
@@ -92,7 +92,7 @@ If $f(c)>v$, continuity would give an interval around $c$ on which $f(x)>v$. But
 
 Neither strict inequality is possible, so $f(c)=v$. $\square$
 
-![tp ivt hypotheses](./media/tp-ivt-hypotheses.svg)
+![A continuous interval graph crosses an intermediate height; a jump and a disconnected domain provide counterexamples.](./media/tp-ivt-hypotheses.svg)
 
 *Figure: Continuity on an interval forces intermediate values. A jump discontinuity or a disconnected domain can invalidate the conclusion.*
 
@@ -123,7 +123,7 @@ forces the same sequence to converge to $M$. Uniqueness of limits yields $f(x_{\
 
 **Example.** On $[0,2]$, the function $f(x):=-(x-1)^2+3$ has maximum $3$ at $1$ and minimum $2$ at both endpoints. EVT guaranteed these extrema **before** we differentiated anything.
 
-![tp evt hypotheses](./media/tp-evt-hypotheses.svg)
+![A continuous function on a compact interval attains extrema, unlike examples with open domains or discontinuity.](./media/tp-evt-hypotheses.svg)
 
 *Figure: The Extreme Value Theorem guarantees actual extrema under compactness and continuity. An open domain or a discontinuity can make an extremum unattainable.*
 
@@ -153,7 +153,7 @@ $$
 
 By sequential compactness, choose a subsequence $x_{n_j}\to c\in K$. The triangle inequality gives $|y_{n_j}-c|\le|y_{n_j}-x_{n_j}|+|x_{n_j}-c|\to0$, so both selected sequences approach the **same point** $c$. Continuity at $c$ implies both $f(x_{n_j})$ and $f(y_{n_j})$ approach $f(c)$. Their difference therefore tends to zero, contradicting its fixed lower bound $\varepsilon_0$. $\square$
 
-![tp uniform continuity x2](./media/tp-uniform-continuity-x2.svg)
+![The function x squared is uniformly continuous on a compact interval but not uniformly continuous on all real numbers.](./media/tp-uniform-continuity-x2.svg)
 
 *Figure: $x^2$ is uniformly continuous on each closed bounded interval but not on all of $\mathbb R$. The paired inputs $n$ and $n+1/n$ approach one another while their outputs stay separated.*
 

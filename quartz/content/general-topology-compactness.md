@@ -122,7 +122,7 @@ This is the missing step promised in the [interval-to-circle quotient constructi
 
 Every Hausdorff space is T₁; every T₁ space is T₀. The converses fail.
 
-![tp separation t0 t1 t2](./media/tp-separation-t0-t1-t2.svg)
+![Sierpinski space, cofinite topology, and Euclidean neighborhoods illustrate T0, T1, and Hausdorff separation.](./media/tp-separation-t0-t1-t2.svg)
 
 *Figure: Sierpiński space is $T_0$ but not $T_1$; the infinite cofinite topology is $T_1$ but not Hausdorff. The cofinite neighborhood drawing is schematic: all nonempty opens must intersect.*
 
@@ -176,7 +176,7 @@ Let $f:[a,b]\to\mathbb R$ be continuous. The interval is connected, so its image
 | An infinite set with indiscrete topology | Yes | Yes | No |
 | $\mathbb R$ | No | Yes | Yes |
 
-![tp compact connected matrix](./media/tp-compact-connected-matrix.svg)
+![Four subspaces of the real line exhibit every combination of compactness and connectedness.](./media/tp-compact-connected-matrix.svg)
 
 *Figure: Each combination of compactness and connectedness occurs for simple subspaces of $\mathbb R$.*
 
@@ -238,7 +238,7 @@ Inductively, finite products of compact spaces are compact. Hence every Euclidea
 > [!distinction] Finite products are not the whole story
 > This argument proves **finite** product compactness. The compactness of arbitrary products in the product topology is **Tychonoff's theorem**, a deeper result with set-theoretic choice principles. We have not proved that theorem here.
 
-![tp compact product strips](./media/tp-compact-product-strips.svg)
+![The proof of finite-product compactness selects finite rectangle covers of vertical slices and then finite strips.](./media/tp-compact-product-strips.svg)
 
 *Figure: Compactness of $Y$ yields a finite cover of each vertical fiber; the resulting open neighborhoods of $X$ admit a further finite subcover, proving finite-product compactness.*
 
@@ -310,7 +310,7 @@ Open-cover compactness makes sense in any topological space. In **metric spaces*
 > $
 > \|e_m-e_n\|_2=\sqrt2.
 > $
-> ![tp l2 unit ball noncompact](./media/tp-l2-unit-ball-noncompact.svg)
+> ![Separated unit basis vectors in ell-two demonstrate that its closed bounded unit ball is not compact.](./media/tp-l2-unit-ball-noncompact.svg)
 
 *Figure: These axes sketch only the first three coordinates of $\ell^2$. The infinite sequence of standard unit vectors remains pairwise distance $\sqrt2$ apart, so it has no norm-convergent subsequence.*
 
