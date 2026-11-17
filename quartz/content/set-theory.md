@@ -659,15 +659,40 @@ This is the same partial-versus-total distinction seen earlier for $\subseteq$ a
 #### Finite Set
 
 > [!definition] Finite set
-> A set $A$ is **finite** if it is in bijection with $\{0,\ldots,n-1\}$ for some $n\in\mathbb N$; $n=0$ gives $\varnothing$. The number $n$ is uniquely determined and equals $|A|$.
+> A **finite set** is a set whose elements can be **completely counted**: there is a natural number $n$ such that the set has exactly $n$ distinct elements. The count can be $0$, so the **empty set is finite**.
+>
+> More precisely, a set $A$ is finite if its elements can be matched **one-to-one, with nothing left unmatched**, to the numbers $0,1,\ldots,n-1$ for some natural number $n$. This matching is a **bijection**.
 
+**Why use a bijection?** Counting a collection means assigning a different counting number to each element, with every element receiving a number and every counting number being used. A bijection captures those requirements precisely. It does not matter what the elements are or what order we count them in.
 
-**Definition (cardinal):**
+For example, take $A:=\{a,b,c\}$. We can match its elements to $\{0,1,2\}$:
 
-A set $S$ is **finite** if $S \cong \{ 0,1,\ldots,n - 1\}$ for some
-$n \in \mathbb{N}$; ($\cong$ is bijection symbol)
+| Element of $A$ | Counting number |
+| --- | --- |
+| $a$ | $0$ |
+| $b$ | $1$ |
+| $c$ | $2$ |
 
-$\mid S \mid = n$.
+Each element is matched exactly once, and each number is used exactly once. So **$A$ has three elements**, written $|A|=3$.
+
+> [!important] Reading the formal definition
+> Define the first $n$ natural numbers (starting from $0$) by
+>
+> $$
+> F_n:=\{k\in\mathbb N\mid k<n\}.
+> $$
+>
+> Thus $F_0=\varnothing$, $F_1=\{0\}$, and $F_3=\{0,1,2\}$. In particular, **$F_0$ is empty**; we do not try to literally list numbers from $0$ through $-1$.
+>
+> The formal statement is:
+>
+> $$
+> \boxed{A\text{ is finite}\iff\exists n\in\mathbb N\text{ and a bijection }A\to F_n.}
+> $$
+>
+> The number $n$ is **unique**: a finite set cannot have two different element counts, by the [Pigeonhole Principle](#why-different-sized-finite-sets-cannot-be-in-bijection). Its **cardinality** is $|A|:=n$.
+
+**In short:** *finite* means that counting all the elements eventually finishes. The bijection expresses the meaning of that count without depending on how the elements are arranged or named.
 
 #### Infinite Set
 
@@ -1906,7 +1931,7 @@ This is a **lookup guide**, not a replacement for the explanations, diagrams, ex
 | :--- | :--- |
 | **[Cardinality](#cardinality)** | $\lvert A\rvert=\lvert B\rvert$ means **there exists** a bijection $A\to B$, not that every function between the sets is bijective. |
 | **[Cardinality comparison](#finite-vs-infinite-sets)** | $\lvert A\rvert\leq\lvert B\rvert$ iff an injection $A\to B$ exists. |
-| **[Finite set](#finite-set)** | $A$ is finite iff it is bijective with $\{0,\ldots,n-1\}$ for some $n\in\mathbb N$, including $n=0$. |
+| **[Finite set](#finite-set)** | A set is finite if it has exactly $n$ elements for some $n\in\mathbb N$ (including $0$). Formally, it admits a bijection to $F_n:=\{k\in\mathbb N\mid k<n\}$; then $|A|=n$. |
 | **[Infinite and Dedekind-infinite sets](#infinite-set)** | *Infinite* means not finite. *Dedekind-infinite* means bijective with a proper subset of itself; these agree in ZFC but need not in ZF. |
 | **[Countability](#countable-vs-uncountable-sets)** | *Countable* means injectable into $\mathbb N$ (finite sets included); *countably infinite* means bijective with $\mathbb N$; *uncountable* means not countable. |
 | **[Indicator function](#a-power-set-is-a-space-of-yesno-functions)** | $\chi_S:A\to\{0,1\}$ equals $1$ for members of $S\subseteq A$ and $0$ elsewhere. |
