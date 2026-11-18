@@ -696,14 +696,19 @@ A partial order tells us **which elements can be compared**. It does not promise
 
 *Figure: The **join** $x\vee y=\{a,b\}$ is the least common upper bound of $x=\{a\}$ and $y=\{b\}$, and the **meet** $x\wedge y=\varnothing$ is their greatest common lower bound. A **join-semilattice** guarantees a join for every pair; a **meet-semilattice** guarantees a meet for every pair. The four-element inclusion poset has both operations for every pair, so it is a **lattice**.*
 
-> [!connection] Why do $\vee$ and $\wedge$ look like logical OR and AND?
-> They **are the same symbols**. Join ($\vee$) and meet ($\wedge$) name the *least upper bound* and *greatest lower bound* in an order, not necessarily Boolean operations.
+> [!connection] Why is OR above and AND below?
+> **The direction comes from the order we chose.** For propositions, define $P\preceq Q$ to mean $P\Rightarrow Q$: *whenever $P$ is true, $Q$ must be true*. In this order, **moving upward means a weaker (easier-to-satisfy) requirement**, not a stronger one.
 >
-> - **Sets ordered by inclusion:** join is **union**, $A\vee B=A\cup B$; meet is **intersection**, $A\wedge B=A\cap B$.
-> - **Propositions ordered by implication** ($P\preceq Q$ means $P\Rightarrow Q$): join is logical **OR**, $P\vee Q$; meet is logical **AND**, $P\wedge Q$.
+> Suppose $K$ means "you have a key" and $C$ means "you have a code." Compare these conditions:
 >
-> The shared notation reflects the same order-theoretic structure. For example, $P$ and $Q$ each imply $P\lor Q$, making OR an upper bound; $P\land Q$ implies each of them, making AND a lower bound. These are the **least** upper and **greatest** lower bounds, respectively. In other posets, join and meet may be different operations entirely.
-
+> - **AND is below.** If you satisfy "key **and** code," you automatically satisfy "key" and also "code": $K\land C\Rightarrow K$ and $K\land C\Rightarrow C$. Requiring both is **stricter** than requiring either one.
+> - **OR is above.** If you satisfy "key," you automatically satisfy "key **or** code"; having the code also suffices: $K\Rightarrow K\lor C$ and $C\Rightarrow K\lor C$. Requiring at least one is **less restrictive**.
+>
+> So an implication-order diagram places **$K\land C$ at the bottom**, **$K$ and $C$ in the middle** (incomparable), and **$K\lor C$ at the top**. Each upward step is a valid implication. This is why logical **AND** behaves as the **meet** and logical **OR** as the **join**.
+>
+> **Why *greatest* lower bound and *least* upper bound?** Any statement that implies both $K$ and $C$ must imply $K\land C$, making AND the greatest of their common lower bounds. Any statement implied by both $K$ and $C$ must also be implied by $K\lor C$, making OR the least of their common upper bounds.
+>
+> This is the same pattern as **intersection and union** for sets ordered by inclusion: $A\wedge B=A\cap B$ and $A\vee B=A\cup B$. The symbols $\wedge$ and $\vee$ deliberately echo logical AND and OR. In other partial orders, joins and meets can be different operations.
 
 
 Imagine two incomparable permission sets, $\{\text{read}\}$ and $\{\text{write}\}$. Neither contains the other. We might still ask two useful questions:
