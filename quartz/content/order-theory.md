@@ -602,15 +602,27 @@ For $S\subseteq P$, an element $u\in P$ is an **upper bound** if $s\preceq u$ fo
 
 **Find all bounds:** work in the positive divisors of $12$, ordered by divisibility, with $S:=\{2,3\}$. Its upper bounds *in this poset* are $6$ and $12$, because both $2$ and $3$ divide them. Its only lower bound is $1$, which divides both. Bounds belong to the surrounding poset $P$; they do **not** have to belong to $S$.
 
+![Hasse diagram of the positive divisors of twelve under divisibility. The subset S={2,3} is teal, upper bounds 6 and 12 are gold, and lower bound 1 is violet.](./media/ot-bounds-div12.svg)
+
+*Figure: In the surrounding poset $P$ of positive divisors of $12$, the bounds of $S=\{2,3\}$ lie **outside** $S$: $1$ divides both members, while both members divide $6$ and $12$. An upper or lower bound is sought in $P$, not necessarily in the subset $S$.*
+
 > [!definition] Four different extrema
 > An element $m\in S$ is **maximal in S** if no $s\in S$ satisfies $m\prec s$. It is **greatest in S** if $s\preceq m$ for *every* $s\in S$. **Minimal** and **least** reverse the order.
 
 Every greatest element is maximal; a maximal element might be incomparable with other elements. There can be multiple maximal elements, or none.
 
+![Side-by-side Hasse diagrams compare a poset with two incomparable maximal elements and no greatest element against a poset with one greatest element above every other element.](./media/ot-maximal-vs-greatest.svg)
+
+*Figure: **Maximal** means there is no strictly greater element of the poset; **greatest** means every element lies below it. In the left-hand poset, $a$ and $b$ are both maximal but neither is greatest. In the right-hand poset, $g$ lies above every element, so it is greatest (and therefore maximal).*
+
 **Apply all four names to $S=\{2,3\}$** inside the divisibility poset above. Each is **maximal** (nothing else in $S$ lies above it) and **minimal** (nothing else in $S$ lies below it), but $S$ has **no greatest** and **no least** element, because $2$ and $3$ are incomparable. By contrast, the full divisor set of $12$ has least element $1$ and greatest element $12$.
 
 > [!counterexample] Two maximal elements but no greatest element
 > On $P=\{a,b\}$ with only reflexive comparisons, both $a$ and $b$ are maximal and minimal. Neither is greatest or least because neither compares with the other.
+
+![Two-point antichain with isolated vertices a and b. Both are maximal and minimal; neither is greatest or least because they are incomparable.](./media/ot-two-point-antichain.svg)
+
+*Figure: With only the reflexive comparisons $a\preceq a$ and $b\preceq b$, neither distinct element is above or below the other. Both are **maximal and minimal**, but the poset has **no greatest or least element**.*
 
 ![Three Hasse diagrams contrast incomparable minimal elements without a least, incomparable maximal elements without a greatest, and a chain with both a least and greatest element.](./media/ot-extrema.svg)
 
