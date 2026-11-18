@@ -386,17 +386,41 @@ The same pattern appears with sets: $A\subseteq A$ is true, whereas $A\subsetneq
 
 ![Comparison of non-strict and strict divisibility on the same set P = {1, 2, 4}. The non-strict relation includes all three self-comparisons, while the derived strict relation removes them and keeps the comparisons between different elements.](./media/ot-strict-nonstrict-derived.svg)
 
-*Figure: Deriving the strict relation removes only self-comparisons. **Reflexivity** requires them in the original partial order; **irreflexivity** excludes them from the derived relation. The elements and comparisons between distinct elements do not change.*
+*Figure: Deriving the strict relation removes only self-comparisons. **Reflexivity** requires them in the original partial order; **irreflexivity** excludes them from the derived relation. The comparisons between distinct elements do not change. In particular, no arrows appear in both directions between distinct vertices because divisibility was already **antisymmetric**—not because removing self-loops automatically prevents two-way comparisons.*
 
 ### How this relates to the partial-order axioms
 
-Name the properties explicitly when switching between the relations:
+These properties restrict **different kinds of comparisons**. Think of $(a,b)$ as a directed arrow $a\to b$:
 
-- **Reflexivity** of the original non-strict partial order requires $a\preceq a$ for every $a$. That's why its list includes $(1,1)$, $(2,2)$, and $(4,4)$.
-- **Irreflexivity** of the derived strict relation means $a\prec a$ is false for every $a$. That's why its list excludes those self-comparisons.
-- **Antisymmetry** of the original partial order says that if $a\preceq b$ **and** $b\preceq a$, then $a=b$. Thus **different elements cannot compare in both directions**.
+| Property | What it says | What it forbids |
+| --- | --- | --- |
+| **Reflexive** | Every $a$ satisfies $aRa$. | Missing self-comparisons |
+| **Irreflexive** | No $a$ satisfies $aRa$. | Self-loops $a\to a$ |
+| **Antisymmetric** | If $aRb$ and $bRa$, then $a=b$. | Arrows **both ways between distinct elements** |
+| **Asymmetric** | If $aRb$, then $bRa$ is false. | All two-way comparisons, **including self-loops** |
 
-Antisymmetry does **not** define equality: $a=b$ already means they are the same element. It tells us that **two-way comparison is possible only in that case**. When we remove self-comparisons, no pair can be related in both directions.
+**Apply these distinctions to our two orders.** The original non-strict divisibility relation is **reflexive and antisymmetric**: $(1,1)$, $(2,2)$, and $(4,4)$ are present, but distinct elements never compare in both directions. The derived strict relation is **irreflexive** because those self-comparisons are removed, and it **remains antisymmetric** because deleting comparisons cannot introduce a reverse arrow. Having both properties makes it **asymmetric**.
+
+> [!counterexample] Irreflexivity alone does not prevent two-way comparisons
+> On $P:=\{a,b\}$ with $a\ne b$, consider the relation
+>
+> $
+> R:=\{(a,b),(b,a)\}.
+> $
+>
+> It has **no self-loops**, so it is **irreflexive**. But $aRb$ **and** $bRa$ both hold for different elements, so it is **not antisymmetric** (and therefore not asymmetric). Removing self-loops from an *arbitrary* relation would not eliminate these opposite arrows.
+
+> [!connection] Why strict orders are asymmetric
+> **Irreflexivity** asks whether an element relates to **itself**. **Antisymmetry** asks whether **different** elements can relate in **both directions**. Together they rule out *every* two-way comparison:
+>
+> $
+> \text{Asymmetric}\quad\Longleftrightarrow\quad
+> \text{Irreflexive and antisymmetric}.
+> $
+>
+> To see why, suppose $aRb$ and $bRa$ both held. Antisymmetry would force $a=b$, but then irreflexivity would forbid $aRa$. Conversely, asymmetry immediately forbids self-loops and opposite arrows between distinct elements.
+>
+> This is why a **strict partial order** is both **irreflexive and antisymmetric**, not why it fails antisymmetry. We will also see below that **transitivity plus irreflexivity** already guarantees asymmetry.
 
 > [!distinction] Strict does not mean the reverse, and does not mean immediately next
 > If $a\prec b$ is false, it does **not** follow that $b\prec a$ is true. Under divisibility, neither $2\prec3$ nor $3\prec2$ holds: those elements are **incomparable**.
@@ -433,7 +457,7 @@ This is why **strict and non-strict are two descriptions of the same order**, no
 >
 > **Backward:** equality makes the new relation reflexive. If $a\preceq b$ and $b\preceq a$ with $a\neq b$, then $a\prec b$ and $b\prec a$, so transitivity gives $a\prec a$, contradicting irreflexivity. Thus it is antisymmetric. Its transitivity follows from the transitivity of $\prec$, together with the cases in which either comparison is equality.
 
-Every transitive irreflexive relation is also **asymmetric**: $a\prec b$ prevents $b\prec a$.
+Every transitive irreflexive relation is also **asymmetric**: if both $a\prec b$ and $b\prec a$ held, transitivity would imply $a\prec a$, contradicting irreflexivity. Thus $a\prec b$ prevents $b\prec a$.
 
 **Where we'll use this:** later, "maximal" means **no different element is strictly above it**. We cannot say "nothing is at or above it," because reflexivity guarantees that the element is always at or above itself. [Hasse diagrams](#hasse-diagrams-reconstructing-the-finite-order) narrow strict comparisons further to *immediate* comparisons (cover relations).
 
