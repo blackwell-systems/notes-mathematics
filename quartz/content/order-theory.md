@@ -690,11 +690,11 @@ One further subtlety: **connected does not mean comparable**. The numbers $8$ an
 
 A partial order tells us **which elements can be compared**. It does not promise that two elements have a common best combination. To make that stronger guarantee, we introduce **semilattices**.
 
-**Start with a picture.** In the inclusion order on the four subsets of $\{a,b\}$, choose the two incomparable elements $x:=\{a\}$ and $y:=\{b\}$. Their smallest common upper bound is $\{a,b\}$; their largest common lower bound is $\varnothing$.
+**Start with two matching diagrams.** On the left, use subset inclusion on the four subsets of $\{a,b\}$. The incomparable elements $x:=\{a\}$ and $y:=\{b\}$ have join $\{a,b\}$ and meet $\varnothing$. On the right, let $K$ mean "you have a key" and $C$ mean "you have a code." Order these conditions by **implication**, not by restrictiveness: a lower condition must imply the one above it. Therefore **AND is below** the individual conditions (having both implies having either one individually), while **OR is above** (each individual condition implies having at least one).
 
-![A four-element inclusion Hasse diagram with the incomparable sets {a} and {b} highlighted in teal, their join {a,b} as the least upper bound in gold, and their meet the empty set as the greatest lower bound in purple.](./media/ot-semilattice-join-meet-intro.svg)
+![Two matching Hasse diamonds: on the left, sets under inclusion have union as join and intersection as meet; on the right, conditions under logical implication have OR as join and AND as meet. Reading upward means a larger set on the left, but a logically weaker condition on the right.](./media/ot-semilattice-join-meet-intro.svg)
 
-*Figure: The **join** $x\vee y=\{a,b\}$ is the least common upper bound of $x=\{a\}$ and $y=\{b\}$, and the **meet** $x\wedge y=\varnothing$ is their greatest common lower bound. A **join-semilattice** guarantees a join for every pair; a **meet-semilattice** guarantees a meet for every pair. The four-element inclusion poset has both operations for every pair, so it is a **lattice**.*
+*Figure: Both diamonds have the same order shape, but **above** means something different in each. Under set inclusion, $\{a\}\vee\{b\}=\{a,b\}$ is **union** and $\{a\}\wedge\{b\}=\varnothing$ is **intersection**. Under implication, $(K\land C)\Rightarrow K,C$ puts **AND below**, while $K,C\Rightarrow(K\lor C)$ puts **OR above**. A join is always a **least upper bound**, and a meet a **greatest lower bound** in the chosen order. The four-element set poset has both for every pair, so it is a **lattice**.*
 
 > [!connection] Why is OR above and AND below?
 > **The direction comes from the order we chose.** For propositions, define $P\preceq Q$ to mean $P\Rightarrow Q$: *whenever $P$ is true, $Q$ must be true*. In this order, **moving upward means a weaker (easier-to-satisfy) requirement**, not a stronger one.
