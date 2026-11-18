@@ -696,6 +696,15 @@ A partial order tells us **which elements can be compared**. It does not promise
 
 *Figure: The **join** $x\vee y=\{a,b\}$ is the least common upper bound of $x=\{a\}$ and $y=\{b\}$, and the **meet** $x\wedge y=\varnothing$ is their greatest common lower bound. A **join-semilattice** guarantees a join for every pair; a **meet-semilattice** guarantees a meet for every pair. The four-element inclusion poset has both operations for every pair, so it is a **lattice**.*
 
+> [!connection] Why do $\vee$ and $\wedge$ look like logical OR and AND?
+> They **are the same symbols**. Join ($\vee$) and meet ($\wedge$) name the *least upper bound* and *greatest lower bound* in an order, not necessarily Boolean operations.
+>
+> - **Sets ordered by inclusion:** join is **union**, $A\vee B=A\cup B$; meet is **intersection**, $A\wedge B=A\cap B$.
+> - **Propositions ordered by implication** ($P\preceq Q$ means $P\Rightarrow Q$): join is logical **OR**, $P\vee Q$; meet is logical **AND**, $P\wedge Q$.
+>
+> The shared notation reflects the same order-theoretic structure. For example, $P$ and $Q$ each imply $P\lor Q$, making OR an upper bound; $P\land Q$ implies each of them, making AND a lower bound. These are the **least** upper and **greatest** lower bounds, respectively. In other posets, join and meet may be different operations entirely.
+
+
 
 Imagine two incomparable permission sets, $\{\text{read}\}$ and $\{\text{write}\}$. Neither contains the other. We might still ask two useful questions:
 
