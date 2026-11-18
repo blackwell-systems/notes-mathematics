@@ -27,7 +27,7 @@
 <text x="409" y="198" font-size="32" class="heading" text-anchor="middle">SET INCLUSION</text>
 <text x="1191" y="198" font-size="32" class="heading" text-anchor="middle">LOGICAL IMPLICATION</text>
 <text x="409" y="240" font-size="23" class="info" text-anchor="middle">A ⊆ B means A is below B</text>
-<text x="1191" y="240" font-size="23" class="info" text-anchor="middle">P ⇒ Q means P is below Q</text>
+<text x="1191" y="240" font-size="22" class="info" text-anchor="middle">K = key, C = code; P ⇒ Q puts P below Q</text>
 <text x="409" y="276" font-size="23" fill="#73e0d1" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">↑ UP = larger set</text>
 <text x="1191" y="276" font-size="23" fill="#73e0d1" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">↑ UP = weaker, easier condition</text>
 <!-- The diamonds show cover relations, not all implied comparisons. -->
