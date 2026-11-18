@@ -1,68 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
-<title id="title">Semilattices: a join and a meet in the subset inclusion order</title>
-<desc id="desc">A Hasse diagram of the subsets of {a,b} ordered by inclusion. The incomparable subsets {a} and {b}, shown in teal, have join {a,b}, their least upper bound shown in gold, and meet the empty set, their greatest lower bound shown in purple. This four-element poset is both a join-semilattice and a meet-semilattice, hence a lattice.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 970" role="img" aria-labelledby="title desc">
+<title id="title">Why join is above and meet is below: set inclusion and logical implication</title>
+<desc id="desc">Two parallel Hasse diamonds. In the left diamond, subsets of {a,b} are ordered by inclusion: the join {a,b} is the union of {a} and {b}, and the meet empty set is their intersection. Moving upward means a larger set. In the right diamond, the independent conditions K (having a key) and C (having a code) are ordered by logical implication: the join K OR C is above both, because each condition implies OR; the meet K AND C is below both, because AND implies each condition. Moving upward means a weaker, easier-to-satisfy condition. Each diagram uses four distinct elements and the same order shape.</desc>
 <defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101a34"/><stop offset="1" stop-color="#080e22"/></linearGradient>
-  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#15233e"/><stop offset="1" stop-color="#111c33"/></linearGradient>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111d38"/><stop offset="1" stop-color="#080e21"/></linearGradient>
+ <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1a2947"/><stop offset="1" stop-color="#121f36"/></linearGradient>
 </defs>
 <style>
- .heading{fill:#f7f0e4;font-family:Georgia,serif;font-weight:700}
- .body{fill:#e5e9f6;font-family:Georgia,serif}
- .muted{fill:#cbd5ed;font-family:Arial,Helvetica,sans-serif}
- .node{fill:#192c44;stroke-width:5}
- .node-text{fill:#f8f5ff;font-family:Georgia,serif;font-size:39px;text-anchor:middle;dominant-baseline:middle}
- .diamond-edge{fill:none;stroke:#e4e9fa;stroke-width:6;stroke-linecap:round}
- .teal{stroke:#75e4d7}
- .gold{stroke:#f7cc68}
- .violet{stroke:#dca1ef}
- .note{fill:#17243d;stroke:#87a9de;stroke-width:2.5}
- .call{stroke-width:4;fill:none;stroke-dasharray:10 10;stroke-linecap:round}
+ .title{fill:#f7f1e7;font-family:Georgia,serif;font-weight:700}
+ .heading{fill:#eef2ff;font-family:Georgia,serif;font-weight:700}
+ .info{fill:#d7e0ef;font-family:Arial,Helvetica,sans-serif}
+ .helper{fill:#bfcce3;font-family:Arial,Helvetica,sans-serif}
+ .line{stroke:#c0cbe1;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+ .node{fill:#243453;stroke-width:4}
+ .gold{stroke:#f0c46c}
+ .teal{stroke:#73e0d1}
+ .violet{stroke:#d7a5ec}
+ .node-label{fill:#f8f6ff;font-family:Georgia,serif;font-size:37px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+ .gold-text{fill:#f2ce88}
+ .violet-text{fill:#e5b6f6}
 </style>
-<rect width="1400" height="1000" fill="url(#bg)"/>
-<text x="700" y="75" class="heading" font-size="54" text-anchor="middle">Semilattices: one bound for every pair</text>
-<rect x="29" y="117" width="1342" height="857" rx="26" fill="url(#panel)" stroke="#769bd2" stroke-width="3"/>
-<text x="75" y="180" font-family="Georgia,serif" font-size="39" fill="#75e4d7" font-weight="bold">Example:</text>
-<text x="260" y="180" class="body" font-size="37">subsets of {a, b}, ordered by inclusion</text>
-
-<!-- The four cover relations of the inclusion diamond. -->
-<path class="diamond-edge" d="M465 307 L302 528 L465 749 L631 528 Z"/>
-<circle cx="465" cy="307" r="67" class="node gold" fill="#574417"/>
-<text x="465" y="312" class="node-text">{a, b}</text>
-<circle cx="302" cy="528" r="56" class="node teal" fill="#144f59"/>
-<text x="302" y="532" class="node-text">{a}</text>
-<circle cx="631" cy="528" r="56" class="node teal" fill="#144f59"/>
-<text x="631" y="532" class="node-text">{b}</text>
-<circle cx="465" cy="749" r="66" class="node violet" fill="#45305a"/>
-<text x="465" y="752" class="node-text" font-size="55">∅</text>
-
-<!-- Labels for the incomparable pair. -->
-<rect x="76" y="481" width="148" height="92" rx="17" fill="#112d3b" stroke="#75e4d7" stroke-width="3"/>
-<text x="150" y="539" class="heading" font-size="35" text-anchor="middle" fill="#75e4d7">x = {a}</text>
-<path d="M224 528 H246" class="call teal"/>
-<rect x="749" y="481" width="190" height="92" rx="17" fill="#112d3b" stroke="#75e4d7" stroke-width="3"/>
-<text x="844" y="539" class="heading" font-size="35" text-anchor="middle" fill="#75e4d7">y = {b}</text>
-<path d="M688 528 H749" class="call teal"/>
-
-<!-- Upper bound callout. -->
-<rect x="760" y="250" width="424" height="121" rx="20" fill="#161e30" stroke="#f7cc68" stroke-width="3.5"/>
-<path d="M535 307 H760" class="call gold"/>
-<text x="797" y="302" font-family="Georgia,serif" font-size="42" fill="#f7cc68" font-weight="bold">join x ∨ y</text>
-<text x="797" y="344" class="body" font-size="29">least upper bound</text>
-
-<!-- Explanatory comparison. -->
-<rect x="980" y="454" width="340" height="176" rx="20" class="note"/>
-<text x="1007" y="505" class="body" font-size="30">Both {a} and {b}</text>
-<text x="1007" y="547" class="body" font-size="30">lie below {a, b}</text>
-<text x="1007" y="589" class="body" font-size="30">and above ∅.</text>
-
-<!-- Lower bound callout. -->
-<rect x="760" y="681" width="500" height="122" rx="20" fill="#1c1933" stroke="#dca1ef" stroke-width="3.5"/>
-<path d="M533 749 H760" class="call violet"/>
-<text x="797" y="734" font-family="Georgia,serif" font-size="42" fill="#dca1ef" font-weight="bold">meet x ∧ y</text>
-<text x="797" y="779" class="body" font-size="29">greatest lower bound</text>
-
-<!-- General lesson. -->
-<path d="M61 849 H1339" stroke="#627ca4" stroke-width="2"/>
-<text x="700" y="895" class="body" font-size="30" text-anchor="middle">A join-semilattice has a join for every pair.</text>
-<text x="700" y="934" class="body" font-size="30" text-anchor="middle">A meet-semilattice has a meet for every pair. This example has both: it is a lattice.</text>
+<rect width="1600" height="970" fill="url(#bg)"/>
+<text x="800" y="65" font-size="50" class="title" text-anchor="middle">Joins and meets: the same shape in sets and logic</text>
+<text x="800" y="109" font-size="26" class="info" text-anchor="middle">Join = least upper bound · Meet = greatest lower bound</text>
+<rect x="36" y="146" width="746" height="688" rx="24" stroke="#83a3d7" stroke-width="3" fill="url(#panel)"/>
+<rect x="818" y="146" width="746" height="688" rx="24" stroke="#83a3d7" stroke-width="3" fill="url(#panel)"/>
+<text x="409" y="198" font-size="32" class="heading" text-anchor="middle">SET INCLUSION</text>
+<text x="1191" y="198" font-size="32" class="heading" text-anchor="middle">LOGICAL IMPLICATION</text>
+<text x="409" y="240" font-size="23" class="info" text-anchor="middle">A ⊆ B means A is below B</text>
+<text x="1191" y="240" font-size="23" class="info" text-anchor="middle">P ⇒ Q means P is below Q</text>
+<text x="409" y="276" font-size="23" fill="#73e0d1" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">↑ UP = larger set</text>
+<text x="1191" y="276" font-size="23" fill="#73e0d1" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">↑ UP = weaker, easier condition</text>
+<!-- The diamonds show cover relations, not all implied comparisons. -->
+<path class="line" d="M409 369 L270 522 L409 682 L548 522 Z"/>
+<path class="line" d="M1191 369 L1052 522 L1191 682 L1330 522 Z"/>
+<!-- Set inclusion: union and intersection. -->
+<circle cx="409" cy="369" r="64" class="node gold"/>
+<text x="409" y="369" class="node-label" font-size="34">{a,b}</text>
+<circle cx="270" cy="522" r="55" class="node teal"/>
+<text x="270" y="522" class="node-label">{a}</text>
+<circle cx="548" cy="522" r="55" class="node teal"/>
+<text x="548" y="522" class="node-label">{b}</text>
+<circle cx="409" cy="682" r="63" class="node violet"/>
+<text x="409" y="682" class="node-label" font-size="52">∅</text>
+<!-- Implication: AND entails either input, and each input entails OR. -->
+<circle cx="1191" cy="369" r="68" class="node gold"/>
+<text x="1191" y="369" class="node-label">K ∨ C</text>
+<circle cx="1052" cy="522" r="55" class="node teal"/>
+<text x="1052" y="522" class="node-label">K</text>
+<circle cx="1330" cy="522" r="55" class="node teal"/>
+<text x="1330" y="522" class="node-label">C</text>
+<circle cx="1191" cy="682" r="69" class="node violet"/>
+<text x="1191" y="682" class="node-label">K ∧ C</text>
+<!-- Explicit, color-consistent interpretations of the highlighted endpoints. -->
+<text x="505" y="353" class="heading gold-text" font-size="27">JOIN = union</text>
+<text x="505" y="384" class="helper" font-size="21">least upper bound</text>
+<text x="505" y="669" class="heading violet-text" font-size="25">MEET = intersection</text>
+<text x="505" y="697" class="helper" font-size="21">greatest lower bound</text>
+<text x="1300" y="346" class="heading gold-text" font-size="27">JOIN = OR</text>
+<text x="1300" y="376" class="helper" font-size="21">weaker requirement</text>
+<text x="1300" y="670" class="heading violet-text" font-size="27">MEET = AND</text>
+<text x="1300" y="699" class="helper" font-size="21">stricter requirement</text>
+<!-- The edge statements explain WHY the vertical positions follow from the orders. -->
+<text x="76" y="770" class="info" font-size="23">∅ ⊆ {a} and ∅ ⊆ {b}</text>
+<text x="76" y="805" class="info" font-size="23">{a} ⊆ {a,b} and {b} ⊆ {a,b}</text>
+<text x="858" y="770" class="info" font-size="23">(K ∧ C) ⇒ K and (K ∧ C) ⇒ C</text>
+<text x="858" y="805" class="info" font-size="23">K ⇒ (K ∨ C) and C ⇒ (K ∨ C)</text>
+<rect x="36" y="858" width="1528" height="86" rx="17" stroke="#6f8fbf" stroke-width="2" fill="#1c2944"/>
+<text x="800" y="894" class="heading" font-size="30" text-anchor="middle">Same order structure, different meanings of “above.”</text>
+<text x="800" y="925" class="info" font-size="23" text-anchor="middle">The four-element set example has joins and meets for every pair, making it a lattice.</text>
 </svg>
