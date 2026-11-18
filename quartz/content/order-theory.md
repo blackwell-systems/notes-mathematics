@@ -690,6 +690,13 @@ One further subtlety: **connected does not mean comparable**. The numbers $8$ an
 
 A partial order tells us **which elements can be compared**. It does not promise that two elements have a common best combination. To make that stronger guarantee, we introduce **semilattices**.
 
+**Start with a picture.** In the inclusion order on the four subsets of $\{a,b\}$, choose the two incomparable elements $x:=\{a\}$ and $y:=\{b\}$. Their smallest common upper bound is $\{a,b\}$; their largest common lower bound is $\varnothing$.
+
+![A four-element inclusion Hasse diagram with the incomparable sets {a} and {b} highlighted in teal, their join {a,b} as the least upper bound in gold, and their meet the empty set as the greatest lower bound in purple.](./media/ot-semilattice-join-meet-intro.svg)
+
+*Figure: The **join** $x\vee y=\{a,b\}$ is the least common upper bound of $x=\{a\}$ and $y=\{b\}$, and the **meet** $x\wedge y=\varnothing$ is their greatest common lower bound. A **join-semilattice** guarantees a join for every pair; a **meet-semilattice** guarantees a meet for every pair. The four-element inclusion poset has both operations for every pair, so it is a **lattice**.*
+
+
 Imagine two incomparable permission sets, $\{\text{read}\}$ and $\{\text{write}\}$. Neither contains the other. We might still ask two useful questions:
 
 - **What is the smallest permitted set that contains both?** That is their **join**.
