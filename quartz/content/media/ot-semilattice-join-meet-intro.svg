@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+<title id="title">Semilattices: a join and a meet in the subset inclusion order</title>
+<desc id="desc">A Hasse diagram of the subsets of {a,b} ordered by inclusion. The incomparable subsets {a} and {b}, shown in teal, have join {a,b}, their least upper bound shown in gold, and meet the empty set, their greatest lower bound shown in purple. This four-element poset is both a join-semilattice and a meet-semilattice, hence a lattice.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101a34"/><stop offset="1" stop-color="#080e22"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#15233e"/><stop offset="1" stop-color="#111c33"/></linearGradient>
+</defs>
+<style>
+ .heading{fill:#f7f0e4;font-family:Georgia,serif;font-weight:700}
+ .body{fill:#e5e9f6;font-family:Georgia,serif}
+ .muted{fill:#cbd5ed;font-family:Arial,Helvetica,sans-serif}
+ .node{fill:#192c44;stroke-width:5}
+ .node-text{fill:#f8f5ff;font-family:Georgia,serif;font-size:39px;text-anchor:middle;dominant-baseline:middle}
+ .diamond-edge{fill:none;stroke:#e4e9fa;stroke-width:6;stroke-linecap:round}
+ .teal{stroke:#75e4d7}
+ .gold{stroke:#f7cc68}
+ .violet{stroke:#dca1ef}
+ .note{fill:#17243d;stroke:#87a9de;stroke-width:2.5}
+ .call{stroke-width:4;fill:none;stroke-dasharray:10 10;stroke-linecap:round}
+</style>
+<rect width="1400" height="1000" fill="url(#bg)"/>
+<text x="700" y="75" class="heading" font-size="54" text-anchor="middle">Semilattices: one bound for every pair</text>
+<rect x="29" y="117" width="1342" height="857" rx="26" fill="url(#panel)" stroke="#769bd2" stroke-width="3"/>
+<text x="75" y="180" font-family="Georgia,serif" font-size="39" fill="#75e4d7" font-weight="bold">Example:</text>
+<text x="260" y="180" class="body" font-size="37">subsets of {a, b}, ordered by inclusion</text>
+
+<!-- The four cover relations of the inclusion diamond. -->
+<path class="diamond-edge" d="M465 307 L302 528 L465 749 L631 528 Z"/>
+<circle cx="465" cy="307" r="67" class="node gold" fill="#574417"/>
+<text x="465" y="312" class="node-text">{a, b}</text>
+<circle cx="302" cy="528" r="56" class="node teal" fill="#144f59"/>
+<text x="302" y="532" class="node-text">{a}</text>
+<circle cx="631" cy="528" r="56" class="node teal" fill="#144f59"/>
+<text x="631" y="532" class="node-text">{b}</text>
+<circle cx="465" cy="749" r="66" class="node violet" fill="#45305a"/>
+<text x="465" y="752" class="node-text" font-size="55">∅</text>
+
+<!-- Labels for the incomparable pair. -->
+<rect x="76" y="481" width="148" height="92" rx="17" fill="#112d3b" stroke="#75e4d7" stroke-width="3"/>
+<text x="150" y="539" class="heading" font-size="35" text-anchor="middle" fill="#75e4d7">x = {a}</text>
+<path d="M224 528 H246" class="call teal"/>
+<rect x="749" y="481" width="190" height="92" rx="17" fill="#112d3b" stroke="#75e4d7" stroke-width="3"/>
+<text x="844" y="539" class="heading" font-size="35" text-anchor="middle" fill="#75e4d7">y = {b}</text>
+<path d="M688 528 H749" class="call teal"/>
+
+<!-- Upper bound callout. -->
+<rect x="760" y="250" width="424" height="121" rx="20" fill="#161e30" stroke="#f7cc68" stroke-width="3.5"/>
+<path d="M535 307 H760" class="call gold"/>
+<text x="797" y="302" font-family="Georgia,serif" font-size="42" fill="#f7cc68" font-weight="bold">join x ∨ y</text>
+<text x="797" y="344" class="body" font-size="29">least upper bound</text>
+
+<!-- Explanatory comparison. -->
+<rect x="980" y="454" width="340" height="176" rx="20" class="note"/>
+<text x="1007" y="505" class="body" font-size="30">Both {a} and {b}</text>
+<text x="1007" y="547" class="body" font-size="30">lie below {a, b}</text>
+<text x="1007" y="589" class="body" font-size="30">and above ∅.</text>
+
+<!-- Lower bound callout. -->
+<rect x="760" y="681" width="500" height="122" rx="20" fill="#1c1933" stroke="#dca1ef" stroke-width="3.5"/>
+<path d="M533 749 H760" class="call violet"/>
+<text x="797" y="734" font-family="Georgia,serif" font-size="42" fill="#dca1ef" font-weight="bold">meet x ∧ y</text>
+<text x="797" y="779" class="body" font-size="29">greatest lower bound</text>
+
+<!-- General lesson. -->
+<path d="M61 849 H1339" stroke="#627ca4" stroke-width="2"/>
+<text x="700" y="895" class="body" font-size="30" text-anchor="middle">A join-semilattice has a join for every pair.</text>
+<text x="700" y="934" class="body" font-size="30" text-anchor="middle">A meet-semilattice has a meet for every pair. This example has both: it is a lattice.</text>
+</svg>
