@@ -289,16 +289,37 @@ for (const [filename, vertices] of [
       actual.some(e=>!expectedCovers.includes(e)))
     errors.push(filename+": diagram nodes or cover relations differ from computed divisibility order");
 }
-// The hierarchy figure must keep the inclusion diamond and its two kinds of subsets correct.
+// The hierarchy figure has two copies of the same four-subset inclusion poset.
+// Audit each independently: covers and nodes must be exact, and the selected
+// vertices must actually form the advertised chain or antichain.
 const hierarchyFigure=readFileSync(join("content","media","ot-relations-posets-chains-antichains.svg"),"utf8");
-const hierarchyNodes=[...hierarchyFigure.matchAll(/data-subset="([^"]+)"/g)].map(m=>m[1]);
-const hierarchyEdges=[...hierarchyFigure.matchAll(/data-from="([^"]+)" data-to="([^"]+)"/g)].map(m=>m[1]+"->"+m[2]);
 const hierarchyCovers=["none->a","none->b","a->ab","b->ab"];
-if(hierarchyNodes.length!==4||new Set(hierarchyNodes).size!==4||
-   !["none","a","b","ab"].every(x=>hierarchyNodes.includes(x))||
-   hierarchyEdges.length!==4||new Set(hierarchyEdges).size!==4||
-   !hierarchyCovers.every(x=>hierarchyEdges.includes(x)))
-  errors.push("ot-relations-posets-chains-antichains.svg: inclusion diamond is not exact");
+for (const [diagram, selected] of [
+  ["chain", ["none","a","ab"]],
+  ["antichain", ["a","b"]]
+]) {
+  const allNodes=[...hierarchyFigure.matchAll(/<circle\b[^>]*data-diagram="(chain|antichain)" data-subset="([^"]+)" data-selected="(true|false)"[^>]*\/>/g)]
+    .filter(m=>m[1]===diagram);
+  const nodes=allNodes.map(m=>m[2]);
+  const actualSelected=allNodes.filter(m=>m[3]==="true").map(m=>m[2]);
+  const edges=[...hierarchyFigure.matchAll(/<path\b[^>]*data-diagram="(chain|antichain)" data-from="([^"]+)" data-to="([^"]+)"[^>]*\/>/g)]
+    .filter(m=>m[1]===diagram)
+    .map(m=>m[2]+"->"+m[3]);
+  if (nodes.length!==4 || new Set(nodes).size!==4 ||
+      !["none","a","b","ab"].every(x=>nodes.includes(x)) ||
+      edges.length!==4 || new Set(edges).size!==4 ||
+      !hierarchyCovers.every(x=>edges.includes(x)) ||
+      actualSelected.length!==selected.length ||
+      !selected.every(x=>actualSelected.includes(x)))
+    errors.push("ot-relations-posets-chains-antichains.svg: "+diagram+" example nodes, covers or selection are incorrect");
+}
+// Equality on {a,b,c} must produce a three-element discrete poset (no covers).
+const equalityNodes=[...hierarchyFigure.matchAll(/<circle\b[^>]*data-diagram="equality" data-subset="([^"]+)" data-selected="true"[^>]*\/>/g)]
+  .map(m=>m[1]);
+if (equalityNodes.length!==3 || new Set(equalityNodes).size!==3 ||
+    !["a","b","c"].every(x=>equalityNodes.includes(x)) ||
+    /data-diagram="equality" data-from=/.test(hierarchyFigure))
+  errors.push("ot-relations-posets-chains-antichains.svg: equality antichain does not have exactly three isolated elements");
 
 const subsetFigure=readFileSync(join("content","media","ot-hasse-powerset-ab.svg"),"utf8");
 const subsetNodes=[...subsetFigure.matchAll(/data-subset="([^"]+)"/g)].map(m=>m[1]);
