@@ -224,6 +224,22 @@ The graph construction applies to **any finite relation on a set**, not just equ
 >
 > Each statement applies to **all relevant elements** of $A$. None is required of an arbitrary relation.
 
+> [!intuition] What do these properties say about arrow direction?
+> Imagine a binary relation as a directed graph: an arrow $a\to b$ means $(a,b)\in R$. Each property constrains **which arrows may or must appear**:
+>
+> | Property | What happens to the arrows? |
+> | --- | --- |
+> | **Reflexive** | Every vertex must have a **self-loop** $a\to a$. Says nothing about arrows between different vertices. |
+> | **Irreflexive** | **No self-loops**. Opposite arrows between two distinct vertices can still exist. |
+> | **Symmetric** | If $a\to b$ exists, **$b\to a$ must exist too**. It does not require every pair to be connected. |
+> | **Antisymmetric** | For **distinct** $a,b$, the arrows $a\to b$ and $b\to a$ **cannot both exist**. Either direction alone—or neither—is allowed. Self-loops are optional. |
+> | **Asymmetric** | An existing arrow **forbids its reverse**, even for a self-loop. Thus it is both antisymmetric and irreflexive. |
+> | **Transitive** | If $a\to b$ and $b\to c$, the **shortcut** $a\to c$ must also exist. It does not generally require a reverse arrow. |
+>
+> **One arrow, not two copies:** reversing a self-comparison $(a,a)$ gives the same ordered pair $(a,a)$. A relation is a **set** of ordered pairs, so there cannot be duplicate copies of that comparison. Antisymmetry is about **distinct vertices** comparing in both directions, not about duplicating a self-loop.
+>
+> These properties are **conditional rules**: for example, a symmetric relation may have no arrow between two chosen vertices, but *if* one direction exists, the other must exist as well.
+
 
 ![Four small directed graphs illustrating relation properties: reflexive with a self-loop at every node, symmetric with every edge drawn both ways, transitive where edges a to b and b to c force the implied edge a to c, and antisymmetric where no two distinct nodes have arrows in both directions](./media/fr-relation-properties.svg)
 
