@@ -57,39 +57,39 @@
 <text x="1194" y="1110" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="700" fill="#C4A5F5" text-anchor="middle">ENTIRE-SET ANTICHAIN</text>
 <text x="1194" y="1142" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" fill="#C6D1E0" text-anchor="middle">The equality relation on {a, b, c}</text>
 <text x="246" y="1187" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" fill="#F4F3ED" text-anchor="middle">P({a, b}) ordered by inclusion</text>
-<path d="M224.4 1249.4 L178.6 1290.6" fill="none" stroke="#7CDBCC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M267.6 1249.4 L313.4 1290.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M178.6 1329.4 L224.4 1370.6" fill="none" stroke="#7CDBCC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M313.4 1329.4 L267.6 1370.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="246" cy="1230" r="28" stroke="#7CDBCC" fill="#122338" stroke-width="3.3"/>
+<path data-diagram="chain" data-from="a" data-to="ab" d="M224.4 1249.4 L178.6 1290.6" fill="none" stroke="#7CDBCC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path data-diagram="chain" data-from="b" data-to="ab" d="M267.6 1249.4 L313.4 1290.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path data-diagram="chain" data-from="none" data-to="a" d="M178.6 1329.4 L224.4 1370.6" fill="none" stroke="#7CDBCC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path data-diagram="chain" data-from="none" data-to="b" d="M313.4 1329.4 L267.6 1370.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle data-diagram="chain" data-subset="ab" data-selected="true" cx="246" cy="1230" r="28" stroke="#7CDBCC" fill="#122338" stroke-width="3.3"/>
 <text x="246" y="1237" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="15" font-weight="650" fill="#F4F3ED" text-anchor="middle">{a, b}</text>
-<circle cx="157" cy="1310" r="28" stroke="#7CDBCC" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="chain" data-subset="a" data-selected="true" cx="157" cy="1310" r="28" stroke="#7CDBCC" fill="#122338" stroke-width="3.3"/>
 <text x="157" y="1317" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="650" fill="#F4F3ED" text-anchor="middle">{a}</text>
-<circle cx="335" cy="1310" r="28" stroke="#688198" fill="#202C40" stroke-width="3.3"/>
+<circle data-diagram="chain" data-subset="b" data-selected="false" cx="335" cy="1310" r="28" stroke="#688198" fill="#202C40" stroke-width="3.3"/>
 <text x="335" y="1317" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="650" fill="#ACBBD0" text-anchor="middle">{b}</text>
-<circle cx="246" cy="1390" r="28" stroke="#7CDBCC" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="chain" data-subset="none" data-selected="true" cx="246" cy="1390" r="28" stroke="#7CDBCC" fill="#122338" stroke-width="3.3"/>
 <text x="246" y="1397" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="650" fill="#F4F3ED" text-anchor="middle">∅</text>
 <text x="246" y="1460" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="19" font-weight="650" fill="#7CDBCC" text-anchor="middle">Selected: ∅, {a}, {a, b}</text>
 <text x="720" y="1187" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" fill="#F4F3ED" text-anchor="middle">P({a, b}) ordered by inclusion</text>
-<path d="M698.4 1249.4 L652.6 1290.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M741.6 1249.4 L787.4 1290.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M652.6 1329.4 L698.4 1370.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M787.4 1329.4 L741.6 1370.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="720" cy="1230" r="28" stroke="#688198" fill="#202C40" stroke-width="3.3"/>
+<path data-diagram="antichain" data-from="a" data-to="ab" d="M698.4 1249.4 L652.6 1290.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path data-diagram="antichain" data-from="b" data-to="ab" d="M741.6 1249.4 L787.4 1290.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path data-diagram="antichain" data-from="none" data-to="a" d="M652.6 1329.4 L698.4 1370.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path data-diagram="antichain" data-from="none" data-to="b" d="M787.4 1329.4 L741.6 1370.6" fill="none" stroke="#596D83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle data-diagram="antichain" data-subset="ab" data-selected="false" cx="720" cy="1230" r="28" stroke="#688198" fill="#202C40" stroke-width="3.3"/>
 <text x="720" y="1237" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="15" font-weight="650" fill="#ACBBD0" text-anchor="middle">{a, b}</text>
-<circle cx="631" cy="1310" r="28" stroke="#EDB86D" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="antichain" data-subset="a" data-selected="true" cx="631" cy="1310" r="28" stroke="#EDB86D" fill="#122338" stroke-width="3.3"/>
 <text x="631" y="1317" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="650" fill="#F4F3ED" text-anchor="middle">{a}</text>
-<circle cx="809" cy="1310" r="28" stroke="#EDB86D" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="antichain" data-subset="b" data-selected="true" cx="809" cy="1310" r="28" stroke="#EDB86D" fill="#122338" stroke-width="3.3"/>
 <text x="809" y="1317" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="650" fill="#F4F3ED" text-anchor="middle">{b}</text>
-<circle cx="720" cy="1390" r="28" stroke="#688198" fill="#202C40" stroke-width="3.3"/>
+<circle data-diagram="antichain" data-subset="none" data-selected="false" cx="720" cy="1390" r="28" stroke="#688198" fill="#202C40" stroke-width="3.3"/>
 <text x="720" y="1397" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="22" font-weight="650" fill="#ACBBD0" text-anchor="middle">∅</text>
 <text x="720" y="1460" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="19" font-weight="650" fill="#EDB86D" text-anchor="middle">Selected: {a} and {b}</text>
 <text x="1194" y="1190" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" fill="#F4F3ED" text-anchor="middle">Only self-comparisons exist</text>
-<circle cx="1055" cy="1307" r="31" stroke="#C4A5F5" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="equality" data-subset="a" data-selected="true" cx="1055" cy="1307" r="31" stroke="#C4A5F5" fill="#122338" stroke-width="3.3"/>
 <text x="1055" y="1315" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="25" font-weight="700" fill="#F4F3ED" text-anchor="middle">a</text>
-<circle cx="1194" cy="1307" r="31" stroke="#C4A5F5" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="equality" data-subset="b" data-selected="true" cx="1194" cy="1307" r="31" stroke="#C4A5F5" fill="#122338" stroke-width="3.3"/>
 <text x="1194" y="1315" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="25" font-weight="700" fill="#F4F3ED" text-anchor="middle">b</text>
-<circle cx="1333" cy="1307" r="31" stroke="#C4A5F5" fill="#122338" stroke-width="3.3"/>
+<circle data-diagram="equality" data-subset="c" data-selected="true" cx="1333" cy="1307" r="31" stroke="#C4A5F5" fill="#122338" stroke-width="3.3"/>
 <text x="1333" y="1315" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="25" font-weight="700" fill="#F4F3ED" text-anchor="middle">c</text>
 <text x="1194" y="1378" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="20" font-weight="650" fill="#C4A5F5" text-anchor="middle">No Hasse edges</text>
 <text x="1194" y="1413" font-family="Arial, 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" fill="#F4F3ED" text-anchor="middle">All three elements form an antichain</text>
