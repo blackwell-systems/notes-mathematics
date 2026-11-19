@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="890" viewBox="0 0 1440 890" role="img" aria-labelledby="title desc">
+<title id="title">Covers eliminate redundant transitive connections, not comparisons</title>
+<desc id="desc">Hasse diagram of the positive divisors 1, 2, 3, 4, 6, and 12. The three cover edges from 1 to 2, 2 to 4, and 4 to 12 are highlighted gold, and the remaining four covers are pale blue. A side panel explains that 1 divides 12 but 12 does not cover 1 because 2 and 4 lie between them. Transitive comparisons are still true but do not require direct lines.</desc>
+<rect width="1440" height="890" fill="#101A2C"/>
+<text x="720" y="71" fill="#F4F3ED" font-family="Georgia,serif" font-size="46" font-weight="700" text-anchor="middle">Covers eliminate transitive connections</text>
+<text x="720" y="114" fill="#C5D1DF" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" text-anchor="middle">From the drawing—not from the underlying order</text>
+<path d="M70 132 H1370" fill="none" stroke="#5BBFBD" stroke-width="2.5"/>
+<rect x="34" y="161" width="530" height="649" rx="23" fill="#101C30" stroke="#4D7888" stroke-width="2"/>
+<rect x="590" y="161" width="816" height="649" rx="23" fill="#132538" stroke="#5BBFBD" stroke-width="3"/>
+<line x1="282.5932673393644" y1="687.1326218035258" x2="227.40673266063558" y2="593.8673781964742" stroke="#EDB86D" stroke-width="8" stroke-linecap="round" data-from="1" data-to="2" data-cover="true"/>
+<line x1="329.75341465087956" y1="688.623242817403" x2="395.24658534912044" y2="592.376757182597" stroke="#A8C2E1" stroke-width="4" stroke-linecap="round" data-from="1" data-to="3" data-cover="true"/>
+<line x1="205" y1="512" x2="205" y2="427" stroke="#EDB86D" stroke-width="8" stroke-linecap="round" data-from="2" data-to="4" data-cover="true"/>
+<line x1="239.28031283699622" y1="528.4163064148821" x2="385.7196871630038" y2="410.5836935851179" stroke="#A8C2E1" stroke-width="4" stroke-linecap="round" data-from="2" data-to="6" data-cover="true"/>
+<line x1="420" y1="512" x2="420" y2="427" stroke="#A8C2E1" stroke-width="4" stroke-linecap="round" data-from="3" data-to="6" data-cover="true"/>
+<line x1="227.11530012447935" y1="344.9616837858955" x2="282.88469987552065" y2="249.03831621410447" stroke="#EDB86D" stroke-width="8" stroke-linecap="round" data-from="4" data-to="12" data-cover="true"/>
+<line x1="395.5441379858891" y1="346.42253681367765" x2="329.4558620141109" y2="247.57746318632238" stroke="#A8C2E1" stroke-width="4" stroke-linecap="round" data-from="6" data-to="12" data-cover="true"/>
+<circle cx="305" cy="211" r="44" fill="#123B46" stroke="#8CE6E4" stroke-width="4" data-node="12"/>
+<text x="305" y="224" fill="#F4F3ED" font-family="Georgia,serif" font-size="43" font-weight="700" text-anchor="middle">12</text>
+<circle cx="205" cy="383" r="44" fill="#123B46" stroke="#8CE6E4" stroke-width="4" data-node="4"/>
+<text x="205" y="396" fill="#F4F3ED" font-family="Georgia,serif" font-size="43" font-weight="700" text-anchor="middle">4</text>
+<circle cx="420" cy="383" r="44" fill="#123B46" stroke="#8CE6E4" stroke-width="4" data-node="6"/>
+<text x="420" y="396" fill="#F4F3ED" font-family="Georgia,serif" font-size="43" font-weight="700" text-anchor="middle">6</text>
+<circle cx="205" cy="556" r="44" fill="#123B46" stroke="#8CE6E4" stroke-width="4" data-node="2"/>
+<text x="205" y="569" fill="#F4F3ED" font-family="Georgia,serif" font-size="43" font-weight="700" text-anchor="middle">2</text>
+<circle cx="420" cy="556" r="44" fill="#123B46" stroke="#8CE6E4" stroke-width="4" data-node="3"/>
+<text x="420" y="569" fill="#F4F3ED" font-family="Georgia,serif" font-size="43" font-weight="700" text-anchor="middle">3</text>
+<circle cx="305" cy="725" r="44" fill="#123B46" stroke="#8CE6E4" stroke-width="4" data-node="1"/>
+<text x="305" y="738" fill="#F4F3ED" font-family="Georgia,serif" font-size="43" font-weight="700" text-anchor="middle">1</text>
+<rect x="55" y="230" width="210" height="82" rx="15" fill="#252638" stroke="#EDB86D" stroke-width="2.5"/>
+<text x="160" y="263" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle">Highlighted path</text>
+<text x="160" y="295" fill="#EDB86D" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="middle">1 → 2 → 4 → 12</text>
+<path d="M265 275 L275 302" stroke="#EDB86D" stroke-width="3" stroke-linecap="round" fill="none"/>
+<text x="305" y="785" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="500" text-anchor="middle">Gold lines: three consecutive covers</text>
+<text x="637" y="216" fill="#74D7D0" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" text-anchor="start">WHAT THE LINES MEAN</text>
+<circle cx="635" cy="264" r="7" fill="#74D7D0"/>
+<text x="661" y="273" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" text-anchor="start">Draw only immediate comparisons (covers).</text>
+<circle cx="635" cy="332" r="7" fill="#74D7D0"/>
+<text x="661" y="341" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" text-anchor="start">Longer comparisons are still true.</text>
+<text x="661" y="375" fill="#C5D1DF" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="400" text-anchor="start">They are recovered by transitivity.</text>
+<rect x="618" y="416" width="761" height="156" rx="16" fill="#183044" stroke="#6C9FA9" stroke-width="2"/>
+<text x="644" y="454" fill="#EDB86D" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" text-anchor="start">Drawn as three covers:</text>
+<text x="644" y="488" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="600" text-anchor="start">1 ⋖ 2      2 ⋖ 4      4 ⋖ 12</text>
+<text x="644" y="526" fill="#C5D1DF" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" text-anchor="start">Not drawn as direct lines:  1 | 4,  2 | 12,  1 | 12</text>
+<rect x="618" y="603" width="761" height="118" rx="16" fill="#302A22" stroke="#EDB86D" stroke-width="2.5"/>
+<text x="645" y="648" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="start">1 divides 12, but 12 does not cover 1.</text>
+<text x="645" y="686" fill="#F4F3ED" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="400" text-anchor="start">Why? 2 and 4 lie strictly between them.</text>
+<text x="637" y="765" fill="#74D7D0" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" text-anchor="start">One line = a cover.   Upward path = a comparison.</text>
+<path d="M70 836 H1370" stroke="#476A83" stroke-width="2"/>
+<text x="720" y="864" fill="#C5D1DF" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" text-anchor="middle">All seven covers are preserved; redundant direct lines are omitted.</text>
+</svg>
