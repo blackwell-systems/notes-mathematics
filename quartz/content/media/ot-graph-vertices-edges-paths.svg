@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="700" viewBox="0 0 1440 700" role="img" aria-labelledby="graph-title graph-desc">
+<title id="graph-title">Vertices, edges, and paths</title>
+<desc id="graph-desc">Three teal circular vertices labeled A, B, and C are connected by two gold directed edges A to B and B to C. Callouts identify vertex and edge. A purple brace highlights the directed path A to B to C. The lower panels define vertex as a point representing an object, edge as a directed connection, and path as a sequence of consecutive directed edges.</desc>
+<defs>
+<marker id="edge-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L11 6 L1 11 Z" fill="#F3BC60"/></marker>
+<marker id="cyan-pointer" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 1 L8 4.5 L0 8 Z" fill="#8CE5EB"/></marker>
+<marker id="gold-pointer" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 1 L8 4.5 L0 8 Z" fill="#F3BC60"/></marker>
+</defs>
+<rect width="1440" height="700" fill="#101A2C"/>
+<text x="720" y="64" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="46" font-weight="700">Vertices, edges, and paths</text>
+<text x="720" y="102" text-anchor="middle" fill="#C4CEDA" font-family="Georgia, 'Times New Roman', serif" font-size="21">Three graph components, shown in one simple example</text>
+<!-- Node and edge identification callouts -->
+<rect x="142" y="136" width="258" height="55" rx="20" fill="#152438" stroke="#8CE5EB" stroke-width="3"/>
+<text x="271" y="173" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Vertex (node)</text>
+<path d="M300 192 L327 205" fill="none" stroke="#8CE5EB" stroke-width="3" stroke-linecap="round" marker-end="url(#cyan-pointer)"/>
+<rect x="612" y="136" width="216" height="55" rx="20" fill="#152438" stroke="#F3BC60" stroke-width="3"/>
+<text x="720" y="173" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Edge</text>
+<path d="M666 193 L565 232" fill="none" stroke="#F3BC60" stroke-width="3" stroke-linecap="round" marker-end="url(#gold-pointer)"/>
+<rect x="1040" y="136" width="258" height="55" rx="20" fill="#152438" stroke="#8CE5EB" stroke-width="3"/>
+<text x="1169" y="173" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Vertex (node)</text>
+<path d="M1143 192 L1119 205" fill="none" stroke="#8CE5EB" stroke-width="3" stroke-linecap="round" marker-end="url(#cyan-pointer)"/>
+<!-- Directed edges A to B and B to C -->
+<path d="M385 265 H647" fill="none" stroke="#F3BC60" stroke-width="7" stroke-linecap="round" marker-end="url(#edge-arrow)"/>
+<path d="M783 265 H1045" fill="none" stroke="#F3BC60" stroke-width="7" stroke-linecap="round" marker-end="url(#edge-arrow)"/>
+<!-- Vertices -->
+<g stroke="#8CE5EB" stroke-width="5" fill="#153944">
+<circle cx="325" cy="265" r="59"/>
+<circle cx="720" cy="265" r="59"/>
+<circle cx="1115" cy="265" r="59"/>
+</g>
+<g font-family="Georgia, 'Times New Roman', serif" font-size="55" font-weight="700" text-anchor="middle" fill="#F4F3ED">
+<text x="325" y="283">A</text>
+<text x="720" y="283">B</text>
+<text x="1115" y="283">C</text>
+</g>
+<!-- A two-edge path marked by a brace under all three nodes -->
+<path d="M325 339 Q325 367 356 367 H675 Q720 367 720 390 Q720 367 765 367 H1084 Q1115 367 1115 339" fill="none" stroke="#BE9AF0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="536" y="400" width="368" height="65" rx="21" fill="#1D233C" stroke="#BE9AF0" stroke-width="3"/>
+<text x="720" y="442" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="32" font-weight="700">Path: A → B → C</text>
+<!-- Compact legend / definitions -->
+<g font-family="Georgia, 'Times New Roman', serif">
+<rect x="40" y="505" width="430" height="158" rx="20" fill="#17283C" stroke="#8CE5EB" stroke-width="2.5"/>
+<circle cx="96" cy="555" r="26" fill="#153944" stroke="#8CE5EB" stroke-width="4"/>
+<text x="145" y="564" fill="#F4F3ED" font-size="27" font-weight="700">Vertex (node)</text>
+<text x="70" y="612" fill="#F4F3ED" font-size="21">A point representing an object.</text>
+<rect x="505" y="505" width="430" height="158" rx="20" fill="#17283C" stroke="#F3BC60" stroke-width="2.5"/>
+<path d="M548 555 H625" fill="none" stroke="#F3BC60" stroke-width="6" marker-end="url(#edge-arrow)"/>
+<text x="659" y="564" fill="#F4F3ED" font-size="27" font-weight="700">Edge</text>
+<text x="540" y="612" fill="#F4F3ED" font-size="21">A connection between vertices.</text>
+<rect x="970" y="505" width="430" height="158" rx="20" fill="#17283C" stroke="#BE9AF0" stroke-width="2.5"/>
+<path d="M1003 552 H1120" fill="none" stroke="#F3BC60" stroke-width="3.5" marker-end="url(#edge-arrow)"/>
+<circle cx="1005" cy="552" r="10" stroke="#8CE5EB" stroke-width="3" fill="#153944"/>
+<circle cx="1063" cy="552" r="10" stroke="#8CE5EB" stroke-width="3" fill="#153944"/>
+<circle cx="1120" cy="552" r="10" stroke="#8CE5EB" stroke-width="3" fill="#153944"/>
+<text x="1153" y="564" fill="#F4F3ED" font-size="27" font-weight="700">Path</text>
+<text x="1005" y="605" fill="#F4F3ED" font-size="21">A sequence of edges followed</text>
+<text x="1005" y="633" fill="#F4F3ED" font-size="21">through vertices.</text>
+</g>
+</svg>
