@@ -186,6 +186,10 @@ Before asking whether one vertex can **reach** another, we need to define the st
 >
 > A **directed path** from $u$ to $v$ follows a finite sequence of arrows **in their indicated direction**, beginning at $u$ and ending at $v$. Its **length** is the number of edges followed. A path of **length zero** uses no edges and stays at the same vertex. Here paths may revisit vertices; some graph-theory texts call these *walks*, but the reachability relation is the same under either convention.
 
+![A simple diagram labeling a graph's three components: teal circles A, B, and C are vertices; two gold arrows A to B and B to C are directed edges; a purple bracket highlights the path A to B to C, with a short definition of each term beneath.](./media/ot-graph-vertices-edges-paths.svg)
+
+*Figure: The **vertices** are the circles A, B, and C; the **edges** are the individual arrows $A\to B$ and $B\to C$; and the **path** $A\to B\to C$ follows those two edges in sequence. **A path is not necessarily a single edge**: this graph has a path from A to C, but no direct edge $A\to C$.*
+
 ![A dark-mode diagram introducing vertices and directed edges, showing arrows from a to b, b to c, c to b, and c to d. The two opposite arrows between b and c allow mutual reachability. The figure explains that directed reachability is reflexive and transitive, while antisymmetry can fail.](./media/ot-directed-graph-reachability.svg)
 
 *Figure: Arrows specify the allowed direction of travel. Reachability is **reflexive** because every vertex reaches itself by a path of length zero, and **transitive** because paths can be joined; these two properties make it a preorder. **Antisymmetry** would additionally require that if $u\preceq v$ and $v\preceq u$, then $u=v$. But the arrows $b\to c$ and $c\to b$ mean both $b\preceq c$ and $c\preceq b$, even though $b\ne c$. Thus, two distinct vertices are mutually reachable: this cycle is a concrete counterexample to antisymmetry, so reachability on this graph is **not a partial order**.*
