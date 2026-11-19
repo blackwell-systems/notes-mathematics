@@ -105,7 +105,7 @@ A preorder need not be antisymmetric. Two different objects may each precede the
 
 ### Why not require antisymmetry immediately?
 
-Suppose two software components are different implementations of the same externally observable behavior. We may be able to say "implementation A provides at least the capabilities of B" and also the reverse. That does not make their source code, ownership, or identities equal. Insisting on antisymmetry would force us either to identify distinct objects too early or to abandon the useful comparison.
+Suppose two software components are different implementations of the same externally observable behavior. We may be able to say "implementation A provides at least the capabilities of B" and also the reverse. **That does not make their source code, ownership, or identities equal.** **Remember:** antisymmetry requires **every two-way comparison to imply actual equality**: if $a\preceq b$ and $b\preceq a$, then $a=b$. It does **not** turn different objects into the same object; rather, their mutual comparison shows that the relation is **not antisymmetric on the original objects**. Insisting on antisymmetry would force us either to compare equivalence classes instead of the original objects or to abandon the useful comparison.
 
 A preorder can recognize two different objects as **equivalent for the purpose of one comparison** without claiming that the objects themselves are identical. This is the reason preorders appear before posets.
 
