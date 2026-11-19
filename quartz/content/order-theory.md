@@ -622,6 +622,13 @@ To determine whether $a\preceq b$:
 
 For example, the path $1\to2\to4\to12$ tells us that $1\mid12$, even without a direct $1$–$12$ line. **This is not a missing cover: $12$ cannot cover $1$ when $2$ (or $4$) lies strictly between them.** By contrast, $4$ and $6$ are incomparable: neither is on an upward path from the other. Merely finding an **undirected** route through other points does *not* establish comparability.
 
+**Covers eliminate redundant lines—not transitive comparisons.** The Hasse diagram is a *compressed representation* of this finite order. The direct $1$–$12$ line is removed because the cover path $1\lessdot2\lessdot4\lessdot12$ already establishes $1\preceq12$ by transitivity. The underlying comparison remains true.
+
+![Dark-mode divisibility Hasse diagram on 1, 2, 3, 4, 6, and 12. The path of three cover lines from 1 through 2 and 4 to 12 is highlighted in gold. A side panel explains that covers are the immediate comparisons shown, while transitive comparisons remain true without direct lines.](./media/ot-covers-eliminate-transitive-connections.svg)
+
+*Figure: **The lines are covers; the upward paths recover longer comparisons.** In particular, $1\mid12$ is true, but $12$ does not cover $1$, because $2$ and $4$ lie between them. Removing the direct $1$–$12$ connection from the Hasse diagram does **not** remove the divisibility relation $1\mid12$ itself.*
+
+
 ### Why does drawing only covers preserve the order?
 
 > [!theorem] Reading a finite poset from its Hasse diagram
