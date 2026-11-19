@@ -15,7 +15,7 @@
 <path d="M300 192 L327 205" fill="none" stroke="#8CE5EB" stroke-width="3" stroke-linecap="round" marker-end="url(#cyan-pointer)"/>
 <rect x="612" y="136" width="216" height="55" rx="20" fill="#152438" stroke="#F3BC60" stroke-width="3"/>
 <text x="720" y="173" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Edge</text>
-<path d="M666 193 L565 232" fill="none" stroke="#F3BC60" stroke-width="3" stroke-linecap="round" marker-end="url(#gold-pointer)"/>
+<path d="M666 193 L565 256" fill="none" stroke="#F3BC60" stroke-width="3" stroke-linecap="round" marker-end="url(#gold-pointer)"/>
 <rect x="1040" y="136" width="258" height="55" rx="20" fill="#152438" stroke="#8CE5EB" stroke-width="3"/>
 <text x="1169" y="173" text-anchor="middle" fill="#F4F3ED" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700">Vertex (node)</text>
 <path d="M1143 192 L1119 205" fill="none" stroke="#8CE5EB" stroke-width="3" stroke-linecap="round" marker-end="url(#cyan-pointer)"/>
