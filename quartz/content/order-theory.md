@@ -592,6 +592,8 @@ The table carries out the complete check. The last column gives precisely the pa
 
 Why isn't there a line directly from $1$ to $4$? Because $1\prec2\prec4$: **$2$ lies between them in the chosen order**. Likewise, there is no direct $2$–$12$ line because $2\prec4\prec12$ (also $2\prec6\prec12$).
 
+**Now consider $1$ and $12$.** We know $1\mid12$, so $1\prec12$ is a valid **strict comparison**. But **$12$ does not cover $1$**: $2$ lies strictly between them ($1\prec2\prec12$), as do $3$, $4$, and $6$. One upward route is $1\lessdot2\lessdot4\lessdot12$. Every step on that route is a **cover**, because each step has no intermediate element in this poset. The entire $1$-to-$12$ comparison is **not** a cover, because it skips intermediate elements. **A cover is an immediate comparison, not merely a true comparison.**
+
 The **seven cover relations** are therefore
 
 $$
@@ -606,9 +608,9 @@ $$
 
 Put $1$ below $2$ and $3$; put $4$ and $6$ above their respective lower neighbors; and put $12$ above $4$ and $6$. Draw exactly the seven cover lines listed above, with **no loops and no arrows**.
 
-![A Hasse diagram constructed from the divisors 1, 2, 3, 4, 6, 12 under divisibility, showing the seven cover lines but omitting reflexive loops and transitive comparisons.](./media/ot-hasse-div12.svg)
+![A divisibility Hasse diagram on 1, 2, 3, 4, 6, and 12, with seven cover lines. Three gold lines highlight the path 1 to 2 to 4 to 12. The side panel explains that 1 divides 12 but 12 does not cover 1, because 2 and 4 lie between them.](./media/ot-hasse-div12.svg)
 
-*Figure: The finished Hasse diagram. Its lines are **cover relations**, not every true divisibility comparison. Higher means greater **under divisibility**, not necessarily greater under some other relation.*
+*Figure: The gold lines highlight **three consecutive covers**: $1\lessdot2$, $2\lessdot4$, and $4\lessdot12$. Following them upward proves $1\mid12$ by transitivity, **but there is no direct line from $1$ to $12$ because $12$ does not cover $1$**—intermediate elements exist. Thus **a line represents one cover; an upward path represents a comparison**, which may involve multiple covers. Higher means greater under **divisibility**.*
 
 **Step 5 — Read the full order back from the picture.**
 
@@ -618,7 +620,7 @@ To determine whether $a\preceq b$:
 - If **$a\ne b$**, look for an **upward path** of cover lines from $a$ to $b$. If one exists, $a\preceq b$.
 - If there is **no upward path in either direction**, the two elements are **incomparable**.
 
-For example, the path $1\to2\to4\to12$ tells us that $1\mid12$, even without a direct $1$–$12$ line. But $4$ and $6$ are incomparable: neither is on an upward path from the other. Merely finding an **undirected** route through other points does *not* establish comparability.
+For example, the path $1\to2\to4\to12$ tells us that $1\mid12$, even without a direct $1$–$12$ line. **This is not a missing cover: $12$ cannot cover $1$ when $2$ (or $4$) lies strictly between them.** By contrast, $4$ and $6$ are incomparable: neither is on an upward path from the other. Merely finding an **undirected** route through other points does *not* establish comparability.
 
 ### Why does drawing only covers preserve the order?
 
