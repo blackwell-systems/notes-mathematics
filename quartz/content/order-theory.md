@@ -83,9 +83,11 @@ The similarities do not erase the differences. Numerical $\leq$ compares every p
 
 In the illustration, we compare **named roles by allowed actions**: $r\preceq s$ means every action allowed to $r$ is also allowed to $s$. This comparison tells us about permissions, **not whether the role identities are equal**.
 
-![Six-tile dark illustration comparing preorders, partial orders and total orders. Reflexivity requires self-comparison, transitivity chains comparisons, and neither requires or forbids two-way comparison. Editor and Author have identical permissions yet remain distinct roles. The quotient poset has a class containing both roles, while a total order of the original roles requires an extra tie-break.](./media/ot-preorder-poset-total-story.svg)
+![Six-panel dark diagram comparing preorders, posets and total orders. The first panel lists cumulative axioms: reflexive and transitive for preorders, plus antisymmetry for posets, plus comparability of every pair for total orders. Editor and Author illustrate mutual comparison in a preorder; their equivalence class illustrates quotienting to a poset, while ordering named roles requires a separate tie-break.](./media/ot-preorder-poset-total-story.svg)
 
-*Figure: The hierarchy classifies relations by the axioms they satisfy; it does **not** turn a relation that fails antisymmetry into one that satisfies it merely by adding a label. Editor and Author compare both ways because their **permission sets agree**, not because transitivity demands it. To obtain a poset from this preorder, we instead compare **equivalence classes** of roles. A total order of the original role names requires a separate tie-break.*
+*Figure: The first panel shows the **cumulative axioms**: a preorder is **reflexive and transitive**; a poset additionally requires **antisymmetry**; a total order additionally requires **every pair to be comparable**. This is a hierarchy of requirements, **not** a way to turn an existing relation that fails antisymmetry into a poset by relabeling it. Editor and Author compare both ways because their permission sets agree, not because transitivity requires reverse arrows. Passing to **equivalence classes** gives a poset; a total order of the original role names still needs a separate tie-break.*
+
+For a compact guide to how reflexivity, symmetry, antisymmetry, asymmetry, and transitivity constrain arrow direction, see [Properties of Relations](./functions-relations#properties-of-relations).
 
 > [!definition] Preorder
 > A relation $\preceq$ on $P$ is a **preorder** when it is:
