@@ -484,6 +484,29 @@ A chain is *not* necessarily a contiguous path of immediate cover relations. It 
 
 *Figure: Relations may have any arity; binary relations are the two-argument case, and preorders are binary relations requiring reflexivity and transitivity. Antisymmetry makes a partial order; symmetry makes an equivalence relation. Equality satisfies both. A poset is a set equipped with a partial order, and chains and antichains are subsets of that poset, illustrated by the inclusion order on the subsets of $\{a,b\}$.*
 
+> [!example] How can an entire antichain be a poset if posets must be transitive?
+> Take three distinct elements $P:=\{a,b,c\}$ and define the comparison to mean **equality**:
+>
+> $
+> R:=\{(a,a),(b,b),(c,c)\}.
+> $
+>
+> These are **all** the comparisons. Every element relates to itself, but **no two distinct elements compare**. Thus the **entire set** $P$ is an antichain, not just a subset of a larger poset.
+>
+> Check the three partial-order axioms:
+> - **Reflexive:** $(a,a)$, $(b,b)$, and $(c,c)$ are all present.
+> - **Antisymmetric:** there cannot be comparisons in both directions between distinct elements, because there are **no comparisons between distinct elements at all**.
+> - **Transitive:** the rule says **if** $xRy$ **and** $yRz$, **then** $xRz$. In this particular relation, both premises can hold only when $x=y=z$. The required conclusion is then just $xRx$, which is present.
+>
+> **Where does vacuous truth enter?** For any choice with $x,y,z$ **not all equal**, at least one premise ($xRy$ or $yRz$) is false. A conditional statement with a false premise is **true vacuously**: there is no counterexample to the rule. For $x=y=z$, the premise is true and the conclusion is true **directly**.
+>
+> **The important distinction:** transitivity does **not require** comparisons between different objects to exist. It only constrains what must follow **if** existing comparisons can be chained. So this relation is a valid **partial order**, although it is **not total**, and $P$ itself is an antichain.
+
+![Three separate vertices a, b, and c each have a self-loop but no arrows connecting different vertices. Beside the graph, a transitivity check shows that self-comparisons satisfy the implication directly, while other choices have false premises and satisfy the implication vacuously.](./media/ot-antichain-vacuous-transitivity.svg)
+
+*Figure: The full relation diagram includes all three self-comparisons. **Transitivity holds for the all-equal cases and vacuously for the remaining cases**. The later Hasse-diagram convention omits these reflexive loops, leaving three isolated vertices.*
+
+
 
 
 ## Hasse diagrams: constructing and reading a finite order
