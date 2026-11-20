@@ -96,6 +96,21 @@ For the same set $A:=\{1,2,3\}$:
 | $\varnothing\subseteq A$ | **Yes** | There is no element of $\varnothing$ that fails the subset condition. |
 | $\varnothing\in A$ | **No** | The empty set is not listed as a member of $A$. |
 
+ 
+> [!distinction] Frequent confusion: subset inclusion is not membership
+> **The empty set is a subset of every set**, but it is **not automatically an element of every set**. These symbols ask different questions:
+>
+> - **Subset inclusion:** $\varnothing\subseteq A$ asks whether **every element of $\varnothing$** belongs to $A$. This is **always true**: there are no elements of $\varnothing$ that could fail the test. This is an example of **vacuous truth**.
+> - **Membership:** $\varnothing\in A$ asks whether **the empty set itself is one of the elements** of $A$. That depends on the particular set.
+>
+> For $A:=\{1,2,3\}$, $\varnothing\subseteq A$ is true but $\varnothing\notin A$. For $B:=\{\varnothing,1,2,3\}$, **both** $\varnothing\subseteq B$ and $\varnothing\in B$ are true. The second claim changes because $B$ actually contains $\varnothing$ as an element, **not** because the subset rule changes.
+>
+> **Remember:** $\in$ checks **one whole object**; $\subseteq$ checks **the elements inside a set**. See also the [Empty Set](#empty-set) definition.
+
+![Two dark panels show the set A consisting of 1, 2 and 3. On the left the empty set is not one of A's members, so empty-set membership in A is false. On the right the empty set has no elements to test, so it is a subset of A. The empty-set token appears outside A in both panels to avoid confusing membership with inclusion.](./media/st-empty-subset-versus-member.svg)
+
+*Figure: **Membership** asks whether $\varnothing$ itself is one element of $A$; for $A=\{1,2,3\}$, it is not. **Subset inclusion** asks whether every element of $\varnothing$ also belongs to $A$; there are none to check, so the condition holds **vacuously**. The dashed $\varnothing$ token is the object being tested, not a fourth member of $A$.*
+
 **Nested-set example:** Let $B:=\{1,\{2\}\}$. Then $\{2\}\in B$, while $2\notin B$: **a set containing $2$** is one element of $B$, but $2$ itself is not.
 
 This difference matters for [subsets](#subset), [power sets](#power-set), and [functions and relations](./functions-relations).
