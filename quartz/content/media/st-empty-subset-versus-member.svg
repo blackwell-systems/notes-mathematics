@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+<title id="title">The empty set is always a subset, but not necessarily a member</title>
+<desc id="desc">Two dark panels compare the same set A equals {1,2,3}. In the left membership panel the object empty set is outside the member list of A, so the statement empty set is an element of A is false. In the right subset panel, the empty set contains zero objects to test against A, so empty set is a subset of A is true. The diagrams deliberately show the empty set query token outside A in both panels, because subset inclusion is about checking its elements, not whether the empty set is listed as an element.</desc>
+<defs>
+<linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#161532"/><stop offset="1" stop-color="#0A1326"/></linearGradient>
+<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1B2A43"/><stop offset="1" stop-color="#121E33"/></linearGradient>
+<marker id="arrow-violet" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M1 1 L8 4.5 L1 8 Z" fill="#C8ACF0"/></marker>
+<marker id="arrow-teal" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M1 1 L8 4.5 L1 8 Z" fill="#84DCD3"/></marker>
+</defs>
+<rect width="1440" height="760" fill="url(#background)"/>
+<text x="720" y="65" font-size="45" font-weight="700" font-family="Georgia,'DejaVu Serif',serif" text-anchor="middle" fill="#F7F4FF">The empty set: member or subset?</text>
+<text x="720" y="108" font-size="22" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#C9D4E4">Same set A = {1, 2, 3}. Two completely different questions.</text>
+<path d="M72 131 H1368" fill="none" stroke="#617D9A" stroke-width="2"/>
+<rect x="35" y="156" width="668" height="504" rx="23" fill="url(#panel)" stroke="#BFA0EF" stroke-width="3"/>
+<rect x="737" y="156" width="668" height="504" rx="23" fill="url(#panel)" stroke="#79D5CB" stroke-width="3"/>
+<text x="369" y="209" font-size="29" font-weight="700" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#D4B9F7">MEMBERSHIP (∈)</text>
+<text x="1071" y="209" font-size="29" font-weight="700" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#8FE6DA">SUBSET INCLUSION (⊆)</text>
+<text x="369" y="246" font-size="22" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#F7F4FF">Is ∅ itself one of A's members?</text>
+<text x="1071" y="246" font-size="22" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#F7F4FF">Are all elements of ∅ also in A?</text>
+<!-- Left: three actual members inside A, empty-set query stays outside -->
+<rect x="90" y="290" width="430" height="236" rx="96" fill="#123942" stroke="#80D9D2" stroke-width="3.5"/>
+<text x="305" y="323" font-size="26" font-family="Georgia,serif" text-anchor="middle" fill="#B9F0EC">A</text>
+<g fill="#253E66" stroke="#A9D3F8" stroke-width="3">
+<circle cx="184" cy="413" r="38"/><circle cx="305" cy="413" r="38"/><circle cx="426" cy="413" r="38"/>
+</g>
+<g font-size="32" font-family="Georgia,serif" font-weight="700" text-anchor="middle" fill="#F7F4FF"><text x="184" y="425">1</text><text x="305" y="425">2</text><text x="426" y="425">3</text></g>
+<rect x="554" y="370" width="101" height="87" rx="20" fill="#30243D" stroke="#C8ACF0" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="605" y="425" font-size="46" font-family="Georgia,serif" text-anchor="middle" fill="#F7F4FF">∅</text>
+<path d="M554 414 H521" stroke="#C8ACF0" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#arrow-violet)"/>
+<text x="536" y="394" font-size="23" font-weight="700" font-family="Arial,sans-serif" text-anchor="middle" fill="#F1ADAD">×</text>
+<text x="369" y="572" font-size="29" font-weight="700" font-family="Georgia,serif" text-anchor="middle" fill="#F2ADAD">∅ ∉ A</text>
+<text x="369" y="609" font-size="20" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#F7F4FF">No: A has 1, 2 and 3, not ∅.</text>
+<!-- Right: same A, but the empty query set has no members to test -->
+<rect x="792" y="290" width="430" height="236" rx="96" fill="#123942" stroke="#80D9D2" stroke-width="3.5"/>
+<text x="1007" y="323" font-size="26" font-family="Georgia,serif" text-anchor="middle" fill="#B9F0EC">A</text>
+<g fill="#253E66" stroke="#A9D3F8" stroke-width="3">
+<circle cx="886" cy="413" r="38"/><circle cx="1007" cy="413" r="38"/><circle cx="1128" cy="413" r="38"/>
+</g>
+<g font-size="32" font-family="Georgia,serif" font-weight="700" text-anchor="middle" fill="#F7F4FF"><text x="886" y="425">1</text><text x="1007" y="425">2</text><text x="1128" y="425">3</text></g>
+<rect x="1252" y="370" width="102" height="87" rx="20" fill="#193B43" stroke="#84DCD3" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="1303" y="425" font-size="46" font-family="Georgia,serif" text-anchor="middle" fill="#F7F4FF">∅</text>
+<path d="M1252 413 H1223" stroke="#84DCD3" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#arrow-teal)"/>
+<text x="1071" y="572" font-size="29" font-weight="700" font-family="Georgia,serif" text-anchor="middle" fill="#A3F2B5">∅ ⊆ A</text>
+<text x="1071" y="609" font-size="20" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#F7F4FF">Yes: ∅ has no elements that could fail.</text>
+<text x="720" y="708" font-size="22" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#F7F4FF">Membership checks the entire object. Inclusion checks every element of that object.</text>
+<text x="720" y="737" font-size="17" font-family="Arial,'DejaVu Sans',sans-serif" text-anchor="middle" fill="#C9D4E4">The dashed ∅ symbol is the object being tested, not a member drawn inside A.</text>
+</svg>
